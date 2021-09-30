@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "import/no-anonymous-default-export": 0,
+    "no-console": 0,
+    "max-len": ["error", {"code": 120}],
+    "react/destructuring-assignment": 0,
+    "react/forbid-prop-types": 0,
+    "no-param-reassign": ["error", { "props": false }]
+  },
+  "extends": [
+    "airbnb",
+    "react-app",
+    "react-app/jest"
+  ]
+}
