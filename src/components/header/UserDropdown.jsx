@@ -2,19 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Avatar from '../microcosmos/MicroAvatar';
 
 function UserDropdown(props) {
   const { currentUser, isAuthenticated } = props;
 
   if (isAuthenticated) {
+    const letter = currentUser.username.charAt(0).toUpperCase();
+
     return (
-      <Button component={Link} to={`/user/${currentUser.username}`} color="primary" className="MicroButton">
-        <Typography variant="body1" color="primary">
-          {currentUser.username}
-        </Typography>
-      </Button>
+      <Link to={`/user/${currentUser.username}`}>
+        <Avatar letter={letter} />
+      </Link>
     );
   }
 

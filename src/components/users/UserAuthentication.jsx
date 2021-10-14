@@ -1,12 +1,12 @@
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 /* material-ui */
 import {
   Grid, Tab, Tabs,
-} from '@material-ui/core';
+} from '@mui/material';
 /* micro lib */
 import { login } from '../../actions';
 import microcosmos, { setAuthorizationToken } from '../../apis/microcosmos-server';
@@ -66,23 +66,25 @@ class UserAuthentication extends React.Component {
     const { currentPage } = this.state;
 
     return (
-      <Grid container spacing={2} justify="center">
-        <Grid item xs={12}>
-          <Typography variant="h4" align="center">
-            <Box component="span" color="primary.main"> #micro</Box>
-            <Box component="span" color="secondary.main">cosmos</Box>
-          </Typography>
+      <Box mt={5}>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12}>
+            <Typography variant="h4" align="center">
+              <Box component="span" color="primary.main"> #micro</Box>
+              <Box component="span" color="secondary.main">cosmos</Box>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Tabs value={currentPage} onChange={this.handleTabChange} centered>
+              <Tab label="Log in" disableRipple />
+              <Tab label="Sign up" disableRipple />
+            </Tabs>
+          </Grid>
+          <Grid item xs={12} sm={10} md={6} lg={4} align="center">
+            {currentPage === 0 ? <LoginForm onSubmit={this.loginUser} /> : <SignupForm onSubmit={this.createUser} />}
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Tabs value={currentPage} onChange={this.handleTabChange} centered>
-            <Tab label="Log in" disableRipple />
-            <Tab label="Sign up" disableRipple />
-          </Tabs>
-        </Grid>
-        <Grid item xs={12} sm={10} md={6} lg={4} align="center">
-          {currentPage === 0 ? <LoginForm onSubmit={this.loginUser} /> : <SignupForm onSubmit={this.createUser} />}
-        </Grid>
-      </Grid>
+      </Box>
     );
   }
 }

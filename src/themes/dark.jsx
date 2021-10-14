@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@mui/material/styles';
 
 const blue = '#18cbea';
 // const lightBlue = '#18cbeac4';
@@ -13,107 +13,164 @@ const paperBackground = '#36393f';
 const fieldBackground = '#3a3e46';
 const fieldBorderColor = '#91a7d426';
 
+const darkGray = '#3a3d44';
+const darkGrayBorderColor = '#585c64';
+
+const grayishBlue = '#8ea2c9';
+
 // const yellow = '#a7b849';
 // const transparentYellow = '#bbbb610f';
 
-// const greenishYellow = '#9fd642';
+const greenishYellow = '#9fd642';
 
 const purplishBlue = '#49b0f4';
 // const purple = '#91a7d4';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   spacing: [0, 1, 8, 16, 32, 64, 128, 256, 512, 1024, 2048],
-  overrides: {
+  components: {
     MuiCssBaseline: {
-      '@global': {
-        body: {
-          overflowX: 'hidden',
+      styleOverrides: {
+        'html, body, #root': {
+          height: '100%',
+        },
+        '.bg-green': {
+          background: `${greenishYellow}!important`,
+        },
+        a: {
+          textDecoration: 'none',
         },
       },
     },
     MuiOutlinedInput: {
-      input: {
-        margin: '24px 14px 18px 14px',
-        padding: 0,
-        caretColor: blue,
-      },
-      root: {
-        borderRadius: 4,
-        background: fieldBackground,
-        '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: fieldBorderColor,
-          // background: transparentYellow,
-          // borderWidth: 1,
+      styleOverrides: {
+        input: {
+          margin: '24px 14px 18px 14px',
+          padding: 0,
+          caretColor: 'gray',
         },
-        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        root: {
+          borderRadius: 4,
+          background: fieldBackground,
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: fieldBorderColor,
+            // background: transparentYellow,
+            // borderWidth: 1,
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderWidth: 1,
+            borderStyle: 'solid',
+            background: 'none',
+            borderColor: purplishBlue,
+          },
+        },
+        notchedOutline: {
           borderWidth: 1,
-          borderStyle: 'solid',
-          background: 'none',
-          borderColor: purplishBlue,
-        },
-      },
-      notchedOutline: {
-        borderWidth: 1,
-        borderColor: fieldBorderColor,
-        transition: 'border-color cubic-bezier(0.0, 0, 0.2, 1) 350ms, '
-          + 'background-color 100ms cubic-bezier(0.0, 0, 0.2, 1)',
-        '& span': {
-          display: 'none',
+          borderColor: fieldBorderColor,
+          top: 0,
+          transition: 'border-color cubic-bezier(0.0, 0, 0.2, 1) 350ms, '
+            + 'background-color 100ms cubic-bezier(0.0, 0, 0.2, 1)',
+          '& legend': {
+            display: 'none',
+          },
         },
       },
     },
     MuiInputLabel: {
-      animated: {
-        transition: 'color 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-      },
-      outlined: {
-        color: '#8e9297',
-        '&.MuiInputLabel-shrink': {
+      styleOverrides: {
+        animated: {
+          transition: 'color 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+        },
+        outlined: {
           color: '#8e9297',
-          transform: 'translate(14px, 6px) scale(0.8)',
+          '&.MuiInputLabel-shrink': {
+            color: '#8e9297',
+            transform: 'translate(14px, 6px) scale(0.8)',
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          background: darkGray,
+          borderRadius: 8,
+          color: grayishBlue,
+          padding: 6,
         },
       },
     },
     MuiButton: {
-      root: {
-        textTransform: 'none',
-
-        '&.MicroButton': {
-          border: '1px solid transparent',
-          borderRadius: 4,
-          '&:hover': {
-            borderColor: blue,
-          },
-          '&:focus': {
-            borderColor: blue,
-            borderStyle: 'dotted',
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          color: 'white',
+          '&.MicroButton': {
+            border: '1px solid transparent',
+            borderRadius: 4,
+            '&:hover': {
+              borderColor: blue,
+            },
+            '&:focus': {
+              borderColor: blue,
+              borderStyle: 'dotted',
+            },
           },
         },
       },
     },
-    MuiPaper: {
-      root: {
-        padding: 8,
+    MuiSvgIcon: {
+      styleOverrides: {
+        fontSizeSmall: {
+          fontSize: '1rem',
+        },
       },
-      rounded: {
-        borderRadius: 8,
-        '&.BorderTopRounded-4': {
-          borderRadius: '4px 4px 0px 0px',
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: 8,
+          '&.defaultShadow': {
+            boxShadow: '0px 2px 1px 1px rgb(0 0 0 / 20%),'
+              + '0px 1px 1px 0px rgb(0 0 0 / 14%),'
+              + '0px 1px 3px 0px rgb(0 0 0 / 12%)',
+          },
+          '&.Card': {
+            backgroundColor: darkGray,
+            boxShadow: 'none',
+            border: '1px solid',
+            borderColor: darkGrayBorderColor,
+          },
         },
-        '&.BorderBottomRounded-4': {
-          borderRadius: '0px 0px 4px 4px',
-        },
-        '&.BorderTopRounded-8': {
-          borderRadius: '8px 8px 0px 0px',
-        },
-        '&.BorderBottomRounded-8': {
-          borderRadius: '0px 0px 8px 8px',
-        },
-        '&.BorderTopRounded-6': {
-          borderRadius: '6px 6px 0px 0px',
-        },
-        '&.BorderBottomRounded-6': {
-          borderRadius: '0px 0px 6px 6px',
+        rounded: {
+          borderRadius: 8,
+          '&.FullHeight': {
+            height: 'calc(100vh - 70px)',
+          },
+          '&.BorderTopRounded-4': {
+            borderRadius: '4px 4px 0px 0px',
+          },
+          '&.BorderBottomRounded-4': {
+            borderRadius: '0px 0px 4px 4px',
+          },
+          '&.BorderTopRounded-8': {
+            borderRadius: '8px 8px 0px 0px',
+          },
+          '&.BorderBottomRounded-8': {
+            borderRadius: '0px 0px 8px 8px',
+          },
+          '&.BorderTopRounded-6': {
+            borderRadius: '6px 6px 0px 0px',
+          },
+          '&.BorderBottomRounded-6': {
+            borderRadius: '0px 0px 6px 6px',
+          },
+          '&.BorderBottomLeftRounded-6': {
+            borderRadius: '0px 0px 0px 6px',
+          },
+          '&.BorderBottomRightRounded-6': {
+            borderRadius: '0px 0px 6px 0px',
+          },
         },
       },
     },

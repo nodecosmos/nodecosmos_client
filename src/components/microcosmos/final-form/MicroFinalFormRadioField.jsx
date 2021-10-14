@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import { Field } from 'react-final-form';

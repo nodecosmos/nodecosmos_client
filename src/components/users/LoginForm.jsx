@@ -1,8 +1,8 @@
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import { Form } from 'react-final-form';
-import Field from '../micro/final-form/MicroFinalFormInputField';
+import Field from '../microcosmos/final-form/MicroFinalFormInputField';
 
 const required = (value) => (value ? undefined : 'is required');
 
@@ -14,13 +14,13 @@ export default function LoginForm(props) {
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} justify="center">
-            <Grid item xs={9}>
+            <Grid item xs={12}>
               <Field fullWidth name="username || email" validate={required} />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={12}>
               <Field fullWidth name="password" type="password" validate={required} />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={12}>
               <Button variant="contained" color="secondary" type="submit">
                 Log in
               </Button>

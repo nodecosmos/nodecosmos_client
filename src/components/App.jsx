@@ -1,12 +1,13 @@
-import Paper from '@material-ui/core/Paper';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import React from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 /* material */
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
 /* micro lib */
 import history from '../history';
 import dark from '../themes/dark';
@@ -15,7 +16,10 @@ import Header from './header/Header';
 import UserAuthentication from './users/UserAuthentication';
 import UserShowPage from './users/UserShowPage';
 /* microns */
-import MicronIndex from './microns/Index';
+import MicronContainer from './microns/Container';
+import MicronsNew from './microns/New';
+
+import './App.css';
 
 const themes = { dark };
 
@@ -24,22 +28,28 @@ function App({ theme, isAuthenticated, currentUser }) {
     <ThemeProvider theme={themes[theme]}>
       <CssBaseline />
       <Router history={history}>
-        <Grid container style={{ padding: 8 }} spacing={1} justify="center">
-          <Header />
-          <Grid item xs={12}>
-            <Paper className="BorderBottomRounded-6" style={{ height: 'calc(100vh - 80px)' }}>
-              <Route path="/login">
-                {isAuthenticated
-                  // eslint-disable-next-line no-underscore-dangle
-                  ? <Redirect to={`/users/${currentUser.username}`} />
-                  : <UserAuthentication />}
-              </Route>
-              <Route path="/users/:username" component={UserShowPage} />
-              <Route exact path="/" component={MicronIndex} />
-              <Route exact path="/microns/new" component={MicronIndex} />
-            </Paper>
-          </Grid>
-        </Grid>
+        <Box sx={{ padding: 2, height: '100%' }}>
+          <Paper style={{ height: '100%' }}>
+            <Grid container spacing={3} justify="center">
+              <Grid item xs={12}>
+                <Header />
+              </Grid>
+              <Grid item xs={12}>
+                <Box sx={{ padding: 2 }}>
+                  <Route path="/login">
+                    {isAuthenticated
+                      // eslint-disable-next-line no-underscore-dangle
+                      ? <Redirect to={`/users/${currentUser.username}`} />
+                      : <UserAuthentication />}
+                  </Route>
+                  <Route path="/users/:username" component={UserShowPage} />
+                  <Route exact path="/" component={MicronContainer} />
+                  <Route exact path="/microns/new" component={MicronsNew} />
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Box>
       </Router>
     </ThemeProvider>
   );

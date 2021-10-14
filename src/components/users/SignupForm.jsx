@@ -1,9 +1,9 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid } from '@mui/material';
 /* micro lib */
-import Field from '../micro/final-form/MicroFinalFormInputField';
+import Field from '../microcosmos/final-form/MicroFinalFormInputField';
 
 // eslint-disable-next-line max-len
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
