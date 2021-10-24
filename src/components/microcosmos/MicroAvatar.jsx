@@ -5,13 +5,14 @@ import * as PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import { orange } from '@mui/material/colors';
 
-export default function MicroAvatar({ letter }) {
+export default function MicroAvatar({ user }) {
+  const letter = user && user.username.charAt(0).toUpperCase();
+
   return (
     <Avatar
       sx={{
         bgcolor: orange[600],
         color: 'white',
-        marginRight: 2,
         height: 35,
         width: 35,
         fontSize: '1.15rem',
@@ -24,5 +25,5 @@ export default function MicroAvatar({ letter }) {
 }
 
 MicroAvatar.propTypes = {
-  letter: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 };

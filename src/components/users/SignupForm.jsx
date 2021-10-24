@@ -46,7 +46,7 @@ function SignupForm(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button variant="outlined" color="primary" type="submit" disabled={submitting}>
+              <Button variant="outlined" type="submit" className="MicroButton" disabled={submitting}>
                 Sign up
               </Button>
             </Grid>

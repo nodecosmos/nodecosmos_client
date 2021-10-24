@@ -1,4 +1,3 @@
-import Avatar from '@mui/material/Avatar';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -9,7 +8,10 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
-function Micron(props) {
+/* micro */
+import MicroAvatar from '../microcosmos/MicroAvatar';
+
+function MicronCard(props) {
   const {
     micron,
   } = props;
@@ -18,15 +20,15 @@ function Micron(props) {
     <Card className="Card">
       <CardHeader
         avatar={(
-          <Avatar aria-label="recipe">
-            R
-          </Avatar>
+          <Link to={`users/${micron.owner.id}`}>
+            <MicroAvatar user={micron.owner} />
+          </Link>
         )}
-        title={micron.title}
+        title={<Link to={`microns/${micron.id}`}>{micron.title}</Link>}
         subheader={micron.created_at}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">{micron.description}</Typography>
+        <Typography variant="body2" color="text.secondary" fontWeight="normal">{micron.description}</Typography>
       </CardContent>
     </Card>
   );
@@ -36,8 +38,8 @@ function Micron(props) {
 //   defaultValue: null,
 // };
 
-Micron.propTypes = {
+MicronCard.propTypes = {
   micron: PropTypes.object.isRequired,
 };
 
-export default Micron;
+export default MicronCard;

@@ -1,39 +1,19 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #000;
+::-webkit-input-placeholder {
+    font-weight: lighter;
+}
+::-moz-placeholder {
+    font-weight: lighter;
+}
+::-ms-input-placeholder {
+    font-weight: lighter;
 }
 
-.block {
-    position: relative;
-}
-/*background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000);*/
-.block:before, .block:after {
-    content: '';
-    position: absolute;
-    background: linear-gradient(45deg, #e91e63, #18cbea, #e91e63, #18cbea, #e91e63);
-    background-size: 400%;
-    width: 201.3vh;
-    height: calc(99%);
-    top: 6px;
-    border-radius: 8px;
-    left: 6px;
-    z-index: -1;
-    animation: steam 20s linear infinite;
+html, body, #root {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
 }
 
-@keyframes steam {
-    0% {
-        background-position: 0 0;
-    }
-    50% {
-        background-position: 400% 0;
-    }
-    100% {
-        background-position: 0 0;
-    }
-}
-
-.block:after {
-    filter: blur(5px);
+#root {
+    padding: 8px;
 }

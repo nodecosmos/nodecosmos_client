@@ -1,3 +1,5 @@
+import { AccountCircle } from '@mui/icons-material';
+import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import React from 'react';
@@ -30,6 +32,8 @@ export default function MicroFinalFormInputField({
   required,
   maxLength,
   minLength,
+  sx,
+  InputProps,
 }) {
   const validators = [];
 
@@ -54,10 +58,12 @@ export default function MicroFinalFormInputField({
     >
       {({ input, meta }) => (
         <TextField
+          sx={sx}
           color="primary"
           variant="outlined"
           autoComplete="off"
-          label={label || name}
+          placeholder={InputProps && (label || name)}
+          label={!InputProps && (label || name)}
           name={input.name}
           value={input.value}
           onChange={input.onChange}
@@ -68,6 +74,7 @@ export default function MicroFinalFormInputField({
           multiline={multiline}
           fullWidth={fullWidth}
           rows={7}
+          InputProps={InputProps}
         />
       )}
     </Field>
@@ -76,11 +83,13 @@ export default function MicroFinalFormInputField({
 
 MicroFinalFormInputField.defaultProps = {
   label: null,
+  sx: null,
   validate: null,
   type: 'text',
   disabled: false,
   multiline: false,
   fullWidth: false,
+  InputProps: null,
   /* validators */
   required: false,
   maxLength: null,
@@ -95,6 +104,8 @@ MicroFinalFormInputField.propTypes = {
   disabled: PropTypes.bool,
   multiline: PropTypes.bool,
   fullWidth: PropTypes.bool,
+  sx: PropTypes.object,
+  InputProps: PropTypes.object,
   /* validators */
   required: PropTypes.bool,
   maxLength: PropTypes.number,

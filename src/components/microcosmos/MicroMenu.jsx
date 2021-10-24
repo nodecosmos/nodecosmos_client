@@ -8,6 +8,7 @@ import * as PropTypes from 'prop-types';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
+import history from '../../history';
 
 export default function MicroMenu(props) {
   const {
@@ -18,8 +19,14 @@ export default function MicroMenu(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (menuItem) => {
     setAnchorEl(null);
+
+    if (menuItem.href) {
+      history.push(menuItem.href);
+    } else if (menuItem.click) {
+      menuItem.click();
+    }
   };
 
   return (
@@ -28,7 +35,6 @@ export default function MicroMenu(props) {
         className={className}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        disableElevation
         disableRipple
         variant="outlined"
         onClick={handleClick}
@@ -50,7 +56,7 @@ export default function MicroMenu(props) {
         }}
       >
         {menuItems.map((menuItem) => (
-          <MenuItem onClick={handleClose} key={menuItem.title}>
+          <MenuItem onClick={() => handleClose(menuItem)} key={menuItem.title}>
             {menuItem.icon && (
             <ListItemIcon>
               {menuItem.icon}

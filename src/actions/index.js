@@ -27,7 +27,7 @@ export const createMicron = (payload, parentMicron = null) => async (dispatch) =
     newParent.micron_ids.push(response.data.id);
     dispatch({ type: UPDATE_MICRON, payload: newParent });
   } else {
-    history.push(`/m/show/${response.data.id}`);
+    history.push(`/microns/${response.data.id}`);
   }
 };
 

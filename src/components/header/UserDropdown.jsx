@@ -4,25 +4,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Avatar from '../microcosmos/MicroAvatar';
+import MicroAvatar from '../microcosmos/MicroAvatar';
 
 function UserDropdown(props) {
   const { currentUser, isAuthenticated } = props;
 
   if (isAuthenticated) {
-    const letter = currentUser.username.charAt(0).toUpperCase();
-
     return (
       <Link to={`/user/${currentUser.username}`}>
-        <Avatar letter={letter} />
+        <MicroAvatar user={currentUser} />
       </Link>
     );
   }
 
   return (
     <Button component={Link} to="/login" color="primary" className="MicroButton">
-      <Typography variant="body1" color="primary">
-        login
+      <Typography variant="body1">
+        Log In
       </Typography>
     </Button>
   );

@@ -69,7 +69,7 @@ class UserAuthentication extends React.Component {
       <Box mt={5}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
-            <Typography variant="h4" align="center">
+            <Typography variant="h4" align="center" fontWeight="normal">
               <Box component="span" color="primary.main"> #micro</Box>
               <Box component="span" color="secondary.main">cosmos</Box>
             </Typography>
