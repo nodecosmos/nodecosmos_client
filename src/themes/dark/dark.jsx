@@ -18,6 +18,8 @@ import {
   black9,
   gray,
   green,
+  fluorescent,
+  purple,
 } from './colors';
 
 const theme = createTheme({
@@ -34,7 +36,7 @@ const theme = createTheme({
           width: 24,
         },
         '::-webkit-scrollbar-track': {
-          marginTop: 32,
+          marginTop: 60,
           marginBottom: 16,
           borderRadius: 8,
           backgroundColor: black7,
@@ -44,21 +46,25 @@ const theme = createTheme({
           textDecoration: 'none',
         },
         '.BorderedBox': {
-          border: '1px solid',
-          borderColor: black8,
+          boxShadow: '-3px -3px 2px 0px rgb(0 0 0 / 15%), '
+            + '2px 0px 3px 0px rgb(0 0 0 / 35%),'
+            + ' 0px 2px 2px 0px rgb(0 0 0 / 25%)',
         },
         '.BoxShadowBottom': {
-          boxShadow: `0px 1px 0px 0px ${black9}`,
+          boxShadow: '0px 1px 0px 0px #00000030',
         },
         '.BoxShadowRight': {
-          boxShadow: `1px 0px 0px 0px ${black9}`,
+          boxShadow: '1px 0px 0px 0px #00000030',
           zIndex: 1,
         },
         '.BoxShadowLeft': {
-          boxShadow: `-1px 0px 0px 0px ${black9}`,
+          boxShadow: `-1px 0px 0px 0px ${black}`,
         },
         '.BoxBackground': {
           backgroundColor: black1,
+        },
+        '.w-md-editor-preview': {
+          boxShadow: `-1px 0px 0px 0px ${black}`,
         },
       },
     },
@@ -66,7 +72,6 @@ const theme = createTheme({
       styleOverrides: {
         input: {
           caretColor: 'gray',
-          fontWeight: 'bold',
         },
         root: {
           borderRadius: 4,
@@ -123,22 +128,29 @@ const theme = createTheme({
         },
       },
     },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
     MuiListItemButton: {
       styleOverrides: {
         root: {
           padding: 12,
-          borderRadius: 8,
+          borderRadius: 0,
           color: gray, // beige
-          transition: 'all none',
           '.MuiListItemIcon-root': {
             color: gray, // beige
+            transition: 'all 150ms',
           },
-
           '&.active': {
             background: black5, // purple,
             color: beige,
             '.MuiListItemIcon-root': {
               color: beige,
+              transform: 'scale(1.05)',
             },
           },
         },
@@ -155,9 +167,9 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          fontWeight: 'bold',
           textTransform: 'none',
           color: beige,
+          borderRadius: 2,
           '&.MicroButton': {
             border: '1px solid transparent',
             borderRadius: 4,
@@ -207,7 +219,7 @@ const theme = createTheme({
   palette: {
     green,
     primary: {
-      main: blue1,
+      main: green,
       light: blue,
     },
     secondary: {

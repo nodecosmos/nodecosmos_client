@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
 
 /* micro */
 import MicroAvatar from '../microcosmos/MicroAvatar';
@@ -28,7 +27,7 @@ function MicronCard(props) {
         subheader={micron.created_at}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary" fontWeight="normal">{micron.description}</Typography>
+        {micron.description}
       </CardContent>
     </Card>
   );

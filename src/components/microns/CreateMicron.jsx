@@ -1,29 +1,28 @@
-import Box from '@mui/material/Box';
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
-import { AnimatePresence, motion } from 'framer-motion';
-import { TagRounded } from '@mui/icons-material';
-
+import { UnControlled as CodeMirror } from 'react-codemirror2';
 /* material ui */
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import TagRounded from '@mui/icons-material/TagRounded';
 import {
   Button,
   InputAdornment,
-  Modal,
-  Paper,
+  Box,
+  Container,
 } from '@mui/material';
 /* micro */
 import { createMicron } from '../../actions';
 import Field from '../microcosmos/final-form/MicroFinalFormInputField';
 
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/markdown/markdown';
+
 class CreateMicron extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      description: '',
     };
   }
 
@@ -31,72 +30,51 @@ class CreateMicron extends React.Component {
     if (this.props.currentMicron) {
       formValues.parent_id = this.props.currentMicron.id;
     }
-
+    formValues.description = this.state.description;
     this.props.createMicron(formValues);
   }
 
-  handleClose = () => {
-    this.setState({ open: false });
-    setTimeout(() => {
-      this.props.handleClose();
-      this.setState({ open: true });
-    }, 300);
+  onDescriptionChange = (value) => {
+    this.setState({ description: value });
   }
 
   render() {
     return (
-      <Modal
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        onClose={this.handleClose}
-        open={this.props.open}
-      >
-        <Box width={0.5}>
-          <AnimatePresence>
-            {this.state.open && (
-              <motion.div
-                animate={{ scale: [0.7, 1] }}
-                exit={{ scale: [1, 0.5] }}
-                transition={{ duration: 0.3 }}
-              >
-                <Paper>
-                  <DialogTitle align="center" sx={{ fontWeight: 'bold' }}>
-                    New Micron
-                  </DialogTitle>
-                  <DialogContent align="center">
-                    <Form onSubmit={this.onSubmit} subscription={{ submitting: true }}>
-                      {({ handleSubmit }) => (
-                        <form onSubmit={handleSubmit}>
-                          <Field
-                            sx={{ mb: 2 }}
-                            fullWidth
-                            name="title"
-                            required
-                            InputProps={{
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <TagRounded sx={{ color: 'text.primary' }} />
-                                </InputAdornment>
-                              ),
-                            }}
-                          />
-                          <Field sx={{ mb: 2 }} fullWidth name="description" multiline required />
-                          <Button variant="contained" type="submit">
-                            Create
-                          </Button>
-                        </form>
-                      )}
-                    </Form>
-                  </DialogContent>
-                </Paper>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Box>
-      </Modal>
+      <Container maxWidth="md">
+        <Form onSubmit={this.onSubmit} subscription={{ submitting: true }}>
+          {({ handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <Field
+                fullWidth
+                name="title"
+                required
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <TagRounded sx={{ color: 'text.primary' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Box mt={2}>
+                <CodeMirror
+                  value={this.state.description}
+                  options={{
+                    mode: 'markdown',
+                    theme: 'material',
+                    lineNumbers: true,
+                  }}
+                />
+              </Box>
+              <Box mt={2} pl={2} textAlign="center">
+                <Button sx={{ mt: 3 }} variant="contained" type="submit">
+                  Save
+                </Button>
+              </Box>
+            </form>
+          )}
+        </Form>
+      </Container>
     );
   }
 }
@@ -107,8 +85,6 @@ CreateMicron.defaultProps = {
 
 CreateMicron.propTypes = {
   createMicron: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
   currentMicron: PropTypes.object,
 };
 

@@ -6,7 +6,7 @@ import { AddRounded, SortRounded, SearchRounded } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 /* micro lib */
 import MicroMenu from '../microcosmos/MicroMenu';
-import CreateMicron from './CreateMicron';
+import CreateMicron from './CreateMicronModal';
 import { fluorescent, red, yellow } from '../../themes/dark/colors';
 
 export default function Toolbar({ currentMicron }) {

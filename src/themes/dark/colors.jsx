@@ -7,6 +7,7 @@ const dirtyPurple = '#91a7d4';
 const dirtyPurple1 = '#8ea2c9';
 
 const red = '#e91e63';
+const red1 = '#e15863';
 
 const beige = '#fcfbec';
 const beige1 = '#e5e5e5';
@@ -20,7 +21,7 @@ const black5 = '#3e4148';
 const black6 = '#151515';
 const black7 = '#2b2b2f';
 const black8 = '#484a4f';
-const black9 = '#222222';
+const black9 = '#323439';
 
 const gray = '#8e9297';
 const gray1 = '#585c64';
@@ -29,6 +30,8 @@ const yellow = '#fffb00';
 const transparentYellow = 'rgba(187,187,97,0.06)';
 
 const green = '#9fd642';
+const green1 = '#8de158';
+const green2 = '#58e1cc';
 const fluorescent = '#a0ff00fc';
 
 export {

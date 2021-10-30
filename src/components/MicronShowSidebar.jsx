@@ -14,14 +14,13 @@ import GestureRoundedIcon from '@mui/icons-material/GestureRounded';
 
 export default function MicronShowSidebar(props) {
   const { micron } = props;
-  const listItemSx = { p: 2, pb: 0 };
   const ListItemIconSx = { minWidth: 0, marginRight: 3 };
 
   return (
     <>
       <nav aria-label="main mailbox folders">
         <List>
-          <ListItem sx={listItemSx}>
+          <ListItem>
             <ListItemButton
               disableRipple
               exact
@@ -36,7 +35,7 @@ export default function MicronShowSidebar(props) {
               </Typography>
             </ListItemButton>
           </ListItem>
-          <ListItem sx={listItemSx}>
+          <ListItem>
             <ListItemButton
               disableRipple
               component={NavLink}
@@ -50,7 +49,7 @@ export default function MicronShowSidebar(props) {
               </Typography>
             </ListItemButton>
           </ListItem>
-          <ListItem sx={listItemSx}>
+          <ListItem>
             <ListItemButton
               disableRipple
               component={NavLink}
@@ -64,7 +63,7 @@ export default function MicronShowSidebar(props) {
               </Typography>
             </ListItemButton>
           </ListItem>
-          <ListItem sx={listItemSx}>
+          <ListItem>
             <ListItemButton
               disableRipple
               component={NavLink}

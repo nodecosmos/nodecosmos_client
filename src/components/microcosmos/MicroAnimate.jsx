@@ -15,7 +15,7 @@ function MicroAnimate(props) {
     <motion.div
       initial={appAnimationEnabled && animationEnabled}
       animate={animate}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.7 }}
     >
       {children}
     </motion.div>
@@ -23,7 +23,7 @@ function MicroAnimate(props) {
 }
 
 MicroAnimate.defaultProps = {
-  animate: { scale: [1, 1.01, 1] },
+  animate: { scale: [1, 1.1, 1] },
   animationEnabled: true,
 };
 

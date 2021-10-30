@@ -16,8 +16,10 @@ import UserShowPage from './users/UserShowPage';
 /* microns */
 import MicronContainer from './microns/MicronIndex';
 import MicronShow from './microns/MicronShow';
-
+/* css */
 import './App.css';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
 
 const themes = { dark };
 
@@ -34,7 +36,6 @@ function App({ theme, isAuthenticated, currentUser }) {
           overflow="hidden"
           className="BorderedBox BoxBackground"
         >
-          <Header />
           <Route path="/login">
             {isAuthenticated
               ? <Redirect to={`/users/${currentUser.username}`} />
