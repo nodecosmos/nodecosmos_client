@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
-/* material-ui */
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
+/* mui */
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from '@mui/material';
 
 /* micro */
 import MicroAvatar from '../microcosmos/MicroAvatar';

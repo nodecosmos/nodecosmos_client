@@ -3,19 +3,18 @@ import React from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-/* material */
+/* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-/* micro lib */
-import history from '../history';
-import dark from '../themes/dark/dark';
-import Header from './header/Header';
 /* users */
 import UserAuthentication from './users/UserAuthentication';
 import UserShowPage from './users/UserShowPage';
 /* microns */
 import MicronContainer from './microns/MicronIndex';
 import MicronShow from './microns/MicronShow';
+/* micro */
+import history from '../history';
+import dark from '../themes/dark/dark';
 /* css */
 import './App.css';
 import 'codemirror/lib/codemirror.css';

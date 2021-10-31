@@ -1,10 +1,10 @@
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import * as PropTypes from 'prop-types';
-/* material */
+/* mui */
 import { AddRounded, SortRounded, SearchRounded } from '@mui/icons-material';
 import Box from '@mui/material/Box';
-/* micro lib */
+/* micro */
 import MicroMenu from '../microcosmos/MicroMenu';
 import CreateMicron from './CreateMicronModal';
 import { fluorescent, red, yellow } from '../../themes/dark/colors';
@@ -13,7 +13,7 @@ export default function Toolbar({ currentMicron }) {
   const [openCreateMicronDialog, setOpenCreateMicronDialog] = React.useState(false);
 
   return (
-    <Box display="flex">
+    <Box display="flex" justifyContent="center">
       <CreateMicron
         currentMicron={currentMicron}
         open={openCreateMicronDialog}
@@ -25,7 +25,7 @@ export default function Toolbar({ currentMicron }) {
         variant="outlined"
         onClick={() => setOpenCreateMicronDialog(true)}
       >
-        <AddRounded htmlColor={fluorescent} fontSize="small" />
+        <AddRounded htmlColor={fluorescent} fontSize="small" sx={{ fontSize: '1rem' }} />
       </IconButton>
 
       <MicroMenu
@@ -34,7 +34,7 @@ export default function Toolbar({ currentMicron }) {
           { title: 'Sort By ASC' },
           { title: 'Sort By DESC' },
         ]}
-        icon={<SortRounded htmlColor={red} fontSize="small" />}
+        icon={<SortRounded htmlColor={red} fontSize="small" sx={{ fontSize: '1rem' }} />}
       />
       <MicroMenu
         sx={{ ml: 2 }}
@@ -42,7 +42,7 @@ export default function Toolbar({ currentMicron }) {
           { title: 'New Micron' },
           { title: 'New Organization' },
         ]}
-        icon={<SearchRounded htmlColor={yellow} fontSize="small" />}
+        icon={<SearchRounded htmlColor={yellow} fontSize="small" sx={{ fontSize: '1rem' }} />}
       />
     </Box>
   );

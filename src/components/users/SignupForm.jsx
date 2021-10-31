@@ -2,7 +2,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import { Button, Grid } from '@mui/material';
-/* micro lib */
+/* micro */
 import Field from '../microcosmos/final-form/MicroFinalFormInputField';
 
 // eslint-disable-next-line max-len

@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+/* mui */
+import { Button, Typography } from '@mui/material';
+/* micro */
 import MicroAvatar from '../microcosmos/MicroAvatar';
 
 function UserDropdown(props) {

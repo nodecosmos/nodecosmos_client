@@ -1,19 +1,24 @@
-import TagRounded from '@mui/icons-material/TagRounded';
-import Grid from '@mui/material/Grid';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-/* material ui */
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+/* mui */
+import {
+  Box,
+  Button,
+  Grid,
+  Typography,
+} from '@mui/material';
+import TagRounded from '@mui/icons-material/TagRounded';
 /* micro */
+import Toolbar from '../microns/Toolbar';
 import UserDropdown from './UserDropdown';
 
-function Header() {
+function Header(props) {
   const microns = useSelector((state) => state.microns);
   const { id } = useParams();
   const currentMicron = microns[id];
+  const { showToolbar } = props;
 
   return (
     <Box className="BoxShadowBottom" padding={2} height={54}>
@@ -34,6 +39,7 @@ function Header() {
         </Grid>
         <Grid item xs={4} align="center">
           {currentMicron && currentMicron.title}
+          {showToolbar && <Toolbar />}
         </Grid>
         <Grid item xs={4} align="right">
           <Box mr={2}>
@@ -44,5 +50,13 @@ function Header() {
     </Box>
   );
 }
+
+Header.defaultProps = {
+  showToolbar: false,
+};
+
+Header.propTypes = {
+  showToolbar: PropTypes.bool,
+};
 
 export default Header;

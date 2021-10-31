@@ -1,9 +1,8 @@
-import { AccountCircle } from '@mui/icons-material';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import { Field } from 'react-final-form';
+/* mui */
+import { TextField } from '@mui/material';
 
 const composeValidators = (validators) => (value, values) => (
   validators.reduce((error, validator) => error || validator(value, values), undefined)

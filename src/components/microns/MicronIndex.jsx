@@ -1,17 +1,12 @@
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-/* material ui */
-import Grid from '@mui/material/Grid';
-
+/* mui */
+import { Grid, Box } from '@mui/material';
 /* micro-lib */
 import { indexMicrons } from '../../actions';
 import Header from '../header/Header';
 import MicronCard from './MicronCard';
-import Toolbar from './Toolbar';
 
 class MicronContainer extends React.Component {
   componentDidMount = () => {
@@ -35,9 +30,9 @@ class MicronContainer extends React.Component {
           <Grid item xs={10} height={1}>
             <Grid container height={1}>
               <Grid item xs={12}>
-                <Header />
+                <Header showToolbar />
               </Grid>
-              <Grid item xs={9} height={1}>
+              <Grid item xs={12} height={1}>
                 <Box p={2} mt={1} height={0.96}>
                   <Grid
                     container
@@ -48,14 +43,10 @@ class MicronContainer extends React.Component {
                     height={1}
                     overflow="auto"
                   >
-                    <Grid item xs={8}>
-                      <Toolbar />
-                    </Grid>
                     {this.renderMicrons()}
                   </Grid>
                 </Box>
               </Grid>
-              <Grid item xs={3} className="BoxShadowLeft" />
             </Grid>
           </Grid>
         </Grid>

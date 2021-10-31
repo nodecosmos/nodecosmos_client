@@ -1,9 +1,9 @@
 import React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-/* material ui */
+/* mui */
 import TagRounded from '@mui/icons-material/TagRounded';
 import {
   Button,

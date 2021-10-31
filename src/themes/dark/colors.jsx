@@ -2,7 +2,7 @@ const blue = '#18cbea';
 const blue1 = '#49b0f4';
 
 const purple = '#5865e1';
-
+// eslint-disable-nex-line
 const dirtyPurple = '#91a7d4';
 const dirtyPurple1 = '#8ea2c9';
 
@@ -41,6 +41,7 @@ export {
   dirtyPurple,
   dirtyPurple1,
   red,
+  red1,
   beige,
   beige1,
   black,
@@ -55,6 +56,8 @@ export {
   black9,
   gray,
   gray1,
+  green1,
+  green2,
   yellow,
   transparentYellow,
   green,

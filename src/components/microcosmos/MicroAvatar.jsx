@@ -1,8 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-
-/* material ui */
-import Avatar from '@mui/material/Avatar';
+/* mui */
+import { Avatar } from '@mui/material';
 import { orange } from '@mui/material/colors';
 
 export default function MicroAvatar({ user }) {

@@ -1,13 +1,15 @@
-import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Typography from '@mui/material/Typography';
 import React from 'react';
 import * as PropTypes from 'prop-types';
-
-/* material ui */
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
+/* mui */
+import {
+  Menu,
+  MenuItem,
+  Box,
+  Typography,
+  IconButton,
+  ListItemIcon,
+} from '@mui/material';
+/* micro */
 import history from '../../history';
 
 export default function MicroMenu(props) {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TagRounded } from '@mui/icons-material';
 
-/* material ui */
+/* mui */
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import {

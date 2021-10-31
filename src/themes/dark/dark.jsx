@@ -14,12 +14,12 @@ import {
   black5,
   black6,
   black7,
-  black8,
-  black9,
+  // black8,
+  // black9,
   gray,
   green,
-  fluorescent,
-  purple,
+  // fluorescent,
+  // purple,
 } from './colors';
 
 const theme = createTheme({
@@ -36,7 +36,7 @@ const theme = createTheme({
           width: 24,
         },
         '::-webkit-scrollbar-track': {
-          marginTop: 60,
+          marginTop: 16,
           marginBottom: 16,
           borderRadius: 8,
           backgroundColor: black7,
@@ -119,11 +119,20 @@ const theme = createTheme({
         },
       },
     },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: dirtyPurple1,
+          // backgroundColor: black5,
+          // borderRadius: 8,
+        },
+      },
+    },
     MuiIconButton: {
       styleOverrides: {
         root: {
           color: dirtyPurple1,
-          padding: 6,
+          // backgroundColor: black5,
           // borderRadius: 8,
         },
       },
@@ -143,14 +152,12 @@ const theme = createTheme({
           color: gray, // beige
           '.MuiListItemIcon-root': {
             color: gray, // beige
-            transition: 'all 150ms',
           },
           '&.active': {
             background: black5, // purple,
             color: beige,
             '.MuiListItemIcon-root': {
               color: beige,
-              transform: 'scale(1.05)',
             },
           },
         },
@@ -183,13 +190,6 @@ const theme = createTheme({
               borderStyle: 'dotted',
             },
           },
-        },
-      },
-    },
-    MuiSvgIcon: {
-      styleOverrides: {
-        fontSizeSmall: {
-          fontSize: '1rem',
         },
       },
     },

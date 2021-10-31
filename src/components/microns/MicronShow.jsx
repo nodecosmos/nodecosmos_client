@@ -1,15 +1,14 @@
-import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
 import { Link, Route, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-/* material ui */
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+/* mui */
+import { Typography, Grid } from '@mui/material';
 /* micro */
 import { showMicron } from '../../actions';
 import Header from '../header/Header';
-import MicronShowSidebar from '../MicronShowSidebar';
+import Sidebar from './show/Sidebar';
+import MainPage from './show/MainPage';
 import CreateMicron from './CreateMicron';
 
 export default function MicronShow() {
@@ -38,15 +37,13 @@ export default function MicronShow() {
               {micron.title.toLowerCase()}
             </Typography>
           </Box>
-          <MicronShowSidebar micron={micron} />
+          <Sidebar micron={micron} />
         </Grid>
         <Grid item xs={6} sm={10} height={1}>
           <Header />
-          <Box mt={3}>
+          <Box height={1}>
             <Route exact path="/microns/:id">
-              <Container maxWidth="md">
-                {micron.description}
-              </Container>
+              <MainPage micron={micron} />
             </Route>
             <Route path="/microns/:id/new" component={CreateMicron} />
           </Box>

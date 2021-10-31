@@ -1,4 +1,4 @@
-import microcosmos, { setAuthorizationToken } from '../apis/microcosmos-server';
+import microcosmos from '../apis/microcosmos-server';
 import history from '../history';
 
 import {

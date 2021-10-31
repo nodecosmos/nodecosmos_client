@@ -3,11 +3,11 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-/* material-ui */
+/* mui */
 import {
   Grid, Tab, Tabs,
 } from '@mui/material';
-/* micro lib */
+/* micro */
 import { login } from '../../actions';
 import microcosmos, { setAuthorizationToken } from '../../apis/microcosmos-server';
 import LoginForm from './LoginForm';
