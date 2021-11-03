@@ -1,7 +1,9 @@
-import { Button, Grid } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import { Form } from 'react-final-form';
+/* mui */
+import { Button, Grid } from '@mui/material';
+/* micro */
 import Field from '../microcosmos/final-form/MicroFinalFormInputField';
 
 export default function LoginForm(props) {
@@ -19,7 +21,7 @@ export default function LoginForm(props) {
               <Field fullWidth name="password" type="password" required />
             </Grid>
             <Grid item xs={12}>
-              <Button variant="outlined" type="submit" className="MicroButton">
+              <Button sx={{ mt: 2 }} variant="contained" type="submit">
                 Log In
               </Button>
             </Grid>

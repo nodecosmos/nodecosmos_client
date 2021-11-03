@@ -6,7 +6,8 @@ import { Grid, Box } from '@mui/material';
 /* micro-lib */
 import { indexMicrons } from '../../actions';
 import Header from '../header/Header';
-import MicronCard from './MicronCard';
+import MicronCard from './shared/MicronCard';
+import MicronIndexToolbar from './index/MicronIndexToolbar';
 
 class MicronContainer extends React.Component {
   componentDidMount = () => {
@@ -30,7 +31,7 @@ class MicronContainer extends React.Component {
           <Grid item xs={10} height={1}>
             <Grid container height={1}>
               <Grid item xs={12}>
-                <Header showToolbar />
+                <Header toolbar={<MicronIndexToolbar />} />
               </Grid>
               <Grid item xs={12} height={1}>
                 <Box p={2} mt={1} height={0.96}>

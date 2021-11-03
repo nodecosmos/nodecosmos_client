@@ -34,6 +34,7 @@ export default function MicroMenu(props) {
   return (
     <Box sx={sx}>
       <IconButton
+        sx={{ mr: 1, p: 2 }}
         className={className}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}

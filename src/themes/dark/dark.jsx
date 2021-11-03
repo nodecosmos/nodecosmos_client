@@ -18,6 +18,7 @@ import {
   // black9,
   gray,
   green,
+  yellow,
   // fluorescent,
   // purple,
 } from './colors';
@@ -63,15 +64,36 @@ const theme = createTheme({
         '.BoxBackground': {
           backgroundColor: black1,
         },
-        '.w-md-editor-preview': {
-          boxShadow: `-1px 0px 0px 0px ${black}`,
+        '.CodeMirror.cm-s-material': {
+          borderRadius: 8,
+        },
+        '.cm-s-material.CodeMirror': {
+          backgroundColor: 'transparent',
+          color: 'white',
+          fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+          height: '100%',
+          fontSize: 20,
+        },
+        '.cm-s-material .CodeMirror-gutters': {
+          backgroundColor: 'transparent',
+        },
+        '.CodeMirror-linenumber': {
+          color: `${gray}!important`,
+          marginTop: 6,
+          fontSize: 15,
+        },
+        // '.CodeMirror-linenumbers': {
+        //   boxShadow: '1px 0px 0px 0px #757980',
+        // },
+        '.cm-s-material .cm-comment': {
+          color: '#596072',
         },
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
-          caretColor: 'gray',
+          caretColor: yellow,
         },
         root: {
           borderRadius: 4,
@@ -87,6 +109,34 @@ const theme = createTheme({
             borderStyle: 'solid',
             background: 'none',
             borderColor: blue1,
+          },
+          '&.MicroPlain': {
+            borderColor: 'transparent',
+            background: 'transparent',
+            '.MuiOutlinedInput-notchedOutline': {
+              borderColor: 'transparent',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'transparent',
+            },
+            '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+              borderColor: red,
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderWidth: 1,
+              borderStyle: 'solid',
+              background: 'none',
+              borderColor: 'transparent',
+            },
+            '& ::placeholder': {
+              color: 'white',
+            },
+            '&.Large': {
+              fontSize: 25,
+              '.MuiSvgIcon-root': {
+                fontSize: 36,
+              },
+            },
           },
         },
         notchedOutline: {
@@ -125,6 +175,9 @@ const theme = createTheme({
           color: dirtyPurple1,
           // backgroundColor: black5,
           // borderRadius: 8,
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          },
         },
       },
     },
@@ -168,6 +221,18 @@ const theme = createTheme({
         root: {
           fontWeight: 'bold',
           textTransform: 'none',
+          '&.Mui-selected': {
+            color: blue1,
+          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          height: 6,
+          borderRadius: 8,
+          backgroundColor: blue1,
         },
       },
     },
@@ -176,7 +241,7 @@ const theme = createTheme({
         root: {
           textTransform: 'none',
           color: beige,
-          borderRadius: 2,
+          borderRadius: 4,
           '&.MicroButton': {
             border: '1px solid transparent',
             borderRadius: 4,
@@ -200,7 +265,7 @@ const theme = createTheme({
           '&.Card': {
             backgroundColor: black4,
             boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%),'
-                       + ' 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+              + ' 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
           },
         },
         rounded: {
@@ -218,8 +283,11 @@ const theme = createTheme({
   },
   palette: {
     green,
+    blue,
+    blue1,
+    gray,
     primary: {
-      main: green,
+      main: blue1,
       light: blue,
     },
     secondary: {

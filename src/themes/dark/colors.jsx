@@ -26,7 +26,7 @@ const black9 = '#323439';
 const gray = '#8e9297';
 const gray1 = '#585c64';
 
-const yellow = '#fffb00';
+const yellow = '#e1cf58';
 const transparentYellow = 'rgba(187,187,97,0.06)';
 
 const green = '#9fd642';

@@ -20,7 +20,7 @@ function SignupForm(props) {
         submitting,
       }) => (
         <form onSubmit={handleSubmit}>
-          <Grid container justify="center" spacing={2}>
+          <Grid container spacing={2} justify="center">
             <Grid item xs={6}>
               <Field fullWidth name="first_name" />
             </Grid>
@@ -46,7 +46,7 @@ function SignupForm(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button variant="outlined" type="submit" className="MicroButton" disabled={submitting}>
+              <Button sx={{ mt: 2 }} variant="contained" type="submit" disabled={submitting}>
                 Sign up
               </Button>
             </Grid>

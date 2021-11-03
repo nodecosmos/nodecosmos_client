@@ -15,5 +15,9 @@ html, body, #root {
 }
 
 #root {
-    padding: 8px;
+    padding: 6px;
+}
+
+.h-1 {
+    height: 100%;
 }

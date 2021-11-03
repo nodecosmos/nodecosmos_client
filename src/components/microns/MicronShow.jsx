@@ -7,9 +7,10 @@ import { Typography, Grid } from '@mui/material';
 /* micro */
 import { showMicron } from '../../actions';
 import Header from '../header/Header';
+import MicronShowToolbar from './show/MicronShowToolbar';
 import Sidebar from './show/Sidebar';
 import MainPage from './show/MainPage';
-import CreateMicron from './CreateMicron';
+import CreateMicron from './show/CreateMicron';
 
 export default function MicronShow() {
   const microns = useSelector((state) => state.microns);
@@ -40,7 +41,7 @@ export default function MicronShow() {
           <Sidebar micron={micron} />
         </Grid>
         <Grid item xs={6} sm={10} height={1}>
-          <Header />
+          <Header toolbar={<MicronShowToolbar />} />
           <Box height={1}>
             <Route exact path="/microns/:id">
               <MainPage micron={micron} />

@@ -12,8 +12,8 @@ import {
   Container,
 } from '@mui/material';
 /* micro */
-import { createMicron } from '../../actions';
-import Field from '../microcosmos/final-form/MicroFinalFormInputField';
+import { createMicron } from '../../../actions';
+import Field from '../../microcosmos/final-form/MicroFinalFormInputField';
 
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/markdown/markdown';

@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 /* micro */
-import MicroAvatar from '../microcosmos/MicroAvatar';
+import MicroAvatar from '../../microcosmos/MicroAvatar';
 
 function MicronCard(props) {
   const {

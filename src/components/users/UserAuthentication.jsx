@@ -1,12 +1,16 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import TagRounded from '@mui/icons-material/TagRounded';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 /* mui */
 import {
-  Grid, Tab, Tabs,
+  Tab,
+  Tabs,
+  Box,
+  Container,
+  Typography,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 /* micro */
 import { login } from '../../actions';
 import microcosmos, { setAuthorizationToken } from '../../apis/microcosmos-server';
@@ -66,25 +70,35 @@ class UserAuthentication extends React.Component {
     const { currentPage } = this.state;
 
     return (
-      <Box mt={5}>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12}>
-            <Typography variant="h4" align="center" fontWeight="normal">
-              <Box component="span" color="primary.main"> #micro</Box>
+      <Container
+        maxWidth="sm"
+        sx={{
+          height: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Box sx={{ height: 600, width: 1 }}>
+          <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <TagRounded sx={{ color: 'primary.light', fontSize: 35 }} />
+            <Box fontSize={35} align="center">
+              <Box component="span" color="primary.light"> micro</Box>
               <Box component="span" color="secondary.main">cosmos</Box>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
+            </Box>
+          </Box>
+          <Box>
             <Tabs value={currentPage} onChange={this.handleTabChange} centered>
               <Tab label="Log in" disableRipple />
               <Tab label="Sign up" disableRipple />
             </Tabs>
-          </Grid>
-          <Grid item xs={12} sm={10} md={6} lg={4} align="center">
+          </Box>
+          <Box textAlign="center" mt={3}>
             {currentPage === 0 ? <LoginForm onSubmit={this.loginUser} /> : <SignupForm onSubmit={this.createUser} />}
-          </Grid>
-        </Grid>
-      </Box>
+          </Box>
+        </Box>
+      </Container>
     );
   }
 }
