@@ -2,6 +2,7 @@
 export const SET_THEME = 'SET_THEME';
 export const SET_SUBTITLE = 'SET_SUBTITLE';
 export const SET_ANIMATION_ENABLED = 'SET_ANIMATION_ENABLED';
+export const SET_CURRENT_TOOLBAR = 'SET_CURRENT_TOOLBAR';
 // users
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';

@@ -16,8 +16,11 @@ import {
   Favorite,
   FavoriteBorder,
   SearchRounded,
+  DeleteOutlineRounded,
 } from '@mui/icons-material';
-import { blue1, fluorescent, yellow } from '../../../themes/dark/colors';
+import {
+  blue1, fluorescent, green2, yellow,
+} from '../../../themes/dark/colors';
 
 export default function MicronShowToolbar() {
   const iconSX = { fontSize: '1rem' };
@@ -34,6 +37,9 @@ export default function MicronShowToolbar() {
       </IconButton>
       <IconButton disableRipple aria-label="delete" size="small" sx={{ mr: 1, p: 2 }}>
         <EditOutlined htmlColor={blue1} fontSize="small" sx={iconSX} />
+      </IconButton>
+      <IconButton disableRipple aria-label="delete" size="small" sx={{ mr: 1, p: 2 }}>
+        <DeleteOutlineRounded htmlColor={green2} fontSize="small" sx={iconSX} />
       </IconButton>
       <IconButton disableRipple aria-label="delete" size="small" sx={{ mr: 1, p: 2 }}>
         <SearchRounded htmlColor={yellow} fontSize="small" sx={iconSX} />

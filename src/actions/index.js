@@ -9,6 +9,7 @@ import {
   DELETE_MICRON,
   INDEX_MICRONS,
   SHOW_MICRON,
+  SET_CURRENT_TOOLBAR, SET_SUBTITLE,
 } from './types';
 
 /* User Actions */
@@ -61,3 +62,15 @@ export const showMicron = (id) => async (dispatch) => {
   const response = await microcosmos.get(`/microns/${id}`);
   dispatch({ type: SHOW_MICRON, payload: response.data });
 };
+
+/* APP */
+
+export const setCurrentToolbar = (toolbar) => ({
+  type: SET_CURRENT_TOOLBAR,
+  payload: toolbar,
+});
+
+export const setSubtitle = (subtitle) => ({
+  type: SET_SUBTITLE,
+  payload: subtitle,
+});

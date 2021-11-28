@@ -60,7 +60,6 @@ export default function MicroFinalFormInputField({
           sx={sx}
           color="primary"
           variant="outlined"
-          autoComplete="off"
           placeholder={InputProps && (label || name)}
           label={!InputProps && (label || name)}
           name={input.name}

@@ -37,6 +37,8 @@ class CreateMicronModal extends React.Component {
       formValues.parent_id = this.props.currentMicron.id;
     }
 
+    formValues.description = this.state.description;
+
     this.props.createMicron(formValues);
   }
 
@@ -56,6 +58,7 @@ class CreateMicronModal extends React.Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}
+        hideBackdrop
         onClose={this.handleClose}
         open={this.props.open}
       >
@@ -67,44 +70,32 @@ class CreateMicronModal extends React.Component {
                   {this.state.open && (
                   <motion.div
                     className="h-1"
-                    animate={{ scale: [0.9, 1] }}
-                    exit={{ scale: [1, 0.9], opacity: [1, 0.9] }}
-                    transition={{ duration: 0.2 }}
+                    animate={{ scale: [0.8, 1] }}
+                    exit={{ scale: [1, 0.5], opacity: [1, 1, 0] }}
+                    transition={{ duration: 0.25 }}
                   >
-                    <Paper sx={{ height: 1 }}>
-                      <Box
-                        align="center"
-                        sx={{
-                          fontWeight: 'bold',
-                          height: 64,
-                          padding: 2,
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                        }}
-                      >
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <TagRounded sx={{ color: 'primary.light', fontSize: 20 }} />
-                          <Box fontSize={20} align="center">
-                            <Box component="span" color="primary.light"> micro</Box>
-                            <Box component="span" color="secondary.main">cosmos</Box>
-                          </Box>
-                        </Box>
-                        <Typography variant="h5">
-                          New Micron
-                        </Typography>
-                        <Box display="flex" justifyItems="center">
-                          <Button
-                            disableElevation
-                            sx={{ height: 35 }}
-                            variant="outlined"
-                            type="submit"
-                            startIcon={<SaveOutlined />}
-                          >
-                            Save
-                          </Button>
-                        </Box>
+                    <Paper sx={{ height: 1, padding: 0, boxShadow: '0px 0px 14px 2px #00000078' }}>
+                      <Box padding={3} height={64}>
+                        <Grid container alignItems="center">
+                          <Grid item xs={4} />
+                          <Grid item xs={4} align="center">
+                            <Typography variant="h5">
+                              New Micron
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={4} align="right">
+                            <Button
+                              disableElevation
+                              sx={{ height: 35 }}
+                              type="submit"
+                              startIcon={<SaveOutlined />}
+                            >
+                              Save
+                            </Button>
+                          </Grid>
+                        </Grid>
                       </Box>
-                      <DialogContent sx={{ height: 'calc(100% - 64px)', padding: 0 }}>
+                      <DialogContent sx={{ height: 'calc(100% - 64px)', padding: 2 }}>
                         <Field
                           sx={{ height: 85 }}
                           fullWidth
@@ -120,9 +111,10 @@ class CreateMicronModal extends React.Component {
                             ),
                           }}
                         />
-                        <Box sx={{ ml: '4px', height: 'calc(100% - 90px)' }}>
+                        <Box sx={{ height: 'calc(100% - 90px)', ml: 2 }}>
                           <CodeMirror
                             className="h-1"
+                            onChange={(_editor, _data, value) => { this.setState({ description: value }); }}
                             value={this.state.description}
                             options={{
                               placeholder: 'Description',

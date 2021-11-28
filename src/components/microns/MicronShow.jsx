@@ -1,16 +1,15 @@
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
-import { Link, Route, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Route, useParams } from 'react-router-dom';
+import { useSelector, useDispatch, connect } from 'react-redux';
 /* mui */
-import { Typography, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 /* micro */
-import { showMicron } from '../../actions';
-import Header from '../header/Header';
-import MicronShowToolbar from './show/MicronShowToolbar';
+import { setSubtitle, setCurrentToolbar, showMicron } from '../../actions';
 import Sidebar from './show/Sidebar';
-import MainPage from './show/MainPage';
 import CreateMicron from './show/CreateMicron';
+import Micron from './show/tabs/Micron';
+import MicronShowToolbar from './show/MicronShowToolbar';
 
 export default function MicronShow() {
   const microns = useSelector((state) => state.microns);
@@ -21,6 +20,9 @@ export default function MicronShow() {
 
   useEffect(() => {
     dispatch(showMicron(id));
+    dispatch(setCurrentToolbar(<MicronShowToolbar />));
+
+    if (micron) dispatch(setSubtitle(micron.title));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!micron) return null;
@@ -28,23 +30,13 @@ export default function MicronShow() {
   return (
     <Box height={1}>
       <Grid container height={1}>
-        <Grid item xs={6} sm={2} className="BoxShadowRight">
-          <Box padding={2} height={54}>
-            <Typography align="center" variant="h5">
-              <Link to={`/user/${micron.owner.username}`}>
-                {micron.owner.username}
-              </Link>
-              /
-              {micron.title.toLowerCase()}
-            </Typography>
-          </Box>
+        <Grid item xs={6} sm={2} className="Sidebar">
           <Sidebar micron={micron} />
         </Grid>
-        <Grid item xs={6} sm={10} height={1}>
-          <Header toolbar={<MicronShowToolbar />} />
+        <Grid item xs={6} sm={10} height={1} className="MainContent">
           <Box height={1}>
             <Route exact path="/microns/:id">
-              <MainPage micron={micron} />
+              <Micron micron={micron} />
             </Route>
             <Route path="/microns/:id/new" component={CreateMicron} />
           </Box>

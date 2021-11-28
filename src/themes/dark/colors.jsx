@@ -1,7 +1,7 @@
 const blue = '#18cbea';
-const blue1 = '#49b0f4';
+const blue1 = '#439bf0';
 
-const purple = '#5865e1';
+const purple = '#5d64a4';
 // eslint-disable-nex-line
 const dirtyPurple = '#91a7d4';
 const dirtyPurple1 = '#8ea2c9';
@@ -12,15 +12,15 @@ const red1 = '#e15863';
 const beige = '#fcfbec';
 const beige1 = '#e5e5e5';
 
-const black = '#2f3136';
-const black1 = '#36393f';
-const black2 = '#303338';
-const black3 = '#282b2f';
-const black4 = '#3a3d44';
-const black5 = '#3e4148';
+const black = '#2c2f35';
+const black1 = '#363940';
+const black2 = '#303339';
+const black3 = '#282b30';
+const black4 = '#383b41';
+const black5 = '#3a3d44';
 const black6 = '#151515';
 const black7 = '#2b2b2f';
-const black8 = '#484a4f';
+const black8 = '#32353b';
 const black9 = '#323439';
 
 const gray = '#8e9297';

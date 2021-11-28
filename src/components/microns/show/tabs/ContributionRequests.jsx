@@ -6,18 +6,18 @@ import {
   Grid,
 } from '@mui/material';
 
-export default function MainPage(props) {
+export default function MicronTab(props) {
   const { micron } = props;
 
   return (
-    <Grid container spacing={3} justifyContent="center">
-      <Grid item xs={12} align="center" mt={3} justifyItems="center">
+    <Grid container spacing={3} mt={1} justifyContent="center">
+      <Grid item xs={12} align="center" justifyItems="center">
         <Typography variant="h5">
           {micron.title}
         </Typography>
       </Grid>
       <Grid item xs={10}>
-        <Typography variant="body2">
+        <Typography variant="body2" fontWeight="normal">
           {micron.description}
         </Typography>
       </Grid>
@@ -25,6 +25,6 @@ export default function MainPage(props) {
   );
 }
 
-MainPage.propTypes = {
+MicronTab.propTypes = {
   micron: PropTypes.object.isRequired,
 };

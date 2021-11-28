@@ -1,5 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 /* mui */
 import { Typography, Grid } from '@mui/material';
 
@@ -23,3 +25,9 @@ Sample.defaultProps = {
 Sample.propTypes = {
   sampleProp: PropTypes.string,
 };
+
+function mapStateToProps(state) {
+  return { sample: state.sample };
+}
+
+export default connect(mapStateToProps)(Sample);

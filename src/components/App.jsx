@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Header from './header/Header';
 /* users */
 import UserAuthentication from './users/UserAuthentication';
 import UserShowPage from './users/UserShowPage';
@@ -40,6 +41,7 @@ function App({ theme, isAuthenticated, currentUser }) {
               ? <Redirect to={`/users/${currentUser.username}`} />
               : <UserAuthentication />}
           </Route>
+          <Route path="/" component={Header} />
           <Route path="/users/:username" component={UserShowPage} />
           <Route exact path="/" component={MicronContainer} />
           <Route path="/microns/:id" component={MicronShow} />
