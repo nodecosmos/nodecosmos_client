@@ -12,7 +12,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 1000px #303338 inset;
+    -webkit-box-shadow: 0 0 0 1000px #363940 inset;
     -webkit-text-fill-color: #ff6c6c;
     border-radius: 0!important;
 }
@@ -24,7 +24,7 @@ html, body, #root {
 }
 
 #root {
-    padding: 8px;
+    padding: 7px 6px;
 }
 
 .h-1 {

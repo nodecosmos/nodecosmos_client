@@ -1,9 +1,6 @@
 import React from 'react';
-// import * as PropTypes from 'prop-types';
-/* mui */
+
 import {
-  // Typography,
-  // Grid,
   IconButton,
   Checkbox,
   Box,
@@ -18,12 +15,10 @@ import {
   SearchRounded,
   DeleteOutlineRounded,
 } from '@mui/icons-material';
-import {
-  blue1, fluorescent, green2, yellow,
-} from '../../../themes/dark/colors';
+import colors from '../../../themes/dark/theme';
 
 export default function MicronShowToolbar() {
-  const iconSX = { fontSize: '1rem' };
+  const iconSX = { fontSize: 14 };
 
   return (
     <Box>
@@ -33,28 +28,28 @@ export default function MicronShowToolbar() {
         disableRipple
         size="small"
       >
-        <AddRounded htmlColor={fluorescent} fontSize="small" sx={iconSX} />
+        <AddRounded fontSize="small" sx={iconSX} />
       </IconButton>
       <IconButton disableRipple aria-label="delete" size="small" sx={{ mr: 1, p: 2 }}>
-        <EditOutlined htmlColor={blue1} fontSize="small" sx={iconSX} />
+        <EditOutlined fontSize="small" sx={iconSX} />
       </IconButton>
       <IconButton disableRipple aria-label="delete" size="small" sx={{ mr: 1, p: 2 }}>
-        <DeleteOutlineRounded htmlColor={green2} fontSize="small" sx={iconSX} />
+        <DeleteOutlineRounded fontSize="small" sx={iconSX} />
       </IconButton>
       <IconButton disableRipple aria-label="delete" size="small" sx={{ mr: 1, p: 2 }}>
-        <SearchRounded htmlColor={yellow} fontSize="small" sx={iconSX} />
+        <SearchRounded fontSize="small" sx={iconSX} />
       </IconButton>
       <Checkbox
         disableRipple
         sx={{ mr: 1, p: 2 }}
-        icon={<FavoriteBorder color="secondary" fontSize="small" sx={iconSX} />}
-        checkedIcon={<Favorite color="secondary" fontSize="small" sx={iconSX} />}
+        icon={<FavoriteBorder fontSize="small" sx={iconSX} />}
+        checkedIcon={<Favorite fontSize="small" sx={iconSX} />}
       />
       <Checkbox
         disableRipple
         sx={{ mr: 1, p: 2 }}
-        icon={<BookmarkBorder htmlColor={fluorescent} fontSize="small" sx={iconSX} />}
-        checkedIcon={<Bookmark htmlColor={fluorescent} fontSize="small" sx={iconSX} />}
+        icon={<BookmarkBorder fontSize="small" sx={iconSX} />}
+        checkedIcon={<Bookmark fontSize="small" sx={iconSX} />}
       />
     </Box>
   );

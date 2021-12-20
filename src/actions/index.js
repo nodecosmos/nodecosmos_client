@@ -9,12 +9,33 @@ import {
   DELETE_MICRON,
   INDEX_MICRONS,
   SHOW_MICRON,
-  SET_CURRENT_TOOLBAR, SET_SUBTITLE,
+  SET_CURRENT_TOOLBAR,
+  SET_SUBTITLE,
 } from './types';
 
 /* User Actions */
 export const login = (payload) => ({ type: SIGN_IN, payload });
-export const logout = () => ({ type: SIGN_OUT });
+export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('currentUser');
+  return { type: SIGN_OUT };
+};
+export const syncCurrentUser = (id) => async (dispatch) => {
+  try {
+    const response = await microcosmos.get('/sync_current_user');
+  } catch (error) {
+    switch (error.response.data.error) {
+      case 'session_expired':
+        dispatch({ type: SIGN_OUT });
+        history.push('/login');
+        localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
+        break;
+      default:
+        dispatch({ type: SIGN_OUT });
+    }
+  }
+};
 
 /* Micron Actions */
 export const createMicron = (payload, parentMicron = null) => async (dispatch) => {

@@ -1,21 +1,23 @@
+import red from '@mui/material/colors/red';
 import React from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
 import { Avatar } from '@mui/material';
-import { orange } from '@mui/material/colors';
 
-export default function MicroAvatar({ user }) {
+export default function MicroAvatar({ user, onClick }) {
   const letter = user && user.username.charAt(0).toUpperCase();
 
   return (
     <Avatar
+      onClick={onClick}
       sx={{
-        bgcolor: orange[600],
-        color: 'white',
-        height: 35,
-        width: 35,
-        fontSize: '1.15rem',
+        height: 32,
+        width: 32,
+        fontSize: 16,
         borderRadius: 2,
+        bgcolor: red[500],
+        color: 'white',
+        cursor: 'pointer',
       }}
     >
       {letter}
@@ -23,6 +25,11 @@ export default function MicroAvatar({ user }) {
   );
 }
 
+MicroAvatar.defaultProps = {
+  onClick: null,
+};
+
 MicroAvatar.propTypes = {
   user: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
 };

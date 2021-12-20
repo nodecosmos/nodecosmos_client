@@ -8,12 +8,11 @@ import {
   Tabs,
   Box,
   Container,
-  Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 /* micro */
 import { login } from '../../actions';
-import microcosmos, { setAuthorizationToken } from '../../apis/microcosmos-server';
+import microcosmos from '../../apis/microcosmos-server';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import history from '../../history';
@@ -56,7 +55,6 @@ class UserAuthentication extends React.Component {
     localStorage.setItem('token', token);
     localStorage.setItem('currentUser', JSON.stringify(user));
 
-    setAuthorizationToken();
     this.props.login({ user, token });
 
     history.push('/');

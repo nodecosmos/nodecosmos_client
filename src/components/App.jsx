@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
@@ -14,6 +14,7 @@ import UserShowPage from './users/UserShowPage';
 import MicronContainer from './microns/MicronIndex';
 import MicronShow from './microns/MicronShow';
 /* micro */
+import { syncCurrentUser } from '../actions';
 import history from '../history';
 import dark from '../themes/dark/dark';
 /* css */
@@ -24,6 +25,14 @@ import 'codemirror/theme/material.css';
 const themes = { dark };
 
 function App({ theme, isAuthenticated, currentUser }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(syncCurrentUser(currentUser.id));
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <ThemeProvider theme={themes[theme]}>
       <CssBaseline />
@@ -34,7 +43,7 @@ function App({ theme, isAuthenticated, currentUser }) {
           height={1}
           width={1}
           overflow="hidden"
-          className="BorderedBox BoxBackground"
+          className="MainContent"
         >
           <Route path="/login">
             {isAuthenticated

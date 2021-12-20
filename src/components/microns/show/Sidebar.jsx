@@ -17,7 +17,6 @@ import {
   CodeRounded,
   TimelineRounded,
   GroupsRounded,
-  AutoAwesomeMosaicRounded,
 } from '@mui/icons-material';
 
 export default function Sidebar(props) {
@@ -25,7 +24,7 @@ export default function Sidebar(props) {
   const ListItemIconSx = { minWidth: 0, marginRight: 3 };
 
   return (
-    <nav className="MaxHeightWithoutHeader flexColumnSpaceBetween BoxShadowRight BorderRight">
+    <nav className="MaxHeightWithoutHeader flexColumnSpaceBetween">
       <List>
         <ListItem>
           <ListItemButton
@@ -34,7 +33,7 @@ export default function Sidebar(props) {
             component={NavLink}
             to={`/microns/${micron.id}`}
           >
-            <ListItemIcon sx={ListItemIconSx}>
+            <ListItemIcon sx={ListItemIconSx} className="toolbarColor1">
               <TagRounded />
             </ListItemIcon>
             <Typography fontWeight="normal">
@@ -49,7 +48,7 @@ export default function Sidebar(props) {
             component={NavLink}
             to={`/microns/${micron.id}/tree`}
           >
-            <ListItemIcon sx={ListItemIconSx}>
+            <ListItemIcon sx={ListItemIconSx} className="toolbarColor2">
               <AccountTreeRounded />
             </ListItemIcon>
             <Typography fontWeight="normal">
@@ -64,7 +63,7 @@ export default function Sidebar(props) {
             component={NavLink}
             to={`/microns/${micron.id}/drawing`}
           >
-            <ListItemIcon sx={ListItemIconSx}>
+            <ListItemIcon sx={ListItemIconSx} className="toolbarColor3">
               <GestureRounded />
             </ListItemIcon>
             <Typography fontWeight="normal">
@@ -78,7 +77,7 @@ export default function Sidebar(props) {
             component={NavLink}
             to={`/microns/${micron.id}/contribution_requests`}
           >
-            <ListItemIcon sx={ListItemIconSx}>
+            <ListItemIcon sx={ListItemIconSx} className="toolbarColor4">
               <CodeRounded />
             </ListItemIcon>
             <Typography fontWeight="normal">
@@ -92,7 +91,7 @@ export default function Sidebar(props) {
             component={NavLink}
             to={`/microns/${micron.id}/topics`}
           >
-            <ListItemIcon sx={ListItemIconSx}>
+            <ListItemIcon sx={ListItemIconSx} className="toolbarColor5">
               <GroupsRounded />
             </ListItemIcon>
             <Typography fontWeight="normal">
@@ -106,7 +105,7 @@ export default function Sidebar(props) {
             component={NavLink}
             to={`/microns/${micron.id}/insights`}
           >
-            <ListItemIcon sx={ListItemIconSx}>
+            <ListItemIcon sx={ListItemIconSx} className="toolbarColor6">
               <TimelineRounded />
             </ListItemIcon>
             <Typography fontWeight="normal">
@@ -125,7 +124,7 @@ export default function Sidebar(props) {
             <ListItemIcon sx={ListItemIconSx}>
               <SettingsOutlined />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography fontWeight="normal" className="toolbarColor1">
               Micron Settings
             </Typography>
           </ListItemButton>

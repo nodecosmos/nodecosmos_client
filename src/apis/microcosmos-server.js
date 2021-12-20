@@ -5,12 +5,19 @@ const microcosmos = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    Authorization: localStorage.getItem('token'),
   },
 });
 
-export const setAuthorizationToken = () => {
-  microcosmos.defaults.headers.common.Authorization = localStorage.getItem('token');
-};
+microcosmos.interceptors.request.use(
+  async (config) => {
+    config.headers = {
+      Authorization: localStorage.getItem('token'),
+    };
+    return config;
+  },
+  (error) => {
+    throw error;
+  },
+);
 
 export default microcosmos;

@@ -11,30 +11,48 @@ import {
   Typography,
 } from '@mui/material';
 import TagRounded from '@mui/icons-material/TagRounded';
+import MicronIndexToolbar from '../microns/index/MicronIndexToolbar';
+import MicronShowToolbar from '../microns/show/MicronShowToolbar';
 /* micro */
 import UserDropdown from './UserDropdown';
+
+const toolbars = {
+  MicronIndexToolbar: <MicronIndexToolbar />,
+  MicronShowToolbar: <MicronShowToolbar />,
+};
 
 function Header(props) {
   const { toolbar, subtitle } = props;
 
   return (
-    <Grid container alignItems="center" className="HeaderHeight">
+    <Grid container alignItems="center" height={45}>
+      <Grid item xs={6} sm={2} className="BoxShadowBottom" height={1}>
+        <Box
+          width={1}
+          height={1}
+          className="BoxShadowRight BorderRight BorderBottom"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography align="center" variant="body2" color="black5">
+            {subtitle}
+          </Typography>
+        </Box>
+      </Grid>
       <Grid
         item
-        xs={2}
-        className="BoxShadowBottom BorderBottom"
+        ml="0.5px"
+        mr="-0.5px"
+        xs={6}
+        sm={10}
         height={1}
-        alignItems="center"
         display="flex"
         justifyContent="center"
+        className="BoxShadowBottom BorderBottom"
       >
-        <Typography align="center" variant="h5">
-          {subtitle}
-        </Typography>
-      </Grid>
-      <Grid item xs={10} height={1} display="flex" justifyContent="center" className="BoxShadowBottom BorderBottom">
         <Grid container alignItems="center" justifyContent="center">
-          <Grid item xs={4} align="left" pl={2}>
+          <Grid item xs={12} sm={4} align="left" pl={2}>
             <Button
               component={Link}
               to="/"
@@ -42,16 +60,16 @@ function Header(props) {
               className="MicroButton"
               startIcon={<TagRounded sx={{ color: 'primary.light', ml: 0, mr: -2 }} />}
             >
-              <Typography variant="body1">
+              <Typography variant="body1" fontWeight="bold">
                 <Box component="span" color="primary.light">micro</Box>
                 <Box component="span" color="secondary.main">cosmos</Box>
               </Typography>
             </Button>
           </Grid>
-          <Grid item xs={4} align="center">
-            {toolbar}
+          <Grid item xs={12} sm={4} align="center">
+            {toolbars[toolbar]}
           </Grid>
-          <Grid item xs={4} align="right">
+          <Grid item xs={12} sm={4} align="right">
             <Box pr={2}>
               <UserDropdown />
             </Box>

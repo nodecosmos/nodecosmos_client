@@ -1,25 +1,19 @@
-import blue from '@mui/material/colors/blue';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
 import {
   AddRounded,
-  AccountTreeRounded,
   SearchRounded,
   Settings,
 } from '@mui/icons-material';
 import { Box } from '@mui/material';
 /* micro */
-import MicroMenu from '../../microcosmos/MicroMenu';
 import CreateMicron from '../shared/CreateMicronModal';
-import {
-  blue1, fluorescent, green, yellow,
-} from '../../../themes/dark/colors';
 
 export default function MicronIndexToolbar({ currentMicron }) {
   const [openCreateMicronDialog, setOpenCreateMicronDialog] = React.useState(false);
-  const iconSX = { fontSize: '1rem' };
+  const iconSX = { fontSize: '14px' };
 
   return (
     <Box display="flex" justifyContent="center">
@@ -35,7 +29,7 @@ export default function MicronIndexToolbar({ currentMicron }) {
         color="primary"
         onClick={() => setOpenCreateMicronDialog(true)}
       >
-        <AddRounded htmlColor={fluorescent} fontSize="small" sx={iconSX} />
+        <AddRounded fontSize="small" sx={iconSX} />
       </IconButton>
 
       <IconButton
@@ -45,7 +39,7 @@ export default function MicronIndexToolbar({ currentMicron }) {
         disableRipple
         onClick={console.log}
       >
-        <SearchRounded color="secondary" sx={iconSX} />
+        <SearchRounded sx={iconSX} />
       </IconButton>
       {/* <MicroMenu */}
       {/*  menuItems={[ */}
@@ -60,7 +54,7 @@ export default function MicronIndexToolbar({ currentMicron }) {
         disableRipple
         onClick={console.log}
       >
-        <Settings htmlColor={yellow} fontSize="small" sx={iconSX} />
+        <Settings fontSize="small" sx={iconSX} />
       </IconButton>
     </Box>
   );

@@ -1,5 +1,5 @@
-import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import * as PropTypes from 'prop-types';
@@ -7,19 +7,17 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
-import { SaveOutlined, TagRounded } from '@mui/icons-material';
+import { AddRounded, TagRounded, CloseOutlined } from '@mui/icons-material';
 
 /* mui */
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import {
   Button,
   InputAdornment,
   Modal,
   Paper,
   Box,
+  DialogContent,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 /* micro */
 import { createMicron } from '../../../actions';
 import Field from '../../microcosmos/final-form/MicroFinalFormInputField';
@@ -44,6 +42,7 @@ class CreateMicronModal extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+
     setTimeout(() => {
       this.props.handleClose();
       this.setState({ open: true });
@@ -62,7 +61,7 @@ class CreateMicronModal extends React.Component {
         onClose={this.handleClose}
         open={this.props.open}
       >
-        <Box width={0.9} height={0.9}>
+        <Box width={0.7} height={0.8}>
           <Form onSubmit={this.onSubmit} subscription={{ submitting: true }}>
             {({ handleSubmit }) => (
               <form className="h-1" onSubmit={handleSubmit}>
@@ -70,48 +69,55 @@ class CreateMicronModal extends React.Component {
                   {this.state.open && (
                   <motion.div
                     className="h-1"
-                    animate={{ scale: [0.8, 1] }}
-                    exit={{ scale: [1, 0.5], opacity: [1, 1, 0] }}
-                    transition={{ duration: 0.25 }}
+                    animate={{ scale: [0.95, 1] }}
+                    exit={{ scale: [1, 0.95] }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <Paper sx={{ height: 1, padding: 0, boxShadow: '0px 0px 14px 2px #00000078' }}>
-                      <Box padding={3} height={64}>
-                        <Grid container alignItems="center">
-                          <Grid item xs={4} />
-                          <Grid item xs={4} align="center">
-                            <Typography variant="h5">
-                              New Micron
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={4} align="right">
-                            <Button
-                              disableElevation
-                              sx={{ height: 35 }}
-                              type="submit"
-                              startIcon={<SaveOutlined />}
-                            >
-                              Save
-                            </Button>
-                          </Grid>
+                    <Paper className="Modal">
+                      <Grid
+                        container
+                        alignItems="center"
+                        className="BoxShadowBottom BorderBottom"
+                        height="64px"
+                      >
+                        <Grid item xs={4} />
+                        <Grid item xs={4} align="center">
+                          <Typography variant="h5">
+                            New Micron
+                          </Typography>
                         </Grid>
-                      </Box>
-                      <DialogContent sx={{ height: 'calc(100% - 64px)', padding: 2 }}>
-                        <Field
-                          sx={{ height: 85 }}
-                          fullWidth
-                          name="title"
-                          label="Micron title"
-                          required
-                          InputProps={{
-                            className: 'MicroPlain Large',
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <TagRounded sx={{ color: 'gray' }} />
-                              </InputAdornment>
-                            ),
+                        <Grid item xs={4} align="right">
+                          <IconButton disableRipple onClick={this.handleClose} className="squared" sx={{ mr: 2 }}>
+                            <CloseOutlined />
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                      <DialogContent sx={{ height: 'calc(100% - 128px)', padding: 4 }}>
+                        <Box sx={{ height: 90 }}>
+                          <Field
+                            fullWidth
+                            name="title"
+                            label="Micron title"
+                            required
+                            InputProps={{
+                              className: 'LargeInput',
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <TagRounded sx={{ color: 'gray' }} />
+                                </InputAdornment>
+                              ),
+                            }}
+                          />
+                        </Box>
+                        <Box
+                          sx={{
+                            height: 'calc(100% - 95px)',
+                            p: 2,
+                            mt: '4px',
+                            borderRadius: 2,
                           }}
-                        />
-                        <Box sx={{ height: 'calc(100% - 90px)', ml: 2 }}>
+                          className="codeMirrorBlock"
+                        >
                           <CodeMirror
                             className="h-1"
                             onChange={(_editor, _data, value) => { this.setState({ description: value }); }}
@@ -125,6 +131,25 @@ class CreateMicronModal extends React.Component {
                           />
                         </Box>
                       </DialogContent>
+                      <Box
+                        height="64px"
+                        className="BorderTop BoxShadowTop"
+                        align="right"
+                        display="flex"
+                        justifyContent="right"
+                        alignItems="center"
+                      >
+                        <Button
+                          color="success"
+                          variant="contained"
+                          disableElevation
+                          sx={{ mr: 3 }}
+                          type="submit"
+                          startIcon={<AddRounded />}
+                        >
+                          Create
+                        </Button>
+                      </Box>
                     </Paper>
                   </motion.div>
                   )}
