@@ -16,16 +16,19 @@ import MicronShow from './microns/MicronShow';
 /* micro */
 import { syncCurrentUser } from '../actions';
 import history from '../history';
-import dark from '../themes/dark/dark';
+import getTheme from '../themes/theme';
+import dark from '../themes/dark';
+import light from '../themes/light';
+
 /* css */
 import './App.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 
-const themes = { dark };
-
-function App({ theme, isAuthenticated, currentUser }) {
+function App({ isAuthenticated, currentUser, theme }) {
   const dispatch = useDispatch();
+  const themes = { light, dark };
+  const currentTheme = themes[theme];
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -34,7 +37,7 @@ function App({ theme, isAuthenticated, currentUser }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <ThemeProvider theme={themes[theme]}>
+    <ThemeProvider theme={getTheme(currentTheme)}>
       <CssBaseline />
       <Router history={history}>
         <Box
@@ -67,9 +70,9 @@ App.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { theme } = state.app;
   const { isAuthenticated, currentUser } = state.auth;
-  return { theme, isAuthenticated, currentUser };
+  const { theme } = state.app;
+  return { isAuthenticated, currentUser, theme };
 }
 
 export default connect(mapStateToProps)(App);

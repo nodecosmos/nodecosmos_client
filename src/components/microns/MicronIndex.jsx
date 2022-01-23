@@ -11,13 +11,13 @@ class MicronContainer extends React.Component {
   componentDidMount = () => {
     this.props.indexMicrons();
     this.props.setCurrentToolbar('MicronIndexToolbar');
-    this.props.setSubtitle('explore');
+    this.props.setSubtitle('‍🔬explore');
   }
 
   renderMicrons = () => Object.keys(this.props.microns).map((micronId) => {
     const micron = this.props.microns[micronId];
     return (
-      <Box width="80%" p={2} key={micronId}>
+      <Box width="60%" p={2} key={micronId}>
         <MicronCard micron={micron} />
       </Box>
     );
@@ -25,35 +25,29 @@ class MicronContainer extends React.Component {
 
   render() {
     return (
-      <Box height={1}>
-        <Grid container height={1}>
-          <Grid item xs={2} className="BoxShadowRight BorderRight" />
-          <Grid item xs={8} height={1}>
-            <Grid container height={1}>
-              <Grid item xs={12}>
-                {/* <Header toolbar={<MicronIndexToolbar />} /> */}
-              </Grid>
-              <Grid item xs={12} height={1}>
-                <Box p={2} mt="2px" height={0.96}>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    spacing={3}
-                    mt={-2}
-                    height={1}
-                    overflow="auto"
-                  >
-                    {this.renderMicrons()}
-                    {this.renderMicrons()}
-                    {this.renderMicrons()}
-                  </Box>
+      <Box height={1} display="flex">
+        <Box width={300} height={1} className="BoxShadowRight BorderRight" />
+        <Box width="calc(100% - 300px)">
+          <Grid container height={1}>
+            <Grid item xs={12} height={1}>
+              <Box p={2} mt="2px" height={0.96}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  spacing={3}
+                  mt={-2}
+                  height={1}
+                  overflow="auto"
+                >
+                  {this.renderMicrons()}
+                  {this.renderMicrons()}
+                  {this.renderMicrons()}
                 </Box>
-              </Grid>
+              </Box>
             </Grid>
           </Grid>
-          <Grid item xs={2} className="BoxShadowLeft BorderLeft" />
-        </Grid>
+        </Box>
       </Box>
     );
   }

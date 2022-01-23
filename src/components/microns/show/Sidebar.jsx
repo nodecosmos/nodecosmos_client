@@ -21,94 +21,66 @@ import {
 
 export default function Sidebar(props) {
   const { micron } = props;
-  const ListItemIconSx = { minWidth: 0, marginRight: 3 };
 
   return (
     <nav className="MaxHeightWithoutHeader flexColumnSpaceBetween">
       <List>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            exact
-            component={NavLink}
-            to={`/microns/${micron.id}`}
-          >
-            <ListItemIcon sx={ListItemIconSx} className="toolbarColor1">
+          <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}`}>
+            <ListItemIcon className="toolbarColor1">
               <TagRounded />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography>
               Micron
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            exact
-            component={NavLink}
-            to={`/microns/${micron.id}/tree`}
-          >
-            <ListItemIcon sx={ListItemIconSx} className="toolbarColor2">
+          <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}/tree`}>
+            <ListItemIcon className="toolbarColor2">
               <AccountTreeRounded />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography>
               Tree
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            exact
-            component={NavLink}
-            to={`/microns/${micron.id}/drawing`}
-          >
-            <ListItemIcon sx={ListItemIconSx} className="toolbarColor3">
+          <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}/drawing`}>
+            <ListItemIcon className="toolbarColor3">
               <GestureRounded />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography>
               Drawing
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            component={NavLink}
-            to={`/microns/${micron.id}/contribution_requests`}
-          >
-            <ListItemIcon sx={ListItemIconSx} className="toolbarColor4">
+          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/contribution_requests`}>
+            <ListItemIcon className="toolbarColor4">
               <CodeRounded />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography>
               Contribution Requests
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            component={NavLink}
-            to={`/microns/${micron.id}/topics`}
-          >
-            <ListItemIcon sx={ListItemIconSx} className="toolbarColor5">
+          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/topics`}>
+            <ListItemIcon className="toolbarColor5">
               <GroupsRounded />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography>
               Topics
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            component={NavLink}
-            to={`/microns/${micron.id}/insights`}
-          >
-            <ListItemIcon sx={ListItemIconSx} className="toolbarColor6">
+          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/insights`}>
+            <ListItemIcon className="toolbarColor6">
               <TimelineRounded />
             </ListItemIcon>
-            <Typography fontWeight="normal">
+            <Typography>
               Insights
             </Typography>
           </ListItemButton>
@@ -116,15 +88,11 @@ export default function Sidebar(props) {
       </List>
       <List>
         <ListItem>
-          <ListItemButton
-            disableRipple
-            component={NavLink}
-            to={`/microns/${micron.id}/settings`}
-          >
-            <ListItemIcon sx={ListItemIconSx}>
+          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/settings`}>
+            <ListItemIcon>
               <SettingsOutlined />
             </ListItemIcon>
-            <Typography fontWeight="normal" className="toolbarColor1">
+            <Typography className="toolbarColor1">
               Micron Settings
             </Typography>
           </ListItemButton>

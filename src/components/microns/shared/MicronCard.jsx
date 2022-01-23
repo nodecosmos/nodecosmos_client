@@ -34,7 +34,7 @@ function MicronCard(props) {
   );
 }
 
-// Micron.defaultProps = {
+// MicronTab.defaultProps = {
 //   defaultValue: null,
 // };
 

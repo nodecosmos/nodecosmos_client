@@ -1,29 +1,31 @@
 import Box from '@mui/material/Box';
-import { orange } from '@mui/material/colors';
-import green from '@mui/material/colors/green';
-import red from '@mui/material/colors/red';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Switch from '@mui/material/Switch';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 /* mui */
 import {
-  Button, Typography, ListItemIcon, ListItemText,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
 } from '@mui/material';
 import {
   Person,
   Logout,
+  LightMode,
 } from '@mui/icons-material';
-import Avatar from '@mui/material/Avatar';
-import { logout } from '../../actions';
+import { logout, setTheme } from '../../actions';
 
 /* micro */
 import MicroAvatar from '../microcosmos/MicroAvatar';
 
 function UserDropdown(props) {
-  const { currentUser, isAuthenticated } = props;
+  const { currentUser, isAuthenticated, theme } = props;
   const [anchorEl, setAnchorEl] = React.useState(false);
   const open = Boolean(anchorEl);
 
@@ -40,6 +42,12 @@ function UserDropdown(props) {
     handleClose();
   };
 
+  const toggleTheme = (_event, value) => {
+    dispatch(setTheme(value ? 'light' : 'dark'));
+  };
+
+  const lightThemeChecked = theme === 'light';
+
   if (isAuthenticated) {
     return (
       <>
@@ -49,41 +57,56 @@ function UserDropdown(props) {
           open={open}
           onClose={handleClose}
           PaperProps={{
-            elevation: 3,
-            className: 'DropdownPaper',
+            className: 'Border',
+            elevation: 4,
             sx: {
-              mt: 2,
+              p: 0,
+              mt: '2px',
+              ml: '3px',
               width: 300,
-              overflow: 'visible',
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
             },
           }}
         >
-          <MenuItem onClick={handleClose} component={Link} to={`/user/${currentUser.username}`}>
-            <ListItemIcon>
-              <Avatar>
-                <Person fontSize="small" />
-              </Avatar>
-            </ListItemIcon>
-            Profile
-          </MenuItem>
-          <MenuItem onClick={handleLogout} sx={{ mt: 1 }}>
-            <Avatar>
-              <Logout fontSize="small" />
-            </Avatar>
-            Logout
-          </MenuItem>
+          <List sx={{ m: '-4px', p: 0 }}>
+            <ListItem>
+              <ListItemButton onClick={handleClose} component={Link} to={`/user/${currentUser.username}`}>
+                <ListItemIcon>
+                  <Person />
+                </ListItemIcon>
+                <Typography fontWeight="normal">
+                  Profile
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={handleLogout}>
+                <ListItemIcon>
+                  <Logout />
+                </ListItemIcon>
+                <Typography fontWeight="normal">
+                  Logout
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton disableRipple onClick={() => toggleTheme(null, !lightThemeChecked)}>
+                <ListItemIcon>
+                  <LightMode />
+                </ListItemIcon>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  width="100%"
+                >
+                  <Typography fontWeight="normal">
+                    Light mode
+                  </Typography>
+                  <Switch checked={lightThemeChecked} onChange={toggleTheme} />
+                </Box>
+              </ListItemButton>
+            </ListItem>
+          </List>
         </Menu>
       </>
     );
@@ -101,11 +124,12 @@ function UserDropdown(props) {
 UserDropdown.propTypes = {
   currentUser: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  theme: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
   const { currentUser, isAuthenticated } = state.auth;
-  return { currentUser, isAuthenticated };
+  return { currentUser, isAuthenticated, theme: state.app.theme };
 }
 
 export default connect(mapStateToProps)(UserDropdown);

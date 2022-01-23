@@ -11,6 +11,7 @@ import {
   SHOW_MICRON,
   SET_CURRENT_TOOLBAR,
   SET_SUBTITLE,
+  SET_THEME,
 } from './types';
 
 /* User Actions */
@@ -22,7 +23,7 @@ export const logout = () => {
 };
 export const syncCurrentUser = (id) => async (dispatch) => {
   try {
-    const response = await microcosmos.get('/sync_current_user');
+    await microcosmos.get('/sync_current_user');
   } catch (error) {
     switch (error.response.data.error) {
       case 'session_expired':
@@ -37,7 +38,7 @@ export const syncCurrentUser = (id) => async (dispatch) => {
   }
 };
 
-/* Micron Actions */
+/* MicronTab Actions */
 export const createMicron = (payload, parentMicron = null) => async (dispatch) => {
   const response = await microcosmos.post('/microns.json', payload);
 
@@ -85,6 +86,14 @@ export const showMicron = (id) => async (dispatch) => {
 };
 
 /* APP */
+export const setTheme = (theme) => {
+  localStorage.setItem('theme', theme);
+
+  return {
+    type: SET_THEME,
+    payload: theme,
+  };
+};
 
 export const setCurrentToolbar = (toolbar) => ({
   type: SET_CURRENT_TOOLBAR,

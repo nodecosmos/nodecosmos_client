@@ -61,7 +61,7 @@ class CreateMicronModal extends React.Component {
         onClose={this.handleClose}
         open={this.props.open}
       >
-        <Box width={0.7} height={0.8}>
+        <Box width={0.9} height={0.9}>
           <Form onSubmit={this.onSubmit} subscription={{ submitting: true }}>
             {({ handleSubmit }) => (
               <form className="h-1" onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ class CreateMicronModal extends React.Component {
                         <Grid item xs={4} />
                         <Grid item xs={4} align="center">
                           <Typography variant="h5">
-                            New Micron
+                            New MicronTab
                           </Typography>
                         </Grid>
                         <Grid item xs={4} align="right">
@@ -97,7 +97,7 @@ class CreateMicronModal extends React.Component {
                           <Field
                             fullWidth
                             name="title"
-                            label="Micron title"
+                            label="MicronTab title"
                             required
                             InputProps={{
                               className: 'LargeInput',
