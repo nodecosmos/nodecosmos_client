@@ -1,10 +1,11 @@
-import TagRounded from '@mui/icons-material/TagRounded';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 /* mui */
 import {
   Box, Button, Typography,
 } from '@mui/material';
+import TagRounded from '@mui/icons-material/TagRounded';
+/* micro */
 import MicronToolbar from '../../MicronToolbar';
 
 export default function Tree(props) {
@@ -139,7 +140,7 @@ export default function Tree(props) {
             <path
               className="Path animated"
               strokeWidth={4}
-              d="M 20 20 L 20 80 C 20 140, 20 140, 30 140 L 140 140"
+              d="M 20 20 L 20 80 C 20 140, 20 140, 30 140 L 60 140"
               stroke="#e91e63"
               fill="transparent"
             />

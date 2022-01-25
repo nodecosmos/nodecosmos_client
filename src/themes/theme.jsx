@@ -74,8 +74,8 @@ export default (currentTheme) => createTheme({
           },
           '.Path': {
             '&.animated': {
-              strokeDasharray: 150,
-              strokeDashoffset: 150,
+              strokeDasharray: 300,
+              strokeDashoffset: 300,
               animation: 'dash 1s linear forwards', // forwards
             },
           },

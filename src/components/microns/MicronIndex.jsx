@@ -11,7 +11,14 @@ class MicronContainer extends React.Component {
   componentDidMount = () => {
     this.props.indexMicrons();
     this.props.setCurrentToolbar('MicronIndexToolbar');
-    this.props.setSubtitle('‍🔬explore');
+  }
+
+  componentDidUpdate = () => {
+    this.props.setSubtitle('‍🔬 explore');
+  }
+
+  componentWillUnmount = () => {
+    this.props.setSubtitle(null);
   }
 
   renderMicrons = () => Object.keys(this.props.microns).map((micronId) => {

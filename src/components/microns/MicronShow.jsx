@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { setSubtitle, setCurrentToolbar, showMicron } from '../../actions';
 import Sidebar from './show/Sidebar';
 import MicronTab from './show/tabs/MicronTab';
-import Tree from './show/tabs/tree/Index';
+import Tree from './show/tabs/tree/Tree';
 
 export default function MicronShow() {
   const microns = useSelector((state) => state.microns);
@@ -17,11 +17,17 @@ export default function MicronShow() {
   const micron = microns[id];
 
   useEffect(() => {
-    dispatch(showMicron(id));
-    dispatch(setCurrentToolbar('MicronShowToolbar'));
+    if (micron) {
+      dispatch(setSubtitle(micron.title));
+      dispatch(setCurrentToolbar('MicronShowToolbar'));
+    } else {
+      dispatch(showMicron(id));
+    }
 
-    if (micron) dispatch(setSubtitle(micron.title));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => {
+      dispatch(setSubtitle(null));
+    };
+  }, [micron, dispatch, id]);
 
   if (!micron) return null;
 
