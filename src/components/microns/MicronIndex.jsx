@@ -14,7 +14,7 @@ class MicronContainer extends React.Component {
   }
 
   componentDidUpdate = () => {
-    this.props.setSubtitle('‍🔬 explore');
+    this.props.setSubtitle('explore');
   }
 
   componentWillUnmount = () => {
@@ -47,8 +47,6 @@ class MicronContainer extends React.Component {
                   height={1}
                   overflow="auto"
                 >
-                  {this.renderMicrons()}
-                  {this.renderMicrons()}
                   {this.renderMicrons()}
                 </Box>
               </Box>

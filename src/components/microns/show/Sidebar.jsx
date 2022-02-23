@@ -1,3 +1,7 @@
+import FaceIcon from '@mui/icons-material/Face';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -27,7 +31,7 @@ export default function Sidebar(props) {
       <List>
         <ListItem>
           <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}`}>
-            <ListItemIcon className="toolbarColor1">
+            <ListItemIcon>
               <TagRounded />
             </ListItemIcon>
             <Typography>
@@ -37,7 +41,7 @@ export default function Sidebar(props) {
         </ListItem>
         <ListItem>
           <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}/tree`}>
-            <ListItemIcon className="toolbarColor2">
+            <ListItemIcon>
               <AccountTreeRounded />
             </ListItemIcon>
             <Typography>
@@ -46,18 +50,8 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}/drawing`}>
-            <ListItemIcon className="toolbarColor3">
-              <GestureRounded />
-            </ListItemIcon>
-            <Typography>
-              Drawing
-            </Typography>
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
           <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/contribution_requests`}>
-            <ListItemIcon className="toolbarColor4">
+            <ListItemIcon>
               <CodeRounded />
             </ListItemIcon>
             <Typography>
@@ -66,24 +60,45 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/topics`}>
-            <ListItemIcon className="toolbarColor5">
+          <ListItemButton disabled disableRipple exact component={NavLink} to={`/microns/${micron.id}/drawing`}>
+            <ListItemIcon>
+              <GestureRounded />
+            </ListItemIcon>
+            <Typography>
+              Drawing
+            </Typography>
+          </ListItemButton>
+          <Tooltip title="Construction" placement="right">
+            <Box>
+              🚧
+            </Box>
+          </Tooltip>
+        </ListItem>
+        <ListItem>
+          <ListItemButton disabled disableRipple component={NavLink} to={`/microns/${micron.id}/topics`}>
+            <ListItemIcon>
               <GroupsRounded />
             </ListItemIcon>
             <Typography>
               Topics
             </Typography>
           </ListItemButton>
+          <Tooltip title="Work in progress" placement="right"><Box>🚧</Box></Tooltip>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/insights`}>
-            <ListItemIcon className="toolbarColor6">
+          <ListItemButton disabled disableRipple component={NavLink} to={`/microns/${micron.id}/insights`}>
+            <ListItemIcon>
               <TimelineRounded />
             </ListItemIcon>
             <Typography>
               Insights
             </Typography>
           </ListItemButton>
+          <Tooltip title="Work in progress" placement="right">
+            <Box>
+              🚧
+            </Box>
+          </Tooltip>
         </ListItem>
       </List>
       <List>
@@ -92,7 +107,7 @@ export default function Sidebar(props) {
             <ListItemIcon>
               <SettingsOutlined />
             </ListItemIcon>
-            <Typography className="toolbarColor1">
+            <Typography>
               Micron Settings
             </Typography>
           </ListItemButton>

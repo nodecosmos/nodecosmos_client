@@ -24,7 +24,7 @@ function Header(props) {
   const { toolbar, subtitle } = props;
 
   return (
-    <Box display="flex" alignItems="center" height={45}>
+    <Box className="Header" display="flex" alignItems="center" height={45}>
       <Box className="BoxShadowBottom" width={300} height={1}>
         <Box
           height={1}

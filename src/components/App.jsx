@@ -22,8 +22,6 @@ import light from '../themes/light';
 
 /* css */
 import './App.css';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
 
 function App({ isAuthenticated, currentUser, theme }) {
   const dispatch = useDispatch();

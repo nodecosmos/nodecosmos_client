@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import CodeMirror from '@uiw/react-codemirror';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -61,7 +61,7 @@ class CreateMicronModal extends React.Component {
         onClose={this.handleClose}
         open={this.props.open}
       >
-        <Box width={0.9} height={0.9}>
+        <Box width={0.9} height={0.8}>
           <Form onSubmit={this.onSubmit} subscription={{ submitting: true }}>
             {({ handleSubmit }) => (
               <form className="h-1" onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ class CreateMicronModal extends React.Component {
                         <Grid item xs={4} />
                         <Grid item xs={4} align="center">
                           <Typography variant="h5">
-                            New MicronTab
+                            New Micron
                           </Typography>
                         </Grid>
                         <Grid item xs={4} align="right">
@@ -92,12 +92,12 @@ class CreateMicronModal extends React.Component {
                           </IconButton>
                         </Grid>
                       </Grid>
-                      <DialogContent sx={{ height: 'calc(100% - 128px)', padding: 4 }}>
+                      <DialogContent sx={{ height: 'calc(100% - 128px)', padding: 3 }}>
                         <Box sx={{ height: 90 }}>
                           <Field
                             fullWidth
                             name="title"
-                            label="MicronTab title"
+                            label="Micron title"
                             required
                             InputProps={{
                               className: 'LargeInput',
@@ -118,17 +118,7 @@ class CreateMicronModal extends React.Component {
                           }}
                           className="codeMirrorBlock"
                         >
-                          <CodeMirror
-                            className="h-1"
-                            onChange={(_editor, _data, value) => { this.setState({ description: value }); }}
-                            value={this.state.description}
-                            options={{
-                              placeholder: 'Description',
-                              mode: 'markdown',
-                              theme: 'material',
-                              lineNumbers: true,
-                            }}
-                          />
+                          <CodeMirror onChange={(value) => this.setState({ description: value })} />
                         </Box>
                       </DialogContent>
                       <Box

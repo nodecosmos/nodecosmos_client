@@ -178,10 +178,6 @@ export default function Tree(props) {
                 >
                   <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
                 </Button>
-
-                <Box className="MicronActions" sx={{ ml: 2, opacity: actionsOpacity, height: 35 }}>
-                  <MicronToolbar />
-                </Box>
               </Box>
             </foreignObject>
             <circle cx={20} cy={20} r="5" fill="#e91e63" />
