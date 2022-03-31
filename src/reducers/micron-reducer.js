@@ -19,7 +19,7 @@ export default (state = {}, action) => {
     case CREATE_MICRON:
     case UPDATE_MICRON:
     case SHOW_MICRON:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, [action.payload.id]: { ...action.payload, fetched: true } };
     case DELETE_MICRON: {
       const { [action.payload]: _, ...rest } = state;
 

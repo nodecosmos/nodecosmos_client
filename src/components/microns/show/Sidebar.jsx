@@ -1,6 +1,4 @@
-import FaceIcon from '@mui/icons-material/Face';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React from 'react';

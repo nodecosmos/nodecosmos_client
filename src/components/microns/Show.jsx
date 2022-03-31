@@ -8,6 +8,7 @@ import { setSubtitle, setCurrentToolbar, showMicron } from '../../actions';
 import Sidebar from './show/Sidebar';
 import MicronTab from './show/tabs/MicronTab';
 import Tree from './show/tabs/tree/Tree';
+import TreeReference from './show/tabs/tree/Tree (just_for_reference)'; // TODO: remove this
 
 export default function MicronShow() {
   const microns = useSelector((state) => state.microns);
@@ -17,7 +18,7 @@ export default function MicronShow() {
   const micron = microns[id];
 
   useEffect(() => {
-    if (micron) {
+    if (micron && micron.fetched) {
       dispatch(setSubtitle(micron.title));
       dispatch(setCurrentToolbar('MicronShowToolbar'));
     } else {
@@ -27,7 +28,7 @@ export default function MicronShow() {
     return () => {
       dispatch(setSubtitle(null));
     };
-  }, [micron, dispatch, id]);
+  }, []);
 
   if (!micron) return null;
 
@@ -39,6 +40,7 @@ export default function MicronShow() {
       <Box height={1} width="calc(100% - 300px)">
         <Route exact path="/microns/:id"><MicronTab micron={micron} /></Route>
         <Route path="/microns/:id/tree"><Tree micron={micron} /></Route>
+        <Route path="/microns/:id/reference"><TreeReference micron={micron} /></Route>
       </Box>
     </Box>
   );

@@ -55,8 +55,8 @@ export const createMicron = (payload, parentMicron = null) => async (dispatch) =
 };
 
 export const updateMicron = (id, payload) => async (dispatch) => {
-  const response = await microcosmos.patch(`/microns/${id}`, payload);
-  dispatch({ type: UPDATE_MICRON, payload: response.data });
+  // const response = await microcosmos.patch(`/microns/${id}`, payload);
+  dispatch({ type: UPDATE_MICRON, payload });
 };
 
 export const deleteMicron = (id, parentMicron = null) => async (dispatch) => {
@@ -82,6 +82,7 @@ export const indexMicrons = () => async (dispatch) => {
 
 export const showMicron = (id) => async (dispatch) => {
   const response = await microcosmos.get(`/microns/${id}`);
+  dispatch({ type: INDEX_MICRONS, payload: response.data.all_nested_microns });
   dispatch({ type: SHOW_MICRON, payload: response.data });
 };
 

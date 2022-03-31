@@ -11,8 +11,8 @@ import Header from './header/Header';
 import UserAuthentication from './users/UserAuthentication';
 import UserShowPage from './users/UserShowPage';
 /* microns */
-import MicronContainer from './microns/MicronIndex';
-import MicronShow from './microns/MicronShow';
+import MicronsIndex from './microns/Index';
+import MicronShow from './microns/Show';
 /* micro */
 import { syncCurrentUser } from '../actions';
 import history from '../history';
@@ -53,7 +53,7 @@ function App({ isAuthenticated, currentUser, theme }) {
           </Route>
           <Route path="/" component={Header} />
           <Route path="/users/:username" component={UserShowPage} />
-          <Route exact path="/" component={MicronContainer} />
+          <Route exact path="/" component={MicronsIndex} />
           <Route path="/microns/:id" component={MicronShow} />
         </Box>
       </Router>

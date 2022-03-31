@@ -13,10 +13,23 @@ export default (currentTheme) => ({
       justifyContent: 'center',
       transition: 'opacity 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
     },
+    '.MuiButton-root': {
+      background: '#43464e',
+      padding: '2px 6px',
+      '&:hover': {
+        background: '#43464e',
+      },
+    },
     '.Path': {
       '&.animated': {
         strokeDasharray: 300,
         strokeDashoffset: 300,
+        animation: 'dash 1s linear forwards', // forwards
+      },
+
+      '&.animated-reverse': {
+        strokeDasharray: 300,
+        strokeDashoffset: -300,
         animation: 'dash 1s linear forwards', // forwards
       },
     },
