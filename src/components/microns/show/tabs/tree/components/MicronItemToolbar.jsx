@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 /* mui */
 import Box from '@mui/material/Box';
 /* micro */
-import MicronToolbar from '../../MicronToolbar';
+import MicronToolbar from '../../../MicronToolbar';
 
 function MicronItemToolbar(props) {
   const { micron, opacity } = props;

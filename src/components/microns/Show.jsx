@@ -28,6 +28,7 @@ export default function MicronShow() {
     return () => {
       dispatch(setSubtitle(null));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!micron) return null;
