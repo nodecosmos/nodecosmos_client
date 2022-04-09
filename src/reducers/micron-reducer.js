@@ -8,15 +8,24 @@ import {
   DELETE_MICRON_PROPERTIES,
   INCREMENT_MICRONS_Y_ENDS,
 } from '../actions/types';
-import listToObject from './helpers/model-list-to-object';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case INDEX_MICRONS:
-      return {
-        ...state,
-        ...listToObject(action.payload),
-      };
+    case INDEX_MICRONS: {
+      const result = {};
+
+      action.payload.forEach((payload) => {
+        const { id } = payload;
+        payload.micron_ids = payload.micron_ids || [];
+        payload.x = payload.x || 60;
+        payload.y = payload.y || 40;
+        payload.xEnds = payload.xEnds || 100;
+        payload.yEnds = payload.yEnds || 40;
+        result[id] = payload;
+      });
+
+      return { ...state, ...result };
+    }
     case CREATE_MICRON:
     case UPDATE_MICRON:
     case SHOW_MICRON:

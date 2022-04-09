@@ -18,7 +18,7 @@ export default function MicronIndexToolbar({ currentMicron }) {
       <CreateMicron
         currentMicron={currentMicron}
         open={openCreateMicronDialog}
-        handleClose={() => setOpenCreateMicronDialog(false)}
+        onClose={() => setOpenCreateMicronDialog(false)}
       />
       <Box className="Toolbar">
         <IconButton className="Item" disableRipple color="primary" onClick={() => setOpenCreateMicronDialog(true)}>

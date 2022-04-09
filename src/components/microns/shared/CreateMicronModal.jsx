@@ -40,11 +40,11 @@ class CreateMicronModal extends React.Component {
     this.props.createMicron(formValues);
   }
 
-  handleClose = () => {
+  onClose = () => {
     this.setState({ open: false });
 
     setTimeout(() => {
-      this.props.handleClose();
+      this.props.onClose();
       this.setState({ open: true });
     }, 300);
   }
@@ -58,7 +58,7 @@ class CreateMicronModal extends React.Component {
           justifyContent: 'center',
         }}
         hideBackdrop
-        onClose={this.handleClose}
+        onClose={this.onClose}
         open={this.props.open}
       >
         <Box width={0.9} height={0.8}>
@@ -87,7 +87,7 @@ class CreateMicronModal extends React.Component {
                           </Typography>
                         </Grid>
                         <Grid item xs={4} align="right">
-                          <IconButton disableRipple onClick={this.handleClose} className="squared" sx={{ mr: 2 }}>
+                          <IconButton disableRipple onClick={this.onClose} className="squared" sx={{ mr: 2 }}>
                             <CloseOutlined />
                           </IconButton>
                         </Grid>
@@ -160,7 +160,7 @@ CreateMicronModal.defaultProps = {
 CreateMicronModal.propTypes = {
   createMicron: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   currentMicron: PropTypes.object,
 };
 

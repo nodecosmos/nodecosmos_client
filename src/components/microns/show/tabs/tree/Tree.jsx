@@ -33,7 +33,7 @@ class Tree extends React.Component {
       <Box className="Tree" sx={{ p: 4, width: 1, height: 1 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <g className="DropShadow">
-            <MicronTreeNode id={micron.id} nestedLevel={1} orderNumber={1} parentChainIDs={[]}>
+            <MicronTreeNode id={micron.id} nestedLevel={1} orderNumber={1} parentChainIDs={[]} root>
               {this.renderNestedMicrons(micron)}
             </MicronTreeNode>
           </g>
