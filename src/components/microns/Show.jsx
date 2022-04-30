@@ -20,10 +20,11 @@ export default function MicronShow() {
   useEffect(() => {
     if (micron && micron.fetched) {
       dispatch(setSubtitle(micron.title));
-      dispatch(setCurrentToolbar('MicronShowToolbar'));
     } else {
       dispatch(showMicron(id));
     }
+
+    dispatch(setCurrentToolbar('MicronShowToolbar'));
 
     return () => {
       dispatch(setSubtitle(null));

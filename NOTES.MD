@@ -52,11 +52,21 @@ SVG
 
 TREE
 -
-* render micron
-* render micron's children
-* if we have micron **A** with children microns **B**, **C** & **D**
-    * if nested micron **C** expanded -> 
-        * increase parent micron **A** vertex
-        * change **A**'s children **D** yStartPoint for **C** yLength
-            * we don't change **B**'yStartPoint because it's above **C**]
-        * we pass this nested call to parentChain
+##### Consider following structure:
+        
+      A
+      .
+      . . . B
+      .
+      . . . C
+      .
+      . . . D
+            .
+            . D_1
+            .
+            . D_2
+  
+
+* **A** is `parent` of **B** **C** **D**
+* **B** is `upperSibling` **C**
+* **C** is `upperSibling` of **D**

@@ -11,13 +11,14 @@ export default {
   gray3: '#464648',
   beige1: '#fcfbec',
   red1: '#e91e63',
-  red2: '#ff2474',
+  red2: '#d33d56',
   green1: '#9fd642',
-  green2: '#8ff236',
-  green3: '#c4ec17',
+  green2: '#8dc832',
+  green3: '#a4fd4f',
   yellow1: '#fffb00',
+  yellow2: '#b9b937',
   blue1: '#18cbea',
-  blue2: '#439bf0',
+  blue2: '#1dc4d3',
   blue3: '#36abf2',
   cyan1: '#58e1cc',
 
@@ -31,5 +32,5 @@ export default {
     + '2px 1px 3px 0px rgb(0 0 0 / 35%),'
     + '0px 2px 2px 0px rgb(0 0 0 / 25%)',
 
-  filter1: 'drop-shadow(2px 2px 0px rgb(0 0 0 / 1))',
+  filter1: 'drop-shadow(1px 1px 1px rgb(0 0 0 / 25%))',
 };

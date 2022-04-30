@@ -57,8 +57,8 @@ function Header(props) {
             className="MicroButton"
             startIcon={<TagRounded sx={{ color: 'primary.light', ml: 0, mr: -2 }} />}
           >
-            <Typography variant="body1" fontWeight="bold">
-              <Box component="span" color="primary.light">micro</Box>
+            <Typography sx={{ fontSize: '1.05rem' }} fontWeight="bold">
+              <Box component="span" color="primary.light">node</Box>
               <Box component="span" color="secondary.main">cosmos</Box>
             </Typography>
           </Button>

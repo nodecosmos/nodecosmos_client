@@ -20,18 +20,5 @@ export default (currentTheme) => ({
         background: '#43464e',
       },
     },
-    '.Path': {
-      '&.animated': {
-        strokeDasharray: 300,
-        strokeDashoffset: 300,
-        animation: 'dash 1s linear forwards', // forwards
-      },
-
-      '&.animated-reverse': {
-        strokeDasharray: 300,
-        strokeDashoffset: -300,
-        animation: 'dash 1s linear forwards', // forwards
-      },
-    },
   },
 });

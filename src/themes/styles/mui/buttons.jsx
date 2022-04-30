@@ -17,6 +17,7 @@ export default (currentTheme) => ({
         color: currentTheme.beige1,
         borderRadius: 4,
         '&.MicroButton': {
+          padding: '3px 8px',
           border: '1px solid transparent',
           borderRadius: 4,
           '&:hover': {
