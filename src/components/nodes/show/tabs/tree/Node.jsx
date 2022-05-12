@@ -25,7 +25,7 @@ class Node extends React.Component {
   }
 
   componentWillUnmount() {
-    this.hideMicron();
+    this.hideNode();
     this.decrementParentsYSize();
   }
 
@@ -36,7 +36,7 @@ class Node extends React.Component {
     this.props.dispatch({
       type: UPDATE_MICRON,
       payload: {
-        ...this.props.micron,
+        ...this.props.node,
         ...initialPosition,
         initHide: false,
       },
@@ -55,23 +55,23 @@ class Node extends React.Component {
     this.props.dispatch({ type: INCREMENT_MICRONS_Y_ENDS, payload: { ids: this.props.parentChainIDs, increment } });
   }
 
-  hideMicron() {
-    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.micron, expanded: false } });
+  hideNode() {
+    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.node, expanded: false } });
   }
 
-  showMicron() {
-    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.micron, expanded: true, initHide: false } });
+  showNode() {
+    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.node, expanded: true, initHide: false } });
   }
 
-  initMicronHideAnimation() {
-    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.micron, initHide: true } });
+  initNodeHideAnimation() {
+    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.node, initHide: true } });
   }
 
   dispatchCoordinateChange(yEnds) {
     this.props.dispatch({
       type: UPDATE_MICRON,
       payload: {
-        ...this.props.micron, x: this.calculateX(), y: this.calculateY(), yEnds,
+        ...this.props.node, x: this.calculateX(), y: this.calculateY(), yEnds,
       },
     });
   }
@@ -80,21 +80,21 @@ class Node extends React.Component {
     if (this.props.upperSibling.yEnds === prevProps.upperSibling.yEnds) return;
 
     const change = this.props.upperSibling.yEnds - prevProps.upperSibling.yEnds;
-    const yEnds = this.props.micron.yEnds + change;
+    const yEnds = this.props.node.yEnds + change;
 
     this.dispatchCoordinateChange(yEnds);
   }
 
   handleParentUpdate(prevProps) {
     if (prevProps.parent.initHide !== this.props.parent.initHide) {
-      this.initMicronHideAnimation();
+      this.initNodeHideAnimation();
     }
 
     // we don't care about parent change if we have upperSibling as it will handle change
     if (this.isUpperSiblingPresent || this.props.parent.y === prevProps.parent.y) return;
 
     const change = this.props.parent.y - prevProps.parent.y;
-    const yEnds = this.props.micron.yEnds + change;
+    const yEnds = this.props.node.yEnds + change;
 
     this.dispatchCoordinateChange(yEnds);
   }
@@ -123,7 +123,7 @@ class Node extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   get color() {
-    return this.props.micron.expanded ? this.colors[this.props.nestedLevel % 3] : '#43464e';
+    return this.props.node.expanded ? this.colors[this.props.nestedLevel % 3] : '#43464e';
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -132,12 +132,12 @@ class Node extends React.Component {
   }
 
   /** handlers */
-  onMicronClick = () => {
-    if (this.props.micron.expanded) {
-      this.initMicronHideAnimation();
-      setTimeout(() => this.hideMicron());
+  onNodeClick = () => {
+    if (this.props.node.expanded) {
+      this.initNodeHideAnimation();
+      setTimeout(() => this.hideNode());
     } else {
-      this.showMicron();
+      this.showNode();
     }
   }
 
@@ -145,7 +145,7 @@ class Node extends React.Component {
     return (
       <g>
         <NodeLink
-          micron={this.props.micron}
+          node={this.props.node}
           parent={this.props.parent}
           upperSibling={this.props.upperSibling}
           isUpperSiblingPresent={this.isUpperSiblingPresent}
@@ -155,13 +155,13 @@ class Node extends React.Component {
           parentColor={this.parentColor}
         />
         <NodeButton
-          micron={this.props.micron}
+          node={this.props.node}
           parent={this.props.parent}
-          onMicronClick={this.onMicronClick}
+          onNodeClick={this.onNodeClick}
           isRoot={this.props.isRoot}
           color={this.color}
         />
-        {this.props.micron.expanded && this.props.children}
+        {this.props.node.expanded && this.props.children}
       </g>
     );
   }
@@ -190,7 +190,7 @@ Node.propTypes = {
   isRoot: PropTypes.bool,
   isLastChild: PropTypes.bool,
   children: PropTypes.array,
-  micron: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
   parent: PropTypes.object,
   upperSibling: PropTypes.object,
   parentChainIDs: PropTypes.array.isRequired,
@@ -199,11 +199,11 @@ Node.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const micron = state.microns[ownProps.id];
-  const parent = state.microns[ownProps.parentID];
-  const upperSibling = state.microns[ownProps.upperSiblingID];
+  const node = state.nodes[ownProps.id];
+  const parent = state.nodes[ownProps.parentID];
+  const upperSibling = state.nodes[ownProps.upperSiblingID];
 
-  return { micron, parent, upperSibling };
+  return { node, parent, upperSibling };
 }
 
 export default connect(mapStateToProps)(Node);

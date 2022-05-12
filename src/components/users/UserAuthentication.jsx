@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 /* micro */
 import { login } from '../../actions';
-import microcosmos from '../../apis/microcosmos-server';
+import nodecosmos from '../../apis/nodecosmos-server';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import history from '../../history';
@@ -28,7 +28,7 @@ class UserAuthentication extends React.Component {
   // eslint-disable-next-line consistent-return
   loginUser = async (formValues) => {
     try {
-      const response = await microcosmos.post('/users/sign_in', formValues);
+      const response = await nodecosmos.post('/users/sign_in', formValues);
       this.handleSignIn(response);
     } catch ({ response }) {
       console.error(response);
@@ -40,7 +40,7 @@ class UserAuthentication extends React.Component {
   // eslint-disable-next-line consistent-return
   createUser = async (formValues) => {
     try {
-      const response = await microcosmos.post('/users', { user: formValues });
+      const response = await nodecosmos.post('/users', { user: formValues });
       this.handleSignIn(response);
     } catch (response) {
       console.error(response);

@@ -10,9 +10,9 @@ import Header from './header/Header';
 /* users */
 import UserAuthentication from './users/UserAuthentication';
 import UserShowPage from './users/UserShowPage';
-/* microns */
-import MicronsIndex from './microns/Index';
-import MicronShow from './microns/Show';
+/* nodes */
+import NodesIndex from './nodes/Index';
+import NodeShow from './nodes/Show';
 /* micro */
 import { syncCurrentUser } from '../actions';
 import history from '../history';
@@ -53,8 +53,8 @@ function App({ isAuthenticated, currentUser, theme }) {
           </Route>
           <Route path="/" component={Header} />
           <Route path="/users/:username" component={UserShowPage} />
-          <Route exact path="/" component={MicronsIndex} />
-          <Route path="/microns/:id" component={MicronShow} />
+          <Route exact path="/" component={NodesIndex} />
+          <Route path="/nodes/:id" component={NodeShow} />
         </Box>
       </Router>
     </ThemeProvider>

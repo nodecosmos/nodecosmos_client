@@ -22,23 +22,23 @@ import {
 } from '@mui/icons-material';
 
 export default function Sidebar(props) {
-  const { micron } = props;
+  const { node } = props;
 
   return (
     <nav className="MaxHeightWithoutHeader flexColumnSpaceBetween">
       <List>
         <ListItem>
-          <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}`}>
+          <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${node.id}`}>
             <ListItemIcon>
               <TagRounded />
             </ListItemIcon>
             <Typography>
-              Micron
+              Node
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple exact component={NavLink} to={`/microns/${micron.id}/tree`}>
+          <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${node.id}/tree`}>
             <ListItemIcon>
               <AccountTreeRounded />
             </ListItemIcon>
@@ -48,7 +48,7 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/contribution_requests`}>
+          <ListItemButton disableRipple component={NavLink} to={`/nodes/${node.id}/contribution_requests`}>
             <ListItemIcon>
               <CodeRounded />
             </ListItemIcon>
@@ -58,7 +58,7 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disabled disableRipple exact component={NavLink} to={`/microns/${micron.id}/drawing`}>
+          <ListItemButton disabled disableRipple exact component={NavLink} to={`/nodes/${node.id}/drawing`}>
             <ListItemIcon>
               <GestureRounded />
             </ListItemIcon>
@@ -73,7 +73,7 @@ export default function Sidebar(props) {
           </Tooltip>
         </ListItem>
         <ListItem>
-          <ListItemButton disabled disableRipple component={NavLink} to={`/microns/${micron.id}/topics`}>
+          <ListItemButton disabled disableRipple component={NavLink} to={`/nodes/${node.id}/topics`}>
             <ListItemIcon>
               <GroupsRounded />
             </ListItemIcon>
@@ -84,7 +84,7 @@ export default function Sidebar(props) {
           <Tooltip title="Work in progress" placement="right"><Box>🚧</Box></Tooltip>
         </ListItem>
         <ListItem>
-          <ListItemButton disabled disableRipple component={NavLink} to={`/microns/${micron.id}/insights`}>
+          <ListItemButton disabled disableRipple component={NavLink} to={`/nodes/${node.id}/insights`}>
             <ListItemIcon>
               <TimelineRounded />
             </ListItemIcon>
@@ -101,12 +101,12 @@ export default function Sidebar(props) {
       </List>
       <List>
         <ListItem>
-          <ListItemButton disableRipple component={NavLink} to={`/microns/${micron.id}/settings`}>
+          <ListItemButton disableRipple component={NavLink} to={`/nodes/${node.id}/settings`}>
             <ListItemIcon>
               <SettingsOutlined />
             </ListItemIcon>
             <Typography>
-              Micron Settings
+              Node Settings
             </Typography>
           </ListItemButton>
         </ListItem>
@@ -116,5 +116,5 @@ export default function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-  micron: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
 };

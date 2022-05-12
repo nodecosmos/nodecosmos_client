@@ -22,7 +22,7 @@ import {
 import { logout, setTheme } from '../../actions';
 
 /* micro */
-import MicroAvatar from '../microcosmos/MicroAvatar';
+import MicroAvatar from '../nodecosmos/MicroAvatar';
 
 function UserDropdown(props) {
   const { currentUser, isAuthenticated, theme } = props;

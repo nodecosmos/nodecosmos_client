@@ -19,39 +19,39 @@ class Tree extends React.Component {
     this.setState((prevState) => this.setState({ topLevelComponents: [...prevState.topLevelComponents, component] }));
   };
 
-  nestedMicrons = (micron) => micron.micron_ids.map((micronIdObject) => this.props.microns[micronIdObject.$oid])
+  nestedNodes = (node) => node.node_ids.map((nodeIdObject) => this.props.nodes[nodeIdObject.$oid])
 
-  renderNestedMicrons = (micron, nestedLevel = 1, parentChainIDs = []) => {
-    const nestedMicrons = this.nestedMicrons(micron);
-    const parentIDs = [...parentChainIDs, micron.id];
+  renderNestedNodes = (node, nestedLevel = 1, parentChainIDs = []) => {
+    const nestedNodes = this.nestedNodes(node);
+    const parentIDs = [...parentChainIDs, node.id];
 
-    return nestedMicrons.map((nestedMicron, index) => (
+    return nestedNodes.map((nestedNode, index) => (
       <>
         <Node
-          key={nestedMicron.id}
-          id={nestedMicron.id}
+          key={nestedNode.id}
+          id={nestedNode.id}
           parentChainIDs={parentIDs}
-          parentID={micron.id}
-          upperSiblingID={nestedMicrons[index - 1] && nestedMicrons[index - 1].id}
-          isLastChild={!nestedMicrons[index + 1]}
+          parentID={node.id}
+          upperSiblingID={nestedNodes[index - 1] && nestedNodes[index - 1].id}
+          isLastChild={!nestedNodes[index + 1]}
           nestedLevel={nestedLevel}
           index={index}
           appendTopLevelComponent={this.appendTopLevelComponent}
         >
-          {this.renderNestedMicrons(nestedMicron, nestedLevel + 1, [...parentChainIDs, nestedMicron.id])}
+          {this.renderNestedNodes(nestedNode, nestedLevel + 1, [...parentChainIDs, nestedNode.id])}
         </Node>
       </>
     ));
   }
 
   render() {
-    const { micron } = this.props;
+    const { node } = this.props;
 
     return (
       <Box className="Tree" sx={{ p: 4, width: 1, height: 1 }}>
         <Transformable>
           <Node
-            id={micron.id}
+            id={node.id}
             nestedLevel={0}
             orderNumber={1}
             parentChainIDs={[]}
@@ -59,7 +59,7 @@ class Tree extends React.Component {
             isRoot
             appendTopLevelComponent={this.appendTopLevelComponent}
           >
-            {this.renderNestedMicrons(micron)}
+            {this.renderNestedNodes(node)}
             {this.state.topLevelComponents}
           </Node>
         </Transformable>
@@ -69,13 +69,13 @@ class Tree extends React.Component {
 }
 
 Tree.propTypes = {
-  micron: PropTypes.object.isRequired,
-  microns: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
+  nodes: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-  const { microns } = state;
-  return { microns };
+  const { nodes } = state;
+  return { nodes };
 }
 
 export default connect(mapStateToProps)(Tree);

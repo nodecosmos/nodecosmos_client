@@ -1,8 +1,8 @@
 export default (currentTheme) => ({
   '.Tree': {
-    '.MicronName': { cursor: 'pointer' },
+    '.NodeName': { cursor: 'pointer' },
     '.DropShadow': { filter: currentTheme.filter1 },
-    '.MicronActions': {
+    '.NodeActions': {
       background: currentTheme.black6,
       boxShadow: currentTheme.boxShadow1,
       border: currentTheme.border1,

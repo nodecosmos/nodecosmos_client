@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const microcosmos = axios.create({
+const nodecosmos = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -8,7 +8,7 @@ const microcosmos = axios.create({
   },
 });
 
-microcosmos.interceptors.request.use(
+nodecosmos.interceptors.request.use(
   async (config) => {
     config.headers = {
       Authorization: localStorage.getItem('token'),
@@ -20,4 +20,4 @@ microcosmos.interceptors.request.use(
   },
 );
 
-export default microcosmos;
+export default nodecosmos;

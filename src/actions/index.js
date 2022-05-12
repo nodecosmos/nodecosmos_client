@@ -1,4 +1,4 @@
-import microcosmos from '../apis/microcosmos-server';
+import nodecosmos from '../apis/nodecosmos-server';
 import history from '../history';
 
 import {
@@ -23,7 +23,7 @@ export const logout = () => {
 };
 export const syncCurrentUser = (id) => async (dispatch) => {
   try {
-    await microcosmos.get('/sync_current_user');
+    await nodecosmos.get('/sync_current_user');
   } catch (error) {
     switch (error.response.data.error) {
       case 'session_expired':
@@ -38,51 +38,51 @@ export const syncCurrentUser = (id) => async (dispatch) => {
   }
 };
 
-/* MicronTab Actions */
-export const createMicron = (payload, parentMicron = null) => async (dispatch) => {
-  const response = await microcosmos.post('/microns.json', payload);
+/* NodeTab Actions */
+export const createNode = (payload, parentNode = null) => async (dispatch) => {
+  const response = await nodecosmos.post('/nodes.json', payload);
 
   dispatch({ type: CREATE_MICRON, payload: response.data });
 
-  if (parentMicron) {
-    const newParent = { ...parentMicron };
-    newParent.micron_ids = newParent.micron_ids || [];
-    newParent.micron_ids.push(response.data.id);
+  if (parentNode) {
+    const newParent = { ...parentNode };
+    newParent.node_ids = newParent.node_ids || [];
+    newParent.node_ids.push(response.data.id);
     dispatch({ type: UPDATE_MICRON, payload: newParent });
   } else {
-    history.push(`/microns/${response.data.id}`);
+    history.push(`/nodes/${response.data.id}`);
   }
 };
 
-export const updateMicron = (id, payload) => async (dispatch) => {
-  // const response = await microcosmos.patch(`/microns/${id}`, payload);
+export const updateNode = (id, payload) => async (dispatch) => {
+  // const response = await nodecosmos.patch(`/nodes/${id}`, payload);
   dispatch({ type: UPDATE_MICRON, payload });
 };
 
-export const deleteMicron = (id, parentMicron = null) => async (dispatch) => {
-  await microcosmos.post(`/microns/delete/${id}`);
-  if (parentMicron && parentMicron.id !== id) {
-    const newParent = { ...parentMicron };
-    newParent.micron_ids = newParent.micron_ids || [];
-    newParent.micron_ids.splice(parentMicron.micron_ids.indexOf(id), 1);
+export const deleteNode = (id, parentNode = null) => async (dispatch) => {
+  await nodecosmos.post(`/nodes/delete/${id}`);
+  if (parentNode && parentNode.id !== id) {
+    const newParent = { ...parentNode };
+    newParent.node_ids = newParent.node_ids || [];
+    newParent.node_ids.splice(parentNode.node_ids.indexOf(id), 1);
     dispatch({ type: UPDATE_MICRON, payload: newParent });
   }
   dispatch({ type: DELETE_MICRON, payload: id });
-  if (id === parentMicron.id) { // if we delete currentMicron
+  if (id === parentNode.id) { // if we delete currentNode
     history.push('/m');
   } else {
     history.goBack();
   }
 };
 
-export const indexMicrons = () => async (dispatch) => {
-  const response = await microcosmos.get('/microns');
+export const indexNodes = () => async (dispatch) => {
+  const response = await nodecosmos.get('/nodes');
   dispatch({ type: INDEX_MICRONS, payload: response.data });
 };
 
-export const showMicron = (id) => async (dispatch) => {
-  const response = await microcosmos.get(`/microns/${id}`);
-  dispatch({ type: INDEX_MICRONS, payload: response.data.all_nested_microns });
+export const showNode = (id) => async (dispatch) => {
+  const response = await nodecosmos.get(`/nodes/${id}`);
+  dispatch({ type: INDEX_MICRONS, payload: response.data.all_nested_nodes });
   dispatch({ type: SHOW_MICRON, payload: response.data });
 };
 

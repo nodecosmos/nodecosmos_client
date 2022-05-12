@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 /* mui */
 import { Grid, Box } from '@mui/material';
 /* micro-lib */
-import { indexMicrons, setCurrentToolbar, setSubtitle } from '../../actions';
-import MicronCard from './shared/MicronCard';
+import { indexNodes, setCurrentToolbar, setSubtitle } from '../../actions';
+import NodeCard from './shared/NodeCard';
 
-class MicronContainer extends React.Component {
+class NodeContainer extends React.Component {
   componentDidMount = () => {
-    this.props.indexMicrons();
-    this.props.setCurrentToolbar('MicronIndexToolbar');
+    this.props.indexNodes();
+    this.props.setCurrentToolbar('NodeIndexToolbar');
   }
 
   componentDidUpdate = () => {
@@ -21,11 +21,11 @@ class MicronContainer extends React.Component {
     this.props.setSubtitle(null);
   }
 
-  renderMicrons = () => Object.keys(this.props.microns).map((micronId) => {
-    const micron = this.props.microns[micronId];
+  renderNodes = () => Object.keys(this.props.nodes).map((nodeId) => {
+    const node = this.props.nodes[nodeId];
     return (
-      <Box width="60%" p={2} key={micronId}>
-        <MicronCard micron={micron} />
+      <Box width="60%" p={2} key={nodeId}>
+        <NodeCard node={node} />
       </Box>
     );
   })
@@ -47,7 +47,7 @@ class MicronContainer extends React.Component {
                   height={1}
                   overflow="auto"
                 >
-                  {this.renderMicrons()}
+                  {this.renderNodes()}
                 </Box>
               </Box>
             </Grid>
@@ -58,16 +58,16 @@ class MicronContainer extends React.Component {
   }
 }
 
-MicronContainer.propTypes = {
-  microns: PropTypes.object.isRequired,
-  indexMicrons: PropTypes.func.isRequired,
+NodeContainer.propTypes = {
+  nodes: PropTypes.object.isRequired,
+  indexNodes: PropTypes.func.isRequired,
   setCurrentToolbar: PropTypes.func.isRequired,
   setSubtitle: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  const { microns } = state;
-  return { microns };
+  const { nodes } = state;
+  return { nodes };
 }
 
-export default connect(mapStateToProps, { indexMicrons, setCurrentToolbar, setSubtitle })(MicronContainer);
+export default connect(mapStateToProps, { indexNodes, setCurrentToolbar, setSubtitle })(NodeContainer);

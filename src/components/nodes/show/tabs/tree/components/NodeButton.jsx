@@ -6,26 +6,26 @@ import { MARGIN_LEFT, MARGIN_TOP, MICRON_BUTTON_HEIGHT } from '../constants';
 
 export default function NodeButton(props) {
   const {
-    micron,
+    node,
     parent,
-    onMicronClick,
+    onNodeClick,
     isRoot,
     color,
   } = props;
 
   let style = null;
-  let x = micron.x + MARGIN_LEFT;
-  let y = micron.y - MARGIN_TOP;
+  let x = node.x + MARGIN_LEFT;
+  let y = node.y - MARGIN_TOP;
 
   if (!isRoot) {
     const animationXStarts = parent.xEnds + MARGIN_LEFT;
     const animationYStarts = parent.y + MARGIN_TOP;
     const pathString = `M ${animationXStarts} ${animationYStarts}
-                        L ${animationXStarts} ${micron.y - MARGIN_TOP}
-                        C ${animationXStarts} ${micron.y - MARGIN_TOP}
-                          ${animationXStarts} ${micron.y - MARGIN_TOP}
-                          ${animationXStarts + 10} ${micron.y - MARGIN_TOP}
-                        L ${micron.xEnds} ${micron.y - MARGIN_TOP}`.replace(/\n/g, '');
+                        L ${animationXStarts} ${node.y - MARGIN_TOP}
+                        C ${animationXStarts} ${node.y - MARGIN_TOP}
+                          ${animationXStarts} ${node.y - MARGIN_TOP}
+                          ${animationXStarts + 10} ${node.y - MARGIN_TOP}
+                        L ${node.xEnds} ${node.y - MARGIN_TOP}`.replace(/\n/g, '');
 
     // const animationDirection = parent.initHide ? 'move-reverse' : 'move';
     const opacity = parent.initHide ? 0 : 1;
@@ -43,7 +43,7 @@ export default function NodeButton(props) {
 
   return (
     <foreignObject
-      className="MicronName"
+      className="NodeName"
       width="500"
       height={MICRON_BUTTON_HEIGHT}
       x={x}
@@ -52,12 +52,12 @@ export default function NodeButton(props) {
     >
       <Box alignItems="center" display="flex" width="100%">
         <Button
-          onClick={onMicronClick}
+          onClick={onNodeClick}
           style={{ backgroundColor: color }}
         >
           <Box fontWeight="bold" display="flex" alignItems="center">
             <TagRounded fontSize="small" sx={{ mr: '4px' }} />
-            {micron.title}
+            {node.title}
           </Box>
         </Button>
       </Box>
@@ -66,9 +66,9 @@ export default function NodeButton(props) {
 }
 
 NodeButton.propTypes = {
-  micron: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
   parent: PropTypes.object.isRequired,
-  onMicronClick: PropTypes.func.isRequired,
+  onNodeClick: PropTypes.func.isRequired,
   isRoot: PropTypes.bool.isRequired,
   color: PropTypes.string.isRequired,
 };

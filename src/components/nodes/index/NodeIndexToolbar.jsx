@@ -8,20 +8,20 @@ import {
   Settings,
 } from '@mui/icons-material';
 /* micro */
-import CreateMicron from '../shared/CreateMicronModal';
+import CreateNode from '../shared/CreateNodeModal';
 
-export default function MicronIndexToolbar({ currentMicron }) {
-  const [openCreateMicronDialog, setOpenCreateMicronDialog] = React.useState(false);
+export default function NodeIndexToolbar({ currentNode }) {
+  const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);
 
   return (
     <>
-      <CreateMicron
-        currentMicron={currentMicron}
-        open={openCreateMicronDialog}
-        onClose={() => setOpenCreateMicronDialog(false)}
+      <CreateNode
+        currentNode={currentNode}
+        open={openCreateNodeDialog}
+        onClose={() => setOpenCreateNodeDialog(false)}
       />
       <Box className="Toolbar">
-        <IconButton className="Item" disableRipple color="primary" onClick={() => setOpenCreateMicronDialog(true)}>
+        <IconButton className="Item" disableRipple color="primary" onClick={() => setOpenCreateNodeDialog(true)}>
           <AddRounded fontSize="small" />
         </IconButton>
         <IconButton className="Item" color="primary" disableRipple>
@@ -35,10 +35,10 @@ export default function MicronIndexToolbar({ currentMicron }) {
   );
 }
 
-MicronIndexToolbar.defaultProps = {
-  currentMicron: null,
+NodeIndexToolbar.defaultProps = {
+  currentNode: null,
 };
 
-MicronIndexToolbar.propTypes = {
-  currentMicron: PropTypes.object,
+NodeIndexToolbar.propTypes = {
+  currentNode: PropTypes.object,
 };

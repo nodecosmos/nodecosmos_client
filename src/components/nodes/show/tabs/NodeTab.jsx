@@ -6,21 +6,21 @@ import {
   Box,
 } from '@mui/material';
 
-export default function MicronTab(props) {
-  const { micron } = props;
+export default function NodeTab(props) {
+  const { node } = props;
 
   return (
     <Box py={4} px={5} width={1}>
       <Typography variant="h5" textAlign="center" mb={2}>
-        {micron.title}
+        {node.title}
       </Typography>
       <Typography variant="body2" fontWeight="normal">
-        {micron.description}
+        {node.description}
       </Typography>
     </Box>
   );
 }
 
-MicronTab.propTypes = {
-  micron: PropTypes.object.isRequired,
+NodeTab.propTypes = {
+  node: PropTypes.object.isRequired,
 };

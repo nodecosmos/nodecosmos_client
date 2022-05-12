@@ -3,13 +3,13 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
 
-function renderRootLink(micron, color) {
+function renderRootLink(node, color) {
   return (
     <>
-      <circle cx={micron.x} cy={micron.y} r={6} fill="#43464e" />
+      <circle cx={node.x} cy={node.y} r={6} fill="#43464e" />
       <path
         strokeWidth={4}
-        d={`M ${micron.x} ${micron.y} L ${micron.xEnds} ${micron.y}`}
+        d={`M ${node.x} ${node.y} L ${node.xEnds} ${node.y}`}
         stroke="#43464e"
         fill="transparent"
       />
@@ -19,7 +19,7 @@ function renderRootLink(micron, color) {
 
 export default function NodeLink(props) {
   const {
-    micron,
+    node,
     parent,
     isRoot,
     isLastChild,
@@ -29,12 +29,12 @@ export default function NodeLink(props) {
 
   const linkX = parent.xEnds + MARGIN_LEFT;
   const linkY = parent.y + MARGIN_TOP;
-  const pathLength = micron.y + EDGE_LENGTH - 2.72918701171875;
+  const pathLength = node.y + EDGE_LENGTH - 2.72918701171875;
 
   const pathRef = useRef(null);
   const circleRef = useRef(null);
 
-  if (isRoot) return renderRootLink(micron, color);
+  if (isRoot) return renderRootLink(node, color);
 
   return (
     <>
@@ -42,8 +42,8 @@ export default function NodeLink(props) {
         ref={pathRef}
         strokeWidth={parent.initHide ? 0 : 2}
         d={`M ${linkX} ${linkY}
-            L ${linkX} ${micron.y}
-            L ${micron.xEnds} ${micron.y}`}
+            L ${linkX} ${node.y}
+            L ${node.xEnds} ${node.y}`}
         stroke={parentColor}
         fill="transparent"
         style={{
@@ -55,11 +55,11 @@ export default function NodeLink(props) {
       />
       <circle
         ref={circleRef}
-        cx={micron.x}
+        cx={node.x}
         cy={linkY + 4}
         r={6}
         style={{
-          offsetPath: `path("M ${0} ${0} L ${0} ${micron.y - linkY - 5}")`,
+          offsetPath: `path("M ${0} ${0} L ${0} ${node.y - linkY - 5}")`,
           animation: 'move .145s forwards',
           transition: 'all .25s',
         }}
@@ -70,7 +70,7 @@ export default function NodeLink(props) {
 }
 
 NodeLink.propTypes = {
-  micron: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
   parent: PropTypes.object.isRequired,
   isRoot: PropTypes.bool.isRequired,
   isLastChild: PropTypes.bool.isRequired,

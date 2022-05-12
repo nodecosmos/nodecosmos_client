@@ -6,7 +6,7 @@ export const SET_CURRENT_TOOLBAR = 'SET_CURRENT_TOOLBAR';
 // users
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
-// microns
+// nodes
 export const CREATE_MICRON = 'CREATE_MICRON';
 export const UPDATE_MICRON = 'UPDATE_MICRON';
 export const DELETE_MICRON = 'DELETE_MICRON';

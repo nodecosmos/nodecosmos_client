@@ -10,14 +10,14 @@ import {
   Typography,
 } from '@mui/material';
 import TagRounded from '@mui/icons-material/TagRounded';
-import MicronIndexToolbar from '../microns/index/MicronIndexToolbar';
-import MicronToolbar from '../microns/show/MicronToolbar';
+import NodeIndexToolbar from '../nodes/index/NodeIndexToolbar';
+import NodeToolbar from '../nodes/show/NodeToolbar';
 /* micro */
 import UserDropdown from './UserDropdown';
 
 const toolbars = {
-  MicronIndexToolbar: <MicronIndexToolbar />,
-  MicronShowToolbar: <MicronToolbar />,
+  NodeIndexToolbar: <NodeIndexToolbar />,
+  NodeShowToolbar: <NodeToolbar />,
 };
 
 function Header(props) {

@@ -3,13 +3,13 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
 
-function renderRootLink(micron, color) {
+function renderRootLink(node, color) {
   return (
     <>
-      <circle cx={micron.x} cy={micron.y} r={6} fill="#43464e" />
+      <circle cx={node.x} cy={node.y} r={6} fill="#43464e" />
       <path
         strokeWidth={4}
-        d={`M ${micron.x} ${micron.y} L ${micron.xEnds} ${micron.y}`}
+        d={`M ${node.x} ${node.y} L ${node.xEnds} ${node.y}`}
         stroke="#43464e"
         fill="transparent"
       />
@@ -19,7 +19,7 @@ function renderRootLink(micron, color) {
 
 export default function NodeLink(props) {
   const {
-    micron,
+    node,
     parent,
     upperSibling,
     isRoot,
@@ -30,11 +30,11 @@ export default function NodeLink(props) {
 
   const linkX = parent.xEnds + MARGIN_LEFT;
   const linkY = upperSibling.id ? upperSibling.y + 6 : parent.y + MARGIN_TOP;
-  const pathLength = micron.y - (parent.y + MARGIN_TOP) + EDGE_LENGTH - 2.72918701171875;
+  const pathLength = node.y - (parent.y + MARGIN_TOP) + EDGE_LENGTH - 2.72918701171875;
   const pathRef = useRef(null);
   const circleRef = useRef(null);
 
-  if (isRoot) return renderRootLink(micron, color);
+  if (isRoot) return renderRootLink(node, color);
 
   return (
     <g>
@@ -42,20 +42,20 @@ export default function NodeLink(props) {
         ref={pathRef}
         strokeWidth={parent.initHide ? 0 : 3}
         d={`M ${linkX} ${linkY}
-            L ${linkX} ${micron.y - 20}
-            C ${linkX} ${micron.y} 
-              ${linkX} ${micron.y}
-              ${linkX + 10} ${micron.y}
-            L ${micron.xEnds} ${micron.y}`}
+            L ${linkX} ${node.y - 20}
+            C ${linkX} ${node.y} 
+              ${linkX} ${node.y}
+              ${linkX + 10} ${node.y}
+            L ${node.xEnds} ${node.y}`}
         stroke="#43464e"
         fill="transparent"
         style={{
           offsetPath: `M ${linkX} ${(parent.y + MARGIN_TOP)}
-            L ${linkX} ${micron.y - 20}
-            C ${linkX} ${micron.y} 
-              ${linkX} ${micron.y}
-              ${linkX + 10} ${micron.y}
-            L ${micron.xEnds} ${micron.y}`,
+            L ${linkX} ${node.y - 20}
+            C ${linkX} ${node.y} 
+              ${linkX} ${node.y}
+              ${linkX + 10} ${node.y}
+            L ${node.xEnds} ${node.y}`,
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
           animation: 'dash .25s forwards',
@@ -64,13 +64,13 @@ export default function NodeLink(props) {
       />
       {!false && (
         <circle
-          id={`circle-${micron.id}`}
+          id={`circle-${node.id}`}
           ref={circleRef}
-          cx={micron.x}
+          cx={node.x}
           cy={linkY + 5}
           r={parent.initHide ? 0 : 6}
           style={{
-            offsetPath: `path("M ${0} ${0} L ${0} ${micron.y - linkY - 5}")`,
+            offsetPath: `path("M ${0} ${0} L ${0} ${node.y - linkY - 5}")`,
             animation: 'move .145s forwards',
             transition: 'all .25s',
           }}
@@ -82,7 +82,7 @@ export default function NodeLink(props) {
 }
 
 NodeLink.propTypes = {
-  micron: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
   parent: PropTypes.object.isRequired,
   upperSibling: PropTypes.object.isRequired,
   isRoot: PropTypes.bool.isRequired,

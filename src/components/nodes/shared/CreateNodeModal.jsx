@@ -19,10 +19,10 @@ import {
   DialogContent,
 } from '@mui/material';
 /* micro */
-import { createMicron } from '../../../actions';
-import Field from '../../microcosmos/final-form/MicroFinalFormInputField';
+import { createNode } from '../../../actions';
+import Field from '../../nodecosmos/final-form/MicroFinalFormInputField';
 
-class CreateMicronModal extends React.Component {
+class CreateNodeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,13 +31,13 @@ class CreateMicronModal extends React.Component {
   }
 
   onSubmit = async (formValues) => {
-    if (this.props.currentMicron) {
-      formValues.parent_id = this.props.currentMicron.id;
+    if (this.props.currentNode) {
+      formValues.parent_id = this.props.currentNode.id;
     }
 
     formValues.description = this.state.description;
 
-    this.props.createMicron(formValues);
+    this.props.createNode(formValues);
   }
 
   onClose = () => {
@@ -83,7 +83,7 @@ class CreateMicronModal extends React.Component {
                         <Grid item xs={4} />
                         <Grid item xs={4} align="center">
                           <Typography variant="h5">
-                            New Micron
+                            New Node
                           </Typography>
                         </Grid>
                         <Grid item xs={4} align="right">
@@ -97,7 +97,7 @@ class CreateMicronModal extends React.Component {
                           <Field
                             fullWidth
                             name="title"
-                            label="Micron title"
+                            label="Node title"
                             required
                             InputProps={{
                               className: 'LargeInput',
@@ -153,15 +153,15 @@ class CreateMicronModal extends React.Component {
   }
 }
 
-CreateMicronModal.defaultProps = {
-  currentMicron: null,
+CreateNodeModal.defaultProps = {
+  currentNode: null,
 };
 
-CreateMicronModal.propTypes = {
-  createMicron: PropTypes.func.isRequired,
+CreateNodeModal.propTypes = {
+  createNode: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  currentMicron: PropTypes.object,
+  currentNode: PropTypes.object,
 };
 
 function mapStateToProps(state) {
@@ -169,4 +169,4 @@ function mapStateToProps(state) {
   return { currentUser };
 }
 
-export default connect(mapStateToProps, { createMicron })(CreateMicronModal);
+export default connect(mapStateToProps, { createNode })(CreateNodeModal);

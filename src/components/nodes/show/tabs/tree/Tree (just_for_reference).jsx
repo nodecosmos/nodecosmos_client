@@ -6,17 +6,17 @@ import {
 } from '@mui/material';
 import TagRounded from '@mui/icons-material/TagRounded';
 /* micro */
-import MicronToolbar from '../../MicronToolbar';
+import NodeToolbar from '../../NodeToolbar';
 
 export default function Tree(props) {
-  const { micron } = props;
+  const { node } = props;
   // const [actionsX, setActionsX] = useState(70);
   // const [actionsY, setActionsY] = useState(0);
   const [actionsOpacity, setActionsOpacity] = useState(0);
 
-  if (!micron) return null;
+  if (!node) return null;
 
-  const handleMicronClick = (opacity = actionsOpacity === 0 ? 1 : 0) => {
+  const handleNodeClick = (opacity = actionsOpacity === 0 ? 1 : 0) => {
     setActionsOpacity(opacity);
   };
 
@@ -24,11 +24,11 @@ export default function Tree(props) {
   //   <path
   //     className="Path animated"
   //     strokeWidth={3}
-  //     d={`M ${this.nestedMicronsX} ${this.nestedMicronsY}
-  //       L ${this.nestedMicronsX} ${this.nestedMicronsY + 20}
-  //       C ${this.nestedMicronsX} ${this.yEdgeLength},
-  //         ${this.nestedMicronsX} ${this.yEdgeLength},
-  //         ${this.nestedMicronsX + 5} ${this.yEdgeLength}`}
+  //     d={`M ${this.nestedNodesX} ${this.nestedNodesY}
+  //       L ${this.nestedNodesX} ${this.nestedNodesY + 20}
+  //       C ${this.nestedNodesX} ${this.yEdgeLength},
+  //         ${this.nestedNodesX} ${this.yEdgeLength},
+  //         ${this.nestedNodesX + 5} ${this.yEdgeLength}`}
   //     stroke="#43464e"
   //     fill="transparent"
   //   />;
@@ -38,7 +38,7 @@ export default function Tree(props) {
     <Box className="Tree" sx={{ p: 4, width: 1, height: 1 }}>
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <foreignObject
-          className="MicronName"
+          className="NodeName"
           width="500px"
           height="50"
           x={30}
@@ -46,11 +46,11 @@ export default function Tree(props) {
         >
           <Box display="flex" width="100%">
             <Button
-              onClick={() => handleMicronClick()}
+              onClick={() => handleNodeClick()}
               disableRipple
               startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
             >
-              <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+              <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
             </Button>
           </Box>
         </foreignObject>
@@ -75,7 +75,7 @@ export default function Tree(props) {
               fill="transparent"
             />
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={30}
@@ -83,11 +83,11 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
               </Box>
             </foreignObject>
@@ -103,7 +103,7 @@ export default function Tree(props) {
               fill="transparent"
             />
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={70}
@@ -111,11 +111,11 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
               </Box>
             </foreignObject>
@@ -131,7 +131,7 @@ export default function Tree(props) {
               fill="transparent"
             />
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={70}
@@ -139,11 +139,11 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
               </Box>
             </foreignObject>
@@ -159,7 +159,7 @@ export default function Tree(props) {
               fill="transparent"
             />
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={70}
@@ -167,18 +167,18 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
               </Box>
             </foreignObject>
           </svg>
           <svg x={80} y={160}>
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={30}
@@ -186,11 +186,11 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
               </Box>
             </foreignObject>
@@ -206,7 +206,7 @@ export default function Tree(props) {
           </svg>
           <svg x={80} y={200}>
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={70}
@@ -214,15 +214,15 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
 
-                <Box className="MicronActions" sx={{ ml: 2, opacity: actionsOpacity, height: 35 }}>
-                  <MicronToolbar />
+                <Box className="NodeActions" sx={{ ml: 2, opacity: actionsOpacity, height: 35 }}>
+                  <NodeToolbar />
                 </Box>
               </Box>
             </foreignObject>
@@ -236,7 +236,7 @@ export default function Tree(props) {
               fill="transparent"
             />
             <foreignObject
-              className="MicronName"
+              className="NodeName"
               width="500px"
               height="50"
               x={70}
@@ -244,15 +244,15 @@ export default function Tree(props) {
             >
               <Box display="flex" width="100%">
                 <Button
-                  onClick={() => handleMicronClick()}
+                  onClick={() => handleNodeClick()}
                   disableRipple
                   startIcon={<TagRounded sx={{ ml: 0, mr: -2 }} />}
                 >
-                  <Typography variant="h6" fontWeight="bold">{micron.title}</Typography>
+                  <Typography variant="h6" fontWeight="bold">{node.title}</Typography>
                 </Button>
 
-                <Box className="MicronActions" sx={{ ml: 2, opacity: actionsOpacity, height: 35 }}>
-                  <MicronToolbar />
+                <Box className="NodeActions" sx={{ ml: 2, opacity: actionsOpacity, height: 35 }}>
+                  <NodeToolbar />
                 </Box>
               </Box>
             </foreignObject>
@@ -264,5 +264,5 @@ export default function Tree(props) {
 }
 
 Tree.propTypes = {
-  micron: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
 };

@@ -1,9 +1,9 @@
 export default class NodePositionService {
   marginLeft = 20
 
-  micronButtonHeight = 28.5
+  nodeButtonHeight = 28.5
 
-  marginTop = this.micronButtonHeight / 2
+  marginTop = this.nodeButtonHeight / 2
 
   edgeLength = 40
 

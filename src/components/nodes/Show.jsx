@@ -4,27 +4,27 @@ import { useSelector, useDispatch } from 'react-redux';
 /* mui */
 import Box from '@mui/material/Box';
 /* micro */
-import { setSubtitle, setCurrentToolbar, showMicron } from '../../actions';
+import { setSubtitle, setCurrentToolbar, showNode } from '../../actions';
 import Sidebar from './show/Sidebar';
-import MicronTab from './show/tabs/MicronTab';
+import NodeTab from './show/tabs/NodeTab';
 import Tree from './show/tabs/tree/Tree';
 import TreeReference from './show/tabs/tree/Tree (just_for_reference)'; // TODO: remove this
 
-export default function MicronShow() {
-  const microns = useSelector((state) => state.microns);
+export default function NodeShow() {
+  const nodes = useSelector((state) => state.nodes);
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const micron = microns[id];
+  const node = nodes[id];
 
   useEffect(() => {
-    if (micron && micron.fetched) {
-      dispatch(setSubtitle(micron.title));
+    if (node && node.fetched) {
+      dispatch(setSubtitle(node.title));
     } else {
-      dispatch(showMicron(id));
+      dispatch(showNode(id));
     }
 
-    dispatch(setCurrentToolbar('MicronShowToolbar'));
+    dispatch(setCurrentToolbar('NodeShowToolbar'));
 
     return () => {
       dispatch(setSubtitle(null));
@@ -32,17 +32,17 @@ export default function MicronShow() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!micron) return null;
+  if (!node) return null;
 
   return (
     <Box height={1} display="flex">
       <Box width={300} height={1} className="BoxShadowRight BorderRight">
-        <Sidebar micron={micron} />
+        <Sidebar node={node} />
       </Box>
       <Box height={1} width="calc(100% - 300px)">
-        <Route exact path="/microns/:id"><MicronTab micron={micron} /></Route>
-        <Route path="/microns/:id/tree"><Tree micron={micron} /></Route>
-        <Route path="/microns/:id/reference"><TreeReference micron={micron} /></Route>
+        <Route exact path="/nodes/:id"><NodeTab node={node} /></Route>
+        <Route path="/nodes/:id/tree"><Tree node={node} /></Route>
+        <Route path="/nodes/:id/reference"><TreeReference node={node} /></Route>
       </Box>
     </Box>
   );

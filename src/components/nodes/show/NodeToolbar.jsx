@@ -18,7 +18,7 @@ import {
   NotificationsOutlined,
 } from '@mui/icons-material';
 
-export default function MicronToolbar() {
+export default function NodeToolbar() {
   return (
     <Box className="Toolbar">
       <IconButton className="Item">
@@ -52,10 +52,10 @@ export default function MicronToolbar() {
   );
 }
 
-// MicronToolbar.defaultProps = {
-//   MicronShowToolbarProp: null,
+// NodeToolbar.defaultProps = {
+//   NodeShowToolbarProp: null,
 // };
 //
-// MicronToolbar.propTypes = {
-//   MicronShowToolbarProp: PropTypes.string,
+// NodeToolbar.propTypes = {
+//   NodeShowToolbarProp: PropTypes.string,
 // };

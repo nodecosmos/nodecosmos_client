@@ -5,11 +5,11 @@ export default class NodePositionService {
     this.props = props;
   }
 
-  updateMicron(changeObject) {
+  updateNode(changeObject) {
     this.props.dispatch({
       type: UPDATE_MICRON,
       payload: {
-        ...this.props.micron,
+        ...this.props.node,
         ...changeObject,
       },
     });
