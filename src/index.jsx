@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import '@fontsource/roboto';
 
-/* micro */
+/* nodecosmos */
 import App from './components/App';
 import store from './store';
 

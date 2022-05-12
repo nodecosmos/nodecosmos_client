@@ -18,7 +18,7 @@ import {
   Box,
   DialogContent,
 } from '@mui/material';
-/* micro */
+/* nodecosmos */
 import { createNode } from '../../../actions';
 import Field from '../../nodecosmos/final-form/MicroFinalFormInputField';
 

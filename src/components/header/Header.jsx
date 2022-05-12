@@ -12,7 +12,7 @@ import {
 import TagRounded from '@mui/icons-material/TagRounded';
 import NodeIndexToolbar from '../nodes/index/NodeIndexToolbar';
 import NodeToolbar from '../nodes/show/NodeToolbar';
-/* micro */
+/* nodecosmos */
 import UserDropdown from './UserDropdown';
 
 const toolbars = {

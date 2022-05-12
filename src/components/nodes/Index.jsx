@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 /* mui */
 import { Grid, Box } from '@mui/material';
-/* micro-lib */
+/* node-lib */
 import { indexNodes, setCurrentToolbar, setSubtitle } from '../../actions';
 import NodeCard from './shared/NodeCard';
 

@@ -5,7 +5,7 @@ import {
   Box, Button, Typography,
 } from '@mui/material';
 import TagRounded from '@mui/icons-material/TagRounded';
-/* micro */
+/* nodecosmos */
 import NodeToolbar from '../../NodeToolbar';
 
 export default function Tree(props) {

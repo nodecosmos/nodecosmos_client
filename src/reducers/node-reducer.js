@@ -1,17 +1,17 @@
 import {
-  CREATE_MICRON,
-  UPDATE_MICRON,
-  DELETE_MICRON,
-  SHOW_MICRON,
-  INDEX_MICRONS,
-  ADD_MICRON_PROPERTY,
-  DELETE_MICRON_PROPERTIES,
-  INCREMENT_MICRONS_Y_ENDS,
+  CREATE_NODE,
+  UPDATE_NODE,
+  DELETE_NODE,
+  SHOW_NODE,
+  INDEX_NODES,
+  ADD_NODE_PROPERTY,
+  DELETE_NODE_PROPERTIES,
+  INCREMENT_NODES_Y_ENDS,
 } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case INDEX_MICRONS: {
+    case INDEX_NODES: {
       const result = {};
 
       action.payload.forEach((payload) => {
@@ -26,9 +26,9 @@ export default (state = {}, action) => {
 
       return { ...state, ...result };
     }
-    case CREATE_MICRON:
-    case UPDATE_MICRON:
-    case SHOW_MICRON:
+    case CREATE_NODE:
+    case UPDATE_NODE:
+    case SHOW_NODE:
       return {
         ...state,
         [action.payload.id]: {
@@ -41,7 +41,7 @@ export default (state = {}, action) => {
           yEnds: action.payload.yEnds || 0,
         },
       };
-    case INCREMENT_MICRONS_Y_ENDS: {
+    case INCREMENT_NODES_Y_ENDS: {
       const newState = {};
 
       action.payload.ids.forEach((id) => {
@@ -53,19 +53,19 @@ export default (state = {}, action) => {
 
       return { ...state, ...newState };
     }
-    case DELETE_MICRON: {
+    case DELETE_NODE: {
       const { [action.payload]: _, ...rest } = state;
 
       return rest;
     }
-    case ADD_MICRON_PROPERTY: {
+    case ADD_NODE_PROPERTY: {
       const nodeWithProp = { ...state[action.payload.id] };
 
       nodeWithProp.properties = { ...nodeWithProp.properties, ...action.payload.property };
 
       return { ...state, [action.payload.id]: nodeWithProp };
     }
-    case DELETE_MICRON_PROPERTIES: {
+    case DELETE_NODE_PROPERTIES: {
       const nodeWithoutProps = { ...state[action.payload.id] };
       const newProperties = { ...nodeWithoutProps.properties };
 

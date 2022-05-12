@@ -10,7 +10,7 @@ import {
   Container,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-/* micro */
+/* nodecosmos */
 import { login } from '../../actions';
 import nodecosmos from '../../apis/nodecosmos-server';
 import LoginForm from './LoginForm';
@@ -82,7 +82,7 @@ class UserAuthentication extends React.Component {
           <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <TagRounded sx={{ color: 'primary.light', fontSize: 35 }} />
             <Box fontSize={35} align="center">
-              <Box component="span" color="primary.light"> micro</Box>
+              <Box component="span" color="primary.light"> node</Box>
               <Box component="span" color="secondary.main">cosmos</Box>
             </Box>
           </Box>

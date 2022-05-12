@@ -3,7 +3,7 @@ import { Route, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 /* mui */
 import Box from '@mui/material/Box';
-/* micro */
+/* nodecosmos */
 import { setSubtitle, setCurrentToolbar, showNode } from '../../actions';
 import Sidebar from './show/Sidebar';
 import NodeTab from './show/tabs/NodeTab';
@@ -29,8 +29,7 @@ export default function NodeShow() {
     return () => {
       dispatch(setSubtitle(null));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id, node]);
 
   if (!node) return null;
 

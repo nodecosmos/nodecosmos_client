@@ -4,11 +4,11 @@ import history from '../history';
 import {
   SIGN_IN,
   SIGN_OUT,
-  CREATE_MICRON,
-  UPDATE_MICRON,
-  DELETE_MICRON,
-  INDEX_MICRONS,
-  SHOW_MICRON,
+  CREATE_NODE,
+  UPDATE_NODE,
+  DELETE_NODE,
+  INDEX_NODES,
+  SHOW_NODE,
   SET_CURRENT_TOOLBAR,
   SET_SUBTITLE,
   SET_THEME,
@@ -42,13 +42,13 @@ export const syncCurrentUser = (id) => async (dispatch) => {
 export const createNode = (payload, parentNode = null) => async (dispatch) => {
   const response = await nodecosmos.post('/nodes.json', payload);
 
-  dispatch({ type: CREATE_MICRON, payload: response.data });
+  dispatch({ type: CREATE_NODE, payload: response.data });
 
   if (parentNode) {
     const newParent = { ...parentNode };
     newParent.node_ids = newParent.node_ids || [];
     newParent.node_ids.push(response.data.id);
-    dispatch({ type: UPDATE_MICRON, payload: newParent });
+    dispatch({ type: UPDATE_NODE, payload: newParent });
   } else {
     history.push(`/nodes/${response.data.id}`);
   }
@@ -56,7 +56,7 @@ export const createNode = (payload, parentNode = null) => async (dispatch) => {
 
 export const updateNode = (id, payload) => async (dispatch) => {
   // const response = await nodecosmos.patch(`/nodes/${id}`, payload);
-  dispatch({ type: UPDATE_MICRON, payload });
+  dispatch({ type: UPDATE_NODE, payload });
 };
 
 export const deleteNode = (id, parentNode = null) => async (dispatch) => {
@@ -65,9 +65,9 @@ export const deleteNode = (id, parentNode = null) => async (dispatch) => {
     const newParent = { ...parentNode };
     newParent.node_ids = newParent.node_ids || [];
     newParent.node_ids.splice(parentNode.node_ids.indexOf(id), 1);
-    dispatch({ type: UPDATE_MICRON, payload: newParent });
+    dispatch({ type: UPDATE_NODE, payload: newParent });
   }
-  dispatch({ type: DELETE_MICRON, payload: id });
+  dispatch({ type: DELETE_NODE, payload: id });
   if (id === parentNode.id) { // if we delete currentNode
     history.push('/m');
   } else {
@@ -77,13 +77,13 @@ export const deleteNode = (id, parentNode = null) => async (dispatch) => {
 
 export const indexNodes = () => async (dispatch) => {
   const response = await nodecosmos.get('/nodes');
-  dispatch({ type: INDEX_MICRONS, payload: response.data });
+  dispatch({ type: INDEX_NODES, payload: response.data });
 };
 
 export const showNode = (id) => async (dispatch) => {
   const response = await nodecosmos.get(`/nodes/${id}`);
-  dispatch({ type: INDEX_MICRONS, payload: response.data.all_nested_nodes });
-  dispatch({ type: SHOW_MICRON, payload: response.data });
+  dispatch({ type: INDEX_NODES, payload: response.data.all_nested_nodes });
+  dispatch({ type: SHOW_NODE, payload: response.data });
 };
 
 /* APP */

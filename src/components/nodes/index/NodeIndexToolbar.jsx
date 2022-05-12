@@ -7,7 +7,7 @@ import {
   SearchRounded,
   Settings,
 } from '@mui/icons-material';
-/* micro */
+/* nodecosmos */
 import CreateNode from '../shared/CreateNodeModal';
 
 export default function NodeIndexToolbar({ currentNode }) {

@@ -26,21 +26,19 @@ class Tree extends React.Component {
     const parentIDs = [...parentChainIDs, node.id];
 
     return nestedNodes.map((nestedNode, index) => (
-      <>
-        <Node
-          key={nestedNode.id}
-          id={nestedNode.id}
-          parentChainIDs={parentIDs}
-          parentID={node.id}
-          upperSiblingID={nestedNodes[index - 1] && nestedNodes[index - 1].id}
-          isLastChild={!nestedNodes[index + 1]}
-          nestedLevel={nestedLevel}
-          index={index}
-          appendTopLevelComponent={this.appendTopLevelComponent}
-        >
-          {this.renderNestedNodes(nestedNode, nestedLevel + 1, [...parentChainIDs, nestedNode.id])}
-        </Node>
-      </>
+      <Node
+        key={nestedNode.id}
+        id={nestedNode.id}
+        parentChainIDs={parentIDs}
+        parentID={node.id}
+        upperSiblingID={nestedNodes[index - 1] && nestedNodes[index - 1].id}
+        isLastChild={!nestedNodes[index + 1]}
+        nestedLevel={nestedLevel}
+        index={index}
+        appendTopLevelComponent={this.appendTopLevelComponent}
+      >
+        {this.renderNestedNodes(nestedNode, nestedLevel + 1, [...parentChainIDs, nestedNode.id])}
+      </Node>
     ));
   }
 

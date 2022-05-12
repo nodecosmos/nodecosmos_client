@@ -2,9 +2,9 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-/* micro lib */
+/* node-lib */
 import colors from '../../../../../themes/light';
-import { UPDATE_MICRON, INCREMENT_MICRONS_Y_ENDS } from '../../../../../actions/types';
+import { UPDATE_NODE, INCREMENT_NODES_Y_ENDS } from '../../../../../actions/types';
 import { MARGIN_LEFT, MARGIN_TOP, EDGE_LENGTH } from './constants';
 import NodeButton from './components/NodeButton';
 import NodeLink from './components/NodeLink';
@@ -34,7 +34,7 @@ class Node extends React.Component {
     const initialPosition = this.calculatePosition();
 
     this.props.dispatch({
-      type: UPDATE_MICRON,
+      type: UPDATE_NODE,
       payload: {
         ...this.props.node,
         ...initialPosition,
@@ -46,30 +46,30 @@ class Node extends React.Component {
   incrementParentsYEnds() {
     const increment = EDGE_LENGTH + MARGIN_TOP;
 
-    this.props.dispatch({ type: INCREMENT_MICRONS_Y_ENDS, payload: { ids: this.props.parentChainIDs, increment } });
+    this.props.dispatch({ type: INCREMENT_NODES_Y_ENDS, payload: { ids: this.props.parentChainIDs, increment } });
   }
 
   decrementParentsYSize() {
     const increment = -(EDGE_LENGTH + MARGIN_TOP);
 
-    this.props.dispatch({ type: INCREMENT_MICRONS_Y_ENDS, payload: { ids: this.props.parentChainIDs, increment } });
+    this.props.dispatch({ type: INCREMENT_NODES_Y_ENDS, payload: { ids: this.props.parentChainIDs, increment } });
   }
 
   hideNode() {
-    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.node, expanded: false } });
+    this.props.dispatch({ type: UPDATE_NODE, payload: { ...this.props.node, expanded: false } });
   }
 
   showNode() {
-    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.node, expanded: true, initHide: false } });
+    this.props.dispatch({ type: UPDATE_NODE, payload: { ...this.props.node, expanded: true, initHide: false } });
   }
 
   initNodeHideAnimation() {
-    this.props.dispatch({ type: UPDATE_MICRON, payload: { ...this.props.node, initHide: true } });
+    this.props.dispatch({ type: UPDATE_NODE, payload: { ...this.props.node, initHide: true } });
   }
 
   dispatchCoordinateChange(yEnds) {
     this.props.dispatch({
-      type: UPDATE_MICRON,
+      type: UPDATE_NODE,
       payload: {
         ...this.props.node, x: this.calculateX(), y: this.calculateY(), yEnds,
       },

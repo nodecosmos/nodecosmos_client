@@ -8,7 +8,7 @@ import {
   CardHeader,
 } from '@mui/material';
 
-/* micro */
+/* nodecosmos */
 import MicroAvatar from '../../nodecosmos/MicroAvatar';
 
 function NodeCard(props) {

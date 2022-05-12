@@ -13,7 +13,7 @@ import UserShowPage from './users/UserShowPage';
 /* nodes */
 import NodesIndex from './nodes/Index';
 import NodeShow from './nodes/Show';
-/* micro */
+/* nodecosmos */
 import { syncCurrentUser } from '../actions';
 import history from '../history';
 import getTheme from '../themes/theme';

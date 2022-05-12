@@ -2,7 +2,7 @@ import TagRounded from '@mui/icons-material/TagRounded';
 import { Box, Button } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MARGIN_LEFT, MARGIN_TOP, MICRON_BUTTON_HEIGHT } from '../constants';
+import { MARGIN_LEFT, MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../constants';
 
 export default function NodeButton(props) {
   const {
@@ -45,7 +45,7 @@ export default function NodeButton(props) {
     <foreignObject
       className="NodeName"
       width="500"
-      height={MICRON_BUTTON_HEIGHT}
+      height={NODE_BUTTON_HEIGHT}
       x={x}
       y={y}
       style={style}

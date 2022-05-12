@@ -21,7 +21,7 @@ import {
 } from '@mui/icons-material';
 import { logout, setTheme } from '../../actions';
 
-/* micro */
+/* nodecosmos */
 import MicroAvatar from '../nodecosmos/MicroAvatar';
 
 function UserDropdown(props) {

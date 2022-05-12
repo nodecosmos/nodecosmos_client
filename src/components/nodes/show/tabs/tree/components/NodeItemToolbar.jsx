@@ -2,7 +2,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
 import Box from '@mui/material/Box';
-/* micro */
+/* nodecosmos */
 import NodeToolbar from '../../../NodeToolbar';
 
 function NodeItemToolbar(props) {

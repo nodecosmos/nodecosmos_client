@@ -1,4 +1,4 @@
-import { UPDATE_MICRON, INCREMENT_MICRONS_Y_ENDS } from '../../../../../../actions/types';
+import { UPDATE_NODE, INCREMENT_NODES_Y_ENDS } from '../../../../../../actions/types';
 
 export default class NodePositionService {
   constructor(props) {
@@ -7,7 +7,7 @@ export default class NodePositionService {
 
   updateNode(changeObject) {
     this.props.dispatch({
-      type: UPDATE_MICRON,
+      type: UPDATE_NODE,
       payload: {
         ...this.props.node,
         ...changeObject,
@@ -17,7 +17,7 @@ export default class NodePositionService {
 
   updateParentsYEnds(change) {
     this.props.dispatch({
-      type: INCREMENT_MICRONS_Y_ENDS,
+      type: INCREMENT_NODES_Y_ENDS,
       payload: { ids: this.props.parentChainIDs, increment: change },
     });
   }
