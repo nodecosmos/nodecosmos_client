@@ -29,7 +29,8 @@ export default function NodeLink(props) {
 
   const linkX = parent.xEnds + MARGIN_LEFT;
   const linkY = parent.y + MARGIN_TOP;
-  const pathLength = micron.y - linkY + EDGE_LENGTH - 2.72918701171875;
+  const pathLength = micron.y + EDGE_LENGTH - 2.72918701171875;
+
   const pathRef = useRef(null);
   const circleRef = useRef(null);
 
@@ -41,10 +42,7 @@ export default function NodeLink(props) {
         ref={pathRef}
         strokeWidth={parent.initHide ? 0 : 2}
         d={`M ${linkX} ${linkY}
-            L ${linkX} ${micron.y - 20}
-            C ${linkX} ${micron.y} 
-              ${linkX} ${micron.y}
-              ${linkX + 10} ${micron.y}
+            L ${linkX} ${micron.y}
             L ${micron.xEnds} ${micron.y}`}
         stroke={parentColor}
         fill="transparent"
@@ -58,8 +56,8 @@ export default function NodeLink(props) {
       <circle
         ref={circleRef}
         cx={micron.x}
-        cy={linkY + 5}
-        r={parent.initHide ? 0 : 6}
+        cy={linkY + 4}
+        r={6}
         style={{
           offsetPath: `path("M ${0} ${0} L ${0} ${micron.y - linkY - 5}")`,
           animation: 'move .145s forwards',

@@ -56,7 +56,7 @@ export default function NodeButton(props) {
           style={{ backgroundColor: color }}
         >
           <Box fontWeight="bold" display="flex" alignItems="center">
-            <TagRounded fontSize="small" />
+            <TagRounded fontSize="small" sx={{ mr: '4px' }} />
             {micron.title}
           </Box>
         </Button>

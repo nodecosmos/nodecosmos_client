@@ -148,6 +148,7 @@ class Node extends React.Component {
           micron={this.props.micron}
           parent={this.props.parent}
           upperSibling={this.props.upperSibling}
+          isUpperSiblingPresent={this.isUpperSiblingPresent}
           isLastChild={this.props.isLastChild}
           isRoot={this.props.isRoot}
           color={this.color}
