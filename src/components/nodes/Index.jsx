@@ -13,13 +13,13 @@ class NodeContainer extends React.Component {
     this.props.setCurrentToolbar('NodeIndexToolbar');
   }
 
-  componentDidUpdate = () => {
-    this.props.setSubtitle('explore');
-  }
-
-  componentWillUnmount = () => {
-    this.props.setSubtitle(null);
-  }
+  // componentDidUpdate = () => {
+  //   this.props.setSubtitle('explore');
+  // }
+  //
+  // componentWillUnmount = () => {
+  //   this.props.setSubtitle(null);
+  // }
 
   renderNodes = () => Object.keys(this.props.nodes).map((nodeId) => {
     const node = this.props.nodes[nodeId];
@@ -32,26 +32,19 @@ class NodeContainer extends React.Component {
 
   render() {
     return (
-      <Box height={1} display="flex">
-        <Box width={300} height={1} className="BoxShadowRight BorderRight" />
-        <Box width="calc(100% - 300px)">
-          <Grid container height={1}>
-            <Grid item xs={12} height={1}>
-              <Box p={2} mt="2px" height={0.96}>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  spacing={3}
-                  mt={-2}
-                  height={1}
-                  overflow="auto"
-                >
-                  {this.renderNodes()}
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
+      <Box height={1}>
+        <Box p={2} mt="2px" height={0.95}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            spacing={3}
+            mt={-2}
+            height={1}
+            overflow="auto"
+          >
+            {this.renderNodes()}
+          </Box>
         </Box>
       </Box>
     );

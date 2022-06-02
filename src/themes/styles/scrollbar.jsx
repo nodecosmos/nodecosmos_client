@@ -1,15 +1,15 @@
 export default (currentTheme) => ({
   '::-webkit-scrollbar': {
-    width: 9,
+    width: 13,
   },
   '::-webkit-scrollbar-thumb': {
-    borderRadius: 8,
-    backgroundColor: currentTheme.black3,
-    width: 24,
+    borderRadius: 2,
+    backgroundColor: currentTheme.black7,
   },
   '::-webkit-scrollbar-track': {
     marginTop: 16,
     marginBottom: 16,
-    borderRadius: 8,
+    borderRadius: 2,
+    backgroundColor: currentTheme.black1,
   },
 });

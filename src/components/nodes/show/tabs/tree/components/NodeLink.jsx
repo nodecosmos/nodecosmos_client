@@ -21,6 +21,8 @@ export default function NodeLink(props) {
   const {
     node,
     parent,
+    upperSibling,
+    isUpperSiblingPresent,
     isRoot,
     isLastChild,
     color,
@@ -28,7 +30,12 @@ export default function NodeLink(props) {
   } = props;
 
   const linkX = parent.xEnds + MARGIN_LEFT;
-  const linkY = parent.y + MARGIN_TOP;
+  const linkY = isUpperSiblingPresent ? upperSibling.y + 2.5 : parent.y + MARGIN_TOP;
+  // const linkY = parent.y + MARGIN_TOP;
+
+  const yLength = node.y - linkY;
+  const xLength = EDGE_LENGTH;
+
   const pathLength = node.y + EDGE_LENGTH - 2.72918701171875;
 
   const pathRef = useRef(null);
@@ -40,24 +47,30 @@ export default function NodeLink(props) {
     <>
       <path
         ref={pathRef}
-        strokeWidth={parent.initHide ? 0 : 2}
+        strokeWidth={parent.initHide ? 0 : 4}
         d={`M ${linkX} ${linkY}
-            L ${linkX} ${node.y}
+            C ${linkX} ${linkY}
+              ${linkX - 1} ${linkY + yLength / 2 - 10}
+              ${linkX} ${node.y - 10}
+            L ${linkX} ${node.y - 10}
+            C ${linkX} ${node.y - 10}
+              ${linkX} ${node.y}
+              ${linkX + 8} ${node.y}
             L ${node.xEnds} ${node.y}`}
-        stroke={parentColor}
+        stroke="#43464e"
         fill="transparent"
         style={{
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
-          animation: 'dash .25s forwards',
+          animation: 'dash .5s forwards',
           transition: 'all .25s ',
         }}
       />
       <circle
         ref={circleRef}
         cx={node.x}
-        cy={linkY + 4}
-        r={6}
+        cy={linkY + 2.5}
+        r={5}
         style={{
           offsetPath: `path("M ${0} ${0} L ${0} ${node.y - linkY - 5}")`,
           animation: 'move .145s forwards',
@@ -72,7 +85,9 @@ export default function NodeLink(props) {
 NodeLink.propTypes = {
   node: PropTypes.object.isRequired,
   parent: PropTypes.object.isRequired,
+  upperSibling: PropTypes.object.isRequired,
   isRoot: PropTypes.bool.isRequired,
+  isUpperSiblingPresent: PropTypes.bool.isRequired,
   isLastChild: PropTypes.bool.isRequired,
   color: PropTypes.string.isRequired,
   parentColor: PropTypes.string.isRequired,

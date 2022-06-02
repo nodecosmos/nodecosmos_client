@@ -12,11 +12,11 @@ import NodeLink from './components/NodeLink';
 class Node extends React.Component {
   isUpperSiblingPresent = !!this.props.upperSibling.id;
 
-  colors = [colors.red2, colors.blue2, colors.green2]
+  nodeBackgroundColors = [colors.red2, colors.green2, colors.blue2]
 
   componentDidMount() {
-    this.setInitialPosition();
     this.incrementParentsYEnds();
+    this.setInitialPosition();
   }
 
   componentDidUpdate(prevProps, _prevState, _snapshot) {
@@ -121,14 +121,12 @@ class Node extends React.Component {
     return (this.props.upperSibling.yEnds || this.props.parent.y) + MARGIN_TOP + EDGE_LENGTH;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  get color() {
-    return this.props.node.expanded ? this.colors[this.props.nestedLevel % 3] : '#43464e';
+  get backgroundColor() {
+    return this.props.node.expanded ? this.nodeBackgroundColors[this.props.nestedLevel % 3] : '#43464e';
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  get parentColor() {
-    return this.props.parent.expanded ? this.colors[(this.props.nestedLevel - 1) % 3] : '#43464e';
+  get parentBackgroundColor() {
+    return this.props.parent.expanded ? this.nodeBackgroundColors[(this.props.nestedLevel - 1) % 3] : '#43464e';
   }
 
   /** handlers */
@@ -152,14 +150,14 @@ class Node extends React.Component {
           isLastChild={this.props.isLastChild}
           isRoot={this.props.isRoot}
           color={this.color}
-          parentColor={this.parentColor}
+          parentColor={this.parentBackgroundColor}
         />
         <NodeButton
           node={this.props.node}
           parent={this.props.parent}
           onNodeClick={this.onNodeClick}
           isRoot={this.props.isRoot}
-          color={this.color}
+          backgroundColor={this.backgroundColor}
         />
         {this.props.node.expanded && this.props.children}
       </g>

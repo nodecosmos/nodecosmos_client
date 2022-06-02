@@ -15,9 +15,13 @@ export default (currentTheme) => ({
     },
     '.MuiButton-root': {
       background: '#43464e',
+      borderRadius: 12,
       padding: '2px 6px',
       '&:hover': {
         background: '#43464e',
+      },
+      '&.expanded': {
+        color: 'rgb(0 0 0 / 70%)',
       },
     },
   },

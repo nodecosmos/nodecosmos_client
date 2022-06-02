@@ -10,14 +10,17 @@ export default function NodeButton(props) {
     parent,
     onNodeClick,
     isRoot,
-    color,
+    backgroundColor,
   } = props;
 
   let style = null;
+
   let x = node.x + MARGIN_LEFT;
   let y = node.y - MARGIN_TOP;
 
-  if (!isRoot) {
+  const className = props.node.expanded ? 'expanded' : '';
+
+  if (!false) {
     const animationXStarts = parent.xEnds + MARGIN_LEFT;
     const animationYStarts = parent.y + MARGIN_TOP;
     const pathString = `M ${animationXStarts} ${animationYStarts}
@@ -52,8 +55,9 @@ export default function NodeButton(props) {
     >
       <Box alignItems="center" display="flex" width="100%">
         <Button
+          className={className}
           onClick={onNodeClick}
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor }}
         >
           <Box fontWeight="bold" display="flex" alignItems="center">
             <TagRounded fontSize="small" sx={{ mr: '4px' }} />
@@ -70,5 +74,5 @@ NodeButton.propTypes = {
   parent: PropTypes.object.isRequired,
   onNodeClick: PropTypes.func.isRequired,
   isRoot: PropTypes.bool.isRequired,
-  color: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
 };

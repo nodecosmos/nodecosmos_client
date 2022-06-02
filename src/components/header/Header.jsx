@@ -24,7 +24,8 @@ function Header(props) {
   const { toolbar, subtitle } = props;
 
   return (
-    <Box className="Header" display="flex" alignItems="center" height={45}>
+    <Box className="Header" display="flex" alignItems="center" height={62}>
+      {subtitle && (
       <Box className="BoxShadowBottom" width={300} height={1}>
         <Box
           height={1}
@@ -39,6 +40,7 @@ function Header(props) {
           </Typography>
         </Box>
       </Box>
+      )}
       <Grid
         ml="0.5px"
         mr="-0.5px"
@@ -46,10 +48,10 @@ function Header(props) {
         alignItems="center"
         justifyContent="center"
         className="BoxShadowBottom BorderBottom"
-        height={45}
-        width="calc(100% - 300px)"
+        height={1}
+        width={`calc(100% - ${subtitle ? 300 : 0}px)`}
       >
-        <Grid item xs={12} sm={4} align="left" pl={2}>
+        <Grid item sm={4} align="left" pl={2}>
           <Button
             component={Link}
             to="/"
@@ -63,10 +65,10 @@ function Header(props) {
             </Typography>
           </Button>
         </Grid>
-        <Grid item xs={12} sm={4} align="center">
+        <Grid item sm={4} align="center">
           {toolbars[toolbar]}
         </Grid>
-        <Grid item xs={12} sm={4} align="right">
+        <Grid item sm={4} align="right">
           <Box pr={2}>
             <UserDropdown />
           </Box>
