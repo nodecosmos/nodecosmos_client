@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 import NodeToolbar from '../../../NodeToolbar';
 
 function NodeItemToolbar(props) {
-  const { node, opacity } = props;
+  const { node } = props;
 
   return (
-    <Box className="NodeActions" sx={{ ml: 2, opacity, height: 35 }}>
+    <Box className="NodeActions" sx={{ ml: 2 }}>
       <NodeToolbar />
     </Box>
   );
@@ -17,7 +17,6 @@ function NodeItemToolbar(props) {
 
 NodeItemToolbar.propTypes = {
   node: PropTypes.object.isRequired,
-  opacity: PropTypes.number.isRequired,
 };
 
 export default NodeItemToolbar;

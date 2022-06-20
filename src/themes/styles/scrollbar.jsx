@@ -7,8 +7,6 @@ export default (currentTheme) => ({
     backgroundColor: currentTheme.black7,
   },
   '::-webkit-scrollbar-track': {
-    marginTop: 16,
-    marginBottom: 16,
     borderRadius: 2,
     backgroundColor: currentTheme.black1,
   },

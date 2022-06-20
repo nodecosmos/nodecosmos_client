@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 /* node-lib */
 import colors from '../../../../../themes/light';
-import { UPDATE_NODE, INCREMENT_NODES_Y_ENDS } from '../../../../../actions/types';
+import { UPDATE_NODE, INCREMENT_NODES_Y_ENDS, SET_CURRENT_NODE } from '../../../../../actions/types';
+import NodeItemToolbar from './components/NodeItemToolbar';
 import { MARGIN_LEFT, MARGIN_TOP, EDGE_LENGTH } from './constants';
 import NodeButton from './components/NodeButton';
 import NodeLink from './components/NodeLink';
@@ -59,6 +60,10 @@ class Node extends React.Component {
     this.props.dispatch({ type: UPDATE_NODE, payload: { ...this.props.node, expanded: false } });
   }
 
+  setCurrentNode() {
+    this.props.dispatch({ type: SET_CURRENT_NODE, payload: this.props.node.id });
+  }
+
   showNode() {
     this.props.dispatch({ type: UPDATE_NODE, payload: { ...this.props.node, expanded: true, initHide: false } });
   }
@@ -86,10 +91,6 @@ class Node extends React.Component {
   }
 
   handleParentUpdate(prevProps) {
-    if (prevProps.parent.initHide !== this.props.parent.initHide) {
-      this.initNodeHideAnimation();
-    }
-
     // we don't care about parent change if we have upperSibling as it will handle change
     if (this.isUpperSiblingPresent || this.props.parent.y === prevProps.parent.y) return;
 
@@ -129,13 +130,17 @@ class Node extends React.Component {
     return this.props.parent.expanded ? this.nodeBackgroundColors[(this.props.nestedLevel - 1) % 3] : '#43464e';
   }
 
+  get isCurrentNode() {
+    return !!this.props.node.expanded && this.props.node.id === this.props.currentNodeID;
+  }
+
   /** handlers */
   onNodeClick = () => {
     if (this.props.node.expanded) {
-      this.initNodeHideAnimation();
       setTimeout(() => this.hideNode());
     } else {
       this.showNode();
+      this.setCurrentNode();
     }
   }
 
@@ -149,7 +154,6 @@ class Node extends React.Component {
           isUpperSiblingPresent={this.isUpperSiblingPresent}
           isLastChild={this.props.isLastChild}
           isRoot={this.props.isRoot}
-          color={this.color}
           parentColor={this.parentBackgroundColor}
         />
         <NodeButton
@@ -157,8 +161,10 @@ class Node extends React.Component {
           parent={this.props.parent}
           onNodeClick={this.onNodeClick}
           isRoot={this.props.isRoot}
+          isCurrentNode={this.isCurrentNode}
           backgroundColor={this.backgroundColor}
         />
+
         {this.props.node.expanded && this.props.children}
       </g>
     );
@@ -181,6 +187,7 @@ Node.defaultProps = {
     yEnds: 0,
     xEnds: 0,
   },
+  currentNodeID: null,
 };
 
 Node.propTypes = {
@@ -194,14 +201,18 @@ Node.propTypes = {
   parentChainIDs: PropTypes.array.isRequired,
   nestedLevel: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
+  currentNodeID: PropTypes.string,
 };
 
 function mapStateToProps(state, ownProps) {
   const node = state.nodes[ownProps.id];
+  const { currentNodeID } = state.app;
   const parent = state.nodes[ownProps.parentID];
   const upperSibling = state.nodes[ownProps.upperSiblingID];
 
-  return { node, parent, upperSibling };
+  return {
+    node, parent, upperSibling, currentNodeID,
+  };
 }
 
 export default connect(mapStateToProps)(Node);

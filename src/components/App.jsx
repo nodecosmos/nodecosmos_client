@@ -1,12 +1,15 @@
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
+import {
+  Router, Route, Redirect, useLocatoin,
+} from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './header/Header';
+import LandingPage from './landing/LandingPage';
 /* users */
 import UserAuthentication from './users/UserAuthentication';
 import UserShowPage from './users/UserShowPage';
@@ -23,7 +26,11 @@ import light from '../themes/light';
 /* css */
 import './App.css';
 
-function App({ isAuthenticated, currentUser, theme }) {
+const NON_HEADER_PATHS = ['/login', '/landing'];
+
+function App({
+  isAuthenticated, currentUser, theme,
+}) {
   const dispatch = useDispatch();
   const themes = { light, dark };
   const currentTheme = themes[theme];
@@ -51,7 +58,11 @@ function App({ isAuthenticated, currentUser, theme }) {
               ? <Redirect to={`/users/${currentUser.username}`} />
               : <UserAuthentication />}
           </Route>
-          <Route path="/" component={Header} />
+          <Route path="/landing" component={LandingPage} />
+          <Route
+            path="/"
+            render={({ location }) => !NON_HEADER_PATHS.includes(location.pathname) && <Header />}
+          />
           <Route path="/users/:username" component={UserShowPage} />
           <Route exact path="/" component={NodesIndex} />
           <Route path="/nodes/:id" component={NodeShow} />

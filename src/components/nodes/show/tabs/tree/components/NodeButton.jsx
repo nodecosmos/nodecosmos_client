@@ -3,6 +3,7 @@ import { Box, Button } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MARGIN_LEFT, MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../constants';
+import NodeItemToolbar from './NodeItemToolbar';
 
 export default function NodeButton(props) {
   const {
@@ -11,51 +12,35 @@ export default function NodeButton(props) {
     onNodeClick,
     isRoot,
     backgroundColor,
+    isCurrentNode,
   } = props;
 
-  let style = null;
-
-  let x = node.x + MARGIN_LEFT;
-  let y = node.y - MARGIN_TOP;
-
-  const className = props.node.expanded ? 'expanded' : '';
-
-  if (!false) {
-    const animationXStarts = parent.xEnds + MARGIN_LEFT;
-    const animationYStarts = parent.y + MARGIN_TOP;
-    const pathString = `M ${animationXStarts} ${animationYStarts}
+  const animationXStarts = parent.xEnds + MARGIN_LEFT;
+  const animationYStarts = parent.y + MARGIN_TOP;
+  const pathString = `M ${animationXStarts} ${animationYStarts}
                         L ${animationXStarts} ${node.y - MARGIN_TOP}
                         C ${animationXStarts} ${node.y - MARGIN_TOP}
                           ${animationXStarts} ${node.y - MARGIN_TOP}
                           ${animationXStarts + 10} ${node.y - MARGIN_TOP}
                         L ${node.xEnds} ${node.y - MARGIN_TOP}`.replace(/\n/g, '');
-
-    // const animationDirection = parent.initHide ? 'move-reverse' : 'move';
-    const opacity = parent.initHide ? 0 : 1;
-
-    style = {
-      offsetPath: `path("${pathString}")`,
-      animation: 'move .25s forwards',
-      transition: 'all .25s',
-      opacity,
-    };
-
-    x = 0;
-    y = 0;
-  }
+  const animationDuration = isRoot ? 0 : 0.25;
 
   return (
     <foreignObject
       className="NodeName"
       width="500"
       height={NODE_BUTTON_HEIGHT}
-      x={x}
-      y={y}
-      style={style}
+      x={0}
+      y={0}
+      style={{
+        offsetPath: `path("${pathString}")`,
+        animation: `move ${animationDuration}s forwards`,
+        transition: `all ${animationDuration}s`,
+      }}
     >
-      <Box alignItems="center" display="flex" width="100%">
+      <Box display="flex" width="100%">
         <Button
-          className={className}
+          className={`${props.node.expanded && 'expanded'}`}
           onClick={onNodeClick}
           style={{ backgroundColor }}
         >
@@ -64,6 +49,9 @@ export default function NodeButton(props) {
             {node.title}
           </Box>
         </Button>
+        <Box filter="none">
+          {isCurrentNode && <NodeItemToolbar node={node} />}
+        </Box>
       </Box>
     </foreignObject>
   );
@@ -75,4 +63,5 @@ NodeButton.propTypes = {
   onNodeClick: PropTypes.func.isRequired,
   isRoot: PropTypes.bool.isRequired,
   backgroundColor: PropTypes.string.isRequired,
+  isCurrentNode: PropTypes.bool.isRequired,
 };

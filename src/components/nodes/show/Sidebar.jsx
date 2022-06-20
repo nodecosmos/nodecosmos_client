@@ -25,7 +25,7 @@ export default function Sidebar(props) {
   const { node } = props;
 
   return (
-    <nav className="MaxHeightWithoutHeader flexColumnSpaceBetween">
+    <nav className="h-1 flexColumnSpaceBetween">
       <List>
         <ListItem>
           <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${node.id}`}>

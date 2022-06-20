@@ -1,5 +1,5 @@
 export default (currentTheme) => ({
-  '.MaxHeightWithoutHeader': { height: 'calc(100% - 45px)' },
+  '.MaxHeightWithoutHeader': { height: 'calc(100% - 62px)' },
   '.flexColumnSpaceBetween': { display: 'flex', flexDirection: 'column', justifyContent: 'space-between' },
   //--------------------------------------------------------------------------------------------------------------------
   '.BoxShadow1': { boxShadow: currentTheme.boxShadow1 },

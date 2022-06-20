@@ -3,9 +3,9 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
 
-function renderRootLink(node, color) {
+function renderRootLink(node) {
   return (
-    <>
+    <g className="DropShadow">
       <circle cx={node.x} cy={node.y} r={6} fill="#43464e" />
       <path
         strokeWidth={4}
@@ -13,7 +13,7 @@ function renderRootLink(node, color) {
         stroke="#43464e"
         fill="transparent"
       />
-    </>
+    </g>
   );
 }
 
@@ -25,12 +25,11 @@ export default function NodeLink(props) {
     isUpperSiblingPresent,
     isRoot,
     isLastChild,
-    color,
     parentColor,
   } = props;
 
   const linkX = parent.xEnds + MARGIN_LEFT;
-  const linkY = isUpperSiblingPresent ? upperSibling.y + 2.5 : parent.y + MARGIN_TOP;
+  const linkY = isUpperSiblingPresent ? upperSibling.y + 3 : parent.y + MARGIN_TOP;
   // const linkY = parent.y + MARGIN_TOP;
 
   const yLength = node.y - linkY;
@@ -41,13 +40,13 @@ export default function NodeLink(props) {
   const pathRef = useRef(null);
   const circleRef = useRef(null);
 
-  if (isRoot) return renderRootLink(node, color);
+  if (isRoot) return renderRootLink(node);
 
   return (
-    <>
+    <g className="DropShadow">
       <path
         ref={pathRef}
-        strokeWidth={parent.initHide ? 0 : 4}
+        strokeWidth={parent.initHide ? 0 : 3.5}
         d={`M ${linkX} ${linkY}
             C ${linkX} ${linkY}
               ${linkX - 1} ${linkY + yLength / 2 - 10}
@@ -73,12 +72,12 @@ export default function NodeLink(props) {
         r={5}
         style={{
           offsetPath: `path("M ${0} ${0} L ${0} ${node.y - linkY - 5}")`,
-          animation: 'move .145s forwards',
+          animation: 'move .12s forwards',
           transition: 'all .25s',
         }}
         fill={parentColor}
       />
-    </>
+    </g>
   );
 }
 
@@ -89,6 +88,5 @@ NodeLink.propTypes = {
   isRoot: PropTypes.bool.isRequired,
   isUpperSiblingPresent: PropTypes.bool.isRequired,
   isLastChild: PropTypes.bool.isRequired,
-  color: PropTypes.string.isRequired,
   parentColor: PropTypes.string.isRequired,
 };

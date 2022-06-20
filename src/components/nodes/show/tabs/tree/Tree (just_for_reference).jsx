@@ -54,7 +54,7 @@ export default function Tree(props) {
             </Button>
           </Box>
         </foreignObject>
-        <g className="DropShadow">
+        <g>
           <circle cx={20} cy={20} r="5" fill="#43464e" />
           <circle cx={60} cy={60} r="5" fill="#43464e" />
           <path

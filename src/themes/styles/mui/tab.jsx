@@ -2,6 +2,7 @@ export default (currentTheme) => ({
   MuiTab: {
     styleOverrides: {
       root: {
+        fontSize: 18,
         fontWeight: 'bold',
         textTransform: 'none',
         backgroundColor: 'transparent',
@@ -16,10 +17,14 @@ export default (currentTheme) => ({
   MuiTabs: {
     styleOverrides: {
       indicator: {
-        height: 6,
+        height: 7,
         width: 5,
         borderRadius: 8,
         backgroundColor: currentTheme.green1,
+        '&.header': {
+          height: 10,
+          top: 55,
+        },
       },
     },
   },

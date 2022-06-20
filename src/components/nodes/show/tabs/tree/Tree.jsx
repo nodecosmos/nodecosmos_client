@@ -46,7 +46,7 @@ class Tree extends React.Component {
     const { node } = this.props;
 
     return (
-      <Box className="Tree" sx={{ p: 4, width: 1, height: 1 }}>
+      <Box className="Tree" sx={{ width: 1, height: 1 }}>
         <Transformable>
           <Node
             id={node.id}

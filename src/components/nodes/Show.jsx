@@ -29,16 +29,16 @@ export default function NodeShow() {
     return () => {
       dispatch(setSubtitle(null));
     };
-  }, [id, node]);
+  }, [id, node, dispatch]);
 
   if (!node) return null;
 
   return (
-    <Box height={1} display="flex">
+    <Box className="MaxHeightWithoutHeader" display="flex">
       <Box width={300} height={1} className="BoxShadowRight BorderRight">
         <Sidebar node={node} />
       </Box>
-      <Box height={1} width="calc(100% - 300px)">
+      <Box width="calc(100% - 300px)">
         <Route exact path="/nodes/:id"><NodeTab node={node} /></Route>
         <Route path="/nodes/:id/tree"><Tree node={node} /></Route>
         <Route path="/nodes/:id/reference"><TreeReference node={node} /></Route>

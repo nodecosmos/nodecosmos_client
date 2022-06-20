@@ -2,7 +2,7 @@ import {
   SET_THEME,
   SET_SUBTITLE,
   SET_ANIMATION_ENABLED,
-  SET_CURRENT_TOOLBAR,
+  SET_CURRENT_TOOLBAR, SET_CURRENT_NODE,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -32,6 +32,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentToolbar: action.payload,
+      };
+    case SET_CURRENT_NODE:
+      return {
+        ...state,
+        currentNodeID: action.payload,
       };
     default:
       return state;

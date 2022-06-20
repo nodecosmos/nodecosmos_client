@@ -1,3 +1,3 @@
 export default (currentTheme) => ({
-  '.Header': { backgroundColor: currentTheme.black7 },
+  '.Header': { backgroundColor: currentTheme.black6 },
 });
