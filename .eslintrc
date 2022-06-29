@@ -9,8 +9,7 @@
     "react/no-unused-prop-types": 1,
     "react/no-unused-state": 1,
     "no-param-reassign": ["error", { "props": false }],
-    "react/sort-comp": [2, { "order": ["instance-variables", "lifecycle", "everything-else", "getters", "'/^on.+$/'", "render"]
-      }
+    "react/sort-comp": [2, { "order": ["instance-variables", "lifecycle", "everything-else", "getters", "'/^on.+$/'", "render"] }
     ]
   },
   "extends": [
