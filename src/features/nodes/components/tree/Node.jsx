@@ -17,24 +17,16 @@ function Node(props) {
     currentNodeID,
     children,
     nestedLevel,
-    parentChainIDs,
     expandNode,
     collapseNode,
     setCurrentNode,
   } = props;
 
   const isCurrentNode = !!node.expanded && node.id === currentNodeID;
-  const isUpperSiblingPresent = !!upperSibling;
 
   const { backgroundColor, parentBackgroundColor } = useNodeButtonBackground({ node, nestedLevel, parent });
 
-  useNodePositionCalculator({
-    node,
-    parent,
-    upperSibling,
-    parentChainIDs,
-    isUpperSiblingPresent,
-  });
+  useNodePositionCalculator(props);
 
   useLayoutEffect(() => () => collapseNode(node), []);
 

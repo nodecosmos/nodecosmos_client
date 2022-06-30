@@ -34,10 +34,14 @@ export default function Vision() {
           alignItems="center"
         >
           <Typography variant="h3" color="primary.main">Nodes</Typography>
-          <Typography variant="h6" align="left" mt={4}>
+          <Typography variant="h6" align="left" mt={3}>
             Nodes are used to represent unit of innovation or research and its constituents (components).
-            They are used to build
-            Node Tree which represents complete project. Here is sample of lightbulb:
+            <br />
+            Each
+            {' '}
+            <b>node</b>
+            {' '}
+            encapsulates another nodes eventually building node tree.  Here is sample of lightbulb:
           </Typography>
         </Box>
       </Grid>

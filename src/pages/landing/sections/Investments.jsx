@@ -32,10 +32,14 @@ export default function Vision() {
         >
           <Typography variant="h3" color="primary.main">Investments & NFT</Typography>
           <Typography variant="h6" mt={4}>
-            Once innovation is created we need funding to get it to the world. And GUESS WHAT?
-            Nodecosmos plans to cover that. We plan to provide interface where you can issue virtual shares as NFTs.
+            Once innovation is created we need funding to get it to the world. Guess what?
+            Nodecosmos plans to cover that. We plan to provide interface where you can issue
+            {' '}
+            <b>virtual shares</b>
+            {' '}
+            as NFTs.
             Those shares can be sold & traded on the platform. Although Nodecosmos will provide software solutions,
-            innovator is responsible for incentivisation. Common stock practices may apply.
+            innovator is responsible for incentivisation.
           </Typography>
         </Box>
       </Grid>
