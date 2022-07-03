@@ -12,19 +12,19 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case INDEX_NODES: {
-      const result = {};
-
-      action.payload.forEach((payload) => {
-        const { id } = payload;
-        payload.node_ids = payload.node_ids || [];
-        payload.x = payload.x || 60;
-        payload.y = payload.y || 40;
-        payload.xEnds = payload.xEnds || 100;
-        payload.yEnds = payload.yEnds || 40;
-        result[id] = payload;
-      });
-
-      return { ...state, ...result };
+      // const result = {};
+      //
+      // action.payload.forEach((payload) => {
+      //   const { id } = payload;
+      //   payload.node_ids = payload.node_ids || [];
+      //   payload.x = payload.x || 60;
+      //   payload.y = payload.y || 40;
+      //   payload.xEnds = payload.xEnds || 100;
+      //   payload.yEnds = payload.yEnds || 40;
+      //   result[id] = payload;
+      // });
+      //
+      // return { ...state, ...result };
     }
     case CREATE_NODE:
     case UPDATE_NODE:

@@ -7,11 +7,6 @@ import {
   CREATE_NODE,
   UPDATE_NODE,
   DELETE_NODE,
-  INDEX_NODES,
-  SHOW_NODE,
-  SET_CURRENT_TOOLBAR,
-  SET_SUBTITLE,
-  SET_THEME,
 } from './types';
 
 /* User Actions */
@@ -74,34 +69,3 @@ export const deleteNode = (id, parentNode = null) => async (dispatch) => {
     history.goBack();
   }
 };
-
-export const indexNodes = () => async (dispatch) => {
-  const response = await nodecosmos.get('/nodes');
-  dispatch({ type: INDEX_NODES, payload: response.data });
-};
-
-export const showNode = (id) => async (dispatch) => {
-  const response = await nodecosmos.get(`/nodes/${id}`);
-  dispatch({ type: INDEX_NODES, payload: response.data.all_nested_nodes });
-  dispatch({ type: SHOW_NODE, payload: response.data });
-};
-
-/* APP */
-export const setTheme = (theme) => {
-  localStorage.setItem('theme', theme);
-
-  return {
-    type: SET_THEME,
-    payload: theme,
-  };
-};
-
-export const setCurrentToolbar = (toolbar) => ({
-  type: SET_CURRENT_TOOLBAR,
-  payload: toolbar,
-});
-
-export const setSubtitle = (subtitle) => ({
-  type: SET_SUBTITLE,
-  payload: subtitle,
-});

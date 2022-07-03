@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
-import appReducer from './app-reducer';
+import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from './auth-reducer';
-import nodeReducer from './node-reducer';
+import nodesSlice from '../features/nodes/nodeSlice';
+import appSlice from '../features/app/appSlice';
 
 export default combineReducers({
-  app: appReducer,
+  app: appSlice,
   auth: authReducer,
-  nodes: nodeReducer,
+  nodes: nodesSlice,
 });

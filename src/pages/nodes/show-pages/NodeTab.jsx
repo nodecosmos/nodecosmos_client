@@ -5,9 +5,11 @@ import {
   Typography,
   Box,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 export default function NodeTab(props) {
-  const { node } = props;
+  const { id } = props;
+  const node = useSelector((state) => state.nodes[id]);
 
   return (
     <Box py={4} px={5} width={1}>
@@ -22,5 +24,5 @@ export default function NodeTab(props) {
 }
 
 NodeTab.propTypes = {
-  node: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };

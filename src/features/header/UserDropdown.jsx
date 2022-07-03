@@ -19,7 +19,8 @@ import {
   Logout,
   LightMode,
 } from '@mui/icons-material';
-import { logout, setTheme } from '../../actions';
+import { logout } from '../../actions';
+import { setTheme } from '../app/appSlice';
 
 /* nodecosmos */
 import NodeAvatar from '../nodecosmos/NodeAvatar';

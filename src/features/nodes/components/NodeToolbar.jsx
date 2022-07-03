@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 /* mui */
 import {
   IconButton,
@@ -19,12 +18,10 @@ import {
   NotificationsOutlined,
 } from '@mui/icons-material';
 
-export default function NodeToolbar(props) {
-  const { addNode } = props;
-
+export default function NodeToolbar() {
   return (
     <Box className="Toolbar">
-      <IconButton className="Item" onClick={addNode}>
+      <IconButton className="Item">
         <AddRounded fontSize="small" />
       </IconButton>
       <IconButton className="Item">
@@ -59,6 +56,6 @@ export default function NodeToolbar(props) {
 //   NodeShowToolbarProp: null,
 // };
 
-NodeToolbar.propTypes = {
-  addNode: PropTypes.func.isRequired,
-};
+// NodeToolbar.propTypes = {
+//   addNode: PropTypes.func.isRequired,
+// };

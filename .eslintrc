@@ -8,9 +8,16 @@
     "react/forbid-prop-types": 0,
     "react/no-unused-prop-types": 1,
     "react/no-unused-state": 1,
-    "no-param-reassign": ["error", { "props": false }],
-    "react/sort-comp": [2, { "order": ["instance-variables", "lifecycle", "everything-else", "getters", "'/^on.+$/'", "render"] }
-    ]
+    "react-hooks/exhaustive-deps": 2,
+    "react/sort-comp": [2, { "order": ["instance-variables", "lifecycle", "everything-else", "getters", "'/^on.+$/'", "render"] }],
+    "no-param-reassign": ["error", { "props": false }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   "extends": [
     "airbnb",

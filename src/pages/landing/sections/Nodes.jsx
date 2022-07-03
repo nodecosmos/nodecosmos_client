@@ -1,14 +1,12 @@
-/* eslint-disable react/self-closing-comp */
-
+import React from 'react';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
 import LandingNodeSidebar from './nodes-section/LandingNodeSidebar';
 
 export default function Vision() {
-  const [tab, setTab] = useState(0);
-  const handleTabChange = (_, currentTab) => setTab(currentTab);
+  // const [tab, setTab] = useState(0);
+  // const handleTabChange = (_, currentTab) => setTab(currentTab);
 
   return (
     <Grid

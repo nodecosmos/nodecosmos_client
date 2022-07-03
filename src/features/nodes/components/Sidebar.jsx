@@ -22,13 +22,13 @@ import {
 } from '@mui/icons-material';
 
 export default function Sidebar(props) {
-  const { node } = props;
+  const { id } = props;
 
   return (
     <nav className="h-1 flexColumnSpaceBetween">
       <List>
         <ListItem>
-          <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${node.id}`}>
+          <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${id}`}>
             <ListItemIcon>
               <TagRounded />
             </ListItemIcon>
@@ -38,7 +38,7 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${node.id}/tree`}>
+          <ListItemButton disableRipple exact component={NavLink} to={`/nodes/${id}/tree`}>
             <ListItemIcon>
               <AccountTreeRounded />
             </ListItemIcon>
@@ -48,7 +48,7 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disableRipple component={NavLink} to={`/nodes/${node.id}/contribution_requests`}>
+          <ListItemButton disableRipple component={NavLink} to={`/nodes/${id}/contribution_requests`}>
             <ListItemIcon>
               <CodeRounded />
             </ListItemIcon>
@@ -58,7 +58,7 @@ export default function Sidebar(props) {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton disabled disableRipple exact component={NavLink} to={`/nodes/${node.id}/drawing`}>
+          <ListItemButton disabled disableRipple exact component={NavLink} to={`/nodes/${id}/drawing`}>
             <ListItemIcon>
               <GestureRounded />
             </ListItemIcon>
@@ -73,7 +73,7 @@ export default function Sidebar(props) {
           </Tooltip>
         </ListItem>
         <ListItem>
-          <ListItemButton disabled disableRipple component={NavLink} to={`/nodes/${node.id}/topics`}>
+          <ListItemButton disabled disableRipple component={NavLink} to={`/nodes/${id}/topics`}>
             <ListItemIcon>
               <GroupsRounded />
             </ListItemIcon>
@@ -84,7 +84,7 @@ export default function Sidebar(props) {
           <Tooltip title="Work in progress" placement="right"><Box>🚧</Box></Tooltip>
         </ListItem>
         <ListItem>
-          <ListItemButton disabled disableRipple component={NavLink} to={`/nodes/${node.id}/insights`}>
+          <ListItemButton disabled disableRipple component={NavLink} to={`/nodes/${id}/insights`}>
             <ListItemIcon>
               <TimelineRounded />
             </ListItemIcon>
@@ -101,7 +101,7 @@ export default function Sidebar(props) {
       </List>
       <List>
         <ListItem>
-          <ListItemButton disableRipple component={NavLink} to={`/nodes/${node.id}/settings`}>
+          <ListItemButton disableRipple component={NavLink} to={`/nodes/${id}/settings`}>
             <ListItemIcon>
               <SettingsOutlined />
             </ListItemIcon>
@@ -116,5 +116,5 @@ export default function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-  node: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };
