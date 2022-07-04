@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import useShallowEqualSelector from '../../../../../helpers/useShallowEqualSelector';
+import { useSelector } from 'react-redux';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
 
 function renderRootLink({ x, xEnds, y }) {
@@ -26,13 +26,13 @@ export default function NodeLink(props) {
     parentColor,
   } = props;
 
-  const { x, xEnds, y } = useShallowEqualSelector((state) => (state.nodes[id].position));
+  const { x, xEnds, y } = useSelector((state) => (state.nodes[id].position));
 
-  const upperSiblingPosition = useShallowEqualSelector(
+  const upperSiblingPosition = useSelector(
     (state) => upperSiblingID && state.nodes[upperSiblingID].position,
   );
 
-  const parentPosition = useShallowEqualSelector((state) => parentID && state.nodes[parentID].position);
+  const parentPosition = useSelector((state) => parentID && state.nodes[parentID].position);
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;

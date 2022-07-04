@@ -16,12 +16,12 @@ export default function NodeButton(props) {
     backgroundColor,
   } = props;
 
-  const nodeTitle = useSelector((state) => state.nodes[id] && state.nodes[id].title);
-  const nodeExpanded = useSelector((state) => state.nodes[id] && state.nodes[id].expanded);
+  const nodeTitle = useSelector((state) => state.nodes[id].title);
+  const nodeExpanded = useSelector((state) => state.nodes[id].expanded);
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
 
   const style = useNodeButtonAnimationStyle({ id, parentID, isRoot });
-  const isCurrentNode = !!nodeExpanded && id === currentNodeID;
+  const isCurrentNode = nodeExpanded && id === currentNodeID;
 
   const nodeToolbar = isCurrentNode && (
     <Box className="NodeActions" sx={{ ml: 2 }}>

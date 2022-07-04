@@ -16,7 +16,6 @@ export default function Tree(props) {
         <Node
           id={id}
           nestedLevel={0}
-          parentChainIDs={[]}
           index={0}
           isRoot
         >

@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Header from '../header/Header';
 import Index from '../../pages/landing/Index';
 /* users */
 import UserAuthentication from '../../pages/users/Authentication';
@@ -15,6 +14,7 @@ import UserShowPage from '../../pages/users/Show';
 import NodesIndex from '../../pages/nodes/Index';
 import NodeShow from '../../pages/nodes/Show';
 /* nodecosmos */
+import Header from './components/header/Header';
 import { syncCurrentUser } from '../../actions';
 import history from '../../history';
 import getTheme from '../../themes/theme';

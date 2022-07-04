@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 /* nodecosmos */
-import NodeAvatar from '../../nodecosmos/NodeAvatar';
+import NodeAvatar from '../../app/components/NodeAvatar';
 
 function NodeCard(props) {
   const {

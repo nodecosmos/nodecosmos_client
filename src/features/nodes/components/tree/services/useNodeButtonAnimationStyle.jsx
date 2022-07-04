@@ -1,23 +1,21 @@
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MARGIN_LEFT, MARGIN_TOP } from '../constants';
 
 export default function useNodeButtonAnimationStyle(props) {
   const { id, parentID, isRoot } = props;
 
-  const nodePosition = useSelector(
-    (state) => state.nodes[id] && state.nodes[id].position,
-    shallowEqual,
-  );
-
-  const parentPosition = useSelector(
-    (state) => state.nodes[parentID] && state.nodes[parentID].position,
-    shallowEqual,
-  ) || {
+  const defaultParentPosition = {
     x: 60,
     y: 40,
     xEnds: 100,
     yEnds: 40,
   };
+
+  const nodePosition = useSelector((state) => state.nodes[id].position);
+
+  const parentPosition = useSelector(
+    (state) => (!isRoot && state.nodes[parentID].position) || defaultParentPosition,
+  );
 
   if (!nodePosition) return null;
 

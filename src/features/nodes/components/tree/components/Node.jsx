@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../../../app/appSlice';
 import {
-  collapseNode, expandNode, nodeIsNotVisible, nodeIsVisible,
+  collapseNode, expandNode,
 } from '../../../nodeSlice';
 import useNodeButtonBackground from '../services/useNodeButtonBackground';
 import useNodePositionCalculator from '../services/useNodePositionCalculator';
@@ -15,31 +15,30 @@ export default function Node(props) {
     id,
     parentID,
     upperSiblingID,
-    parentChainIDs,
     nestedLevel,
     isRoot,
     children,
   } = props;
 
   const dispatch = useDispatch();
-  const nodeExpanded = useSelector((state) => state.nodes[id] && state.nodes[id].expanded);
+  const nodeExpanded = useSelector((state) => state.nodes[id].expanded);
 
-  const { backgroundColor, parentBackgroundColor } = useNodeButtonBackground({ id, nestedLevel, parentID });
+  const { backgroundColor, parentBackgroundColor } = useNodeButtonBackground({
+    id,
+    nestedLevel,
+    parentID,
+    isRoot,
+  });
 
   useNodePositionCalculator({
     id,
     parentID,
-    parentChainIDs,
     upperSiblingID,
     isRoot,
   });
 
-  useLayoutEffect(() => {
-    dispatch(nodeIsVisible({ id }));
-    return () => {
-      dispatch(collapseNode({ id }));
-      dispatch(nodeIsNotVisible({ id }));
-    };
+  useLayoutEffect(() => () => {
+    dispatch(collapseNode({ id }));
   }, [dispatch, id]);
 
   const onNodeClick = () => {
@@ -47,7 +46,7 @@ export default function Node(props) {
       dispatch(collapseNode({ id }));
     } else {
       dispatch(expandNode({ id }));
-      dispatch(setCurrentNode({ id }));
+      dispatch(setCurrentNode(id));
     }
   };
 
@@ -85,6 +84,5 @@ Node.propTypes = {
   id: PropTypes.string.isRequired,
   parentID: PropTypes.string,
   upperSiblingID: PropTypes.string,
-  parentChainIDs: PropTypes.array.isRequired,
   nestedLevel: PropTypes.number.isRequired,
 };

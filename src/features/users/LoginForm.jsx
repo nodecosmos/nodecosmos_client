@@ -3,8 +3,8 @@ import React from 'react';
 import { Form } from 'react-final-form';
 /* mui */
 import { Button, Grid } from '@mui/material';
+import Field from '../app/components/final-form/FinalFormInputField';
 /* nodecosmos */
-import Field from '../nodecosmos/final-form/MicroFinalFormInputField';
 
 export default function LoginForm(props) {
   const { onSubmit } = props;

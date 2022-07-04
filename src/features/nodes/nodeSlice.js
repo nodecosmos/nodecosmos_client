@@ -34,8 +34,6 @@ const nodeSlice = createSlice({
   reducers: {
     expandNode(state, action) { state[action.payload.id].expanded = true; },
     collapseNode(state, action) { state[action.payload.id].expanded = false; },
-    nodeIsVisible(state, action) { state[action.payload.id].visible = true; },
-    nodeIsNotVisible(state, action) { state[action.payload.id].visible = false; },
     /* position */
     updateNodePosition(state, action) {
       state[action.payload.id].position = action.payload.position;
@@ -65,8 +63,6 @@ const { actions, reducer } = nodeSlice;
 export const {
   expandNode,
   collapseNode,
-  nodeIsVisible,
-  nodeIsNotVisible,
   updateNodePosition,
   incrementNodesYEnds,
   updateNodePositionYEnds,

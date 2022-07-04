@@ -4,7 +4,7 @@ import Switch from '@mui/material/Switch';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 /* mui */
 import {
   Button,
@@ -19,16 +19,18 @@ import {
   Logout,
   LightMode,
 } from '@mui/icons-material';
-import { logout } from '../../actions';
-import { setTheme } from '../app/appSlice';
+import { logout } from '../../../../actions';
+import { setTheme } from '../../appSlice';
 
 /* nodecosmos */
-import NodeAvatar from '../nodecosmos/NodeAvatar';
+import NodeAvatar from '../NodeAvatar';
 
 function UserDropdown(props) {
-  const { currentUser, isAuthenticated, theme } = props;
+  const { currentUser, isAuthenticated } = props;
   const [anchorEl, setAnchorEl] = React.useState(false);
   const open = Boolean(anchorEl);
+
+  const theme = useSelector((state) => state.app.theme);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

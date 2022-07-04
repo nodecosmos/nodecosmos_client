@@ -20,7 +20,7 @@ const minLengthValidator = (minLength) => (value) => (
   (value && value.length < minLength) ? `${value.length}/${minLength} minimum length` : undefined
 );
 
-export default function MicroFinalFormInputField({
+export default function FinalFormInputField({
   name,
   label,
   validate,
@@ -79,7 +79,7 @@ export default function MicroFinalFormInputField({
   );
 }
 
-MicroFinalFormInputField.defaultProps = {
+FinalFormInputField.defaultProps = {
   label: null,
   sx: null,
   validate: null,
@@ -94,7 +94,7 @@ MicroFinalFormInputField.defaultProps = {
   minLength: null,
 };
 
-MicroFinalFormInputField.propTypes = {
+FinalFormInputField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   validate: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),

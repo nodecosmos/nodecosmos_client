@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 /* mui */
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
-function MicroFinalFormRadioField(props) {
+function FinalFormRadioField(props) {
   const {
     name, defaultValue, values, labels,
   } = props;
@@ -43,16 +43,16 @@ function MicroFinalFormRadioField(props) {
   );
 }
 
-MicroFinalFormRadioField.defaultProps = {
+FinalFormRadioField.defaultProps = {
   defaultValue: null,
   labels: null,
 };
 
-MicroFinalFormRadioField.propTypes = {
+FinalFormRadioField.propTypes = {
   name: PropTypes.string.isRequired,
   values: PropTypes.array.isRequired,
   labels: PropTypes.array,
   defaultValue: PropTypes.string,
 };
 
-export default MicroFinalFormRadioField;
+export default FinalFormRadioField;

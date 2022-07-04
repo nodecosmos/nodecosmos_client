@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import CodeMirror from '@uiw/react-codemirror';
-import { Form } from 'react-final-form';
+import { Field, Form } from 'react-final-form';
 import { connect } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AddRounded, TagRounded, CloseOutlined } from '@mui/icons-material';
@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import { createNode } from '../../../actions';
-import Field from '../../nodecosmos/final-form/MicroFinalFormInputField';
+import FinalFormInputField from '../../app/components/final-form/FinalFormInputField';
 
 class CreateNodeModal extends React.Component {
   constructor(props) {
@@ -94,7 +94,7 @@ class CreateNodeModal extends React.Component {
                       </Grid>
                       <DialogContent sx={{ height: 'calc(100% - 128px)', padding: 3 }}>
                         <Box sx={{ height: 90 }}>
-                          <Field
+                          <FinalFormInputField
                             fullWidth
                             name="title"
                             label="Node title"

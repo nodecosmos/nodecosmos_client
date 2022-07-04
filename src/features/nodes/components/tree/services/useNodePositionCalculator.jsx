@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePrevProps from '../../../../../helpers/usePrevProps';
+import useShallowEqualSelector from '../../../../../helpers/useShallowEqualSelector';
 import { incrementNodesYEnds, updateNodePosition, updateNodePositionYEnds } from '../../../nodeSlice';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
 
@@ -8,7 +9,6 @@ export default function useNodePositionCalculator(props) {
   const {
     id,
     parentID,
-    parentChainIDs,
     upperSiblingID,
     isRoot,
   } = props;
@@ -16,6 +16,10 @@ export default function useNodePositionCalculator(props) {
   const dispatch = useDispatch();
 
   const nodePosition = useSelector((state) => state.nodes[id].position);
+  const nodeAncestorIdObjects = useSelector((state) => state.nodes[id].ancestor_ids);
+  const nodeAncestorIds = useShallowEqualSelector(
+    () => !isRoot && nodeAncestorIdObjects.map((nodeIdObject) => nodeIdObject.$oid),
+  );
 
   const upperSiblingPosition = useSelector(
     (state) => (state.nodes[upperSiblingID] && state.nodes[upperSiblingID].position),
@@ -70,23 +74,22 @@ export default function useNodePositionCalculator(props) {
   const incrementParentsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;
 
-    dispatch(incrementNodesYEnds({ ids: parentChainIDs, increment }));
-  }, [dispatch, parentChainIDs]);
+    if (!isRoot) dispatch(incrementNodesYEnds({ ids: nodeAncestorIds, increment }));
+  }, [dispatch, isRoot, nodeAncestorIds]);
 
   const decrementParentsYEnds = useCallback(() => {
     const initialParentIncrement = EDGE_LENGTH + MARGIN_TOP;
     const decrement = -initialParentIncrement;
 
-    dispatch(incrementNodesYEnds({ ids: parentChainIDs, increment: decrement }));
-  }, [dispatch, parentChainIDs]);
+    if (!isRoot) dispatch(incrementNodesYEnds({ ids: nodeAncestorIds, increment: decrement }));
+  }, [dispatch, isRoot, nodeAncestorIds]);
 
   /* initial */
   useLayoutEffect(() => { setInitialPosition(); }, [setInitialPosition]);
-  // TODO: fix deps
-  // eslint-disable-next-line
-  useEffect(() => decrementParentsYEnds, []);
-  // eslint-disable-next-line
-  useEffect(() => incrementParentsYEnds(), []);
+  // TODO: deps causing re-rendering because of ancestorsIDs are compared by reference
+
+  useEffect(() => () => decrementParentsYEnds(), [decrementParentsYEnds]);
+  useEffect(() => incrementParentsYEnds(), [incrementParentsYEnds]);
   /* updates */
   useLayoutEffect(() => handleParentPositionUpdate(), [handleParentPositionUpdate]);
   useLayoutEffect(() => handleUpperSiblingPositionUpdate(), [handleUpperSiblingPositionUpdate]);
