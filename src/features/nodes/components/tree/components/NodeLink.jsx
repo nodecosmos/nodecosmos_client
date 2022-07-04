@@ -39,7 +39,7 @@ export default function NodeLink(props) {
   const linkY = upperSiblingPosition ? upperSiblingPosition.y + 3 : parentPositionY + MARGIN_TOP;
 
   const yLength = y - linkY;
-  const pathLength = y + EDGE_LENGTH - 2.72918701171875;
+  const pathLength = y + EDGE_LENGTH;
 
   const pathRef = useRef(null);
   const circleRef = useRef(null);
