@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 /* nodecosmos */
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import Sidebar from '../../features/nodes/components/Sidebar';
-import { showNode } from '../../features/nodes/nodeSlice';
+import { showNode, terminateNewNode } from '../../features/nodes/nodeSlice';
 import NodeTab from './show-pages/NodeTab';
 import Tree from '../../features/nodes/components/tree/Tree';
 
@@ -22,6 +22,7 @@ export default function NodeShow() {
 
     return () => {
       dispatch(setSubtitle(null));
+      dispatch(terminateNewNode());
     };
   }, [dispatch, id]);
 

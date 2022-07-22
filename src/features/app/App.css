@@ -31,3 +31,12 @@ html, body, #root {
 .h-1 {
     height: 100%;
 }
+
+input {
+    border:0;
+    outline:0;
+}
+
+input:focus {
+    outline:none!important;
+}

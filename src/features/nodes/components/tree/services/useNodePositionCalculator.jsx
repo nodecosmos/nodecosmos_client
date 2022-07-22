@@ -8,7 +8,6 @@ import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
 export default function useNodePositionCalculator(props) {
   const {
     id,
-    parentID,
     upperSiblingID,
     isRoot,
   } = props;
@@ -22,15 +21,20 @@ export default function useNodePositionCalculator(props) {
   );
 
   const upperSiblingPosition = useSelector(
-    (state) => (state.nodes[upperSiblingID] && state.nodes[upperSiblingID].position),
+    (state) => (upperSiblingID && state.nodes[upperSiblingID].position),
   );
 
+  const parentID = useSelector((state) => state.nodes[id].parent_id);
+
   const parentPosition = useSelector(
-    (state) => (state.nodes[parentID] && state.nodes[parentID].position),
+    (state) => (parentID && state.nodes[parentID].position),
   );
 
   const prevParentPosition = usePrevProps(parentPosition);
   const prevUpperSiblingPosition = usePrevProps(upperSiblingPosition);
+
+  const isUpperSiblingNew = useSelector((state) => upperSiblingID && state.nodes[upperSiblingID].isNew);
+  const prevIsUpperSiblingNew = usePrevProps(isUpperSiblingNew);
 
   const x = isRoot ? EDGE_LENGTH : parentPosition.x + MARGIN_LEFT + EDGE_LENGTH;
   const xEnds = x + EDGE_LENGTH;
@@ -61,15 +65,54 @@ export default function useNodePositionCalculator(props) {
     dispatch(updateNodePositionYEnds({ id, yEnds }));
   }, [upperSiblingID, dispatch, id, nodePosition.yEnds, parentPosition, prevParentPosition]);
 
-  const handleUpperSiblingPositionUpdate = useCallback(() => {
-    if (!prevUpperSiblingPosition || !prevUpperSiblingPosition.yEnds) return; // no previous state
-    if (upperSiblingPosition.yEnds === prevUpperSiblingPosition.yEnds) return; // upperSibling position unchanged
+  // TODO: fix upper sibling changes
+  const handleNewUpperSibling = useCallback(() => {
+    if (!isUpperSiblingNew && !prevIsUpperSiblingNew) return;
+    if (upperSiblingPosition && !upperSiblingPosition.y) return;
+    if (upperSiblingPosition
+      && prevUpperSiblingPosition
+      && upperSiblingPosition.yEnds === prevUpperSiblingPosition.yEnds) return;
 
-    const change = upperSiblingPosition.yEnds - prevUpperSiblingPosition.yEnds;
+    let change = MARGIN_TOP + EDGE_LENGTH;
+
+    if (prevUpperSiblingPosition && !upperSiblingPosition) {
+      change = -change;
+    }
+
     const yEnds = nodePosition.yEnds + change;
 
     dispatch(updateNodePositionYEnds({ id, yEnds }));
-  }, [dispatch, id, nodePosition.yEnds, prevUpperSiblingPosition, upperSiblingPosition]);
+  },
+  [
+    dispatch,
+    id,
+    isUpperSiblingNew,
+    prevIsUpperSiblingNew,
+    upperSiblingPosition,
+    prevUpperSiblingPosition,
+    nodePosition,
+  ]);
+
+  const handleUpperSiblingPositionUpdate = useCallback(() => {
+    if (isUpperSiblingNew || prevIsUpperSiblingNew) return;
+    if (!upperSiblingPosition || !prevUpperSiblingPosition || !prevUpperSiblingPosition.yEnds) return;
+    if (upperSiblingPosition.yEnds === prevUpperSiblingPosition.yEnds) return;
+
+    const change = upperSiblingPosition.yEnds - prevUpperSiblingPosition.yEnds;
+
+    const yEnds = nodePosition.yEnds + change;
+
+    dispatch(updateNodePositionYEnds({ id, yEnds }));
+  },
+  [
+    dispatch,
+    id,
+    isUpperSiblingNew,
+    prevIsUpperSiblingNew,
+    nodePosition,
+    prevUpperSiblingPosition,
+    upperSiblingPosition,
+  ]);
 
   const incrementParentsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;
@@ -86,11 +129,11 @@ export default function useNodePositionCalculator(props) {
 
   /* initial */
   useLayoutEffect(() => { setInitialPosition(); }, [setInitialPosition]);
-  // TODO: deps causing re-rendering because of ancestorsIDs are compared by reference
 
   useEffect(() => () => decrementParentsYEnds(), [decrementParentsYEnds]);
   useEffect(() => incrementParentsYEnds(), [incrementParentsYEnds]);
   /* updates */
   useLayoutEffect(() => handleParentPositionUpdate(), [handleParentPositionUpdate]);
   useLayoutEffect(() => handleUpperSiblingPositionUpdate(), [handleUpperSiblingPositionUpdate]);
+  useLayoutEffect(() => handleNewUpperSibling(), [handleNewUpperSibling]);
 }

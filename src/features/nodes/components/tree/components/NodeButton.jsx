@@ -1,59 +1,60 @@
 import React from 'react';
 import TagRounded from '@mui/icons-material/TagRounded';
-import { Box, Button } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import NodeToolbar from '../../NodeToolbar';
+
+/* nodecosmos */
 import { NODE_BUTTON_HEIGHT } from '../constants';
+import NodeToolbar from '../../NodeToolbar';
 import useNodeButtonAnimationStyle from '../services/useNodeButtonAnimationStyle';
+import useNodeButtonBackground from '../services/useNodeButtonBackground';
+import useNodeTreeEvents from '../services/useNodeTreeEvents';
+import NodeButtonText from './NodeButtonText';
 
 export default function NodeButton(props) {
   const {
     id,
-    parentID,
-    onNodeClick,
     isRoot,
-    backgroundColor,
+    nestedLevel,
   } = props;
 
-  const nodeTitle = useSelector((state) => state.nodes[id].title);
   const nodeExpanded = useSelector((state) => state.nodes[id].expanded);
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
+  const isNew = useSelector((state) => state.nodes[id].isNew);
 
-  const style = useNodeButtonAnimationStyle({ id, parentID, isRoot });
+  const { onNodeClick } = useNodeTreeEvents({ id });
+  const { backgroundColor } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+  const style = useNodeButtonAnimationStyle({ id, isRoot });
+
   const isCurrentNode = nodeExpanded && id === currentNodeID;
 
-  const nodeToolbar = isCurrentNode && (
-    <Box className="NodeActions" sx={{ ml: 2 }}>
-      <NodeToolbar />
-    </Box>
-  );
+  const buttonClassName = nodeExpanded && 'expanded';
 
   return (
     <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
       <Box display="flex" width="100%">
-        <Button className={`${nodeExpanded && 'expanded'}`} onClick={onNodeClick} style={{ backgroundColor }}>
+        <Button
+          className={buttonClassName}
+          onClick={onNodeClick}
+          style={{ backgroundColor }}
+          disableRipple={isNew}
+        >
           <Box fontWeight="bold" display="flex" alignItems="center">
-            <TagRounded fontSize="small" sx={{ mr: '4px' }} />
-            {nodeTitle}
+            <TagRounded fontSize="small" sx={{ mr: 2 }} />
+            <NodeButtonText id={id} />
           </Box>
         </Button>
         <Box filter="none">
-          {nodeToolbar}
+          {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
         </Box>
       </Box>
     </foreignObject>
   );
 }
 
-NodeButton.defaultProps = {
-  parentID: null,
-};
-
 NodeButton.propTypes = {
   id: PropTypes.string.isRequired,
-  parentID: PropTypes.string,
-  onNodeClick: PropTypes.func.isRequired,
   isRoot: PropTypes.bool.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
+  nestedLevel: PropTypes.number.isRequired,
 };

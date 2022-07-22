@@ -13,14 +13,13 @@ import TagRounded from '@mui/icons-material/TagRounded';
 /* nodecosmos */
 import UserDropdown from './UserDropdown';
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
-import NodeToolbar from '../../../nodes/components/NodeToolbar';
-
-const toolbars = {
-  NodeIndexToolbar: <NodeIndexToolbar />,
-  NodeShowToolbar: <NodeToolbar />,
-};
 
 export default function Header() {
+  const toolbars = {
+    NodeIndexToolbar: <NodeIndexToolbar />,
+    // NodeShowToolbar: <NodeToolbar />,
+  };
+
   const toolbar = useSelector((state) => state.app.currentToolbar);
   const subtitle = useSelector((state) => state.app.subtitle);
 

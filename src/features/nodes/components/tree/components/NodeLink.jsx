@@ -1,7 +1,10 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
+import {
+  ANIMATION_DURATION, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
+} from '../constants';
+import useNodeButtonBackground from '../services/useNodeButtonBackground';
 
 function renderRootLink({ x, xEnds, y }) {
   return (
@@ -20,23 +23,26 @@ function renderRootLink({ x, xEnds, y }) {
 export default function NodeLink(props) {
   const {
     id,
-    parentID,
     upperSiblingID,
+    nestedLevel,
     isRoot,
-    parentColor,
   } = props;
 
-  const { x, xEnds, y } = useSelector((state) => (state.nodes[id].position));
+  const { x, xEnds, y } = useSelector((state) => state.nodes[id].position);
+  const isNodeFetched = useSelector((state) => state.nodes[id].fetched);
 
   const upperSiblingPosition = useSelector(
     (state) => upperSiblingID && state.nodes[upperSiblingID].position,
   );
 
+  const parentID = useSelector((state) => state.nodes[id].parent_id);
   const parentPosition = useSelector((state) => parentID && state.nodes[parentID].position);
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
   const linkY = upperSiblingPosition ? upperSiblingPosition.y + 3 : parentPositionY + MARGIN_TOP;
+
+  const circleY = parentPositionY + MARGIN_TOP; // circle starts going down from parent position
 
   const yLength = y - linkY;
   const pathLength = y + EDGE_LENGTH;
@@ -44,8 +50,16 @@ export default function NodeLink(props) {
   const pathRef = useRef(null);
   const circleRef = useRef(null);
 
+  const { parentBackgroundColor } = useNodeButtonBackground({
+    id,
+    nestedLevel,
+    isRoot,
+  });
+
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
+
+  const animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
 
   return (
     <g className="DropShadow">
@@ -66,21 +80,21 @@ export default function NodeLink(props) {
         style={{
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
-          animation: 'dash .5s forwards',
-          transition: 'all .25s ',
+          animation: `dash ${animationDuration}s forwards`,
+          transition: `all ${animationDuration}s`,
         }}
       />
       <circle
         ref={circleRef}
         cx={x}
-        cy={linkY + 2.5}
+        cy={circleY + 2.5}
         r={5}
         style={{
-          offsetPath: `path("M ${0} ${0} L ${0} ${y - linkY - 5}")`,
-          animation: 'move .12s forwards',
-          transition: 'all .25s',
+          offsetPath: `path("M ${0} ${0} L ${0} ${y - circleY - 5}")`,
+          animation: `move ${animationDuration / 2}s forwards`,
+          transition: `all ${animationDuration}s`,
         }}
-        fill={parentColor}
+        fill={parentBackgroundColor}
       />
     </g>
   );
@@ -88,13 +102,11 @@ export default function NodeLink(props) {
 
 NodeLink.defaultProps = {
   upperSiblingID: null,
-  parentID: null,
 };
 
 NodeLink.propTypes = {
   id: PropTypes.string.isRequired,
-  parentID: PropTypes.string,
   upperSiblingID: PropTypes.string,
   isRoot: PropTypes.bool.isRequired,
-  parentColor: PropTypes.string.isRequired,
+  nestedLevel: PropTypes.number.isRequired,
 };

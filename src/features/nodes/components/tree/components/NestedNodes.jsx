@@ -1,27 +1,21 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import useShallowEqualSelector from '../../../../../helpers/useShallowEqualSelector';
+import { useSelector } from 'react-redux';
 import Node from './Node';
 
 export default function NestedNodes(props) {
   const { currentNodeId, nestedLevel } = props;
-  const currentNode = useShallowEqualSelector((state) => state.nodes[currentNodeId]);
+  const nodeIds = useSelector((state) => state.nodes[currentNodeId].node_ids);
 
   return (
-    currentNode.node_ids.map((nestedNodeIdObject, index) => (
+    nodeIds.map((nestedNodeIdObject, index) => (
       <Node
         key={nestedNodeIdObject.$oid}
         id={nestedNodeIdObject.$oid}
-        parentID={currentNode.id}
-        upperSiblingID={currentNode.node_ids[index - 1] && currentNode.node_ids[index - 1].$oid}
-        isLastChild={!currentNode.node_ids[index + 1]}
+        upperSiblingID={nodeIds[index - 1] && nodeIds[index - 1].$oid}
         nestedLevel={nestedLevel}
-        index={index}
       >
-        <NestedNodes
-          currentNodeId={nestedNodeIdObject.$oid}
-          nestedLevel={nestedLevel + 1}
-        />
+        <NestedNodes currentNodeId={nestedNodeIdObject.$oid} nestedLevel={nestedLevel + 1} />
       </Node>
     ))
   );

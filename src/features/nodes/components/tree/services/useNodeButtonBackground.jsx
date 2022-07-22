@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
 import colors from '../../../../../themes/light';
 
-// TODO: just dumb implementation
+// FIXME: currently it's  dumb implementation
 export default function useNodeButtonBackground(props) {
   const {
-    id, nestedLevel, parentID, isRoot,
+    id, isRoot, nestedLevel,
   } = props;
 
+  const parentID = useSelector((state) => state.nodes[id].parent_id);
   const nodeExpanded = useSelector((state) => state.nodes[id].expanded);
   const parentExpanded = useSelector((state) => !isRoot && state.nodes[parentID].expanded);
 
