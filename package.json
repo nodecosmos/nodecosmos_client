@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.0.0",
+    "@codemirror/language-data": "^6.1.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.4.5",
@@ -13,7 +15,8 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "@uiw/react-codemirror": "^4.4.3",
+    "@uiw/codemirror-theme-sublime": "^4.11.4",
+    "@uiw/react-codemirror": "^4.11.4",
     "axios": "^0.21.1",
     "d3": "^7.1.1",
     "final-form": "^4.20.2",

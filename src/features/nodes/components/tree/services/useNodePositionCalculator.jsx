@@ -26,9 +26,7 @@ export default function useNodePositionCalculator(props) {
 
   const parentID = useSelector((state) => state.nodes[id].parent_id);
 
-  const parentPosition = useSelector(
-    (state) => (parentID && state.nodes[parentID].position),
-  );
+  const parentPosition = useSelector((state) => !isRoot && state.nodes[parentID].position);
 
   const prevParentPosition = usePrevProps(parentPosition);
   const prevUpperSiblingPosition = usePrevProps(upperSiblingPosition);

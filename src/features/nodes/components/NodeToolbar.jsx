@@ -20,12 +20,11 @@ import {
   Notifications,
   NotificationsOutlined,
 } from '@mui/icons-material';
-import useNodeCreationService from './tree/services/useNodeCreationService';
+import useNodeTreeEvents from './tree/services/useNodeTreeEvents';
 
 export default function NodeToolbar(props) {
   const { id } = props;
-  const { onNodeAdd } = useNodeCreationService({ parentId: id });
-  const { onNodeDelete } = useNodeCreationService({ parentId: id });
+  const { onNodeAdd, handleNodeDeletion } = useNodeTreeEvents({ id });
 
   return (
     <Box className="Toolbar">
@@ -35,7 +34,7 @@ export default function NodeToolbar(props) {
       <IconButton className="Item">
         <EditRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={() => onNodeDelete(id)}>
+      <IconButton className="Item" onClick={() => handleNodeDeletion(id)}>
         <DeleteOutlineRounded fontSize="small" />
       </IconButton>
       <IconButton className="Item">

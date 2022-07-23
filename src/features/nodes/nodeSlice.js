@@ -100,7 +100,7 @@ const nodeSlice = createSlice({
 
       if (parentId === NEW_NODE_ID) return;
 
-      const nodeAncestorIdObjects = parent.ancestor_ids.length
+      const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
         ? [{ $oid: parentId }, ...parent.ancestor_ids] : [{ $oid: parentId }];
 
       state[id] = {
@@ -109,12 +109,18 @@ const nodeSlice = createSlice({
         fetched: id !== NEW_NODE_ID,
         parent_id: parentId,
         ancestor_ids: nodeAncestorIdObjects,
-        title: action.payload.title,
         node_ids: [],
         position: { y: 0 },
+        ...action.payload,
       };
 
       parent.node_ids.unshift({ $oid: id });
+    },
+    deprecateNodesFetchedState(state, _action) {
+      Object.keys(state).forEach((id) => {
+        const node = state[id];
+        if (node.fetched) node.fetched = false;
+      });
     },
   },
   extraReducers: (builder) => {
@@ -145,6 +151,7 @@ export const {
   terminateNewNode,
   prependNewNode,
   deleteNodeFromState,
+  deprecateNodesFetchedState,
 } = actions;
 
 export default reducer;

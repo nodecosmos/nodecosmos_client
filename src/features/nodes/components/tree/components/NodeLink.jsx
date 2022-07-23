@@ -36,7 +36,7 @@ export default function NodeLink(props) {
   );
 
   const parentID = useSelector((state) => state.nodes[id].parent_id);
-  const parentPosition = useSelector((state) => parentID && state.nodes[parentID].position);
+  const parentPosition = useSelector((state) => !isRoot && parentID && state.nodes[parentID].position);
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;

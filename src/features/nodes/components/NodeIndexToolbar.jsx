@@ -8,15 +8,14 @@ import {
   Settings,
 } from '@mui/icons-material';
 /* nodecosmos */
-import CreateNode from './CreateNodeModal';
+import CreateNodeModal from './CreateNodeModal';
 
 export default function NodeIndexToolbar({ currentNode }) {
   const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);
 
   return (
     <>
-      <CreateNode
-        currentNode={currentNode}
+      <CreateNodeModal
         open={openCreateNodeDialog}
         onClose={() => setOpenCreateNodeDialog(false)}
       />
