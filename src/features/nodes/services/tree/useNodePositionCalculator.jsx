@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import usePrevProps from '../../../../../helpers/usePrevProps';
-import useShallowEqualSelector from '../../../../../helpers/useShallowEqualSelector';
-import { incrementNodesYEnds, updateNodePosition, updateNodePositionYEnds } from '../../../nodeSlice';
-import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
+import usePrevProps from '../../../app/services/usePrevProps';
+import useShallowEqualSelector from '../../../app/services/useShallowEqualSelector';
+import { incrementNodesYEnds, updateNodePosition, updateNodePositionYEnds } from '../../nodeSlice';
+import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
 
 export default function useNodePositionCalculator(props) {
   const {
@@ -33,6 +33,8 @@ export default function useNodePositionCalculator(props) {
 
   const isUpperSiblingNew = useSelector((state) => upperSiblingID && state.nodes[upperSiblingID].isNew);
   const prevIsUpperSiblingNew = usePrevProps(isUpperSiblingNew);
+
+  const isUpperSiblingFetched = useSelector((state) => upperSiblingID && state.nodes[upperSiblingID].fetched);
 
   const x = isRoot ? EDGE_LENGTH : parentPosition.x + MARGIN_LEFT + EDGE_LENGTH;
   const xEnds = x + EDGE_LENGTH;
@@ -65,7 +67,7 @@ export default function useNodePositionCalculator(props) {
 
   // TODO: fix upper sibling changes
   const handleNewUpperSibling = useCallback(() => {
-    if (!isUpperSiblingNew && !prevIsUpperSiblingNew) return;
+    if (!isUpperSiblingNew && !prevIsUpperSiblingNew && !isUpperSiblingFetched) return;
     if (upperSiblingPosition && !upperSiblingPosition.y) return;
     if (upperSiblingPosition
       && prevUpperSiblingPosition
@@ -86,13 +88,14 @@ export default function useNodePositionCalculator(props) {
     id,
     isUpperSiblingNew,
     prevIsUpperSiblingNew,
+    isUpperSiblingFetched,
     upperSiblingPosition,
     prevUpperSiblingPosition,
     nodePosition,
   ]);
 
   const handleUpperSiblingPositionUpdate = useCallback(() => {
-    if (isUpperSiblingNew || prevIsUpperSiblingNew) return;
+    if (isUpperSiblingNew || prevIsUpperSiblingNew || isUpperSiblingFetched) return;
     if (!upperSiblingPosition || !prevUpperSiblingPosition || !prevUpperSiblingPosition.yEnds) return;
     if (upperSiblingPosition.yEnds === prevUpperSiblingPosition.yEnds) return;
 
@@ -107,6 +110,7 @@ export default function useNodePositionCalculator(props) {
     id,
     isUpperSiblingNew,
     prevIsUpperSiblingNew,
+    isUpperSiblingFetched,
     nodePosition,
     prevUpperSiblingPosition,
     upperSiblingPosition,

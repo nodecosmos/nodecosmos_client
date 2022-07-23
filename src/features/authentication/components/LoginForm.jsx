@@ -3,14 +3,15 @@ import React from 'react';
 import { Form } from 'react-final-form';
 /* mui */
 import { Button, Grid } from '@mui/material';
-import Field from '../app/components/final-form/FinalFormInputField';
+import Field from '../../app/components/final-form/FinalFormInputField';
+import useUserAuthentication from '../services/useUserAuthentication';
 /* nodecosmos */
 
-export default function LoginForm(props) {
-  const { onSubmit } = props;
+export default function LoginForm() {
+  const { handleLogin } = useUserAuthentication();
 
   return (
-    <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
+    <Form onSubmit={handleLogin} subscription={{ submitting: true }}>
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} justify="center">
@@ -31,7 +32,3 @@ export default function LoginForm(props) {
     </Form>
   );
 }
-
-LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

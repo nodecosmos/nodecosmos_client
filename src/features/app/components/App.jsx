@@ -1,43 +1,43 @@
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
-import { connect, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Index from '../../pages/landing/Index';
+import Index from '../../../pages/landing/Index';
 /* users */
-import UserAuthentication from '../../pages/users/Authentication';
-import UserShowPage from '../../pages/users/Show';
+import UserAuthentication from '../../../pages/users/Authentication';
+import UserShowPage from '../../../pages/users/Show';
 /* nodes */
-import NodesIndex from '../../pages/nodes/Index';
-import NodeShow from '../../pages/nodes/Show';
+import NodesIndex from '../../../pages/nodes/Index';
+import NodeShow from '../../../pages/nodes/Show';
+import useUserAuthentication from '../../authentication/services/useUserAuthentication';
 /* nodecosmos */
-import Header from './components/header/Header';
-import { syncCurrentUser } from '../../actions';
-import history from '../../history';
-import getTheme from '../../themes/theme';
-import dark from '../../themes/dark';
-import light from '../../themes/light';
+import Header from './header/Header';
+import history from '../../../history';
+import getTheme from '../../../themes/theme';
+import dark from '../../../themes/dark';
+import light from '../../../themes/light';
 
 /* css */
 import './App.css';
 
 const NON_HEADER_PATHS = ['/login', '/landing'];
 
-function App({
-  isAuthenticated, currentUser, theme,
-}) {
-  const dispatch = useDispatch();
+export default function App() {
+  const theme = useSelector((state) => state.app.theme);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
   const themes = { light, dark };
   const currentTheme = themes[theme];
 
+  const { syncUpCurrentUser } = useUserAuthentication();
+
   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(syncCurrentUser(currentUser.id));
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (isAuthenticated) syncUpCurrentUser();
+  }, [isAuthenticated, syncUpCurrentUser]);
 
   return (
     <ThemeProvider theme={getTheme(currentTheme)}>
@@ -69,17 +69,3 @@ function App({
     </ThemeProvider>
   );
 }
-
-App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  currentUser: PropTypes.object.isRequired,
-  theme: PropTypes.string.isRequired,
-};
-
-function mapStateToProps(state) {
-  const { isAuthenticated, currentUser } = state.auth;
-  const { theme } = state.app;
-  return { isAuthenticated, currentUser, theme };
-}
-
-export default connect(mapStateToProps)(App);

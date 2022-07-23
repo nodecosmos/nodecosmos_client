@@ -3,8 +3,8 @@ import Menu from '@mui/material/Menu';
 import Switch from '@mui/material/Switch';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 /* mui */
 import {
   Button,
@@ -19,17 +19,18 @@ import {
   Logout,
   LightMode,
 } from '@mui/icons-material';
-import { logout } from '../../../../actions';
+import useUserAuthentication from '../../../authentication/services/useUserAuthentication';
 import { setTheme } from '../../appSlice';
 
 /* nodecosmos */
 import NodeAvatar from '../NodeAvatar';
 
-function UserDropdown(props) {
-  const { currentUser, isAuthenticated } = props;
+export default function UserDropdown() {
   const [anchorEl, setAnchorEl] = React.useState(false);
   const open = Boolean(anchorEl);
 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const theme = useSelector((state) => state.app.theme);
 
   const handleClick = (event) => {
@@ -40,10 +41,7 @@ function UserDropdown(props) {
   };
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    handleClose();
-  };
+  const { handleLogout } = useUserAuthentication();
 
   const toggleTheme = (_event, value) => {
     dispatch(setTheme(value ? 'light' : 'dark'));
@@ -123,16 +121,3 @@ function UserDropdown(props) {
     </Button>
   );
 }
-
-UserDropdown.propTypes = {
-  currentUser: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  theme: PropTypes.string.isRequired,
-};
-
-function mapStateToProps(state) {
-  const { currentUser, isAuthenticated } = state.auth;
-  return { currentUser, isAuthenticated, theme: state.app.theme };
-}
-
-export default connect(mapStateToProps)(UserDropdown);

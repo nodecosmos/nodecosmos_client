@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import { Button, Grid } from '@mui/material';
 /* nodecosmos */
-import Field from '../app/components/final-form/FinalFormInputField';
+import Field from '../../app/components/final-form/FinalFormInputField';
+import useUserAuthentication from '../services/useUserAuthentication';
 
 // eslint-disable-next-line max-len
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -11,10 +12,11 @@ const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@
 const passwordsMustMatch = (value, values) => (values.password === value ? undefined : 'passwords must match');
 const validateEmailFormat = (email) => (emailRegex.test(email) ? undefined : 'email must be valid');
 
-function SignupForm(props) {
-  const { onSubmit } = props;
+export default function SignupForm() {
+  const { handleUserCreation } = useUserAuthentication();
+
   return (
-    <Form onSubmit={onSubmit} subscription={{ submit: true }}>
+    <Form onSubmit={handleUserCreation} subscription={{ submit: true }}>
       {({
         handleSubmit,
         submitting,
@@ -56,9 +58,3 @@ function SignupForm(props) {
     </Form>
   );
 }
-
-SignupForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default SignupForm;

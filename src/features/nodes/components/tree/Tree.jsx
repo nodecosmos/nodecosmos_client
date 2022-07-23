@@ -3,9 +3,9 @@ import * as PropTypes from 'prop-types';
 /* mui */
 import { Box } from '@mui/material';
 /* nodecosmos */
-import Node from './components/Node';
-import Transformable from './components/Transformable';
-import NestedNodes from './components/NestedNodes';
+import Node from './Node';
+import Transformable from './Transformable';
+import NestedNodes from './NestedNodes';
 
 export default function Tree(props) {
   const { id } = props;

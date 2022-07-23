@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentNode } from '../../../../app/appSlice';
+import { setCurrentNode } from '../../../app/appSlice';
 import {
   collapseNode,
   createNode, deleteNode,
@@ -7,7 +7,7 @@ import {
   expandNode, NEW_NODE_ID,
   prependNewNode,
   terminateNewNode,
-} from '../../../nodeSlice';
+} from '../../nodeSlice';
 
 export default function useNodeTreeEvents(props) {
   const { id } = props;

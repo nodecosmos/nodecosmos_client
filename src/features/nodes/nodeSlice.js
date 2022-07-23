@@ -64,17 +64,10 @@ const nodeSlice = createSlice({
   name: 'nodes',
   initialState: {},
   reducers: {
-    expandNode(state, action) {
-      state[action.payload.id].expanded = true;
-    },
+    expandNode(state, action) { state[action.payload.id].expanded = true; },
     collapseNode(state, action) { if (!isNewNode(action.payload.id)) state[action.payload.id].expanded = false; },
-    /* position */
-    updateNodePosition(state, action) {
-      state[action.payload.id].position = action.payload.position;
-    },
-    updateNodePositionYEnds(state, action) {
-      state[action.payload.id].position.yEnds = action.payload.yEnds;
-    },
+    updateNodePosition(state, action) { state[action.payload.id].position = action.payload.position; },
+    updateNodePositionYEnds(state, action) { state[action.payload.id].position.yEnds = action.payload.yEnds; },
     incrementNodesYEnds(state, action) {
       const { ids, increment } = action.payload;
       ids.forEach((id) => {

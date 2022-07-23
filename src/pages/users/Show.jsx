@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 const Show = (props) => {
   console.log(props);
   const { match: { params: { username } } } = props;
-  // props.setSubtitle('Account');
 
   return (
     <Grid item xs={12}>
@@ -21,7 +20,6 @@ const Show = (props) => {
 Show.propTypes = {
   currentUser: PropTypes.shape({ username: PropTypes.string }).isRequired,
   match: PropTypes.object.isRequired,
-  // setSubtitle: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

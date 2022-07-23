@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import colors from '../../../../../themes/light';
+import colors from '../../../../themes/light';
 
 // FIXME: currently it's  dumb implementation
 export default function useNodeButtonBackground(props) {

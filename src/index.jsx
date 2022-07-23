@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import '@fontsource/roboto';
 
 /* nodecosmos */
-import App from './features/app/App';
+import App from './features/app/components/App';
 import store from './store';
 
 ReactDOM.render(
