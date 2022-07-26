@@ -30,19 +30,18 @@ export default function NodeLink(props) {
 
   const { x, xEnds, y } = useSelector((state) => state.nodes[id].position);
   const isNodeFetched = useSelector((state) => state.nodes[id].fetched);
+  const isNew = useSelector((state) => state.nodes[id].isNew);
 
-  const upperSiblingPosition = useSelector(
-    (state) => upperSiblingID && state.nodes[upperSiblingID].position,
-  );
+  const upperSiblingPosition = useSelector((state) => upperSiblingID && state.nodes[upperSiblingID].position);
 
   const parentID = useSelector((state) => state.nodes[id].parent_id);
   const parentPosition = useSelector((state) => !isRoot && parentID && state.nodes[parentID].position);
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
-  const linkY = upperSiblingPosition ? upperSiblingPosition.y + 3 : parentPositionY + MARGIN_TOP;
+  const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
 
-  const circleY = parentPositionY + MARGIN_TOP; // circle starts going down from parent position
+  const circleY = parentPositionY; // circle starts going down from parent position
 
   const yLength = y - linkY;
   const pathLength = y + EDGE_LENGTH;
@@ -59,7 +58,11 @@ export default function NodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  const animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
+  let animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
+
+  if (isNew) {
+    animationDuration += ANIMATION_DURATION;
+  }
 
   return (
     <g className="DropShadow">

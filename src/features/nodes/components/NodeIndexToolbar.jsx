@@ -10,7 +10,7 @@ import {
 /* nodecosmos */
 import CreateNodeModal from './CreateNodeModal';
 
-export default function NodeIndexToolbar({ currentNode }) {
+export default function NodeIndexToolbar() {
   const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);
 
   return (
@@ -33,11 +33,3 @@ export default function NodeIndexToolbar({ currentNode }) {
     </>
   );
 }
-
-NodeIndexToolbar.defaultProps = {
-  currentNode: null,
-};
-
-NodeIndexToolbar.propTypes = {
-  currentNode: PropTypes.object,
-};

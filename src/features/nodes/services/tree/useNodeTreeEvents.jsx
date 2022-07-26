@@ -8,12 +8,14 @@ import {
   prependNewNode,
   terminateNewNode,
 } from '../../nodeSlice';
+import history from '../../../../history';
 
 export default function useNodeTreeEvents(props) {
   const { id } = props;
   const dispatch = useDispatch();
   const nodeExpanded = useSelector((state) => state.nodes[id] && state.nodes[id].expanded);
   const isNewNodePresent = useSelector((state) => state.nodes[NEW_NODE_ID]);
+  const isRoot = useSelector((state) => state.nodes[id] && state.nodes[id].is_root);
 
   const currentNodeId = useSelector((state) => state.app.currentNodeID);
   const isCurrentNode = currentNodeId === id;
@@ -51,6 +53,7 @@ export default function useNodeTreeEvents(props) {
 
   const handleNodeDeletion = (nodeId) => {
     dispatch(deleteNode(nodeId));
+    if (isRoot) history.push('/');
   };
 
   return {

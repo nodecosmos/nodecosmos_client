@@ -104,6 +104,9 @@ const nodeSlice = createSlice({
         ancestor_ids: nodeAncestorIdObjects,
         node_ids: [],
         position: { y: 0 },
+        owner: {
+          username: '',
+        },
         ...action.payload,
       };
 

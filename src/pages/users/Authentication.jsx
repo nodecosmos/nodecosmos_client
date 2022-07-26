@@ -37,7 +37,7 @@ export default function Authentication() {
           </Box>
         </Box>
         <Box>
-          <Tabs value={currentPage} onChange={setCurrentPage} centered>
+          <Tabs value={currentPage} onChange={(_event, value) => setCurrentPage(value)} centered>
             <Tab label="Log in" disableRipple />
             <Tab label="Sign up" disableRipple />
           </Tabs>

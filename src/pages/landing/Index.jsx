@@ -1,7 +1,7 @@
 import TagRounded from '@mui/icons-material/TagRounded';
 import {
   Box,
-  Button,
+  Button, Grid,
   Tab,
   Tabs,
   Typography,
@@ -31,7 +31,7 @@ export default function Index() {
       vision, nodes, investments, supportUs, contactUs,
     ];
 
-    if (allRefs[tab].current) {
+    if (tab !== null && allRefs[tab].current) {
       const block = allRefs[tab] === vision ? 'center' : 'start';
       scrollIntoView(allRefs[tab].current, { behavior: 'smooth', block });
     }
@@ -96,7 +96,7 @@ export default function Index() {
           justifyContent="center"
         >
           <Container
-            maxWidth="lg"
+            maxWidth="xl"
           >
             <Box ref={vision}><Vision /></Box>
             <Box ref={nodes} pt={4}><Nodes /></Box>

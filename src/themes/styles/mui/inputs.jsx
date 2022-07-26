@@ -68,7 +68,7 @@ export default (currentTheme) => ({
       },
       outlined: {
         color: currentTheme.beige1,
-        transform: 'translate(13.5px, 6px) scale(0.8)',
+        transform: 'translate(14px, 5px) scale(0.8)',
         '&.MuiInputLabel-shrink': {
           color: currentTheme.beige1,
           fontWeight: 'bold',

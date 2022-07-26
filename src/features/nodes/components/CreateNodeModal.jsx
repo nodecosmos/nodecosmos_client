@@ -8,6 +8,7 @@ import { Form } from 'react-final-form';
 import { AddRounded, CloseOutlined, TagRounded } from '@mui/icons-material';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
+import { sublime } from '@uiw/codemirror-theme-sublime';
 
 /* mui */
 import {
@@ -17,6 +18,8 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import FinalFormInputField from '../../app/components/final-form/FinalFormInputField';
+
+const INITIAL_DESCRIPTION_VALUE = '\n\n\n\n';
 
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
@@ -28,7 +31,8 @@ export default function CreateNodeModal(props) {
 
   return (
     <Dialog
-      hideBackdrop
+      fullWidth
+      maxWidth="md"
       onClose={onClose}
       open={open}
     >
@@ -55,7 +59,7 @@ export default function CreateNodeModal(props) {
                 sx={{ mb: 4 }}
                 fullWidth
                 name="title"
-                label="Node title"
+                label="TITLE"
                 required
                 InputProps={{
                   startAdornment: (
@@ -66,8 +70,11 @@ export default function CreateNodeModal(props) {
                 }}
               />
               <CodeMirror
+                theme="dark"
+                value={INITIAL_DESCRIPTION_VALUE}
+                placeholder="DESCRIPTION"
+                basicSetup={{ highlightActiveLine: true, lineWrapping: true }}
                 extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
-                onChange={(value) => setDescription(value)}
               />
               <Button
                 sx={{ mt: 4, float: 'right' }}
