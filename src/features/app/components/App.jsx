@@ -12,7 +12,7 @@ import UserShowPage from '../../../pages/users/Show';
 /* nodes */
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
-import useUserAuthentication from '../../authentication/services/useUserAuthentication';
+import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
 /* nodecosmos */
 import Header from './header/Header';
 import history from '../../../history';

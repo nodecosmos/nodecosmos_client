@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import usePrevProps from '../../../app/services/usePrevProps';
-import useShallowEqualSelector from '../../../app/services/useShallowEqualSelector';
-import { incrementNodesYEnds, updateNodePosition, updateNodePositionYEnds } from '../../nodeSlice';
+import usePrevProps from '../../../app/hooks/usePrevProps';
+import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
+import { incrementNodesYEnds, updateNodePosition } from '../../nodeSlice';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
 
 export default function useNodePositionCalculator(props) {

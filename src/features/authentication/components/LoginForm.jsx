@@ -4,7 +4,7 @@ import { Form } from 'react-final-form';
 /* mui */
 import { Button, Grid } from '@mui/material';
 import Field from '../../app/components/final-form/FinalFormInputField';
-import useUserAuthentication from '../services/useUserAuthentication';
+import useUserAuthentication from '../hooks/useUserAuthentication';
 /* nodecosmos */
 
 export default function LoginForm() {

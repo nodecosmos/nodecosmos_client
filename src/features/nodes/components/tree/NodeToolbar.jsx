@@ -20,7 +20,7 @@ import {
   Notifications,
   NotificationsOutlined,
 } from '@mui/icons-material';
-import useNodeTreeEvents from '../../services/tree/useNodeTreeEvents';
+import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 
 export default function NodeToolbar(props) {
   const { id } = props;

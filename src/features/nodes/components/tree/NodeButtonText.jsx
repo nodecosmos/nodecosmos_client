@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import useNodeTreeEvents from '../../services/tree/useNodeTreeEvents';
+import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 
 export default function NodeButtonText(props) {
   const { id } = props;

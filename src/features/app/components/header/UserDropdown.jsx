@@ -19,7 +19,7 @@ import {
   Logout,
   LightMode,
 } from '@mui/icons-material';
-import useUserAuthentication from '../../../authentication/services/useUserAuthentication';
+import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
 import { setTheme } from '../../appSlice';
 
 /* nodecosmos */

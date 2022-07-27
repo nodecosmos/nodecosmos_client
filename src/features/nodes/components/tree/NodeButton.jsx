@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux';
 /* nodecosmos */
 import { NODE_BUTTON_HEIGHT } from './constants';
 import NodeToolbar from './NodeToolbar';
-import useNodeButtonAnimationStyle from '../../services/tree/useNodeButtonAnimationStyle';
-import useNodeButtonBackground from '../../services/tree/useNodeButtonBackground';
-import useNodeTreeEvents from '../../services/tree/useNodeTreeEvents';
+import useNodeButtonAnimationStyle from '../../hooks/tree/useNodeButtonAnimationStyle';
+import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
+import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 import NodeButtonText from './NodeButtonText';
 
 export default function NodeButton(props) {
