@@ -30,7 +30,6 @@ export default function NodeLink(props) {
 
   const { x, xEnds, y } = useSelector((state) => state.nodes[id].position);
   const isNodeFetched = useSelector((state) => state.nodes[id].fetched);
-  const isNew = useSelector((state) => state.nodes[id].isNew);
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID && state.nodes[upperSiblingID].position);
 
@@ -58,11 +57,7 @@ export default function NodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  let animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
-
-  if (isNew) {
-    animationDuration += ANIMATION_DURATION;
-  }
+  const animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
 
   return (
     <g className="DropShadow">
