@@ -48,7 +48,7 @@ export default function Index() {
         className="Header BoxShadowBottom BorderBottom"
         position="sticky"
         top={0}
-        zIndex={1}
+        zIndex={2}
         height={78}
       >
         <Container maxWidth="lg" sx={{ height: '100%' }}>

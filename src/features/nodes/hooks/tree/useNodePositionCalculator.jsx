@@ -5,6 +5,7 @@ import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector'
 import { incrementNodesYEnds, updateNodePosition } from '../../nodeSlice';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
 
+let i = 0;
 export default function useNodePositionCalculator(props) {
   const {
     id,
@@ -12,6 +13,7 @@ export default function useNodePositionCalculator(props) {
     isRoot,
   } = props;
 
+  console.log(i += 1);
   const dispatch = useDispatch();
 
   const nodePosition = useSelector((state) => state.nodes[id].position);
@@ -33,14 +35,17 @@ export default function useNodePositionCalculator(props) {
   const y = (isRoot ? 0 : (upperSiblingYEnds || parentY)) + MARGIN_TOP + EDGE_LENGTH;
   const prevY = usePrevProps(y);
 
-  let yEnds = y;
-
-  if (prevY && prevY !== y) {
-    yEnds = nodePosition.yEnds + y - prevY;
-  }
+  const currentYEnds = nodePosition.yEnds;
 
   const calculatePosition = useCallback(() => {
     if (prevY === y) return;
+
+    let yEnds = y;
+
+    if (prevY && prevY !== y) {
+      const change = y - prevY;
+      yEnds = currentYEnds + change;
+    }
 
     dispatch(updateNodePosition({
       id,
@@ -51,7 +56,7 @@ export default function useNodePositionCalculator(props) {
         yEnds,
       },
     }));
-  }, [dispatch, id, prevY, x, xEnds, y, yEnds]);
+  }, [dispatch, id, prevY, x, xEnds, y, currentYEnds]);
 
   const incrementParentsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;

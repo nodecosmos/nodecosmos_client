@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 /* nodecosmos */
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
-import Sidebar from '../../features/nodes/components/Sidebar';
+import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode, terminateNewNode } from '../../features/nodes/nodeSlice';
 import NodeTab from './show-pages/NodeTab';
 import Tree from '../../features/nodes/components/tree/Tree';

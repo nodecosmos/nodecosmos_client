@@ -72,6 +72,7 @@ export default function CreateNodeModal(props) {
               <CodeMirror
                 theme="dark"
                 value={INITIAL_DESCRIPTION_VALUE}
+                onChange={(_event, value) => setDescription(value)}
                 placeholder="DESCRIPTION"
                 basicSetup={{ highlightActiveLine: true, lineWrapping: true }}
                 extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
