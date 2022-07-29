@@ -5,7 +5,6 @@ import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector'
 import { incrementNodesYEnds, updateNodePosition } from '../../nodeSlice';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
 
-let i = 0;
 export default function useNodePositionCalculator(props) {
   const {
     id,
@@ -13,7 +12,6 @@ export default function useNodePositionCalculator(props) {
     isRoot,
   } = props;
 
-  console.log(i += 1);
   const dispatch = useDispatch();
 
   const nodePosition = useSelector((state) => state.nodes[id].position);
