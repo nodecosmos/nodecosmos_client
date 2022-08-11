@@ -19,7 +19,7 @@ export default (currentTheme) => ({
         '&.MicroButton': {
           padding: '3px 8px',
           border: '1px solid transparent',
-          borderRadius: 4,
+          borderRadius: 6,
           '&:hover': {
             background: 'rgb(73 176 244 / 7%)',
             borderColor: currentTheme.blue1,

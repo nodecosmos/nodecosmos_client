@@ -28,8 +28,10 @@ export default function NodeButton(props) {
   const style = useNodeButtonAnimationStyle({ id, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeID;
+  const hasNestedNodes = useSelector((state) => state.nodes[id].node_ids.length > 0);
 
-  const buttonClassName = nodeExpanded && 'expanded';
+  const buttonClassName = nodeExpanded && isCurrentNode
+    || nodeExpanded && hasNestedNodes ? 'expanded' : null;
 
   return (
     <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>

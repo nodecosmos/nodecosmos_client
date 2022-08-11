@@ -54,7 +54,7 @@ export default function CreateNodeModal(props) {
       <DialogContent>
         <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
           {({ handleSubmit }) => (
-            <form className="h-1" onSubmit={handleSubmit}>
+            <form style={{ height: '100%' }} onSubmit={handleSubmit}>
               <FinalFormInputField
                 sx={{ mb: 4 }}
                 fullWidth

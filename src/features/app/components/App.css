@@ -25,11 +25,7 @@ html, body, #root {
 }
 
 #root {
-    padding: 7px 6px;
-}
-
-.h-1 {
-    height: 100%;
+    padding: 6px;
 }
 
 input {
@@ -40,6 +36,19 @@ input {
 input:focus {
     outline:none!important;
 }
+
 video {
-    clip-path: inset(1px 1px);
+    margin-bottom: -1px;
+}
+
+.rotate {
+    background: linear-gradient(45deg,  #6ed836, #0060ff);
+    animation-duration: 2s;
+    animation-name: rotate;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
 }

@@ -56,22 +56,22 @@ export default function useNodePositionCalculator(props) {
     }));
   }, [dispatch, id, prevY, x, xEnds, y, currentYEnds]);
 
-  const incrementParentsYEnds = useCallback(() => {
+  const incrementAncestorsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;
 
     if (!isRoot) dispatch(incrementNodesYEnds({ ids: nodeAncestorIds, increment }));
   }, [dispatch, isRoot, nodeAncestorIds]);
 
-  const decrementParentsYEnds = useCallback(() => {
+  const decrementAncestorsYEnds = useCallback(() => {
     const initialParentIncrement = EDGE_LENGTH + MARGIN_TOP;
     const decrement = -initialParentIncrement;
 
     if (!isRoot) dispatch(incrementNodesYEnds({ ids: nodeAncestorIds, increment: decrement }));
   }, [dispatch, isRoot, nodeAncestorIds]);
 
-  /* initial */
   useLayoutEffect(() => { calculatePosition(); }, [calculatePosition]);
 
-  useEffect(() => () => decrementParentsYEnds(), [decrementParentsYEnds]);
-  useEffect(() => incrementParentsYEnds(), [incrementParentsYEnds]);
+  useEffect(() => incrementAncestorsYEnds(), [incrementAncestorsYEnds]);
+
+  useEffect(() => () => decrementAncestorsYEnds(), [decrementAncestorsYEnds]);
 }

@@ -11,7 +11,7 @@ export default function SidebarListItem({ to, icon, title }) {
         <ListItemIcon>
           {icon}
         </ListItemIcon>
-        <Typography>
+        <Typography variant="body2">
           {title}
         </Typography>
       </ListItemButton>

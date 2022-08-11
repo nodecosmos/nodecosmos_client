@@ -1,7 +1,7 @@
 import TagRounded from '@mui/icons-material/TagRounded';
 import {
   Box,
-  Button, Grid,
+  Button,
   Tab,
   Tabs,
   Typography,
@@ -10,17 +10,18 @@ import Container from '@mui/material/Container';
 import React, { useEffect, useRef, useState } from 'react';
 import { scrollIntoView } from 'seamless-scroll-polyfill/lib/scrollIntoView';
 /* sections */
-import Vision from './sections/Vision';
-import Nodes from './sections/Nodes';
-import Investments from './sections/Investments';
-import SupportUs from './sections/SupportUs';
-import ContactUs from './sections/ContactUs';
+import ForInnovators from '../../features/landing/components/ForInnovators';
+import Intro from '../../features/landing/components/Intro';
+import Nodes from '../../features/landing/components/Nodes';
+import SupportUs from '../../features/landing/components/SupportUs';
+import ContactUs from '../../features/landing/components/ContactUs';
 
 export default function Index() {
   const [tab, setTab] = useState(0);
-  const vision = useRef(null);
+  const intro = useRef(null);
+  const forInnovators = useRef(null);
+  const forInvestors = useRef(null);
   const nodes = useRef(null);
-  const investments = useRef(null);
   const supportUs = useRef(null);
   const contactUs = useRef(null);
 
@@ -28,14 +29,18 @@ export default function Index() {
 
   useEffect(() => {
     const allRefs = [
-      vision, nodes, investments, supportUs, contactUs,
+      intro, forInnovators, forInvestors, nodes, supportUs, contactUs,
     ];
 
-    if (tab !== null && allRefs[tab].current) {
-      const block = allRefs[tab] === vision ? 'center' : 'start';
-      scrollIntoView(allRefs[tab].current, { behavior: 'smooth', block });
+    if (tab !== null && allRefs[tab] && allRefs[tab].current) {
+      scrollIntoView(allRefs[tab].current, { behavior: 'smooth', block: 'center' });
     }
   }, [tab]);
+
+  const handleNodecosmosClick = () => {
+    setTab(null);
+    scrollIntoView(intro.current, { behavior: 'smooth', block: 'center' });
+  };
 
   return (
     <Box
@@ -51,7 +56,7 @@ export default function Index() {
         zIndex={2}
         height={78}
       >
-        <Container maxWidth="lg" sx={{ height: '100%' }}>
+        <Container maxWidth="xl" sx={{ height: '100%' }}>
           <Box sx={{
             height: '100%',
             display: 'flex',
@@ -60,13 +65,9 @@ export default function Index() {
           }}
           >
             <Button
-              sx={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                height: 48,
-              }}
+              onClick={handleNodecosmosClick}
               color="primary"
-              className="MicroButton focus"
+              className="MicroButton"
             >
               <TagRounded sx={{ color: 'primary.light', fontSize: 24 }} />
               <Typography sx={{ fontSize: 24 }} fontWeight="bold">
@@ -82,8 +83,9 @@ export default function Index() {
               TabIndicatorProps={{ className: 'header' }}
             >
               <Tab label="Vision" disableRipple sx={{ ml: 1 }} />
+              <Tab label="Innovate" disableRipple sx={{ ml: 1 }} />
+              <Tab label="Invest" disableRipple sx={{ ml: 1 }} />
               <Tab label="Nodes" disableRipple sx={{ ml: 1 }} />
-              <Tab label="Investments NFT" disableRipple sx={{ ml: 1 }} />
               <Tab label="Support Us" disableRipple sx={{ ml: 1 }} />
               <Tab label="Contact Us" disableRipple sx={{ ml: 1 }} />
             </Tabs>
@@ -95,14 +97,13 @@ export default function Index() {
           display="flex"
           justifyContent="center"
         >
-          <Container
-            maxWidth="xl"
-          >
-            <Box ref={vision}><Vision /></Box>
-            <Box ref={nodes} pt={4}><Nodes /></Box>
-            <Box ref={investments} pt={4}><Investments /></Box>
-            <Box ref={supportUs} pt={4}><SupportUs /></Box>
-            <Box ref={contactUs} pt={4}><ContactUs /></Box>
+          <Container maxWidth="xl">
+            <Box ref={intro}><Intro /></Box>
+            <Box ref={forInnovators}><ForInnovators /></Box>
+            <Box ref={forInvestors}><ForInnovators /></Box>
+            <Box ref={nodes}><Nodes /></Box>
+            <Box ref={supportUs}><SupportUs /></Box>
+            <Box ref={contactUs}><ContactUs /></Box>
           </Container>
         </Box>
       </Box>

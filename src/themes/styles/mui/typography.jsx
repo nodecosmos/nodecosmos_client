@@ -2,7 +2,7 @@ export default (currentTheme) => ({
   MuiTypography: {
     styleOverrides: {
       body1: {
-        fontSize: 12,
+        fontSize: 20,
       },
       h5: {
         whiteSpace: 'nowrap',

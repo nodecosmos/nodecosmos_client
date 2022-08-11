@@ -17,7 +17,7 @@ export default function Sidebar(props) {
   const { id } = props;
 
   return (
-    <nav className="h-1 flexColumnSpaceBetween">
+    <nav className="flexColumnSpaceBetween" style={{ height: '100%' }}>
       <List>
         <SidebarListItem to={`/nodes/${id}`} icon={<TagRounded />} title="Node" />
         <SidebarListItem to={`/nodes/${id}/tree`} icon={<AccountTreeRounded />} title="Tree" />

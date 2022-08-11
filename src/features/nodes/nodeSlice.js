@@ -54,6 +54,7 @@ const mapNodesToState = (state, nodes) => {
     const { id } = payload;
 
     payload.node_ids = payload.node_ids || [];
+    payload.ancestor_ids = payload.ancestor_ids || [];
     payload.position = payload.position || {};
 
     state[id] = payload;
@@ -110,7 +111,7 @@ const nodeSlice = createSlice({
         ...action.payload,
       };
 
-      parent.node_ids.unshift({ $oid: id });
+      parent.node_ids.push({ $oid: id });
     },
     deprecateNodesFetchedState(state, _action) {
       Object.keys(state).forEach((id) => {

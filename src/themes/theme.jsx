@@ -7,7 +7,7 @@ import utilities from './styles/utilities';
 import toolbar from './styles/toolbar';
 import animations from './styles/animations';
 import tree from './styles/tree';
-import codemirror from './styles/codemirror';
+import fonts from './styles/fonts';
 /* mui */
 import input from './styles/mui/inputs';
 import list from './styles/mui/list';
@@ -30,7 +30,7 @@ export default (currentTheme) => createTheme({
         ...toolbar(currentTheme),
         ...animations(currentTheme),
         ...tree(currentTheme),
-        ...codemirror(currentTheme),
+        ...fonts(currentTheme),
         ...mainContent(currentTheme),
       },
     },
@@ -57,6 +57,9 @@ export default (currentTheme) => createTheme({
     },
     success: {
       main: currentTheme.green1,
+    },
+    green: {
+      main: currentTheme.green2,
     },
     text: {
       primary: currentTheme.beige1,

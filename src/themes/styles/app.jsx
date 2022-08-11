@@ -3,4 +3,5 @@ export default (currentTheme) => ({
     color: currentTheme.beige1,
     textDecoration: 'none',
   },
+  '.DropShadow': { filter: currentTheme.filter1 },
 });
