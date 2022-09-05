@@ -12,26 +12,42 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 
 const [
+  MARKDOWN,
   TREE,
   WORKFLOW,
   DRAWING,
   CONTRIBUTION_REQUEST,
   TOPICS,
-] = ['TREE', 'WORKFLOW', 'DRAWING', 'CONTRIBUTION_REQUEST', 'TOPICS'];
+] = ['MARKDOWN', 'TREE', 'WORKFLOW', 'DRAWING', 'CONTRIBUTION_REQUEST', 'TOPICS'];
 
 export default function LandingNodeSidebar() {
   const [currentTab, setCurrentTab] = useState(TREE);
 
   return (
     <List style={{
-      backgroundColor: '#2f3239',
+      backgroundColor: '#32353c',
       borderRadius: 24,
       padding: 8,
+      borderTop: '1px solid #393a42',
       boxShadow: '1px 2px 1px -1px rgb(0 0 0 / 25%),'
         + '0px 1px 1px 0px rgb(0 0 0 / 14%),'
         + '0px 1px 3px 0px rgb(0 0 0 / 12%)',
     }}
     >
+      <ListItem>
+        <ListItemButton
+          disableRipple
+          onClick={() => setCurrentTab(MARKDOWN)}
+          className={currentTab === MARKDOWN && 'active'}
+        >
+          <ListItemIcon>
+            <img src="icons/markdown.svg" width="21" height="21" />
+          </ListItemIcon>
+          <Typography variant="body2">
+            Markdown Description
+          </Typography>
+        </ListItemButton>
+      </ListItem>
       <ListItem>
         <ListItemButton
           disableRipple

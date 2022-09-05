@@ -54,7 +54,7 @@ export default function useNodePositionCalculator(props) {
         yEnds,
       },
     }));
-  }, [dispatch, id, prevY, x, xEnds, y, currentYEnds]);
+  }, [currentYEnds, dispatch, id, prevY, x, xEnds, y]);
 
   const incrementAncestorsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;

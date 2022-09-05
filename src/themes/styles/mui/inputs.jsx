@@ -7,6 +7,9 @@ export default (currentTheme) => ({
       root: {
         borderRadius: 4,
         background: currentTheme.black1,
+        '.MuiOutlinedInput-input': {
+          padding: '22px 14px 14px',
+        },
         '.MuiOutlinedInput-notchedOutline': {
           borderColor: currentTheme.black3,
         },
@@ -71,7 +74,6 @@ export default (currentTheme) => ({
         transform: 'translate(14px, 5px) scale(0.8)',
         '&.MuiInputLabel-shrink': {
           color: currentTheme.beige1,
-          fontWeight: 'bold',
         },
       },
     },

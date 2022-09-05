@@ -8,7 +8,7 @@ export default function Transformable(props) {
 
   const onWheel = (event) => {
     if (event.altKey) {
-      const newVal = Math.min(Math.max(1, scale + event.deltaY * -0.002), 2);
+      const newVal = Math.min(Math.max(0.9, scale + event.deltaY * -0.002), 2);
 
       setScale(newVal);
     }

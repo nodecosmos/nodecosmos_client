@@ -16,8 +16,8 @@ export default (currentTheme) => ({
   MuiListItemIcon: {
     styleOverrides: {
       root: {
+        transition: 'all 350ms cubic-bezier(0.0, 0, 0.2, 1) 2ms',
         color: currentTheme.beige1, // currentTheme.beige1
-        transition: 'all 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
       },
     },
   },
@@ -26,26 +26,26 @@ export default (currentTheme) => ({
       root: {
         padding: 8,
         borderRadius: 14,
-        transition: 'all 250ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+        transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
         color: currentTheme.gray1, // currentTheme.beige1
 
         '.MuiSvgIcon-root': {
-          fontSize: 21,
-          transition: 'all 250ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
+          fontSize: 20,
+          // transition: 'all 250ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
         },
 
         '.MuiTypography-root': {
           marginLeft: 16,
           // fontSize: 12,
-          fontFamily: 'monospace',
+          // fontFamily: 'monospace',
         },
 
         '.MuiListItemIcon-root': {
           minWidth: 0,
           color: '#c4c7cf', // currentTheme.beige1
-          padding: 12,
-          borderRadius: '50%',
-          background: currentTheme.black2,
+          padding: 11,
+          borderRadius: 10,
+          background: currentTheme.black5,
           boxShadow: currentTheme.boxShadow1,
           display: 'flex',
           alignItems: 'center',
@@ -53,25 +53,23 @@ export default (currentTheme) => ({
         },
 
         '&:hover': {
-          background: currentTheme.black1,
-          color: 'white',
+          background: currentTheme.black8,
+          color: '#fff',
 
           '.MuiListItemIcon-root': {
             borderColor: 'transparent',
-            boxShadow: currentTheme.boxShadow1,
           },
         },
 
         '&.active': {
-          background: '#2c2f35',
-          color: 'white',
+          background: currentTheme.black8,
+          color: '#fff',
           borderRadius: 8,
 
           '.MuiListItemIcon-root': {
-            borderRadius: 8,
+            borderRadius: 10,
             borderColor: 'transparent',
-            color: 'white',
-            boxShadow: currentTheme.boxShadow1,
+            color: '#fff',
           },
         },
       },

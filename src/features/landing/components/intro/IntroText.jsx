@@ -9,7 +9,7 @@ const INNOVATION = 'INNOVATION';
 const INVESTMENT = 'INVESTMENT';
 const COLLABORATION = 'COLLABORATION';
 
-export default function VisionText() {
+export default function IntroText() {
   const headlines = [INNOVATION, INVESTMENT, COLLABORATION];
   const [headlineIndex, setHeadlineIndex] = useState(0);
   const [iteration, setIteration] = useState(0);
@@ -31,7 +31,7 @@ export default function VisionText() {
   return (
     <Box
       position="absolute"
-      zIndex={1}
+      zIndex={2}
       width="100%"
       display="flex"
       alignItems="center"

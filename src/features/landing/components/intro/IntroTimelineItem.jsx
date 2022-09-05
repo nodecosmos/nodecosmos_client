@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function VisionTimelineItem({
+export default function IntroTimelineItem({
   delay, icon, text, renderSeparator,
 }) {
   return (
@@ -59,7 +59,7 @@ export default function VisionTimelineItem({
               padding: '10px',
             }}
           >
-            <Typography fontFamily="Roboto Mono" fontWeight="bold" fontSize="1rem">
+            <Typography fontWeight="bold" fontSize="1rem">
               {text}
             </Typography>
           </Button>
@@ -88,11 +88,11 @@ export default function VisionTimelineItem({
   );
 }
 
-VisionTimelineItem.defaultProps = {
+IntroTimelineItem.defaultProps = {
   renderSeparator: true,
 };
 
-VisionTimelineItem.propTypes = {
+IntroTimelineItem.propTypes = {
   delay: PropTypes.number.isRequired,
   icon: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,

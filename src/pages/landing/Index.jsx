@@ -13,8 +13,12 @@ import { scrollIntoView } from 'seamless-scroll-polyfill/lib/scrollIntoView';
 import ForInnovators from '../../features/landing/components/ForInnovators';
 import Intro from '../../features/landing/components/Intro';
 import Nodes from '../../features/landing/components/Nodes';
-import SupportUs from '../../features/landing/components/SupportUs';
 import ContactUs from '../../features/landing/components/ContactUs';
+
+const tabSx = {
+  ml: 1,
+  fontSize: 15,
+};
 
 export default function Index() {
   const [tab, setTab] = useState(0);
@@ -38,7 +42,6 @@ export default function Index() {
   }, [tab]);
 
   const handleNodecosmosClick = () => {
-    setTab(null);
     scrollIntoView(intro.current, { behavior: 'smooth', block: 'center' });
   };
 
@@ -54,7 +57,7 @@ export default function Index() {
         position="sticky"
         top={0}
         zIndex={2}
-        height={78}
+        height={56}
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>
           <Box sx={{
@@ -69,8 +72,8 @@ export default function Index() {
               color="primary"
               className="MicroButton"
             >
-              <TagRounded sx={{ color: 'primary.light', fontSize: 24 }} />
-              <Typography sx={{ fontSize: 24 }} fontWeight="bold">
+              <TagRounded sx={{ color: 'primary.light', fontSize: 16 }} />
+              <Typography sx={{ fontSize: 16 }} fontWeight="bold">
                 <Box component="span" color="primary.light">node</Box>
                 <Box component="span" color="secondary.main">cosmos</Box>
               </Typography>
@@ -79,15 +82,18 @@ export default function Index() {
               value={tab}
               onChange={handleTabChange}
               centered
-              sx={{ ml: 4, height: 1, pt: 3 }}
+              sx={{
+                ml: 4,
+                height: 1,
+                pt: 1,
+              }}
               TabIndicatorProps={{ className: 'header' }}
             >
-              <Tab label="Vision" disableRipple sx={{ ml: 1 }} />
-              <Tab label="Innovate" disableRipple sx={{ ml: 1 }} />
-              <Tab label="Invest" disableRipple sx={{ ml: 1 }} />
-              <Tab label="Nodes" disableRipple sx={{ ml: 1 }} />
-              <Tab label="Support Us" disableRipple sx={{ ml: 1 }} />
-              <Tab label="Contact Us" disableRipple sx={{ ml: 1 }} />
+              <Tab label="Vision" disableRipple sx={tabSx} />
+              <Tab label="Innovate" disableRipple sx={tabSx} />
+              <Tab label="Invest" disableRipple sx={tabSx} />
+              <Tab label="Nodes" disableRipple sx={tabSx} />
+              <Tab label="Contact Us" disableRipple sx={tabSx} />
             </Tabs>
           </Box>
         </Container>
@@ -102,7 +108,6 @@ export default function Index() {
             <Box ref={forInnovators}><ForInnovators /></Box>
             <Box ref={forInvestors}><ForInnovators /></Box>
             <Box ref={nodes}><Nodes /></Box>
-            <Box ref={supportUs}><SupportUs /></Box>
             <Box ref={contactUs}><ContactUs /></Box>
           </Container>
         </Box>

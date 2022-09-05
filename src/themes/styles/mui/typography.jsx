@@ -4,6 +4,9 @@ export default (currentTheme) => ({
       body1: {
         fontSize: 20,
       },
+      body2: {
+        fontSize: 14,
+      },
       h5: {
         whiteSpace: 'nowrap',
         overflow: 'hidden',

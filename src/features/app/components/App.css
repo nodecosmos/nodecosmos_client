@@ -37,10 +37,6 @@ input:focus {
     outline:none!important;
 }
 
-video {
-    margin-bottom: -1px;
-}
-
 .rotate {
     background: linear-gradient(45deg,  #6ed836, #0060ff);
     animation-duration: 2s;

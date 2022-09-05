@@ -34,7 +34,7 @@ export default function NodeButton(props) {
     || nodeExpanded && hasNestedNodes ? 'expanded' : null;
 
   return (
-    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
+    <foreignObject className="NodeName" width="100%" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
       <Box display="flex" width="100%">
         <Button
           className={buttonClassName}

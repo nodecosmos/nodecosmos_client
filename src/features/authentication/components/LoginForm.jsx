@@ -16,7 +16,7 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} justify="center">
             <Grid item xs={12}>
-              <Field fullWidth name="username || email" required />
+              <Field fullWidth name="username_or_email" label="username || email" required />
             </Grid>
             <Grid item xs={12}>
               <Field fullWidth name="password" type="password" required />

@@ -14,9 +14,7 @@ export default function Vision() {
           display="flex"
           justifyContent="center"
           alignItems="center"
-        >
-          <Typography variant="h3" color="#845fa9">Contact Us</Typography>
-        </Box>
+        />
       </Grid>
     </Grid>
   );
