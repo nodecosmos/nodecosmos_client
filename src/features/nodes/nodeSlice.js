@@ -89,10 +89,11 @@ const nodeSlice = createSlice({
     },
     prependNewNode: (state, action) => {
       const parentId = action.payload.parent_id;
+
+      if (!parentId || parentId === NEW_NODE_ID) return;
+
       const parent = state[parentId];
       const id = action.payload.id || NEW_NODE_ID;
-
-      if (parentId === NEW_NODE_ID) return;
 
       const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
         ? [{ $oid: parentId }, ...parent.ancestor_ids] : [{ $oid: parentId }];

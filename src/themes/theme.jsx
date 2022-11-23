@@ -18,7 +18,7 @@ import menu from './styles/mui/menu';
 import tab from './styles/mui/tab';
 import card from './styles/mui/card';
 
-export default (currentTheme) => createTheme({
+const getTheme = (currentTheme) => createTheme({
   spacing: [0, 1, 8, 16, 32, 64, 128, 256, 512, 1024, 2048],
   components: {
     MuiCssBaseline: {
@@ -56,7 +56,7 @@ export default (currentTheme) => createTheme({
       main: currentTheme.red1,
     },
     success: {
-      main: currentTheme.green1,
+      main: currentTheme.green4,
     },
     green: {
       main: currentTheme.green2,
@@ -67,7 +67,8 @@ export default (currentTheme) => createTheme({
     },
     background: {
       paper: currentTheme.black6,
-      default: currentTheme.black1,
     },
   },
 });
+
+export default getTheme;

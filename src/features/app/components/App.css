@@ -24,9 +24,9 @@ html, body, #root {
     width: 100%;
 }
 
-#root {
-    padding: 6px;
-}
+/*#root {*/
+/*    padding: 6px;*/
+/*}*/
 
 input {
     border:0;
@@ -37,14 +37,9 @@ input:focus {
     outline:none!important;
 }
 
-.rotate {
-    background: linear-gradient(45deg,  #6ed836, #0060ff);
-    animation-duration: 2s;
-    animation-name: rotate;
-    animation-iteration-count: infinite;
+::selection {
+    background: #87a6e6;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
 }
 
-@keyframes rotate {
-    0% {transform:rotate(0deg);}
-    100% {transform:rotate(360deg);}
-}

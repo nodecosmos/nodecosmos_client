@@ -23,6 +23,7 @@ export default function useNodeTreeEvents(props) {
   const onNodeClick = () => {
     if (nodeExpanded && isCurrentNode) {
       dispatch(collapseNode({ id }));
+      dispatch(setCurrentNode(null));
     } else {
       dispatch(expandNode({ id }));
       dispatch(setCurrentNode(id));

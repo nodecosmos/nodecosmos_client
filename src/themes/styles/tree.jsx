@@ -2,12 +2,11 @@ export default (currentTheme) => ({
   '.Tree': {
     '.NodeName': { cursor: 'pointer' },
     '.MuiButton-root': {
-      background: '#43464e',
-      borderRadius: 8,
+      background: '#414650',
+      borderRadius: 6,
       padding: '2px 6px',
-      boxShadow: '1px 1px rgb(0 0 0 / 70%)',
       '&:hover': {
-        background: '#43464e',
+        background: '#414650',
       },
       '&.expanded': {
         color: 'rgb(0 0 0 / 70%)',

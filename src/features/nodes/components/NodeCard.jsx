@@ -20,11 +20,11 @@ function NodeCard(props) {
     <Card className="Card">
       <CardHeader
         avatar={(
-          <Link to={`users/${node.owner.id}`}>
+          <Link to={`/users/${node.owner.id}`}>
             <NodeAvatar user={node.owner} />
           </Link>
         )}
-        title={<Link to={`nodes/${node.id}`}>{node.title}</Link>}
+        title={<Link to={`/nodes/${node.id}`}>{node.title}</Link>}
         subheader={node.created_at}
       />
       <CardContent>

@@ -1,14 +1,16 @@
+/* eslint-disable react/no-children-prop */
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter, Routes, Route, Navigate,
+} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Index from '../../../pages/landing/Index';
+import Home from '../../../pages/home/Index';
 /* users */
 import UserAuthentication from '../../../pages/users/Authentication';
-import UserShowPage from '../../../pages/users/Show';
 /* nodes */
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
@@ -22,8 +24,6 @@ import light from '../../../themes/light';
 
 /* css */
 import './App.css';
-
-const NON_HEADER_PATHS = ['/login', '/landing'];
 
 export default function App() {
   const theme = useSelector((state) => state.app.theme);
@@ -42,30 +42,38 @@ export default function App() {
   return (
     <ThemeProvider theme={getTheme(currentTheme)}>
       <CssBaseline />
-      <Router history={history}>
+      <BrowserRouter location={history.location} navigator={history}>
         <Box
-          borderRadius={2}
-          p={0}
           height={1}
           width={1}
-          overflow="hidden"
-          className="MainContent"
+          p={{
+            xs: 0,
+            sm: '6px',
+          }}
+          backgroundColor={currentTheme.black1}
         >
-          <Route path="/login">
-            {isAuthenticated
-              ? <Redirect to={`/users/${currentUser.username}`} />
-              : <UserAuthentication />}
-          </Route>
-          <Route path="/landing" component={Index} />
-          <Route
-            path="/"
-            render={({ location }) => !NON_HEADER_PATHS.includes(location.pathname) && <Header />}
-          />
-          <Route path="/users/:username" component={UserShowPage} />
-          <Route exact path="/" component={NodesIndex} />
-          <Route path="/nodes/:id" component={NodeShow} />
+          <Box
+            borderRadius={2}
+            height={1}
+            width={1}
+            className="MainContent"
+          >
+            {/* <Header /> */}
+            <Routes>
+              <Route path="/" element={(<Home />)} />
+              <Route path="/n" element={(<NodesIndex />)} />
+              <Route
+                path="/login"
+                element={isAuthenticated
+                  ? <Navigate to={`/users/${currentUser.username}`} />
+                  : <UserAuthentication />}
+              />
+              <Route path="/home" element={<Home />} />
+              <Route path="/nodes/:id/*" element={<NodeShow />} />
+            </Routes>
+          </Box>
         </Box>
-      </Router>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

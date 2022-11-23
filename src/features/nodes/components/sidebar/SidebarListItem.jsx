@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 export default function SidebarListItem({ to, icon, title }) {
   return (
     <ListItem>
-      <ListItemButton disableRipple exact component={NavLink} to={to}>
+      <ListItemButton disableRipple end component={NavLink} to={to}>
         <ListItemIcon>
           {icon}
         </ListItemIcon>

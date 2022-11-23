@@ -11,9 +11,6 @@ export default (currentTheme) => ({
     '.Item:nth-of-type(1)': { color: currentTheme.red1 },
     '.Item:nth-of-type(2)': { color: currentTheme.blue1 },
     '.Item:nth-of-type(3)': { color: currentTheme.green1 },
-    '.Item:nth-of-type(4)': { color: currentTheme.yellow1 },
-    '.Item:nth-of-type(5)': { color: currentTheme.red1 },
-    '.Item:nth-of-type(6)': { color: currentTheme.green1 },
     '.MuiSvgIcon-root': { fontSize: 15 },
   },
 });

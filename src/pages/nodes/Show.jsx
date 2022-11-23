@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 /* mui */
 import Box from '@mui/material/Box';
@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode, terminateNewNode } from '../../features/nodes/nodeSlice';
-import NodeTab from './show-pages/NodeTab';
-import Tree from '../../features/nodes/components/tree/Tree';
+import NodeTab from './show/NodeTab';
+import TreeTab from './show/TreeTab';
 
 export default function NodeShow() {
   const dispatch = useDispatch();
@@ -34,8 +34,10 @@ export default function NodeShow() {
         <Sidebar id={id} />
       </Box>
       <Box width="calc(100% - 300px)">
-        <Route exact path="/nodes/:id"><NodeTab id={id} /></Route>
-        <Route path="/nodes/:id/tree"><Tree id={id} /></Route>
+        <Routes>
+          <Route path="/" element={<NodeTab id={id} />} />
+          <Route path="tree" element={<TreeTab id={id} />} />
+        </Routes>
       </Box>
     </Box>
   );

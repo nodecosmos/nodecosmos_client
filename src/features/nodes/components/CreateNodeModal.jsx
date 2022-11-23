@@ -8,7 +8,7 @@ import { Form } from 'react-final-form';
 import { AddRounded, CloseOutlined, TagRounded } from '@mui/icons-material';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
-import { sublime } from '@uiw/codemirror-theme-sublime';
+import { useNavigate } from 'react-router-dom';
 
 /* mui */
 import {
@@ -16,6 +16,7 @@ import {
   InputAdornment,
   DialogContent,
 } from '@mui/material';
+import nodecosmos from '../../../apis/nodecosmos-server';
 /* nodecosmos */
 import FinalFormInputField from '../../app/components/final-form/FinalFormInputField';
 
@@ -24,9 +25,18 @@ const INITIAL_DESCRIPTION_VALUE = '\n\n\n\n';
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
   const [description, setDescription] = useState(null);
+  const navigate = useNavigate();
 
   const onSubmit = async (formValues) => {
     formValues.description = description;
+
+    try {
+      const response = await nodecosmos.post('/nodes.json', formValues);
+      navigate(`/nodes/${response.data.id}`);
+      return null;
+    } catch (e) {
+      return e.data;
+    }
   };
 
   return (
@@ -72,7 +82,9 @@ export default function CreateNodeModal(props) {
               <CodeMirror
                 theme="dark"
                 value={INITIAL_DESCRIPTION_VALUE}
-                onChange={(_event, value) => setDescription(value)}
+                onChange={(value) => {
+                  setDescription(value);
+                }}
                 placeholder="DESCRIPTION"
                 basicSetup={{ highlightActiveLine: true, lineWrapping: true }}
                 extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}

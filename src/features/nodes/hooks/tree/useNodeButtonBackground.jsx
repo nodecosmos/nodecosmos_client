@@ -16,9 +16,9 @@ export default function useNodeButtonBackground(props) {
   const hasNestedNodes = useSelector((state) => state.nodes[id].node_ids.length > 0);
 
   const nodeBackgroundColors = [colors.red2, colors.green2, colors.blue2];
-  const backgroundColor = (nodeExpanded && isCurrentNode || nodeExpanded && hasNestedNodes)
-    ? nodeBackgroundColors[nestedLevel % 3] : '#43464e';
-  const parentBackgroundColor = parentExpanded ? nodeBackgroundColors[(nestedLevel - 1) % 3] : '#43464e';
+  const backgroundColor = ((nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes))
+    ? nodeBackgroundColors[nestedLevel % 3] : '#414650';
+  const parentBackgroundColor = parentExpanded ? nodeBackgroundColors[(nestedLevel - 1) % 3] : '#414650';
 
   return {
     backgroundColor,

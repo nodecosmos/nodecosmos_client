@@ -25,7 +25,7 @@ export default (currentTheme) => ({
     styleOverrides: {
       root: {
         padding: 8,
-        borderRadius: 14,
+        borderRadius: 8,
         transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
         color: currentTheme.gray1, // currentTheme.beige1
 
@@ -43,13 +43,13 @@ export default (currentTheme) => ({
         '.MuiListItemIcon-root': {
           minWidth: 0,
           color: '#c4c7cf', // currentTheme.beige1
-          padding: 11,
-          borderRadius: 10,
+          padding: 10,
+          borderRadius: 6,
           background: currentTheme.black5,
-          boxShadow: currentTheme.boxShadow1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          boxShadow: currentTheme.boxShadow1,
         },
 
         '&:hover': {
@@ -64,10 +64,8 @@ export default (currentTheme) => ({
         '&.active': {
           background: currentTheme.black8,
           color: '#fff',
-          borderRadius: 8,
 
           '.MuiListItemIcon-root': {
-            borderRadius: 10,
             borderColor: 'transparent',
             color: '#fff',
           },

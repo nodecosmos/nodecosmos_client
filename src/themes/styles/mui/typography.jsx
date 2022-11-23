@@ -1,16 +1,16 @@
 export default (currentTheme) => ({
   MuiTypography: {
     styleOverrides: {
+      whiteSpace: 'normal',
       body1: {
-        fontSize: 20,
+        fontSize: 18,
+        '@media (max-width: 600px)': {
+          fontSize: 14,
+        },
       },
       body2: {
         fontSize: 14,
-      },
-      h5: {
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
+        lineHeight: 1.5,
       },
     },
   },

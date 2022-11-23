@@ -1,5 +1,4 @@
 import React from 'react';
-import * as PropTypes from 'prop-types';
 /* mui */
 import { Box, IconButton } from '@mui/material';
 import {

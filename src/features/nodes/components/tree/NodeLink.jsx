@@ -8,12 +8,12 @@ import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 
 function renderRootLink({ x, xEnds, y }) {
   return (
-    <g className="DropShadow">
-      <circle cx={x} cy={y} r={6} fill="#43464e" />
+    <g>
+      <circle cx={x} cy={y} r={6} fill="#414650" />
       <path
         strokeWidth={4}
         d={`M ${x} ${y} L ${xEnds} ${y}`}
-        stroke="#43464e"
+        stroke="#414650"
         fill="transparent"
       />
     </g>
@@ -60,7 +60,7 @@ export default function NodeLink(props) {
   const animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
 
   return (
-    <g className="DropShadow">
+    <g>
       <path
         ref={pathRef}
         strokeWidth={3.5}
@@ -73,7 +73,7 @@ export default function NodeLink(props) {
               ${linkX} ${y}
               ${linkX + 8} ${y}
             L ${xEnds} ${y}`}
-        stroke="#43464e"
+        stroke="#414650"
         fill="transparent"
         style={{
           strokeDasharray: pathLength,

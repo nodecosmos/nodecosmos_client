@@ -18,14 +18,15 @@ export default (currentTheme) => ({
         borderRadius: 4,
         '&.MicroButton': {
           padding: '3px 8px',
-          border: '1px solid transparent',
+          border: '1.5px solid transparent',
           borderRadius: 6,
-          '&:hover': {
+          '&:hover, &.hovered': {
             background: 'rgb(73 176 244 / 7%)',
             borderColor: currentTheme.blue1,
           },
-          '&:focus': {
+          '&:focus, &.focused': {
             borderColor: currentTheme.green1,
+            color: currentTheme.green1,
             background: 'rgb(73 176 244 / 7%)',
           },
         },

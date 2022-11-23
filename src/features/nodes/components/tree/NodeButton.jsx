@@ -1,6 +1,6 @@
 import React from 'react';
 import TagRounded from '@mui/icons-material/TagRounded';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -34,11 +34,12 @@ export default function NodeButton(props) {
     || nodeExpanded && hasNestedNodes ? 'expanded' : null;
 
   return (
-    <foreignObject className="NodeName" width="100%" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
+    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
       <Box display="flex" width="100%">
         <Button
           className={buttonClassName}
           onClick={onNodeClick}
+          onMouseDown={(e) => e.stopPropagation()}
           style={{ backgroundColor }}
           disableRipple={isNew}
         >

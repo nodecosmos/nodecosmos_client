@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 /* mui */
 import {
@@ -8,11 +8,13 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+/* icons */
 import TagRounded from '@mui/icons-material/TagRounded';
-
 /* nodecosmos */
 import UserDropdown from './UserDropdown';
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
+
+const NON_HEADER_PATHS = ['/login', '/'];
 
 export default function Header() {
   const toolbars = {
@@ -20,8 +22,12 @@ export default function Header() {
     // NodeShowToolbar: <NodeToolbar />,
   };
 
+  const location = useLocation();
+
   const toolbar = useSelector((state) => state.app.currentToolbar);
   const subtitle = useSelector((state) => state.app.subtitle);
+
+  if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
   return (
     <Box className="Header" display="flex" alignItems="center" height={62}>

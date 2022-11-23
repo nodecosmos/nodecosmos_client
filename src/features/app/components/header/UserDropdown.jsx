@@ -65,6 +65,7 @@ export default function UserDropdown() {
               mt: '2px',
               ml: '3px',
               width: 300,
+              transform: 'scale(0.8)!important',
             },
           }}
         >
@@ -114,10 +115,20 @@ export default function UserDropdown() {
   }
 
   return (
-    <Button component={Link} to="/login" color="primary" className="MicroButton">
-      <Typography variant="body1">
-        Log In
-      </Typography>
-    </Button>
+    <Box display="flex" justifyContent="end">
+      <Button component={Link} to="/login" color="primary" sx={{ mr: 2 }} className="MicroButton">
+        Log in
+      </Button>
+      <Button
+        component={Link}
+        to="/login"
+        variant="outlined"
+        className="MicroButton focused"
+        color="green"
+        sx={{ mr: 2 }}
+      >
+        Sign Up
+      </Button>
+    </Box>
   );
 }

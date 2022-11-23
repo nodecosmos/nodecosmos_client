@@ -3,5 +3,6 @@ export default (currentTheme) => ({
     color: currentTheme.beige1,
     textDecoration: 'none',
   },
+  // DropShadow causes bad performance on mobile
   '.DropShadow': { filter: currentTheme.filter1 },
 });
