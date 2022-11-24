@@ -2,7 +2,10 @@
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter, Routes, Route, Navigate,
+  BrowserRouter,
+  Routes,
+  Route,
+  // Navigate,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 /* mui */
@@ -10,13 +13,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from '../../../pages/home/Index';
 /* users */
-import UserAuthentication from '../../../pages/users/Authentication';
+// import UserAuthentication from '../../../pages/users/Authentication';
 /* nodes */
-import NodesIndex from '../../../pages/nodes/Index';
-import NodeShow from '../../../pages/nodes/Show';
+// import NodesIndex from '../../../pages/nodes/Index';
+// import NodeShow from '../../../pages/nodes/Show';
 import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
 /* nodecosmos */
-import Header from './header/Header';
+// import Header from './header/Header';
 import history from '../../../history';
 import getTheme from '../../../themes/theme';
 import dark from '../../../themes/dark';
@@ -28,7 +31,7 @@ import './App.css';
 export default function App() {
   const theme = useSelector((state) => state.app.theme);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  // const currentUser = useSelector((state) => state.auth.currentUser);
 
   const themes = { light, dark };
   const currentTheme = themes[theme];
@@ -61,15 +64,15 @@ export default function App() {
             {/* <Header /> */}
             <Routes>
               <Route path="/" element={(<Home />)} />
-              <Route path="/n" element={(<NodesIndex />)} />
-              <Route
-                path="/login"
-                element={isAuthenticated
-                  ? <Navigate to={`/users/${currentUser.username}`} />
-                  : <UserAuthentication />}
-              />
-              <Route path="/home" element={<Home />} />
-              <Route path="/nodes/:id/*" element={<NodeShow />} />
+              {/* <Route path="/n" element={(<NodesIndex />)} /> */}
+              {/* <Route */}
+              {/*  path="/login" */}
+              {/*  element={isAuthenticated */}
+              {/*    ? <Navigate to={`/users/${currentUser.username}`} /> */}
+              {/*    : <UserAuthentication />} */}
+              {/* /> */}
+              {/* <Route path="/home" element={<Home />} /> */}
+              {/* <Route path="/nodes/:id/*" element={<NodeShow />} /> */}
             </Routes>
           </Box>
         </Box>

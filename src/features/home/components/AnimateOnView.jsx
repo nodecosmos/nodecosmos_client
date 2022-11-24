@@ -44,7 +44,7 @@ AnimateOnView.defaultProps = {
   },
   hidden: {
     opacity: 0,
-    scale: 0.9,
+    scale: 1,
   },
   threshold: 0.4,
 };

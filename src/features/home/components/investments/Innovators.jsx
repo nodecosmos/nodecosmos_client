@@ -69,11 +69,11 @@ export default function Innovators() {
                 {' '}
                 <Box
                   component="span"
-                  color="#ff9df4"
+                  color="#e4cdff"
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '4px solid #ff9df4',
+                    borderBottom: '4px solid #e4cdff',
                     lineHeight: 2,
                   }}
                   onClick={() => {

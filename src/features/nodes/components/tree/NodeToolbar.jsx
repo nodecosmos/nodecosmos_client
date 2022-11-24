@@ -8,18 +8,17 @@ import {
   Box,
 } from '@mui/material';
 
-import {
-  AddRounded,
-  Bookmark,
-  BookmarkBorder,
-  EditRounded,
-  Favorite,
-  FavoriteBorder,
-  SearchRounded,
-  DeleteOutlineRounded,
-  Notifications,
-  NotificationsOutlined,
-} from '@mui/icons-material';
+import AddRounded from '@mui/icons-material/AddRounded';
+import Bookmark from '@mui/icons-material/Bookmark';
+import BookmarkBorder from '@mui/icons-material/BookmarkBorder';
+import EditRounded from '@mui/icons-material/EditRounded';
+import Favorite from '@mui/icons-material/Favorite';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import SearchRounded from '@mui/icons-material/SearchRounded';
+import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
+import Notifications from '@mui/icons-material/Notifications';
+import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
+
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 
 export default function NodeToolbar(props) {

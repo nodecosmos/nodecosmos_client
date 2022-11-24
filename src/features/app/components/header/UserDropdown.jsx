@@ -14,11 +14,11 @@ import {
   ListItemButton,
   ListItemIcon,
 } from '@mui/material';
-import {
-  Person,
-  Logout,
-  LightMode,
-} from '@mui/icons-material';
+
+import Person from '@mui/icons-material/Person';
+import Logout from '@mui/icons-material/Logout';
+import LightMode from '@mui/icons-material/LightMode';
+
 import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
 import { setTheme } from '../../appSlice';
 

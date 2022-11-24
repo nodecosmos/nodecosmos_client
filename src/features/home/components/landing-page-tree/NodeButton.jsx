@@ -42,6 +42,9 @@ export default function NodeButton(props) {
           onMouseDown={(e) => e.stopPropagation()}
           style={{ backgroundColor }}
           disableRipple={isNew}
+          sx={{
+            height: NODE_BUTTON_HEIGHT,
+          }}
         >
           <Box fontWeight="bold" display="flex" alignItems="center">
             <TagRounded fontSize="small" sx={{ mr: 2 }} />

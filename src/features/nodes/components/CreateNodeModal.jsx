@@ -5,7 +5,11 @@ import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import CodeMirror from '@uiw/react-codemirror';
 import { Form } from 'react-final-form';
-import { AddRounded, CloseOutlined, TagRounded } from '@mui/icons-material';
+
+import AddRounded from '@mui/icons-material/AddRounded';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import TagRounded from '@mui/icons-material/TagRounded';
+
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { useNavigate } from 'react-router-dom';

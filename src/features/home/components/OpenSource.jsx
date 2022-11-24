@@ -1,153 +1,204 @@
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Card } from '@mui/material';
 import React from 'react';
 import AnimateOnView from './AnimateOnView';
-import Section from './Section';
 
 export default function OpenSource() {
   return (
     <Box mt={{
-      md: 7,
       xs: 5,
+      md: 6,
     }}
     >
-      <AnimateOnView threshold={0.9}>
-        <Typography
-          variant="h4"
-          textAlign="center"
-          lineHeight={{
-            xs: 1.3,
-            sm: 1,
-          }}
-          fontSize={{
-            xs: '28px',
-            sm: '32px',
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Box
+          display={{
+            xs: 'none',
+            md: 'block',
           }}
         >
-          Explore possibilities with
-          <Box component="span" color="#d09dff" fontWeight="bold">
-            {' '}
-            Open Source
-            {' '}
-          </Box>
-        </Typography>
-      </AnimateOnView>
-      <Box mt={5}>
-        <AnimateOnView threshold={0.9} delay={200}>
-          <Section>
-            <Typography
-              fontSize={25}
-              fontFamily="Roboto Mono"
-              fontWeight="bold"
-              textAlign="left"
-              sx={{
-                background: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                WebkitBoxDecorationBreak: 'clone',
-                color: '#d09dff',
-                lineHeight: 1,
+          <AnimateOnView threshold={1} delay={500}>
+            <img
+              src="node-link-3.svg"
+              alt="node-handle"
+              style={{
+                width: '75%',
+                marginTop: 8,
               }}
-            >
-              {'<'}
-              source=
-              <Box
-                component="span"
-                sx={{
-                  color: '#7fff92',
-                  WebkitTextFillColor: '#7fff92',
-                }}
-              >
-                &quot;open&quot;
-              </Box>
-              {'>'}
-            </Typography>
-
-            <Box
-              component="ul"
-              mt={3}
-              pl="40px"
-              sx={{
-                listStyle: 'none',
-              }}
-            >
-              <li>
-                <Typography
-                  fontFamily="'Roboto Mono',sans-serif"
-                  mt={3}
-                >
-                  One of the most powerful things about software development is
-                  {' '}
-                  <Box
-                    component="a"
-                    fontWeight="bold"
-                    color="#d09dff"
-                    sx={{
-                      cursor: 'pointer',
-                      borderBottom: '4px solid #d09dff',
-                      lineHeight: 2,
-                    }}
-                    href="https://en.wikipedia.org/wiki/Open_source"
-                    target="_blank"
-                  >
-                    Open Source
-                  </Box>
-                  .
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  fontFamily="'Roboto Mono',sans-serif"
-                  mt={3}
-                >
-                  It enables companies and engineers to collaborate on open source projects
-                  and integrate them into their own products.
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  fontFamily="'Roboto Mono',sans-serif"
-                  mt={3}
-                >
-                  What if we take this concept and apply it to other areas?
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  fontFamily="'Roboto Mono',sans-serif"
-                  mt={3}
-                >
-                  Nodecosmos plans to cover that gap by providing a platform that allows users
-                  to freely collaborate on projects that are not limited to software.
-                </Typography>
-              </li>
+            />
+          </AnimateOnView>
+        </Box>
+        <AnimateOnView threshold={1}>
+          <Typography
+            variant="h4"
+            textAlign="center"
+            mb={5}
+            lineHeight={{
+              xs: 1.3,
+              sm: 1,
+            }}
+            fontSize={{
+              xs: '28px',
+              sm: '32px',
+            }}
+          >
+            Explore possibilities with
+            <Box component="span" color="#e4cdff" fontWeight="bold">
+              {' '}
+              Open Source
+              {' '}
             </Box>
-
-            <Box mt={3}>
-              <Typography
-                fontSize={25}
-                fontFamily="Roboto Mono"
-                fontWeight="bold"
-                textAlign="left"
-                sx={{
-                  background: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                  color: '#d09dff',
-                  lineHeight: 1,
-                }}
-              >
-                {'</'}
-                source
-                {'>'}
-              &#32;&#32;&#32;&#32;&#32;
-              </Typography>
-            </Box>
-          </Section>
+          </Typography>
         </AnimateOnView>
+
+        <Box sx={{
+          transform: 'scaleX(-1)',
+          display: {
+            xs: 'none',
+            md: 'block',
+          },
+        }}
+        >
+          <AnimateOnView threshold={1} delay={500}>
+            <img
+              src="node-link-3.svg"
+              alt="node-handle"
+              style={{
+                width: '75%',
+                marginTop: 8,
+              }}
+            />
+          </AnimateOnView>
+        </Box>
       </Box>
+      <AnimateOnView threshold={1} delay={800}>
+        <Card
+          elevation={2}
+          sx={{
+            borderTop: '1px solid #3c4149',
+            p: 0,
+            mt: 3,
+            backgroundColor: '#2d3138',
+          }}
+        >
+          <Box>
+            <Box display="flex" alignItems="stretch">
+              <Box m={4}>
+                <Typography
+                  fontSize={25}
+                  fontFamily="'Montserrat',sans-serif"
+                  fontWeight="900"
+                  textAlign="left"
+                  sx={{
+                    background: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    WebkitBoxDecorationBreak: 'clone',
+                    color: '#d09dff',
+                    lineHeight: 1,
+                  }}
+                >
+                  {'<'}
+                  source=
+                  <Box
+                    component="span"
+                    sx={{
+                      color: '#7fff92',
+                      WebkitTextFillColor: '#7fff92',
+                    }}
+                  >
+                    &quot;open&quot;
+                  </Box>
+                  {'>'}
+                </Typography>
+                <Box
+                  component="ul"
+                  pl={0}
+                  m={3}
+                  ml={{
+                    xs: 3,
+                    md: 4,
+                  }}
+                  sx={{
+                    listStyle: 'none',
+                  }}
+                >
+                  <li>
+                    <Typography
+                      fontFamily="'Roboto Mono',sans-serif"
+                    >
+                      One of the most powerful things about software development is
+                      {' '}
+                      <Box
+                        component="a"
+                        fontWeight="bold"
+                        color="#e4cdff"
+                        sx={{
+                          cursor: 'pointer',
+                          borderBottom: '4px solid #e4cdff',
+                          lineHeight: 2,
+                        }}
+                        href="https://en.wikipedia.org/wiki/Open_source"
+                        target="_blank"
+                      >
+                        Open Source
+                      </Box>
+                      .
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography
+                      fontFamily="'Roboto Mono',sans-serif"
+                      mt={3}
+                    >
+                      It enables companies and engineers to collaborate on open source projects
+                      and integrate them into their own products.
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography
+                      fontFamily="'Roboto Mono',sans-serif"
+                      mt={3}
+                    >
+                      What if we take this concept and apply it to other areas?
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography
+                      fontFamily="'Roboto Mono',sans-serif"
+                      mt={3}
+                    >
+                      Nodecosmos plans to cover that gap by providing a platform that allows users
+                      to freely collaborate on projects that are not limited to software.
+                    </Typography>
+                  </li>
+                </Box>
+
+                <Typography
+                  fontSize={25}
+                  fontFamily="'Montserrat',sans-serif"
+                  fontWeight="900"
+                  textAlign="left"
+                  sx={{
+                    background: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    WebkitBoxDecorationBreak: 'clone',
+                    color: '#d09dff',
+                    lineHeight: 1,
+                  }}
+                >
+                  {'</'}
+                  source
+                  {'>'}
+                  &#32;&#32;&#32;&#32;&#32;
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Card>
+      </AnimateOnView>
     </Box>
   );
 }

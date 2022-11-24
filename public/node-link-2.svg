@@ -2,8 +2,8 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="750"
-   height="184"
+   width="760"
+   height="190"
    version="1.1"
    id="svg5"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@
   <g
      style="/* filter: drop-shadow(1px 1px 0px rgb(0 0 0 / 0.3)); */"
      id="layer1"
-     transform="translate(-323.0,-235)">
+     transform="translate(-320.0,-230)">
     <path
        style="fill:none;fill-opacity:1;stroke:#b3ff68;stroke-width:5;stroke-dasharray:none;stroke-opacity:1"
        d="m 698.47,241.72424 v 44.71745 l -0.40938,27.34781 c -0.84391,15.12641 -21.08006,14.14461 -30.90792,14.30333 l -308.6109,0.8204 c -6.52848,0.20841 -22.84019,-1.37459 -25.91924,17.40476 l -1.22194,62.50904"
@@ -27,19 +27,19 @@
        id="path8022"
        cx="698.65106"
        cy="243.73494"
-       r="8" />
+       r="9" />
     <circle
        style="fill:#b3ff68;fill-opacity:1;stroke:none;stroke-width:5;stroke-dasharray:none;stroke-opacity:1"
        id="path8022-6"
        cx="331.34399"
        cy="408.86957"
-       r="8" />
+       r="9" />
     <circle
        style="fill:#b3ff68;fill-opacity:1;stroke:none;stroke-width:5;stroke-dasharray:none;stroke-opacity:1"
        id="path8022-6-1"
        cx="1065.4189"
        cy="408.86942"
-       r="8" />
+       r="9" />
 <!--    <circle-->
 <!--            style="fill:#b3ff68;fill-opacity:1;stroke:none;stroke-width:5;stroke-dasharray:none;stroke-opacity:1"-->
 <!--            id="path8022-6-1"-->

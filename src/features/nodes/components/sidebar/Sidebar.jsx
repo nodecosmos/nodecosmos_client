@@ -2,15 +2,15 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
 import { List } from '@mui/material';
-import {
-  AccountTreeRounded,
-  TagRounded,
-  GestureRounded,
-  SettingsOutlined,
-  CodeRounded,
-  TimelineRounded,
-  GroupsRounded,
-} from '@mui/icons-material';
+
+import AccountTreeRounded from '@mui/icons-material/AccountTreeRounded';
+import TagRounded from '@mui/icons-material/TagRounded';
+import GestureRounded from '@mui/icons-material/GestureRounded';
+import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
+import CodeRounded from '@mui/icons-material/CodeRounded';
+import TimelineRounded from '@mui/icons-material/TimelineRounded';
+import GroupsRounded from '@mui/icons-material/GroupsRounded';
+
 import SidebarListItem from './SidebarListItem';
 
 export default function Sidebar(props) {

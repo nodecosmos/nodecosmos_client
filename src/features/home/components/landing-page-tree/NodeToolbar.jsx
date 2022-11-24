@@ -8,17 +8,16 @@ import {
   Box,
 } from '@mui/material';
 
-import {
-  AddRounded,
-  Bookmark,
-  BookmarkBorder,
-  EditRounded,
-  Favorite,
-  FavoriteBorder,
-  DeleteOutlineRounded,
-  Notifications,
-  NotificationsOutlined,
-} from '@mui/icons-material';
+import AddRounded from '@mui/icons-material/AddRounded';
+import Bookmark from '@mui/icons-material/Bookmark';
+import BookmarkBorder from '@mui/icons-material/BookmarkBorder';
+import EditRounded from '@mui/icons-material/EditRounded';
+import Favorite from '@mui/icons-material/Favorite';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
+import Notifications from '@mui/icons-material/Notifications';
+import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
+
 import { useDispatch } from 'react-redux';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
 import { updateNode } from './landingPageNodeSlice';

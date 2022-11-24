@@ -33,12 +33,22 @@ export default function Innovate() {
     height: 3,
     borderRadius: 2,
     background: '#ff0066',
+    mb: {
+      xs: 2,
+      md: 0,
+    },
   };
 
   return (
     <Box mt={5}>
       <Tabs
-        sx={{ ml: 2, mb: -2 }}
+        sx={{
+          ml: {
+            xs: 0,
+            md: 2,
+          },
+          mb: -2,
+        }}
         variant="scrollable"
         value={currentPage}
         onChange={(_event, value) => setCurrentPage(value)}

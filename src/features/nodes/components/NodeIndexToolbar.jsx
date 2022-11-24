@@ -1,11 +1,11 @@
 import React from 'react';
 /* mui */
 import { Box, IconButton } from '@mui/material';
-import {
-  AddRounded,
-  SearchRounded,
-  Settings,
-} from '@mui/icons-material';
+
+import AddRounded from '@mui/icons-material/AddRounded';
+import SearchRounded from '@mui/icons-material/SearchRounded';
+import Settings from '@mui/icons-material/Settings';
+
 /* nodecosmos */
 import CreateNodeModal from './CreateNodeModal';
 

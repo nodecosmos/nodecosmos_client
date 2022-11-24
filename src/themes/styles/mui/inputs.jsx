@@ -2,28 +2,34 @@ export default (currentTheme) => ({
   MuiOutlinedInput: {
     styleOverrides: {
       input: {
-        caretColor: currentTheme.yellow1,
+        caretColor: currentTheme.green1,
+        fontFamily: "'Roboto mono', sans-serif",
       },
       root: {
         borderRadius: 4,
         background: currentTheme.black1,
         '.MuiOutlinedInput-input': {
-          padding: '22px 14px 14px',
+          padding: '28px 14px 14px',
+          '&.MuiInputBase-inputMultiline': {
+            padding: 0,
+            marginTop: 12,
+          },
         },
         '.MuiOutlinedInput-notchedOutline': {
           borderColor: currentTheme.black3,
+          borderWidth: 2,
         },
         '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: currentTheme.black3,
+          borderColor: currentTheme.black1,
         },
         '&.Mui-error .MuiOutlinedInput-notchedOutline': {
           borderColor: currentTheme.red1,
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderWidth: 1,
+          borderWidth: 2,
           borderStyle: 'solid',
           background: 'none',
-          borderColor: currentTheme.blue1,
+          borderColor: 'transparent',
         },
         '&.LargeInput': {
           fontSize: 25,
@@ -70,10 +76,13 @@ export default (currentTheme) => ({
         transition: 'color 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
       },
       outlined: {
+        fontFamily: "'Roboto', sans-serif",
+        fontWeight: 700,
         color: currentTheme.beige1,
-        transform: 'translate(14px, 5px) scale(0.8)',
+        // transform: 'translate(14px, 5px) scale(0.8)',
         '&.MuiInputLabel-shrink': {
-          color: currentTheme.beige1,
+          transform: 'translate(14px, 9px) scale(0.8)',
+          color: currentTheme.green1,
         },
       },
     },

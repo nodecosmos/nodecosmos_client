@@ -8,15 +8,16 @@ import {
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useInView } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { scrollIntoView } from 'seamless-scroll-polyfill';
+import ContactUs from '../../features/home/components/ContactUs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
 import Collaborate from '../../features/home/components/Collaborate';
 import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
-import Roadmap from '../../features/home/components/Roadmap';
+import MVP from '../../features/home/components/MVP';
 
 const tabSx = {
   ml: 1,
@@ -29,7 +30,7 @@ export default function Index() {
   const collaborate = useRef(null);
   const investments = useRef(null);
   const openSource = useRef(null);
-  const roadmap = useRef(null);
+  const mvp = useRef(null);
   const contactUs = useRef(null);
 
   const useInViewOptions = { amount: 0.8 };
@@ -38,21 +39,21 @@ export default function Index() {
   const collaborateInView = useInView(collaborate, useInViewOptions);
   const investmentsInView = useInView(investments, useInViewOptions);
   const openSourceInView = useInView(openSource, useInViewOptions);
-  const roadmapInView = useInView(roadmap, useInViewOptions);
+  const MVPInView = useInView(mvp, useInViewOptions);
   const contactUsInView = useInView(contactUs, useInViewOptions);
 
   const scrollEnabled = useSelector((state) => state.app.scrollEnabled);
   const [preventTabChange, setPreventTabChange] = useState(false);
 
   const allRefs = [
-    innovate, collaborate, investments, openSource, roadmap, contactUs,
+    innovate, collaborate, investments, openSource, mvp, contactUs,
   ];
 
   const handleWheel = () => {
     if (preventTabChange) return;
 
     const allInView = [
-      innovateInView, collaborateInView, investmentsInView, openSourceInView, roadmapInView, contactUsInView,
+      innovateInView, collaborateInView, investmentsInView, openSourceInView, MVPInView, contactUsInView,
     ];
 
     const currentTab = allInView.indexOf(true);
@@ -128,7 +129,7 @@ export default function Index() {
               <Tab label="Collaborate" disableRipple sx={tabSx} />
               <Tab label="Investments" disableRipple sx={tabSx} />
               <Tab label="Open Source" disableRipple sx={tabSx} />
-              <Tab label="Roadmap" disableRipple sx={tabSx} />
+              <Tab label="MVP" disableRipple sx={tabSx} />
               <Tab label="Contact Us" disableRipple sx={tabSx} />
             </Tabs>
           </Box>
@@ -139,7 +140,7 @@ export default function Index() {
           display="flex"
           justifyContent="center"
         >
-          <Container maxWidth="lg" sx={{ pb: 5 }}>
+          <Container maxWidth="lg">
             <Box ref={innovate} id="innovate">
               <Typography
                 mt={5}
@@ -161,8 +162,22 @@ export default function Index() {
             <Box ref={collaborate}><Collaborate /></Box>
             <Box ref={investments}><Investments /></Box>
             <Box ref={openSource}><OpenSource /></Box>
-            <Box ref={roadmap}><Roadmap /></Box>
+            <Box ref={mvp}><MVP /></Box>
+            <Box ref={contactUs}><ContactUs /></Box>
           </Container>
+        </Box>
+        <Box
+          mt={6}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          className="Header BoxShadowTop BorderTop"
+          zIndex={2}
+          p={3}
+        >
+          <Typography variant="body2" color="#e3daee">
+            © 2022 nodecosmos
+          </Typography>
         </Box>
       </Box>
     </Box>

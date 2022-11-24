@@ -105,11 +105,11 @@ export default function ContributionRequest() {
                 {' '}
                 <Box
                   component="span"
-                  color="#ff7e7e"
+                  color="#e4cdff"
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '6px solid #ff7e7e',
+                    borderBottom: '6px solid #e4cdff',
                   }}
                   onClick={() => scrollIntoView(document.getElementById('innovate'))}
                 >

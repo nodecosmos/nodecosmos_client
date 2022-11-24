@@ -7,7 +7,7 @@ export default (currentTheme) => ({
   //--------------------------------------------------------------------------------------------------------------------
   '.BoxShadowTop': { boxShadow: '0px -1px 1px 0px #00000045' },
   '.BoxShadowBottom': { boxShadow: '0px 1px 1px 0px #00000045' },
-  '.BoxShadowLeft': { boxShadow: '-1px 0px 0.9px 0px #00000045' },
+  '.BoxShadowLeft': { boxShadow: '-1px 0px 1px 0px #00000045' },
   '.BoxShadowRight': { boxShadow: '1px 0px 1px 0px #00000045' },
   //--------------------------------------------------------------------------------------------------------------------
   '.BorderTop': { borderTop: currentTheme.border1 },

@@ -9,11 +9,11 @@ import Section from './Section';
 export default function Investments() {
   return (
     <Box mt={{
-      md: 7,
       xs: 5,
+      md: 6,
     }}
     >
-      <AnimateOnView threshold={0.9}>
+      <AnimateOnView threshold={1}>
         <Box>
           <Typography
             variant="h4"
@@ -37,7 +37,7 @@ export default function Investments() {
           </Typography>
         </Box>
       </AnimateOnView>
-      <AnimateOnView delay={200}>
+      <AnimateOnView delay={400}>
         <Box
           mt={3}
           alignItems="center"
@@ -57,14 +57,14 @@ export default function Investments() {
         }}
       >
         <Grid item xs={12} md={6}>
-          <AnimateOnView threshold={0.9}>
+          <AnimateOnView threshold={1} delay={700}>
             <Section>
               <Innovators />
             </Section>
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={200} threshold={0.9}>
+          <AnimateOnView delay={900} threshold={1}>
             <Section>
               <Investors />
             </Section>
