@@ -1,5 +1,6 @@
 import Check from '@mui/icons-material/Check';
 import { styled, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -14,7 +15,7 @@ const steps = [
   'Workflow',
   'Media',
   'Contribution Request',
-  'Topics',
+  'Crypto Integration',
 ];
 
 function QontoStepIcon(props) {
@@ -54,6 +55,14 @@ const QontoStepIconRoot = styled('div')(({ ownerState }) => ({
 }));
 
 export default function MVP() {
+  const scrollable = React.useRef(null);
+
+  useEffect(() => {
+    if (scrollable.current) {
+      scrollable.current.scrollLeft = 200;
+    }
+  }, []);
+
   return (
     <Box
       sx={{ width: '100%' }}
@@ -78,13 +87,14 @@ export default function MVP() {
           Checkout
           <Box component="span" color="#b6fd7b" fontWeight="bold">
             {' '}
-            MVP Progress
+            Feature Progress
             {' '}
           </Box>
+          of the MVP
         </Typography>
       </AnimateOnView>
       <AnimateOnView threshold={1} delay={200}>
-        <Box mt={5} overflow="auto" pb={{ xs: 2, md: 0 }}>
+        <Box ref={scrollable} mt={5} overflow="auto" pb={{ xs: 2, md: 0 }}>
           <Box width={{
             xs: 800,
             md: '100%',
@@ -98,7 +108,7 @@ export default function MVP() {
                   color: '#b8fb8a',
                   '.MuiStepConnector-line': {
                     borderColor: '#b8fb8a',
-                    borderWidth: 3,
+                    borderWidth: 2,
                   },
                 },
                 '.MuiStepLabel-label': {

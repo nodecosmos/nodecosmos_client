@@ -1,0 +1,85 @@
+import {
+  Drawer,
+  IconButton, List, ListItem,
+  MenuItem,
+  Tab, Tabs, useMediaQuery, useTheme,
+} from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import PropTypes from 'prop-types';
+import React from 'react';
+
+const tabSx = {
+  ml: 1,
+  fontSize: 15,
+};
+
+export default function HomepageTabs(props) {
+  const { tab, handleTabChange } = props;
+  const theme = useTheme();
+  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
+  const [open, setOpen] = React.useState(false);
+
+  const options = [
+    'Innovate', 'Collaborate', 'Investments', 'Open Source', 'MVP', 'Contact Us',
+  ];
+
+  if (matchesSm) {
+    return (
+      <>
+        <IconButton aria-label="delete" size="large" onClick={() => setOpen(!open)}>
+          <MenuIcon fontSize="inherit" htmlColor="#414650" />
+        </IconButton>
+        <Drawer
+          anchor="right"
+          open={open}
+          onClose={() => setOpen(false)}
+          PaperProps={{
+            sx: {
+              pl: 0,
+              pt: 0,
+            },
+          }}
+        >
+          <Tabs
+            orientation="vertical"
+            value={tab}
+            onChange={(event, newValue) => {
+              handleTabChange(event, newValue);
+              setTimeout(() => setOpen(false), 500);
+            }}
+            TabIndicatorProps={{
+              sx: {
+                left: -1,
+              },
+            }}
+            centered
+          >
+            {options.map((option) => <Tab label={option} disableRipple sx={tabSx} key={option} />)}
+          </Tabs>
+        </Drawer>
+      </>
+    );
+  }
+
+  return (
+    <Tabs
+      value={tab}
+      onChange={handleTabChange}
+      centered
+      sx={{
+        ml: 4,
+        height: 1,
+        pt: 1,
+      }}
+      TabIndicatorProps={{ className: 'header' }}
+    >
+      {options.map((option) => <Tab label={option} disableRipple sx={tabSx} key={option} />)}
+    </Tabs>
+  );
+}
+
+HomepageTabs.propTypes = {
+  tab: PropTypes.number.isRequired,
+  handleTabChange: PropTypes.func.isRequired,
+};

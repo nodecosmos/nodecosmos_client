@@ -1,17 +1,15 @@
-import TagRounded from '@mui/icons-material/TagRounded';
 import {
   Box,
   Button,
-  Tab,
-  Tabs,
-  Typography,
+  Typography, useMediaQuery, useTheme,
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useInView } from 'framer-motion';
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { scrollIntoView } from 'seamless-scroll-polyfill';
+import { scrollBy, scrollIntoView } from 'seamless-scroll-polyfill';
 import ContactUs from '../../features/home/components/ContactUs';
+import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
 import Collaborate from '../../features/home/components/Collaborate';
@@ -19,13 +17,10 @@ import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
 import MVP from '../../features/home/components/MVP';
 
-const tabSx = {
-  ml: 1,
-  fontSize: 15,
-};
-
 export default function Index() {
   const [tab, setTab] = useState(0);
+  const rootRef = useRef(null);
+
   const innovate = useRef(null);
   const collaborate = useRef(null);
   const investments = useRef(null);
@@ -65,7 +60,10 @@ export default function Index() {
 
   const handleTabChange = (_, currentTab) => {
     setPreventTabChange(true);
-    scrollIntoView(allRefs[currentTab].current, { behavior: 'smooth', block: 'center' });
+    const yOffset = -115;
+    const y = allRefs[currentTab].current.getBoundingClientRect().top + yOffset;
+
+    scrollBy(rootRef.current, { top: y, behavior: 'smooth' });
     setTab(currentTab);
     setTimeout(() => setPreventTabChange(false), 500);
   };
@@ -79,7 +77,7 @@ export default function Index() {
       onWheelCapture={handleWheel}
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
-      id="landing"
+      ref={rootRef}
     >
       <Box
         display="flex"
@@ -106,32 +104,15 @@ export default function Index() {
               onClick={handleNodecosmosClick}
               color="primary"
               className="MicroButton"
+              displa="inline-flex"
             >
-              <TagRounded sx={{ color: '#00d9ff', fontSize: 18 }} />
-              <Typography sx={{ fontSize: 18 }} fontWeight="bold">
+              <img src="logo_1.svg" alt="logo" height={22} width={22} />
+              <Typography sx={{ fontSize: 18, ml: '4px' }} fontWeight="bold">
                 <Box component="span" color="primary.light">node</Box>
                 <Box component="span" color="secondary.main">cosmos</Box>
               </Typography>
             </Button>
-            <Tabs
-              value={tab}
-              onChange={handleTabChange}
-              centered
-              sx={{
-                ml: 4,
-                height: 1,
-                pt: 1,
-                display: { sm: 'flex' },
-              }}
-              TabIndicatorProps={{ className: 'header' }}
-            >
-              <Tab label="Innovate" disableRipple sx={tabSx} />
-              <Tab label="Collaborate" disableRipple sx={tabSx} />
-              <Tab label="Investments" disableRipple sx={tabSx} />
-              <Tab label="Open Source" disableRipple sx={tabSx} />
-              <Tab label="MVP" disableRipple sx={tabSx} />
-              <Tab label="Contact Us" disableRipple sx={tabSx} />
-            </Tabs>
+            <HomepageTabs handleTabChange={handleTabChange} tab={tab} />
           </Box>
         </Container>
       </Box>
@@ -142,21 +123,25 @@ export default function Index() {
         >
           <Container maxWidth="lg">
             <Box ref={innovate} id="innovate">
-              <Typography
-                mt={5}
-                variant="h4"
-                fontWeight="900"
-                fontFamily="'Montserrat', sans-serif"
-              >
-                Innovation Collaboration Platform
-              </Typography>
-              <Typography
-                variant="h6"
-                fontFamily="'Montserrat', sans-serif"
-                color="#4e5f6d"
-              >
-                Where scientists, engineers, and entrepreneurs collaborate to bring innovations.
-              </Typography>
+              <Box display="flex" mt={5} alignItems="center">
+                {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
+                <Box>
+                  <Typography
+                    variant="h4"
+                    fontWeight="900"
+                    fontFamily="'Montserrat', sans-serif"
+                  >
+                    Innovation Collaboration Platform
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    fontFamily="'Montserrat', sans-serif"
+                    color="#4e5f6d"
+                  >
+                    Where scientists, engineers, and entrepreneurs collaborate to bring innovations.
+                  </Typography>
+                </Box>
+              </Box>
               <Innovate />
             </Box>
             <Box ref={collaborate}><Collaborate /></Box>
