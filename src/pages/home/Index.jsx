@@ -1,7 +1,7 @@
 import {
   Box,
   Button,
-  Typography,
+  Typography, useMediaQuery, useTheme,
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useInView } from 'framer-motion';
@@ -44,6 +44,9 @@ export default function Index() {
     innovate, collaborate, investments, openSource, mvp, contactUs,
   ];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const handleWheel = () => {
     if (preventTabChange) return;
 
@@ -74,7 +77,8 @@ export default function Index() {
 
   return (
     <Box
-      onWheelCapture={handleWheel}
+      onScrollCapture={() => isMobile && handleWheel()}
+      onWheel={handleWheel}
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
       ref={rootRef}
@@ -106,7 +110,7 @@ export default function Index() {
               className="MicroButton"
               displa="inline-flex"
             >
-              <img src="logo.svg" alt="logo" height={22} width={22} />
+              <img src="logo_1.svg" alt="logo" height={22} width={22} />
               <Typography sx={{ fontSize: 18, ml: '4px' }} fontWeight="bold">
                 <Box component="span" color="primary.light">node</Box>
                 <Box component="span" color="secondary.main">cosmos</Box>
@@ -122,10 +126,10 @@ export default function Index() {
           justifyContent="center"
         >
           <Container maxWidth="lg">
-            <Box ref={innovate} id="innovate">
+            <Box id="innovate">
               <Box display="flex" mt={5} alignItems="center">
                 {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
-                <Box>
+                <Box ref={innovate}>
                   <Typography
                     variant="h4"
                     fontWeight="900"

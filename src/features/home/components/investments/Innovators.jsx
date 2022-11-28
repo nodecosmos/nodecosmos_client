@@ -38,12 +38,7 @@ export default function Innovators() {
           <Box display="flex" alignItems="center">
             <TokenRoundedIcon fontSize="large" htmlColor="#b3ff68" />
 
-            <Box
-              component="a"
-              href="https://en.wikipedia.org/wiki/Initial_coin_offering"
-              target="_blank"
-              ml={3}
-            >
+            <Box ml={3}>
               <Typography
                 color="#b3ff68"
                 sx={{
@@ -68,7 +63,9 @@ export default function Innovators() {
                 Issue
                 {' '}
                 <Box
-                  component="span"
+                  component="a"
+                  href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/"
+                  target="_blank"
                   color="#e4cdff"
                   fontWeight="bold"
                   sx={{
