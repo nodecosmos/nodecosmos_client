@@ -127,7 +127,7 @@ export default function OpenSource() {
                     <Typography
                       fontFamily="'Roboto Mono',sans-serif"
                     >
-                      One of the most powerful things about software development is
+                      One of the most powerful concepts in software development is
                       {' '}
                       <Box
                         component="a"
@@ -151,8 +151,8 @@ export default function OpenSource() {
                       fontFamily="'Roboto Mono',sans-serif"
                       mt={3}
                     >
-                      It enables companies and engineers to collaborate on open source projects
-                      and integrate them into their own products.
+                      It enables companies and engineers to collaborate on projects which
+                      can be integrated into their own products.
                     </Typography>
                   </li>
                   <li>

@@ -1,7 +1,7 @@
 import {
   Box,
   Button,
-  Typography, useMediaQuery, useTheme,
+  Typography,
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useInView } from 'framer-motion';
@@ -106,7 +106,7 @@ export default function Index() {
               className="MicroButton"
               displa="inline-flex"
             >
-              <img src="logo_1.svg" alt="logo" height={22} width={22} />
+              <img src="logo.svg" alt="logo" height={22} width={22} />
               <Typography sx={{ fontSize: 18, ml: '4px' }} fontWeight="bold">
                 <Box component="span" color="primary.light">node</Box>
                 <Box component="span" color="secondary.main">cosmos</Box>

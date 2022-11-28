@@ -84,13 +84,12 @@ export default function MVP() {
             sm: '32px',
           }}
         >
-          Checkout
           <Box component="span" color="#b6fd7b" fontWeight="bold">
             {' '}
             Feature Progress
             {' '}
           </Box>
-          of the MVP
+          for the MVP
         </Typography>
       </AnimateOnView>
       <AnimateOnView threshold={1} delay={200}>
