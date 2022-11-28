@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const NEW_NODE_ID = 'NEW_NODE_ID';
-
-const isNewNode = (id) => id === NEW_NODE_ID;
-
 const workflowSlice = createSlice({
   name: 'landingPageNodes',
   initialState: {

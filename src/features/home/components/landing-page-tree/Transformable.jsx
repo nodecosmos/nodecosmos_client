@@ -19,12 +19,12 @@ export default function Transformable(props) {
 
   // handle pan
   const {
-    pan, isPanning, handleMouseDown, handleTouchStart, setPan, setIsPanning,
+    pan, handleMouseDown, setPan,
   } = usePannable(gRef);
 
   // handle zoom
   const {
-    zoom, handleWheel, handleTouchStart: handlePinch, enableScroll,
+    zoom, enableScroll,
   } = useZoomable(gRef, scale, setPan, pan);
 
   window.addEventListener('keyup', enableScroll);

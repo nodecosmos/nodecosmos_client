@@ -1,10 +1,11 @@
 import {
   Drawer,
-  IconButton, List, ListItem,
-  MenuItem,
-  Tab, Tabs, useMediaQuery, useTheme,
+  IconButton,
+  Tab,
+  Tabs,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from 'prop-types';
 import React from 'react';

@@ -1,7 +1,7 @@
 import {
   Box, Card, CardContent, CardHeader, useMediaQuery, useTheme,
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function NodeDescriptionSm() {

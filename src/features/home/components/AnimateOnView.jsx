@@ -39,12 +39,12 @@ AnimateOnView.defaultProps = {
   delay: 0,
   visible: {
     opacity: 1,
-    scale: 1,
+    // scale: 1,
     transition: { duration: 0.6 },
   },
   hidden: {
     opacity: 0,
-    scale: 1,
+    // scale: 1,
   },
   threshold: 0.4,
 };

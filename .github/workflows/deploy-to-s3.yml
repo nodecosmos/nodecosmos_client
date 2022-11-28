@@ -1,0 +1,33 @@
+name: Deploy to S3
+on:
+  push:
+    branches:
+      - main
+env:
+  BUCKET_NAME: nodecosmos.com
+  AWS_REGION: us-east-1
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::714215625955:role/github-actions
+          role-session-name: s3session
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm run build
+      # Upload a file to AWS s3
+      - name: Sync to S3
+        run: |
+          aws s3 sync ./build s3://${{ env.BUCKET_NAME }}/
