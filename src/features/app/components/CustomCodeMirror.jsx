@@ -63,21 +63,6 @@ const generateTheme = () => {
   });
 };
 
-const loading = (
-  <Box display="flex" alignItems="center" justifyContent="center">
-    <CircularProgress
-      size={100}
-      sx={{
-        mt: {
-          xs: 6,
-          sm: 7,
-        },
-        color: '#55575b',
-      }}
-    />
-  </Box>
-);
-
 export default function CustomCodeMirror(props) {
   const { value, onChange } = props;
 
@@ -102,14 +87,12 @@ export default function CustomCodeMirror(props) {
       },
     }}
     >
-      <Suspense fallback={loading}>
-        <CodeMirror
-          value={value}
-          onChange={onChange}
-          theme={generateTheme()}
-          extensions={[codemirror.markdown({ markdownLanguage: codemirror.markdownLanguage })]}
-        />
-      </Suspense>
+      <CodeMirror
+        value={value}
+        onChange={onChange}
+        theme={generateTheme()}
+        extensions={[codemirror.markdown({ markdownLanguage: codemirror.markdownLanguage })]}
+      />
     </Box>
   );
 }

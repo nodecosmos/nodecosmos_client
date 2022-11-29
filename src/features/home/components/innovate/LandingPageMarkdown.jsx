@@ -6,9 +6,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React, { Suspense } from 'react';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import CustomCodeMirror from '../../../app/components/CustomCodeMirror';
 
 const MarkdownPreview = React.lazy(() => import('@uiw/react-markdown-preview'));
+const CustomCodeMirror = React.lazy(() => import('../../../app/components/CustomCodeMirror'));
 
 const INITIAL_DESCRIPTION_VALUE = `### Markdown
 - use **markdown** syntax to explain what is your innovation
@@ -170,6 +170,7 @@ export default function LandingPageMarkdown() {
       </Box>
       <Box mt={4} minHeight={971}>
         {mode === 'markdown' && (
+        <Suspense fallback={loading}>
           <CustomCodeMirror
             value={description}
             onChange={(value) => {
@@ -177,6 +178,7 @@ export default function LandingPageMarkdown() {
             }}
             lineWrapping
           />
+        </Suspense>
         )}
         {mode === 'content' && (
         <Box sx={{
