@@ -46,3 +46,8 @@ input:focus {
 .grecaptcha-badge {
     visibility: hidden;
 }
+
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
