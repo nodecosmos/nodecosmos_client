@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import React, { Suspense } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const CodeMirror = React.lazy(() => import('@uiw/react-codemirror'));
