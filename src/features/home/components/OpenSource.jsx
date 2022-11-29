@@ -77,7 +77,7 @@ export default function OpenSource() {
             borderTop: '1px solid #3c4149',
             p: 0,
             mt: 3,
-            backgroundColor: '#2d3138',
+            backgroundColor: '#31353c',
           }}
         >
           <Box>
