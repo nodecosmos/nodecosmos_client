@@ -1,5 +1,5 @@
 import {
-  Badge, IconButton, Typography, useMediaQuery, useTheme,
+  Badge, IconButton, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as React from 'react';
@@ -50,16 +50,11 @@ const rows = [
 ];
 
 export default function Topics() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const selectedRows = rows.slice(0, isMobile ? 4 : 5);
-
   return (
     <TableContainer>
       <Table aria-label="table">
         <TableBody>
-          {selectedRows.map((row) => (
+          {rows.map((row) => (
             <TableRow
               key={row.username}
               sx={{
