@@ -55,7 +55,7 @@ export default function Header() {
         justifyContent="center"
         className="BoxShadowBottom BorderBottom"
         height={1}
-        width={`calc(100% - ${subtitle ? 300 : 0}px)`}
+        width={`calc(100% - ${subtitle ? 300 : 0}px)`} // TODO: update check safari
       >
         <Grid item sm={4} align="left" pl={2}>
           <Button

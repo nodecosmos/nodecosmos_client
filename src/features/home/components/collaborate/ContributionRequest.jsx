@@ -316,7 +316,7 @@ export default function ContributionRequest() {
               className="NodeName"
               x="115"
               y="345"
-              width="calc(100% - 85px)"
+              width="425"
               height="80"
             >
               <Typography
