@@ -1,17 +1,14 @@
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
-import React, { useState } from 'react';
+import React from 'react';
 import * as PropTypes from 'prop-types';
-import CodeMirror from '@uiw/react-codemirror';
 import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import TagRounded from '@mui/icons-material/TagRounded';
 
-import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
-import { languages } from '@codemirror/language-data';
 import { useNavigate } from 'react-router-dom';
 
 /* mui */
@@ -24,16 +21,11 @@ import nodecosmos from '../../../apis/nodecosmos-server';
 /* nodecosmos */
 import FinalFormInputField from '../../app/components/final-form/FinalFormInputField';
 
-const INITIAL_DESCRIPTION_VALUE = '\n\n\n\n';
-
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
-  const [description, setDescription] = useState(null);
   const navigate = useNavigate();
 
   const onSubmit = async (formValues) => {
-    formValues.description = description;
-
     try {
       const response = await nodecosmos.post('/nodes.json', formValues);
       navigate(`/nodes/${response.data.id}`);
@@ -82,16 +74,6 @@ export default function CreateNodeModal(props) {
                     </InputAdornment>
                   ),
                 }}
-              />
-              <CodeMirror
-                theme="dark"
-                value={INITIAL_DESCRIPTION_VALUE}
-                onChange={(value) => {
-                  setDescription(value);
-                }}
-                placeholder="DESCRIPTION"
-                basicSetup={{ highlightActiveLine: true, lineWrapping: true }}
-                extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
               />
               <Button
                 sx={{ mt: 4, float: 'right' }}

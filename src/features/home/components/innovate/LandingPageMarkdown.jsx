@@ -1,14 +1,14 @@
-import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
-import { languages } from '@codemirror/language-data';
 import {
   ToggleButton, ToggleButtonGroup, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
-import React from 'react';
-import MarkdownPreview from '@uiw/react-markdown-preview';
+import CircularProgress from '@mui/material/CircularProgress';
+import React, { Suspense } from 'react';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import CustomCodeMirror from '../../../app/components/CustomCodeMirror';
+
+const MarkdownPreview = React.lazy(() => import('@uiw/react-markdown-preview'));
 
 const INITIAL_DESCRIPTION_VALUE = `### Markdown
 - use **markdown** syntax to explain what is your innovation
@@ -62,6 +62,21 @@ const INITIAL_DESCRIPTION_VALUE = `### Markdown
   | col 2 is |    centered   |   $12 |
   | col 3 is | right-aligned |    $1 |
 `;
+
+const loading = (
+  <Box display="flex" alignItems="center" justifyContent="center">
+    <CircularProgress
+      size={100}
+      sx={{
+        mt: {
+          xs: 6,
+          sm: 7,
+        },
+        color: '#55575b',
+      }}
+    />
+  </Box>
+);
 
 export default function LandingPageMarkdown() {
   const [description, setDescription] = React.useState(INITIAL_DESCRIPTION_VALUE);
@@ -161,7 +176,6 @@ export default function LandingPageMarkdown() {
               setDescription(value);
             }}
             lineWrapping
-            extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
           />
         )}
         {mode === 'content' && (
@@ -173,10 +187,12 @@ export default function LandingPageMarkdown() {
           },
         }}
         >
-          <MarkdownPreview
-            warpperElement={{ 'data-color-mode': 'dark' }}
-            source={description}
-          />
+          <Suspense fallback={loading}>
+            <MarkdownPreview
+              warpperElement={{ 'data-color-mode': 'dark' }}
+              source={description}
+            />
+          </Suspense>
         </Box>
         )}
       </Box>
