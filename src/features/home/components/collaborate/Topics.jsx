@@ -1,5 +1,5 @@
 import {
-  Badge, IconButton, Typography,
+  Badge, IconButton, Typography, useMediaQuery, useTheme,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as React from 'react';
@@ -50,11 +50,16 @@ const rows = [
 ];
 
 export default function Topics() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const selectedRows = rows.slice(0, isMobile ? 4 : 5);
+
   return (
     <TableContainer>
       <Table aria-label="table">
         <TableBody>
-          {rows.map((row) => (
+          {selectedRows.map((row) => (
             <TableRow
               key={row.username}
               sx={{
@@ -82,10 +87,7 @@ export default function Topics() {
               <TableCell>
                 <Box
                   display="flex"
-                  flexDirection={{
-                    xs: 'column',
-                    sm: 'row',
-                  }}
+                  flexDirection="row"
                   alignItems="center"
                   justifyContent="center"
                 >
@@ -94,24 +96,25 @@ export default function Topics() {
                     user={{ username: row.username }}
                   />
                   <Box ml={{
-                    xs: 0, sm: 3,
+                    xs: 2, sm: 3,
                   }}
                   >
                     <Typography
                       variant="body2"
-                      textAlign={{
-                        xs: 'center', sm: 'left',
+                      textAlign="left"
+                      fontSize={{
+                        xs: 10, sm: 14,
                       }}
                     >
                       {row.username}
                     </Typography>
                     <Typography
                       variant="body2"
-                      textAlign={{
-                        xs: 'center', sm: 'left',
-                      }}
+                      textAlign="left"
                       color="#fdfff9"
-                      fontSize={12}
+                      fontSize={{
+                        xs: 8, sm: 12,
+                      }}
                     >
                       {row.date}
                     </Typography>
@@ -120,7 +123,14 @@ export default function Topics() {
                 </Box>
               </TableCell>
               <TableCell align="left">
-                <Typography variant="body2">{row.topic}</Typography>
+                <Typography
+                  variant="body2"
+                  fontSize={{
+                    xs: 10, sm: 14,
+                  }}
+                >
+                  {row.topic}
+                </Typography>
               </TableCell>
               <TableCell align="left">
                 <IconButton>
