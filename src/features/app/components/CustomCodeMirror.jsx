@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
-import CodeMirror from '@uiw/react-codemirror';
 import { createTheme } from '@uiw/codemirror-themes';
 import { tags as t } from '@lezer/highlight';
 import { languages } from '@codemirror/language-data';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
+
+const CodeMirror = React.lazy(() => import('@uiw/react-codemirror'));
 
 const myTheme = createTheme({
   theme: 'dark',
@@ -69,12 +70,14 @@ export default function CustomCodeMirror(props) {
       },
     }}
     >
-      <CodeMirror
-        value={value}
-        onChange={onChange}
-        theme={myTheme}
-        extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <CodeMirror
+          value={value}
+          onChange={onChange}
+          theme={myTheme}
+          extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
+        />
+      </Suspense>
     </Box>
   );
 }
