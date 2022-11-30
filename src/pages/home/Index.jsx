@@ -48,7 +48,7 @@ export default function Index() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleWheel = () => {
-    if (preventTabChange) return;
+    if (preventTabChange || isMobile) return;
 
     const allInView = [
       innovateInView, collaborateInView, investmentsInView, openSourceInView, MVPInView, contactUsInView,
@@ -131,9 +131,6 @@ export default function Index() {
                 {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
                 <Box ref={innovate}>
                   <Typography
-                    sx={{
-                      fontDisplay: 'opotional',
-                    }}
                     variant="h4"
                     fontWeight="900"
                     fontFamily="'Montserrat', sans-serif"

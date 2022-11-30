@@ -22,7 +22,7 @@ export default function Innovate() {
 
   const tabSx = {
     fontWeight: 'normal',
-    fontFamily: 'Roboto mono',
+    fontFamily: "'Roboto mono', monospace",
     mr: 3,
     '&.Mui-selected': {
       color: '#ff0066',

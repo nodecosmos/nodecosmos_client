@@ -125,7 +125,7 @@ export default function OpenSource() {
                 >
                   <li>
                     <Typography
-                      fontFamily="'Roboto Mono',sans-serif"
+                      fontFamily="'Roboto Mono', monospace"
                     >
                       One of the most powerful concepts in software development is
                       {' '}
@@ -148,7 +148,7 @@ export default function OpenSource() {
                   </li>
                   <li>
                     <Typography
-                      fontFamily="'Roboto Mono',sans-serif"
+                      fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
                       It enables companies and engineers to collaborate on projects which
@@ -157,7 +157,7 @@ export default function OpenSource() {
                   </li>
                   <li>
                     <Typography
-                      fontFamily="'Roboto Mono',sans-serif"
+                      fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
                       What if we take this concept and apply it to other areas?
@@ -165,7 +165,7 @@ export default function OpenSource() {
                   </li>
                   <li>
                     <Typography
-                      fontFamily="'Roboto Mono',sans-serif"
+                      fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
                       Nodecosmos plans to cover that gap by providing a platform that allows users
