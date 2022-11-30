@@ -89,7 +89,7 @@ export default function MVP() {
             Feature Progress
             {' '}
           </Box>
-          for the MVP
+          of the MVP
         </Typography>
       </AnimateOnView>
       <AnimateOnView threshold={1} delay={200}>

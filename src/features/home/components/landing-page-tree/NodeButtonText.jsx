@@ -16,7 +16,7 @@ export default function NodeButtonText(props) {
   const theme = useTheme();
   const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
 
-  const sx = { outline: 'none', minWidth: 30 };
+  const sx = { outline: 'none', minWidth: 30, fontWeight: 500 };
   if (isNew || isEditing) sx.cursor = 'text';
 
   const handleBlur = (event) => {

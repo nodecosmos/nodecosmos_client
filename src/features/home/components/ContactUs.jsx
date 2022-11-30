@@ -1,5 +1,5 @@
 import {
-  Button, Grid, Typography,
+  Button, Grid, Typography, useTheme,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import React from 'react';
@@ -19,6 +19,8 @@ const validateEmailFormat = (email) => (emailRegex.test(email) ? undefined : 'em
 export default function ContactUs() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+
+  const theme = useTheme();
 
   const onSubmit = async (formValues) => {
     setLoading(true);
@@ -56,21 +58,23 @@ export default function ContactUs() {
           md: 7,
         }}
       >
-        <Section>
-          <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} md={6}>
-              <Typography variant="h4" align="center" gutterBottom>
-                Thank you for your message!
-              </Typography>
-              <Typography variant="h6" align="center" gutterBottom>
-                We will get back to you as soon as possible.
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'success.main' }} />
-              </Box>
+        <AnimateOnView>
+          <Section>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={12} md={6}>
+                <Typography variant="h4" align="center" gutterBottom>
+                  Thank you for your message!
+                </Typography>
+                <Typography variant="h6" align="center" gutterBottom>
+                  We will get back to you as soon as possible.
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'success.main' }} />
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </Section>
+          </Section>
+        </AnimateOnView>
       </Box>
     );
   }
@@ -191,20 +195,26 @@ export default function ContactUs() {
                         apply.
                       </Typography>
                     </Box>
-                    {loading
-                      ? <CircularProgress sx={{ mt: 3, ml: 3, color: '#74ff91' }} />
-                      : (
-                        <Button
-                          sx={{ mt: 3, color: 'rgb(0 0 0 / 70%)' }}
-                          color="success"
-                          variant="contained"
-                          disableElevation
-                          type="submit"
-                          startIcon={<SendOutlinedIcon />}
-                        >
-                          Send
-                        </Button>
-                      )}
+                    <Button
+                      sx={{
+                        mt: 3,
+                        color: 'rgb(0 0 0 / 70%)',
+                        '&:disabled': {
+                          backgroundColor: theme.palette.success.main,
+                        },
+                      }}
+                      disabled={loading}
+                      color="success"
+                      variant="contained"
+                      disableElevation
+                      type="submit"
+                      startIcon={
+                        loading ? <CircularProgress size="20px" sx={{ color: 'rgb(0 0 0 / 70%)' }} />
+                          : <SendOutlinedIcon />
+                      }
+                    >
+                      Send
+                    </Button>
                   </form>
                 )}
               </Form>

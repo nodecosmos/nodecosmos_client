@@ -1,3 +1,4 @@
+import { useMediaQuery, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import { useAnimation, motion, useInView } from 'framer-motion';
@@ -10,6 +11,14 @@ export default function AnimateOnView(props) {
   const [currentThreshold, setCurrentThreshold] = React.useState(threshold);
   const ref = useRef(null);
   const inView = useInView(ref, { threshold: currentThreshold });
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  // disable scale on mobile
+  if (hidden.scale) {
+    hidden.scale = isMobile ? 1 : hidden.scale;
+  }
 
   useEffect(() => {
     if (inView) {
@@ -39,12 +48,12 @@ AnimateOnView.defaultProps = {
   delay: 0,
   visible: {
     opacity: 1,
-    // scale: 1,
+    scale: 1,
     transition: { duration: 0.5 },
   },
   hidden: {
     opacity: 0,
-    // scale: 0.95,
+    scale: 0.95,
   },
   threshold: 0.4,
 };
