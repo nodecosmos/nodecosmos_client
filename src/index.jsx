@@ -2,16 +2,16 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import './fonts/roboto/400.css';
+import './fonts/roboto/500.css';
+import './fonts/roboto/700.css';
 
-import '@fontsource/roboto-mono/400.css';
-import '@fontsource/roboto-mono/700.css';
+import './fonts/roboto-mono/400.css';
+import './fonts/roboto-mono/700.css';
 
-import '@fontsource/montserrat/500.css';
-import '@fontsource/montserrat/700.css';
-import '@fontsource/montserrat/900.css';
+import './fonts/montserrat/500.css';
+import './fonts/montserrat/700.css';
+import './fonts/montserrat/900.css';
 
 /* nodecosmos */
 import App from './features/app/components/App';
