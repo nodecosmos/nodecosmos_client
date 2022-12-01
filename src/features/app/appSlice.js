@@ -6,7 +6,6 @@ const appSlice = createSlice({
     theme: localStorage.getItem('theme') || 'dark',
     subtitle: '',
     appAnimationEnabled: true,
-    descriptionCoordinates: { y: 0 },
     scrollEnabled: true,
   },
   reducers: {
@@ -15,7 +14,6 @@ const appSlice = createSlice({
     setCurrentNode(state, action) { state.currentNodeID = action.payload; },
     setCurrentToolbar(state, action) { state.currentToolbar = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
-    setDescriptionCoordinates(state, action) { state.descriptionCoordinates = action.payload; },
     setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },
   },
 });
@@ -28,7 +26,6 @@ export const {
   setCurrentNode,
   setCurrentToolbar,
   setAnimationEnabled,
-  setDescriptionCoordinates,
   setScrollEnabled,
 } = actions;
 

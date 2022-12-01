@@ -1,24 +1,17 @@
 import {
   Box, Card, CardContent, CardHeader, useMediaQuery, useTheme,
 } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import OpenWithRoundedIcon from '@mui/icons-material/OpenWithRounded';
-import { setDescriptionCoordinates } from '../../../app/appSlice';
 
 export default function NodeDescriptionMd() {
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const currentNode = useSelector((state) => state.landingPageNodes[currentNodeID]);
   const descriptionRef = useRef(null);
-  const dispatch = useDispatch();
-  const { y } = useSelector((state) => state.app.descriptionCoordinates);
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-
-  useEffect(() => {
-    dispatch(setDescriptionCoordinates({ y: 267.5 }));
-  }, [dispatch]);
 
   if (!currentNode || !matches) return null;
 
@@ -32,7 +25,7 @@ export default function NodeDescriptionMd() {
       const { clientY } = event;
       const offset = clientY - initialY;
 
-      dispatch(setDescriptionCoordinates({ y: initialElementY + offset }));
+      descriptionRef.current.attributes.y.value = initialElementY + offset;
     };
 
     const handleMouseUp = () => {
@@ -54,7 +47,7 @@ export default function NodeDescriptionMd() {
       const { clientY } = event.touches[0];
       const offset = clientY - initialY;
 
-      dispatch(setDescriptionCoordinates({ y: initialElementY + offset }));
+      descriptionRef.current.attributes.y.value = initialElementY + offset;
     };
 
     const handleTouchEnd = () => {
@@ -73,7 +66,7 @@ export default function NodeDescriptionMd() {
         width="500"
         height="265"
         x="520"
-        y={y}
+        y="267.5"
       >
         <Box
           display="flex"

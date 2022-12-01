@@ -13,7 +13,6 @@ export default function WorkflowStepDescriptionMd() {
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const { y } = useSelector((state) => state.app.descriptionCoordinates);
 
   if (!currentWorkflow || !matches) return null;
 
@@ -68,7 +67,7 @@ export default function WorkflowStepDescriptionMd() {
         width="500"
         height="265"
         x="520"
-        y={y}
+        y="267.5"
       >
         <Box
           display="flex"
@@ -88,7 +87,7 @@ export default function WorkflowStepDescriptionMd() {
           >
             <Box onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
               <CardHeader
-                sx={{ borderBottom: '1px solid #3c434f', height: 50 }}
+                sx={{ borderBottom: '1px solid #3c434f', height: 50, cursor: 'move' }}
                 titleTypographyProps={{
                   variant: 'body1',
                   textAlign: 'center',
