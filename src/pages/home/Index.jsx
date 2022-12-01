@@ -29,7 +29,10 @@ export default function Index() {
   const mvp = useRef(null);
   const contactUs = useRef(null);
 
-  const useInViewOptions = { amount: 0.8 };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const useInViewOptions = { amount: isMobile ? 0.6 : 1 };
 
   const innovateInView = useInView(innovate, useInViewOptions);
   const collaborateInView = useInView(collaborate, useInViewOptions);
@@ -45,11 +48,8 @@ export default function Index() {
     innovate, collaborate, investments, openSource, mvp, contactUs,
   ];
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   const handleWheel = () => {
-    if (preventTabChange || isMobile) return;
+    if (preventTabChange) return;
 
     const allInView = [
       innovateInView, collaborateInView, investmentsInView, openSourceInView, MVPInView, contactUsInView,
@@ -57,7 +57,11 @@ export default function Index() {
 
     const currentTab = allInView.indexOf(true);
 
-    if (currentTab !== -1) {
+    // if scrolled to the bottom of the page
+    // select the last tab
+    if (rootRef.current.scrollHeight - rootRef.current.scrollTop < (rootRef.current.clientHeight + 50)) {
+      setTab(5);
+    } else if (currentTab !== -1) {
       setTab(currentTab);
     }
   };
@@ -78,8 +82,7 @@ export default function Index() {
 
   return (
     <Box
-      onScrollCapture={() => isMobile && handleWheel()}
-      onWheel={handleWheel}
+      onScrollCapture={handleWheel}
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
       ref={rootRef}
