@@ -6,8 +6,11 @@ import { useAnimation, motion, useInView } from 'framer-motion';
 export default function AnimateOnView(props) {
   const controls = useAnimation();
   const {
-    delay, visible, hidden, children, threshold,
+    visible, hidden, children, threshold,
   } = props;
+
+  let { delay } = props;
+
   const [currentThreshold, setCurrentThreshold] = React.useState(threshold);
   const ref = useRef(null);
   const inView = useInView(ref, { threshold: currentThreshold });
@@ -15,9 +18,11 @@ export default function AnimateOnView(props) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // disable scale on mobile
-  if (hidden.scale) {
-    hidden.scale = isMobile ? 1 : hidden.scale;
+  // disable scale animation on mobile
+  // disable delay on mobile
+  if (isMobile) {
+    hidden.scale = 1;
+    delay = 0;
   }
 
   useEffect(() => {
