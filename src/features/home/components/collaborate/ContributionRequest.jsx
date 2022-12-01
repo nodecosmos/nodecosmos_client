@@ -8,26 +8,33 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function ContributionRequest() {
   // hacks to correct size on small screen
   // TODO: develop full feature in future which will adapt height of handles to height of text
-  const matches320 = useMediaQuery('(max-width: 325px)');
+  const matches330 = useMediaQuery('(max-width: 330px)');
+  const matches355 = useMediaQuery('(max-width: 355px)');
   const matches380 = useMediaQuery('(max-width: 392px)');
   const matches420 = useMediaQuery('(max-width: 1060px)');
 
   let scale = matches420 ? 0.9 : 1;
   scale = matches380 ? 0.8 : scale;
-  scale = matches320 ? 0.68 : scale;
+  scale = matches355 ? 0.7 : scale;
+  scale = matches330 ? 0.65 : scale;
 
+  const width = 200 - scale * 100 + 10;
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
       component="svg"
-      width="100%"
+      width={`${width}%`}
       height={{
-        xs: 320,
+        xs: 364,
         sm: 364,
       }}
       xmlns="http://www.w3.org/2000/svg"
+      sx={{
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+      }}
     >
-      <g style={{ transform: `scale(${scale}) translate(-35px, -30px)` }}>
+      <g style={{ transform: 'translate(-35px, -30px)' }}>
         <g>
           <circle cx="50" cy="39.75" r="6" fill="#414650" />
         </g>
