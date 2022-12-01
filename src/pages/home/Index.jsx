@@ -8,14 +8,15 @@ import { useInView } from 'framer-motion';
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { scrollBy, scrollIntoView } from 'seamless-scroll-polyfill';
-import ContactUs from '../../features/home/components/ContactUs';
 import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
 import Collaborate from '../../features/home/components/Collaborate';
 import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
-import MVP from '../../features/home/components/MVP';
+
+const MVP = React.lazy(() => import('../../features/home/components/MVP'));
+const ContactUs = React.lazy(() => import('../../features/home/components/ContactUs'));
 
 export default function Index() {
   const [tab, setTab] = useState(0);
@@ -151,8 +152,16 @@ export default function Index() {
             <Box ref={collaborate}><Collaborate /></Box>
             <Box ref={investments}><Investments /></Box>
             <Box ref={openSource}><OpenSource /></Box>
-            <Box ref={mvp}><MVP /></Box>
-            <Box ref={contactUs}><ContactUs /></Box>
+            <Box ref={mvp}>
+              <React.Suspense fallback={null}>
+                <MVP />
+              </React.Suspense>
+            </Box>
+            <Box ref={contactUs}>
+              <React.Suspense fallback={null}>
+                <ContactUs />
+              </React.Suspense>
+            </Box>
           </Container>
         </Box>
         <Box
