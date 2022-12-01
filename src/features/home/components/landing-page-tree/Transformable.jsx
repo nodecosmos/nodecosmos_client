@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import PanTip from '../tips/PanTip';
 import usePannable from '../../hooks/usePannable';
+import TransformablePath from './TransformablePath';
 // import useZoomable from '../../hooks/useZoomable';
 
 export default function Transformable(props) {
@@ -40,6 +41,7 @@ export default function Transformable(props) {
     <>
       <Box
         sx={{
+          position: 'relative',
           overflow: 'hidden',
           border: `${borderWidth}px solid #5a6577`,
           background: {
@@ -48,6 +50,7 @@ export default function Transformable(props) {
           },
         }}
       >
+        <TransformablePath panX={pan.x} />
         <Box
           ref={gRef}
           onMouseDown={handleMouseDown}

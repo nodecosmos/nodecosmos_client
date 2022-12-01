@@ -68,40 +68,6 @@ export default function NodeDescriptionMd() {
 
   return (
     <g>
-      <path
-        strokeWidth={2}
-        d="M 769 -1000 L 769 0"
-        stroke="#414650"
-        fill="transparent"
-      />
-      <path
-        strokeWidth={2}
-        d="M 769 -100 L 769 900"
-        stroke="#414650"
-        fill="transparent"
-        style={{
-          strokeDasharray: 1000,
-          strokeDashoffset: 1000,
-          animation: 'dash 2s forwards',
-        }}
-      />
-      <path
-        strokeWidth={2}
-        d="M 769 900 L 769 2000"
-        stroke="#414650"
-        fill="transparent"
-      />
-      <path
-        strokeWidth={2}
-        d="M 769 0 L 769 800"
-        stroke="#414650"
-        fill="transparent"
-        style={{
-          strokeDasharray: 800,
-          strokeDashoffset: 800,
-          animation: 'dash 2s forwards',
-        }}
-      />
       <foreignObject
         ref={descriptionRef}
         width="500"
