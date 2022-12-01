@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import PanTip from '../tips/PanTip';
 import usePannable from '../../hooks/usePannable';
-import useZoomable from '../../hooks/useZoomable';
+// import useZoomable from '../../hooks/useZoomable';
 
 export default function Transformable(props) {
   const { children } = props;
@@ -19,7 +19,10 @@ export default function Transformable(props) {
 
   // handle pan
   const {
-    pan, handleMouseDown, setPan, handleTouchStart,
+    pan,
+    handleMouseDown,
+    // setPan,
+    // handleTouchStart,
   } = usePannable(gRef);
 
   // handle zoom
