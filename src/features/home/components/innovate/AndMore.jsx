@@ -27,15 +27,6 @@ export default function Other() {
         <Box
           display="flex"
           alignItems="center"
-          sx={{
-            background: 'linear-gradient(35deg, #06e1ff 0%, #fff857 42%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            WebkitBoxDecorationBreak: 'clone',
-            color: '#06e1ff',
-            lineHeight: 1,
-          }}
         >
           <CollectionsIcon fontSize="large" htmlColor="#06e1ff" />
 
@@ -44,6 +35,15 @@ export default function Other() {
               variant="h5"
               fontFamily="'Montserrat', sans-serif"
               fontWeight="bold"
+              sx={{
+                background: 'linear-gradient(35deg, #06e1ff 0%, #fff857 42%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitBoxDecorationBreak: 'clone',
+                color: '#06e1ff',
+                lineHeight: 1,
+              }}
             >
               {' '}
               Media
@@ -52,6 +52,16 @@ export default function Other() {
               variant="body1"
               fontFamily="'Roboto Mono', sans-serif"
               fontWeight="bold"
+              mt={2}
+              sx={{
+                background: 'linear-gradient(35deg, #06e1ff 0%, #fff857 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitBoxDecorationBreak: 'clone',
+                color: '#06e1ff',
+                lineHeight: 1,
+              }}
             >
               Add media gallery to your nodes.
             </Typography>
@@ -62,15 +72,6 @@ export default function Other() {
         <Box
           display="flex"
           alignItems="center"
-          sx={{
-            background: 'linear-gradient(35deg, #e366ff 0%, #5ac5ff 42%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            WebkitBoxDecorationBreak: 'clone',
-            color: '#cbbbff',
-            lineHeight: 1,
-          }}
         >
           <ShapeLineIcon fontSize="large" htmlColor="#e366ff" />
           <Box ml={3}>
@@ -78,6 +79,15 @@ export default function Other() {
               variant="h5"
               fontFamily="'Montserrat', sans-serif"
               fontWeight="bold"
+              sx={{
+                background: 'linear-gradient(35deg, #e366ff 0%, #5ac5ff 42%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitBoxDecorationBreak: 'clone',
+                color: '#cbbbff',
+                lineHeight: 1,
+              }}
             >
               Drawing
             </Typography>
@@ -85,6 +95,16 @@ export default function Other() {
               variant="body1"
               fontFamily="'Roboto Mono', sans-serif"
               fontWeight="bold"
+              mt={2}
+              sx={{
+                background: 'linear-gradient(35deg, #e366ff 0%, #5ac5ff 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitBoxDecorationBreak: 'clone',
+                color: '#cbbbff',
+                lineHeight: 1,
+              }}
             >
               Sketch your nodes on the canvas.
             </Typography>
@@ -96,22 +116,24 @@ export default function Other() {
         <Box
           display="flex"
           alignItems="center"
-          sx={{
-            background: 'linear-gradient(35deg, #d8ff00 0%, #4abaff 42%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            WebkitBoxDecorationBreak: 'clone',
-            color: '#d8ff00',
-            lineHeight: 1,
-          }}
         >
           <TimelineRoundedIcon fontSize="large" htmlColor="#d8ff00" />
-          <Box ml={3}>
+          <Box
+            ml={3}
+          >
             <Typography
               variant="h5"
               fontFamily="'Montserrat', sans-serif"
               fontWeight="bold"
+              sx={{
+                background: 'linear-gradient(35deg, #d8ff00 0%, #4abaff 42%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitBoxDecorationBreak: 'clone',
+                color: '#d8ff00',
+                lineHeight: 1,
+              }}
             >
               Insights
             </Typography>
@@ -119,6 +141,16 @@ export default function Other() {
               variant="body1"
               fontFamily="'Roboto Mono', sans-serif"
               fontWeight="bold"
+              mt={2}
+              sx={{
+                background: 'linear-gradient(35deg, #d8ff00 0%, #4abaff 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitBoxDecorationBreak: 'clone',
+                color: '#d8ff00',
+                lineHeight: 1,
+              }}
             >
               Analyze traffic to your nodes.
             </Typography>
