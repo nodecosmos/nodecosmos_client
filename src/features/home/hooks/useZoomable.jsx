@@ -14,14 +14,11 @@ export default function useZoomable(ref, defaultZoom, setPan, pan) {
 
   // handle zoom on mouse wheel up and alt key
   const handleWheel = (event) => {
+    event.stopPropagation();
     if (event.altKey) {
-      dispatch(setScrollEnabled(false));
-
       const { deltaY } = event;
       const newZoom = zoom + deltaY * -0.001;
       setZoom(newZoom < MINIMUM_ZOOM ? MINIMUM_ZOOM : newZoom);
-    } else {
-      dispatch(setScrollEnabled(true));
     }
   };
 

@@ -19,15 +19,18 @@ export default function Transformable(props) {
 
   // handle pan
   const {
-    pan, handleMouseDown, setPan,
+    pan, handleMouseDown, setPan, handleTouchStart,
   } = usePannable(gRef);
 
   // handle zoom
-  const {
-    zoom, enableScroll,
-  } = useZoomable(gRef, scale, setPan, pan);
+  // const {
+  //   zoom, handleWheel, enableScroll, handleTouchStart: handlePinch,
+  // } = useZoomable(gRef, scale, setPan, pan);
 
-  window.addEventListener('keyup', enableScroll);
+  // window.addEventListener('keyup', enableScroll);
+
+  const isFirefox = typeof InstallTrigger !== 'undefined';
+  const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
@@ -35,49 +38,51 @@ export default function Transformable(props) {
       <Box
         sx={{
           overflow: 'hidden',
-          // touchAction: 'none',
-          p: 0,
-          borderRadius: '0px 0px 8px 8px',
-          height,
           border: `${borderWidth}px solid #5a6577`,
-          WebkitTapHighlightColor: 'transparent',
-          WebkitTouchCallout: 'none',
-          WebkitUserSelect: 'none',
-          KhtmlUserSelect: 'none',
-          MozUserSelect: 'none',
-          MsUserSelect: 'none',
-          userSelect: 'none',
           background: {
             xs: '#2f3238',
             sm: 'transparent',
           },
         }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1000%"
-          height="800"
+        <Box
+          ref={gRef}
           onMouseDown={handleMouseDown}
-          // onWheel={(event) => {
-          //   if (isPanning) return;
-          //   handleWheel(event);
-          // }}
+          // onWheel={handleWheel}
           // onTouchStart={(event) => {
           //   handlePinch(event); // zoom feature is disabled for now as it is not working well on mobile
           //   handleTouchStart(event);
           // }}
-          onMouseLeave={enableScroll}
+          // onMouseLeave={enableScroll}
+          sx={{
+            // touchAction: 'none',
+            p: 0,
+            borderRadius: '0px 0px 8px 8px',
+            height,
+            WebkitTapHighlightColor: 'transparent',
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            KhtmlUserSelect: 'none',
+            MozUserSelect: 'none',
+            MsUserSelect: 'none',
+            userSelect: 'none',
+          }}
+          style={{
+            transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
+            transformOrigin: matches600 && 'top left',
+            transition,
+          }}
         >
-          <g
-            ref={gRef}
-            style={{
-              transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-              transition: 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-            }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1000%"
+            height="1000%"
           >
-            {children}
-          </g>
-        </svg>
+            <g>
+              {children}
+            </g>
+          </svg>
+        </Box>
       </Box>
       <PanTip />
     </>
