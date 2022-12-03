@@ -67,7 +67,7 @@ export default function Index() {
 
     scrollBy(rootRef.current, { top: y, behavior: 'smooth' });
     setTab(currentTab);
-    setTimeout(() => setPreventTabChange(false), 500);
+    setTimeout(() => setPreventTabChange(false), 1000);
   };
 
   const handleNodecosmosClick = () => {
