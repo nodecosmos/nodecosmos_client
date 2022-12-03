@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* nodecosmos */
-import { NODE_BUTTON_HEIGHT } from './constants';
-import NodeToolbar from './NodeToolbar';
 import useNodeButtonAnimationStyle from '../../hooks/landing-page-tree/useNodeButtonAnimationStyle';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
+import NodeToolbar from './NodeToolbar';
+import { NODE_BUTTON_HEIGHT } from './constants';
 import NodeButtonText from './NodeButtonText';
 
 export default function NodeButton(props) {

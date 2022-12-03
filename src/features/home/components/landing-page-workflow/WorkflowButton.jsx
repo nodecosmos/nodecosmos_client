@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { Box, Button } from '@mui/material';
 
 export default function WorkflowButton(props) {

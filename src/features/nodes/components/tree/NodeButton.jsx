@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* nodecosmos */
-import { NODE_BUTTON_HEIGHT } from './constants';
-import NodeToolbar from './NodeToolbar';
 import useNodeButtonAnimationStyle from '../../hooks/tree/useNodeButtonAnimationStyle';
 import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
+import NodeToolbar from './NodeToolbar';
+import { NODE_BUTTON_HEIGHT } from './constants';
 import NodeButtonText from './NodeButtonText';
 
 export default function NodeButton(props) {
@@ -30,8 +30,8 @@ export default function NodeButton(props) {
   const isCurrentNode = nodeExpanded && id === currentNodeID;
   const hasNestedNodes = useSelector((state) => state.nodes[id].node_ids.length > 0);
 
-  const buttonClassName = nodeExpanded && isCurrentNode
-    || nodeExpanded && hasNestedNodes ? 'expanded' : null;
+  const buttonClassName = (nodeExpanded && isCurrentNode)
+    || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
 
   return (
     <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>

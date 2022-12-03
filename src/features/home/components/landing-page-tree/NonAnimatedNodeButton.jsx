@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* nodecosmos */
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from './constants';
-import NodeToolbar from './NodeToolbar';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
+import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from './constants';
+import NodeToolbar from './NodeToolbar';
 import NodeButtonText from './NodeButtonText';
 
 export default function NonAnimatedNodeButton(props) {

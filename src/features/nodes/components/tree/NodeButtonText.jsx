@@ -1,6 +1,6 @@
+import React from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 

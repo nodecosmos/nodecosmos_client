@@ -1,7 +1,7 @@
+import React, { useRef } from 'react';
 import {
   Box, Card, CardContent, CardHeader, useMediaQuery, useTheme,
 } from '@mui/material';
-import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import OpenWithRoundedIcon from '@mui/icons-material/OpenWithRounded';
 

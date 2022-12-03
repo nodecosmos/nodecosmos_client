@@ -2,17 +2,15 @@ import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
 import {
-  Box, Card, CardContent, CardHeader, Typography,
+  Box,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import NodeAvatar from '../../../app/components/NodeAvatar';
+import { useDispatch } from 'react-redux';
 /* nodecosmos */
+import { terminateNewNode } from '../../nodeSlice';
 import Node from './Node';
 import NodeDescription from './NodeDescription';
 import Transformable from './Transformable';
 import NestedNodes from './NestedNodes';
-import { terminateNewNode } from '../../nodeSlice';
 
 export default function Tree(props) {
   const { id } = props;

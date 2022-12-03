@@ -1,5 +1,5 @@
-import Box from '@mui/material/Box';
 import React from 'react';
+import Box from '@mui/material/Box';
 import { Grid, Typography } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 import ContributionRequest from './collaborate/ContributionRequest';

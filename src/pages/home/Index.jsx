@@ -1,11 +1,10 @@
+import React, { useRef, useState } from 'react';
 import {
   Box,
   Button,
   Typography, useMediaQuery, useTheme,
 } from '@mui/material';
 import Container from '@mui/material/Container';
-import { useInView } from 'framer-motion';
-import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { scrollBy, scrollIntoView } from 'seamless-scroll-polyfill';
 import HomepageTabs from '../../features/home/components/HomepageTabs';
@@ -29,18 +28,6 @@ export default function Index() {
   const mvp = useRef(null);
   const contactUs = useRef(null);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const useInViewOptions = { amount: isMobile ? 0.6 : 1 };
-
-  const innovateInView = useInView(innovate, useInViewOptions);
-  const collaborateInView = useInView(collaborate, useInViewOptions);
-  const investmentsInView = useInView(investments, useInViewOptions);
-  const openSourceInView = useInView(openSource, useInViewOptions);
-  const MVPInView = useInView(mvp, useInViewOptions);
-  const contactUsInView = useInView(contactUs, useInViewOptions);
-
   const scrollEnabled = useSelector((state) => state.app.scrollEnabled);
   const [preventTabChange, setPreventTabChange] = useState(false);
 
@@ -48,21 +35,23 @@ export default function Index() {
     innovate, collaborate, investments, openSource, mvp, contactUs,
   ];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const handleWheel = () => {
     if (preventTabChange) return;
 
-    const allInView = [
-      innovateInView, collaborateInView, investmentsInView, openSourceInView, MVPInView, contactUsInView,
-    ];
+    // set tab based on scroll position
+    const scrollPosition = rootRef.current.scrollTop;
 
-    const currentTab = allInView.indexOf(true);
+    const tabHeight = isMobile ? 900 : 700;
 
-    // if scrolled to the bottom of the page
-    // select the last tab
-    if (rootRef.current.scrollHeight - rootRef.current.scrollTop < (rootRef.current.clientHeight + 50)) {
+    // if scroll is bottom of page, set tab to last tab
+    if (rootRef.current.scrollTop >= (rootRef.current.scrollHeight - rootRef.current.offsetHeight - 100)) {
       setTab(5);
-    } else if (currentTab !== -1) {
-      setTab(currentTab);
+    } else {
+      const tabNumber = Math.floor(scrollPosition / tabHeight);
+      setTab(tabNumber);
     }
   };
 

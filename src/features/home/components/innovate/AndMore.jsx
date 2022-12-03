@@ -1,6 +1,6 @@
+import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import React from 'react';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import ShapeLineIcon from '@mui/icons-material/ShapeLine';
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded';

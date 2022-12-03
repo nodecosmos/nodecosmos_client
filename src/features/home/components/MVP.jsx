@@ -1,7 +1,7 @@
-import Check from '@mui/icons-material/Check';
-import { styled, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import * as React from 'react';
+import Check from '@mui/icons-material/Check';
+import { styled, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';

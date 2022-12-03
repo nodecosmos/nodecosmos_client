@@ -1,7 +1,7 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import Switch from '@mui/material/Switch';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 

@@ -1,6 +1,6 @@
+import React from 'react';
 import { Typography, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
-import React from 'react';
 
 export default function PanTip() {
   const min = useMediaQuery('(min-width: 1023px)');
@@ -16,15 +16,12 @@ export default function PanTip() {
           color: '#656e76',
         }}
       >
-        <b>💡 Quick tip:</b>
-        {' '}
+        <b>💡 Quick tip: </b>
         Use
-        {' '}
         {
-            isMac ? '⌘' : 'Ctrl'
+            isMac ? ' ⌘ ' : ' Ctrl '
         }
-        {' '}
-        + left click to pan
+        + Left Click to pan
       </Typography>
     </Box>
   );

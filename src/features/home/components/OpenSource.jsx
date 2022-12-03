@@ -1,5 +1,5 @@
-import { Typography, Box, Card } from '@mui/material';
 import React from 'react';
+import { Typography, Box, Card } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 
 export default function OpenSource() {

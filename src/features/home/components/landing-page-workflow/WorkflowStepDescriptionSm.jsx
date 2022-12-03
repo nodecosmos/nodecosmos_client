@@ -1,7 +1,7 @@
+import React from 'react';
 import {
   Box, Card, CardContent, CardHeader, useMediaQuery, useTheme,
 } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function WorkflowStepDescriptionSm() {

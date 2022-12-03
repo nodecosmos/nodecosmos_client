@@ -1,6 +1,6 @@
+import React from 'react';
 import { Grid, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import React from 'react';
 import AnimateOnView from './AnimateOnView';
 import Innovators from './investments/Innovators';
 import Investors from './investments/Investors';

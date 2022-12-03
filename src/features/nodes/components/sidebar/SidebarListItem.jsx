@@ -1,7 +1,7 @@
+import React from 'react';
 import { ListItem, ListItemButton, ListItemIcon } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function SidebarListItem({ to, icon, title }) {

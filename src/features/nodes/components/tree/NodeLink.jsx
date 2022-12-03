@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import {
   ANIMATION_DURATION, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
 } from './constants';
-import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 
 function renderRootLink({ x, xEnds, y }) {
   return (

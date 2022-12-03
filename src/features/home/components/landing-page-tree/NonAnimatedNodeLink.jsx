@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { MARGIN_LEFT, MARGIN_TOP } from './constants';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
+import { MARGIN_LEFT, MARGIN_TOP } from './constants';
 
 function renderRootLink({ x, xEnds, y }) {
   return (

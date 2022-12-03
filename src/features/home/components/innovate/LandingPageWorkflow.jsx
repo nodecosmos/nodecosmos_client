@@ -1,6 +1,6 @@
+import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import React from 'react';
 import Workflow from '../landing-page-workflow/Workflow';
 
 export default function LandingPageWorkflow() {

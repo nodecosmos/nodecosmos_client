@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
-import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
+import Box from '@mui/material/Box';
 import {
   BrowserRouter,
   Routes,

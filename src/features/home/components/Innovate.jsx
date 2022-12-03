@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs } from '@mui/material';
 import Box from '@mui/material/Box';
-import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
 import AnimateOnView from './AnimateOnView';

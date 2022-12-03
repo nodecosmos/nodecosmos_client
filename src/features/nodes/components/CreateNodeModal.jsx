@@ -1,7 +1,7 @@
+import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
-import React from 'react';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 

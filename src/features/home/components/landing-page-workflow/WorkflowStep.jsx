@@ -1,7 +1,6 @@
-import { Box, Button } from '@mui/material';
 import React from 'react';
+import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import WorkflowButton from './WorkflowButton';
 
 export default function WorkflowStep(props) {
   const {

@@ -11,8 +11,8 @@ import {
 /* icons */
 import TagRounded from '@mui/icons-material/TagRounded';
 /* nodecosmos */
-import UserDropdown from './UserDropdown';
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
+import UserDropdown from './UserDropdown';
 
 const NON_HEADER_PATHS = ['/login', '/'];
 

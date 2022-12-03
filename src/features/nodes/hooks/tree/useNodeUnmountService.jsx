@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { collapseNode, terminateNewNode } from '../../nodeSlice';
+import { terminateNewNode } from '../../nodeSlice';
 
 export default function useNodeUnmountService(props) {
   const { id } = props;

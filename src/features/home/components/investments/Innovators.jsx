@@ -1,6 +1,6 @@
+import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import React from 'react';
 import TokenRoundedIcon from '@mui/icons-material/TokenRounded';
 import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRounded';
 import RocketRoundedIcon from '@mui/icons-material/RocketRounded';

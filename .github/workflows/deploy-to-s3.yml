@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 18
       - run: npm install
+      - run: npm run lint
       - run: npm run build
       # Upload a file to AWS s3
       - name: Sync to S3

@@ -1,9 +1,9 @@
+import React, { Suspense } from 'react';
 import {
   ToggleButton, ToggleButtonGroup, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, { Suspense } from 'react';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 

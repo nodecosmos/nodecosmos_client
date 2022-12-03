@@ -1,6 +1,6 @@
+import React, { useEffect, useRef } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef } from 'react';
 import { useAnimation, motion, useInView } from 'framer-motion';
 
 export default function AnimateOnView(props) {
@@ -21,7 +21,7 @@ export default function AnimateOnView(props) {
   // disable scale animation on mobile
   // disable delay on mobile
   if (isMobile) {
-    hidden.scale = 1;
+    // hidden.scale = 1;
     delay = 0;
   }
 

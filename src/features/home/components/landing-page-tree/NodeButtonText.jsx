@@ -1,6 +1,6 @@
+import React, { useEffect } from 'react';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNode } from './landingPageNodeSlice';
 
