@@ -2,7 +2,9 @@ import React, { useRef, useState } from 'react';
 import {
   Box,
   Button,
-  Typography, useMediaQuery, useTheme,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
