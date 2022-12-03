@@ -47,7 +47,10 @@ export default function Index() {
     const tabHeight = isMobile ? 900 : 700;
 
     // if scroll is bottom of page, set tab to last tab
-    if (rootRef.current.scrollTop >= (rootRef.current.scrollHeight - rootRef.current.offsetHeight - 100)) {
+
+    const scrollBottomThreshold = isMobile ? 400 : 100;
+    if (rootRef.current.scrollTop
+      >= (rootRef.current.scrollHeight - rootRef.current.offsetHeight - scrollBottomThreshold)) {
       setTab(5);
     } else {
       const tabNumber = Math.floor(scrollPosition / tabHeight);
@@ -75,6 +78,9 @@ export default function Index() {
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
       ref={rootRef}
+      sx={{
+        scrollBehavior: 'smooth',
+      }}
     >
       <Box
         display="flex"
