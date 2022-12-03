@@ -9,7 +9,7 @@ export default function usePannable(ref) {
 
   // handle panning
   const handleMouseDown = (event) => {
-    if (event.ctrlKey) {
+    if (event.ctrlKey || event.metaKey) {
       event.preventDefault();
       setIsPanning(true);
       const { clientX, clientY } = event;

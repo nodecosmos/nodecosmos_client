@@ -6,6 +6,8 @@ export default function PanTip() {
   const min = useMediaQuery('(min-width: 1023px)');
   if (!min) return null;
 
+  const isMac = navigator.userAgent.includes('Mac OS X');
+
   return (
     <Box textAlign="right" mt={3}>
       <Typography
@@ -16,7 +18,13 @@ export default function PanTip() {
       >
         <b>💡 Quick tip:</b>
         {' '}
-        Use ctrl + left click to pan
+        Use
+        {' '}
+        {
+            isMac ? '⌘' : 'Ctrl'
+        }
+        {' '}
+        + left click to pan
       </Typography>
     </Box>
   );
