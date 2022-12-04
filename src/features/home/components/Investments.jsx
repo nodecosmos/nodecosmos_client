@@ -64,7 +64,7 @@ export default function Investments() {
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={500} threshold={1}>
+          <AnimateOnView delay={600} threshold={1}>
             <Section>
               <Investors />
             </Section>

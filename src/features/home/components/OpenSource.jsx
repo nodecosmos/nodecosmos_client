@@ -6,7 +6,7 @@ export default function OpenSource() {
   return (
     <Box mt={{
       xs: 5,
-      md: 6,
+      md: 7,
     }}
     >
       <Box display="flex" alignItems="center" justifyContent="center">
@@ -16,7 +16,7 @@ export default function OpenSource() {
             md: 'block',
           }}
         >
-          <AnimateOnView threshold={1} delay={400}>
+          <AnimateOnView threshold={1} delay={600}>
             <img
               src="node-link-3.svg"
               alt="node-handle"
@@ -58,7 +58,7 @@ export default function OpenSource() {
           },
         }}
         >
-          <AnimateOnView threshold={1} delay={400}>
+          <AnimateOnView threshold={1} delay={600}>
             <img
               src="node-link-3.svg"
               alt="node-handle"
@@ -70,7 +70,7 @@ export default function OpenSource() {
           </AnimateOnView>
         </Box>
       </Box>
-      <AnimateOnView threshold={1} delay={600}>
+      <AnimateOnView threshold={1} delay={1000}>
         <Card
           elevation={2}
           sx={{

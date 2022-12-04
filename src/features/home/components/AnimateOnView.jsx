@@ -1,81 +1,72 @@
 import React, { useEffect, useRef } from 'react';
-import { useMediaQuery, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-
-import {
-  LazyMotion,
-  m,
-  domAnimation,
-  useAnimation,
-  useInView,
-} from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 export default function AnimateOnView(props) {
-  const controls = useAnimation();
   const {
-    visible, hidden, children, threshold,
+    children,
+    threshold,
+    initialScale,
+    initialOpacity,
   } = props;
 
   let { delay } = props;
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  // disable scale animation on mobile
-  // disable delay on mobile
-  if (isMobile) {
-    delay = 0;
-    visible.transition.duration = 0.3;
-  }
+  const [opacity, setOpacity] = React.useState(initialOpacity);
+  const [scale, setScale] = React.useState(initialScale);
 
   const [currentThreshold, setCurrentThreshold] = React.useState(threshold);
   const ref = useRef(null);
   const inView = useInView(ref, { threshold: currentThreshold });
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  if (isMobile) {
+    delay = 0;
+  }
+
   useEffect(() => {
     if (inView) {
       setTimeout(() => {
-        controls.start('visible');
+        setOpacity(1);
+        setScale(1);
       }, delay);
     } else {
       setCurrentThreshold(0);
-      controls.start('hidden');
+      setOpacity(initialOpacity);
+      setScale(initialScale);
     }
-  }, [controls, inView, delay, threshold]);
+  }, [inView, delay, threshold, initialOpacity, initialScale]);
 
   return (
-    <LazyMotion features={domAnimation}>
-      <m.div
-        ref={ref}
-        animate={controls}
-        initial="hidden"
-        variants={{ visible, hidden }}
-        style={{ height: '100%' }}
-      >
-        {children}
-      </m.div>
-    </LazyMotion>
+    <Box
+      ref={ref}
+      height={1}
+      sx={{
+        opacity,
+        transform: `scale(${scale})`,
+        transition: 'opacity 500ms, transform 500ms',
+      }}
+    >
+      {children}
+    </Box>
   );
 }
 
 AnimateOnView.defaultProps = {
   delay: 0,
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5 },
-  },
-  hidden: {
-    opacity: 0,
-    scale: 0.95,
-  },
+  initialScale: 0.9,
+  initialOpacity: 0,
   threshold: 0.4,
 };
 
 AnimateOnView.propTypes = {
   children: PropTypes.node.isRequired,
   delay: PropTypes.number,
-  visible: PropTypes.object,
-  hidden: PropTypes.object,
   threshold: PropTypes.number,
+  initialOpacity: PropTypes.number,
+  initialScale: PropTypes.number,
 };

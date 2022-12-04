@@ -41,8 +41,6 @@ export default function Index() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleWheel = () => {
-    if (preventTabChange) return;
-
     // set tab based on scroll position
     const scrollPosition = rootRef.current.scrollTop;
 
@@ -62,11 +60,12 @@ export default function Index() {
 
   const handleTabChange = (_, currentTab) => {
     setPreventTabChange(true);
+
     const yOffset = -115;
     const y = allRefs[currentTab].current.getBoundingClientRect().top + yOffset;
 
+    setTimeout(() => setTab(currentTab), 100);
     scrollBy(rootRef.current, { top: y, behavior: 'smooth' });
-    setTab(currentTab);
     setTimeout(() => setPreventTabChange(false), 1000);
   };
 
@@ -76,7 +75,7 @@ export default function Index() {
 
   return (
     <Box
-      onScrollCapture={handleWheel}
+      onScrollCapture={!preventTabChange && handleWheel}
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
       ref={rootRef}
