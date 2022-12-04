@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import RocketRoundedIcon from '@mui/icons-material/RocketRounded';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+import PhishingIcon from '@mui/icons-material/Phishing';
+import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
 
 export default function Investors() {
   return (
@@ -67,6 +69,35 @@ export default function Investors() {
         </li>
         <Box component="li" mt={2}>
           <Box display="flex" alignItems="center">
+            <SecurityRoundedIcon fontSize="large" htmlColor="#b3ff68" />
+            <Box ml={3}>
+              <Typography
+                sx={{
+                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  WebkitBoxDecorationBreak: 'clone',
+                }}
+                color="#b3ff68"
+                variant="h5"
+                fontFamily="'Montserrat', sans-serif"
+                fontWeight="bold"
+              >
+                Fraud Prevention
+              </Typography>
+              <Typography
+                variant="body1"
+                fontFamily="'Roboto Mono', sans-serif"
+                fontWeight="bold"
+              >
+                Track activities of the innovation, analyze contributions and get a full report on the innovation
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box component="li" mt={2}>
+          <Box display="flex" alignItems="center">
             <GridViewRoundedIcon fontSize="large" htmlColor="#b3ff68" />
             <Box ml={3}>
               <Typography
@@ -92,35 +123,6 @@ export default function Investors() {
                 Buy tokens and get a share of the innovation
               </Typography>
 
-            </Box>
-          </Box>
-        </Box>
-        <Box component="li" mt={2}>
-          <Box display="flex" alignItems="center">
-            <RocketRoundedIcon fontSize="large" htmlColor="#b3ff68" />
-            <Box ml={3}>
-              <Typography
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                color="#b3ff68"
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
-              >
-                Get Ready
-              </Typography>
-              <Typography
-                variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
-              >
-                Help launching the next big thing
-              </Typography>
             </Box>
           </Box>
         </Box>

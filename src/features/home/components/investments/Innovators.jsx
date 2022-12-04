@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TokenRoundedIcon from '@mui/icons-material/TokenRounded';
 import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRounded';
 import RocketRoundedIcon from '@mui/icons-material/RocketRounded';
+import BatteryChargingFullRoundedIcon from '@mui/icons-material/BatteryChargingFullRounded';
 
 export default function Innovators() {
   return (
@@ -34,7 +35,7 @@ export default function Innovators() {
           },
         }}
       >
-        <li>
+        <Box component="li">
           <Box display="flex" alignItems="center">
             <TokenRoundedIcon fontSize="large" htmlColor="#b3ff68" />
 
@@ -84,7 +85,7 @@ export default function Innovators() {
               </Typography>
             </Box>
           </Box>
-        </li>
+        </Box>
         <Box component="li" mt={2}>
           <Box display="flex" alignItems="center">
             <CurrencyExchangeRoundedIcon fontSize="large" htmlColor="#b3ff68" />
@@ -109,9 +110,8 @@ export default function Innovators() {
                 fontFamily="'Roboto Mono', sans-serif"
                 fontWeight="bold"
               >
-                Sell your tokens to investors
+                Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
-
             </Box>
           </Box>
         </Box>
@@ -132,14 +132,14 @@ export default function Innovators() {
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="bold"
               >
-                Get Ready
+                Supercharge your innovation
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
                 fontWeight="bold"
               >
-                Launch your innovation
+                Use the power of blockchain to launch your innovation
               </Typography>
             </Box>
           </Box>

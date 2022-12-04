@@ -44,7 +44,7 @@ export default function OpenSource() {
             Explore possibilities with
             <Box component="span" color="#e4cdff" fontWeight="bold">
               {' '}
-              Open Source
+              Open Collaboration
               {' '}
             </Box>
           </Typography>
@@ -169,7 +169,7 @@ export default function OpenSource() {
                       mt={3}
                     >
                       Nodecosmos plans to cover that gap by providing a platform that allows users
-                      to freely collaborate on projects that are not limited to software.
+                      to freely collaborate on innovations that are not limited to software.
                     </Typography>
                   </li>
                 </Box>
