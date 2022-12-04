@@ -29,6 +29,8 @@ export default function useZoomable(ref, defaultZoom, setPan, pan) {
   // handle svg mobile zoom on pinch
   const handleTouchStart = (event) => {
     if (event.touches.length !== 2) return;
+    event.preventDefault();
+    event.stopPropagation();
 
     // handle zoom and pan on pinch
     const touch1 = event.touches[0];
@@ -47,6 +49,8 @@ export default function useZoomable(ref, defaultZoom, setPan, pan) {
 
     const handleTouchMove = (event) => {
       if (event.touches.length !== 2) return;
+      event.preventDefault();
+      event.stopPropagation();
 
       // handle zoom and pan on pinch
       const touch1 = event.touches[0];
@@ -66,11 +70,11 @@ export default function useZoomable(ref, defaultZoom, setPan, pan) {
       const newZoom = newDistance / distance * zoom;
       setZoom(newZoom < MINIMUM_ZOOM ? MINIMUM_ZOOM : newZoom);
 
-      const newPan = {
-        x: pan.x + (newCenter.x - center.x),
-        y: pan.y + (newCenter.y - center.y),
-      };
-      setPan(newPan);
+      // const newPan = {
+      //   x: pan.x + (newCenter.x - center.x),
+      //   y: pan.y + (newCenter.y - center.y),
+      // };
+      // setPan(newPan);
     };
 
     const handleTouchEnd = () => {

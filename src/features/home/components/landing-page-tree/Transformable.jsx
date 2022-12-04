@@ -16,7 +16,7 @@ export default function Transformable(props) {
   const matchesLaptop = useMediaQuery(theme.breakpoints.up('lg'));
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
 
-  const scale = matches600 ? 0.5 : 1;
+  const scale = matches600 ? 0.7 : 1;
   const height = matches600 ? 400 : 800;
   const borderWidth = !matchesLaptop ? 1 : 0;
 
@@ -57,12 +57,7 @@ export default function Transformable(props) {
         <Box
           ref={gRef}
           onMouseDown={handleMouseDown}
-          // onWheel={handleWheel}
-          // onTouchStart={(event) => {
-          //   handlePinch(event); // zoom feature is disabled for now as it is not working well on mobile
-          //   handleTouchStart(event);
-          // }}
-          // onMouseLeave={enableScroll}
+          // onTouchStart={handlePinch}
           sx={{
             // touchAction: 'none',
             p: 0,
