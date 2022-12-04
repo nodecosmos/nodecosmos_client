@@ -76,7 +76,10 @@ export default function OpenSource() {
           sx={{
             borderTop: '1px solid #3c4149',
             p: 0,
-            mt: 3,
+            mt: {
+              xs: 0,
+              md: 2,
+            },
             backgroundColor: '#31353c',
           }}
         >

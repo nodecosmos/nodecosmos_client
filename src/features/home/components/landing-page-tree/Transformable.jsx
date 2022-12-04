@@ -13,8 +13,8 @@ export default function Transformable(props) {
   const theme = useTheme();
 
   const matches600 = useMediaQuery('(max-width: 600px)');
-  const matchesLaptop = useMediaQuery('(min-width: 1024px)');
-  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
+  const matchesLaptop = useMediaQuery(theme.breakpoints.up('lg'));
+  const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
 
   const scale = matches600 ? 0.5 : 1;
   const height = matches600 ? 400 : 800;

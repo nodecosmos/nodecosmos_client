@@ -1,6 +1,9 @@
 export default (currentTheme) => ({
   '::-webkit-scrollbar': {
-    width: 13,
+    width: 12,
+    '@media (max-width: 1024px)': {
+      width: 5,
+    },
   },
   '::-webkit-scrollbar-thumb': {
     borderRadius: 2,
@@ -8,6 +11,9 @@ export default (currentTheme) => ({
   },
   '::-webkit-scrollbar-track': {
     borderRadius: 2,
+    backgroundColor: currentTheme.black1,
+  },
+  '::-webkit-scrollbar-corner': {
     backgroundColor: currentTheme.black1,
   },
 });

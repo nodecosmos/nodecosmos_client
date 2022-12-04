@@ -11,7 +11,7 @@ export default function NodeDescriptionMd() {
   const descriptionRef = useRef(null);
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const matches = useMediaQuery(theme.breakpoints.up('lg'));
 
   if (!currentNode || !matches) return null;
 

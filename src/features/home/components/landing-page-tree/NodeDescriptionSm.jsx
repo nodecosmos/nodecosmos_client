@@ -10,7 +10,7 @@ export default function NodeDescriptionSm() {
   const descRef = React.useRef(null);
 
   const theme = useTheme();
-  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
+  const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
 
   if (!matchesSm) return null;
 
@@ -28,8 +28,6 @@ export default function NodeDescriptionSm() {
         position: 'relative',
         boxShadow: '0 -1px 5px 0 #292c32',
         borderTopColor: '#41464e',
-        mt: -1,
-        mb: 2,
       }}
     >
       <CardHeader

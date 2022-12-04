@@ -1,16 +1,17 @@
 import React from 'react';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
 export default function TransformablePath(props) {
   const { panX } = props;
-  const matches600 = useMediaQuery('(max-width: 600px)');
+  const theme = useTheme();
+  const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
 
   const isFirefox = typeof InstallTrigger !== 'undefined';
   const transition = isFirefox ? 'none' : 'transform 340ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
 
-  if (matches600) return null;
+  if (matchesSm) return null;
 
   return (
     <Box
