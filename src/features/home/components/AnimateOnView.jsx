@@ -17,9 +17,9 @@ export default function AnimateOnView(props) {
   const [opacity, setOpacity] = React.useState(initialOpacity);
   const [scale, setScale] = React.useState(initialScale);
 
-  const [currentThreshold, setCurrentThreshold] = React.useState(threshold);
+  const [currentThreshold, setCurrentThreshold] = React.useState(1);
   const ref = useRef(null);
-  const inView = useInView(ref, { threshold: currentThreshold });
+  const inView = useInView(ref, { amount: currentThreshold });
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
