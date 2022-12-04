@@ -7,7 +7,6 @@ import { useMediaQuery, useTheme } from '@mui/material';
 export default function AnimateOnView(props) {
   const {
     children,
-    threshold,
     initialScale,
     initialOpacity,
   } = props;
@@ -17,9 +16,8 @@ export default function AnimateOnView(props) {
   const [opacity, setOpacity] = React.useState(initialOpacity);
   const [scale, setScale] = React.useState(initialScale);
 
-  const [currentThreshold, setCurrentThreshold] = React.useState(1);
   const ref = useRef(null);
-  const inView = useInView(ref, { amount: currentThreshold });
+  const inView = useInView(ref);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -35,11 +33,10 @@ export default function AnimateOnView(props) {
         setScale(1);
       }, delay);
     } else {
-      setCurrentThreshold(0);
       setOpacity(initialOpacity);
       setScale(initialScale);
     }
-  }, [inView, delay, threshold, initialOpacity, initialScale]);
+  }, [inView, delay, initialOpacity, initialScale]);
 
   return (
     <Box
@@ -60,13 +57,11 @@ AnimateOnView.defaultProps = {
   delay: 0,
   initialScale: 0.9,
   initialOpacity: 0,
-  threshold: 0.4,
 };
 
 AnimateOnView.propTypes = {
   children: PropTypes.node.isRequired,
   delay: PropTypes.number,
-  threshold: PropTypes.number,
   initialOpacity: PropTypes.number,
   initialScale: PropTypes.number,
 };

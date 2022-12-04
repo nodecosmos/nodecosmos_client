@@ -13,7 +13,7 @@ export default function Investments() {
       md: 6,
     }}
     >
-      <AnimateOnView threshold={1}>
+      <AnimateOnView>
         <Box>
           <Typography
             variant="h4"
@@ -57,14 +57,14 @@ export default function Investments() {
         }}
       >
         <Grid item xs={12} md={6}>
-          <AnimateOnView threshold={1} delay={400}>
+          <AnimateOnView delay={400}>
             <Section>
               <Innovators />
             </Section>
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={600} threshold={1}>
+          <AnimateOnView delay={600}>
             <Section>
               <Investors />
             </Section>

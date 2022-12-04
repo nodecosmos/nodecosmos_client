@@ -14,7 +14,7 @@ export default function Vision() {
     <Box mt="15px">
       <Grid container columnSpacing={3}>
         <Grid item xs={12} md={6}>
-          <AnimateOnView threshold={0.5} delay={200}>
+          <AnimateOnView delay={200}>
             <Section>
               <Typography
                 variant="h5"
@@ -41,7 +41,7 @@ export default function Vision() {
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView threshold={0.5} delay={400}>
+          <AnimateOnView delay={400}>
             <Section>
               <Typography
                 variant="h5"

@@ -86,7 +86,7 @@ export default function ContactUs() {
         md: 7,
       }}
     >
-      <AnimateOnView threshold={1}>
+      <AnimateOnView>
         <Typography
           variant="h4"
           textAlign="center"
@@ -103,7 +103,7 @@ export default function ContactUs() {
         </Typography>
       </AnimateOnView>
       <Box mt={4}>
-        <AnimateOnView threshold={1} delay={400}>
+        <AnimateOnView delay={400}>
           <Section>
             <Typography color="#e3daee" sx={{ lineHeight: { xs: 1.5, sm: 1 } }}>
               Contact us at

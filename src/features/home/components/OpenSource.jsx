@@ -16,7 +16,7 @@ export default function OpenSource() {
             md: 'block',
           }}
         >
-          <AnimateOnView threshold={1} delay={600}>
+          <AnimateOnView delay={600}>
             <img
               src="node-link-3.svg"
               alt="node-handle"
@@ -27,7 +27,7 @@ export default function OpenSource() {
             />
           </AnimateOnView>
         </Box>
-        <AnimateOnView threshold={1}>
+        <AnimateOnView>
           <Typography
             variant="h4"
             textAlign="center"
@@ -58,7 +58,7 @@ export default function OpenSource() {
           },
         }}
         >
-          <AnimateOnView threshold={1} delay={600}>
+          <AnimateOnView delay={600}>
             <img
               src="node-link-3.svg"
               alt="node-handle"
@@ -70,7 +70,7 @@ export default function OpenSource() {
           </AnimateOnView>
         </Box>
       </Box>
-      <AnimateOnView threshold={1} delay={1000}>
+      <AnimateOnView delay={1000}>
         <Card
           elevation={2}
           sx={{

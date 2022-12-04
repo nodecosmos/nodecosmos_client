@@ -71,7 +71,7 @@ export default function MVP() {
         md: 7,
       }}
     >
-      <AnimateOnView threshold={1}>
+      <AnimateOnView>
         <Typography
           variant="h4"
           textAlign="center"
@@ -92,7 +92,7 @@ export default function MVP() {
           of the MVP
         </Typography>
       </AnimateOnView>
-      <AnimateOnView threshold={1} delay={200}>
+      <AnimateOnView delay={200}>
         <Box ref={scrollable} mt={5} overflow="auto" pb={{ xs: 2, md: 0 }}>
           <Box width={{
             xs: 800,
