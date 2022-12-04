@@ -1,10 +1,8 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import RocketRoundedIcon from '@mui/icons-material/RocketRounded';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import PhishingIcon from '@mui/icons-material/Phishing';
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
 
 export default function Investors() {

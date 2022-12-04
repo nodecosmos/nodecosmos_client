@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import TokenRoundedIcon from '@mui/icons-material/TokenRounded';
 import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRounded';
 import RocketRoundedIcon from '@mui/icons-material/RocketRounded';
-import BatteryChargingFullRoundedIcon from '@mui/icons-material/BatteryChargingFullRounded';
 
 export default function Innovators() {
   return (
