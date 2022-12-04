@@ -22,7 +22,7 @@ export default function HomepageTabs(props) {
   const [open, setOpen] = React.useState(false);
 
   const options = [
-    'Innovate', 'Collaborate', 'Investments', 'Open Collaboration', 'MVP', 'Contact Us',
+    'Innovate', 'Collaborate', 'Investments', 'Open Source', 'MVP', 'Contact Us',
   ];
 
   if (matchesSm) {
