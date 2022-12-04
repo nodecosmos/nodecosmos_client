@@ -80,9 +80,6 @@ export default function Index() {
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
       ref={rootRef}
-      sx={{
-        scrollBehavior: 'smooth',
-      }}
     >
       <Box
         display="flex"
