@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, {
+  useRef, useState, useEffect, useMemo,
+} from 'react';
 import {
   Box,
   Button,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
@@ -15,9 +15,8 @@ import Innovate from '../../features/home/components/Innovate';
 import Collaborate from '../../features/home/components/Collaborate';
 import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
-
-const MVP = React.lazy(() => import('../../features/home/components/MVP'));
-const ContactUs = React.lazy(() => import('../../features/home/components/ContactUs'));
+import MVP from '../../features/home/components/MVP';
+import ContactUs from '../../features/home/components/ContactUs';
 
 export default function Index() {
   const [tab, setTab] = useState(0);
@@ -30,43 +29,54 @@ export default function Index() {
   const mvp = useRef(null);
   const contactUs = useRef(null);
 
+  const preventTabChange = useRef(false);
+  const timeout = useRef(null);
+
   const scrollEnabled = useSelector((state) => state.app.scrollEnabled);
-  const [preventTabChange, setPreventTabChange] = useState(false);
 
-  const allRefs = [
-    innovate, collaborate, investments, openSource, mvp, contactUs,
-  ];
+  const allRefs = useMemo(() => [innovate, collaborate, investments, openSource, mvp, contactUs], []);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [sectionPositions, setSectionPositions] = useState(null);
+  const [sectionHeights, setSectionHeights] = useState(null);
+  const [sectionEndPositions, setSectionEndPositions] = useState(null);
 
-  const handleWheel = () => {
-    // set tab based on scroll position
+  useEffect(() => {
+    setSectionPositions(allRefs.map((ref) => ref.current && ref.current.offsetTop));
+    setSectionHeights(allRefs.map((ref) => ref.current && ref.current.offsetHeight));
+  }, [allRefs]);
+
+  useEffect(() => {
+    setSectionEndPositions(sectionPositions && sectionPositions.map((pos, i) => pos + sectionHeights[i]));
+  }, [sectionHeights, sectionPositions]);
+
+  const handleScrollCapture = () => {
+    console.log(preventTabChange.current);
+    if (preventTabChange.current) return;
+
     const scrollPosition = rootRef.current.scrollTop;
+    const sectionIndex = sectionEndPositions.findIndex((endPos, index) => {
+      const sectionSize = sectionHeights[index];
+      return scrollPosition < endPos - sectionSize / 2 + 105;
+    });
 
-    const tabHeight = isMobile ? 900 : 700;
+    const sectionEndPosition = sectionEndPositions[sectionIndex];
 
-    // if scroll is bottom of page, set tab to last tab
-
-    const scrollBottomThreshold = isMobile ? 400 : 100;
-    if (rootRef.current.scrollTop
-      >= (rootRef.current.scrollHeight - rootRef.current.offsetHeight - scrollBottomThreshold)) {
-      setTab(5);
-    } else {
-      const tabNumber = Math.floor(scrollPosition / tabHeight);
-      setTab(tabNumber);
+    if (scrollPosition < sectionEndPosition) {
+      setTab(sectionIndex);
     }
   };
 
   const handleTabChange = (_, currentTab) => {
-    setPreventTabChange(true);
+    preventTabChange.current = true;
 
     const yOffset = -115;
     const y = allRefs[currentTab].current.getBoundingClientRect().top + yOffset;
 
-    setTimeout(() => setTab(currentTab), 100);
     scrollBy(rootRef.current, { top: y, behavior: 'smooth' });
-    setTimeout(() => setPreventTabChange(false), 1000);
+    setTab(currentTab);
+
+    if (timeout.current) clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 500);
   };
 
   const handleNodecosmosClick = () => {
@@ -75,7 +85,7 @@ export default function Index() {
 
   return (
     <Box
-      onScrollCapture={!preventTabChange && handleWheel}
+      onScroll={handleScrollCapture}
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}
       ref={rootRef}
@@ -94,12 +104,13 @@ export default function Index() {
         }}
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>
-          <Box sx={{
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
           >
             <Button
               onClick={handleNodecosmosClick}
@@ -123,10 +134,10 @@ export default function Index() {
           justifyContent="center"
         >
           <Container maxWidth="lg">
-            <Box id="innovate">
+            <Box id="innovate" ref={innovate}>
               <Box display="flex" mt={5} alignItems="center">
                 {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
-                <Box ref={innovate}>
+                <Box>
                   <Typography
                     variant="h4"
                     fontWeight="900"
@@ -149,14 +160,10 @@ export default function Index() {
             <Box ref={investments}><Investments /></Box>
             <Box ref={openSource}><OpenSource /></Box>
             <Box ref={mvp}>
-              <React.Suspense fallback={null}>
-                <MVP />
-              </React.Suspense>
+              <MVP />
             </Box>
             <Box ref={contactUs}>
-              <React.Suspense fallback={null}>
-                <ContactUs />
-              </React.Suspense>
+              <ContactUs />
             </Box>
           </Container>
         </Box>

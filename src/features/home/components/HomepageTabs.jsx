@@ -75,7 +75,14 @@ export default function HomepageTabs(props) {
       }}
       TabIndicatorProps={{ className: 'header' }}
     >
-      {options.map((option) => <Tab label={option} disableRipple sx={tabSx} key={option} />)}
+      {options.map((option) => (
+        <Tab
+          label={option}
+          disableRipple
+          sx={tabSx}
+          key={option}
+        />
+      ))}
     </Tabs>
   );
 }
