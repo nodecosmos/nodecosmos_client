@@ -16,7 +16,7 @@ export default function Investors() {
         fontWeight="900"
         fontSize="1.8rem"
       >
-        Investors
+        For Investors
       </Typography>
       <Box
         mt={3}
@@ -89,7 +89,7 @@ export default function Investors() {
                 fontFamily="'Roboto Mono', sans-serif"
                 fontWeight="bold"
               >
-                Track activities of the innovation, analyze contributions and get a full report on the innovation
+                Make data-driven calls based on innovation activities, contributions and community feedback
               </Typography>
             </Box>
           </Box>

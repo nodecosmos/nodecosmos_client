@@ -16,7 +16,7 @@ export default function Innovators() {
         fontWeight="900"
         fontSize="1.8rem"
       >
-        Innovators
+        For Innovators
       </Typography>
       <Box
         mt={3}
