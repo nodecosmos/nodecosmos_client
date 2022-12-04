@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Box, Card, CardContent, CardHeader, useMediaQuery, useTheme,
+  Card, CardContent, CardHeader, useMediaQuery, useTheme,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -17,40 +17,41 @@ export default function NodeDescriptionSm() {
   const title = currentNode ? currentNode.title : 'Select node to view description';
 
   return (
-    <Box
-      display="flex"
-      alignItems="center"
+    <Card
+      elevation={0}
+      sx={{
+        p: 0,
+        background: 'transparent',
+        width: '100%',
+        borderRadius: '0 0 8px 8px',
+        border: '1px solid #5a6577',
+        position: 'relative',
+        boxShadow: '0 -1px 5px 0 #292c32',
+        borderTopColor: '#41464e',
+        mt: -1,
+        mb: 2,
+      }}
     >
-      <Card
-        elevation={0}
+      <CardHeader
         sx={{
-          p: 0,
-          background: 'transparent',
-          width: '100%',
-          borderRadius: '8px 8px 0 0',
-          border: '1px solid #5a6577',
-          borderBottom: 'none',
+          borderBottom: '1px solid #3c434f',
+          height: 35,
+          background: '#353941',
+        }}
+        titleTypographyProps={{
+          variant: 'body1',
+          textAlign: 'center',
+        }}
+        title={title}
+      />
+      <CardContent
+        ref={descRef}
+        sx={{
+          color: '#99a4b2',
         }}
       >
-        <Box>
-          <CardHeader
-            sx={{
-              borderBottom: '1px solid #3c434f',
-              height: 35,
-              background: '#353941',
-            }}
-            titleTypographyProps={{
-              variant: 'body1',
-              textAlign: 'center',
-            }}
-            title={title}
-          />
-          {/* #30343a */ }
-          <CardContent ref={descRef} sx={{ color: '#99a4b2' }}>
-            {currentNode?.description}
-          </CardContent>
-        </Box>
-      </Card>
-    </Box>
+        {currentNode?.description}
+      </CardContent>
+    </Card>
   );
 }

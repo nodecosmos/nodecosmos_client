@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import PanTip from '../tips/PanTip';
@@ -10,9 +10,11 @@ import TransformablePath from './TransformablePath';
 export default function Transformable(props) {
   const { children } = props;
   const gRef = useRef(null);
+  const theme = useTheme();
 
   const matches600 = useMediaQuery('(max-width: 600px)');
   const matchesLaptop = useMediaQuery('(min-width: 1024px)');
+  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
 
   const scale = matches600 ? 0.5 : 1;
   const height = matches600 ? 400 : 800;
@@ -42,8 +44,9 @@ export default function Transformable(props) {
       <Box
         sx={{
           position: 'relative',
-          overflow: 'hidden',
+          overflow: matchesSm ? 'auto' : 'hidden',
           border: `${borderWidth}px solid #5a6577`,
+          borderRadius: '4px 4px 0px 0px',
           background: {
             xs: '#2f3238',
             sm: 'transparent',
@@ -63,7 +66,6 @@ export default function Transformable(props) {
           sx={{
             // touchAction: 'none',
             p: 0,
-            borderRadius: '0px 0px 8px 8px',
             height,
             WebkitTapHighlightColor: 'transparent',
             WebkitTouchCallout: 'none',

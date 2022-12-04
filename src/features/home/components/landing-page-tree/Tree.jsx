@@ -21,7 +21,6 @@ export default function Tree(props) {
 
   return (
     <Box className="Tree" sx={{ width: 1, height: 1 }}>
-      <NodeDescriptionSm />
       <Transformable>
         <g>
           <Node
@@ -34,6 +33,7 @@ export default function Tree(props) {
           <NodeDescriptionMd />
         </g>
       </Transformable>
+      <NodeDescriptionSm />
     </Box>
   );
 }
