@@ -50,7 +50,6 @@ export default function Index() {
   }, [sectionHeights, sectionPositions]);
 
   const handleScrollCapture = () => {
-    console.log(preventTabChange.current);
     if (preventTabChange.current) return;
 
     const scrollPosition = rootRef.current.scrollTop;

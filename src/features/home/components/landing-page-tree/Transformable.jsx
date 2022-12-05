@@ -8,7 +8,7 @@ import TransformablePath from './TransformablePath';
 // import useZoomable from '../../hooks/useZoomable';
 
 export default function Transformable(props) {
-  const { children } = props;
+  const { children, treeHeight } = props;
   const gRef = useRef(null);
   const theme = useTheme();
 
@@ -17,7 +17,7 @@ export default function Transformable(props) {
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
 
   const scale = matches600 ? 0.7 : 1;
-  const height = matches600 ? 400 : 800;
+  const height = 800 * scale;
   const borderWidth = !matchesLaptop ? 1 : 0;
 
   // handle pan
@@ -79,7 +79,7 @@ export default function Transformable(props) {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1000%"
-            height="1000%"
+            height={treeHeight}
           >
             <g>
               {children}
@@ -94,4 +94,5 @@ export default function Transformable(props) {
 
 Transformable.propTypes = {
   children: PropTypes.element.isRequired,
+  treeHeight: PropTypes.number.isRequired,
 };
