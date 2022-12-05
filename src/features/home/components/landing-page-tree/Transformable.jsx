@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
@@ -8,24 +8,44 @@ import TransformablePath from './TransformablePath';
 // import useZoomable from '../../hooks/useZoomable';
 
 export default function Transformable(props) {
-  const { children, treeHeight } = props;
+  const { children } = props;
   const gRef = useRef(null);
   const theme = useTheme();
+
+  const [state, updateState] = React.useState({});
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   const matches600 = useMediaQuery('(max-width: 600px)');
   const matchesLaptop = useMediaQuery(theme.breakpoints.up('lg'));
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
 
   const scale = matches600 ? 0.7 : 1;
-  const height = 800 * scale;
   const borderWidth = !matchesLaptop ? 1 : 0;
+
+  const containerHeight = 800 * scale;
+
+  const minHeight = matchesSm ? 800 : 800;
+  const minWidth = matchesSm ? 400 : 1050;
+
+  const [height, setHeight] = React.useState(minHeight);
+  const [width, setWidth] = React.useState(minWidth);
+
+  useLayoutEffect(() => {
+    const newHeight = gRef.current.getBBox().height + 50;
+    const newWidth = gRef.current.getBBox().width + 50;
+
+    setHeight(
+      newHeight > minHeight ? newHeight : minHeight,
+    );
+    setWidth(
+      newWidth > minWidth ? newWidth : minWidth,
+    );
+  }, [state, minHeight, minWidth]);
 
   // handle pan
   const {
     pan,
     handleMouseDown,
-    // setPan,
-    // handleTouchStart,
   } = usePannable(gRef);
 
   // handle zoom
@@ -42,6 +62,7 @@ export default function Transformable(props) {
   return (
     <>
       <Box
+        onClick={forceUpdate}
         sx={{
           position: 'relative',
           overflow: matchesSm ? 'auto' : 'hidden',
@@ -55,13 +76,12 @@ export default function Transformable(props) {
       >
         <TransformablePath panX={pan.x} />
         <Box
-          ref={gRef}
           onMouseDown={handleMouseDown}
           // onTouchStart={handlePinch}
           sx={{
             // touchAction: 'none',
             p: 0,
-            height,
+            height: containerHeight,
             WebkitTapHighlightColor: 'transparent',
             WebkitTouchCallout: 'none',
             WebkitUserSelect: 'none',
@@ -78,10 +98,10 @@ export default function Transformable(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="1000%"
-            height={treeHeight}
+            width={width}
+            height={height}
           >
-            <g>
+            <g ref={gRef}>
               {children}
             </g>
           </svg>
@@ -94,5 +114,4 @@ export default function Transformable(props) {
 
 Transformable.propTypes = {
   children: PropTypes.element.isRequired,
-  treeHeight: PropTypes.number.isRequired,
 };

@@ -14,20 +14,14 @@ import { terminateNewNode } from './landingPageNodeSlice';
 export default function Tree(props) {
   const { id } = props;
   const dispatch = useDispatch();
-  const nodesLength = useSelector((state) => Object.keys(state.landingPageNodes).length);
-  const [treeHeight, setTreeHeight] = React.useState(800);
 
   useEffect(() => () => {
     dispatch(terminateNewNode());
   }, [dispatch]);
 
-  useEffect(() => {
-    setTreeHeight(nodesLength * 51);
-  }, [nodesLength]);
-
   return (
     <Box className="Tree" sx={{ width: 1, height: 1 }}>
-      <Transformable treeHeight={treeHeight}>
+      <Transformable>
         <g>
           <Node
             id={id}
