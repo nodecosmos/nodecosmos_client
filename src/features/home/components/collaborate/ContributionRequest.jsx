@@ -1,11 +1,16 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { scrollIntoView } from 'seamless-scroll-polyfill';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function ContributionRequest() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const viewBox = isMobile ? '0 0 370 364' : '0 0 512 364';
+
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
@@ -16,7 +21,7 @@ export default function ContributionRequest() {
       sx={{
         transformOrigin: 'top left',
       }}
-      viewBox="0 0 512 364"
+      viewBox={viewBox}
     >
       <g style={{ transform: 'translate(-44px, -34px)' }}>
         <g>
