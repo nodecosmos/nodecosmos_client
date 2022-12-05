@@ -73,7 +73,7 @@ export default function ContributionRequest() {
             <g>
               <path
                 strokeWidth="3.5"
-                d="M 95 86
+                d="M 95 85
                        C 95 86
                          94 91.375
                          95 109.25
@@ -215,7 +215,7 @@ export default function ContributionRequest() {
             <g>
               <path
                 strokeWidth="3.5"
-                d="M 95 245
+                d="M 95 244
                        C 95 245
                          94 250.375
                          95 268.25
