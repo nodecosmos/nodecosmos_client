@@ -56,7 +56,7 @@ export default function App() {
           backgroundColor={currentTheme.black1}
         >
           <Box
-            borderRadius={2}
+            borderRadius="6px"
             height={1}
             width={1}
             className="MainContent"

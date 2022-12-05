@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
-import { scrollBy, scrollIntoView } from 'seamless-scroll-polyfill';
+import { scrollBy } from 'seamless-scroll-polyfill';
 import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
@@ -17,6 +17,8 @@ import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
 import MVP from '../../features/home/components/MVP';
 import ContactUs from '../../features/home/components/ContactUs';
+
+const HEADER_HEIGHT = 56;
 
 export default function Index() {
   const [tab, setTab] = useState(0);
@@ -79,7 +81,9 @@ export default function Index() {
   };
 
   const handleNodecosmosClick = () => {
-    scrollIntoView(innovate.current, { behavior: 'smooth', block: 'center' });
+    preventTabChange.current = true;
+    scrollBy(rootRef.current, { top: -rootRef.current.scrollTop, behavior: 'smooth' });
+    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 500);
   };
 
   return (
@@ -92,14 +96,27 @@ export default function Index() {
       <Box
         display="flex"
         alignItems="center"
-        className="Header BoxShadowBottom BorderBottom"
-        position="sticky"
-        top={0}
+        className="Header BoxShadowBottom"
+        position="fixed"
+        top={{
+          sm: 6,
+          xs: 0,
+        }}
+        right={{
+          sm: 6,
+          xs: 0,
+        }}
+        width={{
+          xs: 1,
+          sm: 'calc(100% - 12px)',
+        }}
         zIndex={2}
-        height={56}
+        height={HEADER_HEIGHT}
         sx={{
-          borderTopLeftRadius: 4,
-          borderTopRightRadius: 4,
+          borderTopLeftRadius: 6,
+          borderTopRightRadius: 6,
+          boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+          // borderBottom: '1px solid #353a42',
         }}
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>
@@ -134,9 +151,9 @@ export default function Index() {
         >
           <Container maxWidth="lg">
             <Box id="innovate" ref={innovate}>
-              <Box display="flex" mt={5} alignItems="center">
+              <Box display="flex" mt={`${HEADER_HEIGHT}px`} alignItems="center">
                 {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
-                <Box>
+                <Box mt={5}>
                   <Typography
                     variant="h4"
                     fontWeight="900"
