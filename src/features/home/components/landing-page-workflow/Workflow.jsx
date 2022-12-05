@@ -16,7 +16,7 @@ export default function Workflow() {
   return (
     <Box>
       <WorkflowStepDescriptionSm />
-      <Transformable>
+      <Transformable treeHeight={790}>
         <g>
           <g
             onClick={() => {
