@@ -24,7 +24,7 @@ export default function Transformable(props) {
 
   const containerHeight = 800 * scale;
 
-  const minHeight = matchesSm ? 800 : 800;
+  const minHeight = matchesSm ? 790 : 800;
   const minWidth = matchesSm ? 400 : 1050;
 
   const [height, setHeight] = React.useState(minHeight);
