@@ -116,7 +116,7 @@ export default function Index() {
           borderTopLeftRadius: 6,
           borderTopRightRadius: 6,
           boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
-          // borderBottom: '1px solid #353a42',
+          borderBottom: '1px solid #2d3138',
         }}
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>

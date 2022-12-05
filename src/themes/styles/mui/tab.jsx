@@ -23,7 +23,7 @@ export default (currentTheme) => ({
         backgroundColor: currentTheme.green1,
         '&.header': {
           height: 10,
-          top: 49,
+          top: 48,
         },
       },
     },
