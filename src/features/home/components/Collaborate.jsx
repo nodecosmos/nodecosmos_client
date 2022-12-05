@@ -34,7 +34,7 @@ export default function Vision() {
               <Typography mt={3} variant="body1" color="#8b949e">
                 Use Contribution Request features to collaborate and boost your innovation
               </Typography>
-              <Box mt={2}>
+              <Box mt={3}>
                 <ContributionRequest />
               </Box>
             </Section>
