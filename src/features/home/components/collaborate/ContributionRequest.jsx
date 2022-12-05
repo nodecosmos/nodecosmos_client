@@ -105,7 +105,7 @@ export default function ContributionRequest() {
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="105">
               <Typography
-                color="#767a83"
+                color="#8b949e"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Add/Remove/Update Nodes in the
@@ -145,7 +145,7 @@ export default function ContributionRequest() {
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="145">
               <Typography
-                color="#767a83"
+                color="#8b949e"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Add/Remove/Update Workflow
@@ -172,7 +172,7 @@ export default function ContributionRequest() {
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="185">
               <Typography
-                color="#767a83"
+                color="#8b949e"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Add/Remove/Update Drawing
@@ -242,7 +242,7 @@ export default function ContributionRequest() {
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="264">
               <Typography
-                color="#767a83"
+                color="#8b949e"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Discuss Contribution
@@ -335,7 +335,7 @@ export default function ContributionRequest() {
                 Merge Contribution Request
               </Typography>
               <Typography
-                color="#767a83"
+                color="#8b949e"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 let contribution become part of your innovation
