@@ -172,7 +172,7 @@ export default function Index() {
               </Box>
               <Innovate />
             </Box>
-            <Box ref={collaborate}><Collaborate /></Box>
+            <Box id="collaborate" ref={collaborate}><Collaborate /></Box>
             <Box ref={investments}><Investments /></Box>
             <Box ref={openSource}><OpenSource /></Box>
             <Box ref={mvp}>

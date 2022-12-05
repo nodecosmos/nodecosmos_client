@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Box, Card } from '@mui/material';
+import { scrollIntoView } from 'seamless-scroll-polyfill';
 import AnimateOnView from './AnimateOnView';
 
 export default function OpenSource() {
@@ -154,13 +155,14 @@ export default function OpenSource() {
                       fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
-                      It enables companies and engineers to collaborate on projects which
-                      can be integrated into their own products.
+                      It enables engineers and companies to openly collaborate on solutions
+                      and integrate those solutions into their own products.
                     </Typography>
                   </li>
                   <li>
                     <Typography
                       fontFamily="'Roboto Mono', monospace"
+                      fontWeight="bold"
                       mt={3}
                     >
                       What if we take this concept and apply it to other areas?
@@ -171,8 +173,36 @@ export default function OpenSource() {
                       fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
-                      Nodecosmos plans to cover that gap by providing a platform that allows users
-                      to freely collaborate on innovations that are not limited to software.
+                      By utilizing this, you are opening your innovation to the community
+                      that can help you from the beginning down to the finest details via
+                      {' '}
+                      <Box
+                        component="span"
+                        fontWeight="bold"
+                        color="#e4cdff"
+                        sx={{
+                          cursor: 'pointer',
+                          borderBottom: '4px solid #e4cdff',
+                          lineHeight: 2,
+                        }}
+                        onClick={() => scrollIntoView(document.getElementById('collaborate'), {
+                          block: 'center',
+                          behavior: 'smooth',
+                        })}
+                        target="_blank"
+                      >
+                        Contribution Request
+                      </Box>
+                      {' '}
+                      features.
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography
+                      fontFamily="'Roboto Mono', monospace"
+                      mt={3}
+                    >
+                      Nodecosmos will allow users to freely collaborate on innovations.
                     </Typography>
                   </li>
                 </Box>
