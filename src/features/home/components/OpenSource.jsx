@@ -173,7 +173,7 @@ export default function OpenSource() {
                       fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
-                      By utilizing this, you are opening your innovation to the community
+                      By utilizing this concept, you can open your innovation to the community
                       that can help you from the beginning down to the finest details via
                       {' '}
                       <Box
@@ -202,7 +202,7 @@ export default function OpenSource() {
                       fontFamily="'Roboto Mono', monospace"
                       mt={3}
                     >
-                      Nodecosmos will allow users to freely collaborate on innovations.
+                      Nodecosmos will allow users to freely collaborate on public nodes.
                     </Typography>
                   </li>
                 </Box>
