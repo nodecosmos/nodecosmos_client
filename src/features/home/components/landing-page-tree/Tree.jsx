@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
 import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import Node from './Node';
 import NodeDescriptionMd from './NodeDescriptionMd';
