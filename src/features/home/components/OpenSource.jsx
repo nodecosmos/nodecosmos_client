@@ -1,9 +1,12 @@
 import React from 'react';
 import { Typography, Box, Card } from '@mui/material';
-import { scrollIntoView } from 'seamless-scroll-polyfill';
+import { useDispatch } from 'react-redux';
+import { setHomepageTab } from '../homeSlice';
 import AnimateOnView from './AnimateOnView';
 
 export default function OpenSource() {
+  const dispatch = useDispatch();
+
   return (
     <Box mt={{
       xs: 5,
@@ -18,14 +21,7 @@ export default function OpenSource() {
           }}
         >
           <AnimateOnView delay={600}>
-            <img
-              src="node-link-3.svg"
-              alt="node-handle"
-              style={{
-                width: '75%',
-                marginTop: 8,
-              }}
-            />
+            <img src="node-link-3.svg" alt="node-handle" style={{ width: '75%', marginTop: 8 }} />
           </AnimateOnView>
         </Box>
         <AnimateOnView>
@@ -185,10 +181,7 @@ export default function OpenSource() {
                           borderBottom: '4px solid #e4cdff',
                           lineHeight: 2,
                         }}
-                        onClick={() => scrollIntoView(document.getElementById('collaborate'), {
-                          block: 'center',
-                          behavior: 'smooth',
-                        })}
+                        onClick={() => dispatch(setHomepageTab(1))}
                         target="_blank"
                       >
                         Contribution Request

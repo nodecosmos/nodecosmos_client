@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Tab, Tabs } from '@mui/material';
 import Box from '@mui/material/Box';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
+import { setInnovateTab } from '../homeSlice';
 import AnimateOnView from './AnimateOnView';
 import LandingPageMarkdown from './innovate/LandingPageMarkdown';
 import LandingPageTree from './innovate/LandingPageTree';
@@ -13,7 +14,7 @@ import Section from './Section';
 const PRESELECTED_NODE_ID = '635a91ea690cc413ead79ce2';
 
 export default function Innovate() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const currentTab = useSelector((state) => state.home.innovateTab);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,8 +51,8 @@ export default function Innovate() {
           mb: -2,
         }}
         variant="scrollable"
-        value={currentPage}
-        onChange={(_event, value) => setCurrentPage(value)}
+        value={currentTab}
+        onChange={(_event, value) => dispatch(setInnovateTab(value))}
         TabIndicatorProps={{ sx: indicatorSx }}
         visibleScrollbar
       >
@@ -64,10 +65,10 @@ export default function Innovate() {
       <Box mt={3}>
         <AnimateOnView>
           <Section>
-            {currentPage === 0 && <LandingPageTree />}
-            {currentPage === 1 && <LandingPageMarkdown />}
-            {currentPage === 2 && <Workflow />}
-            {currentPage === 3 && <Other />}
+            {currentTab === 0 && <LandingPageTree />}
+            {currentTab === 1 && <LandingPageMarkdown />}
+            {currentTab === 2 && <Workflow />}
+            {currentTab === 3 && <Other />}
           </Section>
         </AnimateOnView>
       </Box>

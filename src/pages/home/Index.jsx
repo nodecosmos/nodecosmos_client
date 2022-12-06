@@ -1,5 +1,5 @@
 import React, {
-  useRef, useState, useEffect, useMemo,
+  useRef, useState, useEffect, useMemo, useCallback,
 } from 'react';
 import {
   Box,
@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import Container from '@mui/material/Container';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { scrollBy } from 'seamless-scroll-polyfill';
 import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
@@ -17,6 +17,7 @@ import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
 import MVP from '../../features/home/components/MVP';
 import ContactUs from '../../features/home/components/ContactUs';
+import { setHomepageTab } from '../../features/home/homeSlice';
 
 const HEADER_HEIGHT = 56;
 
@@ -42,6 +43,7 @@ export default function Index() {
   const [sectionHeights, setSectionHeights] = useState(null);
   const [sectionEndPositions, setSectionEndPositions] = useState(null);
 
+  // ---------------------------------------------------------------------------------------------------------------- //
   useEffect(() => {
     setSectionPositions(allRefs.map((ref) => ref.current && ref.current.offsetTop));
     setSectionHeights(allRefs.map((ref) => ref.current && ref.current.offsetHeight));
@@ -67,7 +69,8 @@ export default function Index() {
     }
   };
 
-  const handleTabChange = (_, currentTab) => {
+  // ---------------------------------------------------------------------------------------------------------------- //
+  const handleTabChange = useCallback((_, currentTab) => {
     preventTabChange.current = true;
 
     const yOffset = -115;
@@ -78,7 +81,7 @@ export default function Index() {
 
     if (timeout.current) clearTimeout(timeout.current);
     timeout.current = setTimeout(() => { preventTabChange.current = false; }, 500);
-  };
+  }, [allRefs]);
 
   const handleNodecosmosClick = () => {
     preventTabChange.current = true;
@@ -86,6 +89,18 @@ export default function Index() {
     timeout.current = setTimeout(() => { preventTabChange.current = false; }, 500);
   };
 
+  // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE -------------------------------------- //
+  const homepageTab = useSelector((state) => state.home.homepageTab);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (homepageTab !== null) {
+      handleTabChange(null, homepageTab);
+      dispatch(setHomepageTab(null));
+    }
+  }, [homepageTab, handleTabChange, dispatch]);
+
+  // ---------------------------------------------------------------------------------------------------------------- //
   return (
     <Box
       onScroll={handleScrollCapture}

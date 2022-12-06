@@ -1,15 +1,18 @@
 import React from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
-import { scrollIntoView } from 'seamless-scroll-polyfill';
+import { useDispatch } from 'react-redux';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
+import { setHomepageTab, setInnovateTab } from '../../homeSlice';
 
 export default function ContributionRequest() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const viewBox = isMobile ? '0 0 370 364' : '0 0 512 364';
+
+  const dispatch = useDispatch();
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
@@ -107,7 +110,10 @@ export default function ContributionRequest() {
                     cursor: 'pointer',
                     borderBottom: '6px solid #e4cdff',
                   }}
-                  onClick={() => scrollIntoView(document.getElementById('innovate'))}
+                  onClick={() => {
+                    dispatch(setInnovateTab(0));
+                    dispatch(setHomepageTab(0));
+                  }}
                 >
                   tree
                 </Box>
