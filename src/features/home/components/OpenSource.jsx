@@ -84,7 +84,7 @@ export default function OpenSource() {
               xs: 0,
               md: 2,
             },
-            backgroundColor: 'transparent',
+            backgroundColor: '#2f343c',
           }}
         >
           <Box>
