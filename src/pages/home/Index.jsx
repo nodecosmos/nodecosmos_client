@@ -128,8 +128,14 @@ export default function Index() {
         zIndex={2}
         height={HEADER_HEIGHT}
         sx={{
-          borderTopLeftRadius: 6,
-          borderTopRightRadius: 6,
+          borderTopLeftRadius: {
+            xs: 0,
+            sm: 6,
+          },
+          borderTopRightRadius: {
+            xs: 0,
+            sm: 6,
+          },
           boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
           borderBottom: '1px solid #2d3138',
         }}
