@@ -11,7 +11,6 @@ export default function OpenSource() {
     fontFamily: "'Roboto Mono', monospace",
     // letterSpacing: '-0.01em',
     fontWeight: '300',
-    fontSize: 20,
     color: '#9aa3b0',
   };
 
