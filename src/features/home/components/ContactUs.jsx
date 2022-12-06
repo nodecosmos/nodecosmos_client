@@ -102,7 +102,7 @@ export default function ContactUs() {
           Get in touch with us
         </Typography>
       </AnimateOnView>
-      <Box mt={5}>
+      <Box mt={4}>
         <AnimateOnView delay={400}>
           <Section>
             <Typography color="#e3daee" sx={{ lineHeight: { xs: 1.5, sm: 1 } }}>
