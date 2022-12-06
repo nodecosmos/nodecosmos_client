@@ -108,7 +108,7 @@ export default function ContributionRequest() {
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '6px solid #e4cdff',
+                    borderBottom: '3px solid #e4cdff',
                   }}
                   onClick={() => {
                     dispatch(setInnovateTab(0));

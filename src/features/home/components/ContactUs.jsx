@@ -105,7 +105,7 @@ export default function ContactUs() {
       <Box mt={4}>
         <AnimateOnView delay={400}>
           <Section>
-            <Typography color="#e3daee" sx={{ lineHeight: { xs: 1.5, sm: 1 } }}>
+            <Typography color="#8b949e" sx={{ lineHeight: { xs: 1.5, sm: 1 } }}>
               Contact us at
               {' '}
               <a href="mailto:contact@nodecosmos.com">

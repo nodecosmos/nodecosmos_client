@@ -70,7 +70,7 @@ export default function Innovators() {
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '4px solid #e4cdff',
+                    borderBottom: '3px solid #e4cdff',
                     lineHeight: 2,
                   }}
                   onClick={() => {

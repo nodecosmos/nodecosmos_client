@@ -7,6 +7,14 @@ import AnimateOnView from './AnimateOnView';
 export default function OpenSource() {
   const dispatch = useDispatch();
 
+  const typographySx = {
+    fontFamily: "'Roboto Mono', monospace",
+    // letterSpacing: '-0.01em',
+    fontWeight: '300',
+    fontSize: 20,
+    color: '#9aa3b0',
+  };
+
   return (
     <Box mt={{
       xs: 5,
@@ -77,24 +85,30 @@ export default function OpenSource() {
               xs: 0,
               md: 2,
             },
-            backgroundColor: '#31353c',
+            backgroundColor: 'transparent',
           }}
         >
           <Box>
             <Box display="flex" alignItems="stretch">
               <Box m={4}>
                 <Typography
-                  fontSize={25}
+                  fontSize={{
+                    xs: 20,
+                    sm: 25,
+                  }}
                   fontFamily="'Montserrat',sans-serif"
-                  fontWeight="900"
                   textAlign="left"
                   sx={{
-                    background: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
+                    background: {
+                      xs: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 36%)',
+                      sm: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
+                    },
+                    WebkitBackgroundClip: 'text!important',
+                    backgroundClip: 'text!important',
+                    WebkitTextFillColor: 'transparent!important',
                     WebkitBoxDecorationBreak: 'clone',
-                    color: '#d09dff',
+                    color: '#f2caff',
+                    // textShadow: '0 0 4px #f2caff47',
                     lineHeight: 1,
                   }}
                 >
@@ -124,61 +138,51 @@ export default function OpenSource() {
                   }}
                 >
                   <li>
-                    <Typography
-                      fontFamily="'Roboto Mono', monospace"
-                    >
+                    <Typography sx={typographySx} mt={3}>
                       One of the most powerful concepts in software development is
                       {' '}
                       <Box
                         component="a"
-                        fontWeight="bold"
                         color="#e4cdff"
                         sx={{
                           cursor: 'pointer',
-                          borderBottom: '4px solid #e4cdff',
                           lineHeight: 2,
                         }}
                         href="https://en.wikipedia.org/wiki/Open_source"
                         target="_blank"
                       >
-                        Open Source
+                        Open Source.
                       </Box>
-                      .
                     </Typography>
                   </li>
                   <li>
-                    <Typography
-                      fontFamily="'Roboto Mono', monospace"
-                      mt={3}
-                    >
+                    <Typography sx={typographySx} mt={3}>
                       It enables engineers and companies to openly collaborate on solutions
-                      and integrate those solutions into their own products.
+                      that can be embedded in any product.
                     </Typography>
                   </li>
                   <li>
                     <Typography
                       fontFamily="'Roboto Mono', monospace"
-                      fontWeight="bold"
-                      mt={3}
+                      sx={{
+                        color: '#9aa3b0',
+                      }}
+                      my={4}
                     >
                       What if we take this concept and apply it to other areas?
                     </Typography>
                   </li>
                   <li>
-                    <Typography
-                      fontFamily="'Roboto Mono', monospace"
-                      mt={3}
-                    >
-                      By utilizing this concept, you can open your innovation to the community
+                    <Typography sx={typographySx} mt={3}>
+                      By utilizing this concept, you are opening your innovation to the community
                       that can help you from the beginning down to the finest details via
                       {' '}
                       <Box
                         component="span"
-                        fontWeight="bold"
+                        // fontWeight="bold"
                         color="#e4cdff"
                         sx={{
                           cursor: 'pointer',
-                          borderBottom: '4px solid #e4cdff',
                           lineHeight: 2,
                         }}
                         onClick={() => dispatch(setHomepageTab(1))}
@@ -191,27 +195,30 @@ export default function OpenSource() {
                     </Typography>
                   </li>
                   <li>
-                    <Typography
-                      fontFamily="'Roboto Mono', monospace"
-                      mt={3}
-                    >
+                    <Typography sx={typographySx} mt={3}>
                       Nodecosmos will allow users to freely collaborate on public nodes.
                     </Typography>
                   </li>
                 </Box>
 
                 <Typography
-                  fontSize={25}
+                  fontSize={{
+                    xs: 20,
+                    sm: 25,
+                  }}
                   fontFamily="'Montserrat',sans-serif"
-                  fontWeight="900"
                   textAlign="left"
                   sx={{
-                    background: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
+                    background: {
+                      xs: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 36%)',
+                      sm: 'linear-gradient(35deg, #c666ff 0%, #ff2d65 12%)',
+                    },
+                    WebkitBackgroundClip: 'text!important',
+                    backgroundClip: 'text!important',
+                    WebkitTextFillColor: 'transparent!important',
                     WebkitBoxDecorationBreak: 'clone',
-                    color: '#d09dff',
+                    color: '#f2caff',
+                    // textShadow: '0 0 4px #f2caff47',
                     lineHeight: 1,
                   }}
                 >
