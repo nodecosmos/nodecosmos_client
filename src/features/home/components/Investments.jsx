@@ -10,7 +10,7 @@ export default function Investments() {
   return (
     <Box mt={{
       xs: 5,
-      md: 6,
+      md: 7,
     }}
     >
       <AnimateOnView>

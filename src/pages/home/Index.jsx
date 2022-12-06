@@ -199,7 +199,7 @@ export default function Index() {
           </Container>
         </Box>
         <Box
-          mt={6}
+          mt={5}
           display="flex"
           alignItems="center"
           justifyContent="center"
