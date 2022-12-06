@@ -54,12 +54,15 @@ const QontoStepIconRoot = styled('div')(({ ownerState }) => ({
   },
 }));
 
+const XS_SCROLL_WIDTH = 800;
+
 export default function MVP() {
   const scrollable = React.useRef(null);
 
   useEffect(() => {
     if (scrollable.current) {
-      scrollable.current.scrollLeft = 200;
+      // scroll to center
+      scrollable.current.scrollLeft = (XS_SCROLL_WIDTH - scrollable.current.clientWidth) / 2;
     }
   }, []);
 
@@ -95,7 +98,7 @@ export default function MVP() {
       <AnimateOnView delay={200}>
         <Box ref={scrollable} mt={5} overflow="auto" pb={{ xs: 2, md: 0 }}>
           <Box width={{
-            xs: 800,
+            xs: XS_SCROLL_WIDTH,
             md: '100%',
           }}
           >
