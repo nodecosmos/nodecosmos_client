@@ -145,19 +145,19 @@ export default function OpenSource() {
                         color="#e4cdff"
                         sx={{
                           cursor: 'pointer',
-                          lineHeight: 2,
                         }}
                         href="https://en.wikipedia.org/wiki/Open_source"
                         target="_blank"
                       >
-                        Open Source.
+                        Open Source
                       </Box>
+                      .
                     </Typography>
                   </li>
                   <li>
                     <Typography sx={typographySx} mt={3}>
                       It enables engineers and companies to openly collaborate on solutions
-                      that can be embedded in any product.
+                      that benefit the entire community.
                     </Typography>
                   </li>
                   <li>
@@ -178,11 +178,9 @@ export default function OpenSource() {
                       {' '}
                       <Box
                         component="span"
-                        // fontWeight="bold"
                         color="#e4cdff"
                         sx={{
                           cursor: 'pointer',
-                          lineHeight: 2,
                         }}
                         onClick={() => dispatch(setHomepageTab(1))}
                         target="_blank"
