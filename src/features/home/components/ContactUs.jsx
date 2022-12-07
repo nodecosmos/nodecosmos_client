@@ -109,7 +109,7 @@ export default function ContactUs() {
               Contact us at
               {' '}
               <a href="mailto:contact@nodecosmos.com">
-                <Box component="span" color="#e4cdff" fontWeight="bold" sx={{ borderBottom: '2px solid #e4cdff' }}>
+                <Box component="span" color="#cdd4ff" fontWeight="bold" sx={{ borderBottom: '2px solid #cdd4ff' }}>
                   contact@nodecosmos.com
                 </Box>
               </a>

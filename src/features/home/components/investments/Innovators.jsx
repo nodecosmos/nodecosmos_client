@@ -66,11 +66,11 @@ export default function Innovators() {
                   component="a"
                   href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/"
                   target="_blank"
-                  color="#e4cdff"
+                  color="#cdd4ff"
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '3px solid #e4cdff',
+                    borderBottom: '3px solid #cdd4ff',
                     lineHeight: 2,
                   }}
                   onClick={() => {

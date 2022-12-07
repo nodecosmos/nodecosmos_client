@@ -46,7 +46,7 @@ export default function OpenSource() {
             }}
           >
             Explore possibilities with
-            <Box component="span" color="#e4cdff" fontWeight="bold">
+            <Box component="span" color="#cdd4ff" fontWeight="bold">
               {' '}
               Open Collaboration
               {' '}
@@ -142,7 +142,7 @@ export default function OpenSource() {
                       {' '}
                       <Box
                         component="a"
-                        color="#e4cdff"
+                        color="#cdd4ff"
                         sx={{
                           cursor: 'pointer',
                         }}
@@ -178,7 +178,7 @@ export default function OpenSource() {
                       {' '}
                       <Box
                         component="span"
-                        color="#e4cdff"
+                        color="#cdd4ff"
                         sx={{
                           cursor: 'pointer',
                         }}
