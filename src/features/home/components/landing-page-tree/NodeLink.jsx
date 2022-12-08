@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import usePrevProps from '../../../app/hooks/usePrevProps';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import {
   ANIMATION_DURATION, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
@@ -33,6 +34,8 @@ export default function NodeLink(props) {
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.landingPageNodes[upperSiblingID].position);
+  const prevUpperSiblingPosition = usePrevProps(upperSiblingPosition);
+  const prevUpperSiblingId = usePrevProps(upperSiblingID);
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
   const parentPosition = useSelector((state) => !isRoot && parentID && state.landingPageNodes[parentID].position);
@@ -58,7 +61,13 @@ export default function NodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  const animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
+  let animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
+
+  // TODO: make node link extend from parent to lowest nested node
+  // so we don't need custom logic like this
+  if ((!upperSiblingPosition && prevUpperSiblingPosition) || (upperSiblingID !== prevUpperSiblingId)) {
+    animationDuration = 0;
+  }
 
   return (
     <g>
