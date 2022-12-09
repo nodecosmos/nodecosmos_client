@@ -39,7 +39,7 @@ export default function LandingPageWorkflow() {
         <Box
           zIndex={2}
           sx={{
-            borderBottom: '1px solid #111',
+            borderBottom: '1px solid #202027',
             boxShadow: {
               xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
               md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
@@ -73,7 +73,7 @@ export default function LandingPageWorkflow() {
         <Box sx={{
           borderBottom: {
             sm: 'none',
-            md: '1px solid #111',
+            md: '1px solid #202027',
           },
           boxShadow: {
             sm: 'none',

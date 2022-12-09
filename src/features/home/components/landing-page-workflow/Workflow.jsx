@@ -37,7 +37,7 @@ export default function Workflow() {
         }}
         borderRight={{
           xs: 'none',
-          md: '1px solid #111',
+          md: '1px solid #202027',
         }}
         display="flex"
         alignItems="center"

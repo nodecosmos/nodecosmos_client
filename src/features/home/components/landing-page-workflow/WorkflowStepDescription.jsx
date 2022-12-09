@@ -20,9 +20,9 @@ export default function WorkflowStepDescription() {
     >
       <CardHeader
         sx={{
-          borderBottom: '1px solid #111',
+          borderBottom: '1px solid #202027',
           borderTop: {
-            xs: '1px solid #111',
+            xs: '1px solid #202027',
             sm: 'none',
           },
           boxShadow: {
