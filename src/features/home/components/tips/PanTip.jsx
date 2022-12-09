@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 export default function PanTip() {
   const theme = useTheme();
-  const matchesLaptop = useMediaQuery(theme.breakpoints.up('lg'));
+  const matchesLaptop = useMediaQuery(theme.breakpoints.up('md'));
   if (!matchesLaptop) return null;
 
   const isMac = navigator.userAgent.includes('Mac OS X');
