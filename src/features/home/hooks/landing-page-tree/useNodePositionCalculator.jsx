@@ -14,18 +14,18 @@ export default function useNodePositionCalculator(props) {
 
   const dispatch = useDispatch();
 
-  const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
-  const nodeAncestorIdObjects = useSelector((state) => state.landingPageNodes[id].ancestor_ids);
+  const nodePosition = useShallowEqualSelector((state) => state.landingPageNodes[id].position);
+  const nodeAncestorIdObjects = useShallowEqualSelector((state) => state.landingPageNodes[id].ancestor_ids);
   const nodeAncestorIds = useShallowEqualSelector(
     () => !isRoot && nodeAncestorIdObjects.map((nodeIdObject) => nodeIdObject.$oid),
   );
 
-  const upperSiblingPosition = useSelector((state) => (upperSiblingID
+  const upperSiblingPosition = useShallowEqualSelector((state) => (upperSiblingID
     && state.landingPageNodes[upperSiblingID].position));
   const upperSiblingYEnds = upperSiblingID && upperSiblingPosition.yEnds;
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
-  const parentPosition = useSelector((state) => !isRoot && state.landingPageNodes[parentID].position);
+  const parentPosition = useShallowEqualSelector((state) => !isRoot && state.landingPageNodes[parentID].position);
   const parentY = !isRoot && parentPosition.y;
 
   const x = isRoot ? EDGE_LENGTH : (parentPosition.x + MARGIN_LEFT + EDGE_LENGTH);

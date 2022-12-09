@@ -10,14 +10,14 @@ export default function PanTip() {
   const isMac = navigator.userAgent.includes('Mac OS X');
 
   return (
-    <Box textAlign="right" mt={3}>
+    <Box mt={3}>
       <Typography
-        variant="body1"
+        variant="body2"
         sx={{
           color: '#656e76',
         }}
       >
-        <b>💡 Quick tip: </b>
+        <b>Quick tip: </b>
         Use
         {
             isMac ? ' ⌘ ' : ' Ctrl '

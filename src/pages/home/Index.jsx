@@ -156,7 +156,7 @@ export default function Index() {
               displa="inline-flex"
             >
               <img src="logo_1.svg" alt="logo" height={22} width={22} />
-              <Typography sx={{ fontSize: 18, ml: '4px' }} fontWeight="bold">
+              <Typography sx={{ fontSize: 18, ml: 1 }} fontWeight="bold">
                 <Box component="span" color="primary.light">node</Box>
                 <Box component="span" color="secondary.main">cosmos</Box>
               </Typography>

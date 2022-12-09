@@ -13,7 +13,8 @@ export default function useNodeButtonAnimationStyle(props) {
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
   const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
-  const isNodeFetched = useSelector((state) => state.landingPageNodes[id].fetched);
+  const isFetched = useSelector((state) => state.landingPageNodes[id].fetched);
+  const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const parentPosition = useSelector(
     (state) => (!isRoot && state.landingPageNodes[parentID].position) || defaultParentPosition,
@@ -26,7 +27,8 @@ export default function useNodeButtonAnimationStyle(props) {
   const animationOffsetPath = `M ${animationXStarts} ${animationYStarts}
                                L ${animationXStarts} ${nodePosition.y - MARGIN_TOP}
                                L ${nodePosition.xEnds} ${nodePosition.y - MARGIN_TOP}`.replace(/\n/g, '');
-  const animationDuration = isRoot || isNodeFetched ? 0 : ANIMATION_DURATION;
+  let animationDuration = isRoot || isFetched ? 0 : ANIMATION_DURATION;
+  animationDuration = isNew ? animationDuration / 2 : animationDuration;
 
   return {
     offsetPath: `path("${animationOffsetPath}")`,

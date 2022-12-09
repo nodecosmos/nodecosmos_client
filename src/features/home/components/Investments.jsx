@@ -9,8 +9,8 @@ import Section from './Section';
 export default function Investments() {
   return (
     <Box mt={{
-      xs: 5,
-      md: 7,
+      xs: 8,
+      md: 32,
     }}
     >
       <AnimateOnView>
@@ -45,14 +45,14 @@ export default function Investments() {
           flexDirection="column"
           sx={{ display: { xs: 'none', md: 'flex' } }}
         >
-          <img src="node-link-2.svg" alt="node-link" width="50%" />
+          <img src="home/node-link-2.svg" alt="node-link" width="50%" />
         </Box>
       </AnimateOnView>
       <Grid
         container
         columnSpacing={3}
         mt={{
-          xs: 5,
+          xs: 8,
           md: 3,
         }}
       >

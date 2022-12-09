@@ -70,8 +70,8 @@ export default function MVP() {
     <Box
       sx={{ width: '100%' }}
       mt={{
-        xs: 5,
-        md: 7,
+        xs: 8,
+        md: 32,
       }}
     >
       <AnimateOnView>
@@ -96,7 +96,7 @@ export default function MVP() {
         </Typography>
       </AnimateOnView>
       <AnimateOnView delay={200}>
-        <Box ref={scrollable} mt={5} overflow="auto" pb={{ xs: 2, md: 0 }}>
+        <Box ref={scrollable} mt={3} overflow="auto" pb={{ xs: 1, md: 0 }}>
           <Box width={{
             xs: XS_SCROLL_WIDTH,
             md: '100%',

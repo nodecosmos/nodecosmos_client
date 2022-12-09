@@ -69,11 +69,14 @@ export default function HomepageTabs(props) {
       onChange={handleTabChange}
       centered
       sx={{
-        ml: 4,
         height: 1,
-        pt: 1,
       }}
-      TabIndicatorProps={{ className: 'header' }}
+      TabIndicatorProps={{
+        sx: {
+          height: 10,
+          top: 49,
+        },
+      }}
     >
       {options.map((option) => (
         <Tab

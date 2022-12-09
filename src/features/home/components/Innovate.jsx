@@ -35,13 +35,13 @@ export default function Innovate() {
     borderRadius: 2,
     background: '#ff0066',
     mb: {
-      xs: 2,
+      xs: 1,
       md: 0,
     },
   };
 
   return (
-    <Box mt={5}>
+    <Box mt={8}>
       <Tabs
         sx={{
           ml: {

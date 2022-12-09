@@ -1,9 +1,9 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 
 export default function Investors() {
   return (
@@ -25,7 +25,7 @@ export default function Investors() {
           listStyle: 'none',
           p: 0,
           '& li': {
-            p: 3,
+            p: 2,
             borderRadius: 3,
             cursor: 'pointer',
             '&:hover': {
@@ -38,7 +38,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <TravelExploreRoundedIcon fontSize="large" htmlColor="#b3ff68" />
 
-            <Box ml={3}>
+            <Box ml={2}>
               <Typography
                 sx={{
                   background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
@@ -56,19 +56,18 @@ export default function Investors() {
                 Explore innovations
               </Typography>
               <Typography
-                variant="body1"
+                variant="h6"
                 fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
               >
                 Lookup for innovations that are matching your interests
               </Typography>
             </Box>
           </Box>
         </li>
-        <Box component="li" mt={2}>
+        <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
             <SecurityRoundedIcon fontSize="large" htmlColor="#b3ff68" />
-            <Box ml={3}>
+            <Box ml={2}>
               <Typography
                 sx={{
                   background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
@@ -85,19 +84,18 @@ export default function Investors() {
                 Fraud Prevention
               </Typography>
               <Typography
-                variant="body1"
+                variant="h6"
                 fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
               </Typography>
             </Box>
           </Box>
         </Box>
-        <Box component="li" mt={2}>
+        <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
             <GridViewRoundedIcon fontSize="large" htmlColor="#b3ff68" />
-            <Box ml={3}>
+            <Box ml={2}>
               <Typography
                 sx={{
                   background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
@@ -114,9 +112,8 @@ export default function Investors() {
                 ICO
               </Typography>
               <Typography
-                variant="body1"
+                variant="h6"
                 fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
               >
                 Buy tokens and get a share of the innovation
               </Typography>

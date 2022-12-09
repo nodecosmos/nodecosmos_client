@@ -1,52 +1,44 @@
 import React from 'react';
-import {
-  Box, Card, CardContent, CardHeader, useMediaQuery, useTheme,
-} from '@mui/material';
+import { Card, CardContent, CardHeader } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 export default function WorkflowStepDescriptionSm() {
   const currentWorkflow = useSelector((state) => state.landingPageWorkflows.currentWorkflow);
 
-  const theme = useTheme();
-  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
-
-  if (!matchesSm) return null;
-
   return (
-    <Box
-      display="flex"
-      alignItems="center"
+    <Card
+      elevation={0}
+      sx={{
+        mt: '2px',
+        p: 0,
+        border: 'none',
+        borderRadius: 0,
+        width: '100%',
+        height: 'calc(100% - 2px)',
+        color: '#8b949e',
+      }}
     >
-      <Card
-        elevation={0}
+      <CardHeader
         sx={{
-          p: 0,
-          background: 'transparent',
-          width: '100%',
-          borderRadius: '8px 8px 0 0',
-          border: '1px solid #5a6577',
-          borderBottom: 'none',
+          borderBottom: '1px solid #202027',
+          borderTop: {
+            xs: '1px solid #202027',
+            sm: 'none',
+          },
+          boxShadow: {
+            xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
+            md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
+          },
         }}
-      >
-        <Box>
-          <CardHeader
-            sx={{
-              borderBottom: '1px solid #3c434f',
-              height: 35,
-              background: '#353941',
-            }}
-            titleTypographyProps={{
-              variant: 'body1',
-              textAlign: 'center',
-            }}
-            title={currentWorkflow.title}
-          />
-          {/* #30343a */ }
-          <CardContent sx={{ color: '#99a4b2' }}>
-            {currentWorkflow.description}
-          </CardContent>
-        </Box>
-      </Card>
-    </Box>
+        titleTypographyProps={{
+          fontSize: 18,
+          textAlign: 'center',
+        }}
+        title={currentWorkflow?.title || 'Select a step to see details'}
+      />
+      <CardContent sx={{ border: 'none', fontSize: 18 }}>
+        {currentWorkflow?.description}
+      </CardContent>
+    </Card>
   );
 }

@@ -7,6 +7,7 @@ const appSlice = createSlice({
     subtitle: '',
     appAnimationEnabled: true,
     scrollEnabled: true,
+    currentNodeID: null,
   },
   reducers: {
     setTheme(state, action) { state.theme = action.payload; },

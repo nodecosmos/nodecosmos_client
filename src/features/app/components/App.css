@@ -38,7 +38,7 @@ input:focus {
 }
 
 ::selection {
-    background: #87a6e6;
+    background: #687eac;
     color: #fff;
     -webkit-text-fill-color: #fff;
 }

@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import Node from './Node';
 import NodeDescriptionMd from './NodeDescriptionMd';
-import NodeDescriptionSm from './NodeDescriptionSm';
 import Transformable from './Transformable';
 import NestedNodes from './NestedNodes';
 import { terminateNewNode } from './landingPageNodeSlice';
@@ -20,7 +19,16 @@ export default function Tree(props) {
   }, [dispatch]);
 
   return (
-    <Box className="Tree" sx={{ width: 1, height: 1 }}>
+    <Box
+      className="Tree"
+      display={{
+        xs: 'block',
+        md: 'flex',
+      }}
+      sx={{
+        width: 1,
+      }}
+    >
       <Transformable>
         <g>
           <Node
@@ -30,10 +38,15 @@ export default function Tree(props) {
           >
             <NestedNodes currentNodeId={id} />
           </Node>
-          <NodeDescriptionMd />
         </g>
       </Transformable>
-      <NodeDescriptionSm />
+      <Box width={{
+        xs: 1,
+        md: '38.19700%',
+      }}
+      >
+        <NodeDescriptionMd />
+      </Box>
     </Box>
   );
 }

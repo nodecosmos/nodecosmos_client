@@ -20,7 +20,6 @@ import tab from './styles/mui/tab';
 import card from './styles/mui/card';
 
 const getTheme = (currentTheme) => createTheme({
-  spacing: [0, 1, 8, 16, 32, 64, 128, 256, 512, 1024, 2048],
   components: {
     MuiCssBaseline: {
       styleOverrides: {

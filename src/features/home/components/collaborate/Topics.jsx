@@ -59,7 +59,6 @@ export default function Topics() {
               key={row.username}
               sx={{
                 borderRadius: 2,
-                cursor: 'pointer',
                 'td, th': {
                   mt: 1,
                   borderBottom: '1px solid #3c434f',
@@ -106,7 +105,7 @@ export default function Topics() {
                     <Typography
                       variant="body2"
                       textAlign="left"
-                      color="#fdfff9"
+                      color="#8b949e"
                       fontSize={{
                         xs: 8, sm: 12,
                       }}

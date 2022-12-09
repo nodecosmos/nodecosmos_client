@@ -40,7 +40,7 @@ export default function NodeButtonText(props) {
 
   useEffect(() => {
     if (matchesSm) return;
-    if (isNew || isEditing) contentEditableRef.current.focus({ preventScroll: true });
+    if (isNew || isEditing) contentEditableRef.current.focus();
   }, [isNew, isEditing, matchesSm]);
 
   return (

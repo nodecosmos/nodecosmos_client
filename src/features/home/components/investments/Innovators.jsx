@@ -25,7 +25,7 @@ export default function Innovators() {
           listStyle: 'none',
           p: 0,
           '& li': {
-            p: 3,
+            p: 2,
             borderRadius: 3,
             cursor: 'pointer',
             '&:hover': {
@@ -38,7 +38,7 @@ export default function Innovators() {
           <Box display="flex" alignItems="center">
             <TokenRoundedIcon fontSize="large" htmlColor="#b3ff68" />
 
-            <Box ml={3}>
+            <Box ml={2}>
               <Typography
                 color="#b3ff68"
                 sx={{
@@ -56,9 +56,8 @@ export default function Innovators() {
                 ICO
               </Typography>
               <Typography
-                variant="body1"
+                variant="h6"
                 fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
               >
                 Issue
                 {' '}
@@ -85,10 +84,10 @@ export default function Innovators() {
             </Box>
           </Box>
         </Box>
-        <Box component="li" mt={2}>
+        <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
             <CurrencyExchangeRoundedIcon fontSize="large" htmlColor="#b3ff68" />
-            <Box ml={3}>
+            <Box ml={2}>
               <Typography
                 sx={{
                   background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
@@ -105,19 +104,18 @@ export default function Innovators() {
                 Attract Investors
               </Typography>
               <Typography
-                variant="body1"
+                variant="h6"
                 fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
             </Box>
           </Box>
         </Box>
-        <Box component="li" mt={2}>
+        <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
             <RocketRoundedIcon fontSize="large" htmlColor="#b3ff68" />
-            <Box ml={3}>
+            <Box ml={2}>
               <Typography
                 sx={{
                   background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
@@ -134,9 +132,8 @@ export default function Innovators() {
                 Supercharge your innovation
               </Typography>
               <Typography
-                variant="body1"
+                variant="h6"
                 fontFamily="'Roboto Mono', sans-serif"
-                fontWeight="bold"
               >
                 Use the power of blockchain to launch your innovation
               </Typography>

@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux';
 import useNodeButtonAnimationStyle from '../../hooks/landing-page-tree/useNodeButtonAnimationStyle';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
-import NodeToolbar from './NodeToolbar';
 import { NODE_BUTTON_HEIGHT } from './constants';
 import NodeButtonText from './NodeButtonText';
+import NodeToolbar from './NodeToolbar';
 
 export default function NodeButton(props) {
   const {
@@ -24,8 +24,15 @@ export default function NodeButton(props) {
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor } = useNodeButtonBackground({ id, nestedLevel, isRoot });
-  const style = useNodeButtonAnimationStyle({ id, isRoot });
+  const { backgroundColor } = useNodeButtonBackground({
+    id,
+    nestedLevel,
+    isRoot,
+  });
+  const style = useNodeButtonAnimationStyle({
+    id,
+    isRoot,
+  });
 
   const isCurrentNode = nodeExpanded && id === currentNodeID;
   const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);

@@ -11,8 +11,9 @@ export default function Vision() {
   // const handleTabChange = (_, currentTab) => setTab(currentTab);
 
   return (
-    <Box mt="15px">
-      <Grid container columnSpacing={3}>
+    // margin top specific to shadow
+    <Box mt="12px">
+      <Grid container columnSpacing={2}>
         <Grid item xs={12} md={6}>
           <AnimateOnView delay={200}>
             <Section>

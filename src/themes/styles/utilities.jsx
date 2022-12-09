@@ -8,7 +8,7 @@ export default (currentTheme) => ({
   '.BoxShadowTop': { boxShadow: '0px -1px 1px 0px #00000045' },
   '.BoxShadowBottom': { boxShadow: '0px 1px 1px 0px #00000045' },
   '.BoxShadowLeft': { boxShadow: '-1px 0px 1px 0px #00000045' },
-  '.BoxShadowRight': { boxShadow: '1px 0px 1px 0px #00000045' },
+  '.BoxShadowRight': { boxShadow: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)' },
   //--------------------------------------------------------------------------------------------------------------------
   '.BorderTop': { borderTop: currentTheme.border1 },
   '.BorderBottom': { borderBottom: currentTheme.border1 },

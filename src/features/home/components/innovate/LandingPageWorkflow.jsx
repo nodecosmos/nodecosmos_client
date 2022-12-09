@@ -28,8 +28,61 @@ export default function LandingPageWorkflow() {
       <Typography mt={3} variant="body1" color="#fdfff9">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
       </Typography>
-      <Box mt={3}>
-        <Workflow />
+      <Box
+        mx={{
+          // as defined in src/features/home/components/Section.jsx:28
+          xs: -3,
+          sm: -4,
+        }}
+        mt={3}
+      >
+        <Box
+          zIndex={2}
+          sx={{
+            borderBottom: '1px solid #202027',
+            boxShadow: {
+              xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
+              md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
+            },
+          }}
+        >
+          <Typography
+            variant="body2"
+            color="#656e76"
+            pb="4px"
+            mx={{
+              // as defined in src/features/home/components/Section.jsx:28
+              xs: 3,
+              sm: 4,
+            }}
+            textAlign={{
+              xs: 'center',
+              md: 'left',
+            }}
+            fontSize={{
+              xs: 12,
+              sm: 14,
+            }}
+          >
+            Sample
+            <b> Workflow </b>
+            describing Airplane flight process.
+            (Note: this is a sample workflow and does not represent real process.)
+          </Typography>
+        </Box>
+        <Box sx={{
+          borderBottom: {
+            sm: 'none',
+            md: '1px solid #202027',
+          },
+          boxShadow: {
+            sm: 'none',
+            md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
+          },
+        }}
+        >
+          <Workflow />
+        </Box>
       </Box>
     </Box>
   );

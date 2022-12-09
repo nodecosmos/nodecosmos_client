@@ -2,9 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-import PanTip from '../tips/PanTip';
 import usePannable from '../../hooks/usePannable';
-import TransformablePath from './TransformablePath';
 // import useZoomable from '../../hooks/useZoomable';
 
 export default function Transformable(props) {
@@ -15,14 +13,11 @@ export default function Transformable(props) {
   const [state, updateState] = React.useState({});
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
-  const matches600 = useMediaQuery('(max-width: 600px)');
-  const matchesLaptop = useMediaQuery(theme.breakpoints.up('lg'));
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
-
-  const scale = matches600 ? 0.7 : 1;
-  const borderWidth = !matchesLaptop ? 1 : 0;
+  const scale = matchesSm ? 0.7 : 1;
 
   const containerHeight = 800 * scale;
+  const containerWidth = '61.803%';
 
   const minHeight = matchesSm ? 790 : 800;
   const minWidth = matchesSm ? 400 : 1050;
@@ -60,55 +55,62 @@ export default function Transformable(props) {
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
-    <>
+    <Box
+      onClick={forceUpdate}
+      onTouchStart={forceUpdate}
+      sx={{
+        position: 'relative',
+        overflow: {
+          xs: 'auto',
+          lg: 'hidden',
+        },
+        width: {
+          xs: '100%',
+          lg: containerWidth,
+        },
+        boxShadow: {
+          xs: 0,
+          md: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
+        },
+        borderRight: {
+          xs: 'none',
+          md: '1px solid #202027',
+        },
+      }}
+    >
+      {/* <TransformablePath panX={pan.x} /> */}
       <Box
-        onClick={forceUpdate}
+        onMouseDown={handleMouseDown}
+          // onTouchStart={handlePinch}
         sx={{
-          position: 'relative',
-          overflow: matchesSm ? 'auto' : 'hidden',
-          border: `${borderWidth}px solid #5a6577`,
-          borderRadius: '4px 4px 0px 0px',
-          background: {
-            xs: '#2f3238',
-            sm: 'transparent',
-          },
+          // touchAction: 'none',
+          p: 0,
+          WebkitTapHighlightColor: 'transparent',
+          WebkitTouchCallout: 'none',
+          WebkitUserSelect: 'none',
+          KhtmlUserSelect: 'none',
+          MozUserSelect: 'none',
+          MsUserSelect: 'none',
+          userSelect: 'none',
+          transformOrigin: 'top left',
+          height: containerHeight,
+        }}
+        style={{
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
+          transition,
         }}
       >
-        <TransformablePath panX={pan.x} />
-        <Box
-          onMouseDown={handleMouseDown}
-          // onTouchStart={handlePinch}
-          sx={{
-            // touchAction: 'none',
-            p: 0,
-            height: containerHeight,
-            WebkitTapHighlightColor: 'transparent',
-            WebkitTouchCallout: 'none',
-            WebkitUserSelect: 'none',
-            KhtmlUserSelect: 'none',
-            MozUserSelect: 'none',
-            MsUserSelect: 'none',
-            userSelect: 'none',
-          }}
-          style={{
-            transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
-            transformOrigin: matches600 && 'top left',
-            transition,
-          }}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={width}
+          height={height}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={width}
-            height={height}
-          >
-            <g ref={gRef}>
-              {children}
-            </g>
-          </svg>
-        </Box>
+          <g ref={gRef}>
+            {children}
+          </g>
+        </svg>
       </Box>
-      <PanTip />
-    </>
+    </Box>
   );
 }
 
