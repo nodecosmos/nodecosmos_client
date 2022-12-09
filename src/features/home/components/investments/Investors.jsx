@@ -56,7 +56,7 @@ export default function Investors() {
                 Explore innovations
               </Typography>
               <Typography
-                variant="h6"
+                variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
                 Lookup for innovations that are matching your interests
@@ -84,7 +84,7 @@ export default function Investors() {
                 Fraud Prevention
               </Typography>
               <Typography
-                variant="h6"
+                variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
@@ -112,7 +112,7 @@ export default function Investors() {
                 ICO
               </Typography>
               <Typography
-                variant="h6"
+                variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
                 Buy tokens and get a share of the innovation

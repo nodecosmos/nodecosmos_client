@@ -56,7 +56,7 @@ export default function Innovators() {
                 ICO
               </Typography>
               <Typography
-                variant="h6"
+                variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
                 Issue
@@ -104,7 +104,7 @@ export default function Innovators() {
                 Attract Investors
               </Typography>
               <Typography
-                variant="h6"
+                variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
@@ -132,7 +132,7 @@ export default function Innovators() {
                 Supercharge your innovation
               </Typography>
               <Typography
-                variant="h6"
+                variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
                 Use the power of blockchain to launch your innovation
