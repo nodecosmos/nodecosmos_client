@@ -37,8 +37,13 @@ export default function Workflow() {
         }}
         borderRight={{
           xs: 'none',
-          md: '1px solid #202027',
+          md: '1px solid',
         }}
+        borderColor={{
+          xs: '#202027',
+          md: '#101013',
+        }}
+        zIndex={1}
         display="flex"
         alignItems="center"
         justifyContent="center"

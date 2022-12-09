@@ -74,7 +74,11 @@ export default function Transformable(props) {
         },
         borderRight: {
           xs: 'none',
-          md: '1px solid #202027',
+          md: '1px solid',
+        },
+        borderColor: {
+          xs: '#202027',
+          md: '#101013',
         },
       }}
     >
