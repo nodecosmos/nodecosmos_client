@@ -23,7 +23,7 @@ export default function NodeDescription() {
     >
       <CardHeader
         sx={{
-          borderBottom: '1px solid #202027',
+          borderBottom: '1px solid #111',
           boxShadow: {
             xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
             md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',

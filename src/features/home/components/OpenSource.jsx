@@ -118,7 +118,7 @@ export default function OpenSource() {
             </Typography>
             <Box ml={2} mt={2}>
               <Typography
-                variant="h6"
+                fontSize={{ md: '18px', sm: '16px' }}
                 fontFamily="'Roboto Mono', sans-serif"
               >
 
@@ -141,7 +141,7 @@ export default function OpenSource() {
 
             <Box ml={2}>
               <Typography
-                variant="h6"
+                fontSize={{ md: '18px', sm: '16px' }}
                 fontFamily="'Roboto Mono', sans-serif"
                 mt={2}
               >
@@ -152,17 +152,7 @@ export default function OpenSource() {
 
             <Box ml={2}>
               <Typography
-                variant="h6"
-                fontFamily="'Roboto Mono', sans-serif"
-                mt={2}
-              >
-                What if we applied this concept to other areas in a more structured manner than is currently possible?
-              </Typography>
-            </Box>
-
-            <Box ml={2}>
-              <Typography
-                variant="h6"
+                fontSize={{ md: '18px', sm: '16px' }}
                 fontFamily="'Roboto Mono', sans-serif"
                 mt={2}
               >
@@ -187,7 +177,7 @@ export default function OpenSource() {
 
             <Box ml={2}>
               <Typography
-                variant="h6"
+                fontSize={{ md: '18px', sm: '16px' }}
                 fontFamily="'Roboto Mono', sans-serif"
                 mt={2}
               >
@@ -197,7 +187,7 @@ export default function OpenSource() {
 
             <Box ml={2}>
               <Typography
-                variant="h6"
+                fontSize={{ md: '18px', sm: '16px' }}
                 fontFamily="'Roboto Mono', sans-serif"
               />
             </Box>
