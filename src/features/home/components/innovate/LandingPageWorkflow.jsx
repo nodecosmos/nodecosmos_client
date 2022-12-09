@@ -74,21 +74,7 @@ export default function LandingPageWorkflow() {
             (Note: this is a sample workflow and does not represent real process.)
           </Typography>
         </Box>
-        <Box sx={{
-          borderBottom: {
-            sm: 'none',
-            md: '1px solid',
-          },
-          boxShadow: {
-            sm: 'none',
-            md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
-          },
-          borderColor: {
-            xs: '#202027',
-            md: '#101013',
-          },
-        }}
-        >
+        <Box>
           <Workflow />
         </Box>
       </Box>

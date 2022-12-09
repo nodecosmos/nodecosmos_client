@@ -19,6 +19,7 @@ export default function Workflow() {
       }}
       sx={{
         width: 1,
+        mb: -4,
       }}
     >
 
