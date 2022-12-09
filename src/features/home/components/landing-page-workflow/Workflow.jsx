@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { setCurrentWorkflowStep } from './landingPageWorkflowSlice';
-import WorkflowStepDescriptionSm from './WorkflowStepDescriptionSm';
+import WorkflowStepDescription from './WorkflowStepDescription';
 
 // DUMB IMPLEMENTATION FOR LANDING PAGE
 export default function Workflow() {
@@ -246,7 +246,7 @@ export default function Workflow() {
         md: '38.19700%',
       }}
       >
-        <WorkflowStepDescriptionSm />
+        <WorkflowStepDescription />
       </Box>
     </Box>
   );

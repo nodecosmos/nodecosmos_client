@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import Node from './Node';
-import NodeDescriptionMd from './NodeDescriptionMd';
+import NodeDescription from './NodeDescription';
 import Transformable from './Transformable';
 import NestedNodes from './NestedNodes';
 import { terminateNewNode } from './landingPageNodeSlice';
@@ -45,7 +45,7 @@ export default function Tree(props) {
         md: '38.19700%',
       }}
       >
-        <NodeDescriptionMd />
+        <NodeDescription />
       </Box>
     </Box>
   );

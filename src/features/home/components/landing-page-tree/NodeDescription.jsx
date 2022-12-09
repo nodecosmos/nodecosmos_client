@@ -1,9 +1,12 @@
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@mui/material';
+import {
+  Card, CardContent, CardHeader,
+} from '@mui/material';
 import { useSelector } from 'react-redux';
 
-export default function WorkflowStepDescriptionSm() {
-  const currentWorkflow = useSelector((state) => state.landingPageWorkflows.currentWorkflow);
+export default function NodeDescription() {
+  const currentNodeID = useSelector((state) => state.app.currentNodeID);
+  const currentNode = useSelector((state) => state.landingPageNodes[currentNodeID]);
 
   return (
     <Card
@@ -21,23 +24,29 @@ export default function WorkflowStepDescriptionSm() {
       <CardHeader
         sx={{
           borderBottom: '1px solid #202027',
-          borderTop: {
-            xs: '1px solid #202027',
-            sm: 'none',
-          },
           boxShadow: {
             xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
             md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
           },
         }}
         titleTypographyProps={{
-          fontSize: 18,
+          fontSize: {
+            xs: 14,
+            sm: 18,
+          },
           textAlign: 'center',
         }}
-        title={currentWorkflow?.title || 'Select a step to see details'}
+        title={currentNode?.title || 'Select a node to see its details'}
       />
-      <CardContent sx={{ border: 'none', fontSize: 18 }}>
-        {currentWorkflow?.description}
+      <CardContent sx={{
+        border: 'none',
+        fontSize: {
+          xs: 14,
+          sm: 18,
+        },
+      }}
+      >
+        {currentNode?.description}
       </CardContent>
     </Card>
   );
