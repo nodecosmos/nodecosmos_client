@@ -11,7 +11,7 @@ const MarkdownPreview = React.lazy(() => import('@uiw/react-markdown-preview'));
 const CustomCodeMirror = React.lazy(() => import('../../../app/components/CustomCodeMirror'));
 
 const INITIAL_DESCRIPTION_VALUE = `
-### Here is a sample markdown description explaining its syntax:
+### The following is a sample markdown description explaining its syntax:
 
 * Heading
   =======

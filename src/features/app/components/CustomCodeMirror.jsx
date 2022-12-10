@@ -10,13 +10,13 @@ import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 const myTheme = createTheme({
   theme: 'dark',
   settings: {
-    background: '#33373d',
+    background: '#32353c',
     foreground: '#e2f0ff',
     caret: '#ffffff',
-    selection: '#4f5360',
-    selectionMatch: '#4f5360',
+    selection: 'rgba(255,255,255,0.06)',
+    selectionMatch: 'rgba(255,255,255,0.06)',
     lineHighlight: '#8a91991a',
-    gutterBackground: '#33373d',
+    gutterBackground: '#32363c',
     gutterForeground: '#636b73',
   },
   styles: [
