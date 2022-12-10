@@ -11,7 +11,7 @@ const myTheme = createTheme({
   theme: 'dark',
   settings: {
     background: '#32353c',
-    foreground: '#e2f0ff',
+    foreground: '#98a6c2',
     caret: '#ffffff',
     selection: 'rgba(255,255,255,0.06)',
     selectionMatch: 'rgba(255,255,255,0.06)',
@@ -40,7 +40,7 @@ const myTheme = createTheme({
     { tag: t.strong, color: '#ff4581', fontWeight: 'bold' },
     { tag: t.quote, color: '#8796aa', fontWeight: 'bold' },
     { tag: t.monospace, color: '#8e969f' },
-    { tag: t.meta, color: '#8cff70', fontWeight: 'bold' },
+    { tag: t.meta, color: '#87cc73', fontWeight: 'bold' },
     { tag: t.link, color: '#7bddaf', fontWeight: 'bold' },
   ],
 });

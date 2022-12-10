@@ -13,23 +13,24 @@ const CustomCodeMirror = React.lazy(() => import('../../../app/components/Custom
 const INITIAL_DESCRIPTION_VALUE = `
 ### The following is a sample markdown description explaining its syntax:
 
-* Heading
-  =======
-* Sub-heading
-  -----------
-* ### Paragraphs
-  Paragraphs are separated
-  by a blank line.
+Heading
+=======
 
-  Two spaces at the end of a line  
-  produce a line break.
+Sub-heading
+=======
 
-* Text attributes _italic_, **bold**, \`monospace\`.
+### Paragraphs
 
-* ### Separator
+Paragraphs are separated by a blank line.
 
-  ---
-* ### Lists:
+Two spaces at the end of a line  
+produce a line break.
+
+---
+Text attributes _italic_, **bold**, \`monospace\`.  
+
+---
+### Lists:
   1. fruits
       * apple
       * banana
@@ -37,24 +38,32 @@ const INITIAL_DESCRIPTION_VALUE = `
       - carrot
       - broccoli
 
-* ### [Link](http://example.com)
+---
+### [Link](http://example.com)
 
-* ### Quotes
-  > Markdown uses email-style
-  characters for blockquoting.
-  >
-  > Multiple paragraphs need to be prepended individually.
-  
-* ### HTML
+---
+### Quotes
+> Markdown uses email-style characters for quoting.
+> 
+> Multiple paragraphs need to be prepended individually.
+
+---
+### HTML
+
   Most inline <i title="Hypertext Markup Language">HTML</i> tags are supported.
 
-* ### Table:
-    
-  | Tables   |      Are      |  Cool |
-  |----------|:-------------:|------:|
-  | col 1 is |  left-aligned | $1600 |
-  | col 2 is |    centered   |   $12 |
-  | col 3 is | right-aligned |    $1 |
+---
+### Table
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+
+---
+### Blocks
+
+    Blocks are padded with 2 tabs
 `;
 
 const loading = (
@@ -200,10 +209,14 @@ export default function LandingPageMarkdown() {
         )}
         {mode === 'content' && (
         <Box sx={{
+          '.wmde-markdown hr': {
+            height: 0,
+          },
           ".wmde-markdown[data-color-mode*='dark']": {
             '--color-border-muted': '#464b59',
             '--color-canvas-subtle': '#464b59',
             '--color-canvas-default': 'transparent',
+            '--color-border-default': '#464b59',
           },
         }}
         >
