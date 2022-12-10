@@ -23,7 +23,7 @@ export default function WorkflowStepDescription() {
           borderBottom: '1px solid',
           borderTop: {
             xs: '1px solid ',
-            sm: 'none',
+            md: 'none',
           },
           boxShadow: {
             xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',

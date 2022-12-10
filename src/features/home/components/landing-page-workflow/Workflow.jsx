@@ -29,8 +29,8 @@ export default function Workflow() {
           md: '38.19700%',
         }}
         height={{
-          xs: 500,
-          md: 800,
+          xs: 400,
+          sm: 800,
         }}
         boxShadow={{
           xs: 0,
@@ -54,6 +54,12 @@ export default function Workflow() {
           xmlns="http://www.w3.org/2000/svg"
           width={100}
           height={450}
+          sx={{
+            transform: {
+              xs: 'scale(0.7)',
+              sm: 'scale(1)',
+            },
+          }}
         >
           <Box
             component="g"
