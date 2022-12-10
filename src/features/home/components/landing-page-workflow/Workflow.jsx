@@ -26,7 +26,7 @@ export default function Workflow() {
       <Box
         width={{
           xs: 1,
-          md: '61.80300%',
+          md: '38.19700%',
         }}
         height={{
           xs: 500,
@@ -249,7 +249,7 @@ export default function Workflow() {
       </Box>
       <Box width={{
         xs: 1,
-        md: '38.19700%',
+        md: '61.80300%',
       }}
       >
         <WorkflowStepDescription />

@@ -10,14 +10,14 @@ import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 const myTheme = createTheme({
   theme: 'dark',
   settings: {
-    background: '#353940',
+    background: '#33373d',
     foreground: '#e2f0ff',
     caret: '#ffffff',
     selection: '#036dd626',
     selectionMatch: '#036dd626',
     lineHighlight: '#8a91991a',
-    gutterBackground: '#353940',
-    gutterForeground: '#8a919966',
+    gutterBackground: '#33373d',
+    gutterForeground: '#636b73',
   },
   styles: [
     { tag: t.comment, color: '#787b8099' },
@@ -34,7 +34,7 @@ const myTheme = createTheme({
     { tag: t.className, color: '#daff29', fontWeight: 'bold' },
     { tag: t.operator, color: '#fff', fontWeight: 'bold' },
     { tag: t.bracket, color: '#fff' },
-    { tag: t.heading, color: '#ff626f', fontWeight: 'bold' },
+    { tag: t.heading, color: '#cdd4ff', fontWeight: 'bold' },
     { tag: t.contentSeparator, color: '#fff', fontWeight: 'bold' },
     { tag: t.emphasis, color: '#fff', fontWeight: 'bold' },
     { tag: t.strong, color: '#ff4581', fontWeight: 'bold' },
@@ -52,7 +52,7 @@ export default function CustomCodeMirror(props) {
     <Box sx={{
       fontSize: {
         xs: 11,
-        sm: 14,
+        sm: 16,
       },
       '@media (max-width: 325px)': {
         fontSize: 9,
@@ -66,6 +66,24 @@ export default function CustomCodeMirror(props) {
       },
       '.cm-focused': {
         outline: 'none!important',
+      },
+      '.cm-lineNumbers': {
+        pl: {
+          xs: 1.3,
+          sm: 1,
+        },
+        pb: 2,
+      },
+      '.cm-gutterElement': {
+        textAlign: 'left!important',
+      },
+      '.cm-gutters': {
+        mr: 0.2,
+        borderRight: '1px solid #202027',
+        boxShadow: {
+          xs: '3px 0px 1px -1px rgb(106 107 116 / 5%), 1px 0px 1px 0px rgb(82 81 95 / 20%)',
+          sm: '3px 0px 1px -1px rgb(106 107 116 / 5%), 1px 0px 1px 0px rgb(82 81 95 / 30%)',
+        },
       },
     }}
     >

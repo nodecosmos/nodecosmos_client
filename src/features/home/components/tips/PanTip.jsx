@@ -17,12 +17,13 @@ export default function PanTip() {
           color: '#656e76',
         }}
       >
-        <b>Quick tip: </b>
+        <b>Quick tips: </b>
         Use
         {
             isMac ? ' ⌘ ' : ' Ctrl '
         }
         + Left Click to pan
+        <br />
       </Typography>
     </Box>
   );

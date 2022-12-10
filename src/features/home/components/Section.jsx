@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from '@mui/material';
 
 export default function Section(props) {
-  const { padding } = props;
+  const { padding, borderRadius } = props;
 
   return (
     <Card
@@ -12,7 +12,7 @@ export default function Section(props) {
         borderTop: '1px solid #3c4149', // 3c4149 414145,
         height: '100%',
         backgroundColor: props.backgroundColor,
-        borderRadius: 2,
+        borderRadius,
         padding,
       }}
     >
@@ -27,10 +27,16 @@ Section.defaultProps = {
     xs: 3,
     sm: 4,
   },
+  borderRadius: {
+    xs: 2,
+    sm: 3,
+    md: 4,
+  },
 };
 
 Section.propTypes = {
   children: PropTypes.node.isRequired,
   backgroundColor: PropTypes.string,
   padding: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string]),
+  borderRadius: PropTypes.number,
 };

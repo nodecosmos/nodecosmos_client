@@ -71,7 +71,6 @@ export default function LandingPageWorkflow() {
             Sample
             <b> Workflow </b>
             describing Airplane flight process.
-            (Note: this is a sample workflow and does not represent real process.)
           </Typography>
         </Box>
         <Box>

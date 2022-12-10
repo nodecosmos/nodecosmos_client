@@ -10,14 +10,8 @@ import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 const MarkdownPreview = React.lazy(() => import('@uiw/react-markdown-preview'));
 const CustomCodeMirror = React.lazy(() => import('../../../app/components/CustomCodeMirror'));
 
-const INITIAL_DESCRIPTION_VALUE = `### Markdown
-- use **markdown** syntax to explain what is your innovation
-- use **node tree** to explain what your innovation contains
-- use **workflow** to explain how it works or other processes
-- use **drawing** to draw 2D image of your innovation, annotate components & map them to node tree
----
-
-### Syntax:
+const INITIAL_DESCRIPTION_VALUE = `
+### Here is a sample markdown description explaining its syntax:
 
 * Heading
   =======
@@ -64,7 +58,7 @@ const INITIAL_DESCRIPTION_VALUE = `### Markdown
 `;
 
 const loading = (
-  <Box display="flex" alignItems="center" justifyContent="center">
+  <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
     <CircularProgress
       size={100}
       sx={{
@@ -83,7 +77,7 @@ export default function LandingPageMarkdown() {
   const [mode, setMode] = React.useState('markdown');
 
   return (
-    <Box>
+    <Box mb={-6}>
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
@@ -108,18 +102,35 @@ export default function LandingPageMarkdown() {
         {' '}
         <Box
           component="a"
-          color="#fdfff9"
           fontWeight="bold"
+          color="#cdd4ff"
           href="https://en.wikipedia.org/wiki/Markdown"
           sx={{ cursor: 'pointer' }}
           target="_blank"
+          borderBottom="3px solid #cdd4ff"
         >
-          markdown
+          Markdown
         </Box>
         {' '}
+        Text Editor
         to add description to each node in the tree.
       </Typography>
-      <Box mt={4}>
+      <Box
+        mt={4}
+        textAlign="center"
+        mx={-4}
+        px={4}
+        pb={2}
+        zIndex={2}
+        position="relative"
+        sx={{
+          borderBottom: '1px solid #202027',
+          boxShadow: {
+            xs: '0px 3px 1px -2px rgb(106 107 116 / 5%), 0px 1px 2px 0px rgb(82 81 95 / 15%)',
+            md: '0px 3px 1px -2px rgb(106 107 116 / 5%), 0px 1px 2px 0px rgb(82 81 95 / 30%)',
+          },
+        }}
+      >
         <ToggleButtonGroup
           value={mode}
           exclusive
@@ -127,48 +138,55 @@ export default function LandingPageMarkdown() {
         >
           <ToggleButton
             sx={{
-              color: '#bac0cb',
+              color: '#fff',
+              border: 'none',
               '&.Mui-selected': {
-                background: '#b7cfda26',
+                background: '#3a3e45',
                 '&:hover': {
-                  background: '#b7cfda26',
+                  background: '#3a3e45',
                 },
               },
               '&:hover': {
-                background: '#b7cfda26',
+                background: '#3a3e45',
               },
             }}
             value="markdown"
             aria-label="left aligned"
             disableRipple
           >
-            <CodeIcon />
-            <Box ml={2}>Markdown</Box>
+            <CodeIcon fontSize="small" />
+            <Box ml={2} fontSize={12}>Markdown</Box>
           </ToggleButton>
           <ToggleButton
             sx={{
-              color: '#bac0cb',
+              color: '#fff',
+              border: 'none',
               '&.Mui-selected': {
-                background: '#b7cfda26',
+                background: '#3a3e45',
                 '&:hover': {
-                  background: '#b7cfda26',
+                  background: '#3a3e45',
                 },
               },
               '&:hover': {
-                background: '#b7cfda26',
+                background: '#3a3e45',
               },
             }}
             value="content"
             aria-label="centered"
             disableRipple
           >
-            <VisibilityRoundedIcon />
-            <Box ml={2}>Content</Box>
+            <VisibilityRoundedIcon fontSize="small" />
+            <Box ml={2} fontSize={12}>Content</Box>
           </ToggleButton>
         </ToggleButtonGroup>
 
       </Box>
-      <Box mt={4} minHeight={971}>
+      <Box
+        mx={-4}
+        mt={0}
+        mb={1}
+        pb={1}
+      >
         {mode === 'markdown' && (
         <Suspense fallback={loading}>
           <CustomCodeMirror
@@ -190,10 +208,12 @@ export default function LandingPageMarkdown() {
         }}
         >
           <Suspense fallback={loading}>
-            <MarkdownPreview
-              warpperElement={{ 'data-color-mode': 'dark' }}
-              source={description}
-            />
+            <Box m={4}>
+              <MarkdownPreview
+                warpperElement={{ 'data-color-mode': 'dark' }}
+                source={description}
+              />
+            </Box>
           </Suspense>
         </Box>
         )}

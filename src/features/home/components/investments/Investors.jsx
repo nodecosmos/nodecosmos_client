@@ -59,7 +59,7 @@ export default function Investors() {
                 variant="body1"
                 fontFamily="'Roboto Mono', sans-serif"
               >
-                Lookup for innovations that are matching your interests
+                Explore innovations you might be interested in
               </Typography>
             </Box>
           </Box>

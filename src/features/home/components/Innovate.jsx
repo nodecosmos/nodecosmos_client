@@ -64,7 +64,12 @@ export default function Innovate() {
       </Tabs>
       <Box mt={3}>
         <AnimateOnView>
-          <Section>
+          <Section borderRadius={{
+            xs: 2,
+            sm: 3,
+            md: 5,
+          }}
+          >
             {currentTab === 0 && <LandingPageTree />}
             {currentTab === 1 && <LandingPageMarkdown />}
             {currentTab === 2 && <Workflow />}
