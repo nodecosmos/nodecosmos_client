@@ -41,6 +41,6 @@ export default function useNodeButtonAnimationStyle(props) {
   return {
     offsetPath: `path("${animationOffsetPath}")`,
     animation: `move ${animationDuration}s forwards`,
-    transition: `all ${TRANSITION_ANIMATION_DURATION}s`,
+    transition: `offset-path ${TRANSITION_ANIMATION_DURATION}s`,
   };
 }

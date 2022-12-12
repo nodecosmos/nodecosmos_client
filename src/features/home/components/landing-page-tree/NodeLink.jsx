@@ -33,7 +33,6 @@ export default function NodeLink(props) {
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.landingPageNodes[upperSiblingID].position);
-  const prevUpperSiblingPosition = usePrevProps(upperSiblingPosition);
   const prevUpperSiblingId = usePrevProps(upperSiblingID);
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
@@ -64,7 +63,7 @@ export default function NodeLink(props) {
 
   // TODO: make node link extend from parent to lowest nested node
   // so we don't need custom logic like this
-  if ((!upperSiblingPosition && prevUpperSiblingPosition) || (upperSiblingID !== prevUpperSiblingId)) {
+  if (upperSiblingID !== prevUpperSiblingId) {
     animationDuration = 0;
   }
 
@@ -88,7 +87,7 @@ export default function NodeLink(props) {
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
           animation: `dash ${INITIAL_ANIMATION_DURATION}s forwards`,
-          transition: `all ${animationDuration}s`,
+          transition: `d ${animationDuration}s`,
         }}
       />
       <circle
@@ -99,7 +98,7 @@ export default function NodeLink(props) {
         style={{
           offsetPath: `path("M ${0} ${0} L ${0} ${y - circleY - 8.5}")`,
           animation: `move ${INITIAL_ANIMATION_DURATION / 4}s forwards`,
-          transition: `all ${animationDuration}s`,
+          transition: `cy ${animationDuration}s, offset-path ${animationDuration}s`,
         }}
         fill={parentBackgroundColor}
       />
