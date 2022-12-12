@@ -1,17 +1,16 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import usePannable from '../../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
+const isFirefox = typeof InstallTrigger !== 'undefined';
 
 export default function Transformable(props) {
   const { children } = props;
   const gRef = useRef(null);
+  const svgRef = useRef(null);
   const theme = useTheme();
-
-  const [state, updateState] = React.useState({});
-  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
   const scale = matchesSm ? 0.7 : 1;
@@ -22,20 +21,19 @@ export default function Transformable(props) {
   const minHeight = matchesSm ? 790 : 800;
   const minWidth = matchesSm ? 400 : 1050;
 
-  const [height, setHeight] = React.useState(minHeight);
-  const [width, setWidth] = React.useState(minWidth);
+  let timeoutId = null;
 
-  useLayoutEffect(() => {
+  const resize = () => {
     const newHeight = gRef.current.getBBox().height + 50;
     const newWidth = gRef.current.getBBox().width + 50;
 
-    setHeight(
-      newHeight > minHeight ? newHeight : minHeight,
-    );
-    setWidth(
-      newWidth > minWidth ? newWidth : minWidth,
-    );
-  }, [state, minHeight, minWidth]);
+    if (timeoutId) clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
+      svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
+    }, 300);
+  };
 
   // handle pan
   const {
@@ -50,14 +48,13 @@ export default function Transformable(props) {
 
   // window.addEventListener('keyup', enableScroll);
 
-  const isFirefox = typeof InstallTrigger !== 'undefined';
   const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
-      onClick={forceUpdate}
-      onTouchStart={forceUpdate}
+      onClick={resize}
+      onTouchStart={resize}
       sx={{
         position: 'relative',
         overflow: {
@@ -105,9 +102,10 @@ export default function Transformable(props) {
         }}
       >
         <svg
+          ref={svgRef}
           xmlns="http://www.w3.org/2000/svg"
-          width={width}
-          height={height}
+          width={minWidth}
+          height={minHeight}
         >
           <g ref={gRef}>
             {children}

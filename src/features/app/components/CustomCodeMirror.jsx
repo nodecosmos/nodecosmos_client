@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import CodeMirror from '@uiw/react-codemirror';
 import { createTheme } from '@uiw/codemirror-themes';
 import { tags as t } from '@lezer/highlight';
-import { languages } from '@codemirror/language-data';
+// import { languages } from '@codemirror/language-data';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 
 const myTheme = createTheme({
   theme: 'dark',
   settings: {
-    background: '#32353c',
-    foreground: '#98a6c2',
+    background: 'transparent',
+    foreground: '#8b949e',
     caret: '#ffffff',
     selection: 'rgba(255,255,255,0.06)',
     selectionMatch: 'rgba(255,255,255,0.06)',
     lineHighlight: '#8a91991a',
-    gutterBackground: '#32363c',
+    gutterBackground: 'transparent',
     gutterForeground: '#636b73',
   },
   styles: [
@@ -34,13 +34,13 @@ const myTheme = createTheme({
     { tag: t.className, color: '#daff29', fontWeight: 'bold' },
     { tag: t.operator, color: '#fff', fontWeight: 'bold' },
     { tag: t.bracket, color: '#fff' },
-    { tag: t.heading, color: '#cdd4ff', fontWeight: 'bold' },
+    { tag: t.heading, color: '#8cff70', fontWeight: 'bold' },
     { tag: t.contentSeparator, color: '#fff', fontWeight: 'bold' },
     { tag: t.emphasis, color: '#fff', fontWeight: 'bold' },
     { tag: t.strong, color: '#ff4581', fontWeight: 'bold' },
-    { tag: t.quote, color: '#8796aa', fontWeight: 'bold' },
+    { tag: t.quote, color: '#57606e', fontWeight: 'bold' },
     { tag: t.monospace, color: '#8e969f' },
-    { tag: t.meta, color: '#87cc73', fontWeight: 'bold' },
+    { tag: t.meta, color: '#59fff7', fontWeight: 'bold' },
     { tag: t.link, color: '#7bddaf', fontWeight: 'bold' },
   ],
 });
@@ -63,6 +63,8 @@ export default function CustomCodeMirror(props) {
         wordBreak: 'break-word',
         overflowWrap: 'anywhere',
         flexShrink: 1,
+        fontFamily: 'Roboto, sans-serif',
+        ml: 2,
       },
       '.cm-focused': {
         outline: 'none!important',
@@ -76,6 +78,17 @@ export default function CustomCodeMirror(props) {
       },
       '.cm-gutterElement': {
         textAlign: 'left!important',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '&.cm-activeLineGutter': {
+          backgroundColor: 'none',
+          background: 'transparent',
+        },
+        fontSize: {
+          xs: 11,
+          sm: 12,
+        },
       },
       '.cm-gutters': {
         mr: 0.2,
@@ -91,7 +104,7 @@ export default function CustomCodeMirror(props) {
         value={value}
         onChange={onChange}
         theme={myTheme}
-        extensions={[markdown({ markdownLanguage, codeLanguages: languages })]}
+        extensions={[markdown({ markdownLanguage })]}
       />
     </Box>
   );

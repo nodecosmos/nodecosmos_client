@@ -38,5 +38,5 @@ Section.propTypes = {
   children: PropTypes.node.isRequired,
   backgroundColor: PropTypes.string,
   padding: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string]),
-  borderRadius: PropTypes.number,
+  borderRadius: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string]),
 };

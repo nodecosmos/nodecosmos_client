@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNode } from './landingPageNodeSlice';
@@ -7,52 +7,59 @@ import { updateNode } from './landingPageNodeSlice';
 export default function NodeButtonText(props) {
   const { id } = props;
   const dispatch = useDispatch();
-  const contentEditableRef = React.useRef(null);
+  const ref = React.useRef(null);
 
   const nodeTitle = useSelector((state) => state.landingPageNodes[id].title);
-  const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
 
-  const theme = useTheme();
-  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
-
-  const sx = { outline: 'none', minWidth: 30, fontWeight: 500 };
-  if (isNew || isEditing) sx.cursor = 'text';
-
-  const handleBlur = (event) => {
-    const title = event.currentTarget.textContent;
+  const handleChange = (event) => {
+    const title = event.currentTarget.value;
 
     dispatch(updateNode({
-      id, title, isNew: false, isEditing: false,
+      id, title,
     }));
   };
 
-  const handleKeyDown = (event) => {
-    if (event.currentTarget.textContent.length >= 35 && event.key !== 'Backspace') {
-      event.preventDefault();
-    }
-
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      handleBlur(event);
-    }
+  const handleBlur = () => {
+    dispatch(updateNode({
+      id, isEditing: false, isNew: false,
+    }));
+    ref.current.blur();
   };
 
   useEffect(() => {
-    if (matchesSm) return;
-    if (isNew || isEditing) contentEditableRef.current.focus();
-  }, [isNew, isEditing, matchesSm]);
+    if (isEditing) {
+      ref.current.focus();
+    }
+  }, [isEditing]);
 
   return (
     <Box
-      ref={contentEditableRef}
-      contentEditable={isNew || isEditing}
-      sx={sx}
+      component={isEditing ? 'input' : 'div'}
+      ref={ref}
+      onChange={handleChange}
       onBlur={handleBlur}
-      onKeyDown={handleKeyDown}
-      suppressContentEditableWarning
+      onKeyDown={(event) => event.key === 'Enter' && handleBlur()}
+      value={nodeTitle || ''}
+      fontSize={14}
+      fontWeight={500}
+      p={0}
+      disabled={!isEditing}
+      maxLength={30}
+      size={Math.max((nodeTitle && nodeTitle.length * 0.8) || 0, 3)}
+      minWidth={40}
+      backgroundColor="transparent"
+      fontFamily="Roboto, sans-serif"
+      lineHeight={1}
+      outline="none!important"
+      letterSpacing="0.02857em"
+      sx={{
+        cursor: isEditing ? 'text' : 'pointer!important',
+        pointerEvents: isEditing ? 'auto' : 'none',
+        ml: 1,
+      }}
     >
-      {nodeTitle}
+      {(!isEditing && nodeTitle) || null}
     </Box>
   );
 }

@@ -93,8 +93,8 @@ export default function LandingPageMarkdown() {
         fontWeight="bold"
         sx={{
           background: {
-            xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
-            sm: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 25%)',
+            xs: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 40%)',
+            sm: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 20%)',
           },
           WebkitBackgroundClip: 'text!important',
           backgroundClip: 'text!important',
@@ -122,7 +122,7 @@ export default function LandingPageMarkdown() {
         </Box>
         {' '}
         Text Editor
-        to add description to each node in the tree.
+        to add a description to each node in the tree and each step in the workflow.
       </Typography>
       <Box
         mt={4}
@@ -203,7 +203,6 @@ export default function LandingPageMarkdown() {
             onChange={(value) => {
               setDescription(value);
             }}
-            lineWrapping
           />
         </Suspense>
         )}

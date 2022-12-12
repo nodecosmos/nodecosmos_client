@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import usePrevProps from '../../../app/hooks/usePrevProps';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import {
-  ANIMATION_DURATION, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
+  EDGE_LENGTH, INITIAL_ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
 } from './constants';
 
 function renderRootLink({ x, xEnds, y }) {
@@ -30,7 +30,6 @@ export default function NodeLink(props) {
   } = props;
 
   const { x, xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
-  const isNodeFetched = useSelector((state) => state.landingPageNodes[id].fetched);
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.landingPageNodes[upperSiblingID].position);
@@ -44,7 +43,7 @@ export default function NodeLink(props) {
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
   const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
 
-  const circleY = parentPositionY; // circle starts going down from parent position
+  const circleY = linkY;
 
   const yLength = y - linkY;
   const pathLength = y + EDGE_LENGTH;
@@ -61,7 +60,7 @@ export default function NodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  let animationDuration = isNodeFetched ? 0 : ANIMATION_DURATION;
+  let animationDuration = TRANSITION_ANIMATION_DURATION;
 
   // TODO: make node link extend from parent to lowest nested node
   // so we don't need custom logic like this
@@ -88,18 +87,18 @@ export default function NodeLink(props) {
         style={{
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
-          animation: `dash ${animationDuration}s forwards`,
+          animation: `dash ${INITIAL_ANIMATION_DURATION}s forwards`,
           transition: `all ${animationDuration}s`,
         }}
       />
       <circle
         ref={circleRef}
         cx={x}
-        cy={circleY + 2.5}
+        cy={circleY + 6}
         r={5}
         style={{
-          offsetPath: `path("M ${0} ${0} L ${0} ${y - circleY - 5}")`,
-          animation: `move ${animationDuration / 2}s forwards`,
+          offsetPath: `path("M ${0} ${0} L ${0} ${y - circleY - 8.5}")`,
+          animation: `move ${INITIAL_ANIMATION_DURATION / 4}s forwards`,
           transition: `all ${animationDuration}s`,
         }}
         fill={parentBackgroundColor}

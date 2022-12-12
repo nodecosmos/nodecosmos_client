@@ -17,16 +17,18 @@ export default function useNodeTreeEvents(props) {
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].expanded);
   const isNewNodePresent = useSelector((state) => state.landingPageNodes[NEW_NODE_ID]);
   const isRoot = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].is_root);
-  const isNodeNew = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isNew);
   const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);
 
   const currentNodeId = useSelector((state) => state.app.currentNodeID);
   const isCurrentNode = currentNodeId === id;
 
-  const onNodeClick = () => {
+  const onNodeClick = (event) => {
     if (nodeExpanded && isCurrentNode) {
-      if (isNodeNew || isEditing) return;
-
+      if (isEditing) {
+        event.stopPropagation();
+        event.preventDefault();
+        return;
+      }
       dispatch(collapseNode({ id }));
       dispatch(setCurrentNode(null));
     } else {

@@ -1,8 +1,12 @@
 import { useSelector } from 'react-redux';
-import { ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP } from '../../components/landing-page-tree/constants';
+import {
+  INITIAL_ANIMATION_DURATION,
+  MARGIN_LEFT,
+  MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
+} from '../../components/landing-page-tree/constants';
 
 export default function useNodeButtonAnimationStyle(props) {
-  const { id, isRoot } = props;
+  const { id, isRoot, upperSiblingID } = props;
 
   const defaultParentPosition = {
     x: 60,
@@ -13,26 +17,30 @@ export default function useNodeButtonAnimationStyle(props) {
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
   const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
-  const isFetched = useSelector((state) => state.landingPageNodes[id].fetched);
-  const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const parentPosition = useSelector(
     (state) => (!isRoot && state.landingPageNodes[parentID].position) || defaultParentPosition,
   );
 
+  const upperPosition = useSelector(
+    (state) => (upperSiblingID && state.landingPageNodes[upperSiblingID].position) || parentPosition,
+  );
+
   if (!nodePosition) return null;
 
   const animationXStarts = parentPosition.xEnds + MARGIN_LEFT;
-  const animationYStarts = parentPosition.y + MARGIN_TOP;
+
+  const animationYStarts = upperPosition.y + MARGIN_TOP;
+
   const animationOffsetPath = `M ${animationXStarts} ${animationYStarts}
                                L ${animationXStarts} ${nodePosition.y - MARGIN_TOP}
                                L ${nodePosition.xEnds} ${nodePosition.y - MARGIN_TOP}`.replace(/\n/g, '');
-  let animationDuration = isRoot || isFetched ? 0 : ANIMATION_DURATION;
-  animationDuration = isNew ? animationDuration / 2 : animationDuration;
+
+  const animationDuration = isRoot ? 0 : INITIAL_ANIMATION_DURATION * 0.75;
 
   return {
     offsetPath: `path("${animationOffsetPath}")`,
     animation: `move ${animationDuration}s forwards`,
-    transition: `all ${animationDuration}s`,
+    transition: `all ${TRANSITION_ANIMATION_DURATION}s`,
   };
 }

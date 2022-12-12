@@ -70,7 +70,7 @@ export default function MVP() {
     <Box
       sx={{ width: '100%' }}
       mt={{
-        xs: 8,
+        xs: 16,
         md: 32,
       }}
     >

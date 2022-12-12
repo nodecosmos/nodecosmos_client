@@ -1,12 +1,21 @@
 import React from 'react';
-import {
-  Card, CardContent, CardHeader,
-} from '@mui/material';
+import { Card, CardContent, CardHeader } from '@mui/material';
+import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 
 export default function NodeDescription() {
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const currentNode = useSelector((state) => state.landingPageNodes[currentNodeID]);
+
+  const blankDescription = (
+    <Box textAlign="center">
+      {(currentNode && 'This node has no description yet.') || (
+        <Box fontSize={30}>
+          ¯\_(ツ)_/¯
+        </Box>
+      )}
+    </Box>
+  );
 
   return (
     <Card
@@ -40,7 +49,9 @@ export default function NodeDescription() {
           },
           textAlign: 'center',
         }}
-        title={currentNode?.title || 'Select a node to see its details'}
+        title={
+        (!!currentNode && (currentNode?.title || 'No Title')) || 'Select a node from the tree to view its description'
+      }
       />
       <CardContent sx={{
         border: 'none',
@@ -48,9 +59,10 @@ export default function NodeDescription() {
           xs: 14,
           sm: 18,
         },
+        height: 1,
       }}
       >
-        {currentNode?.description}
+        {currentNode?.description || blankDescription}
       </CardContent>
     </Card>
   );

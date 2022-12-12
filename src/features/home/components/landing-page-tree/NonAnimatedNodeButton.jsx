@@ -20,7 +20,7 @@ export default function NonAnimatedNodeButton(props) {
 
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
-  const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
+  const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const { backgroundColor } = useNodeButtonBackground({ id, nestedLevel, isRoot });
@@ -28,31 +28,41 @@ export default function NonAnimatedNodeButton(props) {
   const isCurrentNode = nodeExpanded && id === currentNodeID;
   const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
 
-  const buttonClassName = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
-
   const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
 
   const x = nodePosition.xEnds;
   const y = nodePosition.y - MARGIN_TOP;
 
+  const isNodeColored = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
+
   return (
     <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={x} y={y}>
       <Box display="flex" width="100%">
-        <Button
-          className={buttonClassName}
+        <Box
+          component={isEditing ? 'div' : Button}
           onClick={onNodeClick}
-          onMouseDown={(e) => e.stopPropagation()}
-          style={{ backgroundColor }}
-          disableRipple={isNew}
+          onKeyUp={(event) => event.preventDefault()}
+          display="inline-flex"
+          alignItems="center"
           sx={{
+            backgroundColor,
             height: NODE_BUTTON_HEIGHT,
+            color: isNodeColored ? 'rgb(0 0 0 / 70%)' : '#fff',
+            input: {
+              color: isNodeColored ? 'rgb(0 0 0 / 70%)' : '#fff',
+            },
+            '&:hover': {
+              backgroundColor,
+            },
+            borderRadius: 1.5,
+            p: 1,
+            cursor: 'pointer',
           }}
         >
-          <Box fontWeight="bold" display="flex" alignItems="center">
-            <TagRounded fontSize="small" sx={{ mr: 2 }} />
-            <NodeButtonText id={id} />
-          </Box>
-        </Button>
+          <TagRounded fontSize="small" />
+          <NodeButtonText id={id} />
+        </Box>
+
         <Box filter="none">
           {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
         </Box>

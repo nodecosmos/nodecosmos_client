@@ -41,7 +41,8 @@ const nodeSlice = createSlice({
       if (!parentId || parentId === NEW_NODE_ID) return;
 
       const parent = state[parentId];
-      const randomId = (Math.random() + 1).toString(36).substring(7);
+      const randomId = (Math.random() + 1).toString(36)
+        .substring(7);
       const id = randomId;
 
       const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
@@ -50,6 +51,7 @@ const nodeSlice = createSlice({
       state[id] = {
         id,
         isNew: true,
+        isEditing: true,
         fetched: false,
         parent_id: parentId,
         ancestor_ids: nodeAncestorIdObjects,
@@ -62,7 +64,15 @@ const nodeSlice = createSlice({
       };
 
       parent.node_ids.push({ $oid: id });
+
+      setTimeout(() => updateNode({
+        payload: {
+          id,
+          isNew: false,
+        },
+      }));
     },
+
     deprecateNodesFetchedState(state, _action) {
       Object.keys(state).forEach((id) => {
         const node = state[id];

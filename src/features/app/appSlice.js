@@ -1,5 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+function fnBrowserDetect() {
+  const { userAgent } = navigator;
+  let browserName;
+
+  if (userAgent.match(/chrome|chromium|crios/i)) {
+    browserName = 'chrome';
+  } else if (userAgent.match(/firefox|fxios/i)) {
+    browserName = 'firefox';
+  } else if (userAgent.match(/safari/i)) {
+    browserName = 'safari';
+  } else if (userAgent.match(/opr\//i)) {
+    browserName = 'opera';
+  } else if (userAgent.match(/edg/i)) {
+    browserName = 'edge';
+  } else {
+    browserName = 'No browser detection';
+  }
+
+  console.log('browserName', browserName);
+  return browserName;
+}
+
 const appSlice = createSlice({
   name: 'app',
   initialState: {
@@ -8,6 +30,7 @@ const appSlice = createSlice({
     appAnimationEnabled: true,
     scrollEnabled: true,
     currentNodeID: null,
+    browser: fnBrowserDetect(),
   },
   reducers: {
     setTheme(state, action) { state.theme = action.payload; },
