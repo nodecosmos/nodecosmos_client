@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import usePrevProps from '../../../app/hooks/usePrevProps';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import {
   EDGE_LENGTH, INITIAL_ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
@@ -33,7 +32,6 @@ export default function NodeLink(props) {
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.landingPageNodes[upperSiblingID].position);
-  const prevUpperSiblingId = usePrevProps(upperSiblingID);
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
   const parentPosition = useSelector((state) => !isRoot && parentID && state.landingPageNodes[parentID].position);
@@ -59,14 +57,6 @@ export default function NodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  let animationDuration = TRANSITION_ANIMATION_DURATION;
-
-  // TODO: make node link extend from parent to lowest nested node
-  // so we don't need custom logic like this
-  if (upperSiblingID !== prevUpperSiblingId) {
-    animationDuration = 0;
-  }
-
   return (
     <g>
       <path
@@ -87,7 +77,7 @@ export default function NodeLink(props) {
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
           animation: `dash ${INITIAL_ANIMATION_DURATION}s forwards`,
-          transition: `d ${animationDuration}s`,
+          transition: `d ${TRANSITION_ANIMATION_DURATION}s`,
         }}
       />
       <circle
@@ -98,7 +88,7 @@ export default function NodeLink(props) {
         style={{
           offsetPath: `path("M ${0} ${0} L ${0} ${y - circleY - 8.5}")`,
           animation: `move ${INITIAL_ANIMATION_DURATION / 4}s forwards`,
-          transition: `cy ${animationDuration}s, offset-path ${animationDuration}s`,
+          transition: `cy ${TRANSITION_ANIMATION_DURATION}s, offset-path ${TRANSITION_ANIMATION_DURATION}s`,
         }}
         fill={parentBackgroundColor}
       />
