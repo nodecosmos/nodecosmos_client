@@ -11,7 +11,7 @@ export default function OpenSourceLink() {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const viewBox = matchesXs ? '-55 377 219 86.5' : '-55 377 219 86.5';
+  const viewBox = matchesXs ? '-55 377 219 115' : '-55 377 219 86.5';
 
   return (
     <Box
@@ -85,7 +85,7 @@ export default function OpenSourceLink() {
                 fontFamily="Roboto Mono"
                 fontSize={{
                   sm: 5,
-                  xs: 5,
+                  xs: 8,
                 }}
                 ml={{
                   xs: 1,

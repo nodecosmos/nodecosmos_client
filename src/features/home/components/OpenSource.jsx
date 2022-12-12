@@ -39,11 +39,11 @@ export default function OpenSource() {
       </Box>
       <Box sx={{
         transform: {
-          xs: 'scale(1.2) translateX(-10px)',
+          xs: 'scale(1.1) translateX(-16px)',
           sm: 'scale(1)',
         },
         my: {
-          xs: 10,
+          xs: 14,
           sm: 0,
         },
       }}
