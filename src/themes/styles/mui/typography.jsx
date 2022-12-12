@@ -3,7 +3,6 @@ export default (currentTheme) => ({
     styleOverrides: {
       whiteSpace: 'normal',
       body1: {
-        letterSpacing: '0.02em!important',
         fontSize: 18,
         '@media (max-width: 600px)': {
           fontSize: 14,
