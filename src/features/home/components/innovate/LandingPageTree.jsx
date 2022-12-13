@@ -22,7 +22,10 @@ export default function LandingPageTree() {
           WebkitTextFillColor: 'transparent!important',
           WebkitBoxDecorationBreak: 'clone',
           color: '#fff',
-          lineHeight: 1,
+          lineHeight: {
+            xs: 1.334,
+            sm: 1,
+          },
         }}
       >
         Structure your innovation

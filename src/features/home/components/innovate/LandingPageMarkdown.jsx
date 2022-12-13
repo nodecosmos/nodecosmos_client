@@ -100,7 +100,10 @@ export default function LandingPageMarkdown() {
           WebkitTextFillColor: 'transparent!important',
           WebkitBoxDecorationBreak: 'clone',
           color: '#06e1ff',
-          lineHeight: 1,
+          lineHeight: {
+            xs: 1.334,
+            sm: 1,
+          },
         }}
       >
         Describe your innovation
