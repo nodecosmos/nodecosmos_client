@@ -46,7 +46,7 @@ export default function Innovate() {
         sx={{
           ml: {
             xs: 0,
-            md: 2,
+            md: '20px',
           },
           mb: -2,
         }}

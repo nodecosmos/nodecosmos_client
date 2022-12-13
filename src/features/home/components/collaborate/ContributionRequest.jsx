@@ -65,8 +65,8 @@ export default function ContributionRequest() {
                 WebkitTextFillColor: 'transparent',
                 WebkitBoxDecorationBreak: 'clone',
                 color: '#a793ff',
-                mt: { xs: '6px', sm: 0 },
-                fontSize: { xs: 14, sm: 20 },
+                mt: { xs: '2px', sm: 0 },
+                fontSize: { xs: 16, sm: 18 },
               }}
             >
               Create Contribution Request
@@ -210,8 +210,8 @@ export default function ContributionRequest() {
                 WebkitTextFillColor: 'transparent',
                 WebkitBoxDecorationBreak: 'clone',
                 color: '#a793ff',
-                mt: { xs: '6px', sm: 0 },
-                fontSize: { xs: 14, sm: 20 },
+                mt: { xs: '2px', sm: 0 },
+                fontSize: { xs: 16, sm: 18 },
               }}
             >
               Review Contribution
