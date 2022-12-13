@@ -13,7 +13,7 @@ export default function Vision() {
   return (
     // margin top specific to shadow
     <Box mt={{
-      md: '12px',
+      md: '14px', // + 2px for shadow
       xs: 3,
     }}
     >

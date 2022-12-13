@@ -50,7 +50,7 @@ export default function Investments() {
       </AnimateOnView>
       <Grid
         container
-        columnSpacing={3}
+        columnSpacing={2}
         mt={{
           xs: 8,
           md: 3,
