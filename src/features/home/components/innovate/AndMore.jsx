@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
@@ -10,12 +10,14 @@ export default function Other() {
 
   let currentEmoji = glassesOn;
 
-  setInterval(() => {
+  const intervalId = setInterval(() => {
     if (coolRef.current) {
       coolRef.current.innerHTML = currentEmoji;
       currentEmoji = currentEmoji === glassesOff ? glassesOn : glassesOff;
     }
   }, 1500);
+
+  useEffect(() => () => clearInterval(intervalId));
 
   return (
     <Box>

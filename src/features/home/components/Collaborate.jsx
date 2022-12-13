@@ -12,7 +12,11 @@ export default function Vision() {
 
   return (
     // margin top specific to shadow
-    <Box mt="12px">
+    <Box mt={{
+      md: '12px',
+      xs: 3,
+    }}
+    >
       <Grid container columnSpacing={2}>
         <Grid item xs={12} md={6}>
           <AnimateOnView delay={200}>

@@ -3,7 +3,6 @@ import React from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useInView } from 'framer-motion';
-import CodeIcon from '@mui/icons-material/Code';
 
 export default function OpenSourceLink() {
   const ref = React.createRef();
