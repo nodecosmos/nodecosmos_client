@@ -92,8 +92,8 @@ export default function LandingPageMarkdown() {
         fontFamily="'Montserrat', sans-serif"
         sx={{
           background: {
-            xs: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 40%)',
-            sm: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 20%)',
+            xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
+            sm: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 25%)',
           },
           WebkitBackgroundClip: 'text!important',
           backgroundClip: 'text!important',

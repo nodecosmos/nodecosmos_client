@@ -11,8 +11,8 @@ export default function LandingPageWorkflow() {
         fontFamily="'Montserrat', sans-serif"
         sx={{
           background: {
-            xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
-            sm: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 25%)',
+            xs: 'linear-gradient(35deg, #e366ff 0%, #ff366c 45%)',
+            sm: 'linear-gradient(35deg, #e366ff 0%, #ff366c 20%)',
           },
           WebkitBackgroundClip: 'text!important',
           backgroundClip: 'text!important',

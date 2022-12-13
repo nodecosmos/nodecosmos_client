@@ -26,8 +26,8 @@ export default function Other() {
         fontFamily="'Montserrat', sans-serif"
         sx={{
           background: {
-            xs: 'linear-gradient(35deg, #b3ff68 0%, #73ffc2 45%)',
-            sm: 'linear-gradient(35deg, #b3ff68 0%, #73ffc2 20%)',
+            xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
+            sm: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 25%)',
           },
           WebkitBackgroundClip: 'text!important',
           backgroundClip: 'text!important',
@@ -41,7 +41,7 @@ export default function Other() {
       </Typography>
       <Typography mt={3} variant="body1" color="#fdfff9">
         As part of our efforts to make your innovation journey even more fun, we plan to add features such as a
-        leaderboard, gallery, 2D drawing, in-node chat.
+        leaderboard, gallery, 2D drawing, and in-node chat
       </Typography>
 
       <Box>
