@@ -34,13 +34,13 @@ const myTheme = createTheme({
     { tag: t.className, color: '#daff29', fontWeight: 'bold' },
     { tag: t.operator, color: '#fff', fontWeight: 'bold' },
     { tag: t.bracket, color: '#fff' },
-    { tag: t.heading, color: '#8cff70', fontWeight: 'bold' },
+    { tag: t.heading, color: '#97ff7e', fontWeight: 'bold' },
     { tag: t.contentSeparator, color: '#fff', fontWeight: 'bold' },
     { tag: t.emphasis, color: '#fff', fontWeight: 'bold' },
     { tag: t.strong, color: '#ff4581', fontWeight: 'bold' },
     { tag: t.quote, color: '#57606e', fontWeight: 'bold' },
     { tag: t.monospace, color: '#8e969f' },
-    { tag: t.meta, color: '#59fff7', fontWeight: 'bold' },
+    { tag: t.meta, color: '#4cdad3', fontWeight: 'bold' },
     { tag: t.link, color: '#7bddaf', fontWeight: 'bold' },
   ],
 });
@@ -64,7 +64,7 @@ export default function CustomCodeMirror(props) {
         overflowWrap: 'anywhere',
         flexShrink: 1,
         fontFamily: "'Roboto Mono', sans-serif",
-        ml: 2,
+        ml: 1,
       },
       '.cm-focused': {
         outline: 'none!important',
@@ -91,7 +91,6 @@ export default function CustomCodeMirror(props) {
         },
       },
       '.cm-gutters': {
-        mr: 0.2,
         borderRight: '1px solid #202027',
         boxShadow: {
           xs: '3px 0px 1px -1px rgb(106 107 116 / 5%), 1px 0px 1px 0px rgb(82 81 95 / 20%)',
