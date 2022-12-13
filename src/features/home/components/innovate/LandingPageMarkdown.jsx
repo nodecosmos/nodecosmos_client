@@ -90,7 +90,6 @@ export default function LandingPageMarkdown() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        fontWeight="bold"
         sx={{
           background: {
             xs: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 40%)',
@@ -111,7 +110,6 @@ export default function LandingPageMarkdown() {
         {' '}
         <Box
           component="a"
-          fontWeight="bold"
           color="#cdd4ff"
           href="https://en.wikipedia.org/wiki/Markdown"
           sx={{ cursor: 'pointer' }}

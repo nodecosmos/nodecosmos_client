@@ -55,16 +55,16 @@ export default function ContributionRequest() {
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
             <Typography
-              fontWeight="bold"
               color="#a793ff"
+              fontFamily="Montserrat"
+              fontWeight="bold"
               sx={{
-                background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 45%)',
+                background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 35%)',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 WebkitBoxDecorationBreak: 'clone',
                 color: '#a793ff',
-                letterSpacing: 1.1,
                 mt: { xs: '6px', sm: 0 },
                 fontSize: { xs: 14, sm: 20 },
               }}
@@ -200,16 +200,16 @@ export default function ContributionRequest() {
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
             <Typography
+              fontFamily="Montserrat"
               fontWeight="bold"
               color="#a793ff"
               sx={{
-                background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 45%)',
+                background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 35%)',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 WebkitBoxDecorationBreak: 'clone',
                 color: '#a793ff',
-                letterSpacing: 1.1,
                 mt: { xs: '6px', sm: 0 },
                 fontSize: { xs: 14, sm: 20 },
               }}
@@ -262,27 +262,27 @@ export default function ContributionRequest() {
               />
               <circle cx="140" cy="318" r="5.5" fill="#414650" />
             </g>
-            <foreignObject className="NodeName" width="100%" x="155" y="299" height="29">
+            <foreignObject className="NodeName" width="100%" x="155" y="303" height="29">
               <Box display="flex" alignItems="center">
-                <DoneIcon htmlColor="#a3ff48" />
+                <DoneIcon htmlColor="#a3ff48" fontSize="small" />
                 <Typography
-                  ml={2}
+                  ml={1}
                   color="#8298a0"
                   fontSize={{ xs: 14, sm: 18 }}
                 >
                   Approve
                 </Typography>
                 <Box
-                  ml={2}
-                  mr={2}
+                  ml={1}
+                  mr={0.7}
                   color="#8298a0"
                   fontSize={{ xs: 14, sm: 18 }}
                 >
-                  /
+                  |
                 </Box>
-                <CloseIcon htmlColor="#ff1a55" />
+                <CloseIcon htmlColor="#ff1a55" fontSize="small" />
                 <Typography
-                  ml={2}
+                  ml={1}
                   color="#8298a0"
                   fontSize={{ xs: 14, sm: 18 }}
                 >
@@ -322,6 +322,7 @@ export default function ContributionRequest() {
               height="80"
             >
               <Typography
+                fontFamily="Montserrat"
                 fontWeight="bold"
                 color="#a3ff48"
                 sx={{ letterSpacing: 1 }}

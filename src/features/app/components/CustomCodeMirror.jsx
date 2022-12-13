@@ -63,7 +63,7 @@ export default function CustomCodeMirror(props) {
         wordBreak: 'break-word',
         overflowWrap: 'anywhere',
         flexShrink: 1,
-        fontFamily: 'Roboto, sans-serif',
+        fontFamily: "'Roboto Mono', sans-serif",
         ml: 2,
       },
       '.cm-focused': {

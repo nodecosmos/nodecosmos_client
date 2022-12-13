@@ -185,7 +185,8 @@ export default function Index() {
                   <Typography
                     variant="h6"
                     fontFamily="'Montserrat', sans-serif"
-                    color="#4e5f6d"
+                    fontWeight="bold"
+                    color="#6e7985"
                   >
                     Where scientists, engineers, and entrepreneurs collaborate to bring innovations.
                   </Typography>

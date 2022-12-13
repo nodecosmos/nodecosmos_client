@@ -3,6 +3,7 @@ import React from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useInView } from 'framer-motion';
+import Diversity2Icon from '@mui/icons-material/Diversity2Rounded';
 
 export default function OpenSourceLink() {
   const ref = React.createRef();
@@ -12,7 +13,7 @@ export default function OpenSourceLink() {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const viewBox = matchesXs ? '-55 90 219 120' : '-55 90 219 91';
+  const viewBox = matchesXs ? '-55 92 218 120' : '-55 90 218 91';
 
   return (
     <Box
@@ -82,7 +83,7 @@ export default function OpenSourceLink() {
               y={205}
             >
               <Typography
-                fontFamily="Roboto Mono"
+                fontFamily="'Roboto Mono', sans-serif"
                 fontSize={{
                   sm: 5,
                   xs: 8,

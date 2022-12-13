@@ -13,7 +13,7 @@ export default function NodeAvatar({ user, onClick, bgColor }) {
         height: 35,
         width: 35,
         fontSize: 16,
-        borderRadius: 2,
+        borderRadius: 1.5,
         bgcolor: bgColor,
         color: '#fff',
         cursor: 'pointer',

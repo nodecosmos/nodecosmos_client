@@ -42,9 +42,9 @@ export default function OpenSource() {
           xs: 'scale(1.1) translateX(-10px)',
           sm: 'scale(1)',
         },
-        my: {
-          xs: 14,
-          sm: 0,
+        mt: {
+          xs: 8,
+          sm: 3,
         },
       }}
       >

@@ -57,7 +57,7 @@ export default function Innovators() {
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
               >
                 Issue
                 {' '}
@@ -105,7 +105,7 @@ export default function Innovators() {
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
@@ -133,7 +133,7 @@ export default function Innovators() {
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
               >
                 Use the power of blockchain to launch your innovation
               </Typography>

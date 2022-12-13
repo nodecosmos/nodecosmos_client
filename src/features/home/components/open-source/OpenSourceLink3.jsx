@@ -11,7 +11,7 @@ export default function OpenSourceLink() {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const viewBox = matchesXs ? '-55 180 219 147' : '-55 180 219 100';
+  const viewBox = matchesXs ? '-55 184 218 143' : '-55 185 218 89';
 
   return (
     <Box
@@ -81,22 +81,24 @@ export default function OpenSourceLink() {
               x={175}
               y={297}
             >
-              <Typography
-                fontFamily="Roboto Mono"
-                fontSize={{
-                  sm: 5,
-                  xs: 8,
-                }}
-                ml={{
-                  xs: 1,
-                  sm: 0,
-                }}
-                color="#cdd4ebff"
-                fontWeight="bold"
-              >
-                What if we take this concept and apply it to other areas in a more structured
-                way than currently possible?
-              </Typography>
+              <Box display="flex">
+                <Typography
+                  fontFamily="'Roboto Mono', sans-serif"
+                  fontSize={{
+                    sm: 5,
+                    xs: 8,
+                  }}
+                  ml={{
+                    xs: 1,
+                    sm: 0,
+                  }}
+                  color="#cdd4ebff"
+                  fontWeight="bold"
+                >
+                  What if we take this concept and apply it to other areas in a more structured
+                  way than currently possible?
+                </Typography>
+              </Box>
             </foreignObject>
           </g>
         </g>

@@ -57,7 +57,7 @@ export default function Investors() {
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
               >
                 Explore innovations you might be interested in
               </Typography>
@@ -85,7 +85,7 @@ export default function Investors() {
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
               </Typography>
@@ -113,7 +113,7 @@ export default function Investors() {
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
               >
                 Buy tokens and get a share of the innovation
               </Typography>

@@ -12,7 +12,6 @@ export default function LandingPageTree() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        fontWeight="bold"
         sx={{
           background: {
             xs: 'linear-gradient(35deg, #e366ff 0%, #ff366c 45%)',

@@ -3,6 +3,7 @@ import React from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useInView } from 'framer-motion';
+import CodeIcon from '@mui/icons-material/Code';
 
 export default function OpenSourceLink() {
   const ref = React.createRef();
@@ -11,7 +12,7 @@ export default function OpenSourceLink() {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const viewBox = matchesXs ? '-55 -5 219 125' : '-55 -5 219 90';
+  const viewBox = matchesXs ? '-55 -5 218 125' : '-55 0 218 80';
 
   return (
     <Box
@@ -82,7 +83,7 @@ export default function OpenSourceLink() {
               width="100"
             >
               <Typography
-                fontFamily="Roboto Mono"
+                fontFamily="'Roboto Mono', sans-serif"
                 fontSize={{
                   sm: 5,
                   xs: 8,

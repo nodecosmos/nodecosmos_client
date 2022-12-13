@@ -9,7 +9,6 @@ export default function LandingPageWorkflow() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        fontWeight="bold"
         sx={{
           background: {
             xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
