@@ -40,8 +40,8 @@ export default function Other() {
         Stay tuned!
       </Typography>
       <Typography mt={3} variant="body1" color="#fdfff9">
-        To make your innovation journey even more fun, we plan to have a few more
-        features like a leaderboard, gallery, 2D drawing, and more.
+        As part of our efforts to make your innovation journey even more fun, we plan to add features such as a
+        leaderboard, gallery, 2D drawing, in-node chat.
       </Typography>
 
       <Box>
