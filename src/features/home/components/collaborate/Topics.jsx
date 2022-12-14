@@ -16,35 +16,35 @@ const rows = [
     username: 'nodemaster',
     topic: 'Discuss components',
     date: '2022-04-14 7:20',
-    bgColor: '#a37dfc',
+    bgColor: '#8d7abc',
     comments: 42,
   },
   {
     username: 'superuser',
     topic: 'Change workflow',
     date: '2022-05-16 01:00',
-    bgColor: '#f44336',
+    bgColor: '#e14862',
     comments: 100,
   },
   {
     username: 'contributor',
     topic: 'Feature suggestions',
     date: '2022-09-26 17:00',
-    bgColor: '#a37dfc',
+    bgColor: '#8d7abc',
     comments: 54,
   },
   {
     username: 'investor',
     topic: 'Commercial support',
     date: '2022-12-16 10:00',
-    bgColor: '#f44336',
+    bgColor: '#e14862',
     comments: 12,
   },
   {
     username: 'marketer',
     topic: 'Get customers',
     date: '2022-12-16 20:30',
-    bgColor: '#a37dfc',
+    bgColor: '#8d7abc',
     comments: 42,
   },
 ];
@@ -83,14 +83,15 @@ export default function Topics() {
                   display="flex"
                   flexDirection="row"
                   alignItems="center"
-                  justifyContent="center"
+                  justifyContent="start"
                 >
                   <NodeAvatar
                     bgColor={row.bgColor}
                     user={{ username: row.username }}
                   />
                   <Box ml={{
-                    xs: 2, sm: 3,
+                    xs: 1,
+                    sm: 2,
                   }}
                   >
                     <Typography
