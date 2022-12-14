@@ -15,7 +15,7 @@ export default function NodeAvatar({ user, onClick, bgColor }) {
         fontSize: 13,
         borderRadius: 1.5,
         bgcolor: bgColor,
-        color: '#fff',
+        color: '#131416',
         cursor: 'pointer',
       }}
     >
