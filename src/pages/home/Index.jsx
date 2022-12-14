@@ -174,7 +174,7 @@ export default function Index() {
             <Box id="innovate" ref={innovate}>
               <Box display="flex" mt={`${HEADER_HEIGHT}px`} alignItems="center">
                 {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
-                <Box mt={5}>
+                <Box mt={8}>
                   <Typography
                     variant="h4"
                     fontWeight="900"
