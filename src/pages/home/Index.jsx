@@ -187,7 +187,7 @@ export default function Index() {
                     fontFamily="'Montserrat', sans-serif"
                     color="#8b949e"
                   >
-                    Where scientists, engineers, and entrepreneurs collaborate to bring innovations.
+                    Where scientists, engineers, and entrepreneurs collaborate to build innovations.
                   </Typography>
                 </Box>
               </Box>
