@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Badge, IconButton, Typography,
+  Badge, Chip, IconButton, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -16,43 +16,72 @@ const rows = [
     username: 'nodemaster',
     topic: 'Discuss components',
     date: '2022-04-14 7:20',
-    bgColor: '#8d7abc',
+    bgColor: '#c1ff68',
     comments: 42,
+    avatar: '(⌐■_■)',
+    chips: (
+      <>
+        <Chip size="small" label="feature" sx={{ background: '#abe15e', color: 'black', width: 'fit-content' }} />
+        <Chip size="small" label="node " sx={{ background: '#e15e7d', color: 'black', width: 'fit-content' }} />
+      </>
+    ),
   },
   {
     username: 'superuser',
     topic: 'Change workflow',
     date: '2022-05-16 01:00',
-    bgColor: '#e14862',
+    bgColor: '#c1ff68',
     comments: 100,
+    avatar: '( ͡~ ᴗ ͡°)',
+    chips: (
+      <Chip size="small" label="workflow" sx={{ background: '#85c7f3', color: 'black', width: 'fit-content' }} />
+    ),
   },
   {
     username: 'contributor',
     topic: 'Feature suggestions',
     date: '2022-09-26 17:00',
-    bgColor: '#8d7abc',
+    bgColor: '#fff768',
     comments: 54,
+    avatar: '( ͡❛ ͜ʖ ͡❛)',
+    chips: (
+      <Chip size="small" label="feature" sx={{ background: '#abe15e', color: 'black', width: 'fit-content' }} />
+    ),
   },
   {
     username: 'investor',
     topic: 'Commercial support',
     date: '2022-12-16 10:00',
-    bgColor: '#e14862',
+    bgColor: '#c1ff68',
     comments: 12,
+    avatar: '(₿_₿)',
+    chips: (
+      <>
+        <Chip size="small" label="investments" sx={{ background: '#85c7f3', color: 'black', width: 'fit-content' }} />
+        <Chip size="small" label="tokens " sx={{ background: '#af83df', color: 'black', width: 'fit-content' }} />
+      </>
+    ),
   },
   {
     username: 'marketer',
     topic: 'Get customers',
     date: '2022-12-16 20:30',
-    bgColor: '#8d7abc',
+    bgColor: '#c1ff68',
     comments: 42,
+    avatar: '(O_o)',
+    chips: (
+      <>
+        <Chip size="small" label="marketing" sx={{ background: '#acdf83', color: 'black', width: 'fit-content' }} />
+        <Chip size="small" label="social " sx={{ background: '#9e959b', color: 'black', width: 'fit-content' }} />
+      </>
+    ),
   },
 ];
 
 export default function Topics() {
   return (
     <TableContainer>
-      <Table aria-label="table">
+      <Table aria-label="table" sx={{ borderTop: '1px solid #454b53', borderBottom: '1px solid #454b53' }}>
         <TableBody>
           {rows.map((row) => (
             <TableRow
@@ -61,20 +90,14 @@ export default function Topics() {
                 borderRadius: 2,
                 'td, th': {
                   mt: 1,
-                  borderBottom: '1px solid #3c434f',
-                  borderRight: '1px solid #3c434f',
+                  borderBottom: '1px solid #454b53',
+                  borderRight: '1px solid #454b53',
+                  p: '12px 16px',
                 },
-                '&:first-of-type td:first-of-type': { borderTopLeftRadius: 8 },
-                '&:first-of-type td:last-of-type': { borderTopRightRadius: 8 },
-                '&:last-of-type td:first-of-type': { borderBottomLeftRadius: 8 },
-                '&:last-of-type td:last-of-type': { borderBottomRightRadius: 8 },
                 'td:last-of-type': { borderRight: 0 },
                 '&:last-of-type td': { borderBottom: 0 },
-                '&:nth-of-type(odd)': {
-                  backgroundColor: '#353941',
-                },
                 '&:hover': {
-                  backgroundColor: '#3a3f48',
+                  backgroundColor: 'rgba(71,83,104,0.3)',
                 },
               }}
             >
@@ -85,15 +108,8 @@ export default function Topics() {
                   alignItems="center"
                   justifyContent="start"
                 >
-                  <NodeAvatar
-                    bgColor={row.bgColor}
-                    user={{ username: row.username }}
-                  />
-                  <Box ml={{
-                    xs: 1,
-                    sm: 2,
-                  }}
-                  >
+                  <NodeAvatar user={{ username: row.username }} />
+                  <Box ml={1}>
                     <Typography
                       variant="body2"
                       textAlign="left"
@@ -106,7 +122,7 @@ export default function Topics() {
                     <Typography
                       variant="body2"
                       textAlign="left"
-                      color="#8b949e"
+                      color="#9a9a9e"
                       fontSize={{
                         xs: 8, sm: 12,
                       }}
@@ -117,19 +133,42 @@ export default function Topics() {
 
                 </Box>
               </TableCell>
-              <TableCell align="left">
-                <Typography
-                  variant="body2"
-                  fontSize={{
-                    xs: 10, sm: 14,
-                  }}
-                >
-                  {row.topic}
-                </Typography>
+              <TableCell align="left" size="small">
+                <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
+                  <Typography
+                    variant="body2"
+                    fontSize={{
+                      xs: 10, sm: 14,
+                    }}
+                    textAlign="left"
+                    width={150}
+                  >
+                    {row.topic}
+                  </Typography>
+                  <Box
+                    display="flex"
+                    justifyContent="space-around"
+                    flexDirection="column"
+                    gap={0.6}
+                    alignItems="start"
+                    width={90}
+                  >
+                    {row.chips}
+                  </Box>
+                </Box>
               </TableCell>
               <TableCell align="left">
                 <IconButton>
-                  <Badge badgeContent={row.comments} color="secondary">
+                  <Badge
+                    sx={{
+                      '.MuiBadge-badge': {
+                        backgroundColor: '#c1ff68',
+                        color: 'rgb(0 0 0 / 70%)',
+                      },
+                    }}
+                    badgeContent={row.comments}
+                    color="secondary"
+                  >
                     <ChatBubbleRoundedIcon />
                   </Badge>
                 </IconButton>

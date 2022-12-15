@@ -10,8 +10,8 @@ export default function NodeAvatar({ user, onClick, bgColor }) {
     <Avatar
       onClick={onClick}
       sx={{
-        height: 35,
-        width: 35,
+        height: 32,
+        width: 32,
         fontSize: 13,
         bgcolor: bgColor,
         color: '#fff',
@@ -25,7 +25,7 @@ export default function NodeAvatar({ user, onClick, bgColor }) {
 
 NodeAvatar.defaultProps = {
   onClick: null,
-  bgColor: '#f44336',
+  bgColor: '#545a64',
 };
 
 NodeAvatar.propTypes = {

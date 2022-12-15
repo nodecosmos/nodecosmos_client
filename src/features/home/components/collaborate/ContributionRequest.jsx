@@ -57,7 +57,6 @@ export default function ContributionRequest() {
             <Typography
               color="#a793ff"
               fontFamily="Montserrat"
-              fontWeight="bold"
               sx={{
                 background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 35%)',
                 WebkitBackgroundClip: 'text',
@@ -201,7 +200,6 @@ export default function ContributionRequest() {
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
             <Typography
               fontFamily="Montserrat"
-              fontWeight="bold"
               color="#a793ff"
               sx={{
                 background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 35%)',
@@ -323,9 +321,7 @@ export default function ContributionRequest() {
             >
               <Typography
                 fontFamily="Montserrat"
-                fontWeight="bold"
                 color="#a3ff48"
-                sx={{ letterSpacing: 1 }}
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Merge Contribution Request
