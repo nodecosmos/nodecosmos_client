@@ -11,7 +11,7 @@ export default function OpenSourceLink() {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const viewBox = matchesXs ? '-55 -5 218 125' : '-55 0 218 80';
+  const viewBox = matchesXs ? '-55 -5 218 125' : '-55 0 218 81';
 
   return (
     <Box
