@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
-import {
-  Tab, Tabs, useMediaQuery, useTheme,
-} from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
 import { setInnovateTab } from '../homeSlice';
 import AnimateOnView from './AnimateOnView';
+import Other from './innovate/AndMore';
 import LandingPageMarkdown from './innovate/LandingPageMarkdown';
 import LandingPageTree from './innovate/LandingPageTree';
 import Workflow from './innovate/LandingPageWorkflow';
-import Other from './innovate/AndMore';
 import Section from './Section';
 
 const PRESELECTED_NODE_ID = '635a91ea690cc413ead79ce2';
@@ -25,7 +23,7 @@ export default function Innovate() {
 
   const tabSx = {
     fontWeight: 'normal',
-    fontFamily: "'Roboto mono', monospace",
+    fontFamily: '\'Roboto mono\', monospace',
     mr: 3,
     '&.Mui-selected': {
       color: '#ff0066',
