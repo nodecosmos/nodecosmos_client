@@ -65,10 +65,6 @@ export default function LandingPageTree() {
               xs: 3,
               sm: 4,
             }}
-            textAlign={{
-              xs: 'center',
-              md: 'left',
-            }}
             fontSize={{
               xs: 12,
               sm: 14,

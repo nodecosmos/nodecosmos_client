@@ -137,7 +137,9 @@ export default function Index() {
             xs: 0,
             sm: 6,
           },
-          boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+          boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 25%), '
+            + '0px 2px 3px 0px rgb(0 0 0 / 3%), '
+            + '0px 1px 5px 0px rgb(0 0 0 / 10%)',
           borderBottom: '1px solid #2d3138',
         }}
       >
@@ -172,17 +174,21 @@ export default function Index() {
           justifyContent="center"
         >
           <Container maxWidth="lg" sx={{ mt: `${HEADER_HEIGHT}px` }}>
-            <Box mt={8}>
+            <Box mt={{
+              xs: 8,
+              md: 16,
+            }}
+            >
               <AnimateOnView>
-                <Box>
+                <Box display="flex" alignItems="center" justifyContent="center">
                   {/* <img src="logo_1.svg" alt="logo" height={73} width={73} /> */}
                   <Box>
                     <Typography
                       variant="h1"
                       fontWeight="900"
-                      fontSize={45}
+                      fontSize={35}
                       fontFamily="'Montserrat', sans-serif"
-                      color="#f3f1ed"
+                      color="#fff"
                       textAlign="left"
                     >
                       Innovation Collaboration Platform
@@ -190,8 +196,11 @@ export default function Index() {
                     <Typography
                       variant="h2"
                       fontFamily="'Roboto Mono', monospace"
-                      fontSize={20.5}
-                      color="#c8c8cb"
+                      fontSize={{
+                        xs: 16,
+                        sm: 17.35,
+                      }}
+                      color="#fff"
                       fontWeight={400}
                       textAlign="left"
                     >

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { Tab, Tabs } from '@mui/material';
+import {
+  Tab, Tabs, useMediaQuery, useTheme,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
@@ -44,7 +46,13 @@ export default function Innovate() {
   };
 
   return (
-    <Box mt={8} w={1}>
+    <Box
+      mt={{
+        xs: 8,
+        md: 16,
+      }}
+      w={1}
+    >
       <Tabs
         sx={{
           ml: {
@@ -52,7 +60,6 @@ export default function Innovate() {
             md: '20px',
           },
           mb: -2,
-          justifyContent: 'end',
         }}
         variant="scrollable"
         value={currentTab}
