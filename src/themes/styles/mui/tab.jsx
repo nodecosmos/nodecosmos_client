@@ -2,6 +2,7 @@ export default (currentTheme) => ({
   MuiTab: {
     styleOverrides: {
       root: {
+        fontWeight: 700,
         fontSize: 18,
         textTransform: 'none',
         backgroundColor: 'transparent',
