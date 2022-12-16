@@ -14,6 +14,7 @@ export default function Section(props) {
         backgroundColor: props.backgroundColor,
         borderRadius,
         padding,
+        overflow: 'initial',
       }}
     >
       {props.children}

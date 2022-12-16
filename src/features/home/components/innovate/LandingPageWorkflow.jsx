@@ -27,7 +27,7 @@ export default function LandingPageWorkflow() {
       >
         Define your workflow
       </Typography>
-      <Typography mt={3} variant="body1" color="#fdfff9">
+      <Typography mt={3} variant="body1" color="#fff">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
       </Typography>
       <Box

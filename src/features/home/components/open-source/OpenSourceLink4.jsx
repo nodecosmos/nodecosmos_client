@@ -99,7 +99,7 @@ export default function OpenSourceLink() {
                 {' '}
                 <Box
                   component="span"
-                  color="#cdd4ff"
+                  color="#cdd4ebff"
                   sx={{
                     cursor: 'pointer',
                     borderBottom: '1px solid #cdd4ff',

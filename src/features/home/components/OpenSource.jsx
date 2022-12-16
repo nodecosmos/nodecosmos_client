@@ -9,11 +9,7 @@ import OpenSourceLink5 from './open-source/OpenSourceLink5';
 
 export default function OpenSource() {
   return (
-    <Box mt={{
-      xs: 8,
-      md: 32,
-    }}
-    >
+    <Box mt={8}>
       <Box display="flex" alignItems="center" justifyContent="center">
         <AnimateOnView>
           <Typography

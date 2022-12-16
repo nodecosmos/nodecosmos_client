@@ -31,9 +31,12 @@ export default function Innovate() {
   };
 
   const indicatorSx = {
-    height: 3,
-    borderRadius: 2,
-    background: '#ff0066',
+    backgroundColor: '#ff0066',
+    height: {
+      xs: 3,
+      sm: 5,
+    },
+    borderRadius: 3,
     mb: {
       xs: 1,
       md: 0,
@@ -41,7 +44,7 @@ export default function Innovate() {
   };
 
   return (
-    <Box mt={8}>
+    <Box mt={8} w={1}>
       <Tabs
         sx={{
           ml: {
@@ -49,6 +52,7 @@ export default function Innovate() {
             md: '20px',
           },
           mb: -2,
+          justifyContent: 'end',
         }}
         variant="scrollable"
         value={currentTab}

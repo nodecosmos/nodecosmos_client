@@ -4,6 +4,7 @@ import { Grid, Typography } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 import ContributionRequest from './collaborate/ContributionRequest';
 import Topics from './collaborate/Topics';
+import NodeSectionLink from './links/NodeSectionLink';
 import Section from './Section';
 
 export default function Vision() {
@@ -12,14 +13,26 @@ export default function Vision() {
 
   return (
     // margin top specific to shadow
-    <Box mt={{
-      md: '14px', // + 2px for shadow
-      xs: 3,
-    }}
-    >
-      <Grid container columnSpacing={2}>
+    <Box>
+      <Box
+        mt={3}
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+        sx={{ display: { xs: 'none', md: 'flex' } }}
+      >
+        <NodeSectionLink />
+      </Box>
+      <Grid
+        container
+        columnSpacing={3}
+        mt={{
+          md: 3, // missing 2px for shadow
+          xs: 3,
+        }}
+      >
         <Grid item xs={12} md={6}>
-          <AnimateOnView delay={200}>
+          <AnimateOnView delay={600}>
             <Section>
               <Typography
                 variant="h5"
@@ -36,7 +49,7 @@ export default function Vision() {
               >
                 Contribution Requests
               </Typography>
-              <Typography mt={3} variant="body1" color="#8b949e">
+              <Typography mt={3} variant="body1" color="#9a9a9e">
                 Use Contribution Request features to collaborate and boost your innovation
               </Typography>
               <Box mt={3}>
@@ -46,7 +59,7 @@ export default function Vision() {
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={400}>
+          <AnimateOnView delay={800}>
             <Section>
               <Typography
                 variant="h5"
@@ -63,7 +76,7 @@ export default function Vision() {
               >
                 Topics
               </Typography>
-              <Typography mt={3} variant="body1" color="#8b949e">
+              <Typography mt={3} variant="body1" color="#9a9a9e">
                 Use Topics features to communicate and do brainstorming with your community
               </Typography>
               <Box mt={3}>

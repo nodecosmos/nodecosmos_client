@@ -9,6 +9,7 @@ import {
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { scrollBy } from 'seamless-scroll-polyfill';
+import AnimateOnView from '../../features/home/components/AnimateOnView';
 import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
@@ -59,7 +60,7 @@ export default function Index() {
     const scrollPosition = rootRef.current.scrollTop;
     const sectionIndex = sectionEndPositions.findIndex((endPos, index) => {
       const sectionSize = sectionHeights[index];
-      return scrollPosition < endPos - sectionSize / 2 + 105;
+      return scrollPosition < endPos - sectionSize / 2;
     });
 
     const sectionEndPosition = sectionEndPositions[sectionIndex];
@@ -80,13 +81,13 @@ export default function Index() {
     setTab(currentTab);
 
     if (timeout.current) clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 500);
+    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
   }, [allRefs]);
 
   const handleNodecosmosClick = () => {
     preventTabChange.current = true;
     scrollBy(rootRef.current, { top: -rootRef.current.scrollTop, behavior: 'smooth' });
-    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 500);
+    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
   };
 
   // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE -------------------------------------- //
@@ -170,28 +171,36 @@ export default function Index() {
           display="flex"
           justifyContent="center"
         >
-          <Container maxWidth="lg">
-            <Box id="innovate" ref={innovate}>
-              <Box display="flex" mt={`${HEADER_HEIGHT}px`} alignItems="center">
-                {/* <img src="logo.svg" alt="logo" height={73} width={73} /> */}
-                <Box mt={8}>
-                  <Typography
-                    variant="h4"
-                    fontWeight="900"
-                    fontFamily="'Montserrat', sans-serif"
-                  >
-                    Innovation Collaboration Platform
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    fontFamily="'Montserrat', sans-serif"
-                    color="#8b949e"
-                  >
-                    Where scientists, engineers, and entrepreneurs collaborate to build innovations.
-                  </Typography>
+          <Container maxWidth="lg" sx={{ mt: `${HEADER_HEIGHT}px` }}>
+            <Box mt={8}>
+              <AnimateOnView>
+                <Box>
+                  {/* <img src="logo_1.svg" alt="logo" height={73} width={73} /> */}
+                  <Box>
+                    <Typography
+                      variant="h1"
+                      fontWeight="900"
+                      fontSize={45}
+                      fontFamily="'Montserrat', sans-serif"
+                      color="#f3f1ed"
+                      textAlign="left"
+                    >
+                      Innovation Collaboration Platform
+                    </Typography>
+                    <Typography
+                      variant="h2"
+                      fontFamily="'Roboto Mono', monospace"
+                      fontSize={20.5}
+                      color="#c8c8cb"
+                      fontWeight={400}
+                      textAlign="left"
+                    >
+                      Where scientists, engineers, and entrepreneurs collaborate to build innovations.
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Innovate />
+              </AnimateOnView>
+              <Box ref={innovate}><Innovate /></Box>
             </Box>
             <Box id="collaborate" ref={collaborate}><Collaborate /></Box>
             <Box ref={investments}><Investments /></Box>

@@ -4,15 +4,12 @@ import Box from '@mui/material/Box';
 import AnimateOnView from './AnimateOnView';
 import Innovators from './investments/Innovators';
 import Investors from './investments/Investors';
+import NodeSectionLink from './links/NodeSectionLink';
 import Section from './Section';
 
 export default function Investments() {
   return (
-    <Box mt={{
-      xs: 8,
-      md: 32,
-    }}
-    >
+    <Box mt={8}>
       <AnimateOnView>
         <Box>
           <Typography
@@ -27,7 +24,7 @@ export default function Investments() {
               sm: '32px',
             }}
           >
-            Bring your innovation to the world with our
+            Bring your innovation to the world with
             <Box component="span" color="#b3ff68" fontWeight="bold">
               {' '}
               Crypto Investments
@@ -37,17 +34,15 @@ export default function Investments() {
           </Typography>
         </Box>
       </AnimateOnView>
-      <AnimateOnView delay={200}>
-        <Box
-          mt={3}
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-          sx={{ display: { xs: 'none', md: 'flex' } }}
-        >
-          <img src="home/node-link-2.svg" alt="node-link" width="50%" />
-        </Box>
-      </AnimateOnView>
+      <Box
+        mt={3}
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+        sx={{ display: { xs: 'none', md: 'flex' } }}
+      >
+        <NodeSectionLink circleFill="#b3ff68" pathStroke="#b3ff68" strokeWidth={3} />
+      </Box>
       <Grid
         container
         columnSpacing={2}
@@ -57,14 +52,14 @@ export default function Investments() {
         }}
       >
         <Grid item xs={12} md={6}>
-          <AnimateOnView delay={400}>
+          <AnimateOnView delay={600}>
             <Section>
               <Innovators />
             </Section>
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={600}>
+          <AnimateOnView delay={800}>
             <Section>
               <Investors />
             </Section>

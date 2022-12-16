@@ -42,7 +42,7 @@ export default function Other() {
       >
         Stay tuned!
       </Typography>
-      <Typography mt={3} variant="body1" color="#fdfff9">
+      <Typography mt={3} variant="body1" color="#fff">
         As part of our efforts to make your innovation journey even more fun, we plan to add features such as a
         leaderboard, gallery, 2D drawing, and in-node chat
       </Typography>

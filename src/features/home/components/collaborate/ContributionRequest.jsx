@@ -266,7 +266,6 @@ export default function ContributionRequest() {
                 <Typography
                   ml={1}
                   color="#8298a0"
-                  fontSize={{ xs: 14, sm: 18 }}
                 >
                   Approve
                 </Typography>
@@ -274,7 +273,6 @@ export default function ContributionRequest() {
                   ml={1}
                   mr={0.7}
                   color="#8298a0"
-                  fontSize={{ xs: 14, sm: 18 }}
                 >
                   |
                 </Box>
@@ -282,7 +280,6 @@ export default function ContributionRequest() {
                 <Typography
                   ml={1}
                   color="#8298a0"
-                  fontSize={{ xs: 14, sm: 18 }}
                 >
                   Reject
                 </Typography>

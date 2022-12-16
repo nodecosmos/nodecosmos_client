@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@mui/material';
+import {
+  Card, CardContent, CardHeader, Typography,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 
@@ -27,7 +29,11 @@ export default function NodeDescription() {
         borderRadius: 0,
         width: '100%',
         height: 'calc(100% - 2px)',
-        color: '#8b949e',
+        color: '#9a9a9e',
+        boxShadow: {
+          xs: '0px -3px 1px -4px rgb(0 0 0 / 20%), 0px -1px 5px -1px rgb(0 0 0 / 15%)',
+          md: 'none',
+        },
       }}
     >
       <CardHeader
@@ -41,6 +47,10 @@ export default function NodeDescription() {
             xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
             md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
           },
+          borderTop: {
+            xs: 'none',
+            md: 'none',
+          },
         }}
         titleTypographyProps={{
           fontSize: {
@@ -48,6 +58,8 @@ export default function NodeDescription() {
             sm: 18,
           },
           textAlign: 'center',
+          letterSpacing: '0.009em',
+          color: '#9a9a9e',
         }}
         title={
         (!!currentNode && (currentNode?.title || 'No Title')) || 'Select a node from the tree to view its description'
@@ -55,14 +67,16 @@ export default function NodeDescription() {
       />
       <CardContent sx={{
         border: 'none',
-        fontSize: {
-          xs: 14,
-          sm: 18,
-        },
         height: 1,
       }}
       >
-        {currentNode?.description || blankDescription}
+        {
+          (
+            currentNode
+            && currentNode.description
+            && (<Typography variant="body1" color="#9a9a9e">{currentNode.description}</Typography>)
+          ) || blankDescription
+        }
       </CardContent>
     </Card>
   );

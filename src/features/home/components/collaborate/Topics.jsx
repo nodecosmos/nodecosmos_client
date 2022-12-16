@@ -141,7 +141,10 @@ export default function Topics() {
                       xs: 10, sm: 14,
                     }}
                     textAlign="left"
-                    width={150}
+                    width={{
+                      xs: 75,
+                      sm: 150,
+                    }}
                   >
                     {row.topic}
                   </Typography>
@@ -151,7 +154,7 @@ export default function Topics() {
                     flexDirection="column"
                     gap={0.6}
                     alignItems="start"
-                    width={90}
+                    width={80}
                   >
                     {row.chips}
                   </Box>

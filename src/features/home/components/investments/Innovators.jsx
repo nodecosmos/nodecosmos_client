@@ -50,14 +50,13 @@ export default function Innovators() {
                 }}
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
               >
                 {' '}
                 ICO
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Roboto Mono', monospace"
               >
                 Issue
                 {' '}
@@ -66,7 +65,6 @@ export default function Innovators() {
                   href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/"
                   target="_blank"
                   color="#cdd4ff"
-                  fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
                     borderBottom: '3px solid #cdd4ff',
@@ -99,13 +97,12 @@ export default function Innovators() {
                 color="#b3ff68"
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
               >
                 Attract Investors
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Roboto Mono', monospace"
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
@@ -127,13 +124,12 @@ export default function Innovators() {
                 color="#b3ff68"
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
               >
                 Supercharge your innovation
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Roboto Mono', monospace"
               >
                 Use the power of blockchain to launch your innovation
               </Typography>

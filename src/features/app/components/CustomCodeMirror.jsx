@@ -11,7 +11,7 @@ const myTheme = createTheme({
   theme: 'dark',
   settings: {
     background: 'transparent',
-    foreground: '#8b949e',
+    foreground: '#9a9a9e',
     caret: '#ffffff',
     selection: 'rgba(255,255,255,0.06)',
     selectionMatch: 'rgba(255,255,255,0.06)',

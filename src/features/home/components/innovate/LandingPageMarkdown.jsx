@@ -99,7 +99,7 @@ export default function LandingPageMarkdown() {
           backgroundClip: 'text!important',
           WebkitTextFillColor: 'transparent!important',
           WebkitBoxDecorationBreak: 'clone',
-          color: '#06e1ff',
+          color: '#fff',
           lineHeight: {
             xs: 1.334,
             sm: 1,
@@ -108,7 +108,7 @@ export default function LandingPageMarkdown() {
       >
         Describe your innovation
       </Typography>
-      <Typography mt={3} variant="body1" color="#fdfff9">
+      <Typography mt={3} variant="body1" color="#fff">
         Use
         {' '}
         <Box

@@ -3,7 +3,6 @@ export default (currentTheme) => ({
     styleOverrides: {
       root: {
         fontSize: 18,
-        fontWeight: 'bold',
         textTransform: 'none',
         backgroundColor: 'transparent',
         transition: 'all 450ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
@@ -22,7 +21,7 @@ export default (currentTheme) => ({
         borderRadius: 8,
         backgroundColor: currentTheme.green1,
         '&.header': {
-          height: 10,
+          height: 11,
           top: 48,
         },
       },

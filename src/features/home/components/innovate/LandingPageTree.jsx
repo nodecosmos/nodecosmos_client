@@ -30,13 +30,9 @@ export default function LandingPageTree() {
       >
         Structure your innovation
       </Typography>
-      <Typography mt={3} variant="body1" color="#fdfff9">
-        Use
-        {' '}
-        <Box component="span">Node Tree</Box>
-        {' '}
-        feature to structure your innovation and make it easy to browse
-        components of your project, ingredients of your recipe or other node types.
+      <Typography mt={3} variant="body1" color="#fff">
+        Use the Node Tree feature to structure your innovation and make it easy to browse components of your project,
+        ingredients in your recipe or other elements of your project.
       </Typography>
       <Box
         mx={{
@@ -80,10 +76,11 @@ export default function LandingPageTree() {
           >
             Sample
             <b> Node Tree </b>
+            playground
             representing the structure of an
             <b> airplane </b>
             and its components.
-            <br />
+            Click on a node to see its details, and feel free to add, edit or delete nodes.
           </Typography>
         </Box>
         <Box sx={{

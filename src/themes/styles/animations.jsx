@@ -4,6 +4,24 @@ export default () => ({
       strokeDashoffset: 0,
     },
   },
+  // --------------------------------------------------- Homepage --------------------------------------------------- //
+  '@keyframes node-link': {
+    from: {
+      strokeDashoffset: 1032.3072,
+    },
+    to: {
+      strokeDashoffset: 516.1536,
+    },
+  },
+
+  '@keyframes node-link-reverse': {
+    from: {
+      strokeDashoffset: 516.1536,
+    },
+    to: {
+      strokeDashoffset: 1032.3072,
+    },
+  },
 
   // ------------------------------------------- Open Source Links Section ------------------------------------------ //
   '@keyframes dash-link': {

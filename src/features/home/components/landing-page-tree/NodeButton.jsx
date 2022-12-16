@@ -51,6 +51,7 @@ export default function NodeButton(props) {
           onKeyUp={(event) => event.preventDefault()}
           display="inline-flex"
           alignItems="center"
+          disableRipple
           sx={{
             backgroundColor,
             height: NODE_BUTTON_HEIGHT,

@@ -50,14 +50,13 @@ export default function Investors() {
                 color="#b3ff68"
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
               >
                 {' '}
                 Explore innovations
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Roboto Mono', monospace"
               >
                 Explore innovations you might be interested in
               </Typography>
@@ -79,13 +78,12 @@ export default function Investors() {
                 color="#b3ff68"
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
               >
                 Fraud Prevention
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Roboto Mono', monospace"
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
               </Typography>
@@ -107,13 +105,12 @@ export default function Investors() {
                 color="#b3ff68"
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
-                fontWeight="bold"
               >
-                ICO
+                Token ownership
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Roboto Mono', monospace"
               >
                 Buy tokens and get a share of the innovation
               </Typography>

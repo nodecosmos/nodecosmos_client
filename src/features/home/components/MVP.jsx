@@ -71,7 +71,7 @@ export default function MVP() {
       sx={{ width: '100%' }}
       mt={{
         xs: 16,
-        md: 32,
+        md: 24,
       }}
     >
       <AnimateOnView>
@@ -87,6 +87,7 @@ export default function MVP() {
             sm: '32px',
           }}
         >
+          Current
           <Box component="span" color="#b6fd7b" fontWeight="bold">
             {' '}
             Feature Progress
