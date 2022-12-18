@@ -22,7 +22,6 @@ export default function Innovate() {
   }, [dispatch]);
 
   const tabSx = {
-    fontWeight: '900',
     fontFamily: 'Roboto, sans-serif',
     mr: 3,
     display: 'flex',
@@ -58,6 +57,7 @@ export default function Innovate() {
           //   justifyContent: 'end',
           // },
         }}
+        variant="scrollable"
         value={currentTab}
         onChange={(_event, value) => dispatch(setInnovateTab(value))}
         TabIndicatorProps={{ sx: indicatorSx }}
