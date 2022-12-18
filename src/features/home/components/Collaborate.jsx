@@ -49,7 +49,7 @@ export default function Vision() {
               >
                 Contribution Requests
               </Typography>
-              <Typography mt={3} variant="body1" color="#9a9a9e">
+              <Typography mt={3} variant="body1" color="#a4a7ab">
                 Use Contribution Request features to collaborate and boost your innovation
               </Typography>
               <Box mt={3}>
@@ -76,7 +76,7 @@ export default function Vision() {
               >
                 Topics
               </Typography>
-              <Typography mt={3} variant="body1" color="#9a9a9e">
+              <Typography mt={3} variant="body1" color="#a4a7ab">
                 Use Topics features to communicate and do brainstorming with your community
               </Typography>
               <Box mt={3}>

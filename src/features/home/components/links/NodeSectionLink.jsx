@@ -6,7 +6,7 @@ export default function NodeSectionLink(props) {
   const { pathStroke, circleFill, strokeWidth } = props;
   const ref = React.createRef();
 
-  const refInView = useInView(ref, { amount: 0.1 });
+  const refInView = useInView(ref, { amount: 0.1, once: true });
 
   return (
     <svg

@@ -1,7 +1,4 @@
 import React from 'react';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
-import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
@@ -36,8 +33,7 @@ export default function Investors() {
       >
         <li>
           <Box display="flex" alignItems="center">
-            <TravelExploreRoundedIcon fontSize="large" htmlColor="#b3ff68" />
-
+            <Box component="img" src="earth.svg" width={47} />
             <Box ml={2}>
               <Typography
                 sx={{
@@ -65,7 +61,7 @@ export default function Investors() {
         </li>
         <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
-            <SecurityRoundedIcon fontSize="large" htmlColor="#b3ff68" />
+            <Box component="img" src="shield.svg" width={47} />
             <Box ml={2}>
               <Typography
                 sx={{
@@ -92,7 +88,7 @@ export default function Investors() {
         </Box>
         <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
-            <GridViewRoundedIcon fontSize="large" htmlColor="#b3ff68" />
+            <Box component="img" src="boxes.svg" width={47} />
             <Box ml={2}>
               <Typography
                 sx={{

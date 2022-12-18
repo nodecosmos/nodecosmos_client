@@ -1,9 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import TokenRoundedIcon from '@mui/icons-material/TokenRounded';
-import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRounded';
-import RocketRoundedIcon from '@mui/icons-material/RocketRounded';
 
 export default function Innovators() {
   return (
@@ -36,7 +33,7 @@ export default function Innovators() {
       >
         <Box component="li">
           <Box display="flex" alignItems="center">
-            <TokenRoundedIcon fontSize="large" htmlColor="#b3ff68" />
+            <Box component="img" src="eth.svg" width={47} />
 
             <Box ml={2}>
               <Typography
@@ -84,7 +81,7 @@ export default function Innovators() {
         </Box>
         <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
-            <CurrencyExchangeRoundedIcon fontSize="large" htmlColor="#b3ff68" />
+            <Box component="img" src="attrack_investors.svg" width={47} />
             <Box ml={2}>
               <Typography
                 sx={{
@@ -111,7 +108,7 @@ export default function Innovators() {
         </Box>
         <Box component="li" mt={1}>
           <Box display="flex" alignItems="center">
-            <RocketRoundedIcon fontSize="large" htmlColor="#b3ff68" />
+            <Box component="img" src="rocket.svg" width={47} />
             <Box ml={2}>
               <Typography
                 sx={{

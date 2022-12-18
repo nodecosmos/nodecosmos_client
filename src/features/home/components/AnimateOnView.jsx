@@ -17,7 +17,7 @@ export default function AnimateOnView(props) {
   const [scale, setScale] = React.useState(initialScale);
 
   const ref = useRef(null);
-  const inView = useInView(ref);
+  const inView = useInView(ref, { once: true });
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

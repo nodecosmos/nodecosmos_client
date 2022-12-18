@@ -29,7 +29,7 @@ export default function NodeDescription() {
         borderRadius: 0,
         width: '100%',
         height: 'calc(100% - 2px)',
-        color: '#9a9a9e',
+        color: '#a4a7ab',
         boxShadow: {
           xs: '0px -3px 1px -4px rgb(0 0 0 / 20%), 0px -1px 5px -1px rgb(0 0 0 / 15%)',
           md: 'none',
@@ -59,7 +59,7 @@ export default function NodeDescription() {
           },
           textAlign: 'center',
           letterSpacing: '0.009em',
-          color: '#9a9a9e',
+          color: '#a4a7ab',
         }}
         title={
         (!!currentNode && (currentNode?.title || 'No Title')) || 'Select a node from the tree to view its description'
@@ -74,7 +74,7 @@ export default function NodeDescription() {
           (
             currentNode
             && currentNode.description
-            && (<Typography variant="body1" color="#9a9a9e">{currentNode.description}</Typography>)
+            && (<Typography variant="body1" color="#a4a7ab">{currentNode.description}</Typography>)
           ) || blankDescription
         }
       </CardContent>

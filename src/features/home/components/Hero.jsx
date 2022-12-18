@@ -7,17 +7,22 @@ export default function Hero() {
   const refInView = useInView(ref);
 
   return (
-    <Box
-      mt={8}
-      ref={ref}
-    >
-      <Box display="flex" alignItems="center" justifyContent="center">
+    <Box ref={ref}>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        px={8}
+        py={{
+          xs: 16,
+          md: 16,
+        }}
+      >
         <Box
           component="img"
           src="innovate_9.svg"
           alt="logo"
-          ml="-155px"
-          width="200"
+          ml="-153.015px"
           sx={{
             animation: refInView && 'rotate 0.3s',
           }}
@@ -31,9 +36,8 @@ export default function Hero() {
             variant="h1"
             fontWeight="900"
             fontSize={{
-              xs: 25,
-              sm: 30,
-              md: 35,
+              xs: 35,
+              md: 41.6,
             }}
             fontFamily="'Montserrat', sans-serif"
             color="#fff"
@@ -45,7 +49,7 @@ export default function Hero() {
             fontFamily="'Roboto Mono', monospace"
             fontSize={{
               xs: 16,
-              md: 17,
+              md: 16,
             }}
             color="#fff"
             fontWeight={400}

@@ -15,7 +15,7 @@ export default function WorkflowStepDescription() {
         borderRadius: 0,
         width: '100%',
         height: 'calc(100% - 2px)',
-        color: '#9a9a9e',
+        color: '#a4a7ab',
       }}
     >
       <CardHeader

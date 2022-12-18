@@ -22,9 +22,11 @@ export default function Innovate() {
   }, [dispatch]);
 
   const tabSx = {
-    fontWeight: 'normal',
-    fontFamily: '\'Roboto mono\', monospace',
+    fontWeight: '900',
+    fontFamily: 'Roboto, sans-serif',
     mr: 3,
+    display: 'flex',
+    justifyContent: 'end',
     '&.Mui-selected': {
       color: '#ff0066',
     },
@@ -44,10 +46,7 @@ export default function Innovate() {
   };
 
   return (
-    <Box
-      mt={8}
-      w={1}
-    >
+    <Box w={1}>
       <Tabs
         sx={{
           ml: {
@@ -55,8 +54,10 @@ export default function Innovate() {
             md: '20px',
           },
           mb: -2,
+          // '.MuiTabs-flexContainer': {
+          //   justifyContent: 'end',
+          // },
         }}
-        variant="scrollable"
         value={currentTab}
         onChange={(_event, value) => dispatch(setInnovateTab(value))}
         TabIndicatorProps={{ sx: indicatorSx }}

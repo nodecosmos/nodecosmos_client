@@ -122,7 +122,7 @@ export default function Topics() {
                     <Typography
                       variant="body2"
                       textAlign="left"
-                      color="#9a9a9e"
+                      color="#a4a7ab"
                       fontSize={{
                         xs: 8, sm: 12,
                       }}
