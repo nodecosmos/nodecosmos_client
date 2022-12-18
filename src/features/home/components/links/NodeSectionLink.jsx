@@ -6,7 +6,7 @@ export default function NodeSectionLink(props) {
   const { pathStroke, circleFill, strokeWidth } = props;
   const ref = React.createRef();
 
-  const refInView = useInView(ref, { amount: 0.7 });
+  const refInView = useInView(ref, { amount: 0.1 });
 
   return (
     <svg
@@ -28,7 +28,7 @@ export default function NodeSectionLink(props) {
             strokeOpacity: 1,
             strokeDasharray: 1032.3072,
             strokeDashoffset: 1032.3072,
-            animation: refInView ? 'node-link 1s forwards' : 'node-link-reverse 0.3s forwards',
+            animation: refInView ? 'node-link 0.5s forwards' : 'node-link-reverse 0.3s forwards',
           }}
           d="m 698.47,241.72424
              v 44.71745
@@ -46,7 +46,7 @@ export default function NodeSectionLink(props) {
             strokeWidth,
             strokeDasharray: 1032.3072,
             strokeDashoffset: 1032.3072,
-            animation: refInView ? 'node-link 1s forwards' : 'node-link-reverse 0.3s forwards',
+            animation: refInView ? 'node-link 0.5s forwards' : 'node-link-reverse 0.3s forwards',
           }}
           d="m 698.47,241.724
             v 44.71745
@@ -81,7 +81,7 @@ export default function NodeSectionLink(props) {
             strokeDasharray: 'none',
             strokeOpacity: 1,
             r: refInView ? 9 : 0,
-            transition: `r 0.3s ${refInView ? '0.9s' : '0s'}`,
+            transition: `r 0.3s ${refInView ? '0.4s' : '0s'}`,
           }}
           id="path8022-6"
           cx="331.34399"
@@ -96,7 +96,7 @@ export default function NodeSectionLink(props) {
             strokeDasharray: 'none',
             strokeOpacity: 1,
             r: refInView ? 9 : 0,
-            transition: `r 0.3s ${refInView ? '0.9s' : '0s'}`,
+            transition: `r 0.3s ${refInView ? '0.4s' : '0s'}`,
           }}
           id="path8022-6-1"
           cx="1065.4189"

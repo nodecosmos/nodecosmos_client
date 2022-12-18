@@ -52,14 +52,14 @@ export default function Investments() {
         }}
       >
         <Grid item xs={12} md={6}>
-          <AnimateOnView delay={600}>
+          <AnimateOnView delay={400}>
             <Section>
               <Innovators />
             </Section>
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={800}>
+          <AnimateOnView delay={600}>
             <Section>
               <Investors />
             </Section>

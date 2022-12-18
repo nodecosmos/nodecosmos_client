@@ -32,7 +32,7 @@ export default function Vision() {
         }}
       >
         <Grid item xs={12} md={6}>
-          <AnimateOnView delay={600}>
+          <AnimateOnView delay={400}>
             <Section>
               <Typography
                 variant="h5"
@@ -59,7 +59,7 @@ export default function Vision() {
           </AnimateOnView>
         </Grid>
         <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
-          <AnimateOnView delay={800}>
+          <AnimateOnView delay={600}>
             <Section>
               <Typography
                 variant="h5"
