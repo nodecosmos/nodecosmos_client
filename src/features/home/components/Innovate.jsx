@@ -23,6 +23,7 @@ export default function Innovate() {
 
   const tabSx = {
     fontFamily: 'Roboto, sans-serif',
+    fontWeight: 400,
     mr: 3,
     display: 'flex',
     justifyContent: 'end',
