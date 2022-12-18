@@ -29,7 +29,7 @@ export default function HomepageTabs(props) {
     return (
       <>
         <IconButton aria-label="delete" size="large" onClick={() => setOpen(!open)}>
-          <MenuIcon fontSize="inherit" htmlColor="#e1dcce" />
+          <MenuIcon fontSize="inherit" htmlColor="#555b66" />
         </IconButton>
         <Drawer
           anchor="right"
