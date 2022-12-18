@@ -9,7 +9,7 @@ import {
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { scrollBy } from 'seamless-scroll-polyfill';
-import AnimateOnView from '../../features/home/components/AnimateOnView';
+import Hero from '../../features/home/components/Hero';
 import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
@@ -87,7 +87,6 @@ export default function Index() {
   const handleNodecosmosClick = () => {
     preventTabChange.current = true;
     scrollBy(rootRef.current, { top: -rootRef.current.scrollTop, behavior: 'smooth' });
-    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
   };
 
   // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE -------------------------------------- //
@@ -174,43 +173,8 @@ export default function Index() {
           justifyContent="center"
         >
           <Container maxWidth="lg" sx={{ mt: `${HEADER_HEIGHT}px` }}>
-            <Box mt={{
-              xs: 8,
-              md: 16,
-            }}
-            >
-              <AnimateOnView>
-                <Box display="flex" alignItems="center" justifyContent="center">
-                  {/* <img src="logo_1.svg" alt="logo" height={73} width={73} /> */}
-                  <Box>
-                    <Typography
-                      variant="h1"
-                      fontWeight="900"
-                      fontSize={35}
-                      fontFamily="'Montserrat', sans-serif"
-                      color="#fff"
-                      textAlign="left"
-                    >
-                      Innovation Collaboration Platform
-                    </Typography>
-                    <Typography
-                      variant="h2"
-                      fontFamily="'Roboto Mono', monospace"
-                      fontSize={{
-                        xs: 16,
-                        sm: 17.35,
-                      }}
-                      color="#fff"
-                      fontWeight={400}
-                      textAlign="left"
-                    >
-                      Where scientists, engineers, and entrepreneurs collaborate to build innovations.
-                    </Typography>
-                  </Box>
-                </Box>
-              </AnimateOnView>
-              <Box ref={innovate}><Innovate /></Box>
-            </Box>
+            <Box><Hero /></Box>
+            <Box ref={innovate}><Innovate /></Box>
             <Box id="collaborate" ref={collaborate}><Collaborate /></Box>
             <Box ref={investments}><Investments /></Box>
             <Box ref={openSource}><OpenSource /></Box>

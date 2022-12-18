@@ -45,10 +45,7 @@ export default function Innovate() {
 
   return (
     <Box
-      mt={{
-        xs: 8,
-        md: 16,
-      }}
+      mt={8}
       w={1}
     >
       <Tabs

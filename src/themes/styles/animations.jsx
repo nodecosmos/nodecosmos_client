@@ -5,6 +5,15 @@ export default () => ({
     },
   },
   // --------------------------------------------------- Homepage --------------------------------------------------- //
+  '@keyframes rotate': {
+    from: {
+      transform: 'rotate(270deg)',
+    },
+    to: {
+      transform: 'rotate(360deg)',
+    },
+  },
+
   '@keyframes node-link': {
     from: {
       strokeDashoffset: 1032.3072,
@@ -23,7 +32,7 @@ export default () => ({
     },
   },
 
-  // ------------------------------------------- Open Source Links Section ------------------------------------------ //
+  // Open Source Links Section
   '@keyframes dash-link': {
     to: {
       strokeDashoffset: 914.738098,
