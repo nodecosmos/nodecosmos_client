@@ -16,7 +16,7 @@ export default function Hero() {
           component="img"
           src="innovate_9.svg"
           alt="logo"
-          ml="-160px"
+          ml="-155px"
           width="200"
           sx={{
             animation: refInView && 'rotate 0.3s',
