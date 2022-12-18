@@ -19,7 +19,7 @@ export default function Hero() {
           ml="-160px"
           width="200"
           sx={{
-            animation: refInView && 'rotate 3s',
+            animation: refInView && 'rotate 0.3s',
           }}
         />
         <Box ml={{
