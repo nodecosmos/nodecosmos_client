@@ -26,7 +26,7 @@ export default function NodeButton(props) {
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor } = useNodeButtonBackground({
+  const { backgroundColor, color } = useNodeButtonBackground({
     id,
     nestedLevel,
     isRoot,
@@ -41,10 +41,10 @@ export default function NodeButton(props) {
   const isCurrentNode = nodeExpanded && id === currentNodeID;
   const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
 
-  const isNodeColored = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
+  // const isNodeColored = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
 
   return (
-    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT + 3} x={0} y={0} style={style}>
+    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
       <Box display="flex" width="100%">
         <Box
           className="DropShadow"
@@ -56,9 +56,9 @@ export default function NodeButton(props) {
           sx={{
             backgroundColor,
             height: NODE_BUTTON_HEIGHT,
-            color: isNodeColored ? 'rgb(0 0 0 / 90%)' : '#fff',
+            color,
             input: {
-              color: isNodeColored ? 'rgb(0 0 0 / 90%)' : '#fff',
+              color,
             },
             '&:hover': {
               backgroundColor,

@@ -31,8 +31,10 @@ export default function LandingPageTree() {
         Structure your innovation
       </Typography>
       <Typography mt={3} variant="body1" color="#fff">
-        Use the Node Tree feature to structure your innovation and make it easy to browse components of your project,
-        ingredients in your recipe or other elements of your project.
+        Use the Node Tree feature to structure your innovation.
+        Each node represents components of your project, ingredients in your recipe,
+        or other constituents depending on your project.
+        Furthermore, nodes can be reused and shared between projects.
       </Typography>
       <Box
         mx={{
