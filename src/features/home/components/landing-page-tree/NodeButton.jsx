@@ -44,7 +44,7 @@ export default function NodeButton(props) {
   const isNodeColored = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
 
   return (
-    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
+    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT + 3} x={0} y={0} style={style}>
       <Box display="flex" width="100%">
         <Box
           className="DropShadow"

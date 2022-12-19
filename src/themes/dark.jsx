@@ -34,5 +34,5 @@ export default {
     + '-3px 1px 2px 0px rgb(0 0 0 / 15%), '
     + '2px 1px 3px 0px rgb(0 0 0 / 35%),'
     + '0px 2px 2px 0px rgb(0 0 0 / 25%)',
-  filter1: 'drop-shadow(1px 1px 0px rgb(0 0 0 / 0.3))',
+  filter1: 'drop-shadow(2px 2px 0px rgb(0 0 0 / 0.1))',
 };
