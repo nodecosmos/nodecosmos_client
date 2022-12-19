@@ -86,7 +86,11 @@ export default function LandingPageMarkdown() {
   const [mode, setMode] = React.useState('markdown');
 
   return (
-    <Box mb={-6}>
+    <Box mb={{
+      xs: -5,
+      sm: -6,
+    }}
+    >
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"

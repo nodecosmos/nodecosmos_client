@@ -47,6 +47,7 @@ export default function NodeButton(props) {
     <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
       <Box display="flex" width="100%">
         <Box
+          className="DropShadow"
           component={isEditing ? 'div' : Button}
           onClick={onNodeClick}
           onKeyUp={(event) => event.preventDefault()}

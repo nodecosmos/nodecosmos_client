@@ -66,6 +66,9 @@ export default function CustomCodeMirror(props) {
         fontFamily: "'Roboto Mono', sans-serif",
         ml: 1,
       },
+      '.cm-line': {
+        width: 'calc(100% - 8px)',
+      },
       '.cm-focused': {
         outline: 'none!important',
       },
