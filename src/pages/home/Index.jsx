@@ -87,6 +87,8 @@ export default function Index() {
   const handleNodecosmosClick = () => {
     preventTabChange.current = true;
     scrollBy(rootRef.current, { top: -rootRef.current.scrollTop, behavior: 'smooth' });
+    setTab(0);
+    timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
   };
 
   // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE -------------------------------------- //
