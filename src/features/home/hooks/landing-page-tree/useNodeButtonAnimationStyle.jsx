@@ -34,9 +34,9 @@ export default function useNodeButtonAnimationStyle(props) {
 
   const animationOffsetPath = `M ${animationXStarts} ${animationYStarts}
                                L ${animationXStarts} ${nodePosition.y - MARGIN_TOP}
-                               L ${nodePosition.xEnds} ${nodePosition.y - MARGIN_TOP}`.replace(/\n/g, '');
+                               L ${nodePosition.xEnds} ${nodePosition.y - MARGIN_TOP}`.replace(/\n|\t/g, '');
 
-  const animationDuration = isRoot ? 0 : INITIAL_ANIMATION_DURATION * 0.75;
+  const animationDuration = isRoot ? 0 : INITIAL_ANIMATION_DURATION * 0.5;
 
   return {
     offsetPath: `path("${animationOffsetPath}")`,

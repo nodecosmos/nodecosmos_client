@@ -12,7 +12,7 @@ export default {
   red1: '#e91e63',
   red2: '#ff306b',
   green1: '#9fd642',
-  green2: '#a7d160', // #c3fd7b c1ff68
+  green2: '#a9d85b', // #c3fd7b c1ff68
   green3: '#a4fd4f',
   yellow1: '#fffb00',
   yellow2: '#c9cd4b',

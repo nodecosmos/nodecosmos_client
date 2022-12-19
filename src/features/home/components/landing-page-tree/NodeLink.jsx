@@ -38,11 +38,8 @@ export default function NodeLink(props) {
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
-  const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
+  const circleY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
 
-  const circleY = linkY;
-
-  const yLength = y - linkY;
   const pathLength = y + EDGE_LENGTH;
 
   const pathRef = useRef(null);
@@ -62,11 +59,7 @@ export default function NodeLink(props) {
       <path
         ref={pathRef}
         strokeWidth={3.5}
-        d={`M ${linkX} ${linkY}
-            C ${linkX} ${linkY}
-              ${linkX - 1} ${linkY + yLength / 2 - 10}
-              ${linkX} ${y - 10}
-            L ${linkX} ${y - 10}
+        d={`M ${linkX} ${y}
             C ${linkX} ${y - 10}
               ${linkX} ${y}
               ${linkX + 8} ${y}
@@ -76,7 +69,7 @@ export default function NodeLink(props) {
         style={{
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
-          animation: `dash ${INITIAL_ANIMATION_DURATION}s forwards`,
+          animation: `dash ${INITIAL_ANIMATION_DURATION * 1.25}s forwards`,
           transition: `d ${TRANSITION_ANIMATION_DURATION}s`,
         }}
       />

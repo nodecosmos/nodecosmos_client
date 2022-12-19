@@ -26,7 +26,10 @@ export default function NodeButton(props) {
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor, color } = useNodeButtonBackground({
+  const {
+    backgroundColor,
+    color,
+  } = useNodeButtonBackground({
     id,
     nestedLevel,
     isRoot,
@@ -39,44 +42,43 @@ export default function NodeButton(props) {
   });
 
   const isCurrentNode = nodeExpanded && id === currentNodeID;
-  const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
-
-  // const isNodeColored = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
 
   return (
-    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={0} y={0} style={style}>
-      <Box display="flex" width="100%">
-        <Box
-          className="DropShadow"
-          component={isEditing ? 'div' : Button}
-          onClick={onNodeClick}
-          onKeyUp={(event) => event.preventDefault()}
-          display="inline-flex"
-          alignItems="center"
-          sx={{
-            backgroundColor,
-            height: NODE_BUTTON_HEIGHT,
-            color,
-            input: {
-              color,
-            },
-            '&:hover': {
+    <g style={style}>
+      <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT}>
+        <Box display="flex" width="100%" position="fixed">
+          <Box
+            className="DropShadow"
+            component={isEditing ? 'div' : Button}
+            onClick={onNodeClick}
+            onKeyUp={(event) => event.preventDefault()}
+            display="inline-flex"
+            alignItems="center"
+            sx={{
               backgroundColor,
-            },
-            borderRadius: 1.5,
-            p: 1,
-            cursor: 'pointer',
-          }}
-          {...(!isEditing && { disableRipple: true })}
-        >
-          <TagRounded fontSize="small" />
-          <NodeButtonText id={id} />
+              height: NODE_BUTTON_HEIGHT,
+              color,
+              input: {
+                color,
+              },
+              '&:hover': {
+                backgroundColor,
+              },
+              borderRadius: 1.5,
+              p: 1.4,
+              cursor: 'pointer',
+            }}
+            {...(!isEditing && { disableRipple: true })}
+          >
+            <TagRounded fontSize="small" ml="-2px" />
+            <NodeButtonText id={id} />
+          </Box>
+          <Box filter="none">
+            {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
+          </Box>
         </Box>
-        <Box filter="none">
-          {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
-        </Box>
-      </Box>
-    </foreignObject>
+      </foreignObject>
+    </g>
   );
 }
 
