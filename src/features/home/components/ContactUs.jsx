@@ -83,7 +83,7 @@ export default function ContactUs() {
     <Box
       mt={{
         xs: 16,
-        md: 24,
+        md: 32,
       }}
     >
       <AnimateOnView>
