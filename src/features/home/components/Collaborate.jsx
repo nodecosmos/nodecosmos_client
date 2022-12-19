@@ -50,7 +50,9 @@ export default function Vision() {
                 Contribution Requests
               </Typography>
               <Typography mt={3} variant="body1" color="#a4a7ab">
-                Use Contribution Request features to collaborate and boost your innovation
+                In the heart of the collaboration features is the Contribution Request. It enables
+                community members to boost your innovation by making a contribution to your
+                innovation following nodecosmos structure.
               </Typography>
               <Box mt={3}>
                 <ContributionRequest />
@@ -77,7 +79,9 @@ export default function Vision() {
                 Topics
               </Typography>
               <Typography mt={3} variant="body1" color="#a4a7ab">
-                Use Topics features to communicate and do brainstorming with your community
+                The topics feature enables you to discuss and do brainstorming with community.
+                The topic can include a question, a problem, a challenge or
+                anything you want to discuss with the community.
               </Typography>
               <Box mt={3}>
                 <Topics />
