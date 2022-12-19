@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import TagRounded from '@mui/icons-material/TagRounded';
 import { Box, Button } from '@mui/material';
@@ -51,13 +52,12 @@ export default function NodeButton(props) {
           onKeyUp={(event) => event.preventDefault()}
           display="inline-flex"
           alignItems="center"
-          disableRipple
           sx={{
             backgroundColor,
             height: NODE_BUTTON_HEIGHT,
-            color: isNodeColored ? 'rgb(0 0 0 / 70%)' : '#fff',
+            color: isNodeColored ? 'rgb(0 0 0 / 90%)' : '#fff',
             input: {
-              color: isNodeColored ? 'rgb(0 0 0 / 70%)' : '#fff',
+              color: isNodeColored ? 'rgb(0 0 0 / 90%)' : '#fff',
             },
             '&:hover': {
               backgroundColor,
@@ -66,6 +66,7 @@ export default function NodeButton(props) {
             p: 1,
             cursor: 'pointer',
           }}
+          {...(!isEditing && { disableRipple: true })}
         >
           <TagRounded fontSize="small" />
           <NodeButtonText id={id} />

@@ -12,9 +12,12 @@ export default function Hero() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        px={8}
+        px={{
+          xs: 0,
+          md: 8,
+        }}
         py={{
-          xs: 16,
+          xs: 10,
           md: 16,
         }}
       >
@@ -27,17 +30,17 @@ export default function Hero() {
             animation: refInView && 'rotate 0.3s',
           }}
         />
-        <Box ml={{
-          xs: 2,
-          sm: 2,
-        }}
-        >
+        <Box ml={4}>
           <Typography
             variant="h1"
             fontWeight="900"
             fontSize={{
-              xs: 35,
-              md: 41.6,
+              '@media (max-width: 360px)': {
+                fontSize: 25,
+              },
+              xs: 30,
+              sm: 35,
+              md: 47,
             }}
             fontFamily="'Montserrat', sans-serif"
             color="#fff"
@@ -48,9 +51,13 @@ export default function Hero() {
             variant="h2"
             fontFamily="'Roboto Mono', monospace"
             fontSize={{
+              '@media (max-width: 360px)': {
+                fontSize: 13,
+              },
               xs: 16,
-              md: 16,
+              sm: 18,
             }}
+            pl="2px"
             color="#fff"
             fontWeight={400}
             textAlign="left"

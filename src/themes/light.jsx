@@ -10,14 +10,14 @@ export default {
   gray3: '#464648',
   beige1: '#fcfbec',
   red1: '#e91e63',
-  red2: '#ff306b',
+  red2: '#e53b6d',
   green1: '#9fd642',
-  green2: '#c1ff68', // #c3fd7b c1ff68
+  green2: '#acdf83', // #c3fd7b c1ff68
   green3: '#a4fd4f',
   yellow1: '#fffb00',
   yellow2: '#c9cd4b',
   blue1: '#18cbea',
-  blue2: '#58deff',
+  blue2: '#83dcdf',
   blue3: '#36abf2',
   cyan1: '#58e1cc',
   purple1: '#8961ad',
