@@ -32,8 +32,8 @@ export default function LandingPageTree() {
       </Typography>
       <Typography mt={3} variant="body1" color="#fff">
         Use the Node Tree feature to structure your innovation.
-        Each node can represent components of your project, ingredients in your recipe,
-        or other constituents depending on your project.
+        Each node can represent a component of your project, an ingredient in your recipe,
+        or other type of constituent depending on your project.
         Furthermore, nodes can be reused and shared between projects.
       </Typography>
       <Box
