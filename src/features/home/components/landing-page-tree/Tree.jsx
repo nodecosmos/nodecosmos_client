@@ -45,18 +45,14 @@ export default function Tree(props) {
           xs: 1,
           md: '38.19700%',
         }}
-        position={{
-          xs: 'sticky',
-          md: 'static',
-        }}
-        bottom={{
-          xs: 0,
-          md: 'auto',
-        }}
-        top={{
-          xs: 16,
-          md: 0,
-        }}
+        // position={{
+        //   xs: 'sticky',
+        //   md: 'static',
+        // }}
+        // bottom={{
+        //   xs: 0,
+        //   md: 'auto',
+        // }}
       >
         <NodeDescription />
       </Box>
