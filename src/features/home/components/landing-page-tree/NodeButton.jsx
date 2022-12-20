@@ -45,7 +45,7 @@ export default function NodeButton(props) {
 
   return (
     <g style={style}>
-      <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT}>
+      <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT + 3}>
         <Box display="flex" width="100%" position="fixed">
           <Box
             className="DropShadow"
