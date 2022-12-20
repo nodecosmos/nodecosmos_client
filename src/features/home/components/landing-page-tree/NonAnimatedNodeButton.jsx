@@ -33,9 +33,10 @@ export default function NonAnimatedNodeButton(props) {
   const y = nodePosition.y - MARGIN_TOP;
 
   return (
-    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={x} y={y}>
+    <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT + 3} x={x} y={y}>
       <Box display="flex" width="100%">
         <Box
+          className="DropShadow"
           component={isEditing ? 'div' : Button}
           onClick={onNodeClick}
           onKeyUp={(event) => event.preventDefault()}
