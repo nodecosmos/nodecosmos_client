@@ -5,10 +5,6 @@ import useNodePositionCalculator from '../../hooks/landing-page-tree/useNodePosi
 import useNodeUnmountService from '../../hooks/landing-page-tree/useNodeUnmountService';
 import NodeButton from './NodeButton';
 import NodeLink from './NodeLink';
-import NonAnimatedNodeButton from './NonAnimatedNodeButton';
-import NonAnimatedNodeLink from './NonAnimatedNodeLink';
-
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function Node(props) {
   const {
@@ -25,28 +21,6 @@ export default function Node(props) {
 
   useNodeUnmountService({ id });
 
-  // use non animated buttons and link if user agent is safari or firefox
-  // const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-
-  if (isSafari) {
-    return (
-      <g>
-        <NonAnimatedNodeLink
-          id={id}
-          upperSiblingID={upperSiblingID}
-          nestedLevel={nestedLevel}
-          isRoot={isRoot}
-        />
-        <NonAnimatedNodeButton
-          id={id}
-          nestedLevel={nestedLevel}
-          isRoot={isRoot}
-        />
-        {nodeExpanded && children}
-      </g>
-    );
-  }
-
   return (
     <g>
       <NodeLink
@@ -59,7 +33,6 @@ export default function Node(props) {
         id={id}
         isRoot={isRoot}
         nestedLevel={nestedLevel}
-        upperSiblingID={upperSiblingID}
       />
       {nodeExpanded && children}
     </g>

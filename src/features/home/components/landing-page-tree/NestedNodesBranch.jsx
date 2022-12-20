@@ -11,10 +11,10 @@ export default function NestedNodesBranch(props) {
   const { xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
   const lastChildY = useSelector((state) => lastChildId && state.landingPageNodes[lastChildId].position.y);
 
-  if (!lastChildY) return null;
-
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
+
+  const pathY = lastChildY || linkY;
 
   const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
@@ -24,7 +24,7 @@ export default function NestedNodesBranch(props) {
       stroke="#414650"
       fill="transparent"
       strokeWidth={3.5}
-      d={`M ${x} ${linkY} L ${x} ${lastChildY}`}
+      d={`M ${x} ${linkY} L ${x} ${pathY}`}
       sx={{
         transition: `d ${animationDuration}s`,
       }}

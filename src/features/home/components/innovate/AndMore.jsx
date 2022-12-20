@@ -8,16 +8,17 @@ export default function Other() {
   const glassesOff = '( •_•)>⌐■-■';
   const glassesOn = '(⌐■_■)';
 
-  let currentEmoji = glassesOn;
+  const [currentEmoji, setCurrentEmoji] = React.useState(glassesOff);
+  const [intervalCounter, setIntervalCounter] = React.useState(0);
 
-  const intervalId = setInterval(() => {
-    if (coolRef.current) {
-      coolRef.current.innerHTML = currentEmoji;
-      currentEmoji = currentEmoji === glassesOff ? glassesOn : glassesOff;
+  useEffect(() => {
+    if (intervalCounter < 5) {
+      setTimeout(() => {
+        setCurrentEmoji(currentEmoji === glassesOff ? glassesOn : glassesOff);
+        setIntervalCounter(intervalCounter + 1);
+      }, 1000);
     }
-  }, 1500);
-
-  useEffect(() => () => clearInterval(intervalId));
+  }, [intervalCounter, currentEmoji]);
 
   return (
     <Box>
@@ -58,7 +59,7 @@ export default function Other() {
           }}
           textAlign="center"
         >
-          ( •_•)&gt;⌐■-■
+          {currentEmoji}
         </Typography>
       </Box>
     </Box>

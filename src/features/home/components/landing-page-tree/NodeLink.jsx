@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
+import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
-import {
-  EDGE_LENGTH, INITIAL_ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
-} from './constants';
+import { MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION } from './constants';
+
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 function renderRootLink({ x, xEnds, y }) {
   return (
@@ -20,7 +21,7 @@ function renderRootLink({ x, xEnds, y }) {
   );
 }
 
-export default function NodeLink(props) {
+export default function NonAnimatedNodeLink(props) {
   const {
     id,
     upperSiblingID,
@@ -38,9 +39,10 @@ export default function NodeLink(props) {
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
-  const circleY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
+  const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
 
-  const pathLength = y + EDGE_LENGTH;
+  const yLength = y - linkY;
+  const circleY = linkY + yLength - 2.5;
 
   const pathRef = useRef(null);
   const circleRef = useRef(null);
@@ -54,46 +56,53 @@ export default function NodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
+  const pathLength = pathRef.current && Math.round(pathRef.current.getTotalLength());
+
+  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+
   return (
     <g>
-      <path
+      <Box
+        component="path"
         ref={pathRef}
         strokeWidth={3.5}
         d={`M ${linkX} ${y}
-            C ${linkX} ${y - 10}
-              ${linkX} ${y}
-              ${linkX + 8} ${y}
+            C ${linkX} ${y}
+              ${linkX + 25} ${y + 1}
+              ${xEnds} ${y}
             L ${xEnds} ${y}`}
         stroke="#414650"
         fill="transparent"
         style={{
           strokeDasharray: pathLength,
           strokeDashoffset: pathLength,
-          animation: `dash ${INITIAL_ANIMATION_DURATION * 1.25}s forwards`,
-          transition: `d ${TRANSITION_ANIMATION_DURATION}s`,
+        }}
+        sx={{
+          animation: `dash ${animationDuration}s forwards`,
+          transition: `d ${animationDuration}s`,
         }}
       />
-      <circle
+      <Box
+        component="circle"
         ref={circleRef}
         cx={x}
-        cy={circleY + 6}
+        cy={circleY}
         r={5}
-        style={{
-          offsetPath: `path("M ${0} ${0} L ${0} ${y - circleY - 8.5}")`,
-          animation: `move ${INITIAL_ANIMATION_DURATION / 4}s forwards`,
-          transition: `cy ${TRANSITION_ANIMATION_DURATION}s, offset-path ${TRANSITION_ANIMATION_DURATION}s`,
-        }}
         fill={parentBackgroundColor}
+        sx={{
+          animation: `node-circle-appear ${animationDuration}s forwards`,
+          transition: `cx ${animationDuration}s linear, cy ${animationDuration}s`,
+        }}
       />
     </g>
   );
 }
 
-NodeLink.defaultProps = {
+NonAnimatedNodeLink.defaultProps = {
   upperSiblingID: null,
 };
 
-NodeLink.propTypes = {
+NonAnimatedNodeLink.propTypes = {
   id: PropTypes.string.isRequired,
   upperSiblingID: PropTypes.string,
   isRoot: PropTypes.bool.isRequired,

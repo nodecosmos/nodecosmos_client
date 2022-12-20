@@ -3,5 +3,4 @@ export const NODE_BUTTON_HEIGHT = 29.5; // height of node button
 export const MARGIN_TOP = NODE_BUTTON_HEIGHT / 2.0 + 0.3; // move children's edge down from current node's button y
 export const EDGE_LENGTH = 35; // length of edge (link)
 
-export const INITIAL_ANIMATION_DURATION = 0.5; // initial animation duration
-export const TRANSITION_ANIMATION_DURATION = 0.25;
+export const TRANSITION_ANIMATION_DURATION = 0.2;

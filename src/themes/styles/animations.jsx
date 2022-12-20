@@ -4,6 +4,37 @@ export default () => ({
       strokeDashoffset: 0,
     },
   },
+  // ----------------------------------------------------- Tree ----------------------------------------------------- //
+  '@keyframes node-button-appear': {
+    '0%': {
+      transform: 'translate(-30px, -21px)',
+    },
+    '50%': {
+      transform: 'translate(-30px, 0px)',
+
+    },
+    '75%': {
+      transform: 'translate(-10px, 1px)',
+
+    },
+    '100%': {
+      transform: 'translate(0px, 0px)',
+    },
+  },
+
+  '@keyframes node-circle-appear': {
+    '0%': {
+      transform: 'translateY(-30px)',
+    },
+    '40%': {
+      transform: 'translateY(0)',
+
+    },
+    '100%': {
+      transform: 'translateY(0)',
+    },
+  },
+
   // --------------------------------------------------- Homepage --------------------------------------------------- //
   '@keyframes rotate': {
     from: {

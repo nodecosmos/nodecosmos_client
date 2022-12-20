@@ -6,49 +6,56 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* nodecosmos */
-import useNodeButtonAnimationStyle from '../../hooks/landing-page-tree/useNodeButtonAnimationStyle';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
-import { NODE_BUTTON_HEIGHT } from './constants';
+import { MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION } from './constants';
 import NodeButtonText from './NodeButtonText';
 import NodeToolbar from './NodeToolbar';
+
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function NodeButton(props) {
   const {
     id,
     isRoot,
     nestedLevel,
-    upperSiblingID,
   } = props;
 
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
+  const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const {
-    backgroundColor,
-    color,
-  } = useNodeButtonBackground({
-    id,
-    nestedLevel,
-    isRoot,
-  });
-  const style = useNodeButtonAnimationStyle({
-    id,
-    isRoot,
-    upperSiblingID,
-    nestedLevel,
-  });
+  const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeID;
 
+  const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
+  const x = nodePosition.xEnds;
+  const y = nodePosition.y - MARGIN_TOP;
+
+  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+
   return (
-    <g style={style}>
-      <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT + 3}>
-        <Box display="flex" width="100%" position="fixed">
+    <Box
+      component="g"
+      sx={{
+        animation: `node-button-appear ${animationDuration}s forwards`,
+      }}
+    >
+      <foreignObject
+        className="NodeName"
+        width="500"
+        height={NODE_BUTTON_HEIGHT + 3}
+        x={x}
+        y={y}
+        style={{
+          transition: !isNew && `y ${animationDuration}s`,
+        }}
+      >
+        <Box display="flex" width="100%">
           <Box
-            className="DropShadow"
             component={isEditing ? 'div' : Button}
             onClick={onNodeClick}
             onKeyUp={(event) => event.preventDefault()}
@@ -67,6 +74,7 @@ export default function NodeButton(props) {
               borderRadius: 1.5,
               p: 1.4,
               cursor: 'pointer',
+              boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
             }}
             {...(!isEditing && { disableRipple: true })}
           >
@@ -78,17 +86,12 @@ export default function NodeButton(props) {
           </Box>
         </Box>
       </foreignObject>
-    </g>
+    </Box>
   );
 }
-
-NodeButton.defaultProps = {
-  upperSiblingID: null,
-};
 
 NodeButton.propTypes = {
   id: PropTypes.string.isRequired,
   isRoot: PropTypes.bool.isRequired,
   nestedLevel: PropTypes.number.isRequired,
-  upperSiblingID: PropTypes.string,
 };
