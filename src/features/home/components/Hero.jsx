@@ -21,14 +21,13 @@ export default function Hero() {
           md: 16,
         }}
       >
-        <Box
-          component="img"
+        <img
           src="innovate_9.svg"
           alt="logo"
-          ml="-153.015px"
-          width={227.46}
-          height={201.99}
-          sx={{
+          width={227}
+          height={202}
+          style={{
+            marginLeft: -153.015,
             animation: refInView && 'rotate 0.3s',
           }}
         />
