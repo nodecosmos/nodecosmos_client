@@ -4,6 +4,8 @@ import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION } from './constants';
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export default function NestedNodesBranch(props) {
   const { id, lastChildId } = props;
   const { xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
@@ -14,6 +16,8 @@ export default function NestedNodesBranch(props) {
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
 
+  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+
   return (
     <Box
       component="path"
@@ -22,7 +26,7 @@ export default function NestedNodesBranch(props) {
       strokeWidth={3.5}
       d={`M ${x} ${linkY} L ${x} ${lastChildY}`}
       sx={{
-        transition: `d ${TRANSITION_ANIMATION_DURATION}s`,
+        transition: `d ${animationDuration}s`,
       }}
     />
   );

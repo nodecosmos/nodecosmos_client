@@ -8,6 +8,8 @@ import NodeLink from './NodeLink';
 import NonAnimatedNodeButton from './NonAnimatedNodeButton';
 import NonAnimatedNodeLink from './NonAnimatedNodeLink';
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export default function Node(props) {
   const {
     id,
@@ -24,7 +26,6 @@ export default function Node(props) {
   useNodeUnmountService({ id });
 
   // use non animated buttons and link if user agent is safari or firefox
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   // const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
   if (isSafari) {

@@ -23,17 +23,14 @@ export default function NonAnimatedNodeButton(props) {
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+  const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeID;
-  const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
 
   const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
 
   const x = nodePosition.xEnds;
   const y = nodePosition.y - MARGIN_TOP;
-
-  const isNodeColored = (nodeExpanded && isCurrentNode) || (nodeExpanded && hasNestedNodes) ? 'expanded' : null;
 
   return (
     <foreignObject className="NodeName" width="500" height={NODE_BUTTON_HEIGHT} x={x} y={y}>
@@ -47,9 +44,9 @@ export default function NonAnimatedNodeButton(props) {
           sx={{
             backgroundColor,
             height: NODE_BUTTON_HEIGHT,
-            color: isNodeColored ? 'rgb(0 0 0 / 70%)' : '#fff',
+            color,
             input: {
-              color: isNodeColored ? 'rgb(0 0 0 / 70%)' : '#fff',
+              color,
             },
             '&:hover': {
               backgroundColor,
