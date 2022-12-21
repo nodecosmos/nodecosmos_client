@@ -21,18 +21,12 @@ export default function Transformable(props) {
   const minHeight = matchesSm ? 790 : 800;
   const minWidth = matchesSm ? 400 : 1050;
 
-  let timeoutId = null;
-
   const resize = () => {
     const newHeight = gRef.current.getBBox().height + 50;
     const newWidth = gRef.current.getBBox().width + 50;
 
-    if (timeoutId) clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => {
-      svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
-      svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
-    }, 300);
+    svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
+    svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
   };
 
   // handle pan
@@ -54,7 +48,6 @@ export default function Transformable(props) {
   return (
     <Box
       onClick={resize}
-      onTouchStart={resize}
       onMouseDown={handleMouseDown}
       sx={{
         overflow: {
@@ -83,7 +76,6 @@ export default function Transformable(props) {
       <Box
           // onTouchStart={handlePinch}
         sx={{
-          // touchAction: 'none',
           p: 0,
           WebkitTapHighlightColor: 'transparent',
           WebkitTouchCallout: 'none',

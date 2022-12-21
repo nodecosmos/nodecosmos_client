@@ -8,7 +8,9 @@ import { useSelector } from 'react-redux';
 /* nodecosmos */
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION } from './constants';
+import {
+  INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
+} from './constants';
 import NodeButtonText from './NodeButtonText';
 import NodeToolbar from './NodeToolbar';
 
@@ -41,7 +43,7 @@ export default function NodeButton(props) {
     <Box
       component="g"
       sx={{
-        animation: `node-button-appear ${animationDuration}s forwards`,
+        animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms forwards`,
       }}
     >
       <foreignObject
@@ -51,7 +53,7 @@ export default function NodeButton(props) {
         x={x}
         y={y}
         style={{
-          transition: !isNew && `y ${animationDuration}s`,
+          transition: isNew ? null : `y ${animationDuration}ms`,
         }}
       >
         <Box display="flex" width="100%">
@@ -76,7 +78,6 @@ export default function NodeButton(props) {
               cursor: 'pointer',
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
             }}
-            {...(!isEditing && { disableRipple: true })}
           >
             <TagRounded fontSize="small" ml="-2px" />
             <NodeButtonText id={id} />

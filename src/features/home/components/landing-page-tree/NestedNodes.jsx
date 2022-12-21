@@ -8,6 +8,7 @@ export default function NestedNodes(props) {
   const { currentNodeId, nestedLevel } = props;
   const nodeIds = useSelector((state) => state.landingPageNodes[currentNodeId].node_ids);
   const lastChildId = nodeIds[nodeIds.length - 1] && nodeIds[nodeIds.length - 1].$oid;
+
   return (
     <>
       <NestedNodesBranch id={currentNodeId} lastChildId={lastChildId} />

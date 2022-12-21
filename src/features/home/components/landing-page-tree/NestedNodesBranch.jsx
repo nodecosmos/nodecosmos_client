@@ -26,7 +26,7 @@ export default function NestedNodesBranch(props) {
       strokeWidth={3.5}
       d={`M ${x} ${linkY} L ${x} ${pathY}`}
       sx={{
-        transition: `d ${animationDuration}s`,
+        transition: `d ${animationDuration}ms`,
       }}
     />
   );

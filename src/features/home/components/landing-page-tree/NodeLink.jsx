@@ -3,7 +3,9 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
-import { MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION } from './constants';
+import {
+  INITIAL_ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
+} from './constants';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -78,8 +80,8 @@ export default function NonAnimatedNodeLink(props) {
           strokeDashoffset: pathLength,
         }}
         sx={{
-          animation: `dash ${animationDuration}s forwards`,
-          transition: `d ${animationDuration}s`,
+          animation: `dash ${INITIAL_ANIMATION_DURATION}ms forwards`,
+          transition: `d ${animationDuration}ms`,
         }}
       />
       <Box
@@ -90,8 +92,8 @@ export default function NonAnimatedNodeLink(props) {
         r={5}
         fill={parentBackgroundColor}
         sx={{
-          animation: `node-circle-appear ${animationDuration}s forwards`,
-          transition: `cx ${animationDuration}s linear, cy ${animationDuration}s`,
+          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION}ms forwards`,
+          transition: `cx ${animationDuration}ms, cy ${animationDuration}ms`,
         }}
       />
     </g>
