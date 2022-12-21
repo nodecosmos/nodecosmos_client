@@ -6,19 +6,22 @@ export default function Other() {
   const coolRef = React.useRef(null);
 
   const glassesOff = '( •_•)>⌐■-■';
+  const glassesOffWink = '( - _•)>⌐■-■';
   const glassesOn = '(⌐■_■)';
 
-  const [currentEmoji, setCurrentEmoji] = React.useState(glassesOff);
-  const [intervalCounter, setIntervalCounter] = React.useState(0);
+  const [currentEmoji, setCurrentEmoji] = React.useState(glassesOn);
+  const [sequenceCounter, setsequenceCounter] = React.useState(0);
 
   useEffect(() => {
-    if (intervalCounter < 5) {
+    const sequence = [glassesOn, glassesOff, glassesOffWink, glassesOff, glassesOn];
+
+    if (sequenceCounter < 10) {
       setTimeout(() => {
-        setCurrentEmoji(currentEmoji === glassesOff ? glassesOn : glassesOff);
-        setIntervalCounter(intervalCounter + 1);
+        setCurrentEmoji(sequence[sequenceCounter % 5]);
+        setsequenceCounter(sequenceCounter + 1);
       }, 1000);
     }
-  }, [intervalCounter, currentEmoji]);
+  }, [sequenceCounter, currentEmoji]);
 
   return (
     <Box>
