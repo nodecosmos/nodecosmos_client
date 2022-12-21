@@ -37,8 +37,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 746.25,
-      yEnds: 746.25,
+      y: 750.7499999999999,
+      yEnds: 750.7499999999999,
     },
   },
   '635b87f8690cc413ead79cf1': {
@@ -77,8 +77,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 696.5,
-      yEnds: 696.5,
+      y: 700.6999999999999,
+      yEnds: 700.6999999999999,
     },
   },
   '635b87ec690cc413ead79cf0': {
@@ -118,8 +118,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 646.75,
-      yEnds: 646.75,
+      y: 650.65,
+      yEnds: 650.65,
     },
   },
   '635b87d6690cc413ead79cef': {
@@ -159,8 +159,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 597,
-      yEnds: 597,
+      y: 600.6,
+      yEnds: 600.6,
     },
   },
   '635b87c6690cc413ead79cee': {
@@ -210,51 +210,10 @@ export default {
     position: {
       xEnds: 125,
       x: 90,
-      y: 547.25,
-      yEnds: 746.25,
+      y: 550.5500000000001,
+      yEnds: 750.7499999999998,
     },
     expanded: true,
-  },
-  '635a92a2690cc413ead79ced': {
-    _id: {
-      $oid: '635a92a2690cc413ead79ced',
-    },
-    title: 'Cockpit',
-    description: 'A cockpit or flight deck is the area, usually near the front of an aircraft or spacecraft, from which a pilot controls the aircraft',
-    parent_id: '635a91ff690cc413ead79ce3',
-    ancestor_ids: [
-      {
-        $oid: '635a91ff690cc413ead79ce3',
-      },
-      {
-        $oid: '635a91ea690cc413ead79ce2',
-      },
-    ],
-    owner: {
-      _id: {
-        $oid: '62fa2c50690cc4581aa6a20a',
-      },
-      sign_in_count: 0,
-      failed_attempts: 5,
-      first_name: 'Goran',
-      last_name: 'Brkuljan',
-      email: 'goran@nodecosmos.com',
-      encrypted_password: '$2a$12$SafSfDYH41hHknfVLv4eluS.duHigCAEdO5iRN9m6j5zsPPvZuv7.',
-      username: 'goran',
-      updated_at: '2022-08-15T11:22:09.500Z',
-      created_at: '2022-08-15T11:21:52.813Z',
-      confirmation_token: 'G8S_K2GAziqzGX1bdG5Z',
-      confirmation_sent_at: '2022-08-15T11:21:52.813Z',
-      confirmed_at: '2022-08-15T11:22:09.499Z',
-    },
-    id: '635a92a2690cc413ead79ced',
-    node_ids: [],
-    position: {
-      xEnds: 180,
-      x: 145,
-      y: 149.25,
-      yEnds: 149.25,
-    },
   },
   '635a9269690cc413ead79ceb': {
     _id: {
@@ -293,8 +252,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 298.5,
-      yEnds: 298.5,
+      y: 300.3,
+      yEnds: 300.3,
     },
   },
   '635a9264690cc413ead79cea': {
@@ -334,8 +293,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 248.75,
-      yEnds: 248.75,
+      y: 250.25,
+      yEnds: 250.25,
     },
   },
   '635a924c690cc413ead79ce9': {
@@ -375,8 +334,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 497.5,
-      yEnds: 497.5,
+      y: 500.50000000000006,
+      yEnds: 500.50000000000006,
     },
   },
   '635a9248690cc413ead79ce8': {
@@ -384,7 +343,7 @@ export default {
       $oid: '635a9248690cc413ead79ce8',
     },
     title: 'Elevator',
-    description: 'Elevators are flight control surfaces, usually at the rear of an aircraft, which control the aircraft\'s pitch, and therefore the angle of attack and the lift of the wing.',
+    description: "Elevators are flight control surfaces, usually at the rear of an aircraft, which control the aircraft's pitch, and therefore the angle of attack and the lift of the wing.",
     parent_id: '635a9226690cc413ead79ce5',
     ancestor_ids: [
       {
@@ -416,8 +375,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 398,
-      yEnds: 398,
+      y: 400.40000000000003,
+      yEnds: 400.40000000000003,
     },
   },
   '635a922d690cc413ead79ce6': {
@@ -458,8 +417,8 @@ export default {
     position: {
       xEnds: 125,
       x: 90,
-      y: 447.75,
-      yEnds: 497.5,
+      y: 450.45000000000005,
+      yEnds: 500.50000000000006,
     },
     expanded: true,
   },
@@ -501,8 +460,8 @@ export default {
     position: {
       xEnds: 125,
       x: 90,
-      y: 348.25,
-      yEnds: 398,
+      y: 350.35,
+      yEnds: 400.40000000000003,
     },
     expanded: true,
   },
@@ -547,8 +506,8 @@ export default {
     position: {
       xEnds: 125,
       x: 90,
-      y: 199,
-      yEnds: 298.5,
+      y: 200.2,
+      yEnds: 300.3,
     },
     expanded: true,
   },
@@ -583,25 +542,26 @@ export default {
     },
     node_ids: [
       {
-        $oid: '635a92a2690cc413ead79ced',
+        $oid: '9rr3d',
       },
     ],
     id: '635a91ff690cc413ead79ce3',
     position: {
       xEnds: 125,
       x: 90,
-      y: 99.5,
-      yEnds: 149.25,
+      y: 100.1,
+      yEnds: 150.14999999999998,
     },
     expanded: true,
+    isEditing: false,
+    isNew: false,
   },
   '635a91ea690cc413ead79ce2': {
     _id: {
       $oid: '635a91ea690cc413ead79ce2',
     },
     title: 'Airplane',
-    description: 'An airplane is a fixed-wing aircraft that is propelled '
-      + 'forward by thrust from a jet engine, propeller, or rocket engine.',
+    description: 'An airplane is a fixed-wing aircraft that is propelled forward by thrust from a jet engine, propeller, or rocket engine.',
     owner: {
       _id: {
         $oid: '62fa2c50690cc4581aa6a20a',
@@ -642,9 +602,260 @@ export default {
     position: {
       xEnds: 70,
       x: 35,
-      y: 49.75,
-      yEnds: 746.25,
+      y: 50.05,
+      yEnds: 750.7499999999999,
     },
     expanded: true,
+  },
+  d9pyjg: {
+    id: 'd9pyjg',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a92a2690cc413ead79ced',
+    ancestor_ids: [
+      {
+        $oid: '635a92a2690cc413ead79ced',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 200.2,
+      yEnds: 200.2,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  e55x6: {
+    id: 'e55x6',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a92a2690cc413ead79ced',
+    ancestor_ids: [
+      {
+        $oid: '635a92a2690cc413ead79ced',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 250.25,
+      yEnds: 250.25,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  oefrah: {
+    id: 'oefrah',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a92a2690cc413ead79ced',
+    ancestor_ids: [
+      {
+        $oid: '635a92a2690cc413ead79ced',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 300.3,
+      yEnds: 300.3,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  '27s80j': {
+    id: '27s80j',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a92a2690cc413ead79ced',
+    ancestor_ids: [
+      {
+        $oid: '635a92a2690cc413ead79ced',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 350.35,
+      yEnds: 350.35,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  '88wnq': {
+    id: '88wnq',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a92a2690cc413ead79ced',
+    ancestor_ids: [
+      {
+        $oid: '635a92a2690cc413ead79ced',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 400.40000000000003,
+      yEnds: 400.40000000000003,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  o994p: {
+    id: 'o994p',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: 'eq2bt',
+    ancestor_ids: [
+      {
+        $oid: 'eq2bt',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 200.2,
+      yEnds: 200.2,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  q8625: {
+    id: 'q8625',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: 'eq2bt',
+    ancestor_ids: [
+      {
+        $oid: 'eq2bt',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 250.25,
+      yEnds: 250.25,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  '884a6f': {
+    id: '884a6f',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: 'eq2bt',
+    ancestor_ids: [
+      {
+        $oid: 'eq2bt',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 300.3,
+      yEnds: 300.3,
+    },
+    owner: {
+      username: '',
+    },
+  },
+  '9rr3d': {
+    id: '9rr3d',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a91ff690cc413ead79ce3',
+    ancestor_ids: [
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 180,
+      x: 145,
+      y: 150.14999999999998,
+      yEnds: 150.14999999999998,
+    },
+    owner: {
+      username: '',
+    },
+    expanded: true,
+    title: 'Cockpit',
   },
 };
