@@ -27,6 +27,7 @@ export default function NodeButton(props) {
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
+  const animateTransition = useSelector((state) => state.landingPageNodes[id].animateTransition);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
@@ -37,9 +38,7 @@ export default function NodeButton(props) {
   const x = nodePosition.xEnds;
   const y = nodePosition.y - MARGIN_TOP;
 
-  if (x <= 0 || y <= 0) return null; // position not yet calculated
-
-  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+  const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
 
   return (
     <Box

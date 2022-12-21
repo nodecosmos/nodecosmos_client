@@ -2,8 +2,12 @@ import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePrevProps from '../../../app/hooks/usePrevProps';
 import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
-import { incrementNodesYEnds, updateNodePosition } from '../../components/landing-page-tree/landingPageNodeSlice';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/landing-page-tree/constants';
+import {
+  incrementNodesYEnds,
+  updateNode,
+  updateNodePosition,
+} from '../../components/landing-page-tree/landingPageNodeSlice';
 
 export default function useNodePositionCalculator(props) {
   const {
@@ -60,31 +64,38 @@ export default function useNodePositionCalculator(props) {
   const incrementAncestorsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;
 
-    if (!isRoot) dispatch(incrementNodesYEnds({ ids: nodeAncestorIds, increment }));
+    if (!isRoot) {
+      dispatch(incrementNodesYEnds({
+        ids: nodeAncestorIds,
+        increment,
+      }));
+    }
   }, [dispatch, isRoot, nodeAncestorIds]);
 
   const decrementAncestorsYEnds = useCallback(() => {
     const initialParentIncrement = EDGE_LENGTH + MARGIN_TOP;
     const decrement = -initialParentIncrement;
 
-    if (!isRoot) dispatch(incrementNodesYEnds({ ids: nodeAncestorIds, increment: decrement }));
+    if (!isRoot) {
+      dispatch(incrementNodesYEnds({
+        ids: nodeAncestorIds,
+        increment: decrement,
+      }));
+    }
   }, [dispatch, isRoot, nodeAncestorIds]);
 
-  useLayoutEffect(() => { calculatePosition(); }, [calculatePosition]);
+  useLayoutEffect(() => {
+    calculatePosition();
+  }, [calculatePosition]);
 
   useEffect(() => incrementAncestorsYEnds(), [incrementAncestorsYEnds]);
 
   useEffect(() => () => {
     decrementAncestorsYEnds();
 
-    dispatch(updateNodePosition({
+    dispatch(updateNode({
       id,
-      position: {
-        xEnds: 0,
-        x: 0,
-        y: 0,
-        yEnds: 0,
-      },
+      animateTransition: false,
     }));
   }, [decrementAncestorsYEnds, id, dispatch]);
 }

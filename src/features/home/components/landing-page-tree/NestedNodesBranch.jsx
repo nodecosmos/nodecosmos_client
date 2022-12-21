@@ -9,6 +9,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 export default function NestedNodesBranch(props) {
   const { id, lastChildId } = props;
   const { xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
+  const animateTransition = useSelector((state) => state.landingPageNodes[id].animateTransition);
   const lastChildY = useSelector((state) => lastChildId && state.landingPageNodes[lastChildId].position.y);
 
   const x = xEnds + MARGIN_LEFT;
@@ -16,7 +17,7 @@ export default function NestedNodesBranch(props) {
 
   const pathY = lastChildY || linkY;
 
-  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+  const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
 
   return (
     <Box

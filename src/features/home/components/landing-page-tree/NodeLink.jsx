@@ -32,6 +32,7 @@ export default function NonAnimatedNodeLink(props) {
   } = props;
 
   const { x, xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
+  const animateTransition = useSelector((state) => state.landingPageNodes[id].animateTransition);
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.landingPageNodes[upperSiblingID].position);
@@ -60,7 +61,7 @@ export default function NonAnimatedNodeLink(props) {
 
   const pathLength = pathRef.current && Math.round(pathRef.current.getTotalLength());
 
-  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+  const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
 
   return (
     <g>
