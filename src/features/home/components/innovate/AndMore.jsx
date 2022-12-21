@@ -10,15 +10,15 @@ export default function Other() {
   const glassesOn = '(⌐■_■)';
 
   const [currentEmoji, setCurrentEmoji] = React.useState(glassesOn);
-  const [sequenceCounter, setsequenceCounter] = React.useState(0);
+  const [sequenceCounter, setSequenceCounter] = React.useState(0);
 
   useEffect(() => {
-    const sequence = [glassesOn, glassesOff, glassesOffWink, glassesOff, glassesOn];
+    const sequence = [glassesOff, glassesOffWink, glassesOff, glassesOn];
 
-    if (sequenceCounter < 10) {
+    if (sequenceCounter < 8) {
       setTimeout(() => {
-        setCurrentEmoji(sequence[sequenceCounter % 5]);
-        setsequenceCounter(sequenceCounter + 1);
+        setCurrentEmoji(sequence[sequenceCounter % 4]);
+        setSequenceCounter(sequenceCounter + 1);
       }, 1000);
     }
   }, [sequenceCounter, currentEmoji]);
