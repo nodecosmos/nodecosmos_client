@@ -50,9 +50,8 @@ export default function Vision() {
                 Contribution Requests
               </Typography>
               <Typography mt={3} variant="body1" color="#a4a7ab">
-                In the heart of the collaboration features is the Contribution Request. It enables
-                community members to boost your innovation by making a contribution to your
-                innovation following nodecosmos structure.
+                At the heart of the collaboration features is the Contribution Request.
+                It enables community members to contribute to your innovation by following the Nodecosmos structure.
               </Typography>
               <Box mt={3}>
                 <ContributionRequest />

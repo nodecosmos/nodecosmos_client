@@ -55,8 +55,8 @@ export default function Transformable(props) {
     <Box
       onClick={resize}
       onTouchStart={resize}
+      onMouseDown={handleMouseDown}
       sx={{
-        position: 'relative',
         overflow: {
           xs: 'auto',
           lg: 'hidden',
@@ -81,7 +81,6 @@ export default function Transformable(props) {
     >
       {/* <TransformablePath panX={pan.x} /> */}
       <Box
-        onMouseDown={handleMouseDown}
           // onTouchStart={handlePinch}
         sx={{
           // touchAction: 'none',
