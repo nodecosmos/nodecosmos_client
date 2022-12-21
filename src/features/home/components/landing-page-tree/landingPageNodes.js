@@ -857,5 +857,6 @@ export default {
     },
     expanded: true,
     title: 'Cockpit',
+    description: 'A cockpit or flight deck is the area, usually near the front of an aircraft or spacecraft, from which a pilot controls the aircraft.',
   },
 };
