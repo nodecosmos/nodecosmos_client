@@ -28,8 +28,10 @@ export default function NodeButtonText(props) {
   };
 
   useEffect(() => {
-    ref.current.focus();
-  }, []);
+    if (isEditing) {
+      ref.current.focus();
+    }
+  }, [isEditing]);
 
   return (
     <Box
