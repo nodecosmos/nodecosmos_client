@@ -37,7 +37,7 @@ export default function NodeButton(props) {
   const x = nodePosition.xEnds;
   const y = nodePosition.y - MARGIN_TOP;
 
-  if (x <= 0 || y <= 0) return null;
+  if (x <= 0 || y <= 0) return null; // position not yet calculated
 
   const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
