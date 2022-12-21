@@ -74,5 +74,16 @@ export default function useNodePositionCalculator(props) {
 
   useEffect(() => incrementAncestorsYEnds(), [incrementAncestorsYEnds]);
 
-  useEffect(() => () => decrementAncestorsYEnds(), [decrementAncestorsYEnds]);
+  useEffect(() => () => {
+    decrementAncestorsYEnds();
+    dispatch(updateNodePosition({
+      id,
+      position: {
+        xEnds: 0,
+        x: 0,
+        y: 0,
+        yEnds: 0,
+      },
+    }));
+  }, [decrementAncestorsYEnds, id, dispatch]);
 }
