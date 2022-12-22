@@ -21,8 +21,25 @@ const rows = [
     avatar: '(⌐■_■)',
     chips: (
       <>
-        <Chip size="small" label="feature" sx={{ background: '#abe15e', color: 'black', width: 'fit-content' }} />
-        <Chip size="small" label="node " sx={{ background: '#e15e7d', color: 'black', width: 'fit-content' }} />
+        <Chip
+          size="small"
+          label="feature"
+          sx={{
+            background: '#abe15e',
+            color: 'black',
+            width: 'fit-content',
+          }}
+        />
+        <Chip
+          size="small"
+          label="node "
+          sx={{
+            background: '#e15e7d',
+            color: 'black',
+            width: 'fit-content',
+            mt: 0.6,
+          }}
+        />
       </>
     ),
   },
@@ -34,7 +51,15 @@ const rows = [
     comments: 100,
     avatar: '( ͡~ ᴗ ͡°)',
     chips: (
-      <Chip size="small" label="workflow" sx={{ background: '#85c7f3', color: 'black', width: 'fit-content' }} />
+      <Chip
+        size="small"
+        label="workflow"
+        sx={{
+          background: '#85c7f3',
+          color: 'black',
+          width: 'fit-content',
+        }}
+      />
     ),
   },
   {
@@ -45,7 +70,15 @@ const rows = [
     comments: 54,
     avatar: '( ͡❛ ͜ʖ ͡❛)',
     chips: (
-      <Chip size="small" label="feature" sx={{ background: '#abe15e', color: 'black', width: 'fit-content' }} />
+      <Chip
+        size="small"
+        label="feature"
+        sx={{
+          background: '#abe15e',
+          color: 'black',
+          width: 'fit-content',
+        }}
+      />
     ),
   },
   {
@@ -57,8 +90,25 @@ const rows = [
     avatar: '(₿_₿)',
     chips: (
       <>
-        <Chip size="small" label="investments" sx={{ background: '#85c7f3', color: 'black', width: 'fit-content' }} />
-        <Chip size="small" label="tokens " sx={{ background: '#af83df', color: 'black', width: 'fit-content' }} />
+        <Chip
+          size="small"
+          label="investments"
+          sx={{
+            background: '#85c7f3',
+            color: 'black',
+            width: 'fit-content',
+          }}
+        />
+        <Chip
+          size="small"
+          label="tokens "
+          sx={{
+            background: '#af83df',
+            color: 'black',
+            width: 'fit-content',
+            mt: 0.6,
+          }}
+        />
       </>
     ),
   },
@@ -71,8 +121,25 @@ const rows = [
     avatar: '(O_o)',
     chips: (
       <>
-        <Chip size="small" label="marketing" sx={{ background: '#acdf83', color: 'black', width: 'fit-content' }} />
-        <Chip size="small" label="social " sx={{ background: '#9e959b', color: 'black', width: 'fit-content' }} />
+        <Chip
+          size="small"
+          label="marketing"
+          sx={{
+            background: '#acdf83',
+            color: 'black',
+            width: 'fit-content',
+          }}
+        />
+        <Chip
+          size="small"
+          label="social "
+          sx={{
+            background: '#9e959b',
+            color: 'black',
+            width: 'fit-content',
+            mt: 0.6,
+          }}
+        />
       </>
     ),
   },
@@ -81,7 +148,13 @@ const rows = [
 export default function Topics() {
   return (
     <TableContainer>
-      <Table aria-label="table" sx={{ borderTop: '1px solid #454b53', borderBottom: '1px solid #454b53' }}>
+      <Table
+        aria-label="table"
+        sx={{
+          borderTop: '1px solid #454b53',
+          borderBottom: '1px solid #454b53',
+        }}
+      >
         <TableBody>
           {rows.map((row) => (
             <TableRow
@@ -114,7 +187,8 @@ export default function Topics() {
                       variant="body2"
                       textAlign="left"
                       fontSize={{
-                        xs: 10, sm: 14,
+                        xs: 10,
+                        sm: 14,
                       }}
                     >
                       {row.username}
@@ -124,7 +198,8 @@ export default function Topics() {
                       textAlign="left"
                       color="#a4a7ab"
                       fontSize={{
-                        xs: 8, sm: 12,
+                        xs: 8,
+                        sm: 12,
                       }}
                     >
                       {row.date}
@@ -138,7 +213,8 @@ export default function Topics() {
                   <Typography
                     variant="body2"
                     fontSize={{
-                      xs: 10, sm: 14,
+                      xs: 10,
+                      sm: 14,
                     }}
                     textAlign="left"
                     width={{
@@ -152,7 +228,6 @@ export default function Topics() {
                     display="flex"
                     justifyContent="space-around"
                     flexDirection="column"
-                    gap={0.6}
                     alignItems="start"
                     width={80}
                   >

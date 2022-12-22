@@ -19,7 +19,7 @@ export default function useNodeButtonBackground(props) {
   const backgroundColor = (nodeExpanded && isCurrentNode) || hasNestedNodes
     ? nodeBackgroundColors[nestedLevel % 3] : '#414650';
   const parentBackgroundColor = parentExpanded ? nodeBackgroundColors[(nestedLevel - 1) % 3] : '#414650';
-  const color = (nodeExpanded && isCurrentNode) || hasNestedNodes ? 'rgb(0 0 0 / 90%)' : '#fff';
+  const color = (nodeExpanded && isCurrentNode) || hasNestedNodes ? 'rgba(0, 0, 0, 0.9)' : '#fff';
 
   return {
     backgroundColor,

@@ -75,7 +75,7 @@ export default function NodeButton(props) {
                 backgroundColor,
               },
               borderRadius: 1.5,
-              p: 1.4,
+              p: '0px 12px',
               cursor: 'pointer',
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
             }}
