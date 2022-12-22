@@ -29,7 +29,7 @@ export default function OpenSourceLink() {
             transform="matrix(0.33358984,0,0,0.33040762,-88.166176,4.4541324)"
             style={{
               stroke: '#cdd4ff',
-              strokeWidth: '2.37967',
+              strokeWidth: '2.11671099',
               strokeDasharray: 'none',
               strokeOpacity: 1,
             }}
@@ -40,7 +40,7 @@ export default function OpenSourceLink() {
                 fill: 'none',
                 fillOpacity: 1,
                 stroke: '#cdd4ff',
-                strokeWidth: '2.37967',
+                strokeWidth: '2.11671099',
                 strokeOpacity: 1,
                 strokeDasharray: 911.7635190957031,
                 strokeDashoffset: 911.7635190957031,
@@ -57,7 +57,7 @@ export default function OpenSourceLink() {
             }}
             fill="#cdd4ff"
             id="path109785-2-0-36"
-            cx="264.31857"
+            cx="264.25"
             cy="55"
           />
           <circle

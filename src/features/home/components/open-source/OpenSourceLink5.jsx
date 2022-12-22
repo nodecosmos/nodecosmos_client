@@ -40,7 +40,7 @@ export default function OpenSourceLink() {
                 fill: 'none',
                 fillOpacity: 1,
                 stroke: '#cdd4ff',
-                strokeWidth: '2.24846',
+                strokeWidth: '2',
                 strokeOpacity: 1,
                 strokeDasharray: 457.3690490722656,
                 strokeDashoffset: 457.3690490722656,
