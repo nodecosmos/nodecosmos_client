@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import {
+  EDGE_LENGTH,
   INITIAL_ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
 } from './constants';
 
@@ -59,8 +60,6 @@ export default function NonAnimatedNodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  const pathLength = pathRef.current && Math.round(pathRef.current.getTotalLength());
-
   const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
 
   return (
@@ -77,8 +76,8 @@ export default function NonAnimatedNodeLink(props) {
         stroke="#414650"
         fill="transparent"
         style={{
-          strokeDasharray: pathLength,
-          strokeDashoffset: pathLength,
+          strokeDasharray: EDGE_LENGTH,
+          strokeDashoffset: EDGE_LENGTH,
         }}
         sx={{
           animation: `dash ${INITIAL_ANIMATION_DURATION}ms forwards`,
@@ -93,7 +92,7 @@ export default function NonAnimatedNodeLink(props) {
         r={5}
         fill={parentBackgroundColor}
         sx={{
-          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION}ms forwards`,
+          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
           transition: `cx ${animationDuration}ms, cy ${animationDuration}ms`,
         }}
       />

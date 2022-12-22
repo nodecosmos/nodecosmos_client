@@ -23,9 +23,10 @@ export default function useNodePositionCalculator(props) {
   const nodeAncestorIds = useShallowEqualSelector(
     () => !isRoot && nodeAncestorIdObjects.map((nodeIdObject) => nodeIdObject.$oid),
   );
+  const upperSiblingPosition = useShallowEqualSelector(
+    (state) => (upperSiblingID && state.landingPageNodes[upperSiblingID].position),
+  );
 
-  const upperSiblingPosition = useShallowEqualSelector((state) => (upperSiblingID
-    && state.landingPageNodes[upperSiblingID].position));
   const upperSiblingYEnds = upperSiblingID && upperSiblingPosition.yEnds;
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);

@@ -4,4 +4,4 @@ export const MARGIN_TOP = NODE_BUTTON_HEIGHT / 2.0 + 0.3; // move children's edg
 export const EDGE_LENGTH = 35; // length of edge (link)
 
 export const INITIAL_ANIMATION_DURATION = 400; // ms
-export const TRANSITION_ANIMATION_DURATION = INITIAL_ANIMATION_DURATION / 2;
+export const TRANSITION_ANIMATION_DURATION = 200; // ms
