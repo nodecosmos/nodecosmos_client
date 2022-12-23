@@ -5,7 +5,6 @@ import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector'
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/landing-page-tree/constants';
 import {
   incrementNodesYEnds,
-  updateNode,
   updateNodePosition,
 } from '../../components/landing-page-tree/landingPageNodeSlice';
 
@@ -93,10 +92,5 @@ export default function useNodePositionCalculator(props) {
 
   useEffect(() => () => {
     decrementAncestorsYEnds();
-
-    dispatch(updateNode({
-      id,
-      animateTransition: false,
-    }));
   }, [decrementAncestorsYEnds, id, dispatch]);
 }

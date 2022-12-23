@@ -1,12 +1,22 @@
 export default () => ({
   '@keyframes dash': {
-    to: {
+    '100%': {
       strokeDashoffset: 0,
     },
   },
   // ----------------------------------------------------- Tree ----------------------------------------------------- //
+  '@keyframes node-path-appear': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1,
+    },
+  },
+
   '@keyframes node-button-appear': {
     '0%': {
+      opacity: 1,
       transform: 'translate(-30px, -21px)',
     },
     '50%': {
@@ -18,12 +28,14 @@ export default () => ({
 
     },
     '100%': {
+      opacity: 1,
       transform: 'translate(0px, 0px)',
     },
   },
 
   '@keyframes node-circle-appear': {
     '0%': {
+      opacity: 1,
       transform: 'translateY(-30px)',
     },
     '40%': {
@@ -31,6 +43,7 @@ export default () => ({
 
     },
     '100%': {
+      opacity: 1,
       transform: 'translateY(0)',
     },
   },

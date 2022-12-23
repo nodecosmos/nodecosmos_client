@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import {
-  EDGE_LENGTH,
-  INITIAL_ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION,
+  INITIAL_ANIMATION_DELAY,
+  INITIAL_ANIMATION_DURATION,
+  MARGIN_LEFT,
+  MARGIN_TOP,
+  TRANSITION_ANIMATION_DURATION,
 } from './constants';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -33,7 +36,6 @@ export default function NonAnimatedNodeLink(props) {
   } = props;
 
   const { x, xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
-  const animateTransition = useSelector((state) => state.landingPageNodes[id].animateTransition);
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.landingPageNodes[upperSiblingID].position);
@@ -60,7 +62,7 @@ export default function NonAnimatedNodeLink(props) {
   if (!x) return null;
   if (isRoot) return renderRootLink({ x, xEnds, y });
 
-  const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
+  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
   return (
     <g>
@@ -75,12 +77,9 @@ export default function NonAnimatedNodeLink(props) {
             L ${xEnds} ${y}`}
         stroke="#414650"
         fill="transparent"
-        style={{
-          strokeDasharray: EDGE_LENGTH,
-          strokeDashoffset: EDGE_LENGTH,
-        }}
         sx={{
-          animation: `dash ${INITIAL_ANIMATION_DURATION}ms forwards`,
+          opacity: 0,
+          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
           transition: `d ${animationDuration}ms`,
         }}
       />
@@ -92,7 +91,8 @@ export default function NonAnimatedNodeLink(props) {
         r={5}
         fill={parentBackgroundColor}
         sx={{
-          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
+          opacity: 0,
+          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
           transition: `cx ${animationDuration}ms, cy ${animationDuration}ms`,
         }}
       />

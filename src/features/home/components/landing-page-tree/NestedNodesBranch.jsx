@@ -2,22 +2,23 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { MARGIN_LEFT, MARGIN_TOP, TRANSITION_ANIMATION_DURATION } from './constants';
-
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+import {
+  INITIAL_ANIMATION_DELAY,
+  INITIAL_ANIMATION_DURATION,
+  MARGIN_LEFT,
+  MARGIN_TOP,
+  TRANSITION_ANIMATION_DURATION,
+} from './constants';
 
 export default function NestedNodesBranch(props) {
   const { id, lastChildId } = props;
   const { xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
-  const animateTransition = useSelector((state) => state.landingPageNodes[id].animateTransition);
   const lastChildY = useSelector((state) => lastChildId && state.landingPageNodes[lastChildId].position.y);
 
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
 
   const pathY = lastChildY || linkY;
-
-  const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
 
   return (
     <Box
@@ -27,7 +28,9 @@ export default function NestedNodesBranch(props) {
       strokeWidth={3.5}
       d={`M ${x} ${linkY} L ${x} ${pathY}`}
       sx={{
-        transition: `d ${animationDuration}ms`,
+        opacity: 0,
+        animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+        transition: `d ${TRANSITION_ANIMATION_DURATION}ms`,
       }}
     />
   );

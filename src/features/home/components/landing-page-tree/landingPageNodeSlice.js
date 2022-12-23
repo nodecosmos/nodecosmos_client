@@ -14,7 +14,6 @@ const nodeSlice = createSlice({
     updateNodePosition(state, action) {
       if (state[action.payload.id]) {
         state[action.payload.id].position = action.payload.position;
-        state[action.payload.id].animateTransition = true;
       }
     },
     updateNodePositionYEnds(state, action) { state[action.payload.id].position.yEnds = action.payload.yEnds; },

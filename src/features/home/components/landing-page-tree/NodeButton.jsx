@@ -9,12 +9,11 @@ import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/landing-page-tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
 import {
+  INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
 } from './constants';
 import NodeButtonText from './NodeButtonText';
 import NodeToolbar from './NodeToolbar';
-
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function NodeButton(props) {
   const {
@@ -27,7 +26,6 @@ export default function NodeButton(props) {
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
-  const animateTransition = useSelector((state) => state.landingPageNodes[id].animateTransition);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
@@ -38,13 +36,12 @@ export default function NodeButton(props) {
   const x = nodePosition.xEnds;
   const y = nodePosition.y - MARGIN_TOP;
 
-  const animationDuration = isSafari || !animateTransition ? 0 : TRANSITION_ANIMATION_DURATION;
-
   return (
     <Box
       component="g"
       sx={{
-        animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms forwards`,
+        opacity: 0,
+        animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
       }}
     >
       <foreignObject
@@ -54,7 +51,7 @@ export default function NodeButton(props) {
         x={x}
         y={y}
         style={{
-          transition: isNew ? null : `y ${animationDuration}ms`,
+          transition: isNew ? null : `y ${TRANSITION_ANIMATION_DURATION}ms`,
         }}
       >
         <Box display="flex" width="100%">

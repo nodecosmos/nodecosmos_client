@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import {
