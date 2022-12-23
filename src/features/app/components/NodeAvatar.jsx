@@ -12,7 +12,7 @@ export default function NodeAvatar({ user, onClick, bgColor }) {
       sx={{
         height: 32,
         width: 32,
-        fontSize: 13,
+        fontSize: 14,
         bgcolor: bgColor,
         color: '#fff',
         cursor: 'pointer',
