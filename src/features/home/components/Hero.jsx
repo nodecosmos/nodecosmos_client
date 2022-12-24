@@ -55,7 +55,7 @@ export default function Hero() {
                 fontSize: 13,
               },
               xs: 16,
-              sm: 18,
+              sm: 18.4,
             }}
             pl="2px"
             fontWeight={400}
