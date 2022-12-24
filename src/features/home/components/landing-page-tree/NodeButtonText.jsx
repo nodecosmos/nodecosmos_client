@@ -50,7 +50,6 @@ export default function NodeButtonText(props) {
       minWidth={40}
       backgroundColor="transparent"
       fontFamily="Roboto, sans-serif"
-      lineHeight={1}
       outline="none!important"
       letterSpacing="0.02857em"
       sx={{

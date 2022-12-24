@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -22,6 +22,7 @@ const XS_SCROLL_WIDTH = 800;
 
 export default function Mvp() {
   const scrollable = React.useRef(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (scrollable.current) {
@@ -42,17 +43,13 @@ export default function Mvp() {
         <Typography
           variant="h4"
           textAlign="center"
-          lineHeight={{
-            xs: 1.3,
-            sm: 1,
-          }}
           fontSize={{
             xs: '28px',
             sm: '32px',
           }}
         >
           Current
-          <Box component="span" color="#b6fd7b" fontWeight="bold">
+          <Box component="span" color="sectionPrimary" fontWeight="bold">
             {' '}
             Feature Progress
             {' '}
@@ -72,9 +69,8 @@ export default function Mvp() {
               alternativeLabel
               sx={{
                 '.Mui-completed': {
-                  color: '#b8fb8a',
                   '.MuiStepConnector-line': {
-                    borderColor: '#b8fb8a',
+                    borderColor: theme.palette.sectionPrimary,
                     borderWidth: 2,
                   },
                 },

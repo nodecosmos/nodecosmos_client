@@ -22,10 +22,6 @@ export default function GradientText(props) {
         WebkitTextFillColor: 'transparent!important',
         WebkitBoxDecorationBreak: 'clone',
         color: '#fff',
-        lineHeight: {
-          xs: 1.334,
-          sm: 1,
-        },
         display: 'table',
       }}
     >

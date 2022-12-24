@@ -41,9 +41,6 @@ export default (currentTheme) => ({
   //--------------------------------------------------------------------------------------------------------------------
   MuiInputLabel: {
     styleOverrides: {
-      root: {
-        lineHeight: 1,
-      },
       animated: {
         transition: 'color 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, '
           + 'margin-top 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, '

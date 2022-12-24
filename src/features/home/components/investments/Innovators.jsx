@@ -46,12 +46,10 @@ export default function Innovators() {
                   component="a"
                   href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/"
                   target="_blank"
-                  color="#cdd4ff"
-                  sx={{
-                    cursor: 'pointer',
-                    borderBottom: '3px solid #cdd4ff',
-                    lineHeight: 2,
-                  }}
+                  color="sectionSecondary"
+                  cursor="pointer"
+                  borderBottom="2px solid"
+                  borderBottomColor="sectionSecondary"
                   onClick={() => {
                     window.open('https://ethereum.org/en/developers/docs/standards/tokens/erc-20/', '_blank');
                   }}

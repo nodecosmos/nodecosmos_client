@@ -69,7 +69,7 @@ export default function ContactUs() {
                   We will get back to you as soon as possible.
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'buttonGreen.main' }} />
+                  <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'success.main' }} />
                 </Box>
               </Grid>
             </Grid>
@@ -90,10 +90,6 @@ export default function ContactUs() {
         <Typography
           variant="h4"
           textAlign="center"
-          lineHeight={{
-            xs: 1.3,
-            sm: 1,
-          }}
           fontSize={{
             xs: '28px',
             sm: '32px',
@@ -105,7 +101,7 @@ export default function ContactUs() {
       <Box mt={3}>
         <AnimateOnView delay={400}>
           <Section>
-            <Typography color="#a4a7ab" sx={{ lineHeight: { xs: 1.5, sm: 1 } }}>
+            <Typography color="#a4a7ab">
               Contact us at
               {' '}
               <a href="mailto:contact@nodecosmos.com">
