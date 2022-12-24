@@ -47,7 +47,6 @@ export default function CreateNodeModal(props) {
         <IconButton
           disableRipple
           onClick={onClose}
-          className="squared"
           sx={{
             position: 'absolute',
             right: 24,
@@ -62,10 +61,9 @@ export default function CreateNodeModal(props) {
           {({ handleSubmit }) => (
             <form style={{ height: '100%' }} onSubmit={handleSubmit}>
               <FinalFormInputField
-                sx={{ mb: 4 }}
                 fullWidth
                 name="title"
-                label="TITLE"
+                label="Title"
                 required
                 InputProps={{
                   startAdornment: (
@@ -76,7 +74,7 @@ export default function CreateNodeModal(props) {
                 }}
               />
               <Button
-                sx={{ mt: 4, float: 'right' }}
+                sx={{ mt: 3, float: 'right' }}
                 color="success"
                 variant="contained"
                 disableElevation

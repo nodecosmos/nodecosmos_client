@@ -16,7 +16,6 @@ const rows = [
     username: 'nodemaster',
     topic: 'Discuss components',
     date: '2022-04-14 7:20',
-    bgColor: '#c1ff68',
     comments: 42,
     avatar: '(⌐■_■)',
     chips: (
@@ -25,8 +24,8 @@ const rows = [
           size="small"
           label="feature"
           sx={{
-            background: '#abe15e',
-            color: 'black',
+            backgroundColor: 'background.labels.green',
+            color: 'text.badge',
             width: 'fit-content',
           }}
         />
@@ -34,8 +33,8 @@ const rows = [
           size="small"
           label="node "
           sx={{
-            background: '#e15e7d',
-            color: 'black',
+            backgroundColor: 'background.labels.red',
+            color: 'text.badge',
             width: 'fit-content',
             mt: 0.6,
           }}
@@ -47,7 +46,6 @@ const rows = [
     username: 'superuser',
     topic: 'Change workflow',
     date: '2022-05-16 01:00',
-    bgColor: '#c1ff68',
     comments: 100,
     avatar: '( ͡~ ᴗ ͡°)',
     chips: (
@@ -55,8 +53,8 @@ const rows = [
         size="small"
         label="workflow"
         sx={{
-          background: '#85c7f3',
-          color: 'black',
+          backgroundColor: 'background.labels.blue',
+          color: 'text.badge',
           width: 'fit-content',
         }}
       />
@@ -66,7 +64,6 @@ const rows = [
     username: 'contributor',
     topic: 'Feature suggestions',
     date: '2022-09-26 17:00',
-    bgColor: '#fff768',
     comments: 54,
     avatar: '( ͡❛ ͜ʖ ͡❛)',
     chips: (
@@ -74,8 +71,8 @@ const rows = [
         size="small"
         label="feature"
         sx={{
-          background: '#abe15e',
-          color: 'black',
+          backgroundColor: 'background.labels.green',
+          color: 'text.badge',
           width: 'fit-content',
         }}
       />
@@ -85,7 +82,7 @@ const rows = [
     username: 'investor',
     topic: 'Commercial support',
     date: '2022-12-16 10:00',
-    bgColor: '#c1ff68',
+
     comments: 12,
     avatar: '(₿_₿)',
     chips: (
@@ -94,8 +91,8 @@ const rows = [
           size="small"
           label="investments"
           sx={{
-            background: '#85c7f3',
-            color: 'black',
+            backgroundColor: 'background.labels.blue',
+            color: 'text.badge',
             width: 'fit-content',
           }}
         />
@@ -103,8 +100,8 @@ const rows = [
           size="small"
           label="tokens "
           sx={{
-            background: '#af83df',
-            color: 'black',
+            backgroundColor: 'background.labels.purple',
+            color: 'text.badge',
             width: 'fit-content',
             mt: 0.6,
           }}
@@ -116,7 +113,7 @@ const rows = [
     username: 'marketer',
     topic: 'Get customers',
     date: '2022-12-16 20:30',
-    bgColor: '#c1ff68',
+
     comments: 42,
     avatar: '(O_o)',
     chips: (
@@ -125,8 +122,8 @@ const rows = [
           size="small"
           label="marketing"
           sx={{
-            background: '#acdf83',
-            color: 'black',
+            backgroundColor: 'background.labels.greenTwo',
+            color: 'text.badge',
             width: 'fit-content',
           }}
         />
@@ -134,8 +131,8 @@ const rows = [
           size="small"
           label="social "
           sx={{
-            background: '#9e959b',
-            color: 'black',
+            backgroundColor: 'background.labels.orange',
+            color: 'text.badge',
             width: 'fit-content',
             mt: 0.6,
           }}
@@ -196,7 +193,7 @@ export default function Topics() {
                     <Typography
                       variant="body2"
                       textAlign="left"
-                      color="#a4a7ab"
+                      color="text.tertiary"
                       fontSize={{
                         xs: 8,
                         sm: 12,
@@ -239,13 +236,13 @@ export default function Topics() {
                 <IconButton>
                   <Badge
                     sx={{
+                      color: 'text.secondary',
                       '.MuiBadge-badge': {
-                        backgroundColor: '#c1ff68',
-                        color: 'rgb(0 0 0 / 70%)',
+                        backgroundColor: 'background.badge',
+                        color: 'text.badge',
                       },
                     }}
                     badgeContent={row.comments}
-                    color="secondary"
                   >
                     <ChatBubbleRoundedIcon />
                   </Badge>

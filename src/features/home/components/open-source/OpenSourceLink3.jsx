@@ -10,6 +10,7 @@ export default function OpenSourceLink() {
   const refInView = useInView(ref, { amount: 0.7 });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const color = theme.palette.sectionSecondary;
 
   const viewBox = matchesXs ? '-55 184 218 143' : '-55 185 218 89';
 
@@ -28,7 +29,7 @@ export default function OpenSourceLink() {
             id="layer1-2-9-5"
             transform="matrix(-0.32616618,0,0,-0.33320338,556.01334,343.35056)"
             style={{
-              stroke: '#cdd4ff',
+              stroke: color,
               strokeWidth: '1.58645',
               strokeDasharray: 'none',
               strokeOpacity: 1,
@@ -39,7 +40,7 @@ export default function OpenSourceLink() {
               sx={{
                 fill: 'none',
                 fillOpacity: 1,
-                stroke: '#cdd4ff',
+                stroke: color,
                 strokeWidth: '2',
                 strokeOpacity: 1,
                 strokeDasharray: 457.3690490722656,
@@ -92,7 +93,7 @@ export default function OpenSourceLink() {
                     xs: 1,
                     sm: 0,
                   }}
-                  color="#cdd4ebff"
+                  color="text.sectionSecondary"
                   fontWeight="bold"
                 >
                   What if we take this concept and apply it to other areas in a more structured

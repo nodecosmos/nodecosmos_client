@@ -60,7 +60,7 @@ export default function Header() {
         <Grid item sm={4} align="left" pl={2}>
           <Button
             component={Link}
-            to="/"
+            to="/n"
             color="primary"
             className="MicroButton"
             startIcon={<TagRounded sx={{ color: 'primary.light', ml: 0, mr: -2 }} />}

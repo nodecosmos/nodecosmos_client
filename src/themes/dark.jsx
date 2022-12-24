@@ -1,38 +1,103 @@
 export default {
-  black1: '#2c2f35',
-  black2: '#353940',
-  black3: '#2f333a', // 303339
-  black4: '#282b30',
-  black5: '#373b43',
-  black6: '#31353c', // 32353b
-  black7: '#36393f',
-  black8: '#33373e',
-  gray1: '#8e9297',
-  gray2: '#596072',
-  gray3: '#464648',
-  beige1: '#fffefa',
-  red1: '#e91e63',
-  red2: '#d33d56',
-  green1: '#b6fd7b',
-  green2: '#98f90c',
-  green3: '#a4fd4f',
-  green4: '#9cd645',
-  yellow1: '#fffb00',
-  yellow2: '#b9b937',
-  blue1: '#2adfff',
-  blue2: '#1dc4d3',
-  blue3: '#36abf2',
-  cyan1: '#58e1cc',
-  blackOld: '#43464e',
+  palette: {
+    primary: {
+      main: '#b6fd7b',
+    },
+    secondary: {
+      main: '#ff0066',
+    },
+    error: {
+      main: '#e91e63',
+    },
+    success: {
+      main: '#a3ff48',
+    },
+    buttonGreen: {
+      main: '#b3ff68',
+    },
 
-  border1: '1px solid #80808014',
+    buttonToggle: {
+      main: '#3a3e45',
+    },
+    background: {
+      badge: '#c1ff68',
+      labels: {
+        green: '#abe15e',
+        greenTwo: '#acdf83',
+        red: '#e15e7d',
+        blue: '#85c7f3',
+        purple: '#af83df',
+        orange: '#ffddb4',
+      },
+      mainContent: '#2f333a',
+      paper: '#31353c',
+      root: '#2c2f35',
+      scrollbarThumb: '#36393f',
+    },
 
-  boxShadow1: '0px 2px 1px -1px rgb(0 0 0 / 20%),'
-            + '0px 1px 1px 0px rgb(0 0 0 / 14%), '
-            + '0px 1px 3px 0px rgb(0 0 0 / 12%)',
-  boxShadow2: '0px -1px 2px 0px rgb(0 0 0 / 32%),'
-    + '-3px 1px 2px 0px rgb(0 0 0 / 15%), '
-    + '2px 1px 3px 0px rgb(0 0 0 / 35%),'
-    + '0px 2px 2px 0px rgb(0 0 0 / 25%)',
-  filter1: 'drop-shadow(2px 2px 0px rgb(0 0 0 / 0.1))',
+    circularProgress: '#55575b',
+
+    markdownContent: {
+      border: '#464b59',
+      canvas: '#464b59',
+      background: 'transparent',
+    },
+
+    markdownEditor: {
+      tagName: '#e91e63',
+      string: '#b3ff68',
+      number: '#b3ff68',
+      attributeName: '#ffe629',
+      className: '#daff29',
+      operator: '#fff',
+      bracket: '#fff',
+      heading: '#ae79c8',
+      emphasis: '#fff',
+      quote: '#57606e',
+      meta: '#5ad5fa',
+      link: '#5ad5fa',
+    },
+
+    logo: {
+      blue: '#2adfff',
+      red: '#e91e63',
+    },
+
+    sectionPrimary: '#b3ff68',
+    sectionSecondary: '#cdd4ff',
+
+    text: {
+      primary: '#fff',
+      secondary: '#a4a7ab',
+      tertiary: '#656e76',
+      sectionSecondary: '#cdd4eb',
+      gradients: {
+        primary: {
+          start: '#e27dff',
+          end: '#ff366c',
+        },
+        secondary: {
+          start: '#06e1ff',
+          end: '#ce6cff',
+        },
+      },
+      mergeGreen: '#a3ff48',
+      badge: 'rgba(0, 0, 0, 0.7)',
+    },
+
+    toolbar: {
+      red: '#e91e63',
+      green: '#b6fd7b',
+      blue: '#2adfff',
+    },
+
+    tree: {
+      default: '#414650',
+      level1: '#ff306b',
+      level2: '#a9d85b',
+      level3: '#58deff',
+      defaultText: '#fff',
+      selectedText: 'rgba(0, 0, 0, 0.9)',
+    },
+  },
 };

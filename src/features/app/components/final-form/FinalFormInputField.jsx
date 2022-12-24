@@ -60,8 +60,7 @@ export default function FinalFormInputField({
           sx={sx}
           color="primary"
           variant="outlined"
-          placeholder={InputProps && (label || name)}
-          label={!InputProps && (label || name)}
+          label={label || name}
           name={input.name}
           value={input.value}
           onChange={input.onChange}
@@ -72,7 +71,6 @@ export default function FinalFormInputField({
           multiline={multiline}
           fullWidth={fullWidth}
           rows={7}
-          InputProps={InputProps}
         />
       )}
     </Field>

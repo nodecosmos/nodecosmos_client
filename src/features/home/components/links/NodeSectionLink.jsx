@@ -1,12 +1,20 @@
 import React from 'react';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useInView } from 'framer-motion';
 
 export default function NodeSectionLink(props) {
-  const { pathStroke, circleFill, strokeWidth } = props;
+  const { strokeWidth } = props;
+  let { pathStroke, circleFill } = props;
+
   const ref = React.createRef();
 
   const refInView = useInView(ref, { amount: 0.1, once: true });
+  const theme = useTheme();
+
+  pathStroke ||= theme.palette.tree.default;
+  circleFill ||= theme.palette.tree.default;
 
   return (
     <svg
@@ -38,8 +46,9 @@ export default function NodeSectionLink(props) {
              l -1.22194,62.50904"
           id="path5853"
         />
-        <path
-          style={{
+        <Box
+          component="path"
+          sx={{
             fill: 'none',
             fillOpacity: 1,
             stroke: pathStroke,
@@ -57,8 +66,9 @@ export default function NodeSectionLink(props) {
             l 1.222,62.50904"
           id="path5853-2"
         />
-        <circle
-          style={{
+        <Box
+          component="circle"
+          sx={{
             fill: circleFill,
             fillOpacity: 1,
             stroke: 'none',
@@ -72,8 +82,9 @@ export default function NodeSectionLink(props) {
           cx="698.65106"
           cy="243.73494"
         />
-        <circle
-          style={{
+        <Box
+          component="circle"
+          sx={{
             fill: circleFill,
             fillOpacity: 1,
             stroke: 'none',
@@ -87,8 +98,9 @@ export default function NodeSectionLink(props) {
           cx="331.34399"
           cy="408.86957"
         />
-        <circle
-          style={{
+        <Box
+          component="circle"
+          sx={{
             fill: circleFill,
             fillOpacity: 1,
             stroke: 'none',
@@ -108,8 +120,8 @@ export default function NodeSectionLink(props) {
 }
 
 NodeSectionLink.defaultProps = {
-  circleFill: '#414650',
-  pathStroke: '#414650',
+  circleFill: null,
+  pathStroke: null,
   strokeWidth: 5,
 };
 

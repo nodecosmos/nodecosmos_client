@@ -1,20 +1,9 @@
 export default (currentTheme) => ({
-  MuiIconButton: {
-    styleOverrides: {
-      root: {
-        color: currentTheme.gray1,
-        '&.squared': {
-          borderRadius: 8,
-        },
-      },
-    },
-  },
   //-----------------------------------------------------------------------------------------------------------------
   MuiButton: {
     styleOverrides: {
       root: {
         textTransform: 'none',
-        color: currentTheme.beige1,
         borderRadius: 4,
         '&.MicroButton': {
           padding: '3px 8px',
@@ -22,11 +11,10 @@ export default (currentTheme) => ({
           borderRadius: 6,
           '&:hover, &.hovered': {
             background: 'rgb(73 176 244 / 7%)',
-            borderColor: currentTheme.blue1,
+            borderColor: currentTheme.palette.logo.blue,
           },
           '&:focus, &.focused': {
-            borderColor: currentTheme.green1,
-            color: currentTheme.green1,
+            borderColor: currentTheme.palette.primary.main,
             background: 'rgb(73 176 244 / 7%)',
           },
         },

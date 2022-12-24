@@ -16,7 +16,7 @@ import Innovate from '../../features/home/components/Innovate';
 import Collaborate from '../../features/home/components/Collaborate';
 import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
-import MVP from '../../features/home/components/MVP';
+import Mvp from '../../features/home/components/Mvp';
 import ContactUs from '../../features/home/components/ContactUs';
 import { setHomepageTab } from '../../features/home/homeSlice';
 
@@ -113,7 +113,6 @@ export default function Index() {
       <Box
         display="flex"
         alignItems="center"
-        className="Header BoxShadowBottom"
         position="fixed"
         top={{
           sm: 6,
@@ -142,6 +141,7 @@ export default function Index() {
             + '0px 2px 3px 0px rgb(0 0 0 / 3%), '
             + '0px 1px 5px 0px rgb(0 0 0 / 10%)',
           borderBottom: '1px solid #2d3138',
+          backgroundColor: 'background.paper',
         }}
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>
@@ -161,8 +161,8 @@ export default function Index() {
             >
               <img src="logo_1.svg" alt="logo" height={22} width={22} />
               <Typography sx={{ fontSize: 18, ml: 1 }} fontWeight="bold">
-                <Box component="span" color="primary.light">node</Box>
-                <Box component="span" color="secondary.main">cosmos</Box>
+                <Box component="span" color="logo.blue">node</Box>
+                <Box component="span" color="logo.red">cosmos</Box>
               </Typography>
             </Button>
             <HomepageTabs handleTabChange={handleTabChange} tab={tab} />
@@ -181,7 +181,7 @@ export default function Index() {
             <Box ref={investments}><Investments /></Box>
             <Box ref={openSource}><OpenSource /></Box>
             <Box ref={mvp}>
-              <MVP />
+              <Mvp />
             </Box>
             <Box ref={contactUs}>
               <ContactUs />
@@ -193,9 +193,10 @@ export default function Index() {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          className="Header BoxShadowTop BorderTop"
           zIndex={2}
           p={3}
+          backgroundColor="background.paper"
+          boxShadow="0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)"
         >
           <Typography variant="body2" color="#e3daee">
             © 2022 nodecosmos

@@ -15,17 +15,9 @@ export default function OpenSource() {
           <Typography
             variant="h4"
             textAlign="center"
-            lineHeight={{
-              xs: 1.3,
-              sm: 1,
-            }}
-            fontSize={{
-              xs: '28px',
-              sm: '32px',
-            }}
           >
             Explore possibilities with
-            <Box component="span" color="#cdd4ff" fontWeight="bold">
+            <Box component="span" color="sectionSecondary" fontWeight="bold">
               {' '}
               Open Collaboration
               {' '}

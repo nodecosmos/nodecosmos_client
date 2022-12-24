@@ -27,13 +27,9 @@ export default function Innovate() {
     mr: 3,
     display: 'flex',
     justifyContent: 'end',
-    '&.Mui-selected': {
-      color: '#ff0066',
-    },
   };
 
   const indicatorSx = {
-    backgroundColor: '#ff0066',
     height: {
       xs: 3,
       sm: 5,
@@ -48,6 +44,8 @@ export default function Innovate() {
   return (
     <Box w={1}>
       <Tabs
+        textColor="secondary"
+        indicatorColor="secondary"
         sx={{
           ml: {
             xs: 0,

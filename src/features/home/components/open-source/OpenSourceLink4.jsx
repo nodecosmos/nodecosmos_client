@@ -12,6 +12,7 @@ export default function OpenSourceLink() {
   const refInView = useInView(ref, { amount: 0.7 });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const color = theme.palette.sectionSecondary;
 
   const viewBox = matchesXs ? '-55 277 218 182' : '-55 277 218 106';
 
@@ -32,7 +33,7 @@ export default function OpenSourceLink() {
             id="layer1-2-9-56"
             transform="matrix(-0.32616618,0,0,0.33320274,556.01334,281.06982)"
             style={{
-              stroke: '#cdd4ff',
+              stroke: color,
               strokeWidth: '1.58645',
               strokeDasharray: 'none',
               strokeOpacity: 1,
@@ -43,7 +44,7 @@ export default function OpenSourceLink() {
               sx={{
                 fill: 'none',
                 fillOpacity: 1,
-                stroke: '#cdd4ff',
+                stroke: color,
                 strokeWidth: '2',
                 strokeOpacity: 1,
                 strokeDasharray: 1372.10715,
@@ -91,7 +92,7 @@ export default function OpenSourceLink() {
                   sm: 5,
                   xs: 8,
                 }}
-                color="#cdd4ebff"
+                color="text.sectionSecondary"
                 fontWeight="bold"
               >
                 By utilizing this concept, you are opening your innovation to the community that can help you from the
@@ -99,7 +100,7 @@ export default function OpenSourceLink() {
                 {' '}
                 <Box
                   component="span"
-                  color="#cdd4ebff"
+                  color="sectionSecondary"
                   sx={{
                     cursor: 'pointer',
                     borderBottom: '1px solid #cdd4ff',

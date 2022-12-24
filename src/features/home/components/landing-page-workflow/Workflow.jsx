@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { setCurrentWorkflowStep } from './landingPageWorkflowSlice';
@@ -10,6 +11,15 @@ export default function Workflow() {
   const setStep = (step) => {
     dispatch(setCurrentWorkflowStep(step));
   };
+
+  const theme = useTheme();
+
+  const {
+    default: defaultColor,
+    level1,
+    level2,
+    level3,
+  } = theme.palette.tree;
 
   return (
     <Box
@@ -80,7 +90,7 @@ export default function Workflow() {
                 cy="180"
                 r="30"
                 fill="transparent"
-                stroke="#ff306b"
+                stroke={level1}
                 strokeWidth={2}
                 cursor="pointer"
               />
@@ -109,7 +119,7 @@ export default function Workflow() {
               <path
                 strokeWidth={2}
                 d="M 200 211 L 200 261"
-                stroke="#414650"
+                stroke={defaultColor}
                 fill="transparent"
               />
               <rect
@@ -117,7 +127,7 @@ export default function Workflow() {
                 x="150"
                 y="261"
                 fill="transparent"
-                stroke="#c1ff68"
+                stroke={level2}
                 strokeWidth={1}
                 cursor="pointer"
                 width="100"
@@ -139,7 +149,7 @@ export default function Workflow() {
             <path
               strokeWidth={2}
               d="M 200 302 L 200 352"
-              stroke="#414650"
+              stroke={defaultColor}
               fill="transparent"
             />
             <g
@@ -157,7 +167,7 @@ export default function Workflow() {
                 x="150"
                 y="352"
                 fill="transparent"
-                stroke="#c1ff68"
+                stroke={level2}
                 strokeWidth={1}
                 cursor="pointer"
                 width="100"
@@ -179,7 +189,7 @@ export default function Workflow() {
             <path
               strokeWidth={2}
               d="M 200 393 L 200 443"
-              stroke="#414650"
+              stroke={defaultColor}
               fill="transparent"
             />
             <g
@@ -195,7 +205,7 @@ export default function Workflow() {
                 x="150"
                 y="443"
                 fill="transparent"
-                stroke="#c1ff68"
+                stroke={level2}
                 strokeWidth={1}
                 cursor="pointer"
                 width="100"
@@ -217,7 +227,7 @@ export default function Workflow() {
             <path
               strokeWidth={2}
               d="M 200 484 L 200 534"
-              stroke="#414650"
+              stroke={defaultColor}
               fill="transparent"
             />
             <g
@@ -233,7 +243,7 @@ export default function Workflow() {
                 cy="564"
                 r="30"
                 fill="transparent"
-                stroke="#58deff"
+                stroke={level3}
                 strokeWidth={2}
                 cursor="pointer"
               />

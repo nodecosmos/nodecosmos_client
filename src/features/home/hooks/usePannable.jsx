@@ -4,7 +4,7 @@ import React from 'react';
 // pan on mousedown
 // animated inertia on mouseup
 export default function usePannable() {
-  const [pan, setPan] = React.useState({ x: 0, y: 0 });
+  const [pan, setPan] = React.useState({ x: 6.5, y: 0 });
   const [isPanning, setIsPanning] = React.useState(false);
 
   // handle panning

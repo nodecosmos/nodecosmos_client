@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import GradientText from '../../../app/components/GradientText';
 
 export default function Other() {
   const coolRef = React.useRef(null);
@@ -25,28 +26,8 @@ export default function Other() {
 
   return (
     <Box>
-      <Typography
-        variant="h5"
-        fontFamily="'Montserrat', sans-serif"
-        sx={{
-          background: {
-            xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
-            sm: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 25%)',
-          },
-          WebkitBackgroundClip: 'text!important',
-          backgroundClip: 'text!important',
-          WebkitTextFillColor: 'transparent!important',
-          WebkitBoxDecorationBreak: 'clone',
-          color: '#fff',
-          lineHeight: {
-            xs: 1.334,
-            sm: 1,
-          },
-        }}
-      >
-        Stay tuned!
-      </Typography>
-      <Typography mt={3} variant="body1" color="#fff">
+      <GradientText text="Stay tuned!" gradientVariant="secondary" />
+      <Typography mt={3} variant="body1">
         As part of our efforts to make your innovation journey even more fun, we plan to add features such as a
         leaderboard, gallery, 2D drawing, and in-node chat
       </Typography>
@@ -55,7 +36,6 @@ export default function Other() {
         <Typography
           my={3}
           ref={coolRef}
-          color="#fff"
           fontSize={{
             xs: 50,
             sm: 100,

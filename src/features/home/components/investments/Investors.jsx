@@ -8,7 +8,6 @@ export default function Investors() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        color="#fff"
         textAlign="center"
         fontWeight="900"
         fontSize="1.8rem"
@@ -16,104 +15,70 @@ export default function Investors() {
         For Investors
       </Typography>
       <Box
-        mt={3}
+        my={4}
+        mx={1}
         component="ul"
         sx={{
           listStyle: 'none',
           p: 0,
-          '& li': {
-            p: 2,
+          '& li:not(:first-of-type)': {
+            mt: 4,
             borderRadius: 3,
-            cursor: 'pointer',
-            '&:hover': {
-              background: '#353a42',
-            },
           },
         }}
       >
         <li>
           <Box display="flex" alignItems="center">
             <Box component="img" src="earth.svg" width={47} />
-            <Box ml={2}>
-              <Typography
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                color="#b3ff68"
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-              >
-                {' '}
+            <Box ml={3}>
+              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Explore innovations
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', monospace"
+                mt={0.5}
               >
-                Explore innovations you might be interested in
+                Discover innovations that match your interests
               </Typography>
             </Box>
           </Box>
         </li>
-        <Box component="li" mt={1}>
+        <li>
           <Box display="flex" alignItems="center">
             <Box component="img" src="shield.svg" width={47} />
-            <Box ml={2}>
-              <Typography
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                color="#b3ff68"
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-              >
+            <Box ml={3}>
+              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Fraud Prevention
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', monospace"
+                mt={0.5}
+
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
               </Typography>
             </Box>
           </Box>
-        </Box>
-        <Box component="li" mt={1}>
+        </li>
+        <li>
           <Box display="flex" alignItems="center">
             <Box component="img" src="boxes.svg" width={47} />
-            <Box ml={2}>
-              <Typography
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                color="#b3ff68"
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-              >
+            <Box ml={3}>
+              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Token ownership
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', monospace"
+                mt={0.5}
               >
-                Buy tokens and get a share of the innovation
+                Buy innovation tokens and get a share of the profits
               </Typography>
-
             </Box>
           </Box>
-        </Box>
+        </li>
       </Box>
     </>
   );

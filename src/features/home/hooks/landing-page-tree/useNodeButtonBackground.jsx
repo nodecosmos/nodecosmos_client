@@ -1,11 +1,13 @@
+import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
-import colors from '../../../../themes/light';
 
 // FIXME: currently it's  dumb implementation
 export default function useNodeButtonBackground(props) {
   const {
     id, isRoot, nestedLevel,
   } = props;
+
+  const theme = useTheme();
 
   const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
@@ -15,11 +17,15 @@ export default function useNodeButtonBackground(props) {
   const isCurrentNode = nodeExpanded && id === currentNodeID;
   const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
 
-  const nodeBackgroundColors = [colors.red2, colors.green2, colors.blue2];
+  const nodeBackgroundColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];
   const backgroundColor = (nodeExpanded && isCurrentNode) || hasNestedNodes
-    ? nodeBackgroundColors[nestedLevel % 3] : '#414650';
-  const parentBackgroundColor = parentExpanded ? nodeBackgroundColors[(nestedLevel - 1) % 3] : '#414650';
-  const color = (nodeExpanded && isCurrentNode) || hasNestedNodes ? 'rgba(0, 0, 0, 0.9)' : '#fff';
+    ? nodeBackgroundColors[nestedLevel % 3] : theme.palette.tree.default;
+
+  const parentBackgroundColor = parentExpanded
+    ? nodeBackgroundColors[(nestedLevel - 1) % 3] : theme.palette.tree.default;
+
+  const color = (nodeExpanded && isCurrentNode) || hasNestedNodes
+    ? theme.palette.tree.selectedText : theme.palette.tree.defaultText;
 
   return {
     backgroundColor,

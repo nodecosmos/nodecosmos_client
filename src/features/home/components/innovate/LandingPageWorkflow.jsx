@@ -1,33 +1,14 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import GradientText from '../../../app/components/GradientText';
 import Workflow from '../landing-page-workflow/Workflow';
 
 export default function LandingPageWorkflow() {
   return (
     <Box>
-      <Typography
-        variant="h5"
-        fontFamily="'Montserrat', sans-serif"
-        sx={{
-          background: {
-            xs: 'linear-gradient(35deg, #e366ff 0%, #ff366c 45%)',
-            sm: 'linear-gradient(35deg, #e366ff 0%, #ff366c 20%)',
-          },
-          WebkitBackgroundClip: 'text!important',
-          backgroundClip: 'text!important',
-          WebkitTextFillColor: 'transparent!important',
-          WebkitBoxDecorationBreak: 'clone',
-          color: '#fff',
-          lineHeight: {
-            xs: 1.334,
-            sm: 1,
-          },
-        }}
-      >
-        Define your workflow
-      </Typography>
-      <Typography mt={3} variant="body1" color="#fff">
+      <GradientText text="Define your workflow" />
+      <Typography mt={3} variant="body1">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
       </Typography>
       <Box
@@ -39,7 +20,6 @@ export default function LandingPageWorkflow() {
         mt={3}
       >
         <Box
-          zIndex={2}
           sx={{
             borderBottom: '1px solid',
             borderColor: {
@@ -54,10 +34,9 @@ export default function LandingPageWorkflow() {
         >
           <Typography
             variant="body2"
-            color="#656e76"
+            color="text.tertiary"
             pb="4px"
             mx={{
-              // as defined in src/features/home/components/Section.jsx:28
               xs: 3,
               sm: 4,
             }}

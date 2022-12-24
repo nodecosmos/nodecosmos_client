@@ -8,7 +8,6 @@ export default function Innovators() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        color="#fff"
         textAlign="center"
         fontWeight="900"
         fontSize="1.8rem"
@@ -16,44 +15,30 @@ export default function Innovators() {
         For Innovators
       </Typography>
       <Box
-        mt={3}
+        my={4}
+        mx={1}
         component="ul"
         sx={{
           listStyle: 'none',
           p: 0,
-          '& li': {
-            p: 2,
+          '& li:not(:first-of-type)': {
+            mt: 4,
             borderRadius: 3,
-            cursor: 'pointer',
-            '&:hover': {
-              background: '#353a42',
-            },
           },
         }}
       >
-        <Box component="li">
+        <li>
           <Box display="flex" alignItems="center">
             <Box component="img" src="eth.svg" width={47} />
 
-            <Box ml={2}>
-              <Typography
-                color="#b3ff68"
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-              >
-                {' '}
+            <Box ml={3}>
+              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 ICO
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', monospace"
+                mt={0.5}
               >
                 Issue
                 {' '}
@@ -78,61 +63,41 @@ export default function Innovators() {
               </Typography>
             </Box>
           </Box>
-        </Box>
-        <Box component="li" mt={1}>
+        </li>
+        <li>
           <Box display="flex" alignItems="center">
             <Box component="img" src="attrack_investors.svg" width={47} />
-            <Box ml={2}>
-              <Typography
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                color="#b3ff68"
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-              >
+            <Box ml={3}>
+              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Attract Investors
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', monospace"
+                mt={0.5}
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
             </Box>
           </Box>
-        </Box>
-        <Box component="li" mt={1}>
+        </li>
+        <li>
           <Box display="flex" alignItems="center">
             <Box component="img" src="rocket.svg" width={47} />
-            <Box ml={2}>
-              <Typography
-                sx={{
-                  background: 'linear-gradient(35deg, #81ff36 0%, #22ffdb 45%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBoxDecorationBreak: 'clone',
-                }}
-                color="#b3ff68"
-                variant="h5"
-                fontFamily="'Montserrat', sans-serif"
-              >
+            <Box ml={3}>
+              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Supercharge your innovation
               </Typography>
               <Typography
                 variant="body1"
                 fontFamily="'Roboto Mono', monospace"
+                mt={0.5}
               >
                 Use the power of blockchain to launch your innovation
               </Typography>
             </Box>
           </Box>
-        </Box>
+        </li>
       </Box>
     </>
 

@@ -6,14 +6,14 @@ export default (currentTheme) => ({
     },
   },
   '::-webkit-scrollbar-thumb': {
-    borderRadius: 6,
-    backgroundColor: currentTheme.black7,
+    borderRadius: 2,
+    backgroundColor: currentTheme.palette.background.scrollbarThumb,
   },
   '::-webkit-scrollbar-track': {
-    borderRadius: 6,
-    backgroundColor: currentTheme.black1,
+    borderRadius: 2,
+    backgroundColor: currentTheme.palette.background.root,
   },
   '::-webkit-scrollbar-corner': {
-    backgroundColor: currentTheme.black1,
+    backgroundColor: currentTheme.palette.background.root,
   },
 });

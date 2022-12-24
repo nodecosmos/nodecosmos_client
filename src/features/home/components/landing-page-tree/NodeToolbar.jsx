@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   IconButton,
   Checkbox,
-  Box,
+  Box, useTheme,
 } from '@mui/material';
 
 import AddRounded from '@mui/icons-material/AddRounded';
@@ -29,8 +29,24 @@ export default function NodeToolbar(props) {
   const dispatch = useDispatch();
   const handleEdit = () => { dispatch(updateNode({ id, isEditing: true })); };
 
+  const theme = useTheme();
+  const { red, green, blue } = theme.palette.toolbar;
+
   return (
-    <Box className="Toolbar">
+    <Box
+      sx={{
+        '.Item': {
+          width: 26,
+          height: 26,
+          mx: 0.5,
+          '&:hover': { background: 'rgb(56 195 197 / 14%)' },
+        },
+        '.Item:nth-of-type(1)': { color: red },
+        '.Item:nth-of-type(2)': { color: blue },
+        '.Item:nth-of-type(3)': { color: green },
+        '.MuiSvgIcon-root': { fontSize: 16 },
+      }}
+    >
       <IconButton className="Item" onClick={onNodeAdd}>
         <AddRounded fontSize="small" />
       </IconButton>

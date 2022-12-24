@@ -41,10 +41,9 @@ export default function Hero() {
               },
               xs: 30,
               sm: 35,
-              md: 47,
+              md: 48,
             }}
             fontFamily="'Montserrat', sans-serif"
-            color="#fff"
           >
             Innovation Collaboration Platform
           </Typography>
@@ -59,7 +58,6 @@ export default function Hero() {
               sm: 18,
             }}
             pl="2px"
-            color="#fff"
             fontWeight={400}
             textAlign="left"
           >

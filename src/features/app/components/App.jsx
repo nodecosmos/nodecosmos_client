@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import {
   BrowserRouter,
@@ -11,35 +11,35 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from '../../../pages/home/Index';
-/* users */
+// /* users */
 // import UserAuthentication from '../../../pages/users/Authentication';
-/* nodes */
+// /* nodes */
 // import NodesIndex from '../../../pages/nodes/Index';
 // import NodeShow from '../../../pages/nodes/Show';
-import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
+// import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
 /* nodecosmos */
-// import Header from './header/Header';
 import history from '../../../history';
 import getTheme from '../../../themes/theme';
 import dark from '../../../themes/dark';
 import light from '../../../themes/light';
+import Header from './header/Header';
 
 /* css */
 import './App.css';
 
 export default function App() {
   const theme = useSelector((state) => state.app.theme);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   // const currentUser = useSelector((state) => state.auth.currentUser);
 
   const themes = { light, dark };
   const currentTheme = themes[theme];
 
-  const { syncUpCurrentUser } = useUserAuthentication();
-
-  useEffect(() => {
-    if (isAuthenticated) syncUpCurrentUser();
-  }, [isAuthenticated, syncUpCurrentUser]);
+  // const { syncUpCurrentUser } = useUserAuthentication();
+  //
+  // useEffect(() => {
+  //   if (isAuthenticated) syncUpCurrentUser();
+  // }, [isAuthenticated, syncUpCurrentUser]);
 
   return (
     <ThemeProvider theme={getTheme(currentTheme)}>
@@ -50,28 +50,29 @@ export default function App() {
           width={1}
           p={{
             xs: 0,
-            sm: '6px',
+            sm: 0.75,
           }}
-          backgroundColor={currentTheme.black1}
+          backgroundColor="background.root"
         >
           <Box
             borderRadius={{
               xs: 0,
-              sm: '6px',
+              sm: 1.5,
             }}
             height={1}
             width={1}
-            className="MainContent"
+            backgroundColor="background.mainContent"
+            boxShadow={8}
           >
-            {/* <Header /> */}
+            <Header />
             <Routes>
               <Route path="/" element={(<Home />)} />
               {/* <Route path="/n" element={(<NodesIndex />)} /> */}
               {/* <Route */}
-              {/*  path="/login" */}
-              {/*  element={isAuthenticated */}
-              {/*    ? <Navigate to={`/users/${currentUser.username}`} /> */}
-              {/*    : <UserAuthentication />} */}
+              {/*   path="/login" */}
+              {/*   element={isAuthenticated */}
+              {/*     ? <Navigate to={`/users/${currentUser.username}`} /> */}
+              {/*     : <UserAuthentication />} */}
               {/* /> */}
               {/* <Route path="/home" element={<Home />} /> */}
               {/* <Route path="/nodes/:id/*" element={<NodeShow />} /> */}

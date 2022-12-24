@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
+import GradientText from '../../../app/components/GradientText';
 import { setHomepageTab, setInnovateTab } from '../../homeSlice';
 
 export default function ContributionRequest() {
@@ -28,7 +29,7 @@ export default function ContributionRequest() {
     >
       <g style={{ transform: 'translate(-44px, -34px)' }}>
         <g>
-          <circle cx="50" cy="40" r="6" fill="#414650" />
+          <circle cx="50" cy="40" r="6" fill={theme.palette.tree.default} />
         </g>
         <g>
           <g>
@@ -43,33 +44,20 @@ export default function ContributionRequest() {
                        50 79.5
                        58 79.5
                      L 95 79.5"
-              stroke="#414650"
+              stroke={theme.palette.tree.default}
               fill="transparent"
             />
             <circle
               cx="95"
               cy="79.5"
               r="5.5"
-              fill="#b764ff"
+              fill={theme.palette.text.gradients.primary.start}
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
-            <Typography
-              color="#a793ff"
-              fontFamily="Montserrat"
-              sx={{
-                background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 35%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                WebkitBoxDecorationBreak: 'clone',
-                color: '#a793ff',
-                mt: { xs: '2px', sm: 0 },
-                fontSize: { xs: 16, sm: 18 },
-              }}
-            >
-              Create Contribution Request
-            </Typography>
+            <Box mt={0.5}>
+              <GradientText text="Create Contribution Request" variant="subtitle1" />
+            </Box>
           </foreignObject>
           <g>
             <g>
@@ -84,30 +72,31 @@ export default function ContributionRequest() {
                          95 119.25
                          103 119.25
                        L 140 119.25"
-                stroke="#414650"
+                stroke={theme.palette.tree.default}
                 fill="transparent"
               />
               <circle
                 cx="140"
                 cy="119.25"
                 r="5.5"
-                fill="#414650"
+                fill={theme.palette.tree.default}
               />
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="105">
               <Typography
-                color="#8b949e"
+                color="text.secondary"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Add/Remove/Update Nodes in the
                 {' '}
                 <Box
                   component="span"
-                  color="#cdd4ff"
+                  color="sectionSecondary"
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '3px solid #cdd4ff',
+                    borderBottom: '3px solid',
+                    borderColor: 'sectionSecondary',
                   }}
                   onClick={() => {
                     dispatch(setInnovateTab(0));
@@ -132,14 +121,14 @@ export default function ContributionRequest() {
                          95 159
                          103 159
                        L 140 159"
-                stroke="#414650"
+                stroke={theme.palette.tree.default}
                 fill="transparent"
               />
-              <circle cx="140" cy="159" r="5.5" fill="#414650" />
+              <circle cx="140" cy="159" r="5.5" fill={theme.palette.tree.default} />
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="145">
               <Typography
-                color="#8b949e"
+                color="text.secondary"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Add/Remove/Update Workflow
@@ -159,14 +148,14 @@ export default function ContributionRequest() {
                          95 198.75
                          103 198.75
                        L 140 198.75"
-                stroke="#414650"
+                stroke={theme.palette.tree.default}
                 fill="transparent"
               />
-              <circle cx="140" cy="198.75" r="5.5" fill="#414650" />
+              <circle cx="140" cy="198.75" r="5.5" fill={theme.palette.tree.default} />
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="185">
               <Typography
-                color="#8b949e"
+                color="text.secondary"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Add/Remove/Update Drawing
@@ -187,33 +176,20 @@ export default function ContributionRequest() {
                       50 238.5
                       58 238.5
                     L 95 238.5"
-              stroke="#414650"
+              stroke={theme.palette.tree.default}
               fill="transparent"
             />
             <circle
               cx="95"
               cy="238.5"
               r="5.5"
-              fill="#b764ff"
+              fill={theme.palette.text.gradients.primary.start}
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
-            <Typography
-              fontFamily="Montserrat"
-              color="#a793ff"
-              sx={{
-                background: 'linear-gradient(35deg, #f14bff 0%, #ff366c 35%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                WebkitBoxDecorationBreak: 'clone',
-                color: '#a793ff',
-                mt: { xs: '2px', sm: 0 },
-                fontSize: { xs: 16, sm: 18 },
-              }}
-            >
-              Review Contribution
-            </Typography>
+            <Box mt={0.5}>
+              <GradientText text="Review Contribution Request" variant="subtitle1" />
+            </Box>
           </foreignObject>
           <g>
             <g>
@@ -228,14 +204,14 @@ export default function ContributionRequest() {
                          95 278.25
                          103 278.25
                        L 140 278.25"
-                stroke="#414650"
+                stroke={theme.palette.tree.default}
                 fill="transparent"
               />
-              <circle cx="140" cy="278.25" r="5.5" fill="#414650" />
+              <circle cx="140" cy="278.25" r="5.5" fill={theme.palette.tree.default} />
             </g>
             <foreignObject className="NodeName" width="100%" height="29" x="155" y="264">
               <Typography
-                color="#8b949e"
+                color="text.secondary"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 Discuss Contribution
@@ -255,31 +231,31 @@ export default function ContributionRequest() {
                      95 318
                      103 318
                    L 140 318"
-                stroke="#414650"
+                stroke={theme.palette.tree.default}
                 fill="transparent"
               />
-              <circle cx="140" cy="318" r="5.5" fill="#414650" />
+              <circle cx="140" cy="318" r="5.5" fill={theme.palette.tree.default} />
             </g>
             <foreignObject className="NodeName" width="100%" x="155" y="303" height="29">
               <Box display="flex" alignItems="center">
-                <DoneIcon htmlColor="#a3ff48" fontSize="small" />
+                <DoneIcon color="success" fontSize="small" />
                 <Typography
                   ml={1}
-                  color="#8298a0"
+                  color="text.secondary"
                 >
                   Approve
                 </Typography>
                 <Box
                   ml={1}
                   mr={0.7}
-                  color="#8298a0"
+                  color="text.secondary"
                 >
                   |
                 </Box>
-                <CloseIcon htmlColor="#ff1a55" fontSize="small" />
+                <CloseIcon color="error" fontSize="small" />
                 <Typography
                   ml={1}
-                  color="#8298a0"
+                  color="text.secondary"
                 >
                   Reject
                 </Typography>
@@ -299,7 +275,7 @@ export default function ContributionRequest() {
                      50 358
                      58 358
                    L 95 358"
-                stroke="#414650"
+                stroke={theme.palette.tree.default}
                 fill="transparent"
               />
               <circle
@@ -319,12 +295,12 @@ export default function ContributionRequest() {
               <Typography
                 fontFamily="Montserrat"
                 color="#a3ff48"
-                fontSize={{ xs: 14, sm: 18 }}
+                variant="subtitle1"
               >
                 Merge Contribution Request
               </Typography>
               <Typography
-                color="#8b949e"
+                color="text.secondary"
                 fontSize={{ xs: 14, sm: 18 }}
               >
                 let contribution become part of your innovation

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -35,6 +36,7 @@ export default function NonAnimatedNodeLink(props) {
     isRoot,
   } = props;
 
+  const theme = useTheme();
   const { x, xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
@@ -48,7 +50,7 @@ export default function NonAnimatedNodeLink(props) {
   const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
 
   const yLength = y - linkY;
-  const circleY = linkY + yLength - 2.5;
+  const circleY = linkY + yLength - 1;
 
   const pathRef = useRef(null);
   const circleRef = useRef(null);
@@ -75,7 +77,7 @@ export default function NonAnimatedNodeLink(props) {
               ${linkX + 25} ${y + 1}
               ${xEnds} ${y}
             L ${xEnds} ${y}`}
-        stroke="#414650"
+        stroke={theme.palette.tree.default}
         fill="transparent"
         sx={{
           opacity: 0,

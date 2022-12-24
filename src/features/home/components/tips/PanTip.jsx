@@ -14,10 +14,10 @@ export default function PanTip() {
       <Typography
         variant="body2"
         sx={{
-          color: '#656e76',
+          color: 'text.tertiary',
         }}
       >
-        <b>Quick tips: </b>
+        <b>Tip: </b>
         Use
         {
             isMac ? ' ⌘ ' : ' Ctrl '

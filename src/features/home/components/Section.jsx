@@ -11,7 +11,6 @@ export default function Section(props) {
       sx={{
         borderTop: '1px solid #3c4149', // 3c4149 414145,
         height: '100%',
-        backgroundColor: props.backgroundColor,
         borderRadius,
         padding,
         overflow: 'initial',
@@ -23,7 +22,6 @@ export default function Section(props) {
 }
 
 Section.defaultProps = {
-  backgroundColor: '#31353c', // #32353b
   padding: {
     xs: 3,
     sm: 4,
@@ -37,7 +35,6 @@ Section.defaultProps = {
 
 Section.propTypes = {
   children: PropTypes.node.isRequired,
-  backgroundColor: PropTypes.string,
   padding: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string]),
   borderRadius: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string]),
 };

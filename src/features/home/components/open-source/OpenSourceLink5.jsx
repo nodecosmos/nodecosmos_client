@@ -10,6 +10,7 @@ export default function OpenSourceLink() {
   const refInView = useInView(ref, { amount: 0.7 });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const color = theme.palette.sectionSecondary;
 
   const viewBox = matchesXs ? '-55 377 218 115' : '-55 382 218 85';
 
@@ -28,7 +29,7 @@ export default function OpenSourceLink() {
             id="layer1-2-9-5-9"
             transform="matrix(-0.32616618,0,0,-0.33320329,556.01333,528.55858) translate(0, -40)"
             style={{
-              stroke: '#cdd4ff',
+              stroke: color,
               strokeWidth: '1.58645',
               strokeDasharray: 'none',
               strokeOpacity: 1,
@@ -39,7 +40,7 @@ export default function OpenSourceLink() {
               sx={{
                 fill: 'none',
                 fillOpacity: 1,
-                stroke: '#cdd4ff',
+                stroke: color,
                 strokeWidth: '2',
                 strokeOpacity: 1,
                 strokeDasharray: 457.3690490722656,
@@ -91,7 +92,7 @@ export default function OpenSourceLink() {
                   xs: 1,
                   sm: 0,
                 }}
-                color="#cdd4ebff"
+                color="text.sectionSecondary"
                 fontWeight="bold"
               >
                 Nodecosmos will allow users to freely collaborate on public nodes.

@@ -11,6 +11,7 @@ export default function OpenSourceLink() {
 
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const color = theme.palette.sectionSecondary;
 
   const viewBox = matchesXs ? '-55 92 218 120' : '-55 90 218 91';
 
@@ -29,7 +30,7 @@ export default function OpenSourceLink() {
             id="layer1-2-9"
             transform="matrix(-0.32616619,0,0,0.33320421,556.01333,95.861241)"
             style={{
-              stroke: '#cdd4ff',
+              stroke: color,
               strokeWidth: '1.58645',
               strokeOpacity: 1,
             }}
@@ -39,7 +40,7 @@ export default function OpenSourceLink() {
               sx={{
                 fill: 'none',
                 fillOpacity: 1,
-                stroke: '#cdd4ff',
+                stroke: color,
                 strokeWidth: '2',
                 strokeOpacity: 1,
                 strokeDasharray: 1372.10715,
@@ -91,7 +92,7 @@ export default function OpenSourceLink() {
                   xs: 0,
                   sm: 0,
                 }}
-                color="#cdd4ebff"
+                color="text.sectionSecondary"
                 fontWeight="bold"
               >
                 It enables engineers and companies to openly collaborate on solutions that can benefit anyone.

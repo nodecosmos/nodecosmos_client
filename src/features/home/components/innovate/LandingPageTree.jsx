@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import GradientText from '../../../app/components/GradientText';
 import Tree from '../landing-page-tree/Tree';
 import PanTip from '../tips/PanTip';
 
@@ -9,28 +10,8 @@ const airplaneNodeId = '635a91ea690cc413ead79ce2';
 export default function LandingPageTree() {
   return (
     <Box>
-      <Typography
-        variant="h5"
-        fontFamily="'Montserrat', sans-serif"
-        sx={{
-          background: {
-            xs: 'linear-gradient(35deg, #e366ff 0%, #ff366c 45%)',
-            sm: 'linear-gradient(35deg, #e366ff 0%, #ff366c 20%)',
-          },
-          WebkitBackgroundClip: 'text!important',
-          backgroundClip: 'text!important',
-          WebkitTextFillColor: 'transparent!important',
-          WebkitBoxDecorationBreak: 'clone',
-          color: '#fff',
-          lineHeight: {
-            xs: 1.334,
-            sm: 1,
-          },
-        }}
-      >
-        Structure your innovation
-      </Typography>
-      <Typography mt={3} variant="body1" color="#fff">
+      <GradientText text="Structure your innovation" />
+      <Typography mt={3} variant="body1">
         Use the Node Tree feature to structure your innovation.
         Each node can represent a component of your project, an ingredient in your recipe,
         or other type of constituent depending on your project.
@@ -45,7 +26,6 @@ export default function LandingPageTree() {
         mt={3}
       >
         <Box
-          zIndex={2}
           sx={{
             borderBottom: '1px solid',
             borderColor: {
@@ -60,10 +40,9 @@ export default function LandingPageTree() {
         >
           <Typography
             variant="body2"
-            color="#656e76"
+            color="text.tertiary"
             pb="4px"
             mx={{
-              // as defined in src/features/home/components/Section.jsx:28
               xs: 3,
               sm: 4,
             }}

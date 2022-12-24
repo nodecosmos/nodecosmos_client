@@ -69,7 +69,7 @@ export default function ContactUs() {
                   We will get back to you as soon as possible.
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'success.main' }} />
+                  <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'buttonGreen.main' }} />
                 </Box>
               </Grid>
             </Grid>
@@ -109,7 +109,15 @@ export default function ContactUs() {
               Contact us at
               {' '}
               <a href="mailto:contact@nodecosmos.com">
-                <Box component="span" color="#cdd4ff" fontWeight="bold" sx={{ borderBottom: '2px solid #cdd4ff' }}>
+                <Box
+                  component="span"
+                  color="sectionSecondary"
+                  fontWeight="bold"
+                  sx={{
+                    borderBottom: '2px solid',
+                    borderBottomColor: 'sectionSecondary',
+                  }}
+                >
                   contact@nodecosmos.com
                 </Box>
               </a>
@@ -200,11 +208,11 @@ export default function ContactUs() {
                         mt: 3,
                         color: 'rgb(0 0 0 / 70%)',
                         '&:disabled': {
-                          backgroundColor: theme.palette.success.main,
+                          backgroundColor: theme.palette.buttonGreen.main,
                         },
                       }}
                       disabled={loading}
-                      color="success"
+                      color="buttonGreen"
                       variant="contained"
                       disableElevation
                       type="submit"

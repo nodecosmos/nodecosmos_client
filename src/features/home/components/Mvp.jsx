@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import * as React from 'react';
-import Check from '@mui/icons-material/Check';
-import { styled, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import AnimateOnView from './AnimateOnView';
+import MvpStepIcon from './mvp/MvpStepIcon';
 
 const steps = [
   'Design Product',
@@ -18,45 +18,9 @@ const steps = [
   'Crypto Integration',
 ];
 
-function QontoStepIcon(props) {
-  // eslint-disable-next-line react/prop-types
-  const { active, completed, className } = props;
-
-  return (
-    <QontoStepIconRoot ownerState={{ active }} className={className}>
-      {completed ? (
-        <Check className="QontoStepIcon-completedIcon" />
-      ) : (
-        <div className="QontoStepIcon-circle" />
-      )}
-    </QontoStepIconRoot>
-  );
-}
-
-const QontoStepIconRoot = styled('div')(({ ownerState }) => ({
-  color: '#eaeaf0',
-  display: 'flex',
-  height: 22,
-  alignItems: 'center',
-  ...(ownerState.active && {
-    color: '#b8fb8a',
-  }),
-  '& .QontoStepIcon-completedIcon': {
-    color: '#b8fb8a',
-    zIndex: 1,
-    fontSize: 24,
-  },
-  '& .QontoStepIcon-circle': {
-    width: 12,
-    height: 12,
-    borderRadius: '50%',
-    backgroundColor: 'currentColor',
-  },
-}));
-
 const XS_SCROLL_WIDTH = 800;
 
-export default function MVP() {
+export default function Mvp() {
   const scrollable = React.useRef(null);
 
   useEffect(() => {
@@ -121,7 +85,7 @@ export default function MVP() {
             >
               {steps.map((label) => (
                 <Step key={label}>
-                  <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+                  <StepLabel StepIconComponent={MvpStepIcon}>{label}</StepLabel>
                 </Step>
               ))}
             </Stepper>

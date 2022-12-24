@@ -1,11 +1,12 @@
 import React, { Suspense } from 'react';
 import {
-  ToggleButton, ToggleButtonGroup, Typography,
+  ToggleButton, ToggleButtonGroup, Typography, useTheme,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import GradientText from '../../../app/components/GradientText';
 
 const MarkdownPreview = React.lazy(() => import('@uiw/react-markdown-preview'));
 const CustomCodeMirror = React.lazy(() => import('../../../app/components/CustomCodeMirror'));
@@ -75,7 +76,7 @@ const loading = (
           xs: 6,
           sm: 7,
         },
-        color: '#55575b',
+        color: 'circularProgress',
       }}
     />
   </Box>
@@ -85,43 +86,26 @@ export default function LandingPageMarkdown() {
   const [description, setDescription] = React.useState(INITIAL_DESCRIPTION_VALUE);
   const [mode, setMode] = React.useState('markdown');
 
+  const theme = useTheme();
+
   return (
     <Box mb={{
       xs: -5,
       sm: -6,
     }}
     >
-      <Typography
-        variant="h5"
-        fontFamily="'Montserrat', sans-serif"
-        sx={{
-          background: {
-            xs: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 50%)',
-            sm: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 25%)',
-          },
-          WebkitBackgroundClip: 'text!important',
-          backgroundClip: 'text!important',
-          WebkitTextFillColor: 'transparent!important',
-          WebkitBoxDecorationBreak: 'clone',
-          color: '#fff',
-          lineHeight: {
-            xs: 1.334,
-            sm: 1,
-          },
-        }}
-      >
-        Describe your innovation
-      </Typography>
-      <Typography mt={3} variant="body1" color="#fff">
+      <GradientText text="Describe your innovation" gradientVariant="secondary" />
+      <Typography mt={3} variant="body1">
         Use
         {' '}
         <Box
           component="a"
-          color="#cdd4ff"
+          color="sectionSecondary"
           href="https://en.wikipedia.org/wiki/Markdown"
           sx={{ cursor: 'pointer' }}
           target="_blank"
-          borderBottom="3px solid #cdd4ff"
+          borderBottom="3px solid"
+          borderBottomColor="sectionSecondary"
         >
           Markdown
         </Box>
@@ -152,16 +136,16 @@ export default function LandingPageMarkdown() {
         >
           <ToggleButton
             sx={{
-              color: '#fff',
+              color: 'text.primary',
               border: 'none',
               '&.Mui-selected': {
-                background: '#3a3e45',
+                backgroundColor: 'buttonToggle',
                 '&:hover': {
-                  background: '#3a3e45',
+                  backgroundColor: 'buttonToggle',
                 },
               },
               '&:hover': {
-                background: '#3a3e45',
+                backgroundColor: 'buttonToggle',
               },
             }}
             value="markdown"
@@ -173,16 +157,16 @@ export default function LandingPageMarkdown() {
           </ToggleButton>
           <ToggleButton
             sx={{
-              color: '#fff',
+              color: 'text.primary',
               border: 'none',
               '&.Mui-selected': {
-                background: '#3a3e45',
+                backgroundColor: 'buttonToggle',
                 '&:hover': {
-                  background: '#3a3e45',
+                  backgroundColor: 'buttonToggle',
                 },
               },
               '&:hover': {
-                background: '#3a3e45',
+                backgroundColor: 'buttonToggle',
               },
             }}
             value="content"
@@ -217,10 +201,10 @@ export default function LandingPageMarkdown() {
             height: 0,
           },
           ".wmde-markdown[data-color-mode*='dark']": {
-            '--color-border-muted': '#464b59',
-            '--color-canvas-subtle': '#464b59',
-            '--color-canvas-default': 'transparent',
-            '--color-border-default': '#464b59',
+            '--color-border-muted': theme.palette.markdownContent.border,
+            '--color-canvas-subtle': theme.palette.markdownContent.canvas,
+            '--color-canvas-default': theme.palette.markdownContent.background,
+            '--color-border-default': theme.palette.markdownContent.border,
           },
         }}
         >
