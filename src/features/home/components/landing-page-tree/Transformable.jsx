@@ -49,6 +49,7 @@ export default function Transformable(props) {
     <Box
       onClick={resize}
       onMouseDown={handleMouseDown}
+      onTouchStart={resize}
       sx={{
         overflow: {
           xs: 'auto',

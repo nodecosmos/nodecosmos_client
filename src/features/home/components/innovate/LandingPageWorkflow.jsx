@@ -7,7 +7,7 @@ import Workflow from '../landing-page-workflow/Workflow';
 export default function LandingPageWorkflow() {
   return (
     <Box>
-      <GradientText text="Define your workflow" />
+      <GradientText text="Define processes" />
       <Typography mt={3} variant="body1">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
       </Typography>
