@@ -55,9 +55,7 @@ export default function ContributionRequest() {
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
-            <Box mt={0.5}>
-              <GradientText text="Create Contribution Request" variant="subtitle1" />
-            </Box>
+            <GradientText text="Create Contribution Request" variant="subtitle1" />
           </foreignObject>
           <g>
             <g>
@@ -187,9 +185,7 @@ export default function ContributionRequest() {
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
-            <Box mt={0.5}>
-              <GradientText text="Review Contribution Request" variant="subtitle1" />
-            </Box>
+            <GradientText text="Review Contribution Request" variant="subtitle1" />
           </foreignObject>
           <g>
             <g>
