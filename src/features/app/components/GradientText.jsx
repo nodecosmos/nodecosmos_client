@@ -16,7 +16,10 @@ export default function GradientText(props) {
       variant={variant}
       fontFamily="'Montserrat', sans-serif"
       sx={{
-        background: `linear-gradient(35deg, ${colors.start} 0%, ${colors.end} 75%)`,
+        background: {
+          xs: `linear-gradient(35deg, ${colors.start} 0%, ${colors.end} 55%)`,
+          sm: `linear-gradient(35deg, ${colors.start} 0%, ${colors.end} 75%)`,
+        },
         WebkitBackgroundClip: 'text!important',
         backgroundClip: 'text!important',
         WebkitTextFillColor: 'transparent!important',
