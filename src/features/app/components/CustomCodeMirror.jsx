@@ -28,6 +28,7 @@ export default function CustomCodeMirror(props) {
     quote,
     meta,
     link,
+    background,
   } = theme.palette.markdownEditor;
 
   const codeMirrorTheme = createTheme({
@@ -96,6 +97,10 @@ export default function CustomCodeMirror(props) {
 
   return (
     <Box sx={{
+      background,
+      borderRadius: 5,
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0,
       fontSize: {
         xs: 11,
         sm: 16,
@@ -109,7 +114,7 @@ export default function CustomCodeMirror(props) {
         wordBreak: 'break-word',
         overflowWrap: 'anywhere',
         flexShrink: 1,
-        fontFamily: '\'Roboto Mono\', sans-serif',
+        fontFamily: 'monospace',
         ml: 1,
       },
       '.cm-line': {

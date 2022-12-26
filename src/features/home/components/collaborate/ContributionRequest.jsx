@@ -54,7 +54,7 @@ export default function ContributionRequest() {
               fill={theme.palette.text.gradients.primary.start}
             />
           </g>
-          <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
+          <foreignObject className="NodeName" width="100%" height="29" x="110" y="66">
             <GradientText text="Create Contribution Request" variant="subtitle1" />
           </foreignObject>
           <g>
@@ -184,7 +184,7 @@ export default function ContributionRequest() {
               fill={theme.palette.text.gradients.primary.start}
             />
           </g>
-          <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
+          <foreignObject className="NodeName" width="100%" height="29" x="110" y="226">
             <GradientText text="Review Contribution Request" variant="subtitle1" />
           </foreignObject>
           <g>

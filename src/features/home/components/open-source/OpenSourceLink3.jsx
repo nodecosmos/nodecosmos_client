@@ -12,7 +12,7 @@ export default function OpenSourceLink() {
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
   const color = theme.palette.sectionSecondary;
 
-  const viewBox = matchesXs ? '-55 184 218 143' : '-55 185 218 89';
+  const viewBox = matchesXs ? '-55 184 218 130' : '-55 185 218 87';
 
   return (
     <Box
@@ -84,7 +84,7 @@ export default function OpenSourceLink() {
             >
               <Box display="flex">
                 <Typography
-                  fontFamily="'Roboto Mono', sans-serif"
+                  fontFamily="'Montserrat', sans-serif"
                   fontSize={{
                     sm: 5,
                     xs: 8,

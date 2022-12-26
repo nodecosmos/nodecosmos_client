@@ -51,11 +51,12 @@ export default {
       className: '#daff29',
       operator: '#fff',
       bracket: '#fff',
-      heading: '#ae79c8',
-      emphasis: '#fff',
+      heading: '#bea8fb',
+      emphasis: '#dfab5c',
       quote: '#57606e',
-      meta: '#5ad5fa',
-      link: '#5ad5fa',
+      meta: '#94bbd6',
+      link: '#83c1ea',
+      background: '#2e3338',
     },
 
     logo: {
@@ -70,10 +71,11 @@ export default {
       primary: '#fff',
       secondary: '#a4a7ab',
       tertiary: '#656e76',
+      sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
       gradients: {
         primary: {
-          start: '#b87dff',
+          start: '#c07dff',
           end: '#ff366c',
         },
         secondary: {
@@ -94,7 +96,7 @@ export default {
     tree: {
       default: '#414650',
       level1: '#ff306b',
-      level2: '#a9d85b',
+      level2: '#a2d85b', // a9d85b
       level3: '#58deff',
       defaultText: '#fff',
       selectedText: 'rgba(0, 0, 0, 0.9)',

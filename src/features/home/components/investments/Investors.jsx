@@ -29,14 +29,14 @@ export default function Investors() {
       >
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="earth.svg" width={47} />
+            <Box component="img" src="earth.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
+              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Explore innovations
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', monospace"
+                fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
               >
                 Discover innovations that match your interests
@@ -46,14 +46,14 @@ export default function Investors() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="shield.svg" width={47} />
+            <Box component="img" src="shield.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
+              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Fraud Prevention
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', monospace"
+                fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
 
               >
@@ -64,14 +64,14 @@ export default function Investors() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="boxes.svg" width={47} />
+            <Box component="img" src="boxes.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
+              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Token ownership
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', monospace"
+                fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
               >
                 Buy innovation tokens and get a share of the profits

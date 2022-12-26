@@ -29,15 +29,15 @@ export default function Innovators() {
       >
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="eth.svg" width={47} />
+            <Box component="img" src="eth.svg" width={40} />
 
             <Box ml={3}>
-              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
+              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 ICO
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', monospace"
+                fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
               >
                 Issue
@@ -64,14 +64,14 @@ export default function Innovators() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="attrack_investors.svg" width={47} />
+            <Box component="img" src="attrack_investors.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
+              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Attract Investors
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', monospace"
+                fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
@@ -81,14 +81,14 @@ export default function Innovators() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="rocket.svg" width={47} />
+            <Box component="img" src="rocket.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="sectionPrimary" fontFamily="'Montserrat', sans-serif">
+              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
                 Supercharge your innovation
               </Typography>
               <Typography
                 variant="body1"
-                fontFamily="'Roboto Mono', monospace"
+                fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
               >
                 Use the power of blockchain to launch your innovation

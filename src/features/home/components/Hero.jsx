@@ -49,13 +49,13 @@ export default function Hero() {
           </Typography>
           <Typography
             variant="h2"
-            fontFamily="'Roboto Mono', monospace"
+            fontFamily="'Montserrat', sans-serif"
             fontSize={{
               '@media (max-width: 360px)': {
                 fontSize: 13,
               },
               xs: 16,
-              sm: 18.4,
+              sm: 21.8,
             }}
             pl="2px"
             fontWeight={400}

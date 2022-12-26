@@ -3,7 +3,7 @@ export default (currentTheme) => ({
     styleOverrides: {
       input: {
         caretColor: currentTheme.palette.primary.main,
-        fontFamily: "'Roboto mono', sans-serif",
+        fontFamily: 'monospace',
       },
       root: {
         borderRadius: 4,

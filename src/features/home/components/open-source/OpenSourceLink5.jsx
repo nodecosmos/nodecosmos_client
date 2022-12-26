@@ -83,7 +83,7 @@ export default function OpenSourceLink() {
               width={100}
             >
               <Typography
-                fontFamily="'Roboto Mono', sans-serif"
+                fontFamily="'Montserrat', sans-serif"
                 fontSize={{
                   sm: 5,
                   xs: 8,
