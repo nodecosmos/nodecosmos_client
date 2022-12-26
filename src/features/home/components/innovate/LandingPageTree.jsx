@@ -10,7 +10,7 @@ const airplaneNodeId = '635a91ea690cc413ead79ce2';
 export default function LandingPageTree() {
   return (
     <Box>
-      <GradientText text="Structure innovation" />
+      <GradientText text="Structure your Innovation" />
       <Typography mt={3} variant="body1">
         Use the Node Tree feature to structure your innovation.
         Each node can represent a component of your project, an ingredient in your recipe,

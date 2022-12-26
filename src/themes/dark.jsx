@@ -73,12 +73,12 @@ export default {
       sectionSecondary: '#cdd4eb',
       gradients: {
         primary: {
-          start: '#e27dff',
+          start: '#b87dff',
           end: '#ff366c',
         },
         secondary: {
           start: '#06e1ff',
-          end: '#ce6cff',
+          end: '#846cff',
         },
       },
       mergeGreen: '#a3ff48',
