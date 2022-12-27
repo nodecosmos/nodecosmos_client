@@ -54,8 +54,8 @@ export default function ContributionRequest() {
               fill={theme.palette.text.gradients.primary.start}
             />
           </g>
-          <foreignObject className="NodeName" width="100%" height="29" x="110" y="66">
-            <GradientText text="Create Contribution Request" variant="subtitle1" />
+          <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
+            <GradientText text="Create Contribution Request" fontSize="1.1rem" />
           </foreignObject>
           <g>
             <g>
@@ -184,8 +184,8 @@ export default function ContributionRequest() {
               fill={theme.palette.text.gradients.primary.start}
             />
           </g>
-          <foreignObject className="NodeName" width="100%" height="29" x="110" y="226">
-            <GradientText text="Review Contribution Request" variant="subtitle1" />
+          <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
+            <GradientText text="Review Contribution Request" fontSize="1.1rem" />
           </foreignObject>
           <g>
             <g>
@@ -283,7 +283,7 @@ export default function ContributionRequest() {
             </g>
             <foreignObject
               className="NodeName"
-              x="115"
+              x="110"
               y="345"
               width="425"
               height="80"
@@ -291,7 +291,7 @@ export default function ContributionRequest() {
               <Typography
                 fontFamily="Montserrat"
                 color="#a3ff48"
-                variant="subtitle1"
+                fontSize="1.1rem"
               >
                 Merge Contribution Request
               </Typography>
