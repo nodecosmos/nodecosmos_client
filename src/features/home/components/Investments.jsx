@@ -38,7 +38,7 @@ export default function Investments() {
         flexDirection="column"
         display={{
           xs: 'none',
-          sm: 'flex',
+          md: 'flex',
         }}
       >
         <NodeSectionLink circleFill={nodeLinkColor} pathStroke={nodeLinkColor} strokeWidth={3} />
