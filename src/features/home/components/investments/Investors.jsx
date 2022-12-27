@@ -8,9 +8,8 @@ export default function Investors() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        textAlign="center"
         fontWeight="900"
-        fontSize="1.8rem"
+        textAlign="center"
       >
         For Investors
       </Typography>

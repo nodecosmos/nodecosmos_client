@@ -6,10 +6,6 @@ import './fonts/roboto/400.css';
 import './fonts/roboto/500.css';
 import './fonts/roboto/700.css';
 
-// import './fonts/roboto-mono/400.css';
-// import './fonts/roboto-mono/300.css';
-// import './fonts/roboto-mono/700.css';
-
 import './fonts/montserrat/500.css';
 import './fonts/montserrat/700.css';
 import './fonts/montserrat/900.css';

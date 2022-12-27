@@ -3,15 +3,19 @@ export default {
     primary: {
       main: '#b6fd7b',
     },
+
     secondary: {
       main: '#ff0066',
     },
+
     error: {
       main: '#e91e63',
     },
+
     success: {
-      main: '#a3ff48',
+      main: '#b3ff68',
     },
+
     buttonGreen: {
       main: '#b3ff68',
     },
@@ -19,6 +23,7 @@ export default {
     buttonToggle: {
       main: '#3a3e45',
     },
+
     background: {
       badge: '#c1ff68',
       labels: {

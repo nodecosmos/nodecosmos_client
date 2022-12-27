@@ -26,14 +26,9 @@ export default (currentTheme) => ({
         letterSpacing: 'inherit',
         lineHeight: 'inherit',
       },
-      // TODO: Remove this once we have a better solution for homepage collaboration section
       subtitle1: {
         letterSpacing: 'inherit',
         lineHeight: 'inherit',
-        fontSize: 18,
-        '@media (max-width: 600px)': {
-          fontSize: 16,
-        },
       },
       subtitle2: {
         letterSpacing: 'inherit',

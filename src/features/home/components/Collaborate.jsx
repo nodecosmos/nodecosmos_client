@@ -38,14 +38,7 @@ export default function Vision() {
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="900"
-                sx={{
-                  // background: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 65%)',
-                  // WebkitBackgroundClip: 'text',
-                  // backgroundClip: 'text',
-                  // WebkitTextFillColor: 'transparent',
-                  // WebkitBoxDecorationBreak: 'clone',
-                  textAlign: 'center',
-                }}
+                textAlign="center"
               >
                 Contribution Requests
               </Typography>
@@ -66,14 +59,7 @@ export default function Vision() {
                 variant="h5"
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="900"
-                sx={{
-                // background: 'linear-gradient(35deg, #06e1ff 0%, #ce6cff 65%)',
-                // WebkitBackgroundClip: 'text',
-                // backgroundClip: 'text',
-                // WebkitTextFillColor: 'transparent',
-                // WebkitBoxDecorationBreak: 'clone',
-                  textAlign: 'center',
-                }}
+                textAlign="center"
               >
                 Topics
               </Typography>
