@@ -87,6 +87,10 @@ export default {
           start: '#06e1ff',
           end: '#846cff',
         },
+        green: {
+          start: '#b3ff68',
+          end: '#ffc586',
+        },
       },
       mergeGreen: '#a3ff48',
       badge: 'rgba(0, 0, 0, 0.7)',

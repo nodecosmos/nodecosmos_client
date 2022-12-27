@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import GradientText from '../../../app/components/GradientText';
 
 export default function Investors() {
   return (
@@ -30,9 +31,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="earth.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
-                Explore innovations
-              </Typography>
+              <GradientText gradientVariant="green" text="Explore innovations" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -47,9 +46,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="shield.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
-                Fraud Prevention
-              </Typography>
+              <GradientText gradientVariant="green" text="Fraud Prevention" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -65,9 +62,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="boxes.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
-                Token ownership
-              </Typography>
+              <GradientText gradientVariant="green" text="Token ownership" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"

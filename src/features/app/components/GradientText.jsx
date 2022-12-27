@@ -18,8 +18,8 @@ export default function GradientText(props) {
       fontSize={fontSize}
       sx={{
         background: {
-          xs: `linear-gradient(35deg, ${colors.start} 0%, ${colors.end} 55%)`,
-          sm: `linear-gradient(35deg, ${colors.start} 0%, ${colors.end} 75%)`,
+          xs: `linear-gradient(90deg, ${colors.start} 0%, ${colors.end} 55%)`,
+          sm: `linear-gradient(90deg, ${colors.start} 0%, ${colors.end} 75%)`,
         },
         WebkitBackgroundClip: 'text!important',
         backgroundClip: 'text!important',
@@ -44,5 +44,5 @@ GradientText.propTypes = {
   text: PropTypes.string.isRequired,
   gradientVariant: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
   variant: PropTypes.string,
-  fontSize: PropTypes.oneOf([PropTypes.object, PropTypes.number, PropTypes.string]),
+  fontSize: PropTypes.string,
 };

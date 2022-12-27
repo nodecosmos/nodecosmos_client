@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import GradientText from '../../../app/components/GradientText';
 
 export default function Innovators() {
   return (
@@ -8,8 +9,8 @@ export default function Innovators() {
       <Typography
         variant="h5"
         fontFamily="'Montserrat', sans-serif"
-        fontWeight="900"
         textAlign="center"
+        fontWeight="900"
       >
         For Innovators
       </Typography>
@@ -31,9 +32,7 @@ export default function Innovators() {
             <Box component="img" src="eth.svg" width={40} />
 
             <Box ml={3}>
-              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
-                ICO
-              </Typography>
+              <GradientText gradientVariant="green" text="ICO" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -65,9 +64,7 @@ export default function Innovators() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="attrack_investors.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
-                Attract Investors
-              </Typography>
+              <GradientText gradientVariant="green" text="Attract Investors" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -82,9 +79,7 @@ export default function Innovators() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="rocket.svg" width={40} />
             <Box ml={3}>
-              <Typography variant="h5" color="text.sectionPrimary" fontFamily="'Montserrat', sans-serif">
-                Supercharge your innovation
-              </Typography>
+              <GradientText gradientVariant="green" text="Supercharge your innovation" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
