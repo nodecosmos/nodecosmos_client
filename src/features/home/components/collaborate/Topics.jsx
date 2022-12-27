@@ -22,10 +22,11 @@ const rows = [
       <>
         <Chip
           size="small"
-          label="feature"
+          label="components"
           sx={{
-            backgroundColor: 'background.labels.green',
-            color: 'text.badge',
+            border: '1px solid',
+            borderColor: 'background.labels.green',
+            color: 'background.labels.green',
             width: 'fit-content',
           }}
         />
@@ -33,8 +34,9 @@ const rows = [
           size="small"
           label="node "
           sx={{
-            backgroundColor: 'background.labels.red',
-            color: 'text.badge',
+            border: '1px solid',
+            borderColor: 'background.labels.red',
+            color: 'background.labels.red',
             width: 'fit-content',
             mt: 0.6,
           }}
@@ -53,8 +55,9 @@ const rows = [
         size="small"
         label="workflow"
         sx={{
-          backgroundColor: 'background.labels.blue',
-          color: 'text.badge',
+          border: '1px solid',
+          borderColor: 'background.labels.blue',
+          color: 'background.labels.blue',
           width: 'fit-content',
         }}
       />
@@ -71,8 +74,9 @@ const rows = [
         size="small"
         label="feature"
         sx={{
-          backgroundColor: 'background.labels.green',
-          color: 'text.badge',
+          border: '1px solid',
+          borderColor: 'background.labels.green',
+          color: 'background.labels.green',
           width: 'fit-content',
         }}
       />
@@ -91,8 +95,9 @@ const rows = [
           size="small"
           label="investments"
           sx={{
-            backgroundColor: 'background.labels.blue',
-            color: 'text.badge',
+            border: '1px solid',
+            borderColor: 'background.labels.blue',
+            color: 'background.labels.blue',
             width: 'fit-content',
           }}
         />
@@ -100,8 +105,9 @@ const rows = [
           size="small"
           label="tokens "
           sx={{
-            backgroundColor: 'background.labels.purple',
-            color: 'text.badge',
+            border: '1px solid',
+            borderColor: 'background.labels.purple',
+            color: 'background.labels.purple',
             width: 'fit-content',
             mt: 0.6,
           }}
@@ -122,8 +128,9 @@ const rows = [
           size="small"
           label="marketing"
           sx={{
-            backgroundColor: 'background.labels.greenTwo',
-            color: 'text.badge',
+            border: '1px solid',
+            borderColor: 'background.labels.greenTwo',
+            color: 'background.labels.greenTwo',
             width: 'fit-content',
           }}
         />
@@ -131,8 +138,9 @@ const rows = [
           size="small"
           label="social "
           sx={{
-            backgroundColor: 'background.labels.orange',
-            color: 'text.badge',
+            border: '1px solid',
+            borderColor: 'background.labels.purple',
+            color: 'background.labels.purple',
             width: 'fit-content',
             mt: 0.6,
           }}
