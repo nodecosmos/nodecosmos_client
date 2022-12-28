@@ -31,7 +31,7 @@ export default {
         greenTwo: '#acdf83',
         red: '#e15e7d',
         blue: '#85c7f3',
-        purple: '#af83df',
+        purple: '#d466ff',
         orange: '#ffddb4',
       },
       mainContent: '#2f333a',
