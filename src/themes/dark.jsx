@@ -74,13 +74,13 @@ export default {
 
     text: {
       primary: '#fff',
-      secondary: '#a4a7ab',
+      secondary: '#9c9ea6',
       tertiary: '#656e76',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
       gradients: {
         1: {
-          start: '#c07dff',
+          start: '#f85df2',
           end: '#ff3f82',
         },
         2: {
@@ -89,7 +89,7 @@ export default {
         },
         3: {
           start: '#b3ff68',
-          end: '#ffc586',
+          end: '#ffe386',
         },
       },
       mergeGreen: '#a3ff48',
