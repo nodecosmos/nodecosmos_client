@@ -5,7 +5,7 @@ export default {
     },
 
     secondary: {
-      main: '#ff0066',
+      main: '#e91e63',
     },
 
     error: {
@@ -81,7 +81,7 @@ export default {
       gradients: {
         1: {
           start: '#c07dff',
-          end: '#ff366c',
+          end: '#e91e63',
         },
         2: {
           start: '#06e1ff',
@@ -104,9 +104,9 @@ export default {
 
     tree: {
       default: '#414650',
-      level1: '#ff306b',
+      level1: '#e91e63',
       level2: '#a2d85b', // a9d85b
-      level3: '#58deff',
+      level3: '#4dcdff',
       defaultText: '#fff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
     },
