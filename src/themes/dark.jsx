@@ -56,7 +56,7 @@ export default {
       className: '#daff29',
       operator: '#fff',
       bracket: '#fff',
-      heading: '#bea8fb',
+      heading: '#b199ca',
       emphasis: '#dfab5c',
       quote: '#57606e',
       meta: '#94bbd6',
@@ -81,7 +81,7 @@ export default {
       gradients: {
         1: {
           start: '#c07dff',
-          end: '#e91e63',
+          end: '#ff3f82',
         },
         2: {
           start: '#06e1ff',
