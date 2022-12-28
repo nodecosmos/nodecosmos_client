@@ -32,7 +32,7 @@ export default function Innovators() {
             <Box component="img" src="eth.svg" width={40} />
 
             <Box ml={3}>
-              <GradientText gradientVariant="green" text="ICO" />
+              <GradientText gradientVariant={3} text="ICO" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -64,7 +64,7 @@ export default function Innovators() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="attrack_investors.svg" width={40} />
             <Box ml={3}>
-              <GradientText gradientVariant="green" text="Attract Investors" />
+              <GradientText gradientVariant={3} text="Attract Investors" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -79,7 +79,7 @@ export default function Innovators() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="rocket.svg" width={40} />
             <Box ml={3}>
-              <GradientText gradientVariant="green" text="Supercharge your innovation" />
+              <GradientText gradientVariant={3} text="Supercharge your innovation" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"

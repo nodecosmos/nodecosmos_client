@@ -31,7 +31,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="earth.svg" width={40} />
             <Box ml={3}>
-              <GradientText gradientVariant="green" text="Explore innovations" />
+              <GradientText gradientVariant={3} text="Explore innovations" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -46,7 +46,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="shield.svg" width={40} />
             <Box ml={3}>
-              <GradientText gradientVariant="green" text="Fraud Prevention" />
+              <GradientText gradientVariant={3} text="Fraud Prevention" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -62,7 +62,7 @@ export default function Investors() {
           <Box display="flex" alignItems="center">
             <Box component="img" src="boxes.svg" width={40} />
             <Box ml={3}>
-              <GradientText gradientVariant="green" text="Token ownership" />
+              <GradientText gradientVariant={3} text="Token ownership" />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"

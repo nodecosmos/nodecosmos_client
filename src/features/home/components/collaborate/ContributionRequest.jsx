@@ -51,7 +51,7 @@ export default function ContributionRequest() {
               cx="95"
               cy="79.5"
               r="5.5"
-              fill={theme.palette.text.gradients.primary.start}
+              fill={theme.palette.text.gradients[1].start}
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
@@ -181,7 +181,7 @@ export default function ContributionRequest() {
               cx="95"
               cy="238.5"
               r="5.5"
-              fill={theme.palette.text.gradients.primary.start}
+              fill={theme.palette.text.gradients[1].start}
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">

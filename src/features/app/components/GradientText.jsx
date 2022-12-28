@@ -36,13 +36,13 @@ export default function GradientText(props) {
 
 GradientText.defaultProps = {
   variant: 'h5',
-  gradientVariant: 'primary',
+  gradientVariant: 1,
   fontSize: null,
 };
 
 GradientText.propTypes = {
   text: PropTypes.string.isRequired,
-  gradientVariant: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
+  gradientVariant: PropTypes.number,
   variant: PropTypes.string,
   fontSize: PropTypes.string,
 };
