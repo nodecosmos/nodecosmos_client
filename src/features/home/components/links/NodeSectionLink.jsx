@@ -76,7 +76,7 @@ export default function NodeSectionLink(props) {
             strokeWidth: 5,
             strokeDasharray: 'none',
             strokeOpacity: 1,
-            r: refInView ? 8 : 0,
+            r: refInView ? 7.5 : 0,
             transition: `r 0.3s ${refInView ? '0s' : '0.3s'}`,
           }}
           id="path8022"
@@ -92,7 +92,7 @@ export default function NodeSectionLink(props) {
             strokeWidth: 5,
             strokeDasharray: 'none',
             strokeOpacity: 1,
-            r: refInView ? 8 : 0,
+            r: refInView ? 7.5 : 0,
             transition: `r 0.3s ${refInView ? '0.4s' : '0s'}`,
           }}
           id="path8022-6"
@@ -108,7 +108,7 @@ export default function NodeSectionLink(props) {
             strokeWidth: 5,
             strokeDasharray: 'none',
             strokeOpacity: 1,
-            r: refInView ? 8 : 0,
+            r: refInView ? 7.5 : 0,
             transition: `r 0.3s ${refInView ? '0.4s' : '0s'}`,
           }}
           id="path8022-6-1"
