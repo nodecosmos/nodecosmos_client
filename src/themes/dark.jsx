@@ -85,7 +85,7 @@ export default {
         },
         2: {
           start: '#06e1ff',
-          end: '#846cff',
+          end: '#6c84ff',
         },
         3: {
           start: '#b3ff68',
