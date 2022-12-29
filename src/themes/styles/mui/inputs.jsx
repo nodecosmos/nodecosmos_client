@@ -56,7 +56,7 @@ export default (currentTheme) => ({
         position: 'absolute',
         transform: 'none',
         marginLeft: 14,
-        marginTop: 24,
+        marginTop: 22,
         '&.MuiInputLabel-shrink': {
           marginTop: 8,
           transform: 'scale(0.8)',

@@ -10,7 +10,7 @@ export default function NodeSectionLink(props) {
 
   const ref = React.createRef();
 
-  const refInView = useInView(ref, { amount: 0.5 });
+  const refInView = useInView(ref, { amount: 0.5, once: true });
   const theme = useTheme();
 
   pathStroke ||= theme.palette.tree.default;

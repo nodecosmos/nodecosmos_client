@@ -7,12 +7,12 @@ import { useInView } from 'framer-motion';
 export default function OpenSourceLink() {
   const ref = React.createRef();
 
-  const refInView = useInView(ref, { amount: 0.7 });
+  const refInView = useInView(ref, { amount: 0.3, once: true });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
   const color = theme.palette.sectionSecondary;
 
-  const viewBox = matchesXs ? '-55 -5 218 125' : '-55 0 218 80';
+  const viewBox = matchesXs ? '-55 -5 218 125' : '-80 0 268 80';
 
   return (
     <Box
@@ -45,7 +45,7 @@ export default function OpenSourceLink() {
                 strokeOpacity: 1,
                 strokeDasharray: 911.7635190957031,
                 strokeDashoffset: 911.7635190957031,
-                animation: refInView ? 'dash-link-1 1s forwards' : 'dash-reverse-link-1 0.3s forwards',
+                animation: refInView ? 'dash-link-1 0.7s forwards' : 'dash-reverse-link-1 0.3s forwards',
               }}
               d="m 1056.5436,154.61765 v 42.45161 l -0.175,25.96209 c -0.3605,14.35997 -9.0063,13.42791 -13.2051,13.57859 l -131.85188,0.77883 c -4.91631,0.16357 -10.20116,1.44392 -10.40266,16.41007 l -1.19322,59.45451"
               id="path5853-3"
@@ -64,7 +64,7 @@ export default function OpenSourceLink() {
           <circle
             style={{
               r: refInView ? 1.5875 : 0,
-              transition: `r 0.3s ${refInView ? '1s' : '0s'}`,
+              transition: `r 0.3s ${refInView ? '0.7s' : '0s'}`,
             }}
             fill={color}
             id="path109785-2-0"
@@ -73,7 +73,7 @@ export default function OpenSourceLink() {
           />
           <g style={{
             opacity: refInView ? 1 : 0,
-            transition: `opacity ${refInView ? '1s' : '0.3s'} ${refInView ? '1s' : '0s'}`,
+            transition: `opacity ${refInView ? '0.7s' : '0.3s'} ${refInView ? '0.7s' : '0s'}`,
           }}
           >
             <foreignObject
