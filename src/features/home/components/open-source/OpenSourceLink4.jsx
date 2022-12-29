@@ -14,7 +14,7 @@ export default function OpenSourceLink() {
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
   const color = theme.palette.sectionSecondary;
 
-  const viewBox = matchesXs ? '-55 277 268 178' : '-80 277 268 103';
+  const viewBox = matchesXs ? '-55 277 218 178' : '-80 277 268 103';
 
   const dispatch = useDispatch();
 
