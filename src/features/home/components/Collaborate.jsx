@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 import ContributionRequest from './collaborate/ContributionRequest';
 import Topics from './collaborate/Topics';
@@ -10,6 +10,9 @@ import Section from './Section';
 export default function Vision() {
   // const [tab, setTab] = useState(0);
   // const handleTabChange = (_, currentTab) => setTab(currentTab);
+
+  const theme = useTheme();
+  const nodeLinkColor = theme.palette.sectionPrimary;
 
   return (
     // margin top specific to shadow
@@ -21,11 +24,11 @@ export default function Vision() {
         flexDirection="column"
         sx={{ display: { xs: 'none', md: 'flex' } }}
       >
-        <NodeSectionLink />
+        <NodeSectionLink circleFill={nodeLinkColor} />
       </Box>
       <Grid
         container
-        columnSpacing={3}
+        columnSpacing={2}
         mt={{
           md: 3, // missing 2px for shadow
           xs: 3,

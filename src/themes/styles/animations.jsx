@@ -60,19 +60,19 @@ export default () => ({
 
   '@keyframes node-link': {
     from: {
-      strokeDashoffset: 1032.3072,
+      strokeDashoffset: 803.917,
     },
     to: {
-      strokeDashoffset: 516.1536,
+      strokeDashoffset: 401.9585,
     },
   },
 
   '@keyframes node-link-reverse': {
     from: {
-      strokeDashoffset: 516.1536,
+      strokeDashoffset: 401.9585,
     },
     to: {
-      strokeDashoffset: 1032.3072,
+      strokeDashoffset: 803.917,
     },
   },
 

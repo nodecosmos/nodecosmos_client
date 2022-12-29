@@ -56,7 +56,7 @@ export default function OpenSourceLink() {
               r: refInView ? 1.5875 : 0,
               transition: `r 0.3s ${refInView ? '0s' : '0.3s'}`,
             }}
-            fill="#cdd4ff"
+            fill={color}
             id="path109785-2-0-3"
             cx="211.89609"
             cy="147.10834"
@@ -66,7 +66,7 @@ export default function OpenSourceLink() {
               r: refInView ? 1.5875 : 0,
               transition: `r 0.3s ${refInView ? '1s' : '0s'}`,
             }}
-            fill="#cdd4ff"
+            fill={color}
             id="path109785-2-0-3-0"
             cx="314.62473"
             cy="199.49916"

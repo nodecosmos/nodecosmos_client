@@ -18,15 +18,15 @@ export default function NodeSectionLink(props) {
 
   return (
     <svg
-      width={760}
-      height={190}
+      width={835}
+      height={130}
       version="1.1"
       id="svg5"
       xmlns="http://www.w3.org/2000/svg"
       ref={ref}
     >
       <defs id="defs2" />
-      <g id="layer1" transform="translate(-320.0,-230)">
+      <g id="layer1">
         <path
           style={{
             fill: 'none',
@@ -34,16 +34,17 @@ export default function NodeSectionLink(props) {
             stroke: pathStroke,
             strokeWidth,
             strokeOpacity: 1,
-            strokeDasharray: 1032.3072,
-            strokeDashoffset: 1032.3072,
+            strokeDasharray: 803.917,
+            strokeDashoffset: 803.917,
             animation: refInView ? 'node-link 0.5s forwards' : 'node-link-reverse 0.3s forwards',
           }}
-          d="m 698.47,241.72424
-             v 44.71745
-             l -0.40938,27.34781
-             c -0.84391,15.12641 -21.08006,14.14461 -30.90792,14.30333
-             l -308.6109,0.8204 c -6.52848,0.20841 -22.84019,-1.37459 -25.91924,17.40476
-             l -1.22194,62.50904"
+          d="m 417.5, 10
+             v 15
+             l -0.5,27
+             c -0.9,15.12641 -15, 14.14461 -30.90792,14.30333
+             l -242.0,0.0
+             c -0.0,0.0 -26.84019,-1.37459 -25.91924,17.40476
+             l -1.22194,32"
           id="path5853"
         />
         <Box
@@ -53,17 +54,17 @@ export default function NodeSectionLink(props) {
             fillOpacity: 1,
             stroke: pathStroke,
             strokeWidth,
-            strokeDasharray: 1032.3072,
-            strokeDashoffset: 1032.3072,
+            strokeDasharray: 803.917,
+            strokeDashoffset: 803.917,
             animation: refInView ? 'node-link 0.5s forwards' : 'node-link-reverse 0.3s forwards',
           }}
-          d="m 698.47,241.724
-            v 44.71745
-            l 0.4094,27.34781
-            c 0.8439,15.12641 21.08,14.14461 30.9079,14.30333
-            l 308.6109,0.8204
-            c 6.5285,0.20841 22.8402,-1.37459 25.9192,17.40476
-            l 1.222,62.50904"
+          d="m 417.5, 10
+            v 15
+            l 0.5,27
+            c 0.9,15.12641 15, 14.14461 30.9079,14.30333
+            l 242,0.0
+            c 0,0.0 26.8402,-1.37459 25.9192,17.40476
+            l 1.222,32"
           id="path5853-2"
         />
         <Box
@@ -75,12 +76,12 @@ export default function NodeSectionLink(props) {
             strokeWidth: 5,
             strokeDasharray: 'none',
             strokeOpacity: 1,
-            r: refInView ? 9 : 0,
+            r: refInView ? 8 : 0,
             transition: `r 0.3s ${refInView ? '0s' : '0.3s'}`,
           }}
           id="path8022"
-          cx="698.65106"
-          cy="243.73494"
+          cx="417.5"
+          cy="10"
         />
         <Box
           component="circle"
@@ -91,12 +92,12 @@ export default function NodeSectionLink(props) {
             strokeWidth: 5,
             strokeDasharray: 'none',
             strokeOpacity: 1,
-            r: refInView ? 9 : 0,
+            r: refInView ? 8 : 0,
             transition: `r 0.3s ${refInView ? '0.4s' : '0s'}`,
           }}
           id="path8022-6"
-          cx="331.34399"
-          cy="408.86957"
+          cx="117"
+          cy="120"
         />
         <Box
           component="circle"
@@ -107,12 +108,12 @@ export default function NodeSectionLink(props) {
             strokeWidth: 5,
             strokeDasharray: 'none',
             strokeOpacity: 1,
-            r: refInView ? 9 : 0,
+            r: refInView ? 8 : 0,
             transition: `r 0.3s ${refInView ? '0.4s' : '0s'}`,
           }}
           id="path8022-6-1"
-          cx="1065.4189"
-          cy="408.86942"
+          cx="718"
+          cy="120"
         />
       </g>
     </svg>
@@ -122,7 +123,7 @@ export default function NodeSectionLink(props) {
 NodeSectionLink.defaultProps = {
   circleFill: null,
   pathStroke: null,
-  strokeWidth: 3.5,
+  strokeWidth: 2.5,
 };
 
 NodeSectionLink.propTypes = {
