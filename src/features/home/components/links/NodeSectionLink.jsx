@@ -123,7 +123,7 @@ export default function NodeSectionLink(props) {
 NodeSectionLink.defaultProps = {
   circleFill: null,
   pathStroke: null,
-  strokeWidth: 2.5,
+  strokeWidth: 3,
 };
 
 NodeSectionLink.propTypes = {
