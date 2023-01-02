@@ -5,7 +5,7 @@ export default {
     },
 
     secondary: {
-      main: '#e91e63',
+      main: '#ff3076',
     },
 
     error: {
@@ -31,7 +31,7 @@ export default {
         greenTwo: '#acdf83',
         red: '#e15e7d',
         blue: '#85c7f3',
-        purple: '#d466ff',
+        purple: '#c187ff',
         orange: '#ffddb4',
       },
       mainContent: '#2f333a',
@@ -80,12 +80,12 @@ export default {
       sectionSecondary: '#cdd4eb',
       gradients: {
         1: {
-          start: '#f85df2',
-          end: '#ff3f82',
+          start: '#b87cf9',
+          end: '#ff4f90',
         },
         2: {
-          start: '#06e1ff',
-          end: '#6c84ff',
+          start: '#8294ff',
+          end: '#9977ff',
         },
         3: {
           start: '#b3ff68',
