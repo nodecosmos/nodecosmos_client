@@ -11,7 +11,7 @@ export default function LandingPageTree() {
   return (
     <Box>
       <GradientText text="Structure your Innovation" />
-      <Typography mt={3} variant="body1">
+      <Typography mt={3} variant="body1" color="text.secondary">
         Use the Node Tree feature to structure your innovation.
         Each node can represent a component of your project, an ingredient in your recipe,
         or other type of constituent depending on your project.

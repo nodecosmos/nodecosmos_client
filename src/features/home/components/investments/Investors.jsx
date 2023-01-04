@@ -36,6 +36,7 @@ export default function Investors() {
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
+                color="text.secondary"
               >
                 Discover innovations that match your interests
               </Typography>
@@ -51,6 +52,7 @@ export default function Investors() {
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
+                color="text.secondary"
 
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
@@ -67,6 +69,7 @@ export default function Investors() {
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
+                color="text.secondary"
               >
                 Buy innovation tokens and get a share of the profits
               </Typography>

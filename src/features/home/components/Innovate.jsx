@@ -43,31 +43,33 @@ export default function Innovate() {
 
   return (
     <Box w={1}>
-      <Tabs
-        textColor="secondary"
-        indicatorColor="secondary"
-        sx={{
-          ml: {
-            xs: 0,
-            md: '20px',
-          },
-          mb: -2,
-          // '.MuiTabs-flexContainer': {
-          //   justifyContent: 'end',
-          // },
-        }}
-        variant="scrollable"
-        value={currentTab}
-        onChange={(_event, value) => dispatch(setInnovateTab(value))}
-        TabIndicatorProps={{ sx: indicatorSx }}
-        visibleScrollbar
-      >
-        <Tab label="Node Tree" disableRipple sx={tabSx} />
-        <Tab label="Markdown" disableRipple sx={tabSx} />
-        <Tab label="Workflow" disableRipple sx={tabSx} />
-        <Tab label="And More" disableRipple sx={tabSx} />
-        {/* <Tab label="Media" disableRipple sx={tabSx} /> */}
-      </Tabs>
+      <Box>
+        <Tabs
+          textColor="secondary"
+          indicatorColor="secondary"
+          sx={{
+            ml: {
+              xs: 0,
+              md: '20px',
+            },
+            mb: -2,
+            // '.MuiTabs-flexContainer': {
+            //   justifyContent: 'end',
+            // },
+          }}
+          variant="scrollable"
+          value={currentTab}
+          onChange={(_event, value) => dispatch(setInnovateTab(value))}
+          TabIndicatorProps={{ sx: indicatorSx }}
+          visibleScrollbar
+        >
+          <Tab label="Node Tree" disableRipple sx={tabSx} />
+          <Tab label="Markdown" disableRipple sx={tabSx} />
+          <Tab label="Workflow" disableRipple sx={tabSx} />
+          <Tab label="And More" disableRipple sx={tabSx} />
+          {/* <Tab label="Media" disableRipple sx={tabSx} /> */}
+        </Tabs>
+      </Box>
       <Box mt={3}>
         <AnimateOnView>
           <Section borderRadius={{

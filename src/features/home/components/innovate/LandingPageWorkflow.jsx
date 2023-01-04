@@ -8,7 +8,7 @@ export default function LandingPageWorkflow() {
   return (
     <Box>
       <GradientText text="Define processes" />
-      <Typography mt={3} variant="body1">
+      <Typography mt={3} variant="body1" color="text.secondary">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
       </Typography>
       <Box

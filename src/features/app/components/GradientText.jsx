@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function GradientText(props) {
   const {
-    text, variant, gradientVariant, fontSize,
+    text, variant, gradientVariant, fontSize, fontWeight,
   } = props;
 
   const theme = useTheme();
@@ -16,6 +16,7 @@ export default function GradientText(props) {
       variant={variant}
       fontFamily="'Montserrat', sans-serif"
       fontSize={fontSize}
+      fontWeight={fontWeight}
       sx={{
         background: {
           xs: `linear-gradient(90deg, ${colors.start} 0%, ${colors.end} 55%)`,
@@ -38,6 +39,7 @@ GradientText.defaultProps = {
   variant: 'h5',
   gradientVariant: 1,
   fontSize: null,
+  fontWeight: 400,
 };
 
 GradientText.propTypes = {
@@ -45,4 +47,5 @@ GradientText.propTypes = {
   gradientVariant: PropTypes.number,
   variant: PropTypes.string,
   fontSize: PropTypes.string,
+  fontWeight: PropTypes.number,
 };

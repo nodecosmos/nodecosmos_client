@@ -95,7 +95,7 @@ export default function LandingPageMarkdown() {
     }}
     >
       <GradientText text="Describe your Innovation" gradientVariant={2} />
-      <Typography mt={3} variant="body1">
+      <Typography mt={3} variant="body1" color="text.secondary">
         Use
         {' '}
         <Box
@@ -116,7 +116,11 @@ export default function LandingPageMarkdown() {
       <Box
         mt={4}
         textAlign="center"
-        mx={-4}
+        mx={{
+          // as defined in src/features/home/components/Section.jsx:28
+          xs: -3,
+          sm: -4,
+        }}
         px={4}
         pb={2}
         zIndex={2}

@@ -5,7 +5,7 @@ export default {
     },
 
     secondary: {
-      main: '#ff3076',
+      main: '#c1c0b8',
     },
 
     error: {
@@ -49,19 +49,19 @@ export default {
     },
 
     markdownEditor: {
-      tagName: '#e91e63',
-      string: '#b3ff68',
+      tagName: '#ff387a',
+      string: '#d1ff5d',
       number: '#b3ff68',
-      attributeName: '#ffe629',
+      attributeName: '#ffea83',
       className: '#daff29',
       operator: '#fff',
       bracket: '#fff',
-      heading: '#b199ca',
-      emphasis: '#dfab5c',
+      heading: '#cdd4ff',
+      emphasis: '#ffea83',
       quote: '#57606e',
-      meta: '#94bbd6',
+      meta: '#95a0a4',
       link: '#83c1ea',
-      background: '#2e3338',
+      background: '#2f343a',
     },
 
     logo: {
@@ -73,9 +73,10 @@ export default {
     sectionSecondary: '#cdd4ff',
 
     text: {
-      primary: '#fff',
-      secondary: '#9c9ea6',
-      tertiary: '#656e76',
+      primary: '#e6e6e6',
+      secondary: '#9a9da9',
+      tertiary: '#626e79',
+      contrast: '#fff',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
       gradients: {
@@ -85,7 +86,7 @@ export default {
         },
         2: {
           start: '#8294ff',
-          end: '#9977ff',
+          end: '#bc8cff',
         },
         3: {
           start: '#b3ff68',

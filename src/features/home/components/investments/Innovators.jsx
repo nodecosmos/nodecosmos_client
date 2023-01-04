@@ -37,6 +37,7 @@ export default function Innovators() {
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
+                color="text.secondary"
               >
                 Issue
                 {' '}
@@ -69,6 +70,7 @@ export default function Innovators() {
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
+                color="text.secondary"
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
@@ -84,6 +86,7 @@ export default function Innovators() {
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
                 mt={0.5}
+                color="text.secondary"
               >
                 Use the power of blockchain to launch your innovation
               </Typography>

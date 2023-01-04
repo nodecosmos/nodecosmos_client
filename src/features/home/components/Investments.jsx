@@ -41,7 +41,7 @@ export default function Investments() {
           md: 'flex',
         }}
       >
-        <NodeSectionLink circleFill={nodeLinkColor} pathStroke={nodeLinkColor} />
+        <NodeSectionLink circleFill={nodeLinkColor} />
       </Box>
       <Grid
         container
