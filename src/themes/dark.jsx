@@ -5,7 +5,7 @@ export default {
     },
 
     secondary: {
-      main: '#c1c0b8',
+      main: '#e6e6e6',
     },
 
     error: {
