@@ -20,7 +20,7 @@ export default function Hero() {
           width={197}
           height={175}
           style={{
-            marginLeft: -153.015,
+            marginLeft: -98.5,
             animation: refInView && 'rotate 0.3s',
           }}
         />
