@@ -9,7 +9,7 @@ export default function GradientText(props) {
 
   const theme = useTheme();
 
-  const colors = theme.palette.text.gradients[gradientVariant];
+  const background = theme.palette.text.gradients[gradientVariant];
 
   return (
     <Typography
@@ -18,16 +18,12 @@ export default function GradientText(props) {
       fontSize={fontSize}
       fontWeight={fontWeight}
       sx={{
-        background: {
-          xs: `linear-gradient(90deg, ${colors.start} 0%, ${colors.end} 55%)`,
-          sm: `linear-gradient(90deg, ${colors.start} 0%, ${colors.end} 75%)`,
-        },
+        background,
         WebkitBackgroundClip: 'text!important',
         backgroundClip: 'text!important',
         WebkitTextFillColor: 'transparent!important',
-        WebkitBoxDecorationBreak: 'clone',
         color: '#fff',
-        display: 'table',
+        display: 'inline-block',
       }}
     >
       {text}
@@ -46,6 +42,6 @@ GradientText.propTypes = {
   text: PropTypes.string.isRequired,
   gradientVariant: PropTypes.number,
   variant: PropTypes.string,
-  fontSize: PropTypes.string,
+  fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   fontWeight: PropTypes.number,
 };

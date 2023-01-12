@@ -51,11 +51,13 @@ export default function ContributionRequest() {
               cx="95"
               cy="79.5"
               r="5.5"
-              fill={theme.palette.text.gradients[1].start}
+              fill={theme.palette.text.collaboratePurple}
             />
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
-            <GradientText text="Create Contribution Request" fontSize="1.1rem" />
+            <Box mt="2px">
+              <GradientText text="Create Contribution Request" fontSize={18} />
+            </Box>
           </foreignObject>
           <g>
             <g>
@@ -181,11 +183,13 @@ export default function ContributionRequest() {
               cx="95"
               cy="238.5"
               r="5.5"
-              fill={theme.palette.text.gradients[1].start}
+              fill={theme.palette.text.collaboratePurple}
             />
           </g>
-          <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
-            <GradientText text="Review Contribution Request" fontSize="1.1rem" />
+          <foreignObject className="NodeName" width="100%" height="29" x="110" y="224">
+            <Box mt="1px">
+              <GradientText text="Review Contribution request" fontSize={18} />
+            </Box>
           </foreignObject>
           <g>
             <g>
@@ -291,7 +295,7 @@ export default function ContributionRequest() {
               <Typography
                 fontFamily="Montserrat"
                 color="#a3ff48"
-                fontSize="1.1rem"
+                fontSize={18}
               >
                 Merge Contribution Request
               </Typography>

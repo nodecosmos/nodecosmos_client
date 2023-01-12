@@ -81,18 +81,19 @@ export default {
       sectionSecondary: '#cdd4eb',
       gradients: {
         1: {
-          start: '#b87cf9',
-          end: '#ff4f90',
+          xs: 'linear-gradient(90deg, #b87cf9 0%, #ff4f90 55%)',
+          sm: 'linear-gradient(90deg, #b87cf9 0%, #ff4f90 75%)',
         },
         2: {
-          start: '#8294ff',
-          end: '#bc8cff',
+          xs: 'linear-gradient(90deg, #51e0f9 0%, #7e8bff 55%)',
+          sm: 'linear-gradient(90deg, #51e0f9 0%, #7e8bff 75%)',
         },
         3: {
-          start: '#b3ff68',
-          end: '#ffe386',
+          xs: 'linear-gradient(90deg, #b3ff68 0%, #ffe386 55%)',
+          sm: 'linear-gradient(90deg, #b3ff68 0%, #ffe386 75%)',
         },
       },
+      collaboratePurple: '#c187ff',
       mergeGreen: '#a3ff48',
       badge: 'rgba(0, 0, 0, 0.7)',
     },
