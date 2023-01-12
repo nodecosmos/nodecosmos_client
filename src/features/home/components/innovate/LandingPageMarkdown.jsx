@@ -184,7 +184,10 @@ export default function LandingPageMarkdown() {
 
       </Box>
       <Box
-        mx={-4}
+        mx={{
+          xs: -3,
+          sm: -4,
+        }}
         mt={0}
         mb={1}
         pb={1}
