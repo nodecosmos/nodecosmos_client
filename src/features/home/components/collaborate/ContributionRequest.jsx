@@ -188,7 +188,7 @@ export default function ContributionRequest() {
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="224">
             <Box mt="1px">
-              <GradientText text="Review Contribution request" fontSize={18} />
+              <GradientText text="Review Contribution Request" fontSize={18} />
             </Box>
           </foreignObject>
           <g>
