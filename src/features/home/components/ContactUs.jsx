@@ -25,28 +25,20 @@ export default function ContactUs() {
   const onSubmit = async (formValues) => {
     setLoading(true);
     // eslint-disable-next-line no-undef
-    grecaptcha.ready(() => {
-      // eslint-disable-next-line no-undef
-      grecaptcha.execute('6Ld30jMjAAAAAIsW1c9xvFRaaOXOLjLywqPWDHSA', { action: 'submit' }).then((token) => {
-        axios.post(
-          'https://z9cnfgotre.execute-api.us-east-1.amazonaws.com/contact/contact-us',
-          {
-            recaptchaToken: token, ...formValues,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        ).then(() => {
-          localStorage.setItem('sentContactForm', true);
-          setLoading(false);
-          setSuccess(true);
-        }).catch((error) => {
-          setLoading(false);
-          console.error(error);
-        });
-      });
+    axios.post(
+      'https://z9cnfgotre.execute-api.us-east-1.amazonaws.com/contact/contact-us',
+      formValues,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    ).then(() => {
+      setLoading(false);
+      setSuccess(true);
+    }).catch((error) => {
+      setLoading(false);
+      console.error(error);
     });
   };
 
@@ -162,43 +154,6 @@ export default function ContactUs() {
                         />
                       </Grid>
                     </Grid>
-                    <Box mt={2}>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: '#656e76',
-                          fontSize: 12,
-                        }}
-                      >
-                        This site is protected by
-                        {' '}
-                        <b>reCAPTCHA</b>
-                        {' '}
-                        and the Google
-                        {' '}
-                        <Box
-                          color="#a2abc7"
-                          component="a"
-                          target="_blank"
-                          href="https://policies.google.com/privacy"
-                        >
-                          Privacy Policy
-                        </Box>
-                        {' '}
-                        and
-                        {' '}
-                        <Box
-                          color="#a2abc7"
-                          component="a"
-                          target="_blank"
-                          href="https://policies.google.com/terms"
-                        >
-                          Terms of Service
-                        </Box>
-                        {' '}
-                        apply.
-                      </Typography>
-                    </Box>
                     <Button
                       sx={{
                         mt: 3,
