@@ -5,7 +5,7 @@ export default {
     },
 
     secondary: {
-      main: '#e6e6e6',
+      main: '#cdd4ff',
     },
 
     error: {
@@ -73,7 +73,7 @@ export default {
     sectionSecondary: '#cdd4ff',
 
     text: {
-      primary: '#e6e6e6',
+      primary: '#f5f5f2',
       secondary: '#9a9da9',
       tertiary: '#626e79',
       contrast: '#fff',

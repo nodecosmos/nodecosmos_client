@@ -17,7 +17,7 @@ export default () => ({
   '@keyframes node-button-appear': {
     '0%': {
       opacity: 1,
-      transform: 'translate(-30px, -21px)',
+      transform: 'translate(-30px, -15px)',
     },
     '50%': {
       transform: 'translate(-30px, 0px)',
