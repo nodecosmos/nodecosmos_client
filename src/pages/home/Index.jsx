@@ -199,7 +199,7 @@ export default function Index() {
           boxShadow="0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)"
         >
           <Typography variant="body2" color="#e3daee">
-            © 2022 nodecosmos
+            © 2023 nodecosmos
           </Typography>
         </Box>
       </Box>

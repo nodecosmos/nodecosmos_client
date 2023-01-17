@@ -12,7 +12,7 @@ export default function OpenSourceLink() {
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
   const color = theme.palette.sectionSecondary;
 
-  const viewBox = matchesXs ? '-55 377 218 115' : '-80 382 268 85';
+  const viewBox = matchesXs ? '-55 377 218 150' : '-80 382 268 89';
 
   return (
     <Box
@@ -95,7 +95,8 @@ export default function OpenSourceLink() {
                 color="text.sectionSecondary"
                 fontWeight="bold"
               >
-                Nodecosmos will allow users to freely collaborate on public nodes.
+                Nodecosmos will allow users to freely collaborate on public nodes, not only for innovations,
+                but also for knowledge sharing in general.
               </Typography>
             </foreignObject>
           </g>
