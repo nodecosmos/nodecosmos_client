@@ -1,8 +1,8 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNodePositionCalculator from '../../hooks/tree/useNodePositionCalculator';
-import useNodeUnmountService from '../../hooks/tree/useNodeUnmountService';
+import useNodePositionCalculator from '../../hooks/tree-old/useNodePositionCalculator';
+import useNodeUnmountService from '../../hooks/tree-old/useNodeUnmountService';
 import NodeButton from './NodeButton';
 import NodeLink from './NodeLink';
 

@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* nodecosmos */
-import useNodeButtonAnimationStyle from '../../hooks/tree/useNodeButtonAnimationStyle';
-import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
-import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
+import useNodeButtonAnimationStyle from '../../hooks/tree-old/useNodeButtonAnimationStyle';
+import useNodeButtonBackground from '../../hooks/tree-old/useNodeButtonBackground';
+import useNodeTreeEvents from '../../hooks/tree-old/useNodeTreeEvents';
 import NodeToolbar from './NodeToolbar';
 import { NODE_BUTTON_HEIGHT } from './constants';
 import NodeButtonText from './NodeButtonText';

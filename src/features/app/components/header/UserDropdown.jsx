@@ -58,18 +58,15 @@ export default function UserDropdown() {
           open={open}
           onClose={handleClose}
           PaperProps={{
-            className: 'Border',
             elevation: 4,
             sx: {
               p: 0,
-              mt: '2px',
-              ml: '3px',
+              m: 0.25,
               width: 300,
-              transform: 'scale(0.8)!important',
             },
           }}
         >
-          <List sx={{ m: '-4px', p: 0 }}>
+          <List sx={{ m: -0.5, p: 0 }}>
             <ListItem>
               <ListItemButton onClick={handleClose} component={Link} to={`/user/${currentUser.username}`}>
                 <ListItemIcon>
@@ -124,7 +121,6 @@ export default function UserDropdown() {
         to="/login"
         variant="outlined"
         className="MicroButton focused"
-        color="green"
         sx={{ mr: 2 }}
       >
         Sign Up

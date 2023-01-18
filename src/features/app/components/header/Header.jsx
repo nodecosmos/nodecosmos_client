@@ -8,8 +8,6 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-/* icons */
-import TagRounded from '@mui/icons-material/TagRounded';
 /* nodecosmos */
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
 import UserDropdown from './UserDropdown';
@@ -30,18 +28,17 @@ export default function Header() {
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
   return (
-    <Box className="Header" display="flex" alignItems="center" height={62}>
+    <Box display="flex" alignItems="center" height={62}>
       {subtitle && (
-        <Box className="BoxShadowBottom" width={300} height={1}>
+        <Box width={300} height={1}>
           <Box
             height={1}
             width={1}
-            className="BoxShadowRight BorderRight BorderBottom"
             display="flex"
             justifyContent="center"
             alignItems="center"
           >
-            <Typography align="center" variant="body2" color="black5">
+            <Typography align="center" variant="body2">
               {subtitle}
             </Typography>
           </Box>
@@ -53,21 +50,19 @@ export default function Header() {
         container
         alignItems="center"
         justifyContent="center"
-        className="BoxShadowBottom BorderBottom"
         height={1}
-        width={`calc(100% - ${subtitle ? 300 : 0}px)`} // TODO: update check safari
+        width={`calc(100% - ${subtitle ? 300 : 0}px)`}
       >
         <Grid item sm={4} align="left" pl={2}>
           <Button
             component={Link}
             to="/n"
-            color="primary"
             className="MicroButton"
-            startIcon={<TagRounded sx={{ color: 'primary.light', ml: 0, mr: -2 }} />}
           >
-            <Typography sx={{ fontSize: '1.05rem' }} fontWeight="bold">
-              <Box component="span" color="primary.light">node</Box>
-              <Box component="span" color="secondary.main">cosmos</Box>
+            <img src="/logo_1.svg" alt="logo" height={22} width={22} />
+            <Typography sx={{ fontSize: 18, ml: 1 }} fontWeight="bold">
+              <Box component="span" color="logo.blue">node</Box>
+              <Box component="span" color="logo.red">cosmos</Box>
             </Typography>
           </Button>
         </Grid>

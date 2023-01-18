@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import usePrevProps from '../../../app/hooks/usePrevProps';
 import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
 import { incrementNodesYEnds, updateNodePosition } from '../../nodeSlice';
-import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
+import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree-old/constants';
 
 export default function useNodePositionCalculator(props) {
   const {

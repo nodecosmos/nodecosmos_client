@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tree from '../../../features/nodes/components/tree/Tree';
+import Tree from '../../../features/nodes/components/tree-old/Tree';
 
 export default function TreeTab(props) {
   const { id } = props;

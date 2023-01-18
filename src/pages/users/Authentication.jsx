@@ -6,7 +6,7 @@ import {
   Tab,
   Tabs,
   Box,
-  Container,
+  Container, Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 /* nodecosmos */
@@ -29,11 +29,11 @@ export default function Authentication() {
     >
       <Box sx={{ height: 600, width: 1 }}>
         <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <TagRounded sx={{ color: 'primary.light', fontSize: 35 }} />
-          <Box fontSize={35} align="center">
-            <Box component="span" color="primary.light"> node</Box>
-            <Box component="span" color="secondary.main">cosmos</Box>
-          </Box>
+          <img src="logo_1.svg" alt="logo" height={50} width={50} />
+          <Typography sx={{ fontSize: 50, ml: 2 }} fontWeight="bold">
+            <Box component="span" color="logo.blue">node</Box>
+            <Box component="span" color="logo.red">cosmos</Box>
+          </Typography>
         </Box>
         <Box>
           <Tabs value={currentPage} onChange={(_event, value) => setCurrentPage(value)} centered>

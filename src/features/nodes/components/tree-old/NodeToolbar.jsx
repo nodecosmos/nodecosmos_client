@@ -19,7 +19,7 @@ import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import Notifications from '@mui/icons-material/Notifications';
 import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
 
-import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
+import useNodeTreeEvents from '../../hooks/tree-old/useNodeTreeEvents';
 
 export default function NodeToolbar(props) {
   const { id } = props;
