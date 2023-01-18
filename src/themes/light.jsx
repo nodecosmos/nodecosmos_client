@@ -70,14 +70,17 @@ export default {
 
     borders: {
       1: '#2d3138',
+      2: '#454b53',
 
-      section: {
+      sectionTop: '#3c4149',
+      box: {
         xs: '#202027',
         md: '#101013',
       },
     },
 
     background: {
+      defaultIcon: '#555b66',
       badge: '#c1ff68',
       labels: {
         green: '#abe15e',
@@ -91,6 +94,7 @@ export default {
       paper: '#31353c',
       root: '#2c2f35',
       scrollbarThumb: '#36393f',
+      hover: 'rgba(0, 0, 0, 0.1)',
     },
 
     circularProgress: '#55575b',
@@ -109,12 +113,19 @@ export default {
       className: '#daff29',
       operator: '#fff',
       bracket: '#fff',
+      caret: '#fff',
       heading: '#cdd4ff',
       emphasis: '#ffea83',
       quote: '#57606e',
       meta: '#95a0a4',
       link: '#83c1ea',
       background: '#2f343a',
+      foreground: '#9a9da9',
+      selection: 'rgba(255,255,255,0.06)',
+      selectionMatch: 'rgba(255,255,255,0.06)',
+      lineHighlight: '#8a91991a',
+      gutterBackground: 'transparent',
+      gutterForeground: '#636b73',
     },
 
     logo: {
@@ -148,7 +159,7 @@ export default {
       },
       collaboratePurple: '#c187ff',
       mergeGreen: '#a3ff48',
-      badge: 'rgba(0, 0, 0, 0.7)',
+      foreground: 'rgba(0, 0, 0, 0.7)',
     },
 
     toolbar: {
