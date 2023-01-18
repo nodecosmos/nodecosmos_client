@@ -9,7 +9,8 @@ export default function Section(props) {
     <Card
       elevation={2}
       sx={{
-        borderTop: '1px solid #3c4149', // 3c4149 414145,
+        borderTop: 1,
+        borderColor: 'borders.sectionTop',
         height: '100%',
         borderRadius,
         padding,

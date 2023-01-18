@@ -22,7 +22,7 @@ export default function GradientText(props) {
         WebkitBackgroundClip: 'text!important',
         backgroundClip: 'text!important',
         WebkitTextFillColor: 'transparent!important',
-        color: '#fff',
+        color: 'text.primary',
         display: 'inline-block',
       }}
     >

@@ -50,27 +50,25 @@ export default function Transformable(props) {
       onClick={resize}
       onMouseDown={handleMouseDown}
       onTouchStart={resize}
-      sx={{
-        overflow: {
-          xs: 'auto',
-          lg: 'hidden',
-        },
-        width: {
-          xs: '100%',
-          lg: containerWidth,
-        },
-        boxShadow: {
-          xs: 0,
-          md: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
-        },
-        borderRight: {
-          xs: 'none',
-          md: '1px solid',
-        },
-        borderColor: {
-          xs: '#202027',
-          md: '#101013',
-        },
+      borderRight={{
+        xs: 0,
+        md: 1,
+      }}
+      borderColor={{
+        xs: 'borders.box.xs',
+        md: 'borders.box.md',
+      }}
+      boxShadow={{
+        xs: 0,
+        md: 'boxBorder.right.md',
+      }}
+      overflow={{
+        xs: 'auto',
+        lg: 'hidden',
+      }}
+      width={{
+        xs: '100%',
+        lg: containerWidth,
       }}
     >
       {/* <TransformablePath panX={pan.x} /> */}
