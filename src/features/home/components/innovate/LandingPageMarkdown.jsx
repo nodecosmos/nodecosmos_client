@@ -14,12 +14,12 @@ const CustomCodeMirror = React.lazy(() => import('../../../app/components/Custom
 const INITIAL_DESCRIPTION_VALUE = `
 ### The following is a sample markdown description explaining its syntax:
 
-Heading
-=======
+---
+- # Heading 1
+- ## Heading 2
+- ### Heading 3
 
-Sub-heading
-=======
-
+---
 ### Paragraphs
 
 Paragraphs are separated by a blank line.
