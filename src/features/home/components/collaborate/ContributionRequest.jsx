@@ -282,7 +282,7 @@ export default function ContributionRequest() {
                 cx="95"
                 cy="358"
                 r="5.5"
-                fill="#a3ff48"
+                fill={theme.palette.text.mergeGreen}
               />
             </g>
             <foreignObject
@@ -294,7 +294,7 @@ export default function ContributionRequest() {
             >
               <Typography
                 fontFamily="Montserrat"
-                color="#a3ff48"
+                color="text.mergeGreen"
                 fontSize={18}
               >
                 Merge Contribution Request

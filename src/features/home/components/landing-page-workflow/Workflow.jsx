@@ -42,17 +42,17 @@ export default function Workflow() {
           xs: 400,
           sm: 800,
         }}
-        boxShadow={{
-          xs: 0,
-          md: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
-        }}
         borderRight={{
-          xs: 'none',
-          md: '1px solid',
+          xs: 0,
+          md: 1,
         }}
         borderColor={{
-          xs: '#202027',
-          md: '#101013',
+          xs: 'borders.box.xs',
+          md: 'borders.box.md',
+        }}
+        boxShadow={{
+          xs: 'boxBorder.right.xs',
+          md: 'boxBorder.right.md',
         }}
         zIndex={1}
         display="flex"
@@ -100,7 +100,7 @@ export default function Workflow() {
                 textAnchor="middle"
                 style={{
                   fontSize: 14,
-                  fill: '#fff',
+                  fill: theme.palette.text.contrast,
                   cursor: 'pointer',
                 }}
               >
@@ -139,7 +139,7 @@ export default function Workflow() {
                 textAnchor="middle"
                 style={{
                   fontSize: 14,
-                  fill: '#fff',
+                  fill: theme.palette.text.contrast,
                   cursor: 'pointer',
                 }}
               >
@@ -179,7 +179,7 @@ export default function Workflow() {
                 textAnchor="middle"
                 style={{
                   fontSize: 14,
-                  fill: '#fff',
+                  fill: theme.palette.text.contrast,
                   cursor: 'pointer',
                 }}
               >
@@ -217,7 +217,7 @@ export default function Workflow() {
                 textAnchor="middle"
                 style={{
                   fontSize: 14,
-                  fill: '#fff',
+                  fill: theme.palette.text.contrast,
                   cursor: 'pointer',
                 }}
               >
@@ -253,7 +253,7 @@ export default function Workflow() {
                 textAnchor="middle"
                 style={{
                   fontSize: 14,
-                  fill: '#fff',
+                  fill: theme.palette.text.contrast,
                   cursor: 'pointer',
                 }}
               >

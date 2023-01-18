@@ -20,16 +20,14 @@ export default function NodeDescription() {
   return (
     <Box>
       <Box
-        sx={{
-          borderBottom: '1px solid',
-          borderColor: {
-            xs: '#202027',
-            md: '#101013',
-          },
-          boxShadow: {
-            xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
-            md: '0px 3px 1px -2px rgb(66 70 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
-          },
+        borderBottom={1}
+        borderColor={{
+          xs: 'borders.box.xs',
+          md: 'borders.box.md',
+        }}
+        boxShadow={{
+          xs: 'boxBorder.bottom.xs',
+          md: 'boxBorder.bottom.md',
         }}
         display="flex"
         justifyContent="center"

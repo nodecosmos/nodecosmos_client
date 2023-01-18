@@ -62,7 +62,7 @@ export default function App() {
             height={1}
             width={1}
             backgroundColor="background.mainContent"
-            boxShadow={8}
+            boxShadow="8"
           >
             <Header />
             <Routes>

@@ -137,10 +137,9 @@ export default function Index() {
             xs: 0,
             sm: 6,
           },
-          boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 25%), '
-            + '0px 2px 3px 0px rgb(0 0 0 / 3%), '
-            + '0px 1px 5px 0px rgb(0 0 0 / 10%)',
-          borderBottom: '1px solid #2d3138',
+          boxShadow: 'header',
+          borderBottom: 1,
+          borderColor: 'borders.1',
           backgroundColor: 'background.paper',
         }}
       >
@@ -196,9 +195,9 @@ export default function Index() {
           zIndex={2}
           p={3}
           backgroundColor="background.paper"
-          boxShadow="0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)"
+          boxShadow="boxBorder.top.xs"
         >
-          <Typography variant="body2" color="#e3daee">
+          <Typography variant="body2" color="text.secondary">
             © 2023 nodecosmos
           </Typography>
         </Box>

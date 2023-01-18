@@ -101,9 +101,10 @@ export default function OpenSourceLink() {
                 <Box
                   component="span"
                   color="sectionSecondary"
+                  borderBottom={1}
+                  borderColor="sectionSecondary"
                   sx={{
                     cursor: 'pointer',
-                    borderBottom: '1px solid #cdd4ff',
                   }}
                   onClick={() => dispatch(setHomepageTab(1))}
                   target="_blank"

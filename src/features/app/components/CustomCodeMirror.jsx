@@ -29,19 +29,26 @@ export default function CustomCodeMirror(props) {
     meta,
     link,
     background,
+    foreground,
+    caret,
+    selection,
+    selectionMatch,
+    lineHighlight,
+    gutterBackground,
+    gutterForeground,
   } = theme.palette.markdownEditor;
 
   const codeMirrorTheme = createTheme({
     theme: 'dark',
     settings: {
       background: 'transparent',
-      foreground: '#a4a7ab',
-      caret: '#ffffff',
-      selection: 'rgba(255,255,255,0.06)',
-      selectionMatch: 'rgba(255,255,255,0.06)',
-      lineHighlight: '#8a91991a',
-      gutterBackground: 'transparent',
-      gutterForeground: '#636b73',
+      foreground,
+      caret,
+      selection,
+      selectionMatch,
+      lineHighlight,
+      gutterBackground,
+      gutterForeground,
     },
     styles: [
       {
@@ -145,10 +152,14 @@ export default function CustomCodeMirror(props) {
         },
       },
       '.cm-gutters': {
-        borderRight: '1px solid #202027',
+        borderRight: 1,
+        borderColor: {
+          xs: 'borders.box.xs',
+          md: 'borders.box.md',
+        },
         boxShadow: {
-          xs: '3px 0px 1px -1px rgb(106 107 116 / 5%), 1px 0px 1px 0px rgb(82 81 95 / 20%)',
-          sm: '3px 0px 1px -1px rgb(106 107 116 / 5%), 1px 0px 1px 0px rgb(82 81 95 / 30%)',
+          xs: 'boxBorder.right.xs',
+          sm: 'boxBorder.right.md',
         },
       },
     }}

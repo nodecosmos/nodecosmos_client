@@ -14,20 +14,6 @@ import {
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-function renderRootLink({ x, xEnds, y }) {
-  return (
-    <g>
-      <circle cx={x} cy={y} r={6} fill="#414650" />
-      <path
-        strokeWidth={4}
-        d={`M ${x} ${y} L ${xEnds} ${y}`}
-        stroke="#414650"
-        fill="transparent"
-      />
-    </g>
-  );
-}
-
 export default function NonAnimatedNodeLink(props) {
   const {
     id,
@@ -62,7 +48,19 @@ export default function NonAnimatedNodeLink(props) {
   });
 
   if (!x) return null;
-  if (isRoot) return renderRootLink({ x, xEnds, y });
+
+  if (isRoot) {
+    return (
+      <g>
+        <circle cx={x} cy={y} r={6} fill={parentBackgroundColor} />
+        <path
+          strokeWidth={4}
+          d={`M ${x} ${y} L ${xEnds} ${y}`}
+          stroke={parentBackgroundColor}
+        />
+      </g>
+    );
+  }
 
   const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 

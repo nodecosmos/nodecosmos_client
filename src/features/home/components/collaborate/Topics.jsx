@@ -156,8 +156,9 @@ export default function Topics() {
       <Table
         aria-label="table"
         sx={{
-          borderTop: '1px solid #454b53',
-          borderBottom: '1px solid #454b53',
+          borderTop: 1,
+          borderBottom: 1,
+          borderColor: 'borders.2',
         }}
       >
         <TableBody>
@@ -168,14 +169,15 @@ export default function Topics() {
                 borderRadius: 2,
                 'td, th': {
                   mt: 1,
-                  borderBottom: '1px solid #454b53',
-                  borderRight: '1px solid #454b53',
+                  borderBottom: 1,
+                  borderRight: 1,
+                  borderColor: 'borders.2',
                   p: '12px 16px',
                 },
                 'td:last-of-type': { borderRight: 0 },
                 '&:last-of-type td': { borderBottom: 0 },
                 '&:hover': {
-                  backgroundColor: 'rgba(71,83,104,0.3)',
+                  backgroundColor: 'background.hover',
                 },
               }}
             >
@@ -247,7 +249,7 @@ export default function Topics() {
                       color: 'text.secondary',
                       '.MuiBadge-badge': {
                         backgroundColor: 'background.badge',
-                        color: 'text.badge',
+                        color: 'text.foreground',
                       },
                     }}
                     badgeContent={row.comments}

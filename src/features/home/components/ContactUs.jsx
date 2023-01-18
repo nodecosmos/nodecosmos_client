@@ -93,7 +93,7 @@ export default function ContactUs() {
       <Box mt={3}>
         <AnimateOnView delay={400}>
           <Section>
-            <Typography color="#a4a7ab">
+            <Typography color="text.secondary">
               Contact us at
               {' '}
               <a href="mailto:contact@nodecosmos.com">
@@ -102,7 +102,7 @@ export default function ContactUs() {
                   color="sectionSecondary"
                   fontWeight="bold"
                   sx={{
-                    borderBottom: '2px solid',
+                    borderBottom: 2,
                     borderBottomColor: 'sectionSecondary',
                   }}
                 >
@@ -157,7 +157,7 @@ export default function ContactUs() {
                     <Button
                       sx={{
                         mt: 3,
-                        color: 'rgb(0 0 0 / 70%)',
+                        color: 'text.foreground',
                         '&:disabled': {
                           backgroundColor: theme.palette.buttonGreen.main,
                         },
@@ -168,7 +168,7 @@ export default function ContactUs() {
                       disableElevation
                       type="submit"
                       startIcon={
-                        loading ? <CircularProgress size="20px" sx={{ color: 'rgb(0 0 0 / 70%)' }} />
+                        loading ? <CircularProgress size="20px" sx={{ color: 'text.foreground' }} />
                           : <SendOutlinedIcon />
                       }
                     >

@@ -125,12 +125,14 @@ export default function LandingPageMarkdown() {
         pb={2}
         zIndex={2}
         position="relative"
-        sx={{
-          borderBottom: '1px solid #202027',
-          boxShadow: {
-            xs: '0px 3px 1px -2px rgb(106 107 116 / 5%), 0px 1px 2px 0px rgb(82 81 95 / 15%)',
-            md: '0px 3px 1px -2px rgb(106 107 116 / 5%), 0px 1px 2px 0px rgb(82 81 95 / 30%)',
-          },
+        borderBottom={1}
+        borderColor={{
+          xs: 'borders.box.xs',
+          md: 'borders.box.md',
+        }}
+        boxShadow={{
+          xs: 'boxBorder.bottom.xs',
+          md: 'boxBorder.bottom.md',
         }}
       >
         <ToggleButtonGroup
