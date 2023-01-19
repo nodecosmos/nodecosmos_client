@@ -12,7 +12,7 @@ export default function Hero() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        py={10}
+        py={16}
       >
         <img
           src="innovate_9.svg"
@@ -37,8 +37,8 @@ export default function Hero() {
                 fontSize: 25,
               },
               xs: 30,
-              sm: 35,
-              md: 44,
+              sm: 40,
+              md: 50,
             }}
             color="text.contrast"
             fontFamily="'Montserrat', sans-serif"
@@ -52,13 +52,16 @@ export default function Hero() {
               '@media (max-width: 360px)': {
                 fontSize: 13,
               },
-              xs: 16,
-              sm: 20,
+              xs: 18,
+              sm: 22.7,
             }}
-            pl="2px"
             fontWeight={400}
             textAlign="left"
             lineHeight={1.5}
+            mt={{
+              xs: 1,
+              md: 0,
+            }}
           >
             Where scientists, engineers, and entrepreneurs collaborate to build innovations.
           </Typography>

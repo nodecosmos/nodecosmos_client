@@ -42,7 +42,7 @@ export default function Innovate() {
 
   return (
     <Box w={1}>
-      <Box>
+      <Box display="flex" justifyContent="start">
         <Tabs
           textColor="secondary"
           indicatorColor="secondary"
@@ -51,7 +51,7 @@ export default function Innovate() {
               xs: 0,
               md: '20px',
             },
-            mb: -1,
+            mb: -1.5,
             // '.MuiTabs-flexContainer': {
             //   justifyContent: 'end',
             // },
