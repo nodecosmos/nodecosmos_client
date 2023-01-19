@@ -14,7 +14,7 @@ const getTheme = (currentTheme) => createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         a: {
-          '&.MuiTypography-root': {
+          '&, &.MuiTypography-root': {
             textDecoration: 'none',
           },
         },
