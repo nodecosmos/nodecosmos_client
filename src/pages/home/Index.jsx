@@ -131,11 +131,11 @@ export default function Index() {
         sx={{
           borderTopLeftRadius: {
             xs: 0,
-            sm: 6,
+            sm: 8,
           },
           borderTopRightRadius: {
             xs: 0,
-            sm: 6,
+            sm: 8,
           },
           boxShadow: 'header',
           borderBottom: 1,
@@ -198,6 +198,16 @@ export default function Index() {
           p={3}
           backgroundColor="background.3"
           boxShadow="boxBorder.top.xs"
+          sx={{
+            borderBottomLeftRadius: {
+              xs: 0,
+              sm: 8,
+            },
+            borderBottomRightRadius: {
+              xs: 0,
+              sm: 8,
+            },
+          }}
         >
           <Typography variant="body2" color="text.secondary">
             © 2023 nodecosmos

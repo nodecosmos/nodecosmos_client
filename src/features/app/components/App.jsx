@@ -48,7 +48,10 @@ export default function App() {
             backgroundColor="background.2"
             border={1}
             borderColor="borders.2"
-            borderRadius={2}
+            borderRadius={{
+              xs: 0,
+              sm: 2,
+            }}
           >
             <Routes>
               <Route path="/" element={(<Home />)} />
