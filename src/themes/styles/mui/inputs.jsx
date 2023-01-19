@@ -15,6 +15,7 @@ export default (currentTheme) => ({
           },
         },
         '.MuiOutlinedInput-notchedOutline': {
+          top: 0,
           borderColor: 'transparent',
           borderWidth: 2,
           '& legend': {

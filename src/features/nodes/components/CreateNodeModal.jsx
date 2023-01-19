@@ -53,7 +53,7 @@ export default function CreateNodeModal(props) {
             top: 16,
           }}
         >
-          <CloseOutlined />
+          <CloseOutlined sx={{ color: 'background.4' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>
@@ -68,7 +68,7 @@ export default function CreateNodeModal(props) {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'gray' }} />
+                      <TagRounded sx={{ color: 'background.4' }} />
                     </InputAdornment>
                   ),
                 }}
