@@ -21,7 +21,6 @@ export default function Transformable(props) {
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
-      mt={2}
       sx={{
         overflow: 'hidden',
         touchAction: 'none',

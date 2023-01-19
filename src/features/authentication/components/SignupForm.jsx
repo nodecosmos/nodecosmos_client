@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { Button, Grid } from '@mui/material';
 /* nodecosmos */
-import Field from '../../app/components/final-form/FinalFormInputField';
+import Field from '../../app/components/common/final-form/FinalFormInputField';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 
 // eslint-disable-next-line max-len

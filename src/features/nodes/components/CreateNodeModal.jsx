@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import nodecosmos from '../../../apis/nodecosmos-server';
 /* nodecosmos */
-import FinalFormInputField from '../../app/components/final-form/FinalFormInputField';
+import FinalFormInputField from '../../app/components/common/final-form/FinalFormInputField';
 
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
@@ -53,7 +53,7 @@ export default function CreateNodeModal(props) {
             top: 16,
           }}
         >
-          <CloseOutlined />
+          <CloseOutlined sx={{ color: 'background.4' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>
@@ -63,12 +63,12 @@ export default function CreateNodeModal(props) {
               <FinalFormInputField
                 fullWidth
                 name="title"
-                label="Title"
+                placeholder="Title"
                 required
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'gray' }} />
+                      <TagRounded sx={{ color: 'background.4' }} />
                     </InputAdornment>
                   ),
                 }}

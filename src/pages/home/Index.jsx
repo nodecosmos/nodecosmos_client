@@ -139,9 +139,11 @@ export default function Index() {
           },
           boxShadow: 'header',
           borderBottom: 1,
-          borderColor: 'borders.1',
+          borderBottomColor: 'borders.1',
           backgroundColor: 'background.3',
         }}
+        border={1}
+        borderColor="borders.2"
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>
           <Box

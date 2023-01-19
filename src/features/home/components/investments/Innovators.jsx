@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import GradientText from '../../../app/components/GradientText';
+import GradientText from '../../../app/components/common/GradientText';
 
 export default function Innovators() {
   return (

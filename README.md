@@ -1,3 +1,13 @@
+# Nodecosmos
+
+Directory structure: 
+   * features
+     * feature_name
+       * components - view components
+       * hooks - business logic
+       * featureSlice - state management for feature
+   * pages - Every page has related route
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,47 +79,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-
-
-
-# Markdown #
-
-- use **markdown** syntax to answer what is it
-- use **node tree** to answer what your innovation contains
-- use workflow to describe how it works or other processes
-- use drawing to draw 2D image of your innovation, annotate components & map them to node tree
-
-Heading
-=======
-
-Sub-heading
------------
-
-Paragraphs are separated
-by a blank line.
-
-Two spaces at the end of a line  
-produce a line break.
-
-Text attributes _italic_, **bold**, `monospace`.
-
-Horizontal rule:
-
----
-
-1. fruits
-    * apple
-    * banana
-2. vegetables
-    - carrot
-    - broccoli
-
-A [link](http://example.com).
-
-
-> Markdown uses email-style
-characters for blockquoting.
->
-> Multiple paragraphs need to be prepended individually.
-
-Most inline <abbr title="Hypertext Markup Language">HTML</abbr> tags are supported.

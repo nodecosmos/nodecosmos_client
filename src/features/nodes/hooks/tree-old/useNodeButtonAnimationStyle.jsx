@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
+import { ANIMATION_DURATION, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree-old/constants';
 
 export default function useNodeButtonAnimationStyle(props) {
   const { id, isRoot } = props;

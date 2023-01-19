@@ -1,45 +1,46 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import * as PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
+
 /* mui */
 import {
   Card,
   CardContent,
   CardHeader,
+  Link,
 } from '@mui/material';
 
 /* nodecosmos */
-import NodeAvatar from '../../app/components/NodeAvatar';
+import UserAvatar from '../../app/components/common/UserAvatar';
 
 function NodeCard(props) {
-  const {
-    node,
-  } = props;
+  const { id } = props;
+  const node = useSelector((state) => state.nodes[id]);
 
   return (
-    <Card className="Card">
-      <CardHeader
-        avatar={(
-          <Link to={`/users/${node.owner.id}`}>
-            <NodeAvatar user={node.owner} />
-          </Link>
+    <Box width="60%" p={2}>
+      <Card className="Card" elevation={2}>
+        <CardHeader
+          avatar={(
+            <Link to={`/users/${node.owner.id}`}>
+              <UserAvatar user={node.owner} />
+            </Link>
         )}
-        title={<Link to={`/nodes/${node.id}`}>{node.title}</Link>}
-        subheader={node.created_at}
-      />
-      <CardContent>
-        {node.description}
-      </CardContent>
-    </Card>
+          title={<Link component={RouterLink} to={`/nodes/${node.id}`}>{node.title}</Link>}
+          subheader={node.created_at}
+        />
+        <CardContent>
+          {node.description}
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 
-// NodeTab.defaultProps = {
-//   defaultValue: null,
-// };
-
 NodeCard.propTypes = {
-  node: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default NodeCard;

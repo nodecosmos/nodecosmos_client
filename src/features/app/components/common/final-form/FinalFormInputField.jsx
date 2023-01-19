@@ -57,10 +57,15 @@ export default function FinalFormInputField({
     >
       {({ input, meta }) => (
         <TextField
-          sx={sx}
+          sx={{
+            '& .MuiInputBase-input': {
+              p: label ? '28px 14px 14px' : 2,
+            },
+            ...sx,
+          }}
           color="primary"
           variant="outlined"
-          label={label || name}
+          label={label}
           name={input.name}
           value={input.value}
           onChange={input.onChange}
@@ -71,6 +76,7 @@ export default function FinalFormInputField({
           multiline={multiline}
           fullWidth={fullWidth}
           rows={7}
+          InputProps={InputProps}
         />
       )}
     </Field>
