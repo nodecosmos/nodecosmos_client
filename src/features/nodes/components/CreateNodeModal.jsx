@@ -63,7 +63,7 @@ export default function CreateNodeModal(props) {
               <FinalFormInputField
                 fullWidth
                 name="title"
-                label="Title"
+                placeholder="Title"
                 required
                 InputProps={{
                   startAdornment: (
