@@ -1,45 +1,32 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import CssBaseline from '@mui/material/CssBaseline';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Home from '../../../pages/home/Index';
-/* users */
-import UserAuthentication from '../../../pages/users/Authentication';
-/* nodes */
-import NodesIndex from '../../../pages/nodes/Index';
-import NodeShow from '../../../pages/nodes/Show';
-import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
+import { useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 /* nodecosmos */
 import history from '../../../history';
-import getTheme from '../../../themes/theme';
+import Home from '../../../pages/home/Index';
 import dark from '../../../themes/dark';
 import light from '../../../themes/light';
-import Header from './header/Header';
+import getTheme from '../../../themes/theme';
 
 /* css */
 import './App.css';
+// import Loader from './common/Loader';
+//
+// const LazyAppLoad = React.lazy(() => import('./LazyAppLoad'));
 
 export default function App() {
   const theme = useSelector((state) => state.app.theme);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const currentUser = useSelector((state) => state.auth.currentUser);
 
-  const themes = { light, dark };
+  const themes = {
+    light,
+    dark,
+  };
   const currentTheme = themes[theme];
-
-  const { syncUpCurrentUser } = useUserAuthentication();
-
-  useEffect(() => {
-    if (isAuthenticated) syncUpCurrentUser();
-  }, [isAuthenticated, syncUpCurrentUser]);
 
   return (
     <ThemeProvider theme={getTheme(currentTheme)}>
@@ -48,26 +35,31 @@ export default function App() {
         <Box
           height={1}
           width={1}
-          p={{ xs: 0, sm: 0.75 }}
+          p={{
+            xs: 0,
+            sm: 0.75,
+          }}
           backgroundColor="background.1"
         >
           <Box
-            borderRadius={{ xs: 0, sm: 1.5 }}
             height={1}
             width={1}
-            backgroundColor="background.2"
             boxShadow="8"
+            backgroundColor="background.2"
+            border={1}
+            borderColor="borders.2"
+            borderRadius={2}
           >
-            <Header />
             <Routes>
               <Route path="/" element={(<Home />)} />
-              <Route path="/n" element={(<NodesIndex />)} />
-              <Route
-                path="/login"
-                element={isAuthenticated ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
-              />
-              <Route path="/nodes/:id/*" element={<NodeShow />} />
             </Routes>
+            {/* { */}
+            {/*   history.location.pathname !== '/' && ( */}
+            {/*   <Suspense fallback={<Loader />}> */}
+            {/*     <LazyAppLoad /> */}
+            {/*   </Suspense> */}
+            {/*   ) */}
+            {/* } */}
           </Box>
         </Box>
       </BrowserRouter>

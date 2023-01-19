@@ -23,7 +23,7 @@ import useUserAuthentication from '../../../authentication/hooks/useUserAuthenti
 import { setTheme } from '../../appSlice';
 
 /* nodecosmos */
-import NodeAvatar from '../NodeAvatar';
+import UserAvatar from '../common/UserAvatar';
 
 export default function UserDropdown() {
   const [anchorEl, setAnchorEl] = React.useState(false);
@@ -52,7 +52,7 @@ export default function UserDropdown() {
   if (isAuthenticated) {
     return (
       <>
-        <NodeAvatar user={currentUser} onClick={handleClick} />
+        <UserAvatar user={currentUser} onClick={handleClick} />
         <Menu
           anchorEl={anchorEl}
           open={open}

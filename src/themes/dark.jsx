@@ -90,6 +90,12 @@ export default {
         purple: '#c187ff',
       },
 
+      list: {
+        iconBackground: '#373b43',
+        iconForeground: '#b9b9b9',
+        active: '#33373e',
+      },
+
       scrollbarThumb: '#36393f',
       paper: '#31353c',
       hover: 'rgba(0, 0, 0, 0.1)',

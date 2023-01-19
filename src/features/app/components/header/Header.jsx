@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
+import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import UserDropdown from './UserDropdown';
 
-const NON_HEADER_PATHS = ['/login', '/'];
+const NON_HEADER_PATHS = ['/login'];
 
 export default function Header() {
   const toolbars = {
@@ -28,9 +29,47 @@ export default function Header() {
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
   return (
-    <Box display="flex" alignItems="center" height={62}>
+    <Box
+      display="flex"
+      alignItems="center"
+      border={1}
+      borderBottom={0}
+      borderColor="borders.2"
+      position="fixed"
+      height={HEADER_HEIGHT}
+      width={{
+        xs: 1,
+        sm: 'calc(100% - 12px)',
+      }}
+      top={{
+        sm: 6,
+        xs: 0,
+      }}
+      right={{
+        sm: 6,
+        xs: 0,
+      }}
+      backgroundColor="background.3"
+      boxShadow="header"
+      sx={{
+        borderTopLeftRadius: {
+          xs: 0,
+          sm: 6,
+        },
+        borderTopRightRadius: {
+          xs: 0,
+          sm: 6,
+        },
+      }}
+    >
       {subtitle && (
-        <Box width={300} height={1}>
+        <Box
+          width={SIDEBAR_WIDTH}
+          height={1}
+          borderRight={1}
+          borderColor="borders.box.md"
+          boxShadow="boxBorder.right.md"
+        >
           <Box
             height={1}
             width={1}
@@ -51,7 +90,7 @@ export default function Header() {
         alignItems="center"
         justifyContent="center"
         height={1}
-        width={`calc(100% - ${subtitle ? 300 : 0}px)`}
+        width={`calc(100% - ${subtitle ? SIDEBAR_WIDTH : 0}px)`}
       >
         <Grid item sm={4} align="left" pl={2}>
           <Button

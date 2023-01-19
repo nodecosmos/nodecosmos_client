@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 /* nodecosmos */
-import NodeAvatar from '../../app/components/NodeAvatar';
+import UserAvatar from '../../app/components/common/UserAvatar';
 
 function NodeCard(props) {
   const { id } = props;
@@ -25,7 +25,7 @@ function NodeCard(props) {
         <CardHeader
           avatar={(
             <Link to={`/users/${node.owner.id}`}>
-              <NodeAvatar user={node.owner} />
+              <UserAvatar user={node.owner} />
             </Link>
         )}
           title={<Link component={RouterLink} to={`/nodes/${node.id}`}>{node.title}</Link>}

@@ -21,20 +21,17 @@ export default function NodeIndex() {
   ));
 
   return (
-    <Box height={1} sx={{ backgroundColor: 'background.mainContent' }}>
-      <Box p={2} mt="2px" height={0.95}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          spacing={3}
-          mt={-2}
-          height={1}
-          overflow="auto"
-        >
-          {cards}
-        </Box>
-      </Box>
+    <Box
+      p={2}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      spacing={3}
+      mt={-2}
+      height={1}
+      overflow="auto"
+    >
+      {cards}
     </Box>
   );
 }

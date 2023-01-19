@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import GradientText from '../../../app/components/GradientText';
+import GradientText from '../../../app/components/common/GradientText';
 import { setHomepageTab, setInnovateTab } from '../../homeSlice';
 
 export default function ContributionRequest() {
