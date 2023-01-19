@@ -19,13 +19,12 @@ export default function NodeIndexToolbar() {
       <Box className="Toolbar">
         <Button
           size="small"
-          color="buttonGreen"
+          color="primary"
           variant="contained"
           disableElevation
           type="submit"
           startIcon={<AddRounded />}
           onClick={() => setOpenCreateNodeDialog(true)}
-          sx={{ color: 'text.foreground1' }}
         >
           Add Node
         </Button>
