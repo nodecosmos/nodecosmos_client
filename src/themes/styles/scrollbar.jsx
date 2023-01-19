@@ -6,11 +6,16 @@ export default (currentTheme) => ({
     },
   },
   '::-webkit-scrollbar-thumb': {
-    borderRadius: 2,
+    // borderBottomRightRadius: 8,
+    // borderTopRightRadius: 8,
     backgroundColor: currentTheme.palette.background.scrollbarThumb,
   },
   '::-webkit-scrollbar-track': {
-    borderRadius: 2,
+    borderBottomRightRadius: 8,
+    borderTopRightRadius: 8,
+    marginBottom: 1,
+    marginTop: 1,
+    marginRight: 2,
     backgroundColor: currentTheme.palette.background[1],
   },
   '::-webkit-scrollbar-corner': {
