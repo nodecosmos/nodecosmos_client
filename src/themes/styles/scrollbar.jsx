@@ -13,9 +13,6 @@ export default (currentTheme) => ({
   '::-webkit-scrollbar-track': {
     borderBottomRightRadius: 8,
     borderTopRightRadius: 8,
-    marginBottom: 1,
-    marginTop: 1,
-    marginRight: 2,
     backgroundColor: currentTheme.palette.background[1],
   },
   '::-webkit-scrollbar-corner': {
