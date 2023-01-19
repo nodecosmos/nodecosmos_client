@@ -140,7 +140,7 @@ export default function Index() {
           boxShadow: 'header',
           borderBottom: 1,
           borderColor: 'borders.1',
-          backgroundColor: 'background.paper',
+          backgroundColor: 'background.3',
         }}
       >
         <Container maxWidth="xl" sx={{ height: '100%' }}>
@@ -194,7 +194,7 @@ export default function Index() {
           justifyContent="center"
           zIndex={2}
           p={3}
-          backgroundColor="background.paper"
+          backgroundColor="background.3"
           boxShadow="boxBorder.top.xs"
         >
           <Typography variant="body2" color="text.secondary">

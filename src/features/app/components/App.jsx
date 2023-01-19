@@ -52,7 +52,7 @@ export default function App() {
             xs: 0,
             sm: 0.75,
           }}
-          backgroundColor="background.root"
+          backgroundColor="background.1"
         >
           <Box
             borderRadius={{
@@ -61,7 +61,7 @@ export default function App() {
             }}
             height={1}
             width={1}
-            backgroundColor="background.mainContent"
+            backgroundColor="background.2"
             boxShadow="8"
           >
             <Header />

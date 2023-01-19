@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Grid, Typography, useTheme,
+  Button, Grid, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Form } from 'react-final-form';
@@ -19,8 +19,6 @@ const validateEmailFormat = (email) => (emailRegex.test(email) ? undefined : 'em
 export default function ContactUs() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
-
-  const theme = useTheme();
 
   const onSubmit = async (formValues) => {
     setLoading(true);
@@ -99,11 +97,11 @@ export default function ContactUs() {
               <a href="mailto:contact@nodecosmos.com">
                 <Box
                   component="span"
-                  color="sectionSecondary"
+                  color="secondary.main"
                   fontWeight="bold"
                   sx={{
                     borderBottom: 2,
-                    borderBottomColor: 'sectionSecondary',
+                    borderBottomColor: 'secondary.main',
                   }}
                 >
                   contact@nodecosmos.com
@@ -157,18 +155,17 @@ export default function ContactUs() {
                     <Button
                       sx={{
                         mt: 3,
-                        color: 'text.foreground',
                         '&:disabled': {
-                          backgroundColor: theme.palette.buttonGreen.main,
+                          backgroundColor: 'success.main',
                         },
                       }}
                       disabled={loading}
-                      color="buttonGreen"
+                      color="success"
                       variant="contained"
                       disableElevation
                       type="submit"
                       startIcon={
-                        loading ? <CircularProgress size="20px" sx={{ color: 'text.foreground' }} />
+                        loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
                           : <SendOutlinedIcon />
                       }
                     >

@@ -10,7 +10,7 @@ export default function OpenSourceLink() {
   const refInView = useInView(ref, { amount: 0.3, once: true });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
-  const color = theme.palette.sectionSecondary;
+  const color = theme.palette.secondary.main;
 
   const viewBox = matchesXs ? '-55 -5 218 125' : '-80 0 268 80';
 

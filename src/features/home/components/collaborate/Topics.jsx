@@ -129,8 +129,8 @@ const rows = [
           label="marketing"
           sx={{
             border: '1px solid',
-            borderColor: 'background.labels.greenTwo',
-            color: 'background.labels.greenTwo',
+            borderColor: 'background.labels.green',
+            color: 'background.labels.green',
             width: 'fit-content',
           }}
         />
@@ -248,7 +248,7 @@ export default function Topics() {
                     sx={{
                       color: 'text.secondary',
                       '.MuiBadge-badge': {
-                        backgroundColor: 'background.badge',
+                        backgroundColor: 'primary.main',
                         color: 'text.foreground',
                       },
                     }}

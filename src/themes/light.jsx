@@ -45,11 +45,12 @@ export default {
 
   palette: {
     primary: {
-      main: '#b6fd7b',
+      main: '#b3ff68',
+      contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     secondary: {
-      main: '#e6e6e6',
+      main: '#cdd4ff',
     },
 
     error: {
@@ -58,21 +59,18 @@ export default {
 
     success: {
       main: '#b3ff68',
+      contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
-    buttonGreen: {
-      main: '#b3ff68',
-    },
-
-    buttonToggle: {
+    toggle: {
       main: '#3a3e45',
+      contrastText: '#fff',
     },
 
     borders: {
       1: '#2d3138',
-      2: '#454b53',
+      2: '#454b53', // 454b53 3c4149
 
-      sectionTop: '#3c4149',
       box: {
         xs: '#202027',
         md: '#101013',
@@ -80,24 +78,37 @@ export default {
     },
 
     background: {
-      defaultIcon: '#555b66',
-      badge: '#c1ff68',
+      1: '#2c2f35',
+      2: '#2f333a',
+      3: '#31353c',
+      4: '#555b66',
+
       labels: {
-        green: '#abe15e',
-        greenTwo: '#acdf83',
         red: '#e15e7d',
+        green: '#abe15e',
         blue: '#85c7f3',
         purple: '#c187ff',
-        orange: '#ffddb4',
       },
-      mainContent: '#2f333a',
-      paper: '#31353c',
-      root: '#2c2f35',
+
       scrollbarThumb: '#36393f',
+      paper: '#31353c',
       hover: 'rgba(0, 0, 0, 0.1)',
     },
 
-    circularProgress: '#55575b',
+    toolbar: {
+      red: '#e91e63',
+      green: '#b6fd7b',
+      blue: '#2adfff',
+    },
+
+    tree: {
+      default: '#414650',
+      level1: '#e91e63',
+      level2: '#a2d85b', // a9d85b
+      level3: '#4dcdff',
+      defaultText: '#fff',
+      selectedText: 'rgba(0, 0, 0, 0.9)',
+    },
 
     markdownContent: {
       border: '#464b59',
@@ -114,10 +125,10 @@ export default {
       operator: '#fff',
       bracket: '#fff',
       caret: '#fff',
-      heading: '#cdd4ff',
+      heading: '#80c7ff',
       emphasis: '#ffea83',
       quote: '#57606e',
-      meta: '#95a0a4',
+      meta: '#9a9da9',
       link: '#83c1ea',
       background: '#2f343a',
       foreground: '#9a9da9',
@@ -132,9 +143,6 @@ export default {
       blue: '#2adfff',
       red: '#e91e63',
     },
-
-    sectionPrimary: '#b3ff68',
-    sectionSecondary: '#cdd4ff',
 
     text: {
       primary: '#f5f5f2',
@@ -160,21 +168,6 @@ export default {
       collaboratePurple: '#c187ff',
       mergeGreen: '#a3ff48',
       foreground: 'rgba(0, 0, 0, 0.7)',
-    },
-
-    toolbar: {
-      red: '#e91e63',
-      green: '#b6fd7b',
-      blue: '#2adfff',
-    },
-
-    tree: {
-      default: '#414650',
-      level1: '#e91e63',
-      level2: '#a2d85b', // a9d85b
-      level3: '#4dcdff',
-      defaultText: '#fff',
-      selectedText: 'rgba(0, 0, 0, 0.9)',
     },
   },
 };

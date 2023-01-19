@@ -49,7 +49,7 @@ export default function Mvp() {
           }}
         >
           Current
-          <Box component="span" color="sectionPrimary" fontWeight="bold">
+          <Box component="span" color="primary.main" fontWeight="bold">
             {' '}
             Feature Progress
             {' '}
@@ -70,7 +70,7 @@ export default function Mvp() {
               sx={{
                 '.Mui-completed': {
                   '.MuiStepConnector-line': {
-                    borderColor: theme.palette.sectionPrimary,
+                    borderColor: theme.palette.primary.main,
                     borderWidth: 2,
                   },
                 },

@@ -26,7 +26,6 @@ export default function Innovate() {
     fontWeight: 400,
     mr: 3,
     display: 'flex',
-    justifyContent: 'end',
   };
 
   const indicatorSx = {
@@ -52,7 +51,7 @@ export default function Innovate() {
               xs: 0,
               md: '20px',
             },
-            mb: -2,
+            mb: -1,
             // '.MuiTabs-flexContainer': {
             //   justifyContent: 'end',
             // },

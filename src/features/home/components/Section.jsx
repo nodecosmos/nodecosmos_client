@@ -10,7 +10,7 @@ export default function Section(props) {
       elevation={2}
       sx={{
         borderTop: 1,
-        borderColor: 'borders.sectionTop',
+        borderColor: 'borders.2',
         height: '100%',
         borderRadius,
         padding,

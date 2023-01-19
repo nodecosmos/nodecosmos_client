@@ -21,7 +21,7 @@ export default function OpenSource() {
             }}
           >
             Explore possibilities with
-            <Box component="span" color="sectionSecondary" fontWeight="bold">
+            <Box component="span" color="secondary.main" fontWeight="bold">
               {' '}
               Open Collaboration
               {' '}

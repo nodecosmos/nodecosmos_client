@@ -13,10 +13,10 @@ export default function MvpStepIcon(props) {
     height: 22,
     alignItems: 'center',
     ...(ownerState.active && {
-      color: theme.palette.sectionPrimary,
+      color: theme.palette.primary.main,
     }),
     '& .QontoStepIcon-completedIcon': {
-      color: theme.palette.sectionPrimary,
+      color: theme.palette.primary.main,
       zIndex: 1,
       fontSize: 24,
     },

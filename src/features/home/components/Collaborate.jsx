@@ -12,7 +12,7 @@ export default function Vision() {
   // const handleTabChange = (_, currentTab) => setTab(currentTab);
 
   const theme = useTheme();
-  const nodeLinkColor = theme.palette.sectionPrimary;
+  const nodeLinkColor = theme.palette.primary.main;
 
   return (
     // margin top specific to shadow

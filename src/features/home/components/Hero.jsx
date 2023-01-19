@@ -24,7 +24,11 @@ export default function Hero() {
             animation: refInView && 'rotate 0.3s',
           }}
         />
-        <Box ml={3}>
+        <Box ml={{
+          xs: 2,
+          md: 4,
+        }}
+        >
           <Typography
             variant="h1"
             fontWeight="900"

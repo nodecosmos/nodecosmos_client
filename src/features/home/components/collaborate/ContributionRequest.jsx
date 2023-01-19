@@ -91,12 +91,12 @@ export default function ContributionRequest() {
                 {' '}
                 <Box
                   component="span"
-                  color="sectionSecondary"
+                  color="secondary.main"
                   fontWeight="bold"
                   sx={{
                     cursor: 'pointer',
                     borderBottom: '3px solid',
-                    borderColor: 'sectionSecondary',
+                    borderColor: 'secondary.main',
                   }}
                   onClick={() => {
                     dispatch(setInnovateTab(0));

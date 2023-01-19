@@ -76,7 +76,7 @@ const loading = (
           xs: 6,
           sm: 7,
         },
-        color: 'circularProgress',
+        color: 'background.4',
       }}
     />
   </Box>
@@ -100,7 +100,7 @@ export default function LandingPageMarkdown() {
         {' '}
         <Box
           component="a"
-          color="sectionSecondary"
+          color="secondary.main"
           href="https://en.wikipedia.org/wiki/Markdown"
           sx={{ cursor: 'pointer' }}
           target="_blank"
@@ -145,13 +145,13 @@ export default function LandingPageMarkdown() {
               color: 'text.primary',
               border: 'none',
               '&.Mui-selected': {
-                backgroundColor: 'buttonToggle',
+                backgroundColor: 'toggle',
                 '&:hover': {
-                  backgroundColor: 'buttonToggle',
+                  backgroundColor: 'toggle',
                 },
               },
               '&:hover': {
-                backgroundColor: 'buttonToggle',
+                backgroundColor: 'toggle',
               },
             }}
             value="markdown"
@@ -166,13 +166,13 @@ export default function LandingPageMarkdown() {
               color: 'text.primary',
               border: 'none',
               '&.Mui-selected': {
-                backgroundColor: 'buttonToggle',
+                backgroundColor: 'toggle',
                 '&:hover': {
-                  backgroundColor: 'buttonToggle',
+                  backgroundColor: 'toggle',
                 },
               },
               '&:hover': {
-                backgroundColor: 'buttonToggle',
+                backgroundColor: 'toggle',
               },
             }}
             value="content"

@@ -25,7 +25,7 @@ export default function NodeAvatar({ user, onClick, backgroundColor }) {
 
 NodeAvatar.defaultProps = {
   onClick: null,
-  backgroundColor: 'background.defaultIcon',
+  backgroundColor: 'background.4',
 };
 
 NodeAvatar.propTypes = {

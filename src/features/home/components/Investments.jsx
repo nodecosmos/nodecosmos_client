@@ -9,7 +9,7 @@ import Section from './Section';
 
 export default function Investments() {
   const theme = useTheme();
-  const nodeLinkColor = theme.palette.sectionPrimary;
+  const nodeLinkColor = theme.palette.primary.main;
 
   return (
     <Box mt={8}>
@@ -23,7 +23,7 @@ export default function Investments() {
           }}
         >
           Bring your innovation to the world with
-          <Box component="span" color="sectionPrimary" fontWeight="bold">
+          <Box component="span" color="primary.main" fontWeight="bold">
             {' '}
             Crypto Investments
             {' '}

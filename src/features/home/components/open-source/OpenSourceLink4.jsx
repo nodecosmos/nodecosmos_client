@@ -12,7 +12,7 @@ export default function OpenSourceLink() {
   const refInView = useInView(ref, { amount: 0.3, once: true });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
-  const color = theme.palette.sectionSecondary;
+  const color = theme.palette.secondary.main;
 
   const viewBox = matchesXs ? '-55 277 218 178' : '-80 277 268 103';
 
@@ -100,9 +100,9 @@ export default function OpenSourceLink() {
                 {' '}
                 <Box
                   component="span"
-                  color="sectionSecondary"
+                  color="secondary.main"
                   borderBottom={1}
-                  borderColor="sectionSecondary"
+                  borderColor="secondary.main"
                   sx={{
                     cursor: 'pointer',
                   }}

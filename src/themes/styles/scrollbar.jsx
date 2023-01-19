@@ -11,9 +11,9 @@ export default (currentTheme) => ({
   },
   '::-webkit-scrollbar-track': {
     borderRadius: 2,
-    backgroundColor: currentTheme.palette.background.root,
+    backgroundColor: currentTheme.palette.background[1],
   },
   '::-webkit-scrollbar-corner': {
-    backgroundColor: currentTheme.palette.background.root,
+    backgroundColor: currentTheme.palette.background[1],
   },
 });
