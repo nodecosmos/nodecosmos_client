@@ -15,7 +15,7 @@ export default function Node(props) {
     children,
   } = props;
 
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
+  const nodeExpanded = useSelector((state) => state.landingPageNodes[id].isExpanded);
 
   useNodePositionCalculator({ id, upperSiblingID, isRoot });
 

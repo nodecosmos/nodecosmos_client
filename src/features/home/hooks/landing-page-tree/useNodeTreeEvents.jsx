@@ -14,7 +14,7 @@ const ROOT_LANDING_PAGE_NODE_ID = '635a91ea690cc413ead79ce2';
 export default function useNodeTreeEvents(props) {
   const { id } = props;
   const dispatch = useDispatch();
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].expanded);
+  const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isExpanded);
   const isNewNodePresent = useSelector((state) => state.landingPageNodes[NEW_NODE_ID]);
   const isRoot = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].is_root);
   const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);

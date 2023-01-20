@@ -9,8 +9,8 @@ const nodeSlice = createSlice({
   name: 'landingPageNodes',
   initialState: landingPageNodes,
   reducers: {
-    expandNode(state, action) { state[action.payload.id].expanded = true; },
-    collapseNode(state, action) { if (!isNewNode(action.payload.id)) state[action.payload.id].expanded = false; },
+    expandNode(state, action) { state[action.payload.id].isExpanded = true; },
+    collapseNode(state, action) { if (!isNewNode(action.payload.id)) state[action.payload.id].isExpanded = false; },
     updateNodePosition(state, action) {
       if (state[action.payload.id]) {
         state[action.payload.id].position = action.payload.position;

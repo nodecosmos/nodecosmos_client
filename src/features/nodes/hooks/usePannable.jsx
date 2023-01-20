@@ -3,76 +3,44 @@ import React from 'react';
 
 // pan on mousedown
 // animated inertia on mouseup
-export default function usePannable(ref, defaultPan) {
-  const [pan, setPan] = React.useState(defaultPan);
+export default function usePannable() {
+  const [pan, setPan] = React.useState({ x: 6.5, y: 0 });
   const [isPanning, setIsPanning] = React.useState(false);
 
-  // handle mouse down
-  const handleMouseDown = React.useCallback(
-    (event) => {
-      if (event.button !== 1) return;
-
+  // handle panning
+  const handleMouseDown = (event) => {
+    if (event.ctrlKey || event.metaKey) {
       event.preventDefault();
-      const { x, y } = ref.current.getBoundingClientRect();
-      const startX = event.clientX - x;
-      const startY = event.clientY - y;
+      setIsPanning(true);
+      const { clientX, clientY } = event;
+      const { x, y } = pan;
+      const startX = clientX - x;
+      const startY = clientY - y;
 
       const handleMouseMove = (event) => {
-        event.preventDefault();
-
-        const { x, y } = ref.current.getBoundingClientRect();
-        const endX = event.clientX - x;
-        const endY = event.clientY - y;
-
-        setPan((pan) => ({
-          x: pan.x + (endX - startX),
-          y: pan.y + (endY - startY),
-        }));
+        const { clientX, clientY } = event;
+        setPan({
+          x: clientX - startX,
+          y: clientY - startY,
+        });
       };
 
       const handleMouseUp = () => {
         setIsPanning(false);
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
       };
 
-      setIsPanning(true);
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    },
-    [ref],
-  );
-
-  // handle mobile without pinch
-  const handleTouchStart = React.useCallback((event) => {
-    const { x, y } = ref.current.getBoundingClientRect();
-    const startX = event.touches[0].clientX - x;
-    const startY = event.touches[0].clientY - y;
-
-    const handleTouchMove = (event) => {
-      event.preventDefault();
-      const { x, y } = ref.current.getBoundingClientRect();
-      const endX = event.touches[0].clientX - x;
-      const endY = event.touches[0].clientY - y;
-
-      setPan((pan) => ({
-        x: pan.x + (endX - startX),
-        y: pan.y + (endY - startY),
-      }));
-    };
-
-    const handleTouchEnd = () => {
-      setIsPanning(false);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
-    };
-
-    setIsPanning(true);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
-  }, [ref]);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+  };
 
   return {
-    pan, isPanning, handleMouseDown, handleTouchStart,
+    pan,
+    isPanning,
+    handleMouseDown,
+    setPan,
+    setIsPanning,
   };
 }

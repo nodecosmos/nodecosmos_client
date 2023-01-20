@@ -9,13 +9,13 @@ export default function useNodeButtonBackground(props) {
 
   const theme = useTheme();
 
-  const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id].isExpanded);
-  const parentExpanded = useSelector((state) => !isRoot && state.landingPageNodes[parentID].isExpanded);
+  const parentID = useSelector((state) => state.nodes[id].parent_id);
+  const nodeExpanded = useSelector((state) => state.nodes[id].isExpanded);
+  const parentExpanded = useSelector((state) => !isRoot && state.nodes[parentID].isExpanded);
 
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const isCurrentNode = nodeExpanded && id === currentNodeID;
-  const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
+  const hasNestedNodes = useSelector((state) => state.nodes[id].node_ids.length > 0);
 
   const nodeBackgroundColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];
   const backgroundColor = (nodeExpanded && isCurrentNode) || hasNestedNodes

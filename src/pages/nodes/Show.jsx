@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
-import { showNode, terminateNewNode } from '../../features/nodes/nodeSlice';
+import { showNode } from '../../features/nodes/nodeSlice';
 import NodeTab from './show/NodeTab';
 import TreeTab from './show/TreeTab';
 
@@ -24,7 +24,6 @@ export default function NodeShow() {
 
     return () => {
       dispatch(setSubtitle(null));
-      dispatch(terminateNewNode());
     };
   }, [dispatch, id, node?.title]);
 
