@@ -94,7 +94,7 @@ export default function LandingPageMarkdown() {
       sm: -6,
     }}
     >
-      <GradientText text="Describe your Innovation" gradientVariant={2} />
+      <GradientText text="Describe your Innovation" gradientVariant={2} variant="h5" variantMapping={{ h5: 'h3' }} />
       <Typography mt={3} variant="body1" color="text.secondary">
         Use
         {' '}

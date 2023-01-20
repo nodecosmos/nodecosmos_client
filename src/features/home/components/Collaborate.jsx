@@ -39,6 +39,7 @@ export default function Vision() {
             <Section>
               <Typography
                 variant="h5"
+                variantMapping={{ h5: 'h3' }}
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="900"
                 textAlign="center"
@@ -60,6 +61,7 @@ export default function Vision() {
             <Section>
               <Typography
                 variant="h5"
+                variantMapping={{ h5: 'h3' }}
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="900"
                 textAlign="center"

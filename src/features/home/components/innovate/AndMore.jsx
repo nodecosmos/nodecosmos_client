@@ -26,7 +26,7 @@ export default function Other() {
 
   return (
     <Box>
-      <GradientText text="Stay tuned!" gradientVariant={2} />
+      <GradientText text="Stay tuned!" gradientVariant={2} variant="h5" variantMapping={{ h5: 'h3' }} />
       <Typography mt={3} variant="body1" color="text.secondary">
         As part of our efforts to make your innovation journey even more fun, we plan to add features such as a
         gallery, 2D drawing, and in-node chat.

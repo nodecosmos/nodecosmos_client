@@ -8,6 +8,7 @@ export default function Innovators() {
     <>
       <Typography
         variant="h5"
+        variantMapping={{ h5: 'h3' }}
         fontFamily="'Montserrat', sans-serif"
         textAlign="center"
         fontWeight="900"
@@ -29,10 +30,10 @@ export default function Innovators() {
       >
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="eth.svg" width={40} />
+            <Box component="img" src="eth.svg" alt="Ethereum icon" width={40} height={65} />
 
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="ICO" />
+              <GradientText gradientVariant={3} text="ICO" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -63,9 +64,9 @@ export default function Innovators() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="attrack_investors.svg" width={40} />
+            <Box component="img" src="attrack_investors.svg" alt="Investors icon" width={40} height={48} />
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="Attract Investors" />
+              <GradientText gradientVariant={3} text="Attract Investors" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -79,9 +80,14 @@ export default function Innovators() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="rocket.svg" width={40} />
+            <Box component="img" src="rocket.svg" alt="Rocket icon" width={40} height={47} />
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="Supercharge your innovation" />
+              <GradientText
+                gradientVariant={3}
+                text="Supercharge your innovation"
+                variant="h5"
+                variantMapping={{ h5: 'h4' }}
+              />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"

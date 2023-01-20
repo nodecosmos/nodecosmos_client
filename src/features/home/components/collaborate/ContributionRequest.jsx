@@ -56,7 +56,11 @@ export default function ContributionRequest() {
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
             <Box mt="2px">
-              <GradientText text="Create Contribution Request" fontSize={18} />
+              <GradientText
+                text="Create Contribution Request"
+                fontSize={18}
+                variant="h4"
+              />
             </Box>
           </foreignObject>
           <g>
@@ -188,7 +192,11 @@ export default function ContributionRequest() {
           </g>
           <foreignObject className="NodeName" width="100%" height="29" x="110" y="224">
             <Box mt="1px">
-              <GradientText text="Review Contribution Request" fontSize={18} />
+              <GradientText
+                text="Review Contribution Request"
+                fontSize={18}
+                variant="h4"
+              />
             </Box>
           </foreignObject>
           <g>
@@ -296,6 +304,7 @@ export default function ContributionRequest() {
                 fontFamily="Montserrat"
                 color="text.mergeGreen"
                 fontSize={18}
+                variant="h4"
               >
                 Merge Contribution Request
               </Typography>

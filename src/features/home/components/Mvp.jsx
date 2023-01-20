@@ -42,6 +42,7 @@ export default function Mvp() {
       <AnimateOnView>
         <Typography
           variant="h4"
+          variantMapping={{ h4: 'h3' }}
           textAlign="center"
           fontSize={{
             xs: '28px',

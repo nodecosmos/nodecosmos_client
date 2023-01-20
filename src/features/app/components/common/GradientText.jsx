@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 
 export default function GradientText(props) {
   const {
-    text, variant, gradientVariant, fontSize, fontWeight,
+    text,
+    variant,
+    gradientVariant,
+    fontSize,
+    fontWeight,
+    variantMapping,
   } = props;
 
   const theme = useTheme();
@@ -14,6 +19,7 @@ export default function GradientText(props) {
   return (
     <Typography
       variant={variant}
+      variantMapping={variantMapping}
       fontFamily="'Montserrat', sans-serif"
       fontSize={fontSize}
       fontWeight={fontWeight}
@@ -36,6 +42,7 @@ GradientText.defaultProps = {
   gradientVariant: 1,
   fontSize: null,
   fontWeight: 400,
+  variantMapping: undefined,
 };
 
 GradientText.propTypes = {
@@ -44,4 +51,5 @@ GradientText.propTypes = {
   variant: PropTypes.string,
   fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   fontWeight: PropTypes.number,
+  variantMapping: PropTypes.object,
 };

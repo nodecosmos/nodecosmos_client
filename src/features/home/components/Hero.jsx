@@ -12,7 +12,11 @@ export default function Hero() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        py={16}
+        py={{
+          xs: 8,
+          sm: 12,
+          md: 16,
+        }}
       >
         <img
           src="innovate_9.svg"

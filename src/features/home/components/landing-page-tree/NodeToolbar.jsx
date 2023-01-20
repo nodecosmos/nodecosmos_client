@@ -47,29 +47,32 @@ export default function NodeToolbar(props) {
         '.MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
-      <IconButton className="Item" onClick={onNodeAdd}>
+      <IconButton className="Item" onClick={onNodeAdd} aria-label="Add Node">
         <AddRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={handleEdit}>
+      <IconButton className="Item" onClick={handleEdit} aria-label="Edit Node">
         <EditRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={() => handleNodeDeletion(id)}>
+      <IconButton className="Item" onClick={() => handleNodeDeletion(id)} aria-label="Delete Node">
         <DeleteOutlineRounded fontSize="small" />
       </IconButton>
       <Checkbox
         className="Item"
         icon={<FavoriteBorder fontSize="small" />}
         checkedIcon={<Favorite fontSize="small" />}
+        inputProps={{ 'aria-label': 'Favorite' }}
       />
       <Checkbox
         className="Item"
         icon={<BookmarkBorder fontSize="small" />}
         checkedIcon={<Bookmark fontSize="small" />}
+        inputProps={{ 'aria-label': 'Bookmark' }}
       />
       <Checkbox
         className="Item"
         icon={<NotificationsOutlined fontSize="small" />}
         checkedIcon={<Notifications fontSize="small" />}
+        inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
       />
     </Box>
   );

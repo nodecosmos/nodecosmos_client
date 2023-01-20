@@ -7,7 +7,7 @@ import Workflow from '../landing-page-workflow/Workflow';
 export default function LandingPageWorkflow() {
   return (
     <Box>
-      <GradientText text="Define processes" />
+      <GradientText text="Define processes" variant="h5" variantMapping={{ h5: 'h3' }} />
       <Typography mt={3} variant="body1" color="text.secondary">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
       </Typography>

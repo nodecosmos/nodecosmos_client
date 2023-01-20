@@ -8,6 +8,7 @@ export default function Investors() {
     <>
       <Typography
         variant="h5"
+        variantMapping={{ h5: 'h3' }}
         fontFamily="'Montserrat', sans-serif"
         fontWeight="900"
         textAlign="center"
@@ -29,9 +30,9 @@ export default function Investors() {
       >
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="earth.svg" width={40} />
+            <Box component="img" src="earth.svg" alt="Earth icon" width={40} height={40} />
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="Explore innovations" />
+              <GradientText gradientVariant={3} text="Explore innovations" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -45,9 +46,9 @@ export default function Investors() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="shield.svg" width={40} />
+            <Box component="img" src="shield.svg" alt="Shield icon" width={40} height={49} />
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="Fraud Prevention" />
+              <GradientText gradientVariant={3} text="Fraud Prevention" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
@@ -62,9 +63,9 @@ export default function Investors() {
         </li>
         <li>
           <Box display="flex" alignItems="center">
-            <Box component="img" src="boxes.svg" width={40} />
+            <Box component="img" src="boxes.svg" alt="Tokens icon" width={40} height={40} />
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="Token ownership" />
+              <GradientText gradientVariant={3} text="Token ownership" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"
