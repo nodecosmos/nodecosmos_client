@@ -18,7 +18,7 @@ export default function LoginForm() {
               <Field fullWidth name="username_or_email" label="username || email" required />
             </Grid>
             <Grid item xs={12}>
-              <Field fullWidth name="password" type="password" required />
+              <Field fullWidth label="password" name="password" type="password" required />
             </Grid>
             <Grid item xs={12}>
               <Button sx={{ mt: 2 }} variant="contained" type="submit">

@@ -1,4 +1,6 @@
 import React from 'react';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
@@ -23,14 +25,18 @@ import FinalFormInputField from '../../app/components/common/final-form/FinalFor
 
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
+  const [loading, setLoading] = React.useState(false);
+
   const navigate = useNavigate();
 
   const onSubmit = async (formValues) => {
+    setLoading(true);
     try {
       const response = await nodecosmos.post('/nodes.json', formValues);
       navigate(`/nodes/${response.data.id}`);
       return null;
     } catch (e) {
+      setLoading(false);
       return e.data;
     }
   };
@@ -79,7 +85,8 @@ export default function CreateNodeModal(props) {
                 variant="contained"
                 disableElevation
                 type="submit"
-                startIcon={<AddRounded />}
+                disabled={loading}
+                startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
               >
                 Create
               </Button>
