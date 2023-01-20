@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 /* mui */
@@ -15,9 +15,9 @@ import getTheme from '../../../themes/theme';
 
 /* css */
 import './App.css';
-// import Loader from './common/Loader';
-//
-// const LazyAppLoad = React.lazy(() => import('./LazyAppLoad'));
+import Loader from './common/Loader';
+
+const LazyAppLoad = React.lazy(() => import('./LazyAppLoad'));
 
 export default function App() {
   const theme = useSelector((state) => state.app.theme);
@@ -56,13 +56,13 @@ export default function App() {
             <Routes>
               <Route path="/" element={(<Home />)} />
             </Routes>
-            {/* { */}
-            {/*   history.location.pathname !== '/' && ( */}
-            {/*   <Suspense fallback={<Loader />}> */}
-            {/*     <LazyAppLoad /> */}
-            {/*   </Suspense> */}
-            {/*   ) */}
-            {/* } */}
+            {
+              history.location.pathname !== '/' && (
+              <Suspense fallback={<Loader />}>
+                <LazyAppLoad />
+              </Suspense>
+              )
+            }
           </Box>
         </Box>
       </BrowserRouter>
