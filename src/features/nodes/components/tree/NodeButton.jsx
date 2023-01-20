@@ -26,8 +26,8 @@ export default function NodeButton(props) {
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
 
   const isEditing = useSelector((state) => state.nodes[id].isEditing);
-  const isNew = useSelector((state) => state.nodes[id].isNew);
-  const isJustCreated = useSelector((state) => state.nodes[id].isJustCreated);
+  const isTemp = useSelector((state) => state.nodes[id].isTemp);
+  const replaceTempNode = useSelector((state) => state.nodes[id].replaceTempNode);
 
   const { onNodeClick } = useNodeTreeEvents(id);
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
@@ -42,8 +42,8 @@ export default function NodeButton(props) {
     return null;
   }
 
-  const initialAnimationDuration = isRoot || isJustCreated ? 0 : INITIAL_ANIMATION_DURATION;
-  const initialAnimationDelay = isRoot || isJustCreated ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isRoot || replaceTempNode ? 0 : INITIAL_ANIMATION_DURATION;
+  const initialAnimationDelay = isRoot || replaceTempNode ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (
     <Box
@@ -60,7 +60,7 @@ export default function NodeButton(props) {
         x={x}
         y={y}
         style={{
-          transition: isNew ? null : `y ${TRANSITION_ANIMATION_DURATION}ms`,
+          transition: isTemp ? null : `y ${TRANSITION_ANIMATION_DURATION}ms`,
         }}
       >
         <Box display="flex" width="100%">

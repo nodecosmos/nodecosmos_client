@@ -24,7 +24,7 @@ export default function NonAnimatedNodeLink(props) {
 
   const theme = useTheme();
   const { x, xEnds, y } = useSelector((state) => state.nodes[id].position);
-  const isJustCreated = useSelector((state) => state.nodes[id].isJustCreated);
+  const replaceTempNode = useSelector((state) => state.nodes[id].replaceTempNode);
 
   const upperSiblingPosition = useSelector((state) => upperSiblingID
     && state.nodes[upperSiblingID].position);
@@ -65,9 +65,9 @@ export default function NonAnimatedNodeLink(props) {
     );
   }
 
-  const animationDuration = isSafari || isJustCreated ? 0 : TRANSITION_ANIMATION_DURATION;
-  const initialAnimationDelay = isJustCreated ? 0 : INITIAL_ANIMATION_DELAY;
-  const initialAnimationDuration = isJustCreated ? 0 : INITIAL_ANIMATION_DURATION;
+  const animationDuration = isSafari || replaceTempNode ? 0 : TRANSITION_ANIMATION_DURATION;
+  const initialAnimationDelay = replaceTempNode ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = replaceTempNode ? 0 : INITIAL_ANIMATION_DURATION;
 
   return (
     <g>

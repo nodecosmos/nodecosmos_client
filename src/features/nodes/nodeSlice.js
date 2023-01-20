@@ -118,8 +118,8 @@ const nodeSlice = createSlice({
 
       state[id] = {
         id,
-        isNew: action.payload.isNew,
-        isJustCreated: action.payload.isJustCreated,
+        isTemp: action.payload.isTemp,
+        replaceTempNode: action.payload.replaceTempNode,
         isEditing: true,
         parent_id: parentId,
         ancestor_ids: nodeAncestorIdObjects,
@@ -131,7 +131,7 @@ const nodeSlice = createSlice({
         ...action.payload,
       };
 
-      if (action.payload.isNew) {
+      if (action.payload.isTemp) {
         // add the new node to the parent's node_ids
         parent.node_ids.push({ $oid: id });
       } else {
@@ -153,7 +153,7 @@ const nodeSlice = createSlice({
         mapNodesToState(state, action.payload.all_nested_nodes);
       })
       .addCase(createNode.fulfilled, (state, action) => {
-        nodeSlice.caseReducers.addNewNode(state, { payload: { ...action.payload, isJustCreated: true } });
+        nodeSlice.caseReducers.addNewNode(state, { payload: { ...action.payload, replaceTempNode: true } });
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodeSlice.caseReducers.deleteNodeFromState(state, action);

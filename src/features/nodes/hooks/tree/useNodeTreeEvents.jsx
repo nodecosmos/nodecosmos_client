@@ -17,7 +17,7 @@ export default function useNodeTreeEvents(id) {
   const dispatch = useDispatch();
 
   const isRoot = useSelector((state) => state.nodes[id] && state.nodes[id].is_root);
-  const isNew = useSelector((state) => state.nodes[id] && state.nodes[id].isNew);
+  const isTemp = useSelector((state) => state.nodes[id] && state.nodes[id].isTemp);
   const isExpanded = useSelector((state) => state.nodes[id] && state.nodes[id].isExpanded);
 
   const title = useSelector((state) => state.nodes[id] && state.nodes[id].title);
@@ -41,7 +41,7 @@ export default function useNodeTreeEvents(id) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const addNode = async () => {
-    dispatch(addNewNode({ parent_id: id, isNew: true }));
+    dispatch(addNewNode({ parent_id: id, isTemp: true }));
   };
 
   const editNode = () => dispatch(updateNodeState({
@@ -58,7 +58,7 @@ export default function useNodeTreeEvents(id) {
     saveNodeTimeout.current = setTimeout(() => {
       if (!title || title === prevTitle) return;
 
-      if (isNew) {
+      if (isTemp) {
         dispatch(createNode({
           tempId: id,
           title,
@@ -71,7 +71,7 @@ export default function useNodeTreeEvents(id) {
         }));
       }
     }, 500);
-  }, [title, prevTitle, isNew, dispatch, parentId, id]);
+  }, [title, prevTitle, isTemp, dispatch, parentId, id]);
 
   const handleNodeTitleChange = (event) => {
     dispatch(updateNodeState({
@@ -84,7 +84,7 @@ export default function useNodeTreeEvents(id) {
     dispatch(updateNodeState({
       id,
       isEditing: false,
-      isJustCreated: false,
+      replaceTempNode: false,
     }));
   };
 
