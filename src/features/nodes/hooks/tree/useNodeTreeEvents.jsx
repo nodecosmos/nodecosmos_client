@@ -9,15 +9,12 @@ import {
   createNode,
   deleteNode,
   expandNode,
-  NEW_NODE_ID,
-  terminateNewNode,
   updateNode,
   updateNodeState,
 } from '../../nodeSlice';
 
 export default function useNodeTreeEvents(id) {
   const dispatch = useDispatch();
-  const isNewNodePresent = useSelector((state) => state.nodes[NEW_NODE_ID]);
 
   const isRoot = useSelector((state) => state.nodes[id] && state.nodes[id].is_root);
   const isNew = useSelector((state) => state.nodes[id] && state.nodes[id].isNew);
@@ -44,10 +41,7 @@ export default function useNodeTreeEvents(id) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const addNode = async () => {
-    if (isNewNodePresent) {
-      dispatch(terminateNewNode());
-    }
-    dispatch(addNewNode({ parent_id: id }));
+    dispatch(addNewNode({ parent_id: id, isNew: true }));
   };
 
   const editNode = () => dispatch(updateNodeState({
@@ -66,6 +60,7 @@ export default function useNodeTreeEvents(id) {
 
       if (isNew) {
         dispatch(createNode({
+          tempId: id,
           title,
           parent_id: parentId,
         }));

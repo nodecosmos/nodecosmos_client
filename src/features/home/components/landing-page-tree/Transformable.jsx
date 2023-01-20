@@ -22,11 +22,13 @@ export default function Transformable(props) {
   const minWidth = matchesSm ? 400 : 1050;
 
   const resize = () => {
-    const newHeight = gRef.current.getBBox().height + 50;
-    const newWidth = gRef.current.getBBox().width + 50;
+    setTimeout(() => {
+      const newHeight = gRef.current.getBBox().height + 50;
+      const newWidth = gRef.current.getBBox().width + 50;
 
-    svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
-    svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
+      svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
+      svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
+    });
   };
 
   // handle pan

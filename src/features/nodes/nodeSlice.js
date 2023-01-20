@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
 import history from '../../history';
 
-export const NEW_NODE_ID = 'NEW_NODE_ID';
-
 export const indexNodes = createAsyncThunk(
   'nodes/indexNodes',
   async (_, _thunkAPI) => {
@@ -30,7 +28,7 @@ export const createNode = createAsyncThunk(
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.post('/nodes.json', payload);
 
-    return response.data;
+    return { ...response.data, tempId: payload.tempId };
   },
 );
 
@@ -93,26 +91,35 @@ const nodeSlice = createSlice({
 
       delete state[node.id];
     },
-    terminateNewNode(state, _action) {
-      if (state[NEW_NODE_ID]) {
-        nodeSlice.caseReducers.deleteNodeFromState(state, { payload: { id: NEW_NODE_ID } });
-      }
-    },
+    // replaceTempNode(state, action) {
+    //   // Replace the temp node with the new node
+    //   // update the parent node's node_ids and put id instead of tempId
+    //   const { tempId, id } = action.payload;
+    //   const node = state[tempId];
+    //   const parent = state[node.parent_id];
+    //
+    //   if (parent) {
+    //     parent.node_ids = parent.node_ids.map((objectId) => {
+    //       if (objectId.$oid === tempId) return { $oid: id };
+    //       return objectId;
+    //     });
+    //   }
+    //
+    //   delete state[tempId];
+    // },
     addNewNode(state, action) {
       const parentId = action.payload.parent_id;
 
-      if (!parentId || parentId === NEW_NODE_ID) return;
-
       const parent = state[parentId];
-      const id = action.payload.id || NEW_NODE_ID;
+      const id = action.payload.id || (Math.random() + 1).toString(36);
 
       const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
         ? [{ $oid: parentId }, ...parent.ancestor_ids] : [{ $oid: parentId }];
 
       state[id] = {
         id,
-        isNew: id === NEW_NODE_ID,
-        isJustCreated: id !== NEW_NODE_ID,
+        isNew: action.payload.isNew,
+        isJustCreated: action.payload.isJustCreated,
         isEditing: true,
         parent_id: parentId,
         ancestor_ids: nodeAncestorIdObjects,
@@ -124,7 +131,18 @@ const nodeSlice = createSlice({
         ...action.payload,
       };
 
-      parent.node_ids.push({ $oid: id });
+      if (action.payload.isNew) {
+        // add the new node to the parent's node_ids
+        parent.node_ids.push({ $oid: id });
+      } else {
+        // replace the temp new node with the permanent new node
+        parent.node_ids = parent.node_ids.map((objectId) => {
+          if (objectId.$oid === action.payload.tempId) return { $oid: id };
+          return objectId;
+        });
+        // delete the temp new node
+        delete state[action.payload.tempId];
+      }
     },
   },
   extraReducers(builder) {
@@ -135,8 +153,7 @@ const nodeSlice = createSlice({
         mapNodesToState(state, action.payload.all_nested_nodes);
       })
       .addCase(createNode.fulfilled, (state, action) => {
-        nodeSlice.caseReducers.terminateNewNode(state, action);
-        nodeSlice.caseReducers.addNewNode(state, action);
+        nodeSlice.caseReducers.addNewNode(state, { payload: { ...action.payload, isJustCreated: true } });
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodeSlice.caseReducers.deleteNodeFromState(state, action);
@@ -151,7 +168,6 @@ export const {
   collapseNode,
   updateNodePosition,
   incrementNodesYEnds,
-  terminateNewNode,
   addNewNode,
   updateNodeState,
 } = actions;
