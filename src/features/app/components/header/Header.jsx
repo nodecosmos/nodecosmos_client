@@ -61,6 +61,7 @@ export default function Header() {
           sm: 6,
         },
       }}
+      zIndex={1}
     >
       {subtitle && (
         <Box

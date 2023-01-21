@@ -25,7 +25,7 @@ export default function Transformable(props) {
 
       svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
       svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
-    }, 0);
+    });
   };
 
   // handle zoom
