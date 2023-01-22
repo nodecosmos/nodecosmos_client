@@ -6,14 +6,15 @@ import {
   Box,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-export default function NodeTab(props) {
-  const { id } = props;
+export default function NodeTab() {
+  const { id } = useParams();
   const node = useSelector((state) => state.nodes[id]);
 
   return (
     <Box py={4} px={5} width={1}>
-      <Typography variant="h5" textAlign="center" mb={2}>
+      <Typography className="nodeTabShow" variant="h5" textAlign="center" mb={2}>
         {node.title}
       </Typography>
       <Typography variant="body2" fontWeight="normal">
@@ -22,7 +23,3 @@ export default function NodeTab(props) {
     </Box>
   );
 }
-
-NodeTab.propTypes = {
-  id: PropTypes.string.isRequired,
-};

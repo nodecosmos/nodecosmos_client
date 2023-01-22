@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 /* mui */
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useParams } from 'react-router-dom';
 /* nodecosmos */
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode } from '../../features/nodes/nodeSlice';
-import NodeTab from './show/NodeTab';
-import TreeTab from './show/TreeTab';
 
 export default function NodeShow() {
   const dispatch = useDispatch();
@@ -41,10 +39,7 @@ export default function NodeShow() {
         <Sidebar id={id} />
       </Box>
       <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
-        <Routes>
-          <Route path="/" element={<NodeTab id={id} />} />
-          <Route path="tree" element={<TreeTab id={id} />} />
-        </Routes>
+        <Outlet />
       </Box>
     </Box>
   );

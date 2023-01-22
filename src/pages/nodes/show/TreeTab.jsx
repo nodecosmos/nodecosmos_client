@@ -1,15 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import Tree from '../../../features/nodes/components/tree/Tree';
 
-export default function TreeTab(props) {
-  const { id } = props;
+export default function TreeTab() {
+  const { id } = useParams();
 
   return (
     <Tree id={id} />
   );
 }
-
-TreeTab.propTypes = {
-  id: PropTypes.string.isRequired,
-};

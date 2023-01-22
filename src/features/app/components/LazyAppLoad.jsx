@@ -6,6 +6,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 /* nodes */
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
+import NodeTab from '../../../pages/nodes/show/NodeTab';
+import TreeTab from '../../../pages/nodes/show/TreeTab';
 
 /* users */
 import UserAuthentication from '../../../pages/users/Authentication';
@@ -45,7 +47,10 @@ export default function LazyAppLoad() {
               isAuthenticated ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />
             }
           />
-          <Route path="/nodes/:id/*" element={<NodeShow />} />
+          <Route path="/nodes/:id/" element={<NodeShow />}>
+            <Route index element={<NodeTab />} />
+            <Route path="tree" element={<TreeTab />} />
+          </Route>
         </Routes>
       </Box>
     </Box>
