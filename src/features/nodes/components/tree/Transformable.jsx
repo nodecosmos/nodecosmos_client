@@ -41,6 +41,7 @@ export default function Transformable(props) {
   return (
     <Box
       onClick={resize}
+      onScroll={resize}
       onTouchStart={resize}
       overflow="auto"
       width={1}

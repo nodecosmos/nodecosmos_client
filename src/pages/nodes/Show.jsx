@@ -17,13 +17,16 @@ export default function NodeShow() {
 
   useEffect(() => {
     dispatch(showNode(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
     dispatch(setCurrentToolbar('NodeShowToolbar'));
     dispatch(setSubtitle(node?.title));
 
     return () => {
       dispatch(setSubtitle(null));
     };
-  }, [dispatch, id, node?.title]);
+  }, [dispatch, node?.title]);
 
   if (!node) return null;
 

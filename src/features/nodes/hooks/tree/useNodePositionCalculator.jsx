@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import usePrevProps from '../../../app/hooks/usePrevProps';
 import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
-import {
-  incrementNodesYEnds,
-  updateNodePosition,
-} from '../../nodeSlice';
+import { incrementNodesYEnds, updateNodeState } from '../../nodeSlice';
 
 export default function useNodePositionCalculator(props) {
   const {
@@ -17,29 +14,28 @@ export default function useNodePositionCalculator(props) {
 
   const dispatch = useDispatch();
 
-  const nodePosition = useShallowEqualSelector((state) => state.nodes[id].position);
   const nodeAncestorIdObjects = useShallowEqualSelector((state) => state.nodes[id].ancestor_ids);
   const nodeAncestorIds = useShallowEqualSelector(
     () => !isRoot && nodeAncestorIdObjects.map((nodeIdObject) => nodeIdObject.$oid),
   );
-  const upperSiblingPosition = useShallowEqualSelector(
-    (state) => (upperSiblingID && state.nodes[upperSiblingID].position),
+
+  //--------------------------------------------------------------------------------------------------------------------
+  const currentYEnds = useSelector((state) => state.nodes[id].position.yEnds);
+  const upperSiblingYEnds = useShallowEqualSelector(
+    (state) => (upperSiblingID && state.nodes[upperSiblingID].position.yEnds),
   );
 
-  const upperSiblingYEnds = upperSiblingID && upperSiblingPosition.yEnds;
+  const parentID = useSelector((state) => !isRoot && state.nodes[id].parent_id);
+  const parentY = useSelector((state) => !isRoot && state.nodes[parentID].position.y);
+  const parentX = useSelector((state) => !isRoot && state.nodes[parentID].position.x);
 
-  const parentID = useSelector((state) => state.nodes[id].parent_id);
-  const parentPosition = useShallowEqualSelector((state) => !isRoot && state.nodes[parentID].position);
-  const parentY = !isRoot && parentPosition.y;
-
-  const x = isRoot ? EDGE_LENGTH : (parentPosition.x + MARGIN_LEFT + EDGE_LENGTH);
+  const x = isRoot ? EDGE_LENGTH : (parentX + MARGIN_LEFT + EDGE_LENGTH);
   const xEnds = x + EDGE_LENGTH;
 
   const y = (isRoot ? 0 : (upperSiblingYEnds || parentY)) + MARGIN_TOP + EDGE_LENGTH;
   const prevY = usePrevProps(y);
 
-  const currentYEnds = nodePosition.yEnds;
-
+  //--------------------------------------------------------------------------------------------------------------------
   const calculatePosition = useCallback(() => {
     if (prevY === y && !isRoot) return;
 
@@ -50,7 +46,7 @@ export default function useNodePositionCalculator(props) {
       yEnds = currentYEnds + change;
     }
 
-    dispatch(updateNodePosition({
+    dispatch(updateNodeState({
       id,
       position: {
         xEnds,
@@ -61,6 +57,7 @@ export default function useNodePositionCalculator(props) {
     }));
   }, [isRoot, currentYEnds, dispatch, id, prevY, x, xEnds, y]);
 
+  //--------------------------------------------------------------------------------------------------------------------
   const incrementAncestorsYEnds = useCallback(() => {
     const increment = EDGE_LENGTH + MARGIN_TOP;
 
@@ -84,6 +81,7 @@ export default function useNodePositionCalculator(props) {
     }
   }, [dispatch, isRoot, nodeAncestorIds]);
 
+  //--------------------------------------------------------------------------------------------------------------------
   useLayoutEffect(() => calculatePosition(), [calculatePosition]);
 
   useEffect(() => incrementAncestorsYEnds(), [incrementAncestorsYEnds]);

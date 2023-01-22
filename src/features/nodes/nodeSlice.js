@@ -28,7 +28,10 @@ export const createNode = createAsyncThunk(
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.post('/nodes.json', payload);
 
-    return { ...response.data, tempId: payload.tempId };
+    return {
+      ...response.data,
+      tempId: payload.tempId,
+    };
   },
 );
 
@@ -67,21 +70,26 @@ const nodeSlice = createSlice({
   name: 'nodes',
   initialState: {},
   reducers: {
-    expandNode(state, action) { state[action.payload.id].isExpanded = true; },
-    collapseNode(state, action) { state[action.payload.id].isExpanded = false; },
-    updateNodePosition(state, action) { state[action.payload.id].position = action.payload.position; },
-    updateNodePositionYEnds(state, action) { state[action.payload.id].position.yEnds = action.payload.yEnds; },
-    incrementNodesYEnds(state, action) {
-      const { ids, increment } = action.payload;
-      ids.forEach((id) => {
-        if (state[id]) state[id].position.yEnds += increment;
-      });
+    expandNode(state, action) {
+      state[action.payload.id].isExpanded = true;
+    },
+    collapseNode(state, action) {
+      state[action.payload.id].isExpanded = false;
     },
     updateNodeState(state, action) {
       const { id } = action.payload;
       if (state[id]) {
         state[id] = { ...state[id], ...action.payload };
       }
+    },
+    incrementNodesYEnds(state, action) {
+      const {
+        ids,
+        increment,
+      } = action.payload;
+      ids.forEach((id) => {
+        if (state[id]) state[id].position.yEnds += increment;
+      });
     },
     deleteNodeFromState(state, action) {
       const node = state[action.payload.id];
@@ -91,22 +99,6 @@ const nodeSlice = createSlice({
 
       delete state[node.id];
     },
-    // replaceTempNode(state, action) {
-    //   // Replace the temp node with the new node
-    //   // update the parent node's node_ids and put id instead of tempId
-    //   const { tempId, id } = action.payload;
-    //   const node = state[tempId];
-    //   const parent = state[node.parent_id];
-    //
-    //   if (parent) {
-    //     parent.node_ids = parent.node_ids.map((objectId) => {
-    //       if (objectId.$oid === tempId) return { $oid: id };
-    //       return objectId;
-    //     });
-    //   }
-    //
-    //   delete state[tempId];
-    // },
     addNewNode(state, action) {
       const parentId = action.payload.parent_id;
 
@@ -116,11 +108,14 @@ const nodeSlice = createSlice({
       const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
         ? [{ $oid: parentId }, ...parent.ancestor_ids] : [{ $oid: parentId }];
 
+      // new persistent node is in edit mode only if tempNode is in edit mode
+      const isEditing = !action.payload.tempId || state[action.payload.tempId].isEditing;
+
       state[id] = {
         id,
         isTemp: action.payload.isTemp,
-        replaceTempNode: action.payload.replaceTempNode,
-        isEditing: true,
+        replaceTempNode: action.payload.replaceTempNode, // we don't animate the new node if it's replacing a temp node
+        isEditing,
         parent_id: parentId,
         ancestor_ids: nodeAncestorIdObjects,
         node_ids: [],
@@ -153,7 +148,19 @@ const nodeSlice = createSlice({
         mapNodesToState(state, action.payload.all_nested_nodes);
       })
       .addCase(createNode.fulfilled, (state, action) => {
-        nodeSlice.caseReducers.addNewNode(state, { payload: { ...action.payload, replaceTempNode: true } });
+        nodeSlice.caseReducers.addNewNode(state, {
+          payload: {
+            ...action.payload,
+            replaceTempNode: true,
+          },
+        });
+
+        setTimeout(() => nodeSlice.caseReducers.updateNodeState(state, {
+          payload: {
+            ...action.payload,
+            replaceTempNode: false,
+          },
+        }), 0);
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodeSlice.caseReducers.deleteNodeFromState(state, action);
@@ -161,12 +168,14 @@ const nodeSlice = createSlice({
   },
 });
 
-const { actions, reducer } = nodeSlice;
+const {
+  actions,
+  reducer,
+} = nodeSlice;
 
 export const {
   expandNode,
   collapseNode,
-  updateNodePosition,
   incrementNodesYEnds,
   addNewNode,
   updateNodeState,

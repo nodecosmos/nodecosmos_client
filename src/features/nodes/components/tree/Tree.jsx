@@ -6,7 +6,6 @@ import { Box } from '@mui/material';
 import Node from './Node';
 import NodeDescription from './NodeDescription';
 import Transformable from './Transformable';
-import NestedNodes from './NestedNodes';
 
 export default function Tree(props) {
   const { id } = props;
@@ -35,9 +34,7 @@ export default function Tree(props) {
               id={id}
               nestedLevel={0}
               isRoot
-            >
-              <NestedNodes currentNodeId={id} />
-            </Node>
+            />
           </g>
         </Transformable>
       </Box>
