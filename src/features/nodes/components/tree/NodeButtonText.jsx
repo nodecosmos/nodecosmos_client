@@ -12,12 +12,20 @@ export default function NodeButtonText(props) {
   const isEditing = useSelector((state) => state.nodes[id].isEditing);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const { handleNodeTitleChange, handleNodeBlur, saveNode } = useNodeTreeEvents(id);
-
-  useEffect(() => saveNode(), [saveNode]);
+  const {
+    handleNodeTitleChange,
+    handleNodeBlur,
+    saveNode,
+  } = useNodeTreeEvents(id);
 
   useEffect(() => {
-    if (isEditing) { ref.current.focus(); }
+    if (isEditing) saveNode();
+  }, [isEditing, saveNode]);
+
+  useEffect(() => {
+    if (isEditing) {
+      ref.current.focus();
+    }
   }, [isEditing]);
 
   //--------------------------------------------------------------------------------------------------------------------
