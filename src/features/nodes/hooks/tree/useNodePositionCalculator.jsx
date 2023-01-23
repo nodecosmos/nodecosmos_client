@@ -1,33 +1,28 @@
-import { useCallback, useEffect, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePrevProps from '../../../app/hooks/usePrevProps';
-import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
-import { incrementNodesYEnds, updateNodeState } from '../../nodeSlice';
+import { updateNodeState, updateNodeY } from '../../nodeSlice';
 
 export default function useNodePositionCalculator(props) {
   const {
     id,
-    upperSiblingID,
+    upperSiblingId,
     isRoot,
   } = props;
 
+  //--------------------------------------------------------------------------------------------------------------------
   const dispatch = useDispatch();
 
-  const nodeAncestorIdObjects = useShallowEqualSelector((state) => state.nodes[id].ancestor_ids);
-  const nodeAncestorIds = useShallowEqualSelector(
-    () => !isRoot && nodeAncestorIdObjects.map((nodeIdObject) => nodeIdObject.$oid),
-  );
+  const upperSiblingYEnds = useSelector((state) => (upperSiblingId && state.nodes[upperSiblingId].position.yEnds));
 
-  //--------------------------------------------------------------------------------------------------------------------
-  const currentYEnds = useSelector((state) => state.nodes[id].position.yEnds);
-  const upperSiblingYEnds = useShallowEqualSelector(
-    (state) => (upperSiblingID && state.nodes[upperSiblingID].position.yEnds),
-  );
+  const parentId = useSelector((state) => !isRoot && state.nodes[id].parent_id);
+  const parentX = useSelector((state) => !isRoot && state.nodes[parentId].position.x);
+  const parentY = useSelector((state) => !isRoot && state.nodes[parentId].position.y);
 
-  const parentID = useSelector((state) => !isRoot && state.nodes[id].parent_id);
-  const parentY = useSelector((state) => !isRoot && state.nodes[parentID].position.y);
-  const parentX = useSelector((state) => !isRoot && state.nodes[parentID].position.x);
+  const isPositionCalculated = useSelector((state) => state.nodes[id]?.isPositionCalculated);
+  const isParentPositionCalculated = useSelector((state) => state.nodes[parentId]?.isPositionCalculated);
+  const isUpperSiblingPositionCalculated = useSelector((state) => (state.nodes[upperSiblingId]?.isPositionCalculated));
 
   const x = isRoot ? EDGE_LENGTH : (parentX + MARGIN_LEFT + EDGE_LENGTH);
   const xEnds = x + EDGE_LENGTH;
@@ -36,55 +31,69 @@ export default function useNodePositionCalculator(props) {
   const prevY = usePrevProps(y);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const calculatePosition = useCallback(() => {
-    if (prevY === y && !isRoot) return;
+  const calculateInitialPosition = useCallback(
+    () => {
+      if (upperSiblingId && !isUpperSiblingPositionCalculated) return;
+      if (!isRoot && !upperSiblingId && !isParentPositionCalculated) return;
+      if (isPositionCalculated) return;
 
-    let yEnds = y;
-
-    if (prevY && prevY !== y) {
-      const change = y - prevY;
-      yEnds = currentYEnds + change;
-    }
-
-    dispatch(updateNodeState({
+      requestAnimationFrame(() => {
+        dispatch(updateNodeState({
+          id,
+          isPositionCalculated: true,
+          position: {
+            xEnds,
+            x,
+            y,
+            yEnds: y,
+          },
+        }));
+      });
+    },
+    [
+      dispatch,
       id,
-      position: {
-        xEnds,
-        x,
-        y,
-        yEnds,
-      },
-    }));
-  }, [isRoot, currentYEnds, dispatch, id, prevY, x, xEnds, y]);
+      isRoot,
+      isPositionCalculated,
+      isParentPositionCalculated,
+      isUpperSiblingPositionCalculated,
+      upperSiblingId,
+      x,
+      xEnds,
+      y,
+    ],
+  );
+
+  const monitorYChanges = useCallback(
+    () => {
+      if (upperSiblingId && !isUpperSiblingPositionCalculated) return;
+      if (!isRoot && !upperSiblingId && !isParentPositionCalculated) return;
+      if (!isPositionCalculated) return;
+      if (!prevY || prevY === y) return;
+
+      const change = y - prevY;
+
+      requestAnimationFrame(() => {
+        dispatch(updateNodeY({
+          id,
+          change,
+        }));
+      });
+    },
+    [
+      dispatch,
+      id,
+      isParentPositionCalculated,
+      isPositionCalculated,
+      isRoot,
+      isUpperSiblingPositionCalculated,
+      prevY,
+      upperSiblingId,
+      y,
+    ],
+  );
 
   //--------------------------------------------------------------------------------------------------------------------
-  const incrementAncestorsYEnds = useCallback(() => {
-    const increment = EDGE_LENGTH + MARGIN_TOP;
-
-    if (!isRoot) {
-      dispatch(incrementNodesYEnds({
-        ids: nodeAncestorIds,
-        increment,
-      }));
-    }
-  }, [dispatch, isRoot, nodeAncestorIds]);
-
-  const decrementAncestorsYEnds = useCallback(() => {
-    const initialParentIncrement = EDGE_LENGTH + MARGIN_TOP;
-    const decrement = -initialParentIncrement;
-
-    if (!isRoot) {
-      dispatch(incrementNodesYEnds({
-        ids: nodeAncestorIds,
-        increment: decrement,
-      }));
-    }
-  }, [dispatch, isRoot, nodeAncestorIds]);
-
-  //--------------------------------------------------------------------------------------------------------------------
-  useLayoutEffect(() => calculatePosition(), [calculatePosition]);
-
-  useEffect(() => incrementAncestorsYEnds(), [incrementAncestorsYEnds]);
-
-  useEffect(() => () => decrementAncestorsYEnds(), [decrementAncestorsYEnds, id, dispatch]);
+  useEffect(() => calculateInitialPosition(), [calculateInitialPosition]);
+  useEffect(() => monitorYChanges(), [monitorYChanges]);
 }

@@ -31,6 +31,7 @@ const appSlice = createSlice({
     scrollEnabled: true,
     currentNodeID: null,
     browser: fnBrowserDetect(),
+    whatever: 'whatever',
   },
   reducers: {
     setTheme(state, action) { state.theme = action.payload; },
@@ -39,6 +40,7 @@ const appSlice = createSlice({
     setCurrentToolbar(state, action) { state.currentToolbar = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
     setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },
+    setWhatever(state, action) { state.scrollEnabled = action.payload; },
   },
 });
 
@@ -51,6 +53,7 @@ export const {
   setCurrentToolbar,
   setAnimationEnabled,
   setScrollEnabled,
+  setWhatever,
 } = actions;
 
 export default reducer;

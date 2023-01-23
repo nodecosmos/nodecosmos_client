@@ -1,6 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import useNestedNodesMount from '../../hooks/tree/useNestedNodesMount';
 import useNodePositionCalculator from '../../hooks/tree/useNodePositionCalculator';
 import NestedNodesBranch from './NestedNodesBranch';
 import NodeButton from './NodeButton';
@@ -9,27 +10,23 @@ import NodeLink from './NodeLink';
 export default function Node(props) {
   const {
     id,
-    upperSiblingID,
+    upperSiblingId,
     nestedLevel,
     isRoot,
   } = props;
 
-  const nodeExpanded = useSelector((state) => state.nodes[id].isExpanded);
+  useNestedNodesMount(id);
+  useNodePositionCalculator({ id, upperSiblingId, isRoot });
 
-  const nodeIds = useSelector((state) => state.nodes[id].node_ids);
-  const lastChildId = nodeIds[nodeIds.length - 1] && nodeIds[nodeIds.length - 1].$oid;
-
-  useNodePositionCalculator({ id, upperSiblingID, isRoot });
-
-  if (id === '63cd5925690cc4d54a6b00c4') {
-    console.log('hit');
-  }
+  const isMounted = useSelector((state) => isRoot || state.nodes[id].isMounted);
+  if (!isMounted) return null;
 
   return (
     <g>
+      <NestedNodesBranch id={id} />
       <NodeLink
         id={id}
-        upperSiblingID={upperSiblingID}
+        upperSiblingId={upperSiblingId}
         isRoot={isRoot}
         nestedLevel={nestedLevel}
       />
@@ -38,31 +35,18 @@ export default function Node(props) {
         isRoot={isRoot}
         nestedLevel={nestedLevel}
       />
-      {nodeExpanded && (
-        <>
-          <NestedNodesBranch id={id} lastChildId={lastChildId} />
-          {nodeIds.map((nestedNodeIdObject, index) => (
-            <Node
-              key={nestedNodeIdObject.$oid}
-              id={nestedNodeIdObject.$oid}
-              upperSiblingID={nodeIds[index - 1] && nodeIds[index - 1].$oid}
-              nestedLevel={nestedLevel + 1}
-            />
-          ))}
-        </>
-      )}
     </g>
   );
 }
 
 Node.defaultProps = {
   isRoot: false,
-  upperSiblingID: null,
+  upperSiblingId: null,
 };
 
 Node.propTypes = {
   isRoot: PropTypes.bool,
   id: PropTypes.string.isRequired,
-  upperSiblingID: PropTypes.string,
+  upperSiblingId: PropTypes.string,
   nestedLevel: PropTypes.number.isRequired,
 };

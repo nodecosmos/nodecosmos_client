@@ -8,6 +8,8 @@ export default function NodeButtonText(props) {
   const { id } = props;
   const ref = React.useRef(null);
 
+  const [focused, setFocused] = React.useState(false);
+
   const nodeTitle = useSelector((state) => state.nodes[id].title);
   const isEditing = useSelector((state) => state.nodes[id].isEditing);
 
@@ -19,12 +21,9 @@ export default function NodeButtonText(props) {
   } = useNodeTreeEvents(id);
 
   useEffect(() => {
-    if (isEditing) saveNode();
-  }, [isEditing, saveNode]);
-
-  useEffect(() => {
     if (isEditing) {
       ref.current.focus();
+      setFocused(true);
     }
   }, [isEditing]);
 
@@ -34,8 +33,9 @@ export default function NodeButtonText(props) {
       component={isEditing ? 'input' : 'div'}
       ref={ref}
       onChange={handleNodeTitleChange}
-      onBlur={handleNodeBlur}
       onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
+      onKeyUp={saveNode}
+      onBlur={() => focused && handleNodeBlur()}
       value={nodeTitle || ''}
       fontSize={14}
       fontWeight={500}

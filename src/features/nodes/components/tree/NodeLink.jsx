@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
 import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import {
   INITIAL_ANIMATION_DELAY,
@@ -14,26 +15,29 @@ import {
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function NonAnimatedNodeLink(props) {
+export default function NodeLink(props) {
   const {
     id,
-    upperSiblingID,
+    upperSiblingId,
     nestedLevel,
     isRoot,
   } = props;
 
   const theme = useTheme();
-  const { x, xEnds, y } = useSelector((state) => state.nodes[id].position);
+  const x = useSelector((state) => state.nodes[id].position.x);
+  const xEnds = useSelector((state) => state.nodes[id].position.xEnds);
+  const y = useSelector((state) => state.nodes[id].position.y);
+
   const replaceTempNode = useSelector((state) => state.nodes[id].replaceTempNode);
 
-  const upperSiblingPosition = useSelector((state) => upperSiblingID
-    && state.nodes[upperSiblingID].position);
+  const upperSiblingPosition = useSelector((state) => upperSiblingId
+    && state.nodes[upperSiblingId].position);
 
-  const parentID = useSelector((state) => state.nodes[id].parent_id);
-  const parentPosition = useSelector((state) => !isRoot && parentID && state.nodes[parentID].position);
-  const parentPositionY = isRoot ? 0 : parentPosition.y;
+  const parentId = useSelector((state) => state.nodes[id].parent_id);
+  const parentPositionY = useSelector((state) => state.nodes[parentId]?.position.y);
+  const parentPositionXends = useSelector((state) => state.nodes[parentId]?.position.xEnds);
 
-  const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
+  const linkX = (isRoot ? 0 : parentPositionXends) + MARGIN_LEFT;
   const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
 
   const yLength = y - linkY;
@@ -105,13 +109,13 @@ export default function NonAnimatedNodeLink(props) {
   );
 }
 
-NonAnimatedNodeLink.defaultProps = {
-  upperSiblingID: null,
+NodeLink.defaultProps = {
+  upperSiblingId: null,
 };
 
-NonAnimatedNodeLink.propTypes = {
+NodeLink.propTypes = {
   id: PropTypes.string.isRequired,
-  upperSiblingID: PropTypes.string,
+  upperSiblingId: PropTypes.string,
   isRoot: PropTypes.bool.isRequired,
   nestedLevel: PropTypes.number.isRequired,
 };

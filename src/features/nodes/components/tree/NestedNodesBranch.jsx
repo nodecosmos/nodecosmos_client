@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
@@ -12,17 +13,21 @@ import {
 } from './constants';
 
 export default function NestedNodesBranch(props) {
-  const { id, lastChildId } = props;
-  const { xEnds, y } = useSelector((state) => state.nodes[id].position);
-  const lastChildY = useSelector((state) => lastChildId && state.nodes[lastChildId].position.y);
+  const { id } = props;
+
+  const isExpanded = useSelector((state) => state.nodes[id].isExpanded);
+  const xEnds = useSelector((state) => state.nodes[id].position.xEnds);
+  const y = useSelector((state) => state.nodes[id].position.y);
+  const yEnds = useSelector((state) => state.nodes[id].position.yEnds);
+
   const theme = useTheme();
 
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
 
-  const pathY = lastChildY || linkY;
+  const pathY = yEnds || linkY;
 
-  if (!lastChildId) return null;
+  if (!isExpanded || !yEnds) return null;
 
   return (
     <Box
@@ -41,10 +46,6 @@ export default function NestedNodesBranch(props) {
   );
 }
 
-NestedNodesBranch.defaultProps = {
-  lastChildId: null,
-};
 NestedNodesBranch.propTypes = {
   id: PropTypes.string.isRequired,
-  lastChildId: PropTypes.string,
 };

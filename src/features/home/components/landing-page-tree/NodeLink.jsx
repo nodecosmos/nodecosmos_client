@@ -17,7 +17,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 export default function NonAnimatedNodeLink(props) {
   const {
     id,
-    upperSiblingID,
+    upperSiblingId,
     nestedLevel,
     isRoot,
   } = props;
@@ -25,11 +25,11 @@ export default function NonAnimatedNodeLink(props) {
   const theme = useTheme();
   const { x, xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
 
-  const upperSiblingPosition = useSelector((state) => upperSiblingID
-    && state.landingPageNodes[upperSiblingID].position);
+  const upperSiblingPosition = useSelector((state) => upperSiblingId
+    && state.landingPageNodes[upperSiblingId].position);
 
-  const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
-  const parentPosition = useSelector((state) => !isRoot && parentID && state.landingPageNodes[parentID].position);
+  const parentId = useSelector((state) => state.landingPageNodes[id].parent_id);
+  const parentPosition = useSelector((state) => !isRoot && parentId && state.landingPageNodes[parentId].position);
   const parentPositionY = isRoot ? 0 : parentPosition.y;
 
   const linkX = (isRoot ? 0 : parentPosition.xEnds) + MARGIN_LEFT;
@@ -101,12 +101,12 @@ export default function NonAnimatedNodeLink(props) {
 }
 
 NonAnimatedNodeLink.defaultProps = {
-  upperSiblingID: null,
+  upperSiblingId: null,
 };
 
 NonAnimatedNodeLink.propTypes = {
   id: PropTypes.string.isRequired,
-  upperSiblingID: PropTypes.string,
+  upperSiblingId: PropTypes.string,
   isRoot: PropTypes.bool.isRequired,
   nestedLevel: PropTypes.number.isRequired,
 };

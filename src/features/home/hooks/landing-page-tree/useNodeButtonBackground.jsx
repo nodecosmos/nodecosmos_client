@@ -9,9 +9,9 @@ export default function useNodeButtonBackground(props) {
 
   const theme = useTheme();
 
-  const parentID = useSelector((state) => state.landingPageNodes[id].parent_id);
+  const parentId = useSelector((state) => state.landingPageNodes[id].parent_id);
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id].isExpanded);
-  const parentExpanded = useSelector((state) => !isRoot && state.landingPageNodes[parentID].isExpanded);
+  const parentExpanded = useSelector((state) => !isRoot && state.landingPageNodes[parentId].isExpanded);
 
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
   const isCurrentNode = nodeExpanded && id === currentNodeID;

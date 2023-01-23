@@ -17,7 +17,7 @@ export default function NestedNodes(props) {
           <Node
             key={nestedNodeIdObject.$oid}
             id={nestedNodeIdObject.$oid}
-            upperSiblingID={nodeIds[index - 1] && nodeIds[index - 1].$oid}
+            upperSiblingId={nodeIds[index - 1] && nodeIds[index - 1].$oid}
             nestedLevel={nestedLevel}
           >
             <NestedNodes currentNodeId={nestedNodeIdObject.$oid} nestedLevel={nestedLevel + 1} />

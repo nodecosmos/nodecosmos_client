@@ -70,7 +70,7 @@ export default function useNodeTreeEvents(id) {
           title,
         }));
       }
-    }, 500);
+    }, 1000);
   }, [title, prevTitle, isTemp, dispatch, parentId, id]);
 
   const handleNodeTitleChange = (event) => {

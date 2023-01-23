@@ -13,7 +13,7 @@ export default function NodeShow() {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const node = useSelector((state) => state.nodes[id]);
+  const nodeTitle = useSelector((state) => state.nodes[id]?.title);
 
   useEffect(() => {
     dispatch(showNode(id));
@@ -21,14 +21,14 @@ export default function NodeShow() {
 
   useEffect(() => {
     dispatch(setCurrentToolbar('NodeShowToolbar'));
-    dispatch(setSubtitle(node?.title));
+    dispatch(setSubtitle(nodeTitle));
 
     return () => {
       dispatch(setSubtitle(null));
     };
-  }, [dispatch, node?.title]);
+  }, [dispatch, nodeTitle]);
 
-  if (!node) return null;
+  if (!nodeTitle) return null;
 
   return (
     <Box height={1} display="flex">

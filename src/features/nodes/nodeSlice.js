@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
 import history from '../../history';
+import { COMPLETE_Y_LENGTH } from './components/tree/constants';
 
 export const indexNodes = createAsyncThunk(
   'nodes/indexNodes',
@@ -58,8 +59,8 @@ const mapNodesToState = (state, nodes) => {
   nodes.forEach((payload) => {
     const { id } = payload;
 
-    payload.node_ids = payload.node_ids || [];
-    payload.ancestor_ids = payload.ancestor_ids || [];
+    payload.node_ids = payload.node_ids?.map((nodeIdObject) => nodeIdObject.$oid) || [];
+    payload.ancestor_ids = payload.ancestor_ids?.map((nodeIdObject) => nodeIdObject.$oid) || [];
     payload.position = payload.position || {};
 
     state[id] = payload;
@@ -70,11 +71,31 @@ const nodeSlice = createSlice({
   name: 'nodes',
   initialState: {},
   reducers: {
-    expandNode(state, action) {
-      state[action.payload.id].isExpanded = true;
+    deleteAllNestedNodesFromState(state, action) {
+      const { id } = action.payload;
+      delete state[id].all_nested_nodes;
     },
-    collapseNode(state, action) {
-      state[action.payload.id].isExpanded = false;
+    expandNode(state, action) { state[action.payload.id].isExpanded = true; },
+    collapseNode(state, action) { state[action.payload.id].isExpanded = false; },
+    mountNode(state, action) {
+      const node = state[action.payload.id];
+      const ancestorIds = node.ancestor_ids;
+
+      node.isMounted = true;
+
+      ancestorIds.forEach((ancestorId) => {
+        if (state[ancestorId]) state[ancestorId].position.yEnds += COMPLETE_Y_LENGTH;
+      });
+    },
+    unmountNode(state, action) {
+      const node = state[action.payload.id];
+      const ancestorIds = node.ancestor_ids;
+
+      node.isMounted = false;
+
+      ancestorIds.forEach((ancestorId) => {
+        if (state[ancestorId]) state[ancestorId].position.yEnds -= COMPLETE_Y_LENGTH;
+      });
     },
     updateNodeState(state, action) {
       const { id } = action.payload;
@@ -82,20 +103,30 @@ const nodeSlice = createSlice({
         state[id] = { ...state[id], ...action.payload };
       }
     },
+    updateNodeY(state, action) {
+      const { id, change } = action.payload;
+      state[id].position.y += change;
+      state[id].position.yEnds += change;
+    },
     incrementNodesYEnds(state, action) {
       const {
         ids,
         increment,
       } = action.payload;
+
       ids.forEach((id) => {
-        if (state[id]) state[id].position.yEnds += increment;
+        if (state[id].position.yEnds + increment > state[id].position.y) {
+          state[id].position.yEnds += increment;
+        } else {
+          state[id].position.yEnds = state[id].position.y;
+        }
       });
     },
     deleteNodeFromState(state, action) {
       const node = state[action.payload.id];
       const parent = state[node.parent_id];
 
-      if (parent) parent.node_ids = parent.node_ids.filter((objectId) => objectId.$oid !== node.id);
+      if (parent) parent.node_ids = parent.node_ids.filter((id) => id !== node.id);
 
       delete state[node.id];
     },
@@ -105,11 +136,11 @@ const nodeSlice = createSlice({
       const parent = state[parentId];
       const id = action.payload.id || (Math.random() + 1).toString(36);
 
-      const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
-        ? [{ $oid: parentId }, ...parent.ancestor_ids] : [{ $oid: parentId }];
+      const nodeAncestorIds = action.payload.ancestor_ids || parent.ancestor_ids.length
+        ? [parentId, ...parent.ancestor_ids] : [parentId];
 
       // new persistent node is in edit mode only if tempNode is in edit mode
-      const isEditing = !action.payload.tempId || state[action.payload.tempId].isEditing;
+      const isEditing = action.payload.isTemp || (state[action.payload.tempId]?.isEditing);
 
       state[id] = {
         id,
@@ -117,7 +148,7 @@ const nodeSlice = createSlice({
         replaceTempNode: action.payload.replaceTempNode, // we don't animate the new node if it's replacing a temp node
         isEditing,
         parent_id: parentId,
-        ancestor_ids: nodeAncestorIdObjects,
+        ancestor_ids: nodeAncestorIds,
         node_ids: [],
         position: { y: 0 },
         owner: {
@@ -128,12 +159,12 @@ const nodeSlice = createSlice({
 
       if (action.payload.isTemp) {
         // add the new node to the parent's node_ids
-        parent.node_ids.push({ $oid: id });
-      } else {
+        parent.node_ids.push(id);
+      } else if (action.payload.replaceTempNode) {
         // replace the temp new node with the permanent new node
-        parent.node_ids = parent.node_ids.map((objectId) => {
-          if (objectId.$oid === action.payload.tempId) return { $oid: id };
-          return objectId;
+        parent.node_ids = parent.node_ids.map((nestedNodeId) => {
+          if (nestedNodeId === action.payload.tempId) return id;
+          return nestedNodeId;
         });
         // delete the temp new node
         delete state[action.payload.tempId];
@@ -146,6 +177,7 @@ const nodeSlice = createSlice({
       .addCase(showNode.fulfilled, (state, action) => {
         mapNodesToState(state, [{ ...action.payload }]);
         mapNodesToState(state, action.payload.all_nested_nodes);
+        nodeSlice.caseReducers.deleteAllNestedNodesFromState(state, action);
       })
       .addCase(createNode.fulfilled, (state, action) => {
         nodeSlice.caseReducers.addNewNode(state, {
@@ -154,13 +186,6 @@ const nodeSlice = createSlice({
             replaceTempNode: true,
           },
         });
-
-        setTimeout(() => nodeSlice.caseReducers.updateNodeState(state, {
-          payload: {
-            ...action.payload,
-            replaceTempNode: false,
-          },
-        }), 0);
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodeSlice.caseReducers.deleteNodeFromState(state, action);
@@ -179,6 +204,9 @@ export const {
   incrementNodesYEnds,
   addNewNode,
   updateNodeState,
+  mountNode,
+  unmountNode,
+  updateNodeY,
 } = actions;
 
 export default reducer;
