@@ -1,8 +1,8 @@
 /* mui */
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import * as PropTypes from 'prop-types';
-import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
+import useFlatTreeNodes from '../../hooks/tree/useFlatTreeNodes';
 /* nodecosmos */
 import Node from './Node';
 import NodeDescription from './NodeDescription';
@@ -10,41 +10,7 @@ import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { id } = props;
-  const allNodeIds = useShallowEqualSelector((state) => Object.keys(state.nodes));
-  const nestedNodeIds = useShallowEqualSelector((state) => {
-    const result = {};
-    allNodeIds.forEach((nodeId) => {
-      const node = state.nodes[nodeId];
-      if (!node) console.log(nodeId);
-
-      result[nodeId] = node.node_ids;
-    });
-    return result;
-  });
-
-  const treeNodes = useMemo(() => {
-    const allTreeNodes = [];
-
-    const renderNodesAsFlatArray = (nodeId = id, nestedLevel = 0, currentUpperSiblingId = null) => {
-      allTreeNodes.push(
-        {
-          id: nodeId,
-          nestedLevel,
-          upperSiblingId: currentUpperSiblingId,
-        },
-      );
-
-      const childrenIds = nestedNodeIds[nodeId];
-      childrenIds.forEach((nestedNodeId, index) => {
-        const upperSiblingId = childrenIds[index - 1];
-        renderNodesAsFlatArray(nestedNodeId, nestedLevel + 1, upperSiblingId);
-      });
-    };
-
-    renderNodesAsFlatArray();
-
-    return allTreeNodes;
-  }, [id, nestedNodeIds]);
+  const treeNodes = useFlatTreeNodes(id);
 
   return (
     <Box
@@ -80,6 +46,7 @@ export default function Tree(props) {
                   id={nodeProps.id}
                   nestedLevel={nodeProps.nestedLevel}
                   upperSiblingId={nodeProps.upperSiblingId}
+                  lastChildId={nodeProps.lastChildId}
                   isRoot={nodeProps.nestedLevel === 0}
                 />
               ))

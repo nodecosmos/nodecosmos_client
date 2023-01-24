@@ -4,11 +4,11 @@ import usePrevProps from '../../../app/hooks/usePrevProps';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/tree/constants';
 import { updateNodeState, updateNodeY } from '../../nodeSlice';
 
-export default function useNodePositionCalculator(props) {
+export default function useCalculateInitialPosition(props) {
   const {
     id,
-    upperSiblingId,
     isRoot,
+    upperSiblingId,
   } = props;
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -64,36 +64,17 @@ export default function useNodePositionCalculator(props) {
     ],
   );
 
-  const monitorYChanges = useCallback(
-    () => {
-      if (upperSiblingId && !isUpperSiblingPositionCalculated) return;
-      if (!isRoot && !upperSiblingId && !isParentPositionCalculated) return;
-      if (!isPositionCalculated) return;
-      if (!prevY || prevY === y) return;
+  //--------------------------------------------------------------------------------------------------------------------
+  const monitorYChange = useCallback(() => {
+    if (!isPositionCalculated) return;
+    if (prevY && prevY === y) return;
 
-      const change = y - prevY;
-
-      requestAnimationFrame(() => {
-        dispatch(updateNodeY({
-          id,
-          change,
-        }));
-      });
-    },
-    [
-      dispatch,
-      id,
-      isParentPositionCalculated,
-      isPositionCalculated,
-      isRoot,
-      isUpperSiblingPositionCalculated,
-      prevY,
-      upperSiblingId,
-      y,
-    ],
-  );
+    requestAnimationFrame(() => {
+      dispatch(updateNodeY({ id, change: y - prevY }));
+    });
+  }, [dispatch, id, isPositionCalculated, prevY, y]);
 
   //--------------------------------------------------------------------------------------------------------------------
   useEffect(() => calculateInitialPosition(), [calculateInitialPosition]);
-  useEffect(() => monitorYChanges(), [monitorYChanges]);
+  useEffect(() => monitorYChange(), [monitorYChange]);
 }

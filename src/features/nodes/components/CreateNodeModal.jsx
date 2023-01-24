@@ -1,5 +1,4 @@
 import React from 'react';
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';

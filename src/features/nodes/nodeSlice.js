@@ -61,6 +61,7 @@ const mapNodesToState = (state, nodes) => {
 
     payload.node_ids = payload.node_ids?.map((nodeIdObject) => nodeIdObject.$oid) || [];
     payload.ancestor_ids = payload.ancestor_ids?.map((nodeIdObject) => nodeIdObject.$oid) || [];
+    payload.descendant_ids = payload.descendant_ids?.map((nodeIdObject) => nodeIdObject.$oid) || [];
     payload.position = payload.position || {};
 
     state[id] = payload;
@@ -79,9 +80,14 @@ const nodeSlice = createSlice({
     collapseNode(state, action) { state[action.payload.id].isExpanded = false; },
     mountNode(state, action) {
       const node = state[action.payload.id];
+
       const ancestorIds = node.ancestor_ids;
 
+      if (node.isMounted) return;
+
       node.isMounted = true;
+
+      if (node.replaceTempNode) return;
 
       ancestorIds.forEach((ancestorId) => {
         if (state[ancestorId]) state[ancestorId].position.yEnds += COMPLETE_Y_LENGTH;
@@ -91,11 +97,20 @@ const nodeSlice = createSlice({
       const node = state[action.payload.id];
       const ancestorIds = node.ancestor_ids;
 
+      if (!node.isMounted) return;
+
       node.isMounted = false;
 
       ancestorIds.forEach((ancestorId) => {
         if (state[ancestorId]) state[ancestorId].position.yEnds -= COMPLETE_Y_LENGTH;
       });
+    },
+    updateNodeY(state, action) {
+      const { id, change } = action.payload;
+      const node = state[id];
+
+      node.position.y += change;
+      node.position.yEnds += change;
     },
     updateNodeState(state, action) {
       const { id } = action.payload;
@@ -103,23 +118,15 @@ const nodeSlice = createSlice({
         state[id] = { ...state[id], ...action.payload };
       }
     },
-    updateNodeY(state, action) {
-      const { id, change } = action.payload;
-      state[id].position.y += change;
-      state[id].position.yEnds += change;
-    },
-    incrementNodesYEnds(state, action) {
+    incrementNodesYAndYEnds(state, action) {
       const {
         ids,
         increment,
       } = action.payload;
 
       ids.forEach((id) => {
-        if (state[id].position.yEnds + increment > state[id].position.y) {
-          state[id].position.yEnds += increment;
-        } else {
-          state[id].position.yEnds = state[id].position.y;
-        }
+        state[id].position.yEnds += increment;
+        state[id].position.y += increment;
       });
     },
     deleteNodeFromState(state, action) {
@@ -175,7 +182,7 @@ const nodeSlice = createSlice({
     builder
       .addCase(indexNodes.fulfilled, (state, action) => mapNodesToState(state, action.payload))
       .addCase(showNode.fulfilled, (state, action) => {
-        mapNodesToState(state, [{ ...action.payload }]);
+        mapNodesToState(state, [{ ...action.payload, isMounted: true }]);
         mapNodesToState(state, action.payload.all_nested_nodes);
         nodeSlice.caseReducers.deleteAllNestedNodesFromState(state, action);
       })
@@ -201,7 +208,7 @@ const {
 export const {
   expandNode,
   collapseNode,
-  incrementNodesYEnds,
+  incrementNodesYAndYEnds,
   addNewNode,
   updateNodeState,
   mountNode,

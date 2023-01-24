@@ -3,7 +3,6 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
 import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import {
   INITIAL_ANIMATION_DELAY,

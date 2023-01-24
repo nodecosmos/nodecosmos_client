@@ -1,8 +1,8 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNestedNodesMount from '../../hooks/tree/useNestedNodesMount';
-import useNodePositionCalculator from '../../hooks/tree/useNodePositionCalculator';
+import useCalculateInitialPosition from '../../hooks/tree/useCalculateInitialPosition';
+import useNodeMountService from '../../hooks/tree/useNodeMountService';
 import NestedNodesBranch from './NestedNodesBranch';
 import NodeButton from './NodeButton';
 import NodeLink from './NodeLink';
@@ -13,17 +13,18 @@ export default function Node(props) {
     upperSiblingId,
     nestedLevel,
     isRoot,
+    lastChildId,
   } = props;
 
-  useNestedNodesMount(id);
-  useNodePositionCalculator({ id, upperSiblingId, isRoot });
+  useCalculateInitialPosition({ id, isRoot, upperSiblingId });
+  useNodeMountService({ id });
 
   const isMounted = useSelector((state) => isRoot || state.nodes[id].isMounted);
   if (!isMounted) return null;
 
   return (
     <g>
-      <NestedNodesBranch id={id} />
+      <NestedNodesBranch id={id} lastChildId={lastChildId} />
       <NodeLink
         id={id}
         upperSiblingId={upperSiblingId}
@@ -42,11 +43,13 @@ export default function Node(props) {
 Node.defaultProps = {
   isRoot: false,
   upperSiblingId: null,
+  lastChildId: null,
 };
 
 Node.propTypes = {
   isRoot: PropTypes.bool,
+  nestedLevel: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   upperSiblingId: PropTypes.string,
-  nestedLevel: PropTypes.number.isRequired,
+  lastChildId: PropTypes.string,
 };

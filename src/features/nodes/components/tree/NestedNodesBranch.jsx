@@ -13,21 +13,19 @@ import {
 } from './constants';
 
 export default function NestedNodesBranch(props) {
-  const { id } = props;
+  const { id, lastChildId } = props;
 
   const isExpanded = useSelector((state) => state.nodes[id].isExpanded);
   const xEnds = useSelector((state) => state.nodes[id].position.xEnds);
   const y = useSelector((state) => state.nodes[id].position.y);
-  const yEnds = useSelector((state) => state.nodes[id].position.yEnds);
+  const pathYEnds = useSelector((state) => state.nodes[lastChildId]?.position.y);
 
   const theme = useTheme();
 
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
 
-  const pathY = yEnds || linkY;
-
-  if (!isExpanded || !yEnds) return null;
+  if (!isExpanded || !pathYEnds) return null;
 
   return (
     <Box
@@ -36,7 +34,7 @@ export default function NestedNodesBranch(props) {
       fill="transparent"
       strokeWidth={3.5}
       d={`M ${x} ${linkY} 
-         L ${x} ${pathY}`}
+         L ${x} ${pathYEnds}`}
       sx={{
         opacity: 0,
         animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
@@ -46,6 +44,11 @@ export default function NestedNodesBranch(props) {
   );
 }
 
+NestedNodesBranch.defaultProps = {
+  lastChildId: null,
+};
+
 NestedNodesBranch.propTypes = {
   id: PropTypes.string.isRequired,
+  lastChildId: PropTypes.string,
 };
