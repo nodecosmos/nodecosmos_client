@@ -4,13 +4,13 @@ import * as PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
-import Node from './Node';
-import NodeDescription from './NodeDescription';
-import Transformable from './Transformable';
-import NestedNodes from './NestedNodes';
+import LandingPageNode from './LandingPageNode';
+import LandingPageNodeDescription from './LandingPageNodeDescription';
+import LandingPageTransformable from './LandingPageTransformable';
+import LandingPageNestedNodes from './LandingPageNestedNodes';
 import { terminateNewNode } from './landingPageNodeSlice';
 
-export default function Tree(props) {
+export default function LandingPageTree(props) {
   const { id } = props;
   const dispatch = useDispatch();
 
@@ -29,17 +29,17 @@ export default function Tree(props) {
         width: 1,
       }}
     >
-      <Transformable>
+      <LandingPageTransformable>
         <g>
-          <Node
+          <LandingPageNode
             id={id}
             nestedLevel={0}
             isRoot
           >
-            <NestedNodes currentNodeId={id} />
-          </Node>
+            <LandingPageNestedNodes currentNodeId={id} />
+          </LandingPageNode>
         </g>
-      </Transformable>
+      </LandingPageTransformable>
       <Box
         width={{
           xs: 1,
@@ -54,12 +54,12 @@ export default function Tree(props) {
         //   md: 'auto',
         // }}
       >
-        <NodeDescription />
+        <LandingPageNodeDescription />
       </Box>
     </Box>
   );
 }
 
-Tree.propTypes = {
+LandingPageTree.propTypes = {
   id: PropTypes.string.isRequired,
 };

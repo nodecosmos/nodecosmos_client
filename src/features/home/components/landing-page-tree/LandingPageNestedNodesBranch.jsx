@@ -11,7 +11,7 @@ import {
   TRANSITION_ANIMATION_DURATION,
 } from './constants';
 
-export default function NestedNodesBranch(props) {
+export default function LandingPageNestedNodesBranch(props) {
   const { id, lastChildId } = props;
   const { xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
   const lastChildY = useSelector((state) => lastChildId && state.landingPageNodes[lastChildId].position.y);
@@ -41,10 +41,10 @@ export default function NestedNodesBranch(props) {
   );
 }
 
-NestedNodesBranch.defaultProps = {
+LandingPageNestedNodesBranch.defaultProps = {
   lastChildId: null,
 };
-NestedNodesBranch.propTypes = {
+LandingPageNestedNodesBranch.propTypes = {
   id: PropTypes.string.isRequired,
   lastChildId: PropTypes.string,
 };

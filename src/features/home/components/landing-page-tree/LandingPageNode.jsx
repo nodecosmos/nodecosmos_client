@@ -3,10 +3,10 @@ import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodePositionCalculator from '../../hooks/landing-page-tree/useNodePositionCalculator';
 import useNodeUnmountService from '../../hooks/landing-page-tree/useNodeUnmountService';
-import NodeButton from './NodeButton';
-import NodeLink from './NodeLink';
+import LandingPageNodeButton from './LandingPageNodeButton';
+import NodeLink from './LandingPageNodeLink';
 
-export default function Node(props) {
+export default function LandingPageNode(props) {
   const {
     id,
     upperSiblingId,
@@ -29,7 +29,7 @@ export default function Node(props) {
         isRoot={isRoot}
         nestedLevel={nestedLevel}
       />
-      <NodeButton
+      <LandingPageNodeButton
         id={id}
         isRoot={isRoot}
         nestedLevel={nestedLevel}
@@ -39,13 +39,13 @@ export default function Node(props) {
   );
 }
 
-Node.defaultProps = {
+LandingPageNode.defaultProps = {
   isRoot: false,
   children: null,
   upperSiblingId: null,
 };
 
-Node.propTypes = {
+LandingPageNode.propTypes = {
   isRoot: PropTypes.bool,
   children: PropTypes.object,
   id: PropTypes.string.isRequired,

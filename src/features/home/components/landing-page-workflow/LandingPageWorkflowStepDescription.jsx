@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-export default function WorkflowStepDescription() {
+export default function LandingPageWorkflowStepDescription() {
   const currentWorkflow = useSelector((state) => state.landingPageWorkflows.currentWorkflow);
 
   return (

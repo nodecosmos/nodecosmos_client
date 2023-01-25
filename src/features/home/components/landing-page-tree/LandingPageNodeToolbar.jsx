@@ -22,7 +22,7 @@ import { useDispatch } from 'react-redux';
 import useNodeTreeEvents from '../../hooks/landing-page-tree/useNodeTreeEvents';
 import { updateNode } from './landingPageNodeSlice';
 
-export default function NodeToolbar(props) {
+export default function LandingPageNodeToolbar(props) {
   const { id } = props;
   const { onNodeAdd, handleNodeDeletion } = useNodeTreeEvents({ id });
 
@@ -78,6 +78,6 @@ export default function NodeToolbar(props) {
   );
 }
 
-NodeToolbar.propTypes = {
+LandingPageNodeToolbar.propTypes = {
   id: PropTypes.string.isRequired,
 };
