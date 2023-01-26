@@ -22,21 +22,19 @@ export default function NodeButton(props) {
     nestedLevel,
   } = props;
 
-  const nodeExpanded = useSelector((state) => state.nodes[id].isExpanded);
-  const currentNodeID = useSelector((state) => state.app.currentNodeID);
+  const nodeExpanded = useSelector((state) => state.nodes.byId[id].isExpanded);
 
-  const isEditing = useSelector((state) => state.nodes[id].isEditing);
-  const isTemp = useSelector((state) => state.nodes[id].isTemp);
-  const replaceTempNode = useSelector((state) => state.nodes[id].replaceTempNode);
+  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
+  const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
+  const replaceTempNode = useSelector((state) => state.nodes.byId[id].replaceTempNode);
 
   const { onNodeClick } = useNodeTreeEvents(id);
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
-  const isCurrentNode = nodeExpanded && id === currentNodeID;
+  const showActions = nodeExpanded && isCurrent;
 
-  const nodePosition = useSelector((state) => state.nodes[id].position);
-  const x = nodePosition.xEnds;
-  const y = nodePosition.y - MARGIN_TOP;
+  const x = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
+  const y = useSelector((state) => state.nodes.positionsById[id] && state.nodes.positionsById[id].y - MARGIN_TOP);
 
   if (!x) {
     return null;
@@ -46,9 +44,8 @@ export default function NodeButton(props) {
   const initialAnimationDelay = isRoot || replaceTempNode ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (
-    <Box
-      component="g"
-      sx={{
+    <g
+      style={{
         opacity: 0,
         animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
       }}
@@ -60,42 +57,44 @@ export default function NodeButton(props) {
         x={x}
         y={y}
         style={{
-          transition: isTemp ? null : `y ${TRANSITION_ANIMATION_DURATION}ms`,
+          transition: `y ${TRANSITION_ANIMATION_DURATION}ms`,
         }}
       >
-        <Box display="flex" width="100%">
+        <Box sx={{ display: 'flex' }}>
           <Box
+            type="button"
             component={isEditing ? 'div' : Button}
             onClick={onNodeClick}
             onKeyUp={(event) => event.preventDefault()}
             display="inline-flex"
             alignItems="center"
-            sx={{
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
               backgroundColor,
               height: NODE_BUTTON_HEIGHT,
               color,
-              input: {
-                color,
-              },
-              '&:hover': {
-                backgroundColor,
-              },
+            }}
+            sx={{
               borderRadius: 1.5,
               py: 0,
               px: 2,
               cursor: 'pointer',
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
+              input: {
+                color,
+              },
             }}
           >
             <TagRounded fontSize="small" ml="-2px" />
             <NodeButtonText id={id} />
           </Box>
-          <Box filter="none">
-            {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
-          </Box>
+          <div>
+            {showActions && <Box sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
+          </div>
         </Box>
       </foreignObject>
-    </Box>
+    </g>
   );
 }
 

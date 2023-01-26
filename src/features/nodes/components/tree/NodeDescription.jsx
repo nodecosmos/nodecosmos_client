@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 export default function NodeDescription() {
   const currentNodeID = useSelector((state) => state.app.currentNodeID);
-  const currentNode = useSelector((state) => state.nodes[currentNodeID]);
+  const currentNode = useSelector((state) => state.nodes.byId[currentNodeID]);
 
   const blankDescription = (
     <Typography color="text.secondary" textAlign="center">

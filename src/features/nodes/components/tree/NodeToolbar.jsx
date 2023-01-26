@@ -48,7 +48,7 @@ export default function NodeToolbar(props) {
       <IconButton className="Item" onClick={editNode} aria-label="Edit Node">
         <EditRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={() => removeNode(id)} aria-label="Delete Node">
+      <IconButton className="Item" onClick={removeNode} aria-label="Delete Node">
         <DeleteOutlineRounded fontSize="small" />
       </IconButton>
       <Checkbox

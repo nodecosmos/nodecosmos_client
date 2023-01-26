@@ -1,8 +1,11 @@
 /* mui */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import * as PropTypes from 'prop-types';
-import useFlatTreeNodes from '../../hooks/tree/useFlatTreeNodes';
+import { useDispatch } from 'react-redux';
+import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
+import { setPositionsById } from '../../nodeSlice';
+import treePositionCalculator from '../../services/tree/treePositionCalculator';
 /* nodecosmos */
 import Node from './Node';
 import NodeDescription from './NodeDescription';
@@ -10,7 +13,27 @@ import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { id } = props;
-  const treeNodes = useFlatTreeNodes(id);
+  const [isPositionSet, setIsPositionSet] = React.useState(false);
+  const childrenIdsByNodeId = useShallowEqualSelector((state) => {
+    const result = {};
+    Object.keys(state.nodes.byId).forEach((nodeId) => {
+      const node = state.nodes.byId[nodeId];
+
+      result[nodeId] = node.node_ids;
+    });
+    return result;
+  });
+
+  const { allTreeNodes, allTreeNodeIds, positionsById } = treePositionCalculator({ id, childrenIdsByNodeId });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setPositionsById(positionsById));
+    setIsPositionSet(true);
+  }, [dispatch, positionsById]);
+
+  if (!isPositionSet) return null;
 
   return (
     <Box
@@ -37,13 +60,16 @@ export default function Tree(props) {
         width="61.803%"
         height="100%"
       >
-        <Transformable>
+        <Transformable transformableId={id}>
           <g>
             {
-              treeNodes.map((nodeProps) => (
+              allTreeNodes.map((nodeProps, index) => (
                 <Node
                   key={nodeProps.id}
                   id={nodeProps.id}
+                  allTreeNodeIds={allTreeNodeIds}
+                  allTreeNodesIndex={index}
+                  treeId={id}
                   nestedLevel={nodeProps.nestedLevel}
                   upperSiblingId={nodeProps.upperSiblingId}
                   lastChildId={nodeProps.lastChildId}

@@ -13,7 +13,7 @@ export default function NodeShow() {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const nodeTitle = useSelector((state) => state.nodes[id]?.title);
+  const nodeTitle = useSelector((state) => state.nodes.byId[id]?.title);
 
   useEffect(() => {
     dispatch(showNode(id));

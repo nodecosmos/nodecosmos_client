@@ -17,7 +17,7 @@ import UserAvatar from '../../app/components/common/UserAvatar';
 
 function NodeCard(props) {
   const { id } = props;
-  const node = useSelector((state) => state.nodes[id]);
+  const node = useSelector((state) => state.nodes.byId[id]);
 
   return (
     <Box width="60%" p={2}>

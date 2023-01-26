@@ -15,17 +15,17 @@ import {
 export default function NestedNodesBranch(props) {
   const { id, lastChildId } = props;
 
-  const isExpanded = useSelector((state) => state.nodes[id].isExpanded);
-  const xEnds = useSelector((state) => state.nodes[id].position.xEnds);
-  const y = useSelector((state) => state.nodes[id].position.y);
-  const pathYEnds = useSelector((state) => state.nodes[lastChildId]?.position.y);
+  const isExpanded = useSelector((state) => state.nodes.byId[id].isExpanded);
+  const xEnds = useSelector((state) => state.nodes.positionsById[id].xEnds);
+  const y = useSelector((state) => state.nodes.positionsById[id].y);
+  const pathYEnds = useSelector((state) => state.nodes.positionsById[lastChildId]?.y || y);
 
   const theme = useTheme();
 
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
 
-  if (!isExpanded || !pathYEnds) return null;
+  if (!isExpanded) return null;
 
   return (
     <Box

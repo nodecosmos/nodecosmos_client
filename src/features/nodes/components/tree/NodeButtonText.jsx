@@ -10,8 +10,8 @@ export default function NodeButtonText(props) {
 
   const [focused, setFocused] = React.useState(false);
 
-  const nodeTitle = useSelector((state) => state.nodes[id].title);
-  const isEditing = useSelector((state) => state.nodes[id].isEditing);
+  const nodeTitle = useSelector((state) => state.nodes.byId[id].title);
+  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
 
   //--------------------------------------------------------------------------------------------------------------------
   const {
@@ -39,18 +39,20 @@ export default function NodeButtonText(props) {
       value={nodeTitle || ''}
       fontSize={14}
       fontWeight={500}
-      p={0}
       disabled={!isEditing}
       maxLength={30}
       size={Math.max((nodeTitle && nodeTitle.length * 0.8) || 0, 3)}
+      p={0}
       minWidth={40}
       backgroundColor="transparent"
       fontFamily="Roboto, sans-serif"
       outline="none!important"
       letterSpacing="0.02857em"
-      sx={{
+      style={{
         cursor: isEditing ? 'text' : 'pointer!important',
         pointerEvents: isEditing ? 'auto' : 'none',
+      }}
+      sx={{
         ml: 1,
       }}
     >

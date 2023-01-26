@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
@@ -23,37 +23,27 @@ export default function NodeLink(props) {
   } = props;
 
   const theme = useTheme();
-  const x = useSelector((state) => state.nodes[id].position.x);
-  const xEnds = useSelector((state) => state.nodes[id].position.xEnds);
-  const y = useSelector((state) => state.nodes[id].position.y);
+  const replaceTempNode = useSelector((state) => state.nodes.byId[id].replaceTempNode);
+  const parentId = useSelector((state) => state.nodes.byId[id].parent_id);
 
-  const replaceTempNode = useSelector((state) => state.nodes[id].replaceTempNode);
+  const x = useSelector((state) => state.nodes.positionsById[id].x);
+  const xEnds = useSelector((state) => state.nodes.positionsById[id].xEnds);
+  const y = useSelector((state) => state.nodes.positionsById[id].y);
 
-  const upperSiblingPosition = useSelector((state) => upperSiblingId
-    && state.nodes[upperSiblingId].position);
+  const upperSiblingY = useSelector((state) => upperSiblingId && state.nodes.positionsById[upperSiblingId]?.y);
 
-  const parentId = useSelector((state) => state.nodes[id].parent_id);
-  const parentPositionY = useSelector((state) => state.nodes[parentId]?.position.y);
-  const parentPositionXends = useSelector((state) => state.nodes[parentId]?.position.xEnds);
+  const parentPositionY = useSelector((state) => state.nodes.positionsById[parentId]?.y);
+  const parentPositionXEnds = useSelector((state) => state.nodes.positionsById[parentId]?.xEnds);
 
-  const linkX = (isRoot ? 0 : parentPositionXends) + MARGIN_LEFT;
-  const linkY = upperSiblingPosition ? upperSiblingPosition.y + 2.5 : parentPositionY + MARGIN_TOP;
+  const { parentBackgroundColor } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+
+  const linkX = (isRoot ? 0 : parentPositionXEnds) + MARGIN_LEFT;
+  const linkY = upperSiblingY ? upperSiblingY + 2.5 : parentPositionY + MARGIN_TOP;
 
   const yLength = y - linkY;
   const circleY = linkY + yLength - 1;
 
-  const pathRef = useRef(null);
-  const circleRef = useRef(null);
-
-  const { parentBackgroundColor } = useNodeButtonBackground({
-    id,
-    nestedLevel,
-    isRoot,
-  });
-
-  if (!x) {
-    return null;
-  }
+  if (!x) { return null; }
 
   if (isRoot) {
     return (
@@ -76,7 +66,6 @@ export default function NodeLink(props) {
     <g>
       <Box
         component="path"
-        ref={pathRef}
         strokeWidth={3.5}
         d={`M ${linkX} ${y}
             C ${linkX} ${y}
@@ -93,7 +82,6 @@ export default function NodeLink(props) {
       />
       <Box
         component="circle"
-        ref={circleRef}
         cx={x}
         cy={circleY}
         r={5}

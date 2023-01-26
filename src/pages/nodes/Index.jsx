@@ -8,7 +8,7 @@ import NodeCard from '../../features/nodes/components/NodeCard';
 import { indexNodes } from '../../features/nodes/nodeSlice';
 
 export default function NodeIndex() {
-  const nodes = useSelector((state) => state.nodes);
+  const nodes = useSelector((state) => state.nodes.byId);
   const dispatch = useDispatch();
 
   useEffect(() => {

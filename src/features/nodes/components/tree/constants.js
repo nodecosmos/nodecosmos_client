@@ -6,4 +6,4 @@ export const COMPLETE_Y_LENGTH = EDGE_LENGTH + MARGIN_TOP; // length of edge + b
 
 export const INITIAL_ANIMATION_DURATION = 300; // ms
 export const INITIAL_ANIMATION_DELAY = 50; // ms
-export const TRANSITION_ANIMATION_DURATION = 200; // ms
+export const TRANSITION_ANIMATION_DURATION = 150; // ms

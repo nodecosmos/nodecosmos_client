@@ -1,7 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import history from '../../../../history';
-import { setCurrentNode } from '../../../app/appSlice';
 import usePrevProps from '../../../app/hooks/usePrevProps';
 import {
   addNewNode,
@@ -11,28 +10,28 @@ import {
   expandNode,
   updateNode,
   updateNodeState,
+  setCurrentNode, deleteNodeFromState,
 } from '../../nodeSlice';
 
 export default function useNodeTreeEvents(id) {
   const dispatch = useDispatch();
 
-  const isRoot = useSelector((state) => state.nodes[id] && state.nodes[id].is_root);
-  const isTemp = useSelector((state) => state.nodes[id] && state.nodes[id].isTemp);
-  const isExpanded = useSelector((state) => state.nodes[id] && state.nodes[id].isExpanded);
+  const isRoot = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].is_root);
+  const isTemp = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].isTemp);
+  const isCurrentNode = useSelector((state) => state.nodes.byId[id].isCurrent);
 
-  const title = useSelector((state) => state.nodes[id] && state.nodes[id].title);
+  const isExpanded = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].isExpanded);
+
+  const title = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].title);
   const prevTitle = usePrevProps(title);
 
-  const parentId = useSelector((state) => state.nodes[id] && state.nodes[id].parent_id);
-
-  const currentNodeId = useSelector((state) => state.app.currentNodeID);
-  const isCurrentNode = currentNodeId === id;
+  const parentId = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].parent_id);
 
   //--------------------------------------------------------------------------------------------------------------------
   const onNodeClick = () => {
     if (isExpanded && isCurrentNode) {
       dispatch(collapseNode({ id }));
-      dispatch(setCurrentNode(null));
+      dispatch(setCurrentNode(id));
     } else {
       dispatch(expandNode({ id }));
       dispatch(setCurrentNode(id));
@@ -88,8 +87,12 @@ export default function useNodeTreeEvents(id) {
     }));
   };
 
-  const removeNode = (nodeId) => {
-    dispatch(deleteNode(nodeId));
+  const removeNode = () => {
+    if (isTemp) {
+      dispatch(deleteNodeFromState({ id }));
+    } else {
+      dispatch(deleteNode(id));
+    }
     if (isRoot) history.push('/');
   };
 

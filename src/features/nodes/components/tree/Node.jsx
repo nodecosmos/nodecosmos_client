@@ -1,7 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useCalculateInitialPosition from '../../hooks/tree/useCalculateInitialPosition';
 import useNodeMountService from '../../hooks/tree/useNodeMountService';
 import NestedNodesBranch from './NestedNodesBranch';
 import NodeButton from './NodeButton';
@@ -16,10 +15,10 @@ export default function Node(props) {
     lastChildId,
   } = props;
 
-  useCalculateInitialPosition({ id, isRoot, upperSiblingId });
+  // useCalculateInitialPosition({ id, isRoot, upperSiblingId });
   useNodeMountService({ id });
 
-  const isMounted = useSelector((state) => isRoot || state.nodes[id].isMounted);
+  const isMounted = useSelector((state) => isRoot || state.nodes.byId[id].isMounted);
   if (!isMounted) return null;
 
   return (
@@ -52,4 +51,6 @@ Node.propTypes = {
   id: PropTypes.string.isRequired,
   upperSiblingId: PropTypes.string,
   lastChildId: PropTypes.string,
+  allTreeNodeIds: PropTypes.array.isRequired,
+  allTreeNodesIndex: PropTypes.number.isRequired,
 };

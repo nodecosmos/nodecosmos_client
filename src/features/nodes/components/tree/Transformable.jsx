@@ -2,12 +2,14 @@ import React, { useRef } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setTransformablePositions } from '../../../app/appSlice';
 // import usePannable from '../../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
 const isFirefox = typeof InstallTrigger !== 'undefined';
 
 export default function Transformable(props) {
-  const { children } = props;
+  const { children, transformableId } = props;
   const gRef = useRef(null);
   const svgRef = useRef(null);
   const theme = useTheme();
@@ -37,11 +39,22 @@ export default function Transformable(props) {
 
   const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
 
+  const dispatch = useDispatch();
+
+  const handleScroll = (e) => {
+    dispatch(setTransformablePositions({
+      id: transformableId,
+      clientHeight: e.target.clientHeight,
+      scrollTop: e.target.scrollTop,
+    }));
+  };
+
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
       onClick={resize}
-      onScroll={resize}
+      onScroll={(e) => handleScroll(e)}
+      onScrollCapture={resize}
       onTouchStart={resize}
       overflow="auto"
       width={1}
@@ -83,4 +96,5 @@ export default function Transformable(props) {
 
 Transformable.propTypes = {
   children: PropTypes.element.isRequired,
+  transformableId: PropTypes.string.isRequired,
 };

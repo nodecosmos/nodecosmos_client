@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 export default function NodeTab() {
   const { id } = useParams();
-  const node = useSelector((state) => state.nodes[id]);
+  const node = useSelector((state) => state.nodes.byId[id]);
 
   return (
     <Box py={4} px={5} width={1}>

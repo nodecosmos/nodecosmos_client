@@ -26,6 +26,7 @@ const appSlice = createSlice({
   name: 'app',
   initialState: {
     theme: localStorage.getItem('theme') || 'dark',
+    transformablePositions: {},
     subtitle: '',
     appAnimationEnabled: true,
     scrollEnabled: true,
@@ -36,11 +37,12 @@ const appSlice = createSlice({
   reducers: {
     setTheme(state, action) { state.theme = action.payload; },
     setSubtitle(state, action) { state.subtitle = action.payload; },
-    setCurrentNode(state, action) { state.currentNodeID = action.payload; },
+    setCurrentNode(state, action) { state.currentNodeID = action.payload; }, // kept for homepage
     setCurrentToolbar(state, action) { state.currentToolbar = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
     setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },
     setWhatever(state, action) { state.scrollEnabled = action.payload; },
+    setTransformablePositions(state, action) { state.transformablePositions[action.payload.id] = action.payload; },
   },
 });
 
@@ -54,6 +56,7 @@ export const {
   setAnimationEnabled,
   setScrollEnabled,
   setWhatever,
+  setTransformablePositions,
 } = actions;
 
 export default reducer;

@@ -8,9 +8,9 @@ import Node from './Node';
 
 export default function NestedNodes(props) {
   const { id, nestedLevel } = props;
-  const nodeExpanded = useSelector((state) => state.nodes[id].isExpanded);
+  const nodeExpanded = useSelector((state) => state.nodes.byId[id].isExpanded);
 
-  const nodeIds = useShallowEqualSelector((state) => state.nodes[id].node_ids);
+  const nodeIds = useShallowEqualSelector((state) => state.nodes.byId[id].node_ids);
   const lastChildId = nodeIds[nodeIds.length - 1];
 
   if (!nodeExpanded) return null;

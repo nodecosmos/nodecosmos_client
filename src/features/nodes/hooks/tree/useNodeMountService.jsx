@@ -1,14 +1,14 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { mountNode, unmountNode } from '../../nodeSlice';
+import { mountNodes } from '../../nodeSlice';
 
 export default function useNodeMountService({ id }) {
   const dispatch = useDispatch();
 
-  const isExpanded = useSelector((state) => state.nodes[id].isExpanded);
-  const nestedNodeIds = useSelector((state) => state.nodes[id].node_ids);
+  const isExpanded = useSelector((state) => state.nodes.byId[id].isExpanded);
+  const nestedNodeIds = useSelector((state) => state.nodes.byId[id].node_ids);
 
-  const chunkSize = 5;
+  const chunkSize = 25;
   const nodeIdsChunks = useMemo(() => {
     const chunks = [];
 
@@ -19,16 +19,11 @@ export default function useNodeMountService({ id }) {
     return chunks;
   }, [nestedNodeIds]);
 
-  // it mounts node and increments ancestors yEnds so that it can be used to calculate the next node's Y-starts
   useEffect(() => {
-    nodeIdsChunks.forEach((nodeIdsChunk) => {
-      nodeIdsChunk.forEach((nestedNodeId) => {
-        if (isExpanded) {
-          dispatch(mountNode({ id: nestedNodeId }));
-        } else {
-          dispatch(unmountNode({ id: nestedNodeId }));
-        }
+    if (isExpanded) {
+      nodeIdsChunks.forEach((nodeIdsChunk) => {
+        setTimeout(() => dispatch(mountNodes({ ids: nodeIdsChunk })));
       });
-    });
+    }
   }, [dispatch, id, isExpanded, nodeIdsChunks]);
 }
