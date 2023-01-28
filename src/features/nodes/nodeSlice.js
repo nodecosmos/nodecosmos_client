@@ -136,6 +136,11 @@ const nodeSlice = createSlice({
       delete state.mountedTreeNodesById[node.id];
       delete state.expandedTreeNodesById[node.id];
       delete state.byId[node.id];
+
+      node.ancestorIds.forEach((ancestorId) => {
+        const { descendantIds } = state.byId[ancestorId];
+        state.byId[ancestorId].descendantIds = descendantIds.filter((descendantId) => descendantId !== node.id);
+      });
     },
     addNewNode(state, action) {
       const parentId = action.payload.parent_id;
