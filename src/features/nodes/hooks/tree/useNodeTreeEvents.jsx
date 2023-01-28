@@ -10,7 +10,9 @@ import {
   expandNode,
   updateNode,
   updateNodeState,
-  setCurrentNode, deleteNodeFromState,
+  setCurrentNode,
+  deleteNodeFromState,
+  deprecateReplaceTempNodeStatus,
 } from '../../nodeSlice';
 
 export default function useNodeTreeEvents(id) {
@@ -62,6 +64,7 @@ export default function useNodeTreeEvents(id) {
           title,
           parent_id: parentId,
         }));
+        dispatch(deprecateReplaceTempNodeStatus());
       } else {
         dispatch(updateNode({
           id,

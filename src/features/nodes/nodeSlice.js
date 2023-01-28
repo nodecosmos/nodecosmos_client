@@ -128,15 +128,20 @@ const nodeSlice = createSlice({
       const node = state.byId[action.payload.id];
       const parent = state.byId[node.parent_id];
 
-      if (parent) parent.nodeIds = parent.nodeIds.filter((id) => id !== node.id);
+      if (parent) {
+        state.nestedNodesByParentId[parent.id] = state.nestedNodesByParentId[parent.id].filter((id) => id !== node.id);
+      }
 
+      delete state.positionsById[node.id];
+      delete state.mountedTreeNodesById[node.id];
+      delete state.expandedTreeNodesById[node.id];
       delete state.byId[node.id];
     },
     addNewNode(state, action) {
       const parentId = action.payload.parent_id;
 
       const parent = state.byId[parentId];
-      const id = action.payload.id || (Math.random() + 1).toString(36);
+      const id = action.payload.id || (Math.random() + 1).toString(36); // automatic id for tmp node
 
       const nodeAncestorIds = action.payload.ancestorIds || parent.ancestorIds.length
         ? [parentId, ...parent.ancestorIds] : [parentId];
@@ -185,7 +190,7 @@ const nodeSlice = createSlice({
           }
         });
 
-        // replace the temp new node position with the new node
+        // add tmp node position to new node
         const position = state.positionsById[action.payload.tempId];
         if (position) state.positionsById[id] = position;
 
@@ -195,6 +200,11 @@ const nodeSlice = createSlice({
         delete state.expandedTreeNodesById[action.payload.tempId];
         delete state.byId[action.payload.tempId];
       }
+    },
+    // re-enable animations for new node
+    deprecateReplaceTempNodeStatus(state, _action) {
+      const id = Object.keys(state.byId).find((currentId) => state.byId[currentId].isReplacingTempNode);
+      if (id) state.byId[id].isReplacingTempNode = false;
     },
     setPositionsById(state, action) { state.positionsById = action.payload; },
   },
@@ -228,13 +238,12 @@ const {
 export const {
   expandNode,
   collapseNode,
-  mountNodes,
-  unmountNodes,
   setCurrentNode,
   updateNodeState,
   deleteNodeFromState,
   addNewNode,
   setPositionsById,
+  deprecateReplaceTempNodeStatus,
 } = actions;
 
 export default reducer;

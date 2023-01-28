@@ -22,7 +22,7 @@ export default function NodeButtonText(props) {
 
   useEffect(() => {
     if (isEditing) {
-      // ref.current.focus();
+      ref.current.focus();
       setFocused(true);
     }
   }, [isEditing]);

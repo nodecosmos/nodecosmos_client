@@ -10,7 +10,6 @@ export default function useRenderNodeInViewport({ transformableId, allTreeNodes 
     const nodeY = nodeProps.y;
     const isExpanded = expandedTreeNodesById[nodeProps.id];
 
-    return nodeProps.isRoot
-      || isExpanded || (nodeY > scrollTop - clientHeight && nodeY < scrollTop + clientHeight * 2);
+    return nodeProps.isRoot || isExpanded || (nodeY > scrollTop - clientHeight && nodeY < scrollTop + clientHeight * 2);
   });
 }

@@ -44,11 +44,6 @@ export default function useNodeTreeEvents(props) {
     dispatch(prependNewNode({ parent_id: id }));
   };
 
-  const handleNodeCreation = (event) => {
-    const title = event.target.innerText;
-    prependNewNode({ title, parent_id: id });
-  };
-
   const handleNodeDeletion = (nodeId) => {
     if (nodeId === ROOT_LANDING_PAGE_NODE_ID) return;
 
@@ -59,7 +54,6 @@ export default function useNodeTreeEvents(props) {
   return {
     onNodeClick,
     onNodeAdd,
-    handleNodeCreation,
     handleNodeDeletion,
   };
 }

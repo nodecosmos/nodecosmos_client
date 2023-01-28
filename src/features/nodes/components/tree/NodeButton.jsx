@@ -22,7 +22,7 @@ export default function NodeButton(props) {
     nestedLevel,
   } = props;
 
-  const nodeExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
+  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
 
   const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
   const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
@@ -31,7 +31,7 @@ export default function NodeButton(props) {
   const { onNodeClick } = useNodeTreeEvents(id);
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
-  const showActions = nodeExpanded && isCurrent;
+  const showActions = isExpanded && isCurrent;
 
   const x = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
   const y = useSelector((state) => state.nodes.positionsById[id] && state.nodes.positionsById[id].y - MARGIN_TOP);

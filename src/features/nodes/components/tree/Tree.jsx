@@ -1,9 +1,11 @@
 /* mui */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import * as PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import useRenderNodeInViewport from '../../hooks/tree/useRenderNodeInViewport';
 import useTreePositionCalculator from '../../hooks/tree/useTreePositionCalculator';
+import { setPositionsById } from '../../nodeSlice';
 
 /* nodecosmos */
 import Node from './Node';
@@ -12,8 +14,13 @@ import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { id } = props;
-  const allTreeNodes = useTreePositionCalculator(id);
+  const { allTreeNodes, positionsById } = useTreePositionCalculator(id);
   const renderedNodes = useRenderNodeInViewport({ transformableId: id, allTreeNodes });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setPositionsById(positionsById));
+  }, [dispatch, positionsById]);
 
   return (
     <Box
