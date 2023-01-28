@@ -1,11 +1,9 @@
 import { COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT } from '../../components/tree/constants';
 
-export default function treePositionCalculator(props) {
-  const { id, childrenIdsByNodeId } = props;
+export default function TreePositionCalculator(props) {
+  const { id, nestedNodesByParentId, mountedTreeNodesById } = props;
 
-  const allTreeNodeIds = [];
   const allTreeNodes = [];
-
   const positionsById = {};
 
   const setInitialPosition = (nodeId, upperSiblingId, parentId, ancestorIds) => {
@@ -23,7 +21,11 @@ export default function treePositionCalculator(props) {
     position.yEnds = position.y;
 
     // set position & update parent's yEnds
-    if (parentId) ancestorIds.forEach((ancestorId) => { positionsById[ancestorId].yEnds = position.yEnds; });
+    const isMounted = mountedTreeNodesById[nodeId];
+
+    if (parentId && isMounted) {
+      ancestorIds.forEach((ancestorId) => { positionsById[ancestorId].yEnds = position.yEnds; });
+    }
 
     positionsById[nodeId] = position;
   };
@@ -37,8 +39,7 @@ export default function treePositionCalculator(props) {
   ) => {
     setInitialPosition(nodeId, currentUpperSiblingId, parentId, ancestorIds);
 
-    allTreeNodeIds.push(nodeId);
-    const childrenIds = childrenIdsByNodeId[nodeId];
+    const childrenIds = nestedNodesByParentId[nodeId];
 
     allTreeNodes.push(
       {
@@ -46,6 +47,8 @@ export default function treePositionCalculator(props) {
         nestedLevel,
         upperSiblingId: currentUpperSiblingId,
         lastChildId: childrenIds[childrenIds.length - 1],
+        isRoot: nodeId === id,
+        y: positionsById[nodeId].y,
       },
     );
 
@@ -60,5 +63,5 @@ export default function treePositionCalculator(props) {
 
   renderNodesAsFlatArray();
 
-  return { allTreeNodes, allTreeNodeIds, positionsById };
+  return { allTreeNodes, positionsById };
 }

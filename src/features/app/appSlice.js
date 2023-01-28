@@ -26,7 +26,7 @@ const appSlice = createSlice({
   name: 'app',
   initialState: {
     theme: localStorage.getItem('theme') || 'dark',
-    transformablePositions: {},
+    transformablePositionsById: {},
     subtitle: '',
     appAnimationEnabled: true,
     scrollEnabled: true,
@@ -42,7 +42,7 @@ const appSlice = createSlice({
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
     setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },
     setWhatever(state, action) { state.scrollEnabled = action.payload; },
-    setTransformablePositions(state, action) { state.transformablePositions[action.payload.id] = action.payload; },
+    setTransformablePositions(state, action) { state.transformablePositionsById[action.payload.id] = action.payload; },
   },
 });
 

@@ -22,11 +22,11 @@ export default function NodeButton(props) {
     nestedLevel,
   } = props;
 
-  const nodeExpanded = useSelector((state) => state.nodes.byId[id].isExpanded);
+  const nodeExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
 
   const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
   const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
-  const replaceTempNode = useSelector((state) => state.nodes.byId[id].replaceTempNode);
+  const isReplacingTempNode = useSelector((state) => state.nodes.byId[id].isReplacingTempNode);
 
   const { onNodeClick } = useNodeTreeEvents(id);
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
@@ -40,8 +40,8 @@ export default function NodeButton(props) {
     return null;
   }
 
-  const initialAnimationDuration = isRoot || replaceTempNode ? 0 : INITIAL_ANIMATION_DURATION;
-  const initialAnimationDelay = isRoot || replaceTempNode ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isRoot || isReplacingTempNode ? 0 : INITIAL_ANIMATION_DURATION;
+  const initialAnimationDelay = isRoot || isReplacingTempNode ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (
     <g

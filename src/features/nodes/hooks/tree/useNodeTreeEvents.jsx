@@ -16,13 +16,12 @@ import {
 export default function useNodeTreeEvents(id) {
   const dispatch = useDispatch();
 
-  const isRoot = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].is_root);
-  const isTemp = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].isTemp);
+  const isRoot = useSelector((state) => state.nodes.byId[id].isRoot);
+  const isTemp = useSelector((state) => state.nodes.byId[id].isTemp);
   const isCurrentNode = useSelector((state) => state.nodes.byId[id].isCurrent);
+  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
 
-  const isExpanded = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].isExpanded);
-
-  const title = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].title);
+  const title = useSelector((state) => state.nodes.byId[id]?.title);
   const prevTitle = usePrevProps(title);
 
   const parentId = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].parent_id);
@@ -34,7 +33,7 @@ export default function useNodeTreeEvents(id) {
       dispatch(setCurrentNode(id));
     } else {
       dispatch(expandNode({ id }));
-      dispatch(setCurrentNode(id));
+      dispatch(setCurrentNode({ id }));
     }
   };
 
@@ -83,7 +82,7 @@ export default function useNodeTreeEvents(id) {
     dispatch(updateNodeState({
       id,
       isEditing: false,
-      replaceTempNode: false,
+      isReplacingTempNode: false,
     }));
   };
 

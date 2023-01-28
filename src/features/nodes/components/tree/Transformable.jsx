@@ -1,32 +1,28 @@
-import React, { useRef } from 'react';
-import { useMediaQuery, useTheme } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../../app/appSlice';
 // import usePannable from '../../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
-const isFirefox = typeof InstallTrigger !== 'undefined';
+// const isFirefox = typeof InstallTrigger !== 'undefined';
+
+const TRANSFORMABLE_HEIGHT_MARGIN = 200;
+const MIN_WIDTH = 800;
 
 export default function Transformable(props) {
-  const { children, transformableId } = props;
-  const gRef = useRef(null);
+  const { children, rootId } = props;
+  const containerRef = useRef(null);
   const svgRef = useRef(null);
-  const theme = useTheme();
+  const gRef = useRef(null);
 
-  const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
-  const scale = matchesSm ? 0.7 : 1;
-
-  const minHeight = 800;
-  const minWidth = 800;
+  const height = useSelector((state) => (state.nodes.positionsById[rootId]?.yEnds || 0) + TRANSFORMABLE_HEIGHT_MARGIN);
 
   const resize = () => {
     setTimeout(() => {
-      const newHeight = gRef.current.getBBox().height + 500;
       const newWidth = gRef.current.getBBox().width + 500;
 
-      svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
-      svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
+      svgRef.current.setAttribute('width', newWidth > MIN_WIDTH ? newWidth : MIN_WIDTH);
     });
   };
 
@@ -37,33 +33,46 @@ export default function Transformable(props) {
 
   // window.addEventListener('keyup', enableScroll);
 
-  const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
+  // const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
 
   const dispatch = useDispatch();
 
-  const handleScroll = (e) => {
+  const handleScroll = () => {
     dispatch(setTransformablePositions({
-      id: transformableId,
-      clientHeight: e.target.clientHeight,
-      scrollTop: e.target.scrollTop,
+      id: rootId,
+      clientHeight: containerRef.current.clientHeight,
+      scrollTop: containerRef.current.scrollTop,
     }));
   };
+
+  useEffect(() => {
+    if (containerRef.current) {
+      dispatch(setTransformablePositions({
+        id: rootId,
+        clientHeight: containerRef.current.clientHeight,
+        scrollTop: containerRef.current.scrollTop,
+      }));
+    }
+  }, [dispatch, rootId]);
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
+      ref={containerRef}
       onClick={resize}
-      onScroll={(e) => handleScroll(e)}
-      onScrollCapture={resize}
+      onScrollCapture={(e) => handleScroll(e)}
+      onScroll={resize}
       onTouchStart={resize}
       overflow="auto"
       width={1}
       height={1}
     >
-      <Box
-          // onTouchStart={handlePinch}
-        sx={{
-          p: 0,
+      <svg
+        ref={svgRef}
+        xmlns="http://www.w3.org/2000/svg"
+        width={MIN_WIDTH}
+        height={height}
+        style={{
           WebkitTapHighlightColor: 'transparent',
           WebkitTouchCallout: 'none',
           WebkitUserSelect: 'none',
@@ -72,29 +81,17 @@ export default function Transformable(props) {
           MsUserSelect: 'none',
           userSelect: 'none',
           transformOrigin: 'top left',
-          height: 1,
-        }}
-        style={{
-          transform: `scale(${scale})`,
-          transition,
         }}
       >
-        <svg
-          ref={svgRef}
-          xmlns="http://www.w3.org/2000/svg"
-          width={minWidth}
-          height={minHeight}
-        >
-          <g ref={gRef}>
-            {children}
-          </g>
-        </svg>
-      </Box>
+        <g ref={gRef}>
+          {children}
+        </g>
+      </svg>
     </Box>
   );
 }
 
 Transformable.propTypes = {
   children: PropTypes.element.isRequired,
-  transformableId: PropTypes.string.isRequired,
+  rootId: PropTypes.string.isRequired,
 };

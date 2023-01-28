@@ -23,12 +23,12 @@ export default function NodeLink(props) {
   } = props;
 
   const theme = useTheme();
-  const replaceTempNode = useSelector((state) => state.nodes.byId[id].replaceTempNode);
-  const parentId = useSelector((state) => state.nodes.byId[id].parent_id);
+  const isReplacingTempNode = useSelector((state) => state.nodes.byId[id]?.isReplacingTempNode);
+  const parentId = useSelector((state) => state.nodes.byId[id]?.parent_id);
 
-  const x = useSelector((state) => state.nodes.positionsById[id].x);
-  const xEnds = useSelector((state) => state.nodes.positionsById[id].xEnds);
-  const y = useSelector((state) => state.nodes.positionsById[id].y);
+  const x = useSelector((state) => state.nodes.positionsById[id]?.x);
+  const xEnds = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
+  const y = useSelector((state) => state.nodes.positionsById[id]?.y);
 
   const upperSiblingY = useSelector((state) => upperSiblingId && state.nodes.positionsById[upperSiblingId]?.y);
 
@@ -58,9 +58,9 @@ export default function NodeLink(props) {
     );
   }
 
-  const animationDuration = isSafari || replaceTempNode ? 0 : TRANSITION_ANIMATION_DURATION;
-  const initialAnimationDelay = replaceTempNode ? 0 : INITIAL_ANIMATION_DELAY;
-  const initialAnimationDuration = replaceTempNode ? 0 : INITIAL_ANIMATION_DURATION;
+  const animationDuration = isSafari || isReplacingTempNode ? 0 : TRANSITION_ANIMATION_DURATION;
+  const initialAnimationDelay = isReplacingTempNode ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isReplacingTempNode ? 0 : INITIAL_ANIMATION_DURATION;
 
   return (
     <g>

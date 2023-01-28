@@ -15,9 +15,9 @@ import {
 export default function NestedNodesBranch(props) {
   const { id, lastChildId } = props;
 
-  const isExpanded = useSelector((state) => state.nodes.byId[id].isExpanded);
-  const xEnds = useSelector((state) => state.nodes.positionsById[id].xEnds);
-  const y = useSelector((state) => state.nodes.positionsById[id].y);
+  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
+  const xEnds = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
+  const y = useSelector((state) => state.nodes.positionsById[id]?.y);
   const pathYEnds = useSelector((state) => state.nodes.positionsById[lastChildId]?.y || y);
 
   const theme = useTheme();

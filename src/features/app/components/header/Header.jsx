@@ -39,7 +39,7 @@ export default function Header() {
       height={HEADER_HEIGHT}
       width={{
         xs: 1,
-        sm: 'calc(100% - 12px)',
+        sm: 'calc(100% - 12.5px)',
       }}
       top={{
         sm: 6,
