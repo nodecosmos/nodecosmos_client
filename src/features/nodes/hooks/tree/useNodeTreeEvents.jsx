@@ -21,6 +21,7 @@ export default function useNodeTreeEvents(id) {
   const isRoot = useSelector((state) => state.nodes.byId[id].isRoot);
   const isTemp = useSelector((state) => state.nodes.byId[id].isTemp);
   const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
+  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
   const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
 
   const title = useSelector((state) => state.nodes.byId[id]?.title);
@@ -30,6 +31,8 @@ export default function useNodeTreeEvents(id) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const onNodeClick = () => {
+    if (isEditing) return;
+
     if (isExpanded && isCurrent) {
       dispatch(collapseNode({ id }));
       dispatch(setCurrentNode({ id: null }));
@@ -43,14 +46,16 @@ export default function useNodeTreeEvents(id) {
   //--------------------------------------------------------------------------------------------------------------------
   const addNode = async () => {
     // prevent clicking too fast with delta
-    const delta = 250;
+    const delta = 150;
     const now = Date.now();
 
     if (now - addNodeLastClick.current < delta) return;
 
     addNodeLastClick.current = now;
 
-    requestAnimationFrame(() => {
+    if (isTemp) return;
+
+    setTimeout(() => {
       dispatch(addNewNode({ parent_id: id, isTemp: true }));
     });
   };

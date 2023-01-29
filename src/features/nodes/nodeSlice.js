@@ -214,8 +214,9 @@ const nodeSlice = createSlice({
     },
     // re-enable animations for new node
     deprecateReplaceTempNodeStatus(state, _action) {
-      const id = Object.keys(state.byId).find((currentId) => state.byId[currentId].isReplacingTempNode);
-      if (id) state.byId[id].isReplacingTempNode = false;
+      Object.keys(state.byId).forEach((currentId) => {
+        state.byId[currentId].isReplacingTempNode = false;
+      });
     },
   },
   extraReducers(builder) {

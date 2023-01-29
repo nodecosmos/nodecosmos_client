@@ -58,7 +58,7 @@ export default function NodeButton(props) {
     }}
     >
       <foreignObject
-        width="500"
+        width="700"
         height={NODE_BUTTON_HEIGHT + 3}
         x={x}
         y={y}

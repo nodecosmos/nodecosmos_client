@@ -39,8 +39,8 @@ export default function NodeButtonText(props) {
       value={nodeTitle || ''}
       className="NodeButtonText"
       disabled={!isEditing}
-      maxLength={30}
-      size={Math.max((nodeTitle && nodeTitle.length * 0.8) || 0, 3)}
+      maxLength={50}
+      size={Math.max((nodeTitle && nodeTitle.length) || 0, 3)}
       style={{
         cursor: isEditing ? 'text' : 'pointer!important',
         pointerEvents: isEditing ? 'auto' : 'none',

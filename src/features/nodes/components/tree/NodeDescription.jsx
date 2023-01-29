@@ -32,6 +32,10 @@ export default function NodeDescription() {
         justifyContent="center"
         alignItems="center"
         height={56}
+        sx={{
+          overflow: 'hidden',
+          oveflowWrap: 'break-word',
+        }}
       >
         <Typography textAlign="center" color="text.secondary">
           {currentNode?.title || 'No Title' || 'Select a node from the tree to view its description'}
