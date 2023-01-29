@@ -20,7 +20,7 @@ export default function useNodeTreeEvents(id) {
 
   const isRoot = useSelector((state) => state.nodes.byId[id].isRoot);
   const isTemp = useSelector((state) => state.nodes.byId[id].isTemp);
-  const isCurrentNode = useSelector((state) => state.nodes.byId[id].isCurrent);
+  const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
   const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
 
   const title = useSelector((state) => state.nodes.byId[id]?.title);
@@ -30,9 +30,9 @@ export default function useNodeTreeEvents(id) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const onNodeClick = () => {
-    if (isExpanded && isCurrentNode) {
+    if (isExpanded && isCurrent) {
       dispatch(collapseNode({ id }));
-      dispatch(setCurrentNode(id));
+      dispatch(setCurrentNode({ id: null }));
     } else {
       dispatch(expandNode({ id }));
       dispatch(setCurrentNode({ id }));

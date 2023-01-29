@@ -1,14 +1,11 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useRef } from 'react';
-import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../../app/appSlice';
+import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from './constants';
 // import usePannable from '../../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
-// const isFirefox = typeof InstallTrigger !== 'undefined';
-
-const TRANSFORMABLE_HEIGHT_MARGIN = 200;
-const MIN_WIDTH = 800;
 
 export default function Transformable(props) {
   const { children, rootId } = props;
@@ -17,13 +14,14 @@ export default function Transformable(props) {
   const gRef = useRef(null);
 
   const height = useSelector((state) => (state.nodes.positionsById[rootId]?.yEnds || 0) + TRANSFORMABLE_HEIGHT_MARGIN);
+  const [width, setWidth] = React.useState(TRANSFORMABLE_MIN_WIDTH);
 
   const resize = () => {
-    setTimeout(() => {
-      const newWidth = gRef.current.getBBox().width + 500;
+    const newWidth = gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN;
 
-      svgRef.current.setAttribute('width', newWidth > MIN_WIDTH ? newWidth : MIN_WIDTH);
-    });
+    if (newWidth > TRANSFORMABLE_MIN_WIDTH) {
+      setWidth(newWidth);
+    }
   };
 
   // handle zoom
@@ -33,16 +31,22 @@ export default function Transformable(props) {
 
   // window.addEventListener('keyup', enableScroll);
 
-  // const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
-
   const dispatch = useDispatch();
 
+  const scrollTimeout = useRef(null);
   const handleScroll = () => {
-    dispatch(setTransformablePositions({
-      id: rootId,
-      clientHeight: containerRef.current.clientHeight,
-      scrollTop: containerRef.current.scrollTop,
-    }));
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = null;
+    }
+    scrollTimeout.current = setTimeout(() => {
+      scrollTimeout.current = null;
+      dispatch(setTransformablePositions({
+        id: rootId,
+        clientHeight: containerRef.current.clientHeight,
+        scrollTop: containerRef.current.scrollTop,
+      }));
+    }, 150);
   };
 
   useEffect(() => {
@@ -57,20 +61,22 @@ export default function Transformable(props) {
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
-    <Box
+    <div
       ref={containerRef}
       onClick={resize}
-      onScrollCapture={(e) => handleScroll(e)}
       onScroll={resize}
       onTouchStart={resize}
-      overflow="auto"
-      width={1}
-      height={1}
+      onScrollCapture={(e) => handleScroll(e)}
+      style={{
+        overflow: 'auto',
+        width: '100%',
+        height: '100%',
+      }}
     >
       <svg
         ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
-        width={MIN_WIDTH}
+        width={width}
         height={height}
         style={{
           WebkitTapHighlightColor: 'transparent',
@@ -87,7 +93,7 @@ export default function Transformable(props) {
           {children}
         </g>
       </svg>
-    </Box>
+    </div>
   );
 }
 

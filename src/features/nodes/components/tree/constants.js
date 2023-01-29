@@ -7,3 +7,8 @@ export const COMPLETE_Y_LENGTH = EDGE_LENGTH + MARGIN_TOP; // length of edge + b
 export const INITIAL_ANIMATION_DURATION = 300; // ms
 export const INITIAL_ANIMATION_DELAY = 50; // ms
 export const TRANSITION_ANIMATION_DURATION = 150; // ms
+
+// Path: src/features/nodes/components/tree/Transformable.jsx
+export const TRANSFORMABLE_HEIGHT_MARGIN = 200;
+export const TRANSFORMABLE_WIDTH_MARGIN = 500;
+export const TRANSFORMABLE_MIN_WIDTH = 800;

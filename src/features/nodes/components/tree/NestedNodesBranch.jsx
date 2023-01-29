@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -28,14 +27,12 @@ export default function NestedNodesBranch(props) {
   if (!isExpanded) return null;
 
   return (
-    <Box
-      component="path"
+    <path
       stroke={theme.palette.tree.default}
       fill="transparent"
       strokeWidth={3.5}
-      d={`M ${x} ${linkY} 
-         L ${x} ${pathYEnds}`}
-      sx={{
+      d={`M ${x} ${linkY} L ${x} ${pathYEnds}`}
+      style={{
         opacity: 0,
         animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
         transition: `d ${TRANSITION_ANIMATION_DURATION}ms`,

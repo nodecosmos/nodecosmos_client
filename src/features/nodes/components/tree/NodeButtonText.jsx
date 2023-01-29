@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 
 export default function NodeButtonText(props) {
-  const { id } = props;
+  const { id, color } = props;
   const ref = React.useRef(null);
 
   const [focused, setFocused] = React.useState(false);
@@ -30,30 +30,21 @@ export default function NodeButtonText(props) {
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
-      component={isEditing ? 'input' : 'div'}
       ref={ref}
+      component={isEditing ? 'input' : 'div'}
       onChange={handleNodeTitleChange}
       onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
       onKeyUp={saveNode}
       onBlur={() => focused && handleNodeBlur()}
       value={nodeTitle || ''}
-      fontSize={14}
-      fontWeight={500}
+      className="NodeButtonText"
       disabled={!isEditing}
       maxLength={30}
       size={Math.max((nodeTitle && nodeTitle.length * 0.8) || 0, 3)}
-      p={0}
-      minWidth={40}
-      backgroundColor="transparent"
-      fontFamily="Roboto, sans-serif"
-      outline="none!important"
-      letterSpacing="0.02857em"
       style={{
         cursor: isEditing ? 'text' : 'pointer!important',
         pointerEvents: isEditing ? 'auto' : 'none',
-      }}
-      sx={{
-        ml: 1,
+        color,
       }}
     >
       {(!isEditing && nodeTitle) || null}
@@ -63,4 +54,5 @@ export default function NodeButtonText(props) {
 
 NodeButtonText.propTypes = {
   id: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
 };

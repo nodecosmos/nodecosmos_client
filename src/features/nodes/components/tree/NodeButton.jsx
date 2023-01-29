@@ -10,7 +10,10 @@ import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 import {
   INITIAL_ANIMATION_DELAY,
-  INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
+  INITIAL_ANIMATION_DURATION,
+  MARGIN_TOP,
+  NODE_BUTTON_HEIGHT,
+  TRANSITION_ANIMATION_DURATION,
 } from './constants';
 import NodeButtonText from './NodeButtonText';
 import NodeToolbar from './NodeToolbar';
@@ -29,70 +32,62 @@ export default function NodeButton(props) {
   const isReplacingTempNode = useSelector((state) => state.nodes.byId[id].isReplacingTempNode);
 
   const { onNodeClick } = useNodeTreeEvents(id);
-  const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+  const {
+    backgroundColor,
+    color,
+  } = useNodeButtonBackground({
+    id,
+    nestedLevel,
+    isRoot,
+  });
 
   const showActions = isExpanded && isCurrent;
 
   const x = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
   const y = useSelector((state) => state.nodes.positionsById[id] && state.nodes.positionsById[id].y - MARGIN_TOP);
 
-  if (!x) {
-    return null;
-  }
+  if (!x) return null;
 
   const initialAnimationDuration = isRoot || isReplacingTempNode ? 0 : INITIAL_ANIMATION_DURATION;
   const initialAnimationDelay = isRoot || isReplacingTempNode ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (
-    <g
-      style={{
-        opacity: 0,
-        animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-      }}
+    <g style={{
+      opacity: 0,
+      animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+    }}
     >
       <foreignObject
-        className="NodeName"
         width="500"
         height={NODE_BUTTON_HEIGHT + 3}
         x={x}
         y={y}
-        style={{
-          transition: `y ${TRANSITION_ANIMATION_DURATION}ms`,
-        }}
+        style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
       >
-        <Box sx={{ display: 'flex' }}>
+        <div className="NodeButtonContainer">
+          {
+            // TODO: Get rid of Box & component attribute.
+            // Instead, return different components according to isEditing.
+          }
           <Box
+            className="NodeButton"
             type="button"
             component={isEditing ? 'div' : Button}
             onClick={onNodeClick}
             onKeyUp={(event) => event.preventDefault()}
-            display="inline-flex"
-            alignItems="center"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
               backgroundColor,
               height: NODE_BUTTON_HEIGHT,
               color,
             }}
-            sx={{
-              borderRadius: 1.5,
-              py: 0,
-              px: 2,
-              cursor: 'pointer',
-              boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
-              input: {
-                color,
-              },
-            }}
           >
             <TagRounded fontSize="small" ml="-2px" />
-            <NodeButtonText id={id} />
+            <NodeButtonText id={id} color={color} />
           </Box>
           <div>
             {showActions && <Box sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
           </div>
-        </Box>
+        </div>
       </foreignObject>
     </g>
   );

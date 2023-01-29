@@ -107,16 +107,6 @@ const nodeSlice = createSlice({
       });
     },
     unmountNodes(state, action) { action.payload.forEach((id) => { state.mountedTreeNodesById[id] = false; }); },
-    setCurrentNode(state, action) {
-      // This was more efficient if 1000s of nodes were being rendered at once as it doesn't trigger re-rendered.
-      // However, not sure if it's needed as tree is now virtualized.
-      const { id } = action.payload;
-
-      const prevCurrentNode = Object.values(state.byId).find((node) => node.isCurrent);
-      if (prevCurrentNode) prevCurrentNode.isCurrent = false;
-
-      if (id) state.byId[id].isCurrent = true;
-    },
     updateNodeState(state, action) {
       const { id } = action.payload;
 
@@ -142,6 +132,17 @@ const nodeSlice = createSlice({
         state.byId[ancestorId].descendantIds = descendantIds.filter((descendantId) => descendantId !== node.id);
       });
     },
+    setPositionsById(state, action) { state.positionsById = action.payload; },
+    setCurrentNode(state, action) {
+      const { id } = action.payload;
+
+      const prevCurrentNode = Object.values(state.byId).find((node) => node.isCurrent);
+      if (prevCurrentNode) prevCurrentNode.isCurrent = false;
+
+      if (id) state.byId[id].isCurrent = true;
+    },
+
+    //------------------------------------------------------------------------------------------------------------------
     addNewNode(state, action) {
       const parentId = action.payload.parent_id;
 
@@ -211,7 +212,6 @@ const nodeSlice = createSlice({
       const id = Object.keys(state.byId).find((currentId) => state.byId[currentId].isReplacingTempNode);
       if (id) state.byId[id].isReplacingTempNode = false;
     },
-    setPositionsById(state, action) { state.positionsById = action.payload; },
   },
   extraReducers(builder) {
     builder

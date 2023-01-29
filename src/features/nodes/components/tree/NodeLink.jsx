@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
@@ -49,11 +48,7 @@ export default function NodeLink(props) {
     return (
       <g>
         <circle cx={x} cy={y} r={6} fill={parentBackgroundColor} />
-        <path
-          strokeWidth={4}
-          d={`M ${x} ${y} L ${xEnds} ${y}`}
-          stroke={parentBackgroundColor}
-        />
+        <path strokeWidth={4} d={`M ${x} ${y} L ${xEnds} ${y}`} stroke={parentBackgroundColor} />
       </g>
     );
   }
@@ -64,8 +59,7 @@ export default function NodeLink(props) {
 
   return (
     <g>
-      <Box
-        component="path"
+      <path
         strokeWidth={3.5}
         d={`M ${linkX} ${y}
             C ${linkX} ${y}
@@ -74,19 +68,18 @@ export default function NodeLink(props) {
             L ${xEnds} ${y}`}
         stroke={theme.palette.tree.default}
         fill="transparent"
-        sx={{
+        style={{
           opacity: 0,
           animation: `node-path-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
           transition: `d ${animationDuration}ms`,
         }}
       />
-      <Box
-        component="circle"
+      <circle
         cx={x}
         cy={circleY}
         r={5}
         fill={parentBackgroundColor}
-        sx={{
+        style={{
           opacity: 0,
           animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
           transition: `cx ${animationDuration}ms, cy ${animationDuration}ms`,

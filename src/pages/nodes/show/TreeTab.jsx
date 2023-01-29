@@ -1,11 +1,42 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import NodeDescription from '../../../features/nodes/components/tree/NodeDescription';
 import Tree from '../../../features/nodes/components/tree/Tree';
+import TreeStyledContainer from '../../../features/nodes/components/tree/TreeStyledContainer';
 
 export default function TreeTab() {
   const { id } = useParams();
 
   return (
-    <Tree id={id} />
+    <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1}>
+      <Box
+        borderRight={{ xs: 0, md: 1 }}
+        borderColor={{ xs: 'borders.box.xs', md: 'borders.box.md' }}
+        boxShadow={{ xs: 0, md: 'boxBorder.right.md' }}
+        width="61.803%"
+        height="100%"
+      >
+        <TreeStyledContainer>
+          <Tree id={id} />
+        </TreeStyledContainer>
+      </Box>
+      <Box
+        width={{
+          xs: 1,
+          md: '38.19700%',
+        }}
+        // position={{
+        //   xs: 'sticky',
+        //   md: 'static',
+        // }}
+        // bottom={{
+        //   xs: 0,
+        //   md: 'auto',
+        // }}
+      >
+        <NodeDescription />
+      </Box>
+    </Box>
   );
 }

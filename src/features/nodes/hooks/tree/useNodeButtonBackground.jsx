@@ -1,7 +1,6 @@
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-// FIXME: currently it's  dumb implementation
 export default function useNodeButtonBackground(props) {
   const {
     id, isRoot, nestedLevel,
