@@ -39,9 +39,20 @@ export default function useNodeTreeEvents(id) {
     }
   };
 
+  const addNodeLastClick = useRef(null);
   //--------------------------------------------------------------------------------------------------------------------
   const addNode = async () => {
-    dispatch(addNewNode({ parent_id: id, isTemp: true }));
+    // prevent clicking too fast with delta
+    const delta = 250;
+    const now = Date.now();
+
+    if (now - addNodeLastClick.current < delta) return;
+
+    addNodeLastClick.current = now;
+
+    requestAnimationFrame(() => {
+      dispatch(addNewNode({ parent_id: id, isTemp: true }));
+    });
   };
 
   const editNode = () => dispatch(updateNodeState({
@@ -64,7 +75,7 @@ export default function useNodeTreeEvents(id) {
           title,
           parent_id: parentId,
         }));
-        dispatch(deprecateReplaceTempNodeStatus());
+        setTimeout(() => dispatch(deprecateReplaceTempNodeStatus({ id })));
       } else {
         dispatch(updateNode({
           id,

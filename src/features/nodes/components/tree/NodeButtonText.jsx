@@ -25,7 +25,7 @@ export default function NodeButtonText(props) {
       ref.current.focus();
       setFocused(true);
     }
-  }, [isEditing]);
+  }, [focused, handleNodeBlur, isEditing]);
 
   //--------------------------------------------------------------------------------------------------------------------
   return (

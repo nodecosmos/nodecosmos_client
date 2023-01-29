@@ -76,6 +76,7 @@ const nodeSlice = createSlice({
     mountedTreeNodesById: {},
     expandedTreeNodesById: {},
     nestedNodesByParentId: {},
+    currentNodeId: null,
   },
   reducers: {
     deleteRootDescendantArray(state, action) { delete state[action.payload.id].descendants; },
@@ -128,8 +129,8 @@ const nodeSlice = createSlice({
       delete state.byId[node.id];
 
       node.ancestorIds.forEach((ancestorId) => {
-        const { descendantIds } = state.byId[ancestorId];
-        state.byId[ancestorId].descendantIds = descendantIds.filter((descendantId) => descendantId !== node.id);
+        const ancestor = state.byId[ancestorId];
+        if (ancestor) ancestor.descendantIds = ancestor.descendantIds.filter((id) => id !== node.id);
       });
     },
     setPositionsById(state, action) { state.positionsById = action.payload; },
@@ -138,8 +139,12 @@ const nodeSlice = createSlice({
 
       const prevCurrentNode = Object.values(state.byId).find((node) => node.isCurrent);
       if (prevCurrentNode) prevCurrentNode.isCurrent = false;
+      state.currentNodeId = null;
 
-      if (id) state.byId[id].isCurrent = true;
+      if (id) {
+        state.byId[id].isCurrent = true;
+        state.currentNodeId = id;
+      }
     },
 
     //------------------------------------------------------------------------------------------------------------------

@@ -4,8 +4,7 @@ import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 
 export default function NodeDescription() {
-  const currentNodeID = useSelector((state) => state.app.currentNodeID);
-  const currentNode = useSelector((state) => state.nodes.byId[currentNodeID]);
+  const currentNode = useSelector((state) => state.nodes.byId[state.nodes.currentNodeId]);
 
   const blankDescription = (
     <Typography color="text.secondary" textAlign="center">
@@ -35,22 +34,16 @@ export default function NodeDescription() {
         height={56}
       >
         <Typography textAlign="center" color="text.secondary">
-          {(!!currentNode && (currentNode?.title || 'No Title'))
-            || 'Select a node from the tree to view its description'}
+          {currentNode?.title || 'No Title' || 'Select a node from the tree to view its description'}
         </Typography>
       </Box>
       <Box height={1} p={2}>
         {
-            (
-              currentNode
-              && currentNode.description
-              && (
-              <Typography variant="body1" color="text.secondary">
-                {currentNode.description}
-              </Typography>
-              )
-            ) || blankDescription
-          }
+          (
+            currentNode?.description
+            && <Typography variant="body1" color="text.secondary">{currentNode.description}</Typography>
+          ) || blankDescription
+        }
       </Box>
     </Box>
   );
