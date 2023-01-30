@@ -30,14 +30,14 @@ const appSlice = createSlice({
     subtitle: '',
     appAnimationEnabled: true,
     scrollEnabled: true,
-    currentNodeID: null,
+    currentNodeId: null,
     browser: fnBrowserDetect(),
     whatever: 'whatever',
   },
   reducers: {
     setTheme(state, action) { state.theme = action.payload; },
     setSubtitle(state, action) { state.subtitle = action.payload; },
-    setCurrentNode(state, action) { state.currentNodeID = action.payload; }, // kept for homepage
+    setCurrentNode(state, action) { state.currentNodeId = action.payload; },
     setCurrentToolbar(state, action) { state.currentToolbar = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
     setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },

@@ -3,7 +3,7 @@ import { setCurrentNode } from '../../../app/appSlice';
 import {
   collapseNode,
   deleteNodeFromState,
-  expandNode, NEW_NODE_ID,
+  expandNode, NEW_NODE_ID, openDescription,
   prependNewNode,
   terminateNewNode,
 } from '../../components/landing-page-tree/landingPageNodeSlice';
@@ -19,7 +19,7 @@ export default function useNodeTreeEvents(props) {
   const isRoot = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].is_root);
   const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);
 
-  const currentNodeId = useSelector((state) => state.app.currentNodeID);
+  const currentNodeId = useSelector((state) => state.app.currentNodeId);
   const isCurrentNode = currentNodeId === id;
 
   const onNodeClick = (event) => {
@@ -34,6 +34,7 @@ export default function useNodeTreeEvents(props) {
     } else {
       dispatch(expandNode({ id }));
       dispatch(setCurrentNode(id));
+      dispatch(openDescription({ id }));
     }
   };
 

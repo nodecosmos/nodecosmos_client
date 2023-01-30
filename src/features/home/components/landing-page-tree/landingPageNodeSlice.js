@@ -9,8 +9,8 @@ const nodeSlice = createSlice({
   name: 'landingPageNodes',
   initialState: landingPageNodes,
   reducers: {
-    expandNode(state, action) { state[action.payload.id].isExpanded = true; },
-    collapseNode(state, action) { if (!isNewNode(action.payload.id)) state[action.payload.id].isExpanded = false; },
+    expandNode(state, action) { state[action.payload.id].expanded = true; },
+    collapseNode(state, action) { if (!isNewNode(action.payload.id)) state[action.payload.id].expanded = false; },
     updateNodePosition(state, action) {
       if (state[action.payload.id]) {
         state[action.payload.id].position = action.payload.position;
@@ -41,13 +41,26 @@ const nodeSlice = createSlice({
         state[id] = { ...state[id], ...action.payload };
       }
     },
+    openDescription(state, action) {
+      const { id } = action.payload;
+      if (state[id]) {
+        state[id].isDescriptionOpen = true;
+      }
+    },
+    closeDescription(state, action) {
+      const { id } = action.payload;
+      if (state[id]) {
+        state[id].isDescriptionOpen = false;
+      }
+    },
     prependNewNode: (state, action) => {
       const parentId = action.payload.parent_id;
 
       if (!parentId || parentId === NEW_NODE_ID) return;
 
       const parent = state[parentId];
-      const randomId = (Math.random() + 1).toString(36);
+      const randomId = (Math.random() + 1).toString(36)
+        .substring(7);
       const id = randomId;
 
       const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
@@ -100,6 +113,8 @@ export const {
   deleteNodeFromState,
   deprecateNodesFetchedState,
   updateNode,
+  openDescription,
+  closeDescription,
 } = actions;
 
 export default reducer;

@@ -213,7 +213,7 @@ export default {
       y: 550.5500000000001,
       yEnds: 750.7499999999998,
     },
-    isExpanded: true,
+    expanded: true,
   },
   '635a9269690cc413ead79ceb': {
     _id: {
@@ -420,7 +420,7 @@ export default {
       y: 450.45000000000005,
       yEnds: 500.50000000000006,
     },
-    isExpanded: true,
+    expanded: true,
   },
   '635a9226690cc413ead79ce5': {
     _id: {
@@ -463,7 +463,7 @@ export default {
       y: 350.35,
       yEnds: 400.40000000000003,
     },
-    isExpanded: true,
+    expanded: true,
   },
   '635a9203690cc413ead79ce4': {
     _id: {
@@ -509,7 +509,7 @@ export default {
       y: 200.2,
       yEnds: 300.3,
     },
-    isExpanded: true,
+    expanded: true,
   },
   '635a91ff690cc413ead79ce3': {
     _id: {
@@ -552,7 +552,7 @@ export default {
       y: 100.1,
       yEnds: 150.14999999999998,
     },
-    isExpanded: true,
+    expanded: true,
     isEditing: false,
     isNew: false,
   },
@@ -605,7 +605,7 @@ export default {
       y: 50.05,
       yEnds: 750.7499999999999,
     },
-    isExpanded: true,
+    expanded: true,
   },
   d9pyjg: {
     id: 'd9pyjg',
@@ -855,7 +855,7 @@ export default {
     owner: {
       username: '',
     },
-    isExpanded: true,
+    expanded: true,
     title: 'Cockpit',
     description: 'A cockpit or flight deck is the area, usually near the front of an aircraft or spacecraft, from which a pilot controls the aircraft.',
   },

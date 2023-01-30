@@ -26,6 +26,10 @@ export default {
     23: '0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)',
     24: '0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)',
 
+    top: {
+      1: '0px -5px 7px -2px rgb(0 0 0 / 20%)',
+    },
+
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     boxBorder: {
       bottom: {
@@ -70,6 +74,7 @@ export default {
     borders: {
       1: '#2d3138',
       2: '#454b53', // 454b53 3c4149
+      3: '#33373e',
 
       box: {
         xs: '#202027',
@@ -99,6 +104,7 @@ export default {
       scrollbarThumb: '#36393f',
       paper: '#31353c',
       hover: 'rgba(0, 0, 0, 0.1)',
+      contrast: '#cccccc',
     },
 
     toolbar: {

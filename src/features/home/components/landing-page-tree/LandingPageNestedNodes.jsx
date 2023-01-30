@@ -17,7 +17,7 @@ export default function LandingPageNestedNodes(props) {
           <LandingPageNode
             key={nestedNodeIdObject.$oid}
             id={nestedNodeIdObject.$oid}
-            upperSiblingId={nodeIds[index - 1] && nodeIds[index - 1].$oid}
+            upperSiblingID={nodeIds[index - 1] && nodeIds[index - 1].$oid}
             nestedLevel={nestedLevel}
           >
             <LandingPageNestedNodes currentNodeId={nestedNodeIdObject.$oid} nestedLevel={nestedLevel + 1} />

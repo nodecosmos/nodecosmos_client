@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import LandingPageNode from './LandingPageNode';
 import LandingPageNodeDescription from './LandingPageNodeDescription';
+import SwipeableEdgeDrawer from './LandingPageSwipableNodeDescMobile';
 import LandingPageTransformable from './LandingPageTransformable';
 import LandingPageNestedNodes from './LandingPageNestedNodes';
 import { terminateNewNode } from './landingPageNodeSlice';
@@ -17,6 +18,9 @@ export default function LandingPageTree(props) {
   useEffect(() => () => {
     dispatch(terminateNewNode());
   }, [dispatch]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box
@@ -40,21 +44,22 @@ export default function LandingPageTree(props) {
           </LandingPageNode>
         </g>
       </LandingPageTransformable>
+
       <Box
         width={{
-          xs: 1,
           md: '38.19700%',
         }}
-        // position={{
-        //   xs: 'sticky',
-        //   md: 'static',
-        // }}
-        // bottom={{
-        //   xs: 0,
-        //   md: 'auto',
-        // }}
+        position={{
+          xs: 'sticky',
+          md: 'static',
+        }}
+        bottom={{
+          xs: 0,
+          md: 'auto',
+        }}
       >
-        <LandingPageNodeDescription />
+        {!isMobile && <LandingPageNodeDescription />}
+        {isMobile && <SwipeableEdgeDrawer />}
       </Box>
     </Box>
   );

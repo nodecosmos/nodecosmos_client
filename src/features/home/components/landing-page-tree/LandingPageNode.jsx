@@ -9,15 +9,15 @@ import NodeLink from './LandingPageNodeLink';
 export default function LandingPageNode(props) {
   const {
     id,
-    upperSiblingId,
+    upperSiblingID,
     nestedLevel,
     isRoot,
     children,
   } = props;
 
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id].isExpanded);
+  const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
 
-  useNodePositionCalculator({ id, upperSiblingId, isRoot });
+  useNodePositionCalculator({ id, upperSiblingID, isRoot });
 
   useNodeUnmountService({ id });
 
@@ -25,7 +25,7 @@ export default function LandingPageNode(props) {
     <g>
       <NodeLink
         id={id}
-        upperSiblingId={upperSiblingId}
+        upperSiblingID={upperSiblingID}
         isRoot={isRoot}
         nestedLevel={nestedLevel}
       />
@@ -42,13 +42,13 @@ export default function LandingPageNode(props) {
 LandingPageNode.defaultProps = {
   isRoot: false,
   children: null,
-  upperSiblingId: null,
+  upperSiblingID: null,
 };
 
 LandingPageNode.propTypes = {
   isRoot: PropTypes.bool,
   children: PropTypes.object,
   id: PropTypes.string.isRequired,
-  upperSiblingId: PropTypes.string,
+  upperSiblingID: PropTypes.string,
   nestedLevel: PropTypes.number.isRequired,
 };
