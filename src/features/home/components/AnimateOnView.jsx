@@ -14,7 +14,7 @@ export default function AnimateOnView(props) {
   let { delay } = props;
 
   const [opacity, setOpacity] = React.useState(initialOpacity);
-  const [scale, setScale] = React.useState(initialScale);
+  const [transform, setTransform] = React.useState(`scale(${initialScale})`);
 
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
@@ -30,11 +30,13 @@ export default function AnimateOnView(props) {
     if (inView) {
       setTimeout(() => {
         setOpacity(1);
-        setScale(1);
+        setTransform(`scale(${1})`);
+        // reset transform so it doesn't mess absolute positioning in nested elements
+        setTimeout(() => setTransform('none'), 500);
       }, delay);
     } else {
       setOpacity(initialOpacity);
-      setScale(initialScale);
+      setTransform(`scale(${initialScale})`);
     }
   }, [inView, delay, initialOpacity, initialScale]);
 
@@ -42,9 +44,11 @@ export default function AnimateOnView(props) {
     <Box
       ref={ref}
       height={1}
-      sx={{
+      style={{
         opacity,
-        transform: `scale(${scale})`,
+        transform,
+      }}
+      sx={{
         transition: 'opacity 500ms, transform 500ms',
       }}
     >

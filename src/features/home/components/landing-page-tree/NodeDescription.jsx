@@ -1,21 +1,13 @@
 import React from 'react';
+import TagRounded from '@mui/icons-material/TagRounded';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 
 export default function NodeDescription() {
-  const currentNodeID = useSelector((state) => state.app.currentNodeID);
-  const currentNode = useSelector((state) => state.landingPageNodes[currentNodeID]);
-
-  const blankDescription = (
-    <Typography color="text.secondary" textAlign="center">
-      {(currentNode && 'This node has no description yet.') || (
-        <Box component="span" fontSize={30}>
-          ¯\_(ツ)_/¯
-        </Box>
-      )}
-    </Typography>
-  );
+  const currentNodeId = useSelector((state) => state.app.currentNodeId);
+  const currentNodeDescription = useSelector((state) => state.landingPageNodes[currentNodeId]?.description);
+  const currentNodeTitle = useSelector((state) => state.landingPageNodes[currentNodeId]?.title);
 
   return (
     <Box>
@@ -34,23 +26,24 @@ export default function NodeDescription() {
         alignItems="center"
         height={56}
       >
-        <Typography textAlign="center" color="text.secondary">
-          {(!!currentNode && (currentNode?.title || 'No Title'))
-            || 'Select a node from the tree to view its description'}
+        {currentNodeId && <TagRounded fontSize="small" sx={{ color: 'text.secondary' }} />}
+        <Typography textAlign="left" color="text.secondary" px={1} variant="body2">
+          {(currentNodeId && (currentNodeTitle || 'No Title'))
+            || 'Select a node from the tree'}
         </Typography>
       </Box>
       <Box height={1} p={2}>
-        {
-            (
-              currentNode
-              && currentNode.description
-              && (
-              <Typography variant="body1" color="text.secondary">
-                {currentNode.description}
-              </Typography>
-              )
-            ) || blankDescription
-          }
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          textAlign={currentNodeDescription ? 'left' : 'center'}
+        >
+          {currentNodeDescription || (currentNodeId && 'This node has no description yet.') || (
+            <Box component="span" fontSize={30} width={1} textAlign="center">
+              ¯\_(ツ)_/¯
+            </Box>
+          )}
+        </Typography>
       </Box>
     </Box>
   );

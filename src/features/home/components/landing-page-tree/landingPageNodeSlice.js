@@ -41,6 +41,18 @@ const nodeSlice = createSlice({
         state[id] = { ...state[id], ...action.payload };
       }
     },
+    openDescription(state, action) {
+      const { id } = action.payload;
+      if (state[id]) {
+        state[id].isDescriptionOpen = true;
+      }
+    },
+    closeDescription(state, action) {
+      const { id } = action.payload;
+      if (state[id]) {
+        state[id].isDescriptionOpen = false;
+      }
+    },
     prependNewNode: (state, action) => {
       const parentId = action.payload.parent_id;
 
@@ -101,6 +113,8 @@ export const {
   deleteNodeFromState,
   deprecateNodesFetchedState,
   updateNode,
+  openDescription,
+  closeDescription,
 } = actions;
 
 export default reducer;

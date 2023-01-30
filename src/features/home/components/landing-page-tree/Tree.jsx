@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import Node from './Node';
 import NodeDescription from './NodeDescription';
+import SwipeableEdgeDrawer from './SwipableNodeDescMobile';
 import Transformable from './Transformable';
 import NestedNodes from './NestedNodes';
 import { terminateNewNode } from './landingPageNodeSlice';
@@ -17,6 +18,9 @@ export default function Tree(props) {
   useEffect(() => () => {
     dispatch(terminateNewNode());
   }, [dispatch]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box
@@ -40,21 +44,22 @@ export default function Tree(props) {
           </Node>
         </g>
       </Transformable>
+
       <Box
         width={{
-          xs: 1,
           md: '38.19700%',
         }}
-        // position={{
-        //   xs: 'sticky',
-        //   md: 'static',
-        // }}
-        // bottom={{
-        //   xs: 0,
-        //   md: 'auto',
-        // }}
+        position={{
+          xs: 'sticky',
+          md: 'static',
+        }}
+        bottom={{
+          xs: 0,
+          md: 'auto',
+        }}
       >
-        <NodeDescription />
+        {!isMobile && <NodeDescription />}
+        {isMobile && <SwipeableEdgeDrawer />}
       </Box>
     </Box>
   );

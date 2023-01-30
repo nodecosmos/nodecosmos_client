@@ -17,7 +17,7 @@ export default function useNodeTreeEvents(props) {
   const isNewNodePresent = useSelector((state) => state.nodes[NEW_NODE_ID]);
   const isRoot = useSelector((state) => state.nodes[id] && state.nodes[id].is_root);
 
-  const currentNodeId = useSelector((state) => state.app.currentNodeID);
+  const currentNodeId = useSelector((state) => state.app.currentNodeId);
   const isCurrentNode = currentNodeId === id;
 
   const onNodeClick = () => {

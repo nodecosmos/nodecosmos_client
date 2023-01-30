@@ -105,6 +105,7 @@ export default function Index() {
   // ---------------------------------------------------------------------------------------------------------------- //
   return (
     <Box
+      className="scrollable"
       onScroll={handleScrollCapture}
       height={1}
       overflow={scrollEnabled ? 'auto' : 'hidden'}

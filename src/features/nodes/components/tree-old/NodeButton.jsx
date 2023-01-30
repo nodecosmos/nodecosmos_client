@@ -20,14 +20,14 @@ export default function NodeButton(props) {
   } = props;
 
   const nodeExpanded = useSelector((state) => state.nodes[id].expanded);
-  const currentNodeID = useSelector((state) => state.app.currentNodeID);
+  const currentNodeId = useSelector((state) => state.app.currentNodeId);
   const isNew = useSelector((state) => state.nodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const { backgroundColor } = useNodeButtonBackground({ id, nestedLevel, isRoot });
   const style = useNodeButtonAnimationStyle({ id, isRoot });
 
-  const isCurrentNode = nodeExpanded && id === currentNodeID;
+  const isCurrentNode = nodeExpanded && id === currentNodeId;
   const hasNestedNodes = useSelector((state) => state.nodes[id].node_ids.length > 0);
 
   const buttonClassName = (nodeExpanded && isCurrentNode)

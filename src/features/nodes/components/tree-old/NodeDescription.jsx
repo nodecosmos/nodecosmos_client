@@ -5,8 +5,8 @@ import {
 import { useSelector } from 'react-redux';
 
 export default function NodeDescription() {
-  const currentNodeID = useSelector((state) => state.app.currentNodeID);
-  const currentNode = useSelector((state) => state.nodes[currentNodeID]);
+  const currentNodeId = useSelector((state) => state.app.currentNodeId);
+  const currentNode = useSelector((state) => state.nodes[currentNodeId]);
 
   if (!currentNode) return null;
 

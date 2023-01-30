@@ -23,14 +23,14 @@ export default function NodeButton(props) {
   } = props;
 
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
-  const currentNodeID = useSelector((state) => state.app.currentNodeID);
+  const currentNodeId = useSelector((state) => state.app.currentNodeId);
   const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
-  const isCurrentNode = nodeExpanded && id === currentNodeID;
+  const isCurrentNode = nodeExpanded && id === currentNodeId;
 
   const nodePosition = useSelector((state) => state.landingPageNodes[id].position);
   const x = nodePosition.xEnds;
