@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
 
-const CLIENT_HEIGHT_FACTOR = 5;
+const CLIENT_HEIGHT_FACTOR = 3;
 
 export default function useRenderNodeInViewport({ transformableId, allTreeNodes }) {
   const clientHeight = useSelector((state) => state.app.transformablePositionsById[transformableId]?.clientHeight);
