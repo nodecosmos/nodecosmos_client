@@ -14,7 +14,7 @@ const ROOT_LANDING_PAGE_NODE_ID = '635a91ea690cc413ead79ce2';
 export default function useNodeTreeEvents(props) {
   const { id } = props;
   const dispatch = useDispatch();
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isExpanded);
+  const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].expanded);
   const isNewNodePresent = useSelector((state) => state.landingPageNodes[NEW_NODE_ID]);
   const isRoot = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].is_root);
   const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);
@@ -45,6 +45,11 @@ export default function useNodeTreeEvents(props) {
     dispatch(prependNewNode({ parent_id: id }));
   };
 
+  const handleNodeCreation = (event) => {
+    const title = event.target.innerText;
+    prependNewNode({ title, parent_id: id });
+  };
+
   const handleNodeDeletion = (nodeId) => {
     if (nodeId === ROOT_LANDING_PAGE_NODE_ID) return;
 
@@ -55,6 +60,7 @@ export default function useNodeTreeEvents(props) {
   return {
     onNodeClick,
     onNodeAdd,
+    handleNodeCreation,
     handleNodeDeletion,
   };
 }
