@@ -55,9 +55,7 @@ export default function useNodeTreeEvents(id) {
 
     if (isTemp) return;
 
-    setTimeout(() => {
-      dispatch(addNewNode({ parent_id: id, isTemp: true }));
-    });
+    dispatch(addNewNode({ parent_id: id, isTemp: true }));
   };
 
   const editNode = () => dispatch(updateNodeState({
@@ -80,7 +78,7 @@ export default function useNodeTreeEvents(id) {
           title,
           parent_id: parentId,
         }));
-        setTimeout(() => dispatch(deprecateReplaceTempNodeStatus({ id })));
+        requestAnimationFrame(() => dispatch(deprecateReplaceTempNodeStatus({ id })));
       } else {
         dispatch(updateNode({
           id,

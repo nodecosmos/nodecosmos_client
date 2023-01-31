@@ -77,6 +77,7 @@ const nodeSlice = createSlice({
     expandedTreeNodesById: {},
     nestedNodesByParentId: {},
     currentNodeId: null,
+    currentTempNodeId: null, // used to render & focus on the new node if it's outside the viewport
   },
   reducers: {
     deleteRootDescendantArray(state, action) { delete state[action.payload.id].descendants; },
@@ -179,11 +180,16 @@ const nodeSlice = createSlice({
       };
 
       if (action.payload.isTemp) {
+        // used to render & focus on the new node if it's outside the viewport
+        state.currentTempNodeId = id;
+        // add temp node to parent's children
         state.nestedNodesByParentId[parentId].push(id);
         nodeAncestorIds.forEach((ancestorId) => {
+          // add temp node to ancestor's descendants
           if (state.byId[ancestorId]) state.byId[ancestorId].descendantIds.push(id);
         });
       } else if (action.payload.isReplacingTempNode) {
+        state.currentTempNodeId = null;
         // replace the temp new node with the permanent new node in parent
         state.nestedNodesByParentId[parentId] = state.nestedNodesByParentId[parentId].map((nestedNodeId) => {
           if (nestedNodeId === action.payload.tempId) return id;
@@ -212,11 +218,12 @@ const nodeSlice = createSlice({
         delete state.byId[action.payload.tempId];
       }
     },
-    // re-enable animations for new node
+    // re-enable animations for persisted node
     deprecateReplaceTempNodeStatus(state, _action) {
       Object.keys(state.byId).forEach((currentId) => {
         state.byId[currentId].isReplacingTempNode = false;
       });
+      state.currentTempNodeId = null;
     },
   },
   extraReducers(builder) {

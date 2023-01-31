@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import useRenderNodeInViewport from '../../hooks/tree/useRenderNodeInViewport';
 import useTreePositionCalculator from '../../hooks/tree/useTreePositionCalculator';
 import { setPositionsById } from '../../nodeSlice';
 
@@ -12,8 +11,7 @@ import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { id } = props;
-  const { allTreeNodes, positionsById } = useTreePositionCalculator(id);
-  const renderedNodes = useRenderNodeInViewport({ transformableId: id, allTreeNodes });
+  const { positionsById, viewportNodes } = useTreePositionCalculator(id);
 
   const dispatch = useDispatch();
   useEffect(() => { dispatch(setPositionsById(positionsById)); }, [dispatch, positionsById]);
@@ -22,7 +20,7 @@ export default function Tree(props) {
     <Transformable rootId={id}>
       <g>
         {
-          renderedNodes.map((nodeProps) => (
+          viewportNodes.map((nodeProps) => (
             <Node
               key={nodeProps.id}
               id={nodeProps.id}

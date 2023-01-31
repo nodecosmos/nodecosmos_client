@@ -13,7 +13,7 @@ import {
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function NodeLink(props) {
+export default function NodeBranch(props) {
   const {
     id,
     upperSiblingId,
@@ -89,11 +89,11 @@ export default function NodeLink(props) {
   );
 }
 
-NodeLink.defaultProps = {
+NodeBranch.defaultProps = {
   upperSiblingId: null,
 };
 
-NodeLink.propTypes = {
+NodeBranch.propTypes = {
   id: PropTypes.string.isRequired,
   upperSiblingId: PropTypes.string,
   isRoot: PropTypes.bool.isRequired,

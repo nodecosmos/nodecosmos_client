@@ -46,7 +46,7 @@ export default function Transformable(props) {
         clientHeight: containerRef.current.clientHeight,
         scrollTop: containerRef.current.scrollTop,
       }));
-    }, 150);
+    }, 50);
   };
 
   useEffect(() => {

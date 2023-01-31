@@ -2,8 +2,8 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import NestedNodesBranch from './NestedNodesBranch';
-import NodeButton from './NodeButton';
-import NodeLink from './NodeLink';
+import NodeContainer from './NodeContainer';
+import NodeBranch from './NodeBranch';
 
 export default function Node(props) {
   const {
@@ -20,17 +20,8 @@ export default function Node(props) {
   return (
     <g>
       <NestedNodesBranch id={id} lastChildId={lastChildId} />
-      <NodeLink
-        id={id}
-        upperSiblingId={upperSiblingId}
-        isRoot={isRoot}
-        nestedLevel={nestedLevel}
-      />
-      <NodeButton
-        id={id}
-        isRoot={isRoot}
-        nestedLevel={nestedLevel}
-      />
+      <NodeBranch id={id} upperSiblingId={upperSiblingId} isRoot={isRoot} nestedLevel={nestedLevel} />
+      <NodeContainer id={id} isRoot={isRoot} nestedLevel={nestedLevel} />
     </g>
   );
 }
