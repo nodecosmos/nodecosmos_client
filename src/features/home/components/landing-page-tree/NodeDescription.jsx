@@ -26,8 +26,8 @@ export default function NodeDescription() {
         alignItems="center"
         height={56}
       >
-        {currentNodeId && <TagRounded fontSize="small" sx={{ color: 'text.secondary' }} />}
-        <Typography textAlign="left" color="text.secondary" px={1} variant="body2">
+        {currentNodeId && <TagRounded fontSize="medium" sx={{ color: 'text.secondary' }} />}
+        <Typography ml={1} textAlign="left" color="text.secondary" variant="body1">
           {(currentNodeId && (currentNodeTitle || 'No Title'))
             || 'Select a node from the tree'}
         </Typography>

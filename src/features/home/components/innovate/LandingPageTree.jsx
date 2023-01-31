@@ -12,7 +12,8 @@ export default function LandingPageTree() {
     <Box
       mb={{
         xs: -3,
-        sm: 0,
+        sm: -4,
+        md: 0,
       }}
     >
       <GradientText text="Structure your Innovation" variant="h5" variantMapping={{ h5: 'h3' }} />
