@@ -25,19 +25,21 @@ function SwipeableEdgeDrawer() {
 
   return (
     <Box
-      borderTop={1}
+      border={1}
       borderColor="borders.3"
       boxShadow="top.1"
+      backgroundColor="background.2"
       onClick={() => setHeight((prevHeight) => (prevHeight > 0 ? 0 : textRef.current.clientHeight))}
       sx={{
         borderRadius: 2,
+        borderTopLeftRadius: 16, // px
+        borderTopRightRadius: 16, // px
         overflow: 'hidden',
       }}
     >
       <Box
         ref={drawerRef}
         height={EDGE_HEIGHT}
-        backgroundColor="background.1"
         borderBottom={1}
         px={3}
         style={{
@@ -48,8 +50,8 @@ function SwipeableEdgeDrawer() {
           <Box width={40} height={5} backgroundColor="background.4" borderRadius={0.8} />
         </Box>
         <Box display="flex" alignItems="center" justifyContent="start" width={1} mt={1}>
-          {currentNodeId && <TagRounded fontSize="small" />}
-          <Typography textAlign="left" color="text.contrast" px={1} variant="body2">
+          {currentNodeId && <TagRounded fontSize="medium" sx={{ color: 'text.secondary' }} />}
+          <Typography textAlign="left" color="text.secondary" px={1} variant="body2">
             {(currentNodeId && (currentNodeTitle || 'No Title'))
               || 'Select a node from the tree'}
           </Typography>
@@ -57,7 +59,7 @@ function SwipeableEdgeDrawer() {
       </Box>
       <Box
         ref={textContainerRef}
-        backgroundColor="background.1"
+        backgroundColor="background.2"
         sx={{
           overflow: 'hidden',
           transition: 'height 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
