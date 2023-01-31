@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 
-export default function NodeDescription() {
+export default function LandingPageNodeDescription() {
   const currentNodeId = useSelector((state) => state.app.currentNodeId);
   const currentNodeDescription = useSelector((state) => state.landingPageNodes[currentNodeId]?.description);
   const currentNodeTitle = useSelector((state) => state.landingPageNodes[currentNodeId]?.title);

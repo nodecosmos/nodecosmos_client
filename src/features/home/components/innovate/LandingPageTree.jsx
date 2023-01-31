@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import GradientText from '../../../app/components/common/GradientText';
-import Tree from '../landing-page-tree/Tree';
+import Tree from '../landing-page-tree/LandingPageTree';
 import PanTip from '../tips/PanTip';
 
 const airplaneNodeId = '635a91ea690cc413ead79ce2';

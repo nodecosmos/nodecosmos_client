@@ -12,10 +12,10 @@ import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
 } from './constants';
-import NodeButtonText from './NodeButtonText';
-import NodeToolbar from './NodeToolbar';
+import LandingPageNodeButtonText from './LandingPageNodeButtonText';
+import LandingPageNodeToolbar from './LandingPageNodeToolbar';
 
-export default function NodeButton(props) {
+export default function LandingPageNodeButton(props) {
   const {
     id,
     isRoot,
@@ -78,10 +78,10 @@ export default function NodeButton(props) {
             }}
           >
             <TagRounded fontSize="small" ml="-2px" />
-            <NodeButtonText id={id} />
+            <LandingPageNodeButtonText id={id} />
           </Box>
           <Box filter="none">
-            {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><NodeToolbar id={id} /></Box>}
+            {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><LandingPageNodeToolbar id={id} /></Box>}
           </Box>
         </Box>
       </foreignObject>
@@ -89,7 +89,7 @@ export default function NodeButton(props) {
   );
 }
 
-NodeButton.propTypes = {
+LandingPageNodeButton.propTypes = {
   id: PropTypes.string.isRequired,
   isRoot: PropTypes.bool.isRequired,
   nestedLevel: PropTypes.number.isRequired,

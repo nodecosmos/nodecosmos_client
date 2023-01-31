@@ -6,7 +6,7 @@ import usePannable from '../../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
 const isFirefox = typeof InstallTrigger !== 'undefined';
 
-export default function Transformable(props) {
+export default function LandingPageTransformable(props) {
   const { children } = props;
   const gRef = useRef(null);
   const svgRef = useRef(null);
@@ -106,6 +106,6 @@ export default function Transformable(props) {
   );
 }
 
-Transformable.propTypes = {
+LandingPageTransformable.propTypes = {
   children: PropTypes.element.isRequired,
 };

@@ -3,10 +3,10 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { setCurrentWorkflowStep } from './landingPageWorkflowSlice';
-import WorkflowStepDescription from './WorkflowStepDescription';
+import LandingPageWorkflowStepDescription from './LandingPageWorkflowStepDescription';
 
 // DUMB IMPLEMENTATION FOR LANDING PAGE
-export default function Workflow() {
+export default function LandingPageWorkflow() {
   const dispatch = useDispatch();
   const setStep = (step) => {
     dispatch(setCurrentWorkflowStep(step));
@@ -268,7 +268,7 @@ export default function Workflow() {
         md: '61.80300%',
       }}
       >
-        <WorkflowStepDescription />
+        <LandingPageWorkflowStepDescription />
       </Box>
     </Box>
   );

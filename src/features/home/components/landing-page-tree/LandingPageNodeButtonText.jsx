@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNode } from './landingPageNodeSlice';
 
-export default function NodeButtonText(props) {
+export default function LandingPageNodeButtonText(props) {
   const { id } = props;
   const dispatch = useDispatch();
   const ref = React.useRef(null);
@@ -63,6 +63,6 @@ export default function NodeButtonText(props) {
   );
 }
 
-NodeButtonText.propTypes = {
+LandingPageNodeButtonText.propTypes = {
   id: PropTypes.string.isRequired,
 };
