@@ -13,6 +13,7 @@ export default function CustomCodeMirror(props) {
     value,
     onChange,
   } = props;
+
   const theme = useTheme();
 
   const {
@@ -104,6 +105,7 @@ export default function CustomCodeMirror(props) {
 
   return (
     <Box sx={{
+      height: 1,
       background,
       borderRadius: 5,
       borderTopLeftRadius: 0,
@@ -115,6 +117,7 @@ export default function CustomCodeMirror(props) {
       '@media (max-width: 325px)': {
         fontSize: 9,
       },
+      '.cm-theme': { height: 1 },
       '.cm-content': {
         whiteSpace_fallback: 'pre-wrap',
         whiteSpace: 'break-spaces',
@@ -152,6 +155,7 @@ export default function CustomCodeMirror(props) {
         },
       },
       '.cm-gutters': {
+        minHeight: 1,
         borderRight: 1,
         borderColor: {
           xs: 'borders.box.xs',
@@ -169,13 +173,14 @@ export default function CustomCodeMirror(props) {
         onChange={onChange}
         theme={codeMirrorTheme}
         extensions={[markdown({ markdownLanguage })]}
+        height="100%"
       />
     </Box>
   );
 }
 
 CustomCodeMirror.defaultProps = {
-  value: null,
+  value: '',
   onChange: null,
 };
 

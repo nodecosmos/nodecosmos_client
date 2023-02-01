@@ -2,13 +2,19 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import MarkdownEditor from '../markdown/MarkdownEditor';
+import NodeMarkdownPreview from '../markdown/MarkdownPreview';
+import MarkdownToolbar from '../markdown/MarkdownToolbar';
 
 export default function NodeDescription() {
-  const currentNode = useSelector((state) => state.nodes.byId[state.nodes.currentNodeId]);
+  const currentNodeId = useSelector((state) => state.nodes.currentNodeId);
+  const currentNodeTitle = useSelector((state) => state.nodes.byId[currentNodeId]?.title);
+  const currentNodeDescription = useSelector((state) => state.nodes.byId[currentNodeId]?.description);
+  const isEditingDescription = useSelector((state) => state.nodes.byId[currentNodeId]?.isEditingDescription);
 
   const blankDescription = (
     <Typography color="text.secondary" textAlign="center">
-      {(currentNode && 'This node has no description yet.') || (
+      {(currentNodeId && 'This node has no description yet.') || (
         <Box component="span" fontSize={30}>
           ¯\_(ツ)_/¯
         </Box>
@@ -16,8 +22,22 @@ export default function NodeDescription() {
     </Typography>
   );
 
+  const nodeDescription = (
+    <Box height={1} p={2}>
+      {
+        (
+          currentNodeDescription
+          && <Typography variant="body1" color="text.secondary">{currentNodeDescription}</Typography>
+        ) || blankDescription
+      }
+    </Box>
+  );
+
+  const descriptionContent = isEditingDescription ? <MarkdownEditor id={currentNodeId} />
+    : <NodeMarkdownPreview id={currentNodeId} />;
+
   return (
-    <Box>
+    <Box height={1}>
       <Box
         borderBottom={1}
         borderColor={{
@@ -29,25 +49,20 @@ export default function NodeDescription() {
           md: 'boxBorder.bottom.md',
         }}
         display="flex"
-        justifyContent="center"
+        justifyContent="space-between"
         alignItems="center"
         height={56}
-        sx={{
-          overflow: 'hidden',
-          oveflowWrap: 'break-word',
-        }}
+        px={2}
+        sx={{ overflow: 'hidden', overflowWrap: 'break-word' }}
       >
+        <MarkdownToolbar id={currentNodeId} />
         <Typography textAlign="center" color="text.secondary">
-          {currentNode?.title || 'No Title' || 'Select a node from the tree to view its description'}
+          {currentNodeTitle || 'Select a node from the tree to view its description'}
         </Typography>
+        <div />
       </Box>
-      <Box height={1} p={2}>
-        {
-          (
-            currentNode?.description
-            && <Typography variant="body1" color="text.secondary">{currentNode.description}</Typography>
-          ) || blankDescription
-        }
+      <Box height="calc(100% - 56px)" overflow="auto">
+        {descriptionContent}
       </Box>
     </Box>
   );

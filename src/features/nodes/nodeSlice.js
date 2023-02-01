@@ -147,7 +147,10 @@ const nodeSlice = createSlice({
         state.currentNodeId = id;
       }
     },
-
+    setEditNodeDescription(state, action) {
+      const { id, value } = action.payload;
+      state.byId[id].isEditingDescription = value;
+    },
     //------------------------------------------------------------------------------------------------------------------
     addNewNode(state, action) {
       const parentId = action.payload.parent_id;
@@ -225,6 +228,14 @@ const nodeSlice = createSlice({
       });
       state.currentTempNodeId = null;
     },
+    clearTree(state, _action) {
+      Object.keys(state.byId).forEach((currentId) => {
+        delete state.positionsById[currentId];
+        delete state.mountedTreeNodesById[currentId];
+        delete state.expandedTreeNodesById[currentId];
+        delete state.byId[currentId];
+      });
+    },
   },
   extraReducers(builder) {
     builder
@@ -262,6 +273,8 @@ export const {
   addNewNode,
   setPositionsById,
   deprecateReplaceTempNodeStatus,
+  setEditNodeDescription,
+  clearTree,
 } = actions;
 
 export default reducer;

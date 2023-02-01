@@ -60,7 +60,7 @@ export default function NodeButtonText(props) {
         className="NodeButtonText"
         maxLength={50}
         size={Math.max((nodeTitle && nodeTitle.length) || 0, 3)}
-        style={{ color }}
+        style={{ color, fontFamily: 'monospace' }}
       />
     </div>
   );

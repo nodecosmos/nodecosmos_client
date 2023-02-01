@@ -53,7 +53,7 @@ export default function useNodeTreeEvents(id) {
 
     addNodeLastClick.current = now;
 
-    if (isTemp) return;
+    // if (isTemp) return;
 
     dispatch(addNewNode({ parent_id: id, isTemp: true }));
   };
