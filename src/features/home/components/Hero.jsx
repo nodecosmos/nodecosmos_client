@@ -15,22 +15,20 @@ export default function Hero() {
         py={{
           xs: 8,
           sm: 12,
-          md: 16,
+          md: 14,
         }}
       >
         <img
-          src="innovate_9.svg"
+          src="logo_1.svg"
           alt="logo"
-          width={197}
-          height={175}
+          width={100}
           style={{
-            marginLeft: -98.5,
             animation: refInView && 'rotate 0.3s',
           }}
         />
         <Box ml={{
           xs: 2,
-          md: 4,
+          md: 2,
         }}
         >
           <Typography
