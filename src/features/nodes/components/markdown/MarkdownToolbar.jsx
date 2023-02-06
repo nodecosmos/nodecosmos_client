@@ -4,7 +4,7 @@ import EditRounded from '@mui/icons-material/EditRounded';
 import { Box, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import { setEditNodeDescription } from '../../nodeSlice';
+import { setEditNodeDescription } from '../../nodesSlice';
 
 export default function MarkdownToolbar(props) {
   const { id } = props;

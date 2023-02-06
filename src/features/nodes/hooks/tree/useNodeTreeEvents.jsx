@@ -1,33 +1,33 @@
 import { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import history from '../../../../history';
-import usePrevProps from '../../../app/hooks/usePrevProps';
+import { useNavigate } from 'react-router-dom';
+import usePrevProps from '../../../common/hooks/usePrevProps';
+import { createNode, deleteNode, updateNode } from '../../nodes.thunks';
 import {
-  addNewNode,
+  addTmpNewNode,
   collapseNode,
-  createNode,
-  deleteNode,
   expandNode,
-  updateNode,
   updateNodeState,
-  setCurrentNode,
+  setSelectedNode,
   deleteNodeFromState,
-  deprecateReplaceTempNodeStatus,
-} from '../../nodeSlice';
+} from '../../nodesSlice';
 
-export default function useNodeTreeEvents(id) {
+export default function useNodeTreeEvents(provisionalId) {
   const dispatch = useDispatch();
 
-  const isRoot = useSelector((state) => state.nodes.byId[id].isRoot);
-  const isTemp = useSelector((state) => state.nodes.byId[id].isTemp);
-  const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
-  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
-  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
+  const id = useSelector((state) => (state.nodes.byId[provisionalId].id));
+  const isRoot = useSelector((state) => state.nodes.byId[provisionalId].isRoot);
+  const isTemp = useSelector((state) => state.nodes.byId[provisionalId].isTemp);
+  const isCurrent = useSelector((state) => state.nodes.byId[provisionalId].isCurrent);
+  const isEditing = useSelector((state) => state.nodes.byId[provisionalId].isEditing);
+  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[provisionalId]);
 
-  const title = useSelector((state) => state.nodes.byId[id]?.title);
+  const title = useSelector((state) => state.nodes.byId[provisionalId]?.title);
   const prevTitle = usePrevProps(title);
 
-  const parentId = useSelector((state) => state.nodes.byId[id] && state.nodes.byId[id].parent_id);
+  const parentId = useSelector((state) => state.nodes.byId[provisionalId] && state.nodes.byId[provisionalId].parent_id);
+
+  const navigate = useNavigate();
 
   //--------------------------------------------------------------------------------------------------------------------
   const onNodeClick = () => {
@@ -35,16 +35,16 @@ export default function useNodeTreeEvents(id) {
 
     if (isExpanded && isCurrent) {
       dispatch(collapseNode({ id }));
-      dispatch(setCurrentNode({ id: null }));
+      dispatch(setSelectedNode({ id: null }));
     } else {
       dispatch(expandNode({ id }));
-      dispatch(setCurrentNode({ id }));
+      dispatch(setSelectedNode({ id }));
     }
   };
 
   const addNodeLastClick = useRef(null);
   //--------------------------------------------------------------------------------------------------------------------
-  const addNode = async () => {
+  const addChildNode = async () => {
     // prevent clicking too fast with delta
     const delta = 150;
     const now = Date.now();
@@ -55,7 +55,7 @@ export default function useNodeTreeEvents(id) {
 
     // if (isTemp) return;
 
-    dispatch(addNewNode({ parent_id: id, isTemp: true }));
+    dispatch(addTmpNewNode({ parent_id: id }));
   };
 
   const editNode = () => dispatch(updateNodeState({ id, isEditing: true }));
@@ -75,7 +75,6 @@ export default function useNodeTreeEvents(id) {
           title,
           parent_id: parentId,
         }));
-        setTimeout(() => dispatch(deprecateReplaceTempNodeStatus({ id })), 500);
       } else {
         dispatch(updateNode({
           id,
@@ -96,7 +95,6 @@ export default function useNodeTreeEvents(id) {
     dispatch(updateNodeState({
       id,
       isEditing: false,
-      isReplacingTempNode: false,
     }));
   };
 
@@ -106,13 +104,13 @@ export default function useNodeTreeEvents(id) {
     } else {
       dispatch(deleteNode(id));
     }
-    if (isRoot) history.push('/');
+    if (isRoot) navigate('/');
   };
 
   //--------------------------------------------------------------------------------------------------------------------
   return {
     onNodeClick,
-    addNode,
+    addChildNode,
     editNode,
     removeNode,
     saveNode,

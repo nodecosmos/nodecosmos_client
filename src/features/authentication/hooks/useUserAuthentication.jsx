@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { redirect } from 'react-router-dom';
 import nodecosmos from '../../../apis/nodecosmos-server';
-import history from '../../../history';
 import { login, logout } from '../authenticationSlice';
 
 export default function useUserAuthentication(props) {
@@ -15,7 +15,7 @@ export default function useUserAuthentication(props) {
 
     dispatch(login({ user, token }));
 
-    history.push('/');
+    redirect('/');
   };
 
   const handleLogin = async (formValues) => {
@@ -46,6 +46,7 @@ export default function useUserAuthentication(props) {
       console.error(response);
 
       if (response.data) return response.data.error; // maps error object to final-form submitError
+      // TODO: check if there is way to map error object to final-form and still use thunks
     }
 
     return null;
@@ -58,7 +59,7 @@ export default function useUserAuthentication(props) {
       switch (error.response.data.error) {
         case 'session_expired':
           dispatch(logout());
-          history.push('/login');
+          redirect('/login');
           localStorage.removeItem('token');
           localStorage.removeItem('currentUser');
           break;

@@ -30,9 +30,8 @@ const appSlice = createSlice({
     subtitle: '',
     appAnimationEnabled: true,
     scrollEnabled: true,
-    currentNodeId: null,
+    currentNodeId: null, // used for landing page
     browser: fnBrowserDetect(),
-    whatever: 'whatever',
   },
   reducers: {
     setTheme(state, action) { state.theme = action.payload; },
@@ -41,7 +40,6 @@ const appSlice = createSlice({
     setCurrentToolbar(state, action) { state.currentToolbar = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
     setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },
-    setWhatever(state, action) { state.scrollEnabled = action.payload; },
     setTransformablePositions(state, action) { state.transformablePositionsById[action.payload.id] = action.payload; },
   },
 });
@@ -53,9 +51,6 @@ export const {
   setSubtitle,
   setCurrentNode,
   setCurrentToolbar,
-  setAnimationEnabled,
-  setScrollEnabled,
-  setWhatever,
   setTransformablePositions,
 } = actions;
 

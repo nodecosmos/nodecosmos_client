@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateNode, updateNodeState } from '../../nodeSlice';
+import md from 'markdown-it';
+import { updateNode } from '../../nodes.thunks';
+import { updateNodeState } from '../../nodesSlice';
 
-const CustomCodeMirror = React.lazy(() => import('../../../app/components/common/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../common/components/CustomCodeMirror'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
@@ -27,10 +29,16 @@ export default function MarkdownEditor(props) {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const description = useSelector((state) => state.nodes.byId[id]?.description);
+  const description = useSelector((state) => state.nodes.byId[id]?.description_markdown);
 
   const handleChange = (value) => {
-    dispatch(updateNodeState({ id, description: value }));
+    const descriptionHtml = md().render(value);
+
+    dispatch(updateNodeState({
+      id,
+      description: descriptionHtml,
+      description_markdown: value,
+    }));
 
     if (handleChangeTimeout.current) {
       clearTimeout(handleChangeTimeout.current);
@@ -38,14 +46,14 @@ export default function MarkdownEditor(props) {
     }
 
     handleChangeTimeout.current = setTimeout(() => {
-      dispatch(updateNode({ id, description: value }));
+      dispatch(updateNode({ id, description: descriptionHtml, description_markdown: value }));
     }, 1000);
   };
 
   return (
     <Suspense fallback={loading}>
       <Box height={1}>
-        <CustomCodeMirror value={description} onChange={handleChange} />
+        <CustomCodeMirror value={description || ''} onChange={handleChange} />
       </Box>
     </Suspense>
   );

@@ -22,7 +22,7 @@ import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
 
 export default function NodeToolbar(props) {
   const { id } = props;
-  const { addNode, editNode, removeNode } = useNodeTreeEvents(id);
+  const { addChildNode, editNode, removeNode } = useNodeTreeEvents(id);
 
   const theme = useTheme();
   const { red, green, blue } = theme.palette.toolbar;
@@ -42,7 +42,7 @@ export default function NodeToolbar(props) {
         '.MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
-      <IconButton className="Item" onClick={addNode} aria-label="Add Node">
+      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
         <AddRounded fontSize="small" />
       </IconButton>
       <IconButton className="Item" onClick={editNode} aria-label="Edit Node">

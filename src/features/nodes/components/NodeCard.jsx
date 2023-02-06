@@ -13,14 +13,14 @@ import {
 } from '@mui/material';
 
 /* nodecosmos */
-import UserAvatar from '../../app/components/common/UserAvatar';
+import UserAvatar from '../../common/components/UserAvatar';
 
 function NodeCard(props) {
   const { id } = props;
   const node = useSelector((state) => state.nodes.byId[id]);
 
   return (
-    <Box width="60%" p={2}>
+    <Box width="60%" mt={2}>
       <Card className="Card" elevation={2}>
         <CardHeader
           avatar={(
@@ -32,7 +32,7 @@ function NodeCard(props) {
           subheader={node.created_at}
         />
         <CardContent>
-          {node.description}
+          <Box dangerouslySetInnerHTML={{ __html: node.description }} />
         </CardContent>
       </Card>
     </Box>

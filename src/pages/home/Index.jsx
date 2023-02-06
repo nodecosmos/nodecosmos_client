@@ -127,7 +127,7 @@ export default function Index() {
           xs: 1,
           sm: 'calc(100% - 12px)',
         }}
-        zIndex={2}
+        zIndex={3}
         height={HEADER_HEIGHT}
         sx={{
           borderTopLeftRadius: {

@@ -123,8 +123,7 @@ export default {
     },
 
     markdownContent: {
-      border: '#464b59',
-      canvas: '#464b59',
+      canvas: '#3a3d49',
       background: 'transparent',
     },
 

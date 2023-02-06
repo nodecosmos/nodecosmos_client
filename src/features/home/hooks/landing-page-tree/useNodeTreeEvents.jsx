@@ -7,7 +7,6 @@ import {
   prependNewNode,
   terminateNewNode,
 } from '../../components/landing-page-tree/landingPageNodeSlice';
-import history from '../../../../history';
 
 const ROOT_LANDING_PAGE_NODE_ID = '635a91ea690cc413ead79ce2';
 
@@ -16,7 +15,6 @@ export default function useNodeTreeEvents(props) {
   const dispatch = useDispatch();
   const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].expanded);
   const isNewNodePresent = useSelector((state) => state.landingPageNodes[NEW_NODE_ID]);
-  const isRoot = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].is_root);
   const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);
 
   const currentNodeId = useSelector((state) => state.app.currentNodeId);
@@ -54,7 +52,6 @@ export default function useNodeTreeEvents(props) {
     if (nodeId === ROOT_LANDING_PAGE_NODE_ID) return;
 
     dispatch(deleteNodeFromState({ id: nodeId }));
-    if (isRoot) history.push('/');
   };
 
   return {

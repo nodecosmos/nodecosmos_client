@@ -6,8 +6,9 @@
        * ###### components - view components
        * ###### hooks - business logic
        * ###### featureSlice - state management for feature
-   * ###### pages - Every page has related route
+   * ###### pages - Each route is a page
 ---
+
 ### Material-UI Recommendations:
 
 * Use inline-style for dynamic styling.

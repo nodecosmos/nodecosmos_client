@@ -21,18 +21,18 @@ TREE
 -
 ##### Consider following structure:
         
-      A
-      .
-      . . . B
-      .
-      . . . C
-      .
-      . . . D
-            .
-            . D_1
-            .
-            . D_2
-  
+              A
+              .
+              . . . B
+              .
+              . . . C
+              .
+              . . . D
+       A - yEnds    .
+                    . D-1
+                    .
+                    . D-2
+          
 
 * **A** is `parent` of **B** **C** **D**
 * **B** is `upperSibling` **C**

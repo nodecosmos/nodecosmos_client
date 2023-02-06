@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import usePrevProps from '../../../app/hooks/usePrevProps';
-import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
+import usePrevProps from '../../../common/hooks/usePrevProps';
+import useShallowEqualSelector from '../../../common/hooks/useShallowEqualSelector';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/landing-page-tree/constants';
 import {
   incrementNodesYEnds,

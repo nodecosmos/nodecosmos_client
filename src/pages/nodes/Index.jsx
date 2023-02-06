@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { setCurrentToolbar } from '../../features/app/appSlice';
 /* node-lib */
 import NodeCard from '../../features/nodes/components/NodeCard';
-import { indexNodes } from '../../features/nodes/nodeSlice';
+import { indexNodes } from '../../features/nodes/nodes.thunks';
 
 export default function NodeIndex() {
   const nodes = useSelector((state) => state.nodes.byId);

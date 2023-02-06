@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import GradientText from '../../../app/components/common/GradientText';
+import GradientText from '../../../common/components/GradientText';
 import Tree from '../landing-page-tree/LandingPageTree';
 import PanTip from '../tips/PanTip';
 

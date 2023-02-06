@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import useTreePositionCalculator from '../../hooks/tree/useTreePositionCalculator';
-import { setPositionsById } from '../../nodeSlice';
+import { setPositionsById } from '../../nodesSlice';
 
 /* nodecosmos */
 import Node from './Node';

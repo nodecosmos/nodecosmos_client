@@ -6,12 +6,49 @@ import { NavLink } from 'react-router-dom';
 
 export default function SidebarListItem({ to, icon, title }) {
   return (
-    <ListItem>
-      <ListItemButton disableRipple end component={NavLink} to={to}>
-        <ListItemIcon>
+    <ListItem sx={{
+      px: 1.5,
+      py: 0.5,
+    }}
+    >
+      <ListItemButton
+        sx={{
+          p: 1,
+          borderRadius: 1.5,
+          transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
+          '&:hover, &.active': {
+            backgroundColor: 'background.list.active',
+          },
+          '&.active': {
+            color: 'text.contrast',
+          },
+        }}
+        disableRipple
+        component={NavLink}
+        to={to}
+        relative
+        end
+      >
+        <ListItemIcon sx={{
+          transition: 'all 350ms cubic-bezier(0.0, 0, 0.2, 1) 2ms',
+          minWidth: 0,
+          padding: 1.75,
+          borderRadius: 1.5,
+
+          backgroundColor: 'background.list.iconBackground',
+          boxShadow: '1',
+          color: 'background.list.iconForeground',
+          svg: {
+            fontSize: '1rem',
+            '.active &': {
+              color: 'text.contrast',
+            },
+          },
+        }}
+        >
           {icon}
         </ListItemIcon>
-        <Typography variant="body2">
+        <Typography variant="body2" ml={2}>
           {title}
         </Typography>
       </ListItemButton>

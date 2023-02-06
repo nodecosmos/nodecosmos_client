@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useShallowEqualSelector from '../../../app/hooks/useShallowEqualSelector';
+import useShallowEqualSelector from '../../../common/hooks/useShallowEqualSelector';
 import { COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT } from '../../components/tree/constants';
 
 const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
