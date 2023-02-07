@@ -1,13 +1,10 @@
-import React, { useRef } from 'react';
-import { useInView } from 'framer-motion';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
-export default function Hero() {
-  const ref = useRef(null);
-  const refInView = useInView(ref);
-
+export default function Hero({ inView }) {
   return (
-    <Box ref={ref}>
+    <Box>
       <Box
         display="flex"
         alignItems="center"
@@ -18,12 +15,14 @@ export default function Hero() {
           md: 14,
         }}
       >
-        <img
+        <Box
+          component="img"
           src="logo_1.svg"
           alt="logo"
-          width={100}
+          width={85}
+          height={85}
           style={{
-            animation: refInView && 'rotate 0.3s',
+            animation: inView && 'rotate 0.3s',
           }}
         />
         <Box ml={{
@@ -72,3 +71,7 @@ export default function Hero() {
     </Box>
   );
 }
+
+Hero.propTypes = {
+  inView: PropTypes.bool.isRequired,
+};
