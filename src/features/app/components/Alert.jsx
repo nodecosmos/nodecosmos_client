@@ -9,16 +9,17 @@ export default function Alert() {
   const message = useSelector((state) => state.app.alert.message);
   const severity = useSelector((state) => state.app.alert.severity);
 
-  const handleClose = () => dispatch(setAlert({ isOpen: false }));
+  const handleClose = () => dispatch(setAlert({ isOpen: false, message, severity }));
   return (
-    <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar open={isOpen} autoHideDuration={5000} onClose={handleClose}>
       <MuiAlert
         onClose={handleClose}
         severity={severity}
-        variant="filled"
+        variant="outlined"
         sx={{
+          backgroundColor: 'background.paper',
           '.MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
-            color: 'text.primary',
+            color: 'error.main',
           },
         }}
       >
