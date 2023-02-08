@@ -59,6 +59,7 @@ export default {
 
     error: {
       main: '#e91e63',
+      contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     success: {

@@ -23,7 +23,7 @@ import useUserAuthentication from '../../../authentication/hooks/useUserAuthenti
 import { setTheme } from '../../appSlice';
 
 /* nodecosmos */
-import UserAvatar from '../../../common/components/UserAvatar';
+import UserAvatar from '../../../../common/components/UserAvatar';
 
 export default function UserDropdown() {
   const [anchorEl, setAnchorEl] = React.useState(false);

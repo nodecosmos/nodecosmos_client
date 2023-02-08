@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
-export default function TreeStyledContainer(props) {
+export default function TreeContainer(props) {
   return (
     <Box sx={{
       height: 1,
@@ -34,6 +34,6 @@ export default function TreeStyledContainer(props) {
   );
 }
 
-TreeStyledContainer.propTypes = {
+TreeContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };

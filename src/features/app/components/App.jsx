@@ -10,7 +10,7 @@ import Home from '../../../pages/home/Index';
 import dark from '../../../themes/dark';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
-import Loader from '../../common/components/Loader';
+import Loader from '../../../common/components/Loader';
 /* sx */
 import AppSx from './AppSx';
 

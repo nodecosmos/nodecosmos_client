@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 /* mui */
 import { Button, Grid } from '@mui/material';
-import Field from '../../common/components/final-form/FinalFormInputField';
+import Field from '../../../common/components/final-form/FinalFormInputField';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 /* nodecosmos */
 

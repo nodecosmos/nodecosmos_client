@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 import nodecosmos from '../../../apis/nodecosmos-server';
 /* nodecosmos */
-import FinalFormInputField from '../../common/components/final-form/FinalFormInputField';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;

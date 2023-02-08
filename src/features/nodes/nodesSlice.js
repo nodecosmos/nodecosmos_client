@@ -7,6 +7,7 @@ const mapNodesToState = (state, nodes) => {
   nodes.forEach((payload) => {
     const { id } = payload;
 
+    payload.persistentId = id;
     payload.ancestorIds = payload.ancestor_ids || [];
     payload.descendantIds = payload.descendant_ids || [];
 
@@ -51,8 +52,13 @@ const nodesSlice = createSlice({
     mountNodes(state, action) {
       action.payload.forEach((id) => {
         const node = state.byId[id];
+        // convert undefined to false for existing nodes that are not expanded
+        state.expandedTreeNodesById[id] = !!state.expandedTreeNodesById[id];
+        // mount the node if all its ancestors are expanded
         const areAncestorsExpanded = node.ancestorIds.every(
-          (ancestorId) => !state.byId[ancestorId] || state.expandedTreeNodesById[ancestorId],
+          // ancestor not in the tree
+          (ancestorId) => state.expandedTreeNodesById[ancestorId] === undefined
+            || state.expandedTreeNodesById[ancestorId],
         );
         if (areAncestorsExpanded) state.mountedTreeNodesById[id] = true;
       });
@@ -127,9 +133,7 @@ const nodesSlice = createSlice({
           ancestorIds: nodeAncestorIds,
           nodeIds: [],
           descendantIds: [],
-          owner: {
-            username: '',
-          },
+          owner: parent.owner,
           ...action.payload,
         };
       }
@@ -142,47 +146,6 @@ const nodesSlice = createSlice({
         // add temp node to ancestor's descendants
         if (state.byId[ancestorId]) state.byId[ancestorId].descendantIds.push(id);
       });
-    },
-    mapPersistedNodeToState(state, action) {
-      const { id, tempId } = action.payload;
-
-      state.currentTempNodeId = null;
-
-      const newNode = {
-        ...action.payload,
-        isTemp: false,
-        isMounted: true,
-        isReplacingTempNode: true,
-        isEditing: state.byId[tempId].isEditing,
-        ancestorIds: action.payload.ancestor_ids,
-        nodeIds: [],
-        descendantIds: [],
-      };
-
-      state.nestedNodesByParentId[id] = action.payload.node_ids;
-      state.mountedTreeNodesById[id] = true;
-
-      const tempNodeParentId = state.byId[tempId].parent_id;
-
-      // replace temp node with new node in parent's children
-      state.nestedNodesByParentId[tempNodeParentId] = state.nestedNodesByParentId[tempNodeParentId].map((childId) => {
-        if (childId === tempId) return id;
-        return childId;
-      });
-
-      // replace temp node with new node in ancestor's descendants
-      newNode.ancestorIds.forEach((ancestorId) => {
-        if (state.byId[ancestorId]) {
-          state.byId[ancestorId].descendantIds = state.byId[ancestorId].descendantIds.map((childId) => {
-            if (childId === tempId) return id;
-            return childId;
-          });
-        }
-      });
-
-      // set position of new node
-      state.positionsById[id] = state.positionsById[tempId];
-      state.byId[id] = newNode;
     },
     //------------------------------------------------------------------------------------------------------------------
     clearTree(state, _action) {
@@ -202,8 +165,8 @@ const nodesSlice = createSlice({
         delete state.byId[action.payload.id].descendants;
       })
       .addCase(createNode.fulfilled, (state, action) => {
-        nodesSlice.caseReducers.mapPersistedNodeToState(state, action);
-        nodesSlice.caseReducers.deleteNodeFromState(state, { payload: { id: action.payload.tempId } });
+        // assign persistent id to temp node
+        state.byId[action.payload.tempId].persistentId = action.payload.id;
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodesSlice.caseReducers.deleteNodeFromState(state, action);
@@ -219,10 +182,10 @@ const {
 export const {
   expandNode,
   collapseNode,
-  setSelectedNode,
   updateNodeState,
   deleteNodeFromState,
   addTmpNewNode,
+  setSelectedNode,
   setPositionsById,
   setEditNodeDescription,
   clearTree,

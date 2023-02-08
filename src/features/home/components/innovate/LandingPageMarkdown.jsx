@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import GradientText from '../../../common/components/GradientText';
+import GradientText from '../../../../common/components/GradientText';
 
-const CustomCodeMirror = React.lazy(() => import('../../../common/components/CustomCodeMirror'));
-const MarkdownPreview = React.lazy(() => import('../../../common/components/MarkdownPreview'));
+const CustomCodeMirror = React.lazy(() => import('../../../../common/components/CustomCodeMirror'));
+const MarkdownPreview = React.lazy(() => import('../../../../common/components/MarkdownPreview'));
 
 const INITIAL_DESCRIPTION_VALUE = `
 ### The following is a sample markdown description explaining its syntax:

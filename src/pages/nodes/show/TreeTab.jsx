@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NodeDescription from '../../../features/nodes/components/NodeDescription';
 import Tree from '../../../features/nodes/components/tree/Tree';
-import TreeStyledContainer from '../../../features/nodes/components/tree/TreeStyledContainer';
+import TreeContainer from '../../../features/nodes/components/tree/TreeContainer';
 import { clearTree } from '../../../features/nodes/nodesSlice';
 
 export default function TreeTab() {
@@ -24,9 +24,9 @@ export default function TreeTab() {
         width="50%"
         height="100%"
       >
-        <TreeStyledContainer>
+        <TreeContainer>
           <Tree id={id} />
-        </TreeStyledContainer>
+        </TreeContainer>
       </Box>
       <Box
         width={{

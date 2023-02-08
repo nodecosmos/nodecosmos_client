@@ -16,6 +16,7 @@ import getTheme from '../../../themes/theme';
 import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
 /* nodecosmos */
 import { HEADER_HEIGHT } from '../constants';
+import Alert from './Alert';
 import Header from './header/Header';
 import AppSx from './AppSx';
 
@@ -63,6 +64,7 @@ export default function LazyAppLoad() {
             border={1}
             borderColor="borders.2"
           >
+            <Alert />
             <Header />
             <Box height={1} pt={`${HEADER_HEIGHT}px`}>
               <Routes>

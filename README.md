@@ -1,7 +1,10 @@
 # Nodecosmos
 
 ### Directory structure: 
-   * ###### features
+   * ###### common - everything that does not relate to redux state
+     * ###### components - view components
+     * ###### hooks - business logic
+   * ###### features - each feature has its own slice of state
      * ###### feature_name
        * ###### components - view components
        * ###### hooks - business logic

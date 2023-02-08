@@ -9,7 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
-import UserAvatar from '../../../common/components/UserAvatar';
+import UserAvatar from '../../../../common/components/UserAvatar';
 
 const rows = [
   {

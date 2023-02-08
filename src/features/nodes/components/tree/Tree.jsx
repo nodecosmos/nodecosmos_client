@@ -24,7 +24,6 @@ export default function Tree(props) {
             <Node
               key={nodeProps.id}
               id={nodeProps.id}
-              treeId={id}
               nestedLevel={nodeProps.nestedLevel}
               upperSiblingId={nodeProps.upperSiblingId}
               lastChildId={nodeProps.lastChildId}

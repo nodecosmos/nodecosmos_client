@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 /* nodecosmos */
-import UserAvatar from '../../common/components/UserAvatar';
+import UserAvatar from '../../../common/components/UserAvatar';
 
 function NodeCard(props) {
   const { id } = props;

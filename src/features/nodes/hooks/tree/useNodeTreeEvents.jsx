@@ -1,7 +1,8 @@
 import { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import usePrevProps from '../../../common/hooks/usePrevProps';
+import usePrevProps from '../../../../common/hooks/usePrevProps';
+import { setAlert } from '../../../app/appSlice';
 import { createNode, deleteNode, updateNode } from '../../nodes.thunks';
 import {
   addTmpNewNode,
@@ -12,27 +13,27 @@ import {
   deleteNodeFromState,
 } from '../../nodesSlice';
 
-export default function useNodeTreeEvents(provisionalId) {
+export default function useNodeTreeEvents(id) {
   const dispatch = useDispatch();
 
-  const id = useSelector((state) => (state.nodes.byId[provisionalId].id));
-  const isRoot = useSelector((state) => state.nodes.byId[provisionalId].isRoot);
-  const isTemp = useSelector((state) => state.nodes.byId[provisionalId].isTemp);
-  const isCurrent = useSelector((state) => state.nodes.byId[provisionalId].isCurrent);
-  const isEditing = useSelector((state) => state.nodes.byId[provisionalId].isEditing);
-  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[provisionalId]);
+  const persistentId = useSelector((state) => state.nodes.byId[id].persistentId);
+  const isRoot = useSelector((state) => state.nodes.byId[id].isRoot);
+  const isTemp = useSelector((state) => state.nodes.byId[id].isTemp);
+  const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
+  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
+  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
 
-  const title = useSelector((state) => state.nodes.byId[provisionalId]?.title);
+  const title = useSelector((state) => state.nodes.byId[id]?.title);
   const prevTitle = usePrevProps(title);
 
-  const parentId = useSelector((state) => state.nodes.byId[provisionalId] && state.nodes.byId[provisionalId].parent_id);
+  const parentId = useSelector((state) => state.nodes.byId[id].parent_id);
+  const persistentParentId = useSelector((state) => state.nodes.byId[parentId]?.persistentId);
 
   const navigate = useNavigate();
 
   //--------------------------------------------------------------------------------------------------------------------
   const onNodeClick = () => {
     if (isEditing) return;
-
     if (isExpanded && isCurrent) {
       dispatch(collapseNode({ id }));
       dispatch(setSelectedNode({ id: null }));
@@ -55,6 +56,18 @@ export default function useNodeTreeEvents(provisionalId) {
 
     // if (isTemp) return;
 
+    if (!persistentId) {
+      const message = title ? `Node "${title}" not initialized yet. Please wait...`
+        : 'Current node not initialized yet. Please add title to current node in order to create child node.';
+
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'error',
+        message,
+      }));
+      return;
+    }
+
     dispatch(addTmpNewNode({ parent_id: id }));
   };
 
@@ -73,16 +86,16 @@ export default function useNodeTreeEvents(provisionalId) {
         dispatch(createNode({
           tempId: id,
           title,
-          parent_id: parentId,
+          parent_id: persistentParentId,
         }));
       } else {
         dispatch(updateNode({
-          id,
+          id: persistentId,
           title,
         }));
       }
     }, 1000);
-  }, [title, prevTitle, isTemp, dispatch, parentId, id]);
+  }, [dispatch, id, isTemp, persistentId, persistentParentId, prevTitle, title]);
 
   const handleNodeTitleChange = (event) => {
     dispatch(updateNodeState({
@@ -104,7 +117,7 @@ export default function useNodeTreeEvents(provisionalId) {
     } else {
       dispatch(deleteNode(id));
     }
-    if (isRoot) navigate('/');
+    if (isRoot) navigate('/n');
   };
 
   //--------------------------------------------------------------------------------------------------------------------

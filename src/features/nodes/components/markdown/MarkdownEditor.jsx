@@ -7,7 +7,7 @@ import md from 'markdown-it';
 import { updateNode } from '../../nodes.thunks';
 import { updateNodeState } from '../../nodesSlice';
 
-const CustomCodeMirror = React.lazy(() => import('../../../common/components/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../../common/components/CustomCodeMirror'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
