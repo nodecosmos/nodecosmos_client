@@ -17,6 +17,7 @@ export default function Alert() {
         severity={severity}
         variant="outlined"
         sx={{
+          borderColor: 'error.main',
           backgroundColor: 'background.paper',
           '.MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
             color: 'error.main',

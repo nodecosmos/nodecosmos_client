@@ -58,7 +58,7 @@ export default {
     },
 
     error: {
-      main: '#e91e63',
+      main: '#ed4b82',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
