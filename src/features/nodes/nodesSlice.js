@@ -8,6 +8,8 @@ const mapNodesToState = (state, nodes) => {
     const { id } = payload;
 
     payload.persistentId = id;
+    payload.parentId = payload.parent_id;
+
     payload.ancestorIds = payload.ancestor_ids || [];
     payload.descendantIds = payload.descendant_ids || [];
 
@@ -73,7 +75,7 @@ const nodesSlice = createSlice({
     },
     deleteNodeFromState(state, action) {
       const node = state.byId[action.payload.id];
-      const parent = state.byId[node.parent_id];
+      const parent = state.byId[node.parentId];
 
       if (parent) {
         state.nestedNodesByParentId[parent.id] = state.nestedNodesByParentId[parent.id].filter((id) => id !== node.id);
@@ -108,7 +110,7 @@ const nodesSlice = createSlice({
     },
     //------------------------------------------------------------------------------------------------------------------
     addTmpNewNode(state, action) {
-      const parentId = action.payload.parent_id;
+      const { parentId } = action.payload;
 
       const parent = state.byId[parentId];
       // This seems to go against the redux way of doing things
@@ -129,7 +131,7 @@ const nodesSlice = createSlice({
           id,
           isEditing: true,
           isTemp: true,
-          parent_id: parentId,
+          parentId,
           ancestorIds: nodeAncestorIds,
           nodeIds: [],
           descendantIds: [],

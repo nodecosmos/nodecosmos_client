@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../../app/appSlice';
+import { selectNodePositionById } from '../../nodes.selectors';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from './constants';
 // import usePannable from '../../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
@@ -13,7 +14,9 @@ export default function Transformable(props) {
   const svgRef = useRef(null);
   const gRef = useRef(null);
 
-  const height = useSelector((state) => (state.nodes.positionsById[rootId]?.yEnds || 0) + TRANSFORMABLE_HEIGHT_MARGIN);
+  const { yEnds } = useSelector(selectNodePositionById(rootId));
+  const height = (yEnds || 0) + TRANSFORMABLE_HEIGHT_MARGIN;
+
   const [width, setWidth] = React.useState(TRANSFORMABLE_MIN_WIDTH);
 
   const resize = () => {
@@ -46,7 +49,7 @@ export default function Transformable(props) {
         clientHeight: containerRef.current.clientHeight,
         scrollTop: containerRef.current.scrollTop,
       }));
-    }, 50);
+    }, 100);
   };
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { selectIsNodeExpandedById, selectNodeAttributeById, selectNodePositionById } from '../../nodes.selectors';
 
 /* nodecosmos */
 import {
@@ -22,21 +23,19 @@ export default function NodeContainer(props) {
     nestedLevel,
   } = props;
 
-  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
+  const isExpanded = useSelector(selectIsNodeExpandedById(id));
 
-  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
-  const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
-  const isReplacingTempNode = useSelector((state) => state.nodes.byId[id].isReplacingTempNode);
+  const isEditing = useSelector(selectNodeAttributeById(id, 'isEditing'));
+  const isCurrent = useSelector(selectNodeAttributeById(id, 'isCurrent'));
 
   const showActions = isExpanded && isCurrent;
 
-  const x = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
-  const y = useSelector((state) => state.nodes.positionsById[id] && state.nodes.positionsById[id].y - MARGIN_TOP);
+  const { xEnds, y } = useSelector(selectNodePositionById(id));
 
-  if (!x) return null;
+  if (!xEnds) return null;
 
-  const initialAnimationDuration = isRoot || isReplacingTempNode ? 0 : INITIAL_ANIMATION_DURATION;
-  const initialAnimationDelay = isRoot || isReplacingTempNode ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isRoot ? 0 : INITIAL_ANIMATION_DURATION;
+  const initialAnimationDelay = isRoot ? 0 : INITIAL_ANIMATION_DELAY;
 
   const content = isEditing ? <NodeButtonText id={id} isRoot={isRoot} nestedLevel={nestedLevel} />
     : <NodeButton id={id} isRoot={isRoot} nestedLevel={nestedLevel} />;
@@ -50,8 +49,8 @@ export default function NodeContainer(props) {
       <foreignObject
         width="700"
         height={NODE_BUTTON_HEIGHT + 3}
-        x={x}
-        y={y}
+        x={xEnds}
+        y={y - MARGIN_TOP}
         style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
       >
         <div className="NodeButtonContainer">

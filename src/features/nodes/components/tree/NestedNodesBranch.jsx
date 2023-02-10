@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { selectIsNodeExpandedById, selectNodePositionById } from '../../nodes.selectors';
 
 import {
   INITIAL_ANIMATION_DELAY,
@@ -14,17 +15,16 @@ import {
 export default function NestedNodesBranch(props) {
   const { id, lastChildId } = props;
 
-  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
-  const xEnds = useSelector((state) => state.nodes.positionsById[id]?.xEnds);
-  const y = useSelector((state) => state.nodes.positionsById[id]?.y);
-  const pathYEnds = useSelector((state) => state.nodes.positionsById[lastChildId]?.y || y);
+  const isExpanded = useSelector(selectIsNodeExpandedById(id));
+  const { xEnds, y } = useSelector(selectNodePositionById(id));
+  const { y: pathYEnds } = useSelector(selectNodePositionById(lastChildId));
 
   const theme = useTheme();
 
   const x = xEnds + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
 
-  if (!isExpanded) return null;
+  if (!isExpanded || !lastChildId) return null;
 
   return (
     <path

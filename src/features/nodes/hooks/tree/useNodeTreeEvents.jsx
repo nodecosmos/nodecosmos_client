@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import usePrevProps from '../../../../common/hooks/usePrevProps';
 import { setAlert } from '../../../app/appSlice';
+import { selectIsNodeExpandedById, selectNodeAttributeById, selectNodeById } from '../../nodes.selectors';
 import { createNode, deleteNode, updateNode } from '../../nodes.thunks';
 import {
   addTmpNewNode,
@@ -16,18 +17,20 @@ import {
 export default function useNodeTreeEvents(id) {
   const dispatch = useDispatch();
 
-  const persistentId = useSelector((state) => state.nodes.byId[id].persistentId);
-  const isRoot = useSelector((state) => state.nodes.byId[id].isRoot);
-  const isTemp = useSelector((state) => state.nodes.byId[id].isTemp);
-  const isCurrent = useSelector((state) => state.nodes.byId[id].isCurrent);
-  const isEditing = useSelector((state) => state.nodes.byId[id].isEditing);
-  const isExpanded = useSelector((state) => state.nodes.expandedTreeNodesById[id]);
+  const {
+    persistentId,
+    isRoot,
+    isTemp,
+    isCurrent,
+    isEditing,
+    title,
+    parentId,
+  } = useSelector(selectNodeById(id));
 
-  const title = useSelector((state) => state.nodes.byId[id]?.title);
+  const isExpanded = useSelector(selectIsNodeExpandedById(id));
   const prevTitle = usePrevProps(title);
 
-  const parentId = useSelector((state) => state.nodes.byId[id].parent_id);
-  const persistentParentId = useSelector((state) => state.nodes.byId[parentId]?.persistentId);
+  const persistentParentId = useSelector(selectNodeAttributeById(parentId, 'persistentId'));
 
   const navigate = useNavigate();
 
@@ -43,8 +46,8 @@ export default function useNodeTreeEvents(id) {
     }
   };
 
-  const addNodeLastClick = useRef(null);
   //--------------------------------------------------------------------------------------------------------------------
+  const addNodeLastClick = useRef(null);
   const addChildNode = async () => {
     // prevent clicking too fast with delta
     const delta = 150;
@@ -68,14 +71,13 @@ export default function useNodeTreeEvents(id) {
       return;
     }
 
-    dispatch(addTmpNewNode({ parent_id: id }));
+    dispatch(addTmpNewNode({ parentId: id }));
   };
 
   const editNode = () => dispatch(updateNodeState({ id, isEditing: true }));
 
   //--------------------------------------------------------------------------------------------------------------------
   const saveNodeTimeout = useRef(null);
-
   const saveNode = useCallback(() => {
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
 

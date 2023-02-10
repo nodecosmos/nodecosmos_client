@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
+import { selectNodeAttributeById } from '../../nodes.selectors';
 import { NODE_BUTTON_HEIGHT } from './constants';
 
 export default function NodeButton(props) {
@@ -13,17 +14,10 @@ export default function NodeButton(props) {
     nestedLevel,
     isRoot,
   } = props;
+  const title = useSelector(selectNodeAttributeById(id, 'title'));
 
-  const nodeTitle = useSelector((state) => state.nodes.byId[id].title);
   const { onNodeClick } = useNodeTreeEvents(id);
-  const {
-    backgroundColor,
-    color,
-  } = useNodeButtonBackground({
-    id,
-    nestedLevel,
-    isRoot,
-  });
+  const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   return (
     <Button
@@ -45,7 +39,7 @@ export default function NodeButton(props) {
           color,
         }}
       >
-        {nodeTitle}
+        {title}
       </div>
     </Button>
   );

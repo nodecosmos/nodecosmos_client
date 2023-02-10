@@ -25,7 +25,6 @@ export default function Tree(props) {
               key={nodeProps.id}
               id={nodeProps.id}
               nestedLevel={nodeProps.nestedLevel}
-              upperSiblingId={nodeProps.upperSiblingId}
               lastChildId={nodeProps.lastChildId}
               isRoot={nodeProps.nestedLevel === 0}
             />

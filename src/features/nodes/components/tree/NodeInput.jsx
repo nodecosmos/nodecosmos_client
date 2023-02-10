@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../../hooks/tree/useNodeButtonBackground';
 import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
+import { selectNodeAttributeById } from '../../nodes.selectors';
 import { NODE_BUTTON_HEIGHT } from './constants';
 
 export default function NodeButtonText(props) {
@@ -25,7 +26,7 @@ export default function NodeButtonText(props) {
 
   const [focused, setFocused] = React.useState(false);
 
-  const nodeTitle = useSelector((state) => state.nodes.byId[id].title);
+  const title = useSelector(selectNodeAttributeById(id, 'title'));
 
   //--------------------------------------------------------------------------------------------------------------------
   const {
@@ -56,10 +57,10 @@ export default function NodeButtonText(props) {
         onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
         onKeyUp={saveNode}
         onBlur={() => focused && handleNodeBlur()}
-        value={nodeTitle || ''}
+        value={title || ''}
         className="NodeButtonText"
         maxLength={50}
-        size={Math.max((nodeTitle && nodeTitle.length) || 0, 3)}
+        size={Math.max((title && title.length) || 0, 3)}
         style={{ color, fontFamily: 'monospace' }}
       />
     </div>

@@ -1,18 +1,23 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useShallowEqualSelector from '../../../../common/hooks/useShallowEqualSelector';
 import { COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT } from '../../components/tree/constants';
+import { selectTransformablePositionsById } from '../../../app/app.selectors';
+import {
+  selectCurrentTmpNodeId,
+  selectExpandedTreeNodesById,
+  selectMountedTreeNodesById,
+  selectNestedNodesByParentId,
+} from '../../nodes.selectors';
 
 const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
 
 export default function useTreePositionCalculator(id) {
-  const nestedNodesByParentId = useShallowEqualSelector((state) => state.nodes.nestedNodesByParentId);
-  const mountedTreeNodesById = useShallowEqualSelector((state) => state.nodes.mountedTreeNodesById);
-  const expandedTreeNodesById = useShallowEqualSelector((state) => state.nodes.expandedTreeNodesById);
-  const currentTempNodeId = useSelector((state) => state.nodes.currentTempNodeId);
+  const nestedNodesByParentId = useSelector(selectNestedNodesByParentId);
+  const mountedTreeNodesById = useSelector(selectMountedTreeNodesById);
+  const expandedTreeNodesById = useSelector(selectExpandedTreeNodesById);
+  const currentTempNodeId = useSelector(selectCurrentTmpNodeId);
 
-  const clientHeight = useSelector((state) => state.app.transformablePositionsById[id]?.clientHeight);
-  const scrollTop = useSelector((state) => state.app.transformablePositionsById[id]?.scrollTop);
+  const { clientHeight, scrollTop } = useSelector(selectTransformablePositionsById(id));
 
   return useMemo(() => {
     const currentAllTreeNodes = [];
