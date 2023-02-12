@@ -4,19 +4,8 @@ import { redirect } from 'react-router-dom';
 import nodecosmos from '../../../apis/nodecosmos-server';
 import { login, logout } from '../authenticationSlice';
 
-export default function useUserAuthentication(props) {
+export default function useUserAuthentication() {
   const dispatch = useDispatch();
-
-  const handleAuthentication = (response) => {
-    const { user, token } = response.data;
-
-    localStorage.setItem('token', token);
-    localStorage.setItem('currentUser', JSON.stringify(user));
-
-    dispatch(login({ user, token }));
-
-    redirect('/');
-  };
 
   const handleLogin = async (formValues) => {
     try {
@@ -36,6 +25,17 @@ export default function useUserAuthentication(props) {
     localStorage.removeItem('currentUser');
 
     dispatch(logout());
+  };
+
+  const handleAuthentication = (response) => {
+    const { user, token } = response.data;
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
+    dispatch(login({ user, token }));
+
+    redirect('/');
   };
 
   const handleUserCreation = async (formValues) => {

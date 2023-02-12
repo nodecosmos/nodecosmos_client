@@ -1,71 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
+import treeReducers, { buildTreeFromRootNode } from './tree.reducers';
+
 import {
   createNode, indexNodes, showNode, deleteNode,
 } from './nodes.thunks';
 
-const mapNodesToState = (state, nodes) => {
-  nodes.forEach((payload) => {
-    const { id } = payload;
-
-    payload.persistentId = id;
-    payload.parentId = payload.parent_id;
-
-    payload.ancestorIds = payload.ancestor_ids || [];
-    payload.descendantIds = payload.descendant_ids || [];
-
-    state.nestedNodesByParentId[id] = payload.node_ids;
-    state.mountedTreeNodesById[id] = payload.isMounted || false;
-
-    state.byId[id] = payload;
-  });
-};
-
 const nodesSlice = createSlice({
   name: 'nodes',
   initialState: {
+    /**
+     * @type {{
+     *   id: string,
+     *   parentId: string,
+     *   persistentId: string,
+     *   persistentParentId: string,
+     *   rootId: string,
+     *   editorIds: string[],
+     *   childIds: string[],
+     *   descendantIds: string[],
+     *   descendantsById: {},
+     *   title: string,
+     *   description: string,
+     *   descriptionMarkdown: string,
+     *   createdAt: string,
+     *   updatedAt: string,
+     *   owner: {
+     *     id: string,
+     *     username: string,
+     *   },
+     * }}
+     */
     byId: {},
     positionsById: {},
     mountedTreeNodesById: {},
     expandedTreeNodesById: {},
-    nestedNodesByParentId: {},
+    childIdsByParentId: {},
     selectedNodeId: null,
     currentTempNodeId: null, // used to render & focus on the new node if it's outside the viewport
   },
   reducers: {
-    deleteRootDescendantArray(state, action) { delete state[action.payload.id].descendants; },
-    expandNode(state, action) {
-      const { id } = action.payload;
-
-      state.expandedTreeNodesById[id] = true;
-
-      const { descendantIds } = state.byId[id];
-
-      nodesSlice.caseReducers.mountNodes(state, { payload: descendantIds });
-    },
-    collapseNode(state, action) {
-      const { id } = action.payload;
-
-      state.expandedTreeNodesById[id] = false;
-
-      const { descendantIds } = state.byId[id];
-
-      nodesSlice.caseReducers.unmountNodes(state, { payload: descendantIds });
-    },
-    mountNodes(state, action) {
-      action.payload.forEach((id) => {
-        const node = state.byId[id];
-        // convert undefined to false for existing nodes that are not expanded
-        state.expandedTreeNodesById[id] = !!state.expandedTreeNodesById[id];
-        // mount the node if all its ancestors are expanded
-        const areAncestorsExpanded = node.ancestorIds.every(
-          // ancestor not in the tree
-          (ancestorId) => state.expandedTreeNodesById[ancestorId] === undefined
-            || state.expandedTreeNodesById[ancestorId],
-        );
-        if (areAncestorsExpanded) state.mountedTreeNodesById[id] = true;
-      });
-    },
-    unmountNodes(state, action) { action.payload.forEach((id) => { state.mountedTreeNodesById[id] = false; }); },
+    ...treeReducers,
     updateNodeState(state, action) {
       const { id } = action.payload;
 
@@ -77,19 +51,21 @@ const nodesSlice = createSlice({
       const node = state.byId[action.payload.id];
       const parent = state.byId[node.parentId];
 
-      if (parent) {
-        state.nestedNodesByParentId[parent.id] = state.nestedNodesByParentId[parent.id].filter((id) => id !== node.id);
-      }
-
       delete state.positionsById[node.id];
       delete state.mountedTreeNodesById[node.id];
       delete state.expandedTreeNodesById[node.id];
       delete state.byId[node.id];
 
-      node.ancestorIds.forEach((ancestorId) => {
-        const ancestor = state.byId[ancestorId];
-        if (ancestor) ancestor.descendantIds = ancestor.descendantIds.filter((id) => id !== node.id);
-      });
+      if (parent) {
+        // delete from childIds of parent
+        state.childIdsByParentId[parent.id] = state.childIdsByParentId[parent.id].filter((id) => id !== node.id);
+
+        // delete from descendantIds of ancestors
+        node.ancestorIds.forEach((ancestorId) => {
+          const ancestor = state.byId[ancestorId];
+          if (ancestor) ancestor.descendantIds = ancestor.descendantIds.filter((id) => id !== node.id);
+        });
+      }
     },
     setPositionsById(state, action) { state.positionsById = action.payload; },
     setSelectedNode(state, action) {
@@ -122,7 +98,7 @@ const nodesSlice = createSlice({
 
       state.mountedTreeNodesById[id] = true;
       state.expandedTreeNodesById[id] = false;
-      state.nestedNodesByParentId[id] = [];
+      state.childIdsByParentId[id] = [];
 
       if (action.payload.isReplacingTempNode) {
         state.byId[action.payload.tempId].id = id;
@@ -133,8 +109,8 @@ const nodesSlice = createSlice({
           isTemp: true,
           parentId,
           ancestorIds: nodeAncestorIds,
-          nodeIds: [],
           descendantIds: [],
+          childIds: [],
           owner: parent.owner,
           ...action.payload,
         };
@@ -143,28 +119,26 @@ const nodesSlice = createSlice({
       // used to render & focus on the new node if it's outside the viewport
       state.currentTempNodeId = id;
       // add temp node to parent's children
-      state.nestedNodesByParentId[parentId].push(id);
+      state.childIdsByParentId[parentId].push(id);
       nodeAncestorIds.forEach((ancestorId) => {
         // add temp node to ancestor's descendants
         if (state.byId[ancestorId]) state.byId[ancestorId].descendantIds.push(id);
       });
     },
-    //------------------------------------------------------------------------------------------------------------------
-    clearTree(state, _action) {
-      Object.keys(state.byId).forEach((currentId) => {
-        delete state.positionsById[currentId];
-        delete state.mountedTreeNodesById[currentId];
-        delete state.expandedTreeNodesById[currentId];
-      });
-    },
   },
   extraReducers(builder) {
     builder
-      .addCase(indexNodes.fulfilled, (state, action) => mapNodesToState(state, action.payload))
+      .addCase(indexNodes.fulfilled, (state, action) => {
+        action.payload.forEach((payload) => {
+          const { id } = payload;
+          state.byId[id] = payload;
+          state.childIdsByParentId[id] = [];
+          state.mountedTreeNodesById[id] = true;
+          state.expandedTreeNodesById[id] = false;
+        });
+      })
       .addCase(showNode.fulfilled, (state, action) => {
-        mapNodesToState(state, [{ ...action.payload, isMounted: true, isRoot: true }]);
-        mapNodesToState(state, action.payload?.descendants || []);
-        delete state.byId[action.payload.id].descendants;
+        buildTreeFromRootNode({ state, rootNode: action.payload });
       })
       .addCase(createNode.fulfilled, (state, action) => {
         // assign persistent id to temp node
@@ -190,7 +164,6 @@ export const {
   setSelectedNode,
   setPositionsById,
   setEditNodeDescription,
-  clearTree,
 } = actions;
 
 export default reducer;

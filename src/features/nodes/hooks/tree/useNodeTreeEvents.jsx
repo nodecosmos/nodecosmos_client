@@ -60,18 +60,16 @@ export default function useNodeTreeEvents(id) {
     // if (isTemp) return;
 
     if (!persistentId) {
-      const message = title ? `Node "${title}" not initialized yet. Please wait...`
-        : 'Current node not initialized yet. Please add title to current node in order to create child node.';
+      const notStoredYet = `Node "${title}" not initialized yet. Please wait...`;
+      const notInitializedYet = 'Current node not initialized yet. '
+        + 'Please add title to current node in order to create child node.';
 
-      dispatch(setAlert({
-        isOpen: true,
-        severity: 'error',
-        message,
-      }));
-      return;
+      const message = title ? notStoredYet : notInitializedYet;
+
+      dispatch(setAlert({ isOpen: true, severity: 'error', message }));
+    } else {
+      dispatch(addTmpNewNode({ parentId: id }));
     }
-
-    dispatch(addTmpNewNode({ parentId: id }));
   };
 
   const editNode = () => dispatch(updateNodeState({ id, isEditing: true }));

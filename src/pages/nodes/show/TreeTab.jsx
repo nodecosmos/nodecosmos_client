@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NodeDescription from '../../../features/nodes/components/NodeDescription';
 import Tree from '../../../features/nodes/components/tree/Tree';
 import TreeContainer from '../../../features/nodes/components/tree/TreeContainer';
-import { clearTree } from '../../../features/nodes/nodesSlice';
 
 export default function TreeTab() {
   const { id } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => () => {
-    dispatch(clearTree());
-  });
 
   return (
     <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1}>

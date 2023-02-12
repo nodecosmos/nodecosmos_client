@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 export const selectNodesById = (state) => state.nodes.byId;
-export const selectNestedNodesByParentId = (state) => state.nodes.nestedNodesByParentId;
+export const selectchildIdsByParentId = (state) => state.nodes.childIdsByParentId;
 export const selectMountedTreeNodesById = (state) => state.nodes.mountedTreeNodesById;
 export const selectExpandedTreeNodesById = (state) => state.nodes.expandedTreeNodesById;
 export const selectPositionsById = (state) => state.nodes.positionsById;
@@ -33,6 +33,6 @@ export const selectNodeAttributeById = (nodeId, attribute) => createSelector(
 );
 
 export const areNestedNodesPresent = (nodeId) => createSelector(
-  selectNestedNodesByParentId,
-  (nestedNodesByParentId) => nestedNodesByParentId[nodeId].length > 0,
+  selectchildIdsByParentId,
+  (childIdsByParentId) => childIdsByParentId[nodeId].length > 0,
 );
