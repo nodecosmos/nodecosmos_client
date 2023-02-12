@@ -16,6 +16,7 @@ export const buildTreeFromRootNode = ({ state, rootNode }) => {
       upperSiblingId = null,
       ancestorIds = [],
       descendantIds = null,
+      nestedLevel = 0,
     },
   ) => {
     const isRoot = node.id === rootNode.id;
@@ -32,6 +33,7 @@ export const buildTreeFromRootNode = ({ state, rootNode }) => {
       parentId,
       upperSiblingId,
       ancestorIds,
+      nestedLevel,
       childIds: [],
       descendantIds: [],
     };
@@ -40,6 +42,7 @@ export const buildTreeFromRootNode = ({ state, rootNode }) => {
     if (parentId) {
       state.byId[parentId].childIds.push(id);
       state.childIdsByParentId[parentId].push(id);
+      // populate parent's descendantIds with current node's id
       descendantIds.push(id);
     }
 
@@ -52,10 +55,12 @@ export const buildTreeFromRootNode = ({ state, rootNode }) => {
         upperSiblingId: node.childIds[index - 1],
         ancestorIds: [...ancestorIds, id],
         descendantIds: state.byId[id].descendantIds,
+        nestedLevel: nestedLevel + 1,
       });
     });
 
     // further populate parent's descendantIds with current node's descendantIds
+    // after all children have been mapped
     if (descendantIds) descendantIds.push(...state.byId[id].descendantIds);
   };
 
@@ -75,6 +80,8 @@ const toggleNodesMount = (state, nodeIds) => {
   });
 };
 
+const unMountNodes = (state, nodeIds) => { nodeIds.forEach((id) => { state.mountedTreeNodesById[id] = false; }); };
+
 export default {
   expandNode(state, action) {
     const { id } = action.payload;
@@ -90,6 +97,6 @@ export default {
 
     const { descendantIds } = state.byId[id];
 
-    toggleNodesMount(state, descendantIds);
+    unMountNodes(state, descendantIds);
   },
 };

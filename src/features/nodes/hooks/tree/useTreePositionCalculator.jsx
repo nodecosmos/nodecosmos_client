@@ -65,6 +65,9 @@ export default function useTreePositionCalculator(id) {
       };
 
       // recursively calculates the position of a node and its children top-down
+      // TODO: move tree to separate feature and calculate positions O(n).
+      // There will be no need for recursion as the tree will be flat once it's built with something
+      // like src/features/nodes/tree.reducers.js:7
       const calculateNodePosition = (
         nodeId = id,
         nestedLevel = 0,
