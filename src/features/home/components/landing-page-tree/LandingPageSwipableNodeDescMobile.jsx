@@ -31,7 +31,7 @@ function SwipeableEdgeDrawer() {
       backgroundColor="background.2"
       onClick={() => setHeight((prevHeight) => (prevHeight > 0 ? 0 : textRef.current.clientHeight))}
       sx={{
-        borderRadius: 2,
+        borderRadius: 1,
         borderTopLeftRadius: 16, // px
         borderTopRightRadius: 16, // px
         overflow: 'hidden',
