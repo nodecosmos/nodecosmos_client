@@ -1,0 +1,51 @@
+import React from 'react';
+import { useTheme } from '@mui/material';
+import * as PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+/* nodecosmos */
+import usePrevProps from '../../../common/hooks/usePrevProps';
+import {
+  INITIAL_ANIMATION_DELAY,
+  INITIAL_ANIMATION_DURATION,
+  MARGIN_LEFT,
+  MARGIN_TOP,
+  TRANSITION_ANIMATION_DURATION,
+} from '../trees.constants';
+import { selectPositionByNodeId, selectTreeNodeAttributeById } from '../trees.selectors';
+
+export default function NestedNodesBranch(props) {
+  const { treeNodeId } = props;
+
+  const isExpanded = useSelector(selectTreeNodeAttributeById(treeNodeId, 'isExpanded'));
+  const treeLastChildId = useSelector(selectTreeNodeAttributeById(treeNodeId, 'treeLastChildId'));
+  const { xEnd, y } = useSelector(selectPositionByNodeId(treeNodeId));
+  const { y: pathYEnd } = useSelector(selectPositionByNodeId(treeLastChildId));
+  const prevPathYEnd = usePrevProps(pathYEnd);
+
+  const theme = useTheme();
+
+  const x = xEnd + MARGIN_LEFT;
+  const linkY = y + MARGIN_TOP;
+
+  const yEnd = pathYEnd || prevPathYEnd;
+
+  if (!isExpanded || !treeLastChildId || !yEnd) return null;
+
+  return (
+    <path
+      stroke={theme.palette.tree.default}
+      fill="transparent"
+      strokeWidth={3.5}
+      d={`M ${x} ${linkY} L ${x} ${yEnd}`}
+      style={{
+        opacity: 0,
+        animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+        transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+      }}
+    />
+  );
+}
+
+NestedNodesBranch.propTypes = {
+  treeNodeId: PropTypes.string.isRequired,
+};

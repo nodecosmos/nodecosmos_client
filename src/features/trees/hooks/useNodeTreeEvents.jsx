@@ -1,48 +1,50 @@
 import { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import usePrevProps from '../../../../common/hooks/usePrevProps';
-import { setAlert } from '../../../app/appSlice';
-import { selectIsNodeExpandedById, selectNodeAttributeById, selectNodeById } from '../../nodes.selectors';
-import { createNode, deleteNode, updateNode } from '../../nodes.thunks';
+/* nodecosmos */
+import usePrevProps from '../../../common/hooks/usePrevProps';
+import { setAlert } from '../../app/appSlice';
+import { selectNodeAttributeById, selectNodeById } from '../../nodes/nodes.selectors';
+import { createNode, deleteNode, updateNode } from '../../nodes/nodes.thunks';
+import { updateNodeState } from '../../nodes/nodesSlice';
+import { selectTreeNodeAttributeById, selectTreeNodeById } from '../trees.selectors';
 import {
-  addTmpNewNode,
-  collapseNode,
-  expandNode,
-  updateNodeState,
-  setSelectedNode,
-  deleteNodeFromState,
-} from '../../nodesSlice';
+  buildNewTreeNode,
+  collapseTreeNode,
+  expandTreeNode,
+  removeTreeNodeFromState,
+  setSelectedTreeNode,
+  updateTreeNode,
+} from '../treesSlice';
 
-export default function useNodeTreeEvents(id) {
+export default function useNodeTreeEvents(treeNodeId) {
   const dispatch = useDispatch();
 
   const {
-    persistentId,
+    nodeId,
+    parentId,
     isRoot,
     isTemp,
-    isCurrent,
+    isExpanded,
+    isSelected,
     isEditing,
-    title,
-    parentId,
-  } = useSelector(selectNodeById(id));
+    isNewlyAddedNode,
+  } = useSelector(selectTreeNodeById(treeNodeId));
 
-  const isExpanded = useSelector(selectIsNodeExpandedById(id));
+  const title = useSelector(selectNodeAttributeById(nodeId, 'title'));
   const prevTitle = usePrevProps(title);
-
-  const persistentParentId = useSelector(selectNodeAttributeById(parentId, 'persistentId'));
 
   const navigate = useNavigate();
 
   //--------------------------------------------------------------------------------------------------------------------
   const onNodeClick = () => {
     if (isEditing) return;
-    if (isExpanded && isCurrent) {
-      dispatch(collapseNode({ id }));
-      dispatch(setSelectedNode({ id: null }));
+    if (isExpanded && isSelected) {
+      dispatch(collapseTreeNode(treeNodeId));
+      dispatch(setSelectedTreeNode({ treeNodeId, value: false }));
     } else {
-      dispatch(expandNode({ id }));
-      dispatch(setSelectedNode({ id }));
+      dispatch(expandTreeNode(treeNodeId));
+      dispatch(setSelectedTreeNode({ treeNodeId, value: true }));
     }
   };
 
@@ -59,18 +61,22 @@ export default function useNodeTreeEvents(id) {
 
     // if (isTemp) return;
 
-    if (!persistentId) {
+    if (!nodeId) {
       const message = title ? `Node "${title}" not initialized yet. Please wait...`
         : 'Current node not initialized yet. '
         + 'Please add title to current node in order to create child node.';
 
-      dispatch(setAlert({ isOpen: true, severity: 'error', message }));
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'error',
+        message,
+      }));
     } else {
-      dispatch(addTmpNewNode({ parentId: id }));
+      dispatch(buildNewTreeNode({ treeParentId: treeNodeId, parentId: nodeId }));
     }
   };
 
-  const editNode = () => dispatch(updateNodeState({ id, isEditing: true }));
+  const editNode = () => dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
 
   //--------------------------------------------------------------------------------------------------------------------
   const saveNodeTimeout = useRef(null);
@@ -81,39 +87,24 @@ export default function useNodeTreeEvents(id) {
       if (!title || title === prevTitle) return;
 
       if (isTemp) {
-        dispatch(createNode({
-          tempId: id,
-          title,
-          parent_id: persistentParentId,
-        }));
+        dispatch(createNode({ treeNodeId, title, parent_id: parentId }));
       } else {
-        dispatch(updateNode({
-          id: persistentId,
-          title,
-        }));
+        dispatch(updateNode({ id: nodeId, title }));
       }
     }, 1000);
-  }, [dispatch, id, isTemp, persistentId, persistentParentId, prevTitle, title]);
+  }, [dispatch, isTemp, nodeId, parentId, prevTitle, title, treeNodeId]);
 
   const handleNodeTitleChange = (event) => {
-    dispatch(updateNodeState({
-      id,
-      title: event.currentTarget.value,
-    }));
+    dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
   };
 
-  const handleNodeBlur = () => {
-    dispatch(updateNodeState({
-      id,
-      isEditing: false,
-    }));
-  };
+  const handleNodeBlur = () => { dispatch(updateTreeNode({ treeNodeId, isEditing: false })); };
 
   const removeNode = () => {
-    if (isTemp) {
-      dispatch(deleteNodeFromState({ id }));
+    if (isNewlyAddedNode) {
+      dispatch(removeTreeNodeFromState(treeNodeId));
     } else {
-      dispatch(deleteNode(id));
+      dispatch(deleteNode(nodeId));
     }
     if (isRoot) navigate('/n');
   };

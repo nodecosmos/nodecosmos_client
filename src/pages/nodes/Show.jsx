@@ -8,7 +8,6 @@ import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode } from '../../features/nodes/nodes.thunks';
-import { setSelectedNode } from '../../features/nodes/nodesSlice';
 
 export default function NodeShow() {
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ export default function NodeShow() {
 
     return () => {
       dispatch(setSubtitle(null));
-      dispatch(setSelectedNode({ id: null }));
     };
   }, [dispatch, nodeTitle]);
 

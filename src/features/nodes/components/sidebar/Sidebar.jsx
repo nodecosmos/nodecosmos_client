@@ -8,7 +8,6 @@ import {
   faPhotoFilm,
   faUserGroup,
   faChartPie,
-  faCircleNodes,
   faGears,
   faDiagramNext,
 } from '@fortawesome/pro-light-svg-icons';

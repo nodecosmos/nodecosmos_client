@@ -23,6 +23,8 @@ export const showNode = createAsyncThunk(
   },
 );
 
+// For now thunks are handled automatically by extraReducers in nodesSlice and treesSlice.
+// Rethink this approach as it may be too implicit.
 export const createNode = createAsyncThunk(
   'nodes/createNode',
   async (payload, _thunkAPI) => {
@@ -48,9 +50,12 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async (id, _thunkAPI) => {
+  async ({ id, treeNodeId }, _thunkAPI) => {
     const response = await nodecosmos.delete(`/nodes/${id}`);
 
-    return response.data;
+    return {
+      ...response.data,
+      treeNodeId,
+    };
   },
 );

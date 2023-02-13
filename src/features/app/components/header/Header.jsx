@@ -49,7 +49,7 @@ export default function Header() {
         sm: 6,
         xs: 0,
       }}
-      backgroundColor="background.3"
+      backgroundColor="background.2"
       boxShadow="header"
       sx={{
         borderTopLeftRadius: {
