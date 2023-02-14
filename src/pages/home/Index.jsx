@@ -37,8 +37,8 @@ export default function Index() {
   const preventTabChange = useRef(false);
   const timeout = useRef(null);
 
-  const hero = useRef(null);
-  const heroInView = useInView(hero, { amount: 'all' });
+  const heroLogo = useRef(null);
+  const heroInView = useInView(heroLogo, { amount: 1 });
 
   const scrollEnabled = useSelector((state) => state.app.scrollEnabled);
 
@@ -191,7 +191,7 @@ export default function Index() {
           justifyContent="center"
         >
           <Container maxWidth="lg" sx={{ mt: `${HEADER_HEIGHT}px` }}>
-            <Box ref={hero}><Hero inView={heroInView} /></Box>
+            <Box><Hero heroLogoRef={heroLogo} inView={heroInView} /></Box>
             <Box ref={innovate}><Innovate /></Box>
             <Box id="collaborate" ref={collaborate}><Collaborate /></Box>
             <Box ref={investments}><Investments /></Box>
