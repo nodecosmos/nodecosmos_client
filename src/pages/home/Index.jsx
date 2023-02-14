@@ -38,7 +38,7 @@ export default function Index() {
   const timeout = useRef(null);
 
   const heroLogo = useRef(null);
-  const heroInView = useInView(heroLogo, { amount: 1 });
+  const heroInView = useInView(heroLogo, { amount: 0.8 });
 
   const scrollEnabled = useSelector((state) => state.app.scrollEnabled);
 
