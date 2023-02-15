@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 
-export default function Hero({ inView }) {
+export default function Hero({ inView, heroLogoRef }) {
   return (
     <Box>
       <Box
@@ -21,8 +21,10 @@ export default function Hero({ inView }) {
           alt="logo"
           width={85}
           height={85}
+          ref={heroLogoRef}
           style={{
             animation: inView && 'rotate 0.3s',
+            visibility: inView ? 'visible' : 'hidden',
           }}
         />
         <Box ml={{
@@ -74,4 +76,5 @@ export default function Hero({ inView }) {
 
 Hero.propTypes = {
   inView: PropTypes.bool.isRequired,
+  heroLogoRef: PropTypes.object.isRequired,
 };

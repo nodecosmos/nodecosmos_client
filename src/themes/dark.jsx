@@ -85,9 +85,10 @@ export default {
 
     background: {
       1: '#282a30',
-      2: '#2f333a',
+      2: '#343841',
       3: '#373b43',
       4: '#555b66',
+      5: '#32373e',
 
       labels: {
         red: '#e15e7d',
@@ -103,7 +104,7 @@ export default {
       },
 
       scrollbarThumb: '#36393f',
-      paper: '#32363d',
+      paper: '#373b43',
       hover: 'rgba(0, 0, 0, 0.1)',
       contrast: '#cccccc',
     },
@@ -140,9 +141,9 @@ export default {
       heading: '#80c7ff',
       emphasis: '#ffea83',
       quote: '#57606e',
-      meta: '#9a9da9',
+      meta: '#ff87c4',
       link: '#83c1ea',
-      background: '#363a40',
+      background: '#373b43',
       foreground: '#9a9da9',
       selection: 'rgba(255,255,255,0.06)',
       selectionMatch: 'rgba(255,255,255,0.06)',
@@ -165,16 +166,16 @@ export default {
       sectionSecondary: '#cdd4eb',
       gradients: {
         1: {
-          xs: 'linear-gradient(90deg, #ac90ff 0%, #ff4b8e 55%)',
-          sm: 'linear-gradient(90deg, #b87cf9 0%, #ff4b8e 75%)',
+          xs: 'linear-gradient(90deg, #b787ff, #ff87c4, #ff4b8d)',
+          sm: 'linear-gradient(90deg, #b787ff, #ff87c4, #ff4b8d)',
         },
         2: {
-          xs: 'linear-gradient(90deg, #51e0f9 0%, #7e8bff 55%)',
-          sm: 'linear-gradient(90deg, #51e0f9 0%, #7e8bff 75%)',
+          xs: 'linear-gradient(90deg, #ff87c4, #bb99ff, #80c7ff)',
+          sm: 'linear-gradient(90deg, #ff87c4, #bb99ff, #80c7ff)',
         },
         3: {
-          xs: 'linear-gradient(90deg, #b3ff68 0%, #ffe386 55%)',
-          sm: 'linear-gradient(90deg, #b3ff68 0%, #ffe386 75%)',
+          xs: 'linear-gradient(90deg, #b3ff68, #ffe386, #ff8888)',
+          sm: 'linear-gradient(90deg, #b3ff68, #ffe386, #ff8888)',
         },
       },
       collaboratePurple: '#c187ff',

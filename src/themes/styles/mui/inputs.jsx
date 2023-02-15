@@ -8,7 +8,7 @@ export default (currentTheme) => ({
       },
       root: {
         borderRadius: 4,
-        background: currentTheme.palette.background[1],
+        background: currentTheme.palette.background[5],
         '.MuiOutlinedInput-input': {
           '&.MuiInputBase-inputMultiline': {
             padding: 0,
