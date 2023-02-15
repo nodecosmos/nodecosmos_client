@@ -62,6 +62,10 @@ const nodesSlice = createSlice({
       const { id, value } = action.payload;
       state.byId[id].isEditingDescription = value;
     },
+    buildTmpNode(state, action) {
+      const { tmpNodeId: id } = action.payload;
+      state.byId[id] = {};
+    },
   },
   extraReducers(builder) {
     builder
@@ -91,6 +95,7 @@ export const {
   updateNodeState,
   deleteNodeFromState,
   setEditNodeDescription,
+  buildTmpNode,
 } = actions;
 
 export default reducer;

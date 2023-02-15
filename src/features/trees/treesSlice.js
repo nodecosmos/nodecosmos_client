@@ -18,6 +18,7 @@ const treesSlice = createSlice({
      *    treeNodeId: string,
      *    treeParentId: string,
      *    treeUpperSiblingId: string,
+     *    treeLastChildId: string,
      *    nodeId: string,
      *    parentId: string,
      *    rootId: string,
@@ -26,7 +27,7 @@ const treesSlice = createSlice({
      *    isExpanded: boolean,
      *    isSelected: boolean,
      *    isEditing: boolean,
-     *    isNewlyAddedNode: boolean,
+     *    isTemp: boolean,
      *    treeChildIds: string[],
      *    treeAncestorIds: string[],
      *    treeDescendantIds: string[],
@@ -65,6 +66,7 @@ const treesSlice = createSlice({
     expandTreeNode: treeNodeMounter.expandTreeNode,
     collapseTreeNode: treeNodeMounter.collapseTreeNode,
     buildChildNode: treeNodeBuilder.buildChildNode,
+    handleNewNodeCreation: treeNodeBuilder.handleNewNodeCreation,
     setSelectedTreeNode: treeNodeSelector.setSelectedTreeNode,
     updateTreeNode: treeNodeUpdater.updateTreeNode,
     removeTreeNodeFromState: treeNodeRemover.removeTreeNodeFromState,
@@ -72,10 +74,7 @@ const treesSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(createNode.fulfilled, (state, action) => {
-        const { treeNodeId, id } = action.payload;
-        const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
-
-        state.byRootNodeId[rootNodeId][treeNodeId].nodeId = id;
+        treesSlice.caseReducers.handleNewNodeCreation(state, action);
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         treesSlice.caseReducers.removeTreeNodeFromState(state, action);

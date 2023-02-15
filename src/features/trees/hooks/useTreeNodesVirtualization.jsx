@@ -19,11 +19,18 @@ export default function useTreeNodeVirtualization(rootNodeId) {
 
     orderedTreeNodeIds.forEach((treeNodeId) => {
       const { y } = positionsById[treeNodeId] || {};
-      const { isExpanded, isMounted, isNewlyAddedNode } = treeNodes[treeNodeId];
+      const {
+        isExpanded,
+        isMounted,
+        isTemp,
+        treeParentId,
+      } = treeNodes[treeNodeId];
+      const isLastParentsChild = treeNodes[treeParentId]?.treeLastChildId === treeNodeId;
+
       const isInsideViewport = y > scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR - 1
           && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
 
-      if (isMounted && (isInsideViewport || isExpanded || isNewlyAddedNode)) {
+      if (isMounted && (isInsideViewport || isExpanded || isTemp || isLastParentsChild)) {
         treeNodeIdsToView.push(treeNodeId);
       }
     });

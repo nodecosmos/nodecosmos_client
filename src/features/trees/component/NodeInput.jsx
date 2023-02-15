@@ -21,7 +21,12 @@ export default function NodeInput(props) {
   const [focused, setFocused] = useState(false);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const { handleNodeTitleChange, handleNodeBlur, saveNode } = useNodeTreeEvents(treeNodeId);
+  const {
+    handleNodeTitleChange,
+    handleNodeBlur,
+    saveNode,
+    onNodeClick,
+  } = useNodeTreeEvents(treeNodeId);
 
   useEffect(() => {
     ref.current.focus();
@@ -41,11 +46,12 @@ export default function NodeInput(props) {
       <TagRounded fontSize="small" ml="-2px" />
       <input
         ref={ref}
+        onClick={onNodeClick}
         onChange={handleNodeTitleChange}
         onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
         onKeyUp={saveNode}
         onBlur={() => focused && handleNodeBlur()}
-        value={title}
+        value={title || ''}
         className="NodeButtonText"
         maxLength={MAX_NODE_INPUT_SIZE}
         size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}

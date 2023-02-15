@@ -6,7 +6,7 @@ import usePrevProps from '../../../common/hooks/usePrevProps';
 import { setAlert } from '../../app/appSlice';
 import { selectNodeAttributeById } from '../../nodes/nodes.selectors';
 import { createNode, deleteNode, updateNode } from '../../nodes/nodes.thunks';
-import { updateNodeState } from '../../nodes/nodesSlice';
+import { buildTmpNode, updateNodeState } from '../../nodes/nodesSlice';
 import { SAVE_NODE_TIMEOUT } from '../trees.constants';
 import { selectTreeNodeById } from '../trees.selectors';
 import {
@@ -28,7 +28,7 @@ export default function useNodeTreeEvents(treeNodeId) {
     isExpanded,
     isSelected,
     isEditing,
-    isNewlyAddedNode,
+    isTemp,
   } = useSelector(selectTreeNodeById(treeNodeId));
 
   const title = useSelector(selectNodeAttributeById(nodeId, 'title'));
@@ -58,8 +58,8 @@ export default function useNodeTreeEvents(treeNodeId) {
 
     addChildNodeLastClick.current = now;
 
-    if (!nodeId) {
-      const message = nodeId ? `Node "${title}" not initialized yet. Please wait...`
+    if (isTemp) {
+      const message = title ? `Node "${title}" not initialized yet. Please wait...`
         : 'Current node not initialized yet. '
         + 'Please add title to current node in order to create child node.';
 
@@ -69,7 +69,9 @@ export default function useNodeTreeEvents(treeNodeId) {
         message,
       }));
     } else {
-      dispatch(buildChildNode({ treeParentId: treeNodeId, parentId: nodeId }));
+      const tmpNodeId = Date.now();
+      dispatch(buildChildNode({ treeParentId: treeNodeId, tmpNodeId, parentId: nodeId }));
+      dispatch(buildTmpNode({ tmpNodeId }));
     }
   };
 
@@ -80,26 +82,26 @@ export default function useNodeTreeEvents(treeNodeId) {
 
   const editNode = () => dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
 
+  // save node after 1 second of inactivity
   const saveNodeTimeout = useRef(null);
-  const saveNode = useCallback(() => {
-    // save node after 1 second of inactivity
+  const saveNode = () => {
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
 
     saveNodeTimeout.current = setTimeout(() => {
       if (!title || title === prevTitle) return;
 
-      if (nodeId) {
-        dispatch(updateNode({ id: nodeId, title }));
-      } else {
+      if (isTemp) {
         dispatch(createNode({ treeNodeId, title, parent_id: parentId }));
+      } else {
+        dispatch(updateNode({ id: nodeId, title }));
       }
     }, SAVE_NODE_TIMEOUT);
-  }, [dispatch, nodeId, parentId, prevTitle, title, treeNodeId]);
+  };
 
   const handleNodeBlur = () => dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
 
   const removeNode = () => {
-    if (isNewlyAddedNode) {
+    if (isTemp) {
       dispatch(removeTreeNodeFromState(treeNodeId));
     } else {
       dispatch(deleteNode(nodeId));
