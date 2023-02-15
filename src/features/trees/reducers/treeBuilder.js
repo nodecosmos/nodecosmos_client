@@ -9,11 +9,13 @@ export default {
     const rootNode = action.payload;
     const { descendantsById, id: rootNodeId } = rootNode;
 
+    if (!descendantsById) return;
+
     // initialize state for root node
     state.byRootNodeId[rootNodeId] = {};
     state.orderedTreeNodeIdsByRootNodeId[rootNodeId] = [];
 
-    // Recursively map nodes as flat array
+    // Recursively map nodes
     const mapChildren = (
       {
         node = rootNode,

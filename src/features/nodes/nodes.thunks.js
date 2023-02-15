@@ -33,7 +33,7 @@ export const createNode = createAsyncThunk(
     return {
       ...response.data,
       parentId: payload.parent_id,
-      tempId: payload.tempId,
+      treeNodeId: payload.treeNodeId,
     };
   },
 );

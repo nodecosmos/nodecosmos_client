@@ -12,3 +12,9 @@ export const TRANSITION_ANIMATION_DURATION = 150; // ms
 export const TRANSFORMABLE_HEIGHT_MARGIN = 200;
 export const TRANSFORMABLE_WIDTH_MARGIN = 500;
 export const TRANSFORMABLE_MIN_WIDTH = 800;
+// for virtualization
+export const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
+
+export const SAVE_NODE_TIMEOUT = 1000; // ms
+export const MIN_NODE_INPUT_SIZE = 3;
+export const MAX_NODE_INPUT_SIZE = 50;

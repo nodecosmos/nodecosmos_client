@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import GradientText from '../../../../common/components/GradientText';
-import Workflow from '../landing-page-workflow/LandingPageWorkflow';
+import Workflow from '../../../home-workflow/LandingPageWorkflow';
 
 export default function LandingPageWorkflow() {
   return (

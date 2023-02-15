@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  createNode, indexNodes, showNode, deleteNode,
+  createNode, indexNodes, showNode, deleteNode, updateNode,
 } from './nodes.thunks';
 
 const nodesSlice = createSlice({

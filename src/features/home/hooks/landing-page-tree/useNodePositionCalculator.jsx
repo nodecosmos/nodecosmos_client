@@ -2,11 +2,11 @@ import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePrevProps from '../../../../common/hooks/usePrevProps';
 import useShallowEqualSelector from '../../../../common/hooks/useShallowEqualSelector';
-import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../components/landing-page-tree/constants';
+import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../../home-tree/constants';
 import {
   incrementNodesYEnds,
   updateNodePosition,
-} from '../../components/landing-page-tree/landingPageNodeSlice';
+} from '../../../home-tree/landingPageNodeSlice';
 
 export default function useNodePositionCalculator(props) {
   const {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TagRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -6,30 +6,27 @@ import { selectNodeAttributeById } from '../../nodes/nodes.selectors';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectTreeNodeAttributeById } from '../trees.selectors';
-import { NODE_BUTTON_HEIGHT } from '../trees.constants';
+import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../trees.constants';
 
 export default function NodeInput(props) {
   const { treeNodeId } = props;
   const ref = React.useRef(null);
 
-  const { backgroundColor, color } = useNodeButtonBackground(treeNodeId);
-
-  const [focused, setFocused] = React.useState(false);
-
   const nodeId = useSelector(selectTreeNodeAttributeById(treeNodeId, 'nodeId'));
   const title = useSelector(selectNodeAttributeById(nodeId, 'title'));
+  const titleLength = title ? title.length : 0;
+
+  const { backgroundColor, color } = useNodeButtonBackground(treeNodeId);
+
+  const [focused, setFocused] = useState(false);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const {
-    handleNodeTitleChange,
-    handleNodeBlur,
-    saveNode,
-  } = useNodeTreeEvents(treeNodeId);
+  const { handleNodeTitleChange, handleNodeBlur, saveNode } = useNodeTreeEvents(treeNodeId);
 
   useEffect(() => {
     ref.current.focus();
     setFocused(true);
-  }, [focused, handleNodeBlur]);
+  }, [focused]);
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
@@ -48,10 +45,10 @@ export default function NodeInput(props) {
         onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
         onKeyUp={saveNode}
         onBlur={() => focused && handleNodeBlur()}
-        value={title || ''}
+        value={title}
         className="NodeButtonText"
-        maxLength={50}
-        size={Math.max((title && title.length) || 0, 3)}
+        maxLength={MAX_NODE_INPUT_SIZE}
+        size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}
         style={{ color, fontFamily: 'monospace' }}
       />
     </div>

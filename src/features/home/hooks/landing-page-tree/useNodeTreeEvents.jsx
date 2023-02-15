@@ -6,7 +6,7 @@ import {
   expandNode, NEW_NODE_ID, openDescription,
   prependNewNode,
   terminateNewNode,
-} from '../../components/landing-page-tree/landingPageNodeSlice';
+} from '../../../home-tree/landingPageNodeSlice';
 
 const ROOT_LANDING_PAGE_NODE_ID = '635a91ea690cc413ead79ce2';
 

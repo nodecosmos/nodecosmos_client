@@ -18,11 +18,16 @@ import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import Notifications from '@mui/icons-material/Notifications';
 import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
 
-import useNodeTreeEvents from '../../hooks/tree/useNodeTreeEvents';
+import { useDispatch } from 'react-redux';
+import useNodeTreeEvents from '../home/hooks/landing-page-tree/useNodeTreeEvents';
+import { updateNode } from './landingPageNodeSlice';
 
-export default function NodeToolbar(props) {
+export default function LandingPageNodeToolbar(props) {
   const { id } = props;
-  const { addChildNode, editNode, removeNode } = useNodeTreeEvents(id);
+  const { onNodeAdd, handleNodeDeletion } = useNodeTreeEvents({ id });
+
+  const dispatch = useDispatch();
+  const handleEdit = () => { dispatch(updateNode({ id, isEditing: true })); };
 
   const theme = useTheme();
   const { red, green, blue } = theme.palette.toolbar;
@@ -42,13 +47,13 @@ export default function NodeToolbar(props) {
         '.MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
-      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
+      <IconButton className="Item" onClick={onNodeAdd} aria-label="Add Node">
         <AddRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={editNode} aria-label="Edit Node">
+      <IconButton className="Item" onClick={handleEdit} aria-label="Edit Node">
         <EditRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={removeNode} aria-label="Delete Node">
+      <IconButton className="Item" onClick={() => handleNodeDeletion(id)} aria-label="Delete Node">
         <DeleteOutlineRounded fontSize="small" />
       </IconButton>
       <Checkbox
@@ -73,6 +78,6 @@ export default function NodeToolbar(props) {
   );
 }
 
-NodeToolbar.propTypes = {
+LandingPageNodeToolbar.propTypes = {
   id: PropTypes.string.isRequired,
 };

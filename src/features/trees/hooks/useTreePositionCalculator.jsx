@@ -1,50 +1,29 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import { selectTransformablePositionsById } from '../../app/app.selectors';
 import { COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT } from '../trees.constants';
 import {
   selectOrderedTreeNodeIdsByRootNodeId,
   selectTreeNodesByRootNodeId,
 } from '../trees.selectors';
 
-const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
-
 export default function useTreePositionCalculator(rootNodeId) {
   const treeNodes = useSelector(selectTreeNodesByRootNodeId(rootNodeId));
   const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIdsByRootNodeId(rootNodeId));
 
-  const { clientHeight, scrollTop } = useSelector(selectTransformablePositionsById(rootNodeId));
-
   return useMemo(
     () => {
       const currentPositionsById = {};
-      const nodesToView = [];
 
+      // calculates the position of a node based on its parent's or upper sibling's position
       orderedTreeNodeIds.forEach((treeNodeId) => {
         const node = treeNodes[treeNodeId];
 
-        calculatePosition(node); // first calculate the position of the node
-        addNodesToView(node); // then add it to the list of nodes to view
-      });
-
-      // simple filtering & virtualization
-      function addNodesToView(node) {
-        const { y } = currentPositionsById[node.treeNodeId];
-        const { isExpanded, isMounted } = treeNodes[node.treeNodeId];
-
-        const isInsideViewport = y > scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR - 1
-          && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
-
-        if (isMounted && (isInsideViewport || isExpanded || node.isNewlyAddedNode)) {
-          nodesToView.push(node.treeNodeId);
-        }
-      }
-
-      // calculates the position of a node based on its parent's or upper sibling's position
-      function calculatePosition(node) {
-        const { treeUpperSiblingId, treeParentId, treeAncestorIds } = node;
-        const parentLastChildId = treeParentId && treeNodes[treeParentId].treeLastChildId;
+        const {
+          treeUpperSiblingId,
+          treeParentId,
+          treeAncestorIds,
+        } = node;
 
         const parentX = treeParentId ? currentPositionsById[treeParentId].x : 0;
         const parentY = treeParentId ? currentPositionsById[treeParentId].y : 0;
@@ -59,20 +38,17 @@ export default function useTreePositionCalculator(rootNodeId) {
         position.y = (upperSiblingYEnd || parentY) + COMPLETE_Y_LENGTH;
         position.yEnd = position.y;
 
-        if (node.isMounted && node.treeNodeId === parentLastChildId) {
+        if (node.isMounted) {
           treeAncestorIds.forEach((ancestorId) => {
-            currentPositionsById[ancestorId].yEnd = position.yEnd;
+            currentPositionsById[ancestorId].yEnd += COMPLETE_Y_LENGTH;
           });
         }
 
         currentPositionsById[node.treeNodeId] = position;
-      }
+      });
 
-      return {
-        positionsById: currentPositionsById,
-        nodesToView,
-      };
+      return currentPositionsById;
     },
-    [clientHeight, orderedTreeNodeIds, scrollTop, treeNodes],
+    [orderedTreeNodeIds, treeNodes],
   );
 }

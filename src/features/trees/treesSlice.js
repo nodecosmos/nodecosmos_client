@@ -64,7 +64,7 @@ const treesSlice = createSlice({
     setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
     expandTreeNode: treeNodeMounter.expandTreeNode,
     collapseTreeNode: treeNodeMounter.collapseTreeNode,
-    buildNewTreeNode: treeNodeBuilder.buildNewTreeNode,
+    buildChildNode: treeNodeBuilder.buildChildNode,
     setSelectedTreeNode: treeNodeSelector.setSelectedTreeNode,
     updateTreeNode: treeNodeUpdater.updateTreeNode,
     removeTreeNodeFromState: treeNodeRemover.removeTreeNodeFromState,
@@ -76,7 +76,6 @@ const treesSlice = createSlice({
         const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
 
         state.byRootNodeId[rootNodeId][treeNodeId].nodeId = id;
-        state.byRootNodeId[rootNodeId][treeNodeId].isNewlyAddedNode = false;
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         treesSlice.caseReducers.removeTreeNodeFromState(state, action);
@@ -94,7 +93,7 @@ export const {
   setTreeNodesPositions,
   expandTreeNode,
   collapseTreeNode,
-  buildNewTreeNode,
+  buildChildNode,
   setSelectedTreeNode,
   updateTreeNode,
   removeTreeNodeFromState,

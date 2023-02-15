@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-import usePannable from '../../hooks/usePannable';
+import usePannable from '../home/hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
 const isFirefox = typeof InstallTrigger !== 'undefined';
 

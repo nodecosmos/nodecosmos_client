@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 /* nodecosmos */
 import usePrevProps from '../../../common/hooks/usePrevProps';
 import { setAlert } from '../../app/appSlice';
-import { selectNodeAttributeById, selectNodeById } from '../../nodes/nodes.selectors';
+import { selectNodeAttributeById } from '../../nodes/nodes.selectors';
 import { createNode, deleteNode, updateNode } from '../../nodes/nodes.thunks';
 import { updateNodeState } from '../../nodes/nodesSlice';
-import { selectTreeNodeAttributeById, selectTreeNodeById } from '../trees.selectors';
+import { SAVE_NODE_TIMEOUT } from '../trees.constants';
+import { selectTreeNodeById } from '../trees.selectors';
 import {
-  buildNewTreeNode,
+  buildChildNode,
   collapseTreeNode,
   expandTreeNode,
   removeTreeNodeFromState,
@@ -24,7 +25,6 @@ export default function useNodeTreeEvents(treeNodeId) {
     nodeId,
     parentId,
     isRoot,
-    isTemp,
     isExpanded,
     isSelected,
     isEditing,
@@ -33,7 +33,6 @@ export default function useNodeTreeEvents(treeNodeId) {
 
   const title = useSelector(selectNodeAttributeById(nodeId, 'title'));
   const prevTitle = usePrevProps(title);
-
   const navigate = useNavigate();
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -59,10 +58,8 @@ export default function useNodeTreeEvents(treeNodeId) {
 
     addChildNodeLastClick.current = now;
 
-    // if (isTemp) return;
-
     if (!nodeId) {
-      const message = title ? `Node "${title}" not initialized yet. Please wait...`
+      const message = nodeId ? `Node "${title}" not initialized yet. Please wait...`
         : 'Current node not initialized yet. '
         + 'Please add title to current node in order to create child node.';
 
@@ -72,33 +69,34 @@ export default function useNodeTreeEvents(treeNodeId) {
         message,
       }));
     } else {
-      dispatch(buildNewTreeNode({ treeParentId: treeNodeId, parentId: nodeId }));
+      dispatch(buildChildNode({ treeParentId: treeNodeId, parentId: nodeId }));
     }
+  };
+
+  //--------------------------------------------------------------------------------------------------------------------
+  const handleNodeTitleChange = (event) => {
+    dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
   };
 
   const editNode = () => dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
 
-  //--------------------------------------------------------------------------------------------------------------------
   const saveNodeTimeout = useRef(null);
   const saveNode = useCallback(() => {
+    // save node after 1 second of inactivity
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
 
     saveNodeTimeout.current = setTimeout(() => {
       if (!title || title === prevTitle) return;
 
-      if (isTemp) {
-        dispatch(createNode({ treeNodeId, title, parent_id: parentId }));
-      } else {
+      if (nodeId) {
         dispatch(updateNode({ id: nodeId, title }));
+      } else {
+        dispatch(createNode({ treeNodeId, title, parent_id: parentId }));
       }
-    }, 1000);
-  }, [dispatch, isTemp, nodeId, parentId, prevTitle, title, treeNodeId]);
+    }, SAVE_NODE_TIMEOUT);
+  }, [dispatch, nodeId, parentId, prevTitle, title, treeNodeId]);
 
-  const handleNodeTitleChange = (event) => {
-    dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
-  };
-
-  const handleNodeBlur = () => { dispatch(updateTreeNode({ treeNodeId, isEditing: false })); };
+  const handleNodeBlur = () => dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
 
   const removeNode = () => {
     if (isNewlyAddedNode) {
@@ -115,8 +113,8 @@ export default function useNodeTreeEvents(treeNodeId) {
     addChildNode,
     editNode,
     removeNode,
-    saveNode,
     handleNodeTitleChange,
+    saveNode,
     handleNodeBlur,
   };
 }
