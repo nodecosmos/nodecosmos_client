@@ -102,7 +102,7 @@ export default {
         active: '#33373e',
       },
 
-      scrollbarThumb: '#36393f',
+      scrollbarThumb: '#43464d',
       paper: '#373b43',
       hover: 'rgba(0, 0, 0, 0.1)',
       contrast: '#cccccc',
