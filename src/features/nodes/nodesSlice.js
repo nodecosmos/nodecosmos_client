@@ -52,7 +52,7 @@ const nodesSlice = createSlice({
       Object.values(state.byId).forEach((node) => { node.isSelected = false; });
 
       // select node
-      state.byId[id].isSelected = !!id;
+      if (id) state.byId[id].isSelected = !!id;
     },
     updateNodeState(state, action) {
       const { id } = action.payload;
