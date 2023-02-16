@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectPosition, selectTreeNode } from '../trees.selectors';
 /* nodecosmos */
 import {
@@ -19,12 +20,13 @@ export default function NodeContainer(props) {
   const { treeNodeId } = props;
 
   const {
+    nodeId,
     isExpanded,
-    isSelected,
     isRoot,
     isEditing,
   } = useSelector(selectTreeNode(treeNodeId));
   const { xEnd, y } = useSelector(selectPosition(treeNodeId));
+  const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
 
   if (!xEnd) return null;
 

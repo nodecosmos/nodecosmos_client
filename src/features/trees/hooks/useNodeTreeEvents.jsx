@@ -6,13 +6,14 @@ import usePrevProps from '../../../common/hooks/usePrevProps';
 import { setAlert } from '../../app/appSlice';
 import { selectNode } from '../../nodes/nodes.selectors';
 import { createNode, deleteNode, updateNode } from '../../nodes/nodes.thunks';
-import { buildChildNode, deleteNodeFromState, updateNodeState } from '../../nodes/nodesSlice';
+import {
+  buildChildNode, deleteNodeFromState, setSelectedNode, updateNodeState,
+} from '../../nodes/nodesSlice';
 import { SAVE_NODE_TIMEOUT } from '../trees.constants';
 import { selectTreeNode } from '../trees.selectors';
 import {
   collapseTreeNode,
   expandTreeNode,
-  setSelectedTreeNode,
   updateTreeNode,
   setCurrentTempNodeId,
 } from '../treesSlice';
@@ -24,7 +25,6 @@ export default function useNodeTreeEvents(treeNodeId) {
     nodeId,
     isRoot,
     isExpanded,
-    isSelected,
     isEditing,
   } = useSelector(selectTreeNode(treeNodeId));
 
@@ -34,6 +34,7 @@ export default function useNodeTreeEvents(treeNodeId) {
     persistentParentId,
     title,
     isTemp,
+    isSelected,
   } = useSelector(selectNode(nodeId));
 
   const prevTitle = usePrevProps(title);
@@ -44,10 +45,10 @@ export default function useNodeTreeEvents(treeNodeId) {
     if (isEditing) return;
     if (isExpanded && isSelected) {
       dispatch(collapseTreeNode(treeNodeId));
-      dispatch(setSelectedTreeNode({ treeNodeId, value: false }));
+      dispatch(setSelectedNode(null));
     } else {
       dispatch(expandTreeNode(treeNodeId));
-      dispatch(setSelectedTreeNode({ treeNodeId, value: true }));
+      dispatch(setSelectedNode(nodeId));
     }
   };
 
@@ -77,15 +78,12 @@ export default function useNodeTreeEvents(treeNodeId) {
   };
 
   //--------------------------------------------------------------------------------------------------------------------
-  const handleNodeTitleChange = (event) => {
-    dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
-  };
-
+  const handleNodeTitleChange = (event) => dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
   const editNode = () => dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
   const handleNodeBlur = () => dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
 
-  // save node after 1 second of inactivity
-  const saveNodeTimeout = useRef(null);
+  //--------------------------------------------------------------------------------------------------------------------
+  const saveNodeTimeout = useRef(null); // save node after 1 second of inactivity
   const saveNode = () => {
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
 

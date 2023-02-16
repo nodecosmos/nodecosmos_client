@@ -1,15 +1,17 @@
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectHasChildren, selectTreeNode } from '../trees.selectors';
 
 export default function useNodeButtonBackground(treeId) {
   const theme = useTheme();
   const {
-    isSelected,
+    nodeId,
     isExpanded,
     nestedLevel,
     isRoot,
   } = useSelector(selectTreeNode(treeId));
+  const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
 
   const hasChildren = useSelector(selectHasChildren(treeId));
   const nodeBackgroundColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];

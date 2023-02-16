@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
+/* nodecosmos */
+import { selectNodeAttribute } from '../../nodes.selectors';
 import { updateNode } from '../../nodes.thunks';
 import { updateNodeState } from '../../nodesSlice';
 
@@ -29,7 +31,7 @@ export default function MarkdownEditor(props) {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const description = useSelector((state) => state.nodes.byId[id]?.description_markdown);
+  const description = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
 
   const handleChange = (value) => {
     const descriptionHtml = md().render(value);

@@ -2,43 +2,26 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import { selectSelectedNode, selectSelectedNodeId } from '../nodes.selectors';
 import MarkdownEditor from './markdown/MarkdownEditor';
 import MarkdownToolbar from './markdown/MarkdownToolbar';
 
 export default function NodeDescription() {
-  const selectedNodeId = useSelector((state) => state.nodes.selectedNodeId);
-  const currentNodeTitle = useSelector((state) => state.nodes.byId[selectedNodeId]?.title);
-  const currentNodeDescription = useSelector((state) => state.nodes.byId[selectedNodeId]?.description);
-  const isEditingDescription = useSelector((state) => state.nodes.byId[selectedNodeId]?.isEditingDescription);
+  const selectedNodeId = useSelector(selectSelectedNodeId);
+
+  const { title, description, isEditingDescription } = useSelector(selectSelectedNode);
 
   const blankDescription = (
     <Typography color="text.secondary" textAlign="center">
-      {(selectedNodeId && 'This node has no description yet.') || (
-        <Box component="span" fontSize={30}>
-          ¯\_(ツ)_/¯
-        </Box>
-      )}
+      { selectedNodeId && 'This node has no description yet.' || <Box component="span" fontSize={30}>¯\_(ツ)_/¯</Box> }
     </Typography>
   );
 
   const nodeDescription = (
     <Box height={1} p={3}>
-      {
-        (
-          currentNodeDescription
-          && (
-          <Box
-            dangerouslySetInnerHTML={{
-              __html: currentNodeDescription,
-            }}
-          />
-          )
-        ) || blankDescription
-      }
+      {(description && <Box dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
     </Box>
   );
-
-  const descriptionContent = isEditingDescription ? <MarkdownEditor id={selectedNodeId} /> : nodeDescription;
 
   return (
     <Box height={1}>
@@ -61,12 +44,12 @@ export default function NodeDescription() {
       >
         <MarkdownToolbar id={selectedNodeId} />
         <Typography textAlign="center" color="text.secondary">
-          {currentNodeTitle || 'Select a node from the tree to view its description'}
+          {title || 'Select a node from the tree to view its description'}
         </Typography>
         <div />
       </Box>
       <Box height="calc(100% - 56px)" overflow="auto">
-        {descriptionContent}
+        {isEditingDescription ? <MarkdownEditor id={selectedNodeId} /> : nodeDescription}
       </Box>
     </Box>
   );

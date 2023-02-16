@@ -3,7 +3,6 @@ import { createNode } from '../nodes/nodes.thunks';
 import treeBuilder from './reducers/treeBuilder';
 import treeNodePositionSetter from './reducers/treeNodePositionSetter';
 import treeNodeMounter from './reducers/treeNodeMounter';
-import treeNodeSelector from './reducers/treeNodeSelectionSetter';
 import treeNodeUpdater from './reducers/treeNodeUpdater';
 
 const treesSlice = createSlice({
@@ -73,7 +72,6 @@ const treesSlice = createSlice({
     expandTreeNode: treeNodeMounter.expandTreeNode,
     collapseTreeNode: treeNodeMounter.collapseTreeNode,
     //------------------------------------------------------------------------------------------------------------------
-    setSelectedTreeNode: treeNodeSelector.setSelectedTreeNode,
     updateTreeNode: treeNodeUpdater.updateTreeNode,
     //------------------------------------------------------------------------------------------------------------------
     setCurrentTempNodeId(state, action) { state.currentTempNodeId = action.payload; },
@@ -93,7 +91,6 @@ export const {
   setTreeNodesPositions,
   expandTreeNode,
   collapseTreeNode,
-  setSelectedTreeNode,
   updateTreeNode,
   setCurrentTempNodeId,
 } = actions;
