@@ -29,3 +29,6 @@ input:focus {
     outline:none!important;
 }
 
+#root {
+    background: black;
+}

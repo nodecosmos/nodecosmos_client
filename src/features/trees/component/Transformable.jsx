@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../app/appSlice';
 import { selectPosition } from '../trees.selectors';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../trees.constants';
-// import usePannable from '../../hooks/usePannable';
-// import useZoomable from '../../hooks/useZoomable';
 
 export default function Transformable(props) {
   const { children, rootId } = props;
@@ -19,6 +17,7 @@ export default function Transformable(props) {
 
   const [width, setWidth] = React.useState(TRANSFORMABLE_MIN_WIDTH);
 
+  //--------------------------------------------------------------------------------------------------------------------
   const resize = () => {
     const newWidth = gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN;
 
@@ -27,13 +26,7 @@ export default function Transformable(props) {
     }
   };
 
-  // handle zoom
-  // const {
-  //   zoom, handleWheel, enableScroll, handleTouchStart: handlePinch,
-  // } = useZoomable(gRef, scale, setPan, pan);
-
-  // window.addEventListener('keyup', enableScroll);
-
+  //--------------------------------------------------------------------------------------------------------------------
   const dispatch = useDispatch();
 
   const scrollTimeout = useRef(null);

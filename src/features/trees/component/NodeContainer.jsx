@@ -25,6 +25,7 @@ export default function NodeContainer(props) {
     isRoot,
     isEditing,
   } = useSelector(selectTreeNode(treeNodeId));
+
   const { xEnd, y } = useSelector(selectPosition(treeNodeId));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
 

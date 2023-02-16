@@ -14,10 +14,11 @@ import {
 
 /* nodecosmos */
 import UserAvatar from '../../../common/components/UserAvatar';
+import { selectIndexedNode } from '../nodes.selectors';
 
 function NodeCard(props) {
   const { id } = props;
-  const node = useSelector((state) => state.nodes.byId[id]);
+  const node = useSelector(selectIndexedNode(id));
 
   return (
     <Box width="60%" mt={2}>

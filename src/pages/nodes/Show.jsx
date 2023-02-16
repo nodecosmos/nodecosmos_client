@@ -7,6 +7,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
+import { selectNodeAttribute } from '../../features/nodes/nodes.selectors';
 import { showNode } from '../../features/nodes/nodes.thunks';
 
 export default function NodeShow() {
@@ -14,7 +15,7 @@ export default function NodeShow() {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const nodeTitle = useSelector((state) => state.nodes.byId[id]?.title);
+  const nodeTitle = useSelector(selectNodeAttribute(id, 'title'));
 
   if (!id) {
     navigate('/404');
@@ -33,7 +34,7 @@ export default function NodeShow() {
     };
   }, [dispatch, nodeTitle]);
 
-  if (nodeTitle === undefined) return null;
+  if (!nodeTitle) return null;
 
   return (
     <Box height={1} display="flex">

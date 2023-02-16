@@ -1,4 +1,6 @@
 import React from 'react';
+import { faLink } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 /* mui */
@@ -17,11 +19,17 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import Notifications from '@mui/icons-material/Notifications';
 import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
+import { useSelector } from 'react-redux';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
+import { selectTreeNodeAttribute } from '../trees.selectors';
 
 export default function NodeToolbar(props) {
   const { treeNodeId } = props;
+  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
+  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+
   const { addChildNode, editNode, removeNode } = useNodeTreeEvents(treeNodeId);
 
   const theme = useTheme();
@@ -36,12 +44,29 @@ export default function NodeToolbar(props) {
           mx: 0.5,
           '&:hover': { background: 'rgb(56 195 197 / 14%)' },
         },
-        '.Item:nth-of-type(1)': { color: red },
-        '.Item:nth-of-type(2)': { color: blue },
-        '.Item:nth-of-type(3)': { color: green },
-        '.MuiSvgIcon-root': { fontSize: 16 },
+        '.Item:nth-of-type(1n)': { color: red },
+        '.Item:nth-of-type(2n)': { color: blue },
+        '.Item:nth-of-type(3n)': { color: green },
+        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
+      <IconButton
+        defaultComponent="a"
+        target="_blank"
+        href={`/nodes/${persistentId}`}
+        className="Item"
+        aria-label="Open Node in New Tab"
+      >
+        <FontAwesomeIcon
+          icon={faLink}
+        />
+      </IconButton>
+      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
+        <AddRounded fontSize="small" />
+      </IconButton>
+      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
+        <AddRounded fontSize="small" />
+      </IconButton>
       <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
         <AddRounded fontSize="small" />
       </IconButton>

@@ -1,9 +1,9 @@
 /* mui */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
-import { selectChildIdsByParentId, selectNode } from '../../nodes/nodes.selectors';
+import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
 import useTreeNodeVirtualization from '../hooks/useTreeNodesVirtualization';
 import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
 import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
@@ -12,11 +12,12 @@ import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { rootNodeId } = props;
+  const containerRef = useRef(null);
 
   const childIdsByParentId = useSelector(selectChildIdsByParentId(rootNodeId));
 
   const positionsById = useTreePositionCalculator(rootNodeId);
-  const treeNodeIdsToView = useTreeNodeVirtualization(rootNodeId);
+  const treeNodeIdsToView = useTreeNodeVirtualization(rootNodeId, containerRef);
 
   const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ export default function Tree(props) {
   }, [dispatch, positionsById]);
 
   return (
-    <Transformable rootId={rootNodeId}>
+    <Transformable containerRef={containerRef} rootId={rootNodeId}>
       <g>
         {treeNodeIdsToView.map((treeNodeId) => <Node key={treeNodeId} treeNodeId={treeNodeId} />)}
       </g>

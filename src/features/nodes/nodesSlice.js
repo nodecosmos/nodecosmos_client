@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { selectNodeAttribute } from './nodes.selectors';
 
 import {
   createNode, indexNodes, showNode, deleteNode,
@@ -33,6 +32,7 @@ const nodesSlice = createSlice({
      * }}
      */
     byId: {},
+    indexNodesById: {},
     childIdsByRootAndParentId: {},
     selectedNodeId: null,
   },
@@ -63,6 +63,7 @@ const nodesSlice = createSlice({
     },
     deleteNodeFromState(state, action) {
       const { nodeId } = action.payload;
+
       const node = state.byId[nodeId];
       const parent = state.byId[node.parentId];
 
@@ -97,6 +98,7 @@ const nodesSlice = createSlice({
         persistentParentId: persistentId,
         rootId: node.rootId,
         isTemp: true,
+        childIds: [],
       }; // add new node to state
 
       state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds
@@ -106,10 +108,11 @@ const nodesSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(indexNodes.fulfilled, (state, action) => {
-        action.payload.forEach((node) => { state.byId[node.id] = node; });
+        action.payload.forEach((node) => { state.indexNodesById[node.id] = node; });
       })
       .addCase(showNode.fulfilled, (state, action) => {
         const node = action.payload;
+
         const { descendants } = node;
 
         state.byId[node.id] = node;

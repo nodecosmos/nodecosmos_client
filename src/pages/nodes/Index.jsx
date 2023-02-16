@@ -8,7 +8,7 @@ import NodeCard from '../../features/nodes/components/NodeCard';
 import { indexNodes } from '../../features/nodes/nodes.thunks';
 
 export default function NodeIndex() {
-  const nodes = useSelector((state) => state.nodes.byId);
+  const nodes = useSelector((state) => state.nodes.indexNodesById);
   const dispatch = useDispatch();
 
   useEffect(() => {
