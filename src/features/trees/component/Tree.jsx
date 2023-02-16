@@ -12,7 +12,7 @@ import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { rootNodeId } = props;
-  const rootNode = useSelector(selectNode(rootNodeId));
+
   const childIdsByParentId = useSelector(selectChildIdsByParentId(rootNodeId));
 
   const positionsById = useTreePositionCalculator(rootNodeId);
@@ -21,11 +21,8 @@ export default function Tree(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(buildTreeFromRootNode({
-      rootNode,
-      childIdsByParentId,
-    }));
-  }, [dispatch, rootNode, childIdsByParentId]);
+    dispatch(buildTreeFromRootNode({ rootId: rootNodeId, childIdsByParentId }));
+  }, [dispatch, rootNodeId, childIdsByParentId]);
 
   useEffect(() => {
     dispatch(setTreeNodesPositions(positionsById));

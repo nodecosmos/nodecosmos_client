@@ -31,31 +31,30 @@ export default function MarkdownEditor(props) {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const description = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
+  const descriptionMarkdown = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
 
   const handleChange = (value) => {
-    const descriptionHtml = md().render(value);
-
-    dispatch(updateNodeState({
-      id,
-      description: descriptionHtml,
-      description_markdown: value,
-    }));
-
     if (handleChangeTimeout.current) {
       clearTimeout(handleChangeTimeout.current);
-      handleChangeTimeout.current = null;
     }
 
     handleChangeTimeout.current = setTimeout(() => {
+      const descriptionHtml = md().render(value);
+
+      dispatch(updateNodeState({
+        id,
+        description: descriptionHtml,
+        descriptionMarkdown: value,
+      }));
+
       dispatch(updateNode({ id, description: descriptionHtml, description_markdown: value }));
-    }, 1000);
+    }, 500);
   };
 
   return (
     <Suspense fallback={loading}>
       <Box height={1}>
-        <CustomCodeMirror value={description || ''} onChange={handleChange} />
+        <CustomCodeMirror value={descriptionMarkdown || ''} onChange={handleChange} />
       </Box>
     </Suspense>
   );

@@ -6,11 +6,10 @@
 // we will enable node count or node types in order to address this limitation.
 export default {
   buildTreeFromRootNode(state, action) {
-    const { rootNode, childIdsByParentId } = action.payload;
-    const rootId = rootNode.id;
+    const { rootId, childIdsByParentId } = action.payload;
 
     // initialize state for root node
-    state.byRootNodeId[rootNode.id] ||= {};
+    state.byRootNodeId[rootId] ||= {};
     state.orderedTreeNodeIdsByRootNodeId[rootId] = [];
 
     // Recursively map nodes
@@ -25,7 +24,7 @@ export default {
         nestedLevel = 0,
       },
     ) => {
-      const isRoot = nodeId === rootNode.id;
+      const isRoot = nodeId === rootId;
       const treeNodeId = isRoot ? nodeId : `${rootId}-${parentId}-${nodeId}`;
       const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
       const { isMounted, isExpanded, isSelected } = currentTreeNode;
