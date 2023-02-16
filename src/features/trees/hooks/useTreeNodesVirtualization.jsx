@@ -3,16 +3,16 @@ import { useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../trees.constants';
 import {
-  selectOrderedTreeNodeIdsByRootNodeId,
+  selectOrderedTreeNodeIds,
   selectPositionsByNodeId,
-  selectTreeNodesByRootNodeId,
+  selectTreeNodes,
 } from '../trees.selectors';
 
-export default function useTreeNodeVirtualization(rootNodeId) {
-  const { clientHeight, scrollTop } = useSelector(selectTransformablePositionsById(rootNodeId));
-  const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIdsByRootNodeId(rootNodeId));
+export default function useTreeNodeVirtualization(rootId) {
+  const { clientHeight, scrollTop } = useSelector(selectTransformablePositionsById(rootId));
+  const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));
   const positionsById = useSelector(selectPositionsByNodeId);
-  const treeNodes = useSelector(selectTreeNodesByRootNodeId(rootNodeId));
+  const treeNodes = useSelector(selectTreeNodes(rootId));
 
   return useMemo(() => {
     const treeNodeIdsToView = [];

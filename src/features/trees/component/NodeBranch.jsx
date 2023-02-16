@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import { INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../trees.constants';
-import { selectPositionByNodeId, selectTreeNodeAttributeById } from '../trees.selectors';
+import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -13,8 +13,8 @@ export default function NodeBranch(props) {
 
   const theme = useTheme();
 
-  const isRoot = useSelector(selectTreeNodeAttributeById(treeNodeId, 'isRoot'));
-  const { x, xEnd, y } = useSelector(selectPositionByNodeId(treeNodeId));
+  const isRoot = useSelector(selectTreeNodeAttribute(treeNodeId, 'isRoot'));
+  const { x, xEnd, y } = useSelector(selectPosition(treeNodeId));
   const { parentBackgroundColor } = useNodeButtonBackground(treeNodeId);
 
   if (!x) { return null; }

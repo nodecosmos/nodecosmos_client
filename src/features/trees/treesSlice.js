@@ -1,13 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createNode, deleteNode } from '../nodes/nodes.thunks';
+import { createNode } from '../nodes/nodes.thunks';
 import treeBuilder from './reducers/treeBuilder';
 import treeNodePositionSetter from './reducers/treeNodePositionSetter';
 import treeNodeMounter from './reducers/treeNodeMounter';
-import treeNodeBuilder from './reducers/treeNodeBuilder';
-import treeNodeRemover from './reducers/treeNodeRemover';
 import treeNodeSelector from './reducers/treeNodeSelectionSetter';
 import treeNodeUpdater from './reducers/treeNodeUpdater';
-import { extractRootIdFromTreeNodeId } from './trees.memoize';
 
 const treesSlice = createSlice({
   name: 'trees',
@@ -35,6 +32,7 @@ const treesSlice = createSlice({
      * }}
      */
     byRootNodeId: {},
+
     /**
      * @type {{
      *   [treeNodeId: string]: treeNodeId[],
@@ -47,6 +45,7 @@ const treesSlice = createSlice({
      * However, difference may be negligible.
      */
     orderedTreeNodeIdsByRootNodeId: {},
+
     /**
      * @type {{
      *   [treeNodeId: string]: {
@@ -58,27 +57,29 @@ const treesSlice = createSlice({
      * }}
      */
     positionsByNodeId: {},
+
+    /**
+     * @type {treeNodeId}
+     * @description
+     * Used to mount newly created nodes.
+     */
+    currentTempNodeId: null,
   },
   reducers: {
     // manual mapping so it's easier to navigate
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
     setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
+    //------------------------------------------------------------------------------------------------------------------
     expandTreeNode: treeNodeMounter.expandTreeNode,
     collapseTreeNode: treeNodeMounter.collapseTreeNode,
-    buildChildNode: treeNodeBuilder.buildChildNode,
-    handleNewNodeCreation: treeNodeBuilder.handleNewNodeCreation,
+    //------------------------------------------------------------------------------------------------------------------
     setSelectedTreeNode: treeNodeSelector.setSelectedTreeNode,
     updateTreeNode: treeNodeUpdater.updateTreeNode,
-    removeTreeNodeFromState: treeNodeRemover.removeTreeNodeFromState,
+    //------------------------------------------------------------------------------------------------------------------
+    setCurrentTempNodeId(state, action) { state.currentTempNodeId = action.payload; },
   },
   extraReducers(builder) {
-    builder
-      .addCase(createNode.fulfilled, (state, action) => {
-        treesSlice.caseReducers.handleNewNodeCreation(state, action);
-      })
-      .addCase(deleteNode.fulfilled, (state, action) => {
-        treesSlice.caseReducers.removeTreeNodeFromState(state, action);
-      });
+    builder.addCase(createNode.fulfilled, (state, _action) => { state.currentTempNodeId = null; });
   },
 });
 
@@ -92,10 +93,9 @@ export const {
   setTreeNodesPositions,
   expandTreeNode,
   collapseTreeNode,
-  buildChildNode,
   setSelectedTreeNode,
   updateTreeNode,
-  removeTreeNodeFromState,
+  setCurrentTempNodeId,
 } = actions;
 
 export default reducer;

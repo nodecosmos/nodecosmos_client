@@ -11,15 +11,15 @@ import {
   MARGIN_TOP,
   TRANSITION_ANIMATION_DURATION,
 } from '../trees.constants';
-import { selectPositionByNodeId, selectTreeNodeAttributeById } from '../trees.selectors';
+import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 
 export default function NestedNodesBranch(props) {
   const { treeNodeId } = props;
 
-  const isExpanded = useSelector(selectTreeNodeAttributeById(treeNodeId, 'isExpanded'));
-  const treeLastChildId = useSelector(selectTreeNodeAttributeById(treeNodeId, 'treeLastChildId'));
-  const { xEnd, y } = useSelector(selectPositionByNodeId(treeNodeId));
-  const { y: pathYEnd } = useSelector(selectPositionByNodeId(treeLastChildId));
+  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
+  const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
+  const { xEnd, y } = useSelector(selectPosition(treeNodeId));
+  const { y: pathYEnd } = useSelector(selectPosition(treeLastChildId));
   const prevPathYEnd = usePrevProps(pathYEnd);
 
   const theme = useTheme();

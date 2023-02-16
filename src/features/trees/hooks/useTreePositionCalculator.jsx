@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 /* nodecosmos */
 import { COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT } from '../trees.constants';
 import {
-  selectOrderedTreeNodeIdsByRootNodeId,
-  selectTreeNodesByRootNodeId,
+  selectOrderedTreeNodeIds,
+  selectTreeNodes,
 } from '../trees.selectors';
 
-export default function useTreePositionCalculator(rootNodeId) {
-  const treeNodes = useSelector(selectTreeNodesByRootNodeId(rootNodeId));
-  const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIdsByRootNodeId(rootNodeId));
+export default function useTreePositionCalculator(rootId) {
+  const treeNodes = useSelector(selectTreeNodes(rootId));
+  const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));
 
   return useMemo(
     () => {

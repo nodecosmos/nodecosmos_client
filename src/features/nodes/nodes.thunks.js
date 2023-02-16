@@ -32,8 +32,9 @@ export const createNode = createAsyncThunk(
 
     return {
       ...response.data,
-      parentId: payload.parent_id,
-      treeNodeId: payload.treeNodeId,
+      parentId: payload.parentId,
+      persistentParentId: payload.parent_id,
+      tmpNodeId: payload.tmpNodeId,
     };
   },
 );
@@ -50,12 +51,12 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async ({ id, treeNodeId }, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${id}`);
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${payload.id}`);
 
     return {
       ...response.data,
-      treeNodeId,
+      nodeId: payload.nodeId,
     };
   },
 );

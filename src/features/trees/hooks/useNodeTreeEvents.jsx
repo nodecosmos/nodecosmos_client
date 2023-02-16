@@ -1,21 +1,20 @@
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 /* nodecosmos */
 import usePrevProps from '../../../common/hooks/usePrevProps';
 import { setAlert } from '../../app/appSlice';
-import { selectNodeAttributeById } from '../../nodes/nodes.selectors';
+import { selectNode } from '../../nodes/nodes.selectors';
 import { createNode, deleteNode, updateNode } from '../../nodes/nodes.thunks';
-import { buildTmpNode, updateNodeState } from '../../nodes/nodesSlice';
+import { buildChildNode, deleteNodeFromState, updateNodeState } from '../../nodes/nodesSlice';
 import { SAVE_NODE_TIMEOUT } from '../trees.constants';
-import { selectTreeNodeById } from '../trees.selectors';
+import { selectTreeNode } from '../trees.selectors';
 import {
-  buildChildNode,
   collapseTreeNode,
   expandTreeNode,
-  removeTreeNodeFromState,
   setSelectedTreeNode,
   updateTreeNode,
+  setCurrentTempNodeId,
 } from '../treesSlice';
 
 export default function useNodeTreeEvents(treeNodeId) {
@@ -23,15 +22,20 @@ export default function useNodeTreeEvents(treeNodeId) {
 
   const {
     nodeId,
-    parentId,
     isRoot,
     isExpanded,
     isSelected,
     isEditing,
-    isTemp,
-  } = useSelector(selectTreeNodeById(treeNodeId));
+  } = useSelector(selectTreeNode(treeNodeId));
 
-  const title = useSelector(selectNodeAttributeById(nodeId, 'title'));
+  const {
+    parentId,
+    persistentId,
+    persistentParentId,
+    title,
+    isTemp,
+  } = useSelector(selectNode(nodeId));
+
   const prevTitle = usePrevProps(title);
   const navigate = useNavigate();
 
@@ -63,15 +67,12 @@ export default function useNodeTreeEvents(treeNodeId) {
         : 'Current node not initialized yet. '
         + 'Please add title to current node in order to create child node.';
 
-      dispatch(setAlert({
-        isOpen: true,
-        severity: 'error',
-        message,
-      }));
+      dispatch(setAlert({ isOpen: true, severity: 'error', message }));
     } else {
       const tmpNodeId = Date.now();
-      dispatch(buildChildNode({ treeParentId: treeNodeId, tmpNodeId, parentId: nodeId }));
-      dispatch(buildTmpNode({ tmpNodeId }));
+
+      dispatch(setCurrentTempNodeId(tmpNodeId));
+      dispatch(buildChildNode({ tmpNodeId, nodeId, persistentId }));
     }
   };
 
@@ -81,6 +82,7 @@ export default function useNodeTreeEvents(treeNodeId) {
   };
 
   const editNode = () => dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
+  const handleNodeBlur = () => dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
 
   // save node after 1 second of inactivity
   const saveNodeTimeout = useRef(null);
@@ -91,20 +93,23 @@ export default function useNodeTreeEvents(treeNodeId) {
       if (!title || title === prevTitle) return;
 
       if (isTemp) {
-        dispatch(createNode({ treeNodeId, title, parent_id: parentId }));
+        dispatch(createNode({
+          title,
+          parent_id: persistentParentId,
+          tmpNodeId: nodeId,
+          parentId,
+        }));
       } else {
-        dispatch(updateNode({ id: nodeId, title }));
+        dispatch(updateNode({ id: persistentId, title }));
       }
     }, SAVE_NODE_TIMEOUT);
   };
 
-  const handleNodeBlur = () => dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
-
   const removeNode = () => {
     if (isTemp) {
-      dispatch(removeTreeNodeFromState(treeNodeId));
+      dispatch(deleteNodeFromState({ nodeId }));
     } else {
-      dispatch(deleteNode(nodeId));
+      dispatch(deleteNode({ id: persistentId, nodeId }));
     }
     if (isRoot) navigate('/n');
   };

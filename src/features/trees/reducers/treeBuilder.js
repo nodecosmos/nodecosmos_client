@@ -6,19 +6,17 @@
 // we will enable node count or node types in order to address this limitation.
 export default {
   buildTreeFromRootNode(state, action) {
-    const rootNode = action.payload;
-    const { descendantsById, id: rootNodeId } = rootNode;
-
-    if (!descendantsById) return;
+    const { rootNode, childIdsByParentId } = action.payload;
+    const rootId = rootNode.id;
 
     // initialize state for root node
-    state.byRootNodeId[rootNodeId] = {};
-    state.orderedTreeNodeIdsByRootNodeId[rootNodeId] = [];
+    state.byRootNodeId[rootNode.id] ||= {};
+    state.orderedTreeNodeIdsByRootNodeId[rootId] = [];
 
     // Recursively map nodes
     const mapChildren = (
       {
-        node = rootNode,
+        nodeId = rootId,
         parentId = null,
         treeParentId = null,
         treeUpperSiblingId = null,
@@ -27,56 +25,62 @@ export default {
         nestedLevel = 0,
       },
     ) => {
-      const isRoot = node.id === rootNode.id;
-      const treeNodeId = isRoot ? node.id : `${rootNode.id}-${parentId}-${node.id}`;
+      const isRoot = nodeId === rootNode.id;
+      const treeNodeId = isRoot ? nodeId : `${rootId}-${parentId}-${nodeId}`;
+      const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
+      const { isMounted, isExpanded, isSelected } = currentTreeNode;
+
+      const isNewlyCreated = state.currentTempNodeId === nodeId;
+
+      // populate root's orderedTreeNodeIds with constructed id
+      state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);
+
+      const childIds = childIdsByParentId[nodeId];
 
       // initialize state for current node
-      state.byRootNodeId[rootNodeId][treeNodeId] = {
+      state.byRootNodeId[rootId][treeNodeId] = {
         treeNodeId,
         treeParentId,
         treeUpperSiblingId,
         treeAncestorIds,
         treeChildIds: [], // it will be populated on children iteration
         treeDescendantIds: [], // it will be populated on children iteration
-        treeLastChildId: node.childIds.length && `${rootNode.id}-${node.id}-${node.childIds[node.childIds.length - 1]}`,
-        nodeId: node.id, // original node id (not tree node id)
-        parentId, // original parent id (not tree parent id)
-        rootNodeId,
+        treeLastChildId: childIds.length && `${rootId}-${nodeId}-${childIds[childIds.length - 1]}`,
+        nodeId, // original node id (not tree node id)
+        persistentNodeId: isNewlyCreated ? null : nodeId,
+        rootId,
         isRoot,
-        isMounted: isRoot, // mount root node by default
-        isExpanded: false,
-        isSelected: false,
-        isEditing: false,
+        isMounted: isMounted || isRoot || isNewlyCreated,
+        isExpanded,
+        isSelected,
+        isEditing: isNewlyCreated,
         nestedLevel,
       };
 
-      // populate root's orderedTreeNodeIds with constructed id
-      state.orderedTreeNodeIdsByRootNodeId[rootNodeId].push(treeNodeId);
-
-      // populate parent's childIds & treeDescendantIds with constructed id
+      // populate parent's childIds & parent's treeDescendantIds with constructed id
       if (treeParentId) {
-        state.byRootNodeId[rootNodeId][treeParentId].treeChildIds.push(treeNodeId);
+        state.byRootNodeId[rootId][treeParentId].treeChildIds.push(treeNodeId);
         treeDescendantIds.push(treeNodeId);
       }
 
       // recursively map children
-      node.childIds.forEach((childId, index) => {
-        const currentTreeUpperSiblingId = index && `${rootNode.id}-${node.id}-${node.childIds[index - 1]}`;
+      childIds.forEach((childId, index) => {
+        const currentTreeUpperSiblingId = index && `${rootId}-${nodeId}-${childIds[index - 1]}`;
 
         mapChildren({
-          node: descendantsById[childId],
-          parentId: node.id,
+          nodeId: childId,
+          parentId: nodeId,
           treeParentId: treeNodeId,
           treeUpperSiblingId: currentTreeUpperSiblingId,
           treeAncestorIds: [...treeAncestorIds, treeNodeId],
-          treeDescendantIds: state.byRootNodeId[rootNodeId][treeNodeId].treeDescendantIds,
+          treeDescendantIds: state.byRootNodeId[rootId][treeNodeId].treeDescendantIds,
           nestedLevel: nestedLevel + 1,
         });
       });
 
       // further populate parent's treeDescendantIds with current node's treeDescendantIds
       // after all children have been mapped
-      if (treeDescendantIds) treeDescendantIds.push(...state.byRootNodeId[rootNodeId][treeNodeId].treeDescendantIds);
+      if (treeDescendantIds) treeDescendantIds.push(...state.byRootNodeId[rootId][treeNodeId].treeDescendantIds);
     };
 
     mapChildren({});

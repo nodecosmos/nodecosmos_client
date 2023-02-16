@@ -39,7 +39,7 @@ export default function SidebarListItem({ to, icon, title }) {
           boxShadow: '1',
           color: 'background.list.iconForeground',
           svg: {
-            fontSize: '1rem',
+            fontSize: '0.9rem',
             '.active &': {
               color: 'text.contrast',
             },

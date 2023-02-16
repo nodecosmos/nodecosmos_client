@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectPositionByNodeId, selectTreeNodeById } from '../trees.selectors';
+import { selectPosition, selectTreeNode } from '../trees.selectors';
 /* nodecosmos */
 import {
   INITIAL_ANIMATION_DELAY,
@@ -23,8 +23,8 @@ export default function NodeContainer(props) {
     isSelected,
     isRoot,
     isEditing,
-  } = useSelector(selectTreeNodeById(treeNodeId));
-  const { xEnd, y } = useSelector(selectPositionByNodeId(treeNodeId));
+  } = useSelector(selectTreeNode(treeNodeId));
+  const { xEnd, y } = useSelector(selectPosition(treeNodeId));
 
   if (!xEnd) return null;
 

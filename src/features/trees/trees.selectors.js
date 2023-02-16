@@ -6,41 +6,41 @@ export const selectTreesByRootNodeId = (state) => state.trees.byRootNodeId;
 export const selectPositionsByNodeId = (state) => state.trees.positionsByNodeId;
 
 // derived selectors
-export const selectOrderedTreeNodeIdsByRootNodeId = (rootNodeId) => createSelector(
+export const selectOrderedTreeNodeIds = (rootId) => createSelector(
   (state) => state.trees.orderedTreeNodeIdsByRootNodeId,
-  (orderedTreeNodeIdsByRootNodeId) => orderedTreeNodeIdsByRootNodeId[rootNodeId] || [],
+  (orderedTreeNodeIdsByRootNodeId) => orderedTreeNodeIdsByRootNodeId[rootId] || [],
 );
 
-export const selectTreeNodesByRootNodeId = (rootNodeId) => createSelector(
+export const selectTreeNodes = (rootId) => createSelector(
   selectTreesByRootNodeId,
-  (treesByRootNodeId) => treesByRootNodeId[rootNodeId],
+  (treesByRootNodeId) => treesByRootNodeId[rootId],
 );
 
-export const selectTreeNodeById = (treeNodeId) => createSelector(
+export const selectTreeNode = (treeNodeId) => createSelector(
   selectTreesByRootNodeId,
   (treeNodesByRootNodeId) => {
-    const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootNodeId][treeNodeId];
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+    return treeNodesByRootNodeId[rootId][treeNodeId];
   },
 );
 
-export const selectTreeNodeAttributeById = (treeNodeId, attribute) => createSelector(
+export const selectTreeNodeAttribute = (treeNodeId, attribute) => createSelector(
   selectTreesByRootNodeId,
   (treeNodesByRootNodeId) => {
-    const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootNodeId][treeNodeId][attribute];
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+    return treeNodesByRootNodeId[rootId][treeNodeId][attribute];
   },
 );
 
-export const selectHasChildrenByNodeId = (treeNodeId) => createSelector(
+export const selectHasChildren = (treeNodeId) => createSelector(
   selectTreesByRootNodeId,
   (treeNodesByRootNodeId) => {
-    const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootNodeId][treeNodeId].treeChildIds.length > 0;
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+    return treeNodesByRootNodeId[rootId][treeNodeId].treeChildIds.length > 0;
   },
 );
 
-export const selectPositionByNodeId = (treeNodeId) => createSelector(
+export const selectPosition = (treeNodeId) => createSelector(
   selectPositionsByNodeId,
   (positionsByNodeId) => positionsByNodeId[treeNodeId] || {},
 );

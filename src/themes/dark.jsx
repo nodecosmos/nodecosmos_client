@@ -98,9 +98,9 @@ export default {
       },
 
       list: {
-        iconBackground: '#373b43',
-        iconForeground: '#b9b9b9',
-        active: '#33373e',
+        iconBackground: '#414650',
+        iconForeground: '#fff',
+        active: 'hsl(220deg 10% 26%)',
       },
 
       scrollbarThumb: '#43464d',

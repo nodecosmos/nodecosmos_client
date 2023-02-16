@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  createNode, indexNodes, showNode, deleteNode, updateNode,
+  createNode, indexNodes, showNode, deleteNode,
 } from './nodes.thunks';
 
 const nodesSlice = createSlice({
@@ -32,6 +32,7 @@ const nodesSlice = createSlice({
      * }}
      */
     byId: {},
+    childIdsByRootAndParentId: {},
     selectedNodeId: null,
   },
   reducers: {
@@ -43,28 +44,45 @@ const nodesSlice = createSlice({
       }
     },
     deleteNodeFromState(state, action) {
-      const node = state.byId[action.payload.id];
+      const { nodeId } = action.payload;
+      const node = state.byId[nodeId];
       const parent = state.byId[node.parentId];
-      delete state.byId[node.id];
 
+      const childIdsByRootAndParentId = state.childIdsByRootAndParentId[node.rootId];
+
+      childIdsByRootAndParentId[node.id] = null;
+
+      // filter from childIdsByRootAndParentId
+      childIdsByRootAndParentId[nodeId] = null;
       if (parent) {
-        // delete from childIds of parent
-        parent.childIds = parent.childIds.filter((id) => id !== node.id);
-
-        // delete from descendantIds of ancestors
-        node.ancestorIds.forEach((ancestorId) => {
-          const ancestor = state.byId[ancestorId];
-          if (ancestor) ancestor.descendantIds = ancestor.descendantIds.filter((id) => id !== node.id);
-        });
+        childIdsByRootAndParentId[node.parentId] = childIdsByRootAndParentId[node.parentId].filter(
+          (id) => id !== node.id,
+        );
+        parent.childIds = parent.childIds.filter((id) => id !== nodeId);
       }
+
+      // delete state.byId[nodeId] - race condition: seems existing components are kept before tree re-render
+      // let's see if we can fix this
     },
     setEditNodeDescription(state, action) {
       const { id, value } = action.payload;
       state.byId[id].isEditingDescription = value;
     },
-    buildTmpNode(state, action) {
-      const { tmpNodeId: id } = action.payload;
-      state.byId[id] = {};
+    buildChildNode(state, action) {
+      const { tmpNodeId, nodeId, persistentId } = action.payload;
+      const node = state.byId[nodeId];
+
+      state.byId[tmpNodeId] = {
+        id: tmpNodeId,
+        persistentId: null,
+        parentId: nodeId,
+        persistentParentId: persistentId,
+        rootId: node.rootId,
+        isTemp: true,
+      }; // add new node to state
+
+      state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds
+      state.childIdsByRootAndParentId[node.rootId][tmpNodeId] = [];
     },
   },
   extraReducers(builder) {
@@ -74,11 +92,26 @@ const nodesSlice = createSlice({
       })
       .addCase(showNode.fulfilled, (state, action) => {
         const node = action.payload;
+        const { descendants } = node;
+
         state.byId[node.id] = node;
-        state.byId = { ...state.byId, ...node.descendantsById };
+        state.childIdsByRootAndParentId[node.id] = {};
+        state.childIdsByRootAndParentId[node.id][node.id] = node.childIds;
+
+        descendants.forEach((descendant) => {
+          state.byId[descendant.id] = descendant;
+          state.childIdsByRootAndParentId[node.id][descendant.id] = descendant.childIds;
+        });
       })
       .addCase(createNode.fulfilled, (state, action) => {
-        state.byId[action.payload.id] = action.payload;
+        const { tmpNodeId, id } = action.payload;
+        state.byId[id] = action.payload; // add new node to state
+        /**
+         * @description
+         * tmpNodeId will still be used for tree structure
+         */
+        state.byId[tmpNodeId].isTemp = false;
+        state.byId[tmpNodeId].persistentId = id;
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodesSlice.caseReducers.deleteNodeFromState(state, action);
@@ -95,7 +128,7 @@ export const {
   updateNodeState,
   deleteNodeFromState,
   setEditNodeDescription,
-  buildTmpNode,
+  buildChildNode,
 } = actions;
 
 export default reducer;

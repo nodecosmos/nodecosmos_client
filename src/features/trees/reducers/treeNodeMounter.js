@@ -1,8 +1,8 @@
 import { extractRootIdFromTreeNodeId } from '../trees.memoize';
 
 const mountDescendants = (state, treeNode) => {
-  const { treeDescendantIds, rootNodeId } = treeNode;
-  const rootNodesById = state.byRootNodeId[rootNodeId];
+  const { treeDescendantIds, rootId } = treeNode;
+  const rootNodesById = state.byRootNodeId[rootId];
 
   treeDescendantIds.forEach((id) => {
     const { treeAncestorIds } = rootNodesById[id];
@@ -15,8 +15,8 @@ const mountDescendants = (state, treeNode) => {
 };
 
 const unMountNodes = (state, treeNode) => {
-  const { treeDescendantIds, rootNodeId } = treeNode;
-  const rootNodesById = state.byRootNodeId[rootNodeId];
+  const { treeDescendantIds, rootId } = treeNode;
+  const rootNodesById = state.byRootNodeId[rootId];
 
   treeDescendantIds.forEach((id) => { rootNodesById[id].isMounted = false; });
 };
@@ -24,9 +24,9 @@ const unMountNodes = (state, treeNode) => {
 export default {
   expandTreeNode(state, action) {
     const treeNodeId = action.payload;
-    const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
 
-    const treeNode = state.byRootNodeId[rootNodeId][treeNodeId];
+    const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
     treeNode.isExpanded = true;
 
@@ -34,9 +34,9 @@ export default {
   },
   collapseTreeNode(state, action) {
     const treeNodeId = action.payload;
-    const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
 
-    const treeNode = state.byRootNodeId[rootNodeId][treeNodeId];
+    const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
     treeNode.isExpanded = false;
 

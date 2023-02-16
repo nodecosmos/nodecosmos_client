@@ -6,8 +6,8 @@ import { extractRootIdFromTreeNodeId } from '../trees.memoize';
 export default {
   setSelectedTreeNode(state, action) {
     const { treeNodeId, value } = action.payload;
-    const rootNodeId = extractRootIdFromTreeNodeId(treeNodeId);
-    const treeNodes = state.byRootNodeId[rootNodeId];
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+    const treeNodes = state.byRootNodeId[rootId];
     const prevCurrentNode = Object.values(treeNodes).find((node) => node.isSelected);
 
     if (prevCurrentNode) prevCurrentNode.isSelected = false;

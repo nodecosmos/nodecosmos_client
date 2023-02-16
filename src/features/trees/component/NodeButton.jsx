@@ -6,16 +6,16 @@ import { useSelector } from 'react-redux';
 /* nodecosmos */
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
-import { selectNodeAttributeById } from '../../nodes/nodes.selectors';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { NODE_BUTTON_HEIGHT } from '../trees.constants';
-import { selectTreeNodeAttributeById } from '../trees.selectors';
+import { selectTreeNodeAttribute } from '../trees.selectors';
 
 export default function NodeButton(props) {
   const {
     treeNodeId,
   } = props;
-  const nodeId = useSelector(selectTreeNodeAttributeById(treeNodeId, 'nodeId'));
-  const title = useSelector(selectNodeAttributeById(nodeId, 'title'));
+  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
+  const title = useSelector(selectNodeAttribute(nodeId, 'title'));
 
   const { onNodeClick } = useNodeTreeEvents(treeNodeId);
   const { backgroundColor, color } = useNodeButtonBackground(treeNodeId);
