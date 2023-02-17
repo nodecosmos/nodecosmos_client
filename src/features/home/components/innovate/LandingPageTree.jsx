@@ -21,8 +21,9 @@ export default function LandingPageTree() {
         Use the Node Tree feature to structure your innovation.
         Each node can represent a component of your project, an ingredient in your recipe,
         or other type of constituent depending on your project.
-        Furthermore, nodes can be reused and shared between projects. As a result, it allows modular approach to
-        innovation development or knowledge sharing in general.
+        Moreover, individual nodes, along with their respective subtrees, can be accessed independently, reused,
+        and exchanged across different projects.
+        As a result, it allows modular approach to innovation development and knowledge sharing.
       </Typography>
       <Box
         mx={{
