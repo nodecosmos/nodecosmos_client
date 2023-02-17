@@ -44,29 +44,12 @@ export default function NodeToolbar(props) {
           mx: 0.5,
           '&:hover': { background: 'rgb(56 195 197 / 14%)' },
         },
-        '.Item:nth-of-type(1n)': { color: red },
-        '.Item:nth-of-type(2n)': { color: blue },
-        '.Item:nth-of-type(3n)': { color: green },
+        '.Item:nth-of-type(3n + 1)': { color: red },
+        '.Item:nth-of-type(3n + 2)': { color: green },
+        '.Item:nth-of-type(3n + 3)': { color: blue },
         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
-      <IconButton
-        defaultComponent="a"
-        target="_blank"
-        href={`/nodes/${persistentId}`}
-        className="Item"
-        aria-label="Open Node in New Tab"
-      >
-        <FontAwesomeIcon
-          icon={faLink}
-        />
-      </IconButton>
-      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
-        <AddRounded fontSize="small" />
-      </IconButton>
-      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
-        <AddRounded fontSize="small" />
-      </IconButton>
       <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
         <AddRounded fontSize="small" />
       </IconButton>
@@ -94,6 +77,16 @@ export default function NodeToolbar(props) {
         checkedIcon={<Notifications fontSize="small" />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
       />
+      <IconButton
+        target="_blank"
+        href={`/nodes/${persistentId}`}
+        className="Item"
+        aria-label="Open Node in New Tab"
+      >
+        <FontAwesomeIcon
+          icon={faLink}
+        />
+      </IconButton>
     </Box>
   );
 }

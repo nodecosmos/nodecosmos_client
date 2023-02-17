@@ -1,48 +1,48 @@
 export default {
   shadows: {
     0: 'none',
-    1: '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
-    2: '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
-    3: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
-    4: '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
-    5: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)',
-    6: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
-    7: '0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)',
-    8: '0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)',
-    9: '0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12)',
-    10: '0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)',
-    11: '0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12)',
-    12: '0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12)',
-    13: '0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)',
-    14: '0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12)',
-    15: '0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12)',
-    16: '0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12)',
-    17: '0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12)',
-    18: '0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12)',
-    19: '0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12)',
-    20: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)',
-    21: '0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12)',
-    22: '0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12)',
-    23: '0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)',
-    24: '0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)',
+    1: '0px 1px 3px rgba(0, 0, 0, 0.12)',
+    2: '0px 3px 6px rgba(0, 0, 0, 0.12)',
+    3: '0px 10px 20px rgba(0, 0, 0, 0.12)',
+    4: '0px 15px 25px rgba(0, 0, 0, 0.12)',
+    5: '0px 20px 40px rgba(0, 0, 0, 0.14)',
+    6: '0px 25px 50px rgba(0, 0, 0, 0.14)',
+    7: '0px 30px 60px rgba(0, 0, 0, 0.14)',
+    8: '0px 35px 70px rgba(0, 0, 0, 0.14)',
+    9: '0px 40px 80px rgba(0, 0, 0, 0.14)',
+    10: '0px 50px 100px rgba(0, 0, 0, 0.14)',
+    11: '0px 60px 120px rgba(0, 0, 0, 0.14)',
+    12: '0px 70px 140px rgba(0, 0, 0, 0.14)',
+    13: '0px 80px 160px rgba(0, 0, 0, 0.14)',
+    14: '0px 90px 180px rgba(0, 0, 0, 0.14)',
+    15: '0px 100px 200px rgba(0, 0, 0, 0.14)',
+    16: '0px 110px 220px rgba(0, 0, 0, 0.14)',
+    17: '0px 120px 240px rgba(0, 0, 0, 0.14)',
+    18: '0px 130px 260px rgba(0, 0, 0, 0.14)',
+    19: '0px 140px 280px rgba(0, 0, 0, 0.14)',
+    20: '0px 150px 300px rgba(0, 0, 0, 0.14)',
+    21: '0px 160px 320px rgba(0, 0, 0, 0.14)',
+    22: '0px 170px 340px rgba(0, 0, 0, 0.14)',
+    23: '0px 180px 360px rgba(0, 0, 0, 0.14)',
+    24: '0px 190px 380px rgba(0, 0, 0, 0.14)',
 
     top: {
-      1: '0px -3px 3px -2px rgb(0 0 0 / 20%)',
+      1: '0px -3px 3px -2px rgb(0 0 0 / 10%)',
     },
 
-    header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
+    header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
     boxBorder: {
       bottom: {
-        xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
-        md: '0px 3px 1px -2px rgb(66 66 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
+        xs: '0px 3px 1px -2px rgb(237 237 237), 0px 1px 2px 0px rgb(237 237 237)',
+        md: '0px 3px 1px -2px rgb(66 66 72 / 25%), 0px 1px 2px 0px rgb(237 237 237)',
       },
       right: {
-        xs: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
-        md: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
+        xs: '3px 0px 1px -1px rgb(237 237 237), 1px 0px 1px 0px rgb(237 237 237)',
+        md: '3px 0px 1px -1px rgb(237 237 237), 1px 0px 1px 0px rgb(237 237 237)',
       },
       top: {
-        xs: '0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)',
-        md: '0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)',
+        xs: '0px -3px 1px -2px rgb(237 237 237), 0px -1px 2px 0px rgb(237 237 237)',
+        md: '0px -3px 1px -2px rgb(237 237 237), 0px -1px 2px 0px rgb(237 237 237)',
       },
     },
   },
@@ -58,7 +58,8 @@ export default {
     },
 
     error: {
-      main: '#e91e63',
+      main: '#ed4b82',
+      contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     success: {
@@ -72,21 +73,22 @@ export default {
     },
 
     borders: {
-      1: '#2d3138',
-      2: '#454b53', // 454b53 3c4149
-      3: '#34383f',
+      1: '#d1d5db',
+      2: '#e5e7eb',
+      3: '#e5e7eb',
 
       box: {
-        xs: '#202027',
-        md: '#101013',
+        xs: '#f5f5f5',
+        md: '#ffffff',
       },
     },
 
     background: {
-      1: '#2c2f35',
-      2: '#2f333a',
-      3: '#31353c',
-      4: '#555b66',
+      1: '#f5f5f5',
+      2: '#f7f7f8',
+      3: '#f3f4f6',
+      4: '#e5e7eb',
+      5: '#f2f5fa',
 
       labels: {
         red: '#e15e7d',
@@ -96,15 +98,15 @@ export default {
       },
 
       list: {
-        iconBackground: '#373b43',
-        iconForeground: '#b9b9b9',
-        active: '#33373e',
+        iconBackground: '#d1d5db',
+        iconForeground: '#000',
+        active: 'hsl(220deg 10% 96%)',
       },
 
-      scrollbarThumb: '#36393f',
-      paper: '#31353c',
+      scrollbarThumb: '#c7c7c7',
+      paper: '#ffffff',
       hover: 'rgba(0, 0, 0, 0.1)',
-      contrast: '#cccccc',
+      contrast: '#333333',
     },
 
     toolbar: {
@@ -114,39 +116,38 @@ export default {
     },
 
     tree: {
-      default: '#414650',
+      default: '#d1d5db',
       level1: '#e91e63',
-      level2: '#a2d85b', // a9d85b
+      level2: '#a2d85b',
       level3: '#4dcdff',
-      defaultText: '#fff',
+      defaultText: '#000',
       selectedText: 'rgba(0, 0, 0, 0.9)',
     },
 
     markdownContent: {
-      border: '#464b59',
-      canvas: '#464b59',
+      canvas: '#f2f5fa',
       background: 'transparent',
     },
 
     markdownEditor: {
       tagName: '#ff387a',
-      string: '#d1ff5d',
-      number: '#b3ff68',
+      string: '#4b4b4b',
+      number: '#000',
       attributeName: '#ffea83',
       className: '#daff29',
-      operator: '#fff',
-      bracket: '#fff',
-      caret: '#fff',
+      operator: '#000',
+      bracket: '#000',
+      caret: '#000',
       heading: '#80c7ff',
       emphasis: '#ffea83',
       quote: '#57606e',
-      meta: '#9a9da9',
+      meta: '#ff87c4',
       link: '#83c1ea',
-      background: '#2f343a',
-      foreground: '#9a9da9',
-      selection: 'rgba(255,255,255,0.06)',
-      selectionMatch: 'rgba(255,255,255,0.06)',
-      lineHighlight: '#8a91991a',
+      background: '#ffffff',
+      foreground: '#4b4b4b',
+      selection: 'rgba(0,0,0,0.06)',
+      selectionMatch: 'rgba(0,0,0,0.06)',
+      lineHighlight: '#e5e7eb',
       gutterBackground: 'transparent',
       gutterForeground: '#636b73',
     },
@@ -157,10 +158,10 @@ export default {
     },
 
     text: {
-      primary: '#f5f5f2',
+      primary: '#626e79',
       secondary: '#9a9da9',
-      tertiary: '#626e79',
-      contrast: '#fff',
+      tertiary: '#f5f5f2',
+      contrast: '#000',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
       gradients: {
