@@ -70,7 +70,7 @@ export default function useNodeTreeEvents(treeNodeId) {
 
       dispatch(setAlert({ isOpen: true, severity: 'error', message }));
     } else {
-      const tmpNodeId = Date.now();
+      const tmpNodeId = Date.now().toString();
 
       dispatch(setCurrentTempNodeId(tmpNodeId));
       dispatch(buildChildNode({ tmpNodeId, nodeId, persistentId }));

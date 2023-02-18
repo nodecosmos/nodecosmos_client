@@ -51,8 +51,8 @@ export default function LandingPageWorkflow() {
           md: 'borders.box.md',
         }}
         boxShadow={{
-          xs: 'boxBorder.right.xs',
-          md: 'boxBorder.right.md',
+          xs: 'container.right.xs',
+          md: 'container.right.md',
         }}
         zIndex={1}
         display="flex"

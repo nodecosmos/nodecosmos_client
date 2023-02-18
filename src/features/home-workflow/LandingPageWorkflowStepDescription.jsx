@@ -9,7 +9,7 @@ export default function LandingPageWorkflowStepDescription() {
   return (
     <Box
       boxShadow={{
-        xs: 'boxBorder.top.xs',
+        xs: 'container.top.xs',
         md: 'none',
       }}
     >
@@ -20,8 +20,8 @@ export default function LandingPageWorkflowStepDescription() {
           md: 'borders.box.md',
         }}
         boxShadow={{
-          xs: 'boxBorder.bottom.xs',
-          md: 'boxBorder.bottom.md',
+          xs: 'container.bottom.xs',
+          md: 'container.bottom.md',
         }}
         display="flex"
         justifyContent="center"

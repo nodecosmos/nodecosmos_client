@@ -18,8 +18,8 @@ export default function LandingPageNodeDescription() {
           md: 'borders.box.md',
         }}
         boxShadow={{
-          xs: 'boxBorder.bottom.xs',
-          md: 'boxBorder.bottom.md',
+          xs: 'container.bottom.xs',
+          md: 'container.bottom.md',
         }}
         display="flex"
         justifyContent="center"

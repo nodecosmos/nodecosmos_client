@@ -111,17 +111,10 @@ const nodesSlice = createSlice({
         action.payload.forEach((node) => { state.indexNodesById[node.id] = node; });
       })
       .addCase(showNode.fulfilled, (state, action) => {
-        const node = action.payload;
-
-        const { descendants } = node;
-
-        state.byId[node.id] = node;
-        state.childIdsByRootAndParentId[node.id] = {};
-        state.childIdsByRootAndParentId[node.id][node.id] = node.childIds;
-
-        descendants.forEach((descendant) => {
-          state.byId[descendant.id] = descendant;
-          state.childIdsByRootAndParentId[node.id][descendant.id] = descendant.childIds;
+        action.payload.forEach((node) => {
+          state.byId[node.id] = node;
+          state.childIdsByRootAndParentId[node.rootId] ||= {};
+          state.childIdsByRootAndParentId[node.rootId][node.id] = node.childIds || [];
         });
       })
       .addCase(createNode.fulfilled, (state, action) => {

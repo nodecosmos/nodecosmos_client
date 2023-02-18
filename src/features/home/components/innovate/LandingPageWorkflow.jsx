@@ -26,8 +26,8 @@ export default function LandingPageWorkflow() {
             md: 'borders.box.md',
           }}
           boxShadow={{
-            xs: 'boxBorder.bottom.xs',
-            md: 'boxBorder.bottom.md',
+            xs: 'container.bottom.xs',
+            md: 'container.bottom.md',
           }}
         >
           <Typography

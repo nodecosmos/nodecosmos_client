@@ -13,7 +13,7 @@ export default function NodeDescription() {
 
   const blankDescription = (
     <Typography color="text.secondary" textAlign="center">
-      { selectedNodeId && 'This node has no description yet.' || <Box component="span" fontSize={30}>¯\_(ツ)_/¯</Box> }
+      { (selectedNodeId && 'This node has no description yet.') || <Box component="span" fontSize={30}>¯\_(ツ)_/¯</Box> }
     </Typography>
   );
 
@@ -32,8 +32,8 @@ export default function NodeDescription() {
           md: 'borders.box.md',
         }}
         boxShadow={{
-          xs: 'boxBorder.bottom.xs',
-          md: 'boxBorder.bottom.md',
+          xs: 'container.bottom.xs',
+          md: 'container.bottom.md',
         }}
         display="flex"
         justifyContent="space-between"

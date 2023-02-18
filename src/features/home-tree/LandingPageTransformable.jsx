@@ -60,7 +60,7 @@ export default function LandingPageTransformable(props) {
       }}
       boxShadow={{
         xs: 0,
-        md: 'boxBorder.right.md',
+        md: 'container.right.md',
       }}
       overflow={{
         xs: 'auto',

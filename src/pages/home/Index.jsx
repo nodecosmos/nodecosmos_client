@@ -212,7 +212,7 @@ export default function Index() {
           zIndex={2}
           p={3}
           backgroundColor="background.3"
-          boxShadow="boxBorder.top.xs"
+          boxShadow="container.top.xs"
           sx={{
             borderBottomLeftRadius: {
               xs: 0,

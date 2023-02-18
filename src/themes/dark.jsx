@@ -31,7 +31,7 @@ export default {
     },
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
-    boxBorder: {
+    container: {
       bottom: {
         xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
         md: '0px 3px 1px -2px rgb(66 66 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
@@ -44,6 +44,10 @@ export default {
         xs: '0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)',
         md: '0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)',
       },
+    },
+
+    buttons: {
+      1: '3px 3px 0px rgb(0 0 0 / 10%)',
     },
   },
 

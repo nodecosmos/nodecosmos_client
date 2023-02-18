@@ -22,6 +22,7 @@ export default function NodeButton(props) {
 
   return (
     <Button
+      type="button"
       className="NodeButton"
       onClick={onNodeClick}
       onKeyUp={(event) => event.preventDefault()}
@@ -31,18 +32,12 @@ export default function NodeButton(props) {
         color,
       }}
     >
-      <TagRounded fontSize="small" ml="-2px" />
-      <div
-        className="NodeButtonText"
-        style={{
-          cursor: 'pointer!important',
-          pointerEvents: 'none',
-          color,
-        }}
-      >
+      <TagRounded fontSize="small" />
+      <div className="NodeButtonText" style={{ color }}>
         {title}
       </div>
     </Button>
+
   );
 }
 

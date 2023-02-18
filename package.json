@@ -22,7 +22,7 @@
     "@lezer/highlight": "^1.1.2",
     "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.105",
-    "@mui/material": "^5.10.11",
+    "@mui/material": "^5.11.9",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

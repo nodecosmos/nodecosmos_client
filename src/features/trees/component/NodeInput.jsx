@@ -45,6 +45,7 @@ export default function NodeInput(props) {
     >
       <TagRounded fontSize="small" ml="-2px" />
       <input
+        className="NodeButtonText"
         ref={ref}
         onClick={onNodeClick}
         onChange={handleNodeTitleChange}
@@ -52,7 +53,6 @@ export default function NodeInput(props) {
         onKeyUp={saveNode}
         onBlur={() => focused && handleNodeBlur()}
         value={title || ''}
-        className="NodeButtonText"
         maxLength={MAX_NODE_INPUT_SIZE}
         size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}
         style={{ color, fontFamily: 'monospace' }}

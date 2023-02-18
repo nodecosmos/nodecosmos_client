@@ -69,7 +69,7 @@ export default function Header() {
           height={1}
           borderRight={1}
           borderColor="borders.box.md"
-          boxShadow="boxBorder.right.md"
+          boxShadow="container.right.md"
         >
           <Box
             height={1}

@@ -31,7 +31,7 @@ export default {
     },
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
-    boxBorder: {
+    container: {
       bottom: {
         xs: '0px 3px 1px -2px rgb(237 237 237), 0px 1px 2px 0px rgb(237 237 237)',
         md: '0px 3px 1px -2px rgb(66 66 72 / 25%), 0px 1px 2px 0px rgb(237 237 237)',

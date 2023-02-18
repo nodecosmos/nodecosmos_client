@@ -10,11 +10,12 @@ export default function TreeContainer(props) {
       '.NodeButton': {
         display: 'inline-flex',
         alignItems: 'center',
+        cursor: 'pointer',
+        boxShadow: 'buttons.1',
         borderRadius: 1.5,
         py: 0,
         px: 2,
-        cursor: 'pointer',
-        boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
+        // border: 'none',
         '.NodeButtonText': {
           ml: 1,
           p: 0,
@@ -25,6 +26,8 @@ export default function TreeContainer(props) {
           letterSpacing: '0.02857em',
           minWidth: 40,
           outline: 'none!important',
+          cursor: 'pointer!important',
+          pointerEvents: 'none',
         },
       },
     }}
