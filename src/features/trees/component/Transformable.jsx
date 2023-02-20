@@ -30,6 +30,7 @@ export default function Transformable(props) {
   const dispatch = useDispatch();
 
   const scrollTimeout = useRef(null);
+
   const handleScroll = () => {
     if (scrollTimeout.current) {
       clearTimeout(scrollTimeout.current);
@@ -37,12 +38,14 @@ export default function Transformable(props) {
     }
     scrollTimeout.current = setTimeout(() => {
       scrollTimeout.current = null;
-      dispatch(setTransformablePositions({
-        id: rootId,
-        clientHeight: containerRef.current.clientHeight,
-        scrollTop: containerRef.current.scrollTop,
-      }));
-    }, 100);
+      requestAnimationFrame(() => {
+        dispatch(setTransformablePositions({
+          id: rootId,
+          clientHeight: containerRef.current.clientHeight,
+          scrollTop: containerRef.current.scrollTop,
+        }));
+      });
+    });
   };
 
   useEffect(() => {

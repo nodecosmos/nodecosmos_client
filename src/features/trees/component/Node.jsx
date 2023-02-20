@@ -4,7 +4,7 @@ import NestedNodesBranch from './NestedNodesBranch';
 import NodeContainer from './NodeContainer';
 import NodeBranch from './NodeBranch';
 
-export default function Node(props) {
+function Node(props) {
   const { treeNodeId } = props;
 
   return (
@@ -19,3 +19,5 @@ export default function Node(props) {
 Node.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
 };
+
+export default React.memo(Node);

@@ -14,19 +14,19 @@ const treesSlice = createSlice({
      *    treeNodeId: string,
      *    treeParentId: string,
      *    treeUpperSiblingId: string,
+     *    treeAncestorIds: string[],
+     *    treeChildIds: string[],
+     *    treeDescendantIds: string[],
      *    treeLastChildId: string,
      *    nodeId: string,
-     *    parentId: string,
+     *    persistentNodeId: string,
      *    rootId: string,
      *    isRoot: boolean,
      *    isMounted: boolean,
      *    isExpanded: boolean,
      *    isSelected: boolean,
      *    isEditing: boolean,
-     *    isTemp: boolean,
-     *    treeChildIds: string[],
-     *    treeAncestorIds: string[],
-     *    treeDescendantIds: string[],
+     *    nestedLevel: number,
      *   },
      * }}
      */
@@ -65,7 +65,6 @@ const treesSlice = createSlice({
     currentTempNodeId: null,
   },
   reducers: {
-    // manual mapping so it's easier to navigate
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
     setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
     //------------------------------------------------------------------------------------------------------------------

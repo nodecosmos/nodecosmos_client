@@ -11,6 +11,7 @@ import {
 export default function useTreeNodeVirtualization(rootId) {
   const { clientHeight, scrollTop } = useSelector(selectTransformablePositionsById(rootId));
   const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));
+
   const positionsById = useSelector(selectPositionsByNodeId);
   const treeNodes = useSelector(selectTreeNodes(rootId));
 
