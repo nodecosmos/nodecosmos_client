@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import usePrevProps from '../../../common/hooks/usePrevProps';
+import usePrevious from '../../../common/hooks/usePrevious';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
@@ -20,7 +20,7 @@ export default function NestedNodesBranch(props) {
   const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
   const { xEnd, y } = useSelector(selectPosition(treeNodeId));
   const { y: pathYEnd } = useSelector(selectPosition(treeLastChildId));
-  const prevPathYEnd = usePrevProps(pathYEnd);
+  const prevPathYEnd = usePrevious(pathYEnd);
 
   const theme = useTheme();
 

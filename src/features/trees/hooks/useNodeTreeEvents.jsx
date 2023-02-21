@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 /* nodecosmos */
-import usePrevProps from '../../../common/hooks/usePrevProps';
+import usePrevious from '../../../common/hooks/usePrevious';
 import { setAlert } from '../../app/appSlice';
 import { selectNode } from '../../nodes/nodes.selectors';
 import { createNode, deleteNode, updateNode } from '../../nodes/nodes.thunks';
@@ -37,7 +37,7 @@ export default function useNodeTreeEvents(treeNodeId) {
     isSelected,
   } = useSelector(selectNode(nodeId));
 
-  const prevTitle = usePrevProps(title);
+  const prevTitle = usePrevious(title);
   const navigate = useNavigate();
 
   //--------------------------------------------------------------------------------------------------------------------

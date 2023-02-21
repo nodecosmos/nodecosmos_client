@@ -1,6 +1,6 @@
 // generic styles that have access to theme
 export default {
-  'h1, h2, h3, h4, h5, h6': {
+  'h1, h2, h3, h4, h5': {
     color: 'text.primary',
   },
   '&, .MuiPaper-root': {

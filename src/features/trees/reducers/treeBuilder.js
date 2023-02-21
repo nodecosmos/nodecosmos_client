@@ -27,8 +27,8 @@ export default {
       const isRoot = nodeId === rootId;
       const treeNodeId = isRoot ? nodeId : `${rootId}-${parentId}-${nodeId}`;
       const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
-      const { isMounted, isExpanded, isSelected } = currentTreeNode;
 
+      const { isMounted, isExpanded, isSelected } = currentTreeNode;
       const isNewlyCreated = state.currentTempNodeId === nodeId;
 
       // populate root's orderedTreeNodeIds with constructed id

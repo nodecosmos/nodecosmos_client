@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import usePrevProps from '../../../../common/hooks/usePrevProps';
+import usePrevious from '../../../../common/hooks/usePrevious';
 import useShallowEqualSelector from '../../../../common/hooks/useShallowEqualSelector';
 import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../../../home-tree/constants';
 import {
@@ -36,7 +36,7 @@ export default function useNodePositionCalculator(props) {
   const xEnds = x + EDGE_LENGTH;
 
   const y = (isRoot ? 0 : (upperSiblingYEnds || parentY)) + MARGIN_TOP + EDGE_LENGTH;
-  const prevY = usePrevProps(y);
+  const prevY = usePrevious(y);
 
   const currentYEnds = nodePosition.yEnds;
 

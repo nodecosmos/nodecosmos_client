@@ -1,50 +1,33 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setTransformablePositions } from '../../app/appSlice';
-import { selectPosition } from '../trees.selectors';
+import usePannable from '../hooks/usePannable';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../trees.constants';
 
 export default function Transformable(props) {
   const { children, rootId } = props;
   const containerRef = useRef(null);
-  const svgRef = useRef(null);
   const gRef = useRef(null);
-
-  const { yEnd } = useSelector(selectPosition(rootId));
-  const height = (yEnd || 0) + TRANSFORMABLE_HEIGHT_MARGIN;
-
-  const [width, setWidth] = React.useState(TRANSFORMABLE_MIN_WIDTH);
-
-  //--------------------------------------------------------------------------------------------------------------------
-  const resize = () => {
-    const newWidth = gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN;
-
-    if (newWidth > TRANSFORMABLE_MIN_WIDTH) {
-      setWidth(newWidth);
-    }
-  };
-
-  //--------------------------------------------------------------------------------------------------------------------
   const dispatch = useDispatch();
 
-  const scrollTimeout = useRef(null);
+  const height = (gRef.current && gRef.current.getBBox().height) + TRANSFORMABLE_HEIGHT_MARGIN;
 
+  const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
+  const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
+
+  //--------------------------------------------------------------------------------------------------------------------
+  const { onMouseDown } = usePannable(containerRef);
+
+  //--------------------------------------------------------------------------------------------------------------------
   const handleScroll = () => {
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = null;
-    }
-    scrollTimeout.current = setTimeout(() => {
-      scrollTimeout.current = null;
-      requestAnimationFrame(() => {
-        dispatch(setTransformablePositions({
-          id: rootId,
-          clientHeight: containerRef.current.clientHeight,
-          scrollTop: containerRef.current.scrollTop,
-        }));
-      });
+    requestAnimationFrame(() => {
+      dispatch(setTransformablePositions({
+        id: rootId,
+        clientHeight: containerRef.current.clientHeight,
+        scrollTop: containerRef.current.scrollTop,
+      }));
     });
   };
 
@@ -62,10 +45,8 @@ export default function Transformable(props) {
   return (
     <div
       ref={containerRef}
-      onClick={resize}
-      onScroll={resize}
-      onTouchStart={resize}
       onScrollCapture={(e) => handleScroll(e)}
+      onMouseDown={onMouseDown}
       style={{
         overflow: 'auto',
         width: '100%',
@@ -73,7 +54,6 @@ export default function Transformable(props) {
       }}
     >
       <svg
-        ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}

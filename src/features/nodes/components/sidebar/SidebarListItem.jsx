@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 export default function SidebarListItem({ to, icon, title }) {
   return (
     <ListItem sx={{
-      px: 1.5,
+      px: 1,
       py: 0.5,
     }}
     >
@@ -32,7 +32,7 @@ export default function SidebarListItem({ to, icon, title }) {
         <ListItemIcon sx={{
           transition: 'all 350ms cubic-bezier(0.0, 0, 0.2, 1) 2ms',
           minWidth: 0,
-          padding: 1.75,
+          padding: 1.65,
           borderRadius: 1.5,
 
           backgroundColor: 'background.list.iconBackground',
@@ -48,7 +48,7 @@ export default function SidebarListItem({ to, icon, title }) {
         >
           {icon}
         </ListItemIcon>
-        <Typography variant="body2" ml={2}>
+        <Typography variant="subtitle2" ml={2} sx={{ color: 'text.secondary' }}>
           {title}
         </Typography>
       </ListItemButton>
