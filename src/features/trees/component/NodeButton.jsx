@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import TagRounded from '@mui/icons-material/TagRounded';
 import { Button } from '@mui/material';
@@ -9,6 +9,9 @@ import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { NODE_BUTTON_HEIGHT } from '../trees.constants';
 import { selectTreeNodeAttribute } from '../trees.selectors';
+
+const MemoizedTagRounded = memo(TagRounded);
+const MemoizedNodeButton = memo(Button);
 
 export default function NodeButton(props) {
   const {
@@ -21,7 +24,7 @@ export default function NodeButton(props) {
   const { backgroundColor, color } = useNodeButtonBackground(treeNodeId);
 
   return (
-    <Button
+    <MemoizedNodeButton
       type="button"
       className="NodeButton"
       onClick={onNodeClick}
@@ -32,12 +35,11 @@ export default function NodeButton(props) {
         color,
       }}
     >
-      <TagRounded fontSize="small" />
+      <MemoizedTagRounded />
       <div className="NodeButtonText" style={{ color }}>
         {title}
       </div>
-    </Button>
-
+    </MemoizedNodeButton>
   );
 }
 

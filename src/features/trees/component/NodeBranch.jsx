@@ -9,7 +9,7 @@ import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function NodeBranch(props) {
-  const { treeNodeId } = props;
+  const { treeNodeId, alreadyMounted } = props;
 
   const theme = useTheme();
 
@@ -28,7 +28,9 @@ export default function NodeBranch(props) {
     );
   }
 
-  const animationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+  const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+  const initialAnimationDuration = isSafari || !alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDelay = isSafari || !alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (
     <g>
@@ -43,8 +45,8 @@ export default function NodeBranch(props) {
         fill="transparent"
         style={{
           opacity: 0,
-          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
-          transition: `d ${animationDuration}ms`,
+          animation: `node-path-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+          transition: `d ${transitionAnimationDuration}ms`,
         }}
       />
       <circle
@@ -54,8 +56,8 @@ export default function NodeBranch(props) {
         fill={parentBackgroundColor}
         style={{
           opacity: 0,
-          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
-          transition: `cx ${animationDuration}ms, cy ${animationDuration}ms`,
+          animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
+          transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
         }}
       />
     </g>
@@ -64,4 +66,5 @@ export default function NodeBranch(props) {
 
 NodeBranch.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
+  alreadyMounted: PropTypes.bool.isRequired,
 };

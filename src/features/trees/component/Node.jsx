@@ -5,19 +5,20 @@ import NodeContainer from './NodeContainer';
 import NodeBranch from './NodeBranch';
 
 function Node(props) {
-  const { treeNodeId } = props;
+  const { treeNodeId, alreadyMounted } = props;
 
   return (
     <g>
       <NestedNodesBranch treeNodeId={treeNodeId} />
-      <NodeBranch treeNodeId={treeNodeId} />
-      <NodeContainer treeNodeId={treeNodeId} />
+      <NodeBranch treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
+      <NodeContainer treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
     </g>
   );
 }
 
 Node.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
+  alreadyMounted: PropTypes.bool.isRequired,
 };
 
 export default React.memo(Node);

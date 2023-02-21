@@ -6,6 +6,7 @@ export default function TreeContainer(props) {
   return (
     <Box sx={{
       height: 1,
+      transform: 'translateZ(0)',
       '.NodeButtonContainer': { display: 'flex' },
       '.NodeButton': {
         display: 'inline-flex',
@@ -15,7 +16,10 @@ export default function TreeContainer(props) {
         borderRadius: 1.5,
         py: 0,
         px: 2,
-        // border: 'none',
+        border: 'none',
+        '.MuiSvgIcon-root': {
+          fontSize: '1.25rem',
+        },
         '.NodeButtonText': {
           ml: 1,
           p: 0,

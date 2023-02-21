@@ -32,7 +32,13 @@ export default function Tree(props) {
   return (
     <Transformable containerRef={containerRef} rootId={rootNodeId}>
       <g>
-        {treeNodeIdsToView.map((treeNodeId) => <Node key={treeNodeId} treeNodeId={treeNodeId} />)}
+        {treeNodeIdsToView.map(([treeNodeId, alreadyMounted]) => (
+          <Node
+            key={treeNodeId}
+            treeNodeId={treeNodeId}
+            alreadyMounted={alreadyMounted}
+          />
+        ))}
       </g>
     </Transformable>
   );

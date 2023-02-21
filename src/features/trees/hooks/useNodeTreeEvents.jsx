@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 /* nodecosmos */
@@ -41,7 +41,7 @@ export default function useNodeTreeEvents(treeNodeId) {
   const navigate = useNavigate();
 
   //--------------------------------------------------------------------------------------------------------------------
-  const onNodeClick = () => {
+  const onNodeClick = useCallback(() => {
     if (isEditing) return;
     if (isExpanded && isSelected) {
       dispatch(collapseTreeNode(treeNodeId));
@@ -50,7 +50,7 @@ export default function useNodeTreeEvents(treeNodeId) {
       dispatch(expandTreeNode(treeNodeId));
       dispatch(setSelectedNode(nodeId));
     }
-  };
+  }, [isEditing, isExpanded, isSelected, nodeId, treeNodeId, dispatch]);
 
   //--------------------------------------------------------------------------------------------------------------------
   const addChildNodeLastClick = useRef(null);
