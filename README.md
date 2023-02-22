@@ -1,15 +1,16 @@
 # Nodecosmos
 
 ### Directory structure: 
-   * ###### common - everything that does not relate to redux state
-     * ###### components - view components
-     * ###### hooks - business logic
-   * ###### features - each feature has its own slice of state
-     * ###### feature_name
-       * ###### components - view components
-       * ###### hooks - business logic
-       * ###### featureSlice - state management for feature
-   * ###### pages - Each route is a page
+*  **common** - everything that does not relate to redux state
+   * **components** - common view components
+   * **hooks** - common business logic
+
+*  **features** - each feature has its own slice of state
+   * **feature-name**
+       *  **components** - view components
+       *  **hooks** - business logic
+       *  **featureSlice** - state management for feature
+*  **pages** - Each route is a page
 
 ---
 ### Material-UI Recommendations:
