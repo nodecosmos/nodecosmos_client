@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
-import { setCurrentWorkflowStep } from './landingPageWorkflowSlice';
+import { setCurrentWorkflowStep } from '../landingPageWorkflowSlice';
 import LandingPageWorkflowStepDescription from './LandingPageWorkflowStepDescription';
 
 // DUMB IMPLEMENTATION FOR LANDING PAGE

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateNode } from './landingPageNodeSlice';
+import { updateNode } from '../landingPageNodeSlice';
 
 export default function LandingPageNodeButtonText(props) {
   const { id } = props;

@@ -3,14 +3,14 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNodeButtonBackground from '../home/hooks/landing-page-tree/useNodeButtonBackground';
+import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   MARGIN_LEFT,
   MARGIN_TOP,
   TRANSITION_ANIMATION_DURATION,
-} from './constants';
+} from '../constants';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

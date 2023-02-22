@@ -2,8 +2,8 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import NodeDescription from '../../../features/nodes/components/NodeDescription';
-import TreeContainer from '../../../features/trees/component/TreeContainer';
-import Tree from '../../../features/trees/component/Tree';
+import TreeContainer from '../../../features/trees/components/TreeContainer';
+import Tree from '../../../features/trees/components/Tree';
 
 export default function TreeTab() {
   const { id } = useParams();

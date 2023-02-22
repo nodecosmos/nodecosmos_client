@@ -4,7 +4,7 @@ import TagRounded from '@mui/icons-material/TagRounded';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
-import useDrawerHeight from '../home/hooks/landing-page-tree/useDrawerHeight';
+import useDrawerHeight from '../hooks/useDrawerHeight';
 
 const EDGE_HEIGHT = 56;
 

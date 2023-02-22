@@ -9,7 +9,7 @@ import {
   MARGIN_LEFT,
   MARGIN_TOP,
   TRANSITION_ANIMATION_DURATION,
-} from './constants';
+} from '../constants';
 
 export default function LandingPageNestedNodesBranch(props) {
   const { id, lastChildId } = props;

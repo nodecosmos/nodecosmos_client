@@ -1,8 +1,8 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNodePositionCalculator from '../home/hooks/landing-page-tree/useNodePositionCalculator';
-import useNodeUnmountService from '../home/hooks/landing-page-tree/useNodeUnmountService';
+import useNodePositionCalculator from '../hooks/useNodePositionCalculator';
+import useNodeUnmountService from '../hooks/useNodeUnmountService';
 import LandingPageNodeButton from './LandingPageNodeButton';
 import NodeLink from './LandingPageNodeLink';
 

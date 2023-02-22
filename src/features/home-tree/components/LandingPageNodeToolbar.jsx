@@ -19,8 +19,8 @@ import Notifications from '@mui/icons-material/Notifications';
 import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
 
 import { useDispatch } from 'react-redux';
-import useNodeTreeEvents from '../home/hooks/landing-page-tree/useNodeTreeEvents';
-import { updateNode } from './landingPageNodeSlice';
+import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
+import { updateNode } from '../landingPageNodeSlice';
 
 export default function LandingPageNodeToolbar(props) {
   const { id } = props;

@@ -9,7 +9,7 @@ import LandingPageNodeDescription from './LandingPageNodeDescription';
 import SwipeableEdgeDrawer from './LandingPageSwipableNodeDescMobile';
 import LandingPageTransformable from './LandingPageTransformable';
 import LandingPageNestedNodes from './LandingPageNestedNodes';
-import { terminateNewNode } from './landingPageNodeSlice';
+import { terminateNewNode } from '../landingPageNodeSlice';
 
 export default function LandingPageTree(props) {
   const { id } = props;

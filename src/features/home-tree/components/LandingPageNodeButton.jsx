@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* nodecosmos */
-import useNodeButtonBackground from '../home/hooks/landing-page-tree/useNodeButtonBackground';
-import useNodeTreeEvents from '../home/hooks/landing-page-tree/useNodeTreeEvents';
+import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
-} from './constants';
+} from '../constants';
 import LandingPageNodeButtonText from './LandingPageNodeButtonText';
 import LandingPageNodeToolbar from './LandingPageNodeToolbar';
 
