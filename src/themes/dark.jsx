@@ -103,8 +103,8 @@ export default {
       },
 
       list: {
-        iconBackground: '#414650',
-        iconForeground: '#fff',
+        default: '#898f9c',
+        activeColor: '#d8e0e8',
         active: 'hsl(220deg 10% 26%)',
       },
 

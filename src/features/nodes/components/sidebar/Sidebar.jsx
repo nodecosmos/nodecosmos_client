@@ -3,18 +3,20 @@ import * as PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faDiagramProject,
-  faHashtag,
-  faPhotoFilm,
+  faDiagramNested,
+  faCardsBlank,
+  faChartSimpleHorizontal,
   faUserGroup,
   faChartPie,
   faGears,
-  faDiagramNext,
-} from '@fortawesome/pro-light-svg-icons';
+  faIcons,
+} from '@fortawesome/pro-solid-svg-icons';
+import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded';
 
 /* mui */
 import { List } from '@mui/material';
 import Box from '@mui/material/Box';
+import NodecosmosIcon from '../../../../common/components/NodecosmosIcon';
 
 import SidebarListItem from './SidebarListItem';
 
@@ -32,13 +34,11 @@ export default function Sidebar(props) {
         fontSize: 0.875,
       }}
     >
-      <List>
+      <List sx={{ p: 1 }}>
         <SidebarListItem
           to={`${id}`}
           icon={(
-            <FontAwesomeIcon
-              icon={faHashtag}
-            />
+            <NodecosmosIcon />
           )}
           title="Node"
         />
@@ -46,7 +46,7 @@ export default function Sidebar(props) {
           to={`${id}/workflow`}
           icon={(
             <FontAwesomeIcon
-              icon={faDiagramNext}
+              icon={faDiagramNested}
             />
           )}
           title="Workflow"
@@ -54,9 +54,7 @@ export default function Sidebar(props) {
         <SidebarListItem
           to={`${id}/contribution_requests`}
           icon={(
-            <FontAwesomeIcon
-              icon={faDiagramProject}
-            />
+            <AccountTreeRoundedIcon />
           )}
           title="Contribution Requests"
         />
@@ -64,7 +62,7 @@ export default function Sidebar(props) {
           to={`${id}/media`}
           icon={(
             <FontAwesomeIcon
-              icon={faPhotoFilm}
+              icon={faIcons}
             />
           )}
           title="Media"

@@ -7,20 +7,21 @@ import { NavLink } from 'react-router-dom';
 export default function SidebarListItem({ to, icon, title }) {
   return (
     <ListItem sx={{
-      px: 1,
-      py: 0.5,
+      px: 0,
+      py: 0.25,
     }}
     >
       <ListItemButton
         sx={{
-          p: 1,
+          height: 54,
           borderRadius: 1.5,
           transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
+          color: 'background.list.default',
           '&:hover, &.active': {
             backgroundColor: 'background.list.active',
           },
           '&.active': {
-            color: 'text.contrast',
+            color: 'background.list.activeColor',
           },
         }}
         disableRipple
@@ -30,25 +31,22 @@ export default function SidebarListItem({ to, icon, title }) {
         end
       >
         <ListItemIcon sx={{
-          transition: 'all 350ms cubic-bezier(0.0, 0, 0.2, 1) 2ms',
           minWidth: 0,
-          padding: 1.65,
-          borderRadius: 1.5,
-
-          backgroundColor: 'background.list.iconBackground',
-          boxShadow: '1',
-          color: 'background.list.iconForeground',
+          mr: 2,
+          color: 'background.list.default',
           svg: {
-            fontSize: '0.9rem',
+            fontSize: 24,
+            width: 24,
+            height: 24,
             '.active &': {
-              color: 'text.contrast',
+              color: 'background.list.activeColor',
             },
           },
         }}
         >
           {icon}
         </ListItemIcon>
-        <Typography variant="subtitle2" ml={2} sx={{ color: 'text.secondary' }}>
+        <Typography variant="subtitle2">
           {title}
         </Typography>
       </ListItemButton>

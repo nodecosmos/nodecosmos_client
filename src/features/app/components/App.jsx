@@ -27,8 +27,15 @@ export default function App() {
   const location = useLocation();
 
   const isHomepage = location.pathname === '/';
+  /**
+   *
+   * @type {boolean}
+   * @description
+   * Prevents the app from loading on homepage
+   */
+  const isDevelopment = process.env.NODE_ENV === 'development';
 
-  if (!isHomepage) {
+  if (!isHomepage && isDevelopment) {
     return (
       <Suspense fallback={(
         <Loader
