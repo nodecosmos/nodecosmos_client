@@ -1,4 +1,4 @@
-# Nodecosmos
+# Nodecosmos 
 
 ### Directory structure: 
 *  **common** - everything that does not relate to redux state
@@ -21,7 +21,7 @@ with classes in parent container component, and be careful so that styled contai
 on nested element change. We do this so emotion does not need to recompute styles on every render.
 
 ---
-### GIT Workflow Recommendations
+### GIT Workflow Recommendations:
 
 1) Create a new branch for each modification.
 2) Make changes to the code on your local branch, and commit changes regularly with clear and descriptive commit messages.
