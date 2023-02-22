@@ -8,7 +8,10 @@ export default function SidebarListItem({ to, icon, title }) {
   return (
     <ListItem sx={{
       px: 0,
-      py: 0.25,
+      py: 0,
+      ':not(:first-of-type)': {
+        pt: 0.25,
+      },
     }}
     >
       <ListItemButton
