@@ -10,8 +10,8 @@
        * ###### hooks - business logic
        * ###### featureSlice - state management for feature
    * ###### pages - Each route is a page
----
 
+---
 ### Material-UI Recommendations:
 
 * Use inline-style for dynamic styling.
@@ -19,72 +19,30 @@
 with classes in parent container component, and be careful so that styled container is never re-rendered 
 on nested element change. We do this so emotion does not need to recompute styles on every render.
 
-### Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-### Available Scripts
-
-In the project directory, you can run:
-
-#### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-#### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-#### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-#### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc.) right into your project, so you have full control over them. All the commands except `eject` will still work, but they will point to the copied scripts, so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you could not customize it when you are ready for it.
-
 ---
-### Learn More
+### GIT Workflow Recommendations
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-#### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-#### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-#### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-#### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-#### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
----
+1) Create a new branch for each modification.
+2) Make changes to the code on your local branch, and commit changes regularly with clear and descriptive commit messages.
+   * Commit-format: action#feature: short description
+   * Common actions:
+     * **feat**: a new feature or functionality
+     * **update**: functionality
+     * **fix**: a bug fix
+     * **refactor**: a code refactoring or restructuring
+     * **docs**: changes to documentation
+     * **chore**: maintenance or other non-code changes
+     * **style**: changes to code formatting or style
+     * **test**: changes to testing code or configuration
+     * **perf**: performance improvements
+     * **revert**: a commit that reverts a previous change
+     * **merge**: a commit that merges one branch into another
+     * **build**: changes to the build system or configuration
+     * **ci**: changes to the continuous integration (CI) pipeline or configuration
+     * **deploy**: changes to the deployment process or configuration
+     * **security**: security-related changes or fixes
+3) Once you're ready to merge your changes into the main codebase, create a pull request and have your changes reviewed by other members of your team.
+4) If there are any issues identified during the review process, make changes to your code and commit those changes to your branch.
+5) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
+6) Once your pull request has been approved, merge your changes into the main codebase. 5
+7) Finally, delete your branch to keep your repository clean and organized.

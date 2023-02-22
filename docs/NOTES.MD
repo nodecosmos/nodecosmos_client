@@ -28,7 +28,7 @@ TREE
               . . . C
               .
               . . . D
-       A - yEnds    .
+       A - yEnd    .
                     . D-1
                     .
                     . D-2
