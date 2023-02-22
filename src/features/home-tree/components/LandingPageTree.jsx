@@ -4,12 +4,12 @@ import * as PropTypes from 'prop-types';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
+import { terminateNewNode } from '../landingPageNodeSlice';
 import LandingPageNode from './LandingPageNode';
 import LandingPageNodeDescription from './LandingPageNodeDescription';
 import SwipeableEdgeDrawer from './LandingPageSwipableNodeDescMobile';
 import LandingPageTransformable from './LandingPageTransformable';
 import LandingPageNestedNodes from './LandingPageNestedNodes';
-import { terminateNewNode } from '../landingPageNodeSlice';
 
 export default function LandingPageTree(props) {
   const { id } = props;
