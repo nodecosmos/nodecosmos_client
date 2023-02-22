@@ -17,8 +17,8 @@ export default function TreeContainer(props) {
         py: 0,
         px: 2,
         border: 'none',
-        '.MuiSvgIcon-root': {
-          fontSize: '1.25rem',
+        '.fa-hashtag': {
+          fontSize: '1.05em',
         },
         '.NodeButtonText': {
           ml: 1,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTheme } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import {
 } from '../trees.constants';
 import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 
-export default function NestedNodesBranch(props) {
+function NestedNodesBranch(props) {
   const { treeNodeId } = props;
 
   const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
@@ -49,3 +49,5 @@ export default function NestedNodesBranch(props) {
 NestedNodesBranch.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
 };
+
+export default memo(NestedNodesBranch);
