@@ -14,20 +14,24 @@ import { likeNode, unlikeNode } from '../nodes.thunks';
 export default function LikeButton(props) {
   const { nodeId } = props;
   const { id: currentUserId } = useSelector(selectCurrentUser);
-  const likedByUserIds = useSelector(selectNodeAttribute(nodeId, 'likedByUserIds'));
-  const likesCount = useSelector(selectNodeAttribute(nodeId, 'likesCount'));
 
-  console.log(useSelector(selectCurrentUser));
+  const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
+  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
 
-  const [isLiked, setIsLiked] = React.useState(likedByUserIds.includes(currentUserId));
+  const likedByUserIds = useSelector(selectNodeAttribute(persistentId, 'likedByUserIds'));
+  const likesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
+
+  const [isLiked, setIsLiked] = React.useState(!!likedByUserIds && likedByUserIds.includes(currentUserId));
 
   const dispatch = useDispatch();
 
   const handleLike = () => {
+    if (isTemp) return;
+
     if (isLiked) {
-      dispatch(unlikeNode(nodeId));
+      dispatch(unlikeNode(persistentId));
     } else {
-      dispatch(likeNode(nodeId));
+      dispatch(likeNode(persistentId));
     }
     setIsLiked(!isLiked);
   };
@@ -41,7 +45,6 @@ export default function LikeButton(props) {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      p={0}
     >
       <Checkbox
         checked={isLiked}

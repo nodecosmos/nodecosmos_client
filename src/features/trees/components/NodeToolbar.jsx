@@ -14,8 +14,6 @@ import AddRounded from '@mui/icons-material/AddRounded';
 import Bookmark from '@mui/icons-material/Bookmark';
 import BookmarkBorder from '@mui/icons-material/BookmarkBorder';
 import EditRounded from '@mui/icons-material/EditRounded';
-import Favorite from '@mui/icons-material/Favorite';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import Notifications from '@mui/icons-material/Notifications';
 import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
@@ -33,18 +31,15 @@ export default function NodeToolbar(props) {
 
   const { addChildNode, editNode, removeNode } = useNodeTreeEvents(treeNodeId);
 
-  const theme = useTheme();
-  const { red, green, blue } = theme.palette.toolbar;
-
   return (
     <Box
       display="flex"
       sx={{
         '.Item': {
-          width: 26,
-          height: 26,
+          width: 28,
+          height: 28,
           mx: 0.5,
-          '&:hover': { background: 'rgb(56 195 197 / 14%)' },
+          '&:hover': { backgroundColor: 'background.6' },
         },
         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
       }}

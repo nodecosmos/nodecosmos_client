@@ -125,11 +125,8 @@ const nodesSlice = createSlice({
       .addCase(createNode.fulfilled, (state, action) => {
         const { tmpNodeId, id } = action.payload;
         state.byId[id] = action.payload; // add new node to state
-        /**
-         * @description
-         * tmpNodeId will still be used for tree structure
-         */
-        state.byId[tmpNodeId].isTemp = false;
+
+        state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
         state.byId[tmpNodeId].persistentId = id;
       })
       .addCase(deleteNode.fulfilled, (state, action) => {

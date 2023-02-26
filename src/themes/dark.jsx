@@ -93,7 +93,7 @@ export default {
       3: '#373b43',
       4: '#555b66',
       5: '#32373e',
-      6: '#3a3e49',
+      6: 'rgb(56 195 197 / 14%)',
 
       labels: {
         red: '#e15e7d',
@@ -105,7 +105,7 @@ export default {
       list: {
         default: '#898f9c',
         activeColor: '#d8e0e8',
-        active: 'hsl(220deg 10% 26%)',
+        active: '#393d47',
       },
 
       scrollbarThumb: '#43464d',
