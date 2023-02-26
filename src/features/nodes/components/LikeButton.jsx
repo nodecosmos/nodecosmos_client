@@ -16,10 +16,9 @@ export default function LikeButton(props) {
   const { id: currentUserId } = useSelector(selectCurrentUser);
 
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
 
-  const likedByUserIds = useSelector(selectNodeAttribute(persistentId, 'likedByUserIds'));
-  const likesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
+  const likedByUserIds = useSelector(selectNodeAttribute(nodeId, 'likedByUserIds'));
+  const likesCount = useSelector(selectNodeAttribute(nodeId, 'likesCount'));
 
   const [isLiked, setIsLiked] = React.useState(!!likedByUserIds && likedByUserIds.includes(currentUserId));
 
@@ -29,9 +28,9 @@ export default function LikeButton(props) {
     if (isTemp) return;
 
     if (isLiked) {
-      dispatch(unlikeNode(persistentId));
+      dispatch(unlikeNode(nodeId));
     } else {
-      dispatch(likeNode(persistentId));
+      dispatch(likeNode(nodeId));
     }
     setIsLiked(!isLiked);
   };
