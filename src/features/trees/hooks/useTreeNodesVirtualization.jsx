@@ -53,7 +53,7 @@ export default function useTreeNodeVirtualization(rootId) {
           && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
 
       if (isMounted && (isInsideViewport || isExpanded || isTemp || isLastParentsChild)) {
-        // prevent animation if node is already mounted
+        // prevent animation if node is already mounted, even though it's not inside viewport
         const alreadyMounted = prevVirtualizedNodesById.current[treeNodeId];
 
         treeNodeIdsToViewRef.current.push([treeNodeId, !alreadyMounted]);

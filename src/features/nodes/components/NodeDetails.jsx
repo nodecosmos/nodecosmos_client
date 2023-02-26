@@ -3,10 +3,10 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 import { selectSelectedNode, selectSelectedNodeId } from '../nodes.selectors';
-import MarkdownEditor from './markdown/MarkdownEditor';
-import MarkdownToolbar from './markdown/MarkdownToolbar';
+import MarkdownEditor from './details/MarkdownEditor';
+import DetailsToolbar from './details/DetailsToolbar';
 
-export default function NodeDescription() {
+export default function NodeDetails() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
   const { title, description, isEditingDescription } = useSelector(selectSelectedNode);
@@ -42,7 +42,7 @@ export default function NodeDescription() {
         px={2}
         sx={{ overflow: 'hidden', overflowWrap: 'break-word' }}
       >
-        <MarkdownToolbar id={selectedNodeId} />
+        <DetailsToolbar id={selectedNodeId} />
         <Typography textAlign="center" color="text.secondary">
           {title || 'Select a node from the tree to view its description'}
         </Typography>

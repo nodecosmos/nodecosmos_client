@@ -15,10 +15,27 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} justify="center">
             <Grid item xs={12}>
-              <Field fullWidth name="username_or_email" label="username || email" required />
+              <Field
+                fullWidth
+                name="username_or_email"
+                label="username || email"
+                InputProps={{
+                  autoComplete: 'on',
+                }}
+                required
+              />
             </Grid>
             <Grid item xs={12}>
-              <Field fullWidth label="password" name="password" type="password" required />
+              <Field
+                fullWidth
+                label="password"
+                name="password"
+                type="password"
+                InputProps={{
+                  autoComplete: 'on',
+                }}
+                required
+              />
             </Grid>
             <Grid item xs={12}>
               <Button sx={{ mt: 2 }} variant="contained" type="submit">

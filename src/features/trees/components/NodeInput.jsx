@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TagRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -16,7 +18,7 @@ export default function NodeInput(props) {
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const titleLength = title ? title.length : 0;
 
-  const { backgroundColor, color } = useNodeButtonBackground(treeNodeId);
+  const { backgroundColor, color, hasBg } = useNodeButtonBackground(treeNodeId);
 
   const [focused, setFocused] = useState(false);
 
@@ -36,14 +38,14 @@ export default function NodeInput(props) {
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <div
-      className="NodeButton"
+      className={`NodeButton ${hasBg && 'selected'}`}
       style={{
         backgroundColor,
         height: NODE_BUTTON_HEIGHT,
         color,
       }}
     >
-      <TagRounded fontSize="small" ml="-2px" />
+      <FontAwesomeIcon icon={faHashtag} />
       <input
         className="NodeButtonText"
         ref={ref}

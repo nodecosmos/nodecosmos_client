@@ -29,7 +29,7 @@ export default function NodeBranch(props) {
   }
 
   const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-  const initialAnimationDuration = isSafari || !alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isSafari || !alreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
   const initialAnimationDelay = isSafari || !alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (

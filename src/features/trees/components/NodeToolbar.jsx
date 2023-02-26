@@ -20,6 +20,7 @@ import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import Notifications from '@mui/icons-material/Notifications';
 import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
 import { useSelector } from 'react-redux';
+import LikeButton from '../../nodes/components/LikeButton';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
@@ -37,6 +38,7 @@ export default function NodeToolbar(props) {
 
   return (
     <Box
+      display="flex"
       sx={{
         '.Item': {
           width: 26,
@@ -44,44 +46,39 @@ export default function NodeToolbar(props) {
           mx: 0.5,
           '&:hover': { background: 'rgb(56 195 197 / 14%)' },
         },
-        '.Item:nth-of-type(3n + 1)': { color: red },
-        '.Item:nth-of-type(3n + 2)': { color: green },
-        '.Item:nth-of-type(3n + 3)': { color: blue },
         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
-      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node">
+      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
         <AddRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={editNode} aria-label="Edit Node">
+      <IconButton className="Item" onClick={editNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
         <EditRounded fontSize="small" />
       </IconButton>
-      <IconButton className="Item" onClick={removeNode} aria-label="Delete Node">
+      <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
         <DeleteOutlineRounded fontSize="small" />
       </IconButton>
-      <Checkbox
-        className="Item"
-        icon={<FavoriteBorder fontSize="small" />}
-        checkedIcon={<Favorite fontSize="small" />}
-        inputProps={{ 'aria-label': 'Favorite' }}
-      />
+      <LikeButton nodeId={nodeId} />
       <Checkbox
         className="Item"
         icon={<BookmarkBorder fontSize="small" />}
         checkedIcon={<Bookmark fontSize="small" />}
         inputProps={{ 'aria-label': 'Bookmark' }}
+        sx={{ color: 'toolbar.green' }}
       />
       <Checkbox
         className="Item"
         icon={<NotificationsOutlined fontSize="small" />}
         checkedIcon={<Notifications fontSize="small" />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
+        sx={{ color: 'toolbar.blue' }}
       />
       <IconButton
         target="_blank"
         href={`/nodes/${persistentId}`}
         className="Item"
         aria-label="Open Node in New Tab"
+        sx={{ color: 'background.list.default' }}
       >
         <FontAwesomeIcon
           icon={faLink}

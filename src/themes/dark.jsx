@@ -115,7 +115,7 @@ export default {
     },
 
     toolbar: {
-      red: '#e91e63',
+      red: '#F91880FF',
       green: '#b6fd7b',
       blue: '#2adfff',
     },

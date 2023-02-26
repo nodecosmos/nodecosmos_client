@@ -42,9 +42,8 @@ export default function useUserAuthentication() {
     try {
       const response = await nodecosmos.post('/users', { user: formValues });
       handleAuthentication(response);
-    } catch (response) {
-      console.error(response);
-
+    } catch (error) {
+      const { response } = error;
       if (response.data) return response.data.error; // maps error object to final-form submitError
       // TODO: check if there is way to map error object to final-form and still use thunks
     }
@@ -58,6 +57,7 @@ export default function useUserAuthentication() {
     } catch (error) {
       switch (error.response.data.error) {
         case 'session_expired':
+        case 'decode_error':
           dispatch(logout());
           redirect('/login');
           localStorage.removeItem('token');

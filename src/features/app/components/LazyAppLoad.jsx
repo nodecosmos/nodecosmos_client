@@ -2,18 +2,20 @@ import React, { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 /* nodes */
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
 import TreeTab from '../../../pages/nodes/show/TreeTab';
+import WorkflowTab from '../../../pages/nodes/show/WorkflowTab';
 /* users */
 import UserAuthentication from '../../../pages/users/Authentication';
 import dark from '../../../themes/dark';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
-import useUserAuthentication from '../../authentication/hooks/useUserAuthentication';
+import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
+import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
 /* nodecosmos */
 import { HEADER_HEIGHT } from '../constants';
 import Alert from './Alert';
@@ -21,14 +23,13 @@ import Header from './header/Header';
 import AppSx from './AppSx';
 
 export default function LazyAppLoad() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const currentUser = useSelector((state) => state.auth.currentUser);
-
-  const { syncUpCurrentUser } = useUserAuthentication();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) syncUpCurrentUser();
-  }, [isAuthenticated, syncUpCurrentUser]);
+    if (isAuthenticated) dispatch(syncUpCurrentUser());
+  }, [dispatch, isAuthenticated]);
 
   const theme = useSelector((state) => state.app.theme);
 
@@ -76,7 +77,7 @@ export default function LazyAppLoad() {
                 />
                 <Route path="/nodes" element={<NodeShow />}>
                   <Route path=":id" element={<TreeTab />} />
-                  <Route path=":id/workflow" element={<div> workflow </div>} />
+                  <Route path=":id/workflow" element={<WorkflowTab />} />
                   <Route path=":id/contribution_requests" element={<div> contribution_requests </div>} />
                   <Route path=":id/media" element={<div> media </div>} />
                   <Route path=":id/insights" element={<div> insights </div>} />

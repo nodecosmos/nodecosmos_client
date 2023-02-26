@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  createNode, indexNodes, showNode, deleteNode,
+  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode,
 } from './nodes.thunks';
 
 const nodesSlice = createSlice({
@@ -22,6 +22,8 @@ const nodesSlice = createSlice({
      *   title: string,
      *   description: string,
      *   descriptionMarkdown: string,
+     *   likesCount: number,
+     *   likedByUserIds: string[],
      *   createdAt: string,
      *   updatedAt: string,
      *   owner: {
@@ -98,6 +100,8 @@ const nodesSlice = createSlice({
         persistentParentId: persistentId,
         rootId: node.rootId,
         isTemp: true,
+        likesCount: 0,
+        likedByUserIds: [],
         childIds: [],
       }; // add new node to state
 
@@ -112,9 +116,10 @@ const nodesSlice = createSlice({
       })
       .addCase(showNode.fulfilled, (state, action) => {
         action.payload.forEach((node) => {
+          node.childIds ||= [];
           state.byId[node.id] = node;
           state.childIdsByRootAndParentId[node.rootId] ||= {};
-          state.childIdsByRootAndParentId[node.rootId][node.id] = node.childIds || [];
+          state.childIdsByRootAndParentId[node.rootId][node.id] ||= node.childIds;
         });
       })
       .addCase(createNode.fulfilled, (state, action) => {
@@ -129,6 +134,16 @@ const nodesSlice = createSlice({
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         nodesSlice.caseReducers.deleteNodeFromState(state, action);
+      })
+      .addCase(likeNode.fulfilled, (state, action) => {
+        const { id, likesCount, likedByUserIds } = action.payload;
+        state.byId[id].likesCount = likesCount;
+        state.byId[id].likedByUserIds = likedByUserIds;
+      })
+      .addCase(unlikeNode.fulfilled, (state, action) => {
+        const { id, likesCount, likedByUserIds } = action.payload;
+        state.byId[id].likesCount = likesCount;
+        state.byId[id].likedByUserIds = likedByUserIds;
       });
   },
 });

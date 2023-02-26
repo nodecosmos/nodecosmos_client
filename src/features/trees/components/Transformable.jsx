@@ -11,11 +11,16 @@ export default function Transformable(props) {
   const containerRef = useRef(null);
   const gRef = useRef(null);
   const dispatch = useDispatch();
+  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
 
-  const height = (gRef.current && gRef.current.getBBox().height) + TRANSFORMABLE_HEIGHT_MARGIN;
+  setTimeout(() => {
+    const height = (gRef.current && gRef.current.getBBox().height) + TRANSFORMABLE_HEIGHT_MARGIN;
 
-  const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
-  const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
+    const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
+    const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
+
+    if (height !== dimensions.height || width !== dimensions.width) { setDimensions({ height, width }); }
+  }, 100);
 
   //--------------------------------------------------------------------------------------------------------------------
   const { onMouseDown } = usePannable(containerRef);
@@ -55,8 +60,8 @@ export default function Transformable(props) {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width={width}
-        height={height}
+        width={dimensions.width}
+        height={dimensions.height}
         style={{
           WebkitTapHighlightColor: 'transparent',
           WebkitTouchCallout: 'none',

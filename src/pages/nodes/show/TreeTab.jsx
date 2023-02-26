@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import NodeDescription from '../../../features/nodes/components/NodeDescription';
+import NodeDetails from '../../../features/nodes/components/NodeDetails';
 import TreeContainer from '../../../features/trees/components/TreeContainer';
 import Tree from '../../../features/trees/components/Tree';
 
@@ -35,7 +35,7 @@ export default function TreeTab() {
         //   md: 'auto',
         // }}
       >
-        <NodeDescription />
+        <NodeDetails />
       </Box>
     </Box>
   );

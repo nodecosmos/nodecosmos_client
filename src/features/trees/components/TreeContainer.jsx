@@ -18,7 +18,11 @@ export default function TreeContainer(props) {
         px: 2,
         border: 'none',
         '.fa-hashtag': {
-          fontSize: '1.05em',
+          fontSize: 14,
+          color: 'background.list.default',
+        },
+        '&.selected .fa-hashtag': {
+          color: 'inherit',
         },
         '.NodeButtonText': {
           ml: 1,

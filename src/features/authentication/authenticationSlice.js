@@ -1,15 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { redirect } from 'react-router-dom';
+import { syncUpCurrentUser } from './authentication.thunks';
 
 const authenticationSlice = createSlice({
   name: 'auth',
   initialState: {
     isAuthenticated: Boolean(localStorage.getItem('token')),
-    userId: null,
+    /**
+     * @type {{
+     *   id: String,
+     *   email: String,
+     *   firstName: String,
+     * }}
+     */
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || {},
-    token: null,
+    token: localStorage.getItem('token') || '',
   },
   reducers: {
-
     login(state, action) {
       return {
         ...state,
@@ -22,11 +29,33 @@ const authenticationSlice = createSlice({
       return {
         ...state,
         isAuthenticated: false,
-        userId: null,
         currentUser: {},
-        token: null,
       };
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
+        localStorage.setItem('currentUser', JSON.stringify(action.payload));
+        return {
+          ...state,
+          isAuthenticated: true,
+          currentUser: action.payload,
+        };
+      })
+      .addCase(syncUpCurrentUser.rejected, (state, action) => {
+        switch (action.payload) {
+          case 'session_expired':
+          case 'decode_error':
+            authenticationSlice.caseReducers.logout(state);
+            redirect('/login');
+            localStorage.removeItem('token');
+            localStorage.removeItem('currentUser');
+            break;
+          default:
+            authenticationSlice.caseReducers.logout(state);
+        }
+      });
   },
 });
 

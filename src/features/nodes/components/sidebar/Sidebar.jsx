@@ -4,8 +4,6 @@ import * as PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faDiagramNested,
-  faCardsBlank,
-  faChartSimpleHorizontal,
   faUserGroup,
   faChartPie,
   faGears,
@@ -86,7 +84,7 @@ export default function Sidebar(props) {
           title="Insights"
         />
       </List>
-      <List>
+      <List sx={{ p: 1 }}>
         <SidebarListItem
           to={`${id}/settings`}
           icon={(

@@ -60,3 +60,29 @@ export const deleteNode = createAsyncThunk(
     };
   },
 );
+
+export const likeNode = createAsyncThunk(
+  'nodes/likeNode',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.post('/likes', {
+      likeable_type: 'Node',
+      id: payload,
+    });
+
+    return response.data;
+  },
+);
+
+export const unlikeNode = createAsyncThunk(
+  'nodes/unlikeNode',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/likes/${payload}`, {
+      data: {
+        likeable_type: 'Node',
+        id: payload,
+      },
+    });
+
+    return response.data;
+  },
+);
