@@ -47,3 +47,16 @@ on nested element change. We do this so emotion does not need to recompute style
 5) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
 6) Once your pull request has been approved, merge your changes into the main codebase. 5
 7) Finally, delete your branch to keep your repository clean and organized.
+---
+
+### Important Considerations:
+Node ids are complex at the moment as we want to support smooth tree flow, so we have:
+
+* **nodeId** - id of node in nodeSlice
+* **treeNodeId** - id of node in treeSlice
+* **persistentId** - id of node in database and in slice
+
+Usually persistentId and nodeId are the same. However, in case we work with the Tree, we generate 
+tmp id for new node as nodeId. Obviously, we cannot use this id to communicate with the backend, so we need to leave 
+nodeId as it is, and use persistentId to communicate with the backend and get latest changes from state.
+We can get latest changes from state because we map persistentId to nodeSlice after node is created.

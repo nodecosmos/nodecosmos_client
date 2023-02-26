@@ -4,7 +4,6 @@ import treeBuilder from './reducers/treeBuilder';
 import treeNodePositionSetter from './reducers/treeNodePositionSetter';
 import treeNodeMounter from './reducers/treeNodeMounter';
 import treeNodeUpdater from './reducers/treeNodeUpdater';
-import { extractRootIdFromTreeNodeId } from './trees.memoize';
 
 const treesSlice = createSlice({
   name: 'trees',
@@ -64,7 +63,6 @@ const treesSlice = createSlice({
      * Used to mount newly created nodes.
      */
     currentTempNodeId: null,
-    currentTempTreeNodeId: null,
   },
   reducers: {
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
@@ -79,11 +77,7 @@ const treesSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(createNode.fulfilled, (state, action) => {
-      const rootId = extractRootIdFromTreeNodeId(state.currentTempTreeNodeId);
-
-      state.byRootNodeId[rootId][state.currentTempTreeNodeId].nodeId = action.payload.id;
       state.currentTempNodeId = null;
-      state.currentTempTreeNodeId = null;
     });
   },
 });

@@ -124,6 +124,11 @@ const nodesSlice = createSlice({
       })
       .addCase(createNode.fulfilled, (state, action) => {
         const { tmpNodeId, id } = action.payload;
+        // Currently, we add new node to state,
+        // but we keep the tmpNodeId for tree structure, so we allow
+        // smooth flow when working with tree.
+        // However, that makes it bit hard to manage request to backend, as
+        // we need to use persistentId for request, but tmpNodeId for tree structure.
         state.byId[id] = action.payload; // add new node to state
 
         state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure

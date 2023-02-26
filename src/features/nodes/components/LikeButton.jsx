@@ -8,17 +8,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { selectCurrentUser } from '../../authentication/authentication.selectors';
-import { selectNodeAttribute } from '../nodes.selectors';
+import { selectNode, selectNodeAttribute } from '../nodes.selectors';
 import { likeNode, unlikeNode } from '../nodes.thunks';
 
 export default function LikeButton(props) {
   const { nodeId } = props;
   const { id: currentUserId } = useSelector(selectCurrentUser);
 
-  const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
+  const {
+    isTemp,
+    persistentId,
+  } = useSelector(selectNode(nodeId));
 
-  const likedByUserIds = useSelector(selectNodeAttribute(nodeId, 'likedByUserIds'));
-  const likesCount = useSelector(selectNodeAttribute(nodeId, 'likesCount'));
+  const likedByUserIds = useSelector(selectNodeAttribute(persistentId, 'likedByUserIds'));
+  const likesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
 
   const [isLiked, setIsLiked] = React.useState(!!likedByUserIds && likedByUserIds.includes(currentUserId));
 
@@ -28,10 +31,11 @@ export default function LikeButton(props) {
     if (isTemp) return;
 
     if (isLiked) {
-      dispatch(unlikeNode(nodeId));
+      dispatch(unlikeNode(persistentId));
     } else {
-      dispatch(likeNode(nodeId));
+      dispatch(likeNode(persistentId));
     }
+
     setIsLiked(!isLiked);
   };
 

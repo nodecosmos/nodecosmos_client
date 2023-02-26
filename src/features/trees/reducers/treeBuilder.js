@@ -31,11 +31,6 @@ export default {
       const { isMounted, isExpanded, isSelected } = currentTreeNode;
       const isNewlyCreated = state.currentTempNodeId === nodeId;
 
-      if (isNewlyCreated) {
-        debugger;
-        state.currentTempTreeNodeId = treeNodeId;
-      }
-
       // populate root's orderedTreeNodeIds with constructed id
       state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);
 

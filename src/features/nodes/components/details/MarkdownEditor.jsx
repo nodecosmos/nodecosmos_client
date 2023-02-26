@@ -29,11 +29,16 @@ const loading = (
 export default function MarkdownEditor(props) {
   const { id } = props;
 
+  const isTemp = useSelector(selectNodeAttribute(id, 'isTemp'));
+  const persistentId = useSelector(selectNodeAttribute(id, 'persistentId'));
+
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
   const descriptionMarkdown = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
 
   const handleChange = (value) => {
+    if (isTemp) return;
+
     if (handleChangeTimeout.current) {
       clearTimeout(handleChangeTimeout.current);
     }
@@ -47,7 +52,7 @@ export default function MarkdownEditor(props) {
         descriptionMarkdown: value,
       }));
 
-      dispatch(updateNode({ id, description: descriptionHtml, description_markdown: value }));
+      dispatch(updateNode({ id: persistentId, description: descriptionHtml, description_markdown: value }));
     }, 500);
   };
 
