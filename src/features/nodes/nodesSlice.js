@@ -43,6 +43,12 @@ const nodesSlice = createSlice({
      *   },
      * }
      * }}
+     *
+     * @description
+     * Usually persistentId and nodeId are the same. However, in case we work with the Tree, we generate tmp id for
+     * new node as nodeId. Obviously, we cannot use this id to communicate with the backend, so we need to leave
+     * nodeId as it is, and use persistentId to communicate with the backend and get the latest changes from state.
+     * We can get the latest changes from state because we map persistentId to new node after node is created.
      */
     byId: {},
     indexNodesById: {},
