@@ -20,10 +20,8 @@ export default function SidebarListItem({ to, icon, title }) {
           borderRadius: 1.5,
           transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
           color: 'background.list.default',
-          '&:hover, &.active': {
-            backgroundColor: 'background.list.active',
-          },
           '&.active': {
+            backgroundColor: 'background.list.active',
             color: 'background.list.activeColor',
           },
         }}

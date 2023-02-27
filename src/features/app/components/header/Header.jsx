@@ -1,4 +1,6 @@
 import React from 'react';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 /* mui */
@@ -34,7 +36,6 @@ export default function Header() {
       alignItems="center"
       position="fixed"
       height={HEADER_HEIGHT}
-      borderBottom={0}
       width={{
         xs: 1,
         sm: 'calc(100% - 14px)',
@@ -74,7 +75,8 @@ export default function Header() {
             justifyContent="center"
             alignItems="center"
           >
-            <Typography align="center" variant="body2">
+            <FontAwesomeIcon icon={faHashtag} />
+            <Typography align="center" variant="body1" ml={1}>
               {subtitle}
             </Typography>
           </Box>
@@ -88,8 +90,6 @@ export default function Header() {
         justifyContent="center"
         height={1}
         width={`calc(100% - ${subtitle ? SIDEBAR_WIDTH : 0}px)`}
-        borderBottom={1}
-        borderColor="borders.box.md"
       >
         <Grid item sm={4} align="left" pl={2}>
           <Button

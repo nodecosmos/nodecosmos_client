@@ -7,10 +7,6 @@ import { useDispatch } from 'react-redux';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import {
   faDiagramNested,
-  faUserGroup,
-  faChartPie,
-  faGears,
-  faIcons,
 } from '@fortawesome/pro-solid-svg-icons';
 import { setEditNodeDescription } from '../../nodesSlice';
 

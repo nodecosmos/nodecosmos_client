@@ -38,6 +38,8 @@ export default {
 
       const isParentExpanded = isRoot || state.byRootNodeId[rootId][treeParentId].isExpanded;
 
+      if (!childIds) debugger;
+
       // initialize state for current node
       state.byRootNodeId[rootId][treeNodeId] = {
         treeNodeId,

@@ -71,13 +71,12 @@ const nodesSlice = createSlice({
 
       const childIdsByRootAndParentId = state.childIdsByRootAndParentId[node.rootId];
 
-      childIdsByRootAndParentId[node.id] = null;
+      delete childIdsByRootAndParentId[nodeId];
 
       // filter from childIdsByRootAndParentId
-      childIdsByRootAndParentId[nodeId] = null;
       if (parent) {
         childIdsByRootAndParentId[node.parentId] = childIdsByRootAndParentId[node.parentId].filter(
-          (id) => id !== node.id,
+          (id) => id !== nodeId,
         );
         parent.childIds = parent.childIds.filter((id) => id !== nodeId);
       }

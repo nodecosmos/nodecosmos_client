@@ -36,7 +36,7 @@ export default function NodeDetails() {
         alignItems="center"
         height={56}
         px={2}
-        sx={{ overflow: 'hidden', overflowWrap: 'break-word' }}
+        sx={{ overflow: 'hidden', overflowWrap: 'break-word', backgroundColor: 'background.list.active' }}
       >
         <DetailsToolbar id={selectedNodeId} />
         <Typography textAlign="center" color="text.secondary">

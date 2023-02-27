@@ -48,7 +48,6 @@ export default function useTreeNodeVirtualization(rootId) {
         treeParentId,
       } = treeNodes[treeNodeId];
       const isLastParentsChild = treeNodes[treeParentId]?.treeLastChildId === treeNodeId;
-
       const isInsideViewport = y > scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR - 1
           && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
 
