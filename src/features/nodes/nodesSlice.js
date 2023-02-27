@@ -1,4 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+/* reducers */
+import nodeChildBuilder from './reducers/nodeChildBuilder';
+import nodeDeleter from './reducers/nodeDeleter';
+import nodeUpdater from './reducers/nodeUpdater';
+import nodeSelectionSetter from './reducers/nodeSelectionSetter';
+/* extra reducers */
+import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
+import deleteNodeFulfilledReducer from './reducers/extra/deleteNode.fulfilled';
+import indexNodesFulfilledReducer from './reducers/extra/indexNodes.fulfilled';
+import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
+import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
 
 import {
   createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode,
@@ -39,113 +50,19 @@ const nodesSlice = createSlice({
     selectedNodeId: null,
   },
   reducers: {
-    /**
-     *
-     * @description
-     * selectedNodeId is used for global node selection.
-     * However, in the tree structure, we use isSelected to determine if a node is selected.
-     * Otherwise, if we use selectedNodeId in tree nodes component, it would trigger a re-rendering of the whole tree.
-     */
-    setSelectedNode(state, action) {
-      const id = action.payload;
-      state.selectedNodeId = id;
-
-      // deselect all nodes
-      Object.values(state.byId).forEach((node) => { node.isSelected = false; });
-
-      // select node
-      if (id) state.byId[id].isSelected = !!id;
-    },
-    updateNodeState(state, action) {
-      const { id } = action.payload;
-
-      if (state.byId[id]) {
-        state.byId[id] = { ...state.byId[id], ...action.payload };
-      }
-    },
-    deleteNodeFromState(state, action) {
-      const { nodeId } = action.payload;
-
-      const node = state.byId[nodeId];
-      const parent = state.byId[node.parentId];
-
-      const childIdsByRootAndParentId = state.childIdsByRootAndParentId[node.rootId];
-
-      delete childIdsByRootAndParentId[nodeId];
-
-      // filter from childIdsByRootAndParentId
-      if (parent) {
-        childIdsByRootAndParentId[node.parentId] = childIdsByRootAndParentId[node.parentId].filter(
-          (id) => id !== nodeId,
-        );
-        parent.childIds = parent.childIds.filter((id) => id !== nodeId);
-      }
-
-      // delete state.byId[nodeId] - race condition: seems existing components are kept before tree re-render
-      // let's see if we can fix this
-    },
-    setEditNodeDescription(state, action) {
-      const { id, value } = action.payload;
-      state.byId[id].isEditingDescription = value;
-    },
-    buildChildNode(state, action) {
-      const { tmpNodeId, nodeId, persistentId } = action.payload;
-      const node = state.byId[nodeId];
-
-      state.byId[tmpNodeId] = {
-        persistentId: null,
-        parentId: nodeId,
-        persistentParentId: persistentId,
-        rootId: node.rootId,
-        isTemp: true,
-        likesCount: 0,
-        likedByUserIds: [],
-        childIds: [],
-      }; // add new node to state
-
-      state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds
-      state.childIdsByRootAndParentId[node.rootId][tmpNodeId] = [];
-    },
+    buildChildNode: nodeChildBuilder.buildChildNode,
+    updateNodeState: nodeUpdater.updateNodeState,
+    deleteNodeFromState: nodeDeleter.deleteNodeFromState,
+    setSelectedNode: nodeSelectionSetter.setSelectedNode,
   },
   extraReducers(builder) {
     builder
-      .addCase(indexNodes.fulfilled, (state, action) => {
-        action.payload.forEach((node) => { state.indexNodesById[node.id] = node; });
-      })
-      .addCase(showNode.fulfilled, (state, action) => {
-        action.payload.forEach((node) => {
-          node.childIds ||= [];
-          state.byId[node.id] = node;
-          state.childIdsByRootAndParentId[node.rootId] ||= {};
-          state.childIdsByRootAndParentId[node.rootId][node.id] ||= node.childIds;
-        });
-      })
-      .addCase(createNode.fulfilled, (state, action) => {
-        const { tmpNodeId, id } = action.payload;
-        // Currently, we add new node to state,
-        // but we keep the tmpNodeId for tree structure, so we allow
-        // smooth flow when working with tree.
-        // However, that makes it bit hard to manage request to backend, as
-        // we need to use persistentId for request, but tmpNodeId for tree structure.
-        state.byId[id] = action.payload; // add new node to state
-
-        state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
-        state.byId[tmpNodeId].id = id;
-        state.byId[tmpNodeId].persistentId = id;
-      })
-      .addCase(deleteNode.fulfilled, (state, action) => {
-        nodesSlice.caseReducers.deleteNodeFromState(state, action);
-      })
-      .addCase(likeNode.fulfilled, (state, action) => {
-        const { id, likesCount, likedByUserIds } = action.payload;
-        state.byId[id].likesCount = likesCount;
-        state.byId[id].likedByUserIds = likedByUserIds;
-      })
-      .addCase(unlikeNode.fulfilled, (state, action) => {
-        const { id, likesCount, likedByUserIds } = action.payload;
-        state.byId[id].likesCount = likesCount;
-        state.byId[id].likedByUserIds = likedByUserIds;
-      });
+      .addCase(indexNodes.fulfilled, indexNodesFulfilledReducer)
+      .addCase(showNode.fulfilled, showNodeFulfilledReducer)
+      .addCase(createNode.fulfilled, createNodeFulfilledReducer)
+      .addCase(deleteNode.fulfilled, (state, action) => deleteNodeFulfilledReducer(state, action, nodesSlice))
+      .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
+      .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
   },
 });
 
@@ -157,7 +74,6 @@ const {
 export const {
   updateNodeState,
   deleteNodeFromState,
-  setEditNodeDescription,
   buildChildNode,
   setSelectedNode,
 } = actions;

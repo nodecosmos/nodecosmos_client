@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createNode } from '../nodes/nodes.thunks';
+
+/* reducers */
 import treeBuilder from './reducers/treeBuilder';
 import treeNodePositionSetter from './reducers/treeNodePositionSetter';
 import treeNodeMounter from './reducers/treeNodeMounter';
 import treeNodeUpdater from './reducers/treeNodeUpdater';
+import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
 
 const treesSlice = createSlice({
   name: 'trees',
@@ -41,7 +44,6 @@ const treesSlice = createSlice({
      * to calculate the positions of the nodes in the correct order e.g.
      * Parent before child, or upperSibling before lowerSibling.
      * It should have better performance than using Object.values().sort().
-     * However, difference may be negligible.
      */
     orderedTreeNodeIdsByRootNodeId: {},
 
@@ -67,18 +69,16 @@ const treesSlice = createSlice({
   reducers: {
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
     setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
-    //------------------------------------------------------------------------------------------------------------------
+
     expandTreeNode: treeNodeMounter.expandTreeNode,
     collapseTreeNode: treeNodeMounter.collapseTreeNode,
-    //------------------------------------------------------------------------------------------------------------------
+
     updateTreeNode: treeNodeUpdater.updateTreeNode,
-    //------------------------------------------------------------------------------------------------------------------
+
     setCurrentTempNodeId(state, action) { state.currentTempNodeId = action.payload; },
   },
   extraReducers(builder) {
-    builder.addCase(createNode.fulfilled, (state, action) => {
-      state.currentTempNodeId = null;
-    });
+    builder.addCase(createNode.fulfilled, createNodeFulfilledReducer);
   },
 });
 

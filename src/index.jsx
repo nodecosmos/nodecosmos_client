@@ -9,13 +9,13 @@ import store from './store';
 //----------------------------------------------------------------------------------------------------------------------
 import './index.css';
 /* fonts */
-import './fonts/roboto/400.css';
-import './fonts/roboto/500.css';
-import './fonts/roboto/700.css';
+import './themes/fonts/roboto/400.css';
+import './themes/fonts/roboto/500.css';
+import './themes/fonts/roboto/700.css';
 
-import './fonts/montserrat/500.css';
-import './fonts/montserrat/700.css';
-import './fonts/montserrat/900.css';
+import './themes/fonts/montserrat/500.css';
+import './themes/fonts/montserrat/700.css';
+import './themes/fonts/montserrat/900.css';
 /* icons */
 
 //----------------------------------------------------------------------------------------------------------------------

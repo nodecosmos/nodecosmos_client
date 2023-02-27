@@ -1,6 +1,7 @@
+
 # Nodecosmos 
 
-### Directory structure: 
+### Directory & File structure: 
 *  **common** - everything that does not relate to redux state
    * **components** - common view components
    * **hooks** - common business logic
@@ -9,8 +10,12 @@
    * **feature-name**
        *  **components** - view components
        *  **hooks** - business logic
-       *  **featureSlice** - state management for feature
-*  **pages** - Each route is a page
+       *  **reducers** - reducers for feature
+          * **extra** - handle async actions usually defined within feature.thunks.js (createNode, updateNode, deleteNode...)
+       *  **feature.thunks.js** - thunks for feature
+       *  **feature.selectors.js** - selectors for feature
+       *  **featureSlice.js** - state management for feature
+*  **pages** - Each route has associated page. Nested routes are handled with reactrouter `<Outlet />`
 
 ---
 ### Material-UI Recommendations:
@@ -33,7 +38,6 @@ on nested element change. We do this so emotion does not need to recompute style
      * **refactor**: a code refactoring or restructuring
      * **docs**: changes to documentation
      * **chore**: maintenance or other non-code changes
-     * **style**: changes to code formatting or style
      * **test**: changes to testing code or configuration
      * **perf**: performance improvements
      * **revert**: a commit that reverts a previous change
@@ -58,5 +62,5 @@ Node ids are complex at the moment as we want to support smooth tree flow, so we
 
 Usually persistentId and nodeId are the same. However, in case we work with the Tree, we generate 
 tmp id for new node as nodeId. Obviously, we cannot use this id to communicate with the backend, so we need to leave 
-nodeId as it is, and use persistentId to communicate with the backend and get latest changes from state.
-We can get latest changes from state because we map persistentId to nodeSlice after node is created.
+nodeId as it is, and use persistentId to communicate with the backend and get the latest changes from state.
+We can get the latest changes from state because we map persistentId to nodeSlice after node is created.

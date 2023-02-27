@@ -8,7 +8,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import {
   faDiagramNested,
 } from '@fortawesome/pro-solid-svg-icons';
-import { setEditNodeDescription } from '../../nodesSlice';
+import { updateNodeState } from '../../nodesSlice';
 
 export default function DetailsToolbar(props) {
   const { id } = props;
@@ -26,21 +26,21 @@ export default function DetailsToolbar(props) {
     >
       <IconButton
         className="Item"
-        onClick={() => dispatch(setEditNodeDescription({ id, value: true }))}
+        onClick={() => dispatch(updateNodeState({ id, isEditingDescription: true }))}
         aria-label="Edit Description"
       >
         <EditRounded fontSize="medium" />
       </IconButton>
       <IconButton
         className="Item"
-        onClick={() => dispatch(setEditNodeDescription({ id, value: false }))}
+        onClick={() => dispatch(updateNodeState({ id, isEditingDescription: false }))}
         aria-label="Edit Description"
       >
         <RemoveRedEyeOutlinedIcon fontSize="medium" />
       </IconButton>
       <IconButton
         className="Item"
-        onClick={() => dispatch(setEditNodeDescription({ id, value: false }))}
+        onClick={() => dispatch(updateNodeState({ id, isEditingDescription: false }))}
         aria-label="Workflow"
       >
         <FontAwesomeIcon
