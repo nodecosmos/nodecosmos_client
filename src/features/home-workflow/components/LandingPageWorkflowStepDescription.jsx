@@ -7,21 +7,12 @@ export default function LandingPageWorkflowStepDescription() {
   const currentWorkflow = useSelector((state) => state.landingPageWorkflows.currentWorkflow);
 
   return (
-    <Box
-      boxShadow={{
-        xs: 'container.top.xs',
-        md: 'none',
-      }}
-    >
+    <Box>
       <Box
         borderBottom={1}
         borderColor={{
           xs: 'borders.box.xs',
           md: 'borders.box.md',
-        }}
-        boxShadow={{
-          xs: 'container.bottom.xs',
-          md: 'container.bottom.md',
         }}
         display="flex"
         justifyContent="center"

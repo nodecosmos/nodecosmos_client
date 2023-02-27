@@ -32,25 +32,22 @@ export default function Header() {
     <Box
       display="flex"
       alignItems="center"
-      border={1}
-      borderBottom={0}
-      borderColor="borders.2"
       position="fixed"
       height={HEADER_HEIGHT}
+      borderBottom={0}
       width={{
         xs: 1,
-        sm: 'calc(100% - 13px)',
+        sm: 'calc(100% - 14px)',
       }}
       top={{
-        sm: 6,
+        sm: 7,
         xs: 0,
       }}
       right={{
-        sm: 6,
+        sm: 7,
         xs: 0,
       }}
       backgroundColor="background.2"
-      boxShadow="header"
       sx={{
         borderTopLeftRadius: {
           xs: 0,
@@ -69,7 +66,6 @@ export default function Header() {
           height={1}
           borderRight={1}
           borderColor="borders.box.md"
-          boxShadow="container.right.md"
         >
           <Box
             height={1}
@@ -92,6 +88,8 @@ export default function Header() {
         justifyContent="center"
         height={1}
         width={`calc(100% - ${subtitle ? SIDEBAR_WIDTH : 0}px)`}
+        borderBottom={1}
+        borderColor="borders.box.md"
       >
         <Grid item sm={4} align="left" pl={2}>
           <Button

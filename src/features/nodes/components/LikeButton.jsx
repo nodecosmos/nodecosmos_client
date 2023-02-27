@@ -8,17 +8,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { selectCurrentUser } from '../../authentication/authentication.selectors';
-import { selectNode, selectNodeAttribute } from '../nodes.selectors';
+import { selectNode, selectNodeAttribute, selectPersistentId } from '../nodes.selectors';
 import { likeNode, unlikeNode } from '../nodes.thunks';
 
 export default function LikeButton(props) {
   const { nodeId } = props;
   const { id: currentUserId } = useSelector(selectCurrentUser);
-
-  const {
-    isTemp,
-    persistentId,
-  } = useSelector(selectNode(nodeId));
+  const id = useSelector(selectPersistentId(nodeId));
+  const { isTemp, persistentId } = useSelector(selectNode(nodeId));
 
   const likedByUserIds = useSelector(selectNodeAttribute(persistentId, 'likedByUserIds'));
   const likesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));

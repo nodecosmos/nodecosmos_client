@@ -21,6 +21,11 @@ export const selectSelectedNode = createSelector(
   (nodesById, selectedNodeId) => nodesById[selectedNodeId] || {},
 );
 
+export const selectPersistentId = (stateId) => createSelector(
+  selectNodesById,
+  (nodesById) => nodesById[stateId].id,
+);
+
 export const selectNodeAttribute = (nodeId, attribute) => createSelector(
   selectNodesById,
   (nodesById) => nodesById[nodeId] && nodesById[nodeId][attribute],

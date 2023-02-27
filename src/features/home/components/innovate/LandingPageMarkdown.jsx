@@ -127,10 +127,6 @@ export default function LandingPageMarkdown() {
           xs: 'borders.box.xs',
           md: 'borders.box.md',
         }}
-        boxShadow={{
-          xs: 'container.bottom.xs',
-          md: 'container.bottom.md',
-        }}
       >
         <ToggleButtonGroup
           value={mode}

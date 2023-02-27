@@ -13,7 +13,6 @@ export default function TreeTab() {
       <Box
         borderRight={{ xs: 0, md: 1 }}
         borderColor={{ xs: 'borders.box.xs', md: 'borders.box.md' }}
-        boxShadow={{ xs: 0, md: 'container.right.md' }}
         width="50%"
         height="100%"
       >

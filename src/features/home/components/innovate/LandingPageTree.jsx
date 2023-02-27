@@ -39,10 +39,6 @@ export default function LandingPageTree() {
             xs: 'borders.box.xs',
             md: 'borders.box.md',
           }}
-          boxShadow={{
-            xs: 'container.bottom.xs',
-            md: 'container.bottom.md',
-          }}
         >
           <Typography
             variant="body2"
@@ -74,10 +70,6 @@ export default function LandingPageTree() {
           borderColor={{
             xs: 'borders.box.xs',
             md: 'borders.box.md',
-          }}
-          boxShadow={{
-            xs: 0,
-            md: 'container.bottom.md',
           }}
         >
           <Tree id={airplaneNodeId} />

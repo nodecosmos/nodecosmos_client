@@ -31,10 +31,6 @@ export default function NodeDetails() {
           xs: 'borders.box.xs',
           md: 'borders.box.md',
         }}
-        boxShadow={{
-          xs: 'container.bottom.xs',
-          md: 'container.bottom.md',
-        }}
         display="flex"
         justifyContent="space-between"
         alignItems="center"

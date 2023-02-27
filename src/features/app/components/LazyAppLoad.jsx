@@ -54,8 +54,6 @@ export default function LazyAppLoad() {
           width={1}
           boxShadow="8"
           backgroundColor="background.2"
-          border={1}
-          borderColor="borders.2"
           borderRadius={{ xs: 0, sm: 2 }}
         >
           <Box

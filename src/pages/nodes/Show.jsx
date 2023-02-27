@@ -43,7 +43,6 @@ export default function NodeShow() {
         height={1}
         borderRight={1}
         borderColor="borders.box.md"
-        boxShadow="container.right.md"
       >
         <Sidebar id={id} />
       </Box>

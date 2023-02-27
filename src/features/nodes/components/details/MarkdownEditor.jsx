@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
 /* nodecosmos */
-import { selectNodeAttribute } from '../../nodes.selectors';
+import { selectNodeAttribute, selectPersistentId } from '../../nodes.selectors';
 import { updateNode } from '../../nodes.thunks';
 import { updateNodeState } from '../../nodesSlice';
 
@@ -30,7 +30,7 @@ export default function MarkdownEditor(props) {
   const { id } = props;
 
   const isTemp = useSelector(selectNodeAttribute(id, 'isTemp'));
-  const persistentId = useSelector(selectNodeAttribute(id, 'persistentId'));
+  const persistentId = useSelector(selectPersistentId(id));
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);

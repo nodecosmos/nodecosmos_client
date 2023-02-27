@@ -161,10 +161,6 @@ export default function CustomCodeMirror(props) {
           xs: 'borders.box.xs',
           md: 'borders.box.md',
         },
-        boxShadow: {
-          xs: 'container.right.xs',
-          sm: 'container.right.md',
-        },
       },
     }}
     >
