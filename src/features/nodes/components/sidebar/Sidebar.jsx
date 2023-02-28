@@ -3,13 +3,13 @@ import * as PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faDiagramNested,
   faUserGroup,
   faChartPie,
   faGears,
   faIcons,
+  faCodeCompare,
+  faCodeBranch,
 } from '@fortawesome/pro-solid-svg-icons';
-import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded';
 
 /* mui */
 import { List } from '@mui/material';
@@ -44,7 +44,7 @@ export default function Sidebar(props) {
           to={`${id}/workflow`}
           icon={(
             <FontAwesomeIcon
-              icon={faDiagramNested}
+              icon={faCodeCompare}
             />
           )}
           title="Workflow"
@@ -52,7 +52,9 @@ export default function Sidebar(props) {
         <SidebarListItem
           to={`${id}/contribution_requests`}
           icon={(
-            <AccountTreeRoundedIcon />
+            <FontAwesomeIcon
+              icon={faCodeBranch}
+            />
           )}
           title="Contribution Requests"
         />

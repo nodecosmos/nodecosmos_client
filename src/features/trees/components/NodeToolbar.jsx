@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {
   IconButton,
   Checkbox,
-  Box, useTheme,
+  Box,
 } from '@mui/material';
 
 import AddRounded from '@mui/icons-material/AddRounded';
@@ -39,7 +39,7 @@ export default function NodeToolbar(props) {
           width: 28,
           height: 28,
           mx: 0.5,
-          '&:hover': { backgroundColor: 'background.6' },
+          '&:hover': { backgroundColor: 'toolbar.hover' },
         },
         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
       }}

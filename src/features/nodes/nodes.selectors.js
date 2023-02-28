@@ -4,6 +4,7 @@ export const selectNodesById = (state) => state.nodes.byId;
 export const selectIndexNodesById = (state) => state.nodes.indexNodesById;
 export const selectChildIdsByRootAndParentId = (state) => state.nodes.childIdsByRootAndParentId;
 export const selectSelectedNodeId = (state) => state.nodes.selectedNodeId;
+export const selectNodeDetailsAction = (state) => state.nodes.nodeDetailsAction;
 
 export const selectNode = (nodeId) => createSelector(
   selectNodesById,

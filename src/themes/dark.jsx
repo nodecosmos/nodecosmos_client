@@ -78,7 +78,7 @@ export default {
       3: '#373b43',
       4: '#555b66',
       5: '#32373e',
-      6: 'rgb(56 195 197 / 14%)',
+      6: '#3d414b',
 
       labels: {
         red: '#e15e7d',
@@ -95,14 +95,17 @@ export default {
 
       scrollbarThumb: '#43464d',
       paper: '#363a43',
-      hover: 'rgba(0, 0, 0, 0.1)',
       contrast: '#cccccc',
+      hover: 'rgba(211,211,211,0.1)',
     },
 
     toolbar: {
       red: '#F91880FF',
       green: '#b6fd7b',
       blue: '#2adfff',
+      hover: '#425b67',
+      active: '#3f4e59',
+      default: '#babecd',
     },
 
     tree: {
@@ -133,8 +136,8 @@ export default {
       quote: '#57606e',
       meta: '#ff87c4',
       link: '#83c1ea',
-      background: '#373b43',
-      foreground: '#9a9da9',
+      background: 'transparent',
+      foreground: '#c7cbdb',
       selection: 'rgba(255,255,255,0.06)',
       selectionMatch: 'rgba(255,255,255,0.06)',
       lineHighlight: '#8a91991a',

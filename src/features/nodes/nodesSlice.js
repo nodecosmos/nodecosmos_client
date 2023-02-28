@@ -4,6 +4,7 @@ import nodeChildBuilder from './reducers/nodeChildBuilder';
 import nodeDeleter from './reducers/nodeDeleter';
 import nodeUpdater from './reducers/nodeUpdater';
 import nodeSelectionSetter from './reducers/nodeSelectionSetter';
+import nodeDetailsActionHandler from './reducers/nodeDetailsActionHandler';
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
 import deleteNodeFulfilledReducer from './reducers/extra/deleteNode.fulfilled';
@@ -20,28 +21,28 @@ const nodesSlice = createSlice({
   initialState: {
     /**
      * @type {{
-     * [id: string]: {
-     *   id: string,
-     *   parentId: string,
-     *   persistentId: string,
-     *   persistentParentId: string,
-     *   rootId: string,
-     *   editorIds: string[],
-     *   childIds: string[],
-     *   descendantIds: string[],
-     *   descendantsById: {} | null,
-     *   title: string,
-     *   description: string,
-     *   descriptionMarkdown: string,
-     *   likesCount: number,
-     *   likedByUserIds: string[],
-     *   createdAt: string,
-     *   updatedAt: string,
-     *   owner: {
-     *     id: string,
-     *     username: string,
-     *   },
-     * }
+     *  [id: string]: {
+     *    id: string,
+     *    parentId: string,
+     *    persistentId: string,
+     *    persistentParentId: string,
+     *    rootId: string,
+     *    editorIds: string[],
+     *    childIds: string[],
+     *    descendantIds: string[],
+     *    descendantsById: {} | null,
+     *    title: string,
+     *    description: string,
+     *    descriptionMarkdown: string,
+     *    likesCount: number,
+     *    likedByUserIds: string[],
+     *    createdAt: string,
+     *    updatedAt: string,
+     *    owner: {
+     *      id: string,
+     *      username: string,
+     *    },
+     *  }
      * }}
      *
      * @description
@@ -51,22 +52,38 @@ const nodesSlice = createSlice({
      * We can get the latest changes from state because we map persistentId to new node after node is created.
      */
     byId: {},
-    indexNodesById: {},
+    /**
+     * @type {{
+     *   [rootId: string]: {
+     *     [parentId: string]: string[],
+     *   }
+     * }}
+     */
     childIdsByRootAndParentId: {},
+
+    indexNodesById: {},
     selectedNodeId: null,
+
+    /**
+     * @type string
+     * @variant 'markdownEditor' | 'description' | 'workflow'
+     */
+    nodeDetailsAction: 'description',
   },
   reducers: {
     buildChildNode: nodeChildBuilder.buildChildNode,
     updateNodeState: nodeUpdater.updateNodeState,
     deleteNodeFromState: nodeDeleter.deleteNodeFromState,
     setSelectedNode: nodeSelectionSetter.setSelectedNode,
+    setNodeDetailsAction: nodeDetailsActionHandler.setNodeDetailsAction,
+    setDefaultNodeDetailsAction: nodeDetailsActionHandler.setDefaultNodeDetailsAction,
   },
   extraReducers(builder) {
     builder
       .addCase(indexNodes.fulfilled, indexNodesFulfilledReducer)
       .addCase(showNode.fulfilled, showNodeFulfilledReducer)
       .addCase(createNode.fulfilled, createNodeFulfilledReducer)
-      .addCase(deleteNode.fulfilled, (state, action) => deleteNodeFulfilledReducer(state, action, nodesSlice))
+      .addCase(deleteNode.fulfilled, (...args) => deleteNodeFulfilledReducer(...args, nodesSlice))
       .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
       .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
   },
@@ -82,6 +99,8 @@ export const {
   deleteNodeFromState,
   buildChildNode,
   setSelectedNode,
+  setNodeDetailsAction,
+  setDefaultNodeDetailsAction,
 } = actions;
 
 export default reducer;

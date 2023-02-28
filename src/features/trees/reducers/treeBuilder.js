@@ -38,8 +38,6 @@ export default {
 
       const isParentExpanded = isRoot || state.byRootNodeId[rootId][treeParentId].isExpanded;
 
-      if (!childIds) debugger;
-
       // initialize state for current node
       state.byRootNodeId[rootId][treeNodeId] = {
         treeNodeId,
@@ -53,7 +51,7 @@ export default {
         persistentNodeId: isNewlyCreated ? null : nodeId,
         rootId,
         isRoot,
-        isMounted: isParentExpanded || isMounted,
+        isMounted: isRoot || isNewlyCreated || (isParentExpanded && isMounted),
         isExpanded: !!isExpanded,
         isSelected: !!isSelected,
         isEditing: isNewlyCreated || false,

@@ -1,53 +1,84 @@
 import React from 'react';
+import { faCodeCompare, faEye, faSquareCode } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import PropTypes from 'prop-types';
-import EditRounded from '@mui/icons-material/EditRounded';
-import { Box, IconButton } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import {
-  faDiagramNested,
-} from '@fortawesome/pro-solid-svg-icons';
-import { updateNodeState } from '../../nodesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { selectNodeDetailsAction } from '../../nodes.selectors';
+import { setNodeDetailsAction } from '../../nodesSlice';
 
 export default function DetailsToolbar(props) {
   const { id } = props;
 
   const dispatch = useDispatch();
+  const nodeDetailsAction = useSelector(selectNodeDetailsAction);
 
   if (!id) return <div />; // empty div for flexbox alignment
 
   return (
-    <Box sx={{
-      svg: {
-        color: 'background.list.default',
-      },
-    }}
+    <ButtonGroup
+      variant="contained"
+      disableElevation
+      disableRipple
+      sx={{
+        height: 1,
+        '.MuiButtonGroup-grouped, .MuiButtonGroup-grouped:not(:last-of-type)': {
+          backgroundColor: 'transparent',
+          border: 'none',
+          borderRight: 'none',
+          transition: 'none',
+          '&.active': {
+            backgroundColor: 'toolbar.active',
+          },
+          '&:hover': {
+            backgroundColor: 'toolbar.hover',
+          },
+        },
+        svg: {
+          fontSize: '1.25rem',
+        },
+      }}
     >
-      <IconButton
-        className="Item"
-        onClick={() => dispatch(updateNodeState({ id, isEditingDescription: true }))}
-        aria-label="Edit Description"
+      <Tooltip title="Edit Description" placement="left">
+        <Button
+          size="large"
+          className={`${nodeDetailsAction === 'markdownEditor' && 'active'}`}
+          onClick={() => dispatch(setNodeDetailsAction('markdownEditor'))}
+          aria-label="Edit Description"
+          sx={{
+            color: 'toolbar.default',
+            '&:hover, &.active': { color: 'toolbar.red' },
+          }}
+        >
+          <FontAwesomeIcon icon={faSquareCode} />
+        </Button>
+      </Tooltip>
+      <Button
+        size="large"
+        className={`${nodeDetailsAction === 'description' && 'active'}`}
+        onClick={() => dispatch(setNodeDetailsAction('description'))}
+        aria-label="View Description"
+        sx={{
+          color: 'toolbar.default',
+          '&:hover, &.active': { color: 'toolbar.green' },
+        }}
       >
-        <EditRounded fontSize="medium" />
-      </IconButton>
-      <IconButton
-        className="Item"
-        onClick={() => dispatch(updateNodeState({ id, isEditingDescription: false }))}
-        aria-label="Edit Description"
-      >
-        <RemoveRedEyeOutlinedIcon fontSize="medium" />
-      </IconButton>
-      <IconButton
-        className="Item"
-        onClick={() => dispatch(updateNodeState({ id, isEditingDescription: false }))}
+        <FontAwesomeIcon icon={faEye} />
+      </Button>
+      <Button
+        size="large"
+        className={`${nodeDetailsAction === 'workflow' && 'active'}`}
+        onClick={() => dispatch(setNodeDetailsAction('workflow'))}
         aria-label="Workflow"
+        sx={{
+          color: 'toolbar.default',
+          '&:hover, &.active': { color: 'toolbar.blue' },
+        }}
       >
-        <FontAwesomeIcon
-          icon={faDiagramNested}
-        />
-      </IconButton>
-    </Box>
+        <FontAwesomeIcon icon={faCodeCompare} />
+      </Button>
+    </ButtonGroup>
   );
 }
 
