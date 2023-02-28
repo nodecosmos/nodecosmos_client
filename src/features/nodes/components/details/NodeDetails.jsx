@@ -37,7 +37,7 @@ export default function NodeDetails() {
     <Box
       height={1}
       backgroundColor="background.6"
-      sx={{ borderTopLeftRadius: 4, overflow: 'hidden' }}
+      sx={{ overflow: 'hidden' }}
     >
       <Box
         display="flex"
