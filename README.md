@@ -20,7 +20,8 @@
 ---
 ### Material-UI Recommendations:
 
-* Use inline-style for dynamic styling.
+* Use inline-
+* for dynamic styling.
 * Use SX prop for static styles. However, If component has many nested elements, define `sx` 
 with classes in parent container component, and be careful so that styled container is never re-rendered 
 on nested element change. We do this so emotion does not need to recompute styles on every render.

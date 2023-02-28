@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
-import useTreeNodeVirtualization from '../hooks/useTreeNodesVirtualization';
+import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
 import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
 import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
 import Node from './Node';
@@ -17,7 +17,7 @@ export default function Tree(props) {
   const childIdsByParentId = useSelector(selectChildIdsByParentId(rootNodeId));
 
   const positionsById = useTreePositionCalculator(rootNodeId);
-  const treeNodeIdsToView = useTreeNodeVirtualization(rootNodeId, containerRef);
+  const treeNodeIdsToView = useTreeNodeVirtualizer(rootNodeId, containerRef);
 
   const dispatch = useDispatch();
 

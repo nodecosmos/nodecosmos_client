@@ -3,13 +3,15 @@ import * as PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faUserGroup,
-  faChartPie,
-  faGears,
-  faIcons,
   faCodeCompare,
   faCodeBranch,
 } from '@fortawesome/pro-solid-svg-icons';
+import {
+  faUserGroup,
+  faChartPie,
+  faGears,
+  faPhotoFilmMusic,
+} from '@fortawesome/pro-duotone-svg-icons';
 
 /* mui */
 import { List } from '@mui/material';
@@ -62,7 +64,7 @@ export default function Sidebar(props) {
           to={`${id}/media`}
           icon={(
             <FontAwesomeIcon
-              icon={faIcons}
+              icon={faPhotoFilmMusic}
             />
           )}
           title="Media"

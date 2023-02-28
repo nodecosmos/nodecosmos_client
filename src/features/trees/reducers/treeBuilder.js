@@ -55,6 +55,7 @@ export default {
         isExpanded: !!isExpanded,
         isSelected: !!isSelected,
         isEditing: isNewlyCreated || false,
+        isNewlyCreated,
         nestedLevel,
       };
 

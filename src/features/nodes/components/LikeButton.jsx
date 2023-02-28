@@ -37,7 +37,7 @@ export default function LikeButton(props) {
 
     setIsLiked(!isLiked);
     requestAnimationFrame(() => setShouldBeat(true));
-    setTimeout(() => setShouldBeat(false), 1500);
+    setTimeout(() => setShouldBeat(false), 1000);
   };
 
   const [textColor, setTextColor] = React.useState(isLiked ? 'toolbar.red' : 'text.tertiary');
@@ -54,7 +54,8 @@ export default function LikeButton(props) {
         checked={isLiked}
         onClick={handleLike}
         className="Item"
-        sx={{ svg: { color: 'toolbar.red' } }}
+        disableRipple
+        sx={{ svg: { color: 'toolbar.red' }, '&:hover': { backgroundColor: 'transparent!important' } }}
         icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
         checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
         inputProps={{ 'aria-label': 'Favorite' }}

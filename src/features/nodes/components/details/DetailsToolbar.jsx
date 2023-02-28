@@ -49,6 +49,7 @@ export default function DetailsToolbar(props) {
           sx={{
             color: 'toolbar.default',
             '&:hover, &.active': { color: 'toolbar.red' },
+            borderRadius: 0,
           }}
         >
           <FontAwesomeIcon icon={faSquareCode} />
@@ -62,6 +63,8 @@ export default function DetailsToolbar(props) {
         sx={{
           color: 'toolbar.default',
           '&:hover, &.active': { color: 'toolbar.green' },
+          borderRadius: 0,
+
         }}
       >
         <FontAwesomeIcon icon={faEye} />
@@ -74,6 +77,8 @@ export default function DetailsToolbar(props) {
         sx={{
           color: 'toolbar.default',
           '&:hover, &.active': { color: 'toolbar.blue' },
+          borderRadius: 0,
+
         }}
       >
         <FontAwesomeIcon icon={faCodeCompare} />
