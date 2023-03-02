@@ -12,6 +12,8 @@ export default {
     state.byRootNodeId[rootId] ||= {};
     state.orderedTreeNodeIdsByRootNodeId[rootId] = [];
 
+    if (!childIdsByParentId || Object.keys(childIdsByParentId).length === 0) return;
+
     // Recursively map nodes
     const mapChildren = (
       {
@@ -28,7 +30,7 @@ export default {
       const treeNodeId = isRoot ? nodeId : `${rootId}-${treeParentId || parentId}-${nodeId}`;
       const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
 
-      const { isMounted, isExpanded, isSelected } = currentTreeNode;
+      const { isExpanded, isSelected } = currentTreeNode;
       const isNewlyCreated = state.currentTempNodeId === nodeId;
 
       // populate root's orderedTreeNodeIds with constructed id
@@ -37,6 +39,7 @@ export default {
       const childIds = childIdsByParentId[nodeId];
 
       const isParentExpanded = isRoot || state.byRootNodeId[rootId][treeParentId].isExpanded;
+      const isParentMounted = isRoot || state.byRootNodeId[rootId][treeParentId].isMounted;
 
       // initialize state for current node
       state.byRootNodeId[rootId][treeNodeId] = {
@@ -51,7 +54,7 @@ export default {
         persistentNodeId: isNewlyCreated ? null : nodeId,
         rootId,
         isRoot,
-        isMounted: isRoot || isNewlyCreated || (isParentExpanded && isMounted),
+        isMounted: isRoot || isNewlyCreated || (isParentExpanded && isParentMounted),
         isExpanded: !!isExpanded,
         isSelected: !!isSelected,
         isEditing: isNewlyCreated || false,

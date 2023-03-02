@@ -64,7 +64,6 @@ export default function DetailsToolbar(props) {
           color: 'toolbar.default',
           '&:hover, &.active': { color: 'toolbar.green' },
           borderRadius: 0,
-
         }}
       >
         <FontAwesomeIcon icon={faEye} />

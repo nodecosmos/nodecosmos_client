@@ -26,7 +26,8 @@ export default function useTreePositionCalculator(rootId) {
       const parentX = treeParentId ? currentPositionsById[treeParentId].x : 0;
       const parentY = treeParentId ? currentPositionsById[treeParentId].y : 0;
 
-      const upperSiblingYEnd = treeUpperSiblingId && currentPositionsById[treeUpperSiblingId].yEnd;
+      const upperSiblingYEnd = currentPositionsById[treeUpperSiblingId]
+        && currentPositionsById[treeUpperSiblingId].yEnd;
 
       const position = {};
 

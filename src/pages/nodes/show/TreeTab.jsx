@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import NodeDetails from '../../../features/nodes/components/details/NodeDetails';
 import TreeContainer from '../../../features/trees/components/TreeContainer';
 import Tree from '../../../features/trees/components/Tree';
+import TreeToolbar from '../../../features/trees/components/TreeToolbar';
 
 export default function TreeTab() {
   const { id } = useParams();
@@ -15,6 +16,7 @@ export default function TreeTab() {
         height="100%"
       >
         <TreeContainer>
+          <TreeToolbar rootNodeId={id} />
           <Tree rootNodeId={id} />
         </TreeContainer>
       </Box>

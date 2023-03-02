@@ -5,6 +5,7 @@ import nodeDeleter from './reducers/nodeDeleter';
 import nodeUpdater from './reducers/nodeUpdater';
 import nodeSelectionSetter from './reducers/nodeSelectionSetter';
 import nodeDetailsActionHandler from './reducers/nodeDetailsActionHandler';
+import nodeSearcher from './reducers/nodeSearcher';
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
 import deleteNodeFulfilledReducer from './reducers/extra/deleteNode.fulfilled';
@@ -28,6 +29,7 @@ const nodesSlice = createSlice({
      *    persistentParentId: string,
      *    rootId: string,
      *    editorIds: string[],
+     *    ancestorIds: string[],
      *    childIds: string[],
      *    descendantIds: string[],
      *    descendantsById: {} | null,
@@ -58,6 +60,9 @@ const nodesSlice = createSlice({
      *     [parentId: string]: string[],
      *   }
      * }}
+     * @description
+     * This is a map of rootId and parentId to childIds. It is used to determine tree nodes, as
+     * tree renders children of a node, and children of children, and so on.
      */
     childIdsByRootAndParentId: {},
 
@@ -77,6 +82,7 @@ const nodesSlice = createSlice({
     setSelectedNode: nodeSelectionSetter.setSelectedNode,
     setNodeDetailsAction: nodeDetailsActionHandler.setNodeDetailsAction,
     setDefaultNodeDetailsAction: nodeDetailsActionHandler.setDefaultNodeDetailsAction,
+    searchNode: nodeSearcher.searchNode,
   },
   extraReducers(builder) {
     builder
@@ -101,6 +107,7 @@ export const {
   setSelectedNode,
   setNodeDetailsAction,
   setDefaultNodeDetailsAction,
+  searchNode,
 } = actions;
 
 export default reducer;

@@ -7,6 +7,7 @@ export default function TreeContainer(props) {
     <Box sx={{
       height: 1,
       transform: 'translateZ(0)',
+      overflow: 'hidden',
       '.NodeButtonContainer': { display: 'flex' },
       '.NodeButton': {
         display: 'inline-flex',

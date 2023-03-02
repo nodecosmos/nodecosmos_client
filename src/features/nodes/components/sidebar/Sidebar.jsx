@@ -34,7 +34,7 @@ export default function Sidebar(props) {
         fontSize: 0.875,
       }}
     >
-      <List sx={{ p: 1 }}>
+      <List>
         <SidebarListItem
           to={`${id}`}
           icon={(

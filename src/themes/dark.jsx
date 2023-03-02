@@ -106,6 +106,7 @@ export default {
       hover: '#425b67',
       active: '#3f4e59',
       default: '#babecd',
+      searchField: '#414650',
     },
 
     tree: {
