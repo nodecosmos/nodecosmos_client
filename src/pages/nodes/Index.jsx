@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* mui */
-import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 import { setCurrentToolbar } from '../../features/app/appSlice';
 /* node-lib */
 import NodeCard from '../../features/nodes/components/NodeCard';
@@ -21,17 +21,11 @@ export default function NodeIndex() {
   ));
 
   return (
-    <Box
-      p={2}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      spacing={3}
-      mt={-2}
-      height={1}
+    <Container
+      maxWidth="md"
       overflow="auto"
     >
       {cards}
-    </Box>
+    </Container>
   );
 }

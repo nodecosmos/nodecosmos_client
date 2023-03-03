@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectNodeDetailsAction, selectSelectedNode, selectSelectedNodeId } from '../../nodes.selectors';
 import MarkdownEditor from './MarkdownEditor';
-import DetailsToolbar from './DetailsToolbar';
+import NodeDetailsToolbar from './NodeDetailsToolbar';
 
 export default function NodeDetails() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
@@ -44,9 +44,10 @@ export default function NodeDetails() {
         justifyContent="space-between"
         alignItems="center"
         height={HEADER_HEIGHT}
-        boxShadow="2"
+        borderBottom={1}
+        borderColor="borders.4"
       >
-        <DetailsToolbar id={selectedNodeId} />
+        <NodeDetailsToolbar id={selectedNodeId} />
         <Box display="flex" alignItems="center">
           {title && <FontAwesomeIcon icon={faHashtag} />}
           <Typography

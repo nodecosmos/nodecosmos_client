@@ -7,8 +7,9 @@ import { Link as RouterLink } from 'react-router-dom';
 /* mui */
 import {
   Card,
-  CardContent,
   CardHeader,
+  CardContent,
+  Typography,
   Link,
 } from '@mui/material';
 
@@ -21,19 +22,38 @@ function NodeCard(props) {
   const node = useSelector(selectIndexedNode(id));
 
   return (
-    <Box width="60%" mt={2}>
-      <Card className="Card" elevation={2}>
+    <Box width="100%" mt={2}>
+      <Card className="Card" elevation={2} sx={{ p: 1, borderRadius: 4 }}>
         <CardHeader
           avatar={(
             <Link to={`/users/${node.owner.id}`}>
               <UserAvatar user={node.owner} />
             </Link>
         )}
-          title={<Link component={RouterLink} to={`/nodes/${node.id}`}>{node.title}</Link>}
-          subheader={node.created_at}
+          title={(
+            <Link component={RouterLink} to={`/users/${node.owner.id}`}>
+              <Typography variant="body1" color="text.secondary">
+                {node.owner.username}
+              </Typography>
+            </Link>
+)}
+          subheader={(
+            <Typography color="text.tertiary">
+              {node.createdAt}
+            </Typography>
+          )}
         />
-        <CardContent>
-          <Box dangerouslySetInnerHTML={{ __html: node.description }} />
+        <CardContent sx={{ ml: 8, p: 0 }}>
+          <Link component={RouterLink} to={`/nodes/${node.id}`}>
+            <Typography
+              variant="h5"
+              variantMapping={{ h5: 'h2' }}
+              color="text.contrast"
+              fontWeight="bold"
+            >
+              {node.title}
+            </Typography>
+          </Link>
         </CardContent>
       </Card>
     </Box>

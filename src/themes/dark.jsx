@@ -65,6 +65,7 @@ export default {
       1: '#2d3138',
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
+      4: '#43464d',
 
       box: {
         xs: '#202027',
@@ -103,8 +104,9 @@ export default {
       red: '#F91880FF',
       green: '#b6fd7b',
       blue: '#2adfff',
+      lightRed: '#ff6881',
       hover: '#425b67',
-      active: '#3f4e59',
+      active: 'rgba(63,78,89,0.53)',
       default: '#babecd',
       searchField: '#414650',
     },
@@ -119,7 +121,7 @@ export default {
     },
 
     markdownContent: {
-      canvas: '#3a3d49',
+      canvas: '#444756',
       background: 'transparent',
     },
 

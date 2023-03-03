@@ -26,7 +26,6 @@ export default function Sidebar(props) {
   return (
     <Box
       comopnent="nav"
-      height={1}
       display="flex"
       justifyContent="space-between"
       flexDirection="column"
@@ -34,7 +33,7 @@ export default function Sidebar(props) {
         fontSize: 0.875,
       }}
     >
-      <List>
+      <List sx={{ px: 1 }}>
         <SidebarListItem
           to={`${id}`}
           icon={(
@@ -87,8 +86,6 @@ export default function Sidebar(props) {
           )}
           title="Insights"
         />
-      </List>
-      <List sx={{ p: 1 }}>
         <SidebarListItem
           to={`${id}/settings`}
           icon={(

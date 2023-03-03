@@ -12,7 +12,8 @@ export default {
       }
     } else {
       for (const nodeId in state.byId) {
-        if (state.byId[nodeId].title.toLowerCase().includes(value.toLowerCase())) {
+        if (state.byId[nodeId].rootId === rootId
+          && state.byId[nodeId].title.toLowerCase().includes(value.toLowerCase())) {
           newChildIdsByRootAndParentId[nodeId] ||= [];
           let currentNodeId = nodeId;
           let { parentId } = state.byId[nodeId];

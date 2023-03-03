@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setTransformablePositions } from '../../app/appSlice';
+import { HEADER_HEIGHT } from '../../app/constants';
 import usePannable from '../hooks/usePannable';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../trees.constants';
 
@@ -55,7 +56,7 @@ export default function Transformable(props) {
       style={{
         overflow: 'auto',
         width: '100%',
-        height: '100%',
+        height: `calc(100% - ${HEADER_HEIGHT}px)`,
       }}
     >
       <svg

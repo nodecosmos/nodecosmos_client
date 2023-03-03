@@ -30,9 +30,10 @@ export default function TreeToolbar({ rootNodeId }) {
       <TextField
         sx={{
           '.MuiInputBase-root': {
-            borderRadius: 10,
+            borderRadius: 2,
             height: 40,
             backgroundColor: 'toolbar.searchField',
+            boxShadow: 'buttons.1',
           },
           '.MuiOutlinedInput-notchedOutline': {
             '&, &:hover, &:focus': {},

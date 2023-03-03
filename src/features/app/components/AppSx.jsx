@@ -1,8 +1,5 @@
 // generic styles that have access to theme
 export default {
-  'h1, h2, h3, h4, h5': {
-    color: 'text.primary',
-  },
   '&, .MuiPaper-root': {
     color: 'text.secondary',
   },
@@ -12,9 +9,9 @@ export default {
     borderColor: 'borders.2',
   },
   blockquote: {
-    ml: 2,
+    m: 0,
     backgroundColor: 'markdownContent.canvas',
-    borderRadius: 1.5,
+    borderRadius: 1,
     borderLeft: 6,
     p: 1,
     pl: 2,
@@ -22,7 +19,7 @@ export default {
   },
   table: {
     tr: {
-      borderRadius: 2,
+      borderRadius: 1,
       'td, th': {
         mt: 1,
         borderBottom: 1,
@@ -39,8 +36,9 @@ export default {
     },
   },
   pre: {
+    ml: 0,
     p: 2,
-    borderRadius: 2,
+    borderRadius: 1,
     backgroundColor: 'markdownContent.canvas',
   },
 };

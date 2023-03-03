@@ -40,7 +40,6 @@ export default function NodeShow() {
     <Box height={1} display="flex">
       <Box
         width={SIDEBAR_WIDTH}
-        height={1}
         borderRight={1}
         borderColor="borders.box.md"
       >

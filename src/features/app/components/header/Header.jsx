@@ -71,12 +71,21 @@ export default function Header() {
           <Box
             height={1}
             width={1}
+            px={2}
             display="flex"
             justifyContent="center"
             alignItems="center"
+            oveflow="hidden"
           >
             <FontAwesomeIcon icon={faHashtag} />
-            <Typography align="center" variant="body1" ml={1}>
+            <Typography
+              align="center"
+              variant="body1"
+              ml={1}
+              overflow="hidden"
+              textOverflow="ellipsis"
+              whiteSpace="nowrap"
+            >
               {subtitle}
             </Typography>
           </Box>

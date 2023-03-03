@@ -16,5 +16,7 @@ export default {
 
     state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds
     state.childIdsByRootAndParentId[node.rootId][tmpNodeId] = [];
+
+    state.byId[nodeId].childIds.push(tmpNodeId); // add new node to parent's childIds
   },
 };
