@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { terminateNewNode } from '../landingPageNodeSlice';
 import LandingPageNode from './LandingPageNode';
 import LandingPageNodeDescription from './LandingPageNodeDescription';
-import SwipeableEdgeDrawer from './LandingPageSwipableNodeDescMobile';
+import SwipeableEdgeDrawer from './LandingPageSwipeableNodeDescMobile';
 import LandingPageTransformable from './LandingPageTransformable';
 import LandingPageNestedNodes from './LandingPageNestedNodes';
 
@@ -47,7 +47,7 @@ export default function LandingPageTree(props) {
       <Box
         backgroundColor="background.6"
         borderRadius={{
-          xs: 2,
+          xs: 1,
           md: 3,
         }}
         overflow="hidden"
