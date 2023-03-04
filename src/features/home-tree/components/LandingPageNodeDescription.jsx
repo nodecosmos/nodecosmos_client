@@ -22,7 +22,7 @@ export default function LandingPageNodeDescription() {
         height={56}
         sx={{
           '.fa-hashtag': {
-            mt: -0.25,
+            mt: -0.15,
             color: 'background.list.default',
             fontSize: '1.25rem',
           },
@@ -32,12 +32,9 @@ export default function LandingPageNodeDescription() {
         <Typography
           ml={1}
           textAlign="left"
-          variant="h6"
+          variant="body1"
           fontWeight="bold"
           lineHeight={1}
-          sx={{
-            fontSize: '1.05rem',
-          }}
         >
           {(currentNodeId && (currentNodeTitle || 'No Title'))
             || 'Select a node from the tree'}
