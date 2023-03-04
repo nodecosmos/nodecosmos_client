@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 /* mui */
 import { Button, Grid } from '@mui/material';
-import Field from '../../app/components/common/final-form/FinalFormInputField';
+import Field from '../../../common/components/final-form/FinalFormInputField';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 /* nodecosmos */
 
@@ -15,10 +15,27 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} justify="center">
             <Grid item xs={12}>
-              <Field fullWidth name="username_or_email" label="username || email" required />
+              <Field
+                fullWidth
+                name="username_or_email"
+                label="username || email"
+                InputProps={{
+                  autoComplete: 'on',
+                }}
+                required
+              />
             </Grid>
             <Grid item xs={12}>
-              <Field fullWidth name="password" type="password" required />
+              <Field
+                fullWidth
+                label="password"
+                name="password"
+                type="password"
+                InputProps={{
+                  autoComplete: 'on',
+                }}
+                required
+              />
             </Grid>
             <Grid item xs={12}>
               <Button sx={{ mt: 2 }} variant="contained" type="submit">

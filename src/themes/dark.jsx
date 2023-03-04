@@ -31,19 +31,8 @@ export default {
     },
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
-    boxBorder: {
-      bottom: {
-        xs: '0px 3px 1px -2px rgb(68 66 72 / 20%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
-        md: '0px 3px 1px -2px rgb(66 66 72 / 50%), 0px 1px 2px 0px rgb(68 66 72 / 20%)',
-      },
-      right: {
-        xs: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
-        md: '3px 0px 1px -1px rgb(68 66 72 / 20%), 1px 0px 1px 0px rgb(68 66 72 / 20%)',
-      },
-      top: {
-        xs: '0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)',
-        md: '0px -3px 1px -2px rgb(66 70 72 / 50%), 0px -1px 2px 0px rgb(68 66 72 / 20%)',
-      },
+    buttons: {
+      1: '3px 3px 0px rgb(0 0 0 / 10%)',
     },
   },
 
@@ -58,7 +47,8 @@ export default {
     },
 
     error: {
-      main: '#e91e63',
+      main: '#ed4b82',
+      contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     success: {
@@ -75,11 +65,7 @@ export default {
       1: '#2d3138',
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
-
-      box: {
-        xs: '#202027',
-        md: '#101013',
-      },
+      4: '#43464d',
     },
 
     background: {
@@ -88,6 +74,8 @@ export default {
       3: '#373b43',
       4: '#555b66',
       5: '#32373e',
+      6: '#393d47',
+      7: '#404450',
 
       labels: {
         red: '#e15e7d',
@@ -97,21 +85,26 @@ export default {
       },
 
       list: {
-        iconBackground: '#373b43',
-        iconForeground: '#b9b9b9',
-        active: '#33373e',
+        default: '#898f9c',
+        activeColor: '#d8e0e8',
+        active: '#3f4552',
       },
 
       scrollbarThumb: '#43464d',
-      paper: '#373b43',
-      hover: 'rgba(0, 0, 0, 0.1)',
+      paper: '#363a43',
       contrast: '#cccccc',
+      hover: 'rgba(211,211,211,0.1)',
     },
 
     toolbar: {
-      red: '#e91e63',
+      red: '#F91880FF',
       green: '#b6fd7b',
       blue: '#2adfff',
+      lightRed: '#ff6881',
+      hover: '#425b67',
+      active: 'rgba(63,78,89,0.53)',
+      default: '#babecd',
+      searchField: '#414650',
     },
 
     tree: {
@@ -124,8 +117,7 @@ export default {
     },
 
     markdownContent: {
-      border: '#464b59',
-      canvas: '#464b59',
+      canvas: '#444756',
       background: 'transparent',
     },
 
@@ -143,8 +135,8 @@ export default {
       quote: '#57606e',
       meta: '#ff87c4',
       link: '#83c1ea',
-      background: '#373b43',
-      foreground: '#9a9da9',
+      background: 'transparent',
+      foreground: '#c7cbdb',
       selection: 'rgba(255,255,255,0.06)',
       selectionMatch: 'rgba(255,255,255,0.06)',
       lineHighlight: '#8a91991a',
@@ -166,8 +158,8 @@ export default {
       sectionSecondary: '#cdd4eb',
       gradients: {
         1: {
-          xs: 'linear-gradient(90deg, #b787ff, #ff87c4, #ff4b8d)',
-          sm: 'linear-gradient(90deg, #b787ff, #ff87c4, #ff4b8d)',
+          xs: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',
+          sm: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',
         },
         2: {
           xs: 'linear-gradient(90deg, #ff87c4, #bb99ff, #80c7ff)',
@@ -178,7 +170,7 @@ export default {
           sm: 'linear-gradient(90deg, #b3ff68, #ffe386, #ff8888)',
         },
       },
-      collaboratePurple: '#c187ff',
+      collaboratePurple: '#bb99ff',
       mergeGreen: '#a3ff48',
       foreground: 'rgba(0, 0, 0, 0.7)',
     },

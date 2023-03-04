@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import GradientText from '../../../app/components/common/GradientText';
-import Workflow from '../landing-page-workflow/LandingPageWorkflow';
+import GradientText from '../../../../common/components/GradientText';
+import Workflow from '../../../home-workflow/components/LandingPageWorkflow';
 
 export default function LandingPageWorkflow() {
   return (
@@ -21,14 +21,7 @@ export default function LandingPageWorkflow() {
       >
         <Box
           borderBottom={1}
-          borderColor={{
-            xs: 'borders.box.xs',
-            md: 'borders.box.md',
-          }}
-          boxShadow={{
-            xs: 'boxBorder.bottom.xs',
-            md: 'boxBorder.bottom.md',
-          }}
+          borderColor="borders.4"
         >
           <Typography
             variant="body2"

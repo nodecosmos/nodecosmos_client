@@ -8,7 +8,7 @@ import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import FinalFormInputField from '../../app/components/common/final-form/FinalFormInputField';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import AnimateOnView from './AnimateOnView';
 import Section from './Section';
 

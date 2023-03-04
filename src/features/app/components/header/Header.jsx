@@ -1,4 +1,6 @@
 import React from 'react';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 /* mui */
@@ -32,25 +34,21 @@ export default function Header() {
     <Box
       display="flex"
       alignItems="center"
-      border={1}
-      borderBottom={0}
-      borderColor="borders.2"
       position="fixed"
       height={HEADER_HEIGHT}
       width={{
         xs: 1,
-        sm: 'calc(100% - 12px)',
+        sm: 'calc(100% - 14px)',
       }}
       top={{
-        sm: 6,
+        sm: 7,
         xs: 0,
       }}
       right={{
-        sm: 6,
+        sm: 7,
         xs: 0,
       }}
-      backgroundColor="background.3"
-      boxShadow="header"
+      backgroundColor="background.2"
       sx={{
         borderTopLeftRadius: {
           xs: 0,
@@ -61,6 +59,7 @@ export default function Header() {
           sm: 6,
         },
       }}
+      zIndex={1}
     >
       {subtitle && (
         <Box
@@ -68,16 +67,25 @@ export default function Header() {
           height={1}
           borderRight={1}
           borderColor="borders.box.md"
-          boxShadow="boxBorder.right.md"
         >
           <Box
             height={1}
             width={1}
+            px={2}
             display="flex"
             justifyContent="center"
             alignItems="center"
+            oveflow="hidden"
           >
-            <Typography align="center" variant="body2">
+            <FontAwesomeIcon icon={faHashtag} />
+            <Typography
+              align="center"
+              variant="body1"
+              ml={1}
+              overflow="hidden"
+              textOverflow="ellipsis"
+              whiteSpace="nowrap"
+            >
               {subtitle}
             </Typography>
           </Box>

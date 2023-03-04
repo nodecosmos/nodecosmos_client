@@ -1,81 +1,67 @@
-# Nodecosmos
 
-Directory structure: 
-   * features
-     * feature_name
-       * components - view components
-       * hooks - business logic
-       * featureSlice - state management for feature
-   * pages - Every page has related route
+# Nodecosmos 
 
-# Getting Started with Create React App
+### Directory & File structure: 
+*  **common** - everything that does not relate to redux state
+   * **components** - common view components
+   * **hooks** - common business logic
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*  **features** - each feature has its own slice of state
+   * **feature-name**
+       *  **components** - view components
+       *  **hooks** - business logic
+       *  **reducers** - reducers for feature
+          * **extra** - handle async actions usually defined within feature.thunks.js (createNode, updateNode, deleteNode...)
+       *  **feature.thunks.js** - thunks for feature
+       *  **feature.selectors.js** - selectors for feature
+       *  **featureSlice.js** - state management for feature
+*  **pages** - Each route has associated page. Nested routes are handled with reactrouter `<Outlet />`
 
-## Available Scripts
+---
+### Material-UI Recommendations:
 
-In the project directory, you can run:
+* Use inline-
+* for dynamic styling.
+* Use SX prop for static styles. However, If component has many nested elements, define `sx` 
+with classes in parent container component, and be careful so that styled container is never re-rendered 
+on nested element change. We do this so emotion does not need to recompute styles on every render.
 
-### `npm start`
+---
+### GIT Workflow Recommendations:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1) Create a new branch for each modification.
+2) Make changes to the code on your local branch, and commit changes regularly with clear and descriptive commit messages.
+   * Commit-format: action#feature: short description
+   * Common actions:
+     * **feat**: a new feature or functionality
+     * **update**: functionality
+     * **fix**: a bug fix
+     * **refactor**: a code refactoring or restructuring
+     * **docs**: changes to documentation
+     * **chore**: maintenance or other non-code changes
+     * **test**: changes to testing code or configuration
+     * **perf**: performance improvements
+     * **revert**: a commit that reverts a previous change
+     * **merge**: a commit that merges one branch into another
+     * **build**: changes to the build system or configuration
+     * **ci**: changes to the continuous integration (CI) pipeline or configuration
+     * **deploy**: changes to the deployment process or configuration
+     * **security**: security-related changes or fixes
+3) Once you're ready to merge your changes into the main codebase, create a pull request and have your changes reviewed by other members of your team.
+4) If there are any issues identified during the review process, make changes to your code and commit those changes to your branch.
+5) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
+6) Once your pull request has been approved, merge your changes into the main codebase. 5
+7) Finally, delete your branch to keep your repository clean and organized.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Important Considerations:
+Node ids are complex at the moment as we want to support smooth tree flow, so we have:
 
-### `npm test`
+* **nodeId** - id of node in nodeSlice
+* **treeNodeId** - id of node in treeSlice
+* **persistentId** - id of node in database and in slice
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
+Usually persistentId and nodeId are the same. However, in case we work with the Tree, we generate 
+tmp id for new node as nodeId. Obviously, we cannot use this id to communicate with the backend, so we need to leave 
+nodeId as it is, and use persistentId to communicate with the backend and get the latest changes from state.
+We can get the latest changes from state because we map persistentId to nodeSlice after node is created.

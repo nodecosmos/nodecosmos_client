@@ -4,9 +4,7 @@ import animations from './styles/animations';
 
 /* mui */
 import input from './styles/mui/inputs';
-import list from './styles/mui/list';
 import buttons from './styles/mui/buttons';
-import menu from './styles/mui/menu';
 import tab from './styles/mui/tab';
 
 const getTheme = (currentTheme) => createTheme({
@@ -23,9 +21,7 @@ const getTheme = (currentTheme) => createTheme({
       },
     },
     ...input(currentTheme),
-    ...list(currentTheme),
     ...buttons(currentTheme),
-    ...menu(currentTheme),
     ...tab(currentTheme),
   },
   //-----------------------------------------------------------------------------------------------------------------

@@ -1,15 +1,22 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCodeCompare,
+  faCodeBranch,
+} from '@fortawesome/pro-solid-svg-icons';
+import {
+  faUserGroup,
+  faChartPie,
+  faGears,
+  faPhotoFilmMusic,
+} from '@fortawesome/pro-duotone-svg-icons';
+
 /* mui */
 import { List } from '@mui/material';
-
-import AccountTreeRounded from '@mui/icons-material/AccountTreeRounded';
-import TagRounded from '@mui/icons-material/TagRounded';
-import GestureRounded from '@mui/icons-material/GestureRounded';
-import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
-import CodeRounded from '@mui/icons-material/CodeRounded';
-import TimelineRounded from '@mui/icons-material/TimelineRounded';
-import GroupsRounded from '@mui/icons-material/GroupsRounded';
+import Box from '@mui/material/Box';
+import NodecosmosIcon from '../../../../common/components/NodecosmosIcon';
 
 import SidebarListItem from './SidebarListItem';
 
@@ -17,23 +24,79 @@ export default function Sidebar(props) {
   const { id } = props;
 
   return (
-    <nav className="flexColumnSpaceBetween" style={{ height: '100%' }}>
-      <List>
-        <SidebarListItem to={`/nodes/${id}`} icon={<TagRounded />} title="Node" />
-        <SidebarListItem to={`/nodes/${id}/tree`} icon={<AccountTreeRounded />} title="Tree" />
+    <Box
+      comopnent="nav"
+      display="flex"
+      justifyContent="space-between"
+      flexDirection="column"
+      sx={{
+        fontSize: 0.875,
+      }}
+    >
+      <List sx={{ px: 1 }}>
         <SidebarListItem
-          to={`/nodes/${id}/contribution_requests`}
-          icon={<CodeRounded />}
+          to={`${id}`}
+          icon={(
+            <NodecosmosIcon />
+          )}
+          title="Node"
+        />
+        <SidebarListItem
+          to={`${id}/workflow`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faCodeCompare}
+            />
+          )}
+          title="Workflow"
+        />
+        <SidebarListItem
+          to={`${id}/contribution_requests`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faCodeBranch}
+            />
+          )}
           title="Contribution Requests"
         />
-        <SidebarListItem to={`/nodes/${id}/drawing`} icon={<GestureRounded />} title="Drawing" />
-        <SidebarListItem to={`/nodes/${id}/topics`} icon={<GroupsRounded />} title="Topics" />
-        <SidebarListItem to={`/nodes/${id}/insights`} icon={<TimelineRounded />} title="Insights" />
+        <SidebarListItem
+          to={`${id}/media`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faPhotoFilmMusic}
+            />
+          )}
+          title="Media"
+        />
+        <SidebarListItem
+          to={`${id}/topics`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faUserGroup}
+            />
+          )}
+          title="Topics"
+        />
+        <SidebarListItem
+          to={`${id}/insights`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faChartPie}
+            />
+          )}
+          title="Insights"
+        />
+        <SidebarListItem
+          to={`${id}/settings`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faGears}
+            />
+          )}
+          title="Settings"
+        />
       </List>
-      <List>
-        <SidebarListItem to={`/nodes/${id}/settings`} icon={<SettingsOutlined />} title="Settings" />
-      </List>
-    </nav>
+    </Box>
   );
 }
 

@@ -1,3 +1,4 @@
+// TODO: replace with sx={{ ... }} within components
 export default (currentTheme) => ({
   MuiTab: {
     styleOverrides: {

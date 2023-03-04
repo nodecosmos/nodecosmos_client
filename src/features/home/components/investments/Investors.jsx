@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import GradientText from '../../../app/components/common/GradientText';
+import GradientText from '../../../../common/components/GradientText';
 
 export default function Investors() {
   return (
@@ -12,6 +12,7 @@ export default function Investors() {
         fontFamily="'Montserrat', sans-serif"
         fontWeight="900"
         textAlign="center"
+        color="text.primary"
       >
         For Investors
       </Typography>

@@ -1,51 +1,52 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 /* mui */
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 /* nodecosmos */
 import { setCurrentToolbar, setSubtitle } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
-import { showNode, terminateNewNode } from '../../features/nodes/nodeSlice';
-import NodeTab from './show/NodeTab';
-import TreeTab from './show/TreeTab';
+import { selectNodeAttribute } from '../../features/nodes/nodes.selectors';
+import { showNode } from '../../features/nodes/nodes.thunks';
 
 export default function NodeShow() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { id } = useParams();
-  const node = useSelector((state) => state.nodes[id]);
+  const nodeTitle = useSelector(selectNodeAttribute(id, 'title'));
+
+  if (!id) {
+    navigate('/404');
+  }
 
   useEffect(() => {
     dispatch(showNode(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
     dispatch(setCurrentToolbar('NodeShowToolbar'));
-    dispatch(setSubtitle(node?.title));
+    dispatch(setSubtitle(nodeTitle));
 
     return () => {
       dispatch(setSubtitle(null));
-      dispatch(terminateNewNode());
     };
-  }, [dispatch, id, node?.title]);
+  }, [dispatch, nodeTitle]);
 
-  if (!node) return null;
+  if (!nodeTitle) return null;
 
   return (
     <Box height={1} display="flex">
       <Box
         width={SIDEBAR_WIDTH}
-        height={1}
         borderRight={1}
         borderColor="borders.box.md"
-        boxShadow="boxBorder.right.md"
       >
         <Sidebar id={id} />
       </Box>
       <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
-        <Routes>
-          <Route path="/" element={<NodeTab id={id} />} />
-          <Route path="tree" element={<TreeTab id={id} />} />
-        </Routes>
+        <Outlet />
       </Box>
     </Box>
   );

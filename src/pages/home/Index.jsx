@@ -131,7 +131,7 @@ export default function Index() {
           xs: 1,
           sm: 'calc(100% - 12px)',
         }}
-        zIndex={2}
+        zIndex={3}
         height={HEADER_HEIGHT}
         sx={{
           borderTopLeftRadius: {
@@ -212,7 +212,6 @@ export default function Index() {
           zIndex={2}
           p={3}
           backgroundColor="background.3"
-          boxShadow="boxBorder.top.xs"
           sx={{
             borderBottomLeftRadius: {
               xs: 0,

@@ -43,6 +43,7 @@ export default function Vision() {
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="900"
                 textAlign="center"
+                color="text.primary"
               >
                 Contribution Requests
               </Typography>
@@ -65,6 +66,7 @@ export default function Vision() {
                 fontFamily="'Montserrat', sans-serif"
                 fontWeight="900"
                 textAlign="center"
+                color="text.primary"
               >
                 Topics
               </Typography>

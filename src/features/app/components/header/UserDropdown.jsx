@@ -18,20 +18,22 @@ import {
 import Person from '@mui/icons-material/Person';
 import Logout from '@mui/icons-material/Logout';
 import LightMode from '@mui/icons-material/LightMode';
+import { selectCurrentUser, selectIsAuthenticated } from '../../../authentication/authentication.selectors';
 
 import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
+import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 
 /* nodecosmos */
-import UserAvatar from '../common/UserAvatar';
+import UserAvatar from '../../../../common/components/UserAvatar';
 
 export default function UserDropdown() {
   const [anchorEl, setAnchorEl] = React.useState(false);
   const open = Boolean(anchorEl);
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const theme = useSelector((state) => state.app.theme);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const currentUser = useSelector(selectCurrentUser);
+  const theme = useSelector(selectTheme);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

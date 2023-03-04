@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import GradientText from '../../../app/components/common/GradientText';
+import GradientText from '../../../../common/components/GradientText';
 
 export default function Innovators() {
   return (
@@ -12,6 +12,7 @@ export default function Innovators() {
         fontFamily="'Montserrat', sans-serif"
         textAlign="center"
         fontWeight="900"
+        color="text.primary"
       >
         For Innovators
       </Typography>
@@ -33,7 +34,7 @@ export default function Innovators() {
             <Box component="img" src="eth.svg" alt="Ethereum icon" width={40} height={65} />
 
             <Box ml={3}>
-              <GradientText gradientVariant={3} text="ICO" variant="h5" variantMapping={{ h5: 'h4' }} />
+              <GradientText gradientVariant={3} text="ERC-20" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
                 fontFamily="'Montserrat', sans-serif"

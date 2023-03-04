@@ -1,7 +1,15 @@
+// TODO: replace with sx={{ ... }} within components
 export default (currentTheme) => ({
   MuiOutlinedInput: {
     styleOverrides: {
       input: {
+        ':-webkit-autofill': {
+          '&, &:hover, &:focus': {
+            borderRadius: 0,
+            boxShadow: `0 0 0px 1000px ${currentTheme.palette.background[5]} inset`,
+            WebkitTextFillColor: currentTheme.palette.text.primary,
+          },
+        },
         caretColor: currentTheme.palette.primary.main,
         fontFamily: 'monospace',
       },

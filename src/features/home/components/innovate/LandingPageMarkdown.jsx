@@ -1,15 +1,15 @@
 import React, { Suspense } from 'react';
 import {
-  ToggleButton, ToggleButtonGroup, Typography, useTheme,
+  ToggleButton, ToggleButtonGroup, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import GradientText from '../../../app/components/common/GradientText';
+import GradientText from '../../../../common/components/GradientText';
 
-const MarkdownPreview = React.lazy(() => import('@uiw/react-markdown-preview'));
-const CustomCodeMirror = React.lazy(() => import('../../../app/components/common/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../../common/components/CustomCodeMirror'));
+const MarkdownPreview = React.lazy(() => import('../../../../common/components/MarkdownPreview'));
 
 const INITIAL_DESCRIPTION_VALUE = `
 ### The following is a sample markdown description explaining its syntax:
@@ -86,8 +86,6 @@ export default function LandingPageMarkdown() {
   const [description, setDescription] = React.useState(INITIAL_DESCRIPTION_VALUE);
   const [mode, setMode] = React.useState('markdown');
 
-  const theme = useTheme();
-
   return (
     <Box mb={{
       xs: -5,
@@ -124,16 +122,8 @@ export default function LandingPageMarkdown() {
         px={4}
         pb={2}
         zIndex={2}
-        position="relative"
         borderBottom={1}
-        borderColor={{
-          xs: 'borders.box.xs',
-          md: 'borders.box.md',
-        }}
-        boxShadow={{
-          xs: 'boxBorder.bottom.xs',
-          md: 'boxBorder.bottom.md',
-        }}
+        borderColor="borders.4"
       >
         <ToggleButtonGroup
           value={mode}
@@ -205,27 +195,11 @@ export default function LandingPageMarkdown() {
         </Suspense>
         )}
         {mode === 'content' && (
-        <Box sx={{
-          '.wmde-markdown hr': {
-            height: 0,
-          },
-          ".wmde-markdown[data-color-mode*='dark']": {
-            '--color-border-muted': theme.palette.markdownContent.border,
-            '--color-canvas-subtle': theme.palette.markdownContent.canvas,
-            '--color-canvas-default': theme.palette.markdownContent.background,
-            '--color-border-default': theme.palette.markdownContent.border,
-          },
-        }}
-        >
-          <Suspense fallback={loading}>
-            <Box m={4}>
-              <MarkdownPreview
-                warpperElement={{ 'data-color-mode': 'dark' }}
-                source={description}
-              />
-            </Box>
-          </Suspense>
-        </Box>
+          <Box m={{ xs: 3, sm: 4 }}>
+            <Suspense fallback={loading}>
+              <MarkdownPreview value={description} />
+            </Suspense>
+          </Box>
         )}
       </Box>
     </Box>

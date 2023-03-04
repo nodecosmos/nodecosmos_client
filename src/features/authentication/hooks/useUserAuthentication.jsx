@@ -1,22 +1,11 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { redirect } from 'react-router-dom';
 import nodecosmos from '../../../apis/nodecosmos-server';
-import history from '../../../history';
 import { login, logout } from '../authenticationSlice';
 
-export default function useUserAuthentication(props) {
+export default function useUserAuthentication() {
   const dispatch = useDispatch();
-
-  const handleAuthentication = (response) => {
-    const { user, token } = response.data;
-
-    localStorage.setItem('token', token);
-    localStorage.setItem('currentUser', JSON.stringify(user));
-
-    dispatch(login({ user, token }));
-
-    history.push('/');
-  };
 
   const handleLogin = async (formValues) => {
     try {
@@ -38,14 +27,25 @@ export default function useUserAuthentication(props) {
     dispatch(logout());
   };
 
+  const handleAuthentication = (response) => {
+    const { user, token } = response.data;
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
+    dispatch(login({ user, token }));
+
+    redirect('/');
+  };
+
   const handleUserCreation = async (formValues) => {
     try {
       const response = await nodecosmos.post('/users', { user: formValues });
       handleAuthentication(response);
-    } catch (response) {
-      console.error(response);
-
+    } catch (error) {
+      const { response } = error;
       if (response.data) return response.data.error; // maps error object to final-form submitError
+      // TODO: check if there is way to map error object to final-form and still use thunks
     }
 
     return null;
@@ -57,8 +57,9 @@ export default function useUserAuthentication(props) {
     } catch (error) {
       switch (error.response.data.error) {
         case 'session_expired':
+        case 'decode_error':
           dispatch(logout());
-          history.push('/login');
+          redirect('/login');
           localStorage.removeItem('token');
           localStorage.removeItem('currentUser');
           break;
