@@ -44,8 +44,14 @@ export default function LandingPageTree(props) {
           </LandingPageNode>
         </g>
       </LandingPageTransformable>
-
       <Box
+        backgroundColor="background.6"
+        borderRadius={{
+          xs: 2,
+          md: 3,
+        }}
+        overflow="hidden"
+        boxShadow="buttons.1"
         width={{
           md: '38.19700%',
         }}
@@ -56,6 +62,14 @@ export default function LandingPageTree(props) {
         bottom={{
           xs: 0,
           md: 'auto',
+        }}
+        my={{
+          xs: 0,
+          lg: 3,
+        }}
+        mx={{
+          xs: -3,
+          md: 0,
         }}
       >
         {!isMobile && <LandingPageNodeDescription />}

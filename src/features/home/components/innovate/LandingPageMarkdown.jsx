@@ -123,10 +123,7 @@ export default function LandingPageMarkdown() {
         pb={2}
         zIndex={2}
         borderBottom={1}
-        borderColor={{
-          xs: 'borders.box.xs',
-          md: 'borders.box.md',
-        }}
+        borderColor="borders.4"
       >
         <ToggleButtonGroup
           value={mode}

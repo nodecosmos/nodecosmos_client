@@ -66,11 +66,6 @@ export default {
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
       4: '#43464d',
-
-      box: {
-        xs: '#202027',
-        md: '#2b2e35',
-      },
     },
 
     background: {
@@ -80,6 +75,7 @@ export default {
       4: '#555b66',
       5: '#32373e',
       6: '#393d47',
+      7: '#404450',
 
       labels: {
         red: '#e15e7d',
@@ -162,8 +158,8 @@ export default {
       sectionSecondary: '#cdd4eb',
       gradients: {
         1: {
-          xs: 'linear-gradient(90deg, #b787ff, #ff87c4, #ff4b8d)',
-          sm: 'linear-gradient(90deg, #b787ff, #ff87c4, #ff4b8d)',
+          xs: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',
+          sm: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',
         },
         2: {
           xs: 'linear-gradient(90deg, #ff87c4, #bb99ff, #80c7ff)',
@@ -174,7 +170,7 @@ export default {
           sm: 'linear-gradient(90deg, #b3ff68, #ffe386, #ff8888)',
         },
       },
-      collaboratePurple: '#c187ff',
+      collaboratePurple: '#bb99ff',
       mergeGreen: '#a3ff48',
       foreground: 'rgba(0, 0, 0, 0.7)',
     },

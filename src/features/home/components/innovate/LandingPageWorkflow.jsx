@@ -21,10 +21,7 @@ export default function LandingPageWorkflow() {
       >
         <Box
           borderBottom={1}
-          borderColor={{
-            xs: 'borders.box.xs',
-            md: 'borders.box.md',
-          }}
+          borderColor="borders.4"
         >
           <Typography
             variant="body2"

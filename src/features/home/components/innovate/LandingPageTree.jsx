@@ -28,26 +28,16 @@ export default function LandingPageTree() {
       <Box
         mx={{
           // as defined in src/features/home/components/Section.jsx:28
-          xs: -3,
-          sm: -4,
+          // xs: -3,
+          // sm: -4,
         }}
         mt={3}
       >
-        <Box
-          borderBottom={1}
-          borderColor={{
-            xs: 'borders.box.xs',
-            md: 'borders.box.md',
-          }}
-        >
+        <Box>
           <Typography
             variant="body2"
             color="text.tertiary"
             pb="4px"
-            mx={{
-              xs: 3,
-              sm: 4,
-            }}
             fontSize={{
               xs: 12,
               sm: 14,
@@ -62,16 +52,7 @@ export default function LandingPageTree() {
             Click on a node to see its details, and feel free to add, edit or delete nodes.
           </Typography>
         </Box>
-        <Box
-          borderBottom={{
-            xs: 0,
-            md: 1,
-          }}
-          borderColor={{
-            xs: 'borders.box.xs',
-            md: 'borders.box.md',
-          }}
-        >
+        <Box>
           <Tree id={airplaneNodeId} />
         </Box>
       </Box>

@@ -47,8 +47,8 @@ export default function LandingPageWorkflow() {
           md: 1,
         }}
         borderColor={{
-          xs: 'borders.box.xs',
-          md: 'borders.box.md',
+          xs: 'transparent',
+          md: 'borders.4',
         }}
         zIndex={1}
         display="flex"

@@ -10,10 +10,7 @@ export default function LandingPageWorkflowStepDescription() {
     <Box>
       <Box
         borderBottom={1}
-        borderColor={{
-          xs: 'borders.box.xs',
-          md: 'borders.box.md',
-        }}
+        borderColor="borders.4"
         display="flex"
         justifyContent="center"
         alignItems="center"

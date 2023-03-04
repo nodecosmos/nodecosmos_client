@@ -12,6 +12,7 @@ export default function Investors() {
         fontFamily="'Montserrat', sans-serif"
         fontWeight="900"
         textAlign="center"
+        color="text.primary"
       >
         For Investors
       </Typography>

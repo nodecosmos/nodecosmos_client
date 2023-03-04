@@ -16,7 +16,6 @@ export default function LandingPageTransformable(props) {
   const scale = matchesSm ? 0.7 : 1;
 
   const containerHeight = 800 * scale;
-  const containerWidth = '61.803%';
 
   const minHeight = matchesSm ? 790 : 800;
   const minWidth = matchesSm ? 400 : 1050;
@@ -50,21 +49,13 @@ export default function LandingPageTransformable(props) {
       onClick={resize}
       onMouseDown={handleMouseDown}
       onTouchStart={resize}
-      borderRight={{
-        xs: 0,
-        md: 1,
-      }}
-      borderColor={{
-        xs: 'borders.box.xs',
-        md: 'borders.box.md',
-      }}
       overflow={{
         xs: 'auto',
         lg: 'hidden',
       }}
       width={{
         xs: '100%',
-        lg: containerWidth,
+        lg: '61.803%',
       }}
     >
       {/* <TransformablePath panX={pan.x} /> */}
@@ -92,6 +83,10 @@ export default function LandingPageTransformable(props) {
           xmlns="http://www.w3.org/2000/svg"
           width={minWidth}
           height={minHeight}
+          style={{
+            marginLeft: -35,
+            marginTop: -10,
+          }}
         >
           <g ref={gRef}>
             {children}

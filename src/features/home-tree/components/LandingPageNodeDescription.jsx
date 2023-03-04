@@ -1,8 +1,11 @@
 import React from 'react';
-import TagRounded from '@mui/icons-material/TagRounded';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import {
+  faHashtag,
+} from '@fortawesome/pro-regular-svg-icons';
 
 export default function LandingPageNodeDescription() {
   const currentNodeId = useSelector((state) => state.app.currentNodeId);
@@ -12,18 +15,30 @@ export default function LandingPageNodeDescription() {
   return (
     <Box>
       <Box
-        borderBottom={1}
-        borderColor={{
-          xs: 'borders.box.xs',
-          md: 'borders.box.md',
-        }}
+        backgroundColor="background.7"
         display="flex"
         justifyContent="center"
         alignItems="center"
         height={56}
+        sx={{
+          '.fa-hashtag': {
+            mt: -0.25,
+            color: 'background.list.default',
+            fontSize: '1.25rem',
+          },
+        }}
       >
-        {currentNodeId && <TagRounded fontSize="medium" sx={{ color: 'text.secondary' }} />}
-        <Typography ml={1} textAlign="left" color="text.secondary" variant="body1">
+        {currentNodeId && <FontAwesomeIcon icon={faHashtag} />}
+        <Typography
+          ml={1}
+          textAlign="left"
+          variant="h6"
+          fontWeight="bold"
+          lineHeight={1}
+          sx={{
+            fontSize: '1.05rem',
+          }}
+        >
           {(currentNodeId && (currentNodeTitle || 'No Title'))
             || 'Select a node from the tree'}
         </Typography>

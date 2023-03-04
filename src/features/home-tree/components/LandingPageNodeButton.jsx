@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import TagRounded from '@mui/icons-material/TagRounded';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -28,7 +29,7 @@ export default function LandingPageNodeButton(props) {
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor, color } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+  const { backgroundColor, color, hasBg } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeId;
 
@@ -75,9 +76,13 @@ export default function LandingPageNodeButton(props) {
               p: '0px 12px',
               cursor: 'pointer',
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
+              '.fa-hashtag': {
+                fontSize: 14,
+                color: hasBg ? 'inherit' : 'background.list.default',
+              },
             }}
           >
-            <TagRounded fontSize="small" ml="-2px" />
+            <FontAwesomeIcon icon={faHashtag} />
             <LandingPageNodeButtonText id={id} />
           </Box>
           <Box filter="none">

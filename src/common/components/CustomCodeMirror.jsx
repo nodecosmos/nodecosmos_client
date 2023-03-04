@@ -159,10 +159,7 @@ export default function CustomCodeMirror(props) {
         borderRight: 1,
         minWidth: 52,
         justifyContent: 'center',
-        borderColor: {
-          xs: 'borders.box.xs',
-          md: 'borders.box.md',
-        },
+        borderColor: 'borders.4',
       },
     }}
     >

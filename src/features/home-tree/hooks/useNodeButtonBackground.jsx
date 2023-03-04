@@ -17,6 +17,8 @@ export default function useNodeButtonBackground(props) {
   const isCurrentNode = nodeExpanded && id === currentNodeId;
   const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
 
+  const hasBg = (nodeExpanded && isCurrentNode) || hasNestedNodes;
+
   const nodeBackgroundColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];
   const backgroundColor = (nodeExpanded && isCurrentNode) || hasNestedNodes
     ? nodeBackgroundColors[nestedLevel % 3] : theme.palette.tree.default;
@@ -24,12 +26,13 @@ export default function useNodeButtonBackground(props) {
   const parentBackgroundColor = parentExpanded
     ? nodeBackgroundColors[(nestedLevel - 1) % 3] : theme.palette.tree.default;
 
-  const color = (nodeExpanded && isCurrentNode) || hasNestedNodes
+  const color = hasBg
     ? theme.palette.tree.selectedText : theme.palette.tree.defaultText;
 
   return {
     backgroundColor,
     parentBackgroundColor,
     color,
+    hasBg,
   };
 }

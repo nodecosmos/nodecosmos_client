@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../../common/components/Loader';
 /* nodecosmos */
 import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
 import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
