@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TagRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';

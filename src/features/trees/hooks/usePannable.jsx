@@ -1,14 +1,11 @@
-/* eslint-disable no-shadow */
-import React from 'react';
-
 // pan on mouse click and drag
 export default function usePannable(containerRef) {
   const handleMouseDown = (event) => {
     const { clientX: initialClientX, clientY: initialClientY } = event;
     const { scrollLeft: initialScrollLeft, scrollTop: initialScrollTop } = containerRef.current;
 
-    const handleMouseMove = (event) => {
-      const { clientX, clientY } = event;
+    const handleMouseMove = (moveEvent) => {
+      const { clientX, clientY } = moveEvent;
 
       const scrollLeft = initialScrollLeft + initialClientX - clientX;
       const scrollTop = initialScrollTop + initialClientY - clientY;
