@@ -41,7 +41,7 @@ export default function NodeShow() {
       <Box
         width={SIDEBAR_WIDTH}
         borderRight={1}
-        borderColor="borders.box.md"
+        borderColor="borders.1"
       >
         <Sidebar id={id} />
       </Box>

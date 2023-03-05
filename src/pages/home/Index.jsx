@@ -142,7 +142,7 @@ export default function Index() {
             xs: 0,
             sm: 8,
           },
-          boxShadow: 'header',
+          boxShadow: '0',
           borderBottom: 1,
           borderBottomColor: 'borders.1',
           backgroundColor: 'background.3',

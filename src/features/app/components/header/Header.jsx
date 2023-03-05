@@ -66,7 +66,7 @@ export default function Header() {
           width={SIDEBAR_WIDTH}
           height={1}
           borderRight={1}
-          borderColor="borders.box.md"
+          borderColor="borders.1"
         >
           <Box
             height={1}
