@@ -40,8 +40,6 @@ export default function Index() {
   const heroLogo = useRef(null);
   const heroInView = useInView(heroLogo, { amount: 0.8 });
 
-  const scrollEnabled = useSelector((state) => state.app.scrollEnabled);
-
   const allRefs = useMemo(() => [innovate, collaborate, investments, openSource, mvp, contactUs], []);
 
   const [sectionPositions, setSectionPositions] = useState(null);
@@ -112,7 +110,7 @@ export default function Index() {
       className="scrollable"
       onScroll={handleScrollCapture}
       height={1}
-      overflow={scrollEnabled ? 'auto' : 'hidden'}
+      overflow="auto"
       ref={rootRef}
     >
       <Box

@@ -4,14 +4,14 @@ import * as PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCodeCompare,
-  faCodeBranch,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 import {
   faUserGroup,
-  faChartPie,
+  faChartSimple,
   faGears,
-  faPhotoFilmMusic,
-} from '@fortawesome/pro-duotone-svg-icons';
+  faFolders,
+  faLightbulbOn,
+} from '@fortawesome/pro-solid-svg-icons';
 
 /* mui */
 import { List } from '@mui/material';
@@ -54,7 +54,7 @@ export default function Sidebar(props) {
           to={`${id}/contribution_requests`}
           icon={(
             <FontAwesomeIcon
-              icon={faCodeBranch}
+              icon={faLightbulbOn}
             />
           )}
           title="Contribution Requests"
@@ -63,7 +63,7 @@ export default function Sidebar(props) {
           to={`${id}/media`}
           icon={(
             <FontAwesomeIcon
-              icon={faPhotoFilmMusic}
+              icon={faFolders}
             />
           )}
           title="Media"
@@ -81,7 +81,7 @@ export default function Sidebar(props) {
           to={`${id}/insights`}
           icon={(
             <FontAwesomeIcon
-              icon={faChartPie}
+              icon={faChartSimple}
             />
           )}
           title="Insights"

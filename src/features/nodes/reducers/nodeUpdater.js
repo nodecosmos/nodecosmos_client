@@ -4,6 +4,7 @@ export default {
 
     if (state.byId[id]) {
       state.byId[id] = { ...state.byId[id], ...action.payload };
+      state.nodeTitlesById[id] = state.byId[id].title;
     }
   },
 };

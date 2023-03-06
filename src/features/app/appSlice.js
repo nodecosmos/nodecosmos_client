@@ -25,11 +25,10 @@ function fnBrowserDetect() {
 const appSlice = createSlice({
   name: 'app',
   initialState: {
+    headerSubtitle: '',
+    headerContent: null,
     theme: localStorage.getItem('theme') || 'dark',
     transformablePositionsById: {},
-    subtitle: '',
-    appAnimationEnabled: true,
-    scrollEnabled: true,
     currentNodeId: null, // used for landing page
     browser: fnBrowserDetect(),
     alert: {
@@ -39,12 +38,11 @@ const appSlice = createSlice({
     },
   },
   reducers: {
+    setHeaderSubtitle(state, action) { state.headerSubtitle = action.payload; },
+    setHeaderContent(state, action) { state.headerContent = action.payload; },
     setTheme(state, action) { state.theme = action.payload; },
-    setSubtitle(state, action) { state.subtitle = action.payload; },
     setCurrentNode(state, action) { state.currentNodeId = action.payload; },
-    setCurrentToolbar(state, action) { state.currentToolbar = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
-    setScrollEnabled(state, action) { state.scrollEnabled = action.payload; },
     setTransformablePositions(state, action) { state.transformablePositionsById[action.payload.id] = action.payload; },
     setAlert(state, action) { state.alert = action.payload; },
   },
@@ -54,9 +52,9 @@ const { actions, reducer } = appSlice;
 
 export const {
   setTheme,
-  setSubtitle,
+  setHeaderSubtitle,
   setCurrentNode,
-  setCurrentToolbar,
+  setHeaderContent,
   setTransformablePositions,
   setAlert,
 } = actions;

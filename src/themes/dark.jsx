@@ -90,7 +90,7 @@ export default {
         active: '#3f4552',
       },
 
-      scrollbarThumb: '#43464d',
+      scrollbarThumb: '#3e434c',
       paper: '#363a43',
       contrast: '#cccccc',
       hover: 'rgba(211,211,211,0.1)',
@@ -105,6 +105,7 @@ export default {
       active: 'rgba(63,78,89,0.53)',
       default: '#babecd',
       searchField: '#414650',
+      breadcrumbs: '#758593',
     },
 
     tree: {

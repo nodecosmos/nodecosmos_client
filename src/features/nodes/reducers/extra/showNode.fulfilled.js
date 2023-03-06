@@ -4,5 +4,6 @@ export default function showNodeFulfilledReducer(state, action) {
     state.byId[node.id] = node;
     state.childIdsByRootAndParentId[node.rootId] ||= {};
     state.childIdsByRootAndParentId[node.rootId][node.id] ||= node.childIds;
+    state.nodeTitlesById[node.id] = node.title;
   });
 }

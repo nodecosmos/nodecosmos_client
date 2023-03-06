@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* mui */
 import { Container } from '@mui/material';
-import { setCurrentToolbar } from '../../features/app/appSlice';
+import { setHeaderContent } from '../../features/app/appSlice';
 /* node-lib */
 import NodeCard from '../../features/nodes/components/NodeCard';
 import { indexNodes } from '../../features/nodes/nodes.thunks';
@@ -12,7 +12,7 @@ export default function NodeIndex() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCurrentToolbar('NodeIndexToolbar'));
+    dispatch(setHeaderContent('NodeIndexToolbar'));
     dispatch(indexNodes());
   }, [dispatch]);
 

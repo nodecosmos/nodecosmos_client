@@ -74,6 +74,7 @@ const nodesSlice = createSlice({
      * @variant 'markdownEditor' | 'description' | 'workflow'
      */
     nodeDetailsAction: 'description',
+    nodeTitlesById: {},
   },
   reducers: {
     buildChildNode: nodeChildBuilder.buildChildNode,
