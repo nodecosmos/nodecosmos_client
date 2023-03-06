@@ -1,10 +1,10 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import { faChevronRight, faHashtag } from '@fortawesome/pro-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Breadcrumbs, Link } from '@mui/material';
+import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedNode, selectNodeTitlesById } from '../nodes.selectors';
+import { selectNodeTitlesById, selectSelectedNode } from '../nodes.selectors';
 import { setSelectedNode } from '../nodesSlice';
 
 export default function NodeBreadcrumbs() {
@@ -17,19 +17,23 @@ export default function NodeBreadcrumbs() {
 
   if (selectedNode && selectedNode.ancestorIds) {
     const ancestorIds = [...selectedNode.ancestorIds];
-    ancestorIds.reverse().forEach((id) => {
-      if (nodeTitlesById[id]) {
-        items.push(
-          {
-            id,
-            title: nodeTitlesById[id],
-          },
-        );
-      }
-    });
+    ancestorIds.reverse()
+      .forEach((id) => {
+        if (nodeTitlesById[id]) {
+          items.push(
+            {
+              id,
+              title: nodeTitlesById[id],
+            },
+          );
+        }
+      });
   }
 
-  items.push({ id: selectedNode.id, title: nodeTitlesById[selectedNode.id] });
+  items.push({
+    id: selectedNode.id,
+    title: nodeTitlesById[selectedNode.id],
+  });
 
   if (!selectedNode.id) return null;
 
@@ -59,14 +63,19 @@ export default function NodeBreadcrumbs() {
         separator={separator}
         sx={{
           width: 'max-content',
-          '.BreadcrumbItem': { display: 'flex', alignItems: 'center' },
+          '.BreadcrumbItem': {
+            display: 'flex',
+            alignItems: 'center',
+          },
           a: {
             color: 'text.tertiary',
             cursor: 'pointer',
             fontSize: '0.9rem',
           },
           '.MuiBreadcrumbs-separator': {
-            color: 'toolbar.default', fontSize: '0.75rem', mx: 2,
+            color: 'toolbar.default',
+            fontSize: '0.75rem',
+            mx: 2,
           },
           'button, button:hover': {
             backgroundColor: 'toolbar.active',

@@ -1,9 +1,9 @@
 import React from 'react';
-import { faHashtag, faMessages, faBell } from '@fortawesome/pro-solid-svg-icons';
+import { faBell, faHashtag, faMessages } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /* mui */
 import {
-  Box, Button, Grid, Tooltip, Typography,
+  Box, Button, Tooltip, Typography,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
