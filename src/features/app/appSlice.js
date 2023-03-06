@@ -25,7 +25,6 @@ function fnBrowserDetect() {
 const appSlice = createSlice({
   name: 'app',
   initialState: {
-    headerSubtitle: '',
     headerContent: null,
     theme: localStorage.getItem('theme') || 'dark',
     transformablePositionsById: {},
@@ -38,7 +37,6 @@ const appSlice = createSlice({
     },
   },
   reducers: {
-    setHeaderSubtitle(state, action) { state.headerSubtitle = action.payload; },
     setHeaderContent(state, action) { state.headerContent = action.payload; },
     setTheme(state, action) { state.theme = action.payload; },
     setCurrentNode(state, action) { state.currentNodeId = action.payload; },
@@ -52,7 +50,6 @@ const { actions, reducer } = appSlice;
 
 export const {
   setTheme,
-  setHeaderSubtitle,
   setCurrentNode,
   setHeaderContent,
   setTransformablePositions,

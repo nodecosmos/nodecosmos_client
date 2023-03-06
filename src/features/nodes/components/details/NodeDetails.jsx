@@ -46,6 +46,8 @@ export default function NodeDetails() {
         height={HEADER_HEIGHT}
         borderColor="borders.4"
         boxShadow="2"
+        position="relative"
+        zIndex={1}
       >
         <NodeDetailsToolbar id={selectedNodeId} />
         <Box display="flex" alignItems="center">

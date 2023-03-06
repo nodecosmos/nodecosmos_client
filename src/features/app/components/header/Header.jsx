@@ -1,6 +1,5 @@
 import React from 'react';
-import { faBell, faHashtag, faMessages } from '@fortawesome/pro-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faMessages } from '@fortawesome/pro-solid-svg-icons';
 /* mui */
 import {
   Box, Button, Tooltip, Typography,
@@ -13,7 +12,7 @@ import NodeBreadcrumbs from '../../../nodes/components/NodeBreadcrumbs';
 
 /* nodecosmos */
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
-import { selectHeaderContent, selectHeaderSubtitle } from '../../app.selectors';
+import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import UserDropdown from './UserDropdown';
 
@@ -28,7 +27,6 @@ export default function Header() {
   const location = useLocation();
 
   const headerContent = useSelector(selectHeaderContent);
-  const subtitle = useSelector(selectHeaderSubtitle);
 
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 /* nodecosmos */
-import { setHeaderContent, setHeaderSubtitle } from '../../features/app/appSlice';
+import { setHeaderContent } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { selectNodeAttribute } from '../../features/nodes/nodes.selectors';
@@ -27,11 +27,6 @@ export default function NodeShow() {
 
   useEffect(() => {
     dispatch(setHeaderContent('NodeBreadcrumbs'));
-    dispatch(setHeaderSubtitle(nodeTitle));
-
-    return () => {
-      dispatch(setHeaderSubtitle(null));
-    };
   }, [dispatch, nodeTitle]);
 
   if (!nodeTitle) return null;
