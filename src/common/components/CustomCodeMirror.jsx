@@ -157,7 +157,10 @@ export default function CustomCodeMirror(props) {
       '.cm-gutters': {
         minHeight: 1,
         borderRight: 1,
-        minWidth: 52,
+        minWidth: {
+          sm: 1,
+          md: 57.5,
+        },
         justifyContent: 'center',
         borderColor: 'borders.4',
       },

@@ -63,46 +63,24 @@ export default function Header() {
       }}
       zIndex={1}
     >
-      {subtitle && (
-        <Box
-          width={SIDEBAR_WIDTH}
-          height={1}
-          borderRight={1}
-          borderColor="borders.1"
-        >
-          <Box
-            height={1}
-            width={1}
-            px={2}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            oveflow="hidden"
-          >
-            <FontAwesomeIcon icon={faHashtag} />
-            <Typography
-              align="center"
-              variant="body1"
-              ml={1}
-              overflow="hidden"
-              textOverflow="ellipsis"
-              whiteSpace="nowrap"
-            >
-              {subtitle}
-            </Typography>
-          </Box>
-        </Box>
-      )}
       <Box
         display="flex"
         alignItems="center"
         justifyContent="space-between"
         height={1}
-        width={`calc(100% - ${subtitle ? SIDEBAR_WIDTH : 0}px)`}
-        borderBottom={1}
-        borderColor="borders.1"
+        width={1}
       >
-        <Box sm={2} align="left" pl={2} width={170}>
+        <Box
+          height={1}
+          width={SIDEBAR_WIDTH}
+          display="flex"
+          alignItems="center"
+          sm={2}
+          align="left"
+          pl={2}
+          borderRight={1}
+          borderColor="borders.1"
+        >
           <Button
             component={Link}
             to="/n"
@@ -121,10 +99,26 @@ export default function Header() {
             </Typography>
           </Button>
         </Box>
-        <Box width="calc(100% - 350px)">
+        <Box
+          width="calc(100% - 465px)"
+          pl={2}
+          height={1}
+          display="flex"
+          alignItems="center"
+          borderBottom={1}
+          borderColor="borders.1"
+        >
           {headerContents[headerContent]}
         </Box>
-        <Box width={165} pr={2}>
+        <Box
+          width={165}
+          pr={2}
+          height={1}
+          display="flex"
+          alignItems="center"
+          borderBottom={1}
+          borderColor="borders.1"
+        >
           <ToolbarContainer>
             <ToolbarItem title="messages" icon={faMessages} color="toolbar.green" />
             <ToolbarItem title="notifications" icon={faBell} color="toolbar.green" />

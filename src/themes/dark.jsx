@@ -62,7 +62,7 @@ export default {
     },
 
     borders: {
-      1: '#24282d',
+      1: '#40444d',
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
       4: '#43464d',
@@ -104,7 +104,7 @@ export default {
       hover: '#425b67',
       active: 'rgba(63,78,89,0.53)',
       default: '#babecd',
-      searchField: '#414650',
+      searchField: '#3a404b',
       breadcrumbs: '#758593',
     },
 

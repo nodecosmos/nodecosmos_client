@@ -44,8 +44,8 @@ export default function NodeDetails() {
         justifyContent="space-between"
         alignItems="center"
         height={HEADER_HEIGHT}
-        borderBottom={1}
         borderColor="borders.4"
+        boxShadow="2"
       >
         <NodeDetailsToolbar id={selectedNodeId} />
         <Box display="flex" alignItems="center">

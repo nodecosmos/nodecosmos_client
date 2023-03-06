@@ -21,6 +21,7 @@ export default function TreeToolbar({ rootNodeId }) {
       alignItems="center"
       justifyContent="center"
       position="relative"
+      boxShadow="2"
       sx={{
         svg: {
           color: 'toolbar.default',
