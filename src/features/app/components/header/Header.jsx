@@ -1,13 +1,8 @@
-import React from 'react';
-import { faBell, faMessages } from '@fortawesome/pro-solid-svg-icons';
 /* mui */
-import {
-  Box, Button, Tooltip, Typography,
-} from '@mui/material';
+import React from 'react';
+import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import NodeBreadcrumbs from '../../../nodes/components/NodeBreadcrumbs';
 
 /* nodecosmos */
@@ -15,7 +10,6 @@ import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
 import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import UserHeaderOptions from './UserHeaderOptions';
-import UserProfileOptions from './UserProfileOptions';
 
 const NON_HEADER_PATHS = ['/login'];
 

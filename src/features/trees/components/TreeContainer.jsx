@@ -37,6 +37,7 @@ export default function TreeContainer(props) {
           outline: 'none!important',
           cursor: 'pointer!important',
           pointerEvents: 'none',
+          whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
         },
       },
     }}
