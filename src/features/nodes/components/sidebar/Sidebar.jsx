@@ -1,22 +1,20 @@
 import React from 'react';
-import * as PropTypes from 'prop-types';
+import {
+  faChartSimple,
+  faCodeCommit,
+  faCodeFork,
+  faCodePullRequest,
+  faFolders,
+  faGears,
+  faUserGroup,
+} from '@fortawesome/pro-regular-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCodeCompare,
-  faCodeFork,
-
-  faUserGroup,
-  faChartSimple,
-  faGears,
-  faFolders,
-  faLightbulbOn,
-} from '@fortawesome/pro-light-svg-icons';
 
 /* mui */
 import { List } from '@mui/material';
 import Box from '@mui/material/Box';
-import NodecosmosIcon from '../../../../common/components/NodecosmosIcon';
+import * as PropTypes from 'prop-types';
 
 import SidebarListItem from './SidebarListItem';
 
@@ -48,7 +46,7 @@ export default function Sidebar(props) {
           to={`${id}/workflow`}
           icon={(
             <FontAwesomeIcon
-              icon={faCodeCompare}
+              icon={faCodeCommit}
             />
           )}
           title="Workflow"
@@ -57,7 +55,7 @@ export default function Sidebar(props) {
           to={`${id}/contribution_requests`}
           icon={(
             <FontAwesomeIcon
-              icon={faLightbulbOn}
+              icon={faCodePullRequest}
             />
           )}
           title="Contribution Requests"

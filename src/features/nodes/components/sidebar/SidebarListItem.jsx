@@ -16,7 +16,7 @@ export default function SidebarListItem({ to, icon, title }) {
     >
       <ListItemButton
         sx={{
-          height: 54,
+          py: 1.5,
           borderRadius: 1.5,
           transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
           color: 'background.list.default',
@@ -36,9 +36,9 @@ export default function SidebarListItem({ to, icon, title }) {
           mr: 2,
           color: 'background.list.default',
           svg: {
-            fontSize: 24,
-            width: 24,
-            height: 24,
+            fontSize: 20,
+            width: 20,
+            height: 20,
             '.active &': {
               color: 'background.list.activeColor',
             },
