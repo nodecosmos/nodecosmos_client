@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTransformablePositionsById } from '../../app/app.selectors';
 import { setTransformablePositions } from '../../app/appSlice';
 import { HEADER_HEIGHT } from '../../app/constants';
 import usePannable from '../hooks/usePannable';
@@ -13,6 +14,7 @@ export default function Transformable(props) {
   const gRef = useRef(null);
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
+  const { scrollTop } = useSelector(selectTransformablePositionsById(rootId));
 
   setTimeout(() => {
     const height = (gRef.current && gRef.current.getBBox().height) + TRANSFORMABLE_HEIGHT_MARGIN;
@@ -38,14 +40,16 @@ export default function Transformable(props) {
   };
 
   useEffect(() => {
-    if (containerRef.current) {
+    if (scrollTop && containerRef.current && containerRef.current.scrollTop !== scrollTop) {
+      containerRef.current.scrollTop = scrollTop;
+    } else if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: rootId,
         clientHeight: containerRef.current.clientHeight,
         scrollTop: containerRef.current.scrollTop,
       }));
     }
-  }, [dispatch, rootId]);
+  }, [dispatch, rootId, scrollTop]);
 
   //--------------------------------------------------------------------------------------------------------------------
   return (

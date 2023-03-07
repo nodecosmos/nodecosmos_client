@@ -3,6 +3,9 @@ export default {
   '&, .MuiPaper-root': {
     color: 'text.secondary',
   },
+  'h1, h2, h3, h4, h5, h6, p': {
+    marginBlockStart: 0,
+  },
   hr: {
     border: 0,
     borderBottom: 1,

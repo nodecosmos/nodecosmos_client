@@ -15,7 +15,7 @@ import {
   collapseTreeNode,
   expandTreeNode,
   updateTreeNode,
-  setCurrentTempNodeId,
+  setCurrentTempNodeId, setSelectedTreeNode,
 } from '../treesSlice';
 
 export default function useNodeTreeEvents(treeNodeId) {
@@ -46,9 +46,11 @@ export default function useNodeTreeEvents(treeNodeId) {
     if (isExpanded && isSelected) {
       dispatch(collapseTreeNode(treeNodeId));
       dispatch(setSelectedNode(null));
+      dispatch(setSelectedTreeNode(null));
     } else {
       dispatch(expandTreeNode(treeNodeId));
       dispatch(setSelectedNode(nodeId));
+      dispatch(setSelectedTreeNode(treeNodeId));
     }
   }, [isEditing, isExpanded, isSelected, nodeId, treeNodeId, dispatch]);
 

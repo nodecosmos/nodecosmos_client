@@ -14,7 +14,8 @@ import NodeBreadcrumbs from '../../../nodes/components/NodeBreadcrumbs';
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
 import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
-import UserDropdown from './UserDropdown';
+import UserHeaderOptions from './UserHeaderOptions';
+import UserProfileOptions from './UserProfileOptions';
 
 const NON_HEADER_PATHS = ['/login'];
 
@@ -110,22 +111,13 @@ export default function Header() {
         </Box>
         <Box
           width={165}
-          pr={2}
           height={1}
           display="flex"
           alignItems="center"
           borderBottom={1}
           borderColor="borders.1"
         >
-          <ToolbarContainer>
-            <ToolbarItem title="messages" icon={faMessages} color="toolbar.green" />
-            <ToolbarItem title="notifications" icon={faBell} color="toolbar.green" />
-            <Tooltip title="Profile" placement="top">
-              <Box ml={2}>
-                <UserDropdown />
-              </Box>
-            </Tooltip>
-          </ToolbarContainer>
+          <UserHeaderOptions />
         </Box>
       </Box>
     </Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { faRectangleCode, faBracketsCurly } from '@fortawesome/pro-solid-svg-icons';
+import { faRectangleCode, faAlignJustify } from '@fortawesome/pro-solid-svg-icons';
 import { faCodeCompare } from '@fortawesome/pro-regular-svg-icons';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +28,7 @@ export default function NodeDetailsToolbar(props) {
       />
       <ToolbarItem
         title="View Description"
-        icon={faBracketsCurly}
+        icon={faAlignJustify}
         color="toolbar.green"
         active={nodeDetailsAction === 'description'}
         onClick={() => dispatch(setNodeDetailsAction('description'))}

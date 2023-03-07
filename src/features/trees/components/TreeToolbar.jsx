@@ -15,11 +15,10 @@ export default function TreeToolbar({ rootNodeId }) {
   return (
     <Box
       height={HEADER_HEIGHT}
-      px={2}
       width={1}
+      px={2}
       display="flex"
       alignItems="center"
-      justifyContent="center"
       position="relative"
       boxShadow="2"
       sx={{
@@ -30,11 +29,12 @@ export default function TreeToolbar({ rootNodeId }) {
     >
       <TextField
         sx={{
+          width: '350px',
           '.MuiInputBase-root': {
+            pl: 1,
             borderRadius: 2,
             height: 40,
             backgroundColor: 'toolbar.searchField',
-            boxShadow: 'buttons.1',
           },
           '.MuiOutlinedInput-notchedOutline': {
             '&, &:hover, &:focus': {},
@@ -43,7 +43,7 @@ export default function TreeToolbar({ rootNodeId }) {
         }}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">
+            <InputAdornment position="start" sx={{ p: 1 }}>
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
               />

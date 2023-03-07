@@ -66,7 +66,10 @@ const nodesSlice = createSlice({
      */
     childIdsByRootAndParentId: {},
 
-    indexNodesById: {},
+    /**
+     * @description
+     * Used for showing details of selected node.
+     */
     selectedNodeId: null,
 
     /**
@@ -74,7 +77,19 @@ const nodesSlice = createSlice({
      * @variant 'markdownEditor' | 'description' | 'workflow'
      */
     nodeDetailsAction: 'description',
+
+    /**
+     * @description
+     * Used for search.
+     */
     nodeTitlesById: {},
+
+    /**
+     * @description
+     * Nodes used for index page.
+     */
+    indexNodesById: {},
+
   },
   reducers: {
     buildChildNode: nodeChildBuilder.buildChildNode,

@@ -3,7 +3,7 @@ export default {
    *
    * @description
    * selectedNodeId is used for global node selection.
-   * However, in the tree structure, we use isSelected to determine if a node is selected.
+   * In the tree structure, we use isSelected to determine if a node is selected.
    * Otherwise, if we use selectedNodeId in tree nodes component, it would trigger a re-rendering of the whole tree.
    */
   setSelectedNode(state, action) {

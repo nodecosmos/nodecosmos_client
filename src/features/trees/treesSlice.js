@@ -76,6 +76,7 @@ const treesSlice = createSlice({
     updateTreeNode: treeNodeUpdater.updateTreeNode,
 
     setCurrentTempNodeId(state, action) { state.currentTempNodeId = action.payload; },
+    setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
   },
   extraReducers(builder) {
     builder.addCase(createNode.fulfilled, createNodeFulfilledReducer);
@@ -94,6 +95,7 @@ export const {
   collapseTreeNode,
   updateTreeNode,
   setCurrentTempNodeId,
+  setSelectedTreeNode,
 } = actions;
 
 export default reducer;

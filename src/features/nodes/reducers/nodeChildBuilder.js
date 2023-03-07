@@ -12,7 +12,7 @@ export default {
       likesCount: 0,
       likedByUserIds: [],
       childIds: [],
-      ancestorIds: [...node.ancestorIds, nodeId],
+      ancestorIds: [nodeId, ...node.ancestorIds],
     }; // add new node to state
 
     state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds

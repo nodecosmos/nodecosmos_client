@@ -12,6 +12,6 @@ export default function useIsInsideViewport(rootId) {
     const { y } = positionsById[treeNodeId] || {};
 
     return y > scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR - 1
-        && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
+      && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
   }, [clientHeight, positionsById, scrollTop]);
 }

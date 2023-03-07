@@ -4,14 +4,14 @@ import * as PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCodeCompare,
-} from '@fortawesome/pro-light-svg-icons';
-import {
+  faCodeFork,
+
   faUserGroup,
   faChartSimple,
   faGears,
   faFolders,
   faLightbulbOn,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 
 /* mui */
 import { List } from '@mui/material';
@@ -30,6 +30,7 @@ export default function Sidebar(props) {
       justifyContent="space-between"
       flexDirection="column"
       sx={{
+        mt: 7,
         fontSize: 0.875,
       }}
     >
@@ -37,7 +38,9 @@ export default function Sidebar(props) {
         <SidebarListItem
           to={`${id}`}
           icon={(
-            <NodecosmosIcon />
+            <FontAwesomeIcon
+              icon={faCodeFork}
+            />
           )}
           title="Node"
         />
