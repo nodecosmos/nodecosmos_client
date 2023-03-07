@@ -140,9 +140,8 @@ export default function Index() {
             xs: 0,
             sm: 8,
           },
-          boxShadow: '0',
-          borderBottom: 1,
-          borderBottomColor: 'borders.1',
+          boxShadow: 'header',
+          borderBottom: 0,
           backgroundColor: 'background.3',
         }}
         border={1}

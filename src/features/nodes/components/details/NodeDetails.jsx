@@ -22,7 +22,7 @@ export default function NodeDetails() {
   );
 
   const nodeDescription = (
-    <Box height={1} p={3}>
+    <Box height={1} p={4}>
       {(description && <Box dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
     </Box>
   );
@@ -30,7 +30,7 @@ export default function NodeDetails() {
   const nodeDetailsContents = {
     description: nodeDescription,
     markdownEditor: selectedNodeId && <MarkdownEditor id={selectedNodeId} />,
-    workflow: <div>Workflow</div>,
+    workflow: <Box />,
   };
 
   return (

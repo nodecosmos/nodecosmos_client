@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import NestedNodesBranch from './NestedNodesBranch';
-import NodeContainer from './NodeContainer';
+import NodeButtonContainer from './NodeButtonContainer';
 import NodeBranch from './NodeBranch';
 
 function Node(props) {
@@ -11,7 +11,7 @@ function Node(props) {
     <g>
       <NestedNodesBranch treeNodeId={treeNodeId} />
       <NodeBranch treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
-      <NodeContainer treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
+      <NodeButtonContainer treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
     </g>
   );
 }

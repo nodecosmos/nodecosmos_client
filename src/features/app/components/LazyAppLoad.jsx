@@ -76,11 +76,11 @@ export default function LazyAppLoad() {
                 <Route path="/nodes" element={<NodeShow />}>
                   <Route path=":id" element={<TreeTab />} />
                   <Route path=":id/workflow" element={<WorkflowTab />} />
-                  <Route path=":id/contribution_requests" element={<div> contribution_requests </div>} />
-                  <Route path=":id/media" element={<div> media </div>} />
-                  <Route path=":id/insights" element={<div> insights </div>} />
-                  <Route path=":id/topics" element={<div> topics </div>} />
-                  <Route path=":id/settings" element={<div> settings </div>} />
+                  <Route path=":id/contribution_requests" element={<div />} />
+                  <Route path=":id/media" element={<div />} />
+                  <Route path=":id/insights" element={<div />} />
+                  <Route path=":id/topics" element={<div />} />
+                  <Route path=":id/settings" element={<div />} />
                 </Route>
               </Routes>
             </Box>

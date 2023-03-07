@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT } from '../trees.constants';
+import {
+  COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
+} from '../trees.constants';
 /* nodecosmos */
 import { selectOrderedTreeNodeIds, selectTreeNodes } from '../trees.selectors';
 
@@ -21,20 +23,26 @@ export default function useTreePositionCalculator(rootId) {
         treeUpperSiblingId,
         treeParentId,
         treeAncestorIds,
+        isRoot,
       } = node;
 
-      const parentX = treeParentId ? currentPositionsById[treeParentId].x : 0;
-      const parentY = treeParentId ? currentPositionsById[treeParentId].y : 0;
+      const parentX = currentPositionsById[treeParentId]?.x; // only the root node has no parent
+      const parentY = currentPositionsById[treeParentId]?.y;
 
       const upperSiblingYEnd = currentPositionsById[treeUpperSiblingId]
         && currentPositionsById[treeUpperSiblingId].yEnd;
 
       const position = {};
 
-      position.x = parentX + MARGIN_LEFT + EDGE_LENGTH;
-      position.xEnd = position.x + EDGE_LENGTH;
+      if (isRoot) {
+        position.x = EDGE_LENGTH;
+        position.y = EDGE_LENGTH + MARGIN_TOP;
+      } else {
+        position.x = parentX + MARGIN_LEFT + EDGE_LENGTH;
+        position.y = (upperSiblingYEnd || parentY) + COMPLETE_Y_LENGTH;
+      }
 
-      position.y = (upperSiblingYEnd || parentY) + COMPLETE_Y_LENGTH;
+      position.xEnd = position.x + EDGE_LENGTH;
       position.yEnd = position.y;
 
       if (node.isMounted) {
