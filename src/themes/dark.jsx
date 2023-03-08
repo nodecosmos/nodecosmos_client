@@ -115,6 +115,7 @@ export default {
       level3: '#4dcdff',
       defaultText: '#fff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
+      hashtag: '#898f9c',
     },
 
     markdownContent: {

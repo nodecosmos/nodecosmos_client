@@ -49,7 +49,7 @@ export default {
 
   palette: {
     primary: {
-      main: '#b3ff68',
+      main: '#ade16c',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
@@ -73,9 +73,10 @@ export default {
     },
 
     borders: {
-      1: '#d1d5db',
-      2: '#e5e7eb',
+      1: '#dfe4ee',
+      2: '#b6b6b6',
       3: '#e5e7eb',
+      4: '#dfe4ee',
 
       box: {
         xs: '#f5f5f5',
@@ -84,44 +85,54 @@ export default {
     },
 
     background: {
-      1: '#f5f5f5',
-      2: '#f7f7f8',
+      1: '#f8f9fa', // f8f9fa
+      2: '#ffffff',
       3: '#f3f4f6',
       4: '#e5e7eb',
       5: '#f2f5fa',
+      6: '#f8f9fa',
+
+      sidebar: '#343841',
 
       labels: {
         red: '#e15e7d',
-        green: '#abe15e',
+        green: '#5cff96',
         blue: '#85c7f3',
         purple: '#c187ff',
       },
 
       list: {
-        iconBackground: '#d1d5db',
-        iconForeground: '#000',
-        active: 'hsl(220deg 10% 96%)',
+        default: '#dcdcdc',
+        activeColor: '#dcdcdc',
+        active: 'rgba(188,193,203,0.14)',
       },
 
       scrollbarThumb: '#c7c7c7',
-      paper: '#ffffff',
+      paper: '#f8f9fa',
       hover: 'rgba(0, 0, 0, 0.1)',
       contrast: '#333333',
     },
 
     toolbar: {
-      red: '#e91e63',
-      green: '#b6fd7b',
-      blue: '#2adfff',
+      red: '#ff5fa7',
+      green: '#85af5c',
+      blue: '#64b7ff',
+      lightRed: '#ff6881',
+      hover: '#f1f3f4',
+      active: '#f1f3f4',
+      default: '#babecd',
+      searchField: '#f1f3f4',
+      breadcrumbs: '#758593',
     },
 
     tree: {
-      default: '#d1d5db',
-      level1: '#e91e63',
-      level2: '#a2d85b',
-      level3: '#4dcdff',
-      defaultText: '#000',
-      selectedText: 'rgba(0, 0, 0, 0.9)',
+      default: '#dee6e9',
+      level1: '#f8568d',
+      level2: '#ade16c',
+      level3: '#67d4ff',
+      hashtag: 'rgb(153,149,149)',
+      defaultText: 'rgb(68,68,68)',
+      selectedText: 'rgb(0 0 0 / 55%)',
     },
 
     markdownContent: {
@@ -143,7 +154,7 @@ export default {
       quote: '#57606e',
       meta: '#ff87c4',
       link: '#83c1ea',
-      background: '#ffffff',
+      background: '#f8f9fa',
       foreground: '#4b4b4b',
       selection: 'rgba(0,0,0,0.06)',
       selectionMatch: 'rgba(0,0,0,0.06)',
@@ -159,9 +170,9 @@ export default {
 
     text: {
       primary: '#626e79',
-      secondary: '#9a9da9',
-      tertiary: '#f5f5f2',
-      contrast: '#000',
+      secondary: '#252525',
+      tertiary: '#757571',
+      contrast: '#5e5f5f',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
       gradients: {

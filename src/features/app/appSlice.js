@@ -38,7 +38,10 @@ const appSlice = createSlice({
   },
   reducers: {
     setHeaderContent(state, action) { state.headerContent = action.payload; },
-    setTheme(state, action) { state.theme = action.payload; },
+    setTheme(state, action) {
+      state.theme = action.payload;
+      localStorage.setItem('theme', action.payload);
+    },
     setCurrentNode(state, action) { state.currentNodeId = action.payload; },
     setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
     setTransformablePositions(state, action) {

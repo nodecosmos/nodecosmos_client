@@ -20,7 +20,7 @@ export default function TreeContainer(props) {
         border: 'none',
         '.fa-hashtag': {
           fontSize: 14,
-          color: 'background.list.default',
+          color: 'tree.hashtag',
         },
         '&.selected .fa-hashtag': {
           color: 'inherit',

@@ -73,6 +73,13 @@ export default function Header() {
           pl={2}
           borderRight={1}
           borderColor="borders.1"
+          backgroundColor="background.sidebar"
+          sx={{
+            borderTopLeftRadius: {
+              xs: 0,
+              sm: 6,
+            },
+          }}
         >
           <Button
             component={Link}
