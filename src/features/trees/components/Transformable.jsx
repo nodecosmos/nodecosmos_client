@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useRef } from 'react';
+import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../../app/app.selectors';
@@ -53,7 +54,9 @@ export default function Transformable(props) {
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
-    <div
+    <Box
+      borderRight={1}
+      borderColor="borders.1"
       ref={containerRef}
       onScrollCapture={(e) => handleScroll(e)}
       onMouseDown={onMouseDown}
@@ -82,7 +85,7 @@ export default function Transformable(props) {
           {children}
         </g>
       </svg>
-    </div>
+    </Box>
   );
 }
 

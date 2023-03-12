@@ -7,29 +7,18 @@ import { useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectNodeDetailsAction, selectSelectedNode, selectSelectedNodeId } from '../../nodes.selectors';
 import MarkdownEditor from './MarkdownEditor';
+import NodeDescription from './NodeDescription';
 import NodeDetailsToolbar from './NodeDetailsToolbar';
 
 export default function NodeDetails() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
-  const { title, description } = useSelector(selectSelectedNode);
+  const { title } = useSelector(selectSelectedNode);
   const nodeDetailsAction = useSelector(selectNodeDetailsAction);
 
-  const blankDescription = (
-    <Typography color="text.secondary" textAlign="center">
-      { (selectedNodeId && 'This node has no description yet.') || <Box component="span" fontSize={30}>¯\_(ツ)_/¯</Box> }
-    </Typography>
-  );
-
-  const nodeDescription = (
-    <Box height={1} p={4}>
-      {(description && <Box dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
-    </Box>
-  );
-
   const nodeDetailsContents = {
-    description: nodeDescription,
-    markdownEditor: selectedNodeId && <MarkdownEditor id={selectedNodeId} />,
+    description: <NodeDescription />,
+    markdownEditor: <MarkdownEditor />,
     workflow: <Box />,
   };
 

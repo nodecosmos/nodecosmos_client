@@ -12,7 +12,6 @@ import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 import Loader from '../../../common/components/Loader';
 /* sx */
-import AppSx from './AppSx';
 
 const LazyAppLoad = React.lazy(() => import('./LazyAppLoad'));
 
@@ -51,7 +50,7 @@ export default function App() {
 
   // only homepage
   return (
-    <ThemeProvider theme={getTheme(currentTheme)}>
+    <ThemeProvider theme={getTheme(dark)}>
       <CssBaseline />
       <Box
         height={1}
@@ -61,7 +60,6 @@ export default function App() {
           sm: 0.75,
         }}
         backgroundColor="background.1"
-        sx={AppSx}
       >
         <Box
           height={1}

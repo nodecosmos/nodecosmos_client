@@ -1,6 +1,5 @@
 import React from 'react';
-import { faRectangleCode, faAlignJustify } from '@fortawesome/pro-solid-svg-icons';
-import { faCodeCompare } from '@fortawesome/pro-regular-svg-icons';
+import { faRectangleCode, faAlignJustify, faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
@@ -35,7 +34,7 @@ export default function NodeDetailsToolbar(props) {
       />
       <ToolbarItem
         title="Workflow"
-        icon={faCodeCompare}
+        icon={faCodeCommit}
         color="toolbar.blue"
         active={nodeDetailsAction === 'workflow'}
         onClick={() => dispatch(setNodeDetailsAction('workflow'))}

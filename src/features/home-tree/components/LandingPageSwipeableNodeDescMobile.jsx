@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import useDrawerHeight from '../hooks/useDrawerHeight';
 
-const EDGE_HEIGHT = 56;
+const EDGE_HEIGHT = 50;
 
 function SwipeableEdgeDrawer() {
   const currentNodeId = useSelector((state) => state.app.currentNodeId);
@@ -54,7 +54,7 @@ function SwipeableEdgeDrawer() {
         }}
       >
         <Box display="flex" justifyContent="center" pt={1}>
-          <Box width={40} height={5} backgroundColor="background.4" borderRadius={0.8} />
+          <Box width={45} height={4} backgroundColor="background.4" borderRadius={1} />
         </Box>
         <Box display="flex" alignItems="center" justifyContent="start" width={1} mt={1}>
           {currentNodeId && <FontAwesomeIcon icon={faHashtag} />}
@@ -64,6 +64,7 @@ function SwipeableEdgeDrawer() {
             variant="body1"
             fontWeight="bold"
             lineHeight={1}
+            color="text.secondary"
             sx={{
               fontSize: '0.95rem',
             }}

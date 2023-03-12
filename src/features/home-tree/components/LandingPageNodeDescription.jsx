@@ -35,6 +35,7 @@ export default function LandingPageNodeDescription() {
           variant="body1"
           fontWeight="bold"
           lineHeight={1}
+          color="text.secondary"
         >
           {(currentNodeId && (currentNodeTitle || 'No Title'))
             || 'Select a node from the tree'}

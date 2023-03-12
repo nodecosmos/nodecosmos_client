@@ -1,5 +1,12 @@
 import React from 'react';
-import { faLink } from '@fortawesome/pro-light-svg-icons';
+import { faPlus, faBookmark as faBookmarkSolid, faBell as faBellSolid } from '@fortawesome/pro-solid-svg-icons';
+import {
+  faPenToSquare,
+  faTrash,
+  faLink,
+  faBookmark,
+  faBell,
+} from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
@@ -10,13 +17,7 @@ import {
   Box,
 } from '@mui/material';
 
-import AddRounded from '@mui/icons-material/AddRounded';
 import Bookmark from '@mui/icons-material/Bookmark';
-import BookmarkBorder from '@mui/icons-material/BookmarkBorder';
-import EditRounded from '@mui/icons-material/EditRounded';
-import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
-import Notifications from '@mui/icons-material/Notifications';
-import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
 import { useSelector } from 'react-redux';
 import LikeButton from '../../nodes/components/LikeButton';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
@@ -41,30 +42,30 @@ export default function NodeToolbar(props) {
           mx: 0.5,
           '&:hover': { backgroundColor: 'toolbar.hover' },
         },
-        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
+        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 13 },
       }}
     >
       <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
-        <AddRounded fontSize="small" />
+        <FontAwesomeIcon icon={faPlus} />
       </IconButton>
       <IconButton className="Item" onClick={editNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
-        <EditRounded fontSize="small" />
+        <FontAwesomeIcon icon={faPenToSquare} />
       </IconButton>
       <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
-        <DeleteOutlineRounded fontSize="small" />
+        <FontAwesomeIcon icon={faTrash} />
       </IconButton>
       <LikeButton nodeId={nodeId} />
       <Checkbox
         className="Item"
-        icon={<BookmarkBorder fontSize="small" />}
-        checkedIcon={<Bookmark fontSize="small" />}
+        icon={<FontAwesomeIcon icon={faBookmark} />}
+        checkedIcon={<FontAwesomeIcon icon={faBookmarkSolid} />}
         inputProps={{ 'aria-label': 'Bookmark' }}
         sx={{ color: 'toolbar.green' }}
       />
       <Checkbox
         className="Item"
-        icon={<NotificationsOutlined fontSize="small" />}
-        checkedIcon={<Notifications fontSize="small" />}
+        icon={<FontAwesomeIcon icon={faBell} />}
+        checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
         sx={{ color: 'toolbar.blue' }}
       />

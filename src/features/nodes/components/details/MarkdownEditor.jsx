@@ -1,11 +1,14 @@
 import React, { Suspense } from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
 /* nodecosmos */
-import { selectNodeAttribute, selectPersistentId } from '../../nodes.selectors';
+import {
+  selectNodeAttribute,
+  selectPersistentId,
+  selectSelectedNodeId,
+} from '../../nodes.selectors';
 import { updateNode } from '../../nodes.thunks';
 import { updateNodeState } from '../../nodesSlice';
 
@@ -26,15 +29,15 @@ const loading = (
   </Box>
 );
 
-export default function MarkdownEditor(props) {
-  const { id } = props;
+export default function MarkdownEditor() {
+  const selectedNodeId = useSelector(selectSelectedNodeId);
 
-  const isTemp = useSelector(selectNodeAttribute(id, 'isTemp'));
-  const persistentId = useSelector(selectPersistentId(id));
+  const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
+  const persistentId = useSelector(selectPersistentId(selectedNodeId));
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const descriptionMarkdown = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
+  const descriptionMarkdown = useSelector(selectNodeAttribute(selectedNodeId, 'descriptionMarkdown'));
 
   const handleChange = (value) => {
     if (isTemp) return;
@@ -47,7 +50,7 @@ export default function MarkdownEditor(props) {
       const descriptionHtml = md().render(value);
 
       dispatch(updateNodeState({
-        id,
+        id: selectedNodeId,
         description: descriptionHtml,
         descriptionMarkdown: value,
       }));
@@ -64,7 +67,3 @@ export default function MarkdownEditor(props) {
     </Suspense>
   );
 }
-
-MarkdownEditor.propTypes = {
-  id: PropTypes.string.isRequired,
-};

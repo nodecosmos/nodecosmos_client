@@ -20,7 +20,6 @@ import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
 import { HEADER_HEIGHT } from '../constants';
 import Alert from './Alert';
 import Header from './header/Header';
-import AppSx from './AppSx';
 
 export default function LazyAppLoad() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -47,7 +46,6 @@ export default function LazyAppLoad() {
         width={1}
         p={{ xs: 0, sm: 0.75 }}
         backgroundColor="background.1"
-        sx={AppSx}
       >
         <Box
           height={1}

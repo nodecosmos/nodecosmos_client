@@ -73,8 +73,8 @@ export default {
     },
 
     borders: {
-      1: '#dfe4ee',
-      2: '#b6b6b6',
+      1: '#e8e8e8',
+      2: '#c0c9d6',
       3: '#e5e7eb',
       4: '#dfe4ee',
 
@@ -85,14 +85,14 @@ export default {
     },
 
     background: {
-      1: '#f8f9fa', // f8f9fa
+      1: '#e5e7eb', // f8f9fa
       2: '#ffffff',
       3: '#f3f4f6',
       4: '#e5e7eb',
       5: '#f2f5fa',
       6: '#f8f9fa',
 
-      sidebar: '#343841',
+      sidebar: '#3f444c',
 
       labels: {
         red: '#e15e7d',
@@ -102,7 +102,7 @@ export default {
       },
 
       list: {
-        default: '#dcdcdc',
+        default: '#dcdcdc', // #595b63
         activeColor: '#dcdcdc',
         active: 'rgba(188,193,203,0.14)',
       },
@@ -115,7 +115,7 @@ export default {
 
     toolbar: {
       red: '#ff5fa7',
-      green: '#85af5c',
+      green: '#aef663',
       blue: '#64b7ff',
       lightRed: '#ff6881',
       hover: '#f1f3f4',
@@ -126,13 +126,13 @@ export default {
     },
 
     tree: {
-      default: '#dee6e9',
+      default: '#e0e1ec',
       level1: '#f8568d',
       level2: '#ade16c',
       level3: '#67d4ff',
-      hashtag: 'rgb(153,149,149)',
-      defaultText: 'rgb(68,68,68)',
-      selectedText: 'rgb(0 0 0 / 55%)',
+      hashtag: 'rgb(149,151,153)',
+      defaultText: 'rgb(67,69,71)',
+      selectedText: 'rgb(0 0 0 / 65%)',
     },
 
     markdownContent: {
@@ -149,10 +149,10 @@ export default {
       operator: '#000',
       bracket: '#000',
       caret: '#000',
-      heading: '#80c7ff',
+      heading: '#008fff',
       emphasis: '#ffea83',
       quote: '#57606e',
-      meta: '#ff87c4',
+      meta: '#ee56a3',
       link: '#83c1ea',
       background: '#f8f9fa',
       foreground: '#4b4b4b',
@@ -170,7 +170,7 @@ export default {
 
     text: {
       primary: '#626e79',
-      secondary: '#252525',
+      secondary: '#7e7d75',
       tertiary: '#757571',
       contrast: '#5e5f5f',
       sectionPrimary: '#acdf83',
