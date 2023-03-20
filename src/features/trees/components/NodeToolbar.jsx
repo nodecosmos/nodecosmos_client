@@ -17,7 +17,6 @@ import {
   Box,
 } from '@mui/material';
 
-import Bookmark from '@mui/icons-material/Bookmark';
 import { useSelector } from 'react-redux';
 import LikeButton from '../../nodes/components/tree-node-toolbar/LikeButton';
 import NodeImporter from '../../nodes/components/tree-node-toolbar/NodeImporter';
