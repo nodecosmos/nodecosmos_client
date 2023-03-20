@@ -49,7 +49,9 @@ export default function Vision() {
               </Typography>
               <Typography mt={3} variant="body1" color="text.secondary">
                 At the heart of the collaboration features is the Contribution Request.
-                It enables community members to contribute to your innovation by following the Nodecosmos structure.
+                It enables community members to contribute to your innovation either by suggesting
+                new components to your innovation or new ingredients for your recipe,
+                making changes to existing ones, or by making another type of contribution.
               </Typography>
               <Box mt={3}>
                 <ContributionRequest />

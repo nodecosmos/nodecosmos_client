@@ -11,11 +11,10 @@ import MvpStepIcon from './mvp/MvpStepIcon';
 const steps = [
   'Design Product',
   'Node Tree',
-  'Markdown',
+  'Markdown Editor',
   'Workflow',
   'Media',
   'Contribution Request',
-  'Crypto Integration',
 ];
 
 const XS_SCROLL_WIDTH = 800;
