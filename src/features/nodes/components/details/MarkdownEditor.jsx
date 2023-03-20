@@ -49,14 +49,9 @@ export default function MarkdownEditor() {
     handleChangeTimeout.current = setTimeout(() => {
       const descriptionHtml = md().render(value);
 
-      dispatch(updateNodeState({
-        id: selectedNodeId,
-        description: descriptionHtml,
-        descriptionMarkdown: value,
-      }));
-
+      dispatch(updateNodeState({ id: selectedNodeId, description: descriptionHtml, descriptionMarkdown: value }));
       dispatch(updateNode({ id: persistentId, description: descriptionHtml, description_markdown: value }));
-    }, 500);
+    }, 1000);
   };
 
   return (

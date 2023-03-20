@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 /* nodecosmos */
@@ -72,7 +72,7 @@ export default function useNodeTreeEvents(treeNodeId) {
 
       dispatch(setAlert({ isOpen: true, severity: 'error', message }));
     } else {
-      const tmpNodeId = Date.now().toString();
+      const tmpNodeId = `tmp_${Date.now()}`;
 
       dispatch(setCurrentTempNodeId(tmpNodeId));
       dispatch(buildChildNode({ tmpNodeId, nodeId, persistentId }));
@@ -86,12 +86,12 @@ export default function useNodeTreeEvents(treeNodeId) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const saveNodeTimeout = useRef(null); // save node after 1 second of inactivity
-  const saveNode = () => {
+
+  useEffect(() => {
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
+    if (!title || title === prevTitle) return;
 
     saveNodeTimeout.current = setTimeout(() => {
-      if (!title || title === prevTitle) return;
-
       if (isTemp) {
         dispatch(createNode({
           title,
@@ -103,7 +103,7 @@ export default function useNodeTreeEvents(treeNodeId) {
         dispatch(updateNode({ id: persistentId, title }));
       }
     }, SAVE_NODE_TIMEOUT);
-  };
+  }, [dispatch, isTemp, nodeId, parentId, persistentId, persistentParentId, prevTitle, title]);
 
   const removeNode = () => {
     if (isTemp) {
@@ -121,7 +121,6 @@ export default function useNodeTreeEvents(treeNodeId) {
     editNode,
     removeNode,
     handleNodeTitleChange,
-    saveNode,
     handleNodeBlur,
   };
 }

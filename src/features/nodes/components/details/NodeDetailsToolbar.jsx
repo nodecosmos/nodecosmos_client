@@ -1,52 +1,99 @@
 import React from 'react';
-import { faRectangleCode, faAlignJustify, faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
-import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import {
+  faRectangleCode, faAlignJustify, faHashtag,
+} from '@fortawesome/pro-solid-svg-icons';
+import {
+  faDiagramNext,
+} from '@fortawesome/pro-light-svg-icons';
+
 import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { HEADER_HEIGHT } from '../../../app/constants';
 
-import { selectNodeDetailsAction } from '../../nodes.selectors';
+import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
 import { setNodeDetailsAction } from '../../nodesSlice';
 
-export default function NodeDetailsToolbar(props) {
-  const { id } = props;
+export default function NodeDetailsToolbar() {
+  const { title } = useSelector(selectSelectedNode);
 
   const dispatch = useDispatch();
   const nodeDetailsAction = useSelector(selectNodeDetailsAction);
 
-  if (!id) return <div />; // empty div for flexbox alignment
+  if (!title) {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        height={HEADER_HEIGHT}
+        borderColor="borders.4"
+        boxShadow="2"
+        position="relative"
+        zIndex={1}
+      >
+        Select a node from the tree to view its description
+      </Box>
+    );
+  }
 
   return (
-    <ToolbarContainer>
-      <ToolbarItem
-        title="Edit Description Markdown"
-        icon={faRectangleCode}
-        color="toolbar.lightRed"
-        active={nodeDetailsAction === 'markdownEditor'}
-        onClick={() => dispatch(setNodeDetailsAction('markdownEditor'))}
-      />
-      <ToolbarItem
-        title="View Description"
-        icon={faAlignJustify}
-        color="toolbar.green"
-        active={nodeDetailsAction === 'description'}
-        onClick={() => dispatch(setNodeDetailsAction('description'))}
-      />
-      <ToolbarItem
-        title="Workflow"
-        icon={faCodeCommit}
-        color="toolbar.blue"
-        active={nodeDetailsAction === 'workflow'}
-        onClick={() => dispatch(setNodeDetailsAction('workflow'))}
-      />
-    </ToolbarContainer>
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      height={HEADER_HEIGHT}
+      borderColor="borders.4"
+      boxShadow="2"
+      position="relative"
+      zIndex={1}
+    >
+      <ToolbarContainer>
+        <ToolbarItem
+          title="Edit Description Markdown"
+          icon={faRectangleCode}
+          color="toolbar.lightRed"
+          active={nodeDetailsAction === 'markdownEditor'}
+          onClick={() => dispatch(setNodeDetailsAction('markdownEditor'))}
+        />
+        <ToolbarItem
+          title="View Description"
+          icon={faAlignJustify}
+          color="toolbar.green"
+          active={nodeDetailsAction === 'description'}
+          onClick={() => dispatch(setNodeDetailsAction('description'))}
+        />
+        <ToolbarItem
+          title="Workflow"
+          icon={faDiagramNext}
+          color="toolbar.blue"
+          active={nodeDetailsAction === 'workflow'}
+          onClick={() => dispatch(setNodeDetailsAction('workflow'))}
+        />
+      </ToolbarContainer>
+
+      {nodeDetailsAction !== 'description' && (
+      <Box display="flex" alignItems="center">
+        {title && <FontAwesomeIcon icon={faHashtag} />}
+        <Typography
+          align="center"
+          variant="body1"
+          ml={1}
+          sx={{
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {title}
+        </Typography>
+      </Box>
+      )}
+      <div />
+    </Box>
+
   );
 }
-
-NodeDetailsToolbar.defaultProps = {
-  id: null,
-};
-
-NodeDetailsToolbar.propTypes = {
-  id: PropTypes.string,
-};

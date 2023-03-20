@@ -25,7 +25,6 @@ export default function NodeInput(props) {
   const {
     handleNodeTitleChange,
     handleNodeBlur,
-    saveNode,
     onNodeClick,
   } = useNodeTreeEvents(treeNodeId);
 
@@ -51,7 +50,6 @@ export default function NodeInput(props) {
         onClick={onNodeClick}
         onChange={handleNodeTitleChange}
         onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
-        onKeyUp={saveNode}
         onBlur={() => focused && handleNodeBlur()}
         value={title || ''}
         maxLength={MAX_NODE_INPUT_SIZE}

@@ -6,6 +6,8 @@ import nodeUpdater from './reducers/nodeUpdater';
 import nodeSelectionSetter from './reducers/nodeSelectionSetter';
 import nodeDetailsActionHandler from './reducers/nodeDetailsActionHandler';
 import nodeSearcher from './reducers/nodeSearcher';
+import nodeImporter from './reducers/nodeImporter';
+
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
 import deleteNodeFulfilledReducer from './reducers/extra/deleteNode.fulfilled';
@@ -99,6 +101,7 @@ const nodesSlice = createSlice({
     setNodeDetailsAction: nodeDetailsActionHandler.setNodeDetailsAction,
     setDefaultNodeDetailsAction: nodeDetailsActionHandler.setDefaultNodeDetailsAction,
     searchNode: nodeSearcher.searchNode,
+    importNode: nodeImporter.importNode,
   },
   extraReducers(builder) {
     builder
@@ -124,6 +127,7 @@ export const {
   setNodeDetailsAction,
   setDefaultNodeDetailsAction,
   searchNode,
+  importNode,
 } = actions;
 
 export default reducer;

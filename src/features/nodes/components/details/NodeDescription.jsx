@@ -9,21 +9,29 @@ export default function NodeDescription() {
 
   const { title, description } = useSelector(selectSelectedNode);
 
-  const blankDescription = (
-    <Typography color="text.secondary" textAlign="center">
-      { (selectedNodeId && 'This node has no description yet.') || <Box component="span" fontSize={30}>¯\_(ツ)_/¯</Box> }
+  const nodeNotSelectedContent = (
+    <Typography color="text.secondary" align="center" fontSize={30}>
+      ¯\_(ツ)_/¯
     </Typography>
   );
+
+  const nodeHasNoDescriptionContent = (
+    <Typography color="text.secondary">
+      This node has no description yet.
+    </Typography>
+  );
+
+  const blankDescription = (selectedNodeId && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
 
   return (
     <Box
       height={1}
-      p={3}
+      p={4}
       sx={{
         color: 'text.secondary',
         'h1, h2, h3, h4, h5, h6': {
           marginBlockStart: 0,
-          marginBlockEnd: 3,
+          marginBlockEnd: 2,
         },
         hr: {
           border: 0,
@@ -34,7 +42,7 @@ export default function NodeDescription() {
           m: 0,
           backgroundColor: 'markdownContent.canvas',
           borderRadius: 1,
-          borderLeft: 6,
+          borderLeft: 4,
           p: 1,
           pl: 2,
           borderColor: 'markdownContent.border',
@@ -65,8 +73,8 @@ export default function NodeDescription() {
         },
       }}
     >
-      <Typography
-        variant="h1"
+      <Box
+        component="h1"
         sx={{
           overflow: 'hidden',
           whiteSpace: 'nowrap',
@@ -74,7 +82,7 @@ export default function NodeDescription() {
         }}
       >
         {title}
-      </Typography>
+      </Box>
       {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
     </Box>
   );

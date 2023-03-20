@@ -10,13 +10,12 @@ import tab from './styles/mui/tab';
 const getTheme = (currentTheme) => createTheme({
   typography: {
     h1: {
-      fontSize: '2.25',
+      fontSize: '2.5rem',
       fontWeight: 500,
     },
     h2: {
       fontSize: '2.25rem',
       fontWeight: 500,
-      marginBlockEnd: 24,
     },
     h3: {
       fontSize: '2rem',

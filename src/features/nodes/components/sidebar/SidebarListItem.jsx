@@ -36,9 +36,9 @@ export default function SidebarListItem({ to, icon, title }) {
           mr: 2,
           color: 'background.list.default',
           svg: {
-            fontSize: 20,
-            width: 20,
-            height: 20,
+            fontSize: 18,
+            width: 18,
+            height: 18,
             '.active &': {
               color: 'background.list.activeColor',
             },

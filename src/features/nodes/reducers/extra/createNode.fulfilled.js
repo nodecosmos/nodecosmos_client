@@ -10,10 +10,11 @@
  */
 export default function createNodeFulfilledReducer(state, action) {
   const { tmpNodeId, id } = action.payload;
+
   state.byId[id] = action.payload; // add new node to state
 
   state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
-  state.byId[tmpNodeId].id = id;
+  // state.byId[tmpNodeId].id = id;
   state.byId[tmpNodeId].persistentId = id;
   state.nodeTitlesById[id] = action.payload.title;
 }

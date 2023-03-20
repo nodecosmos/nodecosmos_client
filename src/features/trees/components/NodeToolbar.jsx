@@ -19,7 +19,8 @@ import {
 
 import Bookmark from '@mui/icons-material/Bookmark';
 import { useSelector } from 'react-redux';
-import LikeButton from '../../nodes/components/LikeButton';
+import LikeButton from '../../nodes/components/tree-node-toolbar/LikeButton';
+import NodeImporter from '../../nodes/components/tree-node-toolbar/NodeImporter';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
@@ -55,6 +56,7 @@ export default function NodeToolbar(props) {
         <FontAwesomeIcon icon={faTrash} />
       </IconButton>
       <LikeButton nodeId={nodeId} />
+      <NodeImporter />
       <Checkbox
         className="Item"
         icon={<FontAwesomeIcon icon={faBookmark} />}

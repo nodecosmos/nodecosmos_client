@@ -6,9 +6,9 @@ import { Checkbox, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../authentication/authentication.selectors';
-import { selectNode, selectNodeAttribute } from '../nodes.selectors';
-import { likeNode, unlikeNode } from '../nodes.thunks';
+import { selectCurrentUser } from '../../../authentication/authentication.selectors';
+import { selectNode, selectNodeAttribute } from '../../nodes.selectors';
+import { likeNode, unlikeNode } from '../../nodes.thunks';
 
 export default function LikeButton(props) {
   const { nodeId } = props;

@@ -134,7 +134,7 @@ export default {
       caret: '#fff',
       heading: '#80c7ff',
       emphasis: '#ffea83',
-      quote: '#57606e',
+      quote: '#748094',
       meta: '#ff87c4',
       link: '#83c1ea',
       background: 'transparent',

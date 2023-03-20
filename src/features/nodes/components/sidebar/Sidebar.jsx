@@ -1,13 +1,14 @@
 import React from 'react';
 import {
   faChartSimple,
-  faCodeCommit,
-  faCodeFork,
+  faDiagramNext,
   faCodePullRequest,
   faFolders,
   faGears,
   faUserGroup,
-} from '@fortawesome/pro-regular-svg-icons';
+  faHashtag,
+  faTable,
+} from '@fortawesome/pro-light-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -37,7 +38,7 @@ export default function Sidebar(props) {
           to={`${id}`}
           icon={(
             <FontAwesomeIcon
-              icon={faCodeFork}
+              icon={faHashtag}
             />
           )}
           title="Node"
@@ -46,7 +47,7 @@ export default function Sidebar(props) {
           to={`${id}/workflow`}
           icon={(
             <FontAwesomeIcon
-              icon={faCodeCommit}
+              icon={faDiagramNext}
             />
           )}
           title="Workflow"
@@ -59,6 +60,15 @@ export default function Sidebar(props) {
             />
           )}
           title="Contribution Requests"
+        />
+        <SidebarListItem
+          to={`${id}/tasks_board`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faTable}
+            />
+          )}
+          title="Tasks Board"
         />
         <SidebarListItem
           to={`${id}/media`}

@@ -83,7 +83,7 @@ export default function Header() {
         >
           <Button
             component={Link}
-            to="/n"
+            to="/nodes"
             className="MicroButton"
           >
             <img src="/logo_1.svg" alt="logo" height={22} width={22} />

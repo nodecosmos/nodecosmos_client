@@ -65,7 +65,7 @@ export default function LazyAppLoad() {
             <Header />
             <Box height={1} pt={`${HEADER_HEIGHT}px`}>
               <Routes>
-                <Route path="/n" element={(<NodesIndex />)} />
+                <Route path="/nodes" element={(<NodesIndex />)} />
                 <Route
                   path="/login"
                   element={isAuthenticated
@@ -75,6 +75,7 @@ export default function LazyAppLoad() {
                   <Route path=":id" element={<TreeTab />} />
                   <Route path=":id/workflow" element={<WorkflowTab />} />
                   <Route path=":id/contribution_requests" element={<div />} />
+                  <Route path=":id/tasks_board" element={<div />} />
                   <Route path=":id/media" element={<div />} />
                   <Route path=":id/insights" element={<div />} />
                   <Route path=":id/topics" element={<div />} />
