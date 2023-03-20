@@ -4,16 +4,16 @@ import { Box, Typography } from '@mui/material';
 
 export default function Hero({ inView, heroLogoRef }) {
   return (
-    <Box>
+    <Box py={{
+      xs: 8,
+      sm: 12,
+      md: 14,
+    }}
+    >
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
-        py={{
-          xs: 8,
-          sm: 12,
-          md: 14,
-        }}
       >
         <Box
           component="img"
@@ -56,7 +56,7 @@ export default function Hero({ inView, heroLogoRef }) {
                 fontSize: 13,
               },
               xs: 18,
-              sm: 22.7,
+              sm: 22,
             }}
             fontWeight={400}
             textAlign="left"
@@ -66,7 +66,7 @@ export default function Hero({ inView, heroLogoRef }) {
               md: 0,
             }}
           >
-            Where scientists, engineers, and entrepreneurs collaborate to build innovations.
+            Post your innovation, engage with communities, obtain contributions, and explore further opportunities
           </Typography>
         </Box>
       </Box>
