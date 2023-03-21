@@ -66,7 +66,7 @@ export default function Hero({ inView, heroLogoRef }) {
               md: 0,
             }}
           >
-            Post your innovation, engage with communities, obtain contributions, and explore further opportunities
+            Post your innovation, engage with communities, get contributions, and explore further opportunities
           </Typography>
         </Box>
       </Box>
