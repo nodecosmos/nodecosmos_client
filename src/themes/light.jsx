@@ -2,7 +2,7 @@ export default {
   shadows: {
     0: 'none',
     1: '0px 1px 3px rgba(0, 0, 0, 0.12)',
-    2: '0px 3px 6px rgba(0, 0, 0, 0.12)',
+    2: '0px 1px 6px rgba(0, 0, 0, 0.10)',
     3: '0px 10px 20px rgba(0, 0, 0, 0.12)',
     4: '0px 15px 25px rgba(0, 0, 0, 0.12)',
     5: '0px 20px 40px rgba(0, 0, 0, 0.14)',
@@ -31,19 +31,8 @@ export default {
     },
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
-    container: {
-      bottom: {
-        xs: '0px 3px 1px -2px rgb(237 237 237), 0px 1px 2px 0px rgb(237 237 237)',
-        md: '0px 3px 1px -2px rgb(66 66 72 / 25%), 0px 1px 2px 0px rgb(237 237 237)',
-      },
-      right: {
-        xs: '3px 0px 1px -1px rgb(237 237 237), 1px 0px 1px 0px rgb(237 237 237)',
-        md: '3px 0px 1px -1px rgb(237 237 237), 1px 0px 1px 0px rgb(237 237 237)',
-      },
-      top: {
-        xs: '0px -3px 1px -2px rgb(237 237 237), 0px -1px 2px 0px rgb(237 237 237)',
-        md: '0px -3px 1px -2px rgb(237 237 237), 0px -1px 2px 0px rgb(237 237 237)',
-      },
+    buttons: {
+      1: '1px 1px 0px #d0d0d0',
     },
   },
 
@@ -90,9 +79,7 @@ export default {
       3: '#f3f4f6',
       4: '#e5e7eb',
       5: '#f2f5fa',
-      6: '#f8f9fa',
-
-      sidebar: '#3f444c',
+      6: '#fbfbfb',
 
       labels: {
         red: '#e15e7d',
@@ -102,8 +89,8 @@ export default {
       },
 
       list: {
-        default: '#dcdcdc', // #595b63
-        activeColor: '#dcdcdc',
+        default: '#202124', // #595b63
+        activeColor: '#202124',
         active: 'rgba(188,193,203,0.14)',
       },
 
@@ -115,8 +102,8 @@ export default {
 
     toolbar: {
       red: '#ff5fa7',
-      green: '#aef663',
-      blue: '#64b7ff',
+      green: '#00ff2a',
+      blue: '#00eeff',
       lightRed: '#ff6881',
       hover: '#f1f3f4',
       active: '#f1f3f4',
@@ -126,7 +113,7 @@ export default {
     },
 
     tree: {
-      default: '#e0e1ec',
+      default: '#eee',
       level1: '#f8568d',
       level2: '#ade16c',
       level3: '#67d4ff',
@@ -164,7 +151,7 @@ export default {
     },
 
     logo: {
-      blue: '#2adfff',
+      blue: '#5ebee3',
       red: '#e91e63',
     },
 

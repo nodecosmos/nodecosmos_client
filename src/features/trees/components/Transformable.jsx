@@ -55,8 +55,6 @@ export default function Transformable(props) {
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
-      borderRight={1}
-      borderColor="borders.1"
       ref={containerRef}
       onScrollCapture={(e) => handleScroll(e)}
       onMouseDown={onMouseDown}

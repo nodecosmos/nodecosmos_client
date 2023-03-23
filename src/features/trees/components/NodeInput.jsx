@@ -3,6 +3,7 @@ import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import useNodeTitleChangeHandler from '../../nodes/hooks/useNodeTitleChangeHandler';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
@@ -23,10 +24,11 @@ export default function NodeInput(props) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const {
-    handleNodeTitleChange,
-    handleNodeBlur,
+    handleTreeNodeBlur,
     onNodeClick,
   } = useNodeTreeEvents(treeNodeId);
+
+  const { handleNodeTitleChange } = useNodeTitleChangeHandler(nodeId);
 
   useEffect(() => {
     ref.current.focus();
@@ -49,8 +51,8 @@ export default function NodeInput(props) {
         ref={ref}
         onClick={onNodeClick}
         onChange={handleNodeTitleChange}
-        onKeyDown={(event) => event.key === 'Enter' && handleNodeBlur()}
-        onBlur={() => focused && handleNodeBlur()}
+        onKeyDown={(event) => event.key === 'Enter' && handleTreeNodeBlur()}
+        onBlur={() => focused && handleTreeNodeBlur()}
         value={title || ''}
         maxLength={MAX_NODE_INPUT_SIZE}
         size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}

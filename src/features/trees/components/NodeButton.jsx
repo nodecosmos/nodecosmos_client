@@ -21,14 +21,14 @@ export default function NodeButton(props) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
 
-  const { onNodeClick } = useNodeTreeEvents(treeNodeId);
+  const { handleTreeNodeClick } = useNodeTreeEvents(treeNodeId);
   const { backgroundColor, color, hasBg } = useNodeButtonBackground(treeNodeId);
 
   return (
     <MemoizedButtonBase
       type="button"
       className={`NodeButton ${hasBg && 'selected'}`}
-      onClick={onNodeClick}
+      onClick={handleTreeNodeClick}
       onKeyUp={(event) => event.preventDefault()}
       style={{
         backgroundColor,

@@ -31,7 +31,7 @@ export default function NodeButtonContainer(props) {
 
   if (!xEnd) return null;
 
-  // we would wrap it in single component, but input is not valid child of button
+  // we have different components because 'input' is not valid child element of 'button'
   const content = isEditing ? <NodeInput treeNodeId={treeNodeId} /> : <NodeButton treeNodeId={treeNodeId} />;
 
   const initialAnimationDelay = isRoot || alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;

@@ -20,6 +20,8 @@ import {
 import { useSelector } from 'react-redux';
 import LikeButton from '../../nodes/components/tree-node-toolbar/LikeButton';
 import NodeImporter from '../../nodes/components/tree-node-toolbar/NodeImporter';
+import useNodeRemover from '../../nodes/hooks/useNodeRemover';
+import useTmpChildNodeBuilder from '../../nodes/hooks/useTmpChildNodeBuilder';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
@@ -30,7 +32,9 @@ export default function NodeToolbar(props) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
 
-  const { addChildNode, editNode, removeNode } = useNodeTreeEvents(treeNodeId);
+  const { editTreeNode } = useNodeTreeEvents(treeNodeId);
+  const { removeNode } = useNodeRemover(nodeId);
+  const { addChildNode } = useTmpChildNodeBuilder(nodeId);
 
   return (
     <Box
@@ -48,7 +52,7 @@ export default function NodeToolbar(props) {
       <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
         <FontAwesomeIcon icon={faPlus} />
       </IconButton>
-      <IconButton className="Item" onClick={editNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
+      <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
         <FontAwesomeIcon icon={faPenToSquare} />
       </IconButton>
       <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>

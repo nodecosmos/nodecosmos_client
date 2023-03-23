@@ -30,13 +30,16 @@ export default function CreateNodeModal(props) {
 
   const onSubmit = async (formValues) => {
     setLoading(true);
+
     try {
       const response = await nodecosmos.post('/nodes.json', formValues);
       navigate(`/nodes/${response.data.id}`);
       return null;
     } catch (e) {
       setLoading(false);
-      return e.data;
+
+      if (!e.response.data.title) return { title: e.response.data.error };
+      return e.response.data;
     }
   };
 
