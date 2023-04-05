@@ -7,7 +7,7 @@ import { useInView } from 'framer-motion';
 export default function OpenSourceLink() {
   const ref = React.createRef();
 
-  const refInView = useInView(ref, { amount: 0.3, once: false });
+  const refInView = useInView(ref, { amount: 1, once: false });
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
   const color = theme.palette.secondary.main;
