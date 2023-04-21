@@ -11,13 +11,16 @@ import TreeTab from '../../../pages/nodes/show/TreeTab';
 import WorkflowTab from '../../../pages/nodes/show/WorkflowTab';
 /* users */
 import UserAuthentication from '../../../pages/users/Authentication';
+import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
+import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
+import { HEADER_HEIGHT } from '../constants';
+import LoginForm from '../../authentication/components/LoginForm';
+import SignupForm from '../../authentication/components/SignupForm';
+/* theme */
 import dark from '../../../themes/dark';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
-import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
-import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
-/* nodecosmos */
-import { HEADER_HEIGHT } from '../constants';
+
 import Alert from './Alert';
 import Header from './header/Header';
 
@@ -67,10 +70,13 @@ export default function LazyAppLoad() {
               <Routes>
                 <Route path="/nodes" element={(<NodesIndex />)} />
                 <Route
-                  path="/login"
+                  path="/auth"
                   element={isAuthenticated
                     ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
-                />
+                >
+                  <Route path="login" element={<LoginForm />} />
+                  <Route path="signup" element={<SignupForm />} />
+                </Route>
                 <Route path="/nodes" element={<NodeShow />}>
                   <Route path=":id" element={<TreeTab />} />
                   <Route path=":id/workflow" element={<WorkflowTab />} />

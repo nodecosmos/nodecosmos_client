@@ -48,7 +48,7 @@ const authenticationSlice = createSlice({
           case 'session_expired':
           case 'decode_error':
             authenticationSlice.caseReducers.logout(state);
-            redirect('/login');
+            redirect('/auth/login');
             localStorage.removeItem('token');
             localStorage.removeItem('currentUser');
             break;

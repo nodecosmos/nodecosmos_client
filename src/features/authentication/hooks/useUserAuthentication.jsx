@@ -1,11 +1,13 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { redirect } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import nodecosmos from '../../../apis/nodecosmos-server';
+import { setAlert } from '../../app/appSlice';
 import { login, logout } from '../authenticationSlice';
 
 export default function useUserAuthentication() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (formValues) => {
     try {
@@ -21,7 +23,6 @@ export default function useUserAuthentication() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
 
     dispatch(logout());
@@ -30,7 +31,6 @@ export default function useUserAuthentication() {
   const handleAuthentication = (response) => {
     const { user, token } = response.data;
 
-    localStorage.setItem('token', token);
     localStorage.setItem('currentUser', JSON.stringify(user));
 
     dispatch(login({ user, token }));
@@ -40,8 +40,12 @@ export default function useUserAuthentication() {
 
   const handleUserCreation = async (formValues) => {
     try {
-      const response = await nodecosmos.post('/users', { user: formValues });
-      handleAuthentication(response);
+      await nodecosmos.post('/users', formValues);
+      const message = 'Account created successfully. \nYou can now login with your username and password.';
+
+      navigate('/auth/login');
+
+      dispatch(setAlert({ isOpen: true, severity: 'success', message }));
     } catch (error) {
       const { response } = error;
       if (response.data) return response.data.error; // maps error object to final-form submitError
@@ -59,8 +63,7 @@ export default function useUserAuthentication() {
         case 'session_expired':
         case 'decode_error':
           dispatch(logout());
-          redirect('/login');
-          localStorage.removeItem('token');
+          redirect('/auth/login');
           localStorage.removeItem('currentUser');
           break;
         default:
