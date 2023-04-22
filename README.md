@@ -16,7 +16,6 @@
        *  **featureSlice.js** - state management for feature
 *  **pages** - Each route has associated page. Nested routes are handled with reactrouter `<Outlet />`
 
----
 ### Material-UI Recommendations:
 
 * Use inline-styles for dynamic styling.
@@ -24,7 +23,7 @@
 with classes in parent container component, and be careful so that styled container is never re-rendered 
 on nested element change. We do this so emotion does not need to recompute styles on every render.
 
----
+
 ### GIT Workflow Recommendations:
 
 1) Create a new branch for each modification.
@@ -59,7 +58,8 @@ Node ids are complex at the moment as we want to support smooth tree flow, so we
 * **treeNodeId** - id of node in treeSlice
 * **persistentId** - id of node in database and in slice
 
-Usually persistentId and nodeId are the same. However, in case we work with the Tree, we generate 
-tmp id for new node as nodeId. Obviously, we cannot use this id to communicate with the backend, so we need to leave 
-nodeId as it is, and use persistentId to communicate with the backend and get the latest changes from state.
-We can get the latest changes from state because we map persistentId to nodeSlice after node is created.
+Usually `persistentId` and `nodeId` are the same. However, in case we work with the Tree, we generate 
+tmp id for new node as `nodeId`. Obviously, we cannot use tmp id to communicate with the backend, so we need to leave 
+`nodeId` as it is, and use `persistentId` to communicate with the backend and get the latest changes from state.
+We can get the latest changes from state because we map newly created node wit its own id to nodeSlice after node is 
+created.
