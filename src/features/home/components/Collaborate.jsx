@@ -48,8 +48,7 @@ export default function Vision() {
                 Contribution Requests
               </Typography>
               <Typography mt={3} variant="body1" color="text.secondary">
-                At the heart of the collaboration features is the Contribution Request.
-                It enables community members to contribute to your innovation either by suggesting
+                Enables community members to contribute to your innovation either by suggesting
                 new components to your innovation or new ingredients for your recipe,
                 making changes to existing ones, or by making another type of contribution.
               </Typography>
@@ -73,7 +72,7 @@ export default function Vision() {
                 Topics
               </Typography>
               <Typography mt={3} variant="body1" color="text.secondary">
-                The topics feature enables you to discuss and do brainstorming with community.
+                Discuss, do brainstorming, raise issues.
                 The topic can include a question, a problem, a challenge or
                 anything you want to discuss with the community.
               </Typography>

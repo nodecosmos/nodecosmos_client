@@ -162,7 +162,7 @@ export default function ContributionRequest() {
                 color="text.secondary"
                 fontSize={{ xs: 14, sm: 18 }}
               >
-                Add/Remove/Update Drawing
+                Add/Remove/Update Media
               </Typography>
             </foreignObject>
           </g>
