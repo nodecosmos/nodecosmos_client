@@ -6,10 +6,10 @@ export const syncUpCurrentUser = createAsyncThunk(
   'auth/syncUpCurrentUser',
   async (_, _thunkAPI) => {
     try {
-      const response = await nodecosmos.get('/sync_current_user');
+      const response = await nodecosmos.get('/sessions/sync');
       return response.data;
-    } catch (err) {
-      return err.response.data.error;
+    } catch ({ response }) {
+      return response.data.error;
     }
   },
 );

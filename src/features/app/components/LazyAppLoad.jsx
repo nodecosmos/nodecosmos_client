@@ -30,7 +30,7 @@ export default function LazyAppLoad() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) dispatch(syncUpCurrentUser());
+    dispatch(syncUpCurrentUser());
   }, [dispatch, isAuthenticated]);
 
   const theme = useSelector((state) => state.app.theme);

@@ -1,8 +1,6 @@
-import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import nodecosmos from '../../../apis/nodecosmos-server';
-import { setAlert } from '../../app/appSlice';
 import { login, logout } from '../authenticationSlice';
 
 export default function useUserAuthentication() {
@@ -11,11 +9,9 @@ export default function useUserAuthentication() {
 
   const handleLogin = async (formValues) => {
     try {
-      const response = await nodecosmos.post('/users/sign_in', formValues);
+      const response = await nodecosmos.post('/sessions/login', formValues);
       handleAuthentication(response);
     } catch ({ response }) {
-      console.error(response);
-
       if (response.data) return response.data.error; // maps error object to final-form submitError
     }
 
@@ -29,23 +25,20 @@ export default function useUserAuthentication() {
   };
 
   const handleAuthentication = (response) => {
-    const { user, token } = response.data;
+    const { user } = response.data;
 
     localStorage.setItem('currentUser', JSON.stringify(user));
 
-    dispatch(login({ user, token }));
+    dispatch(login({ user }));
 
-    redirect('/');
+    navigate('/');
   };
 
   const handleUserCreation = async (formValues) => {
     try {
-      await nodecosmos.post('/users', formValues);
-      const message = 'Account created successfully. \nYou can now login with your username and password.';
+      const response = await nodecosmos.post('/users', formValues);
 
-      navigate('/auth/login');
-
-      dispatch(setAlert({ isOpen: true, severity: 'success', message }));
+      handleAuthentication(response);
     } catch (error) {
       const { response } = error;
       if (response.data) return response.data.error; // maps error object to final-form submitError
@@ -55,27 +48,9 @@ export default function useUserAuthentication() {
     return null;
   };
 
-  const syncUpCurrentUser = useCallback(async () => {
-    try {
-      await nodecosmos.get('/sync_current_user');
-    } catch (error) {
-      switch (error.response.data.error) {
-        case 'session_expired':
-        case 'decode_error':
-          dispatch(logout());
-          redirect('/auth/login');
-          localStorage.removeItem('currentUser');
-          break;
-        default:
-          dispatch(logout());
-      }
-    }
-  }, [dispatch]);
-
   return {
     handleLogin,
     handleLogout,
     handleUserCreation,
-    syncUpCurrentUser,
   };
 }
