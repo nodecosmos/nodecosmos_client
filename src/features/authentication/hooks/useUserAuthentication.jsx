@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import nodecosmos from '../../../apis/nodecosmos-server';
-import { login, logout } from '../authenticationSlice';
+import { logOut } from '../authentication.thunks';
+import { login } from '../authenticationSlice';
 
 export default function useUserAuthentication() {
   const dispatch = useDispatch();
@@ -19,9 +20,7 @@ export default function useUserAuthentication() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('currentUser');
-
-    dispatch(logout());
+    dispatch(logOut());
   };
 
   const handleAuthentication = (response) => {

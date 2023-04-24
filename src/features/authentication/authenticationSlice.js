@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { syncUpCurrentUser } from './authentication.thunks';
+import { logOut, syncUpCurrentUser } from './authentication.thunks';
 
 const authenticationSlice = createSlice({
   name: 'auth',
@@ -46,8 +46,13 @@ const authenticationSlice = createSlice({
         };
       })
       .addCase(syncUpCurrentUser.rejected, (state, _action) => {
-        authenticationSlice.caseReducers.logout(state);
         localStorage.removeItem('currentUser');
+        return authenticationSlice.caseReducers.logout(state);
+      })
+      .addCase(logOut.fulfilled, (state, _action) => {
+        localStorage.removeItem('currentUser');
+
+        return authenticationSlice.caseReducers.logout(state);
       });
   },
 });
