@@ -44,7 +44,7 @@ function NodeCard(props) {
           )}
         />
         <CardContent sx={{ ml: 8, p: 0 }}>
-          <Link component={RouterLink} to={`/nodes/${node.id}`}>
+          <Link component={RouterLink} to={`/nodes/${node.rootId}/${node.id}`}>
             <Typography
               variant="h5"
               variantMapping={{ h5: 'h2' }}

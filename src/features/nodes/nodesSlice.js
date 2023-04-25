@@ -29,6 +29,7 @@ const nodesSlice = createSlice({
      *    parentId: string,
      *    persistentId: string,
      *    persistentParentId: string,
+     *    persistentRootId: string,
      *    rootId: string,
      *    editorIds: string[],
      *    ancestorIds: string[],

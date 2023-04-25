@@ -13,7 +13,7 @@ export default function useNodeTitleChangeHandler(nodeId) {
     parentId,
     persistentId,
     persistentParentId,
-    rootId,
+    persistentRootId,
     title,
     isTemp,
   } = useSelector(selectNode(nodeId));
@@ -31,16 +31,16 @@ export default function useNodeTitleChangeHandler(nodeId) {
       if (isTemp) {
         dispatch(createNode({
           title,
-          rootId,
+          persistentRootId,
           persistentParentId,
-          tmpNodeId: nodeId,
           parentId,
+          tmpNodeId: nodeId,
         }));
       } else {
         dispatch(updateNode({ id: persistentId, title }));
       }
     }, SAVE_NODE_TIMEOUT);
-  }, [dispatch, isTemp, rootId, nodeId, parentId, persistentId, persistentParentId, prevTitle, title]);
+  }, [dispatch, isTemp, persistentRootId, nodeId, parentId, persistentId, persistentParentId, prevTitle, title]);
 
   const handleNodeTitleChange = (event) => dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
 

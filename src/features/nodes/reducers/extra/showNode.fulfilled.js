@@ -1,4 +1,6 @@
 export default function showNodeFulfilledReducer(state, action) {
+  const currentRootId = action.meta.arg.id;
+
   action.payload.forEach((node) => {
     // default values
     node.childIds ||= [];
@@ -6,6 +8,8 @@ export default function showNodeFulfilledReducer(state, action) {
     node.descendantIds ||= [];
     node.persistentId ||= node.id;
     node.persistentParentId ||= node.parentId;
+    node.persistentRootId ||= node.rootId;
+    node.rootId = currentRootId;
 
     state.byId[node.id] = node;
 

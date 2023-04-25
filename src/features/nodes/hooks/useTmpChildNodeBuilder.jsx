@@ -8,6 +8,7 @@ import { buildChildNode } from '../nodesSlice';
 export default function useTmpChildNodeBuilder(nodeId) {
   const {
     persistentId,
+    persistentRootId,
     title,
     isTemp,
   } = useSelector(selectNode(nodeId));
@@ -36,7 +37,9 @@ export default function useTmpChildNodeBuilder(nodeId) {
       const tmpNodeId = `tmp_${Date.now()}`;
 
       dispatch(setCurrentTempNodeId(tmpNodeId));
-      dispatch(buildChildNode({ tmpNodeId, nodeId, persistentId }));
+      dispatch(buildChildNode({
+        tmpNodeId, nodeId, persistentId, persistentRootId,
+      }));
     }
   };
 

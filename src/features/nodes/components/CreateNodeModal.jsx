@@ -33,7 +33,7 @@ export default function CreateNodeModal(props) {
 
     try {
       const response = await nodecosmos.post('/nodes', formValues);
-      navigate(`/nodes/${response.data.root_id}/${response.data.id}`);
+      navigate(`/nodes/${response.data.rootId}/${response.data.id}`);
       return null;
     } catch (e) {
       setLoading(false);

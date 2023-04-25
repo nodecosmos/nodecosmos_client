@@ -31,6 +31,7 @@ export default function NodeToolbar(props) {
   const { treeNodeId } = props;
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+  const persistentRootId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
 
   const { editTreeNode } = useNodeTreeEvents(treeNodeId);
   const { removeNode } = useNodeRemover(nodeId);
@@ -76,7 +77,7 @@ export default function NodeToolbar(props) {
       />
       <IconButton
         target="_blank"
-        href={`/nodes/${persistentId}`}
+        href={`/nodes/${persistentRootId}/${persistentId}`}
         className="Item"
         aria-label="Open Node in New Tab"
         sx={{ color: 'background.list.default' }}

@@ -32,7 +32,7 @@ export const createNode = createAsyncThunk(
   'nodes/createNode',
   async (payload, _thunkAPI) => {
     const reqPayload = {
-      rootId: payload.rootId,
+      rootId: payload.persistentRootId,
       parentId: payload.persistentParentId,
       title: payload.title,
     };
@@ -41,8 +41,8 @@ export const createNode = createAsyncThunk(
 
     return {
       ...response.data,
+      persistentParentId: payload.persistentParentId,
       parentId: payload.parentId,
-      persistentParentId: payload.parent_id,
       tmpNodeId: payload.tmpNodeId,
     };
   },
