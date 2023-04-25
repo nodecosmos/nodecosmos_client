@@ -27,7 +27,7 @@ export default {
       },
     ) => {
       const isRoot = nodeId === rootId;
-      const treeNodeId = isRoot ? nodeId : `${rootId}-${treeParentId || parentId}-${nodeId}`;
+      const treeNodeId = isRoot ? nodeId : `${rootId}->${treeParentId || parentId}->${nodeId}`;
       const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
 
       const { isExpanded, isSelected } = currentTreeNode;
@@ -49,7 +49,7 @@ export default {
         treeAncestorIds,
         treeChildIds: [], // it will be populated on children iteration
         treeDescendantIds: [], // it will be populated on children iteration
-        treeLastChildId: childIds.length > 0 ? `${rootId}-${treeNodeId}-${childIds[childIds.length - 1]}` : null,
+        treeLastChildId: childIds.length > 0 ? `${rootId}->${treeNodeId}->${childIds[childIds.length - 1]}` : null,
         nodeId, // original node id (not tree node id)
         persistentNodeId: isNewlyCreated ? null : nodeId,
         rootId,
@@ -70,7 +70,7 @@ export default {
 
       // recursively map children
       childIds.forEach((childId, index) => {
-        const currentTreeUpperSiblingId = index > 0 ? `${rootId}-${treeNodeId}-${childIds[index - 1]}` : null;
+        const currentTreeUpperSiblingId = index > 0 ? `${rootId}->${treeNodeId}->${childIds[index - 1]}` : null;
 
         mapChildren({
           nodeId: childId,

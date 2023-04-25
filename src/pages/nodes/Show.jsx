@@ -12,15 +12,18 @@ export default function NodeShow() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useParams();
+  const { rootId, id } = useParams();
 
   if (!id) {
     navigate('/404');
   }
 
   useEffect(() => {
-    dispatch(showNode(id));
-  }, [dispatch, id]);
+    dispatch(showNode({
+      rootId,
+      id,
+    }));
+  }, [dispatch, rootId, id]);
 
   return (
     <Box height={1} display="flex">

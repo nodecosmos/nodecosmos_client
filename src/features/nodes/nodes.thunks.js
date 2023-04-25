@@ -12,9 +12,12 @@ export const indexNodes = createAsyncThunk(
 
 export const showNode = createAsyncThunk(
   'nodes/showNode',
-  async (id, _thunkAPI) => {
+  async ({
+    rootId,
+    id,
+  }, _thunkAPI) => {
     try {
-      const response = await nodecosmos.get(`/nodes/${id}`);
+      const response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
       return response.data;
     } catch (error) {
       redirect('/404');
@@ -28,7 +31,13 @@ export const showNode = createAsyncThunk(
 export const createNode = createAsyncThunk(
   'nodes/createNode',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.post('/nodes.json', payload);
+    const reqPayload = {
+      rootId: payload.rootId,
+      parentId: payload.persistentParentId,
+      title: payload.title,
+    };
+
+    const response = await nodecosmos.post('/nodes', reqPayload);
 
     return {
       ...response.data,

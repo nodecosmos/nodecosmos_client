@@ -78,14 +78,14 @@ export default function LazyAppLoad() {
                   <Route path="signup" element={<SignupForm />} />
                 </Route>
                 <Route path="/nodes" element={<NodeShow />}>
-                  <Route path=":id" element={<TreeTab />} />
-                  <Route path=":id/workflow" element={<WorkflowTab />} />
-                  <Route path=":id/contribution_requests" element={<div />} />
-                  <Route path=":id/tasks_board" element={<div />} />
-                  <Route path=":id/media" element={<div />} />
-                  <Route path=":id/insights" element={<div />} />
-                  <Route path=":id/topics" element={<div />} />
-                  <Route path=":id/settings" element={<div />} />
+                  <Route path=":rootId/:id" element={<TreeTab />} />
+                  <Route path=":rootId/:id/workflow" element={<WorkflowTab />} />
+                  <Route path=":rootId/:id/contribution_requests" element={<div />} />
+                  <Route path=":rootId/:id/tasks_board" element={<div />} />
+                  <Route path=":rootId/:id/media" element={<div />} />
+                  <Route path=":rootId/:id/insights" element={<div />} />
+                  <Route path=":rootId/:id/topics" element={<div />} />
+                  <Route path=":rootId/:id/settings" element={<div />} />
                 </Route>
               </Routes>
             </Box>
