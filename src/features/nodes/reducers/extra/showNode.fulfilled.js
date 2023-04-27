@@ -1,4 +1,5 @@
 export default function showNodeFulfilledReducer(state, action) {
+  // In case we access the non-root node directly, we need to set the rootId to the current rootId
   const currentRootId = action.meta.arg.id;
 
   action.payload.forEach((node) => {
@@ -9,7 +10,10 @@ export default function showNodeFulfilledReducer(state, action) {
     node.persistentId ||= node.id;
     node.persistentParentId ||= node.parentId;
     node.persistentRootId ||= node.rootId;
-    node.rootId = currentRootId;
+
+    if (currentRootId) {
+      node.rootId = currentRootId;
+    }
 
     state.byId[node.id] = node;
 

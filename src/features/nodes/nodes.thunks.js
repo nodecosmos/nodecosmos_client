@@ -17,7 +17,14 @@ export const showNode = createAsyncThunk(
     id,
   }, _thunkAPI) => {
     try {
-      const response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
+      let response;
+
+      if (!rootId) {
+        response = await nodecosmos.get(`/nodes/${id}`);
+      } else {
+        response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
+      }
+
       return response.data;
     } catch (error) {
       redirect('/404');
@@ -48,6 +55,46 @@ export const createNode = createAsyncThunk(
   },
 );
 
+export const updateNodeTitle = createAsyncThunk(
+  'nodes/updateNodeTitle',
+  async ({ persistentRootId, persistentId, title }, _thunk) => {
+    try {
+      const response = await nodecosmos.put('/nodes/title', {
+        rootId: persistentRootId,
+        id: persistentId,
+        title,
+      });
+
+      return response.data;
+    } catch (error) {
+      return error.data;
+    }
+  },
+);
+
+export const updateNodeDescription = createAsyncThunk(
+  'nodes/updateNodeDescription',
+  async ({
+    persistentRootId,
+    persistentId,
+    description,
+    descriptionMarkdown,
+  }, _thunk) => {
+    try {
+      const response = await nodecosmos.put('/nodes/description', {
+        rootId: persistentRootId,
+        id: persistentId,
+        description,
+        descriptionMarkdown,
+      });
+
+      return response.data;
+    } catch (error) {
+      return error.data;
+    }
+  },
+);
+
 export const updateNode = createAsyncThunk(
   'nodes/updateNode',
   async (payload, _thunk) => {
@@ -60,12 +107,12 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async (payload, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${payload.id}`);
+  async ({ persistentRootId, persistentId, nodeId }, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${persistentRootId}/${persistentId}`);
 
     return {
       ...response.data,
-      nodeId: payload.nodeId,
+      nodeId,
     };
   },
 );

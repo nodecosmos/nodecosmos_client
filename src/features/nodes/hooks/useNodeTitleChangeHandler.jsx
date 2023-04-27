@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import usePrevious from '../../../common/hooks/usePrevious';
 import { SAVE_NODE_TIMEOUT } from '../../trees/trees.constants';
 import { selectNode } from '../nodes.selectors';
-import { createNode, updateNode } from '../nodes.thunks';
+import { createNode, updateNodeTitle } from '../nodes.thunks';
 import { updateNodeState } from '../nodesSlice';
 
 export default function useNodeTitleChangeHandler(nodeId) {
@@ -37,7 +37,7 @@ export default function useNodeTitleChangeHandler(nodeId) {
           tmpNodeId: nodeId,
         }));
       } else {
-        dispatch(updateNode({ id: persistentId, title }));
+        dispatch(updateNodeTitle({ persistentId, persistentRootId, title }));
       }
     }, SAVE_NODE_TIMEOUT);
   }, [dispatch, isTemp, persistentRootId, nodeId, parentId, persistentId, persistentParentId, prevTitle, title]);

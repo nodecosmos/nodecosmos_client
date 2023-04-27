@@ -9,7 +9,7 @@ import {
   selectPersistentId,
   selectSelectedNodeId,
 } from '../../nodes.selectors';
-import { updateNode } from '../../nodes.thunks';
+import { updateNodeDescription } from '../../nodes.thunks';
 import { updateNodeState } from '../../nodesSlice';
 
 const CustomCodeMirror = React.lazy(() => import('../../../../common/components/CustomCodeMirror'));
@@ -33,6 +33,7 @@ export default function MarkdownEditor() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
   const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
+  const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
   const persistentId = useSelector(selectPersistentId(selectedNodeId));
 
   const dispatch = useDispatch();
@@ -50,7 +51,9 @@ export default function MarkdownEditor() {
       const descriptionHtml = md().render(value);
 
       dispatch(updateNodeState({ id: selectedNodeId, description: descriptionHtml, descriptionMarkdown: value }));
-      dispatch(updateNode({ id: persistentId, description: descriptionHtml, description_markdown: value }));
+      dispatch(updateNodeDescription({
+        persistentRootId, persistentId, description: descriptionHtml, descriptionMarkdown: value,
+      }));
     }, 1000);
   };
 
