@@ -20,7 +20,9 @@ import * as PropTypes from 'prop-types';
 import SidebarListItem from './SidebarListItem';
 
 export default function Sidebar(props) {
-  const { id } = props;
+  const { id, rootId } = props;
+
+  const toPath = rootId ? `${rootId}/${id}` : id;
 
   return (
     <Box
@@ -35,7 +37,7 @@ export default function Sidebar(props) {
     >
       <List sx={{ px: 1 }}>
         <SidebarListItem
-          to={`${id}`}
+          to={`${toPath}`}
           icon={(
             <FontAwesomeIcon
               icon={faHashtag}
@@ -44,7 +46,7 @@ export default function Sidebar(props) {
           title="Node"
         />
         <SidebarListItem
-          to={`${id}/workflow`}
+          to={`${toPath}/workflow`}
           icon={(
             <FontAwesomeIcon
               icon={faDiagramNext}
@@ -53,7 +55,7 @@ export default function Sidebar(props) {
           title="Workflow"
         />
         <SidebarListItem
-          to={`${id}/contribution_requests`}
+          to={`${toPath}/contribution_requests`}
           icon={(
             <FontAwesomeIcon
               icon={faCodePullRequest}
@@ -62,7 +64,7 @@ export default function Sidebar(props) {
           title="Contribution Requests"
         />
         <SidebarListItem
-          to={`${id}/tasks_board`}
+          to={`${toPath}/tasks_board`}
           icon={(
             <FontAwesomeIcon
               icon={faTable}
@@ -71,7 +73,7 @@ export default function Sidebar(props) {
           title="Tasks Board"
         />
         <SidebarListItem
-          to={`${id}/media`}
+          to={`${toPath}/media`}
           icon={(
             <FontAwesomeIcon
               icon={faFolders}
@@ -80,7 +82,7 @@ export default function Sidebar(props) {
           title="Media"
         />
         <SidebarListItem
-          to={`${id}/topics`}
+          to={`${toPath}/topics`}
           icon={(
             <FontAwesomeIcon
               icon={faUserGroup}
@@ -89,7 +91,7 @@ export default function Sidebar(props) {
           title="Topics"
         />
         <SidebarListItem
-          to={`${id}/insights`}
+          to={`${toPath}/insights`}
           icon={(
             <FontAwesomeIcon
               icon={faChartSimple}
@@ -98,7 +100,7 @@ export default function Sidebar(props) {
           title="Insights"
         />
         <SidebarListItem
-          to={`${id}/settings`}
+          to={`${toPath}/settings`}
           icon={(
             <FontAwesomeIcon
               icon={faGears}
@@ -111,6 +113,11 @@ export default function Sidebar(props) {
   );
 }
 
+Sidebar.defaultProps = {
+  rootId: null,
+};
+
 Sidebar.propTypes = {
   id: PropTypes.string.isRequired,
+  rootId: PropTypes.string,
 };
