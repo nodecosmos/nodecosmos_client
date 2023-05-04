@@ -13,6 +13,8 @@ import WorkflowTab from '../../../pages/nodes/show/WorkflowTab';
 import UserAuthentication from '../../../pages/users/Authentication';
 import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
 import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
+import { selectLikedObjectIds } from '../../likes/likes.selectors';
+import { getLikedObjectIds } from '../../likes/likes.thunks';
 import { HEADER_HEIGHT } from '../constants';
 import LoginForm from '../../authentication/components/LoginForm';
 import SignupForm from '../../authentication/components/SignupForm';
@@ -27,11 +29,18 @@ import Header from './header/Header';
 export default function LazyAppLoad() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const currentUser = useSelector(selectCurrentUser);
+  const likes = useSelector(selectLikedObjectIds);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(syncUpCurrentUser());
   }, [dispatch, isAuthenticated]);
+
+  useEffect(() => {
+    if (isAuthenticated && !likes) {
+      dispatch(getLikedObjectIds());
+    }
+  }, [dispatch, isAuthenticated, likes]);
 
   const theme = useSelector((state) => state.app.theme);
 

@@ -4,6 +4,7 @@ import { logOut, syncUpCurrentUser } from './authentication.thunks';
 const authenticationSlice = createSlice({
   name: 'auth',
   initialState: {
+    // TODO: likedObjectIds is to be used for checking if user liked some object
     isAuthenticated: Boolean(localStorage.getItem('currentUser')),
     /**
      * @type {{

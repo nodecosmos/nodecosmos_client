@@ -16,7 +16,7 @@ import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
 import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
 
 import {
-  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode,
+  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode, getLikesCount,
 } from './nodes.thunks';
 
 const nodesSlice = createSlice({
@@ -40,7 +40,7 @@ const nodesSlice = createSlice({
      *    description: string,
      *    descriptionMarkdown: string,
      *    likesCount: number,
-     *    likedByUserIds: string[],
+     *    likedByCurrentUser: boolean,
      *    createdAt: string,
      *    updatedAt: string,
      *    owner: {
@@ -110,6 +110,7 @@ const nodesSlice = createSlice({
       .addCase(showNode.fulfilled, showNodeFulfilledReducer)
       .addCase(createNode.fulfilled, createNodeFulfilledReducer)
       .addCase(deleteNode.fulfilled, (...args) => deleteNodeFulfilledReducer(...args, nodesSlice))
+      .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
       .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
       .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
   },
