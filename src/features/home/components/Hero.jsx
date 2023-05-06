@@ -48,26 +48,49 @@ export default function Hero({ inView, heroLogoRef }) {
           >
             Innovation Collaboration Platform
           </Typography>
-          <Typography
-            variant="h2"
-            fontFamily="'Montserrat', sans-serif"
-            fontSize={{
-              '@media (max-width: 360px)': {
-                fontSize: 13,
-              },
-              xs: 18,
-              sm: 22,
-            }}
-            fontWeight={400}
-            textAlign="left"
-            lineHeight={1.5}
-            mt={{
-              xs: 1,
-              md: 0,
-            }}
-          >
-            Post your innovation, engage with communities, get contributions, and explore further opportunities
-          </Typography>
+          <Box display={{ md: 'block', xs: 'none' }}>
+            <Typography
+              variant="h2"
+              fontFamily="'Montserrat', sans-serif"
+              fontSize={{
+                sm: 18.5,
+              }}
+              fontWeight={400}
+              textAlign="left"
+              lineHeight={1.5}
+              mt={0.5}
+            >
+              💡 Share Your Innovation
+              👩‍💻 Engage with Communities
+              🔧 Get Contributions
+              ✨ And much more...
+            </Typography>
+          </Box>
+          <Box display={{ md: 'none', xs: 'block' }}>
+            <Typography
+              variant="h2"
+              fontFamily="'Montserrat', sans-serif"
+              fontSize={{
+                '@media (max-width: 360px)': {
+                  fontSize: 13,
+                },
+                xs: 18,
+                sm: 22,
+              }}
+              fontWeight={400}
+              textAlign="left"
+              lineHeight={1.5}
+              mt={{
+                xs: 1,
+                md: 1,
+              }}
+            >
+              Share your Innovation,
+              engage with Communities,
+              get Contributions,
+              and much more...
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>

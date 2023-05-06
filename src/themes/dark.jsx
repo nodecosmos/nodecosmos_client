@@ -153,7 +153,7 @@ export default {
 
     text: {
       primary: '#f5f5f2',
-      secondary: '#c7cbdb',
+      secondary: '#838a9a',
       tertiary: '#626e79',
       contrast: '#fff',
       sectionPrimary: '#acdf83',
