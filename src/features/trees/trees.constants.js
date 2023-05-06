@@ -8,10 +8,6 @@ export const INITIAL_ANIMATION_DURATION = 300; // ms
 export const INITIAL_ANIMATION_DELAY = 50; // ms - move down siblings first than extend current node
 export const TRANSITION_ANIMATION_DURATION = 150; // ms
 
-// Path: src/features/nodes/components/tree/Transformable.jsx
-export const TRANSFORMABLE_HEIGHT_MARGIN = 200;
-export const TRANSFORMABLE_WIDTH_MARGIN = 50;
-export const TRANSFORMABLE_MIN_WIDTH = 800;
 // for virtualization
 export const CLIENT_VIEWPORT_BUFFER_FACTOR = 1.5;
 

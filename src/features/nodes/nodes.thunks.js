@@ -142,7 +142,7 @@ export const likeNode = createAsyncThunk(
 export const unlikeNode = createAsyncThunk(
   'nodes/unlikeNode',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/likes/${LIKE_TYPES.node}/${payload}`);
+    const response = await nodecosmos.delete(`/likes/${payload}`);
 
     return response.data;
   },

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import {
-  faRectangleCode, faAlignJustify, faHashtag,
+  faRectangleCode, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';
 import {
   faDiagramNext,
@@ -61,7 +61,7 @@ export default function NodeDetailsToolbar() {
         />
         <ToolbarItem
           title="View Description"
-          icon={faAlignJustify}
+          icon={faHashtag}
           color="toolbar.green"
           active={nodeDetailsAction === 'description'}
           onClick={() => dispatch(setNodeDetailsAction('description'))}
