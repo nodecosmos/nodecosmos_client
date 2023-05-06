@@ -52,6 +52,7 @@ export default function Hero({ inView, heroLogoRef }) {
             <Typography
               variant="h2"
               fontFamily="'Montserrat', sans-serif"
+              color="text.secondary"
               fontSize={{
                 sm: 18.4,
               }}

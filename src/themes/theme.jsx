@@ -36,7 +36,7 @@ const getTheme = (currentTheme) => createTheme({
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
-      color: currentTheme.palette.text.secondary,
+      color: currentTheme.palette.text.contrast,
     },
     body2: {
       fontSize: '0.875rem',
