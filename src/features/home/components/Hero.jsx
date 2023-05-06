@@ -53,7 +53,7 @@ export default function Hero({ inView, heroLogoRef }) {
               variant="h2"
               fontFamily="'Montserrat', sans-serif"
               fontSize={{
-                sm: 18.5,
+                sm: 18.4,
               }}
               fontWeight={400}
               textAlign="left"
