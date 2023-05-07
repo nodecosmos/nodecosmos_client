@@ -71,6 +71,7 @@ export default function Hero({ inView, heroLogoRef }) {
             <Typography
               variant="h2"
               fontFamily="'Montserrat', sans-serif"
+              color="text.secondary"
               fontSize={{
                 '@media (max-width: 360px)': {
                   fontSize: 13,
@@ -86,9 +87,9 @@ export default function Hero({ inView, heroLogoRef }) {
                 md: 1,
               }}
             >
-              Share your Innovation,
-              engage with Communities,
-              get Contributions,
+              Share your innovation,
+              engage with communities,
+              get contributions,
               and much more...
             </Typography>
           </Box>
