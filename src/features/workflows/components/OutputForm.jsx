@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Output(props) {
+export default function OutputForm(props) {
   return (
     <div />
   );

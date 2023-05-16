@@ -13,6 +13,7 @@ export default function useTreePositionCalculator(rootId) {
 
   return useMemo(() => {
     if (!treeNodes || !orderedTreeNodeIds.length) return {};
+
     const currentPositionsById = {};
 
     // calculates the position of a node based on its parent's or upper sibling's position

@@ -29,7 +29,7 @@ export default function LikeButton(props) {
   const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    if (likesCount === undefined) {
+    if (persistentId && likesCount === undefined) {
       dispatch(getLikesCount(persistentId));
     }
   }, [dispatch, persistentId, likesCount]);

@@ -15,7 +15,7 @@ export default function WorkflowTab() {
         height="100%"
       >
         <WorkflowContainer>
-          <Workflow />
+          <Workflow nodeId="node-1" />
         </WorkflowContainer>
       </Box>
       <Box

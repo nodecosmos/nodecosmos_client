@@ -50,7 +50,7 @@ export default {
         treeChildIds: [], // it will be populated on children iteration
         treeDescendantIds: [], // it will be populated on children iteration
         treeLastChildId: childIds.length > 0 ? `${rootId}->${treeNodeId}->${childIds[childIds.length - 1]}` : null,
-        nodeId, // original node id (not tree node id)
+        nodeId, // nodesSlice node id (not tree node id)
         persistentNodeId: isNewlyCreated ? null : nodeId,
         rootId,
         isRoot,

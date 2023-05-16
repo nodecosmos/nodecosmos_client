@@ -5,11 +5,6 @@
     "no-console": 0,
     "no-debugger": 1,
     "max-len": ["error", {"code": 120}],
-    "react/destructuring-assignment": 0,
-    "react/forbid-prop-types": 0,
-    "react/no-unused-prop-types": 1,
-    "react/no-unused-state": 1,
-    "react-hooks/exhaustive-deps": 2,
     "no-param-reassign": ["error", { "props": false }],
     "import/order": [
       "error",
@@ -24,7 +19,12 @@
         "pathGroupsExcludedImportTypes": ["react"],
         "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
       }
-    ]
+    ],
+    "react/destructuring-assignment": 0,
+    "react/forbid-prop-types": 0,
+    "react/no-unused-prop-types": 1,
+    "react/no-unused-state": 1,
+    "react-hooks/exhaustive-deps": 2
   },
   "settings": {
     "import/resolver": {
