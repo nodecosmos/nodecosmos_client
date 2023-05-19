@@ -6,11 +6,14 @@ import Transformable from '../../app/components/Transformable';
 import { selectWorkflowFlowSteps } from '../../flow-steps/flowSteps.selectors';
 import { selectWorkflowFlows } from '../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../hooks/diagram/useWorkflowDiagramPositionCalculator';
-import { selectWorkflowsByNodeId } from '../workflows.selectors';
+import { selectWorkflowDiagram, selectWorkflowsByNodeId } from '../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../workflowsSlice';
 import IOButton from './io/IOButton';
 import IOBranch from './io/IOBranch';
 import Start from './Start';
+import WorkflowNodeBranch from './WorkflowNodeBranch';
+import WorkflowNodeButtonContainer from './WorkflowNodeButtonContainer';
+import WorkflowOutputButton from './WorkflowOutputButton';
 
 export default function Workflow({ nodeId }) {
   const containerRef = useRef(null);
@@ -21,6 +24,8 @@ export default function Workflow({ nodeId }) {
   const flows = useSelector(selectWorkflowFlows(workflow.id));
   const flowSteps = useSelector(selectWorkflowFlowSteps(workflow.id));
   const workflowDiagramPosition = useWorkflowDiagramPositionCalculator(workflow.id);
+
+  const workflowDiagram = useSelector(selectWorkflowDiagram(workflow.id));
 
   const dispatch = useDispatch();
 
@@ -33,20 +38,48 @@ export default function Workflow({ nodeId }) {
   }, [dispatch, workflow, flows, flowSteps]);
 
   useEffect(() => {
-    dispatch(
-      setWorkflowDiagramPosition({
-        workflowId: workflow.id,
-        position: workflowDiagramPosition,
-      }),
-    );
+    dispatch(setWorkflowDiagramPosition(workflowDiagramPosition));
   }, [dispatch, workflow.id, workflowDiagramPosition]);
+
+  if (!workflowDiagram.initialInputs || !Object.keys(workflowDiagramPosition).length > 0) return null;
 
   return (
     <Transformable containerRef={containerRef} transformableId="workflow">
       <g>
-        <Start />
-        <IOBranch />
-        <IOButton />
+        <Start workflowId={workflow.id} />
+        {
+          workflowDiagram.initialInputs.map((input) => (
+            <g key={input.id}>
+              <WorkflowOutputButton
+                diagramId={input.diagramId}
+                id={input.id}
+              />
+            </g>
+          ))
+        }
+        {
+            workflowDiagram.workflowSteps.map((wfStep) => (
+              <g key={wfStep.diagramId}>
+                {
+                  wfStep.flowSteps.map((flowStep) => flowStep.nodes.map((node) => (
+                    <g key={node.diagramId}>
+                      <WorkflowNodeButtonContainer diagramId={node.diagramId} id={node.id} />
+                      {
+                          flowStep.outputsByNodeId[node.id]?.map((input) => (
+                            <g key={input.id}>
+                              <WorkflowOutputButton
+                                diagramId={input.diagramId}
+                                id={input.id}
+                              />
+                            </g>
+                          ))
+                        }
+                    </g>
+                  )))
+                }
+              </g>
+            ))
+        }
       </g>
     </Transformable>
   );

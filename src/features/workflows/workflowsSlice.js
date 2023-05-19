@@ -11,7 +11,8 @@ const workflowsSlice = createSlice({
         nodeId: 'node-1',
         title: 'Workflow',
         description: 'Workflow description',
-        initialInputIds: ['input1', 'input2'],
+        initialInputs: ['input1', 'input2'],
+        flowIds: ['flow-1'],
       },
     },
 
@@ -20,32 +21,82 @@ const workflowsSlice = createSlice({
     },
 
     /**
+     * So workflow is made up of following:
+     *  - initialInputs
+     *  - workflowSteps
+     *
+     *  Each workflow is collection of flows.
+     *  Each flow has flowSteps.
+     *  Each flowStep has inputs, nodes, outputs.
+     *
+     * Flow represents isolated process of same workflow.
+     *
+     * E.g.
+     * If we have machine that produces some product, and it also has waist material
+     * that needs to be disposed, we can have two flows:
+     *  - production flow
+     *  - disposal flow
+     * These are different flows, but they are part of same workflow that describes
+     * production of some product.
+     *
+     * On the other hand if we have unrelated flows than we can separate them into
+     * different workflows.
+     *
+     * Each workflowStep contains flowSteps on same step.
+     *
+     * From previous example, workflowStep can be:
+     *  - production flowStep1
+     *  - disposal flowStep1
+     * than next workflowStep would be:
+     *  - production flowStep2
+     *  - disposal flowStep2
+     * and so on.
+     *
      * @type {{
-     *   [workflowId: string]: [
-     *     workflowStep: [
+     *   [workflowId: string]: {
+     *     initialInputs: [
      *       {
-     *         flowId: string,
-     *         flowStepId: string,
-     *         inputsByNodeId: {
-     *           [nodeId: string]: [
-     *             {
-     *               inputId: string,
-     *               diagramId: string,
-     *             }
-     *           ]
-     *         },
-     *         outputsByNodeId: {
-     *           [nodeId: string]: [
-     *             {
-     *               outputId: string,
-     *               diagramId: string,
-     *             }
-     *           ],
-     *         },
+     *         inputId: string,
+     *         diagramId: string,
+     *       },
+     *     ],
+     *     workflowSteps: [
+     *       {
+     *         diagramId: string,
+     *         flowSteps: [
+     *          {
+     *            diagramId: string,
+     *            flowStepId: string,
+     *            flowId: string,
+     *            nodes: [
+     *              {
+     *                nodeId: string,
+     *                diagramId: string,
+     *              }
+     *            ],
+     *            inputsByNodeId: {
+     *              [nodeId: string]: [
+     *                {
+     *                  inputId: string,
+     *                  diagramId: string,
+     *                }
+     *              ]
+     *            },
+     *            outputsByNodeId: {
+     *              [nodeId: string]: [
+     *                {
+     *                  outputId: string,
+     *                  diagramId: string,
+     *                }
+     *              ],
+     *            },
+     *          }
+     *         ],
      *       }
-     *     ]
-     *   ]
+     *     ],
+     *   },
      * }}
+     *
      */
     workflowDiagramById: {},
 

@@ -1,4 +1,9 @@
-import { buildDiagramNodeId, buildIODiagramId } from '../workflows.memoize';
+import {
+  buildDefaultIODiagramId,
+  buildDiagramNodeId,
+  buildIODiagramId,
+  buildWorkflowStepDiagramId,
+} from '../workflows.memoize';
 
 export default {
   buildWorkflowDiagram: (state, action) => {
@@ -7,20 +12,39 @@ export default {
       flows,
       flowSteps,
     } = action.payload;
-    state.workflowDiagramById[workflow.id] = [];
 
-    Object.keys(flows).forEach((flowId) => {
+    state.workflowDiagramById[workflow.id] = {
+      initialInputs: [],
+      workflowSteps: [],
+    };
+
+    state.workflowDiagramById[workflow.id].initialInputs = workflow.initialInputs.map((inputId) => {
+      const diagramId = buildDefaultIODiagramId(workflow.id, inputId);
+      return {
+        id: inputId,
+        diagramId,
+      };
+    });
+
+    workflow.flowIds.forEach((flowId) => {
       const flow = flows[flowId];
       flow.stepIds.forEach((flowStepId, index) => {
-        state.workflowDiagramById[workflow.id][index] ||= [];
         const flowStep = flowSteps[flowStepId];
+
+        const nodes = flowStep.nodeIds.map((nodeId) => {
+          const diagramId = buildDiagramNodeId(flowStepId, nodeId);
+          return {
+            id: nodeId,
+            diagramId,
+          };
+        });
 
         // append unique input objects for diagram
         const inputsByNodeId = Object.keys(flowStep.inputIdsByNodeId).reduce((acc, nodeId) => {
           acc[nodeId] = flowStep.inputIdsByNodeId[nodeId].map((inputId) => {
             const diagramId = buildIODiagramId(flowStepId, nodeId, inputId);
             return {
-              inputId,
+              id: inputId,
               diagramId,
             };
           });
@@ -32,17 +56,23 @@ export default {
           acc[nodeId] = flowStep.outputIdsByNodeId[nodeId].map((outputId) => {
             const diagramId = buildIODiagramId(flowStepId, nodeId, outputId);
             return {
-              outputId,
+              id: outputId,
               diagramId,
             };
           });
           return acc;
         }, {});
 
-        state.workflowDiagramById[workflow.id][index].push({
+        state.workflowDiagramById[workflow.id].workflowSteps[index] ||= {
+          diagramId: buildWorkflowStepDiagramId(workflow.id, index),
+          flowSteps: [],
+        };
+        state.workflowDiagramById[workflow.id].workflowSteps[index].flowSteps.push({
+          diagramId: flowStepId,
           flowStepId,
           flowId,
-          nodeId: buildDiagramNodeId(flowStepId, flowStep.nodeId),
+          nodes,
+          nodeIds: flowStep.nodeIds,
           inputsByNodeId,
           outputsByNodeId,
         });

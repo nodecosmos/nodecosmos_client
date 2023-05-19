@@ -65,6 +65,11 @@ const treesSlice = createSlice({
      * Used to mount newly created nodes.
      */
     currentTempNodeId: null,
+
+    /**
+     * @type {treeNodeId}
+     */
+    selectedTreeNodeId: null,
   },
   reducers: {
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,

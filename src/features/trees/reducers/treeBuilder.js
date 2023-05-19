@@ -85,7 +85,9 @@ export default {
 
       // further populate parent's treeDescendantIds with current node's treeDescendantIds
       // after all children have been mapped
-      if (treeDescendantIds) treeDescendantIds.push(...state.byRootNodeId[rootId][treeNodeId].treeDescendantIds);
+      if (treeDescendantIds) {
+        treeDescendantIds.push(...state.byRootNodeId[rootId][treeNodeId].treeDescendantIds);
+      }
     };
 
     mapChildren({});

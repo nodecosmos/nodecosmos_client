@@ -11,7 +11,7 @@ import { WORKFLOW_BUTTON_HEIGHT } from '../../trees/trees.constants';
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faPlay} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function Start(props) {
+export default function Start() {
   const theme = useTheme();
 
   return (
@@ -39,7 +39,3 @@ export default function Start(props) {
     </foreignObject>
   );
 }
-
-// NodeButton.propTypes = {
-//   treeNodeId: PropTypes.string.isRequired,
-// };

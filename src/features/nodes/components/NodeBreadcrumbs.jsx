@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../app/appSlice';
 import { MARGIN_TOP } from '../../trees/trees.constants';
+import { extractNodeIdFromTreeNodeId } from '../../trees/trees.memoize';
 import { selectPositionsByNodeId, selectSelectedTreeNode } from '../../trees/trees.selectors';
 import {
   selectNodeTitlesById, selectSelectedNode,
@@ -25,21 +26,22 @@ export default function NodeBreadcrumbs() {
 
   const items = [];
 
-  if (selectedNode && selectedNode.ancestorIds) {
-    const ancestorIds = [...selectedNode.ancestorIds];
+  if (selectedTreeNode && selectedTreeNode.treeAncestorIds) {
+    const treeAncestorIds = [...selectedTreeNode.treeAncestorIds];
 
-    ancestorIds.reverse()
-      .forEach((id, index) => {
-        if (nodeTitlesById[id]) {
-          items.push(
-            {
-              id,
-              treeNodeId: selectedTreeNode.treeAncestorIds[index],
-              title: nodeTitlesById[id],
-            },
-          );
-        }
-      });
+    treeAncestorIds.forEach((treeNodeId, index) => {
+      const nodeId = extractNodeIdFromTreeNodeId(treeNodeId);
+
+      if (nodeTitlesById[nodeId]) {
+        items.push(
+          {
+            id: nodeId,
+            treeNodeId: selectedTreeNode.treeAncestorIds[index],
+            title: nodeTitlesById[nodeId],
+          },
+        );
+      }
+    });
   }
 
   items.push({
