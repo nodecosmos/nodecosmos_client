@@ -38,9 +38,7 @@ export default function LandingPageTree(props) {
       </LandingPageTransformable>
       <Box
         backgroundColor="background.6"
-        borderRadius={1}
         overflow="hidden"
-        boxShadow="buttons.1"
         position="sticky"
         my={0}
         bottom={0}
