@@ -32,8 +32,8 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
-      1: '3px 3px 0px rgb(0 0 0 / 10%)',
-      2: '8px 8px 0px rgb(0 0 0 / 5%)',
+      1: '4px 4px 0px rgb(0 0 0 / 12%)',
+      2: '6px 6px 0px rgb(0 0 0 / 8%)',
     },
   },
 
@@ -94,7 +94,7 @@ export default {
       scrollbarThumb: '#3e434c',
       paper: '#363a43',
       contrast: '#cccccc',
-      hover: 'rgba(182,182,182,0.08)',
+      hover: 'rgba(211,211,211,0.1)',
     },
 
     toolbar: {
@@ -118,6 +118,12 @@ export default {
       defaultText: '#fff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
+    },
+
+    workflow: {
+      default: '#414650',
+      input: '#f2bb6f',
+      background: '#2d3139',
     },
 
     markdownContent: {

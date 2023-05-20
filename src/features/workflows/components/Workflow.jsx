@@ -8,11 +8,8 @@ import { selectWorkflowFlows } from '../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../hooks/diagram/useWorkflowDiagramPositionCalculator';
 import { selectWorkflowDiagram, selectWorkflowsByNodeId } from '../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../workflowsSlice';
-import IOButton from './io/IOButton';
-import IOBranch from './io/IOBranch';
 import Start from './Start';
-import WorkflowNodeBranch from './WorkflowNodeBranch';
-import WorkflowNodeButtonContainer from './WorkflowNodeButtonContainer';
+import WorkflowNodeButton from './WorkflowNodeButton';
 import WorkflowOutputButton from './WorkflowOutputButton';
 
 export default function Workflow({ nodeId }) {
@@ -63,7 +60,7 @@ export default function Workflow({ nodeId }) {
                 {
                   wfStep.flowSteps.map((flowStep) => flowStep.nodes.map((node) => (
                     <g key={node.diagramId}>
-                      <WorkflowNodeButtonContainer diagramId={node.diagramId} id={node.id} />
+                      <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
                       {
                           flowStep.outputsByNodeId[node.id]?.map((input) => (
                             <g key={input.id}>

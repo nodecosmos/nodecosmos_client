@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { faArrowProgress } from '@fortawesome/pro-light-svg-icons';
 import { selectIOAttribute } from '../../input-outputs/inputOutput.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
@@ -14,8 +14,9 @@ import {
 } from '../../trees/trees.constants';
 import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
+import WorkflowNodeBranch from './WorkflowNodeBranch';
 
-const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
+const MemoizedTagRounded = memo(() => <FontAwesomeIcon className="fa-hashtag" icon={faArrowProgress} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
 export default function WorkflowOutputButton(props) {
@@ -27,9 +28,9 @@ export default function WorkflowOutputButton(props) {
   } = props;
   const title = useSelector(selectIOAttribute(id, 'title'));
 
-  console.log(title);
-
   const { x, xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
+
+  if (!xEnd) return null;
 
   return (
     <g style={{
@@ -37,32 +38,31 @@ export default function WorkflowOutputButton(props) {
       animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
     }}
     >
+      <WorkflowNodeBranch diagramId={diagramId} />
       <foreignObject
         width="700"
         height={NODE_BUTTON_HEIGHT + 3}
-        x={xEnd}
+        x={xEnd - 10}
         y={y - MARGIN_TOP}
         style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
       >
-        <div className="NodeButtonContainer">
-          <MemoizedButtonBase
-            type="button"
-            className="NodeButton"
-            onKeyUp={(event) => event.preventDefault()}
-            style={{
-              backgroundColor: theme.palette.tree.default,
-              height: IO_BUTTON_HEIGHT,
-              marginTop: 8,
-              marginLeft: 6,
-              transform: 'skewX(-20deg)',
-            }}
-          >
-            <MemoizedTagRounded />
-            <div className="NodeButtonText">
-              {title}
-            </div>
-          </MemoizedButtonBase>
-        </div>
+        <MemoizedButtonBase
+          type="button"
+          className="NodeButton"
+          onKeyUp={(event) => event.preventDefault()}
+          style={{
+            backgroundColor: 'transparent',
+            height: NODE_BUTTON_HEIGHT,
+            marginLeft: 8,
+            transform: 'skewX(-30deg)',
+            border: `3px solid ${theme.palette.tree.default}`,
+          }}
+        >
+          <MemoizedTagRounded />
+          <div className="IOButtonText">
+            {title}
+          </div>
+        </MemoizedButtonBase>
       </foreignObject>
     </g>
   );

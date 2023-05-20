@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { MARGIN_TOP } from '../../../trees/trees.constants';
-import { EDGE_LENGTH, INPUT_WIDTH, MARGIN_LEFT } from '../../workflows.constants';
+import {
+  EDGE_LENGTH, MARGIN_LEFT, OUTPUT_EDGE_LENGTH, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH,
+} from '../../workflows.constants';
 import { selectWorkflowDiagram } from '../../workflows.selectors';
 
 export default function useWorkflowDiagramPositionCalculator(id) {
@@ -13,34 +15,35 @@ export default function useWorkflowDiagramPositionCalculator(id) {
     const result = {};
     workflowDiagram.initialInputs.forEach((initialInput, index) => {
       const prevInputId = workflowDiagram.initialInputs[index - 1]?.diagramId;
-      const upperSiblingY = result[prevInputId]?.yEnd || 0;
+      const upperSiblingY = result[prevInputId]?.yEnd || OUTPUT_EDGE_LENGTH + MARGIN_TOP;
 
       result[initialInput.diagramId] = {
-        x: EDGE_LENGTH,
-        xEnd: EDGE_LENGTH + INPUT_WIDTH,
-        y: upperSiblingY + EDGE_LENGTH + MARGIN_TOP,
-        yEnd: upperSiblingY + EDGE_LENGTH + MARGIN_TOP,
+        x: EDGE_LENGTH + MARGIN_LEFT,
+        xEnd: OUTPUT_EDGE_LENGTH * 2 + MARGIN_LEFT,
+        y: upperSiblingY + OUTPUT_EDGE_LENGTH + MARGIN_TOP,
+        yEnd: upperSiblingY + OUTPUT_EDGE_LENGTH + MARGIN_TOP,
       };
     });
 
     workflowDiagram.workflowSteps.forEach((wfStep, index) => {
       const wfStepPosition = {
-        x: (EDGE_LENGTH + INPUT_WIDTH) * (index + 1),
-        xEnd: (EDGE_LENGTH + INPUT_WIDTH) * (index + 1) + INPUT_WIDTH,
-        y: (EDGE_LENGTH + MARGIN_TOP) * (index + 1),
+        x: (WORKFLOW_STEP_WIDTH) * (index + 1),
+        xEnd: (WORKFLOW_STEP_WIDTH) * (index + 1),
+        y: (WORKFLOW_STEP_HEIGHT) * (index + 1),
+        yEnd: (WORKFLOW_STEP_HEIGHT) * (index + 1),
       };
 
       result[wfStep.diagramId] = wfStepPosition;
 
       wfStep.flowSteps.forEach((flowStep, flowStepIndex) => {
         const prevFlowStepId = wfStep.flowSteps[flowStepIndex - 1]?.diagramId;
-        const upperFlowStepSiblingY = result[prevFlowStepId]?.yEnd || 0;
+        const upperFlowStepSiblingY = result[prevFlowStepId]?.yEnd || -5;
 
         const flowStepPosition = {
           x: wfStepPosition.x,
           xEnd: wfStepPosition.xEnd,
-          y: wfStepPosition.y + upperFlowStepSiblingY + EDGE_LENGTH + MARGIN_TOP,
-          yEnd: wfStepPosition.y + upperFlowStepSiblingY + EDGE_LENGTH + MARGIN_TOP,
+          y: wfStepPosition.y + upperFlowStepSiblingY + EDGE_LENGTH,
+          yEnd: wfStepPosition.y + upperFlowStepSiblingY + EDGE_LENGTH,
         };
 
         flowStep.nodes.forEach((node, nodeIndex) => {
@@ -49,9 +52,9 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
           const nodePosition = {
             x: flowStepPosition.x,
-            xEnd: flowStepPosition.xEnd,
-            y: flowStepPosition.y + upperNodeSiblingY + EDGE_LENGTH + MARGIN_TOP,
-            yEnd: flowStepPosition.y + upperNodeSiblingY + EDGE_LENGTH + MARGIN_TOP,
+            xEnd: flowStepPosition.x + EDGE_LENGTH,
+            y: flowStepPosition.y + upperNodeSiblingY + EDGE_LENGTH,
+            yEnd: flowStepPosition.y + upperNodeSiblingY + EDGE_LENGTH,
           };
 
           result[node.diagramId] = nodePosition;
@@ -68,10 +71,10 @@ export default function useWorkflowDiagramPositionCalculator(id) {
             const upperOutputSiblingY = result[prevOutputId]?.yEnd || 0;
 
             result[output.diagramId] = {
-              x: nodePosition.x + MARGIN_LEFT,
-              xEnd: nodePosition.xEnd + MARGIN_LEFT,
-              y: nodePosition.y + upperOutputSiblingY + EDGE_LENGTH + MARGIN_TOP,
-              yEnd: nodePosition.y + upperOutputSiblingY + EDGE_LENGTH + MARGIN_TOP,
+              x: nodePosition.x + EDGE_LENGTH + MARGIN_LEFT,
+              xEnd: nodePosition.xEnd + OUTPUT_EDGE_LENGTH * 2,
+              y: nodePosition.y + upperOutputSiblingY + OUTPUT_EDGE_LENGTH + MARGIN_TOP,
+              yEnd: nodePosition.y + upperOutputSiblingY + OUTPUT_EDGE_LENGTH + MARGIN_TOP,
             };
           });
         });

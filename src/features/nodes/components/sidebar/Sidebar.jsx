@@ -8,6 +8,7 @@ import {
   faUserGroup,
   faHashtag,
   faTable,
+  faStairs,
 } from '@fortawesome/pro-light-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,7 +50,7 @@ export default function Sidebar(props) {
           to={`${toPath}/workflow`}
           icon={(
             <FontAwesomeIcon
-              icon={faDiagramNext}
+              icon={faStairs}
             />
           )}
           title="Workflow"

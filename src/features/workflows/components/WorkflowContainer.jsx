@@ -41,7 +41,7 @@ export default function WorkflowContainer(props) {
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
           },
           '.IOButtonText': {
-            ml: 1,
+            ml: 2,
             p: 0,
             backgroundColor: 'transparent',
             fontFamily: 'Roboto, sans-serif',
@@ -53,7 +53,7 @@ export default function WorkflowContainer(props) {
             cursor: 'pointer!important',
             pointerEvents: 'none',
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
-            transform: 'skewX(20deg)',
+            transform: 'skewX(30deg)',
           },
         },
       }}

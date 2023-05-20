@@ -2,5 +2,9 @@ export const MARGIN_LEFT = 20; // move children's edge left from where current n
 export const NODE_BUTTON_HEIGHT = 29.5; // height of node button
 export const MARGIN_TOP = NODE_BUTTON_HEIGHT / 2.0 + 0.3; // move children's edge down from current node's button y
 export const EDGE_LENGTH = 35; // length of edge (link)
-export const COMPLETE_Y_LENGTH = EDGE_LENGTH + MARGIN_TOP; // length of edge + button
+// export const COMPLETE_Y_LENGTH = EDGE_LENGTH + MARGIN_TOP; // length of edge + button
 export const INPUT_WIDTH = 200;
+
+export const OUTPUT_EDGE_LENGTH = 50;
+export const WORKFLOW_STEP_HEIGHT = 65;
+export const WORKFLOW_STEP_WIDTH = 350;
