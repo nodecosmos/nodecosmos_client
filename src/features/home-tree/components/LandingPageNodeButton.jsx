@@ -72,7 +72,7 @@ export default function LandingPageNodeButton(props) {
               '&:hover': {
                 backgroundColor,
               },
-              borderRadius: 1.5,
+              borderRadius: 1.25,
               p: '0px 12px',
               cursor: 'pointer',
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
