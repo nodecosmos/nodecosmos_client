@@ -11,7 +11,7 @@ import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import UserHeaderOptions from './UserHeaderOptions';
 
-const NON_HEADER_PATHS = ['/login'];
+const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
 
 export default function Header() {
   const headerContents = {

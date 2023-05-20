@@ -34,12 +34,12 @@ export default function UserHeaderOptions() {
   // if it's not authenticated, show the login and signup buttons
   return (
     <Box display="flex" justifyContent="end">
-      <Button component={Link} to="/login" color="primary" sx={{ mr: 1 }} className="MicroButton">
+      <Button component={Link} to="/auth/login" color="primary" sx={{ mr: 1 }} className="MicroButton">
         Log in
       </Button>
       <Button
         component={Link}
-        to="/login"
+        to="/auth/login"
         variant="outlined"
         className="MicroButton focused"
       >

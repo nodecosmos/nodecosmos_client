@@ -23,16 +23,7 @@ export default function LandingPageTree(props) {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Box
-      className="Tree"
-      display={{
-        xs: 'block',
-        md: 'flex',
-      }}
-      sx={{
-        width: 1,
-      }}
-    >
+    <Box className="Tree">
       <LandingPageTransformable>
         <g>
           <LandingPageNode
@@ -42,37 +33,22 @@ export default function LandingPageTree(props) {
           >
             <LandingPageNestedNodes currentNodeId={id} />
           </LandingPageNode>
+          {!isMobile && <LandingPageNodeDescription />}
         </g>
       </LandingPageTransformable>
       <Box
         backgroundColor="background.6"
-        borderRadius={{
-          xs: 1,
-          md: 3,
-        }}
+        borderRadius={1}
         overflow="hidden"
         boxShadow="buttons.1"
-        width={{
-          md: '38.19700%',
-        }}
-        position={{
-          xs: 'sticky',
-          md: 'static',
-        }}
-        bottom={{
-          xs: 0,
-          md: 'auto',
-        }}
-        my={{
-          xs: 0,
-          lg: 3,
-        }}
+        position="sticky"
+        my={0}
+        bottom={0}
         mx={{
           xs: -3,
-          md: 0,
+          sm: -4,
         }}
       >
-        {!isMobile && <LandingPageNodeDescription />}
         {isMobile && <SwipeableEdgeDrawer />}
       </Box>
     </Box>

@@ -13,12 +13,21 @@ export default function LandingPageTransformable(props) {
   const theme = useTheme();
 
   const matchesSm = useMediaQuery(theme.breakpoints.down('lg'));
-  const scale = matchesSm ? 0.7 : 1;
+  const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
+
+  let scale;
+  if (matchesXs) {
+    scale = 0.5;
+  } else if (matchesSm) {
+    scale = 0.75;
+  } else {
+    scale = 1;
+  }
 
   const containerHeight = 800 * scale;
 
   const minHeight = matchesSm ? 790 : 800;
-  const minWidth = matchesSm ? 400 : 1050;
+  const minWidth = 1050;
 
   const resize = () => {
     const newHeight = gRef.current.getBBox().height + 50;
@@ -51,11 +60,7 @@ export default function LandingPageTransformable(props) {
       onTouchStart={resize}
       overflow={{
         xs: 'auto',
-        lg: 'hidden',
-      }}
-      width={{
-        xs: '100%',
-        lg: '61.803%',
+        md: 'hidden',
       }}
     >
       {/* <TransformablePath panX={pan.x} /> */}

@@ -86,8 +86,8 @@ export default function LandingPageWorkflow() {
                 cy="180"
                 r="30"
                 fill="transparent"
-                stroke={level1}
-                strokeWidth={2}
+                stroke={level3}
+                strokeWidth={1}
                 cursor="pointer"
               />
               <text
@@ -239,8 +239,8 @@ export default function LandingPageWorkflow() {
                 cy="564"
                 r="30"
                 fill="transparent"
-                stroke={level3}
-                strokeWidth={2}
+                stroke={level1}
+                strokeWidth={1}
                 cursor="pointer"
               />
               <text

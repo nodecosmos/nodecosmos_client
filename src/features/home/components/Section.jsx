@@ -7,14 +7,15 @@ export default function Section(props) {
 
   return (
     <Card
-      elevation={2}
+      elevation={0}
       sx={{
-        borderTop: 1,
-        borderColor: 'borders.2',
+        border: 1,
+        borderColor: 'borders.1',
         height: '100%',
         borderRadius,
         padding,
         overflow: 'initial',
+        boxShadow: 'buttons.2',
       }}
     >
       {props.children}

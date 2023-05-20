@@ -49,7 +49,7 @@ function SwipeableEdgeDrawer() {
         sx={{
           '.fa-hashtag': {
             color: 'background.list.default',
-            fontSize: '1.25rem',
+            fontSize: '1rem',
           },
         }}
       >
@@ -61,13 +61,10 @@ function SwipeableEdgeDrawer() {
           <Typography
             ml={1}
             textAlign="left"
-            variant="body1"
+            variant="body2"
             fontWeight="bold"
             lineHeight={1}
             color="text.secondary"
-            sx={{
-              fontSize: '0.95rem',
-            }}
           >
             {(currentNodeId && (currentNodeTitle || 'No Title'))
               || 'Select a node from the tree'}

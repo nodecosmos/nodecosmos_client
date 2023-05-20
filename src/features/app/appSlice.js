@@ -35,6 +35,10 @@ const appSlice = createSlice({
       message: '',
       severity: 'info',
     },
+    descriptionCoordinates: {
+      x: 0,
+      y: 0,
+    },
   },
   reducers: {
     setHeaderContent(state, action) { state.headerContent = action.payload; },
@@ -49,6 +53,9 @@ const appSlice = createSlice({
       state.transformablePositionsById[action.payload.id] = { ...current, ...action.payload };
     },
     setAlert(state, action) { state.alert = action.payload; },
+    setDescriptionCoordinates(state, action) {
+      state.descriptionCoordinates = action.payload;
+    },
   },
 });
 
@@ -60,6 +67,7 @@ export const {
   setHeaderContent,
   setTransformablePositions,
   setAlert,
+  setDescriptionCoordinates,
 } = actions;
 
 export default reducer;
