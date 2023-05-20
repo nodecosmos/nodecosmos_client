@@ -94,7 +94,7 @@ export default {
       scrollbarThumb: '#3e434c',
       paper: '#363a43',
       contrast: '#cccccc',
-      hover: 'rgba(211,211,211,0.1)',
+      hover: 'rgba(182,182,182,0.08)',
     },
 
     toolbar: {
