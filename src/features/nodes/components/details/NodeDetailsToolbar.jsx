@@ -6,8 +6,8 @@ import {
   faRectangleCode, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';
 import {
-  faDiagramNext,
-} from '@fortawesome/pro-light-svg-icons';
+  faArrowProgress,
+} from '@fortawesome/pro-regular-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
@@ -68,7 +68,7 @@ export default function NodeDetailsToolbar() {
         />
         <ToolbarItem
           title="Workflow"
-          icon={faDiagramNext}
+          icon={faArrowProgress}
           color="toolbar.blue"
           active={nodeDetailsAction === 'workflow'}
           onClick={() => dispatch(setNodeDetailsAction('workflow'))}
@@ -94,6 +94,5 @@ export default function NodeDetailsToolbar() {
       )}
       <div />
     </Box>
-
   );
 }

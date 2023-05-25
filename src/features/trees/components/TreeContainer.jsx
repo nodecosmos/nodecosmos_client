@@ -15,9 +15,9 @@ export default function TreeContainer(props) {
           alignItems: 'center',
           cursor: 'pointer',
           boxShadow: 'buttons.1',
-          borderRadius: 1.5,
+          borderRadius: 1.2,
           py: 0,
-          px: 2,
+          px: 1.75,
           border: 'none',
           '.fa-hashtag': {
             fontSize: 14,

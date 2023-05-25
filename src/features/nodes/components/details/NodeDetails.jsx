@@ -24,7 +24,7 @@ export default function NodeDetails() {
       sx={{ overflow: 'hidden' }}
     >
       <NodeDetailsToolbar id={selectedNodeId} />
-      <Box height="calc(100% - 56px)" overflow="auto" pt={0.25}>
+      <Box height="calc(100% - 40px)" overflow="auto" pt={0.25}>
         {nodeDetailsContents[nodeDetailsAction]}
       </Box>
     </Box>

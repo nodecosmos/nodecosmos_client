@@ -99,7 +99,7 @@ export default function Header() {
           </Button>
         </Box>
         <Box
-          width="calc(100% - 465px)"
+          width="calc(100% - 405px)"
           pl={2}
           height={1}
           display="flex"
@@ -110,7 +110,7 @@ export default function Header() {
           {headerContents[headerContent]}
         </Box>
         <Box
-          width={165}
+          pr={1}
           height={1}
           display="flex"
           alignItems="center"

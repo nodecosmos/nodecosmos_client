@@ -1,7 +1,7 @@
 /* eslint-]disable import/prefer-default-export */
 
-export const HEADER_HEIGHT = 56;
-export const SIDEBAR_WIDTH = 300;
+export const HEADER_HEIGHT = 40;
+export const SIDEBAR_WIDTH = 270;
 
 export const LIKE_TYPES = {
   node: 'Node',

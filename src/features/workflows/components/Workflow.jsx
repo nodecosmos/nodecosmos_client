@@ -8,6 +8,7 @@ import { selectWorkflowFlows } from '../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../hooks/diagram/useWorkflowDiagramPositionCalculator';
 import { selectWorkflowDiagram, selectWorkflowsByNodeId } from '../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../workflowsSlice';
+import IoBranch from './IoBranch';
 import Start from './Start';
 import WorkflowNodeButton from './WorkflowNodeButton';
 import WorkflowOutputButton from './WorkflowOutputButton';
@@ -44,6 +45,7 @@ export default function Workflow({ nodeId }) {
     <Transformable containerRef={containerRef} transformableId="workflow">
       <g>
         <Start workflowId={workflow.id} />
+        <IoBranch diagramId={workflow.diagramId} />
         {
           workflowDiagram.initialInputs.map((input) => (
             <g key={input.id}>
@@ -61,6 +63,7 @@ export default function Workflow({ nodeId }) {
                   wfStep.flowSteps.map((flowStep) => flowStep.nodes.map((node) => (
                     <g key={node.diagramId}>
                       <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
+                      <IoBranch diagramId={node.diagramId} />
                       {
                           flowStep.outputsByNodeId[node.id]?.map((input) => (
                             <g key={input.id}>

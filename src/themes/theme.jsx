@@ -34,15 +34,15 @@ const getTheme = (currentTheme) => createTheme({
       fontWeight: 500,
     },
     body1: {
-      fontSize: '1rem',
+      fontSize: '0.875rem',
       fontWeight: 400,
       color: currentTheme.palette.text.contrast,
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: '0.75rem',
     },
     subtitle1: {
-      fontSize: '0.875rem',
+      fontSize: '0.75rem',
     },
     subtitle2: {
       fontSize: '0.75rem',

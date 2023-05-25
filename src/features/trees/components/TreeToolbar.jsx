@@ -16,7 +16,6 @@ export default function TreeToolbar({ rootNodeId }) {
     <Box
       height={HEADER_HEIGHT}
       width={1}
-      px={2}
       display="flex"
       alignItems="center"
       position="relative"
@@ -32,7 +31,7 @@ export default function TreeToolbar({ rootNodeId }) {
           width: '350px',
           '.MuiInputBase-root': {
             pl: 1,
-            borderRadius: 2,
+            borderRadius: 0,
             height: 40,
             backgroundColor: 'toolbar.searchField',
           },
