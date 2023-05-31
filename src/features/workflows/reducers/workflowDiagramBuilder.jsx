@@ -13,6 +13,8 @@ export default {
       flowSteps,
     } = action.payload;
 
+    const prevStepOutputsDiagramIdByIOId = {};
+
     state.workflowDiagramById[workflow.id] = {
       initialInputs: [],
       workflowSteps: [],
@@ -20,6 +22,8 @@ export default {
 
     state.workflowDiagramById[workflow.id].initialInputs = workflow.initialInputs.map((inputId) => {
       const diagramId = buildDefaultIODiagramId(workflow.id, inputId);
+      prevStepOutputsDiagramIdByIOId[inputId] = diagramId;
+
       return {
         id: inputId,
         diagramId,
@@ -39,15 +43,14 @@ export default {
           };
         });
 
-        // append unique input objects for diagram
         const inputsByNodeId = Object.keys(flowStep.inputIdsByNodeId).reduce((acc, nodeId) => {
-          acc[nodeId] = flowStep.inputIdsByNodeId[nodeId].map((inputId) => {
-            const diagramId = buildIODiagramId(flowStepId, nodeId, inputId);
-            return {
-              id: inputId,
-              diagramId,
-            };
-          });
+          const nodeDiagramId = buildDiagramNodeId(flowStepId, nodeId);
+
+          acc[nodeId] = flowStep.inputIdsByNodeId[nodeId].map((inputId) => ({
+            id: inputId,
+            nodeDiagramId,
+            diagramId: prevStepOutputsDiagramIdByIOId[inputId],
+          }));
           return acc;
         }, {});
 
@@ -55,6 +58,8 @@ export default {
         const outputsByNodeId = Object.keys(flowStep.outputIdsByNodeId).reduce((acc, nodeId) => {
           acc[nodeId] = flowStep.outputIdsByNodeId[nodeId].map((outputId) => {
             const diagramId = buildIODiagramId(flowStepId, nodeId, outputId);
+            prevStepOutputsDiagramIdByIOId[outputId] = diagramId;
+
             return {
               id: outputId,
               diagramId,

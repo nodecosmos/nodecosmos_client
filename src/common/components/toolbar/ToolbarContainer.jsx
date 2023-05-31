@@ -28,7 +28,7 @@ export default function ToolbarContainer({ children, round }) {
             borderColor: 'transparent',
             width: 40,
             height: 40,
-            minWidth: 38,
+            minWidth: 40,
             p: 0,
             backgroundColor: 'transparent',
             borderRight: 'none',

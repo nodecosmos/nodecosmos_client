@@ -19,13 +19,8 @@ import WorkflowNodeBranch from './WorkflowNodeBranch';
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon className="fa-hashtag" icon={faArrowProgress} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function WorkflowOutputButton(props) {
+export default function WorkflowOutputButton({ id, diagramId }) {
   const theme = useTheme();
-
-  const {
-    id,
-    diagramId,
-  } = props;
   const title = useSelector(selectIOAttribute(id, 'title'));
 
   const { x, xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
@@ -33,37 +28,40 @@ export default function WorkflowOutputButton(props) {
   if (!xEnd) return null;
 
   return (
-    <g style={{
-      opacity: 0,
-      animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
-    }}
-    >
+    <g>
       <WorkflowNodeBranch diagramId={diagramId} />
-      <foreignObject
-        width="700"
-        height={NODE_BUTTON_HEIGHT + 3}
-        x={xEnd - 10}
-        y={y - MARGIN_TOP}
-        style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
+      <g style={{
+        opacity: 0,
+        animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+      }}
       >
-        <MemoizedButtonBase
-          type="button"
-          className="NodeButton"
-          onKeyUp={(event) => event.preventDefault()}
-          style={{
-            backgroundColor: 'transparent',
-            height: NODE_BUTTON_HEIGHT,
-            marginLeft: 8,
-            transform: 'skewX(-30deg)',
-            border: `3px solid ${theme.palette.tree.default}`,
-          }}
+        <foreignObject
+          width="700"
+          height={NODE_BUTTON_HEIGHT + 3}
+          x={xEnd - 10}
+          y={y - MARGIN_TOP}
+          style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
         >
-          <MemoizedTagRounded />
-          <div className="IOButtonText">
-            {title}
-          </div>
-        </MemoizedButtonBase>
-      </foreignObject>
+          <MemoizedButtonBase
+            type="button"
+            className="NodeButton"
+            onKeyUp={(event) => event.preventDefault()}
+            style={{
+              backgroundColor: 'transparent',
+              height: NODE_BUTTON_HEIGHT,
+              marginLeft: 8,
+              transform: 'skewX(-30deg)',
+              background: theme.palette.workflow.background,
+              border: `2px solid ${theme.palette.workflow.default}`,
+            }}
+          >
+            <MemoizedTagRounded />
+            <div className="IOButtonText">
+              {title}
+            </div>
+          </MemoizedButtonBase>
+        </foreignObject>
+      </g>
     </g>
   );
 }

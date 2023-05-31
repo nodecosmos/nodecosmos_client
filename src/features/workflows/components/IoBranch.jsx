@@ -18,6 +18,8 @@ export default function IoBranch({ diagramId }) {
   const branchY = y + MARGIN_TOP;
   const theme = useTheme();
 
+  if (y === yEnd) return null;
+
   return (
     <path
       stroke={theme.palette.tree.default}
