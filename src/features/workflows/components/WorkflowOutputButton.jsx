@@ -10,7 +10,6 @@ import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
-  IO_BUTTON_HEIGHT,
 } from '../../trees/trees.constants';
 import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
@@ -23,7 +22,7 @@ export default function WorkflowOutputButton({ id, diagramId }) {
   const theme = useTheme();
   const title = useSelector(selectIOAttribute(id, 'title'));
 
-  const { x, xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
+  const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
   if (!xEnd) return null;
 
