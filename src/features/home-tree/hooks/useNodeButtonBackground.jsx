@@ -19,12 +19,14 @@ export default function useNodeButtonBackground(props) {
 
   const hasBg = (nodeExpanded && isCurrentNode) || hasNestedNodes;
 
-  const nodeBackgroundColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];
+  const nodeBackgroundColors = [
+    theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3, theme.palette.tree.level4,
+  ];
   const backgroundColor = (nodeExpanded && isCurrentNode) || hasNestedNodes
-    ? nodeBackgroundColors[nestedLevel % 3] : theme.palette.tree.default;
+    ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
 
   const parentBackgroundColor = parentExpanded
-    ? nodeBackgroundColors[(nestedLevel - 1) % 3] : theme.palette.tree.default;
+    ? nodeBackgroundColors[(nestedLevel - 1) % 4] : theme.palette.tree.default;
 
   const color = hasBg
     ? theme.palette.tree.selectedText : theme.palette.tree.defaultText;

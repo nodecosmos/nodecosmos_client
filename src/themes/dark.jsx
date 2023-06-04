@@ -112,8 +112,9 @@ export default {
     tree: {
       default: '#414650',
       level1: '#e91e63',
-      level2: '#a2d85b', // a9d85b
-      level3: '#4dcdff',
+      level2: '#f0f26f', // a9d85b
+      level3: '#a2d85b', // a9d85b
+      level4: '#4dcdff',
       defaultText: '#fff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
