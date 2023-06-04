@@ -11,7 +11,7 @@ import {
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees/trees.constants';
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../workflows.constants';
+import { MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
 
@@ -39,7 +39,7 @@ export default function WorkflowNodeButton(props) {
       <WorkflowNodeBranch diagramId={diagramId} />
       <foreignObject
         width="700"
-        height={NODE_BUTTON_HEIGHT + 3}
+        height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
         x={xEnd}
         y={y - MARGIN_TOP}
         style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}

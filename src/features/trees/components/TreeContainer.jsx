@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
+import { NODE_BUTTON_HEIGHT } from '../trees.constants';
 
 export default function TreeContainer(props) {
   return (
@@ -9,8 +10,13 @@ export default function TreeContainer(props) {
         height: 1,
         transform: 'translateZ(0)',
         overflow: 'hidden',
-        '.NodeButtonContainer': { display: 'flex' },
+        '.NodeButtonContainer': {
+          display: 'flex',
+          alignItems: 'start',
+          height: 1,
+        },
         '.NodeButton': {
+          height: NODE_BUTTON_HEIGHT,
           display: 'inline-flex',
           alignItems: 'center',
           cursor: 'pointer',

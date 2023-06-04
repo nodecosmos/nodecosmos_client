@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import { createTheme } from '@uiw/codemirror-themes';
 import CodeMirror from '@uiw/react-codemirror';
 import PropTypes from 'prop-types';
+import { HEADER_HEIGHT } from '../../features/app/constants';
 
 export default function CustomCodeMirror(props) {
   const {
@@ -159,7 +160,7 @@ export default function CustomCodeMirror(props) {
         borderRight: 1,
         minWidth: {
           sm: 1,
-          md: 41,
+          md: HEADER_HEIGHT,
         },
         justifyContent: 'center',
         borderColor: 'borders.4',

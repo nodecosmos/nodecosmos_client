@@ -63,6 +63,7 @@ const workflowsSlice = createSlice({
      *     workflowSteps: [
      *       {
      *         diagramId: string,
+     *         index: number,
      *         flowSteps: [
      *          {
      *            diagramId: string,

@@ -29,32 +29,9 @@ export default function Header() {
     <Box
       display="flex"
       alignItems="center"
-      position="fixed"
       height={HEADER_HEIGHT}
-      width={{
-        xs: 1,
-        sm: 'calc(100% - 14px)',
-      }}
-      top={{
-        sm: 7,
-        xs: 0,
-      }}
-      right={{
-        sm: 7,
-        xs: 0,
-      }}
+      width={1}
       backgroundColor="background.2"
-      sx={{
-        borderTopLeftRadius: {
-          xs: 0,
-          sm: 6,
-        },
-        borderTopRightRadius: {
-          xs: 0,
-          sm: 6,
-        },
-      }}
-      zIndex={1}
     >
       <Box
         display="flex"
@@ -99,25 +76,30 @@ export default function Header() {
           </Button>
         </Box>
         <Box
-          width="calc(100% - 405px)"
-          pl={2}
-          height={1}
           display="flex"
-          alignItems="center"
+          width={`calc(100% - ${SIDEBAR_WIDTH}px)`}
           borderBottom={1}
           borderColor="borders.1"
-        >
-          {headerContents[headerContent]}
-        </Box>
-        <Box
-          pr={1}
-          height={1}
-          display="flex"
           alignItems="center"
-          borderBottom={1}
-          borderColor="borders.1"
+          justifyContent="space-between"
+          height={1}
         >
-          <UserHeaderOptions />
+          <Box
+            pl={2}
+            height={1}
+            display="flex"
+            alignItems="center"
+          >
+            {headerContents[headerContent]}
+          </Box>
+          <Box
+            pr={1}
+            height={1}
+            display="flex"
+            alignItems="center"
+          >
+            <UserHeaderOptions />
+          </Box>
         </Box>
       </Box>
     </Box>

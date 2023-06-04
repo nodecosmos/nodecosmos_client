@@ -69,13 +69,13 @@ export default function LazyAppLoad() {
           <Box
             borderRadius={{ xs: 0, sm: 2 }}
             height={1}
-            overflow="auto"
+            overflow="hidden"
             border={1}
             borderColor="borders.2"
           >
             <Alert />
             <Header />
-            <Box height={1} pt={`${HEADER_HEIGHT}px`}>
+            <Box height={1}>
               <Routes>
                 <Route path="/nodes" element={(<NodesIndex />)} />
                 <Route

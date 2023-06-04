@@ -35,7 +35,7 @@ const inputOutputsSlice = createSlice({
       output2: {
         workflowId: 'workflow-1',
         id: 'output2',
-        title: 'output2',
+        title: 'output2 long',
         unit: 'unit2',
         value: 2,
       },
@@ -45,6 +45,13 @@ const inputOutputsSlice = createSlice({
         title: 'output3',
         unit: 'unit3',
         value: 3,
+      },
+      output4: {
+        workflowId: 'workflow-1',
+        id: 'output4',
+        title: 'output4',
+        unit: 'unit4',
+        value: 4,
       },
     },
   },

@@ -32,7 +32,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
-      1: '4px 4px 0px rgb(0 0 0 / 12%)',
+      1: '4px 4px 0px rgb(0 0 0 / 14%)',
       2: '6px 6px 0px rgb(0 0 0 / 8%)',
     },
   },
@@ -102,7 +102,8 @@ export default {
       green: '#b6fd7b',
       blue: '#2adfff',
       lightRed: '#ff6881',
-      hover: '#425b67',
+      yellow: '#f0f26f',
+      hover: 'rgba(63,78,89,0.53)',
       active: 'rgba(63,78,89,0.53)',
       default: '#babecd',
       searchField: '#3a404b',
@@ -122,7 +123,7 @@ export default {
 
     workflow: {
       default: '#414650',
-      input: '#f2bb6f',
+      input: '#f0f26f',
       background: '#2d3139',
     },
 
@@ -161,7 +162,7 @@ export default {
 
     text: {
       primary: '#f5f5f2',
-      secondary: '#838a9a',
+      secondary: '#caced7',
       tertiary: '#626e79',
       contrast: '#fff',
       sectionPrimary: '#acdf83',

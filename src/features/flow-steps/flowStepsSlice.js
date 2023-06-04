@@ -61,7 +61,7 @@ const flowStepsSlice = createSlice({
           id: 'step-3',
           nodeIds: ['node-5'],
           inputIdsByNodeId: {
-            'node-3': ['output3'],
+            'node-5': ['output1', 'output2', 'output4'],
           },
           outputIdsByNodeId: {},
         },

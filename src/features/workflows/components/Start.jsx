@@ -14,9 +14,10 @@ import {
   WORKFLOW_BUTTON_HEIGHT,
 } from '../../trees/trees.constants';
 import {
-  EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP, OUTPUT_EDGE_LENGTH,
+  MARGIN_LEFT, WORKFLOW_START_MARGIN_TOP, NODE_BUTTON_HEIGHT, OUTPUT_EDGE_LENGTH,
 } from '../workflows.constants';
 import { selectWorkflowDiagram } from '../workflows.selectors';
+import WorkflowOutputButton from './WorkflowOutputButton';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faPlay} />);
 const MemoizedButtonBase = memo(ButtonBase);
@@ -25,23 +26,12 @@ export default function Start({ workflowId }) {
   const theme = useTheme();
   const workflowDiagram = useSelector(selectWorkflowDiagram(workflowId));
   const inputsLength = workflowDiagram.initialInputs.length || 0;
-  const x = EDGE_LENGTH;
-  const y = EDGE_LENGTH;
-  const yEnd = y + (OUTPUT_EDGE_LENGTH + MARGIN_TOP) * inputsLength;
+  const x = OUTPUT_EDGE_LENGTH;
+  const y = OUTPUT_EDGE_LENGTH;
+  const yEnd = y + (OUTPUT_EDGE_LENGTH) * inputsLength + WORKFLOW_START_MARGIN_TOP;
 
   return (
     <g>
-      <path
-        stroke={theme.palette.tree.default}
-        fill="transparent"
-        strokeWidth={3.5}
-        d={`M ${x + MARGIN_LEFT} ${y} L ${x + MARGIN_LEFT} ${yEnd}`}
-        style={{
-          opacity: 0,
-          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
-          transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-        }}
-      />
       <foreignObject
         width="700"
         height={WORKFLOW_BUTTON_HEIGHT + 3}
@@ -64,6 +54,27 @@ export default function Start({ workflowId }) {
           </MemoizedButtonBase>
         </div>
       </foreignObject>
+      <path
+        stroke={theme.palette.tree.default}
+        fill="transparent"
+        strokeWidth={3.5}
+        d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+        style={{
+          opacity: 0,
+          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+          transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+        }}
+      />
+      {
+        workflowDiagram.initialInputs.map((input) => (
+          <g key={input.id}>
+            <WorkflowOutputButton
+              diagramId={input.diagramId}
+              id={input.id}
+            />
+          </g>
+        ))
+      }
     </g>
   );
 }

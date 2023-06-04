@@ -10,8 +10,8 @@ export default function UserAvatar({ user, onClick, backgroundColor }) {
     <Avatar
       onClick={onClick}
       sx={{
-        height: 32,
-        width: 32,
+        height: 30,
+        width: 30,
         fontSize: 15,
         backgroundColor,
         color: 'text.primary',

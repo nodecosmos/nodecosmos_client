@@ -45,7 +45,7 @@ export default function NodeButtonContainer(props) {
     >
       <foreignObject
         width="700"
-        height={NODE_BUTTON_HEIGHT + 6}
+        height={NODE_BUTTON_HEIGHT + 8}
         x={xEnd}
         y={y - MARGIN_TOP}
         style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}

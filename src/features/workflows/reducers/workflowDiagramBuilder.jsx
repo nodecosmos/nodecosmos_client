@@ -70,10 +70,12 @@ export default {
 
         state.workflowDiagramById[workflow.id].workflowSteps[index] ||= {
           diagramId: buildWorkflowStepDiagramId(workflow.id, index),
+          index,
           flowSteps: [],
         };
         state.workflowDiagramById[workflow.id].workflowSteps[index].flowSteps.push({
           diagramId: flowStepId,
+          workflowId: workflow.id,
           flowStepId,
           flowId,
           nodes,

@@ -14,7 +14,9 @@ export default function useNodeButtonBackground(treeId) {
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
 
   const hasChildren = useSelector(selectHasChildren(treeId));
-  const nodeBackgroundColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];
+  const nodeBackgroundColors = [
+    theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3, theme.palette.tree.level4,
+  ];
 
   const hasBg = (isExpanded && isSelected) || hasChildren;
 

@@ -19,9 +19,9 @@ export default function UserHeaderOptions() {
 
   if (isAuthenticated) {
     return (
-      <ToolbarContainer round>
+      <ToolbarContainer fontSize="0.95rem">
         <ToolbarItem title="messages" icon={faMessages} color="toolbar.green" />
-        <ToolbarItem title="notifications" icon={faBell} color="toolbar.green" />
+        <ToolbarItem title="notifications" icon={faBell} color="toolbar.yellow" />
         <Tooltip title="Profile" placement="top">
           <Box ml={1}>
             <UserProfileOptions />

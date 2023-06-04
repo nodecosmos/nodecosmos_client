@@ -8,20 +8,19 @@ import {
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees/trees.constants';
+import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
 
-export default function InputBranch({
+export default function InputPipe({
   outputDiagramId,
   nodeDiagramId,
-  outputId,
 }) {
   const theme = useTheme();
 
   const { x, y: yStart } = useSelector(selectWorkflowDiagramPosition(outputDiagramId));
   const { x: xEnd, y: yEnd } = useSelector(selectWorkflowDiagramPosition(nodeDiagramId));
 
-  const title = useSelector(selectIOAttribute(outputId, 'title'));
-  const xStart = x + title.length * 23.9;
+  const xStart = x + OUTPUT_VERTICAL_EDGE_LENGTH + 5;
 
   if (!x) return null;
 
@@ -40,7 +39,7 @@ export default function InputBranch({
   );
 }
 
-InputBranch.propTypes = {
+InputPipe.propTypes = {
   outputDiagramId: PropTypes.string.isRequired,
   nodeDiagramId: PropTypes.string.isRequired,
   outputId: PropTypes.string.isRequired,

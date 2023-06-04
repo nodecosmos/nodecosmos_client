@@ -62,7 +62,7 @@ export default function Transformable(props) {
       style={{
         overflow: 'auto',
         width: '100%',
-        height: `calc(100% - ${HEADER_HEIGHT}px)`,
+        height: `calc(100% - ${HEADER_HEIGHT})`,
       }}
     >
       <svg

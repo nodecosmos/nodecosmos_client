@@ -73,6 +73,13 @@ const getTheme = (currentTheme) => createTheme({
         ...animations(currentTheme),
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: currentTheme.palette.background[1],
+        },
+      },
+    },
     ...input(currentTheme),
     ...buttons(currentTheme),
     ...tab(currentTheme),

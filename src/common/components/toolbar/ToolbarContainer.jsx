@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonGroup } from '@mui/material';
+import { HEADER_HEIGHT } from '../../../features/app/constants';
 
 /**
  *
@@ -10,7 +11,9 @@ import { ButtonGroup } from '@mui/material';
  * @description
  * Looks like It must have two or more children to work properly.
  */
-export default function ToolbarContainer({ children, round }) {
+export default function ToolbarContainer({
+  children, round, size, ml, fontSize,
+}) {
   return (
     <ButtonGroup
       variant="contained"
@@ -20,15 +23,15 @@ export default function ToolbarContainer({ children, round }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        width: 128,
         height: 1,
         '.MuiButtonGroup-grouped': {
           '&:not(:last-of-type), &:not(:first-of-type)': {
-            borderBottom: 2,
+            borderBottom: 3,
             borderColor: 'transparent',
-            width: 40,
-            height: 40,
-            minWidth: 40,
+            ml,
+            width: size,
+            height: size,
+            minWidth: size,
             p: 0,
             backgroundColor: 'transparent',
             borderRight: 'none',
@@ -47,7 +50,7 @@ export default function ToolbarContainer({ children, round }) {
           },
         },
         svg: {
-          fontSize: '1rem',
+          fontSize,
         },
       }}
     >
@@ -58,9 +61,15 @@ export default function ToolbarContainer({ children, round }) {
 
 ToolbarContainer.defaultProps = {
   round: false,
+  size: HEADER_HEIGHT,
+  ml: 0,
+  fontSize: '1rem',
 };
 
 ToolbarContainer.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
   round: PropTypes.bool,
+  size: PropTypes.string,
+  ml: PropTypes.number,
+  fontSize: PropTypes.string,
 };

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import { faArrowProgress } from '@fortawesome/pro-light-svg-icons';
+import { faFlute } from '@fortawesome/pro-light-svg-icons';
 import { selectIOAttribute } from '../../input-outputs/inputOutput.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
@@ -14,8 +14,9 @@ import {
 import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
+import WorkflowOutputBranch from './WorkflowOutputBranch';
 
-const MemoizedTagRounded = memo(() => <FontAwesomeIcon className="fa-hashtag" icon={faArrowProgress} />);
+const MemoizedTagRounded = memo(() => <FontAwesomeIcon className="fa-hashtag" icon={faFlute} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
 export default function WorkflowOutputButton({ id, diagramId }) {
@@ -29,6 +30,7 @@ export default function WorkflowOutputButton({ id, diagramId }) {
   return (
     <g>
       <WorkflowNodeBranch diagramId={diagramId} />
+      <WorkflowOutputBranch diagramId={diagramId} />
       <g style={{
         opacity: 0,
         animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
@@ -43,18 +45,13 @@ export default function WorkflowOutputButton({ id, diagramId }) {
         >
           <MemoizedButtonBase
             type="button"
-            className="NodeButton"
+            className="WorkflowOutputButton"
             onKeyUp={(event) => event.preventDefault()}
             style={{
-              backgroundColor: 'transparent',
-              height: NODE_BUTTON_HEIGHT,
-              marginLeft: 8,
-              transform: 'skewX(-30deg)',
               background: theme.palette.workflow.background,
               border: `2px solid ${theme.palette.workflow.default}`,
             }}
           >
-            <MemoizedTagRounded />
             <div className="IOButtonText">
               {title}
             </div>

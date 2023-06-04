@@ -69,7 +69,7 @@ export default function LikeButton(props) {
         onClick={handleLike}
         className="Item"
         disableRipple
-        sx={{ svg: { fontSize: 14, color: 'toolbar.red' }, '&:hover': { backgroundColor: 'transparent!important' } }}
+        sx={{ svg: { fontSize: 14, color: 'toolbar.red' } }}
         icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
         checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
         inputProps={{ 'aria-label': 'Favorite' }}

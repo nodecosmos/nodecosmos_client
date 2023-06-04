@@ -27,6 +27,14 @@ const appSlice = createSlice({
   initialState: {
     headerContent: null,
     theme: localStorage.getItem('theme') || 'dark',
+    /**
+     * @type {{
+     *   [id: string]: {
+     *     clientHeight: number,
+     *     scrollTop: number,
+     *   }
+     * }}
+     */
     transformablePositionsById: {},
     currentNodeId: null, // used for landing page
     browser: fnBrowserDetect(),
