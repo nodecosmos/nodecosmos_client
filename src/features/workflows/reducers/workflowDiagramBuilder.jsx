@@ -70,6 +70,7 @@ export default {
 
         state.workflowDiagramById[workflow.id].workflowSteps[index] ||= {
           diagramId: buildWorkflowStepDiagramId(workflow.id, index),
+          workflowId: workflow.id,
           index,
           flowSteps: [],
         };
@@ -91,6 +92,7 @@ export default {
       state.workflowDiagramById[workflow.id].workflowSteps.push(
         {
           diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
+          workflowId: workflow.id,
           index: lastIndex,
           flowSteps: [],
         },

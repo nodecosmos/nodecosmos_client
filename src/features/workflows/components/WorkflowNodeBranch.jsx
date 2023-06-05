@@ -43,6 +43,7 @@ export default function WorkflowNodeBranch(props) {
         cx={x}
         cy={y}
         r={5}
+        stroke={theme.palette.secondary.main}
         fill={theme.palette.tree.default}
         style={{
           opacity: 0,

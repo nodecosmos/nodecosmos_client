@@ -14,7 +14,8 @@ import {
 import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
-import WorkflowOutputBranch from './WorkflowOutputBranch';
+import WorkflowRightOutputBranch from './WorkflowRightOutputBranch';
+import WorkflowLeftOutputBranch from './WorkflowLeftOutputBranch';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon className="fa-hashtag" icon={faFlute} />);
 const MemoizedButtonBase = memo(ButtonBase);
@@ -29,8 +30,8 @@ export default function WorkflowOutputButton({ id, diagramId }) {
 
   return (
     <g>
-      <WorkflowNodeBranch diagramId={diagramId} />
-      <WorkflowOutputBranch diagramId={diagramId} />
+      <WorkflowLeftOutputBranch diagramId={diagramId} />
+      <WorkflowRightOutputBranch diagramId={diagramId} />
       <g style={{
         opacity: 0,
         animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,

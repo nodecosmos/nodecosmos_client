@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectFlowAttribute } from '../../flows/flows.selectors';
 import { WORKFLOW_STEP_WIDTH, FLOW_STEP_SIZE } from '../../workflows/workflows.constants';
 import InputPipe from '../../input-outputs/components/InputPipe';
-import IoBranch from '../../input-outputs/components/IoBranch';
+import NodeOutputsBranch from '../../workflows/components/NodeOutputsBranch';
 import WorkflowNodeButton from '../../workflows/components/WorkflowNodeButton';
 import WorkflowOutputButton from '../../workflows/components/WorkflowOutputButton';
 import FlowStepToolbar from './FlowStepToolbar';
@@ -63,7 +63,7 @@ export default function FlowStep({
             ))
           }
           <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
-          <IoBranch diagramId={node.diagramId} />
+          <NodeOutputsBranch diagramId={node.diagramId} />
           {
             flowStep.outputsByNodeId[node.id]?.map((input) => (
               <g key={input.id}>

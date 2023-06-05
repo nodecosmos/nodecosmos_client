@@ -7,9 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../../app/app.selectors';
 import CreateFlowModal from '../../flows/components/CreateFlowModal';
 import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
 import FlowStep from '../../flow-steps/components/FlowStep';
-import WorkflowStepToolbar from './WorkflowStepToolbar';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
@@ -17,6 +15,8 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
 
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
+
+  if (!clientHeight) return null;
 
   return (
     <g

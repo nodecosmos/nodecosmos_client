@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 import {
   INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../trees/trees.constants';
-import { MARGIN_LEFT, MARGIN_TOP } from '../../workflows/workflows.constants';
-import { selectWorkflowDiagramPosition } from '../../workflows/workflows.selectors';
+import { MARGIN_LEFT, MARGIN_TOP } from '../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../workflows.selectors';
 
-export default function IoBranch({ diagramId }) {
+export default function NodeOutputsBranch({ diagramId }) {
   const {
     x, xEnd, y, yEnd,
   } = useSelector(selectWorkflowDiagramPosition(diagramId));
@@ -35,6 +35,6 @@ export default function IoBranch({ diagramId }) {
   );
 }
 
-IoBranch.propTypes = {
+NodeOutputsBranch.propTypes = {
   diagramId: PropTypes.string.isRequired,
 };

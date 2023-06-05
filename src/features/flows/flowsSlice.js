@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createFlow } from './flows.thunks';
 
 const flowStepsSlice = createSlice({
   name: 'flows',
@@ -33,9 +34,11 @@ const flowStepsSlice = createSlice({
   },
   reducers: {},
   extraReducers(builder) {
-    builder.addCase('flows/createFlow', (state, action) => {
+    builder.addCase(createFlow.fulfilled, (state, action) => {
       const { workflowId, id } = action.payload;
       state.byWorkflowId[workflowId][id] = action.payload;
+    }).addCase(createFlow.rejected, (state, action) => {
+      console.log('createFlow.rejected', action);
     });
   },
 });
