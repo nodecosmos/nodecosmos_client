@@ -98,7 +98,7 @@ export default {
     },
 
     toolbar: {
-      red: '#F91880FF',
+      red: '#e91e63',
       green: '#b6fd7b',
       blue: '#2adfff',
       lightRed: '#ff6881',
@@ -113,7 +113,7 @@ export default {
     tree: {
       default: '#414650',
       level1: '#e91e63',
-      level2: '#f0f26f', // a9d85b
+      level2: '#f0f26f', // a9d85b aa7ff5
       level3: '#b3e96b', // a9d85b
       level4: '#4dcdff',
       defaultText: '#fff',
@@ -123,7 +123,7 @@ export default {
 
     workflow: {
       default: '#414650',
-      input: '#f0f26f',
+      input: '#cdd4ff',
       background: '#2d3139',
     },
 

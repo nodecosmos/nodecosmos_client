@@ -1,11 +1,14 @@
 import React from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import {
+  Box, Button, Typography, useTheme,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../../app/app.selectors';
+import CreateFlowModal from '../../flows/components/CreateFlowModal';
 import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../workflows.selectors';
-import FlowStep from './FlowStep';
+import FlowStep from '../../flow-steps/components/FlowStep';
 import WorkflowStepToolbar from './WorkflowStepToolbar';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
@@ -13,6 +16,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const [hovered, setHovered] = React.useState(false);
 
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
+  const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
 
   return (
     <g
@@ -31,7 +35,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={WORKFLOW_STEP_WIDTH * (wfStepIndex + 1)}
-        y={SHADOW_OFFSET}
+        y={SHADOW_OFFSET + 1}
         height={clientHeight + 1000}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
@@ -60,17 +64,34 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
             fontWeight={700}
             color="text.secondary"
           >
-            Step
-            {' '}
             {wfStepIndex + 1}
           </Typography>
-          {hovered && <WorkflowStepToolbar />}
+          {hovered && (
+          <Button
+            size="small"
+            variant="outlined"
+            color="secondary"
+            disableElevation
+            type="submit"
+            sx={{ ml: 2, borderRadius: 1 }}
+            onClick={() => setOpenCreateFlowModal(true)}
+          >
+            Add Flow
+          </Button>
+          )}
         </Box>
+        <CreateFlowModal
+          workflowId={wfStep.workflowId}
+          open={openCreateFlowModal}
+          startIndex={wfStepIndex}
+          onClose={() => setOpenCreateFlowModal(false)}
+        />
       </foreignObject>
 
       {
         wfStep.flowSteps.map((flowStep, index) => (
           <FlowStep
+            wfStepHovered={hovered}
             key={flowStep.diagramId}
             flowStep={flowStep}
             wfStepIndex={wfStepIndex}

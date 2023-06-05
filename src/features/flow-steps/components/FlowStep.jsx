@@ -1,19 +1,18 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { faWaveSine } from '@fortawesome/pro-solid-svg-icons';
 import { selectFlowAttribute } from '../../flows/flows.selectors';
-import {
-  WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH, MARGIN_TOP, FLOW_STEP_SIZE,
-} from '../workflows.constants';
-import InputPipe from './InputPipe';
-import IoBranch from './IoBranch';
-import WorkflowNodeButton from './WorkflowNodeButton';
-import WorkflowOutputButton from './WorkflowOutputButton';
+import { WORKFLOW_STEP_WIDTH, FLOW_STEP_SIZE } from '../../workflows/workflows.constants';
+import InputPipe from '../../input-outputs/components/InputPipe';
+import IoBranch from '../../input-outputs/components/IoBranch';
+import WorkflowNodeButton from '../../workflows/components/WorkflowNodeButton';
+import WorkflowOutputButton from '../../workflows/components/WorkflowOutputButton';
+import FlowStepToolbar from './FlowStepToolbar';
 
-export default function FlowStep({ flowStep, wfStepIndex, flowStepIndex }) {
+export default function FlowStep({
+  flowStep, wfStepIndex, flowStepIndex, wfStepHovered,
+}) {
   const flowTitle = useSelector(selectFlowAttribute(flowStep.workflowId, flowStep.flowId, 'title'));
 
   return (
@@ -37,6 +36,7 @@ export default function FlowStep({ flowStep, wfStepIndex, flowStepIndex }) {
           position="relative"
         >
           <Typography
+            fontSize={18.75}
             variant="body1"
             fontFamily="'Roboto', sans-serif"
             fontWeight={700}
@@ -45,6 +45,7 @@ export default function FlowStep({ flowStep, wfStepIndex, flowStepIndex }) {
           >
             {flowTitle}
           </Typography>
+          {wfStepHovered && <FlowStepToolbar />}
         </Box>
       </foreignObject>
       {
@@ -84,4 +85,5 @@ FlowStep.propTypes = {
   flowStepIndex: PropTypes.number.isRequired,
   wfStepIndex: PropTypes.number.isRequired,
   flowStep: PropTypes.object.isRequired,
+  wfStepHovered: PropTypes.bool.isRequired,
 };

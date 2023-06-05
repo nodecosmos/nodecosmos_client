@@ -2,14 +2,14 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectIOAttribute } from '../../input-outputs/inputOutput.selectors';
+import { selectIOAttribute } from '../inputOutput.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees/trees.constants';
-import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
+import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../workflows/workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows/workflows.selectors';
 
 export default function InputPipe({
   outputDiagramId,

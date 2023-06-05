@@ -85,5 +85,16 @@ export default {
         });
       });
     });
+
+    for (let i = 0; i < 10; i += 1) {
+      const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
+      state.workflowDiagramById[workflow.id].workflowSteps.push(
+        {
+          diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
+          index: lastIndex,
+          flowSteps: [],
+        },
+      );
+    }
   },
 };

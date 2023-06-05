@@ -26,12 +26,17 @@ const flowStepsSlice = createSlice({
           title: 'Flow 1',
           description: 'Flow 1 description',
           stepIds: ['step-1', 'step-2', 'step-3'],
+          startIndex: 0,
         },
       },
     },
   },
   reducers: {},
   extraReducers(builder) {
+    builder.addCase('flows/createFlow', (state, action) => {
+      const { workflowId, id } = action.payload;
+      state.byWorkflowId[workflowId][id] = action.payload;
+    });
   },
 });
 

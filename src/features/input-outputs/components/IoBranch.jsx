@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import {
   INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../trees/trees.constants';
-import { MARGIN_LEFT, MARGIN_TOP } from '../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
+import { MARGIN_LEFT, MARGIN_TOP } from '../../workflows/workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows/workflows.selectors';
 
 export default function IoBranch({ diagramId }) {
   const {
