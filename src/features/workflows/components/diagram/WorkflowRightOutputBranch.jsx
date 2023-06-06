@@ -4,23 +4,28 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
   INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
-} from '../../trees/trees.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
+} from '../../../trees/trees.constants';
+import {
+  OUTPUT_VERTICAL_EDGE_LENGTH,
+} from '../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function WorkflowNodeBranch(props) {
-  const { diagramId } = props;
+export default function WorkflowRightOutputBranch(props) {
+  const { id } = props;
 
   const theme = useTheme();
 
-  const { x, xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
+  const { x, y } = useSelector(selectWorkflowDiagramPosition(id));
 
   if (!x) { return null; }
 
   const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
   const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
   const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
+
+  const xEnd = x + OUTPUT_VERTICAL_EDGE_LENGTH;
 
   return (
     <g>
@@ -40,10 +45,9 @@ export default function WorkflowNodeBranch(props) {
         }}
       />
       <circle
-        cx={x}
+        cx={xEnd}
         cy={y}
         r={5}
-        stroke={theme.palette.secondary.main}
         fill={theme.palette.tree.default}
         style={{
           opacity: 0,
@@ -55,6 +59,6 @@ export default function WorkflowNodeBranch(props) {
   );
 }
 
-WorkflowNodeBranch.propTypes = {
-  diagramId: PropTypes.string.isRequired,
+WorkflowRightOutputBranch.propTypes = {
+  id: PropTypes.string.isRequired,
 };

@@ -23,3 +23,13 @@ export const selectWorkflowDiagramPosition = (diagramId) => createSelector(
   selectWorkflowDiagramPositionById,
   (workflowDiagramPositionById) => workflowDiagramPositionById[diagramId] || {},
 );
+
+export const selectWorkflow = (workflowId) => createSelector(
+  selectWorkflowsById,
+  (workflowsById) => workflowsById[workflowId],
+);
+
+export const selectWorkflowAttribute = (workflowId, attribute) => createSelector(
+  selectWorkflow(workflowId),
+  (workflow) => workflow[attribute],
+);

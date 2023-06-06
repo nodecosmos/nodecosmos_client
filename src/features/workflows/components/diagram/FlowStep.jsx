@@ -2,12 +2,12 @@ import React from 'react';
 import { Typography, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectFlowAttribute } from '../../flows/flows.selectors';
-import { WORKFLOW_STEP_WIDTH, FLOW_STEP_SIZE } from '../../workflows/workflows.constants';
-import InputPipe from '../../input-outputs/components/InputPipe';
-import NodeOutputsBranch from '../../workflows/components/NodeOutputsBranch';
-import WorkflowNodeButton from '../../workflows/components/WorkflowNodeButton';
-import WorkflowOutputButton from '../../workflows/components/WorkflowOutputButton';
+import { selectFlowAttribute } from '../../../flows/flows.selectors';
+import { WORKFLOW_STEP_WIDTH, FLOW_STEP_SIZE } from '../../workflows.constants';
+import InputPipe from '../../../input-outputs/components/InputPipe';
+import NodeOutputsBranch from './NodeOutputsBranch';
+import WorkflowNodeButton from './WorkflowNodeButton';
+import WorkflowOutputButton from './WorkflowOutputButton';
 import FlowStepToolbar from './FlowStepToolbar';
 
 export default function FlowStep({
@@ -49,34 +49,33 @@ export default function FlowStep({
         </Box>
       </foreignObject>
       {
-      flowStep.nodes.map((node) => (
-        <g key={node.diagramId}>
-          {
-            flowStep.inputsByNodeId[node.id]?.map((input) => (
-              <g key={input.id}>
-                <InputPipe
-                  nodeDiagramId={input.nodeDiagramId}
-                  outputId={input.id}
-                  outputDiagramId={input.diagramId}
-                />
-              </g>
-            ))
-          }
-          <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
-          <NodeOutputsBranch diagramId={node.diagramId} />
-          {
-            flowStep.outputsByNodeId[node.id]?.map((input) => (
-              <g key={input.id}>
-                <WorkflowOutputButton
-                  diagramId={input.diagramId}
-                  id={input.id}
-                />
-              </g>
-            ))
-          }
-        </g>
-      ))
-    }
+        flowStep.nodes.map((node) => (
+          <g key={node.diagramId}>
+            {
+              flowStep.inputsByNodeId[node.id]?.map((input) => (
+                <g key={input.id}>
+                  <InputPipe
+                    nodeDiagramId={input.nodeDiagramId}
+                    id={input.id}
+                  />
+                </g>
+              ))
+            }
+            <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
+            <NodeOutputsBranch diagramId={node.diagramId} />
+            {
+              flowStep.outputIdsByNodeId[node.id]?.map((input) => (
+                <g key={input.id}>
+                  <WorkflowOutputButton
+                    diagramId={input.diagramId}
+                    id={input.id}
+                  />
+                </g>
+              ))
+            }
+          </g>
+        ))
+      }
     </g>
   );
 }

@@ -4,10 +4,11 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionsById } from '../../app/app.selectors';
-import CreateFlowModal from '../../flows/components/CreateFlowModal';
-import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../workflows.constants';
-import FlowStep from '../../flow-steps/components/FlowStep';
+import { selectTransformablePositionsById } from '../../../app/app.selectors';
+import CreateFlowModal from '../../../flows/components/CreateFlowModal';
+import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
+import WfStepFlow from './WfStepFlow';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
@@ -15,6 +16,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
 
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
+  const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
 
   if (!clientHeight) return null;
 
@@ -26,16 +28,15 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
     >
       <path
         strokeWidth={1}
-        d={`M ${WORKFLOW_STEP_WIDTH * (wfStepIndex + 1)} 0
-            L ${WORKFLOW_STEP_WIDTH * (wfStepIndex + 1)} 
-              ${clientHeight + 1000}`}
+        d={`M ${x} 0
+            L ${x} ${clientHeight + 1000}`}
         stroke={theme.palette.workflow.default}
         fill="transparent"
       />
       <rect
         onMouseEnter={() => setHovered(true)}
-        x={WORKFLOW_STEP_WIDTH * (wfStepIndex + 1)}
-        y={SHADOW_OFFSET + 1}
+        x={x}
+        y={SHADOW_OFFSET}
         height={clientHeight + 1000}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
@@ -47,7 +48,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         className="NodeName"
         width={WORKFLOW_STEP_WIDTH}
         height={WORKFLOW_STEP_HEIGHT}
-        x={WORKFLOW_STEP_WIDTH * (wfStepIndex + 1)}
+        x={x}
         y="0"
       >
         <Box
@@ -89,14 +90,8 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       </foreignObject>
 
       {
-        wfStep.flowSteps.map((flowStep, index) => (
-          <FlowStep
-            wfStepHovered={hovered}
-            key={flowStep.diagramId}
-            flowStep={flowStep}
-            wfStepIndex={wfStepIndex}
-            flowStepIndex={index}
-          />
+        wfStep.flows && wfStep.flows.map((flow) => (
+          <WfStepFlow key={flow.diagramId} flow={flow} wfStepHovered={hovered} wfStepIndex={wfStepIndex} />
         ))
       }
     </g>

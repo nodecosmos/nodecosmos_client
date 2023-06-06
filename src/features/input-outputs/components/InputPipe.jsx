@@ -12,12 +12,12 @@ import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../workflows/workflows.constants
 import { selectWorkflowDiagramPosition } from '../../workflows/workflows.selectors';
 
 export default function InputPipe({
-  outputDiagramId,
+  id,
   nodeDiagramId,
 }) {
   const theme = useTheme();
 
-  const { x, y: yStart } = useSelector(selectWorkflowDiagramPosition(outputDiagramId));
+  const { x, y: yStart } = useSelector(selectWorkflowDiagramPosition(id)); // output of prev step
   const { x: xEnd, y: yEnd } = useSelector(selectWorkflowDiagramPosition(nodeDiagramId));
 
   const xStart = x + OUTPUT_VERTICAL_EDGE_LENGTH + 5;
@@ -40,7 +40,6 @@ export default function InputPipe({
 }
 
 InputPipe.propTypes = {
-  outputDiagramId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   nodeDiagramId: PropTypes.string.isRequired,
-  outputId: PropTypes.string.isRequired,
 };

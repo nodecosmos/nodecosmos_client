@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 /* nodecosmos */
 import {
   INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
-} from '../../trees/trees.constants';
-import { MARGIN_LEFT, MARGIN_TOP } from '../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
+} from '../../../trees/trees.constants';
+import { MARGIN_LEFT, MARGIN_TOP } from '../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 
 export default function NodeOutputsBranch({ diagramId }) {
   const {

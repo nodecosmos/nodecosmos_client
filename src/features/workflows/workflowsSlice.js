@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createFlow } from '../flows/flows.thunks';
 import workflowDiagramBuilder from './reducers/workflowDiagramBuilder';
 import workflowDiagramPositionSetter from './reducers/workflowDiagramPositionSetter';
+import { createWorkflow, showWorkflow, updateWorkflowInitialInputs } from './workflows.thunks';
 
 const workflowsSlice = createSlice({
   name: 'workflows',
@@ -11,7 +13,7 @@ const workflowsSlice = createSlice({
         nodeId: 'node-1',
         title: 'Workflow',
         description: 'Workflow description',
-        initialInputs: ['input1', 'input2'],
+        initialInputIds: ['input1', 'input2'],
         flowIds: ['flow-1'],
       },
     },
@@ -54,12 +56,7 @@ const workflowsSlice = createSlice({
      *
      * @type {{
      *   [workflowId: string]: {
-     *     initialInputs: [
-     *       {
-     *         inputId: string,
-     *         diagramId: string,
-     *       },
-     *     ],
+     *     initialInputIds: string[],
      *     workflowSteps: [
      *       {
      *         diagramId: string,
@@ -118,6 +115,40 @@ const workflowsSlice = createSlice({
     setWorkflowDiagramPosition: workflowDiagramPositionSetter.setWorkflowDiagramPosition,
   },
   extraReducers(builder) {
+    builder
+      .addCase(showWorkflow.fulfilled, (state, action) => {
+        const { workflow } = action.payload;
+        const { id, nodeId } = workflow;
+
+        workflow.flowIds = workflow.flowIds || [];
+        workflow.initialInputIds = workflow.initialInputIds || [];
+
+        state.byId[id] = workflow;
+
+        state.idsByNodeId[nodeId] = state.idsByNodeId[nodeId] || [];
+        state.idsByNodeId[nodeId].push(id);
+      })
+      .addCase(createWorkflow.fulfilled, (state, action) => {
+        const { workflow } = action.payload;
+        const { id, nodeId } = workflow;
+
+        workflow.flowIds = workflow.flowIds || [];
+        workflow.initialInputIds = workflow.initialInputIds || [];
+
+        state.byId[id] = workflow;
+
+        state.idsByNodeId[nodeId] = state.idsByNodeId[nodeId] || [];
+        state.idsByNodeId[nodeId].push(id);
+      })
+      .addCase(createFlow.fulfilled, (state, action) => {
+        const { flow } = action.payload;
+        state.byId[flow.workflowId].flowIds.push(flow.id);
+      })
+      .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
+        const { id, initialInputIds } = action.payload.workflow;
+
+        state.byId[id].initialInputIds = initialInputIds;
+      });
   },
 });
 

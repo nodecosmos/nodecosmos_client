@@ -5,14 +5,14 @@ import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
-} from '../../trees/trees.constants';
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET } from '../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
+} from '../../../trees/trees.constants';
+import { MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET } from '../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);

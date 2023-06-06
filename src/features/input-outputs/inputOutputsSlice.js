@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { showWorkflow } from '../workflows/workflows.thunks';
+import { createIo } from './inputOutput.thunks';
 
 const inputOutputsSlice = createSlice({
   name: 'nodes',
@@ -57,6 +59,16 @@ const inputOutputsSlice = createSlice({
   },
   reducers: {},
   extraReducers(builder) {
+    builder
+      .addCase(showWorkflow.fulfilled, (state, action) => {
+        const { inputOutputs } = action.payload;
+        inputOutputs.forEach((inputOutput) => {
+          state.byId[inputOutput.id] = inputOutput;
+        });
+      }).addCase(createIo.fulfilled, (state, action) => {
+        const { inputOutput } = action.payload;
+        state.byId[inputOutput.id] = inputOutput;
+      });
   },
 });
 

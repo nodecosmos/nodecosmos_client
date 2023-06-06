@@ -9,7 +9,7 @@ import { Form } from 'react-final-form';
 import AddRounded from '@mui/icons-material/AddRounded';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import TagRounded from '@mui/icons-material/TagRounded';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 /* mui */
 import {
@@ -19,27 +19,26 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
-import { createFlow } from '../flows.thunks';
+import { createWorkflow } from '../workflows.thunks';
 
-export default function CreateFlowModal({
-  open, onClose, workflowId, startIndex,
+export default function CreateWorkflowModal({
+  open, onClose, nodeId,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
 
   const onSubmit = async (formValues) => {
     setLoading(true);
 
     const payload = {
       nodeId,
-      startIndex,
-      workflowId,
       ...formValues,
     };
 
-    dispatch(createFlow(payload));
+    await dispatch(createWorkflow(payload));
+
+    setLoading(false);
+    onClose();
   };
 
   return (
@@ -50,7 +49,7 @@ export default function CreateFlowModal({
       open={open}
     >
       <DialogTitle>
-        New Flow
+        New Workflow
         <IconButton
           disableRipple
           onClick={onClose}
@@ -70,7 +69,7 @@ export default function CreateFlowModal({
               <FinalFormInputField
                 fullWidth
                 name="title"
-                placeholder="Flow Title"
+                placeholder="Workflow Title"
                 required
                 InputProps={{
                   startAdornment: (
@@ -99,9 +98,8 @@ export default function CreateFlowModal({
   );
 }
 
-CreateFlowModal.propTypes = {
+CreateWorkflowModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  startIndex: PropTypes.number.isRequired,
-  workflowId: PropTypes.string.isRequired,
+  nodeId: PropTypes.string.isRequired,
 };

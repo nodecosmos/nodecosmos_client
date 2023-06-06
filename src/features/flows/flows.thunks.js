@@ -1,10 +1,8 @@
-// For now thunks are handled automatically by extraReducers in nodesSlice and treesSlice.
-// Rethink this approach as it may be too implicit.
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
 
 export const createFlow = createAsyncThunk(
-  'nodes/createFlow',
+  'flows/createFlow',
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.post('/flows', payload);
 
@@ -13,7 +11,7 @@ export const createFlow = createAsyncThunk(
 );
 
 export const updateFlowTitle = createAsyncThunk(
-  'nodes/updateFlowTitle',
+  'flows/updateFlowTitle',
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.patch(`/flows/${payload.id}/title`, payload);
 
@@ -22,7 +20,7 @@ export const updateFlowTitle = createAsyncThunk(
 );
 
 export const updateFlowDescription = createAsyncThunk(
-  'nodes/updateFlowDescription',
+  'flows/updateFlowDescription',
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.patch(`/flows/${payload.id}/description`, payload);
 

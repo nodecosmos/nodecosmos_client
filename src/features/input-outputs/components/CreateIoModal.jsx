@@ -19,27 +19,50 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
-import { createFlow } from '../flows.thunks';
+import { selectWorkflow } from '../../workflows/workflows.selectors';
+import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
+import { createIo } from '../inputOutput.thunks';
 
-export default function CreateFlowModal({
-  open, onClose, workflowId, startIndex,
+export const ASSOCIATED_OBJECT_TYPES = {
+  workflow: 'workflow',
+  flowStep: 'flowStep',
+};
+
+export default function CreateIoModal({
+  open, onClose, workflowId, associatedObject,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+  const workflow = useSelector(selectWorkflow(workflowId));
 
   const onSubmit = async (formValues) => {
     setLoading(true);
 
     const payload = {
-      nodeId,
-      startIndex,
       workflowId,
       ...formValues,
     };
 
-    dispatch(createFlow(payload));
+    await dispatch(createIo(payload)).then((data) => {
+      const { inputOutput } = data.payload;
+
+      if (associatedObject === ASSOCIATED_OBJECT_TYPES.workflow) {
+        const initialInputIds = [...workflow.initialInputIds, inputOutput.id] || [inputOutput.id];
+
+        return dispatch(updateWorkflowInitialInputs({
+          nodeId: workflow.nodeId,
+          id: workflow.id,
+          initialInputIds,
+        }));
+      }
+
+      // TODO: flow step
+      return Promise.resolve();
+    });
+
+    setLoading(false);
+
+    onClose();
   };
 
   return (
@@ -50,7 +73,7 @@ export default function CreateFlowModal({
       open={open}
     >
       <DialogTitle>
-        New Flow
+        New IO
         <IconButton
           disableRipple
           onClick={onClose}
@@ -70,7 +93,7 @@ export default function CreateFlowModal({
               <FinalFormInputField
                 fullWidth
                 name="title"
-                placeholder="Flow Title"
+                placeholder="IO Title"
                 required
                 InputProps={{
                   startAdornment: (
@@ -99,9 +122,9 @@ export default function CreateFlowModal({
   );
 }
 
-CreateFlowModal.propTypes = {
+CreateIoModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  startIndex: PropTypes.number.isRequired,
   workflowId: PropTypes.string.isRequired,
+  associatedObject: PropTypes.string.isRequired,
 };

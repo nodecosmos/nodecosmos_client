@@ -1,37 +1,33 @@
 import React, { memo } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import { faFlute } from '@fortawesome/pro-light-svg-icons';
-import { selectIOAttribute } from '../../input-outputs/inputOutput.selectors';
+import { selectIOAttribute } from '../../../input-outputs/inputOutput.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
-} from '../../trees/trees.constants';
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../workflows.selectors';
-import WorkflowNodeBranch from './WorkflowNodeBranch';
+} from '../../../trees/trees.constants';
+import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import WorkflowRightOutputBranch from './WorkflowRightOutputBranch';
 import WorkflowLeftOutputBranch from './WorkflowLeftOutputBranch';
 
-const MemoizedTagRounded = memo(() => <FontAwesomeIcon className="fa-hashtag" icon={faFlute} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function WorkflowOutputButton({ id, diagramId }) {
+export default function WorkflowOutputButton({ id }) {
   const theme = useTheme();
   const title = useSelector(selectIOAttribute(id, 'title'));
 
-  const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
+  const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(id));
 
   if (!xEnd) return null;
 
   return (
     <g>
-      <WorkflowLeftOutputBranch diagramId={diagramId} />
-      <WorkflowRightOutputBranch diagramId={diagramId} />
+      <WorkflowLeftOutputBranch id={id} />
+      <WorkflowRightOutputBranch id={id} />
       <g style={{
         opacity: 0,
         animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
@@ -65,5 +61,4 @@ export default function WorkflowOutputButton({ id, diagramId }) {
 
 WorkflowOutputButton.propTypes = {
   id: PropTypes.string.isRequired,
-  diagramId: PropTypes.string.isRequired,
 };

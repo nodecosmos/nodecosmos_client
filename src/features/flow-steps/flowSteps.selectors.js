@@ -6,3 +6,13 @@ export const selectWorkflowFlowSteps = (workflowId) => createSelector(
   selectFlowStepsByWorkflowId,
   (flowStepsByWorkflowId) => flowStepsByWorkflowId[workflowId],
 );
+
+export const selectWorkflowFlowStepIdsByFlowId = (workflowId) => createSelector(
+  selectFlowStepsByWorkflowId,
+  (flowStepsByWorkflowId) => flowStepsByWorkflowId[workflowId].reduce((acc, flowStepId) => {
+    const flowStep = flowStepsByWorkflowId[flowStepId];
+    acc[flowStep.flowId] ||= [];
+    acc[flowStep.flowId].push(flowStepId);
+    return acc;
+  }, {}),
+);

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { showWorkflow } from '../workflows/workflows.thunks';
 import { createFlow } from './flows.thunks';
 
 const flowStepsSlice = createSlice({
@@ -31,15 +32,31 @@ const flowStepsSlice = createSlice({
         },
       },
     },
+
+    /**
+     * @type {{
+     *   [flowId: string]: number,
+     * }}
+     */
+    flowStartIndexByFlowId: {},
   },
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(createFlow.fulfilled, (state, action) => {
-      const { workflowId, id } = action.payload;
-      state.byWorkflowId[workflowId][id] = action.payload;
-    }).addCase(createFlow.rejected, (state, action) => {
-      console.log('createFlow.rejected', action);
-    });
+    builder
+      .addCase(createFlow.fulfilled, (state, action) => {
+        const { flow } = action.payload;
+        state.byWorkflowId[flow.workflowId][flow.id] = flow;
+      })
+      .addCase(createFlow.rejected, (state, action) => {
+        console.log('createFlow.rejected', action);
+      })
+      .addCase(showWorkflow.fulfilled, (state, action) => {
+        const { workflow, flows } = action.payload;
+        state.byWorkflowId[workflow.id] = flows.reduce((acc, flow) => {
+          acc[flow.id] = flow;
+          return acc;
+        }, {});
+      });
   },
 });
 

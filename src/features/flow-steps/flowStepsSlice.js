@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { showWorkflow } from '../workflows/workflows.thunks';
 
 const flowStepsSlice = createSlice({
   name: 'flowSteps',
@@ -71,6 +72,13 @@ const flowStepsSlice = createSlice({
   },
   reducers: {},
   extraReducers(builder) {
+    builder.addCase(showWorkflow.fulfilled, (state, action) => {
+      const { workflow, flowSteps } = action.payload;
+      state.byWorkflowId[workflow.id] = flowSteps.reduce((acc, flowStep) => {
+        acc[flowStep.id] = flowStep;
+        return acc;
+      }, {});
+    });
   },
 });
 
