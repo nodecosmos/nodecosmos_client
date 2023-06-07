@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectNodeDetailsAction, selectSelectedNodeId } from '../../nodes.selectors';
 import MarkdownEditor from './MarkdownEditor';
 import NodeDescription from './NodeDescription';
@@ -24,7 +25,7 @@ export default function NodeDetails() {
       sx={{ overflow: 'hidden' }}
     >
       <NodeDetailsToolbar id={selectedNodeId} />
-      <Box height="calc(100% - 56px)" overflow="auto" pt={0.25}>
+      <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto" pt={0.25}>
         {nodeDetailsContents[nodeDetailsAction]}
       </Box>
     </Box>

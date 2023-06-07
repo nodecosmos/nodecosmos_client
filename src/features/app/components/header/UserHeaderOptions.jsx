@@ -19,11 +19,11 @@ export default function UserHeaderOptions() {
 
   if (isAuthenticated) {
     return (
-      <ToolbarContainer>
+      <ToolbarContainer fontSize="0.95rem">
         <ToolbarItem title="messages" icon={faMessages} color="toolbar.green" />
-        <ToolbarItem title="notifications" icon={faBell} color="toolbar.green" />
+        <ToolbarItem title="notifications" icon={faBell} color="toolbar.yellow" />
         <Tooltip title="Profile" placement="top">
-          <Box ml={2}>
+          <Box ml={1}>
             <UserProfileOptions />
           </Box>
         </Tooltip>
@@ -33,8 +33,8 @@ export default function UserHeaderOptions() {
 
   // if it's not authenticated, show the login and signup buttons
   return (
-    <Box display="flex" justifyContent="end">
-      <Button component={Link} to="/auth/login" color="primary" sx={{ mr: 1 }} className="MicroButton">
+    <Box display="flex" justifyContent="end" height={30} width={150}>
+      <Button component={Link} to="/auth/login" color="primary" sx={{ mr: 1 }}>
         Log in
       </Button>
       <Button

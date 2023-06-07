@@ -9,6 +9,7 @@ export default function useNodeRemover(nodeId) {
 
   const {
     rootId,
+    persistentRootId,
     persistentId,
     isTemp,
   } = useSelector(selectNode(nodeId));
@@ -19,7 +20,7 @@ export default function useNodeRemover(nodeId) {
     if (isTemp) {
       dispatch(deleteNodeFromState({ nodeId }));
     } else {
-      dispatch(deleteNode({ id: persistentId, nodeId }));
+      dispatch(deleteNode({ persistentRootId, persistentId, nodeId }));
     }
     if (rootId === nodeId) navigate('/nodes');
   };

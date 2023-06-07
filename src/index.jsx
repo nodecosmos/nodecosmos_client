@@ -9,6 +9,11 @@ import store from './store';
 //----------------------------------------------------------------------------------------------------------------------
 import './index.css';
 /* fonts */
+import '@fontsource/comfortaa'; // Defaults to weight 400
+
+import './themes/fonts/cherry-bomb-one/400.css';
+
+import './themes/fonts/roboto/300.css';
 import './themes/fonts/roboto/400.css';
 import './themes/fonts/roboto/500.css';
 import './themes/fonts/roboto/700.css';

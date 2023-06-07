@@ -7,8 +7,8 @@ import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
 import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
 import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
 import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
+import Transformable from '../../app/components/Transformable';
 import Node from './Node';
-import Transformable from './Transformable';
 
 export default function Tree(props) {
   const { rootNodeId } = props;
@@ -30,7 +30,7 @@ export default function Tree(props) {
   }, [dispatch, positionsById]);
 
   return (
-    <Transformable containerRef={containerRef} rootId={rootNodeId}>
+    <Transformable containerRef={containerRef} transformableId={rootNodeId}>
       <g>
         {treeNodeIdsToView.map(([treeNodeId, alreadyMounted]) => (
           <Node

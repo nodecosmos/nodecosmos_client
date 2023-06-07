@@ -33,6 +33,7 @@ export default function FinalFormInputField({
   minLength,
   sx,
   InputProps,
+  placeholder,
 }) {
   const validators = [];
 
@@ -66,6 +67,7 @@ export default function FinalFormInputField({
           color="primary"
           variant="outlined"
           label={label}
+          placeholder={placeholder}
           name={input.name}
           value={input.value}
           onChange={input.onChange}
@@ -96,11 +98,13 @@ FinalFormInputField.defaultProps = {
   required: false,
   maxLength: null,
   minLength: null,
+  placeholder: null,
 };
 
 FinalFormInputField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
+  placeholder: PropTypes.string,
   validate: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
   type: PropTypes.string,
   disabled: PropTypes.bool,

@@ -12,6 +12,7 @@ const getTheme = (currentTheme) => createTheme({
     h1: {
       fontSize: '2.5rem',
       fontWeight: 500,
+      letterSpacing: 'normal',
     },
     h2: {
       fontSize: '2.25rem',
@@ -35,14 +36,15 @@ const getTheme = (currentTheme) => createTheme({
     },
     body1: {
       fontSize: '1rem',
-      fontWeight: 400,
+      fontWeight: 300,
+      letterSpacing: '0.03em',
       color: currentTheme.palette.text.contrast,
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: '0.75rem',
     },
     subtitle1: {
-      fontSize: '0.875rem',
+      fontSize: '0.75rem',
     },
     subtitle2: {
       fontSize: '0.75rem',
@@ -71,6 +73,13 @@ const getTheme = (currentTheme) => createTheme({
         },
         ...scrollbar(currentTheme),
         ...animations(currentTheme),
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: currentTheme.palette.background[1],
+        },
       },
     },
     ...input(currentTheme),

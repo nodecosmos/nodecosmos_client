@@ -6,6 +6,11 @@ import appSlice from './features/app/appSlice';
 import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
 import landingPageWorkflowSlice from './features/home-workflow/landingPageWorkflowSlice';
 import homeSlice from './features/home/homeSlice';
+import likesSlice from './features/likes/likesSlice';
+import workflowsSlice from './features/workflows/workflowsSlice';
+import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
+import flowsSlice from './features/flows/flowsSlice';
+import flowStepsSlice from './features/flow-steps/flowStepsSlice';
 
 export default combineReducers({
   app: appSlice,
@@ -15,4 +20,9 @@ export default combineReducers({
   landingPageNodes: landingPageNodeSlice,
   landingPageWorkflows: landingPageWorkflowSlice,
   home: homeSlice,
+  likes: likesSlice,
+  workflows: workflowsSlice,
+  flows: flowsSlice,
+  flowSteps: flowStepsSlice,
+  inputOutputs: inputOutputsSlice,
 });

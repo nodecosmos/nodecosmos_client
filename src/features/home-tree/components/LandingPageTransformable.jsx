@@ -17,16 +17,16 @@ export default function LandingPageTransformable(props) {
 
   let scale;
   if (matchesXs) {
-    scale = 0.5;
+    scale = 0.75;
   } else if (matchesSm) {
     scale = 0.75;
   } else {
     scale = 1;
   }
 
-  const containerHeight = 800 * scale;
+  const containerHeight = 825 * scale;
 
-  const minHeight = matchesSm ? 790 : 800;
+  const minHeight = matchesSm ? 825 : 825;
   const minWidth = 1050;
 
   const resize = () => {

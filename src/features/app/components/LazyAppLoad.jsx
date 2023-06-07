@@ -11,24 +11,36 @@ import TreeTab from '../../../pages/nodes/show/TreeTab';
 import WorkflowTab from '../../../pages/nodes/show/WorkflowTab';
 /* users */
 import UserAuthentication from '../../../pages/users/Authentication';
+import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
+import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
+import { selectLikedObjectIds } from '../../likes/likes.selectors';
+import { getLikedObjectIds } from '../../likes/likes.thunks';
+import { HEADER_HEIGHT } from '../constants';
+import LoginForm from '../../authentication/components/LoginForm';
+import SignupForm from '../../authentication/components/SignupForm';
+/* theme */
 import dark from '../../../themes/dark';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
-import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
-import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
-/* nodecosmos */
-import { HEADER_HEIGHT } from '../constants';
+
 import Alert from './Alert';
 import Header from './header/Header';
 
 export default function LazyAppLoad() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const currentUser = useSelector(selectCurrentUser);
+  const likes = useSelector(selectLikedObjectIds);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) dispatch(syncUpCurrentUser());
+    dispatch(syncUpCurrentUser());
   }, [dispatch, isAuthenticated]);
+
+  useEffect(() => {
+    if (isAuthenticated && !likes) {
+      dispatch(getLikedObjectIds());
+    }
+  }, [dispatch, isAuthenticated, likes]);
 
   const theme = useSelector((state) => state.app.theme);
 
@@ -57,20 +69,23 @@ export default function LazyAppLoad() {
           <Box
             borderRadius={{ xs: 0, sm: 2 }}
             height={1}
-            overflow="auto"
+            overflow="hidden"
             border={1}
             borderColor="borders.2"
           >
             <Alert />
             <Header />
-            <Box height={1} pt={`${HEADER_HEIGHT}px`}>
+            <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
               <Routes>
                 <Route path="/nodes" element={(<NodesIndex />)} />
                 <Route
-                  path="/login"
+                  path="/auth"
                   element={isAuthenticated
                     ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
-                />
+                >
+                  <Route path="login" element={<LoginForm />} />
+                  <Route path="signup" element={<SignupForm />} />
+                </Route>
                 <Route path="/nodes" element={<NodeShow />}>
                   <Route path=":id" element={<TreeTab />} />
                   <Route path=":id/workflow" element={<WorkflowTab />} />
@@ -80,6 +95,15 @@ export default function LazyAppLoad() {
                   <Route path=":id/insights" element={<div />} />
                   <Route path=":id/topics" element={<div />} />
                   <Route path=":id/settings" element={<div />} />
+
+                  <Route path=":rootId/:id" element={<TreeTab />} />
+                  <Route path=":rootId/:id/workflow" element={<WorkflowTab />} />
+                  <Route path=":rootId/:id/contribution_requests" element={<div />} />
+                  <Route path=":rootId/:id/tasks_board" element={<div />} />
+                  <Route path=":rootId/:id/media" element={<div />} />
+                  <Route path=":rootId/:id/insights" element={<div />} />
+                  <Route path=":rootId/:id/topics" element={<div />} />
+                  <Route path=":rootId/:id/settings" element={<div />} />
                 </Route>
               </Routes>
             </Box>

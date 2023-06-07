@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,56 +6,70 @@ import { Checkbox, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { setAlert } from '../../../app/appSlice';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
+import { selectLikedObjectIds } from '../../../likes/likes.selectors';
+import { addLikedObjectId, removeLikedObjectId } from '../../../likes/likesSlice';
 import { selectNode, selectNodeAttribute } from '../../nodes.selectors';
-import { likeNode, unlikeNode } from '../../nodes.thunks';
+import {
+  getLikesCount, likeNode, unlikeNode,
+} from '../../nodes.thunks';
 
 export default function LikeButton(props) {
   const { nodeId } = props;
-  const { id: currentUserId } = useSelector(selectCurrentUser);
   const {
     isTemp,
     persistentId,
   } = useSelector(selectNode(nodeId));
-
-  const likedByUserIds = useSelector(selectNodeAttribute(persistentId, 'likedByUserIds'));
+  const likes = useSelector(selectLikedObjectIds);
   const likesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
-
-  const [isLiked, setIsLiked] = React.useState(!!likedByUserIds && likedByUserIds.includes(currentUserId));
+  const likedByCurrentUser = likes.includes(persistentId);
   const [shouldBeat, setShouldBeat] = React.useState(false);
-
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    if (persistentId && likesCount === undefined) {
+      dispatch(getLikesCount(persistentId));
+    }
+  }, [dispatch, persistentId, likesCount]);
 
   const handleLike = () => {
     if (isTemp) return;
 
-    if (isLiked) {
+    if (!currentUser) {
+      dispatch(setAlert({ isOpen: true, severity: 'warning', message: 'Log in to hit that like!' }));
+      return;
+    }
+
+    if (likedByCurrentUser) {
+      dispatch(removeLikedObjectId({ id: persistentId }));
       dispatch(unlikeNode(persistentId));
     } else {
+      dispatch(addLikedObjectId({ id: persistentId }));
       dispatch(likeNode(persistentId));
     }
 
-    setIsLiked(!isLiked);
     requestAnimationFrame(() => setShouldBeat(true));
     setTimeout(() => setShouldBeat(false), 1000);
   };
 
-  const [textColor, setTextColor] = React.useState(isLiked ? 'toolbar.red' : 'text.tertiary');
+  const [textColor, setTextColor] = React.useState(likedByCurrentUser ? 'toolbar.red' : 'text.tertiary');
 
   return (
     <Box
       onMouseOver={() => setTextColor('toolbar.red')}
-      onMouseLeave={() => setTextColor(isLiked ? 'toolbar.red' : 'text.tertiary')}
+      onMouseLeave={() => setTextColor(likedByCurrentUser ? 'toolbar.red' : 'text.tertiary')}
       display="flex"
       alignItems="center"
       justifyContent="center"
     >
       <Checkbox
-        checked={isLiked}
+        checked={!!likedByCurrentUser}
         onClick={handleLike}
         className="Item"
         disableRipple
-        sx={{ svg: { fontSize: 14, color: 'toolbar.red' }, '&:hover': { backgroundColor: 'transparent!important' } }}
+        sx={{ svg: { fontSize: 14, color: 'toolbar.red' } }}
         icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
         checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
         inputProps={{ 'aria-label': 'Favorite' }}

@@ -47,6 +47,7 @@ export default function Mvp() {
             xs: '28px',
             sm: '32px',
           }}
+          fontFamily="Comfortaa, sans-serif"
         >
           Current
           <Box component="span" color="primary.main" fontWeight="bold">

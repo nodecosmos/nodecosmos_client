@@ -16,6 +16,10 @@ export default function NodeIndex() {
   useEffect(() => {
     dispatch(setHeaderContent('NodeIndexToolbar'));
     dispatch(indexNodes());
+
+    return () => {
+      dispatch(setHeaderContent(''));
+    };
   }, [dispatch]);
 
   const cards = Object.keys(nodes).map((id) => (

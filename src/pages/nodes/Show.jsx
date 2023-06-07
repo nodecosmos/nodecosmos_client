@@ -12,15 +12,18 @@ export default function NodeShow() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useParams();
+  const { rootId, id } = useParams();
 
   if (!id) {
     navigate('/404');
   }
 
   useEffect(() => {
-    dispatch(showNode(id));
-  }, [dispatch, id]);
+    dispatch(showNode({
+      rootId,
+      id,
+    }));
+  }, [dispatch, rootId, id]);
 
   return (
     <Box height={1} display="flex">
@@ -29,7 +32,7 @@ export default function NodeShow() {
         borderRight={1}
         borderColor="borders.1"
       >
-        <Sidebar id={id} />
+        <Sidebar rootId={rootId} id={id} />
       </Box>
       <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
         <Outlet />

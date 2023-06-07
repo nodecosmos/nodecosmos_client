@@ -1,7 +1,7 @@
 export default (currentTheme) => ({
   '::-webkit-scrollbar': {
-    width: 12,
-    height: 12,
+    width: 10,
+    height: 10,
     '@media (max-width: 1024px)': {
       width: 5,
       height: 5,

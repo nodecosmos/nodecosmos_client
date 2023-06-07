@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import {
-  faRectangleCode, faAlignJustify, faHashtag,
+  faRectangleCode, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';
 import {
-  faDiagramNext,
-} from '@fortawesome/pro-light-svg-icons';
+  faArrowProgress,
+} from '@fortawesome/pro-regular-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
@@ -30,9 +30,8 @@ export default function NodeDetailsToolbar() {
         alignItems="center"
         justifyContent="center"
         height={HEADER_HEIGHT}
+        borderBottom={1}
         borderColor="borders.4"
-        boxShadow="2"
-        position="relative"
         zIndex={1}
       >
         Select a node from the tree to view its description
@@ -46,9 +45,9 @@ export default function NodeDetailsToolbar() {
       justifyContent="space-between"
       alignItems="center"
       height={HEADER_HEIGHT}
+      borderBottom={1}
       borderColor="borders.4"
-      boxShadow="2"
-      position="relative"
+      // boxShadow="2"
       zIndex={1}
     >
       <ToolbarContainer>
@@ -61,14 +60,14 @@ export default function NodeDetailsToolbar() {
         />
         <ToolbarItem
           title="View Description"
-          icon={faAlignJustify}
+          icon={faHashtag}
           color="toolbar.green"
           active={nodeDetailsAction === 'description'}
           onClick={() => dispatch(setNodeDetailsAction('description'))}
         />
         <ToolbarItem
           title="Workflow"
-          icon={faDiagramNext}
+          icon={faArrowProgress}
           color="toolbar.blue"
           active={nodeDetailsAction === 'workflow'}
           onClick={() => dispatch(setNodeDetailsAction('workflow'))}
@@ -94,6 +93,5 @@ export default function NodeDetailsToolbar() {
       )}
       <div />
     </Box>
-
   );
 }

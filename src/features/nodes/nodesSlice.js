@@ -16,7 +16,7 @@ import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
 import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
 
 import {
-  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode,
+  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode, getLikesCount,
 } from './nodes.thunks';
 
 const nodesSlice = createSlice({
@@ -29,6 +29,7 @@ const nodesSlice = createSlice({
      *    parentId: string,
      *    persistentId: string,
      *    persistentParentId: string,
+     *    persistentRootId: string,
      *    rootId: string,
      *    editorIds: string[],
      *    ancestorIds: string[],
@@ -39,7 +40,7 @@ const nodesSlice = createSlice({
      *    description: string,
      *    descriptionMarkdown: string,
      *    likesCount: number,
-     *    likedByUserIds: string[],
+     *    likedByCurrentUser: boolean,
      *    createdAt: string,
      *    updatedAt: string,
      *    owner: {
@@ -55,7 +56,28 @@ const nodesSlice = createSlice({
      * nodeId as it is, and use persistentId to communicate with the backend and get the latest changes from state.
      * We can get the latest changes from state because we map persistentId to new node after node is created.
      */
-    byId: {},
+    byId: {
+      'node-1': {
+        id: 'node-1',
+        title: 'Node 1',
+      },
+      'node-2': {
+        id: 'node-2',
+        title: 'Node 2',
+      },
+      'node-3': {
+        id: 'node-3',
+        title: 'Node 3',
+      },
+      'node-4': {
+        id: 'node-4',
+        title: 'Node 4',
+      },
+      'node-5': {
+        id: 'node-5',
+        title: 'Node 5',
+      },
+    },
     /**
      * @type {{
      *   [rootId: string]: {
@@ -109,6 +131,7 @@ const nodesSlice = createSlice({
       .addCase(showNode.fulfilled, showNodeFulfilledReducer)
       .addCase(createNode.fulfilled, createNodeFulfilledReducer)
       .addCase(deleteNode.fulfilled, (...args) => deleteNodeFulfilledReducer(...args, nodesSlice))
+      .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
       .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
       .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
   },

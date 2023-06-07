@@ -98,6 +98,7 @@ export default function LandingPageWorkflow() {
                   fontSize: 14,
                   fill: theme.palette.text.contrast,
                   cursor: 'pointer',
+                  fontFamily: 'Cherry Bomb One, sans-serif',
                 }}
               >
                 Start
@@ -137,6 +138,7 @@ export default function LandingPageWorkflow() {
                   fontSize: 14,
                   fill: theme.palette.text.contrast,
                   cursor: 'pointer',
+                  fontFamily: 'Cherry Bomb One, sans-serif',
                 }}
               >
                 Take off
@@ -177,6 +179,7 @@ export default function LandingPageWorkflow() {
                   fontSize: 14,
                   fill: theme.palette.text.contrast,
                   cursor: 'pointer',
+                  fontFamily: 'Cherry Bomb One, sans-serif',
                 }}
               >
                 Fly
@@ -215,6 +218,7 @@ export default function LandingPageWorkflow() {
                   fontSize: 14,
                   fill: theme.palette.text.contrast,
                   cursor: 'pointer',
+                  fontFamily: 'Cherry Bomb One, sans-serif',
                 }}
               >
                 Land
@@ -251,6 +255,7 @@ export default function LandingPageWorkflow() {
                   fontSize: 14,
                   fill: theme.palette.text.contrast,
                   cursor: 'pointer',
+                  fontFamily: 'Cherry Bomb One, sans-serif',
                 }}
               >
                 Stop

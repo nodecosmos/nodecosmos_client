@@ -16,7 +16,7 @@ export default function NodeIndexToolbar() {
         open={openCreateNodeDialog}
         onClose={() => setOpenCreateNodeDialog(false)}
       />
-      <Box className="Toolbar">
+      <Box>
         <Button
           size="small"
           color="primary"

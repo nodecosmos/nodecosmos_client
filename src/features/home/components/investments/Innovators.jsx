@@ -7,11 +7,10 @@ export default function Innovators() {
   return (
     <>
       <Typography
-        variant="h5"
-        variantMapping={{ h5: 'h3' }}
-        fontFamily="'Montserrat', sans-serif"
+        variant="h4"
+        variantMapping={{ h4: 'h3' }}
+        fontFamily="'Cherry Bomb One', sans-serif"
         textAlign="center"
-        fontWeight="900"
         color="text.primary"
       >
         For Innovators
@@ -37,9 +36,10 @@ export default function Innovators() {
               <GradientText gradientVariant={3} text="ERC-20" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 mt={0.5}
                 color="text.secondary"
+                fontWeight={300}
               >
                 Issue
                 {' '}
@@ -70,9 +70,10 @@ export default function Innovators() {
               <GradientText gradientVariant={3} text="Attract Investors" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 mt={0.5}
                 color="text.secondary"
+                fontWeight={300}
               >
                 Issue secure smart contracts to attract investors and use transparency as your weapon
               </Typography>
@@ -91,9 +92,10 @@ export default function Innovators() {
               />
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 mt={0.5}
                 color="text.secondary"
+                fontWeight={300}
               >
                 Use the power of blockchain to launch your innovation
               </Typography>

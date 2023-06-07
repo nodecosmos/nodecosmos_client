@@ -140,14 +140,13 @@ export default function Index() {
             xs: 0,
             sm: 8,
           },
-          boxShadow: 'header',
-          borderBottom: 0,
+          boxShadow: 'buttons.3',
           backgroundColor: 'background.3',
         }}
         border={1}
-        borderColor="borders.2"
+        borderColor="borders.3"
       >
-        <Container maxWidth="xl" sx={{ height: '100%' }}>
+        <Container maxWidth="lg" sx={{ height: '100%' }}>
           <Box
             sx={{
               height: '100%',

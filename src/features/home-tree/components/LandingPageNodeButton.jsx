@@ -29,7 +29,7 @@ export default function LandingPageNodeButton(props) {
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor, color, hasBg } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+  const { backgroundColor, hasBg } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeId;
 
@@ -62,15 +62,17 @@ export default function LandingPageNodeButton(props) {
             onKeyUp={(event) => event.preventDefault()}
             display="inline-flex"
             alignItems="center"
+            {...(!isEditing && { disableRipple: true })}
             sx={{
-              backgroundColor,
+              border: 1,
+              borderColor: backgroundColor,
               height: NODE_BUTTON_HEIGHT,
-              color,
+              color: hasBg ? backgroundColor : 'tree.defaultText',
               input: {
-                color,
+                color: hasBg ? backgroundColor : 'tree.defaultText',
               },
               '&:hover': {
-                backgroundColor,
+                backgroundColor: 'tree.default',
               },
               borderRadius: 1.25,
               p: '0px 12px',
@@ -78,7 +80,7 @@ export default function LandingPageNodeButton(props) {
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
               '.fa-hashtag': {
                 fontSize: 14,
-                color: hasBg ? 'inherit' : 'background.list.default',
+                color: hasBg ? backgroundColor : 'background.list.default',
               },
             }}
           >

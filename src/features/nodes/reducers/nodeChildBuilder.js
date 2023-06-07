@@ -1,9 +1,12 @@
 export default {
   buildChildNode: (state, action) => {
-    const { tmpNodeId, nodeId, persistentId } = action.payload;
+    const {
+      tmpNodeId, nodeId, persistentId, persistentRootId,
+    } = action.payload;
     const node = state.byId[nodeId];
 
     state.byId[tmpNodeId] = {
+      persistentRootId,
       persistentId: null,
       parentId: nodeId,
       persistentParentId: persistentId,

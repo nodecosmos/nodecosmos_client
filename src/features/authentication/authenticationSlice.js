@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { redirect } from 'react-router-dom';
-import { syncUpCurrentUser } from './authentication.thunks';
+import { logOut, syncUpCurrentUser } from './authentication.thunks';
 
 const authenticationSlice = createSlice({
   name: 'auth',
   initialState: {
-    isAuthenticated: Boolean(localStorage.getItem('token')),
+    // TODO: likedObjectIds is to be used for checking if user liked some object
+    isAuthenticated: Boolean(localStorage.getItem('currentUser')),
     /**
      * @type {{
      *   id: String,
@@ -14,7 +14,6 @@ const authenticationSlice = createSlice({
      * }}
      */
     currentUser: JSON.parse(localStorage.getItem('currentUser')) || {},
-    token: localStorage.getItem('token') || '',
   },
   reducers: {
     login(state, action) {
@@ -22,7 +21,6 @@ const authenticationSlice = createSlice({
         ...state,
         isAuthenticated: true,
         currentUser: action.payload.user,
-        token: action.payload.token || state.token,
       };
     },
     logout(state, _action) {
@@ -36,25 +34,26 @@ const authenticationSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
-        localStorage.setItem('currentUser', JSON.stringify(action.payload));
+        if (action.payload.success) {
+          localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+        } else {
+          localStorage.removeItem('currentUser');
+        }
+
         return {
           ...state,
-          isAuthenticated: true,
-          currentUser: action.payload,
+          isAuthenticated: action.payload.success,
+          currentUser: (action.payload.success && action.payload.user) || null,
         };
       })
-      .addCase(syncUpCurrentUser.rejected, (state, action) => {
-        switch (action.payload) {
-          case 'session_expired':
-          case 'decode_error':
-            authenticationSlice.caseReducers.logout(state);
-            redirect('/login');
-            localStorage.removeItem('token');
-            localStorage.removeItem('currentUser');
-            break;
-          default:
-            authenticationSlice.caseReducers.logout(state);
-        }
+      .addCase(syncUpCurrentUser.rejected, (state, _action) => {
+        localStorage.removeItem('currentUser');
+        return authenticationSlice.caseReducers.logout(state);
+      })
+      .addCase(logOut.fulfilled, (state, _action) => {
+        localStorage.removeItem('currentUser');
+
+        return authenticationSlice.caseReducers.logout(state);
       });
   },
 });

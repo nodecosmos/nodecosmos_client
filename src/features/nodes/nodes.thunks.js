@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { redirect } from 'react-router-dom';
 import nodecosmos from '../../apis/nodecosmos-server';
+import { LIKE_TYPES } from '../app/constants';
 
 export const indexNodes = createAsyncThunk(
   'nodes/indexNodes',
@@ -12,9 +13,19 @@ export const indexNodes = createAsyncThunk(
 
 export const showNode = createAsyncThunk(
   'nodes/showNode',
-  async (id, _thunkAPI) => {
+  async ({
+    rootId,
+    id,
+  }, _thunkAPI) => {
     try {
-      const response = await nodecosmos.get(`/nodes/${id}`);
+      let response;
+
+      if (!rootId) {
+        response = await nodecosmos.get(`/nodes/${id}`);
+      } else {
+        response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
+      }
+
       return response.data;
     } catch (error) {
       redirect('/404');
@@ -28,14 +39,60 @@ export const showNode = createAsyncThunk(
 export const createNode = createAsyncThunk(
   'nodes/createNode',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.post('/nodes.json', payload);
+    const reqPayload = {
+      rootId: payload.persistentRootId,
+      parentId: payload.persistentParentId,
+      title: payload.title,
+    };
+
+    const response = await nodecosmos.post('/nodes', reqPayload);
 
     return {
       ...response.data,
+      persistentParentId: payload.persistentParentId,
       parentId: payload.parentId,
-      persistentParentId: payload.parent_id,
       tmpNodeId: payload.tmpNodeId,
     };
+  },
+);
+
+export const updateNodeTitle = createAsyncThunk(
+  'nodes/updateNodeTitle',
+  async ({ persistentRootId, persistentId, title }, _thunk) => {
+    try {
+      const response = await nodecosmos.put('/nodes/title', {
+        rootId: persistentRootId,
+        id: persistentId,
+        title,
+      });
+
+      return response.data;
+    } catch (error) {
+      return error.data;
+    }
+  },
+);
+
+export const updateNodeDescription = createAsyncThunk(
+  'nodes/updateNodeDescription',
+  async ({
+    persistentRootId,
+    persistentId,
+    description,
+    descriptionMarkdown,
+  }, _thunk) => {
+    try {
+      const response = await nodecosmos.put('/nodes/description', {
+        rootId: persistentRootId,
+        id: persistentId,
+        description,
+        descriptionMarkdown,
+      });
+
+      return response.data;
+    } catch (error) {
+      return error.data;
+    }
   },
 );
 
@@ -51,13 +108,22 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async (payload, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${payload.id}`);
+  async ({ persistentRootId, persistentId, nodeId }, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${persistentRootId}/${persistentId}`);
 
     return {
       ...response.data,
-      nodeId: payload.nodeId,
+      nodeId,
     };
+  },
+);
+
+export const getLikesCount = createAsyncThunk(
+  'nodes/getLikesCount',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.get(`/likes/${payload}`);
+
+    return response.data;
   },
 );
 
@@ -65,8 +131,8 @@ export const likeNode = createAsyncThunk(
   'nodes/likeNode',
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.post('/likes', {
-      likeable_type: 'Node',
-      id: payload,
+      object_type: LIKE_TYPES.node,
+      object_id: payload,
     });
 
     return response.data;
@@ -76,12 +142,7 @@ export const likeNode = createAsyncThunk(
 export const unlikeNode = createAsyncThunk(
   'nodes/unlikeNode',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/likes/${payload}`, {
-      data: {
-        likeable_type: 'Node',
-        id: payload,
-      },
-    });
+    const response = await nodecosmos.delete(`/likes/${payload}`);
 
     return response.data;
   },

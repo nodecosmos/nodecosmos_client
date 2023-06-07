@@ -4,7 +4,9 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-export default function SidebarListItem({ to, icon, title }) {
+export default function SidebarListItem({
+  to, icon, title, flip,
+}) {
   return (
     <ListItem sx={{
       px: 0,
@@ -42,6 +44,7 @@ export default function SidebarListItem({ to, icon, title }) {
             '.active &': {
               color: 'background.list.activeColor',
             },
+            transform: flip ? 'scaleX(-1)' : 'none',
           },
         }}
         >
@@ -55,8 +58,13 @@ export default function SidebarListItem({ to, icon, title }) {
   );
 }
 
+SidebarListItem.defaultProps = {
+  flip: false,
+};
+
 SidebarListItem.propTypes = {
   to: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
+  flip: PropTypes.bool,
 };

@@ -19,7 +19,6 @@ export default function ToolbarItem({
         sx={{
           color: 'toolbar.default',
           '&:hover, &.active': { color },
-          borderRadius: 0,
         }}
       >
         <FontAwesomeIcon icon={icon} />

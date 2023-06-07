@@ -1,5 +1,5 @@
 export default function likeNodeFulfilledReducer(state, action) {
-  const { id, likesCount, likedByUserIds } = action.payload;
+  const { id, likesCount, likedByCurrentUser } = action.payload;
   state.byId[id].likesCount = likesCount;
-  state.byId[id].likedByUserIds = likedByUserIds;
+  state.byId[id].likedByCurrentUser = likedByCurrentUser;
 }

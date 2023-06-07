@@ -32,7 +32,6 @@ export default function NodeButton(props) {
       onKeyUp={(event) => event.preventDefault()}
       style={{
         backgroundColor,
-        height: NODE_BUTTON_HEIGHT,
         color,
       }}
     >

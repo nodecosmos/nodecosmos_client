@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import {
   IconButton,
   Checkbox,
-  Box,
+  Box, Tooltip,
 } from '@mui/material';
 
 import { useSelector } from 'react-redux';
@@ -31,6 +31,7 @@ export default function NodeToolbar(props) {
   const { treeNodeId } = props;
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+  const persistentRootId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
 
   const { editTreeNode } = useNodeTreeEvents(treeNodeId);
   const { removeNode } = useNodeRemover(nodeId);
@@ -41,23 +42,31 @@ export default function NodeToolbar(props) {
       display="flex"
       sx={{
         '.Item': {
-          width: 28,
-          height: 28,
+          width: 31,
+          height: 1,
           mx: 0.5,
+          borderRadius: 1,
           '&:hover': { backgroundColor: 'toolbar.hover' },
         },
-        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 13 },
+        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
       }}
     >
-      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
-        <FontAwesomeIcon icon={faPlus} />
-      </IconButton>
-      <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
-        <FontAwesomeIcon icon={faPenToSquare} />
-      </IconButton>
-      <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
-        <FontAwesomeIcon icon={faTrash} />
-      </IconButton>
+      <Tooltip title="Add Node" placement="top">
+        <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
+          <FontAwesomeIcon icon={faPlus} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Edit Node" placement="top">
+
+        <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
+          <FontAwesomeIcon icon={faPenToSquare} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Delete Node" placement="top">
+        <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
+          <FontAwesomeIcon icon={faTrash} />
+        </IconButton>
+      </Tooltip>
       <LikeButton nodeId={nodeId} />
       <NodeImporter />
       <Checkbox
@@ -76,7 +85,7 @@ export default function NodeToolbar(props) {
       />
       <IconButton
         target="_blank"
-        href={`/nodes/${persistentId}`}
+        href={`/nodes/${persistentRootId}/${persistentId}`}
         className="Item"
         aria-label="Open Node in New Tab"
         sx={{ color: 'background.list.default' }}

@@ -7,10 +7,9 @@ export default function Investors() {
   return (
     <>
       <Typography
-        variant="h5"
-        variantMapping={{ h5: 'h3' }}
-        fontFamily="'Montserrat', sans-serif"
-        fontWeight="900"
+        variant="h4"
+        variantMapping={{ h4: 'h3' }}
+        fontFamily="'Cherry Bomb One', sans-serif"
         textAlign="center"
         color="text.primary"
       >
@@ -36,9 +35,10 @@ export default function Investors() {
               <GradientText gradientVariant={3} text="Explore innovations" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 mt={0.5}
                 color="text.secondary"
+                fontWeight={300}
               >
                 Discover innovations that match your interests
               </Typography>
@@ -52,9 +52,10 @@ export default function Investors() {
               <GradientText gradientVariant={3} text="Fraud Prevention" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 mt={0.5}
                 color="text.secondary"
+                fontWeight={300}
 
               >
                 Make data-driven calls based on innovation activities, contributions and community feedback
@@ -69,9 +70,10 @@ export default function Investors() {
               <GradientText gradientVariant={3} text="Token ownership" variant="h5" variantMapping={{ h5: 'h4' }} />
               <Typography
                 variant="body1"
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 mt={0.5}
                 color="text.secondary"
+                fontWeight={300}
               >
                 Buy innovation tokens and get a share of the profits
               </Typography>

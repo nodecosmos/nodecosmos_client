@@ -32,8 +32,9 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
-      1: '3px 3px 0px rgb(0 0 0 / 10%)',
-      2: '8px 8px 0px rgb(0 0 0 / 5%)',
+      1: '4px 4px 0px rgb(0 0 0 / 14%)',
+      2: '6px 8px 0px rgb(43 46 58 / 65%)',
+      3: '6px 6px 0px rgb(0 0 0 / 8%)',
     },
   },
 
@@ -94,15 +95,16 @@ export default {
       scrollbarThumb: '#3e434c',
       paper: '#363a43',
       contrast: '#cccccc',
-      hover: 'rgba(182,182,182,0.08)',
+      hover: 'rgba(211,211,211,0.1)',
     },
 
     toolbar: {
-      red: '#F91880FF',
+      red: '#e91e63',
       green: '#b6fd7b',
       blue: '#2adfff',
       lightRed: '#ff6881',
-      hover: '#425b67',
+      yellow: '#f0f26f',
+      hover: 'rgba(63,78,89,0.53)',
       active: 'rgba(63,78,89,0.53)',
       default: '#babecd',
       searchField: '#3a404b',
@@ -111,13 +113,20 @@ export default {
 
     tree: {
       default: '#414650',
-      level1: '#e91e63',
-      level2: '#f0f26f', // a9d85b
-      level3: '#b3e96b', // a9d85b
-      level4: '#4dcdff',
-      defaultText: '#fff',
+      borderColor: '#59606f',
+      level1: '#f13575',
+      level2: '#7bf790', // a9d85b aa7ff5 f0f26f
+      level3: '#4dcdff', // a9d85b 7bf790
+      level4: '#f0f26f',
+      defaultText: '#acb6cb',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
+    },
+
+    workflow: {
+      default: '#414650',
+      input: '#cdd4ff',
+      background: '#2d3139',
     },
 
     markdownContent: {
@@ -155,8 +164,8 @@ export default {
 
     text: {
       primary: '#f5f5f2',
-      secondary: '#838a9a',
-      tertiary: '#626e79',
+      secondary: '#aab0be',
+      tertiary: '#838a9a',
       contrast: '#fff',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
