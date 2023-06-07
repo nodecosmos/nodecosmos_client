@@ -4,11 +4,17 @@ import { Box, Typography } from '@mui/material';
 
 export default function Hero({ inView, heroLogoRef }) {
   return (
-    <Box py={{
-      xs: 8,
-      sm: 12,
-      md: 18,
-    }}
+    <Box
+      pt={{
+        xs: 8,
+        sm: 12,
+        md: 18,
+      }}
+      pb={{
+        xs: 8,
+        sm: 12,
+        md: 19.5,
+      }}
     >
       <Box
         display="flex"
@@ -89,6 +95,7 @@ export default function Hero({ inView, heroLogoRef }) {
             mt={1.5}
             color="text.tertiary"
             sx={{
+              p: 0,
               listStyle: 'none',
               '& li': {
                 mb: 0.5,
