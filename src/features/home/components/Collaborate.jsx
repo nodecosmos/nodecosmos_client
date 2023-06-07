@@ -38,19 +38,17 @@ export default function Vision() {
           <AnimateOnView delay={400}>
             <Section>
               <Typography
-                variant="h5"
-                variantMapping={{ h5: 'h3' }}
-                fontFamily="'Montserrat', sans-serif"
-                fontWeight="900"
+                variant="h4"
+                variantMapping={{ h4: 'h3' }}
+                fontFamily="'Cherry Bomb One', sans-serif"
                 textAlign="center"
                 color="text.primary"
               >
                 Contribution Requests
               </Typography>
-              <Typography mt={3} variant="body1" color="text.secondary">
-                Enables community members to contribute to your innovation either by suggesting
-                new components to your innovation or new ingredients for your recipe,
-                making changes to existing ones, or by making another type of contribution.
+              <Typography mt={3} variant="body1" color="text.secondary" fontFamily="'Comfortaa', sans-serif">
+                Enables community members to contribute to your innovation by suggesting
+                changing to your innovation.
               </Typography>
               <Box mt={3}>
                 <ContributionRequest />
@@ -62,19 +60,16 @@ export default function Vision() {
           <AnimateOnView delay={600}>
             <Section>
               <Typography
-                variant="h5"
-                variantMapping={{ h5: 'h3' }}
-                fontFamily="'Montserrat', sans-serif"
-                fontWeight="900"
+                variant="h4"
+                variantMapping={{ h4: 'h3' }}
+                fontFamily="'Cherry Bomb One', sans-serif"
                 textAlign="center"
                 color="text.primary"
               >
                 Topics
               </Typography>
-              <Typography mt={3} variant="body1" color="text.secondary">
-                Discuss, do brainstorming, raise issues.
-                The topic can include a question, a problem, a challenge or
-                anything you want to discuss with the community.
+              <Typography mt={3} variant="body1" color="text.secondary" fontFamily="'Comfortaa', sans-serif">
+                Enables discussion, brainstorming, and issue tracking for your innovation.
               </Typography>
               <Box mt={3}>
                 <Topics />

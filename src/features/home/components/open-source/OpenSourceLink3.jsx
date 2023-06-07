@@ -84,7 +84,7 @@ export default function OpenSourceLink() {
             >
               <Box display="flex">
                 <Typography
-                  fontFamily="'Montserrat', sans-serif"
+                  fontFamily="'Comfortaa', sans-serif"
                   fontSize={{
                     sm: 5,
                     xs: 8,

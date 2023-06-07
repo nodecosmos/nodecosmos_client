@@ -83,7 +83,7 @@ export default function OpenSourceLink() {
               width={100}
             >
               <Typography
-                fontFamily="'Montserrat', sans-serif"
+                fontFamily="'Comfortaa', sans-serif"
                 fontSize={{
                   sm: 5,
                   xs: 8,

@@ -88,7 +88,7 @@ export default function NodeDescriptionMd() {
           border: 1,
           borderColor: 'borders.3',
           borderRadius: 3,
-          boxShadow: 'buttons.1',
+          boxShadow: 0,
           overflow: 'hidden',
           width: 494,
         }}
@@ -117,6 +117,7 @@ export default function NodeDescriptionMd() {
               fontWeight="bold"
               lineHeight={1}
               color="text.secondary"
+              fontFamily="'Comfortaa', sans-serif"
             >
               {(currentNodeId && (currentNodeTitle || 'No Title'))
                 || 'Select a node from the tree'}

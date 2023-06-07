@@ -20,6 +20,7 @@ export default function OpenSource() {
               xs: '28px',
               sm: '32px',
             }}
+            fontFamily="Comfortaa, sans-serif"
           >
             Explore possibilities with
             <Box component="span" color="secondary.main" fontWeight="bold">

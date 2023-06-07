@@ -20,7 +20,7 @@ export default function GradientText(props) {
     <Typography
       variant={variant}
       variantMapping={variantMapping}
-      fontFamily="'Montserrat', sans-serif"
+      fontFamily="'Comfortaa', sans-serif"
       fontSize={fontSize}
       fontWeight={fontWeight}
       sx={{

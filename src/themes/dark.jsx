@@ -33,7 +33,8 @@ export default {
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
       1: '4px 4px 0px rgb(0 0 0 / 14%)',
-      2: '6px 6px 0px rgb(0 0 0 / 8%)',
+      2: '6px 8px 0px rgb(43 46 58 / 65%)',
+      3: '6px 6px 0px rgb(0 0 0 / 8%)',
     },
   },
 
@@ -112,11 +113,12 @@ export default {
 
     tree: {
       default: '#414650',
-      level1: '#e91e63',
-      level2: '#f0f26f', // a9d85b aa7ff5
-      level3: '#b3e96b', // a9d85b
-      level4: '#4dcdff',
-      defaultText: '#fff',
+      borderColor: '#59606f',
+      level1: '#f13575',
+      level2: '#7bf790', // a9d85b aa7ff5 f0f26f
+      level3: '#4dcdff', // a9d85b 7bf790
+      level4: '#f0f26f',
+      defaultText: '#acb6cb',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
     },
@@ -162,8 +164,8 @@ export default {
 
     text: {
       primary: '#f5f5f2',
-      secondary: '#caced7',
-      tertiary: '#626e79',
+      secondary: '#aab0be',
+      tertiary: '#838a9a',
       contrast: '#fff',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',

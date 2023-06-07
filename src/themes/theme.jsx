@@ -12,6 +12,7 @@ const getTheme = (currentTheme) => createTheme({
     h1: {
       fontSize: '2.5rem',
       fontWeight: 500,
+      letterSpacing: 'normal',
     },
     h2: {
       fontSize: '2.25rem',
@@ -34,8 +35,9 @@ const getTheme = (currentTheme) => createTheme({
       fontWeight: 500,
     },
     body1: {
-      fontSize: '0.875rem',
-      fontWeight: 400,
+      fontSize: '1rem',
+      fontWeight: 300,
+      letterSpacing: '0.03em',
       color: currentTheme.palette.text.contrast,
     },
     body2: {

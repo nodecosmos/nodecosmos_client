@@ -23,7 +23,7 @@
        x="13.229166"
        y="0" />
     <rect
-       style="fill:#2adfff;fill-opacity:1;stroke-width:0.264583"
+       style="fill:#2accff;fill-opacity:1;stroke-width:0.264583"
        id="rect236-3"
        width="6.614583"
        height="52.916664"
@@ -37,7 +37,7 @@
        x="5.5511151e-17"
        y="13.229166" />
     <rect
-       style="fill:#2adfff;fill-opacity:1;stroke-width:0.264583"
+       style="fill:#2accff;fill-opacity:1;stroke-width:0.264583"
        id="rect373-6"
        width="52.916664"
        height="6.614583"
@@ -56,13 +56,13 @@
        cy="52.916664"
        r="6.614583" />
     <circle
-       style="display:inline;fill:#2adfff;fill-opacity:1;stroke-width:0.529166"
+       style="display:inline;fill:#2accff;fill-opacity:1;stroke-width:0.529166"
        id="path2465-1-2"
        cx="36.380207"
        cy="52.916664"
        r="6.614583" />
     <circle
-       style="display:inline;fill:#b6fd7b;fill-opacity:1;stroke-width:0.529166"
+       style="display:inline;fill:#7bf790;fill-opacity:1;stroke-width:0.529166"
        id="path2465-5"
        cx="-1.7205811e-07"
        cy="16.536457"
@@ -74,19 +74,19 @@
        cy="16.536457"
        r="6.614583" />
     <circle
-       style="display:inline;fill:#b6fd7b;fill-opacity:1;stroke-width:0.529166"
+       style="display:inline;fill:#7bf790;fill-opacity:1;stroke-width:0.529166"
        id="path2465-5-2-9"
        cx="52.916664"
        cy="36.380207"
        r="6.614583" />
     <circle
-       style="display:inline;fill:#2adfff;fill-opacity:1;stroke-width:0.529166"
+       style="display:inline;fill:#2accff;fill-opacity:1;stroke-width:0.529166"
        id="path2465-5-6"
        cx="-1.7205811e-07"
        cy="36.380207"
        r="6.614583" />
     <circle
-       style="display:inline;fill:#2adfff;fill-opacity:1;stroke-width:0.529166"
+       style="display:inline;fill:#2accff;fill-opacity:1;stroke-width:0.529166"
        id="path2465-3"
        cx="36.380207"
        cy="-1.7205811e-07"

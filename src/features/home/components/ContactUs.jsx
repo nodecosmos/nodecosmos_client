@@ -85,6 +85,7 @@ export default function ContactUs() {
             xs: '28px',
             sm: '32px',
           }}
+          fontFamily="Comfortaa, sans-serif"
         >
           Get in touch with us
         </Typography>

@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../app.selectors';
 import { setTransformablePositions } from '../appSlice';
-import {
-  HEADER_HEIGHT, TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
-} from '../constants';
+import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../constants';
 import usePannable from '../hooks/usePannable';
 
 export default function Transformable(props) {
