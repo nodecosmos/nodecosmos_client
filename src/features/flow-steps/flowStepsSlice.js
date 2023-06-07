@@ -87,6 +87,7 @@ const {
   reducer,
 } = flowStepsSlice;
 
+// eslint-disable-next-line no-empty-pattern
 export const {} = actions;
 
 export default reducer;

@@ -8,7 +8,6 @@ import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { NODE_BUTTON_HEIGHT } from '../trees.constants';
 import { selectTreeNodeAttribute } from '../trees.selectors';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);

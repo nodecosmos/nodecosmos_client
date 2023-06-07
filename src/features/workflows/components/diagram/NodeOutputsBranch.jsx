@@ -10,9 +10,7 @@ import { MARGIN_LEFT, MARGIN_TOP } from '../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 
 export default function NodeOutputsBranch({ diagramId }) {
-  const {
-    x, xEnd, y, yEnd,
-  } = useSelector(selectWorkflowDiagramPosition(diagramId));
+  const { xEnd, y, yEnd } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
   const branchX = xEnd + MARGIN_LEFT;
   const branchY = y + MARGIN_TOP;
