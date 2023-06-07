@@ -44,7 +44,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
       if (!wfStep.flows) return;
 
       wfStep.flows.forEach((flow, flowIndex) => {
-        const prevFlowId = wfStep.flows[flowIndex - 1]?.id;
+        const prevFlowId = wfStep.flows[flowIndex - 1]?.diagramId;
         const upperFlowSiblingYEnd = result[prevFlowId]?.yEnd || 0;
 
         const flowPosition = {
@@ -53,23 +53,18 @@ export default function useWorkflowDiagramPositionCalculator(id) {
           yEnd: upperFlowSiblingYEnd + FLOW_STEP_SIZE * (wfStepIndex + 1),
         };
 
-        result[flow.diagramId] = flowPosition;
-
-        flow.flowSteps.forEach((flowStep, flowStepIndex) => {
-          const prevFlowStepId = wfStep.flowSteps[flowStepIndex - 1]?.id;
-          const upperFlowStepSiblingY = result[prevFlowStepId]?.yEnd || 0;
-
+        if (flow.flowStep) {
           const flowStepPosition = {
             x: wfStepPosition.x,
             xEnd: wfStepPosition.xEnd,
-            y: wfStepPosition.y + upperFlowStepSiblingY,
-            yEnd: wfStepPosition.y + upperFlowStepSiblingY,
+            y: flowPosition.y,
+            yEnd: flowPosition.yEnd,
           };
 
-          flowStep.nodes.forEach((node, nodeIndex) => {
-            const prevNodeId = flowStep.nodes[nodeIndex - 1]?.id;
+          flow.flowStep.nodes.forEach((node, nodeIndex) => {
+            const prevNodeId = flow.flowStep.nodes[nodeIndex - 1]?.id;
             const upperNodeSiblingYEnd = result[prevNodeId]?.yEnd || flowStepPosition.y;
-            const outputs = flowStep.outputsByNodeId[node.id] || [];
+            const outputs = flow.flowStep.outputIdsByNodeId[node.id] || [];
 
             const y = upperNodeSiblingYEnd + OUTPUT_EDGE_LENGTH;
             const nodePosition = {
@@ -96,7 +91,9 @@ export default function useWorkflowDiagramPositionCalculator(id) {
             result[node.diagramId] = nodePosition;
             flowPosition.yEnd = nodePosition.yEnd;
           });
-        });
+        }
+
+        result[flow.diagramId] = flowPosition;
       });
     });
 

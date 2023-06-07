@@ -27,3 +27,12 @@ export const updateFlowDescription = createAsyncThunk(
     return response.data;
   },
 );
+
+export const deleteFlow = createAsyncThunk(
+  'flows/deleteFlow',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/flows/${payload.nodeId}/${payload.workflowId}/${payload.id}`);
+
+    return response.data;
+  },
+);

@@ -39,7 +39,10 @@ export default function CreateFlowModal({
       ...formValues,
     };
 
-    dispatch(createFlow(payload));
+    await dispatch(createFlow(payload));
+
+    setLoading(false);
+    onClose();
   };
 
   return (

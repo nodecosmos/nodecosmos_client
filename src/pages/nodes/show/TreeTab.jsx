@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setHeaderContent } from '../../../features/app/appSlice';
+import { HEADER_HEIGHT } from '../../../features/app/constants';
 import NodeDetails from '../../../features/nodes/components/details/NodeDetails';
 import TreeContainer from '../../../features/trees/components/TreeContainer';
 import Tree from '../../../features/trees/components/Tree';
@@ -21,17 +22,20 @@ export default function TreeTab() {
   }, [dispatch]);
 
   return (
-    <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1}>
+    <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1} overflow="hidden">
       <Box
-        width="50%"
-        height="100%"
+        width={0.5}
+        height={1}
       >
         <TreeContainer>
           <TreeToolbar rootNodeId={id} />
-          <Tree rootNodeId={id} />
+          <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+            <Tree rootNodeId={id} />
+          </Box>
         </TreeContainer>
       </Box>
       <Box
+        height={1}
         width={{
           xs: 1,
           md: '50%',

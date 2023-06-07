@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
+import { HEADER_HEIGHT } from '../../app/constants';
 import { NODE_BUTTON_HEIGHT } from '../trees.constants';
 
 export default function TreeContainer(props) {

@@ -18,69 +18,49 @@ export default {
 
     state.workflowDiagramById[workflow.id].initialInputIds = workflow.initialInputIds;
 
-    const flowIds = [...workflow.flowIds];
-    let stepIndex = 0;
-
-    while (stepIndex < flowIds.length) {
-      const flowId = flowIds[stepIndex];
+    workflow.flowIds.forEach((flowId) => {
       const flow = flows[flowId];
+      initFlowForWfStep(state, workflow.id, flow.startIndex, flow.id);
 
-      if (flow.startIndex === stepIndex) {
-        initFlowForWfStep(state, workflow.id, stepIndex, flow.id);
+      // eslint-disable-next-line no-loop-func
+      flow.stepIds && flow.stepIds.forEach((flowStepId, flowStepIndex) => {
+        const flowStep = flowSteps[flowStepId];
+        const nodes = buildFlowStepNodes(flowStep);
+        const inputsByNodeId = buildFlowStepInputs(flowStep);
+        const wfStepIndex = flow.startIndex + flowStepIndex;
 
-        // eslint-disable-next-line no-loop-func
-        flow.stepIds && flow.stepIds.forEach((flowStepId, flowStepIndex) => {
-          const flowStep = flowSteps[flowStepId];
-
-          const nodes = buildFlowStepNodes(flowStep);
-          const inputsByNodeId = buildFlowStepInputs(flowStep);
-
-          const wfStepIndex = stepIndex + flowStepIndex;
-
-          initFlowForWfStep(state, workflow.id, wfStepIndex, flow.id);
-
-          state.workflowDiagramById[workflow.id].workflowSteps[wfStepIndex][flow.id].flowSteps.push({
-            id: flowStepId,
-            workflowId: workflow.id,
-            flowId: flow.id,
-            nodes,
-            nodeIds: flowStep.nodeIds,
-            inputsByNodeId,
-            outputIdsByNodeId: flowStep.outputIdsByNodeId,
-          });
-        });
-      }
-
-      stepIndex += 1;
-    }
-
-    for (let i = flowIds.length; i < (Math.max(10, flowIds.length + 1)); i += 1) {
-      const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
-
-      state.workflowDiagramById[workflow.id].workflowSteps.push(
-        {
-          diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
+        const diagramFlowStep = {
+          id: flowStepId,
           workflowId: workflow.id,
-          index: lastIndex,
-          flow: {},
-        },
-      );
-    }
+          flowId: flow.id,
+          nodes,
+          nodeIds: flowStep.nodeIds,
+          inputsByNodeId,
+          outputIdsByNodeId: flowStep.outputIdsByNodeId,
+        };
+
+        initFlowForWfStep(state, workflow.id, wfStepIndex, flow.id, diagramFlowStep);
+      });
+    });
+
+    buildEmptyWfStepPlaceholders(state, workflow);
   },
 };
 
-function initFlowForWfStep(state, workflowId, stepIndex, flowId) {
+function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null) {
   state.workflowDiagramById[workflowId].workflowSteps[stepIndex] ||= {
     workflowId,
     index: stepIndex,
     diagramId: buildWorkflowStepDiagramId(workflowId, stepIndex),
-    flows: [{
-      id: flowId,
-      workflowId,
-      diagramId: buildDiagramFlowId(stepIndex, flowId),
-      flowSteps: [],
-    }],
+    flows: [],
   };
+
+  state.workflowDiagramById[workflowId].workflowSteps[stepIndex].flows.push({
+    id: flowId,
+    workflowId,
+    diagramId: buildDiagramFlowId(stepIndex, flowId),
+    flowStep,
+  });
 }
 
 function buildFlowStepNodes(flowStep) {
@@ -103,4 +83,19 @@ function buildFlowStepInputs(flowStep) {
     }));
     return acc;
   }, {});
+}
+
+function buildEmptyWfStepPlaceholders(state, workflow) {
+  for (let i = workflow.flowIds.length; i <= (Math.max(10, workflow.flowIds.length + 1)); i += 1) {
+    const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
+
+    state.workflowDiagramById[workflow.id].workflowSteps.push(
+      {
+        diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
+        workflowId: workflow.id,
+        index: lastIndex,
+        flows: [],
+      },
+    );
+  }
 }

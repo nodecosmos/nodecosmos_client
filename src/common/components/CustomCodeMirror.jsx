@@ -126,6 +126,7 @@ export default function CustomCodeMirror(props) {
         overflowWrap: 'anywhere',
         flexShrink: 1,
         fontFamily: 'monospace',
+        height: 1,
         ml: 1,
       },
       '.cm-line': {

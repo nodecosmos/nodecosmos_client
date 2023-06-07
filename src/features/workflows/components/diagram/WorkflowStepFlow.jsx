@@ -8,7 +8,7 @@ import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import FlowStep from './FlowStep';
 import FlowStepToolbar from './FlowStepToolbar';
 
-export default function WfStepFlow({ flow, wfStepHovered, wfStepIndex }) {
+export default function WorkflowStepFlow({ flow, wfStepHovered }) {
   const flowTitle = useSelector(selectFlowAttribute(flow.workflowId, flow.id, 'title'));
   const { x, y } = useSelector(selectWorkflowDiagramPosition(flow.diagramId));
 
@@ -21,10 +21,9 @@ export default function WfStepFlow({ flow, wfStepHovered, wfStepIndex }) {
     >
       <Box
         display="flex"
-        alignItems="end"
+        alignItems="center"
         height={1}
         pl={2}
-        pb={1}
         borderBottom={2}
         borderColor="workflow.default"
         color="text.tertiary"
@@ -41,26 +40,15 @@ export default function WfStepFlow({ flow, wfStepHovered, wfStepIndex }) {
         >
           {flowTitle}
         </Typography>
-        {wfStepHovered && <FlowStepToolbar />}
+        {wfStepHovered && <FlowStepToolbar flowId={flow.id} workflowId={flow.workflowId} />}
       </Box>
 
-      {
-        flow.flowSteps.map((flowStep, index) => (
-          <FlowStep
-            wfStepHovered={wfStepHovered}
-            key={flowStep.diagramId}
-            flowStep={flowStep}
-            wfStepIndex={wfStepIndex}
-            flowStepIndex={index}
-          />
-        ))
-      }
+      <FlowStep flowStep={flow.flowStep} />
     </foreignObject>
   );
 }
 
-WfStepFlow.propTypes = {
+WorkflowStepFlow.propTypes = {
   flow: PropTypes.object.isRequired,
   wfStepHovered: PropTypes.bool.isRequired,
-  wfStepIndex: PropTypes.number.isRequired,
 };

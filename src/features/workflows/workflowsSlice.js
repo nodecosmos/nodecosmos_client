@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createFlow } from '../flows/flows.thunks';
+import { createFlow, deleteFlow } from '../flows/flows.thunks';
 import workflowDiagramBuilder from './reducers/workflowDiagramBuilder';
 import workflowDiagramPositionSetter from './reducers/workflowDiagramPositionSetter';
 import { createWorkflow, showWorkflow, updateWorkflowInitialInputs } from './workflows.thunks';
@@ -57,42 +57,33 @@ const workflowsSlice = createSlice({
      * @type {{
      *   [workflowId: string]: {
      *     initialInputIds: string[],
-     *     workflowSteps: [
-     *       {
+     *     workflowSteps: [{
+     *       workflowId: string,
+     *       index: number,
+     *       diagramId: string,
+     *       flows: [{
+     *         id: string,
+     *         workflowId: string,
      *         diagramId: string,
-     *         index: number,
-     *         flowSteps: [
-     *          {
-     *            diagramId: string,
-     *            flowStepId: string,
-     *            flowId: string,
-     *            nodes: [
-     *              {
-     *                nodeId: string,
-     *                diagramId: string,
-     *              }
-     *            ],
-     *            inputsByNodeId: {
-     *              [nodeId: string]: [
-     *                {
-     *                  inputId: string,
-     *                  diagramId: string,
-     *                }
-     *              ]
-     *            },
-     *            outputsByNodeId: {
-     *              [nodeId: string]: [
-     *                {
-     *                  outputId: string,
-     *                  diagramId: string,
-     *                }
-     *              ],
-     *            },
-     *          }
-     *         ],
-     *       }
-     *     ],
-     *   },
+     *         flowStep: {
+     *           id: string,
+     *           workflowId: string,
+     *           flowId: string,
+     *           nodes: [{
+     *             id: string,
+     *             diagramId: string,
+     *           }],
+     *           inputsByNodeId: {
+     *             id: string,
+     *             nodeDiagramId: string,
+     *           },
+     *           outputIdsByNodeId: {
+     *             [nodeId: string]: string[],
+     *           },
+     *         },
+     *       }],
+     *     }],
+     *   }
      * }}
      *
      */
@@ -143,6 +134,12 @@ const workflowsSlice = createSlice({
       .addCase(createFlow.fulfilled, (state, action) => {
         const { flow } = action.payload;
         state.byId[flow.workflowId].flowIds.push(flow.id);
+      })
+      .addCase(deleteFlow.fulfilled, (state, action) => {
+        const { flow } = action.payload;
+        const { workflowId } = flow;
+
+        state.byId[workflowId].flowIds = state.byId[workflowId].flowIds.filter((id) => id !== flow.id);
       })
       .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
         const { id, initialInputIds } = action.payload.workflow;

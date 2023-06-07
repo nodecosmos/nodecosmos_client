@@ -30,9 +30,8 @@ export default function NodeDetailsToolbar() {
         alignItems="center"
         justifyContent="center"
         height={HEADER_HEIGHT}
+        borderBottom={1}
         borderColor="borders.4"
-        boxShadow="2"
-        position="relative"
         zIndex={1}
       >
         Select a node from the tree to view its description
@@ -46,9 +45,9 @@ export default function NodeDetailsToolbar() {
       justifyContent="space-between"
       alignItems="center"
       height={HEADER_HEIGHT}
+      borderBottom={1}
       borderColor="borders.4"
-      boxShadow="2"
-      position="relative"
+      // boxShadow="2"
       zIndex={1}
     >
       <ToolbarContainer>

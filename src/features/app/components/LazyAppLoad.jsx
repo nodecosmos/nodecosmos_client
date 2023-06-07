@@ -75,7 +75,7 @@ export default function LazyAppLoad() {
           >
             <Alert />
             <Header />
-            <Box height={1}>
+            <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
               <Routes>
                 <Route path="/nodes" element={(<NodesIndex />)} />
                 <Route

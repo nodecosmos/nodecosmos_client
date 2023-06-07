@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { showWorkflow } from '../workflows/workflows.thunks';
-import { createFlow } from './flows.thunks';
+import { createFlow, deleteFlow } from './flows.thunks';
 
 const flowStepsSlice = createSlice({
   name: 'flows',
@@ -56,6 +56,10 @@ const flowStepsSlice = createSlice({
           acc[flow.id] = flow;
           return acc;
         }, {});
+      })
+      .addCase(deleteFlow.fulfilled, (state, action) => {
+        const { flow } = action.payload;
+        delete state.byWorkflowId[flow.workflowId][flow.id];
       });
   },
 });

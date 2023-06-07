@@ -8,7 +8,8 @@ import { selectTransformablePositionsById } from '../../../app/app.selectors';
 import CreateFlowModal from '../../../flows/components/CreateFlowModal';
 import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
-import WfStepFlow from './WfStepFlow';
+import WorkflowStepFlow from './WorkflowStepFlow';
+import WorkflowStepFlows from './WorkflowStepFlows';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
@@ -89,11 +90,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         />
       </foreignObject>
 
-      {
-        wfStep.flows && wfStep.flows.map((flow) => (
-          <WfStepFlow key={flow.diagramId} flow={flow} wfStepHovered={hovered} wfStepIndex={wfStepIndex} />
-        ))
-      }
+      <WorkflowStepFlows wfStep={wfStep} wfStepHovered={hovered} wfStepIndex={wfStepIndex} />
     </g>
   );
 }

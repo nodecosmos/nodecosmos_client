@@ -59,10 +59,10 @@ export default function Transformable(props) {
       ref={containerRef}
       onScrollCapture={(e) => handleScroll(e)}
       onMouseDown={onMouseDown}
-      style={{
+      sx={{
         overflow: 'auto',
-        width: '100%',
-        height: 'calc(100% - 6rem)',
+        width: 1,
+        height: 1,
       }}
     >
       <svg
