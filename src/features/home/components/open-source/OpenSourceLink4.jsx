@@ -95,8 +95,8 @@ export default function OpenSourceLink() {
                 color="text.sectionSecondary"
                 fontWeight="bold"
               >
-                By utilizing this concept, you are opening your innovation to the community that can help you from the
-                beginning down to the finest details via
+                By utilizing this concept, you are opening your innovation to a community that can assist you from the
+                initial stages down to the finest details via
                 {' '}
                 <Box
                   component="span"

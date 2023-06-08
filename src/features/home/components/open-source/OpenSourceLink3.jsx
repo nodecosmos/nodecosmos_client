@@ -12,7 +12,7 @@ export default function OpenSourceLink() {
   const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
   const color = theme.palette.secondary.main;
 
-  const viewBox = matchesXs ? '-55 184 218 130' : '-80 185 268 90';
+  const viewBox = matchesXs ? '-55 184 218 100' : '-80 185 268 75';
 
   return (
     <Box
@@ -80,7 +80,7 @@ export default function OpenSourceLink() {
               height={100}
               width={100}
               x={175}
-              y={297}
+              y={299}
             >
               <Box display="flex">
                 <Typography
@@ -96,8 +96,7 @@ export default function OpenSourceLink() {
                   color="text.sectionSecondary"
                   fontWeight="bold"
                 >
-                  What if we take this concept and apply it to other areas in a more structured
-                  way than currently possible?
+                  What if we take this concept and apply it to other areas?
                 </Typography>
               </Box>
             </foreignObject>
