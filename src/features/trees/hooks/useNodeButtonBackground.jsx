@@ -18,16 +18,23 @@ export default function useNodeButtonBackground(treeId) {
     theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3, theme.palette.tree.level4,
   ];
 
-  const hasBg = (isExpanded && isSelected) || hasChildren;
+  const hasBg = isSelected || (isExpanded && hasChildren);
+
+  const outlinedColored = !hasBg && hasChildren;
 
   const backgroundColor = hasBg ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
-  const color = hasBg ? theme.palette.tree.selectedText : theme.palette.tree.defaultText;
+  const color = (hasBg && theme.palette.tree.selectedText)
+    || (outlinedColored && nodeBackgroundColors[nestedLevel % 4]) || theme.palette.tree.defaultText;
 
   const parentBackgroundColor = isRoot ? theme.palette.tree.default : nodeBackgroundColors[(nestedLevel - 1) % 4];
+  const outlineColor = outlinedColored ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
+
   return {
-    backgroundColor,
+    backgroundColor: outlinedColored ? 'transparent' : backgroundColor,
+    outlineColor,
     parentBackgroundColor,
     color,
     hasBg,
+    outlinedColored,
   };
 }

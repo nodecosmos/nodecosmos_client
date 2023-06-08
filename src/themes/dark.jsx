@@ -115,10 +115,10 @@ export default {
       default: '#414650',
       borderColor: '#59606f',
       level1: '#f13575',
-      level2: '#7bf790', // a9d85b aa7ff5 f0f26f
-      level3: '#4dcdff', // a9d85b 7bf790
+      level2: '#7bf790', // 539bf5
+      level3: '#4dcdff',
       level4: '#f0f26f',
-      defaultText: '#acb6cb',
+      defaultText: '#b9c0d0',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
     },
