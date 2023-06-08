@@ -47,8 +47,7 @@ export default function Vision() {
                 Contribution Requests
               </Typography>
               <Typography mt={3} variant="body1" color="text.secondary" fontFamily="'Comfortaa', sans-serif">
-                Enables community members to contribute to your innovation by suggesting
-                changing to your innovation.
+                Enables community members to contribute to your innovation by suggesting changes to your innovation.
               </Typography>
               <Box mt={3}>
                 <ContributionRequest />
