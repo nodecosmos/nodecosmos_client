@@ -114,10 +114,15 @@ export default {
     tree: {
       default: '#414650',
       borderColor: '#59606f',
-      level1: '#f13575',
-      level2: '#a87bf7', // 539bf5
-      level3: '#4dcdff',
-      level4: '#f0f26f',
+      backgrounds: [
+        '#f13575',
+        '#a38dff', // 539bf5
+        '#77d9ff',
+        '#80ffb7',
+        '#b3ff68',
+        '#e7e96d',
+        '#f5a07b',
+      ],
       defaultText: '#b9c0d0',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',

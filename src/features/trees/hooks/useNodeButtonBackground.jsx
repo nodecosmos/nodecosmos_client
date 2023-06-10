@@ -14,20 +14,19 @@ export default function useNodeButtonBackground(treeId) {
   const theme = useTheme();
 
   const hasChildren = useSelector(selectHasChildren(treeId));
-  const nodeBackgroundColors = [
-    theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3, theme.palette.tree.level4,
-  ];
+  const { backgrounds } = theme.palette.tree;
+  const backgroundCount = backgrounds.length;
 
   const hasBg = isSelected || (isExpanded && hasChildren);
 
   const outlinedColored = !hasBg && hasChildren;
-
-  const backgroundColor = hasBg ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
+  const backgroundColor = hasBg ? backgrounds[nestedLevel % backgroundCount] : theme.palette.tree.default;
   const color = (hasBg && theme.palette.tree.selectedText)
-    || (outlinedColored && nodeBackgroundColors[nestedLevel % 4]) || theme.palette.tree.defaultText;
+    || (outlinedColored && backgrounds[nestedLevel % backgroundCount]) || theme.palette.tree.defaultText;
 
-  const parentBackgroundColor = isRoot ? theme.palette.tree.default : nodeBackgroundColors[(nestedLevel - 1) % 4];
-  const outlineColor = outlinedColored ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
+  const parentBackgroundColor = isRoot
+    ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount];
+  const outlineColor = outlinedColored ? backgrounds[nestedLevel % backgroundCount] : theme.palette.tree.default;
 
   return {
     backgroundColor: outlinedColored ? theme.palette.tree.default : backgroundColor,

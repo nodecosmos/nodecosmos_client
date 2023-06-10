@@ -45,6 +45,7 @@ const flowStepsSlice = createSlice({
         flowStep.inputIdsByNodeId ||= {};
         flowStep.outputIdsByNodeId ||= {};
 
+        state.byWorkflowId[flowStep.workflowId] ||= {};
         state.byWorkflowId[flowStep.workflowId][flowStep.id] = flowStep;
       });
   },

@@ -17,16 +17,16 @@ export default function useNodeButtonBackground(props) {
   const isCurrentNode = nodeExpanded && id === currentNodeId;
   const hasNestedNodes = useSelector((state) => state.landingPageNodes[id].node_ids.length > 0);
 
+  const { backgrounds } = theme.palette.tree;
+  const backgroundCount = backgrounds.length;
+
   const hasBg = (nodeExpanded && isCurrentNode) || hasNestedNodes;
 
-  const nodeBackgroundColors = [
-    theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3, theme.palette.tree.level4,
-  ];
   const backgroundColor = (nodeExpanded && isCurrentNode) || hasNestedNodes
-    ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.borderColor;
+    ? backgrounds[nestedLevel % backgroundCount] : theme.palette.tree.borderColor;
 
   const parentBackgroundColor = parentExpanded
-    ? nodeBackgroundColors[(nestedLevel - 1) % 4] : theme.palette.tree.default;
+    ? backgrounds[(nestedLevel - 1) % backgroundCount] : theme.palette.tree.default;
 
   const color = hasBg
     ? theme.palette.tree.selectedText : theme.palette.tree.defaultText;

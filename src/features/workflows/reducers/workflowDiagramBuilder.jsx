@@ -36,6 +36,8 @@ export default {
             nodeIds: flowStep.nodeIds,
             inputsByNodeId,
             outputIdsByNodeId: flowStep.outputIdsByNodeId,
+            workflowStepIndex: wfStepIndex,
+            flowStepIndex,
           };
 
           initFlowForWfStep(state, workflow.id, wfStepIndex, flow.id, diagramFlowStep);

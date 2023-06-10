@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { HEADER_HEIGHT } from '../../../features/app/constants';
 import Workflow from '../../../features/workflows/components/diagram/Workflow';
 import WorkflowContainer from '../../../features/workflows/components/WorkflowContainer';
 import WorkflowToolbar from '../../../features/workflows/components/WorkflowToolbar';
@@ -23,7 +24,9 @@ export default function WorkflowTab() {
     >
       <WorkflowContainer>
         <WorkflowToolbar nodeId={id} />
-        <Workflow nodeId={id} />
+        <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+          <Workflow nodeId={id} />
+        </Box>
       </WorkflowContainer>
     </Box>
   );

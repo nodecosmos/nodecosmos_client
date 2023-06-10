@@ -28,7 +28,7 @@ import {
 import { selectWorkflowAttribute } from '../../workflows.selectors';
 
 // Dumb implementation of import feature
-export default function AddFlowStepNodesModal({
+export default function FlowStepNodesModal({
   flowId, workflowId, open, onClose,
 }) {
   const [loading, setLoading] = React.useState(false);
@@ -62,6 +62,7 @@ export default function AddFlowStepNodesModal({
       onClose();
     } catch (e) {
       dispatch(setAlert({ isOpen: true, severity: 'error', message: 'Failed to add node' }));
+      console.error(e);
       setLoading(false);
     }
   };
@@ -75,7 +76,7 @@ export default function AddFlowStepNodesModal({
       .map((childId) => addCheckboxTreeOptions(childId)),
   });
 
-  childIdsByParentId[nodeId].forEach((childId) => {
+  childIdsByParentId[nodeId] && childIdsByParentId[nodeId].forEach((childId) => {
     checkboxTreeOptions.push(addCheckboxTreeOptions(childId));
   });
 
@@ -127,7 +128,7 @@ export default function AddFlowStepNodesModal({
                   Select nodes to add to flow step
                 </Typography>
                 <Box mb={2}>
-                  <ImportSearchField />
+                  <ImportSearchField rootNodeId={nodeId} />
                 </Box>
                 <FinalFormCheckboxTree name="importedNodeIds" options={checkboxTreeOptions} />
                 <Button
@@ -151,7 +152,7 @@ export default function AddFlowStepNodesModal({
   );
 }
 
-AddFlowStepNodesModal.propTypes = {
+FlowStepNodesModal.propTypes = {
   workflowId: PropTypes.string.isRequired,
   flowId: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,

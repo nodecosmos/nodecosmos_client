@@ -73,7 +73,7 @@ export default function CreateIoModal({
       open={open}
     >
       <DialogTitle>
-        New IO
+        Add initial Inputs
         <IconButton
           disableRipple
           onClick={onClose}
