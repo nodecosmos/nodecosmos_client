@@ -88,7 +88,7 @@ export default function OpenSourceLink() {
                 fontFamily="'Comfortaa', sans-serif"
                 fontSize={{
                   sm: isSafari ? 4 : 5,
-                  xs: 8,
+                  xs: isSafari ? 7 : 8,
                 }}
                 ml={{
                   xs: 1,
