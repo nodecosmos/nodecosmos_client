@@ -115,7 +115,7 @@ export default {
       default: '#414650',
       borderColor: '#59606f',
       level1: '#f13575',
-      level2: '#7bf790', // 539bf5
+      level2: '#a87bf7', // 539bf5
       level3: '#4dcdff',
       level4: '#f0f26f',
       defaultText: '#b9c0d0',

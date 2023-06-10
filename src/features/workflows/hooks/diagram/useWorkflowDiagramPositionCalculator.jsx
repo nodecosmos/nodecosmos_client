@@ -41,10 +41,10 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
       result[wfStep.diagramId] = wfStepPosition;
 
-      if (!wfStep.flows) return;
+      if (!wfStep.wfStepFlows) return;
 
-      wfStep.flows.forEach((flow, flowIndex) => {
-        const prevFlowId = wfStep.flows[flowIndex - 1]?.diagramId;
+      wfStep.wfStepFlows.forEach((flow, flowIndex) => {
+        const prevFlowId = wfStep.wfStepFlows[flowIndex - 1]?.diagramId;
         const upperFlowSiblingYEnd = result[prevFlowId]?.yEnd || 0;
 
         const flowPosition = {
@@ -62,11 +62,13 @@ export default function useWorkflowDiagramPositionCalculator(id) {
           };
 
           flow.flowStep.nodes.forEach((node, nodeIndex) => {
-            const prevNodeId = flow.flowStep.nodes[nodeIndex - 1]?.id;
-            const upperNodeSiblingYEnd = result[prevNodeId]?.yEnd || flowStepPosition.y;
+            const prevNodeId = flow.flowStep.nodes[nodeIndex - 1]?.diagramId;
+            const upperNodeSiblingYEnd = result[prevNodeId]?.yEnd || flowStepPosition.y + WORKFLOW_START_MARGIN_TOP;
+
             const outputs = flow.flowStep.outputIdsByNodeId[node.id] || [];
 
             const y = upperNodeSiblingYEnd + OUTPUT_EDGE_LENGTH;
+
             const nodePosition = {
               x: flowStepPosition.x,
               xEnd: flowStepPosition.x + EDGE_LENGTH,

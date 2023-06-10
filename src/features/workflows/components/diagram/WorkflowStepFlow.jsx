@@ -13,38 +13,40 @@ export default function WorkflowStepFlow({ flow, wfStepHovered }) {
   const { x, y } = useSelector(selectWorkflowDiagramPosition(flow.diagramId));
 
   return (
-    <foreignObject
-      x={x}
-      y={y}
-      width={WORKFLOW_STEP_WIDTH + 1}
-      height={FLOW_STEP_SIZE}
-    >
-      <Box
-        display="flex"
-        alignItems="center"
-        height={1}
-        pl={2}
-        borderBottom={2}
-        borderColor="workflow.default"
-        color="text.tertiary"
-        zIndex={1}
-        position="relative"
+    <g>
+      <foreignObject
+        x={x}
+        y={y}
+        width={WORKFLOW_STEP_WIDTH + 1}
+        height={FLOW_STEP_SIZE}
       >
-        <Typography
-          fontSize={18.75}
-          variant="body1"
-          fontFamily="'Roboto', sans-serif"
-          fontWeight={700}
+        <Box
+          display="flex"
+          alignItems="center"
+          height={1}
+          pl={2}
+          borderBottom={2}
+          borderColor="workflow.default"
           color="text.tertiary"
-          textAlign="left"
+          zIndex={1}
+          position="relative"
         >
-          {flowTitle}
-        </Typography>
-        {wfStepHovered && <FlowStepToolbar flowId={flow.id} workflowId={flow.workflowId} />}
-      </Box>
+          <Typography
+            fontSize={18.75}
+            variant="body1"
+            fontFamily="'Roboto', sans-serif"
+            fontWeight={700}
+            color="text.tertiary"
+            textAlign="left"
+          >
+            {flowTitle}
+          </Typography>
+          <FlowStepToolbar flowId={flow.id} workflowId={flow.workflowId} wfStepHovered={wfStepHovered} />
+        </Box>
 
+      </foreignObject>
       <FlowStep flowStep={flow.flowStep} />
-    </foreignObject>
+    </g>
   );
 }
 

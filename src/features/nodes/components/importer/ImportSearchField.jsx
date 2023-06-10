@@ -9,9 +9,8 @@ export default function ImportSearchField() {
       sx={{
         width: '350px',
         '.MuiInputBase-root': {
-          pl: 1,
-          borderRadius: 2,
-          height: 40,
+          borderRadius: 1,
+          height: 50,
           backgroundColor: 'toolbar.searchField',
         },
         input: { fontFamily: 'Roboto' },

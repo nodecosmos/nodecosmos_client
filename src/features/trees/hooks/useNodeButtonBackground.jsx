@@ -4,7 +4,6 @@ import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectHasChildren, selectTreeNode } from '../trees.selectors';
 
 export default function useNodeButtonBackground(treeId) {
-  const theme = useTheme();
   const {
     nodeId,
     isExpanded,
@@ -12,6 +11,7 @@ export default function useNodeButtonBackground(treeId) {
     isRoot,
   } = useSelector(selectTreeNode(treeId));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+  const theme = useTheme();
 
   const hasChildren = useSelector(selectHasChildren(treeId));
   const nodeBackgroundColors = [
@@ -30,7 +30,7 @@ export default function useNodeButtonBackground(treeId) {
   const outlineColor = outlinedColored ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
 
   return {
-    backgroundColor: outlinedColored ? 'transparent' : backgroundColor,
+    backgroundColor: outlinedColored ? theme.palette.tree.default : backgroundColor,
     outlineColor,
     parentBackgroundColor,
     color,
