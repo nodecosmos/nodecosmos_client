@@ -82,7 +82,7 @@ export default function OpenSourceLink() {
               height={100}
               width={100}
               x={175}
-              y={299}
+              y={298}
             >
               <Box display="flex">
                 <Typography

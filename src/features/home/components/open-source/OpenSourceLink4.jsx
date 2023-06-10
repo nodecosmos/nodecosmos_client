@@ -84,7 +84,7 @@ export default function OpenSourceLink() {
           >
             <foreignObject
               x={270}
-              y={390}
+              y={matchesXs && isSafari ? 400 : 390}
               height={120}
               width={100}
             >

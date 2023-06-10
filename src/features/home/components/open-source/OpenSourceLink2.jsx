@@ -82,7 +82,7 @@ export default function OpenSourceLink() {
               height={100}
               width={100}
               x={270}
-              y={205}
+              y={matchesXs && isSafari ? 210 : 204}
             >
               <Typography
                 fontFamily="'Comfortaa', sans-serif"
