@@ -6,6 +6,8 @@ import { useInView } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import { setHomepageTab } from '../../homeSlice';
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export default function OpenSourceLink() {
   const ref = React.createRef();
 
@@ -89,7 +91,7 @@ export default function OpenSourceLink() {
               <Typography
                 fontFamily="'Comfortaa', sans-serif"
                 fontSize={{
-                  sm: 5,
+                  sm: isSafari ? 4 : 5,
                   xs: 8,
                 }}
                 color="text.sectionSecondary"

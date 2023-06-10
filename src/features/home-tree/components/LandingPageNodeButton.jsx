@@ -78,6 +78,7 @@ export default function LandingPageNodeButton(props) {
               p: '0px 12px',
               cursor: 'pointer',
               boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
+              whiteSpace: 'nowrap',
               '.fa-hashtag': {
                 fontSize: 14,
                 color: hasBg ? backgroundColor : 'background.list.default',
