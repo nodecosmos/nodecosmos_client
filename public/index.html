@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
 <!--	 Google tag (gtag.js)-->
-<!--	<script async defer src="https://www.googletagmanager.com/gtag/js?id=G-185GRBPXWK"></script>-->
-<!--	<script>-->
-<!--    window.dataLayer = window.dataLayer || [];-->
+	<script async defer src="https://www.googletagmanager.com/gtag/js?id=G-185GRBPXWK"></script>
+	<script>
+		if ("%NODE_ENV%" === "production") {
+			window.dataLayer = window.dataLayer || [];
 
-<!--    function gtag() {-->
-<!--      dataLayer.push(arguments);-->
-<!--    }-->
+			function gtag() {
+				dataLayer.push(arguments);
+			}
 
-<!--    gtag('js', new Date());-->
+			gtag('js', new Date());
 
-<!--    gtag('config', 'G-185GRBPXWK');-->
-<!--	</script>-->
+			gtag('config', 'G-185GRBPXWK');
+		}
+
+	</script>
 	<meta charset="utf-8"/>
 	<link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
