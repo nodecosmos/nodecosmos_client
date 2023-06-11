@@ -38,13 +38,14 @@ export default function TreeContainer(props) {
             backgroundColor: 'transparent',
             fontFamily: 'Roboto, sans-serif',
             fontSize: 14,
-            fontWeight: 500,
+            fontWeight: 400,
             letterSpacing: '0.02857em',
             minWidth: 40,
             outline: 'none!important',
             cursor: 'pointer!important',
             pointerEvents: 'none',
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+
           },
         },
       }}

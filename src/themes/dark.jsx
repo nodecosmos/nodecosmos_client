@@ -68,6 +68,7 @@ export default {
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
       4: '#43464d',
+      5: '#6a707e',
     },
 
     background: {
@@ -123,7 +124,7 @@ export default {
         '#e7e96d',
         '#f5a07b',
       ],
-      defaultText: '#b9c0d0',
+      defaultText: '#d7dcea',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
     },
@@ -174,6 +175,7 @@ export default {
       contrast: '#fff',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
+      link: '#539bf5',
       gradients: {
         1: {
           xs: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',

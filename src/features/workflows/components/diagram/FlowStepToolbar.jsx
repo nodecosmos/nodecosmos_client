@@ -48,19 +48,9 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
               '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
             }}
           >
-            <Tooltip title="Edit Flow Step" placement="top">
-              <IconButton
-                className="Item"
-                aria-label="Add Node"
-                sx={{ color: 'toolbar.yellow' }}
-                onClick={() => setAddFlowStepNodesModalOpen(true)}
-              >
-                <FontAwesomeIcon icon={faDiagramSubtask} />
-              </IconButton>
-            </Tooltip>
             {
               wfStepFlow.stepIndex === flowStartIndex && (
-                <>
+                <Box borderRight={1} borderColor="borders.3">
                   <Tooltip title="Edit Flow" placement="top">
                     <IconButton className="Item" aria-label="Edit Flow" sx={{ color: 'toolbar.green' }}>
                       <FontAwesomeIcon icon={faPenToSquare} />
@@ -76,10 +66,19 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
                       <FontAwesomeIcon icon={faTrash} />
                     </IconButton>
                   </Tooltip>
-                </>
+                </Box>
               )
             }
-
+            <Tooltip title="Edit Flow Step" placement="top">
+              <IconButton
+                className="Item"
+                aria-label="Add Node"
+                sx={{ color: 'toolbar.lightRed' }}
+                onClick={() => setAddFlowStepNodesModalOpen(true)}
+              >
+                <FontAwesomeIcon icon={faDiagramSubtask} />
+              </IconButton>
+            </Tooltip>
           </Box>
         )
       }

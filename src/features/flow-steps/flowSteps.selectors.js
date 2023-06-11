@@ -16,3 +16,9 @@ export const selectWorkflowFlowStepIdsByFlowId = (workflowId) => createSelector(
     return acc;
   }, {}),
 );
+
+export const selectFlowStepAttribute = (workflowId, flowStepId, attribute) => createSelector(
+  selectFlowStepsByWorkflowId,
+  (flowStepsByWorkflowId) => flowStepsByWorkflowId[workflowId][flowStepId]
+    && flowStepsByWorkflowId[workflowId][flowStepId][attribute],
+);

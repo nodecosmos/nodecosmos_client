@@ -39,7 +39,7 @@ export default function NodeButton(props) {
       }}
     >
       <MemoizedTagRounded />
-      <div className="NodeButtonText" style={{ color }}>
+      <div className="NodeButtonText">
         {title}
       </div>
     </MemoizedButtonBase>

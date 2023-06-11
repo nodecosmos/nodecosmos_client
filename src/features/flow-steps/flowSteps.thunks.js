@@ -10,6 +10,15 @@ export const createFlowStep = createAsyncThunk(
   },
 );
 
+export const updateFlowStep = createAsyncThunk(
+  'flow_steps/updateFlowStep',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.put('/flow_steps/update_flow_step_nodes', payload);
+
+    return response.data;
+  },
+);
+
 export const deleteFlowStep = createAsyncThunk(
   'flow_steps/deleteFlowStep',
   async (payload, _thunkAPI) => {

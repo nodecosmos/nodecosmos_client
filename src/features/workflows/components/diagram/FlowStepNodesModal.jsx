@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import FinalFormCheckboxTree from '../../../../common/components/final-form/FinalFormCheckboxTree';
 import { setAlert } from '../../../app/appSlice';
+import { selectFlowStepAttribute } from '../../../flow-steps/flowSteps.selectors';
 import { createFlowStep } from '../../../flow-steps/flowSteps.thunks';
 import ImportSearchField from '../../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
@@ -36,6 +37,7 @@ export default function FlowStepNodesModal({
   const allNodesById = useSelector(selectNodesById);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
   const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeId));
+  const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
   const dispatch = useDispatch();
 
   if (!childIdsByParentId) return null;
@@ -45,12 +47,12 @@ export default function FlowStepNodesModal({
   const onSubmit = async (formValues) => {
     setLoading(true);
 
-    const importedNodeIds = Object.keys(formValues.importedNodeIds).filter(
-      (impNodeId) => formValues.importedNodeIds[impNodeId],
+    const flowStepNodeIds = Object.keys(formValues.flowStepNodeIds).filter(
+      (fsNodeId) => formValues.flowStepNodeIds[fsNodeId],
     );
 
     const payload = {
-      nodeIds: importedNodeIds,
+      nodeIds: flowStepNodeIds,
       nodeId,
       workflowId: wfStepFlow.workflowId,
       flowId: wfStepFlow.id,
@@ -83,12 +85,13 @@ export default function FlowStepNodesModal({
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="lg"
       onClose={onClose}
       open={open}
       PaperProps={{
         sx: {
-          p: 3,
+          p: 0,
+          height: '100%',
         },
       }}
     >
@@ -119,9 +122,15 @@ export default function FlowStepNodesModal({
           <CloseOutlined sx={{ color: 'background.4' }} />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
-        <Box mt={2}>
-          <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
+      <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
+        <Box mt={2} height={1}>
+          <Form
+            initialValues={{
+              flowStepNodeIds: nodeIds && nodeIds.reduce((acc, curr) => ({ ...acc, [curr]: true }), {}),
+            }}
+            onSubmit={onSubmit}
+            subscription={{ submitting: true }}
+          >
             {({ handleSubmit }) => (
               <form style={{ height: '100%' }} onSubmit={handleSubmit}>
                 <Typography color="text.tertiary" mb={2}>
@@ -130,9 +139,14 @@ export default function FlowStepNodesModal({
                 <Box mb={2}>
                   <ImportSearchField rootNodeId={nodeId} />
                 </Box>
-                <FinalFormCheckboxTree name="importedNodeIds" options={checkboxTreeOptions} />
+                <Box pl={2} overflow="auto" height={0.85}>
+                  <FinalFormCheckboxTree
+                    name="flowStepNodeIds"
+                    options={checkboxTreeOptions}
+                  />
+                </Box>
                 <Button
-                  sx={{ mt: 3, float: 'right' }}
+                  sx={{ mt: 2, float: 'right' }}
                   color="success"
                   variant="contained"
                   disableElevation

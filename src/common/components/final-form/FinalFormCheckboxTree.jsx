@@ -21,7 +21,24 @@ function FinalFormCheckboxTree({
       render={({ input }) => (
         <Box>
           <FormControlLabel
-            componentsProps={{ typography: { color: nodeBackgroundColors[nestedLevel % bgCount] } }}
+            sx={{
+              mt: 2,
+              border: 1,
+              borderColor: 'borders.5',
+              pr: 2,
+              borderRadius: 1,
+            }}
+            componentsProps={{
+              typography: {
+                color: 'text.secondary',
+                sx: {
+                  '&:hover': {
+                    color: 'text.link',
+                    textDecoration: 'underline',
+                  },
+                },
+              },
+            }}
             label={option.label}
             control={(
               <Checkbox
