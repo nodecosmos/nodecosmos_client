@@ -6,7 +6,7 @@ export default function WorkflowStepFlows({ wfStep, wfStepHovered, wfStepIndex }
   return wfStep.wfStepFlows.map((wfStepFlow) => (
     <WorkflowStepFlow
       key={wfStepFlow.diagramId}
-      flow={wfStepFlow}
+      wfStepFlow={wfStepFlow}
       wfStepHovered={wfStepHovered}
       wfStepIndex={wfStepIndex}
     />

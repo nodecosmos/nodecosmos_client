@@ -29,12 +29,12 @@ import { selectWorkflowAttribute } from '../../workflows.selectors';
 
 // Dumb implementation of import feature
 export default function FlowStepNodesModal({
-  flowId, workflowId, open, onClose,
+  wfStepFlow, open, onClose,
 }) {
   const [loading, setLoading] = React.useState(false);
 
   const allNodesById = useSelector(selectNodesById);
-  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+  const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
   const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeId));
   const dispatch = useDispatch();
 
@@ -52,8 +52,8 @@ export default function FlowStepNodesModal({
     const payload = {
       nodeIds: importedNodeIds,
       nodeId,
-      workflowId,
-      flowId,
+      workflowId: wfStepFlow.workflowId,
+      flowId: wfStepFlow.id,
     };
 
     try {
@@ -153,8 +153,7 @@ export default function FlowStepNodesModal({
 }
 
 FlowStepNodesModal.propTypes = {
-  workflowId: PropTypes.string.isRequired,
-  flowId: PropTypes.string.isRequired,
+  wfStepFlow: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

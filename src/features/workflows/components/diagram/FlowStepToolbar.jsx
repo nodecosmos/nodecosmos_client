@@ -10,18 +10,21 @@ import {
   Box, Tooltip,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectFlowAttribute } from '../../../flows/flows.selectors';
 import { deleteFlow } from '../../../flows/flows.thunks';
 import { selectWorkflowAttribute } from '../../workflows.selectors';
 import FlowStepNodesModal from './FlowStepNodesModal';
 
-export default function FlowStepToolbar({ flowId, workflowId, wfStepHovered }) {
-  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
+  const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
+  const flowStartIndex = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'startIndex'));
+
   const dispatch = useDispatch();
   const handleFlowDeletion = () => {
     dispatch(deleteFlow({
       nodeId,
-      workflowId,
-      id: flowId,
+      workflowId: wfStepFlow.workflowId,
+      id: wfStepFlow.id,
     }));
   };
 
@@ -56,24 +59,24 @@ export default function FlowStepToolbar({ flowId, workflowId, wfStepHovered }) {
               </IconButton>
             </Tooltip>
             {
-              true && (
-              <>
-                <Tooltip title="Edit Flow" placement="top">
-                  <IconButton className="Item" aria-label="Edit Flow" sx={{ color: 'toolbar.green' }}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete Flow" placement="top">
-                  <IconButton
-                    className="Item"
-                    aria-label="Delete Flow"
-                    sx={{ color: 'toolbar.blue' }}
-                    onClick={handleFlowDeletion}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </IconButton>
-                </Tooltip>
-              </>
+              wfStepFlow.stepIndex === flowStartIndex && (
+                <>
+                  <Tooltip title="Edit Flow" placement="top">
+                    <IconButton className="Item" aria-label="Edit Flow" sx={{ color: 'toolbar.green' }}>
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete Flow" placement="top">
+                    <IconButton
+                      className="Item"
+                      aria-label="Delete Flow"
+                      sx={{ color: 'toolbar.blue' }}
+                      onClick={handleFlowDeletion}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </IconButton>
+                  </Tooltip>
+                </>
               )
             }
 
@@ -81,8 +84,7 @@ export default function FlowStepToolbar({ flowId, workflowId, wfStepHovered }) {
         )
       }
       <FlowStepNodesModal
-        flowId={flowId}
-        workflowId={workflowId}
+        wfStepFlow={wfStepFlow}
         open={addFlopStepNodesModalOpen}
         onClose={() => setAddFlowStepNodesModalOpen(false)}
       />
@@ -91,7 +93,6 @@ export default function FlowStepToolbar({ flowId, workflowId, wfStepHovered }) {
 }
 
 FlowStepToolbar.propTypes = {
-  flowId: PropTypes.string.isRequired,
-  workflowId: PropTypes.string.isRequired,
+  wfStepFlow: PropTypes.object.isRequired,
   wfStepHovered: PropTypes.bool.isRequired,
 };

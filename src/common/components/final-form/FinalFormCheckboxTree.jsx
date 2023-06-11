@@ -43,11 +43,7 @@ function FinalFormCheckboxTree({
     />
   );
 
-  return (
-    <Box>
-      {options && options.map((option) => renderOption(option))}
-    </Box>
-  );
+  return options && options.map((option) => renderOption(option));
 }
 
 FinalFormCheckboxTree.propTypes = {

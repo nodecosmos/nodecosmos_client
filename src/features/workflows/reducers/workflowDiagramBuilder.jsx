@@ -57,7 +57,7 @@ export default {
 function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null) {
   state.workflowDiagramById[workflowId].workflowSteps[stepIndex] ||= {
     workflowId,
-    index: stepIndex,
+    stepIndex,
     diagramId: buildWorkflowStepDiagramId(workflowId, stepIndex),
     wfStepFlows: [],
   };
@@ -66,6 +66,7 @@ function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null
     id: flowId,
     workflowId,
     diagramId: buildDiagramFlowId(stepIndex, flowId),
+    stepIndex,
     flowStep,
   });
 }
