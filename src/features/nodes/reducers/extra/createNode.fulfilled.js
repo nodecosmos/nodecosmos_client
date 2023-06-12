@@ -21,5 +21,7 @@ export default function createNodeFulfilledReducer(state, action) {
   state.byId[tmpNodeId].persistentParentId = parentId;
   state.byId[tmpNodeId].persistentId = id;
 
+  state.persistedIdByNodeId[tmpNodeId] = id;
+
   state.nodeTitlesById[id] = action.payload.title;
 }

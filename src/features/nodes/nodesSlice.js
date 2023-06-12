@@ -69,6 +69,8 @@ const nodesSlice = createSlice({
      */
     childIdsByRootAndParentId: {},
 
+    persistedIdByNodeId: {},
+
     /**
      * @description
      * Used for showing details of selected node.

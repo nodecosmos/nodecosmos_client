@@ -24,7 +24,7 @@ import { createFlowStep, updateFlowStepNodes } from '../../../flow-steps/flowSte
 import ImportSearchField from '../../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
 import {
-  selectChildIdsByParentId, selectNodesById,
+  selectChildIdsByParentId, selectNodesById, selectPersistedIdByNodeId,
 } from '../../../nodes/nodes.selectors';
 import { selectWorkflowAttribute } from '../../workflows.selectors';
 
@@ -38,6 +38,8 @@ export default function FlowStepNodesModal({
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
   const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeId));
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
+  const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
+
   const dispatch = useDispatch();
 
   if (!childIdsByParentId) return null;
@@ -76,7 +78,7 @@ export default function FlowStepNodesModal({
   const checkboxTreeOptions = [];
 
   const addCheckboxTreeOptions = (currNodeId) => ({
-    value: currNodeId,
+    value: persistedNodeIdByNodeId[currNodeId],
     label: allNodesById[currNodeId].title,
     children: childIdsByParentId[currNodeId].filter((childId) => childId !== nodeId && childIds.indexOf(childId) < 0)
       .map((childId) => addCheckboxTreeOptions(childId)),
