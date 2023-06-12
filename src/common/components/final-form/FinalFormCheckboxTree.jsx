@@ -15,16 +15,18 @@ function FinalFormCheckboxTree({
 
   const renderOption = (option, nestedLevel = 0) => (
     <Field
-      type="checkbox"
       key={option.value}
-      name={`${name}.${option.value}`}
+      name={name}
+      type="checkbox"
+      value={option.value}
       render={({ input }) => (
         <Box>
           <FormControlLabel
             sx={{
               mt: 2,
               border: 1,
-              borderColor: 'borders.5',
+              borderColor: nodeBackgroundColors[nestedLevel % bgCount],
+              borderStyle: 'solid',
               pr: 2,
               borderRadius: 1,
             }}
@@ -42,14 +44,18 @@ function FinalFormCheckboxTree({
             label={option.label}
             control={(
               <Checkbox
+                checked={input.checked}
+                value={option.value}
                 onChange={input.onChange}
                 name={input.name}
-                sx={{ color: nodeBackgroundColors[nestedLevel % bgCount] }}
+                sx={{
+                  color: nodeBackgroundColors[nestedLevel % bgCount],
+                }}
               />
-            )}
+              )}
           />
           <Box
-            sx={{ borderLeft: '1px dashed', borderColor: nodeBackgroundColors[nestedLevel % bgCount] }}
+            sx={{ borderLeft: '1px dashed', borderColor: 'borders.5' }}
             ml={1.125}
             pl={4}
           >

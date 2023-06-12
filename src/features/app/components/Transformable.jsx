@@ -55,7 +55,7 @@ export default function Transformable(props) {
   return (
     <Box
       ref={containerRef}
-      onScrollCapture={(e) => handleScroll(e)}
+      onScroll={(e) => handleScroll(e)}
       onMouseDown={onMouseDown}
       sx={{
         overflow: 'auto',

@@ -20,7 +20,7 @@ import {
 import FinalFormCheckboxTree from '../../../../common/components/final-form/FinalFormCheckboxTree';
 import { setAlert } from '../../../app/appSlice';
 import { selectFlowStepAttribute } from '../../../flow-steps/flowSteps.selectors';
-import { createFlowStep } from '../../../flow-steps/flowSteps.thunks';
+import { createFlowStep, updateFlowStepNodes } from '../../../flow-steps/flowSteps.thunks';
 import ImportSearchField from '../../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
 import {
@@ -47,9 +47,7 @@ export default function FlowStepNodesModal({
   const onSubmit = async (formValues) => {
     setLoading(true);
 
-    const flowStepNodeIds = Object.keys(formValues.flowStepNodeIds).filter(
-      (fsNodeId) => formValues.flowStepNodeIds[fsNodeId],
-    );
+    const { flowStepNodeIds } = formValues;
 
     const payload = {
       nodeIds: flowStepNodeIds,
@@ -59,7 +57,13 @@ export default function FlowStepNodesModal({
     };
 
     try {
-      await dispatch(createFlowStep(payload));
+      if (wfStepFlow.flowStep) {
+        payload.id = wfStepFlow.flowStep.id;
+        await dispatch(updateFlowStepNodes(payload));
+      } else {
+        await dispatch(createFlowStep(payload));
+      }
+
       setLoading(false);
       onClose();
     } catch (e) {
@@ -126,20 +130,24 @@ export default function FlowStepNodesModal({
         <Box mt={2} height={1}>
           <Form
             initialValues={{
-              flowStepNodeIds: nodeIds && nodeIds.reduce((acc, curr) => ({ ...acc, [curr]: true }), {}),
+              flowStepNodeIds: nodeIds || [],
             }}
             onSubmit={onSubmit}
             subscription={{ submitting: true }}
           >
             {({ handleSubmit }) => (
-              <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                <Typography color="text.tertiary" mb={2}>
-                  Select nodes to add to flow step
-                </Typography>
+              <form style={{ height: 'calc(100% - 136px)' }} onSubmit={handleSubmit}>
                 <Box mb={2}>
                   <ImportSearchField rootNodeId={nodeId} />
                 </Box>
-                <Box pl={2} overflow="auto" height={0.85}>
+                <Box
+                  pl={2}
+                  overflow="auto"
+                  height={1}
+                  borderTop={1}
+                  borderBottom={1}
+                  borderColor="borders.1"
+                >
                   <FinalFormCheckboxTree
                     name="flowStepNodeIds"
                     options={checkboxTreeOptions}

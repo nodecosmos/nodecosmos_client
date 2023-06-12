@@ -19,6 +19,7 @@ export const selectWorkflowFlowStepIdsByFlowId = (workflowId) => createSelector(
 
 export const selectFlowStepAttribute = (workflowId, flowStepId, attribute) => createSelector(
   selectFlowStepsByWorkflowId,
-  (flowStepsByWorkflowId) => flowStepsByWorkflowId[workflowId][flowStepId]
+  (flowStepsByWorkflowId) => flowStepsByWorkflowId[workflowId]
+    && flowStepsByWorkflowId[workflowId][flowStepId]
     && flowStepsByWorkflowId[workflowId][flowStepId][attribute],
 );

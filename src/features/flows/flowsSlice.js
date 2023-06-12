@@ -46,6 +46,7 @@ const flowStepsSlice = createSlice({
     builder
       .addCase(createFlow.fulfilled, (state, action) => {
         const { flow } = action.payload;
+        state.byWorkflowId[flow.workflowId] ||= {};
         state.byWorkflowId[flow.workflowId][flow.id] = flow;
       })
       .addCase(createFlow.rejected, (state, action) => {

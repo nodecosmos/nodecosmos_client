@@ -114,6 +114,7 @@ export default {
 
     tree: {
       default: '#414650',
+      outlineBackground: '#32353d',
       borderColor: '#59606f',
       backgrounds: [
         '#f13575',
