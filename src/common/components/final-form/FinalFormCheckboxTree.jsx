@@ -7,13 +7,14 @@ import { FormControlLabel, Checkbox, useTheme } from '@mui/material';
 function FinalFormCheckboxTree({
   options,
   name,
+  initialNestedLevel,
 }) {
   const theme = useTheme();
 
   const nodeBackgroundColors = theme.palette.tree.backgrounds;
   const bgCount = nodeBackgroundColors.length;
 
-  const renderOption = (option, nestedLevel = 0) => (
+  const renderOption = (option, nestedLevel = initialNestedLevel) => (
     <Field
       key={option.value}
       name={name}
@@ -69,6 +70,10 @@ function FinalFormCheckboxTree({
   return options && options.map((option) => renderOption(option));
 }
 
+FinalFormCheckboxTree.defaultProps = {
+  initialNestedLevel: 0,
+};
+
 FinalFormCheckboxTree.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
@@ -76,6 +81,7 @@ FinalFormCheckboxTree.propTypes = {
     children: PropTypes.array,
   })).isRequired,
   name: PropTypes.string.isRequired,
+  initialNestedLevel: PropTypes.number,
 };
 
 export default FinalFormCheckboxTree;

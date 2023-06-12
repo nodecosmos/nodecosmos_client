@@ -100,6 +100,14 @@ const workflowsSlice = createSlice({
      * }}
      */
     workflowDiagramPositionsById: {},
+
+    /**
+     * @type {{
+     *   id: string,
+     *   type: string,
+     * }}
+     */
+    selectedWorkflowDiagramObject: {},
   },
   reducers: {
     buildWorkflow: workflowDiagramBuilder.buildWorkflowDiagram,

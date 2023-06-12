@@ -24,7 +24,7 @@ import { createFlowStep, updateFlowStepNodes } from '../../../flow-steps/flowSte
 import ImportSearchField from '../../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
 import {
-  selectChildIdsByParentId, selectNodesById, selectPersistedIdByNodeId,
+  selectChildIdsByParentId, selectNodeAttribute, selectNodesById, selectPersistedIdByNodeId,
 } from '../../../nodes/nodes.selectors';
 import { selectWorkflowAttribute } from '../../workflows.selectors';
 
@@ -36,6 +36,7 @@ export default function FlowStepNodesModal({
 
   const allNodesById = useSelector(selectNodesById);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
+  const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
   const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeId));
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
   const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
@@ -154,6 +155,7 @@ export default function FlowStepNodesModal({
                   <FinalFormCheckboxTree
                     name="flowStepNodeIds"
                     options={checkboxTreeOptions}
+                    initialNestedLevel={nestedLevel + 1}
                   />
                 </Box>
                 <Button

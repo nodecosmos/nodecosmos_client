@@ -41,10 +41,6 @@ export default function WorkflowContainer(props) {
           py: 0,
           px: 2,
           border: 'none',
-          '.fa-hashtag': {
-            fontSize: 14,
-            color: 'tree.hashtag',
-          },
           '&.selected .fa-hashtag': {
             color: 'inherit',
           },

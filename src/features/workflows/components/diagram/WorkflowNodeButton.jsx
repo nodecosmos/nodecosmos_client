@@ -23,12 +23,18 @@ export default function WorkflowNodeButton(props) {
 
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
   const title = useSelector(selectNodeAttribute(id, 'title'));
+  const nestedLevel = useSelector(selectNodeAttribute(id, 'nestedLevel'));
+
   const theme = useTheme();
 
   const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
   const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
 
   if (!xEnd) return null;
+
+  const { backgrounds } = theme.palette.tree;
+  const backgroundCount = backgrounds.length;
+  const outlineColor = backgrounds[nestedLevel % backgroundCount];
 
   return (
     <g style={{
@@ -50,8 +56,11 @@ export default function WorkflowNodeButton(props) {
             className="NodeButton"
             onKeyUp={(event) => event.preventDefault()}
             style={{
-              backgroundColor: theme.palette.tree.default,
+              border: '1px solid',
+              borderColor: outlineColor,
+              backgroundColor: theme.palette.tree.outlineBackground,
               height: NODE_BUTTON_HEIGHT,
+              color: outlineColor,
             }}
           >
             <MemoizedTagRounded />
