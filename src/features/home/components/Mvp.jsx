@@ -66,7 +66,7 @@ export default function Mvp() {
           }}
           >
             <Stepper
-              activeStep={3}
+              activeStep={4}
               alternativeLabel
               sx={{
                 '.Mui-completed': {
