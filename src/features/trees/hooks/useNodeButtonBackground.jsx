@@ -6,10 +6,10 @@ import { selectHasChildren, selectTreeNode } from '../trees.selectors';
 export default function useNodeButtonBackground(treeId) {
   const {
     nodeId,
-    nestedLevel,
     isRoot,
   } = useSelector(selectTreeNode(treeId));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+  const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
   const theme = useTheme();
 
   const hasChildren = useSelector(selectHasChildren(treeId));

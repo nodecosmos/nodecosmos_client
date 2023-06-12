@@ -13,13 +13,14 @@ export default {
     } = action.payload;
 
     state.workflowDiagramById[workflow.id] = {
+      initialInputIds: workflow.initialInputIds,
       workflowSteps: [],
+      flowsCount: 0,
     };
-
-    state.workflowDiagramById[workflow.id].initialInputIds = workflow.initialInputIds;
 
     workflow.flowIds.forEach((flowId) => {
       const flow = flows[flowId];
+      state.workflowDiagramById[workflow.id].flowsCount += 1;
 
       if (flow.stepIds && flow.stepIds.length > 0) {
         flow.stepIds.forEach((flowStepId, flowStepIndex) => {
@@ -94,7 +95,7 @@ function buildFlowStepInputs(flowStep) {
 }
 
 function buildEmptyWfStepPlaceholders(state, workflow) {
-  for (let i = workflow.flowIds.length; i <= (Math.max(10, workflow.flowIds.length + 1)); i += 1) {
+  for (let i = workflow.flowIds.length; i <= (Math.max(9, workflow.flowIds.length + 1)); i += 1) {
     const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
 
     state.workflowDiagramById[workflow.id].workflowSteps.push(

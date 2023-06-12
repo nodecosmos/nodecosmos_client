@@ -129,6 +129,7 @@ export default function FlowStepNodesModal({
       <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
         <Box mt={2} height={1}>
           <Form
+            keepDirtyOnReinitialize
             initialValues={{
               flowStepNodeIds: nodeIds || [],
             }}

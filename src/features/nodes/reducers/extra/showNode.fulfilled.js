@@ -10,6 +10,7 @@ export default function showNodeFulfilledReducer(state, action) {
     node.persistentId ||= node.id;
     node.persistentParentId ||= node.parentId;
     node.persistentRootId ||= node.rootId;
+    node.nestedLevel = node.ancestorIds.length;
 
     if (currentRootId) {
       node.rootId = currentRootId;
