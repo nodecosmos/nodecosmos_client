@@ -48,6 +48,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
     for (let flowIndex = 0; flowIndex < workflowDiagram.flowsCount; flowIndex += 1) {
       let currentFlowYEnd = 0;
 
+      // eslint-disable-next-line no-loop-func
       workflowDiagram.workflowSteps.forEach((wfStep, wfStepIndex) => {
         positionsByDiagramId[wfStep.diagramId] = {
           x: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
@@ -81,7 +82,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
             const upperNodeSiblingYEnd = positionsByDiagramId[prevNodeId]?.yEnd
               || flowStepPosition.y + WORKFLOW_START_MARGIN_TOP;
 
-            const outputs = flow.flowStep.outputIdsByNodeId[node.id] || [];
+            const outputIds = flow.flowStep.outputIdsByNodeId[node.id] || [];
 
             const y = upperNodeSiblingYEnd + OUTPUT_EDGE_LENGTH;
 
@@ -89,16 +90,16 @@ export default function useWorkflowDiagramPositionCalculator(id) {
               x: flowStepPosition.x,
               xEnd: flowStepPosition.x + EDGE_LENGTH,
               y,
-              yEnd: y + OUTPUT_EDGE_LENGTH * outputs.length,
+              yEnd: y + OUTPUT_EDGE_LENGTH * outputIds.length,
             };
 
-            outputs.forEach((output, outputIndex) => {
-              const prevOutputId = outputs[outputIndex - 1]?.id;
+            outputIds.forEach((outputId, outputIndex) => {
+              const prevOutputId = outputIds[outputIndex - 1];
               const upperOutputSiblingY = positionsByDiagramId[prevOutputId]?.yEnd || nodePosition.y;
 
               nodePosition.yEnd = upperOutputSiblingY + OUTPUT_EDGE_LENGTH;
 
-              positionsByDiagramId[output.id] = {
+              positionsByDiagramId[outputId] = {
                 x: nodePosition.x + EDGE_LENGTH + MARGIN_LEFT,
                 xEnd: nodePosition.xEnd + EDGE_LENGTH * 2,
                 y: upperOutputSiblingY + OUTPUT_EDGE_LENGTH,

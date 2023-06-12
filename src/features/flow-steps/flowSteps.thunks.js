@@ -11,9 +11,27 @@ export const createFlowStep = createAsyncThunk(
 );
 
 export const updateFlowStepNodes = createAsyncThunk(
-  'flow_steps/updateFlowStep',
+  'flow_steps/updateFlowStepNodes',
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.put('/flow_steps/nodes', payload);
+
+    return response.data;
+  },
+);
+
+export const updateFlowStepOutputs = createAsyncThunk(
+  'flow_steps/updateFlowStepOutputs',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.put('/flow_steps/outputs', payload);
+
+    return response.data;
+  },
+);
+
+export const updateFlowStepInputs = createAsyncThunk(
+  'flow_steps/updateFlowStepInputs',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.put('/flow_steps/inputs', payload);
 
     return response.data;
   },

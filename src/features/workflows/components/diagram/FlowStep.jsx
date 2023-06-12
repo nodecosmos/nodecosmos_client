@@ -23,17 +23,17 @@ export default function FlowStep({ flowStep }) {
                 </g>
               ))
             }
-            <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
+            <WorkflowNodeButton
+              diagramId={node.diagramId}
+              id={node.id}
+              flowStepId={flowStep.id}
+              workflowId={flowStep.workflowId}
+            />
             <NodeOutputsBranch diagramId={node.diagramId} />
             {
-              flowStep.outputIdsByNodeId[node.id]?.map((input) => (
-                <g key={input.id}>
-                  <WorkflowOutputButton
-                    diagramId={input.diagramId}
-                    id={input.id}
-                  />
-                </g>
-              ))
+               flowStep.outputIdsByNodeId[node.id]?.map((id) => (
+                 <WorkflowOutputButton id={id} key={id} />
+               ))
             }
           </g>
         ))

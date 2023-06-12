@@ -19,6 +19,9 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import { setAlert } from '../../app/appSlice';
+import { selectFlowStepAttribute } from '../../flow-steps/flowSteps.selectors';
+import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import { selectWorkflow } from '../../workflows/workflows.selectors';
 import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
 import { createIo } from '../inputOutput.thunks';
@@ -29,11 +32,15 @@ export const ASSOCIATED_OBJECT_TYPES = {
 };
 
 export default function CreateIoModal({
-  open, onClose, workflowId, associatedObject,
+  open, onClose, workflowId, associatedObject, flowStepId, flowStepOutputNodeId,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const workflow = useSelector(selectWorkflow(workflowId));
+
+  const currentFlowStepOutputs = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'outputIdsByNodeId'));
+  const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
+  const nodeId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'nodeId'));
 
   const onSubmit = async (formValues) => {
     setLoading(true);
@@ -43,21 +50,44 @@ export default function CreateIoModal({
       ...formValues,
     };
 
-    await dispatch(createIo(payload)).then((data) => {
+    await dispatch(createIo(payload)).then(async (data) => {
       const { inputOutput } = data.payload;
 
-      if (associatedObject === ASSOCIATED_OBJECT_TYPES.workflow) {
-        const initialInputIds = [...workflow.initialInputIds, inputOutput.id] || [inputOutput.id];
+      try {
+        if (associatedObject === ASSOCIATED_OBJECT_TYPES.workflow) {
+          const initialInputIds = [...workflow.initialInputIds, inputOutput.id] || [inputOutput.id];
 
-        return dispatch(updateWorkflowInitialInputs({
-          nodeId: workflow.nodeId,
-          id: workflow.id,
-          initialInputIds,
+          await dispatch(updateWorkflowInitialInputs({
+            nodeId: workflow.nodeId,
+            id: workflow.id,
+            initialInputIds,
+          }));
+        }
+
+        if (associatedObject === ASSOCIATED_OBJECT_TYPES.flowStep) {
+          const outputIdsByNodeId = { ...currentFlowStepOutputs } || {};
+          const currentOutputIds = outputIdsByNodeId[flowStepOutputNodeId] || [];
+
+          outputIdsByNodeId[flowStepOutputNodeId] = [...currentOutputIds];
+          outputIdsByNodeId[flowStepOutputNodeId].push(inputOutput.id);
+
+          await dispatch(updateFlowStepOutputs({
+            nodeId,
+            workflowId,
+            flowId,
+            id: flowStepId,
+            outputIdsByNodeId,
+          }));
+        }
+      } catch (e) {
+        dispatch(setAlert({
+          isOpen: true,
+          severity: 'error',
+          message: 'Failed to add output',
         }));
-      }
 
-      // TODO: flow step
-      return Promise.resolve();
+        console.error(e);
+      }
     });
 
     setLoading(false);
@@ -122,9 +152,16 @@ export default function CreateIoModal({
   );
 }
 
+CreateIoModal.defaultProps = {
+  flowStepId: null,
+  flowStepOutputNodeId: null,
+};
+
 CreateIoModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   workflowId: PropTypes.string.isRequired,
   associatedObject: PropTypes.string.isRequired,
+  flowStepId: PropTypes.string,
+  flowStepOutputNodeId: PropTypes.string,
 };
