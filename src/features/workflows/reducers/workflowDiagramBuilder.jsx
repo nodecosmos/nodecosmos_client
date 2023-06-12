@@ -61,7 +61,17 @@ function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null
     stepIndex,
     diagramId: buildWorkflowStepDiagramId(workflowId, stepIndex),
     wfStepFlows: [],
+    wfStepOutputIds: [],
   };
+
+  if (flowStep) {
+    const { wfStepOutputIds } = state.workflowDiagramById[workflowId].workflowSteps[stepIndex];
+
+    const flowStepOutputIds = Object.values(flowStep.outputIdsByNodeId).flat();
+
+    state.workflowDiagramById[workflowId]
+      .workflowSteps[stepIndex].wfStepOutputIds = [...wfStepOutputIds, ...flowStepOutputIds];
+  }
 
   state.workflowDiagramById[workflowId].workflowSteps[stepIndex].wfStepFlows.push({
     id: flowId,

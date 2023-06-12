@@ -13,7 +13,7 @@ import {
 } from '../../../trees/trees.constants';
 import useWorkflowNodeButtonBg from '../../hooks/diagram/useWorkflowNodeButtonBg';
 import { MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET } from '../../workflows.constants';
-import { selectSelectedWorkflowDiagramObject, selectWorkflowDiagramPosition } from '../../workflows.selectors';
+import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../workflowsSlice';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
 import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
@@ -22,7 +22,7 @@ const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
 export default function WorkflowNodeButton({
-  id, diagramId, workflowId, flowStepId,
+  id, diagramId, workflowId, flowStepId, workflowStepIndex,
 }) {
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
@@ -84,6 +84,7 @@ export default function WorkflowNodeButton({
             nodeId={id}
             flowStepId={flowStepId}
             workflowId={workflowId}
+            workflowStepIndex={workflowStepIndex}
           />
         </div>
       </foreignObject>
@@ -96,4 +97,5 @@ WorkflowNodeButton.propTypes = {
   diagramId: PropTypes.string.isRequired,
   workflowId: PropTypes.string.isRequired,
   flowStepId: PropTypes.string.isRequired,
+  workflowStepIndex: PropTypes.number.isRequired,
 };

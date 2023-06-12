@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputPipe from '../../../input-outputs/components/InputPipe';
+import InputPipe from './InputPipe';
 import NodeOutputsBranch from './NodeOutputsBranch';
 import WorkflowNodeButton from './WorkflowNodeButton';
 import WorkflowOutputButton from './WorkflowOutputButton';
@@ -28,6 +28,7 @@ export default function FlowStep({ flowStep }) {
               id={node.id}
               flowStepId={flowStep.id}
               workflowId={flowStep.workflowId}
+              workflowStepIndex={flowStep.workflowStepIndex}
             />
             <NodeOutputsBranch diagramId={node.diagramId} />
             {

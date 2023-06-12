@@ -18,13 +18,13 @@ import {
   DialogContent,
 } from '@mui/material';
 /* nodecosmos */
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import { setAlert } from '../../app/appSlice';
-import { selectFlowStepAttribute } from '../../flow-steps/flowSteps.selectors';
-import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
-import { selectWorkflow } from '../../workflows/workflows.selectors';
-import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
-import { createIo } from '../inputOutput.thunks';
+import FinalFormInputField from '../../../../common/components/final-form/FinalFormInputField';
+import { setAlert } from '../../../app/appSlice';
+import { selectFlowStepAttribute } from '../../../flow-steps/flowSteps.selectors';
+import { updateFlowStepOutputs } from '../../../flow-steps/flowSteps.thunks';
+import { createIo } from '../../../input-outputs/inputOutput.thunks';
+import { selectWorkflow } from '../../workflows.selectors';
+import { updateWorkflowInitialInputs } from '../../workflows.thunks';
 
 export const ASSOCIATED_OBJECT_TYPES = {
   workflow: 'workflow',
@@ -103,7 +103,7 @@ export default function CreateIoModal({
       open={open}
     >
       <DialogTitle>
-        Add initial Inputs
+        Create IO
         <IconButton
           disableRipple
           onClick={onClose}

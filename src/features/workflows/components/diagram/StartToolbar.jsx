@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Tooltip } from '@mui/material';
-import CreateIoModal, { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/components/CreateIoModal';
+import CreateIoModal, { ASSOCIATED_OBJECT_TYPES } from './CreateIoModal';
 
 export default function StartToolbar({ workflowId }) {
   const [createIoModalOpen, setCreateIoModalOpen] = React.useState(false);
