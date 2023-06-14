@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import GradientText from '../../../../common/components/GradientText';
-import Workflow from '../../../home-workflow/components/LandingPageWorkflow';
 
 export default function LandingPageWorkflow() {
   return (
@@ -20,33 +19,48 @@ export default function LandingPageWorkflow() {
         mt={3}
       >
         <Box
-          borderBottom={1}
-          borderColor="borders.4"
+          border={1}
+          borderColor="borders.2"
+          borderRadius={1}
+          sx={{
+            overflow: 'hidden',
+            width: 1,
+            mb: -5,
+            ml: {
+              xs: 3,
+              sm: 4,
+            },
+            mt: {
+              xs: 3,
+              sm: 4,
+            },
+          }}
         >
-          <Typography
-            variant="body2"
-            color="text.tertiary"
-            pb="4px"
-            mx={{
+          <Box
+            width={1}
+            height={{
+              xs: 20,
+              sm: 40,
+            }}
+            borderBottom={1}
+            borderColor="borders.2"
+            backgroundColor="background.6"
+            display="flex"
+            alignItems="center"
+            pl={{
               xs: 3,
               sm: 4,
             }}
-            textAlign={{
-              xs: 'center',
-              md: 'left',
-            }}
             fontSize={{
-              xs: 12,
+              xs: 7,
               sm: 14,
             }}
+            color="secondary.main"
+            fontWeight="bold"
           >
-            Sample
-            <b> Workflow </b>
-            describing Airplane flight process.
-          </Typography>
-        </Box>
-        <Box>
-          <Workflow />
+            engine-wf
+          </Box>
+          <Box component="img" src="/wf-8.webp" width={1} />
         </Box>
       </Box>
     </Box>

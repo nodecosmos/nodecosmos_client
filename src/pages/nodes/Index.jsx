@@ -34,11 +34,8 @@ export default function NodeIndex() {
         height={1}
         borderColor="borders.1"
       />
-      <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
-        <Container
-          maxWidth="md"
-          overflow="auto"
-        >
+      <Box height={1} width={`calc(100% - ${SIDEBAR_WIDTH}px)`} overflow="auto" pb={2}>
+        <Container maxWidth="md">
           {cards}
         </Container>
       </Box>

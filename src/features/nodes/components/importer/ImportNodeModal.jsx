@@ -112,7 +112,7 @@ export default function ImportNodeModal(props) {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <ImportSearchField />
+        <ImportSearchField rootNodeId={rootId} />
         <Box mt={2}>
           <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
             {({ handleSubmit }) => (

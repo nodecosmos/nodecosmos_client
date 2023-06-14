@@ -8,47 +8,50 @@ import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import FlowStep from './FlowStep';
 import FlowStepToolbar from './FlowStepToolbar';
 
-export default function WorkflowStepFlow({ flow, wfStepHovered }) {
-  const flowTitle = useSelector(selectFlowAttribute(flow.workflowId, flow.id, 'title'));
-  const { x, y } = useSelector(selectWorkflowDiagramPosition(flow.diagramId));
+export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
+  const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
+
+  const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
 
   return (
-    <foreignObject
-      x={x}
-      y={y}
-      width={WORKFLOW_STEP_WIDTH + 1}
-      height={FLOW_STEP_SIZE}
-    >
-      <Box
-        display="flex"
-        alignItems="center"
-        height={1}
-        pl={2}
-        borderBottom={2}
-        borderColor="workflow.default"
-        color="text.tertiary"
-        zIndex={1}
-        position="relative"
+    <g>
+      <foreignObject
+        x={x}
+        y={y}
+        width={WORKFLOW_STEP_WIDTH + 1}
+        height={FLOW_STEP_SIZE}
       >
-        <Typography
-          fontSize={18.75}
-          variant="body1"
-          fontFamily="'Roboto', sans-serif"
-          fontWeight={700}
+        <Box
+          display="flex"
+          alignItems="center"
+          height={1}
+          pl={2}
+          borderBottom={2}
+          borderColor="workflow.default"
           color="text.tertiary"
-          textAlign="left"
+          zIndex={1}
+          position="relative"
         >
-          {flowTitle}
-        </Typography>
-        {wfStepHovered && <FlowStepToolbar flowId={flow.id} workflowId={flow.workflowId} />}
-      </Box>
+          <Typography
+            fontSize={18.75}
+            variant="body1"
+            fontFamily="'Roboto', sans-serif"
+            fontWeight={700}
+            color="text.tertiary"
+            textAlign="left"
+          >
+            {flowTitle}
+          </Typography>
+          <FlowStepToolbar wfStepFlow={wfStepFlow} wfStepHovered={wfStepHovered} />
+        </Box>
 
-      <FlowStep flowStep={flow.flowStep} />
-    </foreignObject>
+      </foreignObject>
+      <FlowStep flowStep={wfStepFlow.flowStep} />
+    </g>
   );
 }
 
 WorkflowStepFlow.propTypes = {
-  flow: PropTypes.object.isRequired,
+  wfStepFlow: PropTypes.object.isRequired,
   wfStepHovered: PropTypes.bool.isRequired,
 };

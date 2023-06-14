@@ -68,6 +68,7 @@ export default {
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
       4: '#43464d',
+      5: '#6a707e',
     },
 
     background: {
@@ -113,12 +114,18 @@ export default {
 
     tree: {
       default: '#414650',
+      outlineBackground: '#32353d',
       borderColor: '#59606f',
-      level1: '#f13575',
-      level2: '#7bf790', // a9d85b aa7ff5 f0f26f
-      level3: '#4dcdff', // a9d85b 7bf790
-      level4: '#f0f26f',
-      defaultText: '#acb6cb',
+      backgrounds: [
+        '#f13575',
+        '#a38dff', // 539bf5
+        '#77d9ff',
+        '#80ffb7',
+        '#b3ff68',
+        '#e7e96d',
+        '#f5a07b',
+      ],
+      defaultText: '#d7dcea',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
     },
@@ -169,6 +176,7 @@ export default {
       contrast: '#fff',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
+      link: '#539bf5',
       gradients: {
         1: {
           xs: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',

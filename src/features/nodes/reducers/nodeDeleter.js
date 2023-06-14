@@ -11,11 +11,15 @@ export default {
 
     // filter from childIdsByRootAndParentId
     if (parent) {
-      childIdsByRootAndParentId[node.parentId] = childIdsByRootAndParentId[node.parentId].filter(
-        (id) => id !== nodeId,
-      );
+      if (childIdsByRootAndParentId[node.parentId]) {
+        childIdsByRootAndParentId[node.parentId] = childIdsByRootAndParentId[node.parentId].filter(
+          (id) => id !== nodeId,
+        );
+      }
       parent.childIds = parent.childIds.filter((id) => id !== nodeId);
     }
+
+    delete state.persistedIdByNodeId[node.id];
 
     // delete state.byId[nodeId] - race condition: seems existing components are kept before tree re-render
     // let's see if we can fix this

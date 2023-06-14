@@ -13,6 +13,9 @@ export default function createNodeFulfilledReducer(state, action) {
     tmpNodeId, id, rootId, parentId,
   } = action.payload;
 
+  const newNode = action.payload;
+  newNode.nestedLevel = newNode.ancestorIds.length;
+
   state.byId[id] = action.payload; // add new node to state
 
   state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
@@ -20,6 +23,8 @@ export default function createNodeFulfilledReducer(state, action) {
   state.byId[tmpNodeId].persistentRootId = rootId;
   state.byId[tmpNodeId].persistentParentId = parentId;
   state.byId[tmpNodeId].persistentId = id;
+
+  state.persistedIdByNodeId[tmpNodeId] = id;
 
   state.nodeTitlesById[id] = action.payload.title;
 }

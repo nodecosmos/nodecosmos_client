@@ -18,12 +18,13 @@ export default function useWorkflowDiagramPositionCalculator(id) {
   return useMemo(() => {
     if (!workflowDiagram.workflowSteps || workflowDiagram.workflowSteps.length === 0) return {};
 
-    const result = {};
+    const positionsByDiagramId = {};
+
     workflowDiagram.initialInputIds.forEach((initialInputId, index) => {
       const prevInputId = workflowDiagram.initialInputIds[index - 1];
-      const upperSiblingY = result[prevInputId]?.yEnd || OUTPUT_EDGE_LENGTH + WORKFLOW_START_MARGIN_TOP;
+      const upperSiblingY = positionsByDiagramId[prevInputId]?.yEnd || OUTPUT_EDGE_LENGTH + WORKFLOW_START_MARGIN_TOP;
 
-      result[initialInputId] = {
+      positionsByDiagramId[initialInputId] = {
         x: OUTPUT_EDGE_LENGTH + MARGIN_LEFT,
         xEnd: OUTPUT_EDGE_LENGTH * 2 + MARGIN_LEFT,
         y: upperSiblingY + OUTPUT_EDGE_LENGTH,
@@ -31,56 +32,74 @@ export default function useWorkflowDiagramPositionCalculator(id) {
       };
     });
 
-    workflowDiagram.workflowSteps.forEach((wfStep, wfStepIndex) => {
-      const wfStepPosition = {
-        x: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
-        xEnd: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
-        y: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
-        yEnd: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
-      };
+    let prevFlowYEnd = 0;
 
-      result[wfStep.diagramId] = wfStepPosition;
+    if (!workflowDiagram.flowsCount) {
+      workflowDiagram.workflowSteps.forEach((wfStep, wfStepIndex) => {
+        positionsByDiagramId[wfStep.diagramId] = {
+          x: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
+          xEnd: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
+          y: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
+          yEnd: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
+        };
+      });
+    }
 
-      if (!wfStep.flows) return;
+    for (let flowIndex = 0; flowIndex < workflowDiagram.flowsCount; flowIndex += 1) {
+      let currentFlowYEnd = 0;
 
-      wfStep.flows.forEach((flow, flowIndex) => {
-        const prevFlowId = wfStep.flows[flowIndex - 1]?.diagramId;
-        const upperFlowSiblingYEnd = result[prevFlowId]?.yEnd || 0;
+      // eslint-disable-next-line no-loop-func
+      workflowDiagram.workflowSteps.forEach((wfStep, wfStepIndex) => {
+        positionsByDiagramId[wfStep.diagramId] = {
+          x: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
+          xEnd: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
+          y: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
+          yEnd: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
+        };
+
+        const flow = wfStep.wfStepFlows[flowIndex];
+        if (!flow) return;
+
+        const prevFlowId = wfStep.wfStepFlows[flowIndex - 1]?.diagramId;
+        const upperFlowSiblingYEnd = positionsByDiagramId[prevFlowId]?.yEnd || 0;
 
         const flowPosition = {
-          x: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
-          y: upperFlowSiblingYEnd + FLOW_STEP_SIZE * (wfStepIndex + 1),
-          yEnd: upperFlowSiblingYEnd + FLOW_STEP_SIZE * (wfStepIndex + 1),
+          x: positionsByDiagramId[wfStep.diagramId].x,
+          y: (prevFlowYEnd || upperFlowSiblingYEnd) + FLOW_STEP_SIZE * (wfStepIndex + 1),
+          yEnd: (prevFlowYEnd || upperFlowSiblingYEnd) + FLOW_STEP_SIZE * (wfStepIndex + 1),
         };
 
         if (flow.flowStep) {
           const flowStepPosition = {
-            x: wfStepPosition.x,
-            xEnd: wfStepPosition.xEnd,
+            x: flowPosition.x,
+            xEnd: flowPosition.xEnd,
             y: flowPosition.y,
             yEnd: flowPosition.yEnd,
           };
 
           flow.flowStep.nodes.forEach((node, nodeIndex) => {
-            const prevNodeId = flow.flowStep.nodes[nodeIndex - 1]?.id;
-            const upperNodeSiblingYEnd = result[prevNodeId]?.yEnd || flowStepPosition.y;
-            const outputs = flow.flowStep.outputIdsByNodeId[node.id] || [];
+            const prevNodeId = flow.flowStep.nodes[nodeIndex - 1]?.diagramId;
+            const upperNodeSiblingYEnd = positionsByDiagramId[prevNodeId]?.yEnd
+              || flowStepPosition.y + WORKFLOW_START_MARGIN_TOP;
+
+            const outputIds = flow.flowStep.outputIdsByNodeId[node.id] || [];
 
             const y = upperNodeSiblingYEnd + OUTPUT_EDGE_LENGTH;
+
             const nodePosition = {
               x: flowStepPosition.x,
               xEnd: flowStepPosition.x + EDGE_LENGTH,
               y,
-              yEnd: y + OUTPUT_EDGE_LENGTH * outputs.length,
+              yEnd: y + OUTPUT_EDGE_LENGTH * outputIds.length,
             };
 
-            outputs.forEach((output, outputIndex) => {
-              const prevOutputId = outputs[outputIndex - 1]?.id;
-              const upperOutputSiblingY = result[prevOutputId]?.yEnd || nodePosition.y;
+            outputIds.forEach((outputId, outputIndex) => {
+              const prevOutputId = outputIds[outputIndex - 1];
+              const upperOutputSiblingY = positionsByDiagramId[prevOutputId]?.yEnd || nodePosition.y;
 
               nodePosition.yEnd = upperOutputSiblingY + OUTPUT_EDGE_LENGTH;
 
-              result[output.id] = {
+              positionsByDiagramId[outputId] = {
                 x: nodePosition.x + EDGE_LENGTH + MARGIN_LEFT,
                 xEnd: nodePosition.xEnd + EDGE_LENGTH * 2,
                 y: upperOutputSiblingY + OUTPUT_EDGE_LENGTH,
@@ -88,15 +107,17 @@ export default function useWorkflowDiagramPositionCalculator(id) {
               };
             });
 
-            result[node.diagramId] = nodePosition;
+            positionsByDiagramId[node.diagramId] = nodePosition;
             flowPosition.yEnd = nodePosition.yEnd;
           });
         }
 
-        result[flow.diagramId] = flowPosition;
+        positionsByDiagramId[flow.diagramId] = flowPosition;
+        currentFlowYEnd = Math.max(flowPosition.yEnd, currentFlowYEnd);
       });
-    });
 
-    return result;
-  }, [workflowDiagram.workflowSteps, workflowDiagram.initialInputIds]);
+      prevFlowYEnd = currentFlowYEnd;
+    }
+    return positionsByDiagramId;
+  }, [workflowDiagram.workflowSteps, workflowDiagram.flowsCount, workflowDiagram.initialInputIds]);
 }

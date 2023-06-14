@@ -4,7 +4,6 @@ import nodesSlice from './features/nodes/nodesSlice';
 import treesSlice from './features/trees/treesSlice';
 import appSlice from './features/app/appSlice';
 import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
-import landingPageWorkflowSlice from './features/home-workflow/landingPageWorkflowSlice';
 import homeSlice from './features/home/homeSlice';
 import likesSlice from './features/likes/likesSlice';
 import workflowsSlice from './features/workflows/workflowsSlice';
@@ -18,7 +17,6 @@ export default combineReducers({
   nodes: nodesSlice,
   trees: treesSlice,
   landingPageNodes: landingPageNodeSlice,
-  landingPageWorkflows: landingPageWorkflowSlice,
   home: homeSlice,
   likes: likesSlice,
   workflows: workflowsSlice,

@@ -4,30 +4,35 @@ import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectHasChildren, selectTreeNode } from '../trees.selectors';
 
 export default function useNodeButtonBackground(treeId) {
-  const theme = useTheme();
   const {
     nodeId,
-    isExpanded,
-    nestedLevel,
     isRoot,
   } = useSelector(selectTreeNode(treeId));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+  const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
+  const theme = useTheme();
 
   const hasChildren = useSelector(selectHasChildren(treeId));
-  const nodeBackgroundColors = [
-    theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3, theme.palette.tree.level4,
-  ];
+  const { backgrounds } = theme.palette.tree;
+  const backgroundCount = backgrounds.length;
 
-  const hasBg = (isExpanded && isSelected) || hasChildren;
+  const hasBg = isSelected;
 
-  const backgroundColor = hasBg ? nodeBackgroundColors[nestedLevel % 4] : theme.palette.tree.default;
-  const color = hasBg ? theme.palette.tree.selectedText : theme.palette.tree.defaultText;
+  const outlinedColored = !hasBg && hasChildren;
+  const backgroundColor = hasBg ? backgrounds[nestedLevel % backgroundCount] : theme.palette.tree.default;
+  const color = (hasBg && theme.palette.tree.selectedText)
+    || (outlinedColored && backgrounds[nestedLevel % backgroundCount]) || theme.palette.tree.defaultText;
 
-  const parentBackgroundColor = isRoot ? theme.palette.tree.default : nodeBackgroundColors[(nestedLevel - 1) % 4];
+  const parentBackgroundColor = isRoot
+    ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount];
+  const outlineColor = outlinedColored ? backgrounds[nestedLevel % backgroundCount] : theme.palette.tree.default;
+
   return {
-    backgroundColor,
+    backgroundColor: outlinedColored ? theme.palette.tree.outlineBackground : backgroundColor,
+    outlineColor,
     parentBackgroundColor,
     color,
     hasBg,
+    outlinedColored,
   };
 }

@@ -16,6 +16,7 @@ export default {
       likedByUserIds: [],
       childIds: [],
       ancestorIds: [nodeId, ...node.ancestorIds],
+      nestedLevel: node.nestedLevel + 1,
     }; // add new node to state
 
     state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds

@@ -68,8 +68,9 @@ export default function NodeBreadcrumbs() {
 
   return (
     <Box sx={{
+      width: 1,
       overflowX: 'auto',
-      '::-webkit-scrollbar': { height: 8 },
+      '::-webkit-scrollbar': { height: 6 },
       '::-webkit-scrollbar-thumb': {
         borderRadius: 2,
         maxWidth: '42px',

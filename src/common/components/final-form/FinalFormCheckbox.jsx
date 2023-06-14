@@ -1,0 +1,52 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Checkbox, FormControlLabel } from '@mui/material';
+import { Field } from 'react-final-form';
+
+export default function FinalFormCheckbox({ name, label, value }) {
+  return (
+    <Field
+      name={name}
+      type="checkbox"
+      value={value}
+      render={({ input }) => (
+        <FormControlLabel
+          sx={{
+            mt: 2,
+            border: 1,
+            borderColor: 'text.secondary',
+            borderStyle: 'solid',
+            pr: 2,
+            borderRadius: 1,
+          }}
+          componentsProps={{
+            typography: {
+              color: 'text.secondary',
+              sx: {
+                '&:hover': {
+                  color: 'text.link',
+                  textDecoration: 'underline',
+                },
+              },
+            },
+          }}
+          label={label}
+          control={(
+            <Checkbox
+              checked={input.checked}
+              value={value}
+              onChange={input.onChange}
+              name={input.name}
+            />
+          )}
+        />
+      )}
+    />
+  );
+}
+
+FinalFormCheckbox.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+};

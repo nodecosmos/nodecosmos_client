@@ -100,10 +100,22 @@ const workflowsSlice = createSlice({
      * }}
      */
     workflowDiagramPositionsById: {},
+
+    /**
+     * @type {{
+     *   id: string,
+     *   diagramId: string,
+     *   type: string,
+     * }}
+     */
+    selectedWorkflowDiagramObject: {},
   },
   reducers: {
     buildWorkflow: workflowDiagramBuilder.buildWorkflowDiagram,
     setWorkflowDiagramPosition: workflowDiagramPositionSetter.setWorkflowDiagramPosition,
+    setSelectedWorkflowDiagramObject(state, action) {
+      state.selectedWorkflowDiagramObject = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -157,6 +169,7 @@ const {
 export const {
   setWorkflowDiagramPosition,
   buildWorkflow,
+  setSelectedWorkflowDiagramObject,
 } = actions;
 
 export default reducer;

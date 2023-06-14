@@ -81,7 +81,7 @@ export default function NodeToolbar(props) {
         icon={<FontAwesomeIcon icon={faBell} />}
         checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
-        sx={{ color: 'toolbar.blue' }}
+        sx={{ svg: { color: 'toolbar.blue' } }}
       />
       <IconButton
         target="_blank"

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputPipe from '../../../input-outputs/components/InputPipe';
+import InputPipe from './InputPipe';
 import NodeOutputsBranch from './NodeOutputsBranch';
 import WorkflowNodeButton from './WorkflowNodeButton';
 import WorkflowOutputButton from './WorkflowOutputButton';
@@ -23,17 +23,18 @@ export default function FlowStep({ flowStep }) {
                 </g>
               ))
             }
-            <WorkflowNodeButton diagramId={node.diagramId} id={node.id} />
+            <WorkflowNodeButton
+              diagramId={node.diagramId}
+              id={node.id}
+              flowStepId={flowStep.id}
+              workflowId={flowStep.workflowId}
+              workflowStepIndex={flowStep.workflowStepIndex}
+            />
             <NodeOutputsBranch diagramId={node.diagramId} />
             {
-              flowStep.outputIdsByNodeId[node.id]?.map((input) => (
-                <g key={input.id}>
-                  <WorkflowOutputButton
-                    diagramId={input.diagramId}
-                    id={input.id}
-                  />
-                </g>
-              ))
+               flowStep.outputIdsByNodeId[node.id]?.map((id) => (
+                 <WorkflowOutputButton id={id} key={id} />
+               ))
             }
           </g>
         ))

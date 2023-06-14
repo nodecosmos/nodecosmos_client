@@ -29,7 +29,9 @@ export default function LandingPageNodeButton(props) {
   const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
 
   const { onNodeClick } = useNodeTreeEvents({ id });
-  const { backgroundColor, hasBg } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+  const {
+    outlineColor, backgroundColor, color,
+  } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeId;
 
@@ -64,15 +66,18 @@ export default function LandingPageNodeButton(props) {
             alignItems="center"
             {...(!isEditing && { disableRipple: true })}
             sx={{
+              transition: 'none',
               border: 1,
-              borderColor: backgroundColor,
+              borderColor: outlineColor,
               height: NODE_BUTTON_HEIGHT,
-              color: hasBg ? backgroundColor : 'tree.defaultText',
+              backgroundColor,
+              color,
               input: {
-                color: hasBg ? backgroundColor : 'tree.defaultText',
+                color,
               },
               '&:hover': {
-                backgroundColor: 'tree.default',
+                backgroundColor,
+                outlineColor: 'tree.default',
               },
               borderRadius: 1.25,
               p: '0px 12px',
@@ -81,7 +86,7 @@ export default function LandingPageNodeButton(props) {
               whiteSpace: 'nowrap',
               '.fa-hashtag': {
                 fontSize: 14,
-                color: hasBg ? backgroundColor : 'background.list.default',
+                color,
               },
             }}
           >
@@ -89,7 +94,7 @@ export default function LandingPageNodeButton(props) {
             <LandingPageNodeButtonText id={id} />
           </Box>
           <Box filter="none">
-            {isCurrentNode && <Box className="NodeActions" sx={{ ml: 2 }}><LandingPageNodeToolbar id={id} /></Box>}
+            {isCurrentNode && <Box className="NodeActions" sx={{ ml: 1 }}><LandingPageNodeToolbar id={id} /></Box>}
           </Box>
         </Box>
       </foreignObject>

@@ -10,6 +10,7 @@ export default function showNodeFulfilledReducer(state, action) {
     node.persistentId ||= node.id;
     node.persistentParentId ||= node.parentId;
     node.persistentRootId ||= node.rootId;
+    node.nestedLevel = node.ancestorIds.length;
 
     if (currentRootId) {
       node.rootId = currentRootId;
@@ -20,5 +21,7 @@ export default function showNodeFulfilledReducer(state, action) {
     state.childIdsByRootAndParentId[node.rootId] ||= {};
     state.childIdsByRootAndParentId[node.rootId][node.id] ||= node.childIds;
     state.nodeTitlesById[node.id] = node.title;
+
+    state.persistedIdByNodeId[node.id] = node.id;
   });
 }

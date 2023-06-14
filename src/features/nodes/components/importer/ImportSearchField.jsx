@@ -1,17 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField } from '@mui/material';
+import { searchNode } from '../../nodesSlice';
 
-export default function ImportSearchField() {
+export default function ImportSearchField({ rootNodeId }) {
+  const dispatch = useDispatch();
+
   return (
     <TextField
       sx={{
         width: '350px',
         '.MuiInputBase-root': {
-          pl: 1,
-          borderRadius: 2,
-          height: 40,
+          borderRadius: 1,
+          height: 50,
           backgroundColor: 'toolbar.searchField',
         },
         input: { fontFamily: 'Roboto' },
@@ -25,9 +29,17 @@ export default function ImportSearchField() {
           </InputAdornment>
         ),
       }}
+      onChange={(event) => dispatch(searchNode({
+        rootId: rootNodeId,
+        value: event.target.value,
+      }))}
       color="primary"
       variant="outlined"
       placeholder="Search"
     />
   );
 }
+
+ImportSearchField.propTypes = {
+  rootNodeId: PropTypes.string.isRequired,
+};

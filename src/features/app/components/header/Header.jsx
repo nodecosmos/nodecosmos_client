@@ -89,6 +89,7 @@ export default function Header() {
             height={1}
             display="flex"
             alignItems="center"
+            width="calc(100% - 140px)"
           >
             {headerContents[headerContent]}
           </Box>

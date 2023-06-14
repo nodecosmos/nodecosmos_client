@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { showWorkflow } from '../workflows/workflows.thunks';
+import {
+  createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
+} from './flowSteps.thunks';
 
 const flowStepsSlice = createSlice({
   name: 'flowSteps',
@@ -23,62 +26,52 @@ const flowStepsSlice = createSlice({
      *   }
      * }}
      */
-    byWorkflowId: {
-      'workflow-1': {
-        'step-1': {
-          nodeId: 'node-1',
-          workflowId: 'test',
-          flowId: 'flow-1',
-          id: 'step-1',
-          nodeIds: ['node-1', 'node-2'],
-          inputIdsByNodeId: {
-            'node-1': ['input1', 'input2'],
-            'node-2': ['input2'],
-          },
-          outputIdsByNodeId: {
-            'node-1': ['output1'],
-            'node-2': ['output2'],
-          },
-        },
-        'step-2': {
-          nodeId: 'node-2',
-          workflowId: 'test',
-          flowId: 'flow-1',
-          id: 'step-2',
-          nodeIds: ['node-3', 'node-4'],
-          inputIdsByNodeId: {
-            'node-3': ['output1', 'output2'],
-            'node-4': ['output2'],
-          },
-          outputIdsByNodeId: {
-            'node-3': ['output1', 'output2'],
-            'node-4': ['output4'],
-          },
-        },
-        'step-3': {
-          nodeId: 'node-3',
-          workflowId: 'test',
-          flowId: 'flow-1',
-          id: 'step-3',
-          nodeIds: ['node-5'],
-          inputIdsByNodeId: {
-            'node-5': ['output1', 'output2', 'output4'],
-          },
-          outputIdsByNodeId: {},
-        },
-
-      },
-    },
+    byWorkflowId: {},
   },
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(showWorkflow.fulfilled, (state, action) => {
-      const { workflow, flowSteps } = action.payload;
-      state.byWorkflowId[workflow.id] = flowSteps.reduce((acc, flowStep) => {
-        acc[flowStep.id] = flowStep;
-        return acc;
-      }, {});
-    });
+    builder
+      .addCase(showWorkflow.fulfilled, (state, action) => {
+        const { workflow, flowSteps } = action.payload;
+        state.byWorkflowId[workflow.id] = flowSteps.reduce((acc, flowStep) => {
+          flowStep.inputIdsByNodeId ||= {};
+          flowStep.outputIdsByNodeId ||= {};
+
+          flowStep.nodeIds ||= [];
+
+          acc[flowStep.id] = flowStep;
+          return acc;
+        }, {});
+      })
+      .addCase(createFlowStep.fulfilled, (state, action) => {
+        const { flowStep } = action.payload;
+
+        flowStep.inputIdsByNodeId ||= {};
+        flowStep.outputIdsByNodeId ||= {};
+
+        state.byWorkflowId[flowStep.workflowId] ||= {};
+        state.byWorkflowId[flowStep.workflowId][flowStep.id] = flowStep;
+      })
+      .addCase(updateFlowStepNodes.fulfilled, (state, action) => {
+        const { flowStep } = action.payload;
+
+        state.byWorkflowId[flowStep.workflowId][flowStep.id].nodeIds = flowStep.nodeIds;
+      })
+      .addCase(updateFlowStepOutputs.fulfilled, (state, action) => {
+        const { flowStep } = action.payload;
+
+        state.byWorkflowId[flowStep.workflowId][flowStep.id].outputIdsByNodeId = flowStep.outputIdsByNodeId;
+      })
+      .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
+        const { flowStep } = action.payload;
+
+        state.byWorkflowId[flowStep.workflowId][flowStep.id].inputIdsByNodeId = flowStep.inputIdsByNodeId;
+      })
+      .addCase(deleteFlowStep.fulfilled, (state, action) => {
+        const { flowStep } = action.payload;
+
+        delete state.byWorkflowId[flowStep.workflowId][flowStep.id];
+      });
   },
 });
 

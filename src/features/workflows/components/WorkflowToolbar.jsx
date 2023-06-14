@@ -29,7 +29,7 @@ export default function WorkflowToolbar({ nodeId }) {
         {workflow.title}
       </Typography>
       {
-        !workflow && (
+        !workflow.title && (
           <Button
             size="small"
             color="primary"

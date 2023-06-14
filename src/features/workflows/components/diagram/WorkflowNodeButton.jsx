@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { ButtonBase, useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { ButtonBase } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
@@ -11,22 +11,38 @@ import {
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../../trees/trees.constants';
+import useWorkflowNodeButtonBg from '../../hooks/diagram/useWorkflowNodeButtonBg';
 import { MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET } from '../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
+import { setSelectedWorkflowDiagramObject } from '../../workflowsSlice';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
+import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function WorkflowNodeButton(props) {
-  const { id, diagramId } = props;
-
+export default function WorkflowNodeButton({
+  id, diagramId, workflowId, flowStepId, workflowStepIndex,
+}) {
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
+
+  const dispatch = useDispatch();
   const title = useSelector(selectNodeAttribute(id, 'title'));
-  const theme = useTheme();
 
   const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
   const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
+
+  const handleClick = () => dispatch(setSelectedWorkflowDiagramObject({
+    id,
+    diagramId,
+    type: 'node',
+  }));
+
+  const {
+    backgroundColor,
+    outlineColor,
+    color,
+  } = useWorkflowNodeButtonBg({ id, diagramId });
 
   if (!xEnd) return null;
 
@@ -49,9 +65,13 @@ export default function WorkflowNodeButton(props) {
             type="button"
             className="NodeButton"
             onKeyUp={(event) => event.preventDefault()}
+            onClick={handleClick}
             style={{
-              backgroundColor: theme.palette.tree.default,
+              border: '1px solid',
+              borderColor: outlineColor,
+              backgroundColor,
               height: NODE_BUTTON_HEIGHT,
+              color,
             }}
           >
             <MemoizedTagRounded />
@@ -59,6 +79,13 @@ export default function WorkflowNodeButton(props) {
               {title}
             </div>
           </MemoizedButtonBase>
+          <WorkflowNodeButtonToolbar
+            diagramId={diagramId}
+            nodeId={id}
+            flowStepId={flowStepId}
+            workflowId={workflowId}
+            workflowStepIndex={workflowStepIndex}
+          />
         </div>
       </foreignObject>
     </g>
@@ -68,4 +95,7 @@ export default function WorkflowNodeButton(props) {
 WorkflowNodeButton.propTypes = {
   id: PropTypes.string.isRequired,
   diagramId: PropTypes.string.isRequired,
+  workflowId: PropTypes.string.isRequired,
+  flowStepId: PropTypes.string.isRequired,
+  workflowStepIndex: PropTypes.number.isRequired,
 };

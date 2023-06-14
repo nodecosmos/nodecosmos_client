@@ -42,7 +42,7 @@ export default function Start({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        y={SHADOW_OFFSET + 1}
+        y={SHADOW_OFFSET}
         height={clientHeight + 1000}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
@@ -74,17 +74,22 @@ export default function Start({ workflowId }) {
           {hovered && (<StartToolbar workflowId={workflowId} />)}
         </div>
       </foreignObject>
-      <path
-        stroke={theme.palette.tree.default}
-        fill="transparent"
-        strokeWidth={3.5}
-        d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
-        style={{
-          opacity: 0,
-          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
-          transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-        }}
-      />
+      {
+        workflowDiagram.initialInputIds.length > 0
+        && (
+        <path
+          stroke={theme.palette.tree.default}
+          fill="transparent"
+          strokeWidth={3.5}
+          d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+          style={{
+            opacity: 0,
+            animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+            transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+          }}
+        />
+        )
+      }
       {
         workflowDiagram.initialInputIds.map((id) => (
           <WorkflowOutputButton id={id} key={id} />
