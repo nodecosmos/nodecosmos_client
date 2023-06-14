@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  faBell,
+  faBookmark, faHeart as faHeartOutline, faPenToSquare, faTrash,
+} from '@fortawesome/pro-regular-svg-icons';
+import { faBookmark as faBookmarkSolid, faHeart, faPlus } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 /* mui */
@@ -36,42 +42,43 @@ export default function LandingPageNodeToolbar(props) {
     <Box
       sx={{
         '.Item': {
-          width: 26,
-          height: 26,
+          width: 31,
+          height: 1,
           mx: 0.5,
-          '&:hover': { background: 'rgb(56 195 197 / 14%)' },
+          borderRadius: 1,
+          '&:hover': { backgroundColor: 'toolbar.hover' },
         },
+        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
         '.Item:nth-of-type(1)': { color: red },
         '.Item:nth-of-type(2)': { color: blue },
         '.Item:nth-of-type(3)': { color: green },
-        '.MuiSvgIcon-root': { fontSize: 16 },
       }}
     >
       <IconButton className="Item" onClick={onNodeAdd} aria-label="Add Node">
-        <AddRounded fontSize="small" />
+        <FontAwesomeIcon icon={faPlus} />
       </IconButton>
       <IconButton className="Item" onClick={handleEdit} aria-label="Edit Node">
-        <EditRounded fontSize="small" />
+        <FontAwesomeIcon icon={faPenToSquare} />
       </IconButton>
       <IconButton className="Item" onClick={() => handleNodeDeletion(id)} aria-label="Delete Node">
-        <DeleteOutlineRounded fontSize="small" />
+        <FontAwesomeIcon icon={faTrash} />
       </IconButton>
       <Checkbox
         className="Item"
-        icon={<FavoriteBorder fontSize="small" />}
-        checkedIcon={<Favorite fontSize="small" />}
+        icon={<FontAwesomeIcon icon={faHeartOutline} />}
+        checkedIcon={<FontAwesomeIcon icon={faHeart} />}
         inputProps={{ 'aria-label': 'Favorite' }}
       />
       <Checkbox
         className="Item"
-        icon={<BookmarkBorder fontSize="small" />}
-        checkedIcon={<Bookmark fontSize="small" />}
+        icon={<FontAwesomeIcon icon={faBookmark} />}
+        checkedIcon={<FontAwesomeIcon icon={faBookmarkSolid} />}
         inputProps={{ 'aria-label': 'Bookmark' }}
       />
       <Checkbox
         className="Item"
-        icon={<NotificationsOutlined fontSize="small" />}
-        checkedIcon={<Notifications fontSize="small" />}
+        icon={<FontAwesomeIcon icon={faBell} />}
+        checkedIcon={<FontAwesomeIcon icon={faBell} />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
       />
     </Box>

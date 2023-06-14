@@ -79,7 +79,7 @@ export default function NodeToolbar(props) {
       <Checkbox
         className="Item"
         icon={<FontAwesomeIcon icon={faBell} />}
-        checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
+        checkedIcon={<FontAwesomeIcon icon={faBell} />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
         sx={{ color: 'toolbar.blue' }}
       />
