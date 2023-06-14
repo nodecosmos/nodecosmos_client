@@ -9,7 +9,6 @@ export default function LandingPageWorkflow() {
       <GradientText text="Define processes" variant="h5" variantMapping={{ h5: 'h3' }} />
       <Typography mt={3} variant="body1" color="text.secondary">
         Use Workflow feature to describe how your innovation works or other processes related to your innovation.
-        Each step is
       </Typography>
       <Box
         mx={{
@@ -20,6 +19,8 @@ export default function LandingPageWorkflow() {
         mt={3}
       >
         <Box
+          border={1}
+          borderColor="borders.2"
           borderRadius={1}
           sx={{
             overflow: 'hidden',
@@ -41,6 +42,8 @@ export default function LandingPageWorkflow() {
               xs: 20,
               sm: 40,
             }}
+            borderBottom={1}
+            borderColor="borders.2"
             backgroundColor="background.6"
             display="flex"
             alignItems="center"
