@@ -1,13 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import {
-  faHashtag,
-  faPenToSquare,
-  faTrash,
-  faLink,
-  faBookmark,
-  faBell,
-} from '@fortawesome/pro-regular-svg-icons';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -37,7 +30,7 @@ export default function LandingPageNodeButton(props) {
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const {
-    outlineColor, backgroundColor, borderColor, color,
+    outlineColor, backgroundColor, color,
   } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeId;
@@ -73,6 +66,7 @@ export default function LandingPageNodeButton(props) {
             alignItems="center"
             {...(!isEditing && { disableRipple: true })}
             sx={{
+              transition: 'none',
               border: 1,
               borderColor: outlineColor,
               height: NODE_BUTTON_HEIGHT,

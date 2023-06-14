@@ -8,7 +8,7 @@ import AnimateOnView from './AnimateOnView';
 import Other from './innovate/AndMore';
 import LandingPageMarkdown from './innovate/LandingPageMarkdown';
 import LandingPageTree from './innovate/LandingPageTree';
-import Workflow from './innovate/LandingPageWorkflow';
+import LandingPageWorkflow from './innovate/LandingPageWorkflow';
 import Section from './Section';
 
 const PRESELECTED_NODE_ID = '635a91ea690cc413ead79ce2';
@@ -71,10 +71,10 @@ export default function Innovate() {
       </Box>
       <Box mt={3}>
         <AnimateOnView>
-          <Section>
+          <Section overflow={currentTab === 0 ? 'initial' : 'hidden'}>
             {currentTab === 0 && <LandingPageTree />}
             {currentTab === 1 && <LandingPageMarkdown />}
-            {currentTab === 2 && <Workflow />}
+            {currentTab === 2 && <LandingPageWorkflow />}
             {currentTab === 3 && <Other />}
           </Section>
         </AnimateOnView>

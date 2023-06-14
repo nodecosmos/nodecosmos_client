@@ -3,7 +3,9 @@ import {
   faBell,
   faBookmark, faHeart as faHeartOutline, faPenToSquare, faTrash,
 } from '@fortawesome/pro-regular-svg-icons';
-import { faBookmark as faBookmarkSolid, faHeart, faPlus } from '@fortawesome/pro-solid-svg-icons';
+import {
+  faBookmark as faBookmarkSolid, faHeart, faPlus, faBell as faBellSolid,
+} from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
@@ -13,16 +15,6 @@ import {
   Checkbox,
   Box, useTheme,
 } from '@mui/material';
-
-import AddRounded from '@mui/icons-material/AddRounded';
-import Bookmark from '@mui/icons-material/Bookmark';
-import BookmarkBorder from '@mui/icons-material/BookmarkBorder';
-import EditRounded from '@mui/icons-material/EditRounded';
-import Favorite from '@mui/icons-material/Favorite';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
-import Notifications from '@mui/icons-material/Notifications';
-import NotificationsOutlined from '@mui/icons-material/NotificationsOutlined';
 
 import { useDispatch } from 'react-redux';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
@@ -78,7 +70,7 @@ export default function LandingPageNodeToolbar(props) {
       <Checkbox
         className="Item"
         icon={<FontAwesomeIcon icon={faBell} />}
-        checkedIcon={<FontAwesomeIcon icon={faBell} />}
+        checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
         inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
       />
     </Box>
