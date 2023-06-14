@@ -37,7 +37,7 @@ export default function WorkflowNodeButtonToolbar({
             }}
           >
 
-            <Tooltip title="Associate Inputs" placement="top">
+            <Tooltip title="Add input from previous step" placement="top">
               <IconButton
                 className="Item"
                 aria-label="Add Outputs"

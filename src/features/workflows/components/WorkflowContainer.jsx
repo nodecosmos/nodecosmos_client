@@ -41,6 +41,7 @@ export default function WorkflowContainer(props) {
           py: 0,
           px: 2,
           border: 'none',
+          maxWidth: 292,
           '&.selected .fa-hashtag': {
             color: 'inherit',
           },
@@ -57,6 +58,8 @@ export default function WorkflowContainer(props) {
             cursor: 'pointer!important',
             pointerEvents: 'none',
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
           },
         },
       }}

@@ -50,7 +50,7 @@ export default function FlowStepNodesModal({
   const onSubmit = async (formValues) => {
     setLoading(true);
 
-    const { flowStepNodeIds } = formValues;
+    const flowStepNodeIds = formValues.flowStepNodeIds.filter((id) => persistedNodeIdByNodeId[id]);
 
     const payload = {
       nodeIds: flowStepNodeIds,

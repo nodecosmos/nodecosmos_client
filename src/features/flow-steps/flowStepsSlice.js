@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { showWorkflow } from '../workflows/workflows.thunks';
 import {
-  createFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
+  createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
 } from './flowSteps.thunks';
 
 const flowStepsSlice = createSlice({
@@ -42,8 +42,6 @@ const flowStepsSlice = createSlice({
           acc[flowStep.id] = flowStep;
           return acc;
         }, {});
-
-        console.log(state.byWorkflowId[workflow.id]);
       })
       .addCase(createFlowStep.fulfilled, (state, action) => {
         const { flowStep } = action.payload;
@@ -68,6 +66,11 @@ const flowStepsSlice = createSlice({
         const { flowStep } = action.payload;
 
         state.byWorkflowId[flowStep.workflowId][flowStep.id].inputIdsByNodeId = flowStep.inputIdsByNodeId;
+      })
+      .addCase(deleteFlowStep.fulfilled, (state, action) => {
+        const { flowStep } = action.payload;
+
+        delete state.byWorkflowId[flowStep.workflowId][flowStep.id];
       });
   },
 });

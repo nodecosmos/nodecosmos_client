@@ -10,6 +10,7 @@ import {
   Box, Tooltip,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteFlowStep } from '../../../flow-steps/flowSteps.thunks';
 import { selectFlowAttribute } from '../../../flows/flows.selectors';
 import { deleteFlow } from '../../../flows/flows.thunks';
 import { selectWorkflowAttribute } from '../../workflows.selectors';
@@ -25,6 +26,15 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
       nodeId,
       workflowId: wfStepFlow.workflowId,
       id: wfStepFlow.id,
+    }));
+  };
+
+  const handleFlowStepDeletion = () => {
+    dispatch(deleteFlowStep({
+      nodeId,
+      workflowId: wfStepFlow.workflowId,
+      flowId: wfStepFlow.id,
+      id: wfStepFlow.flowStep.id,
     }));
   };
 
@@ -79,6 +89,20 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
                 <FontAwesomeIcon icon={faDiagramSubtask} />
               </IconButton>
             </Tooltip>
+            {
+              wfStepFlow.flowStep && (
+                <Tooltip title="Delete Flow Step" placement="top">
+                  <IconButton
+                    className="Item"
+                    aria-label="Delete Flow Step"
+                    sx={{ color: 'toolbar.lightRed' }}
+                    onClick={handleFlowStepDeletion}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </IconButton>
+                </Tooltip>
+              )
+            }
           </Box>
         )
       }

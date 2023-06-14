@@ -29,15 +29,15 @@ export default function Transformable(props) {
   const { onMouseDown } = usePannable(containerRef);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const handleScroll = () => {
-    requestAnimationFrame(() => {
-      dispatch(setTransformablePositions({
-        id: transformableId,
-        clientHeight: containerRef.current.clientHeight,
-        scrollTop: containerRef.current.scrollTop,
-      }));
-    });
-  };
+  // const handleScroll = () => {
+  //   requestAnimationFrame(() => {
+  //     dispatch(setTransformablePositions({
+  //       id: transformableId,
+  //       clientHeight: containerRef.current.clientHeight,
+  //       scrollTop: containerRef.current.scrollTop,
+  //     }));
+  //   });
+  // };
 
   useEffect(() => {
     if (scrollTop && containerRef.current && containerRef.current.scrollTop !== scrollTop) {
@@ -55,7 +55,7 @@ export default function Transformable(props) {
   return (
     <Box
       ref={containerRef}
-      onScroll={(e) => handleScroll(e)}
+      // onScroll={(e) => handleScroll(e)}
       onMouseDown={onMouseDown}
       sx={{
         overflow: 'auto',

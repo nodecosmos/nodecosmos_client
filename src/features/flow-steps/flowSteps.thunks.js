@@ -40,7 +40,8 @@ export const updateFlowStepInputs = createAsyncThunk(
 export const deleteFlowStep = createAsyncThunk(
   'flow_steps/deleteFlowStep',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/flow_steps/${payload.nodeId}/${payload.workflowId}/${payload.id}`);
+    const response = await nodecosmos
+      .delete(`/flow_steps/${payload.nodeId}/${payload.workflowId}/${payload.flowId}/${payload.id}`);
 
     return response.data;
   },

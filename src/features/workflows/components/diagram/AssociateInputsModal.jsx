@@ -9,13 +9,11 @@ import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import TagRounded from '@mui/icons-material/TagRounded';
 import { useDispatch, useSelector } from 'react-redux';
 
 /* mui */
 import {
   Button,
-  InputAdornment,
   DialogContent,
 } from '@mui/material';
 /* nodecosmos */
@@ -49,7 +47,7 @@ export default function AssociateInputsModal({
     setLoading(true);
 
     try {
-      const inputIdsByNodeId = { ...currentFlowStepInputIds } || {};
+      const inputIdsByNodeId = (currentFlowStepInputIds && { ...currentFlowStepInputIds }) || {};
       inputIdsByNodeId[flowStepInputNodeId] = formValues.inputIds;
 
       inputIdsByNodeId[flowStepInputNodeId] = await dispatch(updateFlowStepInputs({
@@ -80,7 +78,7 @@ export default function AssociateInputsModal({
       open={open}
     >
       <DialogTitle>
-        Add initial Inputs
+        Add inputs from previous step
         <IconButton
           disableRipple
           onClick={onClose}
@@ -99,7 +97,7 @@ export default function AssociateInputsModal({
           onSubmit={onSubmit}
           subscription={{ submitting: true }}
           initialValues={{
-            inputIds: currentFlowStepInputIds[flowStepInputNodeId] || [],
+            inputIds: (currentFlowStepInputIds && currentFlowStepInputIds[flowStepInputNodeId]) || [],
           }}
         >
           {({ handleSubmit }) => (
