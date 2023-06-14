@@ -30,7 +30,7 @@ export default function LandingPageNodeButton(props) {
 
   const { onNodeClick } = useNodeTreeEvents({ id });
   const {
-    outlineColor, backgroundColor, color,
+    outlineColor, backgroundColor, color, hashColor,
   } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
   const isCurrentNode = nodeExpanded && id === currentNodeId;
@@ -86,7 +86,7 @@ export default function LandingPageNodeButton(props) {
               whiteSpace: 'nowrap',
               '.fa-hashtag': {
                 fontSize: 14,
-                color,
+                color: hashColor,
               },
             }}
           >

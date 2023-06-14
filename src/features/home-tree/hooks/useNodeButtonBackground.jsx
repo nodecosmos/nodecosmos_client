@@ -34,12 +34,14 @@ export default function useNodeButtonBackground(props) {
 
   const color = (outlinedColored && outlineColor)
     || (hasBg && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
+  const hashColor = (outlinedColored && outlineColor)
+    || (hasBg && theme.palette.tree.selectedText) || theme.palette.tree.hashtag;
 
   return {
     backgroundColor: outlinedColored ? theme.palette.tree.outlineBackground : backgroundColor,
     outlineColor,
     parentBackgroundColor,
     color,
-    hasBg,
+    hashColor,
   };
 }
