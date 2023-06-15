@@ -1,25 +1,14 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import { faHeadSideBrain, faLightbulbOn, faRightFromBracket } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '@mui/material/Menu';
 import Switch from '@mui/material/Switch';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-/* mui */
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-} from '@mui/material';
-
-import Person from '@mui/icons-material/Person';
-import Logout from '@mui/icons-material/Logout';
-import LightMode from '@mui/icons-material/LightMode';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
 
 import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
+import SidebarListItem from '../../../nodes/components/sidebar/SidebarListItem';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 
@@ -62,49 +51,30 @@ export default function UserProfileOptions() {
             p: 0,
             m: 0.25,
             width: 300,
+            '.MuiList-root': { p: 0 },
+            '.MuiListItemButton-root': { height: 62 },
           },
         }}
       >
-        <List sx={{ m: -0.5, p: 0 }}>
-          <ListItem>
-            <ListItemButton onClick={handleClose} component={Link} to={`/user/${currentUser.username}`}>
-              <ListItemIcon>
-                <Person />
-              </ListItemIcon>
-              <Typography fontWeight="normal">
-                Profile
-              </Typography>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={handleLogout}>
-              <ListItemIcon>
-                <Logout />
-              </ListItemIcon>
-              <Typography fontWeight="normal">
-                Logout
-              </Typography>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton disableRipple onClick={() => toggleTheme(null, !lightThemeChecked)}>
-              <ListItemIcon>
-                <LightMode />
-              </ListItemIcon>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                width="100%"
-              >
-                <Typography fontWeight="normal">
-                  Light mode
-                </Typography>
-                <Switch checked={lightThemeChecked} onChange={toggleTheme} />
-              </Box>
-            </ListItemButton>
-          </ListItem>
-        </List>
+        <SidebarListItem
+          to={`/user/${currentUser.username}`}
+          icon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
+          title="Profile"
+        />
+        <SidebarListItem
+          onClick={handleLogout}
+          icon={(<FontAwesomeIcon icon={faRightFromBracket} />)}
+          component={null}
+          title="Log Out"
+        />
+        <SidebarListItem
+          icon={(<FontAwesomeIcon icon={faLightbulbOn} />)}
+          title="Light Mode"
+          component={null}
+          onClick={() => toggleTheme(null, !lightThemeChecked)}
+        >
+          <Switch checked={lightThemeChecked} onChange={toggleTheme} />
+        </SidebarListItem>
       </Menu>
     </>
   );
