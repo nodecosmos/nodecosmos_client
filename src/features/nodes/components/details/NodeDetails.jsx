@@ -6,6 +6,7 @@ import { selectNodeDetailsAction, selectSelectedNodeId } from '../../nodes.selec
 import MarkdownEditor from './MarkdownEditor';
 import NodeDescription from './NodeDescription';
 import NodeDetailsToolbar from './NodeDetailsToolbar';
+import WorkflowDetails from './WorkflowDetails';
 
 export default function NodeDetails() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
@@ -15,11 +16,12 @@ export default function NodeDetails() {
   const nodeDetailsContents = {
     description: <NodeDescription />,
     markdownEditor: <MarkdownEditor />,
-    workflow: <Box />,
+    workflow: <WorkflowDetails />,
   };
 
   return (
     <Box
+      width={1}
       height={1}
       backgroundColor="background.6"
       sx={{ overflow: 'hidden' }}

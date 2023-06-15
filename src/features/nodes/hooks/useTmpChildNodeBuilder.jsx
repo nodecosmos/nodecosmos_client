@@ -32,7 +32,9 @@ export default function useTmpChildNodeBuilder(nodeId) {
         : 'Current node not initialized yet. '
         + 'Please add title to current node in order to create child node.';
 
-      dispatch(setAlert({ isOpen: true, severity: 'error', message }));
+      dispatch(setAlert({
+        isOpen: true, severity: 'error', message, anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+      }));
     } else {
       const tmpNodeId = `tmp_${Date.now()}`;
 

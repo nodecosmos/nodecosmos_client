@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputPipe from './InputPipe';
-import NodeOutputsBranch from './NodeOutputsBranch';
-import WorkflowNodeButton from './WorkflowNodeButton';
-import WorkflowOutputButton from './WorkflowOutputButton';
+import InputPipe from '../InputPipe';
+import NodeOutputsBranch from '../NodeOutputsBranch';
+import WorkflowNodeButton from '../WorkflowNodeButton';
+import WorkflowOutputButton from '../WorkflowOutputButton';
 
 export default function FlowStep({ flowStep }) {
   if (!flowStep) return null;

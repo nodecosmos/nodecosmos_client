@@ -1,16 +1,25 @@
 import React from 'react';
-import { Snackbar, Alert as MuiAlert } from '@mui/material';
+import {
+  Snackbar, Alert as MuiAlert, Typography,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlert } from '../appSlice';
 
 export default function Alert() {
   const dispatch = useDispatch();
-  const { isOpen, message, severity } = useSelector((state) => state.app.alert);
+  const {
+    isOpen, message, severity, anchorOrigin,
+  } = useSelector((state) => state.app.alert);
 
   const handleClose = () => dispatch(setAlert({ isOpen: false, message, severity }));
 
   return (
-    <Snackbar open={isOpen} autoHideDuration={5000} onClose={handleClose}>
+    <Snackbar
+      open={isOpen}
+      autoHideDuration={1500000}
+      onClose={handleClose}
+      anchorOrigin={anchorOrigin}
+    >
       <MuiAlert
         onClose={handleClose}
         severity={severity}
@@ -21,9 +30,14 @@ export default function Alert() {
           '.MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
             color: `${severity}.main`,
           },
+          alignItems: 'center',
         }}
       >
-        {message}
+        <Typography
+          color="error"
+          variant="body1"
+          dangerouslySetInnerHTML={{ __html: message }}
+        />
       </MuiAlert>
     </Snackbar>
   );

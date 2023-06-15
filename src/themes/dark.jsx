@@ -119,8 +119,9 @@ export default {
       backgrounds: [
         '#f13575',
         '#a38dff', // 539bf5
-        '#77d9ff',
-        '#80ffb7',
+        '#77bbff',
+        '#77f6ff',
+        '#72fcad',
         '#b3ff68',
         '#e7e96d',
         '#f5a07b',

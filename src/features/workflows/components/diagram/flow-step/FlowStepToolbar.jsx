@@ -10,10 +10,10 @@ import {
   Box, Tooltip,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteFlowStep } from '../../../flow-steps/flowSteps.thunks';
-import { selectFlowAttribute } from '../../../flows/flows.selectors';
-import { deleteFlow } from '../../../flows/flows.thunks';
-import { selectWorkflowAttribute } from '../../workflows.selectors';
+import { deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
+import { selectFlowAttribute } from '../../../../flows/flows.selectors';
+import { deleteFlow } from '../../../../flows/flows.thunks';
+import { selectWorkflowAttribute } from '../../../workflows.selectors';
 import FlowStepNodesModal from './FlowStepNodesModal';
 
 export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
@@ -41,7 +41,7 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
   const [addFlopStepNodesModalOpen, setAddFlowStepNodesModalOpen] = React.useState(false);
 
   return (
-    <>
+    <Box>
       {
         wfStepHovered && (
           <Box
@@ -106,12 +106,13 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
           </Box>
         )
       }
+
       <FlowStepNodesModal
         wfStepFlow={wfStepFlow}
         open={addFlopStepNodesModalOpen}
         onClose={() => setAddFlowStepNodesModalOpen(false)}
       />
-    </>
+    </Box>
   );
 }
 

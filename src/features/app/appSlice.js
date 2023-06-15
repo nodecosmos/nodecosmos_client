@@ -42,6 +42,10 @@ const appSlice = createSlice({
       isOpen: false,
       message: '',
       severity: 'info',
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
     },
     descriptionCoordinates: {
       x: 0,
@@ -60,7 +64,12 @@ const appSlice = createSlice({
       const current = state.transformablePositionsById[action.payload.id] || {};
       state.transformablePositionsById[action.payload.id] = { ...current, ...action.payload };
     },
-    setAlert(state, action) { state.alert = action.payload; },
+    setAlert(state, action) {
+      state.alert = {
+        ...state.alert,
+        ...action.payload,
+      };
+    },
     setDescriptionCoordinates(state, action) {
       state.descriptionCoordinates = action.payload;
     },

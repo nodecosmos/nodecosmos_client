@@ -9,7 +9,7 @@ import useWorkflowDiagramPositionCalculator from '../../hooks/diagram/useWorkflo
 import { selectWorkflowsByNodeId } from '../../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../../workflowsSlice';
 import Start from './Start';
-import WorkflowSteps from './WorkflowSteps';
+import WorkflowSteps from './workflow-steps/WorkflowSteps';
 
 export default function Workflow({ nodeId }) {
   const containerRef = useRef(null);

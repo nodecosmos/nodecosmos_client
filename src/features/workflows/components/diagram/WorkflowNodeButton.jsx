@@ -49,7 +49,7 @@ export default function WorkflowNodeButton({
   return (
     <g style={{
       opacity: 0,
-      animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+      animation: `workflow-node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
     }}
     >
       <WorkflowNodeBranch diagramId={diagramId} />

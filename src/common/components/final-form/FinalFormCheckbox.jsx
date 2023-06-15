@@ -14,7 +14,7 @@ export default function FinalFormCheckbox({ name, label, value }) {
           sx={{
             mt: 2,
             border: 1,
-            borderColor: 'text.secondary',
+            borderColor: 'primary.main',
             borderStyle: 'solid',
             pr: 2,
             borderRadius: 1,

@@ -50,12 +50,13 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
       // eslint-disable-next-line no-loop-func
       workflowDiagram.workflowSteps.forEach((wfStep, wfStepIndex) => {
-        positionsByDiagramId[wfStep.diagramId] = {
+        const wfStepPosition = {
           x: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
           xEnd: WORKFLOW_STEP_WIDTH * (wfStepIndex + 1),
           y: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
           yEnd: (WORKFLOW_STEP_HEIGHT) * (wfStepIndex + 1) + WORKFLOW_START_MARGIN_TOP,
         };
+        positionsByDiagramId[wfStep.diagramId] = wfStepPosition;
 
         const flow = wfStep.wfStepFlows[flowIndex];
         if (!flow) return;
@@ -109,6 +110,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
             positionsByDiagramId[node.diagramId] = nodePosition;
             flowPosition.yEnd = nodePosition.yEnd;
+            wfStepPosition.yEnd = nodePosition.yEnd + EDGE_LENGTH;
           });
         }
 

@@ -25,9 +25,15 @@ export default function WorkflowToolbar({ nodeId }) {
       position="relative"
       boxShadow="2"
     >
-      <Typography>
-        {workflow.title}
-      </Typography>
+      {
+        workflow.title && (
+        <Typography>
+          Workflow:
+          {' '}
+          {workflow.title}
+        </Typography>
+        )
+      }
       {
         !workflow.title && (
           <Button

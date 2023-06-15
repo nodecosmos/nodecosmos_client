@@ -33,6 +33,18 @@ export default () => ({
     },
   },
 
+  '@keyframes workflow-node-button-appear': {
+    '0%': {
+      opacity: 1,
+      transform: 'translate(0, -15px)',
+    },
+
+    '100%': {
+      opacity: 1,
+      transform: 'translate(0px, 0px)',
+    },
+  },
+
   '@keyframes node-circle-appear': {
     '0%': {
       opacity: 1,

@@ -4,10 +4,10 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionsById } from '../../../app/app.selectors';
-import CreateFlowModal from '../../../flows/components/CreateFlowModal';
-import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
+import { selectTransformablePositionsById } from '../../../../app/app.selectors';
+import CreateFlowModal from '../../../../flows/components/CreateFlowModal';
+import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import WorkflowStepFlows from './WorkflowStepFlows';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
@@ -16,9 +16,11 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
 
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
-  const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
+  const { x, yEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
 
-  if (!clientHeight) return null;
+  if (!x || !clientHeight) return null;
+
+  const wfStepHeight = Math.max(clientHeight, yEnd);
 
   return (
     <g
@@ -29,7 +31,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <path
         strokeWidth={1}
         d={`M ${x} 0
-            L ${x} ${clientHeight + 1000}`}
+            L ${x} ${wfStepHeight}`}
         stroke={theme.palette.workflow.default}
         fill="transparent"
       />
@@ -37,7 +39,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         onMouseEnter={() => setHovered(true)}
         x={x}
         y={SHADOW_OFFSET}
-        height={clientHeight + 1000}
+        height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
         stroke={hovered ? theme.palette.workflow.default

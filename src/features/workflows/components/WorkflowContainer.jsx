@@ -16,6 +16,7 @@ export default function WorkflowContainer(props) {
           ml: 1,
           borderRadius: 1,
           minWidth: 150,
+          maxWidth: 190,
           transform: 'skewX(-30deg)',
           '.IOButtonText': {
             mx: 1,
@@ -30,6 +31,8 @@ export default function WorkflowContainer(props) {
             pointerEvents: 'none',
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
             transform: 'skewX(30deg)',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
           },
         },
         '.NodeButton': {

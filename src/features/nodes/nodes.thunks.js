@@ -47,12 +47,7 @@ export const createNode = createAsyncThunk(
 
     const response = await nodecosmos.post('/nodes', reqPayload);
 
-    return {
-      ...response.data,
-      persistentParentId: payload.persistentParentId,
-      parentId: payload.parentId,
-      tmpNodeId: payload.tmpNodeId,
-    };
+    return response.data;
   },
 );
 

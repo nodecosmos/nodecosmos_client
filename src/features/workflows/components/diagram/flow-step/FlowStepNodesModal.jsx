@@ -17,16 +17,16 @@ import {
   Button,
   DialogContent, Typography,
 } from '@mui/material';
-import FinalFormCheckboxTree from '../../../../common/components/final-form/FinalFormCheckboxTree';
-import { setAlert } from '../../../app/appSlice';
-import { selectFlowStepAttribute } from '../../../flow-steps/flowSteps.selectors';
-import { createFlowStep, updateFlowStepNodes } from '../../../flow-steps/flowSteps.thunks';
-import ImportSearchField from '../../../nodes/components/importer/ImportSearchField';
+import FinalFormCheckboxTree from '../../../../../common/components/final-form/FinalFormCheckboxTree';
+import { setAlert } from '../../../../app/appSlice';
+import { selectFlowStepAttribute } from '../../../../flow-steps/flowSteps.selectors';
+import { createFlowStep, updateFlowStepNodes } from '../../../../flow-steps/flowSteps.thunks';
+import ImportSearchField from '../../../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
 import {
   selectChildIdsByParentId, selectNodeAttribute, selectNodesById, selectPersistedIdByNodeId,
-} from '../../../nodes/nodes.selectors';
-import { selectWorkflowAttribute } from '../../workflows.selectors';
+} from '../../../../nodes/nodes.selectors';
+import { selectWorkflowAttribute } from '../../../workflows.selectors';
 
 // Dumb implementation of import feature
 export default function FlowStepNodesModal({
@@ -36,20 +36,34 @@ export default function FlowStepNodesModal({
 
   const allNodesById = useSelector(selectNodesById);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
+  const nodeRootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+  const nodeTitle = useSelector(selectNodeAttribute(nodeId, 'title'));
   const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
-  const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeId));
+  const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeRootId));
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
   const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
 
   const dispatch = useDispatch();
 
-  if (!childIdsByParentId) return null;
+  if (!childIdsByParentId || childIdsByParentId.length === 0) {
+    if (open) {
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'error',
+        message: `No nested nodes found for <b>${nodeTitle}</b> node!`,
+      }));
+    }
+    onClose();
+
+    return null;
+  }
 
   const childIds = childIdsByParentId[nodeId];
 
   const onSubmit = async (formValues) => {
     setLoading(true);
 
+    // in case node is deleted we don't send deleted nodeIds
     const flowStepNodeIds = formValues.flowStepNodeIds.filter((id) => persistedNodeIdByNodeId[id]);
 
     const payload = {
@@ -88,6 +102,18 @@ export default function FlowStepNodesModal({
   childIdsByParentId[nodeId] && childIdsByParentId[nodeId].forEach((childId) => {
     checkboxTreeOptions.push(addCheckboxTreeOptions(childId));
   });
+
+  if (open && checkboxTreeOptions.length === 0) {
+    dispatch(setAlert({
+      isOpen: true,
+      severity: 'error',
+      message: `Can not add nodes to flow step: No nested nodes found for <b>${nodeTitle}</b> node!`,
+    }));
+
+    onClose();
+
+    return null;
+  }
 
   return (
     <Dialog

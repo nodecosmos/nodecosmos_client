@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectFlowAttribute } from '../../../flows/flows.selectors';
-import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
-import FlowStep from './FlowStep';
-import FlowStepToolbar from './FlowStepToolbar';
+import { selectFlowAttribute } from '../../../../flows/flows.selectors';
+import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
+import FlowStep from '../flow-step/FlowStep';
+import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
 export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));

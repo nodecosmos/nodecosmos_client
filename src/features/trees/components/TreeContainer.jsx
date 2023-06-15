@@ -7,6 +7,7 @@ export default function TreeContainer(props) {
   return (
     <Box
       sx={{
+        width: 1,
         height: 1,
         transform: 'translateZ(0)',
         overflow: 'hidden',

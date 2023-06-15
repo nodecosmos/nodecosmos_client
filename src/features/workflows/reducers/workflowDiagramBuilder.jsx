@@ -112,7 +112,7 @@ function buildEmptyWfStepPlaceholders(state, workflow) {
       {
         diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
         workflowId: workflow.id,
-        index: lastIndex,
+        stepIndex: lastIndex,
         wfStepFlows: [],
       },
     );

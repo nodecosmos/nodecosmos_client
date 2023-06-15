@@ -40,7 +40,7 @@ export default function AssociateInputsModal({
   if (workflowStepIndex === 0) {
     workflowStepInputIds = workflow.initialInputIds;
   } else {
-    workflowStepInputIds = workflowStep.wfStepOutputIds;
+    workflowStepInputIds = workflowStep && workflowStep.wfStepOutputIds;
   }
 
   const onSubmit = async (formValues) => {
@@ -73,7 +73,7 @@ export default function AssociateInputsModal({
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="sm"
       onClose={onClose}
       open={open}
     >
@@ -104,8 +104,8 @@ export default function AssociateInputsModal({
             <form style={{ height: '100%' }} onSubmit={handleSubmit}>
               {
                 workflowStepInputIds.map((inputId) => (
-                  <Box key={inputId}>
-                    <AssociateInputCheckboxField inputId={inputId} />
+                  <Box ml={1.5}>
+                    <AssociateInputCheckboxField key={inputId} inputId={inputId} />
                   </Box>
                 ))
               }
