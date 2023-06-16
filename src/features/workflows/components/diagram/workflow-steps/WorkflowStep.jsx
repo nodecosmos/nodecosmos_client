@@ -16,11 +16,12 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
 
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
-  const { x, yEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
+  const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
+  const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.workflowId));
 
   if (!x || !clientHeight) return null;
 
-  const wfStepHeight = Math.max(clientHeight, yEnd);
+  const wfStepHeight = Math.max(clientHeight, workflowDiagramYEnd);
 
   return (
     <g

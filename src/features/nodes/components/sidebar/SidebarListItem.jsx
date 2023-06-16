@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
   ListItem, ListItemButton, ListItemIcon, Box,
@@ -32,8 +33,8 @@ export default function SidebarListItem({
         disableRipple
         component={component}
         to={to}
-        end
         onClick={onClick}
+        {...(component === NavLink && { end: true, relative: true })}
       >
         <ListItemIcon sx={{
           minWidth: 0,

@@ -12,6 +12,7 @@ import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import UserHeaderOptions from './UserHeaderOptions';
 
 const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
+const SIDEBAR_PATHS = ['/nodes'];
 
 export default function Header() {
   const headerContents = {
@@ -24,6 +25,8 @@ export default function Header() {
   const headerContent = useSelector(selectHeaderContent);
 
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
+
+  const hasSidebar = SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path));
 
   return (
     <Box
@@ -48,7 +51,8 @@ export default function Header() {
           sm={2}
           align="left"
           pl={2}
-          borderRight={1}
+          borderRight={hasSidebar ? 1 : 0}
+          borderBottom={hasSidebar ? 0 : 1}
           borderColor="borders.1"
           sx={{
             borderTopLeftRadius: {

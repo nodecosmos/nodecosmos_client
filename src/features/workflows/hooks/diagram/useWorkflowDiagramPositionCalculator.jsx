@@ -116,10 +116,15 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
         positionsByDiagramId[flow.diagramId] = flowPosition;
         currentFlowYEnd = Math.max(flowPosition.yEnd, currentFlowYEnd);
+
+        // set y end of whole workflow diagram
+        positionsByDiagramId[id] = {
+          yEnd: Math.max(prevFlowYEnd, currentFlowYEnd) + EDGE_LENGTH,
+        };
       });
 
       prevFlowYEnd = currentFlowYEnd;
     }
     return positionsByDiagramId;
-  }, [workflowDiagram.workflowSteps, workflowDiagram.flowsCount, workflowDiagram.initialInputIds]);
+  }, [workflowDiagram.workflowSteps, workflowDiagram.initialInputIds, workflowDiagram.flowsCount, id]);
 }
