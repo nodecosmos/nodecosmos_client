@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
-import { Box, Drawer } from '@mui/material';
+import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
-import NodeDescription from '../../../features/nodes/components/details/NodeDescription';
+import usePaneResizable from '../../../features/app/hooks/usePaneResizable';
+import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Workflow from '../../../features/workflows/components/diagram/Workflow';
 import WorkflowContainer from '../../../features/workflows/components/WorkflowContainer';
 import WorkflowToolbar from '../../../features/workflows/components/WorkflowToolbar';
@@ -19,6 +20,28 @@ export default function WorkflowTab() {
   const workflow = useMemo(() => workflows[0] || {}, [workflows]);
 
   const [loading, setLoading] = React.useState(true);
+
+  const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
+  const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
+
+  const workflowRef = React.useRef(null);
+  const workflowDetailsRef = React.useRef(null);
+
+  const {
+    paneAWidth,
+    paneBWidth,
+    handleResize,
+  } = usePaneResizable({
+    aRef: workflowRef,
+    bRef: workflowDetailsRef,
+    initialWidthA: workflowWidthFromLocalStorage || '80%',
+    initialWidthB: workflowPaneWidthFromLocalStorage || '20%',
+  });
+
+  useEffect(() => {
+    localStorage.setItem('workflowWidth', paneAWidth);
+    localStorage.setItem('workflowPaneWidth', paneBWidth);
+  }, [paneAWidth, paneBWidth]);
 
   useEffect(() => {
     if (!workflow.id) setLoading(true);
@@ -36,24 +59,30 @@ export default function WorkflowTab() {
     >
       <WorkflowContainer>
         <Box height={1} width={1} display="flex">
-          <Box height={`calc(100% - ${HEADER_HEIGHT})`} width={0.5}>
+          <Box height={`calc(100% - ${HEADER_HEIGHT})`} width={paneAWidth} ref={workflowRef}>
             <WorkflowToolbar nodeId={id} />
             <Workflow nodeId={id} />
           </Box>
-
-          <Drawer
-            variant="persistent"
-            open
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+          <Box
+            onMouseDown={handleResize}
+            width="8px"
+            backgroundColor="transparent"
+            height={1}
+            ml={-1}
+            borderRight={1}
+            borderColor="borders.4"
             sx={{
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 0.5, ml: '50%' },
-              float: 'right',
+              position: 'relative',
+              '&:hover': {
+                borderRight: 1,
+                borderColor: 'borders.5',
+                cursor: 'col-resize',
+              },
             }}
-          >
-            <NodeDescription />
-          </Drawer>
+          />
+          <Box width={paneBWidth} ref={workflowDetailsRef}>
+            <NodePane />
+          </Box>
         </Box>
       </WorkflowContainer>
     </Box>

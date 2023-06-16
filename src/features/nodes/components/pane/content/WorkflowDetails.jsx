@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../../../common/components/Loader';
-import { HEADER_HEIGHT } from '../../../app/constants';
-import Workflow from '../../../workflows/components/diagram/Workflow';
-import WorkflowContainer from '../../../workflows/components/WorkflowContainer';
-import WorkflowToolbar from '../../../workflows/components/WorkflowToolbar';
-import { selectWorkflowsByNodeId } from '../../../workflows/workflows.selectors';
-import { showWorkflow } from '../../../workflows/workflows.thunks';
-import { selectPersistentId, selectSelectedNodeId } from '../../nodes.selectors';
+import Loader from '../../../../../common/components/Loader';
+import { HEADER_HEIGHT } from '../../../../app/constants';
+import Workflow from '../../../../workflows/components/diagram/Workflow';
+import WorkflowContainer from '../../../../workflows/components/WorkflowContainer';
+import WorkflowToolbar from '../../../../workflows/components/WorkflowToolbar';
+import { selectWorkflowsByNodeId } from '../../../../workflows/workflows.selectors';
+import { showWorkflow } from '../../../../workflows/workflows.thunks';
+import { selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
 
 export default function WorkflowDetails() {
   const selectedNodeId = useSelector(selectSelectedNodeId);

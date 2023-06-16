@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
-import { selectSelectedNode, selectSelectedNodeId } from '../../nodes.selectors';
+import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
 
 export default function NodeDescription() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
@@ -81,6 +81,8 @@ export default function NodeDescription() {
           textOverflow: 'ellipsis',
         }}
       >
+        #
+        {' '}
         {title}
       </Box>
       {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}

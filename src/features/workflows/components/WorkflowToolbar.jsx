@@ -24,6 +24,7 @@ export default function WorkflowToolbar({ nodeId }) {
       alignItems="center"
       position="relative"
       boxShadow="2"
+      zIndex={0}
     >
       {
         workflow.title && (

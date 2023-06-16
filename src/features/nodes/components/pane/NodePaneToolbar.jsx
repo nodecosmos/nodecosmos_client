@@ -17,7 +17,7 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
 import { setNodeDetailsAction } from '../../nodesSlice';
 
-export default function NodeDetailsToolbar() {
+export default function NodePaneToolbar() {
   const { title } = useSelector(selectSelectedNode);
 
   const dispatch = useDispatch();
@@ -32,7 +32,6 @@ export default function NodeDetailsToolbar() {
         height={HEADER_HEIGHT}
         borderBottom={1}
         borderColor="borders.4"
-        zIndex={1}
       >
         Select a node from the tree to view its description
       </Box>
@@ -48,7 +47,6 @@ export default function NodeDetailsToolbar() {
       borderBottom={1}
       borderColor="borders.4"
       // boxShadow="2"
-      zIndex={1}
     >
       <ToolbarContainer>
         <ToolbarItem

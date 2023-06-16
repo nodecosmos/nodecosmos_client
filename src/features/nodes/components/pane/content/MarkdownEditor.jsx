@@ -8,11 +8,11 @@ import {
   selectNodeAttribute,
   selectPersistentId,
   selectSelectedNodeId,
-} from '../../nodes.selectors';
-import { updateNodeDescription } from '../../nodes.thunks';
-import { updateNodeState } from '../../nodesSlice';
+} from '../../../nodes.selectors';
+import { updateNodeDescription } from '../../../nodes.thunks';
+import { updateNodeState } from '../../../nodesSlice';
 
-const CustomCodeMirror = React.lazy(() => import('../../../../common/components/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/CustomCodeMirror'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
