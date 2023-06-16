@@ -7,12 +7,15 @@ export default function usePaneResizable({
   const [paneBWidth, setPaneBWidth] = useState(initialWidthB || '50%');
 
   const handleResize = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     const startX = e.pageX;
     const startAWidth = aRef.current.offsetWidth;
     const startPaneWidth = bRef.current.offsetWidth;
 
     const handleMouseMove = (e2) => {
+      e.stopPropagation();
+      e.preventDefault();
       const dx = e2.pageX - startX;
       const newAWidth = startAWidth + dx;
       const newPaneWidth = startPaneWidth - dx;

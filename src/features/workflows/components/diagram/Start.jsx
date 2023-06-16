@@ -36,9 +36,8 @@ export default function Start({ workflowId }) {
   const [hovered, setHovered] = React.useState(false);
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
 
-  if (!clientHeight) return null;
-
-  const wfStepHeight = Math.max(clientHeight, workflowDiagramYEnd);
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0);
+  if (!wfStepHeight) return null;
 
   return (
     <g onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>

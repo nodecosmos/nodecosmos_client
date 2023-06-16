@@ -19,9 +19,8 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.workflowId));
 
-  if (!x || !clientHeight) return null;
-
-  const wfStepHeight = Math.max(clientHeight, workflowDiagramYEnd);
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0);
+  if (!wfStepHeight || !x) return null;
 
   return (
     <g

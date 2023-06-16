@@ -16,7 +16,7 @@ export default function WorkflowNodeBranch(props) {
 
   const { x, xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
-  if (!x) { return null; }
+  if (!x || !xEnd) return null;
 
   const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
   const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
