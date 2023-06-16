@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import { setSelectedNode } from '../../../nodes/nodesSlice';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
@@ -32,11 +33,14 @@ export default function WorkflowNodeButton({
   const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
   const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
 
-  const handleClick = () => dispatch(setSelectedWorkflowDiagramObject({
-    id,
-    diagramId,
-    type: 'node',
-  }));
+  const handleClick = () => {
+    dispatch(setSelectedWorkflowDiagramObject({
+      id,
+      diagramId,
+      type: 'node',
+    }));
+    dispatch(setSelectedNode(id));
+  };
 
   const {
     backgroundColor,
