@@ -110,7 +110,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
             positionsByDiagramId[node.diagramId] = nodePosition;
             flowPosition.yEnd = nodePosition.yEnd;
-            wfStepPosition.yEnd = nodePosition.yEnd + EDGE_LENGTH;
+            wfStepPosition.yEnd = nodePosition.yEnd;
           });
         }
 
@@ -119,7 +119,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
         // set y end of whole workflow diagram
         positionsByDiagramId[id] = {
-          yEnd: Math.max(prevFlowYEnd, currentFlowYEnd) + EDGE_LENGTH,
+          yEnd: Math.max(prevFlowYEnd, currentFlowYEnd) + 500,
         };
       });
 

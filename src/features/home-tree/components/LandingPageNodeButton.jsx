@@ -50,7 +50,7 @@ export default function LandingPageNodeButton(props) {
       <foreignObject
         className="NodeName"
         width="500"
-        height={NODE_BUTTON_HEIGHT + 3}
+        height={NODE_BUTTON_HEIGHT + 6}
         x={x}
         y={y}
         style={{
@@ -82,7 +82,7 @@ export default function LandingPageNodeButton(props) {
               borderRadius: 1.25,
               p: '0px 12px',
               cursor: 'pointer',
-              boxShadow: '2px 2px 0px rgb(0 0 0 / 0.15)',
+              boxShadow: 'buttons.1',
               whiteSpace: 'nowrap',
               '.fa-hashtag': {
                 fontSize: 14,
