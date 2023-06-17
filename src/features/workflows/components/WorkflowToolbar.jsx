@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowProgress } from '@fortawesome/pro-regular-svg-icons';
-import { faHashtag, faRectangleCode } from '@fortawesome/pro-solid-svg-icons';
+import { faHashtag } from '@fortawesome/pro-solid-svg-icons';
 import AddRounded from '@mui/icons-material/AddRounded';
 import { Button, Tooltip, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
-
 import { HEADER_HEIGHT } from '../../app/constants';
-import { setNodeDetailsAction } from '../../nodes/nodesSlice';
 import { selectWorkflowsByNodeId } from '../workflows.selectors';
 import CreateWorkflowModal from './CreateWorkflowModal';
 

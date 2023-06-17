@@ -56,6 +56,7 @@ export default function MarkdownPreview(props) {
         p: 2,
         borderRadius: 1,
         backgroundColor: 'markdownContent.canvas',
+        overflow: 'auto',
       },
     }}
     >

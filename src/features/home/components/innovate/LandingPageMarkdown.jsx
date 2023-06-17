@@ -49,11 +49,6 @@ Text attributes _italic_, **bold**, \`monospace\`.
 > Multiple paragraphs need to be prepended individually.
 
 ---
-### HTML
-
-  Most inline <i title="Hypertext Markup Language">HTML</i> tags are supported.
-
----
 ### Table
 | Tables   |      Are      |  Cool |
 |----------|:-------------:|------:|
