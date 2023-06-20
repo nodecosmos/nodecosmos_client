@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { ButtonBase } from '@mui/material';
@@ -13,7 +13,10 @@ import {
   TRANSITION_ANIMATION_DURATION,
 } from '../../../trees/trees.constants';
 import useWorkflowNodeButtonBg from '../../hooks/diagram/useWorkflowNodeButtonBg';
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET } from '../../workflows.constants';
+import {
+  MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_DIAGRAM_CONTEXT,
+} from '../../workflows.constants';
+import { WorkflowsContext } from '../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../workflowsSlice';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
@@ -25,6 +28,7 @@ const MemoizedButtonBase = memo(ButtonBase);
 export default function WorkflowNodeButton({
   id, diagramId, workflowId, flowStepId, workflowStepIndex,
 }) {
+  const worklfowContext = useContext(WorkflowsContext);
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
   const dispatch = useDispatch();
@@ -39,7 +43,10 @@ export default function WorkflowNodeButton({
       diagramId,
       type: 'node',
     }));
-    dispatch(setSelectedNode(id));
+
+    if (worklfowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+      dispatch(setSelectedNode(id));
+    }
   };
 
   const {

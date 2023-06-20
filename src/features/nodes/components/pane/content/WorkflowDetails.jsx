@@ -6,6 +6,8 @@ import { HEADER_HEIGHT } from '../../../../app/constants';
 import Workflow from '../../../../workflows/components/diagram/Workflow';
 import WorkflowContainer from '../../../../workflows/components/WorkflowContainer';
 import WorkflowToolbar from '../../../../workflows/components/WorkflowToolbar';
+import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../../workflows/workflows.constants';
+import { WorkflowsContext } from '../../../../workflows/workflows.context';
 import { selectWorkflowsByNodeId } from '../../../../workflows/workflows.selectors';
 import { showWorkflow } from '../../../../workflows/workflows.thunks';
 import { selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
@@ -36,11 +38,13 @@ export default function WorkflowDetails() {
   }
 
   return (
-    <WorkflowContainer>
-      <WorkflowToolbar nodeId={persistentId} />
-      <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-        <Workflow nodeId={persistentId} />
-      </Box>
-    </WorkflowContainer>
+    <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.treeNodeDetails}>
+      <WorkflowContainer>
+        <WorkflowToolbar nodeId={persistentId} />
+        <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+          <Workflow nodeId={persistentId} />
+        </Box>
+      </WorkflowContainer>
+    </WorkflowsContext.Provider>
   );
 }

@@ -10,7 +10,6 @@ import nodeImporter from './reducers/nodeImporter';
 
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
-import deleteNodeFulfilledReducer from './reducers/extra/deleteNode.fulfilled';
 import indexNodesFulfilledReducer from './reducers/extra/indexNodes.fulfilled';
 import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
 import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
@@ -111,7 +110,7 @@ const nodesSlice = createSlice({
       .addCase(indexNodes.fulfilled, indexNodesFulfilledReducer)
       .addCase(showNode.fulfilled, showNodeFulfilledReducer)
       .addCase(createNode.fulfilled, createNodeFulfilledReducer)
-      .addCase(deleteNode.fulfilled, (...args) => deleteNodeFulfilledReducer(...args, nodesSlice))
+      .addCase(deleteNode.fulfilled, (state, action) => nodeDeleter.deleteNodeFromState(state, action))
       .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
       .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
       .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);

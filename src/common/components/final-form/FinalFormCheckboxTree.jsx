@@ -24,10 +24,8 @@ function FinalFormCheckboxTree({
         <Box>
           <FormControlLabel
             sx={{
-              mt: 2,
-              border: 1,
+              mt: 1,
               borderColor: nodeBackgroundColors[nestedLevel % bgCount],
-              borderStyle: 'solid',
               pr: 2,
               borderRadius: 1,
             }}

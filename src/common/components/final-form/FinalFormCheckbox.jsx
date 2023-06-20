@@ -13,9 +13,6 @@ export default function FinalFormCheckbox({ name, label, value }) {
         <FormControlLabel
           sx={{
             mt: 2,
-            border: 1,
-            borderColor: 'primary.main',
-            borderStyle: 'solid',
             pr: 2,
             borderRadius: 1,
           }}

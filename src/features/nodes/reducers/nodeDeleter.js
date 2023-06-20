@@ -20,6 +20,11 @@ export default {
     }
 
     delete state.persistedIdByNodeId[node.id];
+    node.descendantIds.forEach((id) => {
+      delete state.indexNodesById[id];
+    });
+
+    delete state.indexNodesById[nodeId];
 
     // delete state.byId[nodeId] - race condition: seems existing components are kept before tree re-render
     // let's see if we can fix this

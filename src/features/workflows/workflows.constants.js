@@ -11,3 +11,16 @@ export const WORKFLOW_STEP_WIDTH = 420;
 export const OUTPUT_VERTICAL_EDGE_LENGTH = 250;
 export const FLOW_STEP_SIZE = 65.5;
 export const WORKFLOW_START_MARGIN_TOP = 30;
+
+export const WORKFLOW_DIAGRAM_OBJECTS = {
+  flow: 'flow',
+  flowStep: 'flowStep',
+  node: 'node',
+  output: 'output',
+};
+
+export const WORKFLOW_DIAGRAM_CONTEXT = {
+  workflowPage: 'workflowPage',
+  workflowNodeDetails: 'workflowNodeDetails',
+  treeNodeDetails: 'treeNodeDetails',
+};

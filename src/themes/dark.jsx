@@ -120,7 +120,7 @@ export default {
         '#f13575',
         '#a38dff', // 539bf5
         '#77bbff',
-        '#77f6ff',
+        '#77e2ff',
         '#72fcad',
         '#b3ff68',
         '#e7e96d',

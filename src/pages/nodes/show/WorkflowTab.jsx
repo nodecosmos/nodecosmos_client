@@ -9,6 +9,8 @@ import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Workflow from '../../../features/workflows/components/diagram/Workflow';
 import WorkflowContainer from '../../../features/workflows/components/WorkflowContainer';
 import WorkflowToolbar from '../../../features/workflows/components/WorkflowToolbar';
+import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.constants';
+import { WorkflowsContext } from '../../../features/workflows/workflows.context';
 import { selectWorkflowsByNodeId } from '../../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../../features/workflows/workflows.thunks';
 
@@ -57,34 +59,36 @@ export default function WorkflowTab() {
       width={1}
       height={1}
     >
-      <WorkflowContainer>
-        <Box height={1} width={1} display="flex">
-          <Box height={`calc(100% - ${HEADER_HEIGHT})`} width={paneAWidth} ref={workflowRef}>
-            <WorkflowToolbar nodeId={id} />
-            <Workflow nodeId={id} />
+      <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.workflowPage}>
+        <WorkflowContainer>
+          <Box height={1} width={1} display="flex">
+            <Box height={`calc(100% - ${HEADER_HEIGHT})`} width={paneAWidth} ref={workflowRef}>
+              <WorkflowToolbar nodeId={id} />
+              <Workflow nodeId={id} />
+            </Box>
+            <Box
+              onMouseDown={handleResize}
+              width="8px"
+              backgroundColor="transparent"
+              height={1}
+              ml={-1}
+              borderRight={1}
+              borderColor="borders.4"
+              sx={{
+                position: 'relative',
+                '&:hover': {
+                  borderRight: 1,
+                  borderColor: 'borders.5',
+                  cursor: 'col-resize',
+                },
+              }}
+            />
+            <Box width={paneBWidth} ref={workflowDetailsRef}>
+              <NodePane />
+            </Box>
           </Box>
-          <Box
-            onMouseDown={handleResize}
-            width="8px"
-            backgroundColor="transparent"
-            height={1}
-            ml={-1}
-            borderRight={1}
-            borderColor="borders.4"
-            sx={{
-              position: 'relative',
-              '&:hover': {
-                borderRight: 1,
-                borderColor: 'borders.5',
-                cursor: 'col-resize',
-              },
-            }}
-          />
-          <Box width={paneBWidth} ref={workflowDetailsRef}>
-            <NodePane />
-          </Box>
-        </Box>
-      </WorkflowContainer>
+        </WorkflowContainer>
+      </WorkflowsContext.Provider>
     </Box>
   );
 }

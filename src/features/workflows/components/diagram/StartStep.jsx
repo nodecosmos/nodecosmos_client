@@ -24,7 +24,7 @@ import WorkflowOutputButton from './WorkflowOutputButton';
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faPlay} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function Start({ workflowId }) {
+export default function StartStep({ workflowId }) {
   const theme = useTheme();
   const workflowDiagram = useSelector(selectWorkflowDiagram(workflowId));
   const inputsLength = workflowDiagram.initialInputIds.length || 0;
@@ -101,6 +101,6 @@ export default function Start({ workflowId }) {
   );
 }
 
-Start.propTypes = {
+StartStep.propTypes = {
   workflowId: PropTypes.string.isRequired,
 };

@@ -81,8 +81,7 @@ export default function NodeDescription() {
           textOverflow: 'ellipsis',
         }}
       >
-        #
-        {' '}
+        {title && '# '}
         {title}
       </Box>
       {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}

@@ -8,7 +8,7 @@ import { selectWorkflowFlows } from '../../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../../hooks/diagram/useWorkflowDiagramPositionCalculator';
 import { selectWorkflowsByNodeId } from '../../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../../workflowsSlice';
-import Start from './Start';
+import StartStep from './StartStep';
 import WorkflowSteps from './workflow-steps/WorkflowSteps';
 
 export default function Workflow({ nodeId }) {
@@ -42,7 +42,7 @@ export default function Workflow({ nodeId }) {
   return (
     <Transformable containerRef={containerRef} transformableId="workflow">
       <g>
-        <Start workflowId={workflow.id} />
+        <StartStep workflowId={workflow.id} />
         <WorkflowSteps workflowId={workflow.id} />
       </g>
     </Transformable>
