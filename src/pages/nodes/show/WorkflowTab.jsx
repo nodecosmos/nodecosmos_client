@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 import usePaneResizable from '../../../features/app/hooks/usePaneResizable';
-import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Workflow from '../../../features/workflows/components/diagram/Workflow';
+import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
 import WorkflowContainer from '../../../features/workflows/components/WorkflowContainer';
 import WorkflowToolbar from '../../../features/workflows/components/WorkflowToolbar';
 import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.constants';
@@ -84,7 +84,7 @@ export default function WorkflowTab() {
               }}
             />
             <Box width={paneBWidth} ref={workflowDetailsRef}>
-              <NodePane />
+              <WorkflowPane />
             </Box>
           </Box>
         </WorkflowContainer>

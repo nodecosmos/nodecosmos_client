@@ -14,7 +14,7 @@ import {
 } from '../../../trees/trees.constants';
 import useWorkflowNodeButtonBg from '../../hooks/diagram/useWorkflowNodeButtonBg';
 import {
-  MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_DIAGRAM_CONTEXT,
+  MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_DIAGRAM_CONTEXT, WORKFLOW_DIAGRAM_OBJECTS,
 } from '../../workflows.constants';
 import { WorkflowsContext } from '../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
@@ -28,7 +28,7 @@ const MemoizedButtonBase = memo(ButtonBase);
 export default function WorkflowNodeButton({
   id, diagramId, workflowId, flowStepId, workflowStepIndex,
 }) {
-  const worklfowContext = useContext(WorkflowsContext);
+  const workflowContext = useContext(WorkflowsContext);
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
   const dispatch = useDispatch();
@@ -41,10 +41,10 @@ export default function WorkflowNodeButton({
     dispatch(setSelectedWorkflowDiagramObject({
       id,
       diagramId,
-      type: 'node',
+      type: WORKFLOW_DIAGRAM_OBJECTS.node,
     }));
 
-    if (worklfowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+    if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
       dispatch(setSelectedNode(id));
     }
   };

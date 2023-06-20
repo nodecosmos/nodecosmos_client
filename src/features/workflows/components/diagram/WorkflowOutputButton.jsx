@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { selectIOAttribute } from '../../../input-outputs/inputOutput.selectors';
 import {
@@ -9,18 +9,44 @@ import {
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../../trees/trees.constants';
-import { MARGIN_TOP, NODE_BUTTON_HEIGHT } from '../../workflows.constants';
+import useWorkflowOutputButtonBg from '../../hooks/diagram/useWorkflowOutputButtonBg';
+import {
+  MARGIN_TOP,
+  NODE_BUTTON_HEIGHT,
+  WORKFLOW_DIAGRAM_CONTEXT,
+  WORKFLOW_DIAGRAM_OBJECTS,
+} from '../../workflows.constants';
+import { WorkflowsContext } from '../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
+import { setSelectedWorkflowDiagramObject } from '../../workflowsSlice';
 import WorkflowRightOutputBranch from './WorkflowRightOutputBranch';
 import WorkflowLeftOutputBranch from './WorkflowLeftOutputBranch';
 
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function WorkflowOutputButton({ id }) {
+export default function WorkflowOutputButton({ id, nodeId }) {
   const theme = useTheme();
   const title = useSelector(selectIOAttribute(id, 'title'));
 
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(id));
+
+  const dispatch = useDispatch();
+  const workflowContext = useContext(WorkflowsContext);
+
+  const handleClick = () => {
+    if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+      dispatch(setSelectedWorkflowDiagramObject({
+        id,
+        diagramId: id,
+        type: WORKFLOW_DIAGRAM_OBJECTS.output,
+      }));
+    }
+  };
+
+  const {
+    backgroundColor,
+    color,
+  } = useWorkflowOutputButtonBg({ id, nodeId });
 
   if (!xEnd) return null;
 
@@ -43,10 +69,12 @@ export default function WorkflowOutputButton({ id }) {
           <MemoizedButtonBase
             type="button"
             className="WorkflowOutputButton"
+            onClick={handleClick}
             onKeyUp={(event) => event.preventDefault()}
             style={{
-              background: theme.palette.workflow.background,
+              background: backgroundColor,
               border: `2px solid ${theme.palette.workflow.default}`,
+              color,
             }}
           >
             <div className="IOButtonText">
@@ -59,6 +87,11 @@ export default function WorkflowOutputButton({ id }) {
   );
 }
 
+WorkflowOutputButton.defaultProps = {
+  nodeId: null,
+};
+
 WorkflowOutputButton.propTypes = {
   id: PropTypes.string.isRequired,
+  nodeId: PropTypes.string,
 };

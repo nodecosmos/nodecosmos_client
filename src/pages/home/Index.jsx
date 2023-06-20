@@ -40,7 +40,14 @@ export default function Index() {
   const heroLogo = useRef(null);
   const heroInView = useInView(heroLogo, { amount: 0.8 });
 
-  const allRefs = useMemo(() => [innovate, collaborate, investments, openSource, mvp, contactUs], []);
+  const allRefs = useMemo(() => [
+    innovate,
+    collaborate,
+    investments,
+    openSource,
+    mvp,
+    contactUs,
+  ], []);
 
   const [sectionPositions, setSectionPositions] = useState(null);
   const [sectionHeights, setSectionHeights] = useState(null);

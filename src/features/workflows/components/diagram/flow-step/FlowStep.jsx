@@ -33,7 +33,7 @@ export default function FlowStep({ flowStep }) {
             <NodeOutputsBranch diagramId={node.diagramId} />
             {
                flowStep.outputIdsByNodeId[node.id]?.map((id) => (
-                 <WorkflowOutputButton id={id} key={id} />
+                 <WorkflowOutputButton id={id} key={id} nodeId={node.id} />
                ))
             }
           </g>
