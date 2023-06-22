@@ -8,7 +8,7 @@ import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
-export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
+export default function NWorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
 
   const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
@@ -33,12 +33,24 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
           position="relative"
         >
           <Typography
+            component="a"
             fontSize={18.75}
             variant="body1"
             fontFamily="'Roboto', sans-serif"
             fontWeight={700}
             color="text.tertiary"
             textAlign="left"
+            sx={{
+              maxWidth: 230,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+              '&:hover': {
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                color: 'text.link',
+              },
+            }}
           >
             {flowTitle}
           </Typography>

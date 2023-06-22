@@ -113,6 +113,15 @@ export const deleteNode = createAsyncThunk(
   },
 );
 
+export const getNodeDescription = createAsyncThunk(
+  'nodes/getNodeDescription',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description`);
+
+    return response.data;
+  },
+);
+
 export const getLikesCount = createAsyncThunk(
   'nodes/getLikesCount',
   async (payload, _thunkAPI) => {

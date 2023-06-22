@@ -13,15 +13,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import { NODE_PANE_CONTENTS } from '../../nodes.constants';
 
 import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
-import { setNodeDetailsAction } from '../../nodesSlice';
+import { setNodePaneContent } from '../../nodesSlice';
 
 export default function NodePaneToolbar() {
   const { title } = useSelector(selectSelectedNode);
 
   const dispatch = useDispatch();
-  const nodeDetailsAction = useSelector(selectNodeDetailsAction);
+  const nodePaneContent = useSelector(selectNodeDetailsAction);
 
   if (!title) {
     return (
@@ -53,26 +54,26 @@ export default function NodePaneToolbar() {
           title="Edit Description Markdown"
           icon={faRectangleCode}
           color="toolbar.lightRed"
-          active={nodeDetailsAction === 'markdownEditor'}
-          onClick={() => dispatch(setNodeDetailsAction('markdownEditor'))}
+          active={nodePaneContent === NODE_PANE_CONTENTS.markdown}
+          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.markdown))}
         />
         <ToolbarItem
           title="View Description"
           icon={faHashtag}
           color="toolbar.green"
-          active={nodeDetailsAction === 'description'}
-          onClick={() => dispatch(setNodeDetailsAction('description'))}
+          active={nodePaneContent === NODE_PANE_CONTENTS.description}
+          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description))}
         />
         <ToolbarItem
           title="Workflow"
           icon={faArrowProgress}
           color="toolbar.blue"
-          active={nodeDetailsAction === 'workflow'}
-          onClick={() => dispatch(setNodeDetailsAction('workflow'))}
+          active={nodePaneContent === NODE_PANE_CONTENTS.workflow}
+          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.workflow))}
         />
       </ToolbarContainer>
 
-      {nodeDetailsAction !== 'description' && (
+      {nodePaneContent !== 'description' && (
       <Box display="flex" alignItems="center">
         {title && <FontAwesomeIcon icon={faHashtag} />}
         <Typography

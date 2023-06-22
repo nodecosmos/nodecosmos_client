@@ -1,28 +1,8 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
-import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
 
-export default function NodeDescription() {
-  const selectedNodeId = useSelector(selectSelectedNodeId);
-
-  const { title, description } = useSelector(selectSelectedNode);
-
-  const nodeNotSelectedContent = (
-    <Typography color="text.secondary" align="center" fontSize={30}>
-      ¯\_(ツ)_/¯
-    </Typography>
-  );
-
-  const nodeHasNoDescriptionContent = (
-    <Typography color="text.secondary">
-      This node has no description yet.
-    </Typography>
-  );
-
-  const blankDescription = (selectedNodeId && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
-
+export default function DescriptionContainer({ children }) {
   return (
     <Box
       height={1}
@@ -73,18 +53,11 @@ export default function NodeDescription() {
         },
       }}
     >
-      <Box
-        component="h1"
-        sx={{
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {title && '# '}
-        {title}
-      </Box>
-      {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
+      {children}
     </Box>
   );
 }
+
+DescriptionContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};

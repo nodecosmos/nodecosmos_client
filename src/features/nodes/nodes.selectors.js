@@ -6,7 +6,7 @@ export const selectChildIdsByRootAndParentId = (state) => state.nodes.childIdsBy
 
 export const selectPersistedIdByNodeId = (state) => state.nodes.persistedIdByNodeId;
 export const selectSelectedNodeId = (state) => state.nodes.selectedNodeId;
-export const selectNodeDetailsAction = (state) => state.nodes.nodeDetailsAction;
+export const selectNodeDetailsAction = (state) => state.nodes.nodePaneContent;
 export const selectNodeTitlesById = (state) => state.nodes.nodeTitlesById;
 
 export const selectNode = (nodeId) => createSelector(

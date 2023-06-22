@@ -13,7 +13,7 @@ export const createFlow = createAsyncThunk(
 export const updateFlowTitle = createAsyncThunk(
   'flows/updateFlowTitle',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.patch(`/flows/${payload.id}/title`, payload);
+    const response = await nodecosmos.patch('/flows/title', payload);
 
     return response.data;
   },
@@ -22,7 +22,7 @@ export const updateFlowTitle = createAsyncThunk(
 export const updateFlowDescription = createAsyncThunk(
   'flows/updateFlowDescription',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.patch(`/flows/${payload.id}/description`, payload);
+    const response = await nodecosmos.patch('/flows/description', payload);
 
     return response.data;
   },

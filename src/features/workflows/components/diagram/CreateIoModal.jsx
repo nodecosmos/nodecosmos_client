@@ -40,12 +40,13 @@ export default function CreateIoModal({
 
   const currentFlowStepOutputs = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'outputIdsByNodeId'));
   const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
-  const nodeId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'nodeId'));
+  const flowStepNodeId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'nodeId'));
 
   const onSubmit = async (formValues) => {
     setLoading(true);
 
     const payload = {
+      nodeId: workflow.nodeId,
       workflowId,
       ...formValues,
     };
@@ -72,7 +73,7 @@ export default function CreateIoModal({
           outputIdsByNodeId[flowStepOutputNodeId].push(inputOutput.id);
 
           await dispatch(updateFlowStepOutputs({
-            nodeId,
+            nodeId: flowStepNodeId,
             workflowId,
             flowId,
             id: flowStepId,

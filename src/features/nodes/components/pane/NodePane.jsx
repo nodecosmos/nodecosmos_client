@@ -4,19 +4,19 @@ import { useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectNodeDetailsAction, selectSelectedNodeId } from '../../nodes.selectors';
 import NodePaneToolbar from './NodePaneToolbar';
-import MarkdownEditor from './content/MarkdownEditor';
-import NodeDescription from './content/NodeDescription';
-import WorkflowDetails from './content/WorkflowDetails';
+import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
+import NodePaneDescription from './content/NodePaneDescription';
+import NodePaneWorkflow from './content/NodePaneWorkflow';
 
 export default function NodePane() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
-  const nodeDetailsAction = useSelector(selectNodeDetailsAction);
+  const nodePaneContent = useSelector(selectNodeDetailsAction);
 
-  const nodeDetailsContents = {
-    description: <NodeDescription />,
-    markdownEditor: <MarkdownEditor />,
-    workflow: <WorkflowDetails />,
+  const nodePaneContents = {
+    description: <NodePaneDescription />,
+    markdown: <NodePaneMarkdownEditor />,
+    workflow: <NodePaneWorkflow />,
   };
 
   return (
@@ -30,7 +30,7 @@ export default function NodePane() {
     >
       <NodePaneToolbar id={selectedNodeId} />
       <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto" pt={0.25}>
-        {nodeDetailsContents[nodeDetailsAction]}
+        {nodePaneContents[nodePaneContent]}
       </Box>
     </Box>
   );

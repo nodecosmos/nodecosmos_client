@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import memoize from 'lodash/memoize';
 
 export const selectInputOutputsById = (state) => state.inputOutputs.byId;
+export const selectIOPaneContent = (state) => state.inputOutputs.IOPaneContent;
 
 export const makeSelectInputOutputs = memoize(
   (ids) => createSelector(

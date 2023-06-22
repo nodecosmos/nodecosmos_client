@@ -12,7 +12,7 @@ import { selectWorkflowsByNodeId } from '../../../../workflows/workflows.selecto
 import { showWorkflow } from '../../../../workflows/workflows.thunks';
 import { selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
 
-export default function WorkflowDetails() {
+export default function NodePaneWorkflow() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
   const persistentId = useSelector(selectPersistentId(selectedNodeId));
   const [loading, setLoading] = React.useState(true);

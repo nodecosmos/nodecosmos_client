@@ -16,6 +16,11 @@ export default function showNodeFulfilledReducer(state, action) {
       node.rootId = currentRootId;
     }
 
+    // TODO: this is good for now, but we will need to add logic to append selection to url
+    if (node.id === currentRootId) {
+      state.selectedNodeId = node.id;
+    }
+
     state.byId[node.id] = node;
 
     state.childIdsByRootAndParentId[node.rootId] ||= {};

@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { NODE_PANE_CONTENTS } from './nodes.constants';
+import getNodeDescriptionFulfilled from './reducers/extra/getNodeDescription.fulfilled';
 /* reducers */
 import nodeChildBuilder from './reducers/nodeChildBuilder';
 import nodeDeleter from './reducers/nodeDeleter';
 import nodeUpdater from './reducers/nodeUpdater';
 import nodeSelectionSetter from './reducers/nodeSelectionSetter';
-import nodeDetailsActionHandler from './reducers/nodeDetailsActionHandler';
+import nodePaneContentSetter from './reducers/nodePaneContentSetter';
 import nodeSearcher from './reducers/nodeSearcher';
 import nodeImporter from './reducers/nodeImporter';
 
@@ -15,7 +17,7 @@ import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
 import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
 
 import {
-  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode, getLikesCount,
+  createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode, getLikesCount, getNodeDescription,
 } from './nodes.thunks';
 
 const nodesSlice = createSlice({
@@ -78,9 +80,9 @@ const nodesSlice = createSlice({
 
     /**
      * @type string
-     * @variant 'markdownEditor' | 'description' | 'workflow'
+     * @variant 'markdown' | 'description' | 'workflow'
      */
-    nodeDetailsAction: 'description',
+    nodePaneContent: NODE_PANE_CONTENTS.description,
 
     /**
      * @description
@@ -100,8 +102,8 @@ const nodesSlice = createSlice({
     updateNodeState: nodeUpdater.updateNodeState,
     deleteNodeFromState: nodeDeleter.deleteNodeFromState,
     setSelectedNode: nodeSelectionSetter.setSelectedNode,
-    setNodeDetailsAction: nodeDetailsActionHandler.setNodeDetailsAction,
-    setDefaultNodeDetailsAction: nodeDetailsActionHandler.setDefaultNodeDetailsAction,
+    setNodePaneContent: nodePaneContentSetter.setNodePaneContent,
+    setDefaultNodeDetailsAction: nodePaneContentSetter.setDefaultNodeDetailsAction,
     searchNode: nodeSearcher.searchNode,
     importNode: nodeImporter.importNode,
   },
@@ -111,6 +113,7 @@ const nodesSlice = createSlice({
       .addCase(showNode.fulfilled, showNodeFulfilledReducer)
       .addCase(createNode.fulfilled, createNodeFulfilledReducer)
       .addCase(deleteNode.fulfilled, (state, action) => nodeDeleter.deleteNodeFromState(state, action))
+      .addCase(getNodeDescription.fulfilled, getNodeDescriptionFulfilled)
       .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
       .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
       .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
@@ -127,7 +130,7 @@ export const {
   deleteNodeFromState,
   buildChildNode,
   setSelectedNode,
-  setNodeDetailsAction,
+  setNodePaneContent,
   setDefaultNodeDetailsAction,
   searchNode,
   importNode,

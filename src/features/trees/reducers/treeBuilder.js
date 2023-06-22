@@ -30,8 +30,12 @@ export default {
       const treeNodeId = isRoot ? nodeId : `${rootId}->${treeParentId || parentId}->${nodeId}`;
       const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
 
-      const { isExpanded, isSelected } = currentTreeNode;
+      let { isExpanded } = currentTreeNode;
+      const { isSelected } = currentTreeNode;
       const isNewlyCreated = state.currentTempNodeId === nodeId;
+
+      // TODO: this is good for now, but we will need to add logic to append selection to url
+      isExpanded ||= isRoot;
 
       // populate root's orderedTreeNodeIds with constructed id
       state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);

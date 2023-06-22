@@ -51,11 +51,27 @@ export default function Transformable(props) {
     }
   }, [dispatch, transformableId, scrollTop]);
 
+  const resizeTimeout = useRef(null);
+
+  window.addEventListener('resize', () => {
+    if (resizeTimeout.current) {
+      clearTimeout(resizeTimeout.current);
+    }
+
+    resizeTimeout.current = setTimeout(() => {
+      if (containerRef.current) {
+        dispatch(setTransformablePositions({
+          id: transformableId,
+          clientHeight: containerRef.current.clientHeight,
+        }));
+      }
+    }, 250);
+  });
+
   //--------------------------------------------------------------------------------------------------------------------
   return (
     <Box
       ref={containerRef}
-      // onScroll={(e) => handleScroll(e)}
       onMouseDown={onMouseDown}
       sx={{
         overflow: 'auto',

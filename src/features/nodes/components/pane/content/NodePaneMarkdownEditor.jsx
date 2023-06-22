@@ -29,7 +29,7 @@ const loading = (
   </Box>
 );
 
-export default function MarkdownEditor() {
+export default function NodePaneMarkdownEditor() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
   const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
@@ -54,7 +54,7 @@ export default function MarkdownEditor() {
       dispatch(updateNodeDescription({
         persistentRootId, persistentId, description: descriptionHtml, descriptionMarkdown: value,
       }));
-    }, 1000);
+    }, 500);
   };
 
   return (
