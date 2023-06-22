@@ -8,7 +8,7 @@ import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
-export default function NWorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
+export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
 
   const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
