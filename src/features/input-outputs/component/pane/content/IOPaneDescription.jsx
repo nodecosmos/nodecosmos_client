@@ -35,7 +35,7 @@ export default function IOPaneDescription() {
 
   const noDescriptionContent = (
     <>
-      <Typography color="text.secondary">
+      <Typography color="text.secondary" align="center">
         IO has no description yet.
       </Typography>
       <Typography color="text.secondary" align="center" fontSize={30}>

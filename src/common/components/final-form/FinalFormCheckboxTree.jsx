@@ -22,40 +22,53 @@ function FinalFormCheckboxTree({
       value={option.value}
       render={({ input }) => (
         <Box>
-          <FormControlLabel
-            sx={{
-              mt: 1,
-              borderColor: nodeBackgroundColors[nestedLevel % bgCount],
-              pr: 2,
-              borderRadius: 1,
-            }}
-            componentsProps={{
-              typography: {
-                color: 'text.secondary',
-                sx: {
-                  '&:hover': {
-                    color: 'text.link',
-                    textDecoration: 'underline',
+          <Box display="flex" alignItems="center">
+            {
+              nestedLevel > 1
+              && (
+              <Box
+                ml={-4}
+                height="0px"
+                width="50px"
+                borderTop="1px dashed"
+                borderColor="borders.5"
+              />
+              )
+            }
+            <FormControlLabel
+              sx={{
+                borderColor: nodeBackgroundColors[nestedLevel % bgCount],
+                borderRadius: 1,
+              }}
+              componentsProps={{
+                typography: {
+                  ml: 1,
+                  color: 'text.secondary',
+                  sx: {
+                    '&:hover': {
+                      color: 'text.link',
+                      textDecoration: 'underline',
+                    },
                   },
                 },
-              },
-            }}
-            label={option.label}
-            control={(
-              <Checkbox
-                checked={input.checked}
-                value={option.value}
-                onChange={input.onChange}
-                name={input.name}
-                sx={{
-                  color: nodeBackgroundColors[nestedLevel % bgCount],
-                }}
-              />
+              }}
+              label={option.label}
+              control={(
+                <Checkbox
+                  checked={input.checked}
+                  value={option.value}
+                  onChange={input.onChange}
+                  name={input.name}
+                  sx={{
+                    color: nodeBackgroundColors[nestedLevel % bgCount],
+                  }}
+                />
               )}
-          />
+            />
+          </Box>
           <Box
             sx={{ borderLeft: '1px dashed', borderColor: 'borders.5' }}
-            ml={1.125}
+            ml={nestedLevel > 1 ? 3.5 : 0}
             pl={4}
           >
             {option.children && option.children.map((child) => renderOption(child, nestedLevel + 1))}

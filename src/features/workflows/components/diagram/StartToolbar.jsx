@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Tooltip } from '@mui/material';
-import CreateIoModal, { ASSOCIATED_OBJECT_TYPES } from './CreateIoModal';
+import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from './io/CreateIOModal';
 
 export default function StartToolbar({ workflowId }) {
-  const [createIoModalOpen, setCreateIoModalOpen] = React.useState(false);
+  const [createIOModalOpen, setCreateIOModalOpen] = React.useState(false);
 
   return (
     <Box
@@ -29,15 +29,15 @@ export default function StartToolbar({ workflowId }) {
           className="Item"
           aria-label="Add Initial Inputs"
           sx={{ color: 'toolbar.red' }}
-          onClick={() => setCreateIoModalOpen(true)}
+          onClick={() => setCreateIOModalOpen(true)}
         >
           <FontAwesomeIcon icon={faPlus} />
         </IconButton>
       </Tooltip>
 
-      <CreateIoModal
-        open={createIoModalOpen}
-        onClose={() => setCreateIoModalOpen(false)}
+      <CreateIOModal
+        open={createIOModalOpen}
+        onClose={() => setCreateIOModalOpen(false)}
         workflowId={workflowId}
         associatedObject={ASSOCIATED_OBJECT_TYPES.workflow}
       />

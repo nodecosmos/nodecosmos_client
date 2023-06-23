@@ -18,6 +18,7 @@ export default function FinalFormCheckbox({ name, label, value }) {
           }}
           componentsProps={{
             typography: {
+              ml: 1,
               color: 'text.secondary',
               sx: {
                 '&:hover': {

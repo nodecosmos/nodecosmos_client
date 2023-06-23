@@ -8,8 +8,9 @@ import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
-export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
+export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepIndex }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
+  const flowStartIndex = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'startIndex'));
 
   const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
 
@@ -55,6 +56,12 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
             {flowTitle}
           </Typography>
           <FlowStepToolbar wfStepFlow={wfStepFlow} wfStepHovered={wfStepHovered} />
+          <Typography
+            sx={{ flexGrow: 1, textAlign: 'end', mr: 1 }}
+            color="text.tertiary"
+          >
+            {wfStepIndex - flowStartIndex + 1}
+          </Typography>
         </Box>
 
       </foreignObject>
@@ -66,4 +73,5 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered }) {
 WorkflowStepFlow.propTypes = {
   wfStepFlow: PropTypes.object.isRequired,
   wfStepHovered: PropTypes.bool.isRequired,
+  wfStepIndex: PropTypes.number.isRequired,
 };

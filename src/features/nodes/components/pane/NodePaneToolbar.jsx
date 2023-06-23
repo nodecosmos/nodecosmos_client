@@ -74,7 +74,7 @@ export default function NodePaneToolbar() {
       </ToolbarContainer>
 
       {nodePaneContent !== 'description' && (
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default' } }}>
         {title && <FontAwesomeIcon icon={faHashtag} />}
         <Typography
           align="center"

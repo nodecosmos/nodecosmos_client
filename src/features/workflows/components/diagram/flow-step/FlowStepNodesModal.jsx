@@ -103,18 +103,6 @@ export default function FlowStepNodesModal({
     checkboxTreeOptions.push(addCheckboxTreeOptions(childId));
   });
 
-  if (open && checkboxTreeOptions.length === 0) {
-    dispatch(setAlert({
-      isOpen: true,
-      severity: 'error',
-      message: `Can not add nodes to flow step: No nested nodes found for <b>${nodeTitle}</b> node!`,
-    }));
-
-    onClose();
-
-    return null;
-  }
-
   return (
     <Dialog
       fullWidth
@@ -168,7 +156,7 @@ export default function FlowStepNodesModal({
             {({ handleSubmit }) => (
               <form style={{ height: 'calc(100% - 136px)' }} onSubmit={handleSubmit}>
                 <Box mb={2}>
-                  <ImportSearchField rootNodeId={nodeId} />
+                  <ImportSearchField rootId={nodeId} />
                 </Box>
                 <Box
                   pl={2}

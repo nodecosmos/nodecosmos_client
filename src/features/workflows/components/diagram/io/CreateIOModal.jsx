@@ -18,20 +18,20 @@ import {
   DialogContent,
 } from '@mui/material';
 /* nodecosmos */
-import FinalFormInputField from '../../../../common/components/final-form/FinalFormInputField';
-import { setAlert } from '../../../app/appSlice';
-import { selectFlowStepAttribute } from '../../../flow-steps/flowSteps.selectors';
-import { updateFlowStepOutputs } from '../../../flow-steps/flowSteps.thunks';
-import { createIo } from '../../../input-outputs/inputOutput.thunks';
-import { selectWorkflow } from '../../workflows.selectors';
-import { updateWorkflowInitialInputs } from '../../workflows.thunks';
+import FinalFormInputField from '../../../../../common/components/final-form/FinalFormInputField';
+import { setAlert } from '../../../../app/appSlice';
+import { selectFlowStepAttribute } from '../../../../flow-steps/flowSteps.selectors';
+import { updateFlowStepOutputs } from '../../../../flow-steps/flowSteps.thunks';
+import { createIO } from '../../../../input-outputs/inputOutput.thunks';
+import { selectWorkflow } from '../../../workflows.selectors';
+import { updateWorkflowInitialInputs } from '../../../workflows.thunks';
 
 export const ASSOCIATED_OBJECT_TYPES = {
   workflow: 'workflow',
   flowStep: 'flowStep',
 };
 
-export default function CreateIoModal({
+export default function CreateIOModal({
   open, onClose, workflowId, associatedObject, flowStepId, flowStepOutputNodeId,
 }) {
   const [loading, setLoading] = React.useState(false);
@@ -48,10 +48,11 @@ export default function CreateIoModal({
     const payload = {
       nodeId: workflow.nodeId,
       workflowId,
+      flowStepId,
       ...formValues,
     };
 
-    await dispatch(createIo(payload)).then(async (data) => {
+    await dispatch(createIO(payload)).then(async (data) => {
       const { inputOutput } = data.payload;
 
       try {
@@ -153,12 +154,12 @@ export default function CreateIoModal({
   );
 }
 
-CreateIoModal.defaultProps = {
+CreateIOModal.defaultProps = {
   flowStepId: null,
   flowStepOutputNodeId: null,
 };
 
-CreateIoModal.propTypes = {
+CreateIOModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   workflowId: PropTypes.string.isRequired,

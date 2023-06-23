@@ -19,7 +19,7 @@ import {
 } from '../../workflows.constants';
 import { selectWorkflowDiagram, selectWorkflowDiagramPosition } from '../../workflows.selectors';
 import StartToolbar from './StartToolbar';
-import WorkflowOutputButton from './WorkflowOutputButton';
+import WorkflowOutputButton from './io/WorkflowOutputButton';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faPlay} />);
 const MemoizedButtonBase = memo(ButtonBase);

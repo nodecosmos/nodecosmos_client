@@ -35,8 +35,6 @@ export default function WorkflowToolbar({ nodeId }) {
         {
           workflow.title && (
             <Typography fontWeight="bold" color="secondary">
-              Workflow:
-              {' '}
               {workflow.title}
             </Typography>
           )

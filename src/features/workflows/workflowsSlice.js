@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createFlow, deleteFlow } from '../flows/flows.thunks';
+import { deleteIO } from '../input-outputs/inputOutput.thunks';
 import workflowDiagramBuilder from './reducers/workflowDiagramBuilder';
 import workflowDiagramPositionSetter from './reducers/workflowDiagramPositionSetter';
 import { createWorkflow, showWorkflow, updateWorkflowInitialInputs } from './workflows.thunks';
@@ -157,6 +158,21 @@ const workflowsSlice = createSlice({
         const { id, initialInputIds } = action.payload.workflow;
 
         state.byId[id].initialInputIds = initialInputIds;
+      })
+      .addCase(deleteIO.fulfilled, (state, action) => {
+        const { id, nodeId } = action.payload.inputOutput;
+
+        const workflowIds = state.idsByNodeId[nodeId];
+        const workflow = workflowIds.map((workflowId) => state.byId[workflowId])
+          .find((wf) => wf.initialInputIds.includes(id));
+
+        if (workflow) {
+          workflow.initialInputIds = workflow.initialInputIds.filter((inputId) => inputId !== id);
+        }
+
+        if (state.selectedWorkflowDiagramObject.id === id) {
+          state.selectedWorkflowDiagramObject = {};
+        }
       });
   },
 });

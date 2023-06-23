@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputPipe from '../InputPipe';
+import InputBranch from '../io/InputBranch';
 import NodeOutputsBranch from '../NodeOutputsBranch';
 import WorkflowNodeButton from '../WorkflowNodeButton';
-import WorkflowOutputButton from '../WorkflowOutputButton';
+import WorkflowOutputButton from '../io/WorkflowOutputButton';
 
 export default function FlowStep({ flowStep }) {
   if (!flowStep) return null;
@@ -16,8 +16,9 @@ export default function FlowStep({ flowStep }) {
             {
               flowStep.inputsByNodeId[node.id]?.map((input) => (
                 <g key={input.id}>
-                  <InputPipe
+                  <InputBranch
                     nodeDiagramId={input.nodeDiagramId}
+                    nodeId={node.id}
                     id={input.id}
                   />
                 </g>

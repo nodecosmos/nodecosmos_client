@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { showWorkflow } from '../workflows/workflows.thunks';
-import { createIo, getIODescription } from './inputOutput.thunks';
+import {
+  createIO, deleteIO, getIODescription, updateIOTitle,
+} from './inputOutput.thunks';
 import { IO_PANE_CONTENTS } from './inputOutputs.constants';
 
 const inputOutputsSlice = createSlice({
@@ -46,7 +48,7 @@ const inputOutputsSlice = createSlice({
         inputOutputs.forEach((inputOutput) => {
           state.byId[inputOutput.id] = inputOutput;
         });
-      }).addCase(createIo.fulfilled, (state, action) => {
+      }).addCase(createIO.fulfilled, (state, action) => {
         const { inputOutput } = action.payload;
         state.byId[inputOutput.id] = inputOutput;
       }).addCase(getIODescription.fulfilled, (state, action) => {
@@ -55,6 +57,15 @@ const inputOutputsSlice = createSlice({
 
         state.byId[inputOutput.id].description = description;
         state.byId[inputOutput.id].descriptionMarkdown = descriptionMarkdown;
+      }).addCase(updateIOTitle.fulfilled, (state, action) => {
+        const { inputOutput } = action.payload;
+        const { id, title } = inputOutput;
+
+        state.byId[id].title = title;
+      })
+      .addCase(deleteIO.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        delete state.byId[id];
       });
   },
 });

@@ -6,11 +6,11 @@ import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
-} from '../../../trees/trees.constants';
-import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
+} from '../../../../trees/trees.constants';
+import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../workflows.constants';
+import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
-export default function InputPipe({
+export default function InputBranch({
   id,
   nodeDiagramId,
 }) {
@@ -38,7 +38,7 @@ export default function InputPipe({
   );
 }
 
-InputPipe.propTypes = {
+InputBranch.propTypes = {
   id: PropTypes.string.isRequired,
   nodeDiagramId: PropTypes.string.isRequired,
 };

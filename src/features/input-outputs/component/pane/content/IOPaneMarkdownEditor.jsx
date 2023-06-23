@@ -4,8 +4,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
 import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
-import { selectInputOutputById, selectIOAttribute } from '../../../inputOutput.selectors';
-import { updateIoDescription } from '../../../inputOutput.thunks';
+import { selectInputOutputById } from '../../../inputOutput.selectors';
+import { updateIODescription } from '../../../inputOutput.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
 /* nodecosmos */
 
@@ -32,8 +32,7 @@ export default function IOPaneMarkdownEditor() {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const descriptionMarkdown = useSelector(selectIOAttribute(selectedWorkflowDiagramObject.id, 'descriptionMarkdown'));
-  const { nodeId, workflowId } = useSelector(selectInputOutputById(id));
+  const { nodeId, workflowId, descriptionMarkdown } = useSelector(selectInputOutputById(id));
 
   const handleChange = (value) => {
     if (handleChangeTimeout.current) {
@@ -49,7 +48,7 @@ export default function IOPaneMarkdownEditor() {
         descriptionMarkdown: value,
       }));
 
-      dispatch(updateIoDescription({
+      dispatch(updateIODescription({
         id,
         nodeId,
         workflowId,

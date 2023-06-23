@@ -7,7 +7,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
 import AssociateInputsModal from './AssociateInputsModal';
-import CreateIoModal, { ASSOCIATED_OBJECT_TYPES } from './CreateIoModal';
+import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from './io/CreateIOModal';
 
 export default function WorkflowNodeButtonToolbar({
   diagramId, nodeId, workflowId, flowStepId, workflowStepIndex,
@@ -15,7 +15,7 @@ export default function WorkflowNodeButtonToolbar({
   const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
   const isSelected = selectedWorkflowDiagramObject?.diagramId === diagramId;
 
-  const [createIoModalOpen, setCreateIoModalOpen] = React.useState(false);
+  const [createIOModalOpen, setCreateIOModalOpen] = React.useState(false);
   const [associateInputsModalOpen, setAssociateInputsModalOpen] = React.useState(false);
 
   return (
@@ -52,7 +52,7 @@ export default function WorkflowNodeButtonToolbar({
                 className="Item"
                 aria-label="Add Outputs"
                 sx={{ color: 'toolbar.red' }}
-                onClick={() => setCreateIoModalOpen(true)}
+                onClick={() => setCreateIOModalOpen(true)}
               >
                 <FontAwesomeIcon icon={faPlus} />
               </IconButton>
@@ -60,9 +60,9 @@ export default function WorkflowNodeButtonToolbar({
           </Box>
         )
       }
-      <CreateIoModal
-        open={createIoModalOpen}
-        onClose={() => setCreateIoModalOpen(false)}
+      <CreateIOModal
+        open={createIOModalOpen}
+        onClose={() => setCreateIOModalOpen(false)}
         workflowId={workflowId}
         associatedObject={ASSOCIATED_OBJECT_TYPES.flowStep}
         flowStepId={flowStepId}

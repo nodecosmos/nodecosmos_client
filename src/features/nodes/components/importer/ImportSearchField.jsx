@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { searchNode } from '../../nodesSlice';
 
-export default function ImportSearchField({ rootNodeId }) {
+export default function ImportSearchField({ rootId }) {
   const dispatch = useDispatch();
+
+  useEffect(() => () => {
+    dispatch(searchNode({
+      rootId,
+      value: '',
+    }));
+  }, [dispatch, rootId]);
 
   return (
     <TextField
@@ -30,7 +37,7 @@ export default function ImportSearchField({ rootNodeId }) {
         ),
       }}
       onChange={(event) => dispatch(searchNode({
-        rootId: rootNodeId,
+        rootId,
         value: event.target.value,
       }))}
       color="primary"
@@ -41,5 +48,5 @@ export default function ImportSearchField({ rootNodeId }) {
 }
 
 ImportSearchField.propTypes = {
-  rootNodeId: PropTypes.string.isRequired,
+  rootId: PropTypes.string.isRequired,
 };

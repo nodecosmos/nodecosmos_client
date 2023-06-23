@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
-import { selectIOAttribute } from '../../../input-outputs/inputOutput.selectors';
+import { selectIOAttribute } from '../../../../input-outputs/inputOutput.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
-} from '../../../trees/trees.constants';
-import useWorkflowOutputButtonBg from '../../hooks/diagram/useWorkflowOutputButtonBg';
+} from '../../../../trees/trees.constants';
+import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
 import {
   MARGIN_TOP,
   NODE_BUTTON_HEIGHT,
   WORKFLOW_DIAGRAM_CONTEXT,
   WORKFLOW_DIAGRAM_OBJECTS,
-} from '../../workflows.constants';
-import { WorkflowsContext } from '../../workflows.context';
-import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
-import { setSelectedWorkflowDiagramObject } from '../../workflowsSlice';
+} from '../../../workflows.constants';
+import { WorkflowsContext } from '../../../workflows.context';
+import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
+import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import WorkflowRightOutputBranch from './WorkflowRightOutputBranch';
 import WorkflowLeftOutputBranch from './WorkflowLeftOutputBranch';
 

@@ -78,7 +78,7 @@ export default function AssociateInputsModal({
       open={open}
     >
       <DialogTitle>
-        Add inputs from previous step
+        Inputs
         <IconButton
           disableRipple
           onClick={onClose}
