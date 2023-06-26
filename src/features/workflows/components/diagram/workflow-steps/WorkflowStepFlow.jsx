@@ -42,7 +42,7 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
             color="text.tertiary"
             textAlign="left"
             sx={{
-              maxWidth: 230,
+              maxWidth: 220,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines

@@ -122,7 +122,7 @@ const workflowsSlice = createSlice({
     /**
      * @type {number}
      */
-    workflowScale: 1,
+    workflowScale: parseFloat(localStorage.getItem('workflowScale')) || 1,
   },
   reducers: {
     buildWorkflow: workflowDiagramBuilder.buildWorkflowDiagram,
@@ -137,6 +137,7 @@ const workflowsSlice = createSlice({
       state.workflowPaneContent = action.payload;
     },
     setWorkflowScale(state, action) {
+      localStorage.setItem('workflowScale', action.payload);
       state.workflowScale = action.payload;
     },
   },
