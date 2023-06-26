@@ -12,7 +12,7 @@ import { HEADER_HEIGHT } from '../../../features/app/constants';
  * Looks like It must have two or more children to work properly.
  */
 export default function ToolbarContainer({
-  children, round, size, ml, fontSize,
+  children, round, size, ml, mr, fontSize,
 }) {
   return (
     <ButtonGroup
@@ -29,6 +29,7 @@ export default function ToolbarContainer({
             borderBottom: 3,
             borderColor: 'transparent',
             ml,
+            mr,
             width: size,
             height: size,
             minWidth: size,
@@ -63,6 +64,7 @@ ToolbarContainer.defaultProps = {
   round: false,
   size: HEADER_HEIGHT,
   ml: 0,
+  mr: 0,
   fontSize: '1rem',
 };
 
@@ -71,5 +73,6 @@ ToolbarContainer.propTypes = {
   round: PropTypes.bool,
   size: PropTypes.string,
   ml: PropTypes.number,
+  mr: PropTypes.number,
   fontSize: PropTypes.string,
 };

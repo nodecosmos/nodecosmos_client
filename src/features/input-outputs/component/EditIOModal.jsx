@@ -11,9 +11,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import { Form } from 'react-final-form';
 import { useSelector, useDispatch } from 'react-redux';
-import FinalFormInputField from '../../../../../common/components/final-form/FinalFormInputField';
-import { selectInputOutputById } from '../../../../input-outputs/inputOutput.selectors';
-import { updateIOTitle } from '../../../../input-outputs/inputOutput.thunks';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import { selectInputOutputById } from '../inputOutput.selectors';
+import { updateIOTitle } from '../inputOutput.thunks';
 
 export default function EditIOModal({ id, open, onClose }) {
   const { nodeId, workflowId, title } = useSelector(selectInputOutputById(id));

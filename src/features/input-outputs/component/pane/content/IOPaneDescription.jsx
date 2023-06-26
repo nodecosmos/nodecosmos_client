@@ -35,7 +35,7 @@ export default function IOPaneDescription() {
 
   const noDescriptionContent = (
     <>
-      <Typography color="text.secondary" align="center">
+      <Typography color="text.secondary" align="center" fontWeight="bold">
         IO has no description yet.
       </Typography>
       <Typography color="text.secondary" align="center" fontSize={30}>
@@ -46,16 +46,6 @@ export default function IOPaneDescription() {
 
   return (
     <DescriptionContainer>
-      <Box
-        component="h1"
-        sx={{
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {title}
-      </Box>
       {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || noDescriptionContent}
     </DescriptionContainer>
   );

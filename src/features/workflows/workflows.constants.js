@@ -24,3 +24,8 @@ export const WORKFLOW_DIAGRAM_CONTEXT = {
   workflowNodeDetails: 'workflowNodeDetails',
   treeNodeDetails: 'treeNodeDetails',
 };
+
+export const WORKFLOW_PANE_CONTENTS = {
+  markdown: 'markdown',
+  description: 'description',
+};

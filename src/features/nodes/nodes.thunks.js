@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { redirect } from 'react-router-dom';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { LIKE_TYPES } from '../app/constants';
 
@@ -17,20 +16,15 @@ export const showNode = createAsyncThunk(
     rootId,
     id,
   }, _thunkAPI) => {
-    try {
-      let response;
+    let response;
 
-      if (!rootId) {
-        response = await nodecosmos.get(`/nodes/${id}`);
-      } else {
-        response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
-      }
-
-      return response.data;
-    } catch (error) {
-      redirect('/404');
-      return null;
+    if (!rootId) {
+      response = await nodecosmos.get(`/nodes/${id}`);
+    } else {
+      response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
     }
+
+    return response.data;
   },
 );
 

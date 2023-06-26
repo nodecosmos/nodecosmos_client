@@ -8,8 +8,7 @@ import { setTransformablePositions } from '../appSlice';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../constants';
 import usePannable from '../hooks/usePannable';
 
-export default function Transformable(props) {
-  const { children, transformableId } = props;
+export default function Transformable({ children, transformableId, scale }) {
   const containerRef = useRef(null);
   const gRef = useRef(null);
   const dispatch = useDispatch();
@@ -62,11 +61,20 @@ export default function Transformable(props) {
       if (containerRef.current) {
         dispatch(setTransformablePositions({
           id: transformableId,
-          clientHeight: containerRef.current.clientHeight,
+          clientHeight: containerRef.current.clientHeight * 1 / scale,
         }));
       }
     }, 250);
   });
+
+  useEffect(() => {
+    if (containerRef.current) {
+      dispatch(setTransformablePositions({
+        id: transformableId,
+        clientHeight: containerRef.current.clientHeight * 1 / scale,
+      }));
+    }
+  }, [dispatch, transformableId, scale]);
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
@@ -92,6 +100,7 @@ export default function Transformable(props) {
           MsUserSelect: 'none',
           userSelect: 'none',
           transformOrigin: 'top left',
+          transform: `scale(${scale})`,
         }}
       >
         <g ref={gRef}>
@@ -102,7 +111,12 @@ export default function Transformable(props) {
   );
 }
 
+Transformable.defaultProps = {
+  scale: 1,
+};
+
 Transformable.propTypes = {
   children: PropTypes.element.isRequired,
   transformableId: PropTypes.string.isRequired,
+  scale: PropTypes.number,
 };

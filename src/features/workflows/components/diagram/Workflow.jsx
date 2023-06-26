@@ -6,7 +6,7 @@ import Transformable from '../../../app/components/Transformable';
 import { selectWorkflowFlowSteps } from '../../../flow-steps/flowSteps.selectors';
 import { selectWorkflowFlows } from '../../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../../hooks/diagram/useWorkflowDiagramPositionCalculator';
-import { selectWorkflowsByNodeId } from '../../workflows.selectors';
+import { selectWorkflowsByNodeId, selectWorkflowScale } from '../../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../../workflowsSlice';
 import StartStep from './StartStep';
 import WorkflowSteps from './workflow-steps/WorkflowSteps';
@@ -20,6 +20,8 @@ export default function Workflow({ nodeId }) {
   const flows = useSelector(selectWorkflowFlows(workflow.id));
   const flowSteps = useSelector(selectWorkflowFlowSteps(workflow.id));
   const workflowDiagramPosition = useWorkflowDiagramPositionCalculator(workflow.id);
+
+  const wfScale = useSelector(selectWorkflowScale);
 
   const dispatch = useDispatch();
 
@@ -40,7 +42,7 @@ export default function Workflow({ nodeId }) {
   if (!Object.keys(workflowDiagramPosition).length > 0) return null;
 
   return (
-    <Transformable containerRef={containerRef} transformableId="workflow">
+    <Transformable containerRef={containerRef} transformableId="workflow" scale={wfScale}>
       <g>
         <StartStep workflowId={workflow.id} />
         <WorkflowSteps workflowId={workflow.id} />

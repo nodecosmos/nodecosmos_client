@@ -3,6 +3,7 @@ import { createFlow, deleteFlow } from '../flows/flows.thunks';
 import { deleteIO } from '../input-outputs/inputOutput.thunks';
 import workflowDiagramBuilder from './reducers/workflowDiagramBuilder';
 import workflowDiagramPositionSetter from './reducers/workflowDiagramPositionSetter';
+import { WORKFLOW_PANE_CONTENTS } from './workflows.constants';
 import { createWorkflow, showWorkflow, updateWorkflowInitialInputs } from './workflows.thunks';
 
 const workflowsSlice = createSlice({
@@ -110,12 +111,32 @@ const workflowsSlice = createSlice({
      * }}
      */
     selectedWorkflowDiagramObject: {},
+
+    isWfPaneOpen: true,
+    /**
+     * @type {string}
+     */
+    workflowPaneContent: WORKFLOW_PANE_CONTENTS.description,
+
+    /**
+     * @type {number}
+     */
+    workflowScale: 1,
   },
   reducers: {
     buildWorkflow: workflowDiagramBuilder.buildWorkflowDiagram,
     setWorkflowDiagramPosition: workflowDiagramPositionSetter.setWorkflowDiagramPosition,
     setSelectedWorkflowDiagramObject(state, action) {
       state.selectedWorkflowDiagramObject = action.payload;
+    },
+    setIsWfPaneOpen(state, action) {
+      state.isWfPaneOpen = action.payload;
+    },
+    setWorkflowPaneContent(state, action) {
+      state.workflowPaneContent = action.payload;
+    },
+    setWorkflowScale(state, action) {
+      state.workflowScale = action.payload;
     },
   },
   extraReducers(builder) {
@@ -186,6 +207,9 @@ export const {
   setWorkflowDiagramPosition,
   buildWorkflow,
   setSelectedWorkflowDiagramObject,
+  setIsWfPaneOpen,
+  setWorkflowScale,
+  setWorkflowPaneContent,
 } = actions;
 
 export default reducer;

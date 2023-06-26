@@ -11,7 +11,7 @@ import WorkflowContainer from '../../../features/workflows/components/WorkflowCo
 import WorkflowToolbar from '../../../features/workflows/components/WorkflowToolbar';
 import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.constants';
 import { WorkflowsContext } from '../../../features/workflows/workflows.context';
-import { selectWorkflowsByNodeId } from '../../../features/workflows/workflows.selectors';
+import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../../features/workflows/workflows.thunks';
 
 export default function WorkflowTab() {
@@ -22,6 +22,7 @@ export default function WorkflowTab() {
   const workflow = useMemo(() => workflows[0] || {}, [workflows]);
 
   const [loading, setLoading] = React.useState(true);
+  const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
 
   const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
   const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
@@ -36,8 +37,8 @@ export default function WorkflowTab() {
   } = usePaneResizable({
     aRef: workflowRef,
     bRef: workflowDetailsRef,
-    initialWidthA: workflowWidthFromLocalStorage || '80%',
-    initialWidthB: workflowPaneWidthFromLocalStorage || '20%',
+    initialWidthA: workflowWidthFromLocalStorage || '70%',
+    initialWidthB: workflowPaneWidthFromLocalStorage || '30%',
   });
 
   useEffect(() => {
@@ -62,7 +63,11 @@ export default function WorkflowTab() {
       <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.workflowPage}>
         <WorkflowContainer>
           <Box height={1} width={1} display="flex">
-            <Box height={`calc(100% - ${HEADER_HEIGHT})`} width={paneAWidth} ref={workflowRef}>
+            <Box
+              height={`calc(100% - ${HEADER_HEIGHT})`}
+              width={(isWfPaneOpen && paneAWidth) || '100%'}
+              ref={workflowRef}
+            >
               <WorkflowToolbar nodeId={id} />
               <Workflow nodeId={id} />
             </Box>
@@ -83,7 +88,11 @@ export default function WorkflowTab() {
                 },
               }}
             />
-            <Box width={paneBWidth} ref={workflowDetailsRef}>
+            <Box
+              display={isWfPaneOpen ? 'block' : 'none'}
+              width={(isWfPaneOpen && paneBWidth) || 0}
+              ref={workflowDetailsRef}
+            >
               <WorkflowPane />
             </Box>
           </Box>

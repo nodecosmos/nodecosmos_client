@@ -17,19 +17,19 @@ import {
   Button,
   DialogContent, Typography,
 } from '@mui/material';
-import FinalFormCheckboxTree from '../../../../../common/components/final-form/FinalFormCheckboxTree';
-import { setAlert } from '../../../../app/appSlice';
-import { selectFlowStepAttribute } from '../../../../flow-steps/flowSteps.selectors';
-import { createFlowStep, updateFlowStepNodes } from '../../../../flow-steps/flowSteps.thunks';
-import ImportSearchField from '../../../../nodes/components/importer/ImportSearchField';
+import FinalFormCheckboxTree from '../../../common/components/final-form/FinalFormCheckboxTree';
+import { setAlert } from '../../app/appSlice';
+import { selectFlowStepAttribute } from '../flowSteps.selectors';
+import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
+import ImportSearchField from '../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
 import {
   selectChildIdsByParentId, selectNodeAttribute, selectNodesById, selectPersistedIdByNodeId,
-} from '../../../../nodes/nodes.selectors';
-import { selectWorkflowAttribute } from '../../../workflows.selectors';
+} from '../../nodes/nodes.selectors';
+import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 
 // Dumb implementation of import feature
-export default function FlowStepNodesModal({
+export default function FlowStepModal({
   wfStepFlow, open, onClose,
 }) {
   const [loading, setLoading] = React.useState(false);
@@ -193,7 +193,7 @@ export default function FlowStepNodesModal({
   );
 }
 
-FlowStepNodesModal.propTypes = {
+FlowStepModal.propTypes = {
   wfStepFlow: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,

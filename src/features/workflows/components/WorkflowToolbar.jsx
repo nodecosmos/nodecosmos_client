@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHashtag } from '@fortawesome/pro-solid-svg-icons';
+import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
 import AddRounded from '@mui/icons-material/AddRounded';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { selectWorkflowsByNodeId } from '../workflows.selectors';
+import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../workflows.selectors';
+import { setIsWfPaneOpen } from '../workflowsSlice';
 import CreateWorkflowModal from './CreateWorkflowModal';
+import WorkflowZoomTools from './tools/WorkflowZoomTools';
 
 export default function WorkflowToolbar({ nodeId }) {
+  const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
   const workflows = useSelector(selectWorkflowsByNodeId(nodeId));
   const workflow = workflows[0] || {};
+
+  const dispatch = useDispatch();
 
   const [openCreateWorkflowDialog, setOpenCreateWorkflowDialog] = useState(false);
 
@@ -34,7 +40,7 @@ export default function WorkflowToolbar({ nodeId }) {
       >
         {
           workflow.title && (
-            <Typography fontWeight="bold" color="secondary">
+            <Typography fontWeight="bold" color="secondary" borderRight={1} borderColor="borders.3" pr={1}>
               {workflow.title}
             </Typography>
           )
@@ -56,17 +62,23 @@ export default function WorkflowToolbar({ nodeId }) {
         }
       </Box>
 
-      <Tooltip title="edit" placement="top">
-        <Button
-          size="large"
-          sx={{
-            height: 1,
-            color: 'toolbar.default',
-          }}
-        >
-          <FontAwesomeIcon icon={faHashtag} />
-        </Button>
-      </Tooltip>
+      {workflow.title && <WorkflowZoomTools />}
+
+      {!isWfPaneOpen && (
+        <ToolbarContainer round mr={0.5}>
+          <ToolbarItem
+            title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
+            icon={faTerminal}
+            color="toolbar.pink"
+            active={false}
+            onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
+            flipX={!isWfPaneOpen}
+          />
+          <Button sx={{ display: 'none' }} />
+          {/* hack to get styles right */}
+        </ToolbarContainer>
+      )}
+      {isWfPaneOpen && <div />}
 
       <CreateWorkflowModal
         open={openCreateWorkflowDialog}

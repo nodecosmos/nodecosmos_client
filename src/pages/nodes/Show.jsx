@@ -22,8 +22,12 @@ export default function NodeShow() {
     dispatch(showNode({
       rootId,
       id,
-    }));
-  }, [dispatch, rootId, id]);
+    })).then((response) => {
+      if (response.error) {
+        navigate('/404');
+      }
+    });
+  }, [dispatch, navigate, rootId, id]);
 
   return (
     <Box height={1} display="flex">

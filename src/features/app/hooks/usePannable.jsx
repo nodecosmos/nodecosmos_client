@@ -10,8 +10,10 @@ export default function usePannable(containerRef) {
       const scrollLeft = initialScrollLeft + initialClientX - clientX;
       const scrollTop = initialScrollTop + initialClientY - clientY;
 
-      containerRef.current.scrollLeft = scrollLeft;
-      containerRef.current.scrollTop = scrollTop;
+      if (containerRef.current) {
+        containerRef.current.scrollLeft = scrollLeft;
+        containerRef.current.scrollTop = scrollTop;
+      }
     };
 
     const handleMouseUp = () => {

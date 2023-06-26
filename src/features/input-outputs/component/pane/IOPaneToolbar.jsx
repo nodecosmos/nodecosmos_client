@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import EditIOModal from '../../../workflows/components/diagram/io/EditIOModal';
+import EditIOModal from '../EditIOModal';
+import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
 import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
 import { selectInputOutputById, selectIOPaneContent } from '../../inputOutput.selectors';
 import { deleteIO } from '../../inputOutput.thunks';
@@ -56,7 +57,7 @@ export default function IOPaneToolbar() {
         />
       </ToolbarContainer>
 
-      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default', mr: 0.5 } }}>
+      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default', mr: 0.5, ml: 1 } }}>
         {io.title && <FontAwesomeIcon icon={faCodeFork} />}
         <Typography
           align="center"
@@ -65,6 +66,7 @@ export default function IOPaneToolbar() {
           color="secondary"
           ml={1}
           sx={{
+            maxWidth: 200,
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
@@ -109,7 +111,9 @@ export default function IOPaneToolbar() {
           </Tooltip>
         </Box>
       </Box>
-      <div />
+      <Box>
+        <ToggleWorkflowPaneButton />
+      </Box>
 
       <EditIOModal id={io.id} open={openEditIO} onClose={() => setOpenEditIO(false)} />
     </Box>

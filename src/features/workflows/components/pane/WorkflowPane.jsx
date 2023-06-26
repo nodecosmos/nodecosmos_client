@@ -1,4 +1,6 @@
 import React from 'react';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 import IOPane from '../../../input-outputs/component/pane/IOPane';
 import NodePane from '../../../nodes/components/pane/NodePane';
@@ -13,6 +15,19 @@ export default function WorkflowPane() {
     node: <NodePane />,
     output: <IOPane />,
   };
+
+  if (!type) {
+    return (
+      <Box m={3} height={1} display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+        <Typography variant="h6" color="text.secondary" textAlign="center">
+          Select a workflow object to view its properties
+        </Typography>
+        <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
+          ¯\_(ツ)_/¯
+        </Typography>
+      </Box>
+    );
+  }
 
   return content[type];
 }

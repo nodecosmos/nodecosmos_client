@@ -9,6 +9,7 @@ export default function ToolbarItem({
   color,
   onClick,
   active,
+  flipX,
 }) {
   return (
     <Tooltip title={title} placement="top">
@@ -19,6 +20,9 @@ export default function ToolbarItem({
         sx={{
           color: 'toolbar.default',
           '&:hover, &.active': { color },
+          svg: {
+            transform: flipX ? 'scaleX(-1)' : 'scaleX(1)',
+          },
         }}
       >
         <FontAwesomeIcon icon={icon} />
@@ -30,6 +34,7 @@ export default function ToolbarItem({
 ToolbarItem.defaultProps = {
   onClick: () => {},
   active: false,
+  flipX: false,
 };
 
 ToolbarItem.propTypes = {
@@ -38,4 +43,5 @@ ToolbarItem.propTypes = {
   icon: PropTypes.object.isRequired,
   active: PropTypes.bool,
   onClick: PropTypes.func,
+  flipX: PropTypes.bool,
 };

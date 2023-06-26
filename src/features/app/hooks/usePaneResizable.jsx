@@ -23,12 +23,12 @@ export default function usePaneResizable({
       let newPaneAWidthPercent = (newAWidth / aRef.current.parentNode.offsetWidth) * 100;
       let newPaneBWidthPercent = (newPaneWidth / bRef.current.parentNode.offsetWidth) * 100;
 
-      if (newPaneAWidthPercent < 20) {
-        newPaneAWidthPercent = 20;
-        newPaneBWidthPercent = 80;
-      } else if (newPaneAWidthPercent > 80) {
-        newPaneAWidthPercent = 80;
-        newPaneBWidthPercent = 20;
+      if (newPaneAWidthPercent < 30) {
+        newPaneAWidthPercent = 30;
+        newPaneBWidthPercent = 70;
+      } else if (newPaneAWidthPercent > 70) {
+        newPaneAWidthPercent = 70;
+        newPaneBWidthPercent = 30;
       }
 
       setPaneAWidth(`${newPaneAWidthPercent}%`);

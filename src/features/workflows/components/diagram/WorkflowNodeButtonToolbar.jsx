@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
+import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/component/CreateIOModal';
 import AssociateInputsModal from './AssociateInputsModal';
-import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from './io/CreateIOModal';
 
 export default function WorkflowNodeButtonToolbar({
   diagramId, nodeId, workflowId, flowStepId, workflowStepIndex,

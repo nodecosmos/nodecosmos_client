@@ -10,11 +10,12 @@ import {
   Box, Tooltip,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
+import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import { selectFlowAttribute } from '../../../../flows/flows.selectors';
 import { deleteFlow } from '../../../../flows/flows.thunks';
 import { selectWorkflowAttribute } from '../../../workflows.selectors';
-import FlowStepNodesModal from './FlowStepNodesModal';
 
 export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
@@ -44,20 +45,7 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
     <Box>
       {
         wfStepHovered && (
-          <Box
-            display="flex"
-            sx={{
-              ml: 1,
-              '.Item': {
-                width: 31,
-                height: 1,
-                mx: 0.5,
-                borderRadius: 1,
-                '&:hover': { backgroundColor: 'toolbar.hover' },
-              },
-              '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
-            }}
-          >
+          <ToolsContainer>
             {
               wfStepFlow.stepIndex === flowStartIndex && (
                 <Box borderRight={1} borderColor="borders.3">
@@ -103,11 +91,11 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
                 </Tooltip>
               )
             }
-          </Box>
+          </ToolsContainer>
         )
       }
 
-      <FlowStepNodesModal
+      <FlowStepModal
         wfStepFlow={wfStepFlow}
         open={addFlopStepNodesModalOpen}
         onClose={() => setAddFlowStepNodesModalOpen(false)}

@@ -6,6 +6,9 @@ export const selectWorkflowIdsByNodeId = (state) => state.workflows.idsByNodeId;
 export const selectWorkflowDiagramById = (state) => state.workflows.workflowDiagramById;
 export const selectWorkflowDiagramPositionById = (state) => state.workflows.workflowDiagramPositionsById;
 export const selectSelectedWorkflowDiagramObject = (state) => state.workflows.selectedWorkflowDiagramObject;
+export const selectWorkflowPaneContent = (state) => state.workflows.workflowPaneContent;
+export const selectIsWfPaneOpen = (state) => state.workflows.isWfPaneOpen;
+export const selectWorkflowScale = (state) => state.workflows.workflowScale;
 
 export const selectWorkflowsByNodeId = (nodeId) => createSelector([
   selectWorkflowIdsByNodeId,
