@@ -5,16 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../app/components/DescriptionContainer';
 import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
-import { selectFlow } from '../../../flows.selectors';
+import { selectFlowAttribute } from '../../../flows.selectors';
 import { getFlowDescription } from '../../../flows.thunks';
 
 export default function FlowPaneDescription() {
   const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
   const { id, workflowId } = selectedWorkflowDiagramObject;
 
-  const {
-    title, description, nodeId,
-  } = useSelector(selectFlow(workflowId, id));
+  const description = useSelector(selectFlowAttribute(workflowId, id, 'description'));
+  const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
 
   const [loading, setLoading] = React.useState(!description);
   const dispatch = useDispatch();

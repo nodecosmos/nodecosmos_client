@@ -39,8 +39,9 @@ const flowStepsSlice = createSlice({
       state.flowPaneContent = action.payload;
     },
     updateFlowState(state, action) {
-      const { workflowId, flowId } = action.payload;
-      state.byWorkflowId[workflowId][flowId] = { ...state.byWorkflowId[workflowId][flowId], ...action.payload };
+      const { workflowId, id } = action.payload;
+
+      state.byWorkflowId[workflowId][id] = { ...state.byWorkflowId[workflowId][id], ...action.payload };
     },
   },
   extraReducers(builder) {
@@ -55,7 +56,10 @@ const flowStepsSlice = createSlice({
       })
       .addCase(getFlowDescription.fulfilled, (state, action) => {
         const { flow } = action.payload;
-        state.byWorkflowId[flow.workflowId][flow.id].description = flow.description;
+        const { description, descriptionMarkdown } = flow;
+
+        state.byWorkflowId[flow.workflowId][flow.id].description = description;
+        state.byWorkflowId[flow.workflowId][flow.id].descriptionMarkdown = descriptionMarkdown;
       })
       .addCase(showWorkflow.fulfilled, (state, action) => {
         const { workflow, flows } = action.payload;

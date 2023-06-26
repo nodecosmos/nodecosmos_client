@@ -12,22 +12,25 @@ import ToolbarContainer from '../../../../common/components/toolbar/ToolbarConta
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { FLOW_PANE_CONTENTS } from '../../flows.constants';
-import EditFlowModal from '../EditFlowModal';
 import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
 import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
-import { selectflowById, selectFlowPaneContent } from '../../flow.selectors';
-import { deleteFlow } from '../../flow.thunks';
+import { selectFlowAttribute, selectFlowPaneContent } from '../../flows.selectors';
+import { deleteFlow } from '../../flows.thunks';
 import { setFlowPaneContent } from '../../flowsSlice';
+import FlowModal from '../FlowModal';
 
 export default function FlowPaneToolbar() {
   const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
-  const io = useSelector(selectflowById(selectedWorkflowDiagramObject.id));
+  const { id, workflowId } = selectedWorkflowDiagramObject;
   const dispatch = useDispatch();
   const ioPaneContent = useSelector(selectFlowPaneContent);
   const [openEditFlow, setOpenEditFlow] = React.useState(false);
 
+  const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
+  const title = useSelector(selectFlowAttribute(workflowId, id, 'title'));
+
   const handleDeleteFlow = () => {
-    dispatch(deleteFlow({ id: io.id, workflowId: io.workflowId, nodeId: io.nodeId }));
+    dispatch(deleteFlow({ id, workflowId, nodeId }));
   };
 
   return (
@@ -46,19 +49,19 @@ export default function FlowPaneToolbar() {
           icon={faRectangleCode}
           color="toolbar.lightRed"
           active={ioPaneContent === FLOW_PANE_CONTENTS.markdown}
-          onClick={() => dispatch(setFlowPaneContent(Flow_PANE_CONTENTS.markdown))}
+          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown))}
         />
         <ToolbarItem
           title="View Description"
           icon={faHashtag}
           color="toolbar.green"
-          active={ioPaneContent === Flow_PANE_CONTENTS.description}
-          onClick={() => dispatch(setFlowPaneContent(Flow_PANE_CONTENTS.description))}
+          active={ioPaneContent === FLOW_PANE_CONTENTS.description}
+          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description))}
         />
       </ToolbarContainer>
 
       <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default', mr: 0.5, ml: 1 } }}>
-        {io.title && <FontAwesomeIcon icon={faCodeFork} />}
+        {title && <FontAwesomeIcon icon={faCodeFork} />}
         <Typography
           align="center"
           variant="body1"
@@ -72,7 +75,7 @@ export default function FlowPaneToolbar() {
             textOverflow: 'ellipsis',
           }}
         >
-          {io.title}
+          {title}
         </Typography>
 
         <Box
@@ -115,7 +118,12 @@ export default function FlowPaneToolbar() {
         <ToggleWorkflowPaneButton />
       </Box>
 
-      <EditFlowModal id={io.id} open={openEditFlow} onClose={() => setOpenEditFlow(false)} />
+      <FlowModal
+        id={id}
+        workflowId={workflowId}
+        open={openEditFlow}
+        onClose={() => setOpenEditFlow(false)}
+      />
     </Box>
   );
 }

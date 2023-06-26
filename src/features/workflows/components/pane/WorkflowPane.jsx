@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import FlowPane from '../../../flows/components/pane/FlowPane';
 import IOPane from '../../../input-outputs/component/pane/IOPane';
 import NodePane from '../../../nodes/components/pane/NodePane';
 import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
@@ -14,6 +15,7 @@ export default function WorkflowPane() {
   const content = {
     node: <NodePane />,
     output: <IOPane />,
+    flow: <FlowPane />,
   };
 
   if (!type) {

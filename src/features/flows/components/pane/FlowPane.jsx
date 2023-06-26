@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectFlowPaneContent } from '../../flow.selectors';
+import { selectFlowPaneContent } from '../../flows.selectors';
 import FlowPaneDescription from './content/FlowPaneDescription';
 import FlowPaneMarkdownEditor from './content/FlowPaneMarkdownEditor';
 import FlowPaneToolbar from './FlowPaneToolbar';

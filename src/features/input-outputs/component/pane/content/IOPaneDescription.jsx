@@ -12,9 +12,7 @@ export default function IOPaneDescription() {
   const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
   const { id } = selectedWorkflowDiagramObject;
 
-  const {
-    title, description, nodeId, workflowId,
-  } = useSelector(selectInputOutputById(id));
+  const { description, nodeId, workflowId } = useSelector(selectInputOutputById(id));
 
   const [loading, setLoading] = React.useState(!description);
   const dispatch = useDispatch();

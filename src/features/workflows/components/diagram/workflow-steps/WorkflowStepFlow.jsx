@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectFlowAttribute } from '../../../../flows/flows.selectors';
-import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
+import {
+  FLOW_STEP_SIZE,
+  WORKFLOW_DIAGRAM_CONTEXT,
+  WORKFLOW_DIAGRAM_OBJECTS,
+  WORKFLOW_STEP_WIDTH,
+} from '../../../workflows.constants';
+import { WorkflowsContext } from '../../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
+import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
@@ -13,6 +20,20 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
   const flowStartIndex = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'startIndex'));
 
   const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
+
+  const dispatch = useDispatch();
+  const workflowContext = useContext(WorkflowsContext);
+
+  const handleFlowClick = () => {
+    if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+      dispatch(setSelectedWorkflowDiagramObject({
+        id: wfStepFlow.id,
+        diagramId: wfStepFlow.id,
+        workflowId: wfStepFlow.workflowId,
+        type: WORKFLOW_DIAGRAM_OBJECTS.flow,
+      }));
+    }
+  };
 
   return (
     <g>
@@ -34,6 +55,7 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
           position="relative"
         >
           <Typography
+            onClick={handleFlowClick}
             component="a"
             fontSize={18.75}
             variant="body1"

@@ -6,8 +6,6 @@ import {
 
 export default {
   buildWorkflowDiagram: (state, action) => {
-    console.log('hit');
-
     const {
       workflow,
       flows,
