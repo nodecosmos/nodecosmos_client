@@ -20,14 +20,16 @@ import {
 /* nodecosmos */
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
-import { createFlow } from '../flows.thunks';
+import { selectFlowAttribute } from '../flows.selectors';
+import { createFlow, updateFlowTitle } from '../flows.thunks';
 
-export default function CreateFlowModal({
-  open, onClose, workflowId, startIndex,
+export default function FlowModal({
+  open, onClose, workflowId, startIndex, id,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+  const title = useSelector(selectFlowAttribute(workflowId, id, 'title'));
 
   const onSubmit = async (formValues) => {
     setLoading(true);
@@ -39,7 +41,12 @@ export default function CreateFlowModal({
       ...formValues,
     };
 
-    await dispatch(createFlow(payload));
+    if (id) {
+      payload.id = id;
+      await dispatch(updateFlowTitle(payload));
+    } else {
+      await dispatch(createFlow(payload));
+    }
 
     setLoading(false);
     onClose();
@@ -53,7 +60,9 @@ export default function CreateFlowModal({
       open={open}
     >
       <DialogTitle>
-        New Flow
+        {
+          id ? 'Edit Flow' : 'Add Flow'
+        }
         <IconButton
           disableRipple
           onClick={onClose}
@@ -67,7 +76,7 @@ export default function CreateFlowModal({
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
+        <Form onSubmit={onSubmit} subscription={{ submitting: true }} initialValues={{ title }}>
           {({ handleSubmit }) => (
             <form style={{ height: '100%' }} onSubmit={handleSubmit}>
               <FinalFormInputField
@@ -92,7 +101,7 @@ export default function CreateFlowModal({
                 disabled={loading}
                 startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
               >
-                Create
+                Save
               </Button>
             </form>
           )}
@@ -102,9 +111,15 @@ export default function CreateFlowModal({
   );
 }
 
-CreateFlowModal.propTypes = {
+FlowModal.defaultProps = {
+  id: null,
+  startIndex: null,
+};
+
+FlowModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  startIndex: PropTypes.number.isRequired,
   workflowId: PropTypes.string.isRequired,
+  startIndex: PropTypes.number,
+  id: PropTypes.string,
 };

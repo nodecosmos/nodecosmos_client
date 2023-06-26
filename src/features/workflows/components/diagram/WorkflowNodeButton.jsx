@@ -41,6 +41,7 @@ export default function WorkflowNodeButton({
     dispatch(setSelectedWorkflowDiagramObject({
       id,
       diagramId,
+      workflowId,
       type: WORKFLOW_DIAGRAM_OBJECTS.node,
     }));
 

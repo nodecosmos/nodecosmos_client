@@ -10,10 +10,20 @@ export const createFlow = createAsyncThunk(
   },
 );
 
+export const getFlowDescription = createAsyncThunk(
+  'flows/getDescription',
+  async (payload, _thunkAPI) => {
+    const { nodeId, workflowId, id } = payload;
+    const response = await nodecosmos.get(`flows/${nodeId}/${workflowId}/${id}/description`);
+
+    return response.data;
+  },
+);
+
 export const updateFlowTitle = createAsyncThunk(
   'flows/updateFlowTitle',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.patch('/flows/title', payload);
+    const response = await nodecosmos.put('/flows/title', payload);
 
     return response.data;
   },
@@ -22,7 +32,7 @@ export const updateFlowTitle = createAsyncThunk(
 export const updateFlowDescription = createAsyncThunk(
   'flows/updateFlowDescription',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.patch('/flows/description', payload);
+    const response = await nodecosmos.put('/flows/description', payload);
 
     return response.data;
   },

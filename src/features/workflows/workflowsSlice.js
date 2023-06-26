@@ -107,6 +107,7 @@ const workflowsSlice = createSlice({
      * @type {{
      *   id: string,
      *   diagramId: string,
+     *   workflowId: string,
      *   type: string,
      * }}
      */

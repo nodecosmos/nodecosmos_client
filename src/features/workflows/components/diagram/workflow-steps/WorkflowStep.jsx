@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../../../../app/app.selectors';
-import CreateFlowModal from '../../../../flows/components/CreateFlowModal';
+import FlowModal from '../../../../flows/components/FlowModal';
 import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import WorkflowStepFlows from './WorkflowStepFlows';
@@ -83,7 +83,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
           </Button>
           )}
         </Box>
-        <CreateFlowModal
+        <FlowModal
           workflowId={wfStep.workflowId}
           open={openCreateFlowModal}
           startIndex={wfStepIndex}

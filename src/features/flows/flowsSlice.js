@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createFlowStep, deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { showWorkflow } from '../workflows/workflows.thunks';
-import { createFlow, deleteFlow } from './flows.thunks';
+import { FLOW_PANE_CONTENTS } from './flows.constants';
+import {
+  createFlow, deleteFlow, getFlowDescription, updateFlowTitle,
+} from './flows.thunks';
 
 const flowStepsSlice = createSlice({
   name: 'flows',
@@ -20,19 +23,7 @@ const flowStepsSlice = createSlice({
      *   }
      * }}
      */
-    byWorkflowId: {
-      'workflow-1': {
-        'flow-1': {
-          nodeId: 'node-1',
-          workflowId: 'workflow-1',
-          id: 'flow-1',
-          title: 'Flow 1',
-          description: 'Flow 1 description',
-          stepIds: ['step-1', 'step-2', 'step-3'],
-          startIndex: 0,
-        },
-      },
-    },
+    byWorkflowId: {},
 
     /**
      * @type {{
@@ -40,8 +31,18 @@ const flowStepsSlice = createSlice({
      * }}
      */
     flowStartIndexByFlowId: {},
+
+    flowPaneContent: FLOW_PANE_CONTENTS.description,
   },
-  reducers: {},
+  reducers: {
+    setFlowPaneContent(state, action) {
+      state.flowPaneContent = action.payload;
+    },
+    updateFlowState(state, action) {
+      const { workflowId, flowId } = action.payload;
+      state.byWorkflowId[workflowId][flowId] = { ...state.byWorkflowId[workflowId][flowId], ...action.payload };
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(createFlow.fulfilled, (state, action) => {
@@ -51,6 +52,10 @@ const flowStepsSlice = createSlice({
       })
       .addCase(createFlow.rejected, (state, action) => {
         console.log('createFlow.rejected', action);
+      })
+      .addCase(getFlowDescription.fulfilled, (state, action) => {
+        const { flow } = action.payload;
+        state.byWorkflowId[flow.workflowId][flow.id].description = flow.description;
       })
       .addCase(showWorkflow.fulfilled, (state, action) => {
         const { workflow, flows } = action.payload;
@@ -62,6 +67,10 @@ const flowStepsSlice = createSlice({
       .addCase(deleteFlow.fulfilled, (state, action) => {
         const { flow } = action.payload;
         delete state.byWorkflowId[flow.workflowId][flow.id];
+      })
+      .addCase(updateFlowTitle.fulfilled, (state, action) => {
+        const { flow } = action.payload;
+        state.byWorkflowId[flow.workflowId][flow.id].title = flow.title;
       })
       .addCase(createFlowStep.fulfilled, (state, action) => {
         const { flowStep } = action.payload;
@@ -85,7 +94,9 @@ const {
   reducer,
 } = flowStepsSlice;
 
-// eslint-disable-next-line no-empty-pattern
-export const {} = actions;
+export const {
+  setFlowPaneContent,
+  updateFlowState,
+} = actions;
 
 export default reducer;

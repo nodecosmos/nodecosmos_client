@@ -27,6 +27,7 @@ const MemoizedButtonBase = memo(ButtonBase);
 export default function WorkflowOutputButton({ id, nodeId }) {
   const theme = useTheme();
   const title = useSelector(selectIOAttribute(id, 'title'));
+  const workflowId = useSelector(selectIOAttribute(id, 'workflowId'));
 
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(id));
 
@@ -38,6 +39,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
       dispatch(setSelectedWorkflowDiagramObject({
         id,
         diagramId: id,
+        workflowId,
         type: WORKFLOW_DIAGRAM_OBJECTS.output,
       }));
     }

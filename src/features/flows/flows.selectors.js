@@ -3,6 +3,8 @@ import { createSelector } from '@reduxjs/toolkit';
 export const selectFlowsByWorkflowId = (state) => state.flows.byWorkflowId;
 export const selectFlowStartIndexByFlowId = (state) => state.flows.flowStartIndexByFlowId;
 
+export const selectFlowPaneContent = (state) => state.flows.flowPaneContent;
+
 export const selectWorkflowFlows = (workflowId) => createSelector(
   selectFlowsByWorkflowId,
   (flowsByWorkflowId) => flowsByWorkflowId[workflowId],

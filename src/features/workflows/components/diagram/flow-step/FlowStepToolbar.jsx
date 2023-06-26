@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
+import FlowModal from '../../../../flows/components/FlowModal';
 import { selectFlowAttribute } from '../../../../flows/flows.selectors';
 import { deleteFlow } from '../../../../flows/flows.thunks';
 import { selectWorkflowAttribute } from '../../../workflows.selectors';
@@ -40,6 +41,7 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
   };
 
   const [addFlopStepNodesModalOpen, setAddFlowStepNodesModalOpen] = React.useState(false);
+  const [editFlowModalOpen, setEditFlowModalOpen] = React.useState(false);
 
   return (
     <Box>
@@ -50,7 +52,12 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
               wfStepFlow.stepIndex === flowStartIndex && (
                 <Box borderRight={1} borderColor="borders.3">
                   <Tooltip title="Edit Flow" placement="top">
-                    <IconButton className="Item" aria-label="Edit Flow" sx={{ color: 'toolbar.green' }}>
+                    <IconButton
+                      className="Item"
+                      aria-label="Edit Flow"
+                      sx={{ color: 'toolbar.green' }}
+                      onClick={() => { setEditFlowModalOpen(true); }}
+                    >
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </IconButton>
                   </Tooltip>
@@ -95,6 +102,12 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
         )
       }
 
+      <FlowModal
+        workflowId={wfStepFlow.workflowId}
+        open={editFlowModalOpen}
+        onClose={() => { setEditFlowModalOpen(false); }}
+        id={wfStepFlow.id}
+      />
       <FlowStepModal
         wfStepFlow={wfStepFlow}
         open={addFlopStepNodesModalOpen}
