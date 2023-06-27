@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectFlowPaneContent } from '../../flows.selectors';
 import FlowPaneDescription from './content/FlowPaneDescription';
 import FlowPaneMarkdownEditor from './content/FlowPaneMarkdownEditor';
@@ -32,7 +33,9 @@ export default function FlowPane() {
       zIndex={1}
     >
       <FlowPaneToolbar />
-      {content}
+      <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto" pt={0.25}>
+        {content}
+      </Box>
     </Box>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectIOPaneContent } from '../../inputOutput.selectors';
 import IOPaneDescription from './content/IOPaneDescription';
 import IOPaneMarkdownEditor from './content/IOPaneMarkdownEditor';
@@ -21,18 +22,14 @@ export default function IOPane() {
       width={1}
       height={1}
       backgroundColor="background.6"
-      sx={{
-        overflow: 'hidden',
-        'h1, h2, h3, h4, h5, h6': {
-          marginBlockStart: 0,
-          marginBlockEnd: 2,
-        },
-      }}
+      sx={{ overflow: 'hidden' }}
       position="relative"
       zIndex={1}
     >
       <IOPaneToolbar />
-      {content}
+      <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto" pt={0.25}>
+        {content}
+      </Box>
     </Box>
   );
 }

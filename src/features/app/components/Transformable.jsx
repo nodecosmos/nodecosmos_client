@@ -21,7 +21,9 @@ export default function Transformable({ children, transformableId, scale }) {
     const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
     const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
-    if (height !== dimensions.height || width !== dimensions.width) { setDimensions({ height, width }); }
+    if (height !== dimensions.height || width !== dimensions.width) {
+      setDimensions({ height, width });
+    }
   }, 100);
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -44,11 +46,11 @@ export default function Transformable({ children, transformableId, scale }) {
     } else if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight,
+        clientHeight: containerRef.current.clientHeight * (1 / scale),
         scrollTop: containerRef.current.scrollTop,
       }));
     }
-  }, [dispatch, transformableId, scrollTop]);
+  }, [dispatch, transformableId, scrollTop, scale]);
 
   const resizeTimeout = useRef(null);
 
@@ -61,7 +63,7 @@ export default function Transformable({ children, transformableId, scale }) {
       if (containerRef.current) {
         dispatch(setTransformablePositions({
           id: transformableId,
-          clientHeight: containerRef.current.clientHeight * 1 / scale,
+          clientHeight: containerRef.current.clientHeight * (1 / scale),
         }));
       }
     }, 250);
@@ -90,7 +92,7 @@ export default function Transformable({ children, transformableId, scale }) {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={dimensions.width}
-        height={dimensions.height}
+        height="100%"
         style={{
           WebkitTapHighlightColor: 'transparent',
           WebkitTouchCallout: 'none',

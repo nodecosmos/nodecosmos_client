@@ -56,7 +56,7 @@ export default function LazyAppLoad() {
       <Box
         height={1}
         width={1}
-        p={{ xs: 0, sm: 0.75 }}
+        p={{ xs: 0, sm: 1 }}
         backgroundColor="background.1"
       >
         <Box

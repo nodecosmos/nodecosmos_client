@@ -64,12 +64,14 @@ export default function WorkflowTab() {
         <WorkflowContainer>
           <Box height={1} width={1} display="flex">
             <Box
-              height={`calc(100% - ${HEADER_HEIGHT})`}
+              height={1}
               width={(isWfPaneOpen && paneAWidth) || '100%'}
               ref={workflowRef}
             >
               <WorkflowToolbar nodeId={id} />
-              <Workflow nodeId={id} />
+              <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                <Workflow nodeId={id} />
+              </Box>
             </Box>
             <Box
               onMouseDown={handleResize}
@@ -89,6 +91,7 @@ export default function WorkflowTab() {
               }}
             />
             <Box
+              height={1}
               display={isWfPaneOpen ? 'block' : 'none'}
               width={(isWfPaneOpen && paneBWidth) || 0}
               ref={workflowDetailsRef}
