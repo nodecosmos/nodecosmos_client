@@ -15,7 +15,7 @@ import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
 import Innovate from '../../features/home/components/Innovate';
 import Collaborate from '../../features/home/components/Collaborate';
-import Investments from '../../features/home/components/Investments';
+// import Investments from '../../features/home/components/Investments';
 import OpenSource from '../../features/home/components/OpenSource';
 import Mvp from '../../features/home/components/Mvp';
 import ContactUs from '../../features/home/components/ContactUs';
@@ -29,7 +29,7 @@ export default function Index() {
 
   const innovate = useRef(null);
   const collaborate = useRef(null);
-  const investments = useRef(null);
+  // const investments = useRef(null);
   const openSource = useRef(null);
   const mvp = useRef(null);
   const contactUs = useRef(null);
@@ -43,7 +43,7 @@ export default function Index() {
   const allRefs = useMemo(() => [
     innovate,
     collaborate,
-    investments,
+    // investments,
     openSource,
     mvp,
     contactUs,
@@ -197,7 +197,7 @@ export default function Index() {
             <Box><Hero heroLogoRef={heroLogo} inView={heroInView} /></Box>
             <Box ref={innovate}><Innovate /></Box>
             <Box id="collaborate" ref={collaborate}><Collaborate /></Box>
-            <Box ref={investments}><Investments /></Box>
+            {/* <Box ref={investments}><Investments /></Box> */}
             <Box ref={openSource}><OpenSource /></Box>
             <Box ref={mvp}>
               <Mvp />

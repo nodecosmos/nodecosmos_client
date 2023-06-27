@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import {
-  faRectangleCode, faCodeFork, faHashtag,
+  faRectangleCode, faCodeCommit, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,7 +61,7 @@ export default function FlowPaneToolbar() {
       </ToolbarContainer>
 
       <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default', mr: 0.5, ml: 1 } }}>
-        {title && <FontAwesomeIcon icon={faCodeFork} />}
+        {title && <FontAwesomeIcon icon={faCodeCommit} />}
         <Typography
           align="center"
           variant="body1"

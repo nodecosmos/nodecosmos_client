@@ -62,9 +62,8 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
           pl={2}
         >
           <Typography
-            variant="body1"
+            variant="body2"
             fontFamily="'Roboto', sans-serif"
-            fontWeight={700}
             color="text.secondary"
           >
             {wfStepIndex + 1}

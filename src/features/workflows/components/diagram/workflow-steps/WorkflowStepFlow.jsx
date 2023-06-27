@@ -79,6 +79,7 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
           </Typography>
           <FlowStepToolbar wfStepFlow={wfStepFlow} wfStepHovered={wfStepHovered} />
           <Typography
+            fontWeight={700}
             sx={{ flexGrow: 1, textAlign: 'end', mr: 1 }}
             color="text.tertiary"
           >
