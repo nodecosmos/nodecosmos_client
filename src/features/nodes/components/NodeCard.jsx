@@ -1,19 +1,15 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import * as PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
-
-/* mui */
 import {
+  Box,
   Card,
   CardHeader,
   CardContent,
   Typography,
   Link,
 } from '@mui/material';
-
-/* nodecosmos */
+import * as PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 import UserAvatar from '../../../common/components/UserAvatar';
 import { selectIndexedNode } from '../nodes.selectors';
 

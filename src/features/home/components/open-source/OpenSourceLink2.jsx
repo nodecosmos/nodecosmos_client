@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { Typography, useMediaQuery, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  Typography, useMediaQuery, useTheme, Box,
+} from '@mui/material';
 import { useInView } from 'framer-motion';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);

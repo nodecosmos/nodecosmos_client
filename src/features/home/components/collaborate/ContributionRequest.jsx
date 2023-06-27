@@ -1,6 +1,7 @@
 import React from 'react';
-import { Typography, useMediaQuery, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  Typography, useMediaQuery, useTheme, Box,
+} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';

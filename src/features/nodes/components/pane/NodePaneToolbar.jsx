@@ -1,7 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Typography, Box } from '@mui/material';
 import {
   faRectangleCode, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';

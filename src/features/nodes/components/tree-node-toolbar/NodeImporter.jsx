@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { faCodeBranch } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton } from '@mui/material';
-import Box from '@mui/material/Box';
+import { IconButton, Box } from '@mui/material';
 import ImportNodeModal from '../importer/ImportNodeModal';
 
 export default function NodeImporter() {

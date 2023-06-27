@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import * as React from 'react';
-import { Typography, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Typography, useTheme, Box } from '@mui/material';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';

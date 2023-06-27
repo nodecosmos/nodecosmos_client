@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import { useTheme, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import useDrawerHeight from '../hooks/useDrawerHeight';

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Typography, Box } from '@mui/material';
 import GradientText from '../../../../common/components/GradientText';
 import Tree from '../../../home-tree/components/LandingPageTree';
 import PanTip from '../tips/PanTip';

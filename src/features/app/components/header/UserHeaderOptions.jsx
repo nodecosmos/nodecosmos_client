@@ -1,14 +1,11 @@
 import React from 'react';
 import { faBell, faMessages } from '@fortawesome/pro-solid-svg-icons';
-import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-/* mui */
 import {
+  Box,
   Button, Tooltip,
 } from '@mui/material';
-
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { selectIsAuthenticated } from '../../../authentication/authentication.selectors';

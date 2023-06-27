@@ -1,8 +1,9 @@
 import React from 'react';
 import { faPenToSquare, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton, Tooltip, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  IconButton, Tooltip, Typography, Box,
+} from '@mui/material';
 import {
   faRectangleCode, faCodeCommit, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';

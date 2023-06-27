@@ -3,8 +3,8 @@ import { faChevronRight, faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Breadcrumbs, IconButton, Link, Tooltip, useTheme,
+  Box,
 } from '@mui/material';
-import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../app/appSlice';
 import { MARGIN_TOP } from '../../trees/trees.constants';

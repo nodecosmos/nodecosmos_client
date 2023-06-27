@@ -2,8 +2,7 @@
 import React from 'react';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { tags as t } from '@lezer/highlight';
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import { useTheme, Box } from '@mui/material';
 import { createTheme } from '@uiw/codemirror-themes';
 import CodeMirror from '@uiw/react-codemirror';
 import PropTypes from 'prop-types';

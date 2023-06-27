@@ -1,8 +1,7 @@
 import React from 'react';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputAdornment, TextField } from '@mui/material';
-import Box from '@mui/material/Box';
+import { InputAdornment, TextField, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 

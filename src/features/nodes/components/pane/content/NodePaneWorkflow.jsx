@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import { HEADER_HEIGHT } from '../../../../app/constants';

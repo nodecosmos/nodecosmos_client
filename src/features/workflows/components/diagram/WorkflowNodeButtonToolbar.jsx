@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton, Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
 import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/component/CreateIOModal';

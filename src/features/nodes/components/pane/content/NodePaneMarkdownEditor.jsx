@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';

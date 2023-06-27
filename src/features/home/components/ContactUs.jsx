@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   Button, Grid, Typography,
+  Box,
 } from '@mui/material';
-import Box from '@mui/material/Box';
 import { Form } from 'react-final-form';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import axios from 'axios';

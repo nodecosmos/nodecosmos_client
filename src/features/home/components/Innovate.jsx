@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { Tab, Tabs } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Tab, Tabs, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
 import { setInnovateTab } from '../homeSlice';

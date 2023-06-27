@@ -1,6 +1,7 @@
 import React from 'react';
-import { Typography, useMediaQuery, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  Typography, useMediaQuery, useTheme, Box,
+} from '@mui/material';
 
 export default function PanTip() {
   const theme = useTheme();
@@ -20,7 +21,7 @@ export default function PanTip() {
         <b>Tip: </b>
         Use
         {
-            isMac ? ' ⌘ ' : ' Ctrl '
+          isMac ? ' ⌘ ' : ' Ctrl '
         }
         + Left Click to pan
         <br />

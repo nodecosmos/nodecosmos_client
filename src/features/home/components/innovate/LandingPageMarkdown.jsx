@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 import {
   ToggleButton, ToggleButtonGroup, Typography,
+  Box,
 } from '@mui/material';
-import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
@@ -180,14 +180,14 @@ export default function LandingPageMarkdown() {
         pb={1}
       >
         {mode === 'markdown' && (
-        <Suspense fallback={loading}>
-          <CustomCodeMirror
-            value={description}
-            onChange={(value) => {
-              setDescription(value);
-            }}
-          />
-        </Suspense>
+          <Suspense fallback={loading}>
+            <CustomCodeMirror
+              value={description}
+              onChange={(value) => {
+                setDescription(value);
+              }}
+            />
+          </Suspense>
         )}
         {mode === 'content' && (
           <Box m={{ xs: 3, sm: 4 }}>

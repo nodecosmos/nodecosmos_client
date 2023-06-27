@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import { useTheme, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useInView } from 'framer-motion';
 

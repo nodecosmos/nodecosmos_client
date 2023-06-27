@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-import { useMediaQuery, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import { useMediaQuery, useTheme, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import usePannable from '../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
@@ -65,7 +64,7 @@ export default function LandingPageTransformable(props) {
     >
       {/* <TransformablePath panX={pan.x} /> */}
       <Box
-          // onTouchStart={handlePinch}
+        // onTouchStart={handlePinch}
         sx={{
           p: 0,
           WebkitTapHighlightColor: 'transparent',

@@ -1,6 +1,6 @@
 /* mui */
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 /* nodecosmos */

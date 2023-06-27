@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
 import AddRounded from '@mui/icons-material/AddRounded';
-import { Button, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Button, Typography, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';

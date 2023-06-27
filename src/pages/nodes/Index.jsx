@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
+import { Box, Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-/* mui */
-import { Container } from '@mui/material';
 import { setHeaderContent } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 /* node-lib */

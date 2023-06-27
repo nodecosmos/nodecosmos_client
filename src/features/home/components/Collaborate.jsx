@@ -1,6 +1,7 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import { Grid, Typography, useTheme } from '@mui/material';
+import {
+  Box, Grid, Typography, useTheme,
+} from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 import ContributionRequest from './collaborate/ContributionRequest';
 import Topics from './collaborate/Topics';

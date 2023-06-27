@@ -1,8 +1,9 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import {
+  Box, FormControlLabel, Checkbox, useTheme,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
-import { FormControlLabel, Checkbox, useTheme } from '@mui/material';
 
 function FinalFormCheckboxTree({
   options,

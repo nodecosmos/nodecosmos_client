@@ -1,24 +1,15 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
 import * as PropTypes from 'prop-types';
+import {
+  Box, Dialog, DialogTitle, IconButton, CircularProgress, DialogContent,
+  Button, Typography,
+} from '@mui/material';
 import { Form } from 'react-final-form';
-
 import AddRounded from '@mui/icons-material/AddRounded';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-
-/* mui */
-import {
-  Button,
-  DialogContent, Typography,
-} from '@mui/material';
 import FinalFormCheckboxTree from '../../../../common/components/final-form/FinalFormCheckboxTree';
 import { setAlert } from '../../../app/appSlice';
-/* nodecosmos */
 import {
   selectChildIdsByParentId, selectNodesById, selectSelectedNode,
 } from '../../nodes.selectors';

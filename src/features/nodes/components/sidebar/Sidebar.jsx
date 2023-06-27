@@ -9,14 +9,9 @@ import {
   faHashtag,
   faTable,
 } from '@fortawesome/pro-light-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-/* mui */
-import { List } from '@mui/material';
-import Box from '@mui/material/Box';
+import { List, Box } from '@mui/material';
 import * as PropTypes from 'prop-types';
-
 import SidebarListItem from './SidebarListItem';
 
 export default function Sidebar(props) {

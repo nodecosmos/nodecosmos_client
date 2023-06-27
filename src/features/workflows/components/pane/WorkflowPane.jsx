@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import FlowPane from '../../../flows/components/pane/FlowPane';
 import IOPane from '../../../input-outputs/component/pane/IOPane';
