@@ -73,7 +73,7 @@ export default function Transformable({ children, transformableId, scale }) {
     if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight * 1 / scale,
+        clientHeight: containerRef.current.clientHeight * (1 / scale),
       }));
     }
   }, [dispatch, transformableId, scale]);
@@ -92,7 +92,7 @@ export default function Transformable({ children, transformableId, scale }) {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={dimensions.width}
-        height="100%"
+        height={dimensions.height}
         style={{
           WebkitTapHighlightColor: 'transparent',
           WebkitTouchCallout: 'none',

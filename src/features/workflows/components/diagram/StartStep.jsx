@@ -9,7 +9,6 @@ import {
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { useSelector } from 'react-redux';
 import { selectTransformablePositionsById } from '../../../app/app.selectors';
-import { TRANSFORMABLE_HEIGHT_MARGIN } from '../../../app/constants';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
@@ -37,7 +36,7 @@ export default function StartStep({ workflowId }) {
   const [hovered, setHovered] = React.useState(false);
   const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
 
-  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) - TRANSFORMABLE_HEIGHT_MARGIN;
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0);
   if (!wfStepHeight) return null;
 
   return (

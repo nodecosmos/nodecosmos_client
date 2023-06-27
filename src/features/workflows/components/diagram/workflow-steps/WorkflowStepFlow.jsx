@@ -76,15 +76,12 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
             }}
           >
             {flowTitle}
-          </Typography>
-          <FlowStepToolbar wfStepFlow={wfStepFlow} wfStepHovered={wfStepHovered} />
-          <Typography
-            fontWeight={700}
-            sx={{ flexGrow: 1, textAlign: 'end', mr: 1 }}
-            color="text.tertiary"
-          >
+            {' '}
+            -
+            {' '}
             {wfStepIndex - flowStartIndex + 1}
           </Typography>
+          <FlowStepToolbar wfStepFlow={wfStepFlow} wfStepHovered={wfStepHovered} />
         </Box>
 
       </foreignObject>
