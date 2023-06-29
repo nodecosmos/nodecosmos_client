@@ -35,5 +35,5 @@ export const selectWorkflow = (workflowId) => createSelector(
 
 export const selectWorkflowAttribute = (workflowId, attribute) => createSelector(
   selectWorkflow(workflowId),
-  (workflow) => workflow[attribute],
+  (workflow) => workflow && workflow[attribute],
 );

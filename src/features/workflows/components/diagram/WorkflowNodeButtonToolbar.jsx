@@ -36,10 +36,10 @@ export default function WorkflowNodeButtonToolbar({
             }}
           >
 
-            <Tooltip title="Add input from previous step" placement="top">
+            <Tooltip title="Inputs" placement="top">
               <IconButton
                 className="Item"
-                aria-label="Add Outputs"
+                aria-label="Inputs"
                 sx={{ color: 'secondary.main' }}
                 onClick={() => setAssociateInputsModalOpen(true)}
               >
