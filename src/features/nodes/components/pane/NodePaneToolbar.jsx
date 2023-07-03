@@ -5,7 +5,7 @@ import {
   faRectangleCode, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';
 import {
-  faArrowProgress,
+  faLaptopCode,
 } from '@fortawesome/pro-regular-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,7 +65,7 @@ export default function NodePaneToolbar() {
         />
         <ToolbarItem
           title="Workflow"
-          icon={faArrowProgress}
+          icon={faLaptopCode}
           color="toolbar.blue"
           active={nodePaneContent === NODE_PANE_CONTENTS.workflow}
           onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.workflow))}

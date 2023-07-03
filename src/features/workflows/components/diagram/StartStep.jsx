@@ -8,7 +8,7 @@ import {
 /* nodecosmos */
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionsById } from '../../../app/app.selectors';
+import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
@@ -34,7 +34,7 @@ export default function StartStep({ workflowId }) {
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(workflowId));
 
   const [hovered, setHovered] = React.useState(false);
-  const { clientHeight } = useSelector(selectTransformablePositionsById('workflow'));
+  const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
 
   const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0);
   if (!wfStepHeight) return null;
@@ -45,7 +45,7 @@ export default function StartStep({ workflowId }) {
         onMouseEnter={() => setHovered(true)}
         x={0}
         y={SHADOW_OFFSET}
-        height={wfStepHeight}
+        height={1000}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
         stroke={hovered ? theme.palette.workflow.default

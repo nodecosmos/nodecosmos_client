@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionsById } from '../../../../app/app.selectors';
+import { selectTransformablePositionAttribute } from '../../../../app/app.selectors';
 import FlowModal from '../../../../flows/components/FlowModal';
 import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
@@ -14,7 +14,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
   const [hovered, setHovered] = React.useState(false);
 
-  const { clientHeight } = useSelector(selectTransformablePositionsById('workflow')) || 0;
+  const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
   const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.workflowId));

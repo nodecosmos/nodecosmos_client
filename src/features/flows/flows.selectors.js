@@ -12,7 +12,7 @@ export const selectWorkflowFlows = (workflowId) => createSelector(
 
 export const selectFlow = (workflowId, flowId) => createSelector(
   selectWorkflowFlows(workflowId),
-  (flows) => flows[flowId],
+  (flows) => flows && flows[flowId],
 );
 
 export const selectFlowAttribute = (workflowId, flowId, attribute) => createSelector(
