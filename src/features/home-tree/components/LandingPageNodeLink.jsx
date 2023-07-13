@@ -78,7 +78,7 @@ export default function NonAnimatedNodeLink(props) {
         fill="transparent"
         sx={{
           opacity: 0,
-          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+          animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
           transition: `d ${animationDuration}ms`,
         }}
       />

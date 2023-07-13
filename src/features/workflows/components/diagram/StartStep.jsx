@@ -44,13 +44,12 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        y={SHADOW_OFFSET}
-        height={1000}
+        height={wfStepHeight - 21}
         width={WORKFLOW_STEP_WIDTH}
-        fill="transparent"
-        stroke={hovered ? theme.palette.workflow.default
+        fill={hovered ? '#333740' : 'transparent'}
+        stroke={hovered ? theme.palette.borders[1]
           : 'transparent'}
-        strokeWidth={3}
+        strokeWidth={2}
       />
       <foreignObject
         width="700"
@@ -86,7 +85,7 @@ export default function StartStep({ workflowId }) {
           d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
           style={{
             opacity: 0,
-            animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+            animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
             transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
           }}
         />

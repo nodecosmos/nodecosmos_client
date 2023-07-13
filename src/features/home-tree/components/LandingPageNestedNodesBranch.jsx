@@ -33,7 +33,7 @@ export default function LandingPageNestedNodesBranch(props) {
          L ${x} ${pathY}`}
       sx={{
         opacity: 0,
-        animation: `node-path-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+        animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
         transition: `d ${TRANSITION_ANIMATION_DURATION}ms`,
       }}
     />

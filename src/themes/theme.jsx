@@ -52,7 +52,7 @@ const getTheme = (currentTheme) => createTheme({
     },
     button: {
       fontSize: '0.875rem',
-      fontWeight: 500,
+      fontWeight: 400,
     },
     caption: {
       fontSize: '0.75rem',

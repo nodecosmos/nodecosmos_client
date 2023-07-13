@@ -7,14 +7,16 @@ import { setTransformablePositions } from '../appSlice';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../constants';
 import usePannable from '../hooks/usePannable';
 
-export default function Transformable({ children, transformableId, scale }) {
+export default function Transformable({
+  children, transformableId, scale, heightMargin,
+}) {
   const containerRef = useRef(null);
   const gRef = useRef(null);
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
 
   setTimeout(() => {
-    const height = (gRef.current && gRef.current.getBBox().height) + TRANSFORMABLE_HEIGHT_MARGIN;
+    const height = (gRef.current && gRef.current.getBBox().height) + heightMargin;
 
     const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
     const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
@@ -111,10 +113,12 @@ export default function Transformable({ children, transformableId, scale }) {
 
 Transformable.defaultProps = {
   scale: 1,
+  heightMargin: TRANSFORMABLE_HEIGHT_MARGIN,
 };
 
 Transformable.propTypes = {
   children: PropTypes.element.isRequired,
   transformableId: PropTypes.string.isRequired,
   scale: PropTypes.number,
+  heightMargin: PropTypes.number,
 };

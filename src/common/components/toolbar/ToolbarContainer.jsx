@@ -40,8 +40,9 @@ export default function ToolbarContainer({
             borderRadius: round ? '50%' : 0,
 
             '&:hover': {
+              borderRadius: '50%',
               backgroundColor: 'toolbar.hover',
-              borderColor: round ? 'transparent' : 'inherit',
+              borderColor: 'transparent',
             },
             '&.active': {
               backgroundColor: 'toolbar.active',
@@ -64,7 +65,7 @@ ToolbarContainer.defaultProps = {
   round: false,
   size: HEADER_HEIGHT,
   ml: 0,
-  mr: 0,
+  mr: 0.15,
   fontSize: '1rem',
 };
 

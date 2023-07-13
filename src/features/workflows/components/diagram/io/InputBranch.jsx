@@ -38,7 +38,7 @@ export default function InputBranch({
         d={`M ${xStart} ${yStart} L ${xEnd} ${yEnd}`}
         style={{
           opacity: 0,
-          animation: `node-path-appear ${INITIAL_ANIMATION_DURATION * 5}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+          animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
           transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
         }}
       />

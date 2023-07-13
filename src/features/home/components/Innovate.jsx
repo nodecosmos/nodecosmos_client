@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { Tab, Tabs, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+// import { faDiagramNested, faSquareCode, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
+import {
+  faDiagramNested, faSquareCode, faChartNetwork, faGamepadModern,
+} from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setCurrentNode } from '../../app/appSlice';
 import { setInnovateTab } from '../homeSlice';
 import AnimateOnView from './AnimateOnView';
@@ -50,10 +55,15 @@ export default function Innovate() {
               xs: 0,
               md: '20px',
             },
+            '.MuiButtonBase-root': {
+              mb: -1,
+              color: 'button.contrastText',
+            },
             mb: -1.5,
-            // '.MuiTabs-flexContainer': {
-            //   justifyContent: 'end',
-            // },
+            svg: {
+              fontSize: 20,
+              mr: 3,
+            },
           }}
           variant="scrollable"
           value={currentTab}
@@ -61,10 +71,34 @@ export default function Innovate() {
           TabIndicatorProps={{ sx: indicatorSx }}
           visibleScrollbar
         >
-          <Tab label="Node Tree" disableRipple sx={tabSx} />
-          <Tab label="Markdown" disableRipple sx={tabSx} />
-          <Tab label="Workflow" disableRipple sx={tabSx} />
-          <Tab label="And More" disableRipple sx={tabSx} />
+          <Tab
+            iconPosition="start"
+            icon={<FontAwesomeIcon icon={faDiagramNested} />}
+            label="Node Tree"
+            disableRipple
+            sx={tabSx}
+          />
+          <Tab
+            iconPosition="start"
+            icon={<FontAwesomeIcon icon={faSquareCode} />}
+            label="Markdown"
+            disableRipple
+            sx={tabSx}
+          />
+          <Tab
+            iconPosition="start"
+            icon={<FontAwesomeIcon icon={faChartNetwork} />}
+            label="Workflow"
+            disableRipple
+            sx={tabSx}
+          />
+          <Tab
+            iconPosition="start"
+            icon={<FontAwesomeIcon icon={faGamepadModern} />}
+            label="And More"
+            disableRipple
+            sx={tabSx}
+          />
           {/* <Tab label="Media" disableRipple sx={tabSx} /> */}
         </Tabs>
       </Box>

@@ -45,8 +45,7 @@ export default function NodePaneToolbar() {
       alignItems="center"
       height={HEADER_HEIGHT}
       borderBottom={1}
-      borderColor="borders.4"
-      // boxShadow="2"
+      borderColor="borders.3"
     >
       <ToolbarContainer>
         <ToolbarItem

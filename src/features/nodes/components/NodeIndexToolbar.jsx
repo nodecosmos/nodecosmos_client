@@ -19,7 +19,8 @@ export default function NodeIndexToolbar() {
       <Box>
         <Button
           size="small"
-          color="primary"
+          color="button"
+          sx={{ border: 1, borderColor: 'button.contrastText' }}
           variant="contained"
           disableElevation
           type="submit"

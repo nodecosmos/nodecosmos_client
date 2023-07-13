@@ -63,11 +63,16 @@ export default {
       contrastText: '#fff',
     },
 
+    button: {
+      main: '#3d4652',
+      contrastText: '#a5b4be',
+    },
+
     borders: {
       1: '#43464d',
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
-      4: '#43464d',
+      4: '#545760',
       5: '#6a707e',
     },
 
@@ -202,7 +207,7 @@ export default {
       },
       collaboratePurple: '#bb99ff',
       mergeGreen: '#a3ff48',
-      foreground: 'rgba(0, 0, 0, 0.7)',
+      foreground: '#838f9e',
     },
   },
 };

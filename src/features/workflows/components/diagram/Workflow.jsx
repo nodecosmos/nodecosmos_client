@@ -8,6 +8,7 @@ import { selectWorkflowFlows } from '../../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../../hooks/diagram/useWorkflowDiagramPositionCalculator';
 import { selectWorkflowsByNodeId, selectWorkflowScale } from '../../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../../workflowsSlice';
+import { SHADOW_OFFSET } from '../../workflows.constants';
 import StartStep from './StartStep';
 import WorkflowSteps from './workflow-steps/WorkflowSteps';
 
@@ -42,7 +43,12 @@ export default function Workflow({ nodeId }) {
   if (!Object.keys(workflowDiagramPosition).length > 0) return null;
 
   return (
-    <Transformable containerRef={containerRef} transformableId="workflow" scale={wfScale}>
+    <Transformable
+      containerRef={containerRef}
+      transformableId="workflow"
+      scale={wfScale}
+      heightMargin={-19}
+    >
       <g>
         <StartStep workflowId={workflow.id} />
         <WorkflowSteps workflowId={workflow.id} />

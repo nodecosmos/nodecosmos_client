@@ -30,7 +30,8 @@ export default function WorkflowToolbar({ nodeId }) {
       alignItems="center"
       justifyContent="space-between"
       position="relative"
-      boxShadow="2"
+      borderBottom={1}
+      borderColor="borders.4"
       zIndex={0}
     >
       <Box
@@ -48,7 +49,8 @@ export default function WorkflowToolbar({ nodeId }) {
           !workflow.title && (
             <Button
               size="small"
-              color="primary"
+              color="button"
+              sx={{ border: 1, borderColor: 'borders.4' }}
               variant="contained"
               disableElevation
               type="submit"

@@ -45,7 +45,7 @@ export default function NodeBranch(props) {
         fill="transparent"
         style={{
           opacity: 0,
-          animation: `node-path-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+          animation: `appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
           transition: `d ${transitionAnimationDuration}ms`,
         }}
       />
