@@ -11,7 +11,7 @@ export default function Hero({ inView, heroLogoRef }) {
         md: 22,
       }}
       mb={{
-        xs: 8,
+        xs: 10,
         sm: 30,
         md: 50,
       }}
