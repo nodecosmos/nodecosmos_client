@@ -31,7 +31,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <path
         strokeWidth={1}
         d={`M ${x} ${0}
-            L ${x} ${wfStepHeight}`}
+            L ${x} ${wfStepHeight - 1}`}
         stroke={theme.palette.workflow.default}
         fill="transparent"
       />
@@ -39,12 +39,12 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         onMouseEnter={() => setHovered(true)}
         x={x}
         y={0}
-        height={wfStepHeight - 21}
+        height={wfStepHeight - 1}
         width={WORKFLOW_STEP_WIDTH}
         fill={hovered ? '#333740' : 'transparent'}
         stroke={hovered ? theme.palette.borders[1]
           : 'transparent'}
-        strokeWidth={3}
+        strokeWidth={2}
       />
       <foreignObject
         className="NodeName"

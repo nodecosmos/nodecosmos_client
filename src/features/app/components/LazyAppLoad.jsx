@@ -33,7 +33,12 @@ export default function LazyAppLoad() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(syncUpCurrentUser());
+    dispatch(syncUpCurrentUser()).then((response) => {
+      debugger;
+      if (!response.payload.success) {
+        dispatch(getLikedObjectIds());
+      }
+    });
   }, [dispatch, isAuthenticated]);
 
   useEffect(() => {

@@ -163,7 +163,7 @@ export default function CustomCodeMirror(props) {
           md: HEADER_HEIGHT,
         },
         justifyContent: 'center',
-        borderColor: 'borders.4',
+        borderColor: 'borders.2',
       },
     }}
     >

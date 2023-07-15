@@ -2,10 +2,11 @@
 import React, { useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../appSlice';
 import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../constants';
 import usePannable from '../hooks/usePannable';
+import { selectTransformablePositionAttribute } from '../app.selectors';
 
 export default function Transformable({
   children, transformableId, scale, heightMargin,
@@ -14,9 +15,11 @@ export default function Transformable({
   const gRef = useRef(null);
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
+  const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
 
   setTimeout(() => {
-    const height = (gRef.current && gRef.current.getBBox().height) + heightMargin;
+    const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
+    const height = Math.max(svgHeight, clientHeight || 0);
 
     const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
     const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
@@ -43,7 +46,7 @@ export default function Transformable({
     if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight * (1 / scale),
+        clientHeight: containerRef.current.clientHeight * (1 / scale) - 8,
         scrollTop: containerRef.current.scrollTop,
       }));
     }
@@ -60,7 +63,7 @@ export default function Transformable({
       if (containerRef.current) {
         dispatch(setTransformablePositions({
           id: transformableId,
-          clientHeight: containerRef.current.clientHeight * (1 / scale),
+          clientHeight: containerRef.current.clientHeight * (1 / scale) - 8,
         }));
       }
     }, 250);
@@ -70,7 +73,7 @@ export default function Transformable({
     if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight * (1 / scale),
+        clientHeight: containerRef.current.clientHeight * (1 / scale) - 8,
       }));
     }
   }, [dispatch, transformableId, scale]);

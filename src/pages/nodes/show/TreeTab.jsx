@@ -67,7 +67,7 @@ export default function TreeTab() {
           height={1}
           ml={-1}
           borderRight={1}
-          borderColor="borders.4"
+          borderColor="borders.2"
           sx={{
             position: 'relative',
             '&:hover': {
