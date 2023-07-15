@@ -15,11 +15,11 @@ export default function Transformable({
   const gRef = useRef(null);
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
-  const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
 
   setTimeout(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
-    const height = Math.max(svgHeight, clientHeight || 0);
+    const clientHeight = containerRef.current.clientHeight || 0;
+    const height = Math.max(svgHeight, clientHeight - 8);
 
     const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
     const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
@@ -27,7 +27,7 @@ export default function Transformable({
     if (height !== dimensions.height || width !== dimensions.width) {
       setDimensions({ height, width });
     }
-  }, 100);
+  }, 250);
 
   //--------------------------------------------------------------------------------------------------------------------
   const { onMouseDown } = usePannable(containerRef);
@@ -46,7 +46,7 @@ export default function Transformable({
     if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight * (1 / scale) - 8,
+        clientHeight: containerRef.current.clientHeight - 16,
         scrollTop: containerRef.current.scrollTop,
       }));
     }
@@ -63,7 +63,7 @@ export default function Transformable({
       if (containerRef.current) {
         dispatch(setTransformablePositions({
           id: transformableId,
-          clientHeight: containerRef.current.clientHeight * (1 / scale) - 8,
+          clientHeight: containerRef.current.clientHeight - 16,
         }));
       }
     }, 250);
@@ -73,7 +73,7 @@ export default function Transformable({
     if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight * (1 / scale) - 8,
+        clientHeight: containerRef.current.clientHeight - 16,
       }));
     }
   }, [dispatch, transformableId, scale]);

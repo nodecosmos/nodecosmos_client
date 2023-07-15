@@ -5,7 +5,8 @@ import {
   faRectangleCode, faHashtag,
 } from '@fortawesome/pro-solid-svg-icons';
 import {
-  faLaptopCode,
+  faCodeCommit,
+  faDisplay,
 } from '@fortawesome/pro-regular-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,14 +58,14 @@ export default function NodePaneToolbar() {
         />
         <ToolbarItem
           title="View Description"
-          icon={faHashtag}
+          icon={faDisplay}
           color="toolbar.green"
           active={nodePaneContent === NODE_PANE_CONTENTS.description}
           onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description))}
         />
         <ToolbarItem
           title="Workflow"
-          icon={faLaptopCode}
+          icon={faCodeCommit}
           color="toolbar.blue"
           active={nodePaneContent === NODE_PANE_CONTENTS.workflow}
           onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.workflow))}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   faChartSimple,
-  faLaptopCode,
+  faCodeCommit,
   faCodePullRequest,
   faFolders,
   faGears,
@@ -44,7 +44,7 @@ export default function Sidebar(props) {
           to={`${toPath}/workflow`}
           flip
           icon={(
-            <FontAwesomeIcon icon={faLaptopCode} />
+            <FontAwesomeIcon icon={faCodeCommit} />
           )}
           title="Workflow"
         />
