@@ -61,8 +61,6 @@ export default function useWorkflowDiagramPositionCalculator(id) {
         const flow = wfStep.wfStepFlows[flowIndex];
         if (!flow) return;
 
-        console.log(positionsByDiagramId[flow.id]?.y);
-
         const prevFlowId = wfStep.wfStepFlows[flowIndex - 1]?.diagramId;
         const upperFlowSiblingYEnd = positionsByDiagramId[prevFlowId]?.yEnd || 0;
 

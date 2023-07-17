@@ -23,7 +23,7 @@ import { setAlert } from '../../app/appSlice';
 import { selectFlowStepAttribute } from '../../flow-steps/flowSteps.selectors';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import { createIO } from '../inputOutput.thunks';
-import { selectWorkflow } from '../../workflows/workflows.selectors';
+import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
 
 export const ASSOCIATED_OBJECT_TYPES = {
@@ -36,7 +36,8 @@ export default function CreateIOModal({
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const workflow = useSelector(selectWorkflow(workflowId));
+  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+  const currentInitialInputIds = useSelector(selectWorkflowAttribute(workflowId, 'initialInputIds'));
 
   const currentFlowStepOutputs = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'outputIdsByNodeId'));
   const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
@@ -46,7 +47,7 @@ export default function CreateIOModal({
     setLoading(true);
 
     const payload = {
-      nodeId: workflow.nodeId,
+      nodeId,
       workflowId,
       flowStepId,
       ...formValues,
@@ -57,11 +58,11 @@ export default function CreateIOModal({
 
       try {
         if (associatedObject === ASSOCIATED_OBJECT_TYPES.workflow) {
-          const initialInputIds = [...workflow.initialInputIds, inputOutput.id] || [inputOutput.id];
+          const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
           await dispatch(updateWorkflowInitialInputs({
-            nodeId: workflow.nodeId,
-            id: workflow.id,
+            nodeId,
+            id: workflowId,
             initialInputIds,
           }));
         }

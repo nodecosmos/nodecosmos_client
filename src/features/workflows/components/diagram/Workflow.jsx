@@ -8,7 +8,6 @@ import { selectWorkflowFlows } from '../../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../../hooks/diagram/useWorkflowDiagramPositionCalculator';
 import { selectWorkflowsByNodeId, selectWorkflowScale } from '../../workflows.selectors';
 import { buildWorkflow, setWorkflowDiagramPosition } from '../../workflowsSlice';
-import { SHADOW_OFFSET } from '../../workflows.constants';
 import StartStep from './StartStep';
 import WorkflowSteps from './workflow-steps/WorkflowSteps';
 

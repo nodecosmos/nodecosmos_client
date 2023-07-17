@@ -17,7 +17,11 @@ import {
 import {
   MARGIN_LEFT, WORKFLOW_START_MARGIN_TOP, NODE_BUTTON_HEIGHT, OUTPUT_EDGE_LENGTH, WORKFLOW_STEP_WIDTH, SHADOW_OFFSET,
 } from '../../workflows.constants';
-import { selectWorkflowDiagram, selectWorkflowDiagramPosition } from '../../workflows.selectors';
+import {
+  selectWorkflowDiagram,
+  selectWorkflowDiagramPosition,
+  selectWorkflowScale,
+} from '../../workflows.selectors';
 import StartToolbar from './StartToolbar';
 import WorkflowOutputButton from './io/WorkflowOutputButton';
 
@@ -32,11 +36,12 @@ export default function StartStep({ workflowId }) {
   const y = OUTPUT_EDGE_LENGTH;
   const yEnd = y + (OUTPUT_EDGE_LENGTH) * inputsLength + WORKFLOW_START_MARGIN_TOP;
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(workflowId));
+  const scale = useSelector(selectWorkflowScale);
 
   const [hovered, setHovered] = React.useState(false);
   const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
 
-  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0);
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale);
   if (!wfStepHeight) return null;
 
   return (
@@ -44,7 +49,7 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        height={(wfStepHeight - 1)}
+        height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
         fill={hovered ? '#333740' : 'transparent'}
         stroke={hovered ? theme.palette.borders[1]

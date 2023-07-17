@@ -30,7 +30,7 @@ export default function WorkflowToolbar({ nodeId }) {
       alignItems="center"
       justifyContent="space-between"
       position="relative"
-      borderBottom={2}
+      borderBottom={1}
       borderColor="borders.2"
       zIndex={0}
     >

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectTransformablePositionAttribute } from '../../../../app/app.selectors';
 import FlowModal from '../../../../flows/components/FlowModal';
 import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
+import { selectWorkflowDiagramPosition, selectWorkflowScale } from '../../../workflows.selectors';
 import WorkflowStepFlows from './WorkflowStepFlows';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
@@ -18,8 +18,9 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
   const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.workflowId));
+  const scale = useSelector(selectWorkflowScale);
 
-  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0);
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale);
   if (!wfStepHeight || !x) return null;
 
   return (
@@ -31,7 +32,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <path
         strokeWidth={1}
         d={`M ${x} ${0}
-            L ${x} ${wfStepHeight - 1}`}
+            L ${x} ${wfStepHeight - 2}`}
         stroke={theme.palette.workflow.default}
         fill="transparent"
       />
@@ -39,7 +40,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         onMouseEnter={() => setHovered(true)}
         x={x}
         y={0}
-        height={wfStepHeight - 1}
+        height={wfStepHeight - 2}
         width={WORKFLOW_STEP_WIDTH}
         fill={hovered ? '#333740' : 'transparent'}
         stroke={hovered ? theme.palette.borders[1]
