@@ -3,8 +3,10 @@ import React, { useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { setTransformablePositions } from '../appSlice';
-import { TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN } from '../constants';
+import { setTransformablePositions } from '../../features/app/appSlice';
+import {
+  TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
+} from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
 
 export default function Transformable({
@@ -20,7 +22,8 @@ export default function Transformable({
     const clientHeight = containerRef.current.clientHeight || 0;
     const height = Math.max(svgHeight, clientHeight);
 
-    const newWidth = (gRef.current && gRef.current.getBBox().width + TRANSFORMABLE_WIDTH_MARGIN);
+    const newWidth = (gRef.current && gRef.current.getBBox().width
+      + TRANSFORMABLE_WIDTH_MARGIN);
     const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
     if (height !== dimensions.height || width !== dimensions.width) {
@@ -28,10 +31,10 @@ export default function Transformable({
     }
   }, 250);
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------------------
   const { onMouseDown } = usePannable(containerRef);
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------------------
   const handleScroll = () => {
     requestAnimationFrame(() => {
       dispatch(setTransformablePositions({
@@ -68,7 +71,7 @@ export default function Transformable({
     }, 250);
   });
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------------------
   return (
     <Box
       ref={containerRef}

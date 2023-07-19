@@ -20,7 +20,6 @@ export default function TreeToolbar({ rootNodeId }) {
       position="relative"
       borderBottom={1}
       borderColor="borders.2"
-      // boxShadow="2"
       sx={{
         svg: {
           color: 'toolbar.default',
@@ -33,7 +32,8 @@ export default function TreeToolbar({ rootNodeId }) {
           '.MuiInputBase-root': {
             pl: 1,
             borderRadius: 0,
-            height: `calc(${HEADER_HEIGHT} - 1px)`,
+            borderColor: 'transparent',
+            height: HEADER_HEIGHT,
             backgroundColor: 'toolbar.searchField',
           },
           '.MuiOutlinedInput-notchedOutline': {

@@ -3,7 +3,7 @@ import {
   Snackbar, Alert as MuiAlert, Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAlert } from '../appSlice';
+import { setAlert } from '../../features/app/appSlice';
 
 export default function Alert() {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ export default (currentTheme) => ({
         ':-webkit-autofill': {
           '&, &:hover, &:focus': {
             borderRadius: 0,
-            boxShadow: `0 0 0px 1000px ${currentTheme.palette.background[5]} inset`,
+            boxShadow: `0 0 0px 1000px ${currentTheme.palette.background[6]} inset`,
             WebkitTextFillColor: currentTheme.palette.text.primary,
           },
         },
@@ -15,7 +15,7 @@ export default (currentTheme) => ({
       },
       root: {
         borderRadius: 4,
-        background: currentTheme.palette.background[5],
+        background: currentTheme.palette.background[6],
         '.MuiOutlinedInput-input': {
           '&.MuiInputBase-inputMultiline': {
             padding: 0,
@@ -24,23 +24,23 @@ export default (currentTheme) => ({
         },
         '.MuiOutlinedInput-notchedOutline': {
           top: 0,
-          borderColor: 'transparent',
-          borderWidth: 2,
+          borderColor: currentTheme.palette.borders[3],
+          borderWidth: 1,
           '& legend': {
             display: 'none',
           },
         },
         '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: 'transparent',
+          borderColor: currentTheme.palette.borders[4],
         },
         '&.Mui-error .MuiOutlinedInput-notchedOutline': {
           borderColor: currentTheme.palette.error.main,
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderWidth: 2,
+          borderWidth: 1,
           borderStyle: 'solid',
           background: 'none',
-          borderColor: 'transparent',
+          borderColor: currentTheme.palette.borders[5],
         },
       },
     },
@@ -59,7 +59,7 @@ export default (currentTheme) => ({
         fontWeight: 500,
         background: 'none',
         backgroundColor: 'none',
-        color: currentTheme.palette.text.primary,
+        color: currentTheme.palette.text.tertiary,
         height: '100%',
         position: 'absolute',
         transform: 'none',
@@ -68,7 +68,7 @@ export default (currentTheme) => ({
         '&.MuiInputLabel-shrink': {
           marginTop: 8,
           transform: 'scale(0.8)',
-          color: currentTheme.palette.primary.main,
+          color: currentTheme.palette.text.tertiary,
         },
       },
     },

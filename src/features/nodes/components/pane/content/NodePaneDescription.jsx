@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
-import DescriptionContainer from '../../../../app/components/DescriptionContainer';
+import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import { selectNodeAttribute, selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
 import { getNodeDescription } from '../../../nodes.thunks';
 

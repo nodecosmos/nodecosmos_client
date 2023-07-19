@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
-import usePaneResizable from '../../../features/app/hooks/usePaneResizable';
+import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import Workflow from '../../../features/workflows/components/diagram/Workflow';
 import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
 import WorkflowContainer from '../../../features/workflows/components/WorkflowContainer';
@@ -95,6 +95,7 @@ export default function WorkflowTab() {
               display={isWfPaneOpen ? 'block' : 'none'}
               width={(isWfPaneOpen && paneBWidth) || 0}
               ref={workflowDetailsRef}
+              boxShadow="left.2"
             >
               <WorkflowPane />
             </Box>

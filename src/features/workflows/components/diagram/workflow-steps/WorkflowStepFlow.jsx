@@ -46,10 +46,12 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
         <Box
           display="flex"
           alignItems="center"
-          height={1}
+          height="calc(100% - 3px)"
           pl={2}
-          borderBottom={2}
+          borderTop={1}
+          borderBottom={1}
           borderColor="workflow.default"
+          // backgroundColor="background.6"
           color="text.tertiary"
           zIndex={1}
           position="relative"

@@ -69,6 +69,7 @@ export const updateNodeDescription = createAsyncThunk(
     persistentId,
     description,
     descriptionMarkdown,
+    shortDescription,
   }, _thunk) => {
     try {
       const response = await nodecosmos.put('/nodes/description', {
@@ -76,6 +77,7 @@ export const updateNodeDescription = createAsyncThunk(
         id: persistentId,
         description,
         descriptionMarkdown,
+        shortDescription,
       });
 
       return response.data;

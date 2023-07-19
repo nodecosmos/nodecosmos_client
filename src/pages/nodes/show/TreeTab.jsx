@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setHeaderContent } from '../../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
-import usePaneResizable from '../../../features/app/hooks/usePaneResizable';
+import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
 import TreeContainer from '../../../features/trees/components/TreeContainer';
 import Tree from '../../../features/trees/components/Tree';
@@ -83,6 +83,7 @@ export default function TreeTab() {
         height={1}
         width={paneBWidth}
         display="flex"
+        boxShadow="left.2"
       >
         <NodePane />
       </Box>

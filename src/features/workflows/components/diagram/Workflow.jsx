@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Transformable from '../../../app/components/Transformable';
+import Transformable from '../../../../common/components/Transformable';
 import { selectWorkflowFlowSteps } from '../../../flow-steps/flowSteps.selectors';
 import { selectWorkflowFlows } from '../../../flows/flows.selectors';
 import useWorkflowDiagramPositionCalculator from '../../hooks/diagram/useWorkflowDiagramPositionCalculator';

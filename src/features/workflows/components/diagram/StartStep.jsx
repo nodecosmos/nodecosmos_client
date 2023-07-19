@@ -49,6 +49,7 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
+        y={-1}
         height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
         fill={hovered ? '#333740' : 'transparent'}

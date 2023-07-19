@@ -7,7 +7,7 @@ import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
 import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
 import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
 import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
-import Transformable from '../../app/components/Transformable';
+import Transformable from '../../../common/components/Transformable';
 import Node from './Node';
 
 export default function Tree(props) {

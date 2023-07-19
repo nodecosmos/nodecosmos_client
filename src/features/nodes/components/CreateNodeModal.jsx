@@ -49,6 +49,12 @@ export default function CreateNodeModal(props) {
       maxWidth="md"
       onClose={onClose}
       open={open}
+      sx={{
+        '& .MuiDialog-paper': {
+          border: 1,
+          borderColor: 'borders.4',
+        },
+      }}
     >
       <DialogTitle>
         New Node
@@ -88,7 +94,11 @@ export default function CreateNodeModal(props) {
                 disableElevation
                 type="submit"
                 disabled={loading}
-                startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
+                startIcon={
+                  loading
+                    ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                    : <AddRounded />
+                }
               >
                 Create
               </Button>

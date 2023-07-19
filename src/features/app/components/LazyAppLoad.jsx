@@ -23,7 +23,7 @@ import dark from '../../../themes/dark';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
-import Alert from './Alert';
+import Alert from '../../../common/components/Alert';
 import Header from './header/Header';
 
 export default function LazyAppLoad() {

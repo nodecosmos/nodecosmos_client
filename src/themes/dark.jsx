@@ -26,6 +26,16 @@ export default {
     23: '0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)',
     24: '0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)',
 
+    left: {
+      1: '-1px 0px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
+      2: '-2px 0px 1px -1px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+    },
+
+    right: {
+      1: '1px 0px 1px -1px rgba(0,0,0,0.2)',
+      2: '2px 0px 1px -1px rgba(0,0,0,0.2)',
+    },
+
     top: {
       1: '0px -3px 3px -2px rgb(0 0 0 / 20%)',
     },

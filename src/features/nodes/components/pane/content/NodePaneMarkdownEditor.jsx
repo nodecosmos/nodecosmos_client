@@ -11,6 +11,7 @@ import {
 } from '../../../nodes.selectors';
 import { updateNodeDescription } from '../../../nodes.thunks';
 import { updateNodeState } from '../../../nodesSlice';
+import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
 
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/CustomCodeMirror'));
 
@@ -49,10 +50,20 @@ export default function NodePaneMarkdownEditor() {
 
     handleChangeTimeout.current = setTimeout(() => {
       const descriptionHtml = md().render(value);
+      const shortDescription = extractTextFromHtml(descriptionHtml);
 
-      dispatch(updateNodeState({ id: selectedNodeId, description: descriptionHtml, descriptionMarkdown: value }));
+      dispatch(updateNodeState({
+        id: selectedNodeId,
+        description: descriptionHtml,
+        shortDescription,
+        descriptionMarkdown: value,
+      }));
       dispatch(updateNodeDescription({
-        persistentRootId, persistentId, description: descriptionHtml, descriptionMarkdown: value,
+        persistentRootId,
+        persistentId,
+        description: descriptionHtml,
+        shortDescription,
+        descriptionMarkdown: value,
       }));
     }, 500);
   };

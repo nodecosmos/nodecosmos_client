@@ -54,6 +54,7 @@ export default function Header() {
           borderRight={hasSidebar ? 1 : 0}
           borderBottom={hasSidebar ? 0 : 1}
           borderColor="borders.1"
+          boxShadow="right.2"
           sx={{
             borderTopLeftRadius: {
               xs: 0,

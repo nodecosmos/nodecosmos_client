@@ -39,13 +39,13 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={x}
-        y={0}
-        height={wfStepHeight - 2}
+        y={-1}
+        height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
         fill={hovered ? '#333740' : 'transparent'}
-        stroke={hovered ? theme.palette.borders[1]
+        stroke={hovered ? theme.palette.borders[4]
           : 'transparent'}
-        strokeWidth={2}
+        strokeWidth={1}
       />
       <foreignObject
         className="NodeName"
@@ -57,8 +57,6 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         <Box
           display="flex"
           height={1}
-          borderBottom={1}
-          borderColor="workflow.default"
           alignItems="center"
           pl={2}
         >
