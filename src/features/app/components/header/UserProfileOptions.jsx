@@ -13,7 +13,7 @@ import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 
 /* nodecosmos */
-import UserAvatar from '../../../../common/components/UserAvatar';
+import NcAvatar from '../../../../common/components/NcAvatar';
 
 export default function UserProfileOptions() {
   const [anchorEl, setAnchorEl] = React.useState(false);
@@ -40,7 +40,7 @@ export default function UserProfileOptions() {
 
   return (
     <>
-      <UserAvatar user={currentUser} onClick={handleClick} />
+      <NcAvatar model={{ name: currentUser.username }} onClick={handleClick} />
       <Menu
         anchorEl={anchorEl}
         open={open}

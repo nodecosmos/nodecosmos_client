@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 /* mui */
 import { Avatar } from '@mui/material';
 
-export default function UserAvatar({ user, onClick, backgroundColor }) {
-  const letter = user && user.username.charAt(0).toUpperCase();
+export default function NcAvatar({ model, onClick, backgroundColor }) {
+  const letter = model?.name?.charAt(0)?.toUpperCase();
 
   return (
     <Avatar
@@ -23,13 +23,13 @@ export default function UserAvatar({ user, onClick, backgroundColor }) {
   );
 }
 
-UserAvatar.defaultProps = {
+NcAvatar.defaultProps = {
   onClick: null,
   backgroundColor: 'background.4',
 };
 
-UserAvatar.propTypes = {
+NcAvatar.propTypes = {
   backgroundColor: PropTypes.string,
-  user: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
   onClick: PropTypes.func,
 };

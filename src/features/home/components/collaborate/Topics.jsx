@@ -9,7 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
-import UserAvatar from '../../../../common/components/UserAvatar';
+import NcAvatar from '../../../../common/components/NcAvatar';
 
 const rows = [
   {
@@ -188,7 +188,7 @@ export default function Topics() {
                   alignItems="center"
                   justifyContent="start"
                 >
-                  <UserAvatar user={{ username: row.username }} />
+                  <NcAvatar model={{ name: row.username }} />
                   <Box ml={1}>
                     <Typography
                       variant="body2"

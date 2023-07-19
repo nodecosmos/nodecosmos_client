@@ -10,7 +10,7 @@ import {
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import UserAvatar from '../../../common/components/UserAvatar';
+import NcAvatar from '../../../common/components/NcAvatar';
 import { selectIndexedNode } from '../nodes.selectors';
 
 function NodeCard(props) {
@@ -23,7 +23,7 @@ function NodeCard(props) {
         <CardHeader
           avatar={(
             <Link to={`/users/${node.owner.id}`}>
-              <UserAvatar user={node.owner} />
+              <NcAvatar model={node.owner} />
             </Link>
         )}
           title={(
