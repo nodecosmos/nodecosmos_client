@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectTransformablePositionAttribute } from '../../../../app/app.selectors';
 import FlowModal from '../../../../flows/components/FlowModal';
-import { SHADOW_OFFSET, WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
+import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition, selectWorkflowScale } from '../../../workflows.selectors';
 import WorkflowStepFlows from './WorkflowStepFlows';
 

@@ -32,7 +32,10 @@ export default function CreateNodeModal(props) {
     setLoading(true);
 
     try {
-      const response = await nodecosmos.post('/nodes', formValues);
+      // we will implement logic once we enable subscriptions
+      const data = { isPublic: true, ...formValues };
+
+      const response = await nodecosmos.post('/nodes', data);
       navigate(`/nodes/${response.data.rootId}`);
       return null;
     } catch (e) {

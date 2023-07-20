@@ -28,13 +28,13 @@ export default function TreeToolbar({ rootNodeId }) {
     >
       <TextField
         sx={{
+          height: 1,
           width: '350px',
           '.MuiInputBase-root': {
-            pl: 1,
             borderRadius: 0,
             borderColor: 'transparent',
-            height: HEADER_HEIGHT,
             backgroundColor: 'toolbar.searchField',
+            height: 1,
           },
           '.MuiOutlinedInput-notchedOutline': {
             '&, &:hover, &:focus': {},
