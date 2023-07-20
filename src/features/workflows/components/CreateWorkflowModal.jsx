@@ -8,7 +8,6 @@ import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import TagRounded from '@mui/icons-material/TagRounded';
 import { useDispatch } from 'react-redux';
 
 /* mui */
@@ -18,6 +17,8 @@ import {
   DialogContent,
 } from '@mui/material';
 /* nodecosmos */
+import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { createWorkflow } from '../workflows.thunks';
 
@@ -47,6 +48,18 @@ export default function CreateWorkflowModal({
       maxWidth="md"
       onClose={onClose}
       open={open}
+      PaperProps={{
+        elevation: 5,
+        sx: {
+          borderRadius: 2.5,
+        },
+      }}
+      sx={{
+        '& .MuiDialog-paper': {
+          border: 1,
+          borderColor: 'borders.4',
+        },
+      }}
     >
       <DialogTitle>
         New Workflow
@@ -73,8 +86,8 @@ export default function CreateWorkflowModal({
                 required
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'background.4' }} />
+                    <InputAdornment position="start" sx={{ svg: { color: 'background.4' } }}>
+                      <FontAwesomeIcon icon={faCodeCommit} />
                     </InputAdornment>
                   ),
                 }}

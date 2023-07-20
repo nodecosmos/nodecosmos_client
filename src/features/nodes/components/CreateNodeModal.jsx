@@ -52,6 +52,12 @@ export default function CreateNodeModal(props) {
       maxWidth="md"
       onClose={onClose}
       open={open}
+      PaperProps={{
+        elevation: 5,
+        sx: {
+          borderRadius: 2.5,
+        },
+      }}
       sx={{
         '& .MuiDialog-paper': {
           border: 1,
@@ -66,7 +72,7 @@ export default function CreateNodeModal(props) {
           onClick={onClose}
           sx={{
             position: 'absolute',
-            right: 24,
+            right: 16,
             top: 16,
           }}
         >

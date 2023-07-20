@@ -112,6 +112,7 @@ export default {
       paper: '#363a43',
       contrast: '#cccccc',
       hover: 'rgba(211,211,211,0.1)',
+      backdrop: 'rgba(99, 110, 123, 0.4)',
     },
 
     toolbar: {

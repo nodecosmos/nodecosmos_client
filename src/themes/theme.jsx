@@ -82,6 +82,29 @@ const getTheme = (currentTheme) => createTheme({
         },
       },
     },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: currentTheme.palette.background.backdrop,
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 10,
+          boxShadow: currentTheme.shadows[1],
+          border: `1px solid ${currentTheme.palette.borders[4]}`,
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          marginRight: 0,
+        },
+      },
+    },
     ...input(currentTheme),
     ...buttons(currentTheme),
     ...tab(currentTheme),
