@@ -12,15 +12,19 @@ export default function NodeIndexSearch() {
   const onChange = (event) => {
     clearTimeout(dispatchTimeout.current);
     dispatchTimeout.current = setTimeout(() => {
-      const { value } = event.target;
-      const options = {};
-
-      if (value) {
-        options.params = { q: value };
-      }
-
-      dispatch(indexNodes(options));
+      execSearch(event);
     }, 500);
+  };
+
+  const execSearch = (event) => {
+    const { value } = event.target;
+    const options = {};
+
+    if (value) {
+      options.params = { q: value };
+    }
+
+    dispatch(indexNodes(options));
   };
 
   return (
@@ -56,6 +60,11 @@ export default function NodeIndexSearch() {
       color="primary"
       variant="outlined"
       placeholder="Search"
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          execSearch(event);
+        }
+      }}
       onChange={onChange}
     />
   );
