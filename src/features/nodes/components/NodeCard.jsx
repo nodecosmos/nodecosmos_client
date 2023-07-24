@@ -20,7 +20,13 @@ function NodeCard(props) {
 
   return (
     <Box width="100%" mt={2}>
-      <Card className="Card" elevation={2} sx={{ p: 1, borderRadius: 4 }}>
+      <Card
+        className="Card"
+        elevation={2}
+        sx={{
+          p: 1, border: 1, borderColor: 'borders.4', borderRadius: 4,
+        }}
+      >
         <CardHeader
           avatar={(
             <Link to={`/users/${node.owner.id}`}>
@@ -55,7 +61,7 @@ function NodeCard(props) {
               {node.title}
             </Typography>
           </Link>
-          <Typography variant="body1" color="text.secondary" mt={2}>
+          <Typography variant="body1" color="text.secondary" mt={2} sx={{ height: 72 }}>
             {node.shortDescription}
           </Typography>
         </CardContent>
