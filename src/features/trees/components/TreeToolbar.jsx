@@ -20,18 +20,18 @@ export default function TreeToolbar({ rootNodeId }) {
       position="relative"
       borderBottom={1}
       borderColor="borders.2"
-      sx={{
-        svg: {
-          color: 'toolbar.default',
-        },
-      }}
+      sx={{}}
     >
       <TextField
         sx={{
-          height: 1,
+          ml: 1,
+          height: 32,
           width: '350px',
+          svg: {
+            color: 'toolbar.default',
+          },
           '.MuiInputBase-root': {
-            borderRadius: 0,
+            borderRadius: 1,
             borderColor: 'transparent',
             backgroundColor: 'toolbar.searchField',
             height: 1,

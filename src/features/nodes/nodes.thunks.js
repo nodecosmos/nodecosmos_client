@@ -4,8 +4,8 @@ import { LIKE_TYPES } from '../app/constants';
 
 export const indexNodes = createAsyncThunk(
   'nodes/indexNodes',
-  async (_, _thunkAPI) => {
-    const response = await nodecosmos.get('/nodes');
+  async (params, _thunkAPI) => {
+    const response = await nodecosmos.get('/nodes', params);
     return response.data;
   },
 );

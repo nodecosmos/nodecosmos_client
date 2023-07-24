@@ -1,10 +1,9 @@
 import React from 'react';
 /* mui */
 import { Box, Button } from '@mui/material';
-
 import AddRounded from '@mui/icons-material/AddRounded';
 
-/* nodecosmos */
+import NodeIndexSearch from './NodeIndexSearch';
 import CreateNodeModal from './CreateNodeModal';
 
 export default function NodeIndexToolbar() {
@@ -16,7 +15,7 @@ export default function NodeIndexToolbar() {
         open={openCreateNodeDialog}
         onClose={() => setOpenCreateNodeDialog(false)}
       />
-      <Box>
+      <Box display="flex" alignItems="center">
         <Button
           size="small"
           color="button"
@@ -29,6 +28,7 @@ export default function NodeIndexToolbar() {
         >
           Add Node
         </Button>
+        <NodeIndexSearch />
       </Box>
     </>
   );

@@ -1,34 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography, Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
-import { selectNodeAttribute, selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
-import { getNodeDescription } from '../../../nodes.thunks';
+import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
 
-export default function NodePaneDescription() {
+export default function NodePaneDescription({ loading }) {
   const selectedNodeId = useSelector(selectSelectedNodeId);
-  const persistentId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentId'));
-  const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
 
   const { title, description } = useSelector(selectSelectedNode);
-  const isDescFetchedById = React.useRef({});
-
-  const [loading, setLoading] = React.useState(!description || !isDescFetchedById.current[persistentId]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (persistentId && !isDescFetchedById.current[persistentId]) {
-      dispatch(getNodeDescription({
-        rootId: persistentRootId,
-        id: persistentId,
-      })).then(() => {
-        setLoading(false);
-      });
-
-      isDescFetchedById.current[persistentId] = true;
-    }
-  }, [dispatch, description, persistentId, persistentRootId]);
 
   if (!selectedNodeId) return null;
 
@@ -67,3 +48,7 @@ export default function NodePaneDescription() {
     </DescriptionContainer>
   );
 }
+
+NodePaneDescription.propTypes = {
+  loading: PropTypes.bool.isRequired,
+};

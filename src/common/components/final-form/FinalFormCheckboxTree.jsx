@@ -69,7 +69,7 @@ function FinalFormCheckboxTree({
           </Box>
           <Box
             sx={{ borderLeft: '1px dashed', borderColor: 'borders.5' }}
-            ml={nestedLevel > 1 ? 3.5 : 0}
+            ml={nestedLevel > 1 ? 3.5 : 1}
             pl={4}
           >
             {option.children && option.children.map((child) => renderOption(child, nestedLevel + 1))}

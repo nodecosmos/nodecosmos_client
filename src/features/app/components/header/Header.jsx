@@ -98,7 +98,7 @@ export default function Header() {
             {headerContents[headerContent]}
           </Box>
           <Box
-            pr={1}
+            mr={2}
             height={1}
             display="flex"
             alignItems="center"

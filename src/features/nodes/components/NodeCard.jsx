@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import NcAvatar from '../../../common/components/NcAvatar';
 import { selectIndexedNode } from '../nodes.selectors';
+import toLocalTime from '../../../common/localTime';
 
 function NodeCard(props) {
   const { id } = props;
@@ -35,12 +36,16 @@ function NodeCard(props) {
 )}
           subheader={(
             <Typography color="text.tertiary">
-              {node.createdAt}
+              {toLocalTime(node.createdAt)}
             </Typography>
           )}
         />
         <CardContent sx={{ ml: 8, p: 0 }}>
-          <Link component={RouterLink} to={`/nodes/${node.rootId}/${node.id}`}>
+          <Link
+            sx={{ '&:hover h2': { color: 'text.link', textDecoration: 'underline' } }}
+            component={RouterLink}
+            to={`/nodes/${node.rootId}/${node.id}`}
+          >
             <Typography
               variant="h5"
               variantMapping={{ h5: 'h2' }}
@@ -50,6 +55,9 @@ function NodeCard(props) {
               {node.title}
             </Typography>
           </Link>
+          <Typography variant="body1" color="text.secondary" mt={2}>
+            {node.shortDescription}
+          </Typography>
         </CardContent>
       </Card>
     </Box>

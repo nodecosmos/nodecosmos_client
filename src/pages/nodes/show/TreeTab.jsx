@@ -44,8 +44,6 @@ export default function TreeTab() {
     };
   }, [dispatch]);
 
-  // resize the tree and pane panes
-
   return (
     <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1} overflow="hidden">
       <Box

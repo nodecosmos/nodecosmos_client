@@ -40,6 +40,7 @@ const nodesSlice = createSlice({
      *    title: string,
      *    description: string,
      *    descriptionMarkdown: string,
+     *    shortDescription: string,
      *    likesCount: number,
      *    likedByCurrentUser: boolean,
      *    createdAt: string,
