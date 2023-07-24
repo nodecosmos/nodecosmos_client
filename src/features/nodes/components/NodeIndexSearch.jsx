@@ -17,6 +17,8 @@ export default function NodeIndexSearch() {
   };
 
   const execSearch = (event) => {
+    clearTimeout(dispatchTimeout.current);
+
     const { value } = event.target;
     const options = {};
 
