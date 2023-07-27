@@ -148,7 +148,7 @@ export default function Index() {
             sm: 8,
           },
           boxShadow: 'buttons.3',
-          backgroundColor: 'background.3',
+          backgroundColor: 'background.5',
         }}
         border={1}
         borderColor="borders.3"
@@ -214,7 +214,6 @@ export default function Index() {
           justifyContent="center"
           zIndex={2}
           p={3}
-          backgroundColor="background.3"
           sx={{
             borderBottomLeftRadius: {
               xs: 0,

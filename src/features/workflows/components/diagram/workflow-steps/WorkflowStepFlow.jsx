@@ -50,8 +50,7 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
           pl={2}
           borderTop={1}
           borderBottom={1}
-          borderColor="workflow.default"
-          // backgroundColor="background.6"
+          borderColor="borders.2"
           color="text.tertiary"
           zIndex={1}
           position="relative"

@@ -20,7 +20,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.workflowId));
   const scale = useSelector(selectWorkflowScale);
 
-  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale);
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
   if (!wfStepHeight || !x) return null;
 
   return (
@@ -42,13 +42,12 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         y={-1}
         height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
-        fill={hovered ? theme.palette.background[6] : 'transparent'}
+        fill={hovered ? theme.palette.background[2] : 'transparent'}
         stroke={hovered ? theme.palette.borders[4]
           : 'transparent'}
         strokeWidth={1}
       />
       <foreignObject
-        className="NodeName"
         width={WORKFLOW_STEP_WIDTH}
         height={WORKFLOW_STEP_HEIGHT}
         x={x}

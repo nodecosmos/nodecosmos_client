@@ -1,9 +1,7 @@
 export default function indexNodesFulfilledReducer(state, action) {
-  const params = action.meta.arg?.params || {};
+  // const params = action.meta.arg?.params || {};
 
-  if (params.q && !params.page) {
-    state.indexNodesById = {};
-  }
+  state.indexNodesById = {};
 
   action.payload.forEach((node) => { state.indexNodesById[node.id] = node; });
 }

@@ -41,7 +41,7 @@ export default function StartStep({ workflowId }) {
   const [hovered, setHovered] = React.useState(false);
   const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
 
-  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale);
+  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
   if (!wfStepHeight) return null;
 
   return (
@@ -52,9 +52,8 @@ export default function StartStep({ workflowId }) {
         y={-1}
         height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
-        fill={hovered ? theme.palette.background[6] : 'transparent'}
-        stroke={hovered ? theme.palette.borders[1]
-          : 'transparent'}
+        fill={hovered ? theme.palette.background[2] : 'transparent'}
+        stroke="transparent"
         strokeWidth={2}
       />
       <foreignObject

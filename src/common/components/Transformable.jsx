@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,8 @@ import {
   TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
+import { WorkflowsContext } from '../../features/workflows/workflows.context';
+import { WORKFLOW_DIAGRAM_CONTEXT } from '../../features/workflows/workflows.constants';
 
 export default function Transformable({
   children, transformableId, scale, heightMargin,
@@ -16,6 +18,8 @@ export default function Transformable({
   const gRef = useRef(null);
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
+
+  const workflowContext = useContext(WorkflowsContext);
 
   setTimeout(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
@@ -45,14 +49,14 @@ export default function Transformable({
   };
 
   useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef.current && workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
       dispatch(setTransformablePositions({
         id: transformableId,
-        clientHeight: containerRef.current.clientHeight - 8,
+        clientHeight: containerRef.current.clientHeight,
         scrollTop: containerRef.current.scrollTop,
       }));
     }
-  }, [dispatch, transformableId]);
+  }, [dispatch, transformableId, workflowContext]);
 
   const resizeTimeout = useRef(null);
 
@@ -65,7 +69,7 @@ export default function Transformable({
       if (containerRef.current) {
         dispatch(setTransformablePositions({
           id: transformableId,
-          clientHeight: containerRef.current.clientHeight - 8,
+          clientHeight: containerRef.current.clientHeight,
         }));
       }
     }, 250);
@@ -83,29 +87,37 @@ export default function Transformable({
         height: 1,
       }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={dimensions.width}
-        height={dimensions.height}
-        style={{
-          WebkitTapHighlightColor: 'transparent',
-          WebkitTouchCallout: 'none',
-          WebkitUserSelect: 'none',
-          KhtmlUserSelect: 'none',
-          MozUserSelect: 'none',
-          MsUserSelect: 'none',
-          userSelect: 'none',
+      <Box
+        sx={{
           transformOrigin: 'top left',
-          display: 'block',
+          width: 1,
+          height: 1,
         }}
+        style={{ transform: `scale(${scale})` }}
       >
-        <g
-          ref={gRef}
-          style={{ transform: `scale(${scale})` }}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={dimensions.width}
+          height={dimensions.height}
+          style={{
+            WebkitTapHighlightColor: 'transparent',
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            KhtmlUserSelect: 'none',
+            MozUserSelect: 'none',
+            MsUserSelect: 'none',
+            userSelect: 'none',
+            transformOrigin: 'top left',
+            display: 'block',
+          }}
         >
-          {children}
-        </g>
-      </svg>
+          <g
+            ref={gRef}
+          >
+            {children}
+          </g>
+        </svg>
+      </Box>
     </Box>
   );
 }

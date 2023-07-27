@@ -58,24 +58,6 @@ export default function Sidebar(props) {
           title="Contribution Requests"
         />
         <SidebarListItem
-          to={`${toPath}/tasks_board`}
-          icon={(
-            <FontAwesomeIcon
-              icon={faTable}
-            />
-          )}
-          title="Tasks Board"
-        />
-        <SidebarListItem
-          to={`${toPath}/media`}
-          icon={(
-            <FontAwesomeIcon
-              icon={faFolders}
-            />
-          )}
-          title="Media"
-        />
-        <SidebarListItem
           to={`${toPath}/topics`}
           icon={(
             <FontAwesomeIcon
@@ -85,6 +67,17 @@ export default function Sidebar(props) {
           title="Topics"
         />
         <SidebarListItem
+          disabled
+          to={`${toPath}/tasks_board`}
+          icon={(
+            <FontAwesomeIcon
+              icon={faTable}
+            />
+          )}
+          title="Tasks Board"
+        />
+        <SidebarListItem
+          disabled
           to={`${toPath}/insights`}
           icon={(
             <FontAwesomeIcon

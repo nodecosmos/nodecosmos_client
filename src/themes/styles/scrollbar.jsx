@@ -11,7 +11,7 @@ export default (currentTheme) => ({
     // borderBottomRightRadius: 8,
     // borderTopRightRadius: 8,
     minHeight: 42,
-    backgroundColor: currentTheme.palette.background.scrollbarThumb,
+    backgroundColor: currentTheme.palette.background[6],
   },
   '::-webkit-scrollbar-track': {
     backgroundColor: currentTheme.palette.background[2],

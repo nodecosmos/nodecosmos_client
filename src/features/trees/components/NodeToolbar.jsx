@@ -69,31 +69,20 @@ export default function NodeToolbar(props) {
       </Tooltip>
       <LikeButton nodeId={nodeId} />
       <NodeImporter />
-      <Checkbox
-        className="Item"
-        icon={<FontAwesomeIcon icon={faBookmark} />}
-        checkedIcon={<FontAwesomeIcon icon={faBookmarkSolid} />}
-        inputProps={{ 'aria-label': 'Bookmark' }}
-        sx={{ color: 'toolbar.green' }}
-      />
-      <Checkbox
-        className="Item"
-        icon={<FontAwesomeIcon icon={faBell} />}
-        checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
-        inputProps={{ 'aria-label': 'Get Notified of Node Updates' }}
-        sx={{ svg: { color: 'toolbar.blue' } }}
-      />
-      <IconButton
-        target="_blank"
-        href={`/nodes/${persistentRootId}/${persistentId}`}
-        className="Item"
-        aria-label="Open Node in New Tab"
-        sx={{ color: 'background.list.default' }}
-      >
-        <FontAwesomeIcon
-          icon={faLink}
-        />
-      </IconButton>
+
+      <Tooltip title="Open Node In New Tab" placement="top">
+        <IconButton
+          target="_blank"
+          href={`/nodes/${persistentRootId}/${persistentId}`}
+          className="Item"
+          aria-label="Open Node in New Tab"
+          sx={{ color: 'toolbar.blue' }}
+        >
+          <FontAwesomeIcon
+            icon={faLink}
+          />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 }

@@ -24,7 +24,8 @@ function NodeCard(props) {
         className="Card"
         elevation={2}
         sx={{
-          p: 1, border: 1, borderColor: 'borders.4', borderRadius: 4,
+          p: 1,
+          borderRadius: 4,
         }}
       >
         <CardHeader

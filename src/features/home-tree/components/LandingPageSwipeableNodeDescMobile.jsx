@@ -51,7 +51,7 @@ function SwipeableEdgeDrawer() {
         }}
       >
         <Box display="flex" justifyContent="center" pt={1}>
-          <Box width={45} height={4} backgroundColor="background.4" borderRadius={1} />
+          <Box width={45} height={4} backgroundColor="background.8" borderRadius={1} />
         </Box>
         <Box display="flex" alignItems="center" justifyContent="start" width={1} mt={1}>
           {currentNodeId && <FontAwesomeIcon icon={faHashtag} />}

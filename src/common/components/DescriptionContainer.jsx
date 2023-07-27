@@ -41,7 +41,7 @@ export default function DescriptionContainer({ children }) {
             'th:last-of-type': { borderRight: 0 },
             '&:last-of-type td': { borderBottom: 0 },
             '&:hover': {
-              backgroundColor: 'background.hover',
+              backgroundColor: 'background.7',
             },
           },
         },

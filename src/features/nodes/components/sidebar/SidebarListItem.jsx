@@ -8,28 +8,29 @@ import * as PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 export default function SidebarListItem({
-  to, icon, title, flip, component, onClick, children,
+  to, icon, title, flip, component, onClick, children, disabled,
 }) {
   return (
     <ListItem sx={{
       px: 0,
       py: 0,
       ':not(:first-of-type)': {
-        pt: 0.5,
+        pt: 1,
       },
     }}
     >
       <ListItemButton
         sx={{
           py: 1.5,
-          borderRadius: 1.5,
+          borderRadius: 1,
           transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
-          color: 'background.list.default',
+          color: 'background.list.defaultColor',
           '&.active': {
-            backgroundColor: 'background.list.active',
+            backgroundColor: 'background.7',
             color: 'background.list.activeColor',
           },
         }}
+        disabled={disabled}
         disableRipple
         component={component}
         to={to}
@@ -39,7 +40,7 @@ export default function SidebarListItem({
         <ListItemIcon sx={{
           minWidth: 0,
           mr: 2,
-          color: 'background.list.default',
+          color: 'background.list.defaultColor',
           svg: {
             fontSize: 18,
             width: 18,
@@ -70,6 +71,7 @@ SidebarListItem.defaultProps = {
   onClick: () => {},
   to: null,
   children: null,
+  disabled: false,
 };
 
 SidebarListItem.propTypes = {
@@ -80,4 +82,5 @@ SidebarListItem.propTypes = {
   component: PropTypes.elementType,
   onClick: PropTypes.func,
   children: PropTypes.node,
+  disabled: PropTypes.bool,
 };

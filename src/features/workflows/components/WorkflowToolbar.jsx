@@ -40,7 +40,7 @@ export default function WorkflowToolbar({ nodeId }) {
       >
         {
           workflow.title && (
-            <Typography fontWeight="bold" color="secondary" borderRight={1} borderColor="borders.3" pr={1}>
+            <Typography fontWeight="bold" color="secondary" pr={1}>
               {workflow.title}
             </Typography>
           )

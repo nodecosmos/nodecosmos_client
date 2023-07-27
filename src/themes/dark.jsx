@@ -88,12 +88,13 @@ export default {
 
     background: {
       1: '#282a30',
-      2: '#343841',
-      3: '#373b43',
-      4: '#555b66',
-      5: '#333740',
+      2: '#333740',
+      3: '#30333b',
+      4: '#343841',
+      5: '#373b43',
       6: '#383d47',
       7: '#404450',
+      8: '#555b66',
 
       labels: {
         red: '#e15e7d',
@@ -103,15 +104,11 @@ export default {
       },
 
       list: {
-        default: '#898f9c',
+        defaultColor: '#898f9c',
         activeColor: '#d8e0e8',
-        active: '#3f4552',
       },
 
-      scrollbarThumb: '#3e434c',
       paper: '#363a43',
-      contrast: '#cccccc',
-      hover: 'rgba(211,211,211,0.1)',
       backdrop: 'rgba(99, 110, 123, 0.4)',
     },
 
@@ -130,9 +127,8 @@ export default {
     },
 
     tree: {
-      default: '#414650',
-      outlineBackground: '#32353d',
-      borderColor: '#59606f',
+      default: '#454a54',
+      outlineBackground: 'transparent',
       backgrounds: [
         '#f13575',
         '#a38dff', // 539bf5
@@ -143,7 +139,7 @@ export default {
         '#e7e96d',
         '#f5a07b',
       ],
-      defaultText: '#d7dcea',
+      defaultText: '#ffffff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
     },
