@@ -52,7 +52,7 @@ export default function StartStep({ workflowId }) {
         y={-1}
         height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
-        fill={hovered ? theme.palette.background[2] : 'transparent'}
+        fill="transparent"
         stroke="transparent"
         strokeWidth={2}
       />

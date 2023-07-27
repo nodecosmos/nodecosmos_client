@@ -42,7 +42,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         y={-1}
         height={wfStepHeight}
         width={WORKFLOW_STEP_WIDTH}
-        fill={hovered ? theme.palette.background[2] : 'transparent'}
+        fill="transparent"
         stroke={hovered ? theme.palette.borders[4]
           : 'transparent'}
         strokeWidth={1}

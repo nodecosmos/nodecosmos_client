@@ -127,8 +127,7 @@ export default {
     },
 
     tree: {
-      default: '#454a54',
-      outlineBackground: 'transparent',
+      default: '#444a54',
       backgrounds: [
         '#f13575',
         '#a38dff', // 539bf5

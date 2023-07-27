@@ -69,7 +69,7 @@ export default function WorkflowTab() {
               ref={workflowRef}
             >
               <WorkflowToolbar nodeId={id} />
-              <Box height={`calc(100% - ${HEADER_HEIGHT})`} backgroundColor="background.3">
+              <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                 <Workflow nodeId={id} />
               </Box>
             </Box>
