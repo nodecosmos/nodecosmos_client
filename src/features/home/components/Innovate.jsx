@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { Tab, Tabs, Box } from '@mui/material';
+import {
+  Tab, Tabs, Box, useMediaQuery, useTheme,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 // import { faDiagramNested, faSquareCode, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import {
@@ -20,6 +22,8 @@ const PRESELECTED_NODE_ID = '635a91ea690cc413ead79ce2';
 export default function Innovate() {
   const currentTab = useSelector((state) => state.home.innovateTab);
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     dispatch(setCurrentNode(PRESELECTED_NODE_ID));
@@ -65,7 +69,7 @@ export default function Innovate() {
               mr: 3,
             },
           }}
-          variant="scrollable"
+          variant={matchesSm ? 'scrollable' : 'standard'}
           value={currentTab}
           onChange={(_event, value) => dispatch(setInnovateTab(value))}
           TabIndicatorProps={{ sx: indicatorSx }}

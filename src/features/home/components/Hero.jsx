@@ -97,12 +97,12 @@ export default function Hero({ inView, heroLogoRef }) {
             p: 0,
             m: 0,
             listStyle: 'none',
-            '-webkit-text-fill-color': 'transparent',
-            '-webkit-text-stroke-width': 1,
+            WebkitTextFillColor: 'transparent',
+            WebkitTextStrokeWidth: 1,
             'li:not(:last-child)': {
               mb: {
                 xs: 1,
-                md: 3,
+                md: 3.5,
               },
             },
           }}

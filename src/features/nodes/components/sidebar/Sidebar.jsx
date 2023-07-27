@@ -3,7 +3,6 @@ import {
   faChartSimple,
   faCodeCommit,
   faCodePullRequest,
-  faFolders,
   faGears,
   faUserGroup,
   faHashtag,
@@ -32,7 +31,7 @@ export default function Sidebar(props) {
     >
       <List sx={{ px: 1 }}>
         <SidebarListItem
-          to={`${toPath}`}
+          to={toPath}
           icon={(
             <FontAwesomeIcon
               icon={faHashtag}

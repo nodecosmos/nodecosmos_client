@@ -159,7 +159,7 @@ export default function CustomCodeMirror(props) {
         minHeight: 1,
         borderRight: 1,
         minWidth: {
-          sm: 1,
+          xs: '1px',
           md: HEADER_HEIGHT,
         },
         justifyContent: 'center',
