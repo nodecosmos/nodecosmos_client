@@ -1,11 +1,9 @@
 import React from 'react';
-import { faPlus, faBookmark as faBookmarkSolid, faBell as faBellSolid } from '@fortawesome/pro-solid-svg-icons';
+import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import {
   faPenToSquare,
   faTrash,
   faLink,
-  faBookmark,
-  faBell,
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -13,7 +11,6 @@ import PropTypes from 'prop-types';
 /* mui */
 import {
   IconButton,
-  Checkbox,
   Box, Tooltip,
 } from '@mui/material';
 
