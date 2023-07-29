@@ -15,7 +15,7 @@ export default function useWorkflowNodeButtonBg({ id, diagramId }) {
 
   const isSelected = selectedWorkflowDiagramObject?.diagramId === diagramId;
 
-  const backgroundColor = isSelected ? color : theme.palette.background[4];
+  const backgroundColor = isSelected ? color : theme.palette.background[3];
   const outlineColor = isSelected ? 'transparent' : color;
 
   return {

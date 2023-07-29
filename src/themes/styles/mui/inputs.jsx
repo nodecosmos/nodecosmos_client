@@ -6,7 +6,7 @@ export default (currentTheme) => ({
         ':-webkit-autofill': {
           '&, &:hover, &:focus': {
             borderRadius: 0,
-            boxShadow: `0 0 0px 1000px ${currentTheme.palette.background[6]} inset`,
+            boxShadow: `0 0 0px 1000px ${currentTheme.palette.background[5]} inset`,
             WebkitTextFillColor: currentTheme.palette.text.primary,
           },
         },
@@ -15,7 +15,7 @@ export default (currentTheme) => ({
       },
       root: {
         borderRadius: 4,
-        background: currentTheme.palette.background[6],
+        background: currentTheme.palette.background[5],
         '.MuiOutlinedInput-input': {
           '&.MuiInputBase-inputMultiline': {
             padding: 0,

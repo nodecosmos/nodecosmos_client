@@ -72,7 +72,7 @@ export default function FlowModal({
             top: 16,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.3' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>
@@ -87,7 +87,7 @@ export default function FlowModal({
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'background.4' }} />
+                      <TagRounded sx={{ color: 'background.3' }} />
                     </InputAdornment>
                   ),
                 }}

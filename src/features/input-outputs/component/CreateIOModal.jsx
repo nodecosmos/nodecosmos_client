@@ -98,6 +98,9 @@ export default function CreateIOModal({
     onClose();
   };
 
+  const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow
+    ? 'Create Initial Input' : 'Create Output';
+
   return (
     <Dialog
       fullWidth
@@ -106,7 +109,7 @@ export default function CreateIOModal({
       open={open}
     >
       <DialogTitle>
-        Create IO
+        {title}
         <IconButton
           disableRipple
           onClick={onClose}
@@ -116,7 +119,7 @@ export default function CreateIOModal({
             top: 16,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.3' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>
@@ -131,7 +134,7 @@ export default function CreateIOModal({
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'background.4' }} />
+                      <TagRounded sx={{ color: 'background.3' }} />
                     </InputAdornment>
                   ),
                 }}

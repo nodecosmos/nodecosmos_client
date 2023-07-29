@@ -85,7 +85,7 @@ export default function AssociateInputsModal({
             top: 16,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.3' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>

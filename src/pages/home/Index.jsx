@@ -148,7 +148,7 @@ export default function Index() {
             sm: 8,
           },
           boxShadow: 'buttons.3',
-          backgroundColor: 'background.5',
+          backgroundColor: 'background.4',
         }}
         border={1}
         borderColor="borders.3"

@@ -78,6 +78,8 @@ const flowStepsSlice = createSlice({
           flowStepId, workflowId, id,
         } = action.payload.inputOutput;
 
+        if (!flowStepId) return;
+
         const flowStep = state.byWorkflowId[workflowId][flowStepId];
 
         Object.keys(flowStep.outputIdsByNodeId).forEach((nodeId) => {

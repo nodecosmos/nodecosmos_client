@@ -38,7 +38,7 @@ export default function useNodeButtonBackground(props) {
     || (hasBg && theme.palette.tree.selectedText) || theme.palette.tree.hashtag;
 
   return {
-    backgroundColor: outlinedColored ? theme.palette.background[4] : backgroundColor,
+    backgroundColor: outlinedColored ? theme.palette.background[3] : backgroundColor,
     outlineColor,
     parentBackgroundColor,
     color,

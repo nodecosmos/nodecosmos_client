@@ -65,7 +65,7 @@ export default function App() {
           height={1}
           width={1}
           boxShadow="8"
-          backgroundColor="background.4"
+          backgroundColor="background.3"
           border={1}
           borderColor="borders.2"
           borderRadius={{

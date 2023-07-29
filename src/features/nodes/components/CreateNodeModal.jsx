@@ -76,7 +76,7 @@ export default function CreateNodeModal(props) {
             top: 16,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.7' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>
@@ -91,7 +91,7 @@ export default function CreateNodeModal(props) {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'background.4' }} />
+                      <TagRounded sx={{ color: 'tree.hashtag' }} />
                     </InputAdornment>
                   ),
                 }}

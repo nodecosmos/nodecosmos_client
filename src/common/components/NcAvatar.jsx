@@ -25,7 +25,7 @@ export default function NcAvatar({ model, onClick, backgroundColor }) {
 
 NcAvatar.defaultProps = {
   onClick: null,
-  backgroundColor: 'background.8',
+  backgroundColor: 'background.7',
 };
 
 NcAvatar.propTypes = {

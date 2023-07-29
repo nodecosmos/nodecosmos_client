@@ -21,7 +21,7 @@ export default function FlowPane() {
     <Box
       width={1}
       height={1}
-      backgroundColor="background.6"
+      backgroundColor="background.5"
       sx={{
         overflow: 'hidden',
         'h1, h2, h3, h4, h5, h6': {

@@ -50,7 +50,7 @@ export default function NodePane() {
     <Box
       width={1}
       height={1}
-      backgroundColor="background.6"
+      backgroundColor="background.5"
       sx={{ overflow: 'hidden' }}
       position="relative"
       zIndex={1}

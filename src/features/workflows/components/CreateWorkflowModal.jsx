@@ -72,7 +72,7 @@ export default function CreateWorkflowModal({
             top: 16,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.3' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>
@@ -86,7 +86,7 @@ export default function CreateWorkflowModal({
                 required
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start" sx={{ svg: { color: 'background.4' } }}>
+                    <InputAdornment position="start" sx={{ svg: { color: 'background.3' } }}>
                       <FontAwesomeIcon icon={faCodeCommit} />
                     </InputAdornment>
                   ),

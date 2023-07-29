@@ -99,7 +99,7 @@ export default function ImportNodeModal(props) {
             top: 8,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.3' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent>

@@ -133,7 +133,7 @@ export default function FlowStepModal({
             top: 8,
           }}
         >
-          <CloseOutlined sx={{ color: 'background.4' }} />
+          <CloseOutlined sx={{ color: 'background.3' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
@@ -155,6 +155,7 @@ export default function FlowStepModal({
                   pl={2}
                   overflow="auto"
                   height={1}
+                  width={1}
                   borderTop={1}
                   borderBottom={1}
                   borderColor="borders.1"

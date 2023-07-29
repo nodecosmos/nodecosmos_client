@@ -43,7 +43,7 @@ export default function LandingPageWorkflow() {
             }}
             borderBottom={1}
             borderColor="borders.2"
-            backgroundColor="background.6"
+            backgroundColor="background.5"
             display="flex"
             alignItems="center"
             pl={{

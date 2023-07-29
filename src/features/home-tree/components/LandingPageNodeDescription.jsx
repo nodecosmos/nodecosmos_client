@@ -95,7 +95,7 @@ export default function NodeDescriptionMd() {
         >
           <Box
             onMouseDown={handleMouseDown}
-            backgroundColor="background.7"
+            backgroundColor="background.6"
             display="flex"
             justifyContent="center"
             alignItems="center"
@@ -123,7 +123,7 @@ export default function NodeDescriptionMd() {
                 || 'Select a node from the tree'}
             </Typography>
           </Box>
-          <Box p={2} backgroundColor="background.6" minHeight={176}>
+          <Box p={2} backgroundColor="background.5" minHeight={176}>
             <Typography
               variant="body1"
               color="text.secondary"

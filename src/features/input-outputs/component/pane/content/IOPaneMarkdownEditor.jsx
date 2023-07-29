@@ -20,7 +20,7 @@ const loading = (
           xs: 6,
           sm: 7,
         },
-        color: 'background.4',
+        color: 'background.3',
       }}
     />
   </Box>

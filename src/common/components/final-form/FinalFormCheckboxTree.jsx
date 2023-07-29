@@ -43,6 +43,7 @@ function FinalFormCheckboxTree({
               }}
               componentsProps={{
                 typography: {
+                  whiteSpace: 'nowrap',
                   ml: 1,
                   color: 'text.secondary',
                   sx: {
