@@ -15,8 +15,8 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import EditIOModal from '../EditIOModal';
 import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
 import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
-import { selectInputOutputById, selectIOPaneContent } from '../../inputOutput.selectors';
-import { deleteIO } from '../../inputOutput.thunks';
+import { selectInputOutputById, selectIOPaneContent } from '../../inputOutputs.selectors';
+import { deleteIO } from '../../inputOutputs.thunks';
 import { IO_PANE_CONTENTS } from '../../inputOutputs.constants';
 import { setIOPaneContent } from '../../inputOutputsSlice';
 

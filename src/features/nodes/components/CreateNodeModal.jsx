@@ -2,12 +2,10 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import TagRounded from '@mui/icons-material/TagRounded';
 
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +19,7 @@ import {
 import nodecosmos from '../../../apis/nodecosmos-server';
 /* nodecosmos */
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import CloseModalButton from '../../../common/components/CloseModalButton';
 
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
@@ -49,7 +48,7 @@ export default function CreateNodeModal(props) {
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="sm"
       onClose={onClose}
       open={open}
       PaperProps={{
@@ -67,17 +66,7 @@ export default function CreateNodeModal(props) {
     >
       <DialogTitle>
         New Node
-        <IconButton
-          disableRipple
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 16,
-            top: 16,
-          }}
-        >
-          <CloseOutlined sx={{ color: 'background.7' }} />
-        </IconButton>
+        <CloseModalButton onClose={onClose} />
       </DialogTitle>
       <DialogContent>
         <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
@@ -98,7 +87,7 @@ export default function CreateNodeModal(props) {
               />
               <Button
                 sx={{ mt: 3, float: 'right' }}
-                color="success"
+                color="button"
                 variant="contained"
                 disableElevation
                 type="submit"

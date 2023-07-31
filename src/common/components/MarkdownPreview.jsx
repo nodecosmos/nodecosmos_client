@@ -47,7 +47,7 @@ export default function MarkdownPreview(props) {
           'th:last-of-type': { borderRight: 0 },
           '&:last-of-type td': { borderBottom: 0 },
           '&:hover': {
-            backgroundColor: 'background.6',
+            backgroundColor: 'background.8',
           },
         },
       },

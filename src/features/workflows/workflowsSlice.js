@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createFlow, deleteFlow } from '../flows/flows.thunks';
-import { deleteIO } from '../input-outputs/inputOutput.thunks';
+import { deleteIO } from '../input-outputs/inputOutputs.thunks';
 import workflowDiagramBuilder from './reducers/workflowDiagramBuilder';
 import workflowDiagramPositionSetter from './reducers/workflowDiagramPositionSetter';
 import { WORKFLOW_PANE_CONTENTS } from './workflows.constants';

@@ -5,7 +5,6 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import {
   selectNodeAttribute,
   selectNodeDetailsAction,
-  selectSelectedNode,
   selectSelectedNodeId,
 } from '../../nodes.selectors';
 import { getNodeDescription } from '../../nodes.thunks';
@@ -19,12 +18,10 @@ export default function NodePane() {
   const persistentId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentId'));
   const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
   const nodePaneContent = useSelector(selectNodeDetailsAction);
-  const {
-    description,
-  } = useSelector(selectSelectedNode);
+  const description = useSelector(selectNodeAttribute(selectedNodeId, 'description'));
   const isDescFetchedById = React.useRef({});
 
-  const [loading, setLoading] = React.useState(!isDescFetchedById.current[persistentId]);
+  const [loading, setLoading] = React.useState(!description);
   const dispatch = useDispatch();
 
   const nodePaneContents = {
@@ -39,10 +36,9 @@ export default function NodePane() {
         rootId: persistentRootId,
         id: persistentId,
       })).then(() => {
+        isDescFetchedById.current[persistentId] = true;
         setLoading(false);
       });
-
-      isDescFetchedById.current[persistentId] = true;
     }
   }, [dispatch, description, persistentId, persistentRootId]);
 

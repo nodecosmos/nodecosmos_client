@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import { selectIOPaneContent } from '../../inputOutput.selectors';
+import { selectIOPaneContent } from '../../inputOutputs.selectors';
 import IOPaneDescription from './content/IOPaneDescription';
 import IOPaneMarkdownEditor from './content/IOPaneMarkdownEditor';
 import IOPaneToolbar from './IOPaneToolbar';

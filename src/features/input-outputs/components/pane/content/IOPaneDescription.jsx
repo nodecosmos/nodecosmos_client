@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
-import { selectInputOutputById } from '../../../inputOutput.selectors';
-import { getIODescription } from '../../../inputOutput.thunks';
+import { selectInputOutputById } from '../../../inputOutputs.selectors';
+import { getIODescription } from '../../../inputOutputs.thunks';
 
 export default function IOPaneDescription() {
   const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);

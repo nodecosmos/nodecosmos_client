@@ -34,7 +34,7 @@ export default function HomepageTabs(props) {
     return (
       <>
         <IconButton aria-label="delete" size="large" onClick={() => setOpen(!open)}>
-          <MenuIcon fontSize="inherit" sx={{ color: 'background.7' }} />
+          <MenuIcon fontSize="inherit" sx={{ color: 'background.8' }} />
         </IconButton>
         <Drawer
           anchor="right"

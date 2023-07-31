@@ -39,7 +39,7 @@ function SwipeableEdgeDrawer() {
         height={EDGE_HEIGHT}
         borderBottom={1}
         px={3}
-        backgroundColor="background.6"
+        backgroundColor="background.7"
         style={{
           borderBottomColor: height > 0 ? border2Color : 'transparent',
         }}
@@ -51,7 +51,7 @@ function SwipeableEdgeDrawer() {
         }}
       >
         <Box display="flex" justifyContent="center" pt={1}>
-          <Box width={45} height={4} backgroundColor="background.7" borderRadius={1} />
+          <Box width={45} height={4} backgroundColor="background.8" borderRadius={1} />
         </Box>
         <Box display="flex" alignItems="center" justifyContent="start" width={1} mt={1}>
           {currentNodeId && <FontAwesomeIcon icon={faHashtag} />}

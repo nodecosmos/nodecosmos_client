@@ -95,7 +95,7 @@ export default function NodeDescriptionMd() {
         >
           <Box
             onMouseDown={handleMouseDown}
-            backgroundColor="background.6"
+            backgroundColor="background.7"
             display="flex"
             justifyContent="center"
             alignItems="center"

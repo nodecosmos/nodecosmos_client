@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
-import { selectIOAttribute } from '../../../../input-outputs/inputOutput.selectors';
+import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import FlowPane from '../../../flows/components/pane/FlowPane';
-import IOPane from '../../../input-outputs/component/pane/IOPane';
+import IOPane from '../../../input-outputs/components/pane/IOPane';
 import NodePane from '../../../nodes/components/pane/NodePane';
 import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
 

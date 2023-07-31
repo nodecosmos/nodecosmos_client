@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { showWorkflow } from '../workflows/workflows.thunks';
 import {
   createIO, deleteIO, getIODescription, updateIOTitle,
-} from './inputOutput.thunks';
+} from './inputOutputs.thunks';
 import { IO_PANE_CONTENTS } from './inputOutputs.constants';
 
 const inputOutputsSlice = createSlice({

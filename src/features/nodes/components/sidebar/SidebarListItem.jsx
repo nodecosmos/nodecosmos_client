@@ -26,7 +26,7 @@ export default function SidebarListItem({
           transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
           color: 'background.list.defaultColor',
           '&.active': {
-            backgroundColor: 'background.6',
+            backgroundColor: 'background.7',
             color: 'background.list.activeColor',
           },
         }}

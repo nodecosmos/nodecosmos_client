@@ -2,12 +2,10 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch } from 'react-redux';
 
 /* mui */
@@ -21,6 +19,7 @@ import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { createWorkflow } from '../workflows.thunks';
+import CloseModalButton from '../../../common/components/CloseModalButton';
 
 export default function CreateWorkflowModal({
   open, onClose, nodeId,
@@ -63,17 +62,7 @@ export default function CreateWorkflowModal({
     >
       <DialogTitle>
         New Workflow
-        <IconButton
-          disableRipple
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 24,
-            top: 16,
-          }}
-        >
-          <CloseOutlined sx={{ color: 'background.3' }} />
-        </IconButton>
+        <CloseModalButton onClose={onClose} />
       </DialogTitle>
       <DialogContent>
         <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
@@ -86,7 +75,7 @@ export default function CreateWorkflowModal({
                 required
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start" sx={{ svg: { color: 'background.3' } }}>
+                    <InputAdornment position="start" sx={{ svg: { color: 'tree.hashtag' } }}>
                       <FontAwesomeIcon icon={faCodeCommit} />
                     </InputAdornment>
                   ),

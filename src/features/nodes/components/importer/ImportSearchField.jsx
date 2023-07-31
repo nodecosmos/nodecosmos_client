@@ -23,7 +23,6 @@ export default function ImportSearchField({ rootId }) {
         '.MuiInputBase-root': {
           borderRadius: 1,
           height: 50,
-          backgroundColor: 'toolbar.searchField',
         },
         input: { fontFamily: 'Roboto' },
       }}

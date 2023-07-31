@@ -33,7 +33,6 @@ export default function TreeToolbar({ rootNodeId }) {
           '.MuiInputBase-root': {
             borderRadius: 1,
             borderColor: 'transparent',
-            backgroundColor: 'toolbar.searchField',
             height: 1,
           },
           '.MuiOutlinedInput-notchedOutline': {

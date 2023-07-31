@@ -5,26 +5,16 @@ import PropTypes from 'prop-types';
 import {
   Grid,
 } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-export default function NodeTab(props) {
-  const { node } = props;
+export default function ContributionRequestsTab(props) {
+  const { id } = useParams();
 
   return (
-    <Grid container spacing={3} mt={1} justifyContent="center">
-      <Grid item xs={12} align="center" justifyItems="center">
-        <Typography variant="h5">
-          {node.title}
-        </Typography>
-      </Grid>
-      <Grid item xs={10}>
-        <Typography variant="body2" fontWeight="normal">
-          {node.description}
-        </Typography>
-      </Grid>
-    </Grid>
+    <Grid container spacing={3} mt={1} justifyContent="center" />
   );
 }
 
-NodeTab.propTypes = {
+ContributionRequestsTab.propTypes = {
   node: PropTypes.object.isRequired,
 };

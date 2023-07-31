@@ -5,7 +5,7 @@ import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
-import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/component/CreateIOModal';
+import CreateIOModal, { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/components/CreateIOModal';
 import AssociateInputsModal from './AssociateInputsModal';
 
 export default function WorkflowNodeButtonToolbar({

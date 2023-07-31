@@ -2,13 +2,10 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import TagRounded from '@mui/icons-material/TagRounded';
 import { useDispatch, useSelector } from 'react-redux';
 
 /* mui */
@@ -18,13 +15,16 @@ import {
   DialogContent,
 } from '@mui/material';
 /* nodecosmos */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { setAlert } from '../../app/appSlice';
 import { selectFlowStepAttribute } from '../../flow-steps/flowSteps.selectors';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
-import { createIO } from '../inputOutput.thunks';
+import { createIO } from '../inputOutputs.thunks';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
+import CloseModalButton from '../../../common/components/CloseModalButton';
 
 export const ASSOCIATED_OBJECT_TYPES = {
   workflow: 'workflow',
@@ -110,17 +110,7 @@ export default function CreateIOModal({
     >
       <DialogTitle>
         {title}
-        <IconButton
-          disableRipple
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 24,
-            top: 16,
-          }}
-        >
-          <CloseOutlined sx={{ color: 'background.3' }} />
-        </IconButton>
+        <CloseModalButton onClose={onClose} />
       </DialogTitle>
       <DialogContent>
         <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
@@ -133,8 +123,8 @@ export default function CreateIOModal({
                 required
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'background.3' }} />
+                    <InputAdornment position="start" sx={{ svg: { color: 'tree.hashtag' } }}>
+                      <FontAwesomeIcon icon={faCodeCommit} />
                     </InputAdornment>
                   ),
                 }}

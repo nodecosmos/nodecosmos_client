@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteIO } from '../input-outputs/inputOutput.thunks';
+import { deleteIO } from '../input-outputs/inputOutputs.thunks';
 import { showWorkflow } from '../workflows/workflows.thunks';
 import {
   createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,

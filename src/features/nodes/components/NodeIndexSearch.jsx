@@ -40,7 +40,6 @@ export default function NodeIndexSearch() {
         },
         '.MuiInputBase-root': {
           borderColor: 'transparent',
-          backgroundColor: 'toolbar.searchField',
           height: 32,
           borderRadius: 1,
           pl: 0.5,

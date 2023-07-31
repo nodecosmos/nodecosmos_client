@@ -4,8 +4,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
 import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
-import { selectInputOutputById } from '../../../inputOutput.selectors';
-import { updateIODescription } from '../../../inputOutput.thunks';
+import { selectInputOutputById } from '../../../inputOutputs.selectors';
+import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
 /* nodecosmos */
 
