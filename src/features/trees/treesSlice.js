@@ -70,8 +70,22 @@ const treesSlice = createSlice({
      * @type {treeNodeId}
      */
     selectedTreeNodeId: null,
+
+    /**
+     * @type {{
+     *   isDragging: boolean,
+     *   treeNodeId: treeNodeId,
+     * }}
+     */
+    dragAndDrop: {
+      isDragging: false,
+      nodeId: null,
+    },
   },
   reducers: {
+    setDragAndDrop(state, action) { state.dragAndDrop = action.payload; },
+    clearDragAndDrop(state) { state.dragAndDrop = { isDragging: false, treeNodeId: null }; },
+
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
     setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
 
@@ -94,6 +108,8 @@ const {
 } = treesSlice;
 
 export const {
+  setDragAndDrop,
+  clearDragAndDrop,
   buildTreeFromRootNode,
   setTreeNodesPositions,
   expandTreeNode,

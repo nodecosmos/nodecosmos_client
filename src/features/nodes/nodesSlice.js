@@ -19,6 +19,7 @@ import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
 import {
   createNode, indexNodes, showNode, deleteNode, likeNode, unlikeNode, getLikesCount, getNodeDescription,
 } from './nodes.thunks';
+import nodeReorderer from './reducers/nodeReorderer';
 
 const nodesSlice = createSlice({
   name: 'nodes',
@@ -107,6 +108,7 @@ const nodesSlice = createSlice({
     setDefaultNodeDetailsAction: nodePaneContentSetter.setDefaultNodeDetailsAction,
     searchNode: nodeSearcher.searchNode,
     importNode: nodeImporter.importNode,
+    reorderNodes: nodeReorderer.reorderNodes,
   },
   extraReducers(builder) {
     builder
@@ -133,6 +135,7 @@ export const {
   setSelectedNode,
   setNodePaneContent,
   setDefaultNodeDetailsAction,
+  reorderNodes,
   searchNode,
   importNode,
 } = actions;

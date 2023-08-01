@@ -5,6 +5,7 @@ import { extractRootIdFromTreeNodeId } from './trees.memoize';
 export const selectTreesByRootNodeId = (state) => state.trees.byRootNodeId;
 export const selectPositionsByNodeId = (state) => state.trees.positionsByNodeId;
 export const selectSelectedTreeNodeId = (state) => state.trees.selectedTreeNodeId;
+export const selectDragAndDrop = (state) => state.trees.dragAndDrop;
 
 // derived selectors
 export const selectOrderedTreeNodeIds = (rootId) => createSelector(

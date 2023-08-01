@@ -34,7 +34,7 @@ export default function LazyAppLoad() {
 
   useEffect(() => {
     dispatch(syncUpCurrentUser()).then((response) => {
-      if (!response.payload.success) {
+      if (response.payload.success) {
         dispatch(getLikedObjectIds());
       }
     });
