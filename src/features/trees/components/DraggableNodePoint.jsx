@@ -41,32 +41,16 @@ export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
         rx="2"
         fill={theme.palette.borders[5]}
       />
-      <line
-        x1={x - 10}
-        y1={y - 25}
-        x2={x + 300}
-        y2={y - 25}
-        strokeWidth={5}
-        stroke={hovered ? theme.palette.text.link : 'transparent'}
-        // strokeDasharray="4 4"
-      />
-      {/* <line */}
-      {/*   x1={x - 10} */}
-      {/*   y1={y - 25} */}
-      {/*   x2={x + 300} */}
-      {/*   y2={y - 25} */}
-      {/*   strokeWidth={3} */}
-      {/*   stroke={hovered ? 'orange' : 'transparent'} */}
-      {/* /> */}
+
       <rect
         x={x - 10}
-        y={y - 30}
-        width="200"
-        height="8"
+        y={y - 45}
+        width="300"
+        height="35"
         rx="4"
-        fill="transparent"
+        fill={theme.palette.borders[5]}
+        fillOpacity={hovered ? 0.2 : 0}
       />
-
     </g>
   );
 }

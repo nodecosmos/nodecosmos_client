@@ -1,13 +1,7 @@
 // pan on mouse click and drag
-import { useSelector } from 'react-redux';
-import { selectDragAndDrop } from '../../features/trees/trees.selectors';
 
 export default function usePannable(containerRef) {
-  const dragAndDrop = useSelector(selectDragAndDrop);
-
   const handleMouseDown = (event) => {
-    if (dragAndDrop.isDragging) return;
-
     const { clientX: initialClientX, clientY: initialClientY } = event;
     const { scrollLeft: initialScrollLeft, scrollTop: initialScrollTop } = containerRef.current;
 

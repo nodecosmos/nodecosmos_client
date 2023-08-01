@@ -8,14 +8,17 @@ export default function useTreeNodeDraggable() {
 
   const { nodeId } = useSelector(selectDragAndDrop);
 
-  const handleDragStart = (e, draggedNodeId) => {
+  const handleDragStart = (e, draggedNodeId, treeNodeId) => {
+    e.stopPropagation();
+
     const img = document.createElement('img');
     img.src = '/drag-image.svg';
-    e.dataTransfer.setDragImage(img, 10, -8);
+    e.dataTransfer.setDragImage(img, 5, -10);
 
     dispatch(setDragAndDrop({
       isDragging: true,
       nodeId: draggedNodeId,
+      treeNodeId,
     }));
   };
 

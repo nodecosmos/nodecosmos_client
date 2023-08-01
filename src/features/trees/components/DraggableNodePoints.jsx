@@ -16,7 +16,7 @@ function DraggableNodePoints({ treeNodeId }) {
   if (!isExpanded || !treeChildIds
     || !dragAndDrop.isDragging
     || dragAndDrop.nodeId === nodeId
-    || ancestorIds.indexOf(nodeId) >= 0
+    || ancestorIds.indexOf(dragAndDrop.nodeId) >= 0
   ) return null;
 
   return (

@@ -128,7 +128,10 @@ Transformable.defaultProps = {
 };
 
 Transformable.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element.isRequired,
+    PropTypes.arrayOf(PropTypes.element.isRequired),
+  ]).isRequired,
   transformableId: PropTypes.string.isRequired,
   scale: PropTypes.number,
   heightMargin: PropTypes.number,

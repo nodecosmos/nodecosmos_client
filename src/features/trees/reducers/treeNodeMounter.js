@@ -1,4 +1,4 @@
-import { extractRootIdFromTreeNodeId } from '../trees.memoize';
+import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../trees.memoize';
 
 const mountDescendants = (state, treeNode) => {
   const { treeDescendantIds, rootId } = treeNode;
@@ -29,6 +29,7 @@ export default {
     const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
     treeNode.isExpanded = true;
+    state.expandedNodeIds.push(extractNodeIdFromTreeNodeId(treeNodeId));
 
     mountDescendants(state, treeNode);
   },
@@ -37,6 +38,9 @@ export default {
     const rootId = extractRootIdFromTreeNodeId(treeNodeId);
 
     const treeNode = state.byRootNodeId[rootId][treeNodeId];
+
+    const index = state.expandedNodeIds.indexOf(extractNodeIdFromTreeNodeId(treeNodeId));
+    state.expandedNodeIds.splice(index, 1);
 
     treeNode.isExpanded = false;
 

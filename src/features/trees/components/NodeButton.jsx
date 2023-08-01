@@ -33,7 +33,8 @@ export default function NodeButton(props) {
       disableRipple
       ref={buttonRef}
       draggable
-      onDragStart={(event) => handleDragStart(event, nodeId)}
+      onMouseDown={(event) => event.stopPropagation()} // prevents pannable from firing
+      onDragStart={(event) => handleDragStart(event, nodeId, treeNodeId)}
       onDragEnd={handleDragStop}
       type="button"
       className={`NodeButton ${hasBg && 'selected'} ${outlinedColored && 'outlined'}`}

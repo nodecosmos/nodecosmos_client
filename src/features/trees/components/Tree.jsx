@@ -9,6 +9,7 @@ import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
 import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
 import Transformable from '../../../common/components/Transformable';
 import Node from './Node';
+import DraggableNodePoints from './DraggableNodePoints';
 
 export default function Tree(props) {
   const { rootNodeId } = props;
@@ -38,6 +39,11 @@ export default function Tree(props) {
             treeNodeId={treeNodeId}
             alreadyMounted={alreadyMounted}
           />
+        ))}
+      </g>
+      <g>
+        {treeNodeIdsToView.map(([treeNodeId]) => (
+          <DraggableNodePoints key={treeNodeId} treeNodeId={treeNodeId} />
         ))}
       </g>
     </Transformable>
