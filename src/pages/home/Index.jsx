@@ -1,7 +1,6 @@
 import React, {
   useRef, useState, useEffect, useMemo, useCallback,
 } from 'react';
-import { useInView } from 'framer-motion';
 import {
   Box,
   Button,
@@ -36,9 +35,6 @@ export default function Index() {
 
   const preventTabChange = useRef(false);
   const timeout = useRef(null);
-
-  const heroLogo = useRef(null);
-  const heroInView = useInView(heroLogo, { amount: 0.8 });
 
   const allRefs = useMemo(() => [
     innovate,
@@ -168,17 +164,15 @@ export default function Index() {
               className="MicroButton"
               displa="inline-flex"
             >
-              {!heroInView && (
               <img
                 src="logo_1.svg"
                 alt="logo"
                 height={22}
                 width={22}
                 style={{
-                  animation: 'rotate 0.3s',
+                  animation: 'rotate 0.9s',
                 }}
               />
-              ) }
               <Typography sx={{ fontSize: 18, ml: 1 }} fontWeight="bold">
                 <Box component="span" color="logo.blue">node</Box>
                 <Box component="span" color="logo.red">cosmos</Box>
@@ -194,7 +188,7 @@ export default function Index() {
           justifyContent="center"
         >
           <Container maxWidth="lg" sx={{ mt: `${HEADER_HEIGHT}px` }}>
-            <Box><Hero heroLogoRef={heroLogo} inView={heroInView} /></Box>
+            <Box><Hero /></Box>
             <Box ref={innovate}><Innovate /></Box>
             <Box id="collaborate" ref={collaborate}><Collaborate /></Box>
             {/* <Box ref={investments}><Investments /></Box> */}

@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 
-export default function Hero({ inView, heroLogoRef }) {
+export default function Hero() {
   return (
     <Box
       mt={{
@@ -132,8 +131,3 @@ export default function Hero({ inView, heroLogoRef }) {
     </Box>
   );
 }
-
-Hero.propTypes = {
-  inView: PropTypes.bool.isRequired,
-  heroLogoRef: PropTypes.object.isRequired,
-};
