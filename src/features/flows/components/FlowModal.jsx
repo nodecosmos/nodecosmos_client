@@ -59,6 +59,9 @@ export default function FlowModal({
       maxWidth="md"
       onClose={onClose}
       open={open}
+      PaperProps={{
+        elevation: 8,
+      }}
     >
       <DialogTitle>
         {

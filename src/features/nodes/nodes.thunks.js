@@ -147,3 +147,12 @@ export const unlikeNode = createAsyncThunk(
     return response.data;
   },
 );
+
+export const reorder = createAsyncThunk(
+  'nodes/reorder',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.put('/nodes/reorder', payload);
+
+    return response.data;
+  },
+);

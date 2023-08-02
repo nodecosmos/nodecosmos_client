@@ -21,7 +21,9 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const scale = useSelector(selectWorkflowScale);
 
   const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
-  if (!wfStepHeight || !x) return null;
+  const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
+
+  if (!x) return null;
 
   return (
     <g
@@ -32,7 +34,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <path
         strokeWidth={1}
         d={`M ${x} ${0}
-            L ${x} ${wfStepHeight - 2}`}
+            L ${x} ${rectHeight - 2}`}
         stroke={theme.palette.workflow.default}
         fill="transparent"
       />
@@ -40,7 +42,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         onMouseEnter={() => setHovered(true)}
         x={x}
         y={-1}
-        height={wfStepHeight}
+        height={rectHeight}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
         stroke={hovered ? theme.palette.borders[4]

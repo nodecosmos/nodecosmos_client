@@ -1,24 +1,37 @@
+/* eslint-disable no-shadow */
 import { useDispatch, useSelector } from 'react-redux';
-import { clearDragAndDrop, setDragAndDrop } from '../treesSlice';
+import { clearDragAndDrop, setDragAndDrop, setTreeLoading } from '../treesSlice';
 import { selectDragAndDrop } from '../trees.selectors';
 import { reorderNodes } from '../../nodes/nodesSlice';
+import { reorder } from '../../nodes/nodes.thunks';
+import { setAlert } from '../../app/appSlice';
 
 export default function useTreeNodeDraggable() {
   const dispatch = useDispatch();
 
-  const { nodeId } = useSelector(selectDragAndDrop);
+  const { nodeId, persistentId, persistentRootId } = useSelector(selectDragAndDrop);
 
-  const handleDragStart = (e, draggedNodeId, treeNodeId) => {
-    e.stopPropagation();
+  const onDragStart = ({
+    event,
+    nodeId,
+    parentId,
+    treeNodeId,
+    persistentRootId,
+    persistentId,
+  }) => {
+    event.stopPropagation();
 
     const img = document.createElement('img');
     img.src = '/drag-image.svg';
-    e.dataTransfer.setDragImage(img, 5, -10);
+    event.dataTransfer.setDragImage(img, 5, -10);
 
     dispatch(setDragAndDrop({
       isDragging: true,
-      nodeId: draggedNodeId,
+      nodeId,
+      parentId,
       treeNodeId,
+      persistentRootId,
+      persistentId,
     }));
   };
 
@@ -26,17 +39,44 @@ export default function useTreeNodeDraggable() {
     dispatch(clearDragAndDrop());
   };
 
-  const onDropCapture = ({ newParentId, newSiblingIndex }) => {
-    dispatch(reorderNodes({
-      nodeId,
-      newParentId,
-      newSiblingIndex,
-    }));
-    dispatch(clearDragAndDrop());
+  const onDropCapture = async ({
+    newParentId,
+    newSiblingIndex,
+    persistentNewParentId,
+  }) => {
+    try {
+      const response = await dispatch(reorder({
+        rootId: persistentRootId,
+        id: persistentId,
+        newParentId: persistentNewParentId,
+        newSiblingIndex,
+      }));
+
+      if (response.error) {
+        throw response.error;
+      }
+
+      dispatch(setTreeLoading(false));
+      dispatch(reorderNodes({
+        nodeId,
+        newParentId,
+        newSiblingIndex,
+      }));
+
+      dispatch(clearDragAndDrop());
+    } catch (e) {
+      console.error(e);
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'error',
+        message: 'Something went wrong while reordering the node. Please try again.',
+      }));
+      dispatch(setTreeLoading(false));
+    }
   };
 
   return {
-    handleDragStart,
+    onDragStart,
     handleDragStop,
     onDropCapture,
   };

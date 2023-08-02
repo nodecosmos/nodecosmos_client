@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setHeaderContent } from '../../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
@@ -9,10 +9,14 @@ import NodePane from '../../../features/nodes/components/pane/NodePane';
 import TreeContainer from '../../../features/trees/components/TreeContainer';
 import Tree from '../../../features/trees/components/Tree';
 import TreeToolbar from '../../../features/trees/components/TreeToolbar';
+import OverlayLoader from '../../../common/components/OverlayLoader';
+import { selectIsTreeLoading } from '../../../features/trees/trees.selectors';
 
 export default function TreeTab() {
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  const isTreeLoading = useSelector(selectIsTreeLoading);
 
   const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
   const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
@@ -54,7 +58,8 @@ export default function TreeTab() {
       >
         <TreeContainer>
           <TreeToolbar rootNodeId={id} />
-          <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+          <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
+            {isTreeLoading && <OverlayLoader />}
             <Tree rootNodeId={id} />
           </Box>
         </TreeContainer>

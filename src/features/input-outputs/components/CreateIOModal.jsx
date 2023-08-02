@@ -107,6 +107,9 @@ export default function CreateIOModal({
       maxWidth="md"
       onClose={onClose}
       open={open}
+      PaperProps={{
+        elevation: 8,
+      }}
     >
       <DialogTitle>
         {title}

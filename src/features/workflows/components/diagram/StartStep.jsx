@@ -42,7 +42,7 @@ export default function StartStep({ workflowId }) {
   const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
 
   const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
-  if (!wfStepHeight) return null;
+  const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
 
   return (
     <g onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
@@ -50,7 +50,7 @@ export default function StartStep({ workflowId }) {
         onMouseEnter={() => setHovered(true)}
         x={0}
         y={-1}
-        height={wfStepHeight}
+        height={rectHeight}
         width={WORKFLOW_STEP_WIDTH}
         fill="transparent"
         stroke="transparent"

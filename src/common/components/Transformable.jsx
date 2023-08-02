@@ -23,7 +23,7 @@ export default function Transformable({
 
   setTimeout(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
-    const clientHeight = containerRef.current.clientHeight || 0;
+    const clientHeight = containerRef.current?.clientHeight || 0;
     const height = Math.max(svgHeight, clientHeight);
 
     const newWidth = (gRef.current && gRef.current.getBBox().width
@@ -49,7 +49,7 @@ export default function Transformable({
   };
 
   useEffect(() => {
-    if (containerRef.current && workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+    if (containerRef.current) {
       dispatch(setTransformablePositions({
         id: transformableId,
         clientHeight: containerRef.current.clientHeight,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material';
-import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
+import { selectDragAndDrop, selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
@@ -10,13 +10,32 @@ export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
   const { x, y } = useSelector(selectPosition(treeNodeId));
   const theme = useTheme();
   const [hovered, setHovered] = useState(false);
-
+  const dragAndDrop = useSelector(selectDragAndDrop);
+  const treeParentId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeParentId'));
+  const parentsChildIds = useSelector(selectTreeNodeAttribute(treeParentId, 'treeChildIds'));
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
+  const persistentParentId = useSelector(selectNodeAttribute(nodeId, 'persistentParentId'));
+  const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
+  let correctedIndex = siblingIndex; // correct sibling index when dragging a node up or down on the same level
+
+  const selectedSiblingIndex = parentsChildIds.indexOf(dragAndDrop.treeNodeId);
+  const isSameParent = dragAndDrop.parentId === parentId;
+
+  // handle new sibling index when dragging a node down on the same level
+  if (selectedSiblingIndex < siblingIndex && isSameParent) {
+    correctedIndex -= 1;
+  }
 
   const { onDropCapture } = useTreeNodeDraggable();
 
-  if (!x || !y) return null;
+  if (
+    !x
+    || !y
+    || dragAndDrop.treeNodeId === treeNodeId
+    || isTemp
+    || (isSameParent && selectedSiblingIndex === siblingIndex - 1)
+  ) return null;
 
   return (
     <g
@@ -28,7 +47,8 @@ export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
       onDropCapture={() => {
         onDropCapture({
           newParentId: parentId,
-          newSiblingIndex: siblingIndex,
+          newSiblingIndex: correctedIndex,
+          persistentNewParentId: persistentParentId,
         });
       }}
     >

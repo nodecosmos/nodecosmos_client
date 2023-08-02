@@ -52,7 +52,7 @@ export default function CreateNodeModal(props) {
       onClose={onClose}
       open={open}
       PaperProps={{
-        elevation: 5,
+        elevation: 0,
         sx: {
           borderRadius: 2.5,
         },

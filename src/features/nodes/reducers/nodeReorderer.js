@@ -16,13 +16,8 @@ export default {
 
     if (oldParentId === newParentId && newSiblingIndex === oldIndex) return;
 
-    if (oldIndex > newSiblingIndex) {
-      state.childIdsByRootAndParentId[node.rootId][oldParentId].splice(oldIndex, 1);
-      state.childIdsByRootAndParentId[node.rootId][newParentId].splice(newSiblingIndex, 0, nodeId);
-    } else {
-      state.childIdsByRootAndParentId[node.rootId][newParentId].splice(newSiblingIndex, 0, nodeId);
-      state.childIdsByRootAndParentId[node.rootId][oldParentId].splice(oldIndex, 1);
-    }
+    state.childIdsByRootAndParentId[node.rootId][oldParentId].splice(oldIndex, 1);
+    state.childIdsByRootAndParentId[node.rootId][newParentId].splice(newSiblingIndex, 0, nodeId);
 
     if (oldParentId === newParentId) return;
 

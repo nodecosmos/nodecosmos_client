@@ -1,14 +1,14 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { ButtonBase } from '@mui/material';
+import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { selectTreeNodeAttribute } from '../trees.selectors';
+import { selectDragAndDrop, selectTreeNodeAttribute } from '../trees.selectors';
 import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
@@ -20,24 +20,64 @@ export default function NodeButton(props) {
   } = props;
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
+  const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
+  const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
+  const persistentRootId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
+  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+  const dragAndDrop = useSelector(selectDragAndDrop);
 
+  const theme = useTheme();
   const { handleTreeNodeClick } = useNodeTreeEvents(treeNodeId);
   const {
-    backgroundColor, outlineColor, color, hasBg, outlinedColored,
+    backgroundColor,
+    outlineColor,
+    color,
+    hasBg,
+    outlinedColored,
   } = useNodeButtonBackground(treeNodeId);
-  const buttonRef = useRef(null);
-  const { handleDragStart, handleDragStop } = useTreeNodeDraggable({});
+  const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggable({});
+  const [dragOver, setDragOver] = useState(false);
+
+  const handleDragStart = (event) => {
+    onDragStart({
+      event, nodeId, parentId, treeNodeId, persistentId, persistentRootId,
+    });
+  };
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    if (nodeId === dragAndDrop.nodeId || ancestorIds.includes(dragAndDrop.nodeId)) return;
+    setDragOver(true);
+  };
+
+  const handleDragEnd = (event) => {
+    handleDragStop(event);
+    setDragOver(false);
+  };
+
+  const handleDropCapture = () => {
+    if (nodeId === dragAndDrop.nodeId || ancestorIds.includes(dragAndDrop.nodeId)) return;
+
+    onDropCapture({
+      newParentId: nodeId,
+      newSiblingIndex: 0,
+      persistentNewParentId: persistentId,
+    });
+
+    setDragOver(false);
+  };
 
   return (
     <MemoizedButtonBase
       disableRipple
-      ref={buttonRef}
       draggable
       onMouseDown={(event) => event.stopPropagation()} // prevents pannable from firing
-      onDragStart={(event) => handleDragStart(event, nodeId, treeNodeId)}
-      onDragEnd={handleDragStop}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+      onDragLeave={() => setDragOver(false)}
+      onDropCapture={handleDropCapture}
       type="button"
-      className={`NodeButton ${hasBg && 'selected'} ${outlinedColored && 'outlined'}`}
+      className={`NodeButton ${hasBg && 'selected'} ${(outlinedColored || dragOver) && 'outlined'}`}
       onClick={handleTreeNodeClick}
       onKeyUp={(event) => event.preventDefault()}
       style={{
@@ -45,11 +85,14 @@ export default function NodeButton(props) {
         outline: 'none',
         border: '1px solid',
         borderColor: outlineColor,
-        backgroundColor,
+        backgroundColor: dragOver ? theme.palette.background[8] : backgroundColor,
         color,
       }}
     >
-      <MemoizedTagRounded />
+      <MemoizedTagRounded style={{
+        color: 'inherit',
+      }}
+      />
       <div className="NodeButtonText">
         {title}
       </div>

@@ -103,6 +103,7 @@ export default function FlowStepModal({
       onClose={onClose}
       open={open}
       PaperProps={{
+        elevation: 0,
         sx: {
           p: 0,
           height: '100%',
