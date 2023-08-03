@@ -81,8 +81,6 @@ export default function NodeButton(props) {
       onClick={handleTreeNodeClick}
       onKeyUp={(event) => event.preventDefault()}
       style={{
-        boxShadow: 'none',
-        outline: 'none',
         border: '1px solid',
         borderColor: outlineColor,
         backgroundColor: dragOver ? theme.palette.background[8] : backgroundColor,

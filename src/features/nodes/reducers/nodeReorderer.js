@@ -31,6 +31,9 @@ export default {
     // update ancestors
     oldAncestorIds.forEach((ancestorId) => {
       const ancestor = state.byId[ancestorId];
+
+      if (!ancestor) return;
+
       const descendantIndex = ancestor.descendantIds.indexOf(nodeId);
 
       // remove the node from the node's old ancestors
