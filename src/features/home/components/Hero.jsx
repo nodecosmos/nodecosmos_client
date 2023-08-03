@@ -88,10 +88,7 @@ export default function Hero() {
           mt={1.5}
           color="text.tertiary"
           sx={{
-            mt: {
-              xs: 2,
-              sm: 0,
-            },
+            mt: 2,
             width: 'fit-content',
             p: 0,
             m: 0,
