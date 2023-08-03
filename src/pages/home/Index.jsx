@@ -143,10 +143,11 @@ export default function Index() {
             xs: 0,
             sm: 8,
           },
-          boxShadow: 'buttons.3',
+          boxShadow: '2',
           backgroundColor: 'background.4',
         }}
         border={1}
+        borderBottom={0}
         borderColor="borders.3"
       >
         <Container maxWidth="lg" sx={{ height: '100%' }}>

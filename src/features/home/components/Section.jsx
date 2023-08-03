@@ -14,7 +14,7 @@ export default function Section({
         height: '100%',
         borderRadius,
         padding,
-        boxShadow: 'buttons.2',
+        boxShadow: '2',
         overflow,
       }}
     >

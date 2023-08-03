@@ -101,7 +101,7 @@ export default function Hero() {
             'li:not(:last-child)': {
               mb: {
                 xs: 1,
-                md: 3.5,
+                md: 4,
               },
             },
           }}
