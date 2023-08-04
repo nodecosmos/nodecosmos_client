@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+
 export default {
   '635b8804690cc413ead79cf2': {
     _id: {
@@ -37,8 +38,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 750.7499999999999,
-      yEnds: 750.7499999999999,
+      y: 784.4999999999998,
+      yEnds: 784.4999999999998,
     },
   },
   '635b87f8690cc413ead79cf1': {
@@ -77,8 +78,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 700.6999999999999,
-      yEnds: 700.6999999999999,
+      y: 732.1999999999998,
+      yEnds: 732.1999999999998,
     },
   },
   '635b87ec690cc413ead79cf0': {
@@ -118,8 +119,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 650.65,
-      yEnds: 650.65,
+      y: 679.8999999999999,
+      yEnds: 679.8999999999999,
     },
   },
   '635b87d6690cc413ead79cef': {
@@ -159,8 +160,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 600.6,
-      yEnds: 600.6,
+      y: 627.5999999999999,
+      yEnds: 627.5999999999999,
     },
   },
   '635b87c6690cc413ead79cee': {
@@ -210,8 +211,8 @@ export default {
     position: {
       xEnds: 125,
       x: 90,
-      y: 550.5500000000001,
-      yEnds: 750.7499999999998,
+      y: 575.3,
+      yEnds: 784.4999999999998,
     },
     expanded: true,
   },
@@ -252,8 +253,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 300.3,
-      yEnds: 300.3,
+      y: 523,
+      yEnds: 523,
     },
   },
   '635a9264690cc413ead79cea': {
@@ -293,49 +294,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 250.25,
-      yEnds: 250.25,
-    },
-  },
-  '635a924c690cc413ead79ce9': {
-    _id: {
-      $oid: '635a924c690cc413ead79ce9',
-    },
-    title: 'Rudder',
-    description: 'On an aircraft the rudder is used primarily to counter adverse yaw and p-factor and is not the primary control used to turn the airplane.',
-    parent_id: '635a922d690cc413ead79ce6',
-    ancestor_ids: [
-      {
-        $oid: '635a922d690cc413ead79ce6',
-      },
-      {
-        $oid: '635a91ea690cc413ead79ce2',
-      },
-    ],
-    owner: {
-      _id: {
-        $oid: '62fa2c50690cc4581aa6a20a',
-      },
-      sign_in_count: 0,
-      failed_attempts: 5,
-      first_name: 'Goran',
-      last_name: 'Brkuljan',
-      email: 'goran@nodecosmos.com',
-      encrypted_password: '$2a$12$SafSfDYH41hHknfVLv4eluS.duHigCAEdO5iRN9m6j5zsPPvZuv7.',
-      username: 'goran',
-      updated_at: '2022-08-15T11:22:09.500Z',
-      created_at: '2022-08-15T11:21:52.813Z',
-      confirmation_token: 'G8S_K2GAziqzGX1bdG5Z',
-      confirmation_sent_at: '2022-08-15T11:21:52.813Z',
-      confirmed_at: '2022-08-15T11:22:09.499Z',
-    },
-    id: '635a924c690cc413ead79ce9',
-    node_ids: [],
-    position: {
-      xEnds: 180,
-      x: 145,
-      y: 500.50000000000006,
-      yEnds: 500.50000000000006,
+      y: 470.7,
+      yEnds: 470.7,
     },
   },
   '635a9248690cc413ead79ce8': {
@@ -343,7 +303,7 @@ export default {
       $oid: '635a9248690cc413ead79ce8',
     },
     title: 'Elevator',
-    description: "Elevators are flight control surfaces, usually at the rear of an aircraft, which control the aircraft's pitch, and therefore the angle of attack and the lift of the wing.",
+    description: 'Elevators are flight control surfaces, usually at the rear of an aircraft, which control the aircraft\'s pitch, and therefore the angle of attack and the lift of the wing.',
     parent_id: '635a9226690cc413ead79ce5',
     ancestor_ids: [
       {
@@ -375,95 +335,9 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 400.40000000000003,
-      yEnds: 400.40000000000003,
+      y: 627.5999999999999,
+      yEnds: 627.5999999999999,
     },
-  },
-  '635a922d690cc413ead79ce6': {
-    _id: {
-      $oid: '635a922d690cc413ead79ce6',
-    },
-    title: 'Vertical stabilizer',
-    description: 'A vertical stabilizer provides directional (or yaw) stability and usually comprises a fixed fin and movable control rudder hinged to its rear edge.',
-    parent_id: '635a91ea690cc413ead79ce2',
-    ancestor_ids: [
-      {
-        $oid: '635a91ea690cc413ead79ce2',
-      },
-    ],
-    owner: {
-      _id: {
-        $oid: '62fa2c50690cc4581aa6a20a',
-      },
-      sign_in_count: 0,
-      failed_attempts: 5,
-      first_name: 'Goran',
-      last_name: 'Brkuljan',
-      email: 'goran@nodecosmos.com',
-      encrypted_password: '$2a$12$SafSfDYH41hHknfVLv4eluS.duHigCAEdO5iRN9m6j5zsPPvZuv7.',
-      username: 'goran',
-      updated_at: '2022-08-15T11:22:09.500Z',
-      created_at: '2022-08-15T11:21:52.813Z',
-      confirmation_token: 'G8S_K2GAziqzGX1bdG5Z',
-      confirmation_sent_at: '2022-08-15T11:21:52.813Z',
-      confirmed_at: '2022-08-15T11:22:09.499Z',
-    },
-    node_ids: [
-      {
-        $oid: '635a924c690cc413ead79ce9',
-      },
-    ],
-    id: '635a922d690cc413ead79ce6',
-    position: {
-      xEnds: 125,
-      x: 90,
-      y: 450.45000000000005,
-      yEnds: 500.50000000000006,
-    },
-    expanded: true,
-  },
-  '635a9226690cc413ead79ce5': {
-    _id: {
-      $oid: '635a9226690cc413ead79ce5',
-    },
-    title: 'Horizontal Stabilizer',
-    description: 'A horizontal stabilizer is used to maintain the aircraft in longitudinal balance',
-    parent_id: '635a91ea690cc413ead79ce2',
-    ancestor_ids: [
-      {
-        $oid: '635a91ea690cc413ead79ce2',
-      },
-    ],
-    owner: {
-      _id: {
-        $oid: '62fa2c50690cc4581aa6a20a',
-      },
-      sign_in_count: 0,
-      failed_attempts: 5,
-      first_name: 'Goran',
-      last_name: 'Brkuljan',
-      email: 'goran@nodecosmos.com',
-      encrypted_password: '$2a$12$SafSfDYH41hHknfVLv4eluS.duHigCAEdO5iRN9m6j5zsPPvZuv7.',
-      username: 'goran',
-      updated_at: '2022-08-15T11:22:09.500Z',
-      created_at: '2022-08-15T11:21:52.813Z',
-      confirmation_token: 'G8S_K2GAziqzGX1bdG5Z',
-      confirmation_sent_at: '2022-08-15T11:21:52.813Z',
-      confirmed_at: '2022-08-15T11:22:09.499Z',
-    },
-    node_ids: [
-      {
-        $oid: '635a9248690cc413ead79ce8',
-      },
-    ],
-    id: '635a9226690cc413ead79ce5',
-    position: {
-      xEnds: 125,
-      x: 90,
-      y: 350.35,
-      yEnds: 400.40000000000003,
-    },
-    expanded: true,
   },
   '635a9203690cc413ead79ce4': {
     _id: {
@@ -506,8 +380,8 @@ export default {
     position: {
       xEnds: 125,
       x: 90,
-      y: 200.2,
-      yEnds: 300.3,
+      y: 418.4,
+      yEnds: 523,
     },
     expanded: true,
   },
@@ -544,17 +418,24 @@ export default {
       {
         $oid: '9rr3d',
       },
+      {
+        $oid: 'df7ua',
+      },
+      {
+        $oid: '3qefpk',
+      },
     ],
     id: '635a91ff690cc413ead79ce3',
     position: {
       xEnds: 125,
       x: 90,
-      y: 100.1,
-      yEnds: 150.14999999999998,
+      y: 104.6,
+      yEnds: 366.09999999999997,
     },
     expanded: true,
     isEditing: false,
     isNew: false,
+    isDescriptionOpen: true,
   },
   '635a91ea690cc413ead79ce2': {
     _id: {
@@ -587,12 +468,6 @@ export default {
         $oid: '635a9203690cc413ead79ce4',
       },
       {
-        $oid: '635a9226690cc413ead79ce5',
-      },
-      {
-        $oid: '635a922d690cc413ead79ce6',
-      },
-      {
         $oid: '635b87c6690cc413ead79cee',
       },
     ],
@@ -602,10 +477,11 @@ export default {
     position: {
       xEnds: 70,
       x: 35,
-      y: 50.05,
-      yEnds: 750.7499999999999,
+      y: 52.3,
+      yEnds: 784.4999999999998,
     },
     expanded: true,
+    isDescriptionOpen: true,
   },
   d9pyjg: {
     id: 'd9pyjg',
@@ -849,8 +725,8 @@ export default {
     position: {
       xEnds: 180,
       x: 145,
-      y: 150.14999999999998,
-      yEnds: 150.14999999999998,
+      y: 156.89999999999998,
+      yEnds: 156.89999999999998,
     },
     owner: {
       username: '',
@@ -858,5 +734,295 @@ export default {
     expanded: true,
     title: 'Cockpit',
     description: 'A cockpit or flight deck is the area, usually near the front of an aircraft or spacecraft, from which a pilot controls the aircraft.',
+  },
+  df7ua: {
+    id: 'df7ua',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a91ff690cc413ead79ce3',
+    ancestor_ids: [
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 180,
+      x: 145,
+      y: 209.2,
+      yEnds: 209.2,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Cabin',
+    description: 'An aircraft cabin is the section of an aircraft in which passengers travel. Most modern commercial aircraft are pressurized, as cruising altitudes are high enough such that the surrounding atmosphere is too thin for passengers and crew to breathe.',
+    expanded: true,
+    isDescriptionOpen: true,
+  },
+  '3qefpk': {
+    id: '3qefpk',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '635a91ff690cc413ead79ce3',
+    ancestor_ids: [
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [
+      {
+        $oid: 'jf05f',
+      },
+      {
+        $oid: '6652e',
+      },
+    ],
+    position: {
+      xEnds: 180,
+      x: 145,
+      y: 261.5,
+      yEnds: 366.09999999999997,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Tail',
+    expanded: true,
+    description: 'The tail  is a structure at the rear of an aircraft that provides stability during flight, in a way similar to the feathers on an arrow.',
+    isDescriptionOpen: true,
+  },
+  jf05f: {
+    id: 'jf05f',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '3qefpk',
+    ancestor_ids: [
+      {
+        $oid: '3qefpk',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [
+      {
+        $oid: 'snk24',
+      },
+    ],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 313.8,
+      yEnds: 313.8,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Horizontal Stabilizer',
+    expanded: false,
+    description: 'A horizontal stabilizer is used to maintain the aircraft in longitudinal balance',
+    isDescriptionOpen: true,
+  },
+  '6652e': {
+    id: '6652e',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '3qefpk',
+    ancestor_ids: [
+      {
+        $oid: '3qefpk',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [
+      {
+        $oid: 'e87bzh',
+      },
+    ],
+    position: {
+      xEnds: 235,
+      x: 200,
+      y: 366.1,
+      yEnds: 366.09999999999997,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Vertical Stabilizer',
+    expanded: false,
+    isDescriptionOpen: true,
+    description: 'A vertical stabilizer provides directional (or yaw) stability and usually comprises a fixed fin and movable control rudder hinged to its rear edge.',
+  },
+  snk24: {
+    id: 'snk24',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: 'jf05f',
+    ancestor_ids: [
+      {
+        $oid: 'jf05f',
+      },
+      {
+        $oid: '3qefpk',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [
+      {
+        $oid: '4r5t3',
+      },
+    ],
+    position: {
+      xEnds: 290,
+      x: 255,
+      y: 366.1,
+      yEnds: 366.1,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Elevator',
+    expanded: false,
+    isDescriptionOpen: true,
+    description: 'Elevators are flight control surfaces, usually at the rear of an aircraft, which control the aircraft\'s pitch, and therefore the angle of attack and the lift of the wing.',
+  },
+  e87bzh: {
+    id: 'e87bzh',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: '6652e',
+    ancestor_ids: [
+      {
+        $oid: '6652e',
+      },
+      {
+        $oid: '3qefpk',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [
+      {
+        $oid: 'qjm57h',
+      },
+    ],
+    position: {
+      xEnds: 290,
+      x: 255,
+      y: 418.40000000000003,
+      yEnds: 418.40000000000003,
+    },
+    owner: {
+      username: '',
+    },
+    expanded: false,
+    isDescriptionOpen: true,
+    title: 'Rudder',
+    description: 'On an aircraft the rudder is used primarily to counter adverse yaw and p-factor and is not the primary control used to turn the airplane.',
+  },
+  '4r5t3': {
+    id: '4r5t3',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: 'snk24',
+    ancestor_ids: [
+      {
+        $oid: 'snk24',
+      },
+      {
+        $oid: 'jf05f',
+      },
+      {
+        $oid: '3qefpk',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 345,
+      x: 310,
+      y: 418.40000000000003,
+      yEnds: 418.40000000000003,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Trim Tabs',
+    expanded: false,
+    isDescriptionOpen: true,
+    description: 'The trim tab is used to "trim", or counteract the aerodynamic force on, the control surface and thus stabilise the aircraft in the axis of rotation associated with the primary control. ',
+  },
+  qjm57h: {
+    id: 'qjm57h',
+    isNew: false,
+    isEditing: false,
+    fetched: false,
+    parent_id: 'e87bzh',
+    ancestor_ids: [
+      {
+        $oid: 'e87bzh',
+      },
+      {
+        $oid: '6652e',
+      },
+      {
+        $oid: '3qefpk',
+      },
+      {
+        $oid: '635a91ff690cc413ead79ce3',
+      },
+      {
+        $oid: '635a91ea690cc413ead79ce2',
+      },
+    ],
+    node_ids: [],
+    position: {
+      xEnds: 345,
+      x: 310,
+      y: 470.70000000000005,
+      yEnds: 470.70000000000005,
+    },
+    owner: {
+      username: '',
+    },
+    title: 'Trim Tabs',
+    expanded: false,
+    description: 'The trim tab is used to "trim", or counteract the aerodynamic force on, the control surface and thus stabilise the aircraft in the axis of rotation associated with the primary control. ',
   },
 };

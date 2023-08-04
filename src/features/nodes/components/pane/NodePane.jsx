@@ -19,26 +19,21 @@ export default function NodePane() {
   const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
   const nodePaneContent = useSelector(selectNodeDetailsAction);
   const description = useSelector(selectNodeAttribute(selectedNodeId, 'description'));
-  const isDescFetchedById = React.useRef({});
 
-  const [loading, setLoading] = React.useState(!description);
   const dispatch = useDispatch();
 
   const nodePaneContents = {
-    description: <NodePaneDescription loading={loading} />,
+    description: <NodePaneDescription loading={false} />,
     markdown: <NodePaneMarkdownEditor />,
     workflow: <NodePaneWorkflow />,
   };
 
   useEffect(() => {
-    if (persistentId) {
+    if (persistentId && persistentRootId && !description) {
       dispatch(getNodeDescription({
         rootId: persistentRootId,
         id: persistentId,
-      })).then(() => {
-        isDescFetchedById.current[persistentId] = true;
-        setLoading(false);
-      });
+      }));
     }
   }, [dispatch, description, persistentId, persistentRootId]);
 

@@ -39,8 +39,7 @@ export default {
 
     const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
-    const index = state.expandedNodeIds.indexOf(extractNodeIdFromTreeNodeId(treeNodeId));
-    state.expandedNodeIds.splice(index, 1);
+    state.expandedNodeIds = state.expandedNodeIds.filter((id) => id !== extractNodeIdFromTreeNodeId(treeNodeId));
 
     treeNode.isExpanded = false;
 

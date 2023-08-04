@@ -9,7 +9,6 @@ import {
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
 import { WorkflowsContext } from '../../features/workflows/workflows.context';
-import { WORKFLOW_DIAGRAM_CONTEXT } from '../../features/workflows/workflows.constants';
 
 export default function Transformable({
   children, transformableId, scale, heightMargin,

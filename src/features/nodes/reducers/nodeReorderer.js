@@ -49,6 +49,7 @@ export default {
 
     state.byId[nodeId].ancestorIds = newAncestorIds;
     state.byId[nodeId].nestedLevel = newAncestorIds.length;
+
     // update descendants' ancestors
     const buildDescendantsAncestors = (currentNodeId = nodeId, currentAncestorIds = newAncestorIds) => {
       const currentNode = state.byId[currentNodeId];
