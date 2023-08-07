@@ -65,11 +65,14 @@ export default function useTreeNodeDraggable() {
 
       dispatch(clearDragAndDrop());
     } catch (e) {
-      console.error(e);
+      const message = e.message.includes(423) // TODO: fix this logic at redux-toolkit level. Maybe we need middleware.
+        ? 'Resource locked! Reorder in progress.'
+        : 'Something went wrong while reordering the node. Please try again.';
+
       dispatch(setAlert({
         isOpen: true,
         severity: 'error',
-        message: 'Something went wrong while reordering the node. Please try again.',
+        message,
       }));
       dispatch(setTreeLoading(false));
     }

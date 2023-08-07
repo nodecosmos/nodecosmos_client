@@ -22,6 +22,7 @@ import {
   selectWorkflowDiagramPosition,
   selectWorkflowScale,
 } from '../../workflows.selectors';
+import useWorkflowTransformableId from '../../hooks/diagram/useWorkflowTransformableId';
 import StartToolbar from './StartToolbar';
 import WorkflowOutputButton from './io/WorkflowOutputButton';
 
@@ -39,7 +40,9 @@ export default function StartStep({ workflowId }) {
   const scale = useSelector(selectWorkflowScale);
 
   const [hovered, setHovered] = React.useState(false);
-  const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
+  const transformableId = useWorkflowTransformableId();
+
+  const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
 
   const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
   const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
@@ -49,11 +52,12 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        y={-1}
+        y={0}
         height={rectHeight}
-        width={WORKFLOW_STEP_WIDTH}
+        width={WORKFLOW_STEP_WIDTH - 1}
         fill="transparent"
-        stroke="transparent"
+        stroke={hovered ? theme.palette.borders[4]
+          : 'transparent'}
         strokeWidth={2}
       />
       <foreignObject

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box, Button, Typography, useTheme,
 } from '@mui/material';
@@ -8,13 +8,15 @@ import { selectTransformablePositionAttribute } from '../../../../app/app.select
 import FlowModal from '../../../../flows/components/FlowModal';
 import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition, selectWorkflowScale } from '../../../workflows.selectors';
+import useWorkflowTransformableId from '../../../hooks/diagram/useWorkflowTransformableId';
 import WorkflowStepFlows from './WorkflowStepFlows';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
   const [hovered, setHovered] = React.useState(false);
 
-  const clientHeight = useSelector(selectTransformablePositionAttribute('workflow', 'clientHeight'));
+  const transformableId = useWorkflowTransformableId();
+  const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
   const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));
   const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(wfStep.workflowId));
@@ -41,9 +43,9 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={x}
-        y={-1}
+        y={0}
         height={rectHeight}
-        width={WORKFLOW_STEP_WIDTH}
+        width={WORKFLOW_STEP_WIDTH - 1}
         fill="transparent"
         stroke={hovered ? theme.palette.borders[4]
           : 'transparent'}

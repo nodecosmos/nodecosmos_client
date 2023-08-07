@@ -11,6 +11,7 @@ import Tree from '../../../features/trees/components/Tree';
 import TreeToolbar from '../../../features/trees/components/TreeToolbar';
 import OverlayLoader from '../../../common/components/OverlayLoader';
 import { selectIsTreeLoading } from '../../../features/trees/trees.selectors';
+import Alert from '../../../common/components/Alert';
 
 export default function TreeTab() {
   const { id } = useParams();
@@ -58,6 +59,7 @@ export default function TreeTab() {
       >
         <TreeContainer>
           <TreeToolbar rootNodeId={id} />
+          <Alert />
           <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
             {isTreeLoading && <OverlayLoader />}
             <Tree rootNodeId={id} />

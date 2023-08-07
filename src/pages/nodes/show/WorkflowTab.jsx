@@ -13,6 +13,7 @@ import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.
 import { WorkflowsContext } from '../../../features/workflows/workflows.context';
 import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../../features/workflows/workflows.thunks';
+import Alert from '../../../common/components/Alert';
 
 export default function WorkflowTab() {
   const { id } = useParams();
@@ -69,6 +70,7 @@ export default function WorkflowTab() {
               ref={workflowRef}
             >
               <WorkflowToolbar nodeId={id} />
+              <Alert />
               <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                 <Workflow nodeId={id} />
               </Box>

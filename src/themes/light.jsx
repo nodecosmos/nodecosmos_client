@@ -9,22 +9,16 @@ export default {
     6: '0px 25px 50px rgba(0, 0, 0, 0.14)',
     7: '0px 30px 60px rgba(0, 0, 0, 0.14)',
     8: '0px 35px 70px rgba(0, 0, 0, 0.14)',
-    9: '0px 40px 80px rgba(0, 0, 0, 0.14)',
-    10: '0px 50px 100px rgba(0, 0, 0, 0.14)',
-    11: '0px 60px 120px rgba(0, 0, 0, 0.14)',
-    12: '0px 70px 140px rgba(0, 0, 0, 0.14)',
-    13: '0px 80px 160px rgba(0, 0, 0, 0.14)',
-    14: '0px 90px 180px rgba(0, 0, 0, 0.14)',
-    15: '0px 100px 200px rgba(0, 0, 0, 0.14)',
-    16: '0px 110px 220px rgba(0, 0, 0, 0.14)',
-    17: '0px 120px 240px rgba(0, 0, 0, 0.14)',
-    18: '0px 130px 260px rgba(0, 0, 0, 0.14)',
-    19: '0px 140px 280px rgba(0, 0, 0, 0.14)',
-    20: '0px 150px 300px rgba(0, 0, 0, 0.14)',
-    21: '0px 160px 320px rgba(0, 0, 0, 0.14)',
-    22: '0px 170px 340px rgba(0, 0, 0, 0.14)',
-    23: '0px 180px 360px rgba(0, 0, 0, 0.14)',
-    24: '0px 190px 380px rgba(0, 0, 0, 0.14)',
+
+    left: {
+      1: '-1px 0px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
+      2: '-2px 0px 1px -1px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+    },
+
+    right: {
+      1: '1px 0px 1px -1px rgba(0,0,0,0.2)',
+      2: '2px 0px 1px -1px rgba(0,0,0,0.2)',
+    },
 
     top: {
       1: '0px -3px 3px -2px rgb(0 0 0 / 10%)',
@@ -38,92 +32,109 @@ export default {
 
   palette: {
     primary: {
-      main: '#ade16c',
+      main: '#37a000',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     secondary: {
-      main: '#cdd4ff',
+      main: '#5468e7',
     },
 
     error: {
-      main: '#ed4b82',
+      main: '#f56565',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     success: {
-      main: '#b3ff68',
+      main: '#37a000',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     toggle: {
-      main: '#3a3e45',
-      contrastText: '#fff',
+      main: '#fafafa',
+      contrastText: '#000',
+    },
+
+    button: {
+      main: '#f6f8fa',
+      contrastText: '#7e7d75',
     },
 
     borders: {
       1: '#e8e8e8',
-      2: '#c0c9d6',
-      3: '#e5e7eb',
-      4: '#dfe4ee',
-
-      box: {
-        xs: '#f5f5f5',
-        md: '#ffffff',
-      },
+      2: '#e8e8e8',
+      3: '#e8e8e8',
+      4: '#e8e8e8',
+      5: '#e8e8e8',
     },
 
     background: {
       1: '#e5e7eb', // f8f9fa
-      2: '#ffffff',
-      3: '#f3f4f6',
-      4: '#e5e7eb',
-      5: '#f2f5fa',
-      6: '#fbfbfb',
+      2: '#f5f7f9',
+      3: '#ffffff',
+      4: '#ffffff',
+      5: '#ffffff',
+      6: '#ffffff',
+      7: '#ffffff',
+      8: '#ffffff',
 
       labels: {
-        red: '#e15e7d',
-        green: '#5cff96',
-        blue: '#85c7f3',
-        purple: '#c187ff',
+        red: '#f56565',
+        green: '#48bb78',
+        blue: '#4299e1',
+        purple: '#805ad5',
       },
 
       list: {
         default: '#202124', // #595b63
         activeColor: '#202124',
-        active: 'rgba(188,193,203,0.14)',
       },
 
-      scrollbarThumb: '#c7c7c7',
       paper: '#f8f9fa',
-      hover: 'rgba(0, 0, 0, 0.1)',
-      contrast: '#333333',
+      backdrop: 'rgba(173, 216, 230, 0.4)',
     },
 
     toolbar: {
-      red: '#ff5fa7',
-      green: '#00ff2a',
-      blue: '#00eeff',
-      lightRed: '#ff6881',
-      hover: '#f1f3f4',
-      active: '#f1f3f4',
-      default: '#babecd',
-      searchField: '#f1f3f4',
-      breadcrumbs: '#758593',
+      red: '#f56565',
+      green: '#48bb78',
+      blue: '#4299e1',
+      lightRed: '#feb2b2',
+      pink: '#d53f8c',
+      yellow: '#faf089',
+      hover: 'rgba(66,153,225,0.53)',
+      active: 'rgba(66,153,225,0.53)',
+      default: '#4a5568',
+      breadcrumbs: '#4a5568',
     },
 
     tree: {
-      default: '#eee',
-      level1: '#f8568d',
-      level2: '#ade16c',
-      level3: '#67d4ff',
+      default: '#e1e6eb',
+      backgrounds: [
+        '#f56565',
+        '#b882ff',
+        '#57bfff',
+        '#50bdcb',
+        '#39d974',
+        '#57d53e',
+        '#c2a900',
+        '#ff8b30',
+      ],
       hashtag: 'rgb(149,151,153)',
       defaultText: 'rgb(67,69,71)',
       selectedText: 'rgb(0 0 0 / 65%)',
     },
 
+    workflow: {
+      default: '#edf2f7',
+      input: '#ebf8ff',
+      background: '#f7fafc',
+      inputColors: [
+        '#ebf8ff',
+      ],
+    },
+
     markdownContent: {
-      canvas: '#f2f5fa',
+      canvas: '#f7fafc',
       background: 'transparent',
     },
 

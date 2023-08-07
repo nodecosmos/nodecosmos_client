@@ -18,8 +18,6 @@ export default function Transformable({
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
 
-  const workflowContext = useContext(WorkflowsContext);
-
   setTimeout(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
     const clientHeight = containerRef.current?.clientHeight || 0;
@@ -55,7 +53,7 @@ export default function Transformable({
         scrollTop: containerRef.current.scrollTop,
       }));
     }
-  }, [dispatch, transformableId, workflowContext]);
+  }, [dispatch, transformableId]);
 
   const resizeTimeout = useRef(null);
 

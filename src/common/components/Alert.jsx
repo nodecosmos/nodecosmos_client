@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
-  Snackbar, Alert as MuiAlert, Typography,
+  Alert as MuiAlert, Typography, Box,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlert } from '../../features/app/appSlice';
+import { HEADER_HEIGHT } from '../../features/app/constants';
 
 export default function Alert() {
   const dispatch = useDispatch();
@@ -11,34 +12,45 @@ export default function Alert() {
     isOpen, message, severity, anchorOrigin,
   } = useSelector((state) => state.app.alert);
 
-  const handleClose = () => dispatch(setAlert({ isOpen: false, message, severity }));
+  const handleClose = useCallback(() => dispatch(
+    setAlert({ isOpen: false, message, severity }),
+  ), [dispatch, message, severity]);
+
+  useEffect(() => () => {
+    if (isOpen) {
+      handleClose();
+    }
+  }, [isOpen, handleClose]);
 
   return (
-    <Snackbar
-      open={isOpen}
-      autoHideDuration={1500000}
+    <Box
+      display={isOpen ? 'flex' : 'none'}
       onClose={handleClose}
-      anchorOrigin={anchorOrigin}
+      anchororigin={anchorOrigin}
+      height={HEADER_HEIGHT}
+      width={1}
     >
       <MuiAlert
         onClose={handleClose}
         severity={severity}
         variant="outlined"
         sx={{
+          height: 1,
+          borderRadius: 0.5,
+          width: 'calc(100% - 1px)',
           borderColor: `${severity}.main`,
-          backgroundColor: 'background.paper',
-          '.MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
+          backgroundColor: 'background.5',
+          '.MuiTypography-root, .MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
             color: `${severity}.main`,
           },
           alignItems: 'center',
         }}
       >
         <Typography
-          color="error"
           variant="body1"
           dangerouslySetInnerHTML={{ __html: message }}
         />
       </MuiAlert>
-    </Snackbar>
+    </Box>
   );
 }

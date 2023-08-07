@@ -34,109 +34,113 @@ export default {
 
   palette: {
     primary: {
-      main: '#9edf5c',
+      main: '#b3ff68',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     secondary: {
-      main: '#afbcef',
+      main: '#cdd4ff',
     },
 
     error: {
-      main: '#d94376',
+      main: '#ed4b82',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     success: {
-      main: '#9edf5c',
+      main: '#b3ff68',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
     toggle: {
-      main: '#32373e',
+      main: '#3a3e45',
       contrastText: '#fff',
     },
 
     button: {
-      main: '#343d48',
-      contrastText: '#93a2ae',
+      main: '#3d4652',
+      contrastText: '#a5b4be',
     },
 
     borders: {
-      1: '#393b46',
-      2: '#3b3f4a',
-      3: '#41444e',
-      4: '#4a4f5a',
-      5: '#5b6270',
+      1: '#43464d',
+      2: '#454b53', // 454b53 3c4149
+      3: '#484d55',
+      4: '#545760',
+      5: '#6a707e',
     },
 
     background: {
-      1: '#272727',
-      2: '#272930',
-      3: '#272930',
-      4: '#2b2f35',
-      5: '#2a2d36',
-      6: '#2a2d36',
-      7: '#333843',
-      8: '#454b52',
+      1: '#363636',
+      2: '#363a41',
+      3: '#363a41',
+      4: '#393d43',
+      5: '#3a3f47',
+      6: '#3c4149',
+      7: '#464c54',
+      8: '#575d66',
 
       labels: {
-        red: '#d5526f',
-        green: '#99cd54',
-        blue: '#75b4e0',
-        purple: '#a975e0',
+        red: '#e15e7d',
+        green: '#abe15e',
+        blue: '#85c7f3',
+        purple: '#c187ff',
       },
 
       list: {
-        defaultColor: '#787d88',
-        activeColor: '#c2cad6',
+        defaultColor: '#898f9c',
+        activeColor: '#d8e0e8',
       },
 
-      paper: '#2a2d35',
-      backdrop: 'rgba(88, 99, 111, 0.4)',
+      paper: '#383c43',
+      backdrop: 'rgba(99, 110, 123, 0.4)',
     },
 
     toolbar: {
-      red: '#d71b59',
-      green: '#a3dc6d',
-      blue: '#26ccdf',
-      lightRed: '#e56175',
-      pink: '#96588e',
-      yellow: '#ded65f',
-      hover: 'rgba(57,71,81,0.53)',
-      active: 'rgba(57,71,81,0.53)',
-      default: '#6a7983',
-      breadcrumbs: '#6a7983',
+      red: '#e91e63',
+      green: '#b6fd7b',
+      blue: '#2adfff',
+      lightRed: '#ff6881',
+      pink: '#a9749e',
+      yellow: '#f0f26f',
+      hover: 'rgba(63,78,89,0.53)',
+      active: 'rgba(63,78,89,0.53)',
+      default: '#758593',
+      breadcrumbs: '#758593',
     },
 
     tree: {
-      default: '#343a42',
+      default: '#444a54',
       backgrounds: [
-        '#d12f68',
-        '#927bdf',
-        '#66a9df',
-        '#66d1df',
-        '#64d89b',
-        '#9edf5c',
-        '#d6d95c',
-        '#e4906e',
+        '#f13575',
+        '#a38dff', // 539bf5
+        '#77bbff',
+        '#77e2ff',
+        '#72fcad',
+        '#b3ff68',
+        '#e7e96d',
+        '#f5a07b',
       ],
       defaultText: '#ffffff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
-      hashtag: '#787d88',
+      hashtag: '#898f9c',
     },
 
     workflow: {
-      default: '#373d46',
-      input: '#afbcef',
-      background: '#272b33',
+      default: '#414650',
+      input: '#cdd4ff',
+      background: '#2d3139',
       inputColors: [
-        '#afbcef',
+        '#cdd4ff',
+        // '#80a5ff',
+        // '#80ff99',
+        // '#ffec80',
+        // '#ff9180',
       ],
     },
 
     markdownContent: {
-      canvas: '#3a3e52',
+      canvas: '#444756',
       background: 'transparent',
     },
 
@@ -164,35 +168,35 @@ export default {
     },
 
     logo: {
-      blue: '#26ccdf',
-      red: '#d71b59',
+      blue: '#2adfff',
+      red: '#e91e63',
     },
 
     text: {
-      primary: '#edede8',
-      secondary: '#c1c5d5',
-      tertiary: '#747982',
+      primary: '#f5f5f2',
+      secondary: '#aab0be',
+      tertiary: '#838a9a',
       contrast: '#fff',
-      sectionPrimary: '#9acb75',
-      sectionSecondary: '#afbcef',
-      link: '#4892d7',
+      sectionPrimary: '#acdf83',
+      sectionSecondary: '#cdd4eb',
+      link: '#539bf5',
       gradients: {
         1: {
-          xs: 'linear-gradient(90deg, #a987df, #df78ba, #df4581)',
-          sm: 'linear-gradient(90deg, #a987df, #df78ba, #df4581)',
+          xs: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',
+          sm: 'linear-gradient(90deg, #bb99ff, #ff87c4, #ff4b8d)',
         },
         2: {
-          xs: 'linear-gradient(90deg, #df78ba, #a987df, #6cb2df)',
-          sm: 'linear-gradient(90deg, #df78ba, #a987df, #6cb2df)',
+          xs: 'linear-gradient(90deg, #ff87c4, #bb99ff, #80c7ff)',
+          sm: 'linear-gradient(90deg, #ff87c4, #bb99ff, #80c7ff)',
         },
         3: {
-          xs: 'linear-gradient(90deg, #9edf5c, #dfdc86, #df7777)',
-          sm: 'linear-gradient(90deg, #9edf5c, #dfdc86, #df7777)',
+          xs: 'linear-gradient(90deg, #b3ff68, #ffe386, #ff8888)',
+          sm: 'linear-gradient(90deg, #b3ff68, #ffe386, #ff8888)',
         },
       },
-      collaboratePurple: '#a987df',
-      mergeGreen: '#91df42',
-      foreground: '#747a8e',
+      collaboratePurple: '#bb99ff',
+      mergeGreen: '#a3ff48',
+      foreground: '#838f9e',
     },
   },
 };

@@ -20,6 +20,7 @@ import LoginForm from '../../authentication/components/LoginForm';
 import SignupForm from '../../authentication/components/SignupForm';
 /* theme */
 import dark from '../../../themes/dark';
+import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
@@ -50,6 +51,7 @@ export default function LazyAppLoad() {
 
   const themes = {
     light,
+    dimmed,
     dark,
   };
   const currentTheme = themes[theme];
@@ -77,7 +79,6 @@ export default function LazyAppLoad() {
             border={1}
             borderColor="borders.2"
           >
-            <Alert />
             <Header />
             <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
               <Routes>

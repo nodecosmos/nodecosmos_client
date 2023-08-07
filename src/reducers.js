@@ -10,6 +10,7 @@ import workflowsSlice from './features/workflows/workflowsSlice';
 import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
 import flowsSlice from './features/flows/flowsSlice';
 import flowStepsSlice from './features/flow-steps/flowStepsSlice';
+import contributionRequestSlice from './features/contribution-requests/contributionRequestsSlice';
 
 export default combineReducers({
   app: appSlice,
@@ -23,4 +24,5 @@ export default combineReducers({
   flows: flowsSlice,
   flowSteps: flowStepsSlice,
   inputOutputs: inputOutputsSlice,
+  contributionRequests: contributionRequestSlice,
 });

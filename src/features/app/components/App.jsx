@@ -8,6 +8,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 /* nodecosmos */
 import Home from '../../../pages/home/Index';
 import dark from '../../../themes/dark';
+import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 import Loader from '../../../common/components/Loader';
@@ -21,6 +22,7 @@ export default function App() {
   const themes = {
     light,
     dark,
+    dimmed,
   };
   const currentTheme = themes[theme];
   const location = useLocation();
@@ -50,7 +52,7 @@ export default function App() {
 
   // only homepage
   return (
-    <ThemeProvider theme={getTheme(dark)}>
+    <ThemeProvider theme={getTheme(dimmed)}>
       <CssBaseline />
       <Box
         height={1}

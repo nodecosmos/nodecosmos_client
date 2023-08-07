@@ -5,6 +5,7 @@ import Menu from '@mui/material/Menu';
 import Switch from '@mui/material/Switch';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Box, Slider } from '@mui/material';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
 
 import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
@@ -33,10 +34,29 @@ export default function UserProfileOptions() {
   const { handleLogout } = useUserAuthentication();
 
   const toggleTheme = (_event, value) => {
-    dispatch(setTheme(value ? 'light' : 'dark'));
+    const themesByValue = {
+      0: 'dark',
+      1: 'dimmed',
+      2: 'light',
+    };
+
+    dispatch(setTheme(themesByValue[value]));
   };
 
-  const lightThemeChecked = theme === 'light';
+  const marks = [
+    {
+      value: 0,
+      label: 'dark',
+    },
+    {
+      value: 1,
+      label: 'dimmed',
+    },
+    {
+      value: 2,
+      label: 'light',
+    },
+  ];
 
   return (
     <>
@@ -45,14 +65,16 @@ export default function UserProfileOptions() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          elevation: 4,
-          sx: {
-            p: 0,
-            m: 0.25,
-            width: 300,
-            '.MuiList-root': { p: 0 },
-            '.MuiListItemButton-root': { height: 62 },
+        slotProps={{
+          paper: {
+            elevation: 4,
+            sx: {
+              p: 0,
+              m: 0.25,
+              width: 300,
+              '.MuiList-root': { p: 0 },
+              '.MuiListItemButton-root': { height: 62 },
+            },
           },
         }}
       >
@@ -71,9 +93,19 @@ export default function UserProfileOptions() {
           icon={(<FontAwesomeIcon icon={faLightbulbOn} />)}
           title="Light Mode"
           component={null}
-          onClick={() => toggleTheme(null, !lightThemeChecked)}
         >
-          <Switch checked={lightThemeChecked} onChange={toggleTheme} />
+          <Box width={175} display="flex" alignItems="center">
+            <Slider
+              aria-label="Custom marks"
+              defaultValue={marks.findIndex((mark) => mark.label === theme)}
+              step={1}
+              min={0}
+              max={2}
+              valueLabelDisplay="auto"
+              marks={marks}
+              onChange={(_, value) => toggleTheme(_, value)}
+            />
+          </Box>
         </SidebarListItem>
       </Menu>
     </>
