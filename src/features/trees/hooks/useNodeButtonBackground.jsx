@@ -25,7 +25,7 @@ export default function useNodeButtonBackground(treeId) {
 
   const parentBackgroundColor = isRoot
     ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount];
-  const outlineColor = outlinedColored ? backgrounds[nestedLevel % backgroundCount] : 'transparent';
+  const outlineColor = outlinedColored ? backgrounds[nestedLevel % backgroundCount] : theme.palette.tree.defaultBorder;
 
   return {
     backgroundColor: outlinedColored ? theme.palette.background[3] : backgroundColor,

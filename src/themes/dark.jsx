@@ -58,27 +58,27 @@ export default {
     },
 
     button: {
-      main: '#343d48',
-      contrastText: '#93a2ae',
+      main: '#272b34',
+      contrastText: '#fbfdff',
     },
 
     borders: {
-      1: '#393b46',
-      2: '#3b3f4a',
-      3: '#41444e',
-      4: '#4a4f5a',
-      5: '#5b6270',
+      1: '#1e2027',
+      2: '#252930',
+      3: '#252830',
+      4: '#292c36',
+      5: '#2b2e38',
     },
 
     background: {
-      1: '#272727',
-      2: '#272930',
-      3: '#272930',
-      4: '#2b2f35',
-      5: '#2a2d36',
-      6: '#2a2d36',
-      7: '#333843',
-      8: '#454b52',
+      1: '#000000',
+      2: '#16181c',
+      3: '#181a1e',
+      4: '#252830',
+      5: '#1d2026',
+      6: '#202329',
+      7: '#282c33',
+      8: '#4d4e55',
 
       labels: {
         red: '#d5526f',
@@ -92,7 +92,7 @@ export default {
         activeColor: '#c2cad6',
       },
 
-      paper: '#2a2d35',
+      paper: '#1f2126',
       backdrop: 'rgba(88, 99, 111, 0.4)',
     },
 
@@ -110,7 +110,7 @@ export default {
     },
 
     tree: {
-      default: '#343a42',
+      default: '#272b34',
       backgrounds: [
         '#d12f68',
         '#927bdf',
@@ -124,6 +124,8 @@ export default {
       defaultText: '#ffffff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#787d88',
+      defaultBorder: '#4c4f54',
+      dragInIndicator: '#bf7869',
     },
 
     workflow: {

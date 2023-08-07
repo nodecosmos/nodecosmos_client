@@ -144,7 +144,7 @@ export default function Index() {
             sm: 8,
           },
           boxShadow: '2',
-          backgroundColor: 'background.4',
+          backgroundColor: 'background.5',
         }}
         border={1}
         borderBottom={0}

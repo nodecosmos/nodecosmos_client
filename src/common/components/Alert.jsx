@@ -22,12 +22,14 @@ export default function Alert() {
     }
   }, [isOpen, handleClose]);
 
+  if (!isOpen) return null;
+
   return (
     <Box
       display={isOpen ? 'flex' : 'none'}
       onClose={handleClose}
       anchororigin={anchorOrigin}
-      height={HEADER_HEIGHT}
+      minHeight={HEADER_HEIGHT}
       width={1}
     >
       <MuiAlert
@@ -35,6 +37,8 @@ export default function Alert() {
         severity={severity}
         variant="outlined"
         sx={{
+          px: 1,
+          py: 0.35,
           height: 1,
           borderRadius: 0.5,
           width: 'calc(100% - 1px)',

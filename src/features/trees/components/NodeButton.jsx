@@ -83,8 +83,8 @@ export default function NodeButton(props) {
       style={{
         border: '1px solid',
         borderColor: outlineColor,
-        backgroundColor: dragOver ? theme.palette.background[8] : backgroundColor,
-        color,
+        backgroundColor: dragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
+        color: dragOver ? theme.palette.text.primary : color,
       }}
     >
       <MemoizedTagRounded style={{

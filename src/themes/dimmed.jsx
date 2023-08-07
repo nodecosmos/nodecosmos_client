@@ -124,6 +124,8 @@ export default {
       defaultText: '#ffffff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
+      defaultBorder: 'transparent',
+      dragInIndicator: '#bf7869',
     },
 
     workflow: {
