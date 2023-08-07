@@ -8,7 +8,6 @@ import {
   TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
-import { WorkflowsContext } from '../../features/workflows/workflows.context';
 
 export default function Transformable({
   children, transformableId, scale, heightMargin,
@@ -21,7 +20,7 @@ export default function Transformable({
   setTimeout(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
     const clientHeight = containerRef.current?.clientHeight || 0;
-    const height = Math.max(svgHeight, clientHeight);
+    const height = Math.max(svgHeight, clientHeight - 8);
 
     const newWidth = (gRef.current && gRef.current.getBBox().width
       + TRANSFORMABLE_WIDTH_MARGIN);
