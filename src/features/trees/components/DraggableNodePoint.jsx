@@ -68,8 +68,8 @@ export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
         width="300"
         height="35"
         rx="4"
-        fill={theme.palette.borders[5]}
-        fillOpacity={hovered ? 0.2 : 0}
+        fill={theme.palette.background[8]}
+        fillOpacity={hovered ? 0.6 : 0}
       />
     </g>
   );

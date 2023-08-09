@@ -1,19 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-/* mui */
-import {
-  Grid,
-} from '@mui/material';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
-export default function ContributionRequestsTab(props) {
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import ContributionRequestsToolbar
+  from '../../../features/contribution-requests/components/ContributionRequestsToolbar';
+import { indexContributionRequests } from '../../../features/contribution-requests/contributionRequests.thunks';
+import Loader from '../../../common/components/Loader';
+import ContributionRequestsList from '../../../features/contribution-requests/components/ContributionRequestsList';
+
+export default function ContributionRequestsTab() {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!id) setLoading(true);
+    dispatch(indexContributionRequests(id)).then(() => setLoading(false));
+  }, [dispatch, id]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
-    <Grid container spacing={3} mt={1} justifyContent="center" />
+    <div>
+      <ContributionRequestsToolbar nodeId={id} />
+      <ContributionRequestsList nodeId={id} />
+    </div>
   );
 }
-
-ContributionRequestsTab.propTypes = {
-  node: PropTypes.object.isRequired,
-};

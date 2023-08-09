@@ -25,6 +25,7 @@ import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
 import Alert from '../../../common/components/Alert';
+import ContributionRequestsTab from '../../../pages/nodes/show/ContributionRequestsTab';
 import Header from './header/Header';
 
 export default function LazyAppLoad() {
@@ -62,7 +63,7 @@ export default function LazyAppLoad() {
       <Box
         height={1}
         width={1}
-        p={{ xs: 0, sm: 1 }}
+        p={{ xs: 0, sm: 0.5 }}
         backgroundColor="background.1"
       >
         <Box
@@ -94,14 +95,14 @@ export default function LazyAppLoad() {
                 <Route path="/nodes" element={<NodeShow />}>
                   <Route path=":id" element={<TreeTab />} />
                   <Route path=":id/workflow" element={<WorkflowTab />} />
-                  <Route path=":id/contribution_requests" element={<div />} />
+                  <Route path=":id/contribution_requests" element={<ContributionRequestsTab />} />
                   <Route path=":id/topics" element={<div />} />
                   <Route path=":id/tasks_board" element={<div />} />
                   <Route path=":id/settings" element={<div />} />
 
                   <Route path=":rootId/:id" element={<TreeTab />} />
                   <Route path=":rootId/:id/workflow" element={<WorkflowTab />} />
-                  <Route path=":rootId/:id/contribution_requests" element={<div />} />
+                  <Route path=":rootId/:id/contribution_requests" element={<ContributionRequestsTab />} />
                   <Route path=":rootId/:id/topics" element={<div />} />
                   <Route path=":rootId/:id/tasks_board" element={<div />} />
                   <Route path=":rootId/:id/settings" element={<div />} />

@@ -1,23 +1,23 @@
 export default {
   shadows: {
     0: 'none',
-    1: '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
-    2: '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
-    3: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
-    4: '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
-    5: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)',
-    6: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
-    7: '0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)',
-    8: '0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)',
+    1: '0px 2px 1px -1px rgba(5,5,5,0.2),0px 1px 1px 0px rgba(5,5,5,0.14),0px 1px 3px 0px rgba(5,5,5,0.12)',
+    2: '0px 3px 1px -2px rgba(5,5,5,0.2),0px 2px 2px 0px rgba(5,5,5,0.14),0px 1px 5px 0px rgba(5,5,5,0.12)',
+    3: '0px 3px 3px -2px rgba(5,5,5,0.2),0px 3px 4px 0px rgba(5,5,5,0.14),0px 1px 8px 0px rgba(5,5,5,0.12)',
+    4: '0px 2px 4px -1px rgba(5,5,5,0.2),0px 4px 5px 0px rgba(5,5,5,0.14),0px 1px 10px 0px rgba(5,5,5,0.12)',
+    5: '0px 3px 5px -1px rgba(5,5,5,0.2),0px 5px 8px 0px rgba(5,5,5,0.14),0px 1px 14px 0px rgba(5,5,5,0.12)',
+    6: '0px 3px 5px -1px rgba(5,5,5,0.2),0px 6px 10px 0px rgba(5,5,5,0.14),0px 1px 18px 0px rgba(5,5,5,0.12)',
+    7: '0px 4px 5px -2px rgba(5,5,5,0.2),0px 7px 10px 1px rgba(5,5,5,0.14),0px 2px 16px 1px rgba(5,5,5,0.12)',
+    8: '0px 5px 5px -3px rgba(5,5,5,0.2),0px 8px 10px 1px rgba(5,5,5,0.14),0px 3px 14px 2px rgba(5,5,5,0.12)',
 
     left: {
-      1: '-1px 0px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
-      2: '-2px 0px 1px -1px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+      1: '-1px 0px 1px -1px rgba(5,5,5,0.2),0px 1px 1px 0px rgba(5,5,5,0.14),0px 1px 3px 0px rgba(5,5,5,0.12)',
+      2: '-2px 0px 1px -1px rgba(5,5,5,0.2),0px 2px 2px 0px rgba(5,5,5,0.14),0px 1px 5px 0px rgba(5,5,5,0.12)',
     },
 
     right: {
-      1: '1px 0px 1px -1px rgba(0,0,0,0.2)',
-      2: '2px 0px 1px -1px rgba(0,0,0,0.2)',
+      1: '1px 0px 1px -1px rgba(5,5,5,0.2)',
+      2: '2px 0px 1px -1px rgba(5,5,5,0.2)',
     },
 
     top: {
@@ -26,9 +26,9 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
-      1: '4px 4px 0px rgb(0 0 0 / 14%)',
-      2: '6px 8px 0px rgb(48 49 58 / 65%)',
-      3: '6px 6px 0px rgb(0 0 0 / 8%)',
+      1: 0,
+      2: 0,
+      3: 0,
     },
   },
 
@@ -63,19 +63,19 @@ export default {
     },
 
     borders: {
-      1: '#272a33',
+      1: '#2f343d',
       2: '#2f343d',
-      3: '#2f333d',
-      4: '#323642',
-      5: '#353945',
+      3: '#464b59',
+      4: '#5a6073',
+      5: '#636a80',
     },
 
     background: {
-      1: '#1a1a1a',
-      2: '#1f2227',
-      3: '#1f2227',
-      4: '#22252b',
-      5: '#22252b',
+      1: '#42454b',
+      2: '#22252b',
+      3: '#262a30',
+      4: '#2a2f36',
+      5: '#282c33',
       6: '#2c3038',
       7: '#282c33',
       8: '#4d4e55',
@@ -92,7 +92,7 @@ export default {
         activeColor: '#c2cad6',
       },
 
-      paper: '#22252b',
+      paper: '#24272e',
       backdrop: 'rgba(88, 99, 111, 0.4)',
     },
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { faHeadSideBrain, faLightbulbOn, faRightFromBracket } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '@mui/material/Menu';
-import Switch from '@mui/material/Switch';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Slider } from '@mui/material';

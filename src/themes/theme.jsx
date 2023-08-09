@@ -6,6 +6,7 @@ import animations from './styles/animations';
 import input from './styles/mui/inputs';
 import buttons from './styles/mui/buttons';
 import tab from './styles/mui/tab';
+import dataGrid from './styles/mui/dataGrid';
 
 const getTheme = (currentTheme) => createTheme({
   typography: {
@@ -105,9 +106,28 @@ const getTheme = (currentTheme) => createTheme({
         },
       },
     },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          '& .MuiSvgIcon-root': {
+            color: currentTheme.palette.background[8],
+          },
+        },
+      },
+    },
+    MuiPopper: {
+      styleOverrides: {
+        root: {
+          '& .MuiSvgIcon-root': {
+            color: currentTheme.palette.background[8],
+          },
+        },
+      },
+    },
     ...input(currentTheme),
     ...buttons(currentTheme),
     ...tab(currentTheme),
+    ...dataGrid(currentTheme),
   },
   //-----------------------------------------------------------------------------------------------------------------
   ...currentTheme,
