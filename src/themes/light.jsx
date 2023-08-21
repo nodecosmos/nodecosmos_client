@@ -100,6 +100,7 @@ export default {
       blue: '#4299e1',
       lightRed: '#feb2b2',
       pink: '#d53f8c',
+      purple: '#b775ff',
       yellow: '#faf089',
       hover: 'rgba(66,153,225,0.53)',
       active: 'rgba(66,153,225,0.53)',

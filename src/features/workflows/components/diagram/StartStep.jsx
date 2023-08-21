@@ -71,7 +71,7 @@ export default function StartStep({ workflowId }) {
             type="button"
             className="NodeButton"
             style={{
-              backgroundColor: theme.palette.tree.default,
+              backgroundColor: theme.palette.workflow.default,
               height: WORKFLOW_BUTTON_HEIGHT,
             }}
           >
@@ -88,10 +88,10 @@ export default function StartStep({ workflowId }) {
         workflowDiagram.initialInputIds.length > 0
         && (
         <path
-          stroke={theme.palette.tree.default}
+          stroke={theme.palette.workflow.default}
           fill="transparent"
           strokeWidth={3.5}
-          d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+          d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT + 3} L ${x + MARGIN_LEFT} ${yEnd}`}
           style={{
             opacity: 0,
             animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,

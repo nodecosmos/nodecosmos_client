@@ -18,8 +18,8 @@ export default function ContributionRequestsToolbar({ nodeId }) {
         display="flex"
         alignItems="center"
         position="relative"
-        borderBottom={1}
-        borderColor="borders.2"
+        boxShadow="2"
+        zIndex={3}
         sx={{}}
       >
         <Button

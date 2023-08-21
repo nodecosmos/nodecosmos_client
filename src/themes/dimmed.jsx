@@ -73,8 +73,8 @@ export default {
     background: {
       1: '#37393f',
       2: '#363a41',
-      3: '#363a41',
-      4: '#393d43',
+      3: '#383c43',
+      4: '#383c43',
       5: '#3a3f47',
       6: '#3c4149',
       7: '#464c54',
@@ -102,6 +102,7 @@ export default {
       blue: '#2adfff',
       lightRed: '#ff6881',
       pink: '#a9749e',
+      purple: '#b775ff',
       yellow: '#f0f26f',
       hover: 'rgba(63,78,89,0.53)',
       active: 'rgba(63,78,89,0.53)',

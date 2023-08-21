@@ -31,7 +31,7 @@ export default function WorkflowLeftOutputBranch(props) {
               ${x + 25} ${y + 1}
               ${xEnd} ${y}
             L ${xEnd} ${y}`}
-        stroke={theme.palette.tree.default}
+        stroke={theme.palette.workflow.default}
         fill="transparent"
         style={{
           opacity: 0,
@@ -43,7 +43,7 @@ export default function WorkflowLeftOutputBranch(props) {
         cx={x}
         cy={y}
         r={5}
-        fill={theme.palette.tree.default}
+        fill={theme.palette.workflow.default}
         style={{
           opacity: 0,
           animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,

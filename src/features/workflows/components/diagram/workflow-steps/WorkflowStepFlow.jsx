@@ -77,10 +77,6 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
             }}
           >
             {flowTitle}
-            {' '}
-            -
-            {' '}
-            {wfStepIndex - flowStartIndex + 1}
           </Typography>
           <FlowStepToolbar wfStepFlow={wfStepFlow} wfStepHovered={wfStepHovered} />
         </Box>

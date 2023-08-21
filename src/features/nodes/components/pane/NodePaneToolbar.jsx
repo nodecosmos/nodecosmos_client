@@ -2,9 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
 import {
-  faRectangleCode, faHashtag,
-} from '@fortawesome/pro-solid-svg-icons';
-import {
+  faRectangleCode,
+  faHashtag,
   faCodeCommit,
   faDisplay,
 } from '@fortawesome/pro-regular-svg-icons';

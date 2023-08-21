@@ -7,6 +7,8 @@ import { selectContributionRequests, selectSearchTerm } from '../contributionReq
 import NcAvatar from '../../../common/components/NcAvatar';
 import NcLink from '../../../common/components/NcLink';
 import { deleteContributionRequest } from '../contributionRequests.thunks';
+import { CONTRIBUTION_REQUEST_STATUS } from '../contributionRequests.constants';
+import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
 
 export default function ContributionRequestsList({ nodeId }) {
   const contributionRequests = useSelector(selectContributionRequests(nodeId));
@@ -14,6 +16,24 @@ export default function ContributionRequestsList({ nodeId }) {
   const dispatch = useDispatch();
 
   const columns = [
+    {
+      field: 'status',
+      headerName: 'Status',
+      type: 'string',
+      flex: 0,
+      renderCell: (params) => <ContributionRequestStatusIcon status={params.value} />,
+      sortComparator: (v1, v2) => {
+        // Define a custom order for status values
+        const order = {
+          [CONTRIBUTION_REQUEST_STATUS.WORK_IN_PROGRESS]: 1,
+          [CONTRIBUTION_REQUEST_STATUS.PUBLISHED]: 2,
+          [CONTRIBUTION_REQUEST_STATUS.MERGED]: 3,
+          [CONTRIBUTION_REQUEST_STATUS.CLOSED]: 4,
+        };
+
+        return order[v1] - order[v2];
+      },
+    },
     {
       field: 'owner',
       headerName: 'Author',
@@ -24,7 +44,7 @@ export default function ContributionRequestsList({ nodeId }) {
     {
       field: 'title',
       headerName: 'Title',
-      flex: 5,
+      flex: 8,
       renderCell: (params) => <NcLink to={params.row.id} title={params.value} />,
     },
     {
@@ -50,38 +70,42 @@ export default function ContributionRequestsList({ nodeId }) {
   ];
 
   let rows = [];
+
   if (contributionRequests) {
     rows = Object.values(contributionRequests);
   }
 
   return (
-    <Box p={0}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 50,
-            },
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      initialState={{
+        pagination: {
+          paginationModel: {
+            pageSize: 50,
           },
-          sorting: {
-            sortModel: [{ field: 'createdAt', sort: 'desc' }],
-          },
-        }}
-        checkboxSelection={false}
-        rowSelection={false}
-        disableColumnMenu
-        columnHeaderHeight={48}
-        rowHeight={48}
-        filterModel={
+        },
+        sorting: {
+          sortModel: [
+            { field: 'status', sort: 'asc' },
+          ],
+        },
+      }}
+      checkboxSelection={false}
+      rowSelection={false}
+      disableColumnMenu
+      columnHeaderHeight={48}
+      rowHeight={48}
+      filterModel={
           {
             items: [],
             quickFilterValues: [searchTerm],
           }
         }
-      />
-    </Box>
+      style={{
+        height: '100%',
+      }}
+    />
   );
 }
 

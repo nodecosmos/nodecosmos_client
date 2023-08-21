@@ -3,14 +3,6 @@ import PropTypes from 'prop-types';
 import { ButtonGroup } from '@mui/material';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 
-/**
- *
- * @param children
- * @param round
- * @returns {JSX.Element}
- * @description
- * Looks like It must have two or more children to work properly.
- */
 export default function ToolbarContainer({
   children, round, size, ml, mr, fontSize,
 }) {

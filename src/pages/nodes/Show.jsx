@@ -35,6 +35,7 @@ export default function NodeShow() {
         width={SIDEBAR_WIDTH}
         borderRight={1}
         borderColor="borders.1"
+        zIndex={4}
       >
         <Sidebar rootId={rootId} id={id} />
       </Box>

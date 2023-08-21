@@ -1,5 +1,5 @@
 import React from 'react';
-import { faBell, faMessages } from '@fortawesome/pro-solid-svg-icons';
+import { faBell, faMessages } from '@fortawesome/pro-regular-svg-icons';
 import {
   Box,
   Button, Tooltip,
@@ -16,7 +16,7 @@ export default function UserHeaderOptions() {
 
   if (isAuthenticated) {
     return (
-      <ToolbarContainer fontSize="0.95rem">
+      <ToolbarContainer>
         <ToolbarItem title="messages" icon={faMessages} color="toolbar.green" />
         <ToolbarItem title="notifications" icon={faBell} color="toolbar.yellow" />
         <Tooltip title="Profile" placement="top">

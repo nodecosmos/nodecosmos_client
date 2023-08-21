@@ -2,14 +2,18 @@ export default (currentTheme) => ({
   MuiDataGrid: {
     styleOverrides: {
       root: {
-        border: '1px solid',
-        borderColor: currentTheme.palette.borders[2],
+        border: 'none',
+        borderRadius: 0,
         '& .MuiSvgIcon-root': {
           borderRadius: 0,
           color: currentTheme.palette.background[8],
         },
       },
+      overlay: {
+        backgroundColor: currentTheme.palette.background[3],
+      },
       columnHeaders: {
+        borderRadius: 0,
         backgroundColor: currentTheme.palette.background[6],
       },
       columnHeader: {
