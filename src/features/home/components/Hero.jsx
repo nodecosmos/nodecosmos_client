@@ -6,8 +6,8 @@ export default function Hero() {
   return (
     <Box
       mt={{
-        xs: 8,
-        md: 22,
+        xs: 4,
+        md: 8,
       }}
       mb={{
         xs: 12,
