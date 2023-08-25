@@ -19,6 +19,7 @@ export default function RemirrorEditorContainer({ children }) {
         },
         '.MuiBox-root': {
           backgroundColor: 'background.5',
+          border: 0,
         },
         '.remirror-editor-wrapper': {
           height: `calc(100% - ${HEADER_HEIGHT})`,
