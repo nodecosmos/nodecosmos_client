@@ -32,3 +32,15 @@ input:focus {
 #root {
     background: black;
 }
+
+.ProseMirror {
+    outline: none;
+}
+
+.ProseMirrorEditor:before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #8d9197;  /* Placeholder text color */
+    pointer-events: none;
+    height: 0;
+}

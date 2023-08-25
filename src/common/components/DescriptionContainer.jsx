@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 
-export default function DescriptionContainer({ children }) {
+export default function DescriptionContainer({ children, p }) {
   return (
     <Box
       height={1}
-      p={4}
+      p={p}
       sx={{
         color: 'text.secondary',
         'h1, h2, h3, h4, h5, h6': {
@@ -50,6 +50,12 @@ export default function DescriptionContainer({ children }) {
           p: 2,
           borderRadius: 1,
           backgroundColor: 'markdownContent.canvas',
+          textWrap: 'wrap',
+        },
+
+        a: {
+          color: 'text.link',
+          fontWeight: 'bold',
         },
       }}
     >
@@ -58,6 +64,11 @@ export default function DescriptionContainer({ children }) {
   );
 }
 
+DescriptionContainer.defaultProps = {
+  p: 4,
+};
+
 DescriptionContainer.propTypes = {
   children: PropTypes.node.isRequired,
+  p: PropTypes.number,
 };

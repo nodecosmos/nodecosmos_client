@@ -17,7 +17,7 @@ import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
 export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepIndex }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
-  const flowStartIndex = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'startIndex'));
+  // const flowStartIndex = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'startIndex'));
 
   const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
 

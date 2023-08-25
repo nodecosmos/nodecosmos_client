@@ -111,7 +111,7 @@ export default {
     },
 
     tree: {
-      default: '#272b34',
+      default: '#30353e',
       backgrounds: [
         '#d12f68',
         '#927bdf',
@@ -125,7 +125,7 @@ export default {
       defaultText: '#ffffff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#787d88',
-      defaultBorder: '#4c4f54',
+      defaultBorder: '#303436',
       dragInIndicator: '#bf7869',
     },
 
@@ -164,6 +164,7 @@ export default {
       lineHighlight: '#8a91991a',
       gutterBackground: 'transparent',
       gutterForeground: '#636b73',
+      gutterActiveForeground: '#bec8d8',
     },
 
     logo: {
@@ -175,6 +176,7 @@ export default {
       primary: '#edede8',
       secondary: '#c1c5d5',
       tertiary: '#747982',
+      disabled: '#5c616b',
       contrast: '#fff',
       sectionPrimary: '#9acb75',
       sectionSecondary: '#afbcef',

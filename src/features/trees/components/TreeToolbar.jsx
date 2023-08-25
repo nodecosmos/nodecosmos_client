@@ -18,9 +18,8 @@ export default function TreeToolbar({ rootNodeId }) {
       display="flex"
       alignItems="center"
       position="relative"
-      borderBottom={1}
-      borderColor="borders.2"
-      sx={{}}
+      boxShadow="2"
+      zIndex={3}
     >
       <TextField
         sx={{

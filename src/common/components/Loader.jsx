@@ -25,7 +25,7 @@ export default function Loader(props) {
 
 Loader.defaultProps = {
   backgroundColor: null,
-  color: 'background.3',
+  color: 'background.8',
 };
 
 Loader.propTypes = {

@@ -6,6 +6,7 @@ import {
   faHashtag,
   faCodeCommit,
   faDisplay,
+  faPenToSquare,
 } from '@fortawesome/pro-regular-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,16 +57,23 @@ export default function NodePaneToolbar() {
           onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.markdown))}
         />
         <ToolbarItem
+          title="Edit Description"
+          icon={faPenToSquare}
+          color="toolbar.green"
+          active={nodePaneContent === NODE_PANE_CONTENTS.proseMirror}
+          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.proseMirror))}
+        />
+        <ToolbarItem
           title="View Description"
           icon={faDisplay}
-          color="toolbar.green"
+          color="toolbar.blue"
           active={nodePaneContent === NODE_PANE_CONTENTS.description}
           onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description))}
         />
         <ToolbarItem
           title="Workflow"
           icon={faCodeCommit}
-          color="toolbar.blue"
+          color="toolbar.yellow"
           active={nodePaneContent === NODE_PANE_CONTENTS.workflow}
           onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.workflow))}
         />

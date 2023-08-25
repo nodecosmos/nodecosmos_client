@@ -171,6 +171,7 @@ export default {
       primary: '#626e79',
       secondary: '#7e7d75',
       tertiary: '#757571',
+      disabled: '#5c616b',
       contrast: '#5e5f5f',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',

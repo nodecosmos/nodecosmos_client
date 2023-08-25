@@ -7,8 +7,8 @@ export const SHADOW_OFFSET = 3; // offset of shadow from edge
 
 export const OUTPUT_EDGE_LENGTH = 65.5;
 export const WORKFLOW_STEP_HEIGHT = 65;
-export const WORKFLOW_STEP_WIDTH = 420;
-export const OUTPUT_VERTICAL_EDGE_LENGTH = 250;
+export const WORKFLOW_STEP_WIDTH = 380;
+export const OUTPUT_VERTICAL_EDGE_LENGTH = 220;
 export const FLOW_STEP_SIZE = 65.5;
 export const WORKFLOW_START_MARGIN_TOP = 30;
 

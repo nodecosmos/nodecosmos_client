@@ -1,21 +1,15 @@
 import React, { Suspense } from 'react';
-import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import md from 'markdown-it';
-/* nodecosmos */
-import {
-  selectNodeAttribute,
-  selectPersistentId,
-  selectSelectedNodeId,
-} from '../../../nodes.selectors';
-import { updateNodeDescription } from '../../../nodes.thunks';
-import { updateNodeState } from '../../../nodesSlice';
+import { Box } from '@mui/material';
+import { selectNodeAttribute, selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
 import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
+import { updateNodeState } from '../../../nodesSlice';
+import { updateNodeDescription } from '../../../nodes.thunks';
 import Loader from '../../../../../common/components/Loader';
 
-const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/CustomCodeMirror'));
+const RemirrorWysiwygEditor = React.lazy(() => import('../../../../../common/components/RemirrorWysiwygEditor'));
 
-export default function NodePaneMarkdownEditor() {
+export default function NodePaneRemirrorWysiwygEditor() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
   const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
@@ -26,7 +20,7 @@ export default function NodePaneMarkdownEditor() {
   const handleChangeTimeout = React.useRef(null);
   const descriptionMarkdown = useSelector(selectNodeAttribute(selectedNodeId, 'descriptionMarkdown'));
 
-  const handleChange = (value) => {
+  const handleChange = (remirrorHelpers) => {
     if (isTemp) return;
 
     if (handleChangeTimeout.current) {
@@ -34,21 +28,23 @@ export default function NodePaneMarkdownEditor() {
     }
 
     handleChangeTimeout.current = setTimeout(() => {
-      const descriptionHtml = md().render(value);
+      const descriptionHtml = remirrorHelpers.getHTML();
       const shortDescription = extractTextFromHtml(descriptionHtml);
+      const markdown = remirrorHelpers.getMarkdown();
 
       dispatch(updateNodeState({
         id: selectedNodeId,
         description: descriptionHtml,
         shortDescription,
-        descriptionMarkdown: value,
+        descriptionMarkdown: markdown,
       }));
+
       dispatch(updateNodeDescription({
         persistentRootId,
         persistentId,
         description: descriptionHtml,
         shortDescription,
-        descriptionMarkdown: value,
+        descriptionMarkdown: markdown,
       }));
     }, 500);
   };
@@ -56,7 +52,7 @@ export default function NodePaneMarkdownEditor() {
   return (
     <Suspense fallback={<Loader />}>
       <Box height={1}>
-        <CustomCodeMirror value={descriptionMarkdown || ''} onChange={handleChange} />
+        <RemirrorWysiwygEditor markdown={descriptionMarkdown || ''} onChange={handleChange} />
       </Box>
     </Suspense>
   );

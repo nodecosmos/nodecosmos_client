@@ -31,9 +31,17 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
 
   return (
     <g
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       key={wfStep.diagramId}
+      onMouseEnter={(e) => {
+        if (e.target.classList.contains('input-branch')) {
+          e.stopPropagation();
+        } else {
+          setHovered(true);
+        }
+      }}
+      onMouseLeave={(e) => {
+        setHovered(false);
+      }}
     >
       <path
         strokeWidth={1}
@@ -43,7 +51,6 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         fill="transparent"
       />
       <rect
-        onMouseEnter={() => setHovered(true)}
         x={x + 1}
         y={0}
         height={rectHeight}

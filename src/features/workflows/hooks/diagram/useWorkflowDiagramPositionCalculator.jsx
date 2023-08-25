@@ -26,7 +26,7 @@ export default function useWorkflowDiagramPositionCalculator(id) {
 
       positionsByDiagramId[initialInputId] = {
         x: OUTPUT_EDGE_LENGTH + MARGIN_LEFT,
-        xEnd: OUTPUT_EDGE_LENGTH * 2 + MARGIN_LEFT,
+        xEnd: OUTPUT_EDGE_LENGTH * 2,
         y: upperSiblingY + OUTPUT_EDGE_LENGTH,
         yEnd: upperSiblingY + OUTPUT_EDGE_LENGTH,
       };

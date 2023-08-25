@@ -32,6 +32,7 @@ export default function InputBranch({
   return (
     <g>
       <path
+        className="input-branch"
         stroke={color}
         fill="transparent"
         strokeWidth={1}

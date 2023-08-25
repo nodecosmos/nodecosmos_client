@@ -37,6 +37,7 @@ export default function CustomCodeMirror(props) {
     lineHighlight,
     gutterBackground,
     gutterForeground,
+    gutterActiveForeground,
   } = theme.palette.markdownEditor;
 
   const codeMirrorTheme = createTheme({
@@ -50,6 +51,7 @@ export default function CustomCodeMirror(props) {
       lineHighlight,
       gutterBackground,
       gutterForeground,
+      gutterActiveForeground,
     },
     styles: [
       {

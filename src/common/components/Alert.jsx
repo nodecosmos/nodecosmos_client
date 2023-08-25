@@ -30,7 +30,6 @@ export default function Alert() {
       onClose={handleClose}
       anchororigin={anchorOrigin}
       minHeight={HEADER_HEIGHT}
-      width={1}
     >
       <MuiAlert
         onClose={handleClose}

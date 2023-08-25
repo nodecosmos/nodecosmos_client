@@ -29,7 +29,7 @@ export default function ToolbarContainer({
             backgroundColor: 'transparent',
             borderRight: 'none',
             transition: 'none',
-            borderRadius: round ? '50%' : 0,
+            borderRadius: '50%',
 
             '&:hover': {
               borderRadius: '50%',

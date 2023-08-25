@@ -168,6 +168,7 @@ export default {
       lineHighlight: '#8a91991a',
       gutterBackground: 'transparent',
       gutterForeground: '#636b73',
+      gutterActiveForeground: '#bec8d8',
     },
 
     logo: {
@@ -179,6 +180,7 @@ export default {
       primary: '#f5f5f2',
       secondary: '#aab0be',
       tertiary: '#838a9a',
+      disabled: '#5c616b',
       contrast: '#fff',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',

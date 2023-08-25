@@ -19,8 +19,7 @@ import {
 import { WorkflowsContext } from '../../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
-import WorkflowRightOutputBranch from './WorkflowRightOutputBranch';
-import WorkflowLeftOutputBranch from './WorkflowLeftOutputBranch';
+import WorkflowOutputBranch from './WorkflowOutputBranch';
 
 const MemoizedButtonBase = memo(ButtonBase);
 
@@ -54,8 +53,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
 
   return (
     <g>
-      <WorkflowLeftOutputBranch id={id} />
-      <WorkflowRightOutputBranch id={id} />
+      <WorkflowOutputBranch id={id} />
       <g style={{
         opacity: 0,
         animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,

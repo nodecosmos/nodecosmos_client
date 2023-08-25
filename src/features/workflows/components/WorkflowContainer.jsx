@@ -16,7 +16,7 @@ export default function WorkflowContainer(props) {
           ml: 1,
           borderRadius: 1,
           minWidth: 150,
-          maxWidth: 190,
+          maxWidth: 150,
           px: 1,
           transform: 'skewX(-30deg)',
           '.IOButtonText': {
