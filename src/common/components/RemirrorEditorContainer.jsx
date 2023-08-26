@@ -11,6 +11,7 @@ export default function RemirrorEditorContainer({ children }) {
         height: '100%',
         '.MuiStack-root': {
           backgroundColor: 'background.5',
+          borderBottom: 1,
           borderColor: 'borders.2',
           pb: 0.5,
           pl: 0.5,
@@ -43,6 +44,7 @@ export default function RemirrorEditorContainer({ children }) {
           },
 
           '&.Mui-disabled': {
+            border: 0,
             backgroundColor: 'background.5',
             color: 'text.disabled',
           },

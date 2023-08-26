@@ -178,7 +178,7 @@ export default {
 
     text: {
       primary: '#f5f5f2',
-      secondary: '#aab0be',
+      secondary: '#babece',
       tertiary: '#838a9a',
       disabled: '#5c616b',
       contrast: '#fff',

@@ -3,5 +3,5 @@ export const NODE_PANE_CONTENTS = {
   markdown: 'markdown',
   description: 'description',
   workflow: 'workflow',
-  proseMirror: 'proseMirror',
+  wysiwyg: 'wysiwyg',
 };

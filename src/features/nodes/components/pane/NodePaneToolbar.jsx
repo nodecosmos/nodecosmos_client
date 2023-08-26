@@ -60,8 +60,8 @@ export default function NodePaneToolbar() {
           title="Edit Description"
           icon={faPenToSquare}
           color="toolbar.green"
-          active={nodePaneContent === NODE_PANE_CONTENTS.proseMirror}
-          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.proseMirror))}
+          active={nodePaneContent === NODE_PANE_CONTENTS.wysiwyg}
+          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.wysiwyg))}
         />
         <ToolbarItem
           title="View Description"

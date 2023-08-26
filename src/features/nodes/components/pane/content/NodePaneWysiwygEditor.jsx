@@ -9,7 +9,7 @@ import Loader from '../../../../../common/components/Loader';
 
 const RemirrorWysiwygEditor = React.lazy(() => import('../../../../../common/components/RemirrorWysiwygEditor'));
 
-export default function NodePaneRemirrorWysiwygEditor() {
+export default function NodePaneWysiwygEditor() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
   const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
@@ -52,7 +52,11 @@ export default function NodePaneRemirrorWysiwygEditor() {
   return (
     <Suspense fallback={<Loader />}>
       <Box height={1}>
-        <RemirrorWysiwygEditor markdown={descriptionMarkdown || ''} onChange={handleChange} />
+        <RemirrorWysiwygEditor
+          key={persistentId}
+          markdown={descriptionMarkdown || ''}
+          onChange={handleChange}
+        />
       </Box>
     </Suspense>
   );
