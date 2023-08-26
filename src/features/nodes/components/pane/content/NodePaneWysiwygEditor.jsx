@@ -53,7 +53,7 @@ export default function NodePaneWysiwygEditor() {
     <Suspense fallback={<Loader />}>
       <Box height={1}>
         <RemirrorWysiwygEditor
-          key={persistentId}
+          key={descriptionMarkdown || ''}
           markdown={descriptionMarkdown || ''}
           onChange={handleChange}
         />

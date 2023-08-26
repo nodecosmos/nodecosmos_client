@@ -60,7 +60,13 @@ export default function RemirrorWysiwygEditor({ markdown, onChange }) {
 
   return (
     <RemirrorEditorContainer>
-      <Remirror manager={manager} autoFocus initialContent={markdown} onChange={handleEditorChange}>
+      <Remirror
+        key={markdown || ''}
+        manager={manager}
+        autoFocus
+        initialContent={markdown}
+        onChange={handleEditorChange}
+      >
         <MarkdownToolbar />
         <EditorComponent />
       </Remirror>

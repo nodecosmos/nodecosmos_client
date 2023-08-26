@@ -24,7 +24,6 @@ import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
-import Alert from '../../../common/components/Alert';
 import ContributionRequestsTab from '../../../pages/nodes/show/ContributionRequestsTab';
 import Header from './header/Header';
 
