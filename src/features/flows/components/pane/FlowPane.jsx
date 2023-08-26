@@ -6,6 +6,7 @@ import { selectFlowPaneContent } from '../../flows.selectors';
 import FlowPaneDescription from './content/FlowPaneDescription';
 import FlowPaneMarkdownEditor from './content/FlowPaneMarkdownEditor';
 import FlowPaneToolbar from './FlowPaneToolbar';
+import FlowPaneWysiwygEditor from './content/FlowPaneWysiwygEditor';
 
 export default function FlowPane() {
   const ioPaneContent = useSelector(selectFlowPaneContent);
@@ -13,6 +14,7 @@ export default function FlowPane() {
   const contents = {
     markdown: <FlowPaneMarkdownEditor />,
     description: <FlowPaneDescription />,
+    wysiwyg: <FlowPaneWysiwygEditor />,
   };
 
   const content = contents[ioPaneContent];

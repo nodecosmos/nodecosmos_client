@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import {
@@ -38,6 +38,19 @@ export default function NodePane() {
       }));
     }
   }, [dispatch, description, persistentId, persistentRootId]);
+
+  if (!selectedNodeId) {
+    return (
+      <Box m={3} height={1} width={1} display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+        <Typography variant="h6" color="text.secondary" textAlign="center">
+          Select a node from the tree to view its description
+        </Typography>
+        <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
+          ¯\_(ツ)_/¯
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box

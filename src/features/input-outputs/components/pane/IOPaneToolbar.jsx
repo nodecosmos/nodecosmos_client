@@ -5,7 +5,7 @@ import {
   IconButton, Tooltip, Typography, Box,
 } from '@mui/material';
 import {
-  faRectangleCode, faCodeFork, faHashtag,
+  faRectangleCode, faCodeFork, faDisplay,
 } from '@fortawesome/pro-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,9 +50,16 @@ export default function IOPaneToolbar() {
           onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.markdown))}
         />
         <ToolbarItem
-          title="View Description"
-          icon={faHashtag}
+          title="Edit Description"
+          icon={faPenToSquare}
           color="toolbar.green"
+          active={ioPaneContent === IO_PANE_CONTENTS.wysiwyg}
+          onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.wysiwyg))}
+        />
+        <ToolbarItem
+          title="View Description"
+          icon={faDisplay}
+          color="toolbar.blue"
           active={ioPaneContent === IO_PANE_CONTENTS.description}
           onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.description))}
         />

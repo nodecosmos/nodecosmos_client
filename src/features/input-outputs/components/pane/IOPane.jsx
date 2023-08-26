@@ -6,12 +6,14 @@ import { selectIOPaneContent } from '../../inputOutputs.selectors';
 import IOPaneDescription from './content/IOPaneDescription';
 import IOPaneMarkdownEditor from './content/IOPaneMarkdownEditor';
 import IOPaneToolbar from './IOPaneToolbar';
+import IOPaneWysiwygEditor from './content/IOPaneWysiwygEditor';
 
 export default function IOPane() {
   const ioPaneContent = useSelector(selectIOPaneContent);
 
   const contents = {
     markdown: <IOPaneMarkdownEditor />,
+    wysiwyg: <IOPaneWysiwygEditor />,
     description: <IOPaneDescription />,
   };
 
