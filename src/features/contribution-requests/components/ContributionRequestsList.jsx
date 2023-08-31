@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { selectContributionRequests, selectSearchTerm } from '../contributionRequests.selectors';
 import NcAvatar from '../../../common/components/NcAvatar';
 import NcLink from '../../../common/components/NcLink';

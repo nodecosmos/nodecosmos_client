@@ -2,12 +2,10 @@ import React, { Suspense } from 'react';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
-import md from 'markdown-it';
 import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
-import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
 /* nodecosmos */
 
 const Wysiwyg = React.lazy(() => import('../../../../../common/components/RemirrorWysiwygEditor'));
@@ -63,7 +61,10 @@ export default function IOPaneWysiwygEditor() {
   return (
     <Suspense fallback={loading}>
       <Box height={1}>
-        <Wysiwyg markdown={descriptionMarkdown || ''} onChange={handleChange} />
+        <Wysiwyg
+          markdown={descriptionMarkdown || ''}
+          onChange={handleChange}
+        />
       </Box>
     </Suspense>
   );

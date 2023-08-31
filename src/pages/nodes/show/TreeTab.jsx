@@ -67,10 +67,10 @@ export default function TreeTab() {
         </TreeContainer>
         <Box
           onMouseDown={handleResize}
-          width="8px"
+          width="4px"
           backgroundColor="transparent"
           height={1}
-          ml={-1}
+          ml={-0.5}
           borderRight={1}
           borderColor="borders.2"
           sx={{

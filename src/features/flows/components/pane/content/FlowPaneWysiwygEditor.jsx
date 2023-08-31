@@ -62,7 +62,10 @@ export default function FlowPaneWysiwygEditor() {
   return (
     <Suspense fallback={loading}>
       <Box height={1}>
-        <Wysiwyg markdown={descriptionMarkdown || ''} onChange={handleChange} />
+        <Wysiwyg
+          markdown={descriptionMarkdown || ''}
+          onChange={handleChange}
+        />
       </Box>
     </Suspense>
   );

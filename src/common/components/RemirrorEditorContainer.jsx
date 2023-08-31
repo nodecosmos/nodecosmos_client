@@ -17,6 +17,8 @@ export default function RemirrorEditorContainer({ children }) {
           pl: 0.5,
           height: HEADER_HEIGHT,
           boxShadow: '2',
+          position: 'relative',
+          zIndex: 1,
         },
         '.MuiBox-root': {
           backgroundColor: 'background.5',

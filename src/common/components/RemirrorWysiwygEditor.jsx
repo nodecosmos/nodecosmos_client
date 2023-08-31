@@ -47,8 +47,11 @@ export default function RemirrorWysiwygEditor({ markdown, onChange }) {
     new CodeBlockExtension(),
   ];
 
-  const { manager } = useRemirror({
+  const {
+    manager, state,
+  } = useRemirror({
     extensions,
+    content: markdown,
     stringHandler: 'markdown',
   });
 
@@ -61,10 +64,9 @@ export default function RemirrorWysiwygEditor({ markdown, onChange }) {
   return (
     <RemirrorEditorContainer>
       <Remirror
-        key={markdown || ''}
         manager={manager}
+        initialContent={state}
         autoFocus
-        initialContent={markdown}
         onChange={handleEditorChange}
       >
         <MarkdownToolbar />

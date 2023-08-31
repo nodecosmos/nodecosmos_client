@@ -8,6 +8,8 @@ import {
   selectSelectedNodeId,
 } from '../../nodes.selectors';
 import { getNodeDescription } from '../../nodes.thunks';
+import { setNodePaneContent } from '../../nodesSlice';
+import { NODE_PANE_CONTENTS } from '../../nodes.constants';
 import NodePaneToolbar from './NodePaneToolbar';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneDescription from './content/NodePaneDescription';
@@ -19,12 +21,10 @@ export default function NodePane() {
   const persistentId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentId'));
   const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
   const nodePaneContent = useSelector(selectNodeDetailsAction);
-  const description = useSelector(selectNodeAttribute(selectedNodeId, 'description'));
-
   const dispatch = useDispatch();
 
   const nodePaneContents = {
-    description: <NodePaneDescription loading={false} />,
+    description: <NodePaneDescription />,
     markdown: <NodePaneMarkdownEditor />,
     wysiwyg: <NodePaneWysiwygEditor />,
     workflow: <NodePaneWorkflow />,
@@ -37,7 +37,13 @@ export default function NodePane() {
         id: persistentId,
       }));
     }
-  }, [dispatch, description, persistentId, persistentRootId]);
+
+    return () => {
+      if (nodePaneContent === NODE_PANE_CONTENTS.wysiwyg) {
+        dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description));
+      }
+    };
+  }, [dispatch, nodePaneContent, persistentId, persistentRootId]);
 
   if (!selectedNodeId) {
     return (
