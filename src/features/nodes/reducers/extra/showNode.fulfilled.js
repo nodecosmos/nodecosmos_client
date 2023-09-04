@@ -3,6 +3,8 @@ export default function showNodeFulfilledReducer(state, action) {
   const currentRootId = action.meta.arg.id;
 
   action.payload.forEach((node) => {
+    const stateNode = state.byId[node.id] || {};
+
     // default values
     node.childIds ||= [];
     node.ancestorIds ||= [];
@@ -11,6 +13,10 @@ export default function showNodeFulfilledReducer(state, action) {
     node.persistentParentId ||= node.parentId;
     node.persistentRootId ||= node.rootId;
     node.nestedLevel = node.ancestorIds.length;
+
+    // description call comes faster than showNode call, so we need to make sure we don't override the descriptions
+    node.description = stateNode.description;
+    node.shortDescription = stateNode.shortDescription;
 
     if (currentRootId) {
       node.rootId = currentRootId;

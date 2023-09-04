@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectFlowPaneContent } from '../../flows.selectors';
+import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
+import { FLOW_PANE_CONTENTS } from '../../flows.constants';
+import { setFlowPaneContent } from '../../flowsSlice';
+import usePrevious from '../../../../common/hooks/usePrevious';
 import FlowPaneDescription from './content/FlowPaneDescription';
 import FlowPaneMarkdownEditor from './content/FlowPaneMarkdownEditor';
 import FlowPaneToolbar from './FlowPaneToolbar';
@@ -10,6 +14,9 @@ import FlowPaneWysiwygEditor from './content/FlowPaneWysiwygEditor';
 
 export default function FlowPane() {
   const ioPaneContent = useSelector(selectFlowPaneContent);
+  const { id } = useSelector(selectSelectedWorkflowDiagramObject);
+  const prevId = usePrevious(id);
+  const dispatch = useDispatch();
 
   const contents = {
     markdown: <FlowPaneMarkdownEditor />,
@@ -18,6 +25,12 @@ export default function FlowPane() {
   };
 
   const content = contents[ioPaneContent];
+
+  useEffect(() => {
+    if (prevId !== id) {
+      dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description));
+    }
+  }, [dispatch, id, prevId]);
 
   return (
     <Box

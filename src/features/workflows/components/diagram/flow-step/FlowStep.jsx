@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import InputBranch from '../io/InputBranch';
 import NodeOutputsBranch from '../NodeOutputsBranch';
 import WorkflowNodeButton from '../WorkflowNodeButton';
 import WorkflowOutputButton from '../io/WorkflowOutputButton';
+import NodeInputBranches from '../io/NodeInputBranches';
 
 export default function FlowStep({ flowStep }) {
   const inputIdx = useRef({});
@@ -16,26 +16,12 @@ export default function FlowStep({ flowStep }) {
       {
         flowStep.nodes.map((node) => (
           <g key={node.diagramId}>
-            {
-              flowStep.inputsByNodeId[node.id]?.map((input) => {
-                // each input.id should have unique index
-                if (!inputIdx.current[input.id]) {
-                  inputIdx.current[input.id] = currentIdx.current;
-                  currentIdx.current += 1;
-                }
-
-                return (
-                  <g key={input.id}>
-                    <InputBranch
-                      nodeDiagramId={input.nodeDiagramId}
-                      nodeId={node.id}
-                      id={input.id}
-                      index={inputIdx.current[input.id]}
-                    />
-                  </g>
-                );
-              })
-            }
+            <NodeInputBranches
+              currentIdx={currentIdx}
+              inputIdx={inputIdx}
+              flowStep={flowStep}
+              node={node}
+            />
             <WorkflowNodeButton
               diagramId={node.diagramId}
               id={node.id}

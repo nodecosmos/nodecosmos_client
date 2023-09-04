@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { InputAdornment, TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
@@ -10,6 +10,10 @@ export default function ContributionRequestSearchInput() {
   const handleSearch = (event) => {
     dispatch(setSearchTerm(event.target.value));
   };
+
+  useEffect(() => () => {
+    dispatch(setSearchTerm(null));
+  }, [dispatch]);
 
   return (
     <TextField

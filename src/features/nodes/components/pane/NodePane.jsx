@@ -10,6 +10,7 @@ import {
 import { getNodeDescription } from '../../nodes.thunks';
 import { setNodePaneContent } from '../../nodesSlice';
 import { NODE_PANE_CONTENTS } from '../../nodes.constants';
+import usePrevious from '../../../../common/hooks/usePrevious';
 import NodePaneToolbar from './NodePaneToolbar';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneDescription from './content/NodePaneDescription';
@@ -30,6 +31,8 @@ export default function NodePane() {
     workflow: <NodePaneWorkflow />,
   };
 
+  const prevSelectedNodeId = usePrevious(selectedNodeId);
+
   useEffect(() => {
     if (persistentId && persistentRootId) {
       dispatch(getNodeDescription({
@@ -37,13 +40,13 @@ export default function NodePane() {
         id: persistentId,
       }));
     }
+  }, [dispatch, persistentId, persistentRootId]);
 
-    return () => {
-      if (nodePaneContent === NODE_PANE_CONTENTS.wysiwyg) {
-        dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description));
-      }
-    };
-  }, [dispatch, nodePaneContent, persistentId, persistentRootId]);
+  useEffect(() => {
+    if (prevSelectedNodeId !== selectedNodeId && nodePaneContent !== NODE_PANE_CONTENTS.workflow) {
+      dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description));
+    }
+  }, [dispatch, prevSelectedNodeId, selectedNodeId, nodePaneContent]);
 
   if (!selectedNodeId) {
     return (

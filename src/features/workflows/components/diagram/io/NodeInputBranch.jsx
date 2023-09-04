@@ -8,24 +8,24 @@ import {
   TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
 import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../workflows.constants';
-import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
+import { selectSelectedWorkflowDiagramObject, selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
-export default function InputBranch({
+export default function NodeInputBranch({
   id,
   nodeDiagramId,
   index,
 }) {
   const theme = useTheme();
+  const { diagramId: selectedDiagramId } = useSelector(selectSelectedWorkflowDiagramObject);
 
   const { x, y: yStart } = useSelector(selectWorkflowDiagramPosition(id)); // output of prev step
   const { x: xEnd, y: yEnd } = useSelector(selectWorkflowDiagramPosition(nodeDiagramId));
 
-  const { inputColors } = theme.palette.workflow;
-  const colorCount = inputColors.length;
-
-  const color = inputColors[index % colorCount];
+  const { selectedInputColor, defaultInputColor } = theme.palette.workflow;
 
   const xStart = x + OUTPUT_VERTICAL_EDGE_LENGTH + 5;
+
+  const color = selectedDiagramId === nodeDiagramId ? selectedInputColor : defaultInputColor;
 
   if (!x) return null;
 
@@ -47,7 +47,7 @@ export default function InputBranch({
   );
 }
 
-InputBranch.propTypes = {
+NodeInputBranch.propTypes = {
   id: PropTypes.string.isRequired,
   nodeDiagramId: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,

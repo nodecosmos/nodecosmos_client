@@ -133,13 +133,8 @@ export default {
       default: '#414650',
       input: '#cdd4ff',
       background: '#2d3139',
-      inputColors: [
-        '#cdd4ff',
-        // '#80a5ff',
-        // '#80ff99',
-        // '#ffec80',
-        // '#ff9180',
-      ],
+      selectedInputColor: '#cdd4ff',
+      defaultInputColor: '#52565e',
     },
 
     markdownContent: {

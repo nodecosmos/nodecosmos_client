@@ -129,9 +129,8 @@ export default {
       default: '#edf2f7',
       input: '#ebf8ff',
       background: '#f7fafc',
-      inputColors: [
-        '#ebf8ff',
-      ],
+      selectedInputColor: '#cdd4ff',
+      defaultInputColor: '#52565e',
     },
 
     markdownContent: {

@@ -7,7 +7,6 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode } from '../../features/nodes/nodes.thunks';
-import Loader from '../../common/components/Loader';
 
 export default function NodeShow() {
   const dispatch = useDispatch();
@@ -19,14 +18,11 @@ export default function NodeShow() {
     navigate('/404');
   }
 
-  const [loading, setLoading] = React.useState(true);
-
   useEffect(() => {
     dispatch(showNode({
       rootId,
       id,
     })).then((response) => {
-      setLoading(false);
       if (response.error) {
         navigate('/404');
       }
@@ -44,7 +40,7 @@ export default function NodeShow() {
         <Sidebar rootId={rootId} id={id} />
       </Box>
       <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
-        {!loading && <Outlet />}
+        <Outlet />
       </Box>
     </Box>
   );

@@ -31,6 +31,8 @@ export default function WorkflowToolbar({ nodeId }) {
       justifyContent="space-between"
       position="relative"
       boxShadow="2"
+      borderBottom={1}
+      borderColor="borders.1"
       zIndex={3}
     >
       <Box
