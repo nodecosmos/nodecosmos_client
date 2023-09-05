@@ -10,10 +10,12 @@ import {
 import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../workflows.constants';
 import { selectSelectedWorkflowDiagramObject, selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export default function NodeInputBranch({
   id,
   nodeDiagramId,
-  index,
+  index: _index,
 }) {
   const theme = useTheme();
   const { diagramId: selectedDiagramId } = useSelector(selectSelectedWorkflowDiagramObject);
@@ -23,11 +25,15 @@ export default function NodeInputBranch({
 
   const { selectedInputColor, defaultInputColor } = theme.palette.workflow;
 
-  const xStart = x + OUTPUT_VERTICAL_EDGE_LENGTH + 5;
-
-  const color = selectedDiagramId === nodeDiagramId ? selectedInputColor : defaultInputColor;
+  const xStart = x + OUTPUT_VERTICAL_EDGE_LENGTH;
+  const isSelected = selectedDiagramId === nodeDiagramId;
+  const color = isSelected ? selectedInputColor : defaultInputColor;
 
   if (!x) return null;
+
+  const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+  const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
+  const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
 
   return (
     <g>
@@ -35,12 +41,24 @@ export default function NodeInputBranch({
         className="input-branch"
         stroke={color}
         fill="transparent"
-        strokeWidth={1}
+        strokeWidth={isSelected ? 1.5 : 1}
         d={`M ${xStart} ${yStart} L ${xEnd} ${yEnd}`}
         style={{
           opacity: 0,
           animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
           transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+        }}
+      />
+      <circle
+        cx={xStart}
+        cy={yStart}
+        r={5}
+        stroke="transparent"
+        fill={theme.palette.tree.default}
+        style={{
+          opacity: 0,
+          animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
+          transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
         }}
       />
     </g>

@@ -15,7 +15,7 @@ import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 
-export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepIndex }) {
+export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepIndex: _ }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
   // const flowStartIndex = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'startIndex'));
 

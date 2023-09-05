@@ -79,14 +79,20 @@ export default function NodePaneToolbar() {
         />
       </ToolbarContainer>
 
-      {nodePaneContent !== 'description' && (
-      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default' } }}>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ svg: { color: 'background.list.defaultColor' } }}
+      >
         {title && <FontAwesomeIcon icon={faHashtag} />}
         <Typography
           align="center"
           variant="body1"
+          color="text.secondary"
           ml={1}
           sx={{
+            lineHeight: 1,
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
@@ -95,7 +101,6 @@ export default function NodePaneToolbar() {
           {title}
         </Typography>
       </Box>
-      )}
       <div />
     </Box>
   );

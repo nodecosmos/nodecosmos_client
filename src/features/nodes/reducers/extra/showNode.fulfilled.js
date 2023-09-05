@@ -16,6 +16,7 @@ export default function showNodeFulfilledReducer(state, action) {
 
     // description call comes faster than showNode call, so we need to make sure we don't override the descriptions
     node.description = stateNode.description;
+    node.descriptionMarkdown = stateNode.descriptionMarkdown;
     node.shortDescription = stateNode.shortDescription;
 
     if (currentRootId) {

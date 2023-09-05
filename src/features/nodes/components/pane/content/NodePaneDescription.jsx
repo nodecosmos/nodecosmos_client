@@ -7,7 +7,7 @@ import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selecto
 export default function NodePaneDescription() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
-  const { title, description } = useSelector(selectSelectedNode);
+  const { description } = useSelector(selectSelectedNode);
 
   if (!selectedNodeId) return null;
 
@@ -27,17 +27,6 @@ export default function NodePaneDescription() {
 
   return (
     <DescriptionContainer>
-      <Box
-        component="h1"
-        sx={{
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {title && '# '}
-        {title}
-      </Box>
       {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
     </DescriptionContainer>
   );
