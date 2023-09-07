@@ -31,10 +31,10 @@ function NodeCard(props) {
           component={RouterLink}
           to={`/nodes/${node.rootId}/${node.id}`}
         >
-          {node.coverImage && (
+          {node.coverImageUrl && (
           <CardMedia
             component="img"
-            image={node.coverImage}
+            image={node.coverImageUrl}
             alt="Cover Image"
             sx={{
               height: {

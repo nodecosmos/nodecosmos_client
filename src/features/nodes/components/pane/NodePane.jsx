@@ -71,7 +71,7 @@ export default function NodePane() {
       zIndex={1}
     >
       <NodePaneToolbar id={selectedNodeId} />
-      <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto" pt={0.25}>
+      <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
         {nodePaneContents[nodePaneContent]}
       </Box>
     </Box>

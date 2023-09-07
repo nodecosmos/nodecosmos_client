@@ -44,7 +44,7 @@ const nodesSlice = createSlice({
      *    shortDescription: string,
      *    likesCount: number,
      *    likedByCurrentUser: boolean,
-     *    coverImage: string,
+     *    coverImageUrl: string,
      *    createdAt: string,
      *    updatedAt: string,
      *    owner: {
