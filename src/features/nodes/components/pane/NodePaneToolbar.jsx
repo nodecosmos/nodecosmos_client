@@ -39,6 +39,9 @@ export default function NodePaneToolbar() {
     );
   }
 
+  const hasBoxShadow = nodePaneContent === NODE_PANE_CONTENTS.markdown
+    || nodePaneContent === NODE_PANE_CONTENTS.description;
+
   return (
     <Box
       display="flex"
@@ -47,6 +50,7 @@ export default function NodePaneToolbar() {
       height={HEADER_HEIGHT}
       borderBottom={1}
       borderColor="borders.3"
+      boxShadow={hasBoxShadow ? 'left.2' : 0}
     >
       <ToolbarContainer>
         <ToolbarItem

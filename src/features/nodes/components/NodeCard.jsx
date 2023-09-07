@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardContent,
   Typography,
-  Link,
+  Link, CardMedia,
 } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -19,35 +19,70 @@ function NodeCard(props) {
   const node = useSelector(selectIndexedNode(id));
 
   return (
-    <Box width="100%" mt={2}>
+    <Box width="100%" mt={4}>
       <Card
         className="Card"
         elevation={2}
         sx={{
-          p: 1,
           borderRadius: 4,
         }}
       >
+        <Link
+          component={RouterLink}
+          to={`/nodes/${node.rootId}/${node.id}`}
+        >
+          {node.coverImage && (
+          <CardMedia
+            component="img"
+            image={node.coverImage}
+            alt="Cover Image"
+            sx={{
+              height: {
+                xs: 260,
+                sm: 375,
+              },
+            }}
+          />
+          )}
+        </Link>
         <CardHeader
+          sx={{
+            p: 3,
+            pr: 0,
+            mr: 0,
+            '& .MuiCardHeader-avatar': {
+              mr: 0,
+            },
+          }}
           avatar={(
-            <Link to={`/users/${node.owner.id}`}>
-              <NcAvatar model={node.owner} />
+            <Link component={RouterLink} to={`/users/${node.owner.id}`}>
+              <Box display="flex" alignItems="center">
+                <NcAvatar model={node.owner} />
+                <Typography variant="h6" color="text.secondary" ml={1} fontWeight="bold">
+                  {node.owner.name}
+                </Typography>
+                {node.owner.username && (
+                <Typography variant="h6" color="text.disabled" ml={1}>
+                  @
+                  {node.owner.username}
+                </Typography>
+                )}
+              </Box>
             </Link>
         )}
-          title={(
-            <Link component={RouterLink} to={`/users/${node.owner.id}`}>
-              <Typography variant="body1" color="text.secondary">
-                {node.owner.username}
-              </Typography>
-            </Link>
-)}
           subheader={(
-            <Typography color="text.tertiary">
-              {toLocalTime(node.createdAt)}
-            </Typography>
+            <Box display="flex" alignItems="center">
+              <Box component="span" mx={1} fontSize={30}>
+                ·
+              </Box>
+              <Typography color="text.tertiary">
+                {' '}
+                {toLocalTime(node.createdAt)}
+              </Typography>
+            </Box>
           )}
         />
-        <CardContent sx={{ ml: 8, p: 0 }}>
+        <CardContent sx={{ px: 3, pt: 0, mb: 1 }}>
           <Link
             sx={{ '&:hover h2': { color: 'text.link', textDecoration: 'underline' } }}
             component={RouterLink}
@@ -62,7 +97,7 @@ function NodeCard(props) {
               {node.title}
             </Typography>
           </Link>
-          <Typography variant="body1" color="text.secondary" mt={2} sx={{ height: 72 }}>
+          <Typography variant="body1" color="text.secondary" mt={2} sx={{ minHeight: 72 }}>
             {node.shortDescription}
           </Typography>
         </CardContent>

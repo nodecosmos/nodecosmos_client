@@ -13,9 +13,9 @@ export default function NcAvatar({
       onClick={onClick}
       sx={{
         transform: `scale(${scale})`,
-        height: 30,
-        width: 30,
-        fontSize: 15,
+        height: 40,
+        width: 40,
+        fontSize: 20,
         backgroundColor,
         color: 'text.primary',
         cursor: 'pointer',
