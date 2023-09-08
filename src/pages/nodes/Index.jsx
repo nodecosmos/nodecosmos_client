@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { Box, Container } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setHeaderContent } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
-/* node-lib */
-import NodeCard from '../../features/nodes/components/NodeCard';
+import NodeCards from '../../features/nodes/components/NodeCards';
 import { indexNodes } from '../../features/nodes/nodes.thunks';
 
 export default function NodeIndex() {
-  const nodes = useSelector((state) => state.nodes.indexNodesById);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,10 +18,6 @@ export default function NodeIndex() {
     };
   }, [dispatch]);
 
-  const cards = Object.keys(nodes).map((id) => (
-    <NodeCard key={id} id={id} />
-  ));
-
   return (
     <Box height={1} display="flex">
       <Box
@@ -34,7 +28,7 @@ export default function NodeIndex() {
       />
       <Box height={1} width={`calc(100% - ${SIDEBAR_WIDTH}px)`} overflow="auto" pb={2}>
         <Container maxWidth="md">
-          {cards}
+          <NodeCards />
         </Container>
       </Box>
     </Box>

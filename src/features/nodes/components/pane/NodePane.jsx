@@ -25,11 +25,13 @@ export default function NodePane() {
   const dispatch = useDispatch();
 
   const nodePaneContents = {
-    description: <NodePaneDescription />,
-    markdown: <NodePaneMarkdownEditor />,
-    wysiwyg: <NodePaneWysiwygEditor />,
-    workflow: <NodePaneWorkflow />,
+    description: NodePaneDescription,
+    markdown: NodePaneMarkdownEditor,
+    wysiwyg: NodePaneWysiwygEditor,
+    workflow: NodePaneWorkflow,
   };
+
+  const SelectedComponent = nodePaneContents[nodePaneContent];
 
   const prevSelectedNodeId = usePrevious(selectedNodeId);
 
@@ -72,7 +74,7 @@ export default function NodePane() {
     >
       <NodePaneToolbar id={selectedNodeId} />
       <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
-        {nodePaneContents[nodePaneContent]}
+        <SelectedComponent />
       </Box>
     </Box>
   );

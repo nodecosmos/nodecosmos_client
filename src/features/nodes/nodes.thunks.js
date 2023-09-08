@@ -156,3 +156,12 @@ export const reorder = createAsyncThunk(
     return response.data;
   },
 );
+
+export const deleteNodeImage = createAsyncThunk(
+  'nodes/deleteNodeImage',
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${payload.rootId}/${payload.id}/delete_cover_image`);
+
+    return response.data;
+  },
+);

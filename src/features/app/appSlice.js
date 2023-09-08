@@ -26,7 +26,7 @@ const appSlice = createSlice({
   name: 'app',
   initialState: {
     headerContent: null,
-    theme: localStorage.getItem('theme') || 'dark',
+    theme: localStorage.getItem('theme') || 'dimmed',
     /**
      * @type {{
      *   [id: string]: {

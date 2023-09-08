@@ -9,8 +9,10 @@ export default function RemirrorEditorContainer({ children }) {
     <Box
       sx={{
         height: '100%',
-        '.MuiStack-root': {
-          backgroundColor: 'background.5',
+        '.RemirrorToolbar': {
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: 'background.3',
           borderBottom: 1,
           borderColor: 'borders.2',
           pb: 0.5,
@@ -19,6 +21,10 @@ export default function RemirrorEditorContainer({ children }) {
           boxShadow: '2',
           position: 'relative',
           zIndex: 1,
+        },
+        '.MuiStack-root': {
+          backgroundColor: 'background.5',
+
         },
         '.MuiBox-root': {
           backgroundColor: 'background.5',

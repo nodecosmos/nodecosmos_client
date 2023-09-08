@@ -52,10 +52,17 @@ export default function DescriptionContainer({ children, p }) {
           backgroundColor: 'markdownContent.canvas',
           textWrap: 'wrap',
         },
-
         a: {
           color: 'text.link',
           fontWeight: 'bold',
+        },
+        'p:has(> img)': {
+          textAlign: 'center',
+        },
+        'img:not(.ProseMirror-separator)': {
+          // width: 850,
+          // height: 350,
+          borderRadius: 5,
         },
       }}
     >

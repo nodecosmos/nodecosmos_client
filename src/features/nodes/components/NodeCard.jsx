@@ -19,69 +19,91 @@ function NodeCard(props) {
   const node = useSelector(selectIndexedNode(id));
 
   return (
-    <Box width="100%" mt={4}>
+    <Box width={680} mt={2}>
       <Card
         className="Card"
         elevation={2}
         sx={{
           borderRadius: 4,
+          // border: 1,
+          borderColor: 'borders.3',
         }}
       >
         <Link
           component={RouterLink}
           to={`/nodes/${node.rootId}/${node.id}`}
         >
-          {node.coverImageUrl && (
-          <CardMedia
-            component="img"
-            image={node.coverImageUrl}
-            alt="Cover Image"
-            sx={{
-              height: {
-                xs: 260,
-                sm: 375,
-              },
-            }}
-          />
-          )}
-        </Link>
-        <CardHeader
-          sx={{
-            p: 3,
-            pr: 0,
-            mr: 0,
-            '& .MuiCardHeader-avatar': {
-              mr: 0,
-            },
-          }}
-          avatar={(
-            <Link component={RouterLink} to={`/users/${node.owner.id}`}>
-              <Box display="flex" alignItems="center">
-                <NcAvatar model={node.owner} />
-                <Typography variant="h6" color="text.secondary" ml={1} fontWeight="bold">
-                  {node.owner.name}
-                </Typography>
-                {node.owner.username && (
-                <Typography variant="h6" color="text.disabled" ml={1}>
-                  @
-                  {node.owner.username}
-                </Typography>
+          <Box className={node.coverImageUrl && 'CoverHeader'}>
+            <CardHeader
+              sx={{
+                p: 3,
+                pr: 0,
+                mr: 0,
+                '& .MuiCardHeader-avatar': {
+                  mr: 0,
+                },
+              }}
+              avatar={(
+                <Box display="flex" alignItems="center" zIndex={1} position="relative">
+                  <Link component={RouterLink} to={`/users/${node.owner.id}`}>
+                    <NcAvatar model={node.owner} />
+                  </Link>
+                  <Link component={RouterLink} to={`/users/${node.owner.id}`}>
+                    <Typography variant="h6" color="text.primary" ml={1} fontWeight="bold">
+                      {node.owner.name}
+                    </Typography>
+                  </Link>
+                  <Link
+                    component={RouterLink}
+                    to={`/users/${node.owner.id}`}
+                    sx={{
+                      '&:hover h6': {
+                        color: 'text.link',
+                      },
+                    }}
+                  >
+                    {node.owner.username && (
+                      <Typography variant="h6" color="text.tertiary" ml={1}>
+                        @
+                        {node.owner.username}
+                      </Typography>
+                    )}
+                  </Link>
+                </Box>
                 )}
-              </Box>
-            </Link>
-        )}
-          subheader={(
-            <Box display="flex" alignItems="center">
-              <Box component="span" mx={1} fontSize={30}>
-                ·
-              </Box>
-              <Typography color="text.tertiary">
-                {' '}
-                {toLocalTime(node.createdAt)}
-              </Typography>
-            </Box>
-          )}
-        />
+              subheader={(
+                <Box display="flex" alignItems="center">
+                  <Box component="span" mx={1} fontSize={30}>
+                    ·
+                  </Box>
+                  <Typography color="text.tertiary">
+                    {' '}
+                    {toLocalTime(node.createdAt)}
+                  </Typography>
+                </Box>
+                )}
+            />
+            {node.coverImageUrl && (
+              <>
+                <CardMedia
+                  className="AmbientImage"
+                  component="img"
+                  image={node.coverImageUrl}
+                  alt="Cover Image Ambient"
+                />
+                <CardMedia
+                  className="CoverImage"
+                  component="img"
+                  image={node.coverImageUrl}
+                  alt="Cover Image"
+                />
+              </>
+
+            )}
+
+          </Box>
+        </Link>
+
         <CardContent sx={{ px: 3, pt: 0, mb: 1 }}>
           <Link
             sx={{ '&:hover h2': { color: 'text.link', textDecoration: 'underline' } }}
