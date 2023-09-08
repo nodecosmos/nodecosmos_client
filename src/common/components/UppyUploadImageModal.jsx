@@ -19,6 +19,17 @@ const uppy = new Uppy({
     maxFileSize: 5 * 1024 * 1024,
     allowedFileTypes: ['image/jpeg', 'image/png'],
   },
+  locale: {
+    strings: {
+      // Change the 'Drop files here, paste or browse' message
+      browse: 'Drop files here, paste, browse or %{browse}',
+
+      // Change the 'Uploading %{smart_count} file' message
+      uploading: 'Uploading %{smart_count} file',
+
+      // Change other messages as needed
+    },
+  },
 }).use(ImageEditor, {
   id: 'ImageEditor',
   quality: 0.8,
@@ -108,17 +119,16 @@ export default function UppyUploadImageModal({ open, onClose, endpointPath }) {
       fullWidth
       maxWidth="md"
       open={open}
-      onClose={onClose}
+      onClose={() => onClose()}
       PaperProps={{
         elevation: 8,
       }}
     >
       <DialogTitle>
         Upload Cover Image
-        <CloseModalButton onClose={onClose} />
+        <CloseModalButton onClose={() => onClose()} />
       </DialogTitle>
       <DialogContent>
-
         <Box sx={{
           '.uppy-Dashboard-inner': {
             backgroundColor: 'transparent!important',

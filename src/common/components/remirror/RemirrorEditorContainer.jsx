@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-import { HEADER_HEIGHT } from '../../features/app/constants';
-import DescriptionContainer from './DescriptionContainer';
+import { HEADER_HEIGHT } from '../../../features/app/constants';
+import DescriptionContainer from '../DescriptionContainer';
 
 export default function RemirrorEditorContainer({ children }) {
   return (
     <Box
       sx={{
         height: '100%',
-        '.RemirrorToolbar': {
+        '.MuiStack-root': {
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: 'background.3',
+          backgroundColor: 'background.5',
           borderBottom: 1,
           borderColor: 'borders.2',
           pb: 0.5,
@@ -21,10 +21,6 @@ export default function RemirrorEditorContainer({ children }) {
           boxShadow: '2',
           position: 'relative',
           zIndex: 1,
-        },
-        '.MuiStack-root': {
-          backgroundColor: 'background.5',
-
         },
         '.MuiBox-root': {
           backgroundColor: 'background.5',
@@ -40,7 +36,9 @@ export default function RemirrorEditorContainer({ children }) {
           backgroundColor: 'background.5',
           border: 0,
           borderColor: 'borders.2',
-          mr: 0.5,
+          // mr: 0.5,
+          width: 40,
+          height: 28,
 
           '&.Mui-selected': {
             backgroundColor: 'background.8',

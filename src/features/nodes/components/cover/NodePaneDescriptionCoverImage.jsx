@@ -53,10 +53,11 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
               },
               '.CoverImage': {
                 position: 'relative',
-                maxWidth: 852,
+                maxWidth: '100%',
                 maxHeight: '100%',
                 '.CoverImageMedia': {
                   borderRadius: 5,
+                  maxWidth: '100%',
                   width: 852,
                   maxHeight: 350,
                 },
@@ -108,17 +109,13 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
 
       </Box>
       {!coverImageUrl && (
-        <Box w={1} height="auto" m={2}>
+        <Box w={1} height="auto" ml={4} mt={3} mb={-3}>
           <Button
             component="label"
-            variant="contained"
+            variant="outlined"
             startIcon={<FontAwesomeIcon icon={faCamera} />}
             onClick={() => setOpenCoverImageUploader(true)}
-            color="button"
-            sx={{
-              color: 'text.primary',
-              float: 'right',
-            }}
+            color="buttonContrast"
           >
             Upload cover image
           </Button>

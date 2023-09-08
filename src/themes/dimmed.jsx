@@ -62,6 +62,11 @@ export default {
       contrastText: '#a5b4be',
     },
 
+    buttonContrast: {
+      main: '#a5b4be',
+      contrastText: '#3d4652',
+    },
+
     borders: {
       1: '#43464d',
       2: '#454b53', // 454b53 3c4149

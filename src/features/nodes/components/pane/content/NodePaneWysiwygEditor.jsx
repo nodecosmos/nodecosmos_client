@@ -7,7 +7,9 @@ import { updateNodeState } from '../../../nodesSlice';
 import { updateNodeDescription } from '../../../nodes.thunks';
 import Loader from '../../../../../common/components/Loader';
 
-const RemirrorWysiwygEditor = React.lazy(() => import('../../../../../common/components/RemirrorWysiwygEditor'));
+const RemirrorWysiwygEditor = React.lazy(
+  () => import('../../../../../common/components/remirror/RemirrorEditor'),
+);
 
 export default function NodePaneWysiwygEditor() {
   const selectedNodeId = useSelector(selectSelectedNodeId);

@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
   EditorComponent,
-  MarkdownToolbar,
   Remirror,
   useRemirror,
 } from '@remirror/react';
@@ -25,10 +24,10 @@ import {
   CodeBlockExtension,
   ImageExtension,
 } from 'remirror/extensions';
-import { Box } from '@mui/material';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
+import RemirrorEditorToolbar from './RemirrorEditorToolbar';
 
-export default function RemirrorWysiwygEditor({ markdown, onChange }) {
+export default function RemirrorEditor({ markdown, onChange }) {
   const extensions = [
     new LinkExtension({ autoLink: true }),
     new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
@@ -64,9 +63,6 @@ export default function RemirrorWysiwygEditor({ markdown, onChange }) {
     }
   };
 
-  // eslint-disable-next-line max-len
-  const src = 'https://nodecosmos-development.s3.amazonaws.com/ba7822a7-fb5f-4f95-849a-07f7c36697b0/1694196585-cover.jpeg';
-
   return (
     <RemirrorEditorContainer>
       <Remirror
@@ -75,22 +71,14 @@ export default function RemirrorWysiwygEditor({ markdown, onChange }) {
         autoFocus
         onChange={handleEditorChange}
       >
-        <Box className="RemirrorToolbar">
-          <MarkdownToolbar />
-          <button
-            type="button"
-            onClick={() => manager.store.commands.insertImage({ src })}
-          >
-            Insert Image
-          </button>
-        </Box>
+        <RemirrorEditorToolbar />
         <EditorComponent />
       </Remirror>
     </RemirrorEditorContainer>
   );
 }
 
-RemirrorWysiwygEditor.propTypes = {
+RemirrorEditor.propTypes = {
   markdown: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

@@ -8,7 +8,7 @@ import { updateFlowState } from '../../../flowsSlice';
 import { updateFlowDescription } from '../../../flows.thunks';
 /* nodecosmos */
 
-const Wysiwyg = React.lazy(() => import('../../../../../common/components/RemirrorWysiwygEditor'));
+const Wysiwyg = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>

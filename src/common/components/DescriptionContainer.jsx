@@ -60,8 +60,7 @@ export default function DescriptionContainer({ children, p }) {
           textAlign: 'center',
         },
         'img:not(.ProseMirror-separator)': {
-          // width: 850,
-          // height: 350,
+          maxWidth: '100%',
           borderRadius: 5,
         },
       }}

@@ -134,6 +134,21 @@ const getTheme = (currentTheme) => createTheme({
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: currentTheme.palette.background[7],
+          },
+          '&.Mui-selected': {
+            backgroundColor: currentTheme.palette.background[8],
+            '&:hover': {
+              backgroundColor: currentTheme.palette.background[8],
+            },
+          },
+        },
+      },
+    },
     ...input(currentTheme),
     ...buttons(currentTheme),
     ...tab(currentTheme),
