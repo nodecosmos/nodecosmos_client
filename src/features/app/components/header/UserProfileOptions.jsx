@@ -59,7 +59,13 @@ export default function UserProfileOptions() {
 
   return (
     <>
-      <NcAvatar model={{ name: currentUser.username }} onClick={handleClick} />
+      <NcAvatar
+        model={{ name: currentUser.username }}
+        onClick={handleClick}
+        width={30}
+        height={30}
+        fontSize={15}
+      />
       <Menu
         anchorEl={anchorEl}
         open={open}

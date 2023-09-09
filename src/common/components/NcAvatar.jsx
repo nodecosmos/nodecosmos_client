@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { Avatar } from '@mui/material';
 
 export default function NcAvatar({
-  model, onClick, backgroundColor, scale,
+  model, onClick, backgroundColor, scale, width, height, fontSize,
 }) {
   const letter = model?.name?.charAt(0)?.toUpperCase();
 
@@ -13,9 +13,9 @@ export default function NcAvatar({
       onClick={onClick}
       sx={{
         transform: `scale(${scale})`,
-        height: 40,
-        width: 40,
-        fontSize: 20,
+        width,
+        height,
+        fontSize,
         backgroundColor,
         color: 'text.primary',
         cursor: 'pointer',
@@ -30,6 +30,9 @@ NcAvatar.defaultProps = {
   onClick: null,
   backgroundColor: 'background.8',
   scale: 1,
+  width: 40,
+  height: 40,
+  fontSize: 20,
 };
 
 NcAvatar.propTypes = {
@@ -37,4 +40,7 @@ NcAvatar.propTypes = {
   model: PropTypes.object.isRequired,
   onClick: PropTypes.func,
   scale: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  fontSize: PropTypes.number,
 };
