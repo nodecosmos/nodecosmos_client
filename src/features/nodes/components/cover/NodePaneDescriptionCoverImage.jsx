@@ -19,13 +19,13 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
   const [displayCoverImageUploadButton, setDisplayCoverImageUploadButton] = React.useState(false);
   const dispatch = useDispatch();
 
-  const handleClose = (imageUrl) => {
+  const handleClose = (responseBody) => {
     setOpenCoverImageUploader(false);
 
-    if (imageUrl) {
+    if (responseBody?.coverImageUrl) {
       dispatch(updateNodeState({
         id,
-        coverImageUrl: imageUrl,
+        coverImageUrl: responseBody.coverImageUrl,
       }));
     }
   };

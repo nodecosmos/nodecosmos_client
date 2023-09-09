@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 
+// decide if we want to use width
 export default function DescriptionContainer({ children, p, width }) {
   return (
     <Box
@@ -15,7 +16,7 @@ export default function DescriptionContainer({ children, p, width }) {
         height={1}
         sx={{
           maxWidth: 852,
-          width,
+          width: 1,
           color: 'text.secondary',
           'h1, h2, h3, h4, h5, h6': {
             marginBlockStart: 0,
@@ -71,7 +72,8 @@ export default function DescriptionContainer({ children, p, width }) {
             textAlign: 'center',
           },
           'img:not(.ProseMirror-separator)': {
-            maxWidth: '100%',
+            maxWidth: 752,
+            width: 1,
             borderRadius: 5,
           },
         }}
@@ -84,7 +86,7 @@ export default function DescriptionContainer({ children, p, width }) {
 
 DescriptionContainer.defaultProps = {
   p: 4,
-  width: 'auto',
+  width: 1,
 };
 
 DescriptionContainer.propTypes = {

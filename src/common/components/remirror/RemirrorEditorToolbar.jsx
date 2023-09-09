@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  MarkdownToolbar, useActive, useCommands, useHelpers, useRemirrorContext,
-} from '@remirror/react';
+import { useActive, useCommands, useHelpers } from '@remirror/react';
 import {
   Box, Stack, ToggleButton, Tooltip,
 } from '@mui/material';
@@ -21,15 +19,32 @@ import {
   faCamera,
 } from '@fortawesome/pro-solid-svg-icons';
 
+import { useSelector } from 'react-redux';
+import UppyUploadImageModal from '../UppyUploadImageModal';
+import { selectSelectedNode } from '../../../features/nodes/nodes.selectors';
 import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
 
 // Add uploaded files as attachments to the models.
 // Don't do anything on article change, but allow users to remove attachments in separate dialog.
 export default function RemirrorEditorToolbar() {
+  const {
+    persistentId,
+  } = useSelector(selectSelectedNode);
+
   const commands = useCommands();
   const active = useActive();
 
   const { undoDepth, redoDepth } = useHelpers(true);
+
+  const [openImageDialog, setOpenImageDialog] = React.useState(false);
+
+  const handleImageDialogClose = (responseBody) => {
+    setOpenImageDialog(false);
+    if (responseBody?.url) {
+      commands.insertImage({ src: responseBody?.url });
+      commands.insertText('\n\n');
+    }
+  };
 
   return (
     <Box className="RemirrorToolbar">
@@ -124,33 +139,42 @@ export default function RemirrorEditorToolbar() {
         </Box>
         <Box>
           <Tooltip title="Undo">
-            <ToggleButton
-              value="check"
-              onClick={() => commands.undo()}
-              disabled={!undoDepth() > 0}
-            >
-              <FontAwesomeIcon icon={faUndo} />
-            </ToggleButton>
+            <span>
+              <ToggleButton
+                value="check"
+                onClick={() => commands.undo()}
+                disabled={!undoDepth() > 0}
+              >
+                <FontAwesomeIcon icon={faUndo} />
+              </ToggleButton>
+            </span>
           </Tooltip>
           <Tooltip title="Redo">
-            <ToggleButton
-              value="check"
-              onClick={() => commands.redo()}
-              disabled={!redoDepth() > 0}
-            >
-              <FontAwesomeIcon icon={faRedo} />
-            </ToggleButton>
+            <span>
+              <ToggleButton
+                value="check"
+                onClick={() => commands.redo()}
+                disabled={!redoDepth() > 0}
+              >
+                <FontAwesomeIcon icon={faRedo} />
+              </ToggleButton>
+            </span>
           </Tooltip>
         </Box>
         <Box>
           <Tooltip title="Insert image">
-            <ToggleButton value="check" onClick={() => commands.toggleBold()}>
+            <ToggleButton value="check" onClick={() => setOpenImageDialog(true)}>
               <FontAwesomeIcon icon={faCamera} />
             </ToggleButton>
           </Tooltip>
         </Box>
       </Stack>
-
+      <UppyUploadImageModal
+        endpointPath={`attachments/${persistentId}/${persistentId}/upload_image`}
+        open={openImageDialog}
+        onClose={handleImageDialogClose}
+        aspectRatio={null}
+      />
     </Box>
   );
 }

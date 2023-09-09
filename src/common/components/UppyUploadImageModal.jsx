@@ -33,11 +33,6 @@ const uppy = new Uppy({
 }).use(ImageEditor, {
   id: 'ImageEditor',
   quality: 0.8,
-  cropperOptions: {
-    viewMode: 3,
-    aspectRatio: 850 / 375,
-    rotatable: false,
-  },
   actions: {
     revert: true,
     rotate: false,
@@ -58,7 +53,9 @@ uppy.use(XHRUpload, {
   withCredentials: true,
 });
 
-export default function UppyUploadImageModal({ open, onClose, endpointPath }) {
+export default function UppyUploadImageModal({
+  open, onClose, endpointPath, aspectRatio,
+}) {
   const uri = nodecosmos.getUri();
 
   useEffect(() => {
@@ -70,19 +67,33 @@ export default function UppyUploadImageModal({ open, onClose, endpointPath }) {
     }
   }, [endpointPath, uri]);
 
-  uppy.on('upload-success', (file, response) => {
-    // dispatch(updateNodeState({
-    //   id,
-    //   coverImageUrl: response.body.coverImageUrl,
-    // }));
+  useEffect(() => {
+    const imageEditor = uppy.getPlugin('ImageEditor');
+    if (imageEditor) {
+      imageEditor.setOptions({
+        cropperOptions: {
+          viewMode: 3,
+          aspectRatio,
+          rotatable: false,
+        },
+      });
+    }
+  }, [aspectRatio, uri]);
 
-    uppy.cancelAll();
-    onClose(response.body.coverImageUrl);
-  });
+  useEffect(() => {
+    uppy.on('upload-success', (file, response) => {
+      uppy.cancelAll();
+      onClose(response.body);
+    });
 
-  uppy.on('file-editor:complete', (file) => {
-    uppy.upload();
-  });
+    uppy.on('file-editor:complete', (file) => {
+      uppy.upload();
+    });
+
+    return () => {
+      uppy.off('upload-success');
+    };
+  }, [onClose]);
 
   // https://github.com/transloadit/uppy/issues/4045
   // until this issue is fixed, we need to manually remove the file from uppy on cancel
@@ -119,14 +130,21 @@ export default function UppyUploadImageModal({ open, onClose, endpointPath }) {
       fullWidth
       maxWidth="md"
       open={open}
-      onClose={() => onClose()}
+      onClose={() => {
+        uppy.cancelAll();
+        onClose();
+      }}
       PaperProps={{
         elevation: 8,
       }}
     >
       <DialogTitle>
         Upload Cover Image
-        <CloseModalButton onClose={() => onClose()} />
+        <CloseModalButton onClose={() => {
+          uppy.cancelAll();
+          onClose();
+        }}
+        />
       </DialogTitle>
       <DialogContent>
         <Box sx={{
@@ -169,8 +187,13 @@ export default function UppyUploadImageModal({ open, onClose, endpointPath }) {
   );
 }
 
+UppyUploadImageModal.defaultProps = {
+  aspectRatio: 852 / 350,
+};
+
 UppyUploadImageModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  endpointPath: PropTypes.string.isRequired,
+  endpointPath: PropTypes.string.isRequired, // no leading slash
+  aspectRatio: PropTypes.number,
 };

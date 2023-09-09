@@ -23,6 +23,7 @@ import {
   CodeExtension,
   CodeBlockExtension,
   ImageExtension,
+  HardBreakExtension,
 } from 'remirror/extensions';
 import DescriptionContainer from '../DescriptionContainer';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
@@ -48,6 +49,7 @@ export default function RemirrorEditor({ markdown, onChange }) {
     new CodeExtension(),
     new CodeBlockExtension(),
     new ImageExtension(),
+    new HardBreakExtension(),
   ];
 
   const {
