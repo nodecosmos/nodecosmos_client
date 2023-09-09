@@ -38,8 +38,8 @@ export default function IOPaneToolbar() {
       alignItems="center"
       height={HEADER_HEIGHT}
       borderBottom={1}
-      borderColor="borders.4"
-      // boxShadow="2"
+      borderColor="borders.2"
+      boxShadow="2"
     >
       <ToolbarContainer>
         <ToolbarItem

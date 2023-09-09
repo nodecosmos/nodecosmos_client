@@ -24,6 +24,7 @@ import {
   CodeBlockExtension,
   ImageExtension,
 } from 'remirror/extensions';
+import DescriptionContainer from '../DescriptionContainer';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
 
@@ -72,7 +73,11 @@ export default function RemirrorEditor({ markdown, onChange }) {
         onChange={handleEditorChange}
       >
         <RemirrorEditorToolbar />
-        <EditorComponent />
+        <div className="RemirrorTextEditor">
+          <DescriptionContainer width={1}>
+            <EditorComponent />
+          </DescriptionContainer>
+        </div>
       </Remirror>
     </RemirrorEditorContainer>
   );

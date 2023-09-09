@@ -46,13 +46,13 @@ const getTheme = (currentTheme) => createTheme({
       letterSpacing: 'normal',
     },
     body1: {
-      fontSize: '1.05rem',
+      fontSize: '1.15rem',
       fontWeight: 300,
       letterSpacing: 'normal',
       color: currentTheme.palette.text.contrast,
     },
     body2: {
-      fontSize: '0.75rem',
+      fontSize: '1rem',
     },
     subtitle1: {
       fontSize: '0.75rem',

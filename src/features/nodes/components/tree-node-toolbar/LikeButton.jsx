@@ -14,14 +14,16 @@ import {
   getLikesCount, likeNode, unlikeNode,
 } from '../../nodes.thunks';
 
-export default function LikeButton(props) {
-  const { nodeId } = props;
+export default function LikeButton({ nodeId, fontSize, likesCount: providedLikesCount }) {
   const {
     isTemp,
     persistentId,
-  } = useSelector(selectNode(nodeId));
+  } = useSelector(selectNode(nodeId)) || {
+    persistentId: nodeId,
+  };
   const likes = useSelector(selectLikedObjectIds);
-  const likesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
+  const stateLikesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
+  const likesCount = providedLikesCount !== null ? providedLikesCount : stateLikesCount;
   const likedByCurrentUser = likes.includes(persistentId);
   const [shouldBeat, setShouldBeat] = React.useState(false);
   const dispatch = useDispatch();
@@ -68,28 +70,31 @@ export default function LikeButton(props) {
         onClick={handleLike}
         className="Item"
         disableRipple
-        sx={{ svg: { fontSize: 14, color: 'toolbar.red' } }}
+        sx={{ svg: { fontSize, color: 'toolbar.red' } }}
         icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
         checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
         inputProps={{ 'aria-label': 'Favorite' }}
       />
-      {
-        likesCount > 0 && (
-          <Typography
-            variant="caption"
-            sx={{
-              color: textColor,
-              lineHeight: 1,
-            }}
-          >
-            {likesCount}
-          </Typography>
-        )
-      }
+      <Typography
+        variant="caption"
+        sx={{
+          color: textColor,
+          lineHeight: 1,
+        }}
+      >
+        {likesCount}
+      </Typography>
     </Box>
   );
 }
 
+LikeButton.defaultProps = {
+  fontSize: 14,
+  likesCount: null,
+};
+
 LikeButton.propTypes = {
   nodeId: PropTypes.string.isRequired,
+  fontSize: PropTypes.number,
+  likesCount: PropTypes.number,
 };

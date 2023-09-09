@@ -54,7 +54,6 @@ export default function NodeToolbar(props) {
         </IconButton>
       </Tooltip>
       <Tooltip title="Edit Node" placement="top">
-
         <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
           <FontAwesomeIcon icon={faPenToSquare} />
         </IconButton>

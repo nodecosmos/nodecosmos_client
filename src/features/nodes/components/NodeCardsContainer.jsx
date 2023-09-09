@@ -8,11 +8,10 @@ export default function NodeCardsContainer({ children }) {
       '.CoverHeader': {
         position: 'relative',
         width: '100%',
-        height: 350,
+        // height: 350,
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        py: 8,
       },
       '.AmbientImage': {
         position: 'absolute',
@@ -23,7 +22,7 @@ export default function NodeCardsContainer({ children }) {
       '.CoverImage': {
         position: 'relative',
         width: '100%',
-        height: 220,
+        height: 280,
         borderRadius: 0,
       },
     }}

@@ -26,7 +26,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
-      1: 0,
+      1: '3px 3px 0px #181a1e',
       2: 0,
       3: 0,
     },
@@ -60,6 +60,11 @@ export default {
     button: {
       main: '#272b34',
       contrastText: '#fbfdff',
+    },
+
+    buttonContrast: {
+      main: '#a5b4be',
+      contrastText: '#3d4652',
     },
 
     borders: {

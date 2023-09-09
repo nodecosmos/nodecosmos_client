@@ -30,6 +30,8 @@ export default function Alert() {
       onClose={handleClose}
       anchororigin={anchorOrigin}
       minHeight={HEADER_HEIGHT}
+      position="relative"
+      zIndex={3}
     >
       <MuiAlert
         onClose={handleClose}
@@ -46,11 +48,15 @@ export default function Alert() {
           '.MuiTypography-root, .MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
             color: `${severity}.main`,
           },
+          '.MuiAlert-action': {
+            p: 0,
+            mr: 0,
+          },
           alignItems: 'center',
         }}
       >
         <Typography
-          variant="body1"
+          variant="body2"
           dangerouslySetInnerHTML={{ __html: message }}
         />
       </MuiAlert>

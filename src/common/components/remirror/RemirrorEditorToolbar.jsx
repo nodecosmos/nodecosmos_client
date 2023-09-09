@@ -18,13 +18,13 @@ import {
   faBracketsCurly,
   faUndo,
   faRedo,
-} from '@fortawesome/pro-solid-svg-icons';
-import {
   faCamera,
-} from '@fortawesome/pro-light-svg-icons';
+} from '@fortawesome/pro-solid-svg-icons';
 
 import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
 
+// Add uploaded files as attachments to the models.
+// Don't do anything on article change, but allow users to remove attachments in separate dialog.
 export default function RemirrorEditorToolbar() {
   const commands = useCommands();
   const active = useActive();

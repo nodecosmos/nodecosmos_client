@@ -11,7 +11,9 @@ import DeleteCoverImageButton from './DeleteCoverImageButton';
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/UppyUploadImageModal'));
 
 export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
-  const { id, persistentRootId, persistentId } = useSelector(selectSelectedNode);
+  const {
+    id, isTemp, persistentRootId, persistentId,
+  } = useSelector(selectSelectedNode);
 
   const [openCoverImageUploader, setOpenCoverImageUploader] = React.useState(false);
   const [displayCoverImageUploadButton, setDisplayCoverImageUploadButton] = React.useState(false);
@@ -34,12 +36,16 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
         sx={{
           position: 'relative',
           width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
         }}
       >
         {coverImageUrl && (
           <Box
             sx={{
-              width: '100%',
+              width: 1,
               height: 475,
               display: 'flex',
               justifyContent: 'center',
@@ -47,8 +53,8 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
               p: 4,
               '.AmbientImage': {
                 position: 'absolute',
-                width: '100%',
-                height: 350,
+                width: '75%',
+                height: 375,
                 filter: 'blur(50px) opacity(0.5)',
               },
               '.CoverImage': {
@@ -108,8 +114,15 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
         )}
 
       </Box>
-      {!coverImageUrl && (
-        <Box w={1} height="auto" ml={4} mt={3} mb={-3}>
+      {!coverImageUrl && !isTemp && (
+        <Box
+          w={1}
+          mt={0}
+          mb={-5}
+          display="flex"
+          justifyContent="center"
+          p={4}
+        >
           <Button
             component="label"
             variant="outlined"
