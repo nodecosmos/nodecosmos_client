@@ -56,7 +56,7 @@ export default function NodeBranch(props) {
         fill={parentBackgroundColor}
         style={{
           opacity: 0,
-          animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
+          animation: `node-circle-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
           transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
         }}
       />

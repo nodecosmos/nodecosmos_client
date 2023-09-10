@@ -141,6 +141,8 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
           open={openCoverImageUploader}
           onClose={handleClose}
           endpointPath={`nodes/${persistentRootId}/${persistentId}/upload_cover_image`}
+          width={852}
+          height={350}
         />
       </Suspense>
       )}

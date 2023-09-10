@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCodePullRequest, faHashtag, faTable, faUserGroup,
+  faCodePullRequest, faHashtag, faUserGroup,
 } from '@fortawesome/pro-light-svg-icons';
 import LikeButton from './tree-node-toolbar/LikeButton';
 

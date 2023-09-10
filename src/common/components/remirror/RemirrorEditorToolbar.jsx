@@ -1,8 +1,6 @@
 import React from 'react';
 import { useActive, useCommands, useHelpers } from '@remirror/react';
-import {
-  Box, Stack, ToggleButton, Tooltip,
-} from '@mui/material';
+import { Stack, ToggleButton, Tooltip } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -12,16 +10,20 @@ import {
   faCode,
   faH1,
   faH2,
-  faBlockQuote,
+  faList,
+  faListOl,
+  faSquareQuote,
   faBracketsCurly,
   faUndo,
   faRedo,
   faCamera,
+  faFileArrowUp,
 } from '@fortawesome/pro-solid-svg-icons';
 
 import { useSelector } from 'react-redux';
 import UppyUploadImageModal from '../UppyUploadImageModal';
 import { selectSelectedNode } from '../../../features/nodes/nodes.selectors';
+import UppyUploadFileModal from '../UppyUploadFileModal';
 import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
 
 // Add uploaded files as attachments to the models.
@@ -37,6 +39,7 @@ export default function RemirrorEditorToolbar() {
   const { undoDepth, redoDepth } = useHelpers(true);
 
   const [openImageDialog, setOpenImageDialog] = React.useState(false);
+  const [openFileDialog, setOpenFileDialog] = React.useState(false);
 
   const handleImageDialogClose = (responseBody) => {
     setOpenImageDialog(false);
@@ -46,10 +49,18 @@ export default function RemirrorEditorToolbar() {
     }
   };
 
+  const handleFileDialogClose = (attachment) => {
+    setOpenFileDialog(false);
+
+    if (attachment) {
+      commands.insertMarkdown(`[${attachment.key}](${attachment.url})`);
+    }
+  };
+
   return (
-    <Box className="RemirrorToolbar">
+    <div className="RemirrorToolbar">
       <Stack direction="row" spacing={1}>
-        <Box>
+        <div>
           <Tooltip title="Bold">
             <ToggleButton
               value="check"
@@ -86,8 +97,8 @@ export default function RemirrorEditorToolbar() {
               <FontAwesomeIcon icon={faCode} />
             </ToggleButton>
           </Tooltip>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <Tooltip title="Heading 1">
             <ToggleButton
               value="check"
@@ -114,17 +125,36 @@ export default function RemirrorEditorToolbar() {
               <FontAwesomeIcon icon={faH2} />
             </ToggleButton>
           </Tooltip>
-
           <RemirrorEditorToolbarHeadingMenu />
-        </Box>
-        <Box>
+        </div>
+        <div>
+          <Tooltip title="Insert bullet list">
+            <ToggleButton
+              value="check"
+              onClick={() => commands.toggleBulletList()}
+              selected={active.bulletList()}
+            >
+              <FontAwesomeIcon icon={faList} />
+            </ToggleButton>
+          </Tooltip>
+          <Tooltip title="Insert numbered list">
+            <ToggleButton
+              value="check"
+              onClick={() => commands.toggleOrderedList()}
+              selected={active.orderedList()}
+            >
+              <FontAwesomeIcon icon={faListOl} />
+            </ToggleButton>
+          </Tooltip>
+        </div>
+        <div>
           <Tooltip title="Insert blockquote">
             <ToggleButton
               value="check"
               onClick={() => commands.toggleBlockquote()}
               selected={active.blockquote()}
             >
-              <FontAwesomeIcon icon={faBlockQuote} />
+              <FontAwesomeIcon icon={faSquareQuote} />
             </ToggleButton>
           </Tooltip>
           <Tooltip title="Insert code block">
@@ -136,8 +166,8 @@ export default function RemirrorEditorToolbar() {
               <FontAwesomeIcon icon={faBracketsCurly} />
             </ToggleButton>
           </Tooltip>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <Tooltip title="Undo">
             <span>
               <ToggleButton
@@ -160,14 +190,19 @@ export default function RemirrorEditorToolbar() {
               </ToggleButton>
             </span>
           </Tooltip>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <Tooltip title="Insert image">
             <ToggleButton value="check" onClick={() => setOpenImageDialog(true)}>
               <FontAwesomeIcon icon={faCamera} />
             </ToggleButton>
           </Tooltip>
-        </Box>
+          <Tooltip title="Upload File">
+            <ToggleButton value="check" onClick={() => setOpenFileDialog(true)}>
+              <FontAwesomeIcon icon={faFileArrowUp} />
+            </ToggleButton>
+          </Tooltip>
+        </div>
       </Stack>
       <UppyUploadImageModal
         endpointPath={`attachments/${persistentId}/${persistentId}/upload_image`}
@@ -175,6 +210,14 @@ export default function RemirrorEditorToolbar() {
         onClose={handleImageDialogClose}
         aspectRatio={null}
       />
-    </Box>
+      <UppyUploadFileModal
+        params={{
+          nodeId: persistentId,
+          objectId: persistentId,
+        }}
+        open={openFileDialog}
+        onClose={handleFileDialogClose}
+      />
+    </div>
   );
 }

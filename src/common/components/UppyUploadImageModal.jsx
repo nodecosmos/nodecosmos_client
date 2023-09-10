@@ -5,13 +5,14 @@ import ImageEditor from '@uppy/image-editor';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
-import { Box, DialogContent } from '@mui/material';
+import { DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import PropTypes from 'prop-types';
 import XHRUpload from '@uppy/xhr-upload';
 import nodecosmos from '../../apis/nodecosmos-server';
 import CloseModalButton from './CloseModalButton';
+import UppyDashboardContainer from './UppyDashboardContainer';
 
 const uppy = new Uppy({
   restrictions: {
@@ -21,13 +22,7 @@ const uppy = new Uppy({
   },
   locale: {
     strings: {
-      // Change the 'Drop files here, paste or browse' message
-      browse: 'Drop files here, paste, browse or %{browse}',
-
-      // Change the 'Uploading %{smart_count} file' message
-      uploading: 'Uploading %{smart_count} file',
-
-      // Change other messages as needed
+      dropPasteFiles: 'Drop files here, paste or %{browse}',
     },
   },
 }).use(ImageEditor, {
@@ -54,7 +49,7 @@ uppy.use(XHRUpload, {
 });
 
 export default function UppyUploadImageModal({
-  open, onClose, endpointPath, aspectRatio,
+  open, onClose, endpointPath, aspectRatio, width, height,
 }) {
   const uri = nodecosmos.getUri();
 
@@ -75,10 +70,12 @@ export default function UppyUploadImageModal({
           viewMode: 3,
           aspectRatio,
           rotatable: false,
+          width,
+          height,
         },
       });
     }
-  }, [aspectRatio, uri]);
+  }, [aspectRatio, height, uri, width]);
 
   useEffect(() => {
     uppy.on('upload-success', (file, response) => {
@@ -147,33 +144,7 @@ export default function UppyUploadImageModal({
         />
       </DialogTitle>
       <DialogContent>
-        <Box sx={{
-          '.uppy-Dashboard-inner': {
-            backgroundColor: 'transparent!important',
-            border: 'none!important',
-            width: '100%!important',
-          },
-          '.uppy-DashboardContent-panel, .uppy-Dashboard-FileCard, .uppy-StatusBar, .uppy-StatusBar-actions': {
-            backgroundColor: 'transparent!important',
-            borderTop: 'none!important',
-          },
-          '.uppy-StatusBar:before': {
-            backgroundColor: 'transparent!important',
-          },
-          '.uppy-DashboardContent-bar': {
-            backgroundColor: 'transparent!important',
-          },
-          '.uppy-Dashboard-AddFiles': {
-            border: 'none!important',
-          },
-          '.uppy-Dashboard-poweredBy, .uppy-DashboardContent-title': {
-            display: 'none',
-          },
-          '.cropper-modal': {
-            backgroundColor: '#ffffff5c',
-          },
-        }}
-        >
+        <UppyDashboardContainer>
           <Dashboard
             uppy={uppy}
             autoOpenFileEditor
@@ -181,7 +152,7 @@ export default function UppyUploadImageModal({
             plugins={['ImageEditor']}
             showLinkToFileUploadResult={false}
           />
-        </Box>
+        </UppyDashboardContainer>
       </DialogContent>
     </Dialog>
   );
@@ -189,6 +160,8 @@ export default function UppyUploadImageModal({
 
 UppyUploadImageModal.defaultProps = {
   aspectRatio: 852 / 350,
+  width: null,
+  height: null,
 };
 
 UppyUploadImageModal.propTypes = {
@@ -196,4 +169,6 @@ UppyUploadImageModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   endpointPath: PropTypes.string.isRequired, // no leading slash
   aspectRatio: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };

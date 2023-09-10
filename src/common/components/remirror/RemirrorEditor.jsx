@@ -24,7 +24,9 @@ import {
   CodeBlockExtension,
   ImageExtension,
   HardBreakExtension,
+  TaskListExtension,
 } from 'remirror/extensions';
+
 import DescriptionContainer from '../DescriptionContainer';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
@@ -50,6 +52,7 @@ export default function RemirrorEditor({ markdown, onChange }) {
     new CodeBlockExtension(),
     new ImageExtension(),
     new HardBreakExtension(),
+    new TaskListExtension(),
   ];
 
   const {
