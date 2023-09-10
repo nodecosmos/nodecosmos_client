@@ -7,14 +7,15 @@ import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import PropTypes from 'prop-types';
 import XHRUpload from '@uppy/xhr-upload';
 import { useDispatch } from 'react-redux';
-import nodecosmos from '../../apis/nodecosmos-server';
-import { setAlert } from '../../features/app/appSlice';
-import CloseModalButton from './CloseModalButton';
+import nodecosmos from '../../../apis/nodecosmos-server';
+import { setAlert } from '../../../features/app/appSlice';
+import CloseModalButton from '../CloseModalButton';
 import UppyDashboardContainer from './UppyDashboardContainer';
 
 const uppy = new Uppy({
   restrictions: {
     maxNumberOfFiles: 1,
+    maxFileSize: 25 * 1024 * 1024,
   },
   locale: {
     strings: {

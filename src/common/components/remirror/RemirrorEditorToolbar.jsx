@@ -21,9 +21,9 @@ import {
 } from '@fortawesome/pro-solid-svg-icons';
 
 import { useSelector } from 'react-redux';
-import UppyUploadImageModal from '../UppyUploadImageModal';
+import UppyUploadImageModal from '../uppy/UppyUploadImageModal';
 import { selectSelectedNode } from '../../../features/nodes/nodes.selectors';
-import UppyUploadFileModal from '../UppyUploadFileModal';
+import UppyUploadFileModal from '../uppy/UppyUploadFileModal';
 import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
 
 // Add uploaded files as attachments to the models.

@@ -8,7 +8,7 @@ import { selectSelectedNode } from '../../nodes.selectors';
 import { updateNodeState } from '../../nodesSlice';
 import DeleteCoverImageButton from './DeleteCoverImageButton';
 
-const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/UppyUploadImageModal'));
+const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/uppy/UppyUploadImageModal'));
 
 export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
   const {

@@ -21,6 +21,9 @@ export default function RemirrorEditorContainer({ children }) {
           boxShadow: '2',
           position: 'relative',
           zIndex: 1,
+          width: 1,
+          textWrap: 'nowrap',
+          overflow: 'auto',
         },
         '.RemirrorTextEditor': {
           overflow: 'auto',
