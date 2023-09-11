@@ -25,7 +25,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
   const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
 
-  const fillColor = wfStepIndex % 2 === 0 ? theme.palette.background[3] : theme.palette.background[2];
+  const fillColor = wfStepIndex % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
 
   if (!x) return null;
 
@@ -56,6 +56,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 2}
         fill={fillColor}
+        fillOpacity={0.3}
         stroke={hovered ? theme.palette.borders[4]
           : 'transparent'}
         strokeWidth={1}

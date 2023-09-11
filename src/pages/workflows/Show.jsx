@@ -2,20 +2,20 @@ import React, { useEffect, useMemo } from 'react';
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../../common/components/Loader';
-import { HEADER_HEIGHT } from '../../../features/app/constants';
-import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import Workflow from '../../../features/workflows/components/diagram/Workflow';
-import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
-import WorkflowContainer from '../../../features/workflows/components/WorkflowContainer';
-import WorkflowToolbar from '../../../features/workflows/components/WorkflowToolbar';
-import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.constants';
-import { WorkflowsContext } from '../../../features/workflows/workflows.context';
-import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../../features/workflows/workflows.selectors';
-import { showWorkflow } from '../../../features/workflows/workflows.thunks';
-import Alert from '../../../common/components/Alert';
+import Loader from '../../common/components/Loader';
+import { HEADER_HEIGHT } from '../../features/app/constants';
+import usePaneResizable from '../../common/hooks/usePaneResizable';
+import Workflow from '../../features/workflows/components/diagram/Workflow';
+import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
+import WorkflowContainer from '../../features/workflows/components/WorkflowContainer';
+import WorkflowToolbar from '../../features/workflows/components/WorkflowToolbar';
+import { WORKFLOW_DIAGRAM_CONTEXT } from '../../features/workflows/workflows.constants';
+import { WorkflowsContext } from '../../features/workflows/workflows.context';
+import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../features/workflows/workflows.selectors';
+import { showWorkflow } from '../../features/workflows/workflows.thunks';
+import Alert from '../../common/components/Alert';
 
-export default function WorkflowTab() {
+export default function Show() {
   const { id } = useParams();
 
   const dispatch = useDispatch();

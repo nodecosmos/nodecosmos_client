@@ -17,11 +17,7 @@ export default function ContributionRequestsList({ nodeId }) {
 
   const columns = [
     {
-      field: 'status',
       headerName: 'Status',
-      type: 'string',
-      flex: 0,
-      renderCell: (params) => <ContributionRequestStatusIcon status={params.value} />,
       sortComparator: (v1, v2) => {
         // Define a custom order for status values
         const order = {
@@ -33,30 +29,35 @@ export default function ContributionRequestsList({ nodeId }) {
 
         return order[v1] - order[v2];
       },
+      field: 'status',
+      flex: 0,
+      type: 'string',
+      renderCell: (params) => <ContributionRequestStatusIcon status={params.value} />,
     },
     {
-      field: 'owner',
       headerName: 'Author',
-      type: 'object',
+      field: 'owner',
       flex: 0,
+      type: 'object',
       renderCell: (params) => <NcAvatar scale={0.8} model={{ name: params.value?.name }} />,
     },
     {
       field: 'title',
+      flex: 1,
       headerName: 'Title',
-      flex: 8,
       renderCell: (params) => <NcLink to={params.row.id} title={params.value} />,
     },
     {
       field: 'createdAt',
-      headerName: 'Created At',
-      type: 'dateTime',
       flex: 1,
+      headerName: 'Date',
+      type: 'dateTime',
     },
     {
       headerName: '',
-      type: 'actions',
+      field: 'actions',
       flex: 1,
+      type: 'actions',
       renderCell: (params) => (
         <Button
           variant="outlined"

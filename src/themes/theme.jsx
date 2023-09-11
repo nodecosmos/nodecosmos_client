@@ -90,6 +90,7 @@ const getTheme = (currentTheme) => createTheme({
       styleOverrides: {
         tooltip: {
           backgroundColor: currentTheme.palette.background[1],
+          color: currentTheme.palette.text.contrast,
         },
       },
     },

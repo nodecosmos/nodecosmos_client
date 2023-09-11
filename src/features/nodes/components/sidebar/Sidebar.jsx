@@ -55,6 +55,7 @@ export default function Sidebar(props) {
             />
           )}
           title="Contribution Requests"
+          end={false}
         />
         <SidebarListItem
           to={`${toPath}/topics`}

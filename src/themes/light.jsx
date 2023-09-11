@@ -11,8 +11,8 @@ export default {
     8: '0px 35px 70px rgba(0, 0, 0, 0.14)',
 
     left: {
-      1: '-1px 0px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
-      2: '-2px 0px 1px -1px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+      1: 0,
+      2: '-2px 0px 1px -1px rgba(0,0,0,0.05),0px 2px 2px 0px rgba(0,0,0,0.05),0px 1px 5px 0px rgba(0,0,0,0.05)',
     },
 
     right: {
@@ -37,7 +37,7 @@ export default {
     },
 
     secondary: {
-      main: '#5468e7',
+      main: '#b293fe',
     },
 
     error: {
@@ -46,8 +46,8 @@ export default {
     },
 
     success: {
-      main: '#37a000',
-      contrastText: 'rgba(0, 0, 0, 0.7)',
+      main: '#66aa55',
+      contrastText: '#fff',
     },
 
     toggle: {
@@ -56,8 +56,8 @@ export default {
     },
 
     button: {
-      main: '#f6f8fa',
-      contrastText: '#7e7d75',
+      main: '#ededed',
+      contrastText: '#655d5d',
     },
 
     buttonContrast: {
@@ -66,22 +66,22 @@ export default {
     },
 
     borders: {
-      1: '#e8e8e8',
-      2: '#e8e8e8',
-      3: '#e8e8e8',
-      4: '#e8e8e8',
-      5: '#e8e8e8',
+      1: '#d9d9d9',
+      2: '#d9d9d9',
+      3: '#d9d9d9',
+      4: '#d9d9d9',
+      5: '#41a6ff',
     },
 
     background: {
       1: '#e5e7eb', // f8f9fa
-      2: '#f5f7f9',
-      3: '#ffffff',
-      4: '#ffffff',
-      5: '#ffffff',
-      6: '#ffffff',
-      7: '#ffffff',
-      8: '#ffffff',
+      2: '#f0f2f5',
+      3: '#e5e9ed',
+      4: '#eee',
+      5: '#f3f5f8',
+      6: '#e5e7e7',
+      7: '#ededed',
+      8: '#dcdcdc',
 
       labels: {
         red: '#f56565',
@@ -96,50 +96,52 @@ export default {
       },
 
       paper: '#f8f9fa',
-      backdrop: 'rgba(173, 216, 230, 0.4)',
+      backdrop: 'rgba(0,0,0,0.76)',
     },
 
     toolbar: {
-      red: '#f56565',
-      green: '#48bb78',
+      red: '#ff7878',
+      green: '#61dc7e',
       blue: '#4299e1',
-      lightRed: '#feb2b2',
+      lightRed: '#ff8686',
       pink: '#d53f8c',
       purple: '#b775ff',
-      yellow: '#faf089',
-      hover: 'rgba(66,153,225,0.53)',
-      active: 'rgba(66,153,225,0.53)',
-      default: '#4a5568',
+      yellow: '#cfc126',
+      hover: 'rgba(225,225,225,0.53)',
+      active: 'rgba(225,225,225,0.53)',
+      default: '#b6b4a2',
       breadcrumbs: '#4a5568',
     },
 
     tree: {
-      default: '#e1e6eb',
+      default: '#dddddd',
+      defaultBorder: '#e6e6e4',
       backgrounds: [
-        '#f56565',
+        '#ff5866',
         '#b882ff',
         '#57bfff',
-        '#50bdcb',
-        '#39d974',
-        '#57d53e',
-        '#c2a900',
-        '#ff8b30',
+        '#4cd5dc',
+        '#5cceac',
+        '#6dce5c',
+        '#ceb95c',
+        '#f08d7f',
       ],
       hashtag: 'rgb(149,151,153)',
       defaultText: 'rgb(67,69,71)',
-      selectedText: 'rgb(0 0 0 / 65%)',
+      selectedText: 'rgb(67,69,71)',
     },
 
     workflow: {
-      default: '#edf2f7',
+      default: '#e2e2e2',
       input: '#ebf8ff',
       background: '#f7fafc',
-      selectedInputColor: '#cdd4ff',
-      defaultInputColor: '#52565e',
+      selectedInputColor: '#4299e1',
+      defaultInputColor: '#cbcbcb',
     },
 
     markdownContent: {
-      canvas: '#f7fafc',
+      canvas: '#e8e8e8',
+      border: '#c5cdda',
       background: 'transparent',
     },
 
@@ -172,13 +174,14 @@ export default {
     },
 
     text: {
-      primary: '#626e79',
-      secondary: '#7e7d75',
+      primary: '#434c53',
+      secondary: '#3d4652',
       tertiary: '#757571',
       disabled: '#5c616b',
       contrast: '#5e5f5f',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
+      link: '#3ba0ff',
       gradients: {
         1: {
           xs: 'linear-gradient(90deg, #b87cf9 0%, #ff4f90 55%)',

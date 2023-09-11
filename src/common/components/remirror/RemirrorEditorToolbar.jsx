@@ -53,7 +53,8 @@ export default function RemirrorEditorToolbar() {
     setOpenFileDialog(false);
 
     if (attachment) {
-      commands.insertMarkdown(`[${attachment.key}](${attachment.url})`);
+      const url = new URL(attachment.url);
+      commands.insertMarkdown(`[${attachment.key}](${url.href})`);
     }
   };
 

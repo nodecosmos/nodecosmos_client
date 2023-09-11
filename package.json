@@ -37,6 +37,7 @@
     "@uiw/codemirror-theme-sublime": "^4.21.9",
     "@uiw/codemirror-themes": "^4.21.9",
     "@uiw/react-codemirror": "^4.21.9",
+    "@uppy/compressor": "^1.0.2",
     "@uppy/core": "^3.5.0",
     "@uppy/dashboard": "^3.5.2",
     "@uppy/drag-drop": "^3.0.3",

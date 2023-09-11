@@ -7,8 +7,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 /* nodes */
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
-import TreeTab from '../../../pages/nodes/show/TreeTab';
-import WorkflowTab from '../../../pages/nodes/show/WorkflowTab';
+import TreeShow from '../../../pages/trees/Show';
+import WorkflowShow from '../../../pages/workflows/Show';
 /* users */
 import UserAuthentication from '../../../pages/users/Authentication';
 import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
@@ -24,7 +24,7 @@ import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
-import ContributionRequestsTab from '../../../pages/nodes/show/ContributionRequestsTab';
+import Index from '../../../pages/contribution-requests/Index';
 import Header from './header/Header';
 
 export default function LazyAppLoad() {
@@ -92,16 +92,24 @@ export default function LazyAppLoad() {
                   <Route path="signup" element={<SignupForm />} />
                 </Route>
                 <Route path="/nodes" element={<NodeShow />}>
-                  <Route path=":id" element={<TreeTab />} />
-                  <Route path=":id/workflow" element={<WorkflowTab />} />
-                  <Route path=":id/contribution_requests" element={<ContributionRequestsTab />} />
+                  <Route path=":id" element={<TreeShow />} />
+                  <Route path=":id/workflow" element={<WorkflowShow />} />
+                  {/* Contribution Requests */}
+                  <Route path=":id/contribution_requests" element={<Index />} />
+                  <Route path=":id/contribution_requests">
+                    <Route path=":contributionRequestId" element={<div>hello</div>} />
+                  </Route>
                   <Route path=":id/topics" element={<div />} />
                   <Route path=":id/tasks_board" element={<div />} />
                   <Route path=":id/settings" element={<div />} />
 
-                  <Route path=":rootId/:id" element={<TreeTab />} />
-                  <Route path=":rootId/:id/workflow" element={<WorkflowTab />} />
-                  <Route path=":rootId/:id/contribution_requests" element={<ContributionRequestsTab />} />
+                  <Route path=":rootId/:id" element={<TreeShow />} />
+                  <Route path=":rootId/:id/workflow" element={<WorkflowShow />} />
+                  {/* Contribution Requests */}
+                  <Route path=":rootId/:id/contribution_requests" element={<Index />} />
+                  <Route path=":rootId/:id/contribution_requests">
+                    <Route path=":contributionRequestId" element={<div>hello</div>} />
+                  </Route>
                   <Route path=":rootId/:id/topics" element={<div />} />
                   <Route path=":rootId/:id/tasks_board" element={<div />} />
                   <Route path=":rootId/:id/settings" element={<div />} />

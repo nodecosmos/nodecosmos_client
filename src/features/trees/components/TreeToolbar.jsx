@@ -43,7 +43,7 @@ export default function TreeToolbar({ rootNodeId }) {
         }}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" sx={{ p: 1 }}>
+            <InputAdornment position="start" sx={{ mr: 2 }}>
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
               />

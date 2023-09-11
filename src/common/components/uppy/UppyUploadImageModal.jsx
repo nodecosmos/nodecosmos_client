@@ -49,7 +49,7 @@ uppy.use(XHRUpload, {
 });
 
 export default function UppyUploadImageModal({
-  open, onClose, endpointPath, aspectRatio, width, height,
+  open, onClose, endpointPath, aspectRatio,
 }) {
   const uri = nodecosmos.getUri();
 
@@ -67,15 +67,13 @@ export default function UppyUploadImageModal({
     if (imageEditor) {
       imageEditor.setOptions({
         cropperOptions: {
-          viewMode: 3,
+          viewMode: 2,
           aspectRatio,
           rotatable: false,
-          width,
-          height,
         },
       });
     }
-  }, [aspectRatio, height, uri, width]);
+  }, [aspectRatio]);
 
   useEffect(() => {
     uppy.on('upload-success', (file, response) => {
@@ -159,9 +157,7 @@ export default function UppyUploadImageModal({
 }
 
 UppyUploadImageModal.defaultProps = {
-  aspectRatio: 852 / 350,
-  width: null,
-  height: null,
+  aspectRatio: 850 / 375,
 };
 
 UppyUploadImageModal.propTypes = {
@@ -169,6 +165,4 @@ UppyUploadImageModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   endpointPath: PropTypes.string.isRequired, // no leading slash
   aspectRatio: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number,
 };

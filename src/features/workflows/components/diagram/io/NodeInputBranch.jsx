@@ -54,7 +54,7 @@ export default function NodeInputBranch({
         cy={yStart}
         r={5}
         stroke="transparent"
-        fill={theme.palette.tree.default}
+        fill={theme.palette.workflow.default}
         style={{
           opacity: 0,
           animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,

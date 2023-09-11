@@ -64,8 +64,8 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
                 '.CoverImageMedia': {
                   borderRadius: 5,
                   maxWidth: '100%',
-                  width: 852,
-                  maxHeight: 350,
+                  width: 850,
+                  maxHeight: 375,
                 },
               },
             }}
@@ -141,8 +141,6 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
           open={openCoverImageUploader}
           onClose={handleClose}
           endpointPath={`nodes/${persistentRootId}/${persistentId}/upload_cover_image`}
-          width={852}
-          height={350}
         />
       </Suspense>
       )}

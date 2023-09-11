@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setHeaderContent } from '../../../features/app/appSlice';
-import { HEADER_HEIGHT } from '../../../features/app/constants';
-import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import NodePane from '../../../features/nodes/components/pane/NodePane';
-import TreeContainer from '../../../features/trees/components/TreeContainer';
-import Tree from '../../../features/trees/components/Tree';
-import TreeToolbar from '../../../features/trees/components/TreeToolbar';
-import OverlayLoader from '../../../common/components/OverlayLoader';
-import { selectIsTreeLoading } from '../../../features/trees/trees.selectors';
-import Alert from '../../../common/components/Alert';
+import { setHeaderContent } from '../../features/app/appSlice';
+import { HEADER_HEIGHT } from '../../features/app/constants';
+import usePaneResizable from '../../common/hooks/usePaneResizable';
+import NodePane from '../../features/nodes/components/pane/NodePane';
+import TreeContainer from '../../features/trees/components/TreeContainer';
+import Tree from '../../features/trees/components/Tree';
+import TreeToolbar from '../../features/trees/components/TreeToolbar';
+import OverlayLoader from '../../common/components/OverlayLoader';
+import { selectIsTreeLoading } from '../../features/trees/trees.selectors';
+import Alert from '../../common/components/Alert';
 
-export default function TreeTab() {
+export default function Show() {
   const { id } = useParams();
   const dispatch = useDispatch();
 

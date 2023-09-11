@@ -15,7 +15,7 @@ export default function DescriptionContainer({ children, p, width }) {
       <Box
         height={1}
         sx={{
-          maxWidth: 852,
+          maxWidth: 850,
           width: 1,
           color: 'text.secondary',
           'h1, h2, h3, h4, h5, h6': {
@@ -72,7 +72,7 @@ export default function DescriptionContainer({ children, p, width }) {
             textAlign: 'center',
           },
           'img:not(.ProseMirror-separator)': {
-            maxWidth: 852,
+            maxWidth: 850,
             width: 1,
             borderRadius: 5,
             my: 2,
