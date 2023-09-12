@@ -5,11 +5,15 @@ import { selectDragAndDrop } from '../trees.selectors';
 import { reorderNodes } from '../../nodes/nodesSlice';
 import { reorder } from '../../nodes/nodes.thunks';
 import { setAlert } from '../../app/appSlice';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+
+const REORDER_DESCENDANT_LIMIT = 1000;
 
 export default function useTreeNodeDraggable() {
   const dispatch = useDispatch();
 
   const { nodeId, persistentId, persistentRootId } = useSelector(selectDragAndDrop);
+  const descendantIds = useSelector(selectNodeAttribute(persistentId, 'descendantIds'));
 
   const onDragStart = ({
     event,
@@ -44,6 +48,17 @@ export default function useTreeNodeDraggable() {
     newSiblingIndex,
     persistentNewParentId,
   }) => {
+    if (descendantIds.length > REORDER_DESCENDANT_LIMIT) {
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'error',
+        message: `Reorder is not allowed for nodes with more than ${REORDER_DESCENDANT_LIMIT} descendants`,
+      }));
+
+      dispatch(clearDragAndDrop());
+      return;
+    }
+
     try {
       const response = await dispatch(reorder({
         rootId: persistentRootId,
@@ -65,15 +80,22 @@ export default function useTreeNodeDraggable() {
 
       dispatch(clearDragAndDrop());
     } catch (e) {
-      const message = e.message.includes(423) // TODO: fix this logic at redux-toolkit level. Maybe we need middleware.
-        ? 'Resource locked! Reorder in progress.'
-        : 'Something went wrong while reordering the node. Please try again.';
+      let message;
+
+      if (e.message.includes(423)) {
+        message = 'Resource locked! Reorder in progress.';
+      } else if (e.message.includes(403)) {
+        message = 'Forbidden! You are not allowed to reorder this node.';
+      } else {
+        message = 'Something went wrong while reordering the node. Please try again.';
+      }
 
       dispatch(setAlert({
         isOpen: true,
         severity: 'error',
         message,
       }));
+
       dispatch(setTreeLoading(false));
     }
   };

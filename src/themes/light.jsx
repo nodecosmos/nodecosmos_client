@@ -66,7 +66,7 @@ export default {
     },
 
     borders: {
-      1: '#dfe3e7',
+      1: '#ccd2d8',
       2: '#dfe3e7',
       3: '#dfe3e7',
       4: '#c7cfd5',

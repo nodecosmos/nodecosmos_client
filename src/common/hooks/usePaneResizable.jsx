@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
 export default function usePaneResizable({
-  aRef, bRef, initialWidthA, initialWidthB,
+  aRef, bRef, initialWidthA, initialWidthB, setResizerHovered,
 }) {
   const [paneAWidth, setPaneAWidth] = useState(initialWidthA || '50%');
   const [paneBWidth, setPaneBWidth] = useState(initialWidthB || '50%');
+
+  const [resizeInProgress, setResizeInProgress] = useState(false);
 
   const handleResize = (e) => {
     e.stopPropagation();
@@ -16,6 +18,7 @@ export default function usePaneResizable({
     const handleMouseMove = (e2) => {
       e.stopPropagation();
       e.preventDefault();
+      setResizeInProgress(true);
       const dx = e2.pageX - startX;
       const newAWidth = startAWidth + dx;
       const newPaneWidth = startPaneWidth - dx;
@@ -38,6 +41,8 @@ export default function usePaneResizable({
     const handleMouseUp = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+
+      setResizeInProgress(false);
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -48,5 +53,6 @@ export default function usePaneResizable({
     paneAWidth,
     paneBWidth,
     handleResize,
+    resizeInProgress,
   };
 }

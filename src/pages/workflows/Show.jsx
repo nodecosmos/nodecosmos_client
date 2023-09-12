@@ -32,10 +32,13 @@ export default function Show() {
   const workflowRef = React.useRef(null);
   const workflowDetailsRef = React.useRef(null);
 
+  const [resizerHovered, setResizerHovered] = React.useState(false);
+
   const {
     paneAWidth,
     paneBWidth,
     handleResize,
+    resizeInProgress,
   } = usePaneResizable({
     aRef: workflowRef,
     bRef: workflowDetailsRef,
@@ -56,6 +59,12 @@ export default function Show() {
       dispatch(clearSelectedWorkflowDiagramObject());
     };
   }, [dispatch, id, workflow.id]);
+
+  useEffect(() => {
+    if (!resizeInProgress) {
+      setResizerHovered(false);
+    }
+  }, [resizeInProgress]);
 
   if (loading) {
     return <Loader />;
@@ -82,17 +91,19 @@ export default function Show() {
             </Box>
             <Box
               onMouseDown={handleResize}
+              onMouseEnter={() => setResizerHovered(true)}
+              onMouseLeave={() => {
+                if (!resizeInProgress) {
+                  setResizerHovered(false);
+                }
+              }}
               width="8px"
               backgroundColor="transparent"
               height={1}
               ml={-1}
-              borderRight={1}
-              borderColor="borders.2"
               sx={{
                 position: 'relative',
                 '&:hover': {
-                  borderRight: 1,
-                  borderColor: 'borders.5',
                   cursor: 'col-resize',
                 },
               }}
@@ -103,6 +114,12 @@ export default function Show() {
               width={(isWfPaneOpen && paneBWidth) || 0}
               ref={workflowDetailsRef}
               boxShadow="left.2"
+              sx={{
+                borderLeft: 1,
+                borderColor: 'borders.3',
+                borderLeftColor: resizerHovered ? 'borders.5' : 'borders.3',
+                borderLeftWidth: resizerHovered ? 2 : 1,
+              }}
             >
               <WorkflowPane />
             </Box>

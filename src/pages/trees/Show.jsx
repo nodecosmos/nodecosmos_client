@@ -24,11 +24,13 @@ export default function Show() {
 
   const paneARef = React.useRef(null);
   const paneBRef = React.useRef(null);
+  const [resizerHovered, setResizerHovered] = React.useState(false);
 
   const {
     paneAWidth,
     paneBWidth,
     handleResize,
+    resizeInProgress,
   } = usePaneResizable({
     aRef: paneARef,
     bRef: paneBRef,
@@ -48,6 +50,12 @@ export default function Show() {
       dispatch(setHeaderContent(''));
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!resizeInProgress) {
+      setResizerHovered(false);
+    }
+  }, [resizeInProgress]);
 
   return (
     <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1} overflow="hidden">
@@ -72,12 +80,16 @@ export default function Show() {
           height={1}
           ml={-0.5}
           borderRight={1}
-          borderColor="borders.2"
+          borderColor="transparent"
+          onMouseEnter={() => setResizerHovered(true)}
+          onMouseLeave={() => {
+            if (!resizeInProgress) {
+              setResizerHovered(false);
+            }
+          }}
           sx={{
             position: 'relative',
             '&:hover': {
-              borderRight: 1,
-              borderColor: 'borders.5',
               cursor: 'col-resize',
             },
           }}
@@ -89,6 +101,13 @@ export default function Show() {
         width={paneBWidth}
         display="flex"
         boxShadow="left.2"
+        overflow="hidden"
+        sx={{
+          borderLeft: 1,
+          borderColor: 'borders.3',
+          borderLeftColor: resizerHovered ? 'borders.5' : 'borders.3',
+          borderLeftWidth: resizerHovered ? 2 : 1,
+        }}
       >
         <NodePane />
       </Box>
