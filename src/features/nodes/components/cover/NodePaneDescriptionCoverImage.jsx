@@ -53,7 +53,7 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
               p: 4,
               '.AmbientImage': {
                 position: 'absolute',
-                width: '75%',
+                width: 1,
                 height: 375,
                 filter: 'blur(50px) opacity(0.5)',
               },

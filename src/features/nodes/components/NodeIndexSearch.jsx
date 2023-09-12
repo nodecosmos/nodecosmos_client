@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputAdornment, TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { useDispatch } from 'react-redux';
 import { indexNodes } from '../nodes.thunks';
 

@@ -1,18 +1,18 @@
 export default {
   shadows: {
     0: 'none',
-    1: '0px 1px 3px rgba(0, 0, 0, 0.12)',
-    2: '0px 1px 6px rgba(0, 0, 0, 0.10)',
-    3: '0px 10px 20px rgba(0, 0, 0, 0.12)',
-    4: '0px 15px 25px rgba(0, 0, 0, 0.12)',
-    5: '0px 20px 40px rgba(0, 0, 0, 0.14)',
-    6: '0px 25px 50px rgba(0, 0, 0, 0.14)',
-    7: '0px 30px 60px rgba(0, 0, 0, 0.14)',
-    8: '0px 35px 70px rgba(0, 0, 0, 0.14)',
+    1: 0,
+    2: '0 0px 6px #00000020',
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
 
     left: {
       1: 0,
-      2: '-2px 0px 1px -1px rgba(0,0,0,0.05),0px 2px 2px 0px rgba(0,0,0,0.05),0px 1px 5px 0px rgba(0,0,0,0.05)',
+      2: '0px 0px 6px #00000020',
     },
 
     right: {
@@ -26,7 +26,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
     buttons: {
-      1: '1px 1px 0px #d0d0d0',
+      1: '2px 2px 1px -1px rgba(0,0,0,0.05),1px 1px 1px 0px rgba(0,0,0,0.05),1px 1px 3px 0px rgba(0,0,0,0.10)',
     },
   },
 
@@ -56,8 +56,8 @@ export default {
     },
 
     button: {
-      main: '#ededed',
-      contrastText: '#655d5d',
+      main: '#e9ecf2',
+      contrastText: '#5d6265',
     },
 
     buttonContrast: {
@@ -66,20 +66,20 @@ export default {
     },
 
     borders: {
-      1: '#d9d9d9',
-      2: '#d9d9d9',
-      3: '#d9d9d9',
-      4: '#d9d9d9',
+      1: '#dfe3e7',
+      2: '#dfe3e7',
+      3: '#dfe3e7',
+      4: '#a1d0ff',
       5: '#41a6ff',
     },
 
     background: {
-      1: '#e5e7eb', // f8f9fa
+      1: '#ffffff', // f8f9fa
       2: '#f0f2f5',
-      3: '#e5e9ed',
-      4: '#eee',
-      5: '#f3f5f8',
-      6: '#e5e7e7',
+      3: '#f0f2f5',
+      4: '#f8f9fa',
+      5: '#ffffff',
+      6: '#e9ecf2',
       7: '#ededed',
       8: '#dcdcdc',
 
@@ -92,10 +92,10 @@ export default {
 
       list: {
         default: '#202124', // #595b63
-        activeColor: '#202124',
+        activeColor: '#0072E5',
       },
 
-      paper: '#f8f9fa',
+      paper: '#ffffff',
       backdrop: 'rgba(0,0,0,0.76)',
     },
 
@@ -106,41 +106,41 @@ export default {
       lightRed: '#ff8686',
       pink: '#d53f8c',
       purple: '#b775ff',
-      yellow: '#cfc126',
-      hover: 'rgba(225,225,225,0.53)',
-      active: 'rgba(225,225,225,0.53)',
+      yellow: '#ffd000',
+      hover: '#f3f5f7',
+      active: '#f3f5f7',
       default: '#b6b4a2',
       breadcrumbs: '#4a5568',
     },
 
     tree: {
-      default: '#dddddd',
-      defaultBorder: '#e6e6e4',
+      default: '#e2e6ed',
+      defaultBorder: '#e3e7ea',
       backgrounds: [
         '#ff5866',
-        '#b882ff',
-        '#57bfff',
-        '#4cd5dc',
-        '#5cceac',
-        '#6dce5c',
-        '#ceb95c',
+        '#bb8aff',
+        '#009fff',
+        '#00b2d5',
+        '#00b26e',
+        '#57ad00',
+        '#93ad00',
         '#f08d7f',
       ],
-      hashtag: 'rgb(149,151,153)',
+      hashtag: '#9AA6ADFF',
       defaultText: 'rgb(67,69,71)',
-      selectedText: 'rgb(67,69,71)',
+      selectedText: 'rgb(65,65,65)',
     },
 
     workflow: {
-      default: '#e2e2e2',
-      input: '#ebf8ff',
-      background: '#f7fafc',
-      selectedInputColor: '#4299e1',
-      defaultInputColor: '#cbcbcb',
+      default: '#e2e6ed',
+      input: '#cdd4ff',
+      background: '#2d3139',
+      selectedInputColor: '#a1d0ff',
+      defaultInputColor: '#cdd4ff',
     },
 
     markdownContent: {
-      canvas: '#e8e8e8',
+      canvas: '#f7f7f7',
       border: '#c5cdda',
       background: 'transparent',
     },
@@ -176,7 +176,7 @@ export default {
     text: {
       primary: '#434c53',
       secondary: '#3d4652',
-      tertiary: '#757571',
+      tertiary: '#6e768b',
       disabled: '#5c616b',
       contrast: '#5e5f5f',
       sectionPrimary: '#acdf83',

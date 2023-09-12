@@ -1,5 +1,5 @@
 import React from 'react';
-import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField, Box } from '@mui/material';
 import PropTypes from 'prop-types';

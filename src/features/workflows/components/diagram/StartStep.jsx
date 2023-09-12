@@ -55,7 +55,8 @@ export default function StartStep({ workflowId }) {
         y={0}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 1}
-        fill="transparent"
+        fill={theme.palette.background[5]}
+        fillOpacity={0.3}
         stroke={hovered ? theme.palette.borders[4]
           : 'transparent'}
         strokeWidth={2}

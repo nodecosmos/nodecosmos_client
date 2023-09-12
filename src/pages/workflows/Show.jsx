@@ -14,6 +14,7 @@ import { WorkflowsContext } from '../../features/workflows/workflows.context';
 import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../features/workflows/workflows.thunks';
 import Alert from '../../common/components/Alert';
+import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
 
 export default function Show() {
   const { id } = useParams();
@@ -50,6 +51,10 @@ export default function Show() {
   useEffect(() => {
     if (!workflow.id) setLoading(true);
     dispatch(showWorkflow(id)).then(() => setLoading(false));
+
+    return () => {
+      dispatch(clearSelectedWorkflowDiagramObject());
+    };
   }, [dispatch, id, workflow.id]);
 
   if (loading) {

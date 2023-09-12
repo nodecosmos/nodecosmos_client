@@ -48,7 +48,7 @@ export default function CreateNodeModal(props) {
   return (
     <Dialog
       fullWidth
-      maxWidth="sm"
+      maxWidth="md"
       onClose={onClose}
       open={open}
       PaperProps={{

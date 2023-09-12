@@ -130,6 +130,9 @@ const workflowsSlice = createSlice({
     setSelectedWorkflowDiagramObject(state, action) {
       state.selectedWorkflowDiagramObject = action.payload;
     },
+    clearSelectedWorkflowDiagramObject(state) {
+      state.selectedWorkflowDiagramObject = {};
+    },
     setIsWfPaneOpen(state, action) {
       state.isWfPaneOpen = action.payload;
     },
@@ -212,6 +215,7 @@ export const {
   setIsWfPaneOpen,
   setWorkflowScale,
   setWorkflowPaneContent,
+  clearSelectedWorkflowDiagramObject,
 } = actions;
 
 export default reducer;
