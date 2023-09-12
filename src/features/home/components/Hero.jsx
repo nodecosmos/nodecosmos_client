@@ -38,7 +38,6 @@ export default function Hero() {
       />
       <Box
         display="flex"
-        alignItems="center"
         justifyContent={{
           xs: 'center',
           sm: 'space-between',
@@ -48,7 +47,15 @@ export default function Hero() {
           xs: 'column',
           sm: 'row',
         }}
-        width={1}
+        alignItems={{
+          xs: 'flex-start',
+          sm: 'center',
+        }}
+        width={{
+          xs: 'auto',
+          sm: 1,
+        }}
+        gap={2}
       >
         <AnimateOnView delay={200}>
           <Typography

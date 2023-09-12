@@ -112,7 +112,7 @@ export default {
       yellow: '#ffd000',
       hover: '#ededed',
       active: '#ededed',
-      default: '#63757b',
+      default: '#92a1a8',
       breadcrumbs: '#4a5568',
     },
 
@@ -126,7 +126,7 @@ export default {
         '#00b7e3', // 009fff
         '#00b773',
         '#57ad00',
-        '#a99d05',
+        '#d5ad00',
         '#f08d7f',
       ],
       hashtag: '#777a7d',
