@@ -59,7 +59,7 @@ export default {
     },
 
     button: {
-      main: '#e9ecf2',
+      main: '#e0e0e0',
       contrastText: '#5d6265',
     },
 
@@ -98,7 +98,7 @@ export default {
         activeColor: '#0a68ff',
       },
 
-      paper: '#ffffff',
+      paper: '#ededed',
       backdrop: 'rgba(0,0,0,0.76)',
     },
 
@@ -130,7 +130,7 @@ export default {
         '#f08d7f',
       ],
       hashtag: '#777a7d',
-      defaultText: '#1e1f21',
+      defaultText: '#6c6c6c',
       selectedText: '#fff',
     },
 
@@ -139,7 +139,7 @@ export default {
       input: '#cdd4ff',
       background: '#2d3139',
       selectedInputColor: '#6f87ff',
-      defaultInputColor: '#6fbaff',
+      defaultInputColor: '#d2d2d2',
       stepBorderColor: '#cdd4ff',
     },
 

@@ -78,7 +78,14 @@ export default function Show() {
     >
       <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.workflowPage}>
         <WorkflowContainer>
-          <Box height={1} width={1} display="flex">
+          <Box
+            height={1}
+            width={1}
+            display="flex"
+            style={{
+              cursor: resizeInProgress ? 'col-resize' : 'default',
+            }}
+          >
             <Box
               height={1}
               width={(isWfPaneOpen && paneAWidth) || '100%'}
