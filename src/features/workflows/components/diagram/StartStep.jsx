@@ -52,14 +52,14 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        y={0}
+        y={2}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 1}
         fill={theme.palette.background[5]}
         fillOpacity={0.3}
         stroke={hovered ? theme.palette.workflow.stepBorderColor
           : 'transparent'}
-        strokeWidth={2}
+        strokeWidth={3}
       />
       <foreignObject
         width="700"
