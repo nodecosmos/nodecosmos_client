@@ -22,7 +22,7 @@ export default function NodeOutputsBranch({ diagramId }) {
     <path
       stroke={theme.palette.workflow.default}
       fill="transparent"
-      strokeWidth={3.5}
+      strokeWidth={3}
       d={`M ${branchX} ${branchY} L ${branchX} ${yEnd}`}
       style={{
         opacity: 0,

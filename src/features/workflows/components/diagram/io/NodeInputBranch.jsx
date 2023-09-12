@@ -41,7 +41,7 @@ export default function NodeInputBranch({
         className="input-branch"
         stroke={color}
         fill="transparent"
-        strokeWidth={isSelected ? 1.5 : 1}
+        strokeWidth={2}
         d={`M ${xStart} ${yStart} L ${xEnd} ${yEnd}`}
         style={{
           opacity: 0,

@@ -1,12 +1,11 @@
 import React from 'react';
-import { faPenToSquare, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faPenToSquare, faTrash, faRectangleCode, faCodeFork, faDisplay,
+} from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   IconButton, Tooltip, Typography, Box,
 } from '@mui/material';
-import {
-  faRectangleCode, faCodeFork, faDisplay,
-} from '@fortawesome/pro-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
@@ -70,8 +69,6 @@ export default function IOPaneToolbar() {
         <Typography
           align="center"
           variant="body1"
-          fontWeight="bold"
-          color="secondary"
           ml={1}
           sx={{
             maxWidth: 200,

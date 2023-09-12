@@ -52,7 +52,15 @@ export default function NodePane() {
 
   if (!selectedNodeId) {
     return (
-      <Box m={3} height={1} width={1} display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+      <Box
+        m={3}
+        height={1}
+        width={1}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+      >
         <Typography variant="h6" color="text.secondary" textAlign="center">
           Select a node from the tree to view its description
         </Typography>
@@ -67,7 +75,6 @@ export default function NodePane() {
     <Box
       width={1}
       height={1}
-      backgroundColor="background.5"
       sx={{ overflow: 'hidden' }}
       position="relative"
       zIndex={1}

@@ -52,15 +52,28 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        y={2}
+        y={0}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 1}
         fill={theme.palette.background[5]}
         fillOpacity={0.3}
         stroke={hovered ? theme.palette.workflow.stepBorderColor
           : 'transparent'}
-        strokeWidth={3}
+        strokeWidth={2}
       />
+      <g>
+        <circle
+          cx={x - 35}
+          cy={y + WORKFLOW_BUTTON_HEIGHT / 2}
+          r={6}
+          fill={theme.palette.workflow.default}
+        />
+        <path
+          strokeWidth={4}
+          d={`M ${x - 35} ${y + WORKFLOW_BUTTON_HEIGHT / 2} L ${x} ${y + WORKFLOW_BUTTON_HEIGHT / 2}`}
+          stroke={theme.palette.workflow.default}
+        />
+      </g>
       <foreignObject
         width="700"
         height={WORKFLOW_BUTTON_HEIGHT + 3}
@@ -91,8 +104,8 @@ export default function StartStep({ workflowId }) {
         <path
           stroke={theme.palette.workflow.default}
           fill="transparent"
-          strokeWidth={3.5}
-          d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT + 3} L ${x + MARGIN_LEFT} ${yEnd}`}
+          strokeWidth={3}
+          d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
           style={{
             opacity: 0,
             animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,

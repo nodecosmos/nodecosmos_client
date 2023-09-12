@@ -7,7 +7,7 @@ import NodeBreadcrumbs from '../../../nodes/components/NodeBreadcrumbs';
 
 /* nodecosmos */
 import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
-import { selectHeaderContent } from '../../app.selectors';
+import { selectHeaderContent, selectTheme } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import UserHeaderOptions from './UserHeaderOptions';
 
@@ -15,6 +15,8 @@ const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
 const SIDEBAR_PATHS = ['/nodes'];
 
 export default function Header() {
+  const selectedTheme = useSelector(selectTheme);
+
   const headerContents = {
     NodeIndexToolbar: <NodeIndexToolbar />,
     NodeBreadcrumbs: <NodeBreadcrumbs />,
@@ -25,6 +27,8 @@ export default function Header() {
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
   const hasSidebar = SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path));
+
+  const logo = selectedTheme === 'light' ? '/logo_light.svg' : '/logo_dark.svg';
 
   return (
     <Box
@@ -66,7 +70,7 @@ export default function Header() {
             to="/nodes"
             className="MicroButton"
           >
-            <img src="/logo_1.svg" alt="logo" height={22} width={22} />
+            <img src={logo} alt="logo" height={22} width={22} />
             <Typography
               sx={{
                 fontSize: 18,

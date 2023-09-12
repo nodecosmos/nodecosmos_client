@@ -2,8 +2,10 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
 import {
-  faRectangleCode,
   faHashtag,
+} from '@fortawesome/pro-light-svg-icons';
+import {
+  faRectangleCode,
   faCodeCommit,
   faDisplay,
   faPenToSquare,
@@ -23,21 +25,6 @@ export default function NodePaneToolbar() {
 
   const dispatch = useDispatch();
   const nodePaneContent = useSelector(selectNodeDetailsAction);
-
-  if (!title) {
-    return (
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        height={HEADER_HEIGHT}
-        borderBottom={1}
-        borderColor="borders.4"
-      >
-        Select a node from the tree to view its description
-      </Box>
-    );
-  }
 
   const hasBoxShadow = nodePaneContent === NODE_PANE_CONTENTS.markdown
     || nodePaneContent === NODE_PANE_CONTENTS.description;

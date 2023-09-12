@@ -76,7 +76,7 @@ export default function LazyAppLoad() {
             borderRadius={{ xs: 0, sm: 2 }}
             height={1}
             overflow="hidden"
-            border={1}
+            // border={1}
             borderColor="borders.2"
           >
             <Header />

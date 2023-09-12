@@ -41,7 +41,7 @@ export default function WorkflowOutputBranch(props) {
         }}
       />
       <path
-        strokeWidth={3.5}
+        strokeWidth={3}
         d={`M ${x} ${y}
             C ${x} ${y}
               ${x + 25} ${y + 1}

@@ -2,17 +2,20 @@ export default {
   shadows: {
     0: 'none',
     1: 0,
-    2: '0 0px 6px #00000020',
+    // 2: '0 0px 3px #dee0e3',
+    2: 0,
     3: 0,
     4: 0,
     5: 0,
     6: 0,
     7: 0,
-    8: 0,
+    8: '-5px -3px 5px -3px rgba(5,5,5,0.2), 10px -3px 5px -3px rgba(5,5,5,0.2),'
+      + '0px 5px 5px -3px rgba(5,5,5,0.2),0px 8px 10px 1px rgba(5,5,5,0.14),0px 3px 14px 2px rgba(5,5,5,0.12)',
 
     left: {
       1: 0,
-      2: '0px 0px 6px #00000020',
+      // 2: '-1px 0px 3px 0px #dee0e3, -3px -3px 3px 0px #e2ebed',
+      2: 0,
     },
 
     right: {
@@ -26,13 +29,13 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
     buttons: {
-      1: '2px 2px 1px -1px rgba(0,0,0,0.05),1px 1px 1px 0px rgba(0,0,0,0.05),1px 1px 3px 0px rgba(0,0,0,0.10)',
+      1: 0,
     },
   },
 
   palette: {
     primary: {
-      main: '#37a000',
+      main: '#9eb67e',
       contrastText: 'rgba(0, 0, 0, 0.7)',
     },
 
@@ -66,20 +69,20 @@ export default {
     },
 
     borders: {
-      1: '#ccd2d8',
-      2: '#dfe3e7',
-      3: '#dfe3e7',
+      1: '#d1d5df',
+      2: '#d1d5df',
+      3: '#dfe3ec',
       4: '#c7cfd5',
       5: '#41a6ff',
     },
 
     background: {
       1: '#ffffff', // f8f9fa
-      2: '#f0f2f5',
-      3: '#f0f2f5',
+      2: '#ededed',
+      3: '#ededed',
       4: '#f8f9fa',
-      5: '#ffffff',
-      6: '#e9ecf2',
+      5: '#f9f8f8',
+      6: '#e0e0e0',
       7: '#ededed',
       8: '#dcdcdc',
 
@@ -91,8 +94,8 @@ export default {
       },
 
       list: {
-        default: '#202124', // #595b63
-        activeColor: '#0072E5',
+        default: '#b9babd', // #595b63
+        activeColor: '#0a68ff',
       },
 
       paper: '#ffffff',
@@ -101,42 +104,42 @@ export default {
 
     toolbar: {
       red: '#ff7878',
-      green: '#61dc7e',
-      blue: '#4299e1',
+      green: '#1ac143',
+      blue: '#0095ff',
       lightRed: '#ff8686',
       pink: '#d53f8c',
       purple: '#b775ff',
       yellow: '#ffd000',
-      hover: '#f3f5f7',
-      active: '#f3f5f7',
-      default: '#b6b4a2',
+      hover: '#ededed',
+      active: '#ededed',
+      default: '#63757b',
       breadcrumbs: '#4a5568',
     },
 
     tree: {
-      default: '#e2e6ed',
-      defaultBorder: '#e3e7ea',
+      default: '#e0e0e0',
+      defaultBorder: '#d1d1dc',
       backgrounds: [
         '#ff5866',
         '#bb8aff',
-        '#009fff',
-        '#00b2d5',
-        '#00b26e',
+        '#4193ff', // 77e2ff
+        '#00b7e3', // 009fff
+        '#00b773',
         '#57ad00',
-        '#93ad00',
+        '#a99d05',
         '#f08d7f',
       ],
-      hashtag: '#9AA6ADFF',
-      defaultText: 'rgb(67,69,71)',
-      selectedText: 'rgb(65,65,65)',
+      hashtag: '#777a7d',
+      defaultText: '#1e1f21',
+      selectedText: '#fff',
     },
 
     workflow: {
-      default: '#e2e6ed',
+      default: '#e0e0e0',
       input: '#cdd4ff',
       background: '#2d3139',
-      selectedInputColor: '#a1d0ff',
-      defaultInputColor: '#cdd4ff',
+      selectedInputColor: '#6f87ff',
+      defaultInputColor: '#6fbaff',
       stepBorderColor: '#cdd4ff',
     },
 
@@ -160,7 +163,7 @@ export default {
       quote: '#57606e',
       meta: '#ee56a3',
       link: '#83c1ea',
-      background: '#f8f9fa',
+      background: 'transparent',
       foreground: '#4b4b4b',
       selection: 'rgba(0,0,0,0.06)',
       selectionMatch: 'rgba(0,0,0,0.06)',
@@ -170,8 +173,8 @@ export default {
     },
 
     logo: {
-      blue: '#5ebee3',
-      red: '#e91e63',
+      blue: '#58b1ff',
+      red: '#ff5866',
     },
 
     text: {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setHeaderContent } from '../../features/app/appSlice';
@@ -16,6 +16,7 @@ import Alert from '../../common/components/Alert';
 export default function Show() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const isTreeLoading = useSelector(selectIsTreeLoading);
 
@@ -104,17 +105,15 @@ export default function Show() {
         />
       </Box>
       <Box
+        backgroundColor="background.5"
         ref={paneBRef}
         height={1}
         width={paneBWidth}
-        display="flex"
-        boxShadow="left.2"
         overflow="hidden"
-        sx={{
-          borderLeft: 1,
-          borderColor: 'borders.3',
-          borderLeftColor: resizerHovered ? 'borders.5' : 'borders.3',
-          borderLeftWidth: resizerHovered ? 2 : 1,
+        boxShadow="left.2"
+        borderLeft={1}
+        style={{
+          borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
         }}
       >
         <NodePane />

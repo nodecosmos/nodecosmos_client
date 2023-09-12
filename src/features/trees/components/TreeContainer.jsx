@@ -27,18 +27,19 @@ export default function TreeContainer(props) {
           px: 1.75,
           border: 'none',
           ':not(.outlined) .fa-hashtag ': {
-            fontSize: 14,
+            // fontSize: 14,
             color: 'tree.hashtag',
           },
           '&.selected .fa-hashtag': {
             color: 'inherit',
+            fontWeight: 700,
           },
           '.NodeButtonText': {
             ml: 1,
             p: 0,
             backgroundColor: 'transparent',
             fontFamily: 'Roboto, sans-serif',
-            fontSize: 14,
+            // fontSize: 14,
             fontWeight: 400,
             letterSpacing: '0.02857em',
             minWidth: 40,
@@ -46,7 +47,11 @@ export default function TreeContainer(props) {
             cursor: 'pointer!important',
             pointerEvents: 'none',
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
-
+          },
+          '&.selected': {
+            '.NodeButtonText': {
+              fontWeight: 700,
+            },
           },
         },
       }}

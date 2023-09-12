@@ -52,14 +52,14 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       />
       <rect
         x={x + 1}
-        y={2}
+        y={0}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 2}
         fill={fillColor}
         fillOpacity={0.3}
         stroke={hovered ? theme.palette.workflow.stepBorderColor
           : 'transparent'}
-        strokeWidth={3}
+        strokeWidth={2}
       />
       <foreignObject
         width={WORKFLOW_STEP_WIDTH}
