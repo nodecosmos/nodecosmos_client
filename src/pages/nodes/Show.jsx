@@ -37,7 +37,7 @@ export default function NodeShow() {
         borderColor="borders.1"
         zIndex={4}
       >
-        <Sidebar rootId={rootId} id={id} />
+        <Sidebar />
       </Box>
       <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
         <Outlet />

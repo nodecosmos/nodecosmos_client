@@ -58,7 +58,15 @@ export default function Show() {
   }, [resizeInProgress]);
 
   return (
-    <Box display={{ xs: 'block', md: 'flex' }} width={1} height={1} overflow="hidden">
+    <Box
+      display={{ xs: 'block', md: 'flex' }}
+      width={1}
+      height={1}
+      overflow="hidden"
+      style={{
+        cursor: resizeInProgress ? 'col-resize' : 'auto',
+      }}
+    >
       <Box
         ref={paneARef}
         width={paneAWidth}

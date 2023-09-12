@@ -10,11 +10,11 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, Box } from '@mui/material';
-import * as PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import SidebarListItem from './SidebarListItem';
 
-export default function Sidebar(props) {
-  const { id, rootId } = props;
+export default function Sidebar() {
+  const { rootId, id } = useParams();
 
   const toPath = rootId ? `${rootId}/${id}` : id;
 
@@ -96,12 +96,3 @@ export default function Sidebar(props) {
     </Box>
   );
 }
-
-Sidebar.defaultProps = {
-  rootId: null,
-};
-
-Sidebar.propTypes = {
-  id: PropTypes.string.isRequired,
-  rootId: PropTypes.string,
-};

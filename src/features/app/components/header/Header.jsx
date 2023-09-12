@@ -19,9 +19,7 @@ export default function Header() {
     NodeIndexToolbar: <NodeIndexToolbar />,
     NodeBreadcrumbs: <NodeBreadcrumbs />,
   };
-
   const location = useLocation();
-
   const headerContent = useSelector(selectHeaderContent);
 
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
