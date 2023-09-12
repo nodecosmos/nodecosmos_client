@@ -35,6 +35,8 @@ export default function Header() {
       height={HEADER_HEIGHT}
       width={1}
       backgroundColor="background.2"
+      position="relative"
+      zIndex={4}
     >
       <Box
         display="flex"

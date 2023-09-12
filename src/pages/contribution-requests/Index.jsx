@@ -26,7 +26,7 @@ export default function Index() {
   }
 
   return (
-    <Box height={1}>
+    <Box height={1} overflow="hidden">
       <ContributionRequestsToolbar nodeId={id} />
       <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
         <ContributionRequestsList nodeId={id} />

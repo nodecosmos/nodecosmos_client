@@ -24,10 +24,7 @@ export default function Sidebar(props) {
       display="flex"
       justifyContent="space-between"
       flexDirection="column"
-      sx={{
-        mt: 7,
-        fontSize: 0.875,
-      }}
+      mt={7}
     >
       <List sx={{ px: 1 }}>
         <SidebarListItem

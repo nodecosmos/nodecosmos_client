@@ -140,6 +140,7 @@ export default {
       background: '#2d3139',
       selectedInputColor: '#cdd4ff',
       defaultInputColor: '#52565e',
+      stepBorderColor: '#545760',
     },
 
     markdownContent: {

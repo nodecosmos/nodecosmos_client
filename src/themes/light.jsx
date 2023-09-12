@@ -69,7 +69,7 @@ export default {
       1: '#dfe3e7',
       2: '#dfe3e7',
       3: '#dfe3e7',
-      4: '#a1d0ff',
+      4: '#c7cfd5',
       5: '#41a6ff',
     },
 
@@ -137,6 +137,7 @@ export default {
       background: '#2d3139',
       selectedInputColor: '#a1d0ff',
       defaultInputColor: '#cdd4ff',
+      stepBorderColor: '#cdd4ff',
     },
 
     markdownContent: {
