@@ -52,7 +52,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
       />
       <rect
         x={x + 1}
-        y={0}
+        y={2}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 2}
         fill={fillColor}

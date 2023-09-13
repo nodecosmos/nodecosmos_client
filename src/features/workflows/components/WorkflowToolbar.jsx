@@ -41,7 +41,7 @@ export default function WorkflowToolbar({ nodeId }) {
       >
         {
           workflow.title && (
-            <Typography fontWeight="bold" color="text.primary" pr={1}>
+            <Typography fontWeight="bold" color="text.secondary" pr={1} variant="subtitle1">
               {workflow.title}
             </Typography>
           )

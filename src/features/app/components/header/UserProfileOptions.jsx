@@ -96,7 +96,7 @@ export default function UserProfileOptions() {
         />
         <SidebarListItem
           icon={(<FontAwesomeIcon icon={faLightbulbOn} />)}
-          title="Light Mode"
+          title="Theme"
           component={null}
         >
           <Box width={150} mr={2} display="flex" alignItems="center">
