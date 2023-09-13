@@ -76,9 +76,9 @@ export default function UserProfileOptions() {
             sx: {
               p: 0,
               m: 0.25,
-              width: 300,
+              width: 350,
               '.MuiList-root': { p: 0 },
-              '.MuiListItemButton-root': { height: 62 },
+              '.MuiListItemButton-root': { minHeight: 62 },
             },
           },
         }}
@@ -99,14 +99,16 @@ export default function UserProfileOptions() {
           title="Light Mode"
           component={null}
         >
-          <Box width={175} display="flex" alignItems="center">
+          <Box width={150} mr={2} display="flex" alignItems="center">
             <Slider
-              aria-label="Custom marks"
+              aria-label="Theme"
               defaultValue={marks.findIndex((mark) => mark.label === theme)}
+              color="secondary"
               step={1}
               min={0}
               max={2}
-              valueLabelDisplay="auto"
+              valueLabelDisplay="off"
+              track={false}
               marks={marks}
               onChange={(_, value) => toggleTheme(_, value)}
             />

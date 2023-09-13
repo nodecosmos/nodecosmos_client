@@ -3,7 +3,7 @@ export default {
     0: 'none',
     1: 0,
     // 2: '0 0px 3px #dee0e3',
-    2: 0,
+    2: '0px 3px 1px -2px rgba(5,5,5,0.1),0px 2px 2px 0px rgba(5,5,5,0.07),0px 1px 5px 0px rgba(5,5,5,0.06)',
     3: 0,
     4: 0,
     5: 0,
@@ -14,8 +14,7 @@ export default {
 
     left: {
       1: 0,
-      // 2: '-1px 0px 3px 0px #dee0e3, -3px -3px 3px 0px #e2ebed',
-      2: 0,
+      2: '-1px 3px 1px -2px rgba(5,5,5,0.1),0px 2px 2px 0px rgba(5,5,5,0.07),0px 1px 5px 0px rgba(5,5,5,0.06)',
     },
 
     right: {
@@ -29,7 +28,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
     buttons: {
-      1: 0,
+      1: '3px 3px 1px -2px rgba(5,5,5,0.2),2px 2px 2px 0px rgba(5,5,5,0.14),1px 1px 5px 0px rgba(5,5,5,0.12)',
     },
   },
 
@@ -78,11 +77,11 @@ export default {
 
     background: {
       1: '#ffffff', // f8f9fa
-      2: '#ededed',
+      2: '#f0f0ef', // f0f0ef ededed
       3: '#ededed',
       4: '#f8f9fa',
       5: '#f9f8f8',
-      6: '#e0e0e0',
+      6: '#e6e6e6',
       7: '#ededed',
       8: '#dcdcdc',
 
@@ -117,8 +116,8 @@ export default {
     },
 
     tree: {
-      default: '#e0e0e0',
-      defaultBorder: '#d1d1dc',
+      default: '#e4e2e2',
+      defaultBorder: 'transparent',
       backgrounds: [
         '#ff5866',
         '#bb8aff',
