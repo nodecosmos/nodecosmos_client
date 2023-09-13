@@ -166,7 +166,7 @@ export default function Index() {
               displa="inline-flex"
             >
               <img
-                src="logo_1.svg"
+                src="logo_dark.svg"
                 alt="logo"
                 height={22}
                 width={22}

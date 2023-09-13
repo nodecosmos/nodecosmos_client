@@ -91,6 +91,8 @@ export default function NodeDescriptionMd() {
           boxShadow: 0,
           overflow: 'hidden',
           width: 494,
+          position: 'relative',
+          zIndex: 3,
         }}
         >
           <Box
