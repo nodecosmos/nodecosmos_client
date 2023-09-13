@@ -3,7 +3,7 @@ export default {
     0: 'none',
     1: 0,
     // 2: '0 0px 3px #dee0e3',
-    2: '0px 3px 1px -2px rgba(5,5,5,0.1),0px 2px 2px 0px rgba(5,5,5,0.07),0px 1px 5px 0px rgba(5,5,5,0.06)',
+    2: 0,
     3: 0,
     4: 0,
     5: 0,
@@ -14,7 +14,7 @@ export default {
 
     left: {
       1: 0,
-      2: '-1px 3px 1px -2px rgba(5,5,5,0.1),0px 2px 2px 0px rgba(5,5,5,0.07),0px 1px 5px 0px rgba(5,5,5,0.06)',
+      2: 0,
     },
 
     right: {
@@ -34,12 +34,12 @@ export default {
 
   palette: {
     primary: {
-      main: '#9eb67e',
-      contrastText: 'rgba(0, 0, 0, 0.7)',
+      main: '#9fadff',
+      contrastText: '#fff',
     },
 
     secondary: {
-      main: '#b293fe',
+      main: '#9fadff',
     },
 
     error: {
@@ -58,7 +58,7 @@ export default {
     },
 
     button: {
-      main: '#e0e0e0',
+      main: '#e6e6e6',
       contrastText: '#5d6265',
     },
 

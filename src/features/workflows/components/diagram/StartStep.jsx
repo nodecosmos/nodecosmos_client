@@ -52,7 +52,7 @@ export default function StartStep({ workflowId }) {
       <rect
         onMouseEnter={() => setHovered(true)}
         x={0}
-        y={2}
+        y={1}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 1}
         fill={theme.palette.background[5]}
