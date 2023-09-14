@@ -46,6 +46,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
 
   const {
     backgroundColor,
+    outlineColor,
     color,
   } = useWorkflowOutputButtonBg({ id, nodeId });
 
@@ -73,7 +74,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
             onKeyUp={(event) => event.preventDefault()}
             style={{
               background: backgroundColor,
-              border: `3px solid ${theme.palette.workflow.default}`,
+              border: `2px solid ${outlineColor}`,
               color,
             }}
           >

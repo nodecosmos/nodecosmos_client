@@ -4,20 +4,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
-
 import AddRounded from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
-
-/* mui */
 import {
   Button,
   InputAdornment,
   DialogContent,
 } from '@mui/material';
-
-/* nodecosmos */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { selectFlowAttribute } from '../flows.selectors';

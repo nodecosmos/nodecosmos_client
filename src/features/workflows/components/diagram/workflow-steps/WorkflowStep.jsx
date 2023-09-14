@@ -9,7 +9,7 @@ import FlowModal from '../../../../flows/components/FlowModal';
 import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition, selectWorkflowScale } from '../../../workflows.selectors';
 import useWorkflowTransformableId from '../../../hooks/diagram/useWorkflowTransformableId';
-import WorkflowStepFlows from './WorkflowStepFlows';
+import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
@@ -26,6 +26,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
 
   const fillColor = wfStepIndex % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
+  const hoverColor = theme.palette.background[7];
 
   if (!x) return null;
 
@@ -39,7 +40,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
           setHovered(true);
         }
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={() => {
         setHovered(false);
       }}
     >
@@ -51,14 +52,13 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
         fill="transparent"
       />
       <rect
-        x={x + 1}
-        y={1}
+        x={x}
+        y={0}
         height={rectHeight}
-        width={WORKFLOW_STEP_WIDTH - 2}
-        fill={fillColor}
+        width={WORKFLOW_STEP_WIDTH}
+        fill={hovered ? hoverColor : fillColor}
         fillOpacity={0.3}
-        stroke={hovered ? theme.palette.workflow.stepBorderColor
-          : 'transparent'}
+        stroke="transparent"
         strokeWidth={2}
       />
       <foreignObject

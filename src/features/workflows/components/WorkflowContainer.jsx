@@ -22,9 +22,6 @@ export default function WorkflowContainer(props) {
           '.IOButtonText': {
             mx: 1,
             p: 0,
-            // fontFamily: 'Roboto, sans-serif',
-            fontSize: 14,
-            // fontWeight: 500,
             letterSpacing: '0.02857em',
             minWidth: 40,
             outline: 'none!important',

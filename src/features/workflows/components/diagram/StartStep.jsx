@@ -47,6 +47,9 @@ export default function StartStep({ workflowId }) {
   const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
   const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
 
+  const fillColor = theme.palette.background[5];
+  const hoverColor = theme.palette.background[7];
+
   return (
     <g onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <rect
@@ -55,10 +58,9 @@ export default function StartStep({ workflowId }) {
         y={1}
         height={rectHeight}
         width={WORKFLOW_STEP_WIDTH - 1}
-        fill={theme.palette.background[5]}
+        fill={hovered ? hoverColor : fillColor}
         fillOpacity={0.3}
-        stroke={hovered ? theme.palette.workflow.stepBorderColor
-          : 'transparent'}
+        stroke="transparent"
         strokeWidth={2}
       />
       <g>
@@ -71,7 +73,7 @@ export default function StartStep({ workflowId }) {
         <path
           strokeWidth={4}
           d={`M ${x - 35} ${y + WORKFLOW_BUTTON_HEIGHT / 2} L ${x} ${y + WORKFLOW_BUTTON_HEIGHT / 2}`}
-          stroke={theme.palette.workflow.default}
+          stroke={theme.palette.borders[1]}
         />
       </g>
       <foreignObject

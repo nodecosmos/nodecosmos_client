@@ -22,7 +22,6 @@ export default function NodeInputBranch({
 
   const { x, y: yStart } = useSelector(selectWorkflowDiagramPosition(id)); // output of prev step
   const { x: xEnd, y: yEnd } = useSelector(selectWorkflowDiagramPosition(nodeDiagramId));
-
   const { selectedInputColor, defaultInputColor } = theme.palette.workflow;
 
   const xStart = x + OUTPUT_VERTICAL_EDGE_LENGTH;
@@ -32,8 +31,6 @@ export default function NodeInputBranch({
   if (!x) return null;
 
   const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-  const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-  const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
 
   return (
     <g>
@@ -41,7 +38,7 @@ export default function NodeInputBranch({
         className="input-branch"
         stroke={color}
         fill="transparent"
-        strokeWidth={2}
+        strokeWidth={1}
         d={`M ${xStart} ${yStart} L ${xEnd} ${yEnd}`}
         style={{
           opacity: 0,
@@ -53,11 +50,12 @@ export default function NodeInputBranch({
         cx={xStart}
         cy={yStart}
         r={5}
-        stroke="transparent"
-        fill={theme.palette.workflow.default}
+        strokeWidth={0.5}
+        stroke={theme.palette.secondary.main}
+        fill={defaultInputColor}
         style={{
           opacity: 0,
-          animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
+          animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
           transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
         }}
       />

@@ -50,20 +50,16 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
           pl={2}
           borderTop={1}
           borderBottom={1}
-          borderColor="borders.2"
+          borderColor="borders.1"
           color="text.tertiary"
           zIndex={1}
           position="relative"
         >
           <Typography
             onClick={handleFlowClick}
-            component="a"
-            fontSize={18.75}
             variant="body1"
-            fontFamily="'Roboto', sans-serif"
             fontWeight={700}
             color="text.tertiary"
-            textAlign="left"
             sx={{
               maxWidth: 220,
               overflow: 'hidden',

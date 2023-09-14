@@ -64,11 +64,12 @@ export default function IOPaneToolbar() {
         />
       </ToolbarContainer>
 
-      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default', mr: 0.5, ml: 1 } }}>
+      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
         {io.title && <FontAwesomeIcon icon={faCodeFork} />}
         <Typography
           align="center"
           variant="body1"
+          color="text.secondary"
           ml={1}
           sx={{
             maxWidth: 200,

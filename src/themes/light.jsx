@@ -39,7 +39,7 @@ export default {
     },
 
     secondary: {
-      main: '#9fadff',
+      main: '#8894d8',
     },
 
     error: {
@@ -72,7 +72,7 @@ export default {
       2: '#d1d5df',
       3: '#dfe3ec',
       4: '#c7cfd5',
-      5: '#41a6ff',
+      5: '#9fadff',
     },
 
     background: {
@@ -134,11 +134,11 @@ export default {
     },
 
     workflow: {
-      default: '#e0e0e0',
+      default: '#e4e2e2',
       input: '#cdd4ff',
       background: '#2d3139',
-      selectedInputColor: '#6f87ff',
-      defaultInputColor: '#cdd4ff',
+      selectedInputColor: '#80a4ff',
+      defaultInputColor: '#d5d8d6',
       stepBorderColor: '#cdd4ff',
     },
 

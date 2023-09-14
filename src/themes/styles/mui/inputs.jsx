@@ -54,8 +54,6 @@ export default (currentTheme) => ({
           + 'transform 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
       },
       outlined: {
-        fontFamily: "'Roboto', sans-serif",
-        fontWeight: 500,
         background: 'none',
         backgroundColor: 'none',
         color: currentTheme.palette.text.tertiary,

@@ -82,7 +82,7 @@ export default {
       4: '#383c43',
       5: '#3a3f47',
       6: '#3c4149',
-      7: '#464c54',
+      7: '#3f464e',
       8: '#575d66',
 
       labels: {
@@ -135,7 +135,7 @@ export default {
     },
 
     workflow: {
-      default: '#414650',
+      default: '#43464d',
       input: '#cdd4ff',
       background: '#2d3139',
       selectedInputColor: '#cdd4ff',

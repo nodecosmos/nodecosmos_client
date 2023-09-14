@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   faPenToSquare, faTrash, faRectangleCode, faCodeCommit, faDisplay,
-} from '@fortawesome/pro-regular-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   IconButton, Tooltip, Typography, Box,
@@ -67,13 +67,12 @@ export default function FlowPaneToolbar() {
         />
       </ToolbarContainer>
 
-      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.default', mr: 0.5, ml: 1 } }}>
+      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
         {title && <FontAwesomeIcon icon={faCodeCommit} />}
         <Typography
           align="center"
           variant="body1"
-          fontWeight="bold"
-          color="secondary"
+          color="text.secondary"
           ml={1}
           sx={{
             maxWidth: 200,

@@ -30,8 +30,8 @@ export default function WorkflowOutputBranch(props) {
   return (
     <g>
       <circle
-        cx={x}
-        cy={y}
+        cx={x + 0.5}
+        cy={y - 0.5}
         r={5}
         fill={theme.palette.workflow.default}
         style={{

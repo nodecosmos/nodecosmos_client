@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 /* nodecosmos */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { setAlert } from '../../app/appSlice';
 import { selectFlowStepAttribute } from '../../flow-steps/flowSteps.selectors';
