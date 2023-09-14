@@ -5,20 +5,20 @@ import { ButtonBase } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { setSelectedNode } from '../../../nodes/nodesSlice';
+import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
+import { setSelectedNode } from '../../../../nodes/nodesSlice';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
-} from '../../../trees/trees.constants';
-import useWorkflowNodeButtonBg from '../../hooks/diagram/useWorkflowNodeButtonBg';
+} from '../../../../trees/trees.constants';
+import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
 import {
   MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_DIAGRAM_CONTEXT, WORKFLOW_DIAGRAM_OBJECTS,
-} from '../../workflows.constants';
-import { WorkflowsContext } from '../../workflows.context';
-import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
-import { setSelectedWorkflowDiagramObject } from '../../workflowsSlice';
+} from '../../../workflows.constants';
+import { WorkflowsContext } from '../../../workflows.context';
+import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
+import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
 import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 

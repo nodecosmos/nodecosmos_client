@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import NodeOutputsBranch from '../NodeOutputsBranch';
-import WorkflowNodeButton from '../WorkflowNodeButton';
-import WorkflowOutputButton from '../io/WorkflowOutputButton';
-import NodeInputBranches from '../io/NodeInputBranches';
+import NodeOutputsBranch from '../nodes/NodeOutputsBranch';
+import WorkflowNodeButton from '../nodes/WorkflowNodeButton';
+import WorkflowOutputButton from '../ios/WorkflowOutputButton';
+import NodeInputBranches from '../ios/NodeInputBranches';
 
 export default function FlowStep({ flowStep }) {
   const inputIdx = useRef({});
@@ -16,6 +16,7 @@ export default function FlowStep({ flowStep }) {
       {
         flowStep.nodes.map((node) => (
           <g key={node.diagramId}>
+            <NodeOutputsBranch diagramId={node.diagramId} />
             <NodeInputBranches
               currentIdx={currentIdx}
               inputIdx={inputIdx}
@@ -29,7 +30,6 @@ export default function FlowStep({ flowStep }) {
               workflowId={flowStep.workflowId}
               workflowStepIndex={flowStep.workflowStepIndex}
             />
-            <NodeOutputsBranch diagramId={node.diagramId} />
             {
               flowStep.outputIdsByNodeId[node.id]?.map((id) => (
                 <WorkflowOutputButton id={id} key={id} nodeId={node.id} />

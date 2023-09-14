@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
   INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
-} from '../../../trees/trees.constants';
-import { selectWorkflowDiagramPosition } from '../../workflows.selectors';
+} from '../../../../trees/trees.constants';
+import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

@@ -24,7 +24,7 @@ import {
 } from '../../workflows.selectors';
 import useWorkflowTransformableId from '../../hooks/diagram/useWorkflowTransformableId';
 import StartToolbar from './StartToolbar';
-import WorkflowOutputButton from './io/WorkflowOutputButton';
+import WorkflowOutputButton from './ios/WorkflowOutputButton';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faPlay} />);
 const MemoizedButtonBase = memo(ButtonBase);
@@ -76,6 +76,22 @@ export default function StartStep({ workflowId }) {
           stroke={theme.palette.workflow.default}
         />
       </g>
+      {
+        workflowDiagram.initialInputIds.length > 0
+        && (
+          <path
+            stroke={theme.palette.workflow.default}
+            fill="transparent"
+            strokeWidth={3}
+            d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+            style={{
+              opacity: 0,
+              animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+              transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+            }}
+          />
+        )
+      }
       <foreignObject
         width="700"
         height={WORKFLOW_BUTTON_HEIGHT + 3}
@@ -100,22 +116,6 @@ export default function StartStep({ workflowId }) {
           {hovered && (<StartToolbar workflowId={workflowId} />)}
         </div>
       </foreignObject>
-      {
-        workflowDiagram.initialInputIds.length > 0
-        && (
-        <path
-          stroke={theme.palette.workflow.default}
-          fill="transparent"
-          strokeWidth={3}
-          d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
-          style={{
-            opacity: 0,
-            animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
-            transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-          }}
-        />
-        )
-      }
       {
         workflowDiagram.initialInputIds.map((id) => (
           <WorkflowOutputButton id={id} key={id} />
