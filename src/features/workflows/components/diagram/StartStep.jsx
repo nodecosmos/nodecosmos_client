@@ -67,13 +67,13 @@ export default function StartStep({ workflowId }) {
         <circle
           cx={x - 35}
           cy={y + WORKFLOW_BUTTON_HEIGHT / 2}
-          r={6}
+          r={5}
           fill={theme.palette.workflow.default}
         />
         <path
           strokeWidth={4}
-          d={`M ${x - 35} ${y + WORKFLOW_BUTTON_HEIGHT / 2} L ${x} ${y + WORKFLOW_BUTTON_HEIGHT / 2}`}
-          stroke={theme.palette.borders[1]}
+          d={`M ${x - 30} ${y + WORKFLOW_BUTTON_HEIGHT / 2} L ${x} ${y + WORKFLOW_BUTTON_HEIGHT / 2}`}
+          stroke={theme.palette.workflow.default}
         />
       </g>
       <foreignObject

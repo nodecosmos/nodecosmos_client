@@ -1,20 +1,21 @@
+/* eslint-disable max-len */
+
 export default {
   shadows: {
     0: 'none',
     1: 0,
-    // 2: '0 0px 3px #dee0e3',
-    2: 0,
+    2: '3px 3px 1px -2px rgba(90,90,90,0.1), 2px 2px 2px 0px rgba(90,90,90,0.05), 1px 1px 5px 0px rgba(90,90,90,0.06)',
+    // 2: 0,
     3: 0,
     4: 0,
     5: 0,
     6: 0,
     7: 0,
-    8: '-5px -3px 5px -3px rgba(5,5,5,0.2), 10px -3px 5px -3px rgba(5,5,5,0.2),'
-      + '0px 5px 5px -3px rgba(5,5,5,0.2),0px 8px 10px 1px rgba(5,5,5,0.14),0px 3px 14px 2px rgba(5,5,5,0.12)',
+    8: '-5px -3px 5px -3px rgba(5,5,5,0.2), 10px -3px 5px -3px rgba(5,5,5,0.2), 0px 5px 5px -3px rgba(5,5,5,0.2), 0px 8px 10px 1px rgba(5,5,5,0.14),0px 3px 14px 2px rgba(5,5,5,0.12)',
 
     left: {
       1: 0,
-      2: 0,
+      2: '-3px 3px 1px -2px rgba(90,90,90,0.1), -2px 2px 2px 0px rgba(90,90,90,0.05), -1px 1px 5px 0px rgba(90,90,90,0.06)',
     },
 
     right: {
@@ -28,7 +29,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
     buttons: {
-      1: '3px 3px 1px -2px rgba(5,5,5,0.2),2px 2px 2px 0px rgba(5,5,5,0.14),1px 1px 5px 0px rgba(5,5,5,0.12)',
+      1: '2px 2px 0px rgb(203 203 203)',
     },
   },
 
@@ -77,7 +78,7 @@ export default {
 
     background: {
       1: '#ffffff', // f8f9fa
-      2: '#f0f0ef', // f0f0ef ededed
+      2: '#efeff0', // f0f0ef ededed
       3: '#f7f7f3',
       4: '#f8f9fa',
       5: '#f9f8f8',
