@@ -138,7 +138,7 @@ export default {
       input: '#cdd4ff',
       background: '#2d3139',
       selectedInputColor: '#6f87ff',
-      defaultInputColor: '#d2d2d2',
+      defaultInputColor: '#cdd4ff',
       stepBorderColor: '#cdd4ff',
     },
 

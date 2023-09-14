@@ -50,7 +50,7 @@ export default function TreeContainer(props) {
           },
           '&.selected': {
             '.NodeButtonText': {
-              fontWeight: 700,
+              fontWeight: 500,
             },
           },
         },

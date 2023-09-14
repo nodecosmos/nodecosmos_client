@@ -79,6 +79,10 @@ export default function UserProfileOptions() {
               width: 350,
               '.MuiList-root': { p: 0 },
               '.MuiListItemButton-root': { minHeight: 62 },
+              '.MuiSlider-markLabel': {
+                fontSize: 12,
+                textTransform: 'capitalize',
+              },
             },
           },
         }}
