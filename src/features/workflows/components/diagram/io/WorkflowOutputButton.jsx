@@ -1,6 +1,6 @@
 import React, { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ButtonBase, useTheme } from '@mui/material';
+import { ButtonBase } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
@@ -24,7 +24,6 @@ import WorkflowOutputBranch from './WorkflowOutputBranch';
 const MemoizedButtonBase = memo(ButtonBase);
 
 export default function WorkflowOutputButton({ id, nodeId }) {
-  const theme = useTheme();
   const title = useSelector(selectIOAttribute(id, 'title'));
   const workflowId = useSelector(selectIOAttribute(id, 'workflowId'));
 
