@@ -12,10 +12,9 @@ export default function NcLink({
       component={to ? Link : 'span'}
       to={to}
       variant="body1"
-      fontFamily="'Roboto', sans-serif"
-      fontWeight={700}
       color="text.secondary"
       textAlign="left"
+      fontWeight={500}
       sx={{
         maxWidth,
         overflow: 'hidden',

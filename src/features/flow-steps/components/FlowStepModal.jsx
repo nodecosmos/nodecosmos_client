@@ -1,63 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
-  Box,
-  Button,
-  DialogContent, Typography, Dialog, DialogTitle, IconButton, CircularProgress,
+  Box, DialogContent, Typography, Dialog, DialogTitle, IconButton, Button,
 } from '@mui/material';
 import * as PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-import AddRounded from '@mui/icons-material/AddRounded';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import FinalFormCheckboxTree from '../../../common/components/final-form/FinalFormCheckboxTree';
+import CircularProgress from '@mui/material/CircularProgress';
+import AddRounded from '@mui/icons-material/AddRounded';
 import { setAlert } from '../../app/appSlice';
-import { selectFlowStepAttribute } from '../flowSteps.selectors';
 import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
-import ImportSearchField from '../../nodes/components/importer/ImportSearchField';
 /* nodecosmos */
-import {
-  selectChildIdsByParentId, selectNodeAttribute, selectNodesById, selectPersistedIdByNodeId,
-} from '../../nodes/nodes.selectors';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
+import TreeToolbar from '../../trees/components/TreeToolbar';
+import Alert from '../../../common/components/Alert';
+import { HEADER_HEIGHT } from '../../app/constants';
+import Tree from '../../trees/components/Tree';
+import TreeContainer from '../../trees/components/TreeContainer';
+import { TREES_TYPES } from '../../trees/trees.constants';
+import { selectFlowStepAttribute } from '../flowSteps.selectors';
 
 // Dumb implementation of import feature
 export default function FlowStepModal({
   wfStepFlow, open, onClose,
 }) {
   const [loading, setLoading] = React.useState(false);
-
-  const allNodesById = useSelector(selectNodesById);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
-  const nodeRootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
-  const nodeTitle = useSelector(selectNodeAttribute(nodeId, 'title'));
-  const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
-  const childIdsByParentId = useSelector(selectChildIdsByParentId(nodeRootId));
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
-  const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
 
   const dispatch = useDispatch();
+  const [flowStepNodeIds, setFlowStepNodeIds] = useState(nodeIds);
 
-  if (!childIdsByParentId || childIdsByParentId.length === 0) {
-    if (open) {
-      dispatch(setAlert({
-        isOpen: true,
-        severity: 'error',
-        message: `No nested nodes found for <b>${nodeTitle}</b> node!`,
-      }));
-    }
-    onClose();
-
-    return null;
-  }
-
-  const childIds = childIdsByParentId[nodeId];
-
-  const onSubmit = async (formValues) => {
+  const onSubmit = async () => {
     setLoading(true);
-
-    // in case node is deleted we don't send deleted nodeIds
-    const flowStepNodeIds = formValues.flowStepNodeIds.filter((id) => persistedNodeIdByNodeId[id]);
 
     const payload = {
       nodeIds: flowStepNodeIds,
@@ -76,25 +51,12 @@ export default function FlowStepModal({
 
       setLoading(false);
       onClose();
-    } catch (e) {
+    } catch (error) {
       dispatch(setAlert({ isOpen: true, severity: 'error', message: 'Failed to add node' }));
-      console.error(e);
+      console.error(error);
       setLoading(false);
     }
   };
-
-  const checkboxTreeOptions = [];
-
-  const addCheckboxTreeOptions = (currNodeId) => ({
-    value: persistedNodeIdByNodeId[currNodeId],
-    label: allNodesById[currNodeId].title,
-    children: childIdsByParentId[currNodeId].filter((childId) => childId !== nodeId && childIds.indexOf(childId) < 0)
-      .map((childId) => addCheckboxTreeOptions(childId)),
-  });
-
-  childIdsByParentId[nodeId] && childIdsByParentId[nodeId].forEach((childId) => {
-    checkboxTreeOptions.push(addCheckboxTreeOptions(childId));
-  });
 
   return (
     <Dialog
@@ -138,50 +100,33 @@ export default function FlowStepModal({
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
-        <Box mt={2} height={1}>
-          <Form
-            keepDirtyOnReinitialize
-            initialValues={{
-              flowStepNodeIds: nodeIds || [],
-            }}
-            onSubmit={onSubmit}
-            subscription={{ submitting: true }}
+        <Box mt={2} height="calc(100% - 75px)">
+          <Box height={1}>
+            <TreeContainer>
+              <TreeToolbar rootNodeId={nodeId} />
+              <Alert />
+              <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
+                <Tree
+                  rootNodeId={nodeId}
+                  type={TREES_TYPES.checkbox}
+                  onChange={setFlowStepNodeIds}
+                  value={flowStepNodeIds}
+                />
+              </Box>
+            </TreeContainer>
+          </Box>
+          <Button
+            sx={{ mt: 2, float: 'right' }}
+            color="success"
+            variant="contained"
+            disableElevation
+            onClick={onSubmit}
+            disabled={loading}
+            startIcon={loading
+              ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
           >
-            {({ handleSubmit }) => (
-              <form style={{ height: 'calc(100% - 136px)' }} onSubmit={handleSubmit}>
-                <Box mb={2}>
-                  <ImportSearchField rootId={nodeId} />
-                </Box>
-                <Box
-                  pl={2}
-                  overflow="auto"
-                  height={1}
-                  width={1}
-                  borderTop={1}
-                  borderBottom={1}
-                  borderColor="borders.1"
-                >
-                  <FinalFormCheckboxTree
-                    name="flowStepNodeIds"
-                    options={checkboxTreeOptions}
-                    initialNestedLevel={nestedLevel + 1}
-                  />
-                </Box>
-                <Button
-                  sx={{ mt: 2, float: 'right' }}
-                  color="success"
-                  variant="contained"
-                  disableElevation
-                  type="submit"
-                  disabled={loading}
-                  startIcon={loading
-                    ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
-                >
-                  Import
-                </Button>
-              </form>
-            )}
-          </Form>
+            Import
+          </Button>
         </Box>
       </DialogContent>
     </Dialog>

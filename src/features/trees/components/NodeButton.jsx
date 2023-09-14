@@ -1,17 +1,15 @@
 import React, { memo, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectDragAndDrop, selectTreeNodeAttribute } from '../trees.selectors';
 import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
+import NodeSymbol from './NodeSymbol';
 
-const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
 export default function NodeButton(props) {
@@ -87,10 +85,8 @@ export default function NodeButton(props) {
         color: dragOver ? theme.palette.text.primary : color,
       }}
     >
-      <MemoizedTagRounded style={{
-        color: 'inherit',
-      }}
-      />
+      <NodeSymbol treeNodeId={treeNodeId} />
+
       <div className="NodeButtonText">
         {title}
       </div>
