@@ -19,6 +19,7 @@ export default function WorkflowContainer(props) {
           maxWidth: 150,
           px: 1,
           transform: 'skewX(-30deg)',
+          // boxShadow: 'buttons.1',
           '.IOButtonText': {
             mx: 1,
             p: 0,
@@ -37,7 +38,7 @@ export default function WorkflowContainer(props) {
           display: 'inline-flex',
           alignItems: 'center',
           cursor: 'pointer',
-          boxShadow: 'buttons.1',
+          // boxShadow: 'buttons.1',
           borderRadius: 1.5,
           py: 0,
           px: 2,

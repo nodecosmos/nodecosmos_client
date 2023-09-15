@@ -53,7 +53,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
 
   return (
     <g>
-      <WorkflowOutputBranch id={id} />
+      <WorkflowOutputBranch id={id} nodeId={nodeId} />
       <g style={{
         opacity: 0,
         animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,

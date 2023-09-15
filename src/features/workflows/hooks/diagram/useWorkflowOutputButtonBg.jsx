@@ -11,15 +11,15 @@ export default function useWorkflowOutputButtonBg({ id, nodeId }) {
 
   const { backgrounds } = theme.palette.tree;
   const backgroundCount = backgrounds.length;
-  const color = backgrounds[nestedLevel % backgroundCount];
+  const nestedLevelColor = backgrounds[nestedLevel % backgroundCount];
 
   const isSelected = selectedWorkflowDiagramObject?.id === id;
 
-  const backgroundColor = isSelected ? color : theme.palette.background[4];
+  const backgroundColor = isSelected ? nestedLevelColor : theme.palette.background[4];
 
   return {
     backgroundColor,
-    outlineColor: isSelected ? color : theme.palette.workflow.default,
+    outlineColor: isSelected ? nestedLevelColor : theme.palette.workflow.defaultInputColor,
     color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
   };
 }

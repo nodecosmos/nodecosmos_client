@@ -79,10 +79,10 @@ export default {
     background: {
       1: '#ffffff', // f8f9fa
       2: '#f0f0ef', // f0f0ef ededed
-      3: '#f4f3f7',
+      3: '#fff',
       4: '#f8f9fa',
       5: '#f9f8f8',
-      6: '#e6e6e6',
+      6: '#e8e7e5',
       7: '#ededed',
       8: '#dcdcdc',
 

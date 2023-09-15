@@ -12,11 +12,8 @@ import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function WorkflowOutputBranch(props) {
-  const { id } = props;
-
+export default function WorkflowOutputBranch({ id, nodeId: _ }) {
   const theme = useTheme();
-
   const { x, y } = useSelector(selectWorkflowDiagramPosition(id));
 
   if (!x) { return null; }
@@ -33,7 +30,7 @@ export default function WorkflowOutputBranch(props) {
         cx={x + 0.5}
         cy={y - 0.5}
         r={5}
-        fill={theme.palette.workflow.default}
+        fill={theme.palette.workflow.defaultInputColor}
         style={{
           opacity: 0,
           animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
@@ -42,8 +39,8 @@ export default function WorkflowOutputBranch(props) {
       />
       <path
         strokeWidth={3}
-        d={`M ${x} ${y}
-            C ${x} ${y}
+        d={`M ${x + 5.5} ${y}
+            C ${x + 5.5} ${y}
               ${x + 25} ${y + 1}
               ${xEnd} ${y}
             L ${xEnd} ${y}`}
@@ -72,4 +69,5 @@ export default function WorkflowOutputBranch(props) {
 
 WorkflowOutputBranch.propTypes = {
   id: PropTypes.string.isRequired,
+  nodeId: PropTypes.string.isRequired,
 };
