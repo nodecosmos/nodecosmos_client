@@ -30,7 +30,6 @@ export default function Innovate() {
   }, [dispatch]);
 
   const tabSx = {
-    // fontFamily: 'Roboto, sans-serif',
     fontWeight: 400,
     mr: 3,
     display: 'flex',

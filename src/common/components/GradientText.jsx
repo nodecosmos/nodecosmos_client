@@ -24,12 +24,13 @@ export default function GradientText(props) {
       fontSize={fontSize}
       fontWeight={fontWeight}
       sx={{
-        background,
+        backgroundImage: background,
         WebkitBackgroundClip: 'text!important',
         backgroundClip: 'text!important',
         WebkitTextFillColor: 'transparent!important',
         color: 'text.primary',
         display: 'inline-block',
+        textShadow: '0px 0px #00000000;',
       }}
     >
       {text}

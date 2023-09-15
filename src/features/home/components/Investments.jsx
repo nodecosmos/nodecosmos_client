@@ -23,7 +23,6 @@ export default function Investments() {
             xs: '28px',
             sm: '32px',
           }}
-          fontFamily="Comfortaa, sans-serif"
         >
           Bring your innovation to the world with
           <Box component="span" color="primary.main" fontWeight="bold">

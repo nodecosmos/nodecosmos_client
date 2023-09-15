@@ -12,7 +12,7 @@ export default function ContributionRequest() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const viewBox = isMobile ? '0 0 370 364' : '0 0 512 364';
+  const viewBox = isMobile ? '40 34 370 364' : '40 33 450 365';
 
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function ContributionRequest() {
       }}
       viewBox={viewBox}
     >
-      <g style={{ transform: 'translate(-44px, -34px)' }}>
+      <g>
         <g>
           <circle cx="50" cy="40" r="6" fill={theme.palette.tree.default} />
         </g>
