@@ -49,7 +49,6 @@ export default function LandingPageNodeButtonText(props) {
       size={Math.max((nodeTitle && nodeTitle.length * 0.8) || 0, 3)}
       minWidth={40}
       backgroundColor="transparent"
-      // fontFamily="Roboto, sans-serif"
       outline="none!important"
       letterSpacing="0.02857em"
       sx={{

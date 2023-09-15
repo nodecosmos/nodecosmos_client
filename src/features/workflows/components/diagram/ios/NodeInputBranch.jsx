@@ -50,7 +50,7 @@ export default function NodeInputBranch({
         cx={xStart}
         cy={yStart}
         r={5}
-        strokeWidth={0.5}
+        strokeWidth={1}
         stroke={theme.palette.secondary.main}
         fill={defaultInputColor}
         style={{

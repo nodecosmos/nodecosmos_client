@@ -15,7 +15,7 @@ export default {
 
     left: {
       1: 0,
-      2: '-3px 3px 1px -2px rgba(90,90,90,0.1), -2px 2px 2px 0px rgba(90,90,90,0.05), -1px 1px 5px 0px rgba(90,90,90,0.06)',
+      2: '0px 3px 1px -2px rgba(90,90,90,0.1), -2px 2px 2px 0px rgba(90,90,90,0.05), -1px 1px 5px 0px rgba(90,90,90,0.06)',
     },
 
     right: {
@@ -40,7 +40,7 @@ export default {
     },
 
     secondary: {
-      main: '#8894d8',
+      main: '#58b1ff',
     },
 
     error: {
@@ -78,7 +78,7 @@ export default {
 
     background: {
       1: '#ffffff', // f8f9fa
-      2: '#efeff0', // f0f0ef ededed
+      2: '#f0f0ef', // f0f0ef ededed
       3: '#f4f3f7',
       4: '#f8f9fa',
       5: '#f9f8f8',
@@ -179,9 +179,9 @@ export default {
     },
 
     text: {
-      primary: '#434c53',
-      secondary: '#3d4652',
-      tertiary: '#6e768b',
+      primary: '#464646',
+      secondary: '#717171',
+      tertiary: '#898988',
       disabled: '#5c616b',
       contrast: '#5e5f5f',
       sectionPrimary: '#acdf83',

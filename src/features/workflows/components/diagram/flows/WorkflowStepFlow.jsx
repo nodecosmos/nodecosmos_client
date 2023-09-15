@@ -58,7 +58,7 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
           <Typography
             onClick={handleFlowClick}
             variant="body1"
-            fontWeight={700}
+            fontWeight={600}
             color="text.tertiary"
             sx={{
               maxWidth: 220,

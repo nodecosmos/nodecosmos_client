@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { faDiagramNested, faSquareCode, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import {
   faDiagramNested, faSquareCode, faChartNetwork, faGamepadModern,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setCurrentNode } from '../../app/appSlice';
 import { setInnovateTab } from '../homeSlice';
@@ -55,18 +55,13 @@ export default function Innovate() {
           textColor="secondary"
           indicatorColor="secondary"
           sx={{
-            ml: {
-              xs: 0,
-              md: '20px',
-            },
             '.MuiButtonBase-root': {
               mb: -1,
               color: 'button.contrastText',
             },
             mb: -1.5,
             svg: {
-              fontSize: 20,
-              mr: 3,
+              fontSize: 24,
             },
           }}
           variant={matchesSm ? 'scrollable' : 'standard'}

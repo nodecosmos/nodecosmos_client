@@ -39,7 +39,7 @@ export default function TreeContainer(props) {
             p: 0,
             backgroundColor: 'transparent',
             // fontFamily: 'Roboto, sans-serif',
-            // fontSize: 14,
+            fontSize: 14,
             fontWeight: 500,
             letterSpacing: '0.02857em',
             minWidth: 40,
