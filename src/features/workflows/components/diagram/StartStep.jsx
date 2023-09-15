@@ -106,6 +106,9 @@ export default function StartStep({ workflowId }) {
               backgroundColor: theme.palette.workflow.default,
               height: WORKFLOW_BUTTON_HEIGHT,
             }}
+            sx={{
+              boxShadow: 'buttons.1',
+            }}
           >
             <MemoizedTagRounded />
             <div className="NodeButtonText">

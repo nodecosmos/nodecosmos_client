@@ -44,11 +44,14 @@ export default function NodeBreadcrumbs() {
     });
   }
 
-  items.push({
-    id: selectedNode.id,
-    treeNodeId: selectedTreeNode.treeNodeId,
-    title: nodeTitlesById[selectedNode.id],
-  });
+  const isSelectedNodeAlreadyInBreadcrumbs = items.some((item) => item.id === selectedNode.id);
+  if (!isSelectedNodeAlreadyInBreadcrumbs) {
+    items.push({
+      id: selectedNode.id,
+      treeNodeId: selectedTreeNode.treeNodeId,
+      title: nodeTitlesById[selectedNode.id],
+    });
+  }
 
   const handleClick = (id) => {
     dispatch(setSelectedNode(id));
@@ -61,7 +64,7 @@ export default function NodeBreadcrumbs() {
   };
 
   const theme = useTheme();
-  const nestedLevelColors = [theme.palette.tree.level1, theme.palette.tree.level2, theme.palette.tree.level3];
+  const nestedLevelColors = theme.palette.tree.backgrounds;
   const getNestedLevelColor = (index) => nestedLevelColors[index % 3];
 
   if (!selectedNode.id) return null;
@@ -93,6 +96,9 @@ export default function NodeBreadcrumbs() {
             color: 'text.tertiary',
             cursor: 'pointer',
             fontSize: '0.9rem',
+            '&:hover': {
+              color: 'text.link',
+            },
           },
           '.MuiBreadcrumbs-separator': {
             color: 'toolbar.default',
@@ -120,7 +126,7 @@ export default function NodeBreadcrumbs() {
             >
               {item.title}
             </Link>
-            <Tooltip title="focus" placement="top">
+            <Tooltip title="reveal" placement="top">
               <IconButton
                 size="small"
                 className="tools"

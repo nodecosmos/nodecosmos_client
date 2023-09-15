@@ -111,7 +111,7 @@ export default {
       purple: '#b775ff',
       yellow: '#ffd000',
       hover: '#ededed',
-      active: '#ededed',
+      active: '#e9e9e9',
       default: '#92a1a8',
       breadcrumbs: '#4a5568',
     },
