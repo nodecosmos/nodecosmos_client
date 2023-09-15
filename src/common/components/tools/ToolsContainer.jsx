@@ -12,7 +12,7 @@ export default function ToolsContainer({ children }) {
         '.Item': {
           width: 31,
           height: 1,
-          mx: 0.5,
+          mx: 0.1,
           borderRadius: 1,
           '&:hover': { backgroundColor: 'toolbar.hover' },
         },

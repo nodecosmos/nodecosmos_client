@@ -3,7 +3,7 @@ import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import {
   faPenToSquare,
   faTrash,
-  faLink,
+  faArrowUpRightFromSquare,
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -72,10 +72,10 @@ export default function NodeToolbar(props) {
           href={`/nodes/${persistentRootId}/${persistentId}`}
           className="Item"
           aria-label="Open Node in New Tab"
-          sx={{ color: 'toolbar.blue' }}
+          sx={{ color: 'toolbar.default' }}
         >
           <FontAwesomeIcon
-            icon={faLink}
+            icon={faArrowUpRightFromSquare}
           />
         </IconButton>
       </Tooltip>

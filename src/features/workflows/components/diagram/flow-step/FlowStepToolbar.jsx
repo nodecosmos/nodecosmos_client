@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faTrash } from '@fortawesome/pro-regular-svg-icons';
-import { faDiagramSubtask } from '@fortawesome/pro-light-svg-icons';
+import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /* mui */
@@ -38,14 +37,14 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
       {
         wfStepHovered && (
           <ToolsContainer>
-            <Tooltip title="Edit Flow Step" placement="top">
+            <Tooltip title="Flow Step Nodes" placement="top">
               <IconButton
                 className="Item"
                 aria-label="Add Node"
                 sx={{ color: 'toolbar.lightRed' }}
                 onClick={() => setAddFlowStepNodesModalOpen(true)}
               >
-                <FontAwesomeIcon icon={faDiagramSubtask} />
+                <FontAwesomeIcon icon={faDiagramProject} />
               </IconButton>
             </Tooltip>
             {

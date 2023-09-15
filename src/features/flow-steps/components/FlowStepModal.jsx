@@ -68,7 +68,6 @@ export default function FlowStepModal({
       onClose={onClose}
       open={open}
       PaperProps={{
-        elevation: 0,
         sx: {
           p: 0,
           height: '100%',
@@ -104,7 +103,7 @@ export default function FlowStepModal({
       </DialogTitle>
       <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
         <Box mt={2} height="calc(100% - 75px)">
-          <Box height={1}>
+          <Box height={1} sx={{ mx: -3, borderBottom: 1, borderColor: 'borders.4' }}>
             <TreeContainer>
               <TreeToolbar rootNodeId={nodeId} />
               <Alert />

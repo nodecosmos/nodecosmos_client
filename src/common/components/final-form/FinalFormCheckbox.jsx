@@ -12,14 +12,15 @@ export default function FinalFormCheckbox({ name, label, value }) {
       render={({ input }) => (
         <FormControlLabel
           sx={{
-            mt: 2,
+            mt: 1,
             pr: 2,
             borderRadius: 1,
           }}
           componentsProps={{
             typography: {
               ml: 1,
-              color: 'text.secondary',
+              color: 'text.primary',
+              fontWeight: 700,
               sx: {
                 '&:hover': {
                   color: 'text.link',
