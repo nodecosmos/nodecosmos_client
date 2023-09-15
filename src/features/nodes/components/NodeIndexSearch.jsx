@@ -47,7 +47,6 @@ export default function NodeIndexSearch() {
         '.MuiOutlinedInput-notchedOutline': {
           '&, &:hover, &:focus': {},
         },
-        input: { fontFamily: 'Roboto' },
       }}
       InputProps={{
         startAdornment: (

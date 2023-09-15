@@ -32,7 +32,6 @@ export default function ContributionRequestSearchInput() {
           backgroundColor: 'transparent',
           '&, &:hover, &:focus': {},
         },
-        input: { fontFamily: 'Roboto' },
       }}
       InputProps={{
         startAdornment: (

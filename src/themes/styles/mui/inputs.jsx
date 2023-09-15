@@ -10,7 +10,7 @@ export default (currentTheme) => ({
           },
         },
         caretColor: currentTheme.palette.primary.main,
-        fontFamily: 'monospace',
+        fontSize: '1rem',
       },
       root: {
         borderRadius: 4,

@@ -39,7 +39,6 @@ export default function TreeToolbar({ rootNodeId }) {
           '.MuiOutlinedInput-notchedOutline': {
             '&, &:hover, &:focus': {},
           },
-          input: { fontFamily: 'Roboto' },
         }}
         InputProps={{
           startAdornment: (

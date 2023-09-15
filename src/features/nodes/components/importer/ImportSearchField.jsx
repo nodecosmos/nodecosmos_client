@@ -24,7 +24,6 @@ export default function ImportSearchField({ rootId }) {
           borderRadius: 1,
           height: 50,
         },
-        input: { fontFamily: 'Roboto' },
       }}
       InputProps={{
         startAdornment: (

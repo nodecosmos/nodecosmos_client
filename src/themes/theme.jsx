@@ -11,6 +11,7 @@ import dataGrid from './styles/mui/dataGrid';
 const getTheme = (currentTheme) => createTheme({
   typography: {
     fontFamily: [
+      '-apple-system',
       'system-ui',
       'Roboto',
       'sans-serif',
