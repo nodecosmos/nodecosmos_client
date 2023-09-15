@@ -79,7 +79,7 @@ export default {
     background: {
       1: '#ffffff', // f8f9fa
       2: '#efeff0', // f0f0ef ededed
-      3: '#f7f7f3',
+      3: '#f4f3f7',
       4: '#f8f9fa',
       5: '#f9f8f8',
       6: '#e6e6e6',
@@ -132,6 +132,7 @@ export default {
       hashtag: '#777a7d',
       defaultText: '#6c6c6c',
       selectedText: '#fff',
+      checkboxColor: '#bbbbc7',
     },
 
     workflow: {

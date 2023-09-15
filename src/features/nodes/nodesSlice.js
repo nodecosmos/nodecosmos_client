@@ -63,15 +63,13 @@ const nodesSlice = createSlice({
     byId: {},
     /**
      * @type {{
-     *   [rootId: string]: {
-     *     [parentId: string]: string[],
-     *   }
+     *   [parentId: string]: string[],
      * }}
      * @description
      * This is a map of rootId and parentId to childIds. It is used to determine tree nodes, as
      * tree renders children of a node, and children of children, and so on.
      */
-    childIdsByRootAndParentId: {},
+    childIdsByParentId: {},
 
     persistedIdByNodeId: {},
 

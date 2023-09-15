@@ -29,7 +29,7 @@ export default function ImportNodeModal(props) {
 
   const allNodesById = useSelector(selectNodesById);
 
-  const childIdsByParentId = useSelector(selectChildIdsByParentId(rootId));
+  const childIdsByParentId = useSelector(selectChildIdsByParentId);
   const childIds = childIdsByParentId[id];
 
   const dispatch = useDispatch();

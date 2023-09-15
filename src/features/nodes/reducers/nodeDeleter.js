@@ -5,14 +5,12 @@ export default {
     const node = state.byId[nodeId];
     const parent = state.byId[node.parentId];
 
-    const childIdsByRootAndParentId = state.childIdsByRootAndParentId[node.rootId];
+    delete state.childIdsByParentId[nodeId];
 
-    delete childIdsByRootAndParentId[nodeId];
-
-    // filter from childIdsByRootAndParentId
+    // filter from childIdsByParentId
     if (parent) {
-      if (childIdsByRootAndParentId[node.parentId]) {
-        childIdsByRootAndParentId[node.parentId] = childIdsByRootAndParentId[node.parentId].filter(
+      if (state.childIdsByParentId[node.parentId]) {
+        state.childIdsByParentId[node.parentId] = state.childIdsByParentId[node.parentId].filter(
           (id) => id !== nodeId,
         );
       }

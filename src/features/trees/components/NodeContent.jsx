@@ -16,7 +16,7 @@ import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
 
-export default function NodeButtonContainer(props) {
+export default function NodeContent(props) {
   const { treeNodeId, alreadyMounted } = props;
 
   const {
@@ -61,7 +61,7 @@ export default function NodeButtonContainer(props) {
   );
 }
 
-NodeButtonContainer.propTypes = {
+NodeContent.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
   alreadyMounted: PropTypes.bool.isRequired,
 };

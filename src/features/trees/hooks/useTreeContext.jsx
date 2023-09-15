@@ -14,7 +14,7 @@ export default function useTreeContext({ type, onChange, value }) {
   };
 }
 
-export function useTreeHelpers() {
+export function useTreeCheckbox() {
   const context = useContext(TreeContext);
   const { type, selectedNodeIds, onChange } = context;
 
@@ -28,14 +28,14 @@ export function useTreeHelpers() {
     onChange(Array.from(selectedNodeIds));
   };
 
-  const isSelected = (nodeId) => selectedNodeIds.has(nodeId);
+  const isChecked = (nodeId) => selectedNodeIds.has(nodeId);
 
   return {
     treeType: type,
     commands: {
       addId,
       deleteId,
-      isSelected,
+      isChecked,
     },
   };
 }

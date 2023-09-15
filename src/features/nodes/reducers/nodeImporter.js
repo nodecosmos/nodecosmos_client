@@ -4,6 +4,6 @@ export default {
     const node = state.byId[id];
 
     node.childIds = [...node.childIds, ...importedNodeIds];
-    state.childIdsByRootAndParentId[node.rootId][id] = node.childIds;
+    state.childIdsByParentId[id] = node.childIds;
   },
 };

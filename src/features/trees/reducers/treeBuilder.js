@@ -4,9 +4,11 @@
 // We construct the id by appending the original root node id, tree parent id and original node id.
 // Reasoning is that parent can not have two completely same nodes as children. However, in future
 // we will enable node count or node types in order to address this limitation.
+import { TREES_TYPES } from '../trees.constants';
+
 export default {
   buildTreeFromRootNode(state, action) {
-    const { rootId, childIdsByParentId } = action.payload;
+    const { rootId, childIdsByParentId, type } = action.payload;
 
     // initialize state for root node
     state.byRootNodeId[rootId] ||= {};
@@ -36,6 +38,7 @@ export default {
 
       // TODO: this is good for now, but we will need to add logic to append selection to url
       isExpanded ||= isRoot;
+      isExpanded ||= type === TREES_TYPES.checkbox;
       isExpanded ||= state.expandedNodeIds.includes(nodeId);
 
       // populate root's orderedTreeNodeIds with constructed id

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Box, DialogContent, Typography, Dialog, DialogTitle, IconButton, Button,
@@ -19,6 +19,7 @@ import Tree from '../../trees/components/Tree';
 import TreeContainer from '../../trees/components/TreeContainer';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectFlowStepAttribute } from '../flowSteps.selectors';
+import { selectPersistedIdByNodeId } from '../../nodes/nodes.selectors';
 
 // Dumb implementation of import feature
 export default function FlowStepModal({
@@ -27,15 +28,17 @@ export default function FlowStepModal({
   const [loading, setLoading] = React.useState(false);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
-
+  const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
   const dispatch = useDispatch();
   const [flowStepNodeIds, setFlowStepNodeIds] = useState(nodeIds);
 
   const onSubmit = async () => {
     setLoading(true);
 
+    const persistedNodeIds = flowStepNodeIds?.filter((id) => persistedNodeIdByNodeId[id]);
+
     const payload = {
-      nodeIds: flowStepNodeIds,
+      nodeIds: persistedNodeIds,
       nodeId,
       workflowId: wfStepFlow.workflowId,
       flowId: wfStepFlow.id,
@@ -125,7 +128,7 @@ export default function FlowStepModal({
             startIcon={loading
               ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
           >
-            Import
+            Save
           </Button>
         </Box>
       </DialogContent>

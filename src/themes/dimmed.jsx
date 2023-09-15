@@ -132,6 +132,7 @@ export default {
       hashtag: '#898f9c',
       defaultBorder: 'transparent',
       dragInIndicator: '#bf7869',
+      checkboxColor: '#63686c',
     },
 
     workflow: {

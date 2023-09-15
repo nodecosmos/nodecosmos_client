@@ -10,14 +10,14 @@ export default {
     const oldParentId = node.parentId;
     const persistentId = state.persistedIdByNodeId[nodeId];
     const newPersistentParentId = state.persistedIdByNodeId[newParentId];
-    const oldIndex = state.childIdsByRootAndParentId[node.rootId][oldParentId].indexOf(nodeId);
+    const oldIndex = state.childIdsByParentId[oldParentId].indexOf(nodeId);
     const { ancestorIds: oldAncestorIds, descendantIds } = node;
     const newAncestorIds = state.byId[newParentId].ancestorIds.concat(newParentId);
 
     if (oldParentId === newParentId && newSiblingIndex === oldIndex) return;
 
-    state.childIdsByRootAndParentId[node.rootId][oldParentId].splice(oldIndex, 1);
-    state.childIdsByRootAndParentId[node.rootId][newParentId].splice(newSiblingIndex, 0, nodeId);
+    state.childIdsByParentId[oldParentId].splice(oldIndex, 1);
+    state.childIdsByParentId[newParentId].splice(newSiblingIndex, 0, nodeId);
 
     if (oldParentId === newParentId) return;
 

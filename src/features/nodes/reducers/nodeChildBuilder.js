@@ -20,8 +20,8 @@ export default {
       nestedLevel: node.nestedLevel + 1,
     }; // add new node to state
 
-    state.childIdsByRootAndParentId[node.rootId][nodeId].push(tmpNodeId); // add new node to parent's childIds
-    state.childIdsByRootAndParentId[node.rootId][tmpNodeId] = [];
+    state.childIdsByParentId[nodeId].push(tmpNodeId); // add new node to parent's childIds
+    state.childIdsByParentId[tmpNodeId] = [];
 
     state.byId[nodeId].childIds.push(tmpNodeId); // add new node to parent's childIds
   },

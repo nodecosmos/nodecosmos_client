@@ -19,14 +19,14 @@ export default function Tree({
   rootNodeId, type, onChange, value,
 }) {
   const containerRef = useRef(null);
-  const childIdsByParentId = useSelector(selectChildIdsByParentId(rootNodeId));
+  const childIdsByParentId = useSelector(selectChildIdsByParentId);
   const positionsById = useTreePositionCalculator(rootNodeId);
   const treeNodeIdsToView = useTreeNodeVirtualizer(rootNodeId, containerRef);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(buildTreeFromRootNode({ rootId: rootNodeId, childIdsByParentId }));
-  }, [dispatch, rootNodeId, childIdsByParentId]);
+    dispatch(buildTreeFromRootNode({ rootId: rootNodeId, childIdsByParentId, type }));
+  }, [dispatch, rootNodeId, childIdsByParentId, type]);
 
   useEffect(() => {
     dispatch(setTreeNodesPositions(positionsById));
