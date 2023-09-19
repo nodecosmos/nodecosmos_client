@@ -25,10 +25,10 @@ import {
   unlikeNode,
   getLikesCount,
   getNodeDescription,
-  getNodeDescriptionBlob,
+  getNodeDescriptionBase64,
 } from './nodes.thunks';
 import nodeReorderer from './reducers/nodeReorderer';
-import getNodeDescriptionBlobFulfilled from './reducers/extra/getNodeDescription64.fulfilled';
+import getNodeDescriptionBase64Fulfilled from './reducers/extra/getNodeDescriptionBase64.fulfilled';
 
 const nodesSlice = createSlice({
   name: 'nodes',
@@ -125,7 +125,7 @@ const nodesSlice = createSlice({
       .addCase(createNode.fulfilled, createNodeFulfilledReducer)
       .addCase(deleteNode.fulfilled, (state, action) => nodeDeleter.deleteNodeFromState(state, action))
       .addCase(getNodeDescription.fulfilled, getNodeDescriptionFulfilled)
-      .addCase(getNodeDescriptionBlob.fulfilled, getNodeDescriptionBlobFulfilled)
+      .addCase(getNodeDescriptionBase64.fulfilled, getNodeDescriptionBase64Fulfilled)
       .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
       .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
       .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);

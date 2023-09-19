@@ -26,22 +26,25 @@ import {
 import { useSelector } from 'react-redux';
 import { WS_URI } from '../../../apis/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
+import { base64ToUint8Array } from '../../serializer';
 import RemirrorEditorWrapper from './RemirrorEditorWrapper';
 
 const ydoc = new Y.Doc();
 
 export default function RemirrorEditor({
-  markdown, onChange, wsEndpoint, wsRoomName, blob,
+  markdown, onChange, wsEndpoint, wsRoomName, base64,
 }) {
   const currentUser = useSelector(selectCurrentUser);
 
   const doc = useMemo(() => {
-    if (blob) {
-      Y.applyUpdateV2(ydoc, blob);
+    const uint8Array = base64ToUint8Array(base64);
+
+    if (base64) {
+      Y.applyUpdateV2(ydoc, uint8Array);
     }
 
     return ydoc;
-  }, [blob]);
+  }, [base64]);
 
   const extensions = useMemo(() => [
     new LinkExtension({ autoLink: true }),
@@ -109,7 +112,7 @@ export default function RemirrorEditor({
       extensions={finalExtensions}
       markdown={markdown}
       onChange={handleChange}
-      setInitialContent={!blob}
+      setInitialContent={!base64}
     />
   );
 }
@@ -118,12 +121,12 @@ RemirrorEditor.defaultProps = {
   onChange: null,
   wsEndpoint: null,
   wsRoomName: null,
-  blob: null,
+  base64: null,
 };
 
 RemirrorEditor.propTypes = {
   markdown: PropTypes.string.isRequired,
-  blob: PropTypes.instanceOf(Uint8Array),
+  base64: PropTypes.instanceOf(Uint8Array),
   onChange: PropTypes.func,
   wsEndpoint: PropTypes.string,
   wsRoomName: PropTypes.string,

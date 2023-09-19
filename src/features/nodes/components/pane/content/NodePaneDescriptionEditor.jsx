@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { selectNodeAttribute, selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
 import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
 import { updateNodeState } from '../../../nodesSlice';
-import { getNodeDescriptionBlob, updateNodeDescription } from '../../../nodes.thunks';
+import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
 import Loader from '../../../../../common/components/Loader';
 
 const RemirrorEditor = React.lazy(
@@ -21,7 +21,7 @@ export default function NodePaneDescriptionEditor() {
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
   const descriptionMarkdown = useSelector(selectNodeAttribute(persistentId, 'descriptionMarkdown'));
-  const descriptionBlob = useSelector(selectNodeAttribute(persistentId, 'descriptionBlob'));
+  const descriptionBase64 = useSelector(selectNodeAttribute(persistentId, 'descriptionBase64'));
 
   const handleChange = (remirrorHelpers, uint8ArrayState) => {
     if (isTemp) return;
@@ -48,21 +48,21 @@ export default function NodePaneDescriptionEditor() {
         description: descriptionHtml,
         shortDescription,
         descriptionMarkdown: markdown,
-        descriptionBlob: uint8ArrayState,
+        descriptionBase64: uint8ArrayState,
       }));
     }, 1000);
   };
 
   useEffect(() => {
     if (persistentId && persistentRootId) {
-      dispatch(getNodeDescriptionBlob({
+      dispatch(getNodeDescriptionBase64({
         rootId: persistentRootId,
         id: persistentId,
       }));
     }
   }, [dispatch, persistentId, persistentRootId]);
 
-  if (!!descriptionMarkdown && !descriptionBlob) return <Loader />;
+  if (!!descriptionMarkdown && !descriptionBase64) return <Loader />;
 
   return (
     <Suspense fallback={<Loader />}>
@@ -72,7 +72,7 @@ export default function NodePaneDescriptionEditor() {
           onChange={handleChange}
           wsEndpoint="nodes/ws/node_description"
           wsRoomName={`${persistentRootId}/${persistentId}`}
-          blob={descriptionBlob}
+          base64={descriptionBase64}
         />
       </Box>
     </Suspense>

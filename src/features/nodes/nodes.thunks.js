@@ -72,10 +72,10 @@ export const updateNodeDescription = createAsyncThunk(
     description,
     descriptionMarkdown,
     shortDescription,
-    descriptionBlob,
+    descriptionBase64,
   }, _thunk) => {
     try {
-      const b64encoded = uint8ArrayToBase64(descriptionBlob);
+      const b64encoded = uint8ArrayToBase64(descriptionBase64);
 
       const response = await nodecosmos.put('/nodes/description', {
         rootId: persistentRootId,
@@ -83,7 +83,7 @@ export const updateNodeDescription = createAsyncThunk(
         description,
         descriptionMarkdown,
         shortDescription,
-        descriptionBlob: b64encoded,
+        descriptionBase64: b64encoded,
       });
 
       return response.data;
@@ -125,11 +125,11 @@ export const getNodeDescription = createAsyncThunk(
   },
 );
 
-export const getNodeDescriptionBlob = createAsyncThunk(
-  'nodes/getNodeDescriptionBlob',
+export const getNodeDescriptionBase64 = createAsyncThunk(
+  'nodes/getNodeDescriptionBase64',
 
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description_blob`);
+    const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description_base64`);
 
     return response.data;
   },

@@ -22,7 +22,7 @@ export default function RemirrorEditorContainer({ children }) {
           position: 'relative',
           zIndex: 1,
           width: 1,
-          textWrap: 'nowrap',
+          whiteSpace: 'nowrap',
           overflow: 'auto',
         },
         '.RemirrorTextEditor': {
