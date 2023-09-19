@@ -42,12 +42,13 @@ input:focus {
     position: relative;
     word-break: normal;
     pointer-events: none;
+    background-color: #cdd4ff!important;
 }
 /* This renders the username above the caret */
 .ProseMirror-yjs-cursor > div {
     position: absolute;
-    background: #8f5a5a;
-    color: #FFFFFF;
+    background: #cdd4ff!important;
+    color: #111;
     font-size: 0.85rem;
     font-weight: 400;
     text-align: center;
@@ -64,10 +65,10 @@ input:focus {
     width: 0;
     z-index: 1;
     border-style: solid;
-    border-color: #ffa500 transparent;
-    border-width: 13px 5px 0;
-    bottom: -13px;
-    left: 27%;
-    margin-left: -5px;
+    border-color: #cdd4ff transparent;
+    border-width: 9px 6px 0;
+    bottom: -9px;
+    left: 30%;
+    margin-left: -6px;
 }
 

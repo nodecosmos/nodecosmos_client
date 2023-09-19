@@ -29,7 +29,7 @@ import { selectCurrentUser } from '../../../features/authentication/authenticati
 import { base64ToUint8Array } from '../../serializer';
 import RemirrorEditorWrapper from './RemirrorEditorWrapper';
 
-const ydoc = new Y.Doc();
+let ydoc = new Y.Doc();
 
 export default function RemirrorEditor({
   markdown, onChange, wsEndpoint, wsRoomName, base64,
@@ -77,18 +77,12 @@ export default function RemirrorEditor({
 
       return wsProvider;
     },
-    [currentUser.username, doc, wsEndpoint, wsRoomName],
+    [currentUser?.username, doc, wsEndpoint, wsRoomName],
   );
 
   useEffect(() => {
     const yjsExtension = new YjsExtension({
       getProvider: () => provider,
-      // cursorBuilder: (user) => {
-      //   const newElement = document.createElement('span');
-      //   newElement.classList.add('EditorCursor');
-      //
-      //   return newElement;
-      // },
     });
 
     provider.on('status', (event) => {
@@ -99,6 +93,7 @@ export default function RemirrorEditor({
 
     return () => {
       provider.disconnect();
+      ydoc = new Y.Doc(); // reset ydoc
     };
   }, [extensions, provider]);
 
