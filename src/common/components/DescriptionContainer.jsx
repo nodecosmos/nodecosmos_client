@@ -68,9 +68,6 @@ export default function DescriptionContainer({ children, p, width }) {
           p: {
             wordWrap: 'break-word',
           },
-          'p:has(> img)': {
-            textAlign: 'center',
-          },
           'img:not(.ProseMirror-separator)': {
             maxWidth: 850,
             width: 1,

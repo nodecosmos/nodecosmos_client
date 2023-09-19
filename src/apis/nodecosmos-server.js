@@ -9,4 +9,7 @@ const nodecosmos = axios.create({
   },
 });
 
+export const NC_URI = nodecosmos.getUri();
+export const WS_URI = NC_URI.replace('http', 'ws');
+
 export default nodecosmos;

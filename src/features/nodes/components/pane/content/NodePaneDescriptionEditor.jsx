@@ -1,17 +1,17 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import { selectNodeAttribute, selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
 import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
 import { updateNodeState } from '../../../nodesSlice';
-import { updateNodeDescription } from '../../../nodes.thunks';
+import { getNodeDescriptionBlob, updateNodeDescription } from '../../../nodes.thunks';
 import Loader from '../../../../../common/components/Loader';
 
-const RemirrorWysiwygEditor = React.lazy(
+const RemirrorEditor = React.lazy(
   () => import('../../../../../common/components/remirror/RemirrorEditor'),
 );
 
-export default function NodePaneWysiwygEditor() {
+export default function NodePaneDescriptionEditor() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
   const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
@@ -20,9 +20,10 @@ export default function NodePaneWysiwygEditor() {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const descriptionMarkdown = useSelector(selectNodeAttribute(selectedNodeId, 'descriptionMarkdown'));
+  const descriptionMarkdown = useSelector(selectNodeAttribute(persistentId, 'descriptionMarkdown'));
+  const descriptionBlob = useSelector(selectNodeAttribute(persistentId, 'descriptionBlob'));
 
-  const handleChange = (remirrorHelpers) => {
+  const handleChange = (remirrorHelpers, uint8ArrayState) => {
     if (isTemp) return;
 
     if (handleChangeTimeout.current) {
@@ -47,16 +48,31 @@ export default function NodePaneWysiwygEditor() {
         description: descriptionHtml,
         shortDescription,
         descriptionMarkdown: markdown,
+        descriptionBlob: uint8ArrayState,
       }));
-    }, 500);
+    }, 1000);
   };
+
+  useEffect(() => {
+    if (persistentId && persistentRootId) {
+      dispatch(getNodeDescriptionBlob({
+        rootId: persistentRootId,
+        id: persistentId,
+      }));
+    }
+  }, [dispatch, persistentId, persistentRootId]);
+
+  if (!!descriptionMarkdown && !descriptionBlob) return <Loader />;
 
   return (
     <Suspense fallback={<Loader />}>
       <Box height={1}>
-        <RemirrorWysiwygEditor
+        <RemirrorEditor
           markdown={descriptionMarkdown || ''}
           onChange={handleChange}
+          wsEndpoint="nodes/ws/node_description"
+          wsRoomName={`${persistentRootId}/${persistentId}`}
+          blob={descriptionBlob}
         />
       </Box>
     </Suspense>

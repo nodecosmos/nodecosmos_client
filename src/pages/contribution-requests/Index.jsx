@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/material';
-import ContributionRequestsToolbar
-  from '../../features/contribution-requests/components/ContributionRequestsToolbar';
+import ContributionRequestsIndexToolbar
+  from '../../features/contribution-requests/components/ContributionRequestsIndexToolbar';
 import { indexContributionRequests } from '../../features/contribution-requests/contributionRequests.thunks';
 import Loader from '../../common/components/Loader';
 import ContributionRequestsList from '../../features/contribution-requests/components/ContributionRequestsList';
@@ -27,7 +27,7 @@ export default function Index() {
 
   return (
     <Box height={1} overflow="hidden">
-      <ContributionRequestsToolbar nodeId={id} />
+      <ContributionRequestsIndexToolbar nodeId={id} />
       <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
         <ContributionRequestsList nodeId={id} />
       </Box>

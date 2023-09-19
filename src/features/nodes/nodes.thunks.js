@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { LIKE_TYPES } from '../app/constants';
+import { uint8ArrayToBase64 } from '../../common/serializer';
 
 export const indexNodes = createAsyncThunk(
   'nodes/indexNodes',
@@ -57,6 +58,7 @@ export const updateNodeTitle = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      console.error(error);
       return error.data;
     }
   },
@@ -70,18 +72,23 @@ export const updateNodeDescription = createAsyncThunk(
     description,
     descriptionMarkdown,
     shortDescription,
+    descriptionBlob,
   }, _thunk) => {
     try {
+      const b64encoded = uint8ArrayToBase64(descriptionBlob);
+
       const response = await nodecosmos.put('/nodes/description', {
         rootId: persistentRootId,
         id: persistentId,
         description,
         descriptionMarkdown,
         shortDescription,
+        descriptionBlob: b64encoded,
       });
 
       return response.data;
     } catch (error) {
+      console.error(error);
       return error.data;
     }
   },
@@ -113,6 +120,16 @@ export const getNodeDescription = createAsyncThunk(
   'nodes/getNodeDescription',
   async (payload, _thunkAPI) => {
     const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description`);
+
+    return response.data;
+  },
+);
+
+export const getNodeDescriptionBlob = createAsyncThunk(
+  'nodes/getNodeDescriptionBlob',
+
+  async (payload, _thunkAPI) => {
+    const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description_blob`);
 
     return response.data;
   },

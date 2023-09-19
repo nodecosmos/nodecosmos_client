@@ -45,7 +45,11 @@ export default function Authentication() {
           </Typography>
         </Box>
         <Box mt={4}>
-          <Tabs value={currentPage} onChange={(_event, value) => setCurrentPage(value)} centered>
+          <Tabs
+            value={currentPage}
+            onChange={(_event, value) => setCurrentPage(value)}
+            centered
+          >
             <Tab label="Log in" disableRipple LinkComponent={Link} to="/auth/login" />
             <Tab label="Sign up" disableRipple LinkComponent={Link} to="/auth/signup" />
           </Tabs>

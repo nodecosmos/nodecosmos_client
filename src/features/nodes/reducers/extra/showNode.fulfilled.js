@@ -30,7 +30,7 @@ export default function showNodeFulfilledReducer(state, action) {
 
     state.byId[node.id] = node;
 
-    state.childIdsByParentId[node.id] = node.childIds || [];
+    state.childIdsByParentId[node.id] = node.childIds;
     state.nodeTitlesById[node.id] = node.title;
 
     state.persistedIdByNodeId[node.id] = node.id;

@@ -15,7 +15,7 @@ import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/a
 import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
 import { selectLikedObjectIds } from '../../likes/likes.selectors';
 import { getLikedObjectIds } from '../../likes/likes.thunks';
-import { HEADER_HEIGHT } from '../constants';
+import { HEADER_HEIGHT, SYNC_UP_INTERVAL } from '../constants';
 import LoginForm from '../../authentication/components/LoginForm';
 import SignupForm from '../../authentication/components/SignupForm';
 /* theme */
@@ -34,12 +34,15 @@ export default function LazyAppLoad() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!isAuthenticated) return;
+    if (Date.now() - currentUser.lastSyncUpAt < SYNC_UP_INTERVAL) return;
+
     dispatch(syncUpCurrentUser()).then((response) => {
       if (response.payload.success) {
         dispatch(getLikedObjectIds());
       }
     });
-  }, [dispatch, isAuthenticated]);
+  }, [currentUser?.lastSyncUpAt, dispatch, isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated && !likes) {

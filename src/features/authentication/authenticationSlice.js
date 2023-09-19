@@ -4,7 +4,6 @@ import { logOut, syncUpCurrentUser } from './authentication.thunks';
 const authenticationSlice = createSlice({
   name: 'auth',
   initialState: {
-    // TODO: likedObjectIds is to be used for checking if user liked some object
     isAuthenticated: Boolean(localStorage.getItem('currentUser')),
     /**
      * @type {{
@@ -13,17 +12,29 @@ const authenticationSlice = createSlice({
      *   firstName: String,
      * }}
      */
-    currentUser: JSON.parse(localStorage.getItem('currentUser')) || {},
+    currentUser: JSON.parse(localStorage.getItem('currentUser'), (key, value) => {
+      if (key === 'lastSyncUpAt') {
+        return new Date(value);
+      }
+      return value;
+    }),
   },
   reducers: {
     login(state, action) {
+      const { user } = action.payload;
+      user.lastSyncUpAt = new Date();
+
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: action.payload.user,
+        currentUser: user,
       };
     },
     logout(state, _action) {
+      localStorage.removeItem('currentUser');
+
       return {
         ...state,
         isAuthenticated: false,
@@ -35,7 +46,10 @@ const authenticationSlice = createSlice({
     builder
       .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
         if (action.payload.success) {
-          localStorage.setItem('currentUser', JSON.stringify(action.payload.user));
+          const { user } = action.payload;
+          user.lastSyncUpAt = new Date();
+
+          localStorage.setItem('currentUser', JSON.stringify(user));
         } else {
           localStorage.removeItem('currentUser');
         }

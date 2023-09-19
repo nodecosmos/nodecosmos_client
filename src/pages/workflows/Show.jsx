@@ -53,8 +53,12 @@ export default function Show() {
   }, [paneAWidth, paneBWidth]);
 
   useEffect(() => {
-    if (!workflow.id) setLoading(true);
-    dispatch(showWorkflow(id)).then(() => setLoading(false));
+    if (!workflow.id) {
+      setLoading(true);
+      dispatch(showWorkflow(id)).then(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
 
     return () => {
       dispatch(clearSelectedWorkflowDiagramObject());

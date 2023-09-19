@@ -26,8 +26,6 @@ export default function useUserAuthentication() {
   const handleAuthentication = (response) => {
     const { user } = response.data;
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
-
     dispatch(login({ user }));
 
     navigate('/');

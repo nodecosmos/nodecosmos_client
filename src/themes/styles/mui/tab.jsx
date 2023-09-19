@@ -4,7 +4,7 @@ export default (currentTheme) => ({
     styleOverrides: {
       root: {
         fontWeight: 700,
-        fontSize: 18,
+        fontSize: '1rem',
         textTransform: 'none',
         backgroundColor: 'transparent',
         transition: 'all 450ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',

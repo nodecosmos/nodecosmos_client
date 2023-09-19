@@ -25,7 +25,7 @@ export default function TreeToolbar({ rootNodeId }) {
     >
       <TextField
         sx={{
-          ml: 1,
+          ml: 2,
           height: 32,
           width: '350px',
           svg: {
@@ -49,6 +49,7 @@ export default function TreeToolbar({ rootNodeId }) {
             </InputAdornment>
           ),
         }}
+        name="search"
         color="primary"
         variant="outlined"
         placeholder="Search"

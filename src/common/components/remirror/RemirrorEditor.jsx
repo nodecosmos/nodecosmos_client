@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  EditorComponent,
-  Remirror,
-  useRemirror,
-} from '@remirror/react';
+import { WebsocketProvider } from 'y-websocket';
+import * as Y from 'yjs';
 import { ExtensionPriority } from 'remirror';
 import {
   BlockquoteExtension,
@@ -25,14 +21,29 @@ import {
   ImageExtension,
   HardBreakExtension,
   TaskListExtension,
+  YjsExtension,
 } from 'remirror/extensions';
+import { useSelector } from 'react-redux';
+import { WS_URI } from '../../../apis/nodecosmos-server';
+import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
+import RemirrorEditorWrapper from './RemirrorEditorWrapper';
 
-import DescriptionContainer from '../DescriptionContainer';
-import RemirrorEditorContainer from './RemirrorEditorContainer';
-import RemirrorEditorToolbar from './RemirrorEditorToolbar';
+const ydoc = new Y.Doc();
 
-export default function RemirrorEditor({ markdown, onChange }) {
-  const extensions = [
+export default function RemirrorEditor({
+  markdown, onChange, wsEndpoint, wsRoomName, blob,
+}) {
+  const currentUser = useSelector(selectCurrentUser);
+
+  const doc = useMemo(() => {
+    if (blob) {
+      Y.applyUpdateV2(ydoc, blob);
+    }
+
+    return ydoc;
+  }, [blob]);
+
+  const extensions = useMemo(() => [
     new LinkExtension({ autoLink: true }),
     new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
     new BoldExtension(),
@@ -47,48 +58,73 @@ export default function RemirrorEditor({ markdown, onChange }) {
       enableCollapsible: true,
     }),
     new TrailingNodeExtension(),
-    new MarkdownExtension({ copyAsMarkdown: false }),
+    new MarkdownExtension({ copyAsMarkdown: true }),
     new CodeExtension(),
     new CodeBlockExtension(),
     new ImageExtension(),
     new HardBreakExtension(),
     new TaskListExtension(),
-  ];
+  ], []);
 
-  const {
-    manager, state,
-  } = useRemirror({
-    extensions,
-    content: markdown,
-    stringHandler: 'markdown',
-  });
+  const [finalExtensions, setFinalExtensions] = React.useState(null);
+  const provider = useMemo(
+    () => {
+      const wsProvider = new WebsocketProvider(`${WS_URI}${wsEndpoint}`, wsRoomName, doc);
+      wsProvider.awareness.setLocalStateField('user', {
+        name: currentUser.username,
+      });
 
-  const handleEditorChange = (obj) => {
-    if (obj.tr && obj.tr.docChanged) {
-      onChange(obj.helpers);
+      return wsProvider;
+    },
+    [currentUser.username, doc, wsEndpoint, wsRoomName],
+  );
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    const yjsExtension = new YjsExtension({ getProvider: () => provider });
+
+    provider.on('status', (event) => {
+      if (event.status === 'connected') {
+        setFinalExtensions([...extensions, yjsExtension]);
+      }
+    });
+
+    return () => {
+      provider.disconnect();
+    };
+  }, [extensions, provider]);
+
+  if (!finalExtensions) return null;
+
+  const handleChange = (obj) => {
+    if (obj.tr && obj.tr.docChanged && !!obj.helpers.getText()) {
+      const encoded = Y.encodeStateAsUpdateV2(doc);
+
+      onChange(obj.helpers, encoded);
     }
   };
 
   return (
-    <RemirrorEditorContainer>
-      <Remirror
-        manager={manager}
-        initialContent={state}
-        autoFocus
-        onChange={handleEditorChange}
-      >
-        <RemirrorEditorToolbar />
-        <div className="RemirrorTextEditor">
-          <DescriptionContainer width={1}>
-            <EditorComponent />
-          </DescriptionContainer>
-        </div>
-      </Remirror>
-    </RemirrorEditorContainer>
+    <RemirrorEditorWrapper
+      extensions={finalExtensions}
+      markdown={markdown}
+      onChange={handleChange}
+      setInitialContent={!blob}
+    />
   );
 }
 
+RemirrorEditor.defaultProps = {
+  onChange: null,
+  wsEndpoint: null,
+  wsRoomName: null,
+  blob: null,
+};
+
 RemirrorEditor.propTypes = {
   markdown: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  blob: PropTypes.instanceOf(Uint8Array),
+  onChange: PropTypes.func,
+  wsEndpoint: PropTypes.string,
+  wsRoomName: PropTypes.string,
 };

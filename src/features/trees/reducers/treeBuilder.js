@@ -14,7 +14,7 @@ export default {
     state.byRootNodeId[rootId] ||= {};
     state.orderedTreeNodeIdsByRootNodeId[rootId] = [];
 
-    if (!childIdsByParentId || Object.keys(childIdsByParentId).length === 0) return;
+    if (!childIdsByParentId || !childIdsByParentId[rootId]) return;
 
     // Recursively map nodes
     const mapChildren = (

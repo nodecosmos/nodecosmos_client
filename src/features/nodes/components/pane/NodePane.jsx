@@ -15,7 +15,7 @@ import NodePaneToolbar from './NodePaneToolbar';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneDescription from './content/NodePaneDescription';
 import NodePaneWorkflow from './content/NodePaneWorkflow';
-import NodePaneWysiwygEditor from './content/NodePaneWysiwygEditor';
+import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 
 export default function NodePane() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
@@ -27,7 +27,7 @@ export default function NodePane() {
   const nodePaneContents = {
     description: NodePaneDescription,
     markdown: NodePaneMarkdownEditor,
-    wysiwyg: NodePaneWysiwygEditor,
+    wysiwyg: NodePaneDescriptionEditor,
     workflow: NodePaneWorkflow,
   };
 

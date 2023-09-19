@@ -21,7 +21,7 @@ export default function useNodeTitleChangeHandler(nodeId) {
   const prevTitle = usePrevious(title);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const saveNodeTimeout = useRef(null); // save node after 1 second of inactivity
+  const saveNodeTimeout = useRef(null);
 
   useEffect(() => {
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);

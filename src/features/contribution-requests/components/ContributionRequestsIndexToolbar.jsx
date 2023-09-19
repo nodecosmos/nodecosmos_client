@@ -7,7 +7,7 @@ import { HEADER_HEIGHT } from '../../app/constants';
 import CreateContributionRequestModal from './CreateContributionRequestModal';
 import ContributionRequestSearchInput from './ContributionRequestSearchInput';
 
-export default function ContributionRequestsToolbar({ nodeId }) {
+export default function ContributionRequestsIndexToolbar({ nodeId }) {
   const [openCreateWorkflowDialog, setOpenCreateWorkflowDialog] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ export default function ContributionRequestsToolbar({ nodeId }) {
           size="small"
           color="button"
           sx={{
-            ml: 2, mr: 1, border: 1, borderColor: 'borders.4',
+            ml: 2, border: 1, borderColor: 'borders.4',
           }}
           variant="contained"
           disableElevation
@@ -49,6 +49,6 @@ export default function ContributionRequestsToolbar({ nodeId }) {
   );
 }
 
-ContributionRequestsToolbar.propTypes = {
+ContributionRequestsIndexToolbar.propTypes = {
   nodeId: PropTypes.string.isRequired,
 };

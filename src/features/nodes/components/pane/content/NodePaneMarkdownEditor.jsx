@@ -56,7 +56,12 @@ export default function NodePaneMarkdownEditor() {
   return (
     <Suspense fallback={<Loader />}>
       <Box height={1}>
-        <CustomCodeMirror value={descriptionMarkdown || ''} onChange={handleChange} />
+        <CustomCodeMirror
+          value={descriptionMarkdown || ''}
+          onChange={handleChange}
+          wsEndpoint="nodes/ws/node_description"
+          wsRoomName={`${persistentRootId}/${persistentId}`}
+        />
       </Box>
     </Suspense>
   );

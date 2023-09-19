@@ -1,5 +1,4 @@
-// import { languages } from '@codemirror/language-data';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { tags as t } from '@lezer/highlight';
 import { useTheme, Box } from '@mui/material';
@@ -7,14 +6,16 @@ import { createTheme } from '@uiw/codemirror-themes';
 import CodeMirror from '@uiw/react-codemirror';
 import PropTypes from 'prop-types';
 import { HEADER_HEIGHT } from '../../features/app/constants';
+import { WS_URI } from '../../apis/nodecosmos-server';
 
-export default function CustomCodeMirror(props) {
-  const {
-    value,
-    onChange,
-  } = props;
-
+export default function CustomCodeMirror({
+  value,
+  onChange,
+  wsEndpoint,
+  wsRoomName,
+}) {
   const theme = useTheme();
+  const codeMirrorRef = useRef(null);
 
   const {
     tagName,
@@ -170,6 +171,7 @@ export default function CustomCodeMirror(props) {
     }}
     >
       <CodeMirror
+        ref={codeMirrorRef}
         value={value}
         onChange={onChange}
         theme={codeMirrorTheme}
@@ -183,9 +185,13 @@ export default function CustomCodeMirror(props) {
 CustomCodeMirror.defaultProps = {
   value: '',
   onChange: null,
+  wsEndpoint: null,
+  wsRoomName: null,
 };
 
 CustomCodeMirror.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  wsEndpoint: PropTypes.string,
+  wsRoomName: PropTypes.string,
 };

@@ -12,7 +12,7 @@ import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function WorkflowOutputBranch({ id, nodeId: _ }) {
+export default function WorkflowOutputBranch({ id }) {
   const theme = useTheme();
   const { x, y } = useSelector(selectWorkflowDiagramPosition(id));
 
@@ -69,5 +69,4 @@ export default function WorkflowOutputBranch({ id, nodeId: _ }) {
 
 WorkflowOutputBranch.propTypes = {
   id: PropTypes.string.isRequired,
-  nodeId: PropTypes.string.isRequired,
 };
