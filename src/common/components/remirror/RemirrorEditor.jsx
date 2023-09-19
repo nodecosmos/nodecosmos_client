@@ -38,11 +38,9 @@ export default function RemirrorEditor({
 
   const doc = useMemo(() => {
     const uint8Array = base64ToUint8Array(base64);
-
     if (base64) {
       Y.applyUpdateV2(ydoc, uint8Array);
     }
-
     return ydoc;
   }, [base64]);
 
@@ -82,9 +80,16 @@ export default function RemirrorEditor({
     [currentUser.username, doc, wsEndpoint, wsRoomName],
   );
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
-    const yjsExtension = new YjsExtension({ getProvider: () => provider });
+    const yjsExtension = new YjsExtension({
+      getProvider: () => provider,
+      // cursorBuilder: (user) => {
+      //   const newElement = document.createElement('span');
+      //   newElement.classList.add('EditorCursor');
+      //
+      //   return newElement;
+      // },
+    });
 
     provider.on('status', (event) => {
       if (event.status === 'connected') {
