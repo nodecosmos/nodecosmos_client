@@ -2,5 +2,5 @@
 export const FLOW_PANE_CONTENTS = {
   description: 'description',
   markdown: 'markdown',
-  wysiwyg: 'wysiwyg',
+  editor: 'editor',
 };

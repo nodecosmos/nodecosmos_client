@@ -55,8 +55,8 @@ export default function FlowPaneToolbar() {
           title="Edit Description Markdown"
           icon={faPenToSquare}
           color="toolbar.green"
-          active={ioPaneContent === FLOW_PANE_CONTENTS.wysiwyg}
-          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.wysiwyg))}
+          active={ioPaneContent === FLOW_PANE_CONTENTS.editor}
+          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor))}
         />
         <ToolbarItem
           title="View Description"

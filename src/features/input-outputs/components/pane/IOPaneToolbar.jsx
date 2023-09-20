@@ -52,8 +52,8 @@ export default function IOPaneToolbar() {
           title="Edit Description"
           icon={faPenToSquare}
           color="toolbar.green"
-          active={ioPaneContent === IO_PANE_CONTENTS.wysiwyg}
-          onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.wysiwyg))}
+          active={ioPaneContent === IO_PANE_CONTENTS.editor}
+          onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.editor))}
         />
         <ToolbarItem
           title="View Description"

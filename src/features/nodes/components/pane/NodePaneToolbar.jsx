@@ -41,7 +41,7 @@ export default function NodePaneToolbar() {
     >
       <ToolbarContainer>
         <ToolbarItem
-          title="Edit Description Markdown"
+          title="Description Markdown (Read Only)"
           icon={faRectangleCode}
           color="toolbar.lightRed"
           active={nodePaneContent === NODE_PANE_CONTENTS.markdown}
@@ -51,8 +51,8 @@ export default function NodePaneToolbar() {
           title="Edit Description"
           icon={faPenToSquare}
           color="toolbar.green"
-          active={nodePaneContent === NODE_PANE_CONTENTS.wysiwyg}
-          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.wysiwyg))}
+          active={nodePaneContent === NODE_PANE_CONTENTS.editor}
+          onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.editor))}
         />
         <ToolbarItem
           title="View Description"

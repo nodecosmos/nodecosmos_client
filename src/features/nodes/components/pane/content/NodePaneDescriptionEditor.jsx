@@ -53,16 +53,20 @@ export default function NodePaneDescriptionEditor() {
     }, 1000);
   };
 
+  const [base64Fetched, setBase64Fetched] = React.useState(false);
+
   useEffect(() => {
     if (persistentId && persistentRootId) {
       dispatch(getNodeDescriptionBase64({
         rootId: persistentRootId,
         id: persistentId,
-      }));
+      })).then(() => {
+        setBase64Fetched(true);
+      });
     }
   }, [dispatch, persistentId, persistentRootId]);
 
-  if (!!descriptionMarkdown && !descriptionBase64) return <Loader />;
+  if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
 
   return (
     <Suspense fallback={<Loader />}>
@@ -70,9 +74,10 @@ export default function NodePaneDescriptionEditor() {
         <RemirrorEditor
           markdown={descriptionMarkdown || ''}
           onChange={handleChange}
-          wsEndpoint="nodes/ws/node_description"
-          wsRoomName={`${persistentRootId}/${persistentId}`}
+          wsRoomId={persistentId}
+          wsAuthNodeId={persistentId}
           base64={descriptionBase64}
+          isRealTime
         />
       </Box>
     </Suspense>

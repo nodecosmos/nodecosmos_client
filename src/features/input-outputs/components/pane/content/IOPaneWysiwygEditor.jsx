@@ -8,7 +8,7 @@ import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
 /* nodecosmos */
 
-const Wysiwyg = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
+const RemirrorEditor = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
@@ -61,7 +61,7 @@ export default function IOPaneWysiwygEditor() {
   return (
     <Suspense fallback={loading}>
       <Box height={1}>
-        <Wysiwyg
+        <RemirrorEditor
           markdown={descriptionMarkdown || ''}
           onChange={handleChange}
         />

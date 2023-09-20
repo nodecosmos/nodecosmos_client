@@ -9,7 +9,7 @@ import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
 /* nodecosmos */
 
-const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>

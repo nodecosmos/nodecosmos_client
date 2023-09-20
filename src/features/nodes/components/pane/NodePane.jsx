@@ -27,7 +27,7 @@ export default function NodePane() {
   const nodePaneContents = {
     description: NodePaneDescription,
     markdown: NodePaneMarkdownEditor,
-    wysiwyg: NodePaneDescriptionEditor,
+    editor: NodePaneDescriptionEditor,
     workflow: NodePaneWorkflow,
   };
 

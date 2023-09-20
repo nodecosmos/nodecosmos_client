@@ -8,7 +8,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import GradientText from '../../../../common/components/GradientText';
 
-const CustomCodeMirror = React.lazy(() => import('../../../../common/components/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../../common/components/codemirror/CodeMirrorEditor'));
 const MarkdownPreview = React.lazy(() => import('../../../../common/components/MarkdownPreview'));
 
 const INITIAL_DESCRIPTION_VALUE = `

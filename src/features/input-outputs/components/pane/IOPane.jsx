@@ -20,7 +20,7 @@ export default function IOPane() {
 
   const contents = {
     markdown: <IOPaneMarkdownEditor />,
-    wysiwyg: <IOPaneWysiwygEditor />,
+    editor: <IOPaneWysiwygEditor />,
     description: <IOPaneDescription />,
   };
 

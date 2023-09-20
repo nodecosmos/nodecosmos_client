@@ -9,7 +9,7 @@ import { updateFlowDescription } from '../../../flows.thunks';
 import { updateFlowState } from '../../../flowsSlice';
 /* nodecosmos */
 
-const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/CustomCodeMirror'));
+const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
 
 const loading = (
   <Box display="flex" alignItems="center" justifyContent="center" mb={8}>

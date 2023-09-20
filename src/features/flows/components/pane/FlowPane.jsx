@@ -21,7 +21,7 @@ export default function FlowPane() {
   const contents = {
     markdown: <FlowPaneMarkdownEditor />,
     description: <FlowPaneDescription />,
-    wysiwyg: <FlowPaneWysiwygEditor />,
+    editor: <FlowPaneWysiwygEditor />,
   };
 
   const content = contents[ioPaneContent];
