@@ -17,7 +17,7 @@ export default function RemirrorEditor({
   if (!extensions) return null;
 
   const handleChange = (obj) => {
-    if (obj.tr && obj.tr.docChanged && !!obj.helpers.getText()) {
+    if (obj.tr && obj.tr.docChanged) {
       const encoded = (isRealTime && Y.encodeStateAsUpdateV2(doc)) || null;
 
       onChange(obj.helpers, encoded);

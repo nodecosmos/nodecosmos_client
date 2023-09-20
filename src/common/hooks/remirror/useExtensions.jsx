@@ -60,9 +60,9 @@ export default function useExtensions({
     if (!isRealTime) return null;
     const ydoc = new Y.Doc();
 
-    const uint8Array = base64ToUint8Array(base64);
     if (base64) {
-      Y.applyUpdateV2(ydoc, uint8Array);
+      const uint8Array = base64ToUint8Array(base64);
+      base64 && Y.applyUpdateV2(ydoc, uint8Array);
     }
     return ydoc;
   }, [base64, isRealTime]);
