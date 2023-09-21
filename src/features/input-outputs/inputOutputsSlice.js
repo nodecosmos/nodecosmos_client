@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { showWorkflow } from '../workflows/workflows.thunks';
+import { createWorkflow, showWorkflow } from '../workflows/workflows.thunks';
 import {
   createIO, deleteIO, getIODescription, updateIOTitle,
 } from './inputOutputs.thunks';
@@ -36,6 +36,17 @@ const inputOutputsSlice = createSlice({
     updateIOState(state, action) {
       const { id } = action.payload;
       state.byId[id] = { ...state.byId[id], ...action.payload };
+
+      Object.values(state.byId).forEach((io) => {
+        if (io.originalId === state.byId[id].originalId) {
+          io.title = state.byId[id].title;
+          io.unit = state.byId[id].unit;
+          io.dataType = state.byId[id].dataType;
+          io.value = state.byId[id].value;
+          io.description = state.byId[id].description;
+          io.descriptionMarkdown = state.byId[id].descriptionMarkdown;
+        }
+      });
     },
     setIOPaneContent(state, action) {
       state.IOPaneContent = action.payload;
@@ -55,17 +66,31 @@ const inputOutputsSlice = createSlice({
         const { inputOutput } = action.payload;
         const { description, descriptionMarkdown } = inputOutput;
 
-        state.byId[inputOutput.id].description = description;
-        state.byId[inputOutput.id].descriptionMarkdown = descriptionMarkdown;
+        Object.values(state.byId).forEach((io) => {
+          if (io.originalId === inputOutput.originalId) {
+            io.description = description;
+            io.descriptionMarkdown = descriptionMarkdown;
+          }
+        });
       }).addCase(updateIOTitle.fulfilled, (state, action) => {
         const { inputOutput } = action.payload;
-        const { id, title } = inputOutput;
+        const { title } = inputOutput;
 
-        state.byId[id].title = title;
+        Object.values(state.byId).forEach((io) => {
+          if (io.originalId === inputOutput.originalId) {
+            io.title = title;
+          }
+        });
       })
       .addCase(deleteIO.fulfilled, (state, action) => {
         const { id } = action.payload;
         delete state.byId[id];
+      })
+      .addCase(createWorkflow.fulfilled, (state, action) => {
+        const { inputOutputs } = action.payload;
+        inputOutputs.forEach((inputOutput) => {
+          state.byId[inputOutput.id] = inputOutput;
+        });
       });
   },
 });

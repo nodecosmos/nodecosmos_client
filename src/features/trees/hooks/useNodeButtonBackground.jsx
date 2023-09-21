@@ -21,7 +21,7 @@ export default function useNodeButtonBackground(treeId) {
 
   const isChecked = treeType === TREES_TYPES.checkbox && commands.isChecked(persistentId);
   const hasBg = isSelected && treeType !== TREES_TYPES.checkbox;
-  const outlinedColored = hasChildren && treeType !== TREES_TYPES.checkbox || isChecked;
+  const outlinedColored = (hasChildren && treeType !== TREES_TYPES.checkbox) || isChecked;
 
   let backgroundColor = hasBg ? nestedTreeColor : theme.palette.tree.default;
 

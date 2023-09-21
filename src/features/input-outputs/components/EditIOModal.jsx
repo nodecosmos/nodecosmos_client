@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFloppyDisk } from '@fortawesome/pro-light-svg-icons';
+import { faCodeCommit, faFloppyDisk } from '@fortawesome/pro-light-svg-icons';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import TagRounded from '@mui/icons-material/TagRounded';
 import { Button, DialogContent, InputAdornment } from '@mui/material';
@@ -16,7 +16,9 @@ import { selectInputOutputById } from '../inputOutputs.selectors';
 import { updateIOTitle } from '../inputOutputs.thunks';
 
 export default function EditIOModal({ id, open, onClose }) {
-  const { nodeId, workflowId, title } = useSelector(selectInputOutputById(id));
+  const {
+    originalId, nodeId, workflowId, title,
+  } = useSelector(selectInputOutputById(id));
   const [loading, setLoading] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ export default function EditIOModal({ id, open, onClose }) {
 
     const payload = {
       nodeId,
+      originalId,
       workflowId,
       id,
       ...formValues,
@@ -82,8 +85,8 @@ export default function EditIOModal({ id, open, onClose }) {
                 required
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                      <TagRounded sx={{ color: 'background.3' }} />
+                    <InputAdornment position="start" sx={{ svg: { p: 2, color: 'tree.hashtag' } }}>
+                      <FontAwesomeIcon icon={faCodeCommit} />
                     </InputAdornment>
                   ),
                 }}

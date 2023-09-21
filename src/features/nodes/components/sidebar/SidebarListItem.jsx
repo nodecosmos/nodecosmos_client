@@ -8,7 +8,7 @@ import * as PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 export default function SidebarListItem({
-  to, icon, title, flip, component, onClick, children, disabled, end,
+  to, icon, title, flip, component, onClick, children, disabled, end, selected,
 }) {
   return (
     <ListItem sx={{
@@ -35,6 +35,7 @@ export default function SidebarListItem({
         component={component}
         to={to}
         onClick={onClick}
+        selected={selected}
         {...(component === NavLink && { end, relative: true })}
       >
         <ListItemIcon sx={{
@@ -73,6 +74,7 @@ SidebarListItem.defaultProps = {
   children: null,
   disabled: false,
   end: true,
+  selected: null,
 };
 
 SidebarListItem.propTypes = {
@@ -85,4 +87,5 @@ SidebarListItem.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   end: PropTypes.bool,
+  selected: PropTypes.bool,
 };

@@ -31,7 +31,9 @@ export default function IOPaneWysiwygEditor() {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const { nodeId, workflowId, descriptionMarkdown } = useSelector(selectInputOutputById(id));
+  const {
+    originalId, nodeId, workflowId, descriptionMarkdown,
+  } = useSelector(selectInputOutputById(id));
 
   const handleChange = (remirrorHelpers) => {
     if (handleChangeTimeout.current) {
@@ -50,6 +52,7 @@ export default function IOPaneWysiwygEditor() {
 
       dispatch(updateIODescription({
         id,
+        originalId,
         nodeId,
         workflowId,
         description: descriptionHtml,

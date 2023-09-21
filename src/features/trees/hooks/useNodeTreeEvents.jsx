@@ -35,8 +35,7 @@ export default function useNodeTreeEvents(treeNodeId) {
     if (treeType === 'checkbox') {
       handleCheckboxChange();
       event.stopPropagation();
-      dispatch(setSelectedNode(nodeId));
-      dispatch(setSelectedTreeNode(treeNodeId));
+
       return;
     }
     if (isEditing) return;

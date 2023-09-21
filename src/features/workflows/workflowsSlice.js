@@ -9,16 +9,19 @@ import { createWorkflow, showWorkflow, updateWorkflowInitialInputs } from './wor
 const workflowsSlice = createSlice({
   name: 'workflows',
   initialState: {
-    byId: {
-      'workflow-1': {
-        id: 'workflow-1',
-        nodeId: 'node-1',
-        title: 'Workflow',
-        description: 'Workflow description',
-        initialInputIds: ['input1', 'input2'],
-        flowIds: ['flow-1'],
-      },
-    },
+    /**
+     * @type {{
+     *  [id: string]: {
+     *    id: string,
+     *    nodeId: string,
+     *    rootNodeId: string,
+     *    title: string,
+     *    description: string,
+     *    initialInputIds: string[],
+     *    flowIds: string[],
+     *  }
+     */
+    byId: {},
 
     idsByNodeId: {
       'node-1': ['workflow-1'],

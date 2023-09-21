@@ -32,7 +32,9 @@ export default function IOPaneMarkdownEditor() {
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const { nodeId, workflowId, descriptionMarkdown } = useSelector(selectInputOutputById(id));
+  const {
+    nodeId, originalId, workflowId, descriptionMarkdown,
+  } = useSelector(selectInputOutputById(id));
 
   const handleChange = (value) => {
     if (handleChangeTimeout.current) {
@@ -50,6 +52,7 @@ export default function IOPaneMarkdownEditor() {
 
       dispatch(updateIODescription({
         id,
+        originalId,
         nodeId,
         workflowId,
         description: descriptionHtml,

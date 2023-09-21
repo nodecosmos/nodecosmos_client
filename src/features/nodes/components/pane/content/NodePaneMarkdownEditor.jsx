@@ -1,16 +1,11 @@
 import React, { Suspense } from 'react';
 import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import md from 'markdown-it';
+import { useSelector } from 'react-redux';
 /* nodecosmos */
 import {
   selectNodeAttribute,
-  selectPersistentId,
   selectSelectedNodeId,
 } from '../../../nodes.selectors';
-import { updateNodeDescription } from '../../../nodes.thunks';
-import { updateNodeState } from '../../../nodesSlice';
-import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
 import Loader from '../../../../../common/components/Loader';
 
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));

@@ -6,7 +6,7 @@ import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
 import AddRounded from '@mui/icons-material/AddRounded';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 /* mui */
 import {
@@ -20,18 +20,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { createWorkflow } from '../workflows.thunks';
 import CloseModalButton from '../../../common/components/CloseModalButton';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 export default function CreateWorkflowModal({
   open, onClose, nodeId,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
+  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
 
   const onSubmit = async (formValues) => {
     setLoading(true);
 
     const payload = {
       nodeId,
+      rootNodeId,
       ...formValues,
     };
 

@@ -151,6 +151,36 @@ const getTheme = (currentTheme) => createTheme({
         },
       },
     },
+    MuiAutocomplete: {
+      styleOverrides: {
+        listbox: {
+
+        },
+        option: {
+          paddingLeft: 24,
+          height: 60,
+          color: currentTheme.palette.text.secondary,
+          fontWeight: 'bold',
+          svg: {
+            color: currentTheme.palette.tree.hashtag,
+          },
+          '&:hover, &.Mui-focused': {
+            backgroundColor: currentTheme.palette.background[6],
+            color: currentTheme.palette.text.link,
+            textDecoration: 'underline',
+          },
+          '.label': {
+            marginLeft: 24,
+          },
+          '&.MuiAutocomplete-option[aria-selected="true"]': {
+            backgroundColor: currentTheme.palette.background[6],
+            '&:hover, &.Mui-focused': {
+              backgroundColor: currentTheme.palette.background[6],
+            },
+          },
+        },
+      },
+    },
     ...input(currentTheme),
     ...buttons(currentTheme),
     ...tab(currentTheme),
