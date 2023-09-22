@@ -117,27 +117,22 @@ export default function Index() {
       ref={rootRef}
     >
       <Box
-        display="flex"
-        alignItems="center"
         position="fixed"
-        width={{
-          xs: 1,
-          sm: 'calc(100% - 12px)',
-        }}
+        width={1}
         zIndex={3}
         height={HEADER_HEIGHT}
         sx={{
           boxShadow: '2',
           backgroundColor: 'background.5',
         }}
-        border={1}
         borderBottom={0}
-        borderColor="borders.3"
       >
-        <Container maxWidth="lg" sx={{ height: '100%' }}>
+        <Container maxWidth="lg" sx={{ height: 1 }}>
           <Box
             sx={{
-              height: '100%',
+              ml: -1,
+              mr: 1,
+              height: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
