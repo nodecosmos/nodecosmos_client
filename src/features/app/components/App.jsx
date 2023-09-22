@@ -57,10 +57,6 @@ export default function App() {
       <Box
         height={1}
         width={1}
-        p={{
-          xs: 0,
-          sm: 0.75,
-        }}
         backgroundColor="background.1"
       >
         <Box
@@ -70,10 +66,6 @@ export default function App() {
           backgroundColor="background.2"
           border={1}
           borderColor="borders.2"
-          borderRadius={{
-            xs: 0,
-            sm: 2,
-          }}
         >
           <Routes>
             <Route path="/" element={(<Home />)} />

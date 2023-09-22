@@ -120,14 +120,6 @@ export default function Index() {
         display="flex"
         alignItems="center"
         position="fixed"
-        top={{
-          sm: 6,
-          xs: 0,
-        }}
-        right={{
-          sm: 6,
-          xs: 0,
-        }}
         width={{
           xs: 1,
           sm: 'calc(100% - 12px)',
@@ -135,14 +127,6 @@ export default function Index() {
         zIndex={3}
         height={HEADER_HEIGHT}
         sx={{
-          borderTopLeftRadius: {
-            xs: 0,
-            sm: 8,
-          },
-          borderTopRightRadius: {
-            xs: 0,
-            sm: 8,
-          },
           boxShadow: '2',
           backgroundColor: 'background.5',
         }}

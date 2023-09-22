@@ -1,30 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Box, Tab, Tabs,
+  Tab, Tabs,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { HEADER_HEIGHT } from '../../app/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiagramNested } from '@fortawesome/pro-light-svg-icons';
+import { Link } from 'react-router-dom';
 
 export default function ContributionRequestsShowToolbar({ nodeId }) {
-  return (
-    <Box
-      height={HEADER_HEIGHT}
-      width={1}
-      display="flex"
-      alignItems="center"
-      position="relative"
-      boxShadow="2"
-      borderBottom={1}
-      borderColor="borders.1"
-      zIndex={3}
-    >
+  const [value, setValue] = useState(0);
 
-      <Tabs value={1} centered>
-        <Tab label="Commits" />
-        <Tab label="Tree" />
-        <Tab label="Workflow" />
-      </Tabs>
-    </Box>
+  const handleChange = (_e, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Tabs
+      value={value}
+      onChange={handleChange}
+      textColor="secondary"
+      indicatorColor="secondary"
+      visibleScrollbar
+    >
+      <Tab
+        disableRipple
+        iconPosition="start"
+        icon={<FontAwesomeIcon icon={faDiagramNested} />}
+        label="Commits"
+        LinkComponent={Link}
+        to="."
+        index={0}
+      />
+      <Tab
+        disableRipple
+        iconPosition="start"
+        icon={<FontAwesomeIcon icon={faDiagramNested} />}
+        label="Tree"
+        LinkComponent={Link}
+        to="tree"
+        index={1}
+      />
+      <Tab
+        disableRipple
+        iconPosition="start"
+        icon={<FontAwesomeIcon icon={faDiagramNested} />}
+        label="Workflow"
+        LinkComponent={Link}
+        to="workflow"
+        index={2}
+      />
+    </Tabs>
   );
 }
 

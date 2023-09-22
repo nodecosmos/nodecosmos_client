@@ -25,6 +25,9 @@ import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
 import Index from '../../../pages/contribution-requests/Index';
+import ContributionRequestShow from '../../../pages/contribution-requests/Show';
+import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
+import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
 import Header from './header/Header';
 
 export default function LazyAppLoad() {
@@ -100,7 +103,10 @@ export default function LazyAppLoad() {
                   {/* Contribution Requests */}
                   <Route path=":id/contribution_requests" element={<Index />} />
                   <Route path=":id/contribution_requests">
-                    <Route path=":contributionRequestId" element={<div>hello</div>} />
+                    <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                      <Route path="tree" element={<ContributionRequestTree />} />
+                      <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                    </Route>
                   </Route>
                   <Route path=":id/topics" element={<div />} />
                   <Route path=":id/tasks_board" element={<div />} />
@@ -111,7 +117,10 @@ export default function LazyAppLoad() {
                   {/* Contribution Requests */}
                   <Route path=":rootId/:id/contribution_requests" element={<Index />} />
                   <Route path=":rootId/:id/contribution_requests">
-                    <Route path=":contributionRequestId" element={<div>hello</div>} />
+                    <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                      <Route path="tree" element={<ContributionRequestTree />} />
+                      <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                    </Route>
                   </Route>
                   <Route path=":rootId/:id/topics" element={<div />} />
                   <Route path=":rootId/:id/tasks_board" element={<div />} />
