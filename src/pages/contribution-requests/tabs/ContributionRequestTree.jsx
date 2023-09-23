@@ -11,6 +11,7 @@ import TreeToolbar from '../../../features/trees/components/TreeToolbar';
 import OverlayLoader from '../../../common/components/OverlayLoader';
 import { selectIsTreeLoading } from '../../../features/trees/trees.selectors';
 import Alert from '../../../common/components/Alert';
+import { TREES_TYPES } from '../../../features/trees/trees.constants';
 
 export default function ContributionRequestTree() {
   const { id } = useParams();
@@ -69,7 +70,7 @@ export default function ContributionRequestTree() {
           <Alert />
           <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
             {isTreeLoading && <OverlayLoader />}
-            <Tree rootNodeId={id} />
+            <Tree rootNodeId={id} type={TREES_TYPES.contributionRequest} />
           </Box>
         </TreeContainer>
         <Box

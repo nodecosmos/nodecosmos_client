@@ -16,6 +16,7 @@ export default function useIOSubmitHandler({
   associatedObject,
   flowStepId,
   flowStepOutputNodeId,
+  autocompleteValue,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
@@ -29,8 +30,7 @@ export default function useIOSubmitHandler({
 
   const onSubmit = async (formValues) => {
     setLoading(true);
-    const { title } = formValues;
-    const existingIO = allWorkflowIOs.find((io) => io.title === title);
+    const existingIO = autocompleteValue && allWorkflowIOs.find((io) => io.title === autocompleteValue);
 
     const payload = {
       nodeId,

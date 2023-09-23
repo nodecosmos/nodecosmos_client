@@ -7,7 +7,7 @@ export default function useTreeNodeVirtualizer(rootId) {
   const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));
 
   const treeNodes = useSelector(selectTreeNodes(rootId));
-  const isInViewport = useIsInsideViewport(rootId);
+  const isNodeInViewport = useIsInsideViewport(rootId);
 
   const prevVirtualizedNodesById = useRef({});
   const treeNodeIdsToViewRef = useRef([]);
@@ -17,14 +17,16 @@ export default function useTreeNodeVirtualizer(rootId) {
 
     orderedTreeNodeIds.forEach((treeNodeId) => {
       const {
-        isExpanded,
         isMounted,
         treeParentId,
         isNewlyCreated,
+        treeChildIds,
       } = treeNodes[treeNodeId];
       const isLastParentsChild = treeNodes[treeParentId]?.treeLastChildId === treeNodeId;
+      const isInViewport = isNodeInViewport(treeNodeId);
+      const hasChildInViewport = () => treeChildIds.some((childId) => isNodeInViewport(childId));
 
-      if (isMounted && (isInViewport(treeNodeId) || isExpanded || isLastParentsChild)) {
+      if (isMounted && (isInViewport || isLastParentsChild || hasChildInViewport())) {
         // prevent animation if node is already mounted,
         // so we don't animate nodes that are outside of viewport
         let alreadyMounted = !!prevVirtualizedNodesById.current[treeNodeId];
@@ -38,5 +40,5 @@ export default function useTreeNodeVirtualizer(rootId) {
 
     return treeNodeIdsToViewRef.current;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderedTreeNodeIds, isInViewport]);
+  }, [orderedTreeNodeIds, isNodeInViewport]);
 }

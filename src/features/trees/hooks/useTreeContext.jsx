@@ -37,6 +37,15 @@ export function useTreeCheckbox() {
 
   const isChecked = (nodeId) => selectedNodeIds.has(nodeId);
 
+  const handleCheckboxChange = (event) => {
+    const { value } = event.target;
+    if (isChecked(value)) {
+      deleteId(value);
+    } else {
+      addId(value);
+    }
+  };
+
   return {
     treeType: type,
     commands: {
@@ -44,6 +53,7 @@ export function useTreeCheckbox() {
       deleteId,
       isChecked,
     },
+    handleCheckboxChange,
   };
 }
 

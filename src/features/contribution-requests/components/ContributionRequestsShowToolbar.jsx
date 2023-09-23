@@ -16,39 +16,47 @@ export default function ContributionRequestsShowToolbar() {
       height={HEADER_HEIGHT}
       borderBottom={1}
       borderColor="borders.2"
+      pl={1}
     >
-      <Box>
-        <ToolbarContainer hasText round={false} mr={0} showIndicator={false}>
-          <ToolbarItem
-            title="Conversation"
-            icon={faComments}
-            color="secondary.main"
-            titleAsTooltip={false}
-            to="."
-          />
-          <ToolbarItem
-            title="Tree"
-            icon={faDiagramNested}
-            color="secondary.main"
-            titleAsTooltip={false}
-            to="tree"
-          />
-          <ToolbarItem
-            title="Workflow"
-            icon={faCodeCommit}
-            color="secondary.main"
-            titleAsTooltip={false}
-            to="workflow"
-          />
-          <ToolbarItem
-            title="Commits"
-            icon={faListTree}
-            color="secondary.main"
-            titleAsTooltip={false}
-            to="commits"
-          />
-        </ToolbarContainer>
-      </Box>
+      <ToolbarContainer
+        hasText
+        round={false}
+        mr={1}
+        showIndicator={false}
+        size={32}
+        borderRadius={2}
+        hoverColor="background.7"
+        activeColor="background.7"
+      >
+        <ToolbarItem
+          title="Conversation"
+          icon={faComments}
+          color="text.primary"
+          titleAsTooltip={false}
+          to="."
+        />
+        <ToolbarItem
+          title="Tree changes"
+          icon={faDiagramNested}
+          color="text.primary"
+          titleAsTooltip={false}
+          to="tree"
+        />
+        <ToolbarItem
+          title="Workflow changes"
+          icon={faCodeCommit}
+          color="text.primary"
+          titleAsTooltip={false}
+          to="workflow"
+        />
+        <ToolbarItem
+          title="Commits"
+          icon={faListTree}
+          color="text.primary"
+          titleAsTooltip={false}
+          to="commits"
+        />
+      </ToolbarContainer>
     </Box>
   );
 }

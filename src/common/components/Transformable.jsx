@@ -20,7 +20,7 @@ export default function Transformable({
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
   const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
     const clientHeight = containerRef.current?.clientHeight || 0;
     const height = Math.max(svgHeight, clientHeight - 8);
@@ -32,7 +32,7 @@ export default function Transformable({
     if (height !== dimensions.height || width !== dimensions.width) {
       setDimensions({ height, width });
     }
-  }, 250);
+  }, 0);
 
   //------------------------------------------------------------------------------------------------
   const { onMouseDown } = usePannable(containerRef);
@@ -65,21 +65,27 @@ export default function Transformable({
   }, [scrollTop]);
 
   const resizeTimeout = useRef(null);
+  const clientHeight = containerRef.current?.clientHeight;
 
-  window.addEventListener('resize', () => {
-    if (resizeTimeout.current) {
-      clearTimeout(resizeTimeout.current);
-    }
+  useEffect(() => {
+    window.onresize = () => {
+      if (resizeTimeout.current) {
+        clearTimeout(resizeTimeout.current);
+      }
 
-    resizeTimeout.current = setTimeout(() => {
-      if (containerRef.current) {
+      resizeTimeout.current = setTimeout(() => {
+        if (!clientHeight) return;
         dispatch(setTransformablePositions({
           id: transformableId,
           clientHeight: containerRef.current.clientHeight,
         }));
-      }
-    }, 250);
-  });
+      }, 100);
+    };
+
+    return () => {
+      window.onresize = null;
+    };
+  }, [dispatch, transformableId, clientHeight]);
 
   //------------------------------------------------------------------------------------------------
   return (

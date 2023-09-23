@@ -53,6 +53,12 @@ export default function TreeContainer(props) {
               fontWeight: 500,
             },
           },
+          '.MuiCheckbox-root': {
+            p: 0,
+            svg: {
+              fontSize: '1.4rem',
+            },
+          },
         },
       }}
     >

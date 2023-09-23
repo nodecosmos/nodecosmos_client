@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { selectPosition, selectTreeNode } from '../trees.selectors';
+import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 /* nodecosmos */
 import {
   INITIAL_ANIMATION_DELAY,
@@ -19,13 +19,10 @@ import NodeToolbar from './NodeToolbar';
 
 export default function NodeContent(props) {
   const { treeNodeId, alreadyMounted } = props;
-
-  const {
-    nodeId,
-    isExpanded,
-    isRoot,
-    isEditing,
-  } = useSelector(selectTreeNode(treeNodeId));
+  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
+  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
+  const isRoot = useSelector(selectNodeAttribute(nodeId, 'isRoot'));
+  const isEditing = useSelector(selectTreeNodeAttribute(treeNodeId, 'isEditing'));
 
   const rootNodeId = useTreeRootNodeId();
   const { xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));

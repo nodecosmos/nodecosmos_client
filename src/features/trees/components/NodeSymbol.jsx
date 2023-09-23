@@ -11,14 +11,15 @@ import { selectTreeNodeAttribute } from '../trees.selectors';
 import useNodeButtonColors from '../hooks/useNodeButtonColors';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
+const MemoizedCheckbox = memo(Checkbox);
 
 export default function NodeSymbol({ treeNodeId }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
   const { outlineColor } = useNodeButtonColors(treeNodeId);
-  const { treeType, commands } = useTreeCheckbox();
+  const { treeType, commands, handleCheckboxChange } = useTreeCheckbox();
 
-  if (treeType === TREES_TYPES.default) {
+  if (treeType !== TREES_TYPES.checkbox) {
     return (
       <MemoizedTagRounded style={{
         color: 'inherit',
@@ -28,23 +29,11 @@ export default function NodeSymbol({ treeNodeId }) {
   }
 
   return (
-    <Checkbox
-      sx={{
-        p: 0,
-        svg: {
-          color: outlineColor,
-          fontSize: '1.4rem',
-        },
-      }}
+    <MemoizedCheckbox
+      style={{ color: outlineColor }}
       checked={commands.isChecked(persistentId)}
       value={persistentId}
-      onChange={(event) => {
-        if (event.target.checked) {
-          commands.addId(persistentId);
-        } else {
-          commands.deleteId(persistentId);
-        }
-      }}
+      onChange={handleCheckboxChange}
     />
   );
 }

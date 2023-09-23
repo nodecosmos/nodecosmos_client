@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionAttribute, selectTransformablePositionsById } from '../../../app/app.selectors';
+import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../trees.constants';
 import { selectPositions } from '../../trees.selectors';
 

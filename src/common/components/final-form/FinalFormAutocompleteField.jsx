@@ -12,6 +12,7 @@ export default function FinalFormAutocompleteField({
   placeholder,
   renderOption,
   startAdornment,
+  setAutocompleteValue,
 }) {
   const { change } = useForm();
 
@@ -24,6 +25,7 @@ export default function FinalFormAutocompleteField({
       onChange={(event, value) => {
         if (value) {
           change(name, value);
+          setAutocompleteValue(value);
         }
       }}
       renderInput={(params) => (
@@ -48,6 +50,7 @@ export default function FinalFormAutocompleteField({
 FinalFormAutocompleteField.defaultProps = {
   freeSolo: false,
   startAdornment: null,
+  setAutocompleteValue: () => {},
 };
 
 FinalFormAutocompleteField.propTypes = {
@@ -57,4 +60,5 @@ FinalFormAutocompleteField.propTypes = {
   placeholder: PropTypes.string.isRequired,
   renderOption: PropTypes.func.isRequired,
   startAdornment: PropTypes.element,
+  setAutocompleteValue: PropTypes.func,
 };

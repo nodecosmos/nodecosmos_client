@@ -13,6 +13,7 @@ import { selectNode, selectNodeAttribute } from '../../nodes.selectors';
 import {
   getLikesCount, likeNode, unlikeNode,
 } from '../../nodes.thunks';
+import abbreviateNumber from '../../../../common/abbreviateNumber';
 
 export default function LikeButton({ nodeId, fontSize, likesCount: providedLikesCount }) {
   const {
@@ -82,7 +83,7 @@ export default function LikeButton({ nodeId, fontSize, likesCount: providedLikes
           lineHeight: 1,
         }}
       >
-        {likesCount}
+        {abbreviateNumber(likesCount)}
       </Typography>
     </Box>
   );

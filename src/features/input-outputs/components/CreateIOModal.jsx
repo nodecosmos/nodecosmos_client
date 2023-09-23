@@ -32,12 +32,15 @@ export default function CreateIOModal({
   const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow
     ? 'Create Initial Input' : 'Create Output';
 
+  const [autocompleteValue, setAutocompleteValue] = React.useState(null);
+
   const { onSubmit, loading } = useIOSubmitHandler({
     onClose,
     workflowId,
     associatedObject,
     flowStepId,
     flowStepOutputNodeId,
+    autocompleteValue,
   });
 
   return (
@@ -77,6 +80,7 @@ export default function CreateIOModal({
                 )}
                 name="title"
                 placeholder="IO Title"
+                setAutocompleteValue={setAutocompleteValue}
               />
               <Button
                 sx={{ mt: 3, float: 'right' }}

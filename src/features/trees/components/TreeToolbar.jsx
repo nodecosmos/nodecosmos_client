@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField, Box } from '@mui/material';
@@ -10,6 +10,13 @@ import { searchNode } from '../../nodes/nodesSlice';
 
 export default function TreeToolbar({ rootNodeId }) {
   const dispatch = useDispatch();
+
+  useEffect(() => () => {
+    dispatch(searchNode({
+      rootId: rootNodeId,
+      value: '',
+    }));
+  }, [dispatch, rootNodeId]);
 
   return (
     <Box
