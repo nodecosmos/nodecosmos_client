@@ -15,7 +15,6 @@ import useTreeContext from '../hooks/useTreeContext';
 import Node from './Node';
 import DraggableNodePoints from './DraggableNodePoints';
 
-// TODO: update positions -> order by rootId
 export default function Tree({
   rootNodeId, type, onChange, value,
 }) {

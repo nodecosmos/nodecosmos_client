@@ -75,6 +75,9 @@ export default function HomepageTabs(props) {
       centered
       sx={{
         height: 1,
+        '.MuiButtonBase-root': {
+          color: 'text.primary',
+        },
       }}
       TabIndicatorProps={{
         sx: {
