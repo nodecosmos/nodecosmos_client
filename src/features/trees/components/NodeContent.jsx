@@ -12,6 +12,7 @@ import {
   NODE_BUTTON_HEIGHT,
   TRANSITION_ANIMATION_DURATION,
 } from '../trees.constants';
+import { useTreeRootNodeId } from '../hooks/useTreeContext';
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
@@ -26,7 +27,8 @@ export default function NodeContent(props) {
     isEditing,
   } = useSelector(selectTreeNode(treeNodeId));
 
-  const { xEnd, y } = useSelector(selectPosition(treeNodeId));
+  const rootNodeId = useTreeRootNodeId();
+  const { xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
 
   if (!xEnd) return null;

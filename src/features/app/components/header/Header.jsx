@@ -3,12 +3,13 @@ import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import NodeBreadcrumbs from '../../../nodes/components/NodeBreadcrumbs';
+import TreeShowHeader from '../../../nodes/components/TreeShowHeader';
 
 /* nodecosmos */
-import NodeIndexToolbar from '../../../nodes/components/NodeIndexToolbar';
+import NodeIndexHeader from '../../../nodes/components/NodeIndexHeader';
 import { selectHeaderContent, selectTheme } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
+import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
 import UserHeaderOptions from './UserHeaderOptions';
 
 const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
@@ -18,8 +19,9 @@ export default function Header() {
   const selectedTheme = useSelector(selectTheme);
 
   const headerContents = {
-    NodeIndexToolbar: <NodeIndexToolbar />,
-    NodeBreadcrumbs: <NodeBreadcrumbs />,
+    NodeIndexHeader: <NodeIndexHeader />,
+    TreeShowHeader: <TreeShowHeader />,
+    ContributionRequestShowHeader: <ContributionRequestShowHeader />,
   };
   const location = useLocation();
   const headerContent = useSelector(selectHeaderContent);

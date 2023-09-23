@@ -2,10 +2,17 @@ import { createContext, useContext, useMemo } from 'react';
 
 const TreeContext = createContext(undefined);
 
-export default function useTreeContext({ type, onChange, value }) {
+export default function useTreeContext({
+  type, onChange, value, rootNodeId,
+}) {
   const contextProviderValue = useMemo(
-    () => ({ type, onChange, selectedNodeIds: new Set(value) }),
-    [type, onChange, value],
+    () => ({
+      type,
+      onChange,
+      selectedNodeIds: new Set(value),
+      rootNodeId,
+    }),
+    [type, onChange, value, rootNodeId],
   );
 
   return {
@@ -38,4 +45,11 @@ export function useTreeCheckbox() {
       isChecked,
     },
   };
+}
+
+export function useTreeRootNodeId() {
+  const context = useContext(TreeContext);
+  const { rootNodeId } = context;
+
+  return rootNodeId;
 }

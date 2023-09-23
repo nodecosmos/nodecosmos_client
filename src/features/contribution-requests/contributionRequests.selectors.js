@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 export const selectContributionRequestsByNodeId = (state) => state.contributionRequests.byNodeId;
 export const selectSearchTerm = (state) => state.contributionRequests.searchTerm;
+export const selectCurrentContributionRequest = (state) => state.contributionRequests.currentContributionRequest;
 export const selectContributionRequests = (
   nodeId,
 ) => createSelector(
@@ -13,5 +14,6 @@ export const selectContributionRequest = (
   contributionRequestId,
 ) => createSelector(
   selectContributionRequestsByNodeId,
-  (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId][contributionRequestId],
+  (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId]
+    && contributionRequestsByNodeId[nodeId][contributionRequestId],
 );

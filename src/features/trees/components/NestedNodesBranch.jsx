@@ -12,14 +12,16 @@ import {
   TRANSITION_ANIMATION_DURATION,
 } from '../trees.constants';
 import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
+import { useTreeRootNodeId } from '../hooks/useTreeContext';
 
 function NestedNodesBranch(props) {
   const { treeNodeId } = props;
+  const treeRootNodeId = useTreeRootNodeId();
 
   const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
   const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
-  const { xEnd, y } = useSelector(selectPosition(treeNodeId));
-  const { y: pathYEnd } = useSelector(selectPosition(treeLastChildId));
+  const { xEnd, y } = useSelector(selectPosition(treeRootNodeId, treeNodeId));
+  const { y: pathYEnd } = useSelector(selectPosition(treeRootNodeId, treeLastChildId));
   const prevPathYEnd = usePrevious(pathYEnd);
 
   const theme = useTheme();

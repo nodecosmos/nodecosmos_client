@@ -3,7 +3,7 @@ import { extractRootIdFromTreeNodeId } from './trees.memoize';
 
 // top level selectors
 export const selectTreesByRootNodeId = (state) => state.trees.byRootNodeId;
-export const selectPositionsByNodeId = (state) => state.trees.positionsByNodeId;
+export const selectPositionsByRootIdAndTreeNodeId = (state) => state.trees.positionsByRootIdAndTreeNodeId;
 export const selectSelectedTreeNodeId = (state) => state.trees.selectedTreeNodeId;
 export const selectDragAndDrop = (state) => state.trees.dragAndDrop;
 export const selectIsTreeLoading = (state) => state.trees.isTreeLoading;
@@ -43,9 +43,16 @@ export const selectHasChildren = (treeNodeId) => createSelector(
   },
 );
 
-export const selectPosition = (treeNodeId) => createSelector(
-  selectPositionsByNodeId,
-  (positionsByNodeId) => positionsByNodeId[treeNodeId] || {},
+export const selectPositions = (rootId) => createSelector(
+  selectPositionsByRootIdAndTreeNodeId,
+  (positionsByRootIdAndTreeNodeId) => positionsByRootIdAndTreeNodeId[rootId],
+);
+
+export const selectPosition = (rootNodeId, treeNodeId) => createSelector(
+  selectPositionsByRootIdAndTreeNodeId,
+  (positionsByRootIdAndTreeNodeId) => positionsByRootIdAndTreeNodeId[rootNodeId]
+    && positionsByRootIdAndTreeNodeId[rootNodeId][treeNodeId]
+  || {},
 );
 
 export const selectSelectedTreeNode = createSelector(

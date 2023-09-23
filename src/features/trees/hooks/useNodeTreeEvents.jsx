@@ -31,9 +31,9 @@ export default function useNodeTreeEvents(treeNodeId) {
 
   //--------------------------------------------------------------------------------------------------------------------
   const handleTreeNodeClick = useCallback((event) => {
-    if (event.target.type === 'checkbox') return;
     if (treeType === 'checkbox') {
       handleCheckboxChange();
+      event.preventDefault();
       event.stopPropagation();
 
       return;

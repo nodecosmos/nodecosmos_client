@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, useTheme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setHeaderContent } from '../../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
@@ -15,7 +14,6 @@ import Alert from '../../../common/components/Alert';
 
 export default function ContributionRequestTree() {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const theme = useTheme();
 
   const isTreeLoading = useSelector(selectIsTreeLoading);
@@ -43,14 +41,6 @@ export default function ContributionRequestTree() {
     localStorage.setItem('treeWidth', paneAWidth);
     localStorage.setItem('nodePaneWidth', paneBWidth);
   }, [paneAWidth, paneBWidth]);
-
-  useEffect(() => {
-    dispatch(setHeaderContent('NodeBreadcrumbs'));
-
-    return () => {
-      dispatch(setHeaderContent(''));
-    };
-  }, [dispatch]);
 
   useEffect(() => {
     if (!resizeInProgress) {

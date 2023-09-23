@@ -5,9 +5,11 @@ import { useTheme } from '@mui/material';
 import { selectDragAndDrop, selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
 import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import { useTreeRootNodeId } from '../hooks/useTreeContext';
 
 export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
-  const { x, y } = useSelector(selectPosition(treeNodeId));
+  const rootNodeId = useTreeRootNodeId();
+  const { x, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
   const theme = useTheme();
   const [hovered, setHovered] = useState(false);
   const dragAndDrop = useSelector(selectDragAndDrop);

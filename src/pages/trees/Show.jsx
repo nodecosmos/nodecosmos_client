@@ -45,7 +45,7 @@ export default function Show() {
   }, [paneAWidth, paneBWidth]);
 
   useEffect(() => {
-    dispatch(setHeaderContent('NodeBreadcrumbs'));
+    dispatch(setHeaderContent('TreeShowHeader'));
 
     return () => {
       dispatch(setHeaderContent(''));

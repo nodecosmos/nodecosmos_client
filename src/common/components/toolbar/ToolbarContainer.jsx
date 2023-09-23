@@ -4,7 +4,7 @@ import { ButtonGroup } from '@mui/material';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 
 export default function ToolbarContainer({
-  children, round, size, ml, mr, fontSize,
+  children, round, size, ml, mr, fontSize, hasText, borderRadius, showIndicator,
 }) {
   return (
     <ButtonGroup
@@ -16,34 +16,38 @@ export default function ToolbarContainer({
         alignItems: 'center',
         justifyContent: 'flex-start',
         height: 1,
+        span: {
+          ml: 1,
+          mr: 1.5,
+        },
         '.MuiButtonGroup-grouped': {
           '&:not(:last-of-type), &:not(:first-of-type)': {
-            borderBottom: 3,
+            borderBottom: showIndicator ? 3 : 0,
             borderColor: 'transparent',
             ml,
             mr,
-            width: size,
+            width: 'auto',
             height: size,
             minWidth: size,
             p: 0,
             backgroundColor: 'transparent',
             borderRight: 'none',
             transition: 'none',
-            borderRadius: '50%',
-
+            borderRadius,
             '&:hover': {
-              borderRadius: '50%',
+              borderRadius: round ? '50%' : borderRadius,
               backgroundColor: 'toolbar.hover',
               borderColor: 'transparent',
             },
             '&.active': {
               backgroundColor: 'toolbar.active',
               borderColor: 'inherit',
-              borderRadius: 0,
+              borderRadius,
             },
           },
         },
         svg: {
+          ml: hasText ? 1.5 : 0,
           fontSize,
         },
       }}
@@ -54,11 +58,14 @@ export default function ToolbarContainer({
 }
 
 ToolbarContainer.defaultProps = {
-  round: false,
+  round: true,
   size: HEADER_HEIGHT,
   ml: 0,
   mr: 0.15,
   fontSize: '1rem',
+  hasText: false,
+  borderRadius: 0,
+  showIndicator: true,
 };
 
 ToolbarContainer.propTypes = {
@@ -68,4 +75,7 @@ ToolbarContainer.propTypes = {
   ml: PropTypes.number,
   mr: PropTypes.number,
   fontSize: PropTypes.string,
+  hasText: PropTypes.bool,
+  borderRadius: PropTypes.number,
+  showIndicator: PropTypes.bool,
 };

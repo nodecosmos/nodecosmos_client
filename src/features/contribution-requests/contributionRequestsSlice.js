@@ -9,6 +9,7 @@ const contributionRequestsSlice = createSlice({
   initialState: {
     byNodeId: {},
     searchTerm: null,
+    currentContributionRequest: null,
   },
   reducers: {
     updateContributionRequestState(state, action) {
@@ -19,6 +20,9 @@ const contributionRequestsSlice = createSlice({
     },
     setSearchTerm(state, action) {
       state.searchTerm = action.payload;
+    },
+    setCurrentContributionRequest(state, action) {
+      state.currentContributionRequest = action.payload;
     },
   },
   extraReducers(builder) {
@@ -74,6 +78,7 @@ const {
 export const {
   setSearchTerm,
   updateContributionRequestState,
+  setCurrentContributionRequest,
 } = actions;
 
 export default reducer;

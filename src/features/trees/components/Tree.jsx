@@ -15,6 +15,7 @@ import useTreeContext from '../hooks/useTreeContext';
 import Node from './Node';
 import DraggableNodePoints from './DraggableNodePoints';
 
+// TODO: update positions -> order by rootId
 export default function Tree({
   rootNodeId, type, onChange, value,
 }) {
@@ -29,10 +30,12 @@ export default function Tree({
   }, [dispatch, rootNodeId, childIdsByParentId, type]);
 
   useEffect(() => {
-    dispatch(setTreeNodesPositions(positionsById));
-  }, [dispatch, positionsById]);
+    dispatch(setTreeNodesPositions({ rootNodeId, positionsById }));
+  }, [dispatch, positionsById, rootNodeId]);
 
-  const { TreeContext, contextProviderValue } = useTreeContext({ type, onChange, value });
+  const { TreeContext, contextProviderValue } = useTreeContext({
+    type, onChange, value, rootNodeId,
+  });
 
   return (
     <TreeContext.Provider value={contextProviderValue}>
@@ -64,7 +67,7 @@ Tree.defaultProps = {
 
 Tree.propTypes = {
   rootNodeId: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([TREES_TYPES.default, TREES_TYPES.checkbox]),
+  type: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.array,
 };

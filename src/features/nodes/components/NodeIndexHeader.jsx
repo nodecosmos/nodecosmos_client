@@ -6,7 +6,7 @@ import AddRounded from '@mui/icons-material/AddRounded';
 import NodeIndexSearch from './NodeIndexSearch';
 import CreateNodeModal from './CreateNodeModal';
 
-export default function NodeIndexToolbar() {
+export default function NodeIndexHeader() {
   const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);
 
   return (

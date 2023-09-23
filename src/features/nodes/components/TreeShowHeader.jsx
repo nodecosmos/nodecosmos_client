@@ -2,26 +2,24 @@ import React from 'react';
 import { faChevronRight, faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  Breadcrumbs, IconButton, Link, Tooltip, useTheme,
-  Box,
+  Breadcrumbs, IconButton, Link, Tooltip, useTheme, Box,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransformablePositions } from '../../app/appSlice';
 import { MARGIN_TOP } from '../../trees/trees.constants';
-import { extractNodeIdFromTreeNodeId } from '../../trees/trees.memoize';
-import { selectPositionsByNodeId, selectSelectedTreeNode } from '../../trees/trees.selectors';
+import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../../trees/trees.memoize';
+import { selectPositions, selectSelectedTreeNode } from '../../trees/trees.selectors';
 import {
   selectNodeTitlesById, selectSelectedNode,
 } from '../nodes.selectors';
 import { setSelectedNode } from '../nodesSlice';
 
-export default function NodeBreadcrumbs() {
+export default function TreeShowHeader() {
   const selectedNode = useSelector(selectSelectedNode);
   const nodeTitlesById = useSelector(selectNodeTitlesById);
-
   const selectedTreeNode = useSelector(selectSelectedTreeNode);
-  const positionsById = useSelector(selectPositionsByNodeId);
-
+  const rootId = selectedTreeNode?.treeNodeId && extractRootIdFromTreeNodeId(selectedTreeNode.treeNodeId);
+  const positionsById = useSelector(selectPositions(rootId));
   const dispatch = useDispatch();
 
   const items = [];
@@ -86,44 +84,13 @@ export default function NodeBreadcrumbs() {
         itemsBeforeCollapse={2}
         aria-label="breadcrumb"
         separator={<FontAwesomeIcon icon={faChevronRight} />}
-        sx={{
-          width: 'max-content',
-          '.BreadcrumbItem': {
-            display: 'flex',
-            alignItems: 'center',
-          },
-          a: {
-            color: 'text.tertiary',
-            cursor: 'pointer',
-            fontSize: '0.9rem',
-            '&:hover': {
-              color: 'text.link',
-            },
-          },
-          '.MuiBreadcrumbs-separator': {
-            color: 'toolbar.default',
-            fontSize: '0.75rem',
-            mx: 2,
-          },
-          'button, button:hover': {
-            backgroundColor: 'toolbar.active',
-          },
-          '.tools': {
-            color: 'toolbar.active',
-            background: 'transparent',
-            fontSize: '0.6rem',
-            ml: 1,
-          },
-        }}
       >
         {items.map((item, index) => (
           <div
             className="BreadcrumbItem"
             key={item.id}
           >
-            <Link
-              onClick={() => handleClick(item.id)}
-            >
+            <Link onClick={() => handleClick(item.id)} variant="body2">
               {item.title}
             </Link>
             <Tooltip title="reveal" placement="top">

@@ -7,7 +7,9 @@ import {
   TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
-import { selectTransformablePositionsById } from '../../features/app/app.selectors';
+import {
+  selectTransformablePositionAttribute,
+} from '../../features/app/app.selectors';
 
 export default function Transformable({
   children, transformableId, scale, heightMargin,
@@ -16,7 +18,7 @@ export default function Transformable({
   const gRef = useRef(null);
   const dispatch = useDispatch();
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
-  const { scrollTop } = useSelector(selectTransformablePositionsById(transformableId));
+  const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
   setTimeout(() => {
     const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;

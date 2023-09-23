@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeTitleChangeHandler from '../../nodes/hooks/useNodeTitleChangeHandler';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import useNodeButtonColors from '../hooks/useNodeButtonColors';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectTreeNodeAttribute } from '../trees.selectors';
 import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../trees.constants';
@@ -18,7 +18,7 @@ export default function NodeInput(props) {
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const titleLength = title ? title.length : 0;
 
-  const { backgroundColor, color, hasBg } = useNodeButtonBackground(treeNodeId);
+  const { backgroundColor, color, hasBg } = useNodeButtonColors(treeNodeId);
 
   const [focused, setFocused] = useState(false);
 

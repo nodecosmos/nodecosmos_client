@@ -104,8 +104,10 @@ export default function LazyAppLoad() {
                   <Route path=":id/contribution_requests" element={<Index />} />
                   <Route path=":id/contribution_requests">
                     <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                      <Route path="" element={<div> show </div>} />
                       <Route path="tree" element={<ContributionRequestTree />} />
                       <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                      <Route path="commits" element={<div> commits </div>} />
                     </Route>
                   </Route>
                   <Route path=":id/topics" element={<div />} />
@@ -118,8 +120,10 @@ export default function LazyAppLoad() {
                   <Route path=":rootId/:id/contribution_requests" element={<Index />} />
                   <Route path=":rootId/:id/contribution_requests">
                     <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                      <Route path="" element={<div> show </div>} />
                       <Route path="tree" element={<ContributionRequestTree />} />
                       <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                      <Route path="commits" element={<div> commits </div>} />
                     </Route>
                   </Route>
                   <Route path=":rootId/:id/topics" element={<div />} />

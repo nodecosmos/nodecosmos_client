@@ -37,9 +37,7 @@ export default {
       const isNewlyCreated = state.currentTempNodeId === nodeId;
 
       // TODO: this is good for now, but we will need to add logic to append selection to url
-      isExpanded ||= isRoot;
-      isExpanded ||= type === TREES_TYPES.checkbox;
-      isExpanded ||= state.expandedNodeIds.includes(nodeId);
+      isExpanded ||= isRoot || type === TREES_TYPES.checkbox || state.expandedNodeIds.includes(nodeId);
 
       // populate root's orderedTreeNodeIds with constructed id
       state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);

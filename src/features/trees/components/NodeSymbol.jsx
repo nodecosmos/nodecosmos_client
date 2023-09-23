@@ -8,14 +8,14 @@ import { useTreeCheckbox } from '../hooks/useTreeContext';
 import { TREES_TYPES } from '../trees.constants';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectTreeNodeAttribute } from '../trees.selectors';
-import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import useNodeButtonColors from '../hooks/useNodeButtonColors';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 
 export default function NodeSymbol({ treeNodeId }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
-  const { outlineColor } = useNodeButtonBackground(treeNodeId);
+  const { outlineColor } = useNodeButtonColors(treeNodeId);
   const { treeType, commands } = useTreeCheckbox();
 
   if (treeType === TREES_TYPES.default) {

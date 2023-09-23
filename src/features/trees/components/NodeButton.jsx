@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import useNodeButtonColors from '../hooks/useNodeButtonColors';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { selectDragAndDrop, selectTreeNodeAttribute } from '../trees.selectors';
@@ -32,7 +32,7 @@ export default function NodeButton(props) {
     color,
     hasBg,
     outlinedColored,
-  } = useNodeButtonBackground(treeNodeId);
+  } = useNodeButtonColors(treeNodeId);
   const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggable({});
   const [dragOver, setDragOver] = useState(false);
 

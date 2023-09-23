@@ -2,9 +2,10 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import useNodeButtonColors from '../hooks/useNodeButtonColors';
 import { INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../trees.constants';
 import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
+import { useTreeRootNodeId } from '../hooks/useTreeContext';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -14,8 +15,9 @@ export default function NodeBranch(props) {
   const theme = useTheme();
 
   const isRoot = useSelector(selectTreeNodeAttribute(treeNodeId, 'isRoot'));
-  const { x, xEnd, y } = useSelector(selectPosition(treeNodeId));
-  const { parentBackgroundColor } = useNodeButtonBackground(treeNodeId);
+  const rootNodeId = useTreeRootNodeId();
+  const { x, xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
+  const { parentBackgroundColor } = useNodeButtonColors(treeNodeId);
 
   if (!x) { return null; }
 

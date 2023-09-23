@@ -49,15 +49,17 @@ const treesSlice = createSlice({
 
     /**
      * @type {{
-     *   [treeNodeId: string]: {
-     *     x: number,
-     *     y: number,
-     *     xEnd: number,
-     *     yEnd: number,
-     *   },
+     *   [rootId: string]: {
+     *     [treeNodeId: string]: {
+     *       x: number,
+     *       y: number,
+     *       xEnd: number,
+     *       yEnd: number,
+     *     },
+     *   }
      * }}
      */
-    positionsByNodeId: {},
+    positionsByRootIdAndTreeNodeId: {},
 
     /**
      * @type {treeNodeId}

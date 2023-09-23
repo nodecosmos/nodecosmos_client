@@ -1,5 +1,4 @@
-// TODO: replace with sx={{ ... }} within components
-export default (currentTheme) => ({
+export default () => ({
   MuiTab: {
     styleOverrides: {
       root: {
@@ -8,7 +7,10 @@ export default (currentTheme) => ({
         textTransform: 'none',
         backgroundColor: 'transparent',
         transition: 'all 450ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-        color: currentTheme.palette.text.primary,
+      },
+
+      labelIcon: {
+        minHeight: 1,
       },
     },
   },

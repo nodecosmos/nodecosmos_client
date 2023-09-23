@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionsById } from '../../../app/app.selectors';
+import { selectTransformablePositionAttribute, selectTransformablePositionsById } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../trees.constants';
-import { selectPositionsByNodeId } from '../../trees.selectors';
+import { selectPositions } from '../../trees.selectors';
 
 export default function useIsInsideViewport(rootId) {
-  const { clientHeight, scrollTop } = useSelector(selectTransformablePositionsById(rootId));
-  const positionsById = useSelector(selectPositionsByNodeId);
+  const scrollTop = useSelector(selectTransformablePositionAttribute(rootId, 'scrollTop'));
+  const clientHeight = useSelector(selectTransformablePositionAttribute(rootId, 'clientHeight'));
+  const positionsById = useSelector(selectPositions(rootId));
 
   return useCallback((treeNodeId) => {
     const { y } = positionsById[treeNodeId] || {};

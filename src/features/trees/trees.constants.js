@@ -20,4 +20,5 @@ export const WORKFLOW_BUTTON_HEIGHT = 34;
 export const TREES_TYPES = {
   default: 'default',
   checkbox: 'checkbox',
+  contributionRequest: 'contributionRequest',
 };

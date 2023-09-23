@@ -10,7 +10,7 @@ export default function NodeIndex() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setHeaderContent('NodeIndexToolbar'));
+    dispatch(setHeaderContent('NodeIndexHeader'));
     dispatch(indexNodes());
 
     return () => {

@@ -1,5 +1,6 @@
 export default {
   setTreeNodesPositions(state, action) {
-    state.positionsByNodeId = action.payload;
+    const { rootNodeId, positionsById } = action.payload;
+    state.positionsByRootIdAndTreeNodeId[rootNodeId] = positionsById;
   },
 };
