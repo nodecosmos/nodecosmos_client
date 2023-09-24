@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /* mui */
 import {
   IconButton,
-  Box, Tooltip,
+  Tooltip,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
@@ -33,7 +33,7 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
   const [editFlowModalOpen, setEditFlowModalOpen] = React.useState(false);
 
   return (
-    <Box>
+    <div>
       {
         wfStepHovered && (
           <ToolsContainer>
@@ -76,7 +76,7 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
         open={addFlopStepNodesModalOpen}
         onClose={() => setAddFlowStepNodesModalOpen(false)}
       />
-    </Box>
+    </div>
   );
 }
 

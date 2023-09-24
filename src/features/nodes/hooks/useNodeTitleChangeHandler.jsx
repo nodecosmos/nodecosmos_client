@@ -42,7 +42,10 @@ export default function useNodeTitleChangeHandler(nodeId) {
     }, SAVE_NODE_TIMEOUT);
   }, [dispatch, isTemp, persistentRootId, nodeId, parentId, persistentId, persistentParentId, prevTitle, title]);
 
-  const handleNodeTitleChange = (event) => dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
+  const handleNodeTitleChange = (event) => {
+    dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
+    dispatch(updateNodeState({ id: persistentId, title: event.currentTarget.value }));
+  };
 
   return { handleNodeTitleChange };
 }

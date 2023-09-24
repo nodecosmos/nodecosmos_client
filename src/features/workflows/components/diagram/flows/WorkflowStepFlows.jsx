@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import WorkflowStepFlow from './WorkflowStepFlow';
 
 export default function WorkflowStepFlows({ wfStep, wfStepHovered, wfStepIndex }) {
-  return wfStep.wfStepFlows.map((wfStepFlow) => (
+  return wfStep.wfStepFlows.map((wfStepFlow, index) => (
     <WorkflowStepFlow
       key={wfStepFlow.diagramId}
       wfStepFlow={wfStepFlow}
       wfStepHovered={wfStepHovered}
       wfStepIndex={wfStepIndex}
+      index={index}
     />
   ));
 }

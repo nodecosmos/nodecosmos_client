@@ -29,8 +29,8 @@ export default function AssociateInputsModal({
   const currentFlowStepInputIds = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'inputIdsByNodeId'));
   const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
   const nodeId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'nodeId'));
-
   const workflow = useSelector(selectWorkflowDiagram(workflowId, flowId, nodeId));
+
   const workflowStep = workflow.workflowSteps[workflowStepIndex - 1];
   let workflowStepInputIds = [];
 

@@ -8,28 +8,32 @@ import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { useTreeRootNodeId } from '../hooks/useTreeContext';
 
 export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
+  const theme = useTheme();
+
   const rootNodeId = useTreeRootNodeId();
   const { x, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
-  const theme = useTheme();
-  const [hovered, setHovered] = useState(false);
   const dragAndDrop = useSelector(selectDragAndDrop);
+
   const treeParentId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeParentId'));
-  const parentsChildIds = useSelector(selectTreeNodeAttribute(treeParentId, 'treeChildIds'));
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
+  const parentsChildIds = useSelector(selectTreeNodeAttribute(treeParentId, 'treeChildIds'));
+
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const persistentParentId = useSelector(selectNodeAttribute(nodeId, 'persistentParentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
-  let correctedIndex = siblingIndex; // correct sibling index when dragging a node up or down on the same level
+
+  const { onDropCapture } = useTreeNodeDraggable();
+
+  const [hovered, setHovered] = useState(false);
 
   const selectedSiblingIndex = parentsChildIds.indexOf(dragAndDrop.treeNodeId);
   const isSameParent = dragAndDrop.parentId === parentId;
 
-  // handle new sibling index when dragging a node down on the same level
+  // handle new sibling index when  a node down on the same level
+  let correctedIndex = siblingIndex;
   if (selectedSiblingIndex < siblingIndex && isSameParent) {
     correctedIndex -= 1;
   }
-
-  const { onDropCapture } = useTreeNodeDraggable();
 
   if (
     !x

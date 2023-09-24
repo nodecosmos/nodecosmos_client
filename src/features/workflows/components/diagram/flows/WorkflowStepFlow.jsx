@@ -35,6 +35,8 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
     }
   };
 
+  if (!wfStepFlow.shouldRender) return null;
+
   return (
     <g>
       <foreignObject

@@ -20,13 +20,15 @@ export default function Transformable({
   const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
   const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
-  requestAnimationFrame(() => {
-    const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
+  setTimeout(() => {
+    const gRefHeight = gRef.current?.getBBox().height || 0;
+    const gRefWidth = gRef.current?.getBBox().width || 0;
+
+    const svgHeight = gRefHeight + heightMargin;
     const clientHeight = containerRef.current?.clientHeight || 0;
     const height = Math.max(svgHeight, clientHeight - 8);
 
-    const newWidth = (gRef.current && gRef.current.getBBox().width
-      + TRANSFORMABLE_WIDTH_MARGIN);
+    const newWidth = gRefWidth + TRANSFORMABLE_WIDTH_MARGIN;
     const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
     if (height !== dimensions.height || width !== dimensions.width) {

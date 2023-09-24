@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createWorkflow, showWorkflow } from '../workflows/workflows.thunks';
+import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import {
   createIO, deleteIO, getIODescription, updateIOTitle,
 } from './inputOutputs.thunks';
@@ -85,6 +86,15 @@ const inputOutputsSlice = createSlice({
       .addCase(deleteIO.fulfilled, (state, action) => {
         const { id } = action.payload;
         delete state.byId[id];
+      })
+      .addCase(deleteFlowStep.fulfilled, (state, action) => {
+        const { outputIdsByNodeId } = action.payload.flowStep;
+
+        const outputs = outputIdsByNodeId && Object.values(outputIdsByNodeId).flat();
+
+        outputs?.forEach((outputId) => {
+          delete state.byId[outputId];
+        });
       })
       .addCase(createWorkflow.fulfilled, (state, action) => {
         const { inputOutputs } = action.payload;

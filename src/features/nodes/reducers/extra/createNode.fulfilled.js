@@ -17,6 +17,7 @@ export default function createNodeFulfilledReducer(state, action) {
   newNode.nestedLevel = newNode.ancestorIds.length;
 
   state.byId[id] = action.payload; // add new node to state
+  state.byId[id].descendantIds = [];
 
   state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
 

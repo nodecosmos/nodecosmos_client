@@ -18,6 +18,9 @@ export default {
       flowsCount: 0,
     };
 
+    const flowStepLengths = workflow.flowIds.map((flowId) => flows[flowId]?.stepIds?.length || 0);
+    const maxFlowStepLength = Math.max(...flowStepLengths);
+
     workflow.flowIds.forEach((flowId) => {
       const flow = flows[flowId];
       state.workflowDiagramById[workflow.id].flowsCount += 1;
@@ -46,16 +49,22 @@ export default {
 
         const emptyLastFlowStepIndex = flow.startIndex + flow.stepIds.length;
         initFlowForWfStep(state, workflow.id, emptyLastFlowStepIndex, flow.id, null);
+
+        // init following empty flow steps until the end of the workflow
+        for (let i = emptyLastFlowStepIndex + 1; i <= maxFlowStepLength; i += 1) {
+          initFlowForWfStep(state, workflow.id, i, flow.id, null, false);
+        }
       } else {
         initFlowForWfStep(state, workflow.id, flow.startIndex, flow.id);
+        for (let i = flow.startIndex + 1; i <= maxFlowStepLength; i += 1) {
+          initFlowForWfStep(state, workflow.id, i, flow.id, null, false);
+        }
       }
     });
-
-    buildEmptyWfStepPlaceholders(state, workflow);
   },
 };
 
-function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null) {
+function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null, shouldRender = true) {
   state.workflowDiagramById[workflowId].workflowSteps[stepIndex] ||= {
     workflowId,
     stepIndex,
@@ -79,6 +88,7 @@ function initFlowForWfStep(state, workflowId, stepIndex, flowId, flowStep = null
     diagramId: buildDiagramFlowId(stepIndex, flowId),
     stepIndex,
     flowStep,
+    shouldRender,
   });
 }
 
@@ -102,19 +112,4 @@ function buildFlowStepInputs(flowStep) {
     }));
     return acc;
   }, {});
-}
-
-function buildEmptyWfStepPlaceholders(state, workflow) {
-  for (let i = workflow.flowIds.length; i <= (Math.max(9, workflow.flowIds.length + 1)); i += 1) {
-    const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
-
-    state.workflowDiagramById[workflow.id].workflowSteps.push(
-      {
-        diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
-        workflowId: workflow.id,
-        stepIndex: lastIndex,
-        wfStepFlows: [],
-      },
-    );
-  }
 }

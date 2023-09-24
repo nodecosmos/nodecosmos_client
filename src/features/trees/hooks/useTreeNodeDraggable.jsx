@@ -1,4 +1,5 @@
 /* eslint-disable no-shadow */
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearDragAndDrop, setDragAndDrop, setTreeLoading } from '../treesSlice';
 import { selectDragAndDrop } from '../trees.selectors';
@@ -15,7 +16,7 @@ export default function useTreeNodeDraggable() {
   const { nodeId, persistentId, persistentRootId } = useSelector(selectDragAndDrop);
   const descendantIds = useSelector(selectNodeAttribute(persistentId, 'descendantIds'));
 
-  const onDragStart = ({
+  const onDragStart = useCallback(({
     event,
     nodeId,
     parentId,
@@ -37,13 +38,13 @@ export default function useTreeNodeDraggable() {
       persistentRootId,
       persistentId,
     }));
-  };
+  }, [dispatch]);
 
-  const handleDragStop = () => {
+  const handleDragStop = useCallback(() => {
     dispatch(clearDragAndDrop());
-  };
+  }, [dispatch]);
 
-  const onDropCapture = async ({
+  const onDropCapture = useCallback(async ({
     newParentId,
     newSiblingIndex,
     persistentNewParentId,
@@ -98,7 +99,7 @@ export default function useTreeNodeDraggable() {
 
       dispatch(setTreeLoading(false));
     }
-  };
+  }, [dispatch, descendantIds, persistentId, persistentRootId, nodeId]);
 
   return {
     onDragStart,

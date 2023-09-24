@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import useNodeButtonColors from '../hooks/useNodeButtonColors';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { selectDragAndDrop, selectTreeNodeAttribute } from '../trees.selectors';
+import { selectDragAndDropAttributes, selectTreeNodeAttribute } from '../trees.selectors';
 import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
 import NodeSymbol from './NodeSymbol';
 
@@ -22,7 +22,7 @@ export default function NodeButton(props) {
   const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
   const persistentRootId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
-  const dragAndDrop = useSelector(selectDragAndDrop);
+  const dragAndDropNodeId = useSelector(selectDragAndDropAttributes('nodeId'));
 
   const theme = useTheme();
   const { handleTreeNodeClick } = useNodeTreeEvents(treeNodeId);
@@ -36,14 +36,15 @@ export default function NodeButton(props) {
   const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggable({});
   const [dragOver, setDragOver] = useState(false);
 
-  const handleDragStart = (event) => {
+  const handleDragStart = useCallback((event) => {
     onDragStart({
       event, nodeId, parentId, treeNodeId, persistentId, persistentRootId,
     });
-  };
+  }, [onDragStart, nodeId, parentId, treeNodeId, persistentId, persistentRootId]);
+
   const handleDragOver = (event) => {
     event.preventDefault();
-    if (nodeId === dragAndDrop.nodeId || ancestorIds.includes(dragAndDrop.nodeId)) return;
+    if (nodeId === dragAndDropNodeId || ancestorIds.includes(dragAndDropNodeId)) return;
     setDragOver(true);
   };
 
@@ -53,7 +54,7 @@ export default function NodeButton(props) {
   };
 
   const handleDropCapture = () => {
-    if (nodeId === dragAndDrop.nodeId || ancestorIds.includes(dragAndDrop.nodeId)) return;
+    if (nodeId === dragAndDropNodeId || ancestorIds.includes(dragAndDropNodeId)) return;
 
     onDropCapture({
       newParentId: nodeId,

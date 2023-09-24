@@ -1,13 +1,12 @@
 /* mui */
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 /* nodecosmos */
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode } from '../../features/nodes/nodes.thunks';
-import { selectNode } from '../../features/nodes/nodes.selectors';
 
 export default function NodeShow() {
   const dispatch = useDispatch();
@@ -15,14 +14,14 @@ export default function NodeShow() {
 
   const { rootId, id } = useParams();
 
-  const node = useSelector(selectNode(id));
-
   if (!id) {
     navigate('/404');
   }
 
+  const [isNodeFetched, setIsNodeFetched] = React.useState(false);
+
   useEffect(() => {
-    if (node) {
+    if (isNodeFetched) {
       return;
     }
 
@@ -30,11 +29,12 @@ export default function NodeShow() {
       rootId,
       id,
     })).then((response) => {
+      setIsNodeFetched(true);
       if (response.error) {
         navigate('/404');
       }
     });
-  }, [dispatch, navigate, rootId, id, node]);
+  }, [dispatch, navigate, rootId, id, isNodeFetched]);
 
   return (
     <Box height={1} display="flex">
