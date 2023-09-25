@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeCommit, faFloppyDisk } from '@fortawesome/pro-light-svg-icons';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import TagRounded from '@mui/icons-material/TagRounded';
 import { Button, DialogContent, InputAdornment } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
@@ -35,11 +34,11 @@ export default function EditIOModal({ id, open, onClose }) {
     };
 
     dispatch(updateIOTitle(payload)).then(() => {
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
     }).catch((e) => {
       console.error(e);
 
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
     });
 
     onClose();

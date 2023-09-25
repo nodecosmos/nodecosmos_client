@@ -62,7 +62,7 @@ export default function AssociateInputsModal({
       }));
     }
 
-    setLoading(false);
+    setTimeout(() => setLoading(false), 500);
 
     onClose();
   };

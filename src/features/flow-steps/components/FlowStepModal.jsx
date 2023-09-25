@@ -53,12 +53,12 @@ export default function FlowStepModal({
         await dispatch(createFlowStep(payload));
       }
 
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
       onClose();
     } catch (error) {
       dispatch(setAlert({ isOpen: true, severity: 'error', message: 'Failed to add node' }));
       console.error(error);
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
     }
   };
 

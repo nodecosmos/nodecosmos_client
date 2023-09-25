@@ -40,7 +40,7 @@ export default function CreateWorkflowModal({
 
     await dispatch(createWorkflow(payload));
 
-    setLoading(false);
+    setTimeout(() => setLoading(false), 500);
     onClose();
   };
 

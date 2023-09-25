@@ -81,7 +81,7 @@ export default function useIOSubmitHandler({
       }
     });
 
-    setLoading(false);
+    setTimeout(() => setLoading(false), 500);
 
     onClose();
   };
