@@ -34,6 +34,5 @@ export const selectIOByWorkflowId = (workflowId) => createSelector(
 
 export const selectUniqueIOByRootNodeId = (rootNodeId) => createSelector(
   selectInputOutputsById,
-  (inputOutputsById) => Object.values(inputOutputsById)
-    .filter((inputOutput) => inputOutput.rootNodeId === rootNodeId && inputOutput.originalId === inputOutput.id),
+  (inputOutputsById) => Object.values(inputOutputsById).filter((inputOutput) => inputOutput.rootNodeId === rootNodeId),
 );

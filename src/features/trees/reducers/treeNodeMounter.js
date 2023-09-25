@@ -29,7 +29,6 @@ export default {
     const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
     treeNode.isExpanded = true;
-    state.expandedNodeIds.push(extractNodeIdFromTreeNodeId(treeNodeId));
 
     mountDescendants(state, treeNode);
   },
@@ -38,8 +37,6 @@ export default {
     const rootId = extractRootIdFromTreeNodeId(treeNodeId);
 
     const treeNode = state.byRootNodeId[rootId][treeNodeId];
-
-    state.expandedNodeIds = state.expandedNodeIds.filter((id) => id !== extractNodeIdFromTreeNodeId(treeNodeId));
 
     treeNode.isExpanded = false;
 

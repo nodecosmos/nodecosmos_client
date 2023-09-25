@@ -43,14 +43,8 @@ export const createNode = createAsyncThunk(
 export const updateNodeTitle = createAsyncThunk(
   'nodes/updateNodeTitle',
   async (payload) => {
-    try {
-      const response = await nodecosmos.put('/nodes/title', payload);
-
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return error.data;
-    }
+    const response = await nodecosmos.put('/nodes/title', payload);
+    return response.data;
   },
 );
 

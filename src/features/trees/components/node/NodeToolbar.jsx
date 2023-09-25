@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 
 import { useSelector } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
 import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
 import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
 import useNodeRemover from '../../../nodes/hooks/useNodeRemover';
@@ -23,6 +24,7 @@ import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { selectTreeNodeAttribute } from '../../trees.selectors';
+import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
 
 export default function NodeToolbar({ treeNodeId }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
@@ -30,7 +32,15 @@ export default function NodeToolbar({ treeNodeId }) {
 
   const { editTreeNode } = useNodeTreeEvents(treeNodeId);
   const { removeNode } = useNodeRemover(nodeId);
-  const { addChildNode } = useTmpChildNodeBuilder(nodeId);
+  const { addChildNode, loading } = useTmpChildNodeBuilder(nodeId);
+
+  if (loading) {
+    return (
+      <Box display="flex" alignItems="center" height={NODE_BUTTON_HEIGHT}>
+        <CircularProgress size={20} sx={{ color: 'secondary.main' }} />
+      </Box>
+    );
+  }
 
   return (
     <Box

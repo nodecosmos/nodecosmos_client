@@ -37,7 +37,7 @@ export default function useIOSubmitHandler({
       workflowId,
       flowStepId,
       rootNodeId,
-      originalId: existingIO?.id,
+      originalId: autocompleteValue && existingIO.id,
       ...formValues,
     };
 

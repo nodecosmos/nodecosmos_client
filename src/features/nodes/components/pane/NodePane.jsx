@@ -20,7 +20,9 @@ import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 export default function NodePane() {
   const id = useSelector(selectSelectedNodeId);
   const rootId = useSelector(selectNodeAttribute(id, 'rootId'));
+  const isTemp = useSelector(selectNodeAttribute(id, 'isTemp'));
   const nodePaneContent = useSelector(selectNodeDetailsAction);
+  const title = useSelector(selectNodeAttribute(id, 'title'));
   const dispatch = useDispatch();
 
   const nodePaneContents = {
@@ -49,7 +51,19 @@ export default function NodePane() {
     }
   }, [dispatch, prevSelectedNodeId, id, nodePaneContent]);
 
+  let blankStateMessage = null;
+
   if (!id) {
+    blankStateMessage = 'Select a node from the tree to view its description';
+  } else if (isTemp) {
+    blankStateMessage = 'Selected node is not initialized yet.';
+
+    if (!title) {
+      blankStateMessage += ' Please add a title to create a node.';
+    }
+  }
+
+  if (blankStateMessage) {
     return (
       <Box
         m={3}
@@ -61,7 +75,7 @@ export default function NodePane() {
         flexDirection="column"
       >
         <Typography variant="h6" color="text.secondary" textAlign="center">
-          Select a node from the tree to view its description
+          {blankStateMessage}
         </Typography>
         <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
           ¯\_(ツ)_/¯

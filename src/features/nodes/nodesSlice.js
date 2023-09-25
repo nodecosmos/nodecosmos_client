@@ -101,6 +101,7 @@ const nodesSlice = createSlice({
      */
     indexNodesById: {},
 
+    nodeCreationInProgress: false,
   },
   reducers: {
     buildChildNode: nodeChildBuilder.buildChildNode,
@@ -112,6 +113,9 @@ const nodesSlice = createSlice({
     importNode: nodeImporter.importNode,
     reorderNodes: nodeReorderer.reorderNodes,
     replaceTmpNodeWithPersistedNode: tmpNodeReplacer.replaceTmpNodeWithPersistedNode,
+    setNodeCreationInProgress: (state, action) => {
+      state.nodeCreationInProgress = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -142,6 +146,7 @@ export const {
   searchNode,
   importNode,
   replaceTmpNodeWithPersistedNode,
+  setNodeCreationInProgress,
 } = actions;
 
 export default reducer;

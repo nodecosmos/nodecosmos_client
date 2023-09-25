@@ -107,6 +107,11 @@ const treesSlice = createSlice({
 
     setCurrentTempNodeId(state, action) { state.currentTempNodeId = action.payload; },
     setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
+
+    pushToExpandedNodeIds(state, action) { state.expandedNodeIds.push(action.payload); },
+    pullFromExpandedNodeIds(state, action) {
+      state.expandedNodeIds = state.expandedNodeIds.filter((id) => id !== action.payload);
+    },
   },
   extraReducers(builder) {
     builder.addCase(createNode.fulfilled, createNodeFulfilledReducer);
@@ -129,6 +134,7 @@ export const {
   setCurrentTempNodeId,
   setSelectedTreeNode,
   setTreeLoading,
+  pushToExpandedNodeIds,
 } = actions;
 
 export default reducer;

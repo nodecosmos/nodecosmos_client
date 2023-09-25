@@ -28,6 +28,8 @@ export default function CreateIOModal({
   const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
   const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
   const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
+  const allIOTitles = allWorkflowIOs.map((io) => io.title);
+  const uniqueIOTitles = [...new Set(allIOTitles)];
 
   const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow
     ? 'Create Initial Input' : 'Create Output';
@@ -64,7 +66,7 @@ export default function CreateIOModal({
               <FinalFormAutocompleteField
                 freeSolo
                 selectOnFocus
-                options={allWorkflowIOs.map((option) => option.title)}
+                options={uniqueIOTitles}
                 renderOption={(props, option) => (
                   <li {...props}>
                     <FontAwesomeIcon icon={faCodeCommit} />
