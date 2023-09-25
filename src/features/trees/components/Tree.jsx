@@ -12,7 +12,7 @@ import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
 import Transformable from '../../../common/components/Transformable';
 import { TREES_TYPES } from '../trees.constants';
 import useTreeContext from '../hooks/useTreeContext';
-import Node from './Node';
+import Node from './node/Node';
 import DraggableNodePoints from './DraggableNodePoints';
 
 export default function Tree({

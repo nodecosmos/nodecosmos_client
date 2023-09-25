@@ -4,11 +4,11 @@ import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { Checkbox } from '@mui/material';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useTreeCheckbox } from '../hooks/useTreeContext';
-import { TREES_TYPES } from '../trees.constants';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { selectTreeNodeAttribute } from '../trees.selectors';
-import useNodeButtonColors from '../hooks/useNodeButtonColors';
+import { useTreeCheckbox } from '../../hooks/useTreeContext';
+import { TREES_TYPES } from '../../trees.constants';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import { selectTreeNodeAttribute } from '../../trees.selectors';
+import useNodeButtonColors from '../../hooks/useNodeButtonColors';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedCheckbox = memo(Checkbox);

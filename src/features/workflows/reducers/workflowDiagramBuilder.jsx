@@ -21,6 +21,10 @@ export default {
     const flowStepLengths = workflow.flowIds.map((flowId) => flows[flowId]?.stepIds?.length || 0);
     const maxFlowStepLength = Math.max(...flowStepLengths);
 
+    if (workflow.flowIds.length === 0) {
+      buildEmptyWfStepPlaceholder(state, workflow);
+    }
+
     workflow.flowIds.forEach((flowId) => {
       const flow = flows[flowId];
       state.workflowDiagramById[workflow.id].flowsCount += 1;
@@ -112,4 +116,17 @@ function buildFlowStepInputs(flowStep) {
     }));
     return acc;
   }, {});
+}
+
+function buildEmptyWfStepPlaceholder(state, workflow) {
+  const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
+
+  state.workflowDiagramById[workflow.id].workflowSteps.push(
+    {
+      diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
+      workflowId: workflow.id,
+      stepIndex: lastIndex,
+      wfStepFlows: [],
+    },
+  );
 }

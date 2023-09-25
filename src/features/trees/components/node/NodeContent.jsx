@@ -2,8 +2,8 @@ import React from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
 /* nodecosmos */
 import {
   INITIAL_ANIMATION_DELAY,
@@ -11,8 +11,8 @@ import {
   MARGIN_TOP,
   NODE_BUTTON_HEIGHT,
   TRANSITION_ANIMATION_DURATION,
-} from '../trees.constants';
-import { useTreeRootNodeId } from '../hooks/useTreeContext';
+} from '../../trees.constants';
+import { useTreeRootNodeId } from '../../hooks/useTreeContext';
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';

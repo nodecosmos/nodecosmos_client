@@ -18,6 +18,14 @@ export default function createNodeFulfilledReducer(state, action) {
 
   state.byId[id] = action.payload; // add new node to state
   state.byId[id].descendantIds = [];
+  state.byId[id].persistentRootId = rootId;
+  state.byId[id].persistentParentId = parentId;
+  state.byId[id].nestedLevel = state.byId[tmpNodeId].nestedLevel;
+  state.byId[id].childIds = [];
+
+  // Currently only used in workflow, so we can build tree from newly created node
+  // when we edit workflow's flow step.
+  state.byId[id].tmpNodeId = tmpNodeId;
 
   state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
 

@@ -19,14 +19,19 @@ export default {
     state.childIdsByParentId[oldParentId].splice(oldIndex, 1);
     state.childIdsByParentId[newParentId].splice(newSiblingIndex, 0, nodeId);
 
-    if (oldParentId === newParentId) return;
-
     // Update the parent and persistent parent ids
     state.byId[nodeId].parentId = newParentId;
     state.byId[persistentId].parentId = newParentId;
 
     state.byId[nodeId].persistentParentId = newPersistentParentId;
     state.byId[persistentId].persistentParentId = newPersistentParentId;
+
+    const oldParent = state.byId[oldParentId];
+    const newPersistentParent = state.byId[newPersistentParentId];
+
+    oldParent.childIds.splice(oldIndex, 1);
+    newPersistentParent.childIds ||= [];
+    newPersistentParent.childIds.splice(newSiblingIndex, 0, nodeId);
 
     // update ancestors
     oldAncestorIds.forEach((ancestorId) => {

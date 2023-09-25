@@ -3,12 +3,12 @@ import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNodeTitleChangeHandler from '../../nodes/hooks/useNodeTitleChangeHandler';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import useNodeButtonColors from '../hooks/useNodeButtonColors';
-import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
-import { selectTreeNodeAttribute } from '../trees.selectors';
-import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../trees.constants';
+import useNodeTitleChangeHandler from '../../../nodes/hooks/useNodeTitleChangeHandler';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import useNodeButtonColors from '../../hooks/useNodeButtonColors';
+import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
+import { selectTreeNodeAttribute } from '../../trees.selectors';
+import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../../trees.constants';
 
 export default function NodeInput(props) {
   const { treeNodeId } = props;

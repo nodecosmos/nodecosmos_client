@@ -15,14 +15,14 @@ import {
 } from '@mui/material';
 
 import { useSelector } from 'react-redux';
-import LikeButton from '../../nodes/components/tree-node-toolbar/LikeButton';
-import NodeImporter from '../../nodes/components/tree-node-toolbar/NodeImporter';
-import useNodeRemover from '../../nodes/hooks/useNodeRemover';
-import useTmpChildNodeBuilder from '../../nodes/hooks/useTmpChildNodeBuilder';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
+import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
+import useNodeRemover from '../../../nodes/hooks/useNodeRemover';
+import useTmpChildNodeBuilder from '../../../nodes/hooks/useTmpChildNodeBuilder';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 
-import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
-import { selectTreeNodeAttribute } from '../trees.selectors';
+import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
+import { selectTreeNodeAttribute } from '../../trees.selectors';
 
 export default function NodeToolbar(props) {
   const { treeNodeId } = props;

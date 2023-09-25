@@ -50,9 +50,9 @@ export const selectPositions = (rootId) => createSelector(
 
 export const selectPosition = (rootNodeId, treeNodeId) => createSelector(
   selectPositionsByRootIdAndTreeNodeId,
-  (positionsByRootIdAndTreeNodeId) => positionsByRootIdAndTreeNodeId[rootNodeId]
-    && positionsByRootIdAndTreeNodeId[rootNodeId][treeNodeId]
-  || {},
+  (positionsByRootIdAndTreeNodeId) => (
+    positionsByRootIdAndTreeNodeId[rootNodeId] && positionsByRootIdAndTreeNodeId[rootNodeId][treeNodeId]
+  ) || {},
 );
 
 export const selectSelectedTreeNode = createSelector(

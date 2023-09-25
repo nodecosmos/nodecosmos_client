@@ -19,7 +19,7 @@ import Tree from '../../trees/components/Tree';
 import TreeContainer from '../../trees/components/TreeContainer';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectFlowStepAttribute } from '../flowSteps.selectors';
-import { selectPersistedIdByNodeId } from '../../nodes/nodes.selectors';
+import { selectNodeAttribute, selectPersistedIdByNodeId } from '../../nodes/nodes.selectors';
 
 // Dumb implementation of import feature
 export default function FlowStepModal({
@@ -27,6 +27,8 @@ export default function FlowStepModal({
 }) {
   const [loading, setLoading] = React.useState(false);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
+  const tmpNodeId = useSelector(selectNodeAttribute(nodeId, 'tmpNodeId'));
+
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
   const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
   const dispatch = useDispatch();
@@ -110,7 +112,7 @@ export default function FlowStepModal({
               <Alert />
               <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                 <Tree
-                  rootNodeId={nodeId}
+                  rootNodeId={tmpNodeId || nodeId}
                   type={TREES_TYPES.checkbox}
                   onChange={setFlowStepNodeIds}
                   value={flowStepNodeIds}

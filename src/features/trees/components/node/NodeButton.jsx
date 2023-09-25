@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { ButtonBase, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import useNodeButtonColors from '../hooks/useNodeButtonColors';
-import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { selectDragAndDropAttributes, selectTreeNodeAttribute } from '../trees.selectors';
-import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
+import useNodeButtonColors from '../../hooks/useNodeButtonColors';
+import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import { selectDragAndDropAttributes, selectTreeNodeAttribute } from '../../trees.selectors';
+import useTreeNodeDraggable from '../../hooks/useTreeNodeDraggable';
 import NodeSymbol from './NodeSymbol';
 
 const MemoizedButtonBase = memo(ButtonBase);

@@ -2,10 +2,14 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import useNodeButtonColors from '../hooks/useNodeButtonColors';
-import { INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../trees.constants';
-import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
-import { useTreeRootNodeId } from '../hooks/useTreeContext';
+import useNodeButtonColors from '../../hooks/useNodeButtonColors';
+import {
+  INITIAL_ANIMATION_DELAY,
+  INITIAL_ANIMATION_DURATION,
+  TRANSITION_ANIMATION_DURATION,
+} from '../../trees.constants';
+import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
+import { useTreeRootNodeId } from '../../hooks/useTreeContext';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

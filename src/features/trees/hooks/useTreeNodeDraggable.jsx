@@ -89,6 +89,7 @@ export default function useTreeNodeDraggable() {
         message = 'Forbidden! You are not allowed to reorder this node.';
       } else {
         message = 'Something went wrong while reordering the node. Please try again.';
+        console.error(e);
       }
 
       dispatch(setAlert({
