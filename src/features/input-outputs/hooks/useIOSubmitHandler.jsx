@@ -21,7 +21,7 @@ export default function useIOSubmitHandler({
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
-  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
+  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
   const currentInitialInputIds = useSelector(selectWorkflowAttribute(workflowId, 'initialInputIds'));
   const currentFlowStepOutputs = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'outputIdsByNodeId'));
   const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));

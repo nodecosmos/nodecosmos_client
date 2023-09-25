@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ export default function Transformable({
   const containerRef = useRef(null);
   const gRef = useRef(null);
   const dispatch = useDispatch();
-  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
   setTimeout(() => {
@@ -34,7 +34,7 @@ export default function Transformable({
     if (height !== dimensions.height || width !== dimensions.width) {
       setDimensions({ height, width });
     }
-  }, 0);
+  }, 250);
 
   //------------------------------------------------------------------------------------------------
   const { onMouseDown } = usePannable(containerRef);

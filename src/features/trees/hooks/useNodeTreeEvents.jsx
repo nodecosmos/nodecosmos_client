@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
-import { selectNode, selectNodeAttribute } from '../../nodes/nodes.selectors';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { setSelectedNode } from '../../nodes/nodesSlice';
-import { selectTreeNode } from '../trees.selectors';
+import { selectTreeNodeAttribute } from '../trees.selectors';
 import {
   collapseTreeNode,
   expandTreeNode,
@@ -13,21 +13,24 @@ import {
 import { useTreeCheckbox } from './useTreeContext';
 
 export default function useNodeTreeEvents(treeNodeId) {
-  const { nodeId, isExpanded, isEditing } = useSelector(selectTreeNode(treeNodeId));
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
-  const { isSelected } = useSelector(selectNode(nodeId));
+  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
+  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
+  const isEditing = useSelector(selectTreeNodeAttribute(treeNodeId, 'isEditing'));
+
+  const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+
   const { treeType, commands } = useTreeCheckbox();
   const dispatch = useDispatch();
 
   //--------------------------------------------------------------------------------------------------------------------
   const handleCheckboxChange = useCallback(() => {
-    const isNodeChecked = commands.isChecked(persistentId);
+    const isNodeChecked = commands.isChecked(nodeId);
     if (isNodeChecked) {
-      commands.deleteId(persistentId);
+      commands.deleteId(nodeId);
     } else {
-      commands.addId(persistentId);
+      commands.addId(nodeId);
     }
-  }, [commands, persistentId]);
+  }, [commands, nodeId]);
 
   //--------------------------------------------------------------------------------------------------------------------
   const handleTreeNodeClick = useCallback((event) => {

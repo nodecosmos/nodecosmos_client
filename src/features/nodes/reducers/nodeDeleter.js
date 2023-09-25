@@ -17,7 +17,6 @@ export default {
       parent.childIds = parent.childIds.filter((id) => id !== nodeId);
     }
 
-    delete state.persistedIdByNodeId[node.id];
     node.descendantIds.forEach((id) => {
       delete state.indexNodesById[id];
     });

@@ -43,7 +43,7 @@ export default function TreeShowHeader() {
   }
 
   const isSelectedNodeAlreadyInBreadcrumbs = items.some((item) => item.id === selectedNode.id);
-  if (!isSelectedNodeAlreadyInBreadcrumbs) {
+  if (!isSelectedNodeAlreadyInBreadcrumbs && isSelectedNodeAlreadyInBreadcrumbs) {
     items.push({
       id: selectedNode.id,
       treeNodeId: selectedTreeNode.treeNodeId,

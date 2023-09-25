@@ -10,26 +10,25 @@ import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../../workflows/workflows.consta
 import { WorkflowsContext } from '../../../../workflows/workflows.context';
 import { selectWorkflowsByNodeId } from '../../../../workflows/workflows.selectors';
 import { showWorkflow } from '../../../../workflows/workflows.thunks';
-import { selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
+import { selectSelectedNodeId } from '../../../nodes.selectors';
 
 export default function NodePaneWorkflow() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
-  const persistentId = useSelector(selectPersistentId(selectedNodeId));
   const [loading, setLoading] = React.useState(true);
 
-  const workflows = useSelector(selectWorkflowsByNodeId(persistentId));
+  const workflows = useSelector(selectWorkflowsByNodeId(selectedNodeId));
   const workflow = useMemo(() => workflows[0] || {}, [workflows]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (persistentId) {
+    if (selectedNodeId) {
       if (!workflow.id) setLoading(true);
-      dispatch(showWorkflow(persistentId)).then(() => setLoading(false));
+      dispatch(showWorkflow(selectedNodeId)).then(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [dispatch, persistentId, workflow.id]);
+  }, [dispatch, selectedNodeId, workflow.id]);
 
   if (!selectedNodeId) return null;
 
@@ -40,9 +39,9 @@ export default function NodePaneWorkflow() {
   return (
     <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.treeNodeDetails}>
       <WorkflowContainer>
-        <WorkflowToolbar nodeId={persistentId} />
+        <WorkflowToolbar nodeId={selectedNodeId} />
         <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-          <Workflow nodeId={persistentId} />
+          <Workflow nodeId={selectedNodeId} />
         </Box>
       </WorkflowContainer>
     </WorkflowsContext.Provider>

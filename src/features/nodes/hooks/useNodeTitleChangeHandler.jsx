@@ -1,51 +1,56 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePrevious from '../../../common/hooks/usePrevious';
 import { SAVE_NODE_TIMEOUT } from '../../trees/trees.constants';
-import { selectNode } from '../nodes.selectors';
+import { selectNodeAttribute } from '../nodes.selectors';
 import { createNode, updateNodeTitle } from '../nodes.thunks';
-import { updateNodeState } from '../nodesSlice';
+import { replaceTmpNodeWithPersistedNode, updateNodeState } from '../nodesSlice';
+import { selectTreeNodeAttribute } from '../../trees/trees.selectors';
 
-export default function useNodeTitleChangeHandler(nodeId) {
+export default function useNodeTitleChangeHandler({ nodeId, treeNodeId }) {
   const dispatch = useDispatch();
-
-  const {
-    parentId,
-    persistentId,
-    persistentParentId,
-    persistentRootId,
-    title,
-    isTemp,
-  } = useSelector(selectNode(nodeId));
-
+  const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
+  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+  const title = useSelector(selectNodeAttribute(nodeId, 'title'));
+  const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
   const prevTitle = usePrevious(title);
 
   //--------------------------------------------------------------------------------------------------------------------
   const saveNodeTimeout = useRef(null);
 
-  useEffect(() => {
+  const handleNodeTitleChange = (value) => {
+    dispatch(updateNodeState({ id: nodeId, title: value }));
+    persistentId && dispatch(updateNodeState({ id: persistentId, title: value }));
+
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
-    if (!title || title === prevTitle) return;
+    if (!value || value === prevTitle) return;
 
     saveNodeTimeout.current = setTimeout(() => {
-      if (isTemp) {
+      if (persistentId) {
+        dispatch(updateNodeTitle({ rootId, id: persistentId, title: value }));
+      } else {
         dispatch(createNode({
-          title,
-          persistentRootId,
-          persistentParentId,
+          rootId,
           parentId,
+          title: value,
           tmpNodeId: nodeId,
         }));
-      } else {
-        dispatch(updateNodeTitle({ persistentId, persistentRootId, title }));
       }
     }, SAVE_NODE_TIMEOUT);
-  }, [dispatch, isTemp, persistentRootId, nodeId, parentId, persistentId, persistentParentId, prevTitle, title]);
-
-  const handleNodeTitleChange = (event) => {
-    dispatch(updateNodeState({ id: nodeId, title: event.currentTarget.value }));
-    dispatch(updateNodeState({ id: persistentId, title: event.currentTarget.value }));
   };
 
-  return { handleNodeTitleChange };
+  const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
+
+  const handleTitleChangeFinish = () => {
+    setShouldReplaceTmpNode(true);
+  };
+
+  useEffect(() => {
+    if (shouldReplaceTmpNode && isTemp && persistentId) {
+      dispatch(replaceTmpNodeWithPersistedNode({ tmpNodeId: nodeId, persistentId }));
+    }
+  }, [dispatch, shouldReplaceTmpNode, isTemp, nodeId, persistentId]);
+
+  return { handleNodeTitleChange, handleTitleChangeFinish };
 }

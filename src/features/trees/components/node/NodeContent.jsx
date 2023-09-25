@@ -13,25 +13,27 @@ import {
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
 import { useTreeRootNodeId } from '../../hooks/useTreeContext';
+import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
+import useNodeTitleChangeHandler from '../../../nodes/hooks/useNodeTitleChangeHandler';
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
 
+// we have different components for text
+// because 'input' is not valid child element of 'button'
 export default function NodeContent(props) {
   const { treeNodeId, alreadyMounted } = props;
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
   const isRoot = useSelector(selectNodeAttribute(nodeId, 'isRoot'));
   const isEditing = useSelector(selectTreeNodeAttribute(treeNodeId, 'isEditing'));
-
   const rootNodeId = useTreeRootNodeId();
-  const { xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+  const { xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
+  const { handleTreeNodeBlur } = useNodeTreeEvents(treeNodeId);
+  const { handleNodeTitleChange, handleTitleChangeFinish } = useNodeTitleChangeHandler({ nodeId, treeNodeId });
 
   if (!xEnd) return null;
-
-  // we have different components because 'input' is not valid child element of 'button'
-  const content = isEditing ? <NodeInput treeNodeId={treeNodeId} /> : <NodeButton treeNodeId={treeNodeId} />;
 
   const initialAnimationDelay = isRoot || alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
   const initialAnimationDuration = isRoot || alreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
@@ -50,7 +52,16 @@ export default function NodeContent(props) {
         style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
       >
         <div className="NodeButtonContainer">
-          {content}
+          {isEditing ? (
+            <NodeInput
+              treeNodeId={treeNodeId}
+              onChange={(event) => handleNodeTitleChange(event.target.value)}
+              onBlur={() => {
+                handleTreeNodeBlur();
+                handleTitleChangeFinish();
+              }}
+            />
+          ) : <NodeButton treeNodeId={treeNodeId} />}
           <div>
             {isExpanded && isSelected && <Box sx={{ ml: 2 }}><NodeToolbar treeNodeId={treeNodeId} /></Box>}
           </div>

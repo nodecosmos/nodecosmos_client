@@ -27,7 +27,7 @@ export default function CreateWorkflowModal({
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
+  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
 
   const onSubmit = async (formValues) => {
     setLoading(true);

@@ -12,7 +12,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
   const {
-    id, isTemp, persistentRootId, persistentId,
+    id, isTemp, rootId,
   } = useSelector(selectSelectedNode);
 
   const [openCoverImageUploader, setOpenCoverImageUploader] = React.useState(false);
@@ -140,7 +140,7 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
         <UppyUploadImageModal
           open={openCoverImageUploader}
           onClose={handleClose}
-          endpointPath={`nodes/${persistentRootId}/${persistentId}/upload_cover_image`}
+          endpointPath={`nodes/${rootId}/${id}/upload_cover_image`}
         />
       </Suspense>
       )}

@@ -4,7 +4,7 @@ import { selectTreeNode } from '../../trees.selectors';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 
 export default function useNodeButtonContributionRequestColors(treeId) {
-  const { nodeId, isRoot } = useSelector(selectTreeNode(treeId));
+  const { nodeId } = useSelector(selectTreeNode(treeId));
   const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
   const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
   const theme = useTheme();

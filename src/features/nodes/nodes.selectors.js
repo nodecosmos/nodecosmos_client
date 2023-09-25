@@ -3,7 +3,6 @@ import { createSelector } from '@reduxjs/toolkit';
 export const selectNodesById = (state) => state.nodes.byId;
 export const selectIndexNodesById = (state) => state.nodes.indexNodesById;
 export const selectChildIdsByParentId = (state) => state.nodes.childIdsByParentId;
-export const selectPersistedIdByNodeId = (state) => state.nodes.persistedIdByNodeId;
 export const selectSelectedNodeId = (state) => state.nodes.selectedNodeId;
 export const selectNodeDetailsAction = (state) => state.nodes.nodePaneContent;
 export const selectNodeTitlesById = (state) => state.nodes.nodeTitlesById;
@@ -22,11 +21,6 @@ export const selectSelectedNode = createSelector(
   selectNodesById,
   selectSelectedNodeId,
   (nodesById, selectedNodeId) => nodesById[selectedNodeId] || {},
-);
-
-export const selectPersistentId = (stateId) => createSelector(
-  selectNodesById,
-  (nodesById) => stateId && nodesById[stateId].persistentId,
 );
 
 export const selectNodeAttribute = (nodeId, attribute) => createSelector(

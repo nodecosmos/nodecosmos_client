@@ -3,38 +3,24 @@
  * @param state
  * @param action
  * @description
- *  Currently, we add new node to state,
- *  but we keep the tmpNodeId for tree structure, so we allow smooth flow when working with tree.
- *  However, that makes it bit hard to manage request to backend, as we need to use persistentId for request,
- *  but tmpNodeId for tree structure.
  */
 export default function createNodeFulfilledReducer(state, action) {
-  const { id, rootId, parentId } = action.payload;
+  const { id, rootId } = action.payload;
 
   const { tmpNodeId } = action.meta.arg;
 
   const newNode = action.payload;
   newNode.nestedLevel = newNode.ancestorIds.length;
 
-  state.byId[id] = action.payload; // add new node to state
+  state.byId[id] = action.payload;
   state.byId[id].descendantIds = [];
-  state.byId[id].persistentRootId = rootId;
-  state.byId[id].persistentParentId = parentId;
+  state.byId[id].rootId = rootId;
   state.byId[id].nestedLevel = state.byId[tmpNodeId].nestedLevel;
   state.byId[id].childIds = [];
+  state.byId[id].persistentId = id;
 
-  // Currently only used in workflow, so we can build tree from newly created node
-  // when we edit workflow's flow step.
-  state.byId[id].tmpNodeId = tmpNodeId;
-
-  state.byId[tmpNodeId].isTemp = false; // tmpNodeId will still be used for tree structure
-
-  state.byId[tmpNodeId].persistentRootId = rootId;
-  state.byId[tmpNodeId].persistentParentId = parentId;
+  state.byId[tmpNodeId].rootId = rootId;
   state.byId[tmpNodeId].persistentId = id;
-
-  state.persistedIdByNodeId[tmpNodeId] = id;
-  state.persistedIdByNodeId[id] = id;
 
   state.nodeTitlesById[id] = action.payload.title;
 }

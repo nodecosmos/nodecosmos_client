@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTreeCheckbox } from '../../hooks/useTreeContext';
 import { TREES_TYPES } from '../../trees.constants';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import { selectTreeNodeAttribute } from '../../trees.selectors';
 import useNodeButtonColors from '../../hooks/useNodeButtonColors';
 
@@ -15,7 +14,7 @@ const MemoizedCheckbox = memo(Checkbox);
 
 export default function NodeSymbol({ treeNodeId }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+
   const { outlineColor } = useNodeButtonColors(treeNodeId);
   const { treeType, commands, handleCheckboxChange } = useTreeCheckbox();
 
@@ -31,8 +30,8 @@ export default function NodeSymbol({ treeNodeId }) {
   return (
     <MemoizedCheckbox
       style={{ color: outlineColor }}
-      checked={commands.isChecked(persistentId)}
-      value={persistentId}
+      checked={commands.isChecked(nodeId)}
+      value={nodeId}
       onChange={handleCheckboxChange}
     />
   );

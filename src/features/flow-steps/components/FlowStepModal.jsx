@@ -19,7 +19,7 @@ import Tree from '../../trees/components/Tree';
 import TreeContainer from '../../trees/components/TreeContainer';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectFlowStepAttribute } from '../flowSteps.selectors';
-import { selectNodeAttribute, selectPersistedIdByNodeId } from '../../nodes/nodes.selectors';
+import { selectNodeAttribute, selectNodesById } from '../../nodes/nodes.selectors';
 
 // Dumb implementation of import feature
 export default function FlowStepModal({
@@ -28,19 +28,18 @@ export default function FlowStepModal({
   const [loading, setLoading] = React.useState(false);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
   const tmpNodeId = useSelector(selectNodeAttribute(nodeId, 'tmpNodeId'));
-
   const nodeIds = useSelector(selectFlowStepAttribute(wfStepFlow.workflowId, wfStepFlow.flowStep?.id, 'nodeIds'));
-  const persistedNodeIdByNodeId = useSelector(selectPersistedIdByNodeId);
+  const allNodes = useSelector(selectNodesById);
   const dispatch = useDispatch();
   const [flowStepNodeIds, setFlowStepNodeIds] = useState(nodeIds);
 
   const onSubmit = async () => {
     setLoading(true);
 
-    const persistedNodeIds = flowStepNodeIds?.filter((id) => persistedNodeIdByNodeId[id]);
+    const filteredNodes = flowStepNodeIds.filter((flowNodeId) => !!allNodes[flowNodeId]);
 
     const payload = {
-      nodeIds: persistedNodeIds,
+      nodeIds: filteredNodes,
       nodeId,
       workflowId: wfStepFlow.workflowId,
       flowId: wfStepFlow.id,

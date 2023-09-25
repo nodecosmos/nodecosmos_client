@@ -22,7 +22,6 @@ const treesSlice = createSlice({
      *    treeDescendantIds: string[],
      *    treeLastChildId: string,
      *    nodeId: string,
-     *    persistentNodeId: string,
      *    rootId: string,
      *    isRoot: boolean,
      *    isMounted: boolean,
@@ -83,8 +82,7 @@ const treesSlice = createSlice({
       isDragging: false,
       treeNodeId: null,
       nodeId: null,
-      persistentRootId: null,
-      persistentId: null,
+      rootId: null,
     },
 
     /**

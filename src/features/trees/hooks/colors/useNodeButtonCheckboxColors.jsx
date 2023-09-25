@@ -6,7 +6,6 @@ import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 
 export default function useNodeButtonCheckboxColors(treeId) {
   const { nodeId, isRoot } = useSelector(selectTreeNode(treeId));
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
   const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
   const { commands } = useTreeCheckbox();
   const theme = useTheme();
@@ -16,7 +15,7 @@ export default function useNodeButtonCheckboxColors(treeId) {
   const nestedTreeColor = backgrounds[nestedLevel % backgroundCount];
   const { checkboxColor } = theme.palette.tree;
 
-  const isChecked = commands.isChecked(persistentId);
+  const isChecked = commands.isChecked(nodeId);
   const outlinedColored = isChecked;
   const backgroundColor = isChecked ? theme.palette.background[3] : theme.palette.tree.default;
 

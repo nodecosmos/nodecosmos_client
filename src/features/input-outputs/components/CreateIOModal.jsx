@@ -26,7 +26,7 @@ export default function CreateIOModal({
   open, onClose, workflowId, associatedObject, flowStepId, flowStepOutputNodeId,
 }) {
   const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
-  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
+  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
   const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
 
   const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow

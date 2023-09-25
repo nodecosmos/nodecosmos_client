@@ -20,8 +20,7 @@ export default function NodeButton(props) {
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
-  const persistentRootId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
+  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
   const dragAndDropNodeId = useSelector(selectDragAndDropAttributes('nodeId'));
 
   const theme = useTheme();
@@ -38,9 +37,9 @@ export default function NodeButton(props) {
 
   const handleDragStart = useCallback((event) => {
     onDragStart({
-      event, nodeId, parentId, treeNodeId, persistentId, persistentRootId,
+      event, nodeId, parentId, treeNodeId, rootId,
     });
-  }, [onDragStart, nodeId, parentId, treeNodeId, persistentId, persistentRootId]);
+  }, [onDragStart, nodeId, parentId, treeNodeId, rootId]);
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -59,7 +58,6 @@ export default function NodeButton(props) {
     onDropCapture({
       newParentId: nodeId,
       newSiblingIndex: 0,
-      persistentNewParentId: persistentId,
     });
 
     setDragOver(false);

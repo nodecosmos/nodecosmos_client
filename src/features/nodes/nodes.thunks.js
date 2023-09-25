@@ -34,13 +34,7 @@ export const showNode = createAsyncThunk(
 export const createNode = createAsyncThunk(
   'nodes/createNode',
   async (payload, _thunkAPI) => {
-    const reqPayload = {
-      rootId: payload.persistentRootId,
-      parentId: payload.persistentParentId,
-      title: payload.title,
-    };
-
-    const response = await nodecosmos.post('/nodes', reqPayload);
+    const response = await nodecosmos.post('/nodes', payload);
 
     return response.data;
   },
@@ -48,13 +42,9 @@ export const createNode = createAsyncThunk(
 
 export const updateNodeTitle = createAsyncThunk(
   'nodes/updateNodeTitle',
-  async ({ persistentRootId, persistentId, title }, _thunk) => {
+  async (payload) => {
     try {
-      const response = await nodecosmos.put('/nodes/title', {
-        rootId: persistentRootId,
-        id: persistentId,
-        title,
-      });
+      const response = await nodecosmos.put('/nodes/title', payload);
 
       return response.data;
     } catch (error) {
@@ -67,8 +57,8 @@ export const updateNodeTitle = createAsyncThunk(
 export const updateNodeDescription = createAsyncThunk(
   'nodes/updateNodeDescription',
   async ({
-    persistentRootId,
-    persistentId,
+    rootId,
+    id,
     description,
     descriptionMarkdown,
     shortDescription,
@@ -78,8 +68,8 @@ export const updateNodeDescription = createAsyncThunk(
       const b64encoded = uint8ArrayToBase64(descriptionBase64);
 
       const response = await nodecosmos.put('/nodes/description', {
-        rootId: persistentRootId,
-        id: persistentId,
+        rootId,
+        id,
         description,
         descriptionMarkdown,
         shortDescription,
@@ -106,8 +96,8 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async ({ persistentRootId, persistentId, nodeId }, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${persistentRootId}/${persistentId}`);
+  async ({ rootId, nodeId }, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${rootId}/${nodeId}`);
 
     return {
       ...response.data,

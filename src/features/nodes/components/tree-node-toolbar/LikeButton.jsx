@@ -9,47 +9,39 @@ import { setAlert } from '../../../app/appSlice';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
 import { selectLikedObjectIds } from '../../../likes/likes.selectors';
 import { addLikedObjectId, removeLikedObjectId } from '../../../likes/likesSlice';
-import { selectNode, selectNodeAttribute } from '../../nodes.selectors';
+import { selectNodeAttribute } from '../../nodes.selectors';
 import {
   getLikesCount, likeNode, unlikeNode,
 } from '../../nodes.thunks';
 import abbreviateNumber from '../../../../common/abbreviateNumber';
 
 export default function LikeButton({ nodeId, fontSize, likesCount: providedLikesCount }) {
-  const {
-    isTemp,
-    persistentId,
-  } = useSelector(selectNode(nodeId)) || {
-    persistentId: nodeId,
-  };
   const likes = useSelector(selectLikedObjectIds);
-  const stateLikesCount = useSelector(selectNodeAttribute(persistentId, 'likesCount'));
+  const stateLikesCount = useSelector(selectNodeAttribute(nodeId, 'likesCount'));
   const likesCount = providedLikesCount !== null ? providedLikesCount : stateLikesCount;
-  const likedByCurrentUser = likes.includes(persistentId);
+  const likedByCurrentUser = likes.includes(nodeId);
   const [shouldBeat, setShouldBeat] = React.useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    if (persistentId && likesCount === undefined) {
-      dispatch(getLikesCount(persistentId));
+    if (nodeId && likesCount === undefined) {
+      dispatch(getLikesCount(nodeId));
     }
-  }, [dispatch, persistentId, likesCount]);
+  }, [dispatch, nodeId, likesCount]);
 
   const handleLike = () => {
-    if (isTemp) return;
-
     if (!currentUser) {
       dispatch(setAlert({ isOpen: true, severity: 'warning', message: 'Log in to hit that like!' }));
       return;
     }
 
     if (likedByCurrentUser) {
-      dispatch(removeLikedObjectId({ id: persistentId }));
-      dispatch(unlikeNode(persistentId));
+      dispatch(removeLikedObjectId({ id: nodeId }));
+      dispatch(unlikeNode(nodeId));
     } else {
-      dispatch(addLikedObjectId({ id: persistentId }));
-      dispatch(likeNode(persistentId));
+      dispatch(addLikedObjectId({ id: nodeId }));
+      dispatch(likeNode(nodeId));
     }
 
     requestAnimationFrame(() => setShouldBeat(true));

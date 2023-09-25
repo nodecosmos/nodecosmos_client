@@ -9,6 +9,7 @@ import nodeSelectionSetter from './reducers/nodeSelectionSetter';
 import nodePaneContentSetter from './reducers/nodePaneContentSetter';
 import nodeSearcher from './reducers/nodeSearcher';
 import nodeImporter from './reducers/nodeImporter';
+import tmpNodeReplacer from './reducers/tmpNodeReplacer';
 
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
@@ -38,15 +39,11 @@ const nodesSlice = createSlice({
      *  [id: string]: {
      *    id: string,
      *    parentId: string,
-     *    persistentId: string,
-     *    persistentParentId: string,
-     *    persistentRootId: string,
      *    rootId: string,
      *    editorIds: string[],
      *    ancestorIds: string[],
      *    childIds: string[],
      *    descendantIds: string[],
-     *    descendantsById: {} | null,
      *    title: string,
      *    description: string,
      *    descriptionMarkdown: string,
@@ -60,14 +57,14 @@ const nodesSlice = createSlice({
      *      id: string,
      *      username: string,
      *    },
+     *    // frontend only
+     *    persistentId: string,
+     *    isTemp: boolean,
+     *    nestedLevel: number,
      *  }
      * }}
      *
      * @description
-     * Usually persistentId and nodeId are the same. However, in case we work with the Tree, we generate tmp id for
-     * new node as nodeId. Obviously, we cannot use this id to communicate with the backend, so we need to leave
-     * nodeId as it is, and use persistentId to communicate with the backend and get the latest changes from state.
-     * We can get the latest changes from state because we map persistentId to new node after node is created.
      */
     byId: {},
     /**
@@ -79,8 +76,6 @@ const nodesSlice = createSlice({
      * tree renders children of a node, and children of children, and so on.
      */
     childIdsByParentId: {},
-
-    persistedIdByNodeId: {},
 
     /**
      * @description
@@ -113,10 +108,10 @@ const nodesSlice = createSlice({
     deleteNodeFromState: nodeDeleter.deleteNodeFromState,
     setSelectedNode: nodeSelectionSetter.setSelectedNode,
     setNodePaneContent: nodePaneContentSetter.setNodePaneContent,
-    setDefaultNodeDetailsAction: nodePaneContentSetter.setDefaultNodeDetailsAction,
     searchNode: nodeSearcher.searchNode,
     importNode: nodeImporter.importNode,
     reorderNodes: nodeReorderer.reorderNodes,
+    replaceTmpNodeWithPersistedNode: tmpNodeReplacer.replaceTmpNodeWithPersistedNode,
   },
   extraReducers(builder) {
     builder
@@ -143,10 +138,10 @@ export const {
   buildChildNode,
   setSelectedNode,
   setNodePaneContent,
-  setDefaultNodeDetailsAction,
   reorderNodes,
   searchNode,
   importNode,
+  replaceTmpNodeWithPersistedNode,
 } = actions;
 
 export default reducer;

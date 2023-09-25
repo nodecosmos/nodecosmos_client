@@ -1,15 +1,11 @@
 export default {
   buildChildNode: (state, action) => {
-    const {
-      tmpNodeId, nodeId, persistentId, persistentRootId,
-    } = action.payload;
+    const { tmpNodeId, nodeId } = action.payload;
     const node = state.byId[nodeId];
 
     state.byId[tmpNodeId] = {
-      persistentRootId,
       persistentId: null,
       parentId: nodeId,
-      persistentParentId: persistentId,
       rootId: node.rootId,
       isTemp: true,
       likesCount: 0,
@@ -22,7 +18,6 @@ export default {
 
     state.childIdsByParentId[nodeId].push(tmpNodeId); // add new node to parent's childIds
     state.childIdsByParentId[tmpNodeId] = [];
-
     state.byId[nodeId].childIds.push(tmpNodeId); // add new node to parent's childIds
   },
 };

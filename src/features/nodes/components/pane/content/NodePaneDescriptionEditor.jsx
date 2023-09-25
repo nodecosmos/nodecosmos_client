@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
-import { selectNodeAttribute, selectPersistentId, selectSelectedNodeId } from '../../../nodes.selectors';
+import { selectNodeAttribute, selectSelectedNodeId } from '../../../nodes.selectors';
 import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
 import { updateNodeState } from '../../../nodesSlice';
 import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
@@ -12,16 +12,15 @@ const RemirrorEditor = React.lazy(
 );
 
 export default function NodePaneDescriptionEditor() {
-  const selectedNodeId = useSelector(selectSelectedNodeId);
+  const id = useSelector(selectSelectedNodeId);
 
-  const isTemp = useSelector(selectNodeAttribute(selectedNodeId, 'isTemp'));
-  const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
-  const persistentId = useSelector(selectPersistentId(selectedNodeId));
+  const isTemp = useSelector(selectNodeAttribute(id, 'isTemp'));
+  const rootId = useSelector(selectNodeAttribute(id, 'rootId'));
 
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
-  const descriptionMarkdown = useSelector(selectNodeAttribute(persistentId, 'descriptionMarkdown'));
-  const descriptionBase64 = useSelector(selectNodeAttribute(persistentId, 'descriptionBase64'));
+  const descriptionMarkdown = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
+  const descriptionBase64 = useSelector(selectNodeAttribute(id, 'descriptionBase64'));
 
   const handleChange = (remirrorHelpers, uint8ArrayState) => {
     if (isTemp) return;
@@ -36,15 +35,15 @@ export default function NodePaneDescriptionEditor() {
       const markdown = remirrorHelpers.getMarkdown();
 
       dispatch(updateNodeState({
-        id: selectedNodeId,
+        id,
         description: descriptionHtml,
         shortDescription,
         descriptionMarkdown: markdown,
       }));
 
       dispatch(updateNodeDescription({
-        persistentRootId,
-        persistentId,
+        rootId,
+        id,
         description: descriptionHtml,
         shortDescription,
         descriptionMarkdown: markdown,
@@ -56,15 +55,15 @@ export default function NodePaneDescriptionEditor() {
   const [base64Fetched, setBase64Fetched] = React.useState(false);
 
   useEffect(() => {
-    if (persistentId && persistentRootId) {
+    if (id && rootId) {
       dispatch(getNodeDescriptionBase64({
-        rootId: persistentRootId,
-        id: persistentId,
+        rootId,
+        id,
       })).then(() => {
         setBase64Fetched(true);
       });
     }
-  }, [dispatch, persistentId, persistentRootId]);
+  }, [dispatch, id, rootId]);
 
   if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
 
@@ -74,8 +73,8 @@ export default function NodePaneDescriptionEditor() {
         <RemirrorEditor
           markdown={descriptionMarkdown || ''}
           onChange={handleChange}
-          wsRoomId={persistentId}
-          wsAuthNodeId={persistentId}
+          wsRoomId={id}
+          wsAuthNodeId={id}
           base64={descriptionBase64}
           isRealTime
         />

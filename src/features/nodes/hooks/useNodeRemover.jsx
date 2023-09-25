@@ -6,21 +6,14 @@ import { deleteNodeFromState } from '../nodesSlice';
 
 export default function useNodeRemover(nodeId) {
   const dispatch = useDispatch();
-
-  const {
-    rootId,
-    persistentRootId,
-    persistentId,
-    isTemp,
-  } = useSelector(selectNode(nodeId));
-
+  const { rootId, isTemp } = useSelector(selectNode(nodeId));
   const navigate = useNavigate();
 
   const removeNode = () => {
     if (isTemp) {
       dispatch(deleteNodeFromState({ nodeId }));
     } else {
-      dispatch(deleteNode({ persistentRootId, persistentId, nodeId }));
+      dispatch(deleteNode({ nodeId, rootId }));
     }
     if (rootId === nodeId) navigate('/nodes');
   };

@@ -24,11 +24,9 @@ import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { selectTreeNodeAttribute } from '../../trees.selectors';
 
-export default function NodeToolbar(props) {
-  const { treeNodeId } = props;
+export default function NodeToolbar({ treeNodeId }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
-  const persistentRootId = useSelector(selectNodeAttribute(nodeId, 'persistentRootId'));
+  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
 
   const { editTreeNode } = useNodeTreeEvents(treeNodeId);
   const { removeNode } = useNodeRemover(nodeId);
@@ -69,7 +67,7 @@ export default function NodeToolbar(props) {
       <Tooltip title="Open Node In New Tab" placement="top">
         <IconButton
           target="_blank"
-          href={`/nodes/${persistentRootId}/${persistentId}`}
+          href={`/nodes/${rootId}/${nodeId}`}
           className="Item"
           aria-label="Open Node in New Tab"
           sx={{ color: 'toolbar.default' }}

@@ -18,9 +18,8 @@ import NodePaneWorkflow from './content/NodePaneWorkflow';
 import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 
 export default function NodePane() {
-  const selectedNodeId = useSelector(selectSelectedNodeId);
-  const persistentId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentId'));
-  const persistentRootId = useSelector(selectNodeAttribute(selectedNodeId, 'persistentRootId'));
+  const id = useSelector(selectSelectedNodeId);
+  const rootId = useSelector(selectNodeAttribute(id, 'rootId'));
   const nodePaneContent = useSelector(selectNodeDetailsAction);
   const dispatch = useDispatch();
 
@@ -33,24 +32,24 @@ export default function NodePane() {
 
   const SelectedComponent = nodePaneContents[nodePaneContent];
 
-  const prevSelectedNodeId = usePrevious(selectedNodeId);
+  const prevSelectedNodeId = usePrevious(id);
 
   useEffect(() => {
-    if (persistentId && persistentRootId) {
+    if (id && rootId) {
       dispatch(getNodeDescription({
-        rootId: persistentRootId,
-        id: persistentId,
+        rootId,
+        id,
       }));
     }
-  }, [dispatch, persistentId, persistentRootId]);
+  }, [dispatch, id, rootId]);
 
   useEffect(() => {
-    if (prevSelectedNodeId !== selectedNodeId && nodePaneContent !== NODE_PANE_CONTENTS.workflow) {
+    if (prevSelectedNodeId !== id && nodePaneContent !== NODE_PANE_CONTENTS.workflow) {
       dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description));
     }
-  }, [dispatch, prevSelectedNodeId, selectedNodeId, nodePaneContent]);
+  }, [dispatch, prevSelectedNodeId, id, nodePaneContent]);
 
-  if (!selectedNodeId) {
+  if (!id) {
     return (
       <Box
         m={3}
@@ -79,7 +78,7 @@ export default function NodePane() {
       position="relative"
       zIndex={1}
     >
-      <NodePaneToolbar id={selectedNodeId} />
+      <NodePaneToolbar id={id} />
       <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
         <SelectedComponent />
       </Box>

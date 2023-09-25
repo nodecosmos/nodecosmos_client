@@ -13,16 +13,15 @@ const REORDER_DESCENDANT_LIMIT = 1000;
 export default function useTreeNodeDraggable() {
   const dispatch = useDispatch();
 
-  const { nodeId, persistentId, persistentRootId } = useSelector(selectDragAndDrop);
-  const descendantIds = useSelector(selectNodeAttribute(persistentId, 'descendantIds'));
+  const { nodeId, rootId } = useSelector(selectDragAndDrop);
+  const descendantIds = useSelector(selectNodeAttribute(nodeId, 'descendantIds'));
 
   const onDragStart = useCallback(({
     event,
     nodeId,
     parentId,
     treeNodeId,
-    persistentRootId,
-    persistentId,
+    rootId,
   }) => {
     event.stopPropagation();
 
@@ -32,11 +31,10 @@ export default function useTreeNodeDraggable() {
 
     dispatch(setDragAndDrop({
       isDragging: true,
-      nodeId,
       parentId,
       treeNodeId,
-      persistentRootId,
-      persistentId,
+      rootId,
+      nodeId,
     }));
   }, [dispatch]);
 
@@ -44,11 +42,7 @@ export default function useTreeNodeDraggable() {
     dispatch(clearDragAndDrop());
   }, [dispatch]);
 
-  const onDropCapture = useCallback(async ({
-    newParentId,
-    newSiblingIndex,
-    persistentNewParentId,
-  }) => {
+  const onDropCapture = useCallback(async ({ newParentId, newSiblingIndex }) => {
     if (descendantIds.length > REORDER_DESCENDANT_LIMIT) {
       dispatch(setAlert({
         isOpen: true,
@@ -62,10 +56,7 @@ export default function useTreeNodeDraggable() {
 
     try {
       const response = await dispatch(reorder({
-        rootId: persistentRootId,
-        id: persistentId,
-        newParentId: persistentNewParentId,
-        newSiblingIndex,
+        rootId, id: nodeId, newParentId, newSiblingIndex,
       }));
 
       if (response.error) {
@@ -92,15 +83,10 @@ export default function useTreeNodeDraggable() {
         console.error(e);
       }
 
-      dispatch(setAlert({
-        isOpen: true,
-        severity: 'error',
-        message,
-      }));
-
+      dispatch(setAlert({ isOpen: true, severity: 'error', message }));
       dispatch(setTreeLoading(false));
     }
-  }, [dispatch, descendantIds, persistentId, persistentRootId, nodeId]);
+  }, [dispatch, descendantIds, nodeId, rootId]);
 
   return {
     onDragStart,

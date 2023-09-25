@@ -8,8 +8,6 @@ export default {
 
     const node = state.byId[nodeId];
     const oldParentId = node.parentId;
-    const persistentId = state.persistedIdByNodeId[nodeId];
-    const newPersistentParentId = state.persistedIdByNodeId[newParentId];
     const oldIndex = state.childIdsByParentId[oldParentId].indexOf(nodeId);
     const { ancestorIds: oldAncestorIds, descendantIds } = node;
     const newAncestorIds = state.byId[newParentId].ancestorIds.concat(newParentId);
@@ -19,19 +17,17 @@ export default {
     state.childIdsByParentId[oldParentId].splice(oldIndex, 1);
     state.childIdsByParentId[newParentId].splice(newSiblingIndex, 0, nodeId);
 
-    // Update the parent and persistent parent ids
-    state.byId[nodeId].parentId = newParentId;
-    state.byId[persistentId].parentId = newParentId;
+    if (oldParentId === newParentId) return; // no need to update ancestors
 
-    state.byId[nodeId].persistentParentId = newPersistentParentId;
-    state.byId[persistentId].persistentParentId = newPersistentParentId;
+    // Update the parent id
+    state.byId[nodeId].parentId = newParentId;
 
     const oldParent = state.byId[oldParentId];
-    const newPersistentParent = state.byId[newPersistentParentId];
+    const newParent = state.byId[newParentId];
 
     oldParent.childIds.splice(oldIndex, 1);
-    newPersistentParent.childIds ||= [];
-    newPersistentParent.childIds.splice(newSiblingIndex, 0, nodeId);
+    newParent.childIds ||= [];
+    newParent.childIds.splice(newSiblingIndex, 0, nodeId);
 
     // update ancestors
     oldAncestorIds.forEach((ancestorId) => {
