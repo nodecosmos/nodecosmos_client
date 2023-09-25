@@ -30,7 +30,7 @@ const contributionRequestsSlice = createSlice({
       .addCase(indexContributionRequests.fulfilled, (state, action) => {
         const contributionRequests = action.payload;
 
-        if (contributionRequests.length === 0) {
+        if (!contributionRequests || contributionRequests.length === 0) {
           return;
         }
 
@@ -58,7 +58,7 @@ const contributionRequestsSlice = createSlice({
 
         contributionRequest.createdAt = new Date(contributionRequest.createdAt);
 
-        state.byNodeId[nodeId] ||= [];
+        state.byNodeId[nodeId] ||= {};
         state.byNodeId[nodeId][contributionRequest.id] = contributionRequest;
       })
       .addCase(deleteContributionRequest.fulfilled, (state, action) => {

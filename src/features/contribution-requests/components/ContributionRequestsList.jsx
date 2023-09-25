@@ -57,7 +57,7 @@ export default function ContributionRequestsList({ nodeId }) {
       headerName: '',
       field: 'actions',
       flex: 1,
-      type: 'actions',
+      type: 'string',
       renderCell: (params) => (
         <Button
           variant="outlined"

@@ -18,7 +18,6 @@ export default function useCodeMirrorTheme() {
     quote,
     meta,
     link,
-    background,
     foreground,
     caret,
     selection,

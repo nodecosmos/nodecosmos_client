@@ -24,7 +24,7 @@ export default function ContributionRequestsShowToolbar() {
         mr={1}
         showIndicator={false}
         size={32}
-        borderRadius={2}
+        borderRadius={6}
         hoverColor="background.7"
         activeColor="background.7"
       >

@@ -27,7 +27,7 @@ export default function CreateContributionRequestModal({
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = (formValues) => {
     setLoading(true);
 
     const payload = {
@@ -35,10 +35,10 @@ export default function CreateContributionRequestModal({
       ...formValues,
     };
 
-    await dispatch(createContributionRequest(payload));
-
-    setLoading(false);
-    onClose();
+    dispatch(createContributionRequest(payload)).then(() => {
+      onClose();
+      setTimeout(() => setLoading(false), 500);
+    });
   };
 
   return (

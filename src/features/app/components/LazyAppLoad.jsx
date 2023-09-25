@@ -24,7 +24,7 @@ import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
 
-import Index from '../../../pages/contribution-requests/Index';
+import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
 import ContributionRequestShow from '../../../pages/contribution-requests/Show';
 import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
 import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
@@ -101,13 +101,13 @@ export default function LazyAppLoad() {
                   <Route path=":id" element={<TreeShow />} />
                   <Route path=":id/workflow" element={<WorkflowShow />} />
                   {/* Contribution Requests */}
-                  <Route path=":id/contribution_requests" element={<Index />} />
+                  <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
                   <Route path=":id/contribution_requests">
                     <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                      <Route path="" element={<div> show </div>} />
+                      <Route path="" element={<div />} />
                       <Route path="tree" element={<ContributionRequestTree />} />
                       <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                      <Route path="commits" element={<div> commits </div>} />
+                      <Route path="commits" element={<div />} />
                     </Route>
                   </Route>
                   <Route path=":id/topics" element={<div />} />
@@ -117,13 +117,13 @@ export default function LazyAppLoad() {
                   <Route path=":rootId/:id" element={<TreeShow />} />
                   <Route path=":rootId/:id/workflow" element={<WorkflowShow />} />
                   {/* Contribution Requests */}
-                  <Route path=":rootId/:id/contribution_requests" element={<Index />} />
+                  <Route path=":rootId/:id/contribution_requests" element={<ContributionRequestIndex />} />
                   <Route path=":rootId/:id/contribution_requests">
                     <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                      <Route path="" element={<div> show </div>} />
+                      <Route path="" element={<div />} />
                       <Route path="tree" element={<ContributionRequestTree />} />
                       <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                      <Route path="commits" element={<div> commits </div>} />
+                      <Route path="commits" element={<div />} />
                     </Route>
                   </Route>
                   <Route path=":rootId/:id/topics" element={<div />} />
