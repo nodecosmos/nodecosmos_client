@@ -33,15 +33,7 @@ export default function Header() {
   const logo = selectedTheme === 'light' ? '/logo_light.svg' : '/logo_dark.svg';
 
   return (
-    <Box
-      display="flex"
-      alignItems="center"
-      height={HEADER_HEIGHT}
-      width={1}
-      backgroundColor="background.2"
-      position="relative"
-      zIndex={4}
-    >
+    <Box height={HEADER_HEIGHT} width={1} position="relative" zIndex={4}>
       <Box
         display="flex"
         alignItems="center"
@@ -60,12 +52,6 @@ export default function Header() {
           borderRight={hasSidebar ? 1 : 0}
           borderBottom={hasSidebar ? 0 : 1}
           borderColor="borders.1"
-          sx={{
-            borderTopLeftRadius: {
-              xs: 0,
-              sm: 6,
-            },
-          }}
         >
           <Button
             component={Link}

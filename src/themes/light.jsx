@@ -71,12 +71,12 @@ export default {
       1: '#eeeeee',
       2: '#eeeeee',
       3: '#ecebf1',
-      4: '#eeeeee',
+      4: '#c8c8c8',
       5: '#9fadff',
     },
 
     background: {
-      1: '#ffffff', // f8f9fa
+      1: '#eee', // f8f9fa
       2: '#ffffff', // f0f0ef ededed
       3: '#ffffff',
       4: '#ffffff',

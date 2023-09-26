@@ -65,75 +65,56 @@ export default function LazyAppLoad() {
   return (
     <ThemeProvider theme={getTheme(currentTheme)}>
       <CssBaseline />
-      <Box
-        height={1}
-        width={1}
-        // p={{ xs: 0, sm: 0.5 }}
-        backgroundColor="background.1"
-      >
-        <Box
-          height={1}
-          width={1}
-          boxShadow="8"
-          backgroundColor="background.2"
-          borderRadius={{ xs: 0, sm: 2 }}
-        >
-          <Box
-            borderRadius={{ xs: 0, sm: 2 }}
-            height={1}
-            overflow="hidden"
-            // border={1}
-            borderColor="borders.2"
-          >
-            <Header />
-            <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-              <Routes>
-                <Route path="/nodes" element={(<NodesIndex />)} />
-                <Route
-                  path="/auth"
-                  element={isAuthenticated
-                    ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
-                >
-                  <Route path="login" element={<LoginForm />} />
-                  <Route path="signup" element={<SignupForm />} />
-                </Route>
-                <Route path="/nodes" element={<NodeShow />}>
-                  <Route path=":id" element={<TreeShow />} />
-                  <Route path=":id/workflow" element={<WorkflowShow />} />
-                  {/* Contribution Requests */}
-                  <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
-                  <Route path=":id/contribution_requests">
-                    <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                      <Route path="" element={<div />} />
-                      <Route path="tree" element={<ContributionRequestTree />} />
-                      <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                      <Route path="commits" element={<div />} />
-                    </Route>
-                  </Route>
-                  <Route path=":id/topics" element={<div />} />
-                  <Route path=":id/tasks_board" element={<div />} />
-                  <Route path=":id/settings" element={<div />} />
+      <Box backgroundColor="background.2" height={1}>
 
-                  <Route path=":rootId/:id" element={<TreeShow />} />
-                  <Route path=":rootId/:id/workflow" element={<WorkflowShow />} />
-                  {/* Contribution Requests */}
-                  <Route path=":rootId/:id/contribution_requests" element={<ContributionRequestIndex />} />
-                  <Route path=":rootId/:id/contribution_requests">
-                    <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                      <Route path="" element={<div />} />
-                      <Route path="tree" element={<ContributionRequestTree />} />
-                      <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                      <Route path="commits" element={<div />} />
-                    </Route>
-                  </Route>
-                  <Route path=":rootId/:id/topics" element={<div />} />
-                  <Route path=":rootId/:id/tasks_board" element={<div />} />
-                  <Route path=":rootId/:id/settings" element={<div />} />
+        <Header />
+        <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+          <Routes>
+            <Route path="/nodes" element={(<NodesIndex />)} />
+            <Route
+              path="/auth"
+              element={isAuthenticated
+                ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
+            >
+              <Route path="login" element={<LoginForm />} />
+              <Route path="signup" element={<SignupForm />} />
+            </Route>
+            <Route path="/nodes" element={<NodeShow />}>
+              <Route path=":id" element={<TreeShow />} />
+              <Route path=":id/workflow" element={<WorkflowShow />} />
+              {/* Contribution Requests */}
+              <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
+              <Route path=":id/contribution_requests">
+                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                  <Route path="" element={<div />} />
+                  <Route path="tree" element={<ContributionRequestTree />} />
+                  <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                  <Route path="commits" element={<div />} />
                 </Route>
-              </Routes>
-            </Box>
-          </Box>
+              </Route>
+              <Route path=":id/topics" element={<div />} />
+              <Route path=":id/tasks_board" element={<div />} />
+              <Route path=":id/settings" element={<div />} />
+
+              <Route path=":rootId/:id" element={<TreeShow />} />
+              <Route path=":rootId/:id/workflow" element={<WorkflowShow />} />
+              {/* Contribution Requests */}
+              <Route path=":rootId/:id/contribution_requests" element={<ContributionRequestIndex />} />
+              <Route path=":rootId/:id/contribution_requests">
+                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                  <Route path="" element={<div />} />
+                  <Route path="tree" element={<ContributionRequestTree />} />
+                  <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                  <Route path="commits" element={<div />} />
+                </Route>
+              </Route>
+              <Route path=":rootId/:id/topics" element={<div />} />
+              <Route path=":rootId/:id/tasks_board" element={<div />} />
+              <Route path=":rootId/:id/settings" element={<div />} />
+            </Route>
+          </Routes>
         </Box>
+
       </Box>
     </ThemeProvider>
   );
