@@ -29,7 +29,7 @@ export default function NodeBranch(props) {
     return (
       <g>
         <circle cx={x} cy={y} r={6} fill={parentBackgroundColor} />
-        <path strokeWidth={4} d={`M ${x} ${y} L ${xEnd} ${y}`} stroke={theme.palette.tree.default} />
+        <path strokeWidth={4} d={`M ${x + 6} ${y} L ${xEnd} ${y}`} stroke={theme.palette.tree.default} />
       </g>
     );
   }

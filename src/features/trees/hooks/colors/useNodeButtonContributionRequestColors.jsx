@@ -16,7 +16,7 @@ export default function useNodeButtonContributionRequestColors(treeId) {
   const hasBg = isSelected;
   const backgroundColor = hasBg ? nestedTreeColor : theme.palette.tree.default;
   const color = (hasBg && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
-  const parentBackgroundColor = theme.palette.tree.default;
+  const parentBackgroundColor = theme.palette.workflow.defaultInputColor;
 
   const outlineColor = defaultBorder;
 

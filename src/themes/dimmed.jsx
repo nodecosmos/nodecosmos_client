@@ -130,7 +130,7 @@ export default {
       defaultText: '#ffffff',
       selectedText: 'rgba(0, 0, 0, 0.9)',
       hashtag: '#898f9c',
-      defaultBorder: '#575d67',
+      defaultBorder: 'transparent',
       dragInIndicator: '#bf7869',
       checkboxColor: '#63686c',
     },

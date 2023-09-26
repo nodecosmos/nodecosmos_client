@@ -22,7 +22,7 @@ export default function TreeContainer(props) {
           alignItems: 'center',
           cursor: 'pointer',
           boxShadow: 'buttons.1',
-          borderRadius: 1.2,
+          borderRadius: 1.25,
           py: 0,
           px: 1.75,
           border: 'none',

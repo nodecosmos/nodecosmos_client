@@ -16,15 +16,15 @@ export default function ContributionRequestsShowToolbar() {
       height={HEADER_HEIGHT}
       borderBottom={1}
       borderColor="borders.2"
-      pl={1}
+      pl={2}
     >
       <ToolbarContainer
         hasText
         round={false}
-        mr={1}
         showIndicator={false}
         size={32}
-        borderRadius={6}
+        mr={1}
+        borderRadius={1.25}
         hoverColor="background.7"
         activeColor="background.7"
       >
