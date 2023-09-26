@@ -32,6 +32,7 @@ export default function WorkflowContainer(props) {
             transform: 'skewX(30deg)',
             textOverflow: 'ellipsis',
             overflow: 'hidden',
+            fontWeight: 500,
           },
         },
         '.NodeButton': {

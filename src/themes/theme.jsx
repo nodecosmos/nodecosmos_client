@@ -127,6 +127,48 @@ const getTheme = (currentTheme) => createTheme({
         },
       },
     },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+          ':not(:first-of-type)': {
+            marginTop: 6,
+          },
+          '.MuiListItemButton-root': {
+            transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
+            borderRadius: 4,
+            padding: '12px 16px',
+            color: currentTheme.palette.background.list.defaultColor,
+          },
+          '&:hover': {
+            '.MuiListItemButton-root': {
+              backgroundColor: currentTheme.palette.background[6],
+            },
+          },
+          '.active': {
+            color: currentTheme.palette.background.list.activeColor,
+            '&.MuiListItemButton-root': {
+              backgroundColor: currentTheme.palette.background[6],
+            },
+          },
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          fontSize: 18,
+          width: 18,
+          height: 18,
+          marginRight: 16,
+          minWidth: 0,
+          color: currentTheme.palette.background.list.defaultColor,
+          '.active &': {
+            color: currentTheme.palette.background.list.activeColor,
+          },
+        },
+      },
+    },
     MuiPopper: {
       styleOverrides: {
         root: {
@@ -153,9 +195,6 @@ const getTheme = (currentTheme) => createTheme({
     },
     MuiAutocomplete: {
       styleOverrides: {
-        listbox: {
-
-        },
         option: {
           paddingLeft: 24,
           height: 60,

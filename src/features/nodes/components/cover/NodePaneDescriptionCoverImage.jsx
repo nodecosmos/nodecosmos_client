@@ -95,15 +95,15 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
                 startIcon={<FontAwesomeIcon icon={faCamera} />}
                 onClick={() => setOpenCoverImageUploader(true)}
                 sx={{
-                  opacity: displayCoverImageUploadButton ? 1 : 0,
+                  opacity: displayCoverImageUploadButton ? 0.8 : 0,
                   transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
                   position: 'absolute',
-                  backgroundColor: 'rgba(0,0,0,0.6)',
+                  backgroundColor: 'background.1',
                   color: 'text.primary',
                   bottom: 16,
                   right: 16,
                   '&:hover': {
-                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    backgroundColor: 'background.1',
                   },
                 }}
               >

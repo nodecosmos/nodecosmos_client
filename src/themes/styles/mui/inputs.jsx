@@ -76,7 +76,7 @@ export default (currentTheme) => ({
     styleOverrides: {
       root: {
         '&:hover': {
-          backgroundColor: 'rgb(69 96 89 / 69%)',
+          backgroundColor: currentTheme.palette.background[6],
         },
       },
     },

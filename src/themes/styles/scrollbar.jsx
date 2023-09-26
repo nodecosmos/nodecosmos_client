@@ -8,8 +8,6 @@ export default (currentTheme) => ({
     },
   },
   '::-webkit-scrollbar-thumb': {
-    // borderBottomRightRadius: 8,
-    // borderTopRightRadius: 8,
     minHeight: 42,
     backgroundColor: currentTheme.palette.background[8],
   },

@@ -36,8 +36,8 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
         onClick={handleDeleteCoverImage}
         sx={{
           zIndex: 1,
-          opacity: displayCoverImageUploadButton ? 1 : 0,
-          backgroundColor: 'rgba(0,0,0,0.6)',
+          backgroundColor: 'background.1',
+          opacity: displayCoverImageUploadButton ? 0.8 : 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

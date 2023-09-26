@@ -14,7 +14,9 @@ export default function NodeInput({ treeNodeId, onChange, onBlur }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const titleLength = title ? title.length : 0;
-  const { backgroundColor, color, hasBg } = useNodeButtonColors(treeNodeId);
+  const {
+    backgroundColor, color, hasBg, outlineColor,
+  } = useNodeButtonColors(treeNodeId);
   const { onNodeClick } = useNodeTreeEvents(treeNodeId);
 
   useEffect(() => ref.current.focus(), []);
@@ -24,6 +26,8 @@ export default function NodeInput({ treeNodeId, onChange, onBlur }) {
     <div
       className={`NodeButton ${hasBg && 'selected'}`}
       style={{
+        border: '1px solid',
+        borderColor: outlineColor,
         backgroundColor,
         height: NODE_BUTTON_HEIGHT,
         color,

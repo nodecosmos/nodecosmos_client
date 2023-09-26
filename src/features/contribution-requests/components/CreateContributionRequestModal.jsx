@@ -15,7 +15,7 @@ import {
   DialogContent,
 } from '@mui/material';
 /* nodecosmos */
-import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/CloseModalButton';

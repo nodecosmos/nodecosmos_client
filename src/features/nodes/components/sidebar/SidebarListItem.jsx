@@ -11,25 +11,8 @@ export default function SidebarListItem({
   to, icon, title, flip, component, onClick, children, disabled, end, selected,
 }) {
   return (
-    <ListItem sx={{
-      px: 0,
-      py: 0,
-      ':not(:first-of-type)': {
-        pt: 1,
-      },
-    }}
-    >
+    <ListItem>
       <ListItemButton
-        sx={{
-          py: 1.5,
-          borderRadius: 1,
-          transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
-          color: 'background.list.defaultColor',
-          '&.active': {
-            backgroundColor: 'background.6',
-            color: 'background.list.activeColor',
-          },
-        }}
         disabled={disabled}
         disableRipple
         component={component}
@@ -39,18 +22,7 @@ export default function SidebarListItem({
         {...(component === NavLink && { end, relative: true })}
       >
         <ListItemIcon sx={{
-          minWidth: 0,
-          mr: 2,
-          color: 'background.list.defaultColor',
-          svg: {
-            fontSize: 18,
-            width: 18,
-            height: 18,
-            '.active &': {
-              color: 'background.list.activeColor',
-            },
-            transform: flip ? 'scaleX(-1)' : 'none',
-          },
+          transform: flip ? 'scaleX(-1)' : 'none',
         }}
         >
           {icon}

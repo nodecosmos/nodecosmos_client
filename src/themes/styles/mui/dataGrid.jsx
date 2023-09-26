@@ -32,6 +32,9 @@ export default (currentTheme) => ({
       },
       row: {
         color: currentTheme.palette.text.secondary,
+        '&:hover': {
+          backgroundColor: currentTheme.palette.background[5],
+        },
       },
       cell: {
         '&:focus': {

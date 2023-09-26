@@ -4,8 +4,7 @@ export default {
   shadows: {
     0: 'none',
     1: 0,
-    2: '3px 3px 1px -2px rgba(90,90,90,0.1), 2px 2px 2px 0px rgba(90,90,90,0.05), 1px 1px 5px 0px rgba(90,90,90,0.06)',
-    // 2: 0,
+    2: '3px 3px 1px -2px rgb(227, 223, 238,0.5), 2px 2px 2px 0px rgba(227, 223, 238,0.05), 1px 1px 5px 0px rgba(227, 223, 238,0.06)',
     3: 0,
     4: 0,
     5: 0,
@@ -15,7 +14,7 @@ export default {
 
     left: {
       1: 0,
-      2: '0px 3px 1px -2px rgba(90,90,90,0.1), -2px 2px 2px 0px rgba(90,90,90,0.05), -1px 1px 5px 0px rgba(90,90,90,0.06)',
+      2: 0,
     },
 
     right: {
@@ -29,7 +28,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
     buttons: {
-      1: '2px 2px 0px rgb(203 203 203)',
+      1: 0,
     },
   },
 
@@ -59,7 +58,7 @@ export default {
     },
 
     button: {
-      main: '#e6e6e6',
+      main: '#ffffff',
       contrastText: '#5d6265',
     },
 
@@ -69,22 +68,22 @@ export default {
     },
 
     borders: {
-      1: '#d1d5df',
-      2: '#d1d5df',
-      3: '#dfe3ec',
-      4: '#c7cfd5',
+      1: '#eeeeee',
+      2: '#eeeeee',
+      3: '#ecebf1',
+      4: '#eeeeee',
       5: '#9fadff',
     },
 
     background: {
       1: '#ffffff', // f8f9fa
-      2: '#f0f0ef', // f0f0ef ededed
-      3: '#fff',
-      4: '#f8f9fa',
-      5: '#f9f8f8',
-      6: '#e8e7e5',
-      7: '#ededed',
-      8: '#dcdcdc',
+      2: '#ffffff', // f0f0ef ededed
+      3: '#ffffff',
+      4: '#ffffff',
+      5: '#fcfbfe',
+      6: '#f3f3ff',
+      7: 'rgba(238,238,245,0.42)',
+      8: '#eeedf0',
 
       labels: {
         red: '#f56565',
@@ -94,11 +93,11 @@ export default {
       },
 
       list: {
-        default: '#b9babd', // #595b63
+        default: '#b9babd',
         activeColor: '#0a68ff',
       },
 
-      paper: '#ededed',
+      paper: '#fcfbfe',
       backdrop: 'rgba(0,0,0,0.76)',
     },
 
@@ -110,15 +109,15 @@ export default {
       pink: '#d53f8c',
       purple: '#b775ff',
       yellow: '#ffd000',
-      hover: '#ededed',
-      active: '#e9e9e9',
+      hover: '#f4f4f4',
+      active: '#f4f4f4',
       default: '#92a1a8',
       breadcrumbs: '#4a5568',
     },
 
     tree: {
-      default: '#e4e2e2',
-      defaultBorder: 'transparent',
+      default: '#f3f3ff',
+      defaultBorder: '#e0e0f0',
       backgrounds: [
         '#ff5866',
         '#bb8aff',
@@ -129,19 +128,18 @@ export default {
         '#d5ad00',
         '#f08d7f',
       ],
-      hashtag: '#777a7d',
-      defaultText: '#6c6c6c',
-      selectedText: '#fff',
+      hashtag: '#aaaac4',
+      defaultText: '#21212c',
+      selectedText: '#fefeff',
       checkboxColor: '#bbbbc7',
     },
 
     workflow: {
-      default: '#e4e2e2',
+      default: '#f3f3ff',
       input: '#cdd4ff',
       background: '#2d3139',
       selectedInputColor: '#80a4ff',
-      defaultInputColor: '#d5d8d6',
-      stepBorderColor: '#cdd4ff',
+      defaultInputColor: '#e0e0f0',
     },
 
     markdownContent: {
@@ -179,11 +177,11 @@ export default {
     },
 
     text: {
-      primary: '#464646',
-      secondary: '#717171',
-      tertiary: '#898988',
+      primary: '#3a383a',
+      secondary: '#504e50',
+      tertiary: '#504e50',
       disabled: '#5c616b',
-      contrast: '#5e5f5f',
+      contrast: '#5c616b',
       sectionPrimary: '#acdf83',
       sectionSecondary: '#cdd4eb',
       link: '#3ba0ff',
