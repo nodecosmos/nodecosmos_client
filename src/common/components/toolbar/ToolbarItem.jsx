@@ -34,7 +34,9 @@ export default function ToolbarItem({
         className={isActive ? 'active' : ''}
         sx={{
           color: 'toolbar.default',
-          '&:hover, &.active': { color },
+          '&:hover, &.active': {
+            color,
+          },
           svg: {
             transform: flipX ? 'scaleX(-1)' : 'scaleX(1)',
           },

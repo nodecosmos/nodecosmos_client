@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  faPenToSquare, faTrash, faRectangleCode, faCodeFork, faDisplay,
+  faPenToSquare, faTrash, faRectangleCode, faDisplay,
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -65,7 +65,6 @@ export default function IOPaneToolbar() {
       </ToolbarContainer>
 
       <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
-        {io.title && <FontAwesomeIcon icon={faCodeFork} />}
         <Typography
           align="center"
           variant="body1"

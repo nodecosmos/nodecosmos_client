@@ -6,45 +6,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CreateIOModal from '../../../input-outputs/components/CreateIOModal';
 import { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/inputOutputs.constants';
 
-export default function StartToolbar({ workflowId }) {
+export default function StartToolbar({ workflowId, startStepHovered }) {
   const [createIOModalOpen, setCreateIOModalOpen] = React.useState(false);
 
   return (
-    <Box
-      display="flex"
-      sx={{
-        ml: 1,
-        '.Item': {
-          width: 31,
-          height: 1,
-          mx: 0.5,
-          borderRadius: 1,
-          '&:hover': { backgroundColor: 'toolbar.hover' },
-        },
-        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
-      }}
-    >
-      <Tooltip title="Add Initial Input" placement="top">
-        <IconButton
-          className="Item"
-          aria-label="Add Initial Inputs"
-          sx={{ color: 'toolbar.red' }}
-          onClick={() => setCreateIOModalOpen(true)}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </IconButton>
-      </Tooltip>
-
+    <>
+      {startStepHovered && (
+      <Box
+        display="flex"
+        sx={{
+          ml: 1,
+          '.Item': {
+            width: 31,
+            height: 1,
+            mx: 0.5,
+            borderRadius: 1,
+            '&:hover': { backgroundColor: 'toolbar.hover' },
+          },
+          '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
+        }}
+      >
+        <Tooltip title="Add Initial Input" placement="top">
+          <IconButton
+            className="Item"
+            aria-label="Add Initial Inputs"
+            sx={{ color: 'toolbar.red' }}
+            onClick={() => setCreateIOModalOpen(true)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </IconButton>
+        </Tooltip>
+      </Box>
+      )}
       <CreateIOModal
         open={createIOModalOpen}
         onClose={() => setCreateIOModalOpen(false)}
         workflowId={workflowId}
         associatedObject={ASSOCIATED_OBJECT_TYPES.workflow}
       />
-    </Box>
+    </>
   );
 }
 
 StartToolbar.propTypes = {
   workflowId: PropTypes.string.isRequired,
+  startStepHovered: PropTypes.bool.isRequired,
 };

@@ -4,23 +4,19 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
-
-import AddRounded from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
-
-/* mui */
 import {
-  Button,
   InputAdornment,
   DialogContent,
 } from '@mui/material';
-/* nodecosmos */
-import { faCodeCommit } from '@fortawesome/pro-solid-svg-icons';
+import { faCodeCommit, faAdd } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { createWorkflow } from '../workflows.thunks';
-import CloseModalButton from '../../../common/components/CloseModalButton';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function CreateWorkflowModal({
   open, onClose, nodeId,
@@ -84,17 +80,7 @@ export default function CreateWorkflowModal({
                   ),
                 }}
               />
-              <Button
-                sx={{ mt: 3, float: 'right' }}
-                color="success"
-                variant="contained"
-                disableElevation
-                type="submit"
-                disabled={loading}
-                startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
-              >
-                Create
-              </Button>
+              <DefaultModalFormButton loading={loading} />
             </form>
           )}
         </Form>

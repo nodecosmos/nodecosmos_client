@@ -116,7 +116,7 @@ export default function StartStep({ workflowId }) {
             </div>
           </MemoizedButtonBase>
 
-          {hovered && (<StartToolbar workflowId={workflowId} />)}
+          <StartToolbar startStepHovered={hovered} workflowId={workflowId} />
         </div>
       </foreignObject>
       {

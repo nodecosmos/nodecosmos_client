@@ -9,7 +9,7 @@ import XHRUpload from '@uppy/xhr-upload';
 import { useDispatch } from 'react-redux';
 import nodecosmos from '../../../apis/nodecosmos-server';
 import { setAlert } from '../../../features/app/appSlice';
-import CloseModalButton from '../CloseModalButton';
+import CloseModalButton from '../modal/CloseModalButton';
 import UppyDashboardContainer from './UppyDashboardContainer';
 
 const uppy = new Uppy({

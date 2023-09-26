@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Box, Button, CardMedia } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/pro-regular-svg-icons';
+import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSelectedNode } from '../../nodes.selectors';

@@ -4,11 +4,14 @@ import AddRounded from '@mui/icons-material/AddRounded';
 import { Button, Typography, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd } from '@fortawesome/pro-light-svg-icons';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../workflows.selectors';
 import { setIsWfPaneOpen } from '../workflowsSlice';
+import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import CreateWorkflowModal from './CreateWorkflowModal';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
 
@@ -48,18 +51,11 @@ export default function WorkflowToolbar({ nodeId }) {
         }
         {
           !workflow.title && (
-            <Button
-              size="small"
-              color="button"
-              sx={{ border: 1, borderColor: 'borders.4' }}
-              variant="contained"
-              disableElevation
-              type="submit"
-              startIcon={<AddRounded sx={{ color: 'text.foreground' }} />}
+            <DefaultButton
+              title="Add Workflow"
+              startIcon={<FontAwesomeIcon icon={faAdd} />}
               onClick={() => setOpenCreateWorkflowDialog(true)}
-            >
-              Add Workflow
-            </Button>
+            />
           )
         }
       </Box>

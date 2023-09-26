@@ -11,7 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import PropTypes from 'prop-types';
 import XHRUpload from '@uppy/xhr-upload';
 import nodecosmos from '../../../apis/nodecosmos-server';
-import CloseModalButton from '../CloseModalButton';
+import CloseModalButton from '../modal/CloseModalButton';
 import UppyDashboardContainer from './UppyDashboardContainer';
 
 const uppy = new Uppy({

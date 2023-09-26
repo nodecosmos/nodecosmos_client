@@ -1,26 +1,21 @@
 /* eslint-disable react/jsx-props-no-spreading,react/jsx-no-duplicate-props */
 import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
-import AddRounded from '@mui/icons-material/AddRounded';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
-import {
-  Button,
-  InputAdornment,
-  DialogContent,
-} from '@mui/material';
+import { InputAdornment, DialogContent } from '@mui/material';
 import { useSelector } from 'react-redux';
-import CloseModalButton from '../../../common/components/CloseModalButton';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import FinalFormAutocompleteField from '../../../common/components/final-form/FinalFormAutocompleteField';
 import useIOSubmitHandler from '../hooks/useIOSubmitHandler';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { ASSOCIATED_OBJECT_TYPES } from '../inputOutputs.constants';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function CreateIOModal({
   open, onClose, workflowId, associatedObject, flowStepId, flowStepOutputNodeId,
@@ -84,17 +79,8 @@ export default function CreateIOModal({
                 placeholder="IO Title"
                 setAutocompleteValue={setAutocompleteValue}
               />
-              <Button
-                sx={{ mt: 3, float: 'right' }}
-                color="success"
-                variant="contained"
-                disableElevation
-                type="submit"
-                disabled={loading}
-                startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
-              >
-                Create
-              </Button>
+
+              <DefaultModalFormButton loading={loading} />
             </form>
           )}
         </Form>

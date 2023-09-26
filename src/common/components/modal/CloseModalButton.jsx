@@ -22,9 +22,11 @@ export default function CloseModalButton({ onClose }) {
         width: 30,
         height: 30,
         p: 0,
+        border: 1,
+        borderColor: 'borders.4',
         svg: {
           color: 'button.contrastText',
-          fontSize: 18,
+          fontSize: 14,
         },
       }}
     >

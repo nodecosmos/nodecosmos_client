@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
 import {
-  Box, DialogContent, Typography, Dialog, DialogTitle, IconButton, Button,
+  Box, DialogContent, Typography, Dialog, DialogTitle, IconButton,
 } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import CircularProgress from '@mui/material/CircularProgress';
-import AddRounded from '@mui/icons-material/AddRounded';
+import { faSave } from '@fortawesome/pro-light-svg-icons';
 import { setAlert } from '../../app/appSlice';
 import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
 /* nodecosmos */
@@ -20,6 +19,7 @@ import TreeContainer from '../../trees/components/TreeContainer';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectFlowStepAttribute } from '../flowSteps.selectors';
 import { selectNodeAttribute, selectNodesById } from '../../nodes/nodes.selectors';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 // Dumb implementation of import feature
 export default function FlowStepModal({
@@ -119,18 +119,12 @@ export default function FlowStepModal({
               </Box>
             </TreeContainer>
           </Box>
-          <Button
-            sx={{ mt: 2, float: 'right' }}
-            color="success"
-            variant="contained"
-            disableElevation
-            onClick={onSubmit}
-            disabled={loading}
-            startIcon={loading
-              ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
-          >
-            Save
-          </Button>
+          <DefaultModalFormButton
+            loading={loading}
+            startIcon={faSave}
+            title="Save"
+            onSubmit={onSubmit}
+          />
         </Box>
       </DialogContent>
     </Dialog>

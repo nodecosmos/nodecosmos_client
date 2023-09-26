@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-
-import AddRounded from '@mui/icons-material/AddRounded';
+import { faAdd } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { HEADER_HEIGHT } from '../../app/constants';
+import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import CreateContributionRequestModal from './CreateContributionRequestModal';
 import ContributionRequestSearchInput from './ContributionRequestSearchInput';
 
@@ -22,21 +23,13 @@ export default function ContributionRequestsIndexToolbar({ nodeId }) {
         borderBottom={1}
         borderColor="borders.1"
         zIndex={3}
+        pl={2}
       >
-        <Button
-          size="small"
-          color="button"
-          sx={{
-            ml: 2, border: 1, borderColor: 'borders.4',
-          }}
-          variant="contained"
-          disableElevation
-          type="submit"
-          startIcon={<AddRounded sx={{ color: 'text.foreground' }} />}
+        <DefaultButton
+          title="Add Contribution Request"
+          startIcon={<FontAwesomeIcon icon={faAdd} />}
           onClick={() => setOpenCreateWorkflowDialog(true)}
-        >
-          Add Contribution Request
-        </Button>
+        />
 
         <ContributionRequestSearchInput />
       </Box>

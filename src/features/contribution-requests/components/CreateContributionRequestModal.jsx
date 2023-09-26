@@ -18,8 +18,9 @@ import {
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import CloseModalButton from '../../../common/components/CloseModalButton';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { createContributionRequest } from '../contributionRequests.thunks';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function CreateContributionRequestModal({
   open, onClose, nodeId,
@@ -81,17 +82,7 @@ export default function CreateContributionRequestModal({
                   ),
                 }}
               />
-              <Button
-                sx={{ mt: 3, float: 'right' }}
-                color="success"
-                variant="contained"
-                disableElevation
-                type="submit"
-                disabled={loading}
-                startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
-              >
-                Create
-              </Button>
+              <DefaultModalFormButton loading={loading} />
             </form>
           )}
         </Form>

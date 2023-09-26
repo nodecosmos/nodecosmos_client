@@ -1,23 +1,18 @@
 import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
-import AddRounded from '@mui/icons-material/AddRounded';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Button,
-  InputAdornment,
-  DialogContent,
-} from '@mui/material';
+import { InputAdornment, DialogContent } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { selectFlowAttribute } from '../flows.selectors';
 import { createFlow, updateFlowTitle } from '../flows.thunks';
-import CloseModalButton from '../../../common/components/CloseModalButton';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function FlowModal({
   open, onClose, workflowId, startIndex, id,
@@ -44,7 +39,7 @@ export default function FlowModal({
       await dispatch(createFlow(payload));
     }
 
-    setLoading(false);
+    setTimeout(() => setLoading(false), 500);
     onClose();
   };
 
@@ -81,17 +76,7 @@ export default function FlowModal({
                   ),
                 }}
               />
-              <Button
-                sx={{ mt: 3, float: 'right' }}
-                color="success"
-                variant="contained"
-                disableElevation
-                type="submit"
-                disabled={loading}
-                startIcon={loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} /> : <AddRounded />}
-              >
-                Save
-              </Button>
+              <DefaultModalFormButton loading={loading} />
             </form>
           )}
         </Form>

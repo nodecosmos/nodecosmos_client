@@ -109,9 +109,9 @@ export default {
       pink: '#d53f8c',
       purple: '#b775ff',
       yellow: '#ffd000',
-      hover: '#f4f4f4',
-      active: '#f4f4f4',
-      default: '#92a1a8',
+      hover: '#eff2fb',
+      active: '#eff2fb',
+      default: '#68757d',
       breadcrumbs: '#4a5568',
     },
 

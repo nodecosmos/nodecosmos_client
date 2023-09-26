@@ -73,7 +73,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
             onKeyUp={(event) => event.preventDefault()}
             style={{
               background: backgroundColor,
-              border: `2px solid ${outlineColor}`,
+              border: `1px solid ${outlineColor}`,
               color,
             }}
           >
