@@ -37,7 +37,7 @@ export default function NodePaneToolbar() {
       height={HEADER_HEIGHT}
       borderBottom={1}
       borderColor="borders.2"
-      boxShadow={hasBoxShadow ? 'left.2' : 0}
+      boxShadow={hasBoxShadow ? '2' : 0}
     >
       <ToolbarContainer>
         <ToolbarItem

@@ -14,7 +14,7 @@ export default {
 
     left: {
       1: 0,
-      2: 0,
+      2: '0 3px 6px 0 rgba(200, 196, 211, 0.25), 0 3px 9px 3px rgba(200, 196, 211, 0.125), 0 6px 18px 6px rgba(200, 196, 211, 0.0775)',
     },
 
     right: {

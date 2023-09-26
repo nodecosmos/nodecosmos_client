@@ -54,7 +54,7 @@ export default function NodePane() {
   let blankStateMessage = null;
 
   if (!id) {
-    blankStateMessage = 'Select a node from the tree to view its description';
+    blankStateMessage = 'Select a node from the tree to get details.';
   } else if (isTemp) {
     blankStateMessage = 'Selected node is not initialized yet.';
 
