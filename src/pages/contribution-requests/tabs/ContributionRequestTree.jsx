@@ -7,7 +7,7 @@ import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
 import TreeContainer from '../../../features/trees/components/TreeContainer';
 import Tree from '../../../features/trees/components/Tree';
-import TreeToolbar from '../../../features/trees/components/TreeToolbar';
+import TreeShowToolbar from '../../../features/trees/components/TreeShowToolbar';
 import OverlayLoader from '../../../common/components/OverlayLoader';
 import { selectIsTreeLoading } from '../../../features/trees/trees.selectors';
 import Alert from '../../../common/components/Alert';
@@ -66,7 +66,7 @@ export default function ContributionRequestTree() {
         display="flex"
       >
         <TreeContainer>
-          <TreeToolbar rootNodeId={id} />
+          <TreeShowToolbar rootNodeId={id} />
           <Alert />
           <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
             {isTreeLoading && <OverlayLoader />}

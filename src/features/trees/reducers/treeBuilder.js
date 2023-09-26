@@ -10,7 +10,9 @@ export default {
   buildTreeFromRootNode(state, action) {
     const { rootId, childIdsByParentId, type } = action.payload;
 
-    // initialize state for root node
+    // We don't rebuild the tree as we want to preserve the state of the tree when we add new nodes.
+    // If we rebuild the tree, we loose the state of the nodes (expanded nodes, selected nodes, etc.)
+    // We might want to rethink this approach in the future.
     state.byRootNodeId[rootId] ||= {};
     state.orderedTreeNodeIdsByRootNodeId[rootId] = [];
 

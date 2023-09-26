@@ -12,7 +12,7 @@ import { setAlert } from '../../app/appSlice';
 import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
 /* nodecosmos */
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
-import TreeToolbar from '../../trees/components/TreeToolbar';
+import TreeShowToolbar from '../../trees/components/TreeShowToolbar';
 import Alert from '../../../common/components/Alert';
 import { HEADER_HEIGHT } from '../../app/constants';
 import Tree from '../../trees/components/Tree';
@@ -107,7 +107,7 @@ export default function FlowStepModal({
         <Box mt={2} height="calc(100% - 75px)">
           <Box height={1} sx={{ mx: -3, borderBottom: 1, borderColor: 'borders.4' }}>
             <TreeContainer>
-              <TreeToolbar rootNodeId={nodeId} />
+              <TreeShowToolbar rootNodeId={nodeId} />
               <Alert />
               <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                 <Tree

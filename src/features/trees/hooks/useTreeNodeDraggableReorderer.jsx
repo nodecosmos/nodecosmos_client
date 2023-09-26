@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearDragAndDrop, setDragAndDrop, setTreeLoading } from '../treesSlice';
 import { selectDragAndDrop } from '../trees.selectors';
@@ -10,7 +10,7 @@ import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 const REORDER_DESCENDANT_LIMIT = 1000;
 
-export default function useTreeNodeDraggable() {
+export default function useTreeNodeDraggableReorderer() {
   const dispatch = useDispatch();
 
   const { nodeId, rootId } = useSelector(selectDragAndDrop);
@@ -42,7 +42,19 @@ export default function useTreeNodeDraggable() {
     dispatch(clearDragAndDrop());
   }, [dispatch]);
 
+  const [reorderInProgress, setReorderInProgress] = useState(false);
+
   const onDropCapture = useCallback(async ({ newParentId, newSiblingIndex }) => {
+    if (reorderInProgress) {
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'warning',
+        message: 'Another reorder in progress. Please wait!',
+      }));
+
+      return;
+    }
+
     if (descendantIds.length > REORDER_DESCENDANT_LIMIT) {
       dispatch(setAlert({
         isOpen: true,
@@ -50,6 +62,7 @@ export default function useTreeNodeDraggable() {
         message: `Reorder is not allowed for nodes with more than ${REORDER_DESCENDANT_LIMIT} descendants`,
       }));
 
+      setReorderInProgress(false);
       dispatch(clearDragAndDrop());
       return;
     }
@@ -63,14 +76,17 @@ export default function useTreeNodeDraggable() {
         throw response.error;
       }
 
-      dispatch(setTreeLoading(false));
-      dispatch(reorderNodes({
+      await dispatch(reorderNodes({
         nodeId,
         newParentId,
         newSiblingIndex,
       }));
 
+      console.log('hit reorder over');
+
+      dispatch(setTreeLoading(false));
       dispatch(clearDragAndDrop());
+      setReorderInProgress(false);
     } catch (e) {
       let message;
 
@@ -85,8 +101,9 @@ export default function useTreeNodeDraggable() {
 
       dispatch(setAlert({ isOpen: true, severity: 'error', message }));
       dispatch(setTreeLoading(false));
+      setReorderInProgress(false);
     }
-  }, [dispatch, descendantIds, nodeId, rootId]);
+  }, [reorderInProgress, descendantIds?.length, dispatch, rootId, nodeId]);
 
   return {
     onDragStart,

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material';
 import { selectDragAndDrop, selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
-import useTreeNodeDraggable from '../hooks/useTreeNodeDraggable';
+import useTreeNodeDraggableReorderer from '../hooks/useTreeNodeDraggableReorderer';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { useTreeRootNodeId } from '../hooks/useTreeContext';
 
@@ -21,7 +21,7 @@ export default function DraggableNodePoint({ treeNodeId, siblingIndex }) {
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
 
-  const { onDropCapture } = useTreeNodeDraggable();
+  const { onDropCapture } = useTreeNodeDraggableReorderer();
 
   const [hovered, setHovered] = useState(false);
 

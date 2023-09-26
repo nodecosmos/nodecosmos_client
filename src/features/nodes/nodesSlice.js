@@ -101,6 +101,10 @@ const nodesSlice = createSlice({
      */
     indexNodesById: {},
 
+    /**
+     * @description
+     * Currently used to prevent addon of new nodes while node creation is in progress.
+     */
     nodeCreationInProgress: false,
   },
   reducers: {

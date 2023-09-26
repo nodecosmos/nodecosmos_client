@@ -7,7 +7,7 @@ import useNodeButtonColors from '../../hooks/useNodeButtonColors';
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import { selectDragAndDropAttributes, selectTreeNodeAttribute } from '../../trees.selectors';
-import useTreeNodeDraggable from '../../hooks/useTreeNodeDraggable';
+import useTreeNodeDraggableReorderer from '../../hooks/useTreeNodeDraggableReorderer';
 import NodeSymbol from './NodeSymbol';
 
 const MemoizedButtonBase = memo(ButtonBase);
@@ -32,7 +32,7 @@ export default function NodeButton(props) {
     hasBg,
     outlinedColored,
   } = useNodeButtonColors(treeNodeId);
-  const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggable({});
+  const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggableReorderer({});
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragStart = useCallback((event) => {

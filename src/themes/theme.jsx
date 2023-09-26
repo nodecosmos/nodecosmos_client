@@ -136,9 +136,12 @@ const getTheme = (currentTheme) => createTheme({
           },
           '.MuiListItemButton-root': {
             transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
-            borderRadius: 4,
+            borderRadius: 8,
             padding: '12px 16px',
             color: currentTheme.palette.background.list.defaultColor,
+            '.MuiTypography-root': {
+              fontWeight: 700,
+            },
           },
           '&:hover': {
             '.MuiListItemButton-root': {

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField, Box } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
+import PropTypes from 'prop-types';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { searchNode } from '../../nodes/nodesSlice';
 
-export default function TreeToolbar({ rootNodeId }) {
+export default function TreeShowToolbar({ rootNodeId }) {
   const dispatch = useDispatch();
 
   useEffect(() => () => {
@@ -60,15 +60,17 @@ export default function TreeToolbar({ rootNodeId }) {
         color="primary"
         variant="outlined"
         placeholder="Search"
-        onChange={(event) => dispatch(searchNode({
-          rootId: rootNodeId,
-          value: event.target.value,
-        }))}
+        onChange={(event) => {
+          dispatch(searchNode({
+            rootId: rootNodeId,
+            value: event.target.value,
+          }));
+        }}
       />
     </Box>
   );
 }
 
-TreeToolbar.propTypes = {
+TreeShowToolbar.propTypes = {
   rootNodeId: PropTypes.string.isRequired,
 };

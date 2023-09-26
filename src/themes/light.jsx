@@ -93,7 +93,7 @@ export default {
       },
 
       list: {
-        default: '#b9babd',
+        defaultColor: '#525264',
         activeColor: '#0a68ff',
       },
 
