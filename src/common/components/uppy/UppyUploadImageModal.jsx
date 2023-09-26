@@ -67,7 +67,7 @@ export default function UppyUploadImageModal({
     if (imageEditor) {
       imageEditor.setOptions({
         cropperOptions: {
-          viewMode: 2,
+          viewMode: 3,
           aspectRatio,
           rotatable: false,
         },

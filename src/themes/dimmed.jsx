@@ -59,7 +59,7 @@ export default {
     },
 
     button: {
-      main: '#3d4652',
+      main: '#434a55',
       contrastText: '#a5b4be',
     },
 
@@ -72,7 +72,7 @@ export default {
       1: '#43464d',
       2: '#454b53', // 454b53 3c4149
       3: '#484d55',
-      4: '#545760',
+      4: '#595c65',
       5: '#6a707e',
     },
 

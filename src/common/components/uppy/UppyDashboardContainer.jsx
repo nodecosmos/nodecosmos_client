@@ -21,6 +21,7 @@ export default function UppyDashboardContainer({ children }) {
       },
       '.uppy-DashboardContent-bar': {
         backgroundColor: 'transparent!important',
+        p: '0!important',
       },
       '.uppy-Dashboard-AddFiles': {
         border: `1px dashed ${theme.palette.borders['4']}!important`,
@@ -40,6 +41,16 @@ export default function UppyDashboardContainer({ children }) {
         border: `1px solid ${theme.palette.borders['4']}!important`,
         borderRadius: 1,
         backgroundColor: 'button.main',
+      },
+      '.uppy-DashboardContent-back, .uppy-DashboardContent-save': {
+        marginLeft: '0!important',
+        border: 1,
+        borderColor: 'borders.4',
+        width: '75px',
+        color: `${theme.palette.button.contrastText}!important`,
+        padding: '10px 16px',
+        borderRadius: 1,
+
       },
       '.cropper-modal': {
         backgroundColor: '#ffffff5c',

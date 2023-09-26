@@ -107,7 +107,7 @@ const getTheme = (currentTheme) => createTheme({
         paper: {
           borderRadius: 10,
           boxShadow: currentTheme.shadows[1],
-          border: `1px solid ${currentTheme.palette.borders[4]}`,
+          border: `1px solid ${currentTheme.palette.borders[3]}`,
         },
       },
     },
@@ -136,7 +136,7 @@ const getTheme = (currentTheme) => createTheme({
           },
           '.MuiListItemButton-root': {
             transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
-            borderRadius: 8,
+            borderRadius: 4,
             padding: '12px 16px',
             color: currentTheme.palette.background.list.defaultColor,
             '.MuiTypography-root': {
@@ -145,7 +145,7 @@ const getTheme = (currentTheme) => createTheme({
           },
           '&:hover': {
             '.MuiListItemButton-root': {
-              backgroundColor: currentTheme.palette.background[6],
+              // backgroundColor: currentTheme.palette.background[2],
             },
           },
           '.active': {
