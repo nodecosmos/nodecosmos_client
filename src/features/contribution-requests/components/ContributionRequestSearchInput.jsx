@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { InputAdornment, TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../contributionRequestsSlice';
 
@@ -25,11 +25,12 @@ export default function ContributionRequestSearchInput() {
           color: 'toolbar.default',
         },
         '.MuiInputBase-root': {
+          borderColor: 'transparent',
+          height: 32,
           borderRadius: 1,
-          height: 1,
+          pl: 0.5,
         },
         '.MuiOutlinedInput-notchedOutline': {
-          backgroundColor: 'transparent',
           '&, &:hover, &:focus': {},
         },
       }}
