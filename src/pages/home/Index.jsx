@@ -144,16 +144,7 @@ export default function Index() {
               className="MicroButton"
               displa="inline-flex"
             >
-              <img
-                src="logo_dark.svg"
-                alt="logo"
-                height={22}
-                width={22}
-                style={{
-                  animation: 'rotate 0.9s',
-                }}
-              />
-              <Typography sx={{ fontSize: 18, ml: 1 }} fontWeight="bold">
+              <Typography fontWeight="bold">
                 <Box component="span" color="logo.blue">node</Box>
                 <Box component="span" color="logo.red">cosmos</Box>
               </Typography>

@@ -58,14 +58,7 @@ export default function Header() {
             to="/nodes"
             className="MicroButton"
           >
-            <img src={logo} alt="logo" height={22} width={22} />
-            <Typography
-              sx={{
-                fontSize: 18,
-                ml: 1,
-              }}
-              fontWeight="bold"
-            >
+            <Typography fontWeight="bold">
               <Box component="span" color="logo.blue">node</Box>
               <Box component="span" color="logo.red">cosmos</Box>
             </Typography>
