@@ -39,7 +39,7 @@ export default function Authentication() {
       <Box sx={{ height: 600, width: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img src="/logo_dark.svg" alt="logo" height={50} width={50} />
-          <Typography sx={{ fontSize: 50, ml: 2 }} fontWeight="bold">
+          <Typography sx={{ fontSize: 50, ml: 1 }} fontWeight="bold">
             <Box component="span" color="logo.blue">node</Box>
             <Box component="span" color="logo.red">cosmos</Box>
           </Typography>
