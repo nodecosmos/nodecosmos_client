@@ -20,21 +20,33 @@ export default function Transformable({
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
-  setTimeout(() => {
-    const gRefHeight = gRef.current?.getBBox().height || 0;
-    const gRefWidth = gRef.current?.getBBox().width || 0;
+  useEffect(() => {
+    const handleResize = () => {
+      const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
+      const clientHeight = containerRef.current?.clientHeight || 0;
+      const height = Math.max(svgHeight, clientHeight - 8);
 
-    const svgHeight = gRefHeight + heightMargin;
-    const clientHeight = containerRef.current?.clientHeight || 0;
-    const height = Math.max(svgHeight, clientHeight - 8);
+      const newWidth = (gRef.current && gRef.current.getBBox().width
+        + TRANSFORMABLE_WIDTH_MARGIN);
+      const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
-    const newWidth = gRefWidth + TRANSFORMABLE_WIDTH_MARGIN;
-    const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
+      if (height !== dimensions.height || width !== dimensions.width) {
+        setDimensions({ height, width });
+      }
+    };
 
-    if (height !== dimensions.height || width !== dimensions.width) {
-      setDimensions({ height, width });
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (gRef.current) {
+      resizeObserver.observe(gRef.current);
     }
-  }, 250);
+
+    return () => {
+      if (resizeObserver && gRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        resizeObserver.unobserve(gRef.current);
+      }
+    };
+  }, [dimensions.height, dimensions.width, heightMargin]);
 
   //------------------------------------------------------------------------------------------------
   const { onMouseDown } = usePannable(containerRef);
@@ -45,6 +57,7 @@ export default function Transformable({
       dispatch(setTransformablePositions({
         id: transformableId,
         scrollTop: containerRef.current.scrollTop,
+        scrollLeft: containerRef.current.scrollLeft,
       }));
     });
   };
@@ -54,16 +67,16 @@ export default function Transformable({
       dispatch(setTransformablePositions({
         id: transformableId,
         clientHeight: containerRef.current.clientHeight,
+        clientWidth: containerRef.current.clientWidth,
         scrollTop: containerRef.current.scrollTop,
+        scrollLeft: containerRef.current.scrollLeft,
       }));
     }
   }, [dispatch, transformableId]);
 
   // used by breadcrumbs
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = scrollTop;
-    }
+    if (containerRef.current) { containerRef.current.scrollTop = scrollTop; }
   }, [scrollTop]);
 
   const resizeTimeout = useRef(null);
@@ -80,6 +93,7 @@ export default function Transformable({
         dispatch(setTransformablePositions({
           id: transformableId,
           clientHeight: containerRef.current.clientHeight,
+          clientWidth: containerRef.current.clientWidth,
         }));
       }, 100);
     };

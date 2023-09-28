@@ -140,7 +140,7 @@ const getTheme = (currentTheme) => createTheme({
             padding: '12px 16px',
             color: currentTheme.palette.background.list.defaultColor,
             '.MuiTypography-root': {
-              fontWeight: 700,
+              fontWeight: 500,
             },
           },
           '&:hover': {

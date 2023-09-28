@@ -12,7 +12,7 @@ export default function useIsInsideViewport(rootId) {
   return useCallback((treeNodeId) => {
     const { y } = positionsById[treeNodeId] || {};
 
-    return y > scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR - 1
+    return y > scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR
       && y < scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR;
   }, [clientHeight, positionsById, scrollTop]);
 }

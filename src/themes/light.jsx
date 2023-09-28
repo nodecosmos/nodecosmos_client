@@ -116,7 +116,7 @@ export default {
     },
 
     tree: {
-      default: '#f3f3ff',
+      default: '#f0f2f5',
       defaultBorder: '#e0e0f0',
       backgrounds: [
         '#ff5866',
@@ -135,7 +135,7 @@ export default {
     },
 
     workflow: {
-      default: '#f3f3ff',
+      default: '#f0f2f5',
       input: '#cdd4ff',
       background: '#2d3139',
       selectedInputColor: '#80a4ff',
