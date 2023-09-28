@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NODE_PANE_CONTENTS } from './nodes.constants';
 import getNodeDescriptionFulfilled from './reducers/extra/getNodeDescription.fulfilled';
 /* reducers */
-import nodeChildBuilder from './reducers/nodeChildBuilder';
+import nodeChildBuilder from './reducers/tmpNodeChildBuilder';
 import nodeDeleter from './reducers/nodeDeleter';
 import nodeUpdater from './reducers/nodeUpdater';
 import nodeSelectionSetter from './reducers/nodeSelectionSetter';
@@ -10,6 +10,7 @@ import nodePaneContentSetter from './reducers/nodePaneContentSetter';
 import nodeSearcher from './reducers/nodeSearcher';
 import nodeImporter from './reducers/nodeImporter';
 import tmpNodeReplacer from './reducers/tmpNodeReplacer';
+import tmpNodeCleaner from './reducers/tmpNodeCleaner';
 
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
@@ -117,6 +118,7 @@ const nodesSlice = createSlice({
     importNode: nodeImporter.importNode,
     reorderNodes: nodeReorderer.reorderNodes,
     replaceTmpNodeWithPersistedNode: tmpNodeReplacer.replaceTmpNodeWithPersistedNode,
+    clearTmpNode: tmpNodeCleaner.clearTmpNode,
     setNodeCreationInProgress: (state, action) => {
       state.nodeCreationInProgress = action.payload;
     },
@@ -151,6 +153,7 @@ export const {
   importNode,
   replaceTmpNodeWithPersistedNode,
   setNodeCreationInProgress,
+  clearTmpNode,
 } = actions;
 
 export default reducer;

@@ -32,7 +32,7 @@ export default function NodeIndexSearch() {
   return (
     <TextField
       sx={{
-        ml: 2,
+        ml: 1.25,
         height: 1,
         width: '350px',
         svg: {

@@ -18,7 +18,7 @@ export default function ContributionRequestSearchInput() {
   return (
     <TextField
       sx={{
-        ml: 2,
+        ml: 1.25,
         height: 32,
         width: '350px',
         svg: {

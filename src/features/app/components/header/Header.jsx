@@ -7,7 +7,7 @@ import TreeShowHeader from '../../../nodes/components/TreeShowHeader';
 
 /* nodecosmos */
 import NodeIndexHeader from '../../../nodes/components/NodeIndexHeader';
-import { selectHeaderContent, selectTheme } from '../../app.selectors';
+import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
 import UserHeaderOptions from './UserHeaderOptions';
@@ -16,8 +16,6 @@ const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
 const SIDEBAR_PATHS = ['/nodes'];
 
 export default function Header() {
-  const selectedTheme = useSelector(selectTheme);
-
   const headerContents = {
     NodeIndexHeader: <NodeIndexHeader />,
     TreeShowHeader: <TreeShowHeader />,
@@ -29,8 +27,6 @@ export default function Header() {
   if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
   const hasSidebar = SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path));
-
-  const logo = selectedTheme === 'light' ? '/logo_light.svg' : '/logo_dark.svg';
 
   return (
     <Box height={HEADER_HEIGHT} width={1} position="relative" zIndex={4}>
@@ -74,7 +70,7 @@ export default function Header() {
           height={1}
         >
           <Box
-            pl={2}
+            pl={1.25}
             height={1}
             display="flex"
             alignItems="center"

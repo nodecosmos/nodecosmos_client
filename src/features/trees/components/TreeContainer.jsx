@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { NODE_BUTTON_HEIGHT } from '../trees.constants';
 
-export default function TreeContainer(props) {
+export default function TreeContainer({ children }) {
   return (
     <Box
       sx={{
@@ -62,7 +62,7 @@ export default function TreeContainer(props) {
         },
       }}
     >
-      {props.children}
+      {children}
     </Box>
   );
 }

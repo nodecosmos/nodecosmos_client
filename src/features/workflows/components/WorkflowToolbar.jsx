@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
-import AddRounded from '@mui/icons-material/AddRounded';
 import { Button, Typography, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,7 +27,7 @@ export default function WorkflowToolbar({ nodeId }) {
     <Box
       height={HEADER_HEIGHT}
       width={1}
-      pl={2}
+      pl={1.25}
       display="flex"
       alignItems="center"
       justifyContent="space-between"

@@ -23,7 +23,7 @@ export default function ContributionRequestsIndexToolbar({ nodeId }) {
         borderBottom={1}
         borderColor="borders.1"
         zIndex={3}
-        pl={2}
+        pl={1.25}
       >
         <DefaultButton
           title="Add Contribution Request"

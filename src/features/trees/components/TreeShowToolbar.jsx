@@ -29,10 +29,10 @@ export default function TreeShowToolbar({ rootNodeId }) {
       borderBottom={1}
       borderColor="borders.1"
       zIndex={3}
+      pl={1.25}
     >
       <TextField
         sx={{
-          ml: 2,
           height: 32,
           width: '350px',
           svg: {

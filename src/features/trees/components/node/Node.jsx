@@ -1,6 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import NestedNodesBranch from '../NestedNodesBranch';
+
 import NodeContent from './NodeContent';
 import NodeBranch from './NodeBranch';
 

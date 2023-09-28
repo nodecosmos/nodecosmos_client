@@ -18,44 +18,26 @@ import NcAvatar from '../../../../common/components/NcAvatar';
 export default function UserProfileOptions() {
   const [anchorEl, setAnchorEl] = React.useState(false);
   const open = Boolean(anchorEl);
-
   const currentUser = useSelector(selectCurrentUser);
   const theme = useSelector(selectTheme);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClick = (event) => { setAnchorEl(event.currentTarget); };
+  const handleClose = () => { setAnchorEl(null); };
   const dispatch = useDispatch();
-
   const { handleLogout } = useUserAuthentication();
+  const themesBySliderValue = {
+    0: 'dark',
+    1: 'dimmed',
+    2: 'light',
+  };
+  const valuesByTheme = {
+    dark: 0,
+    dimmed: 1,
+    light: 2,
+  };
 
   const toggleTheme = (_event, value) => {
-    const themesByValue = {
-      0: 'dark',
-      1: 'dimmed',
-      2: 'light',
-    };
-
-    dispatch(setTheme(themesByValue[value]));
+    dispatch(setTheme(themesBySliderValue[value]));
   };
-
-  const marks = [
-    {
-      value: 0,
-      label: 'dark',
-    },
-    {
-      value: 1,
-      label: 'dimmed',
-    },
-    {
-      value: 2,
-      label: 'light',
-    },
-  ];
 
   return (
     <>
@@ -106,14 +88,27 @@ export default function UserProfileOptions() {
           <Box width={150} mr={2} display="flex" alignItems="center">
             <Slider
               aria-label="Theme"
-              defaultValue={marks.findIndex((mark) => mark.label === theme)}
+              defaultValue={valuesByTheme[theme]}
               color="secondary"
               step={1}
               min={0}
               max={2}
               valueLabelDisplay="off"
               track={false}
-              marks={marks}
+              marks={[
+                {
+                  value: 0,
+                  label: 'dark',
+                },
+                {
+                  value: 1,
+                  label: 'Default',
+                },
+                {
+                  value: 2,
+                  label: 'light',
+                },
+              ]}
               onChange={(_, value) => toggleTheme(_, value)}
             />
           </Box>

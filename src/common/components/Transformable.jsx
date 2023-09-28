@@ -125,9 +125,7 @@ export default function Transformable({
             display: 'block',
           }}
         >
-          <g
-            ref={gRef}
-          >
+          <g ref={gRef}>
             {children}
           </g>
         </svg>

@@ -16,7 +16,7 @@ export default function ContributionRequestsShowToolbar() {
       height={HEADER_HEIGHT}
       borderBottom={1}
       borderColor="borders.2"
-      pl={2}
+      pl={1}
     >
       <ToolbarContainer
         hasText
