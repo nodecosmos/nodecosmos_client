@@ -1,33 +1,24 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { selectDragAndDrop, selectTreeNodeAttribute } from '../trees.selectors';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import { selectDragAndDrop } from '../trees.selectors';
+import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
 import DraggableNodePoint from './DraggableNodePoint';
 
-function DraggableNodePoints({ treeNodeId }) {
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
-
-  const treeChildIds = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeChildIds'));
-  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
+function DraggableNodePoints({ rootNodeId }) {
   const dragAndDrop = useSelector(selectDragAndDrop);
+  const treeNodeIdsToView = useTreeNodeVirtualizer(rootNodeId);
 
-  if (!isExpanded || !treeChildIds
-    || !dragAndDrop.isDragging
-    || dragAndDrop.nodeId === nodeId
-    || ancestorIds.indexOf(dragAndDrop.nodeId) >= 0
-  ) return null;
+  if (!dragAndDrop.isDragging) return null;
 
-  return (
-    treeChildIds.map((treeChildId, index) => (
-      <DraggableNodePoint treeNodeId={treeChildId} key={treeChildId} siblingIndex={index} />
-    ))
-  );
+  return treeNodeIdsToView.map(([treeNodeId, alreadyMounted], index) => {
+    if (index === 0) return null;
+    return <DraggableNodePoint treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />;
+  });
 }
 
 DraggableNodePoints.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
+  rootNodeId: PropTypes.string.isRequired,
 };
 
 export default DraggableNodePoints;

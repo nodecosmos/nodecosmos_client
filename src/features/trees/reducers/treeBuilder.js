@@ -10,93 +10,96 @@ export default {
   buildTreeFromRootNode(state, action) {
     const { rootId, childIdsByParentId, type } = action.payload;
 
-    // We don't rebuild the tree as we want to preserve the state of the tree when we add new nodes.
-    // If we rebuild the tree, we loose the state of the nodes (expanded nodes, selected nodes, etc.)
-    // We might want to rethink this approach in the future.
     state.byRootNodeId[rootId] ||= {};
     state.orderedTreeNodeIdsByRootNodeId[rootId] = [];
 
     if (!childIdsByParentId || !childIdsByParentId[rootId]) return;
 
-    // Recursively map nodes
-    const mapChildren = (
-      {
-        nodeId = rootId,
-        parentId = null,
-        treeParentId = null,
-        treeUpperSiblingId = null,
-        treeAncestorIds = [],
-        treeDescendantIds = [],
-        nestedLevel = 0,
-      },
-    ) => {
-      const isRoot = nodeId === rootId;
-      const treeNodeId = isRoot ? nodeId : `${rootId}->${treeParentId || parentId}->${nodeId}`;
-      const currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
+    const stack = [{
+      nodeId: rootId,
+      treeNodeId: rootId,
+      parentId: null,
+      treeParentId: null,
+      treeUpperSiblingId: null,
+      treeAncestorIds: [],
+      treeSiblingIndex: 0,
+      nestedLevel: 0,
+    }];
 
-      let { isExpanded } = currentTreeNode;
-      const { isSelected } = currentTreeNode;
-      const isNewlyCreated = state.currentTempNodeId === nodeId;
-
-      // TODO: this is good for now, but we will need to add logic to append selection to url
-      isExpanded ||= isRoot || type === TREES_TYPES.checkbox || state.expandedNodeIds.includes(nodeId);
-
-      // populate root's orderedTreeNodeIds with constructed id
-      state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);
+    while (stack.length > 0) {
+      const {
+        nodeId,
+        treeNodeId,
+        parentId,
+        treeParentId,
+        treeUpperSiblingId,
+        treeAncestorIds,
+        treeSiblingIndex,
+        nestedLevel,
+      } = stack.pop();
 
       const childIds = childIdsByParentId[nodeId];
+
+      const isRoot = nodeId === rootId;
+      const isNewlyCreated = state.currentTempNodeId === nodeId;
+
+      state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);
 
       const isParentExpanded = isRoot || state.byRootNodeId[rootId][treeParentId].isExpanded;
       const isParentMounted = isRoot || state.byRootNodeId[rootId][treeParentId].isMounted;
 
-      // initialize state for current node
-      state.byRootNodeId[rootId][treeNodeId] = {
+      let currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
+      currentTreeNode = {
         treeNodeId,
         treeParentId,
         treeUpperSiblingId,
         treeAncestorIds,
-        treeChildIds: [], // it will be populated on children iteration
-        treeDescendantIds: [], // it will be populated on children iteration
-        treeLastChildId: childIds.length > 0 ? `${rootId}->${treeNodeId}->${childIds[childIds.length - 1]}` : null,
-        nodeId, // nodesSlice node id (not tree node id)
+        treeSiblingIndex,
+        treeChildIds: new Array(childIds.length),
+        treeDescendantIds: [],
+        treeLastChildId: null,
+        nodeId,
         rootId,
         isRoot,
         isMounted: isRoot || isNewlyCreated || (isParentExpanded && isParentMounted),
-        isExpanded: !!isExpanded,
-        isSelected: !!isSelected,
+        isExpanded: currentTreeNode.isExpanded
+          || isRoot
+          || type === TREES_TYPES.checkbox
+          || state.expandedNodeIds.includes(nodeId),
         isEditing: isNewlyCreated || false,
         isNewlyCreated,
         nestedLevel,
       };
 
-      // populate parent's childIds & parent's treeDescendantIds with constructed id
-      if (treeParentId) {
-        state.byRootNodeId[rootId][treeParentId].treeChildIds.push(treeNodeId);
-        treeDescendantIds.push(treeNodeId);
-      }
+      // reversely push children to stack so that we can pop them in order
+      // and have them in correct order in the tree
+      for (let i = childIds.length - 1; i >= 0; i -= 1) {
+        const childTreeNodeId = `${rootId}->${nodeId}->${childIds[i]}`;
 
-      // recursively map children
-      childIds.forEach((childId, index) => {
-        const currentTreeUpperSiblingId = index > 0 ? `${rootId}->${treeNodeId}->${childIds[index - 1]}` : null;
+        currentTreeNode.treeChildIds[i] = childTreeNodeId;
 
-        mapChildren({
-          nodeId: childId,
+        if (i === childIds.length - 1) {
+          currentTreeNode.treeLastChildId = childTreeNodeId;
+        }
+
+        stack.push({
+          nodeId: childIds[i],
+          treeNodeId: childTreeNodeId,
           parentId: nodeId,
           treeParentId: treeNodeId,
-          treeUpperSiblingId: currentTreeUpperSiblingId,
+          treeUpperSiblingId: i > 0 ? `${rootId}->${nodeId}->${childIds[i - 1]}` : null,
           treeAncestorIds: [...treeAncestorIds, treeNodeId],
-          treeDescendantIds: state.byRootNodeId[rootId][treeNodeId].treeDescendantIds,
           nestedLevel: nestedLevel + 1,
+          treeSiblingIndex: i,
         });
-      });
-
-      // further populate parent's treeDescendantIds with current node's treeDescendantIds
-      // after all children have been mapped
-      if (treeDescendantIds) {
-        treeDescendantIds.push(...state.byRootNodeId[rootId][treeNodeId].treeDescendantIds);
       }
-    };
 
-    mapChildren({});
+      state.byRootNodeId[rootId][treeNodeId] = currentTreeNode;
+
+      // update treeDescendantIds for all ancestors
+      treeAncestorIds.forEach((ancestorId) => {
+        state.byRootNodeId[rootId][ancestorId].treeDescendantIds.push(treeNodeId);
+      });
+    }
   },
 };

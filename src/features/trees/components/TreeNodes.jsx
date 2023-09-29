@@ -40,11 +40,7 @@ export default function TreeNodes({
           />
         ))}
       </g>
-      <g>
-        {treeNodeIdsToView.map(([treeNodeId]) => (
-          <DraggableNodePoints key={treeNodeId} treeNodeId={treeNodeId} />
-        ))}
-      </g>
+      <DraggableNodePoints rootNodeId={rootNodeId} />
     </g>
 
   );

@@ -8,12 +8,11 @@ export default {
    */
   setSelectedNode(state, action) {
     const id = action.payload;
+    const currentSelectedNode = state.byId[state.selectedNodeId];
+
+    if (state.selectedNodeId && currentSelectedNode) currentSelectedNode.isSelected = false;
+
     state.selectedNodeId = id;
-
-    // deselect all nodes
-    Object.values(state.byId).forEach((node) => { node.isSelected = false; });
-
-    // select node
     if (id) state.byId[id].isSelected = !!id;
   },
 };
