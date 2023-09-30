@@ -18,6 +18,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
   const selectedSiblingIndex = useSelector(selectTreeNodeAttribute(dragAndDrop.treeNodeId, 'treeSiblingIndex'));
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
+  const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
 
   const { onDropCapture } = useTreeNodeDraggableReorderer();
 
@@ -37,6 +38,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
     || dragAndDrop.treeNodeId === treeNodeId
     || isTemp
     || (isSameParent && selectedSiblingIndex === siblingIndex - 1)
+    || ancestorIds.includes(dragAndDrop.nodeId)
   ) return null;
 
   return (
