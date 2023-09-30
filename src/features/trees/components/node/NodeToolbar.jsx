@@ -56,29 +56,37 @@ export default function NodeToolbar({ treeNodeId }) {
         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
       }}
     >
-      <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
-        <FontAwesomeIcon icon={faPlus} />
-      </IconButton>
-      <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
-        <FontAwesomeIcon icon={faPenToSquare} />
-      </IconButton>
-      <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
-        <FontAwesomeIcon icon={faTrash} />
-      </IconButton>
+      <Tooltip title="Add Node" placement="top">
+        <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
+          <FontAwesomeIcon icon={faPlus} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Edit Node" placement="top">
+        <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
+          <FontAwesomeIcon icon={faPenToSquare} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Delete Node" placement="top">
+        <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
+          <FontAwesomeIcon icon={faTrash} />
+        </IconButton>
+      </Tooltip>
       <LikeButton nodeId={nodeId} />
       <NodeImporter />
 
-      <IconButton
-        target="_blank"
-        href={`/nodes/${rootId}/${nodeId}`}
-        className="Item"
-        aria-label="Open Node in New Tab"
-        sx={{ color: 'toolbar.default' }}
-      >
-        <FontAwesomeIcon
-          icon={faArrowUpRightFromSquare}
-        />
-      </IconButton>
+      <Tooltip title="Open Node In New Tab" placement="top">
+        <IconButton
+          target="_blank"
+          href={`/nodes/${rootId}/${nodeId}`}
+          className="Item"
+          aria-label="Open Node in New Tab"
+          sx={{ color: 'toolbar.default' }}
+        >
+          <FontAwesomeIcon
+            icon={faArrowUpRightFromSquare}
+          />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 }

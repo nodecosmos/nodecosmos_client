@@ -16,6 +16,7 @@ export default function NodeButton(props) {
   const {
     treeNodeId,
   } = props;
+  const isTreeRoot = useSelector(selectTreeNodeAttribute(treeNodeId, 'isRoot'));
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
@@ -36,10 +37,15 @@ export default function NodeButton(props) {
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragStart = useCallback((event) => {
+    if (isTreeRoot) {
+      event.preventDefault();
+      return;
+    }
+
     onDragStart({
       event, nodeId, parentId, treeNodeId, rootId,
     });
-  }, [onDragStart, nodeId, parentId, treeNodeId, rootId]);
+  }, [isTreeRoot, onDragStart, nodeId, parentId, treeNodeId, rootId]);
 
   const handleDragOver = (event) => {
     event.preventDefault();

@@ -34,19 +34,21 @@ export default function App() {
    * @description
    * Prevents the app from loading on homepage
    */
-  // const isDevelopment = process.env.NODE_ENV === 'development';
+  const isDevelopment = process.env.NODE_ENV === 'development';
 
-  return (
-    <Suspense fallback={(
-      <Loader
-        backgroundColor={currentTheme.palette.background.paper}
-        color={currentTheme.palette.primary.main}
-      />
+  if (!isHomepage && isDevelopment) {
+    return (
+      <Suspense fallback={(
+        <Loader
+          backgroundColor={currentTheme.palette.background.paper}
+          color={currentTheme.palette.primary.main}
+        />
       )}
-    >
-      <LazyAppLoad />
-    </Suspense>
-  );
+      >
+        <LazyAppLoad />
+      </Suspense>
+    );
+  }
 
   // only homepage
   return (

@@ -8,7 +8,7 @@ import { reorder } from '../../nodes/nodes.thunks';
 import { setAlert } from '../../app/appSlice';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
-const REORDER_DESCENDANT_LIMIT = 1000;
+const REORDER_DESCENDANT_LIMIT = 500;
 
 export default function useTreeNodeDraggableReorderer() {
   const dispatch = useDispatch();

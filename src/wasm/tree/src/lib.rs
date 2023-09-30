@@ -1,8 +1,6 @@
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
-use serde_wasm_bindgen::{from_value, to_value};
-use js_sys::{Array, Object, Reflect};
-use js_sys::Reflect::define_property;
+use serde_wasm_bindgen::{from_value, Serializer, to_value};
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
@@ -13,25 +11,55 @@ const EDGE_LENGTH: f32 = 35.0;
 // length of edge (link)
 const COMPLETE_Y_LENGTH: f32 = 50.05;
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
 struct Node {
-    treeNodeId: Option<String>,
-    treeParentId: Option<String>,
-    treeUpperSiblingId: Option<String>,
-    treeAncestorIds: Vec<String>,
-    treeChildIds: Option<Vec<String>>,
-    treeDescendantIds: Option<Vec<String>>,
-    treeLastChildId: Option<String>,
-    nodeId: String,
-    persistentNodeId: Option<String>,
-    rootId: String,
-    isRoot: bool,
-    isMounted: bool,
-    isExpanded: bool,
-    isSelected: bool,
-    isEditing: bool,
-    nestedLevel: u16,
+    #[serde(rename = "treeNodeId")]
+    tree_node_id: String,
+
+    #[serde(rename = "treeParentId")]
+    tree_parent_id: Option<String>,
+
+    #[serde(rename = "treeUpperSiblingId")]
+    tree_upper_sibling_id: Option<String>,
+
+    #[serde(rename = "treeAncestorIds")]
+    tree_ancestor_ids: Vec<String>,
+
+    #[serde(rename = "treeSiblingIndex")]
+    tree_sibling_index: usize,
+
+    #[serde(rename = "treeChildIds")]
+    tree_child_ids: Vec<String>,
+
+    #[serde(rename = "treeDescendantIds")]
+    tree_descendant_ids: Vec<String>,
+
+    #[serde(rename = "treeLastChildId")]
+    tree_last_child_id: Option<String>,
+
+    #[serde(rename = "nodeId")]
+    node_id: String,
+
+    #[serde(rename = "rootId")]
+    root_id: String,
+
+    #[serde(rename = "isRoot")]
+    is_root: bool,
+
+    #[serde(rename = "isMounted")]
+    is_mounted: bool,
+
+    #[serde(rename = "isExpanded")]
+    is_expanded: bool,
+
+    #[serde(rename = "isEditing")]
+    is_editing: bool,
+
+    #[serde(rename = "isNewlyCreated")]
+    is_newly_created: bool,
+
+    #[serde(rename = "nestedLevel")]
+    nested_level: usize,
 }
 
 #[allow(non_snake_case)]
@@ -61,10 +89,10 @@ pub fn calculate_position(
 
         let null_id = "null".to_string();
 
-        let parent_id = node.treeParentId.as_ref().unwrap_or(&null_id);
+        let parent_id = node.tree_parent_id.as_ref().unwrap_or(&null_id);
         let parent_position = current_positions_by_id.get(parent_id);
 
-        let upper_sibling_id = node.treeUpperSiblingId.as_ref().unwrap_or(&null_id);
+        let upper_sibling_id = node.tree_upper_sibling_id.as_ref().unwrap_or(&null_id);
         let upper_sibling_position = current_positions_by_id.get(upper_sibling_id);
 
         let Position { x: parent_x, y: parent_y, .. } = parent_position.unwrap_or(&Position { x: 0.0, y: 0.0, xEnd: 0.0, yEnd: 0.0 });
@@ -81,8 +109,8 @@ pub fn calculate_position(
 
         let position = Position { x, y, xEnd: x_end, yEnd: y };
 
-        if node.isMounted {
-            node.treeAncestorIds.iter().for_each(|ancestor_id| {
+        if node.is_mounted {
+            node.tree_ancestor_ids.iter().for_each(|ancestor_id| {
                 current_positions_by_id.get_mut(ancestor_id).unwrap().yEnd += COMPLETE_Y_LENGTH;
             });
         }
@@ -90,10 +118,138 @@ pub fn calculate_position(
         current_positions_by_id.insert(id, position);
     }
 
-    return serde_wasm_bindgen::to_value(&current_positions_by_id).unwrap();
+    return to_value(&current_positions_by_id).unwrap();
+}
+
+#[derive(Debug, Clone)]
+struct StackItem {
+    node_id: String,
+    tree_node_id: String,
+    parent_id: Option<String>,
+    tree_parent_id: Option<String>,
+    tree_upper_sibling_id: Option<String>,
+    tree_ancestor_ids: Vec<String>,
+    tree_sibling_index: usize,
+    nested_level: usize,
 }
 
 #[wasm_bindgen]
-pub fn sum(a: i32, b: i32) -> i32 {
-    a + b
+pub fn build_tree(
+    child_ids_by_parent_id: JsValue,
+    root_id: JsValue,
+    tree_type: JsValue,
+    tree_nodes: JsValue,
+) -> JsValue {
+    let now = js_sys::Date::now();
+
+    let child_ids_by_parent_id: HashMap<String, Vec<String>> = from_value(child_ids_by_parent_id).unwrap();
+    let root_id: String = from_value(root_id).unwrap();
+    let tree_type: String = from_value(tree_type).unwrap();
+
+    let mut tree_nodes: HashMap<String, Node> = from_value(tree_nodes).unwrap();
+    let mut ordered_tree_node_ids: Vec<String> = Vec::new();
+
+
+    let elapsed = js_sys::Date::now() - now;
+
+    web_sys::console::log_2(&"wasm deserialization took: ".into(), &elapsed.into());
+
+    let now = js_sys::Date::now();
+
+    let mut stack = vec![StackItem {
+        node_id: root_id.clone(),
+        tree_node_id: root_id.clone(),
+        parent_id: None,
+        tree_parent_id: None,
+        tree_upper_sibling_id: None,
+        tree_ancestor_ids: Vec::new(),
+        tree_sibling_index: 0,
+        nested_level: 0,
+    }];
+
+    while let Some(item) = stack.pop() {
+        let child_ids = child_ids_by_parent_id.get(&item.node_id).unwrap();
+        let is_root = item.node_id == root_id;
+        let is_newly_created = tree_nodes.get(&item.node_id).is_some();
+        let parent_id = item.parent_id.as_ref().unwrap_or(&root_id);
+        let parent_node = tree_nodes.get(parent_id);
+        let current_node = tree_nodes.get(&item.node_id);
+        let (is_parent_expanded, is_parent_mounted) = parent_node.map_or((false, false), |n| (n.is_expanded, n.is_mounted));
+        let mut current_tree_node = Node {
+            tree_node_id: item.tree_node_id.clone(),
+            tree_parent_id: item.tree_parent_id,
+            tree_upper_sibling_id: item.tree_upper_sibling_id,
+            tree_ancestor_ids: item.tree_ancestor_ids.clone(),
+            tree_sibling_index: item.tree_sibling_index,
+            tree_child_ids: Vec::with_capacity(child_ids.len()),
+            tree_descendant_ids: Vec::new(),
+            tree_last_child_id: None,
+            node_id: item.node_id.clone(),
+            root_id: root_id.clone(),
+            is_root,
+            is_mounted: is_root || is_newly_created || (is_parent_expanded && is_parent_mounted),
+            is_expanded: current_node.map_or(false, |n| n.is_expanded) || is_root || tree_type == "checkbox",
+            is_editing: is_newly_created,
+            is_newly_created,
+            nested_level: item.nested_level,
+        };
+
+        ordered_tree_node_ids.push(item.tree_node_id.clone());
+
+
+        for (i, child_id) in child_ids.iter().enumerate().rev() {
+            let child_tree_node_id = format!("{}->{}->{}", root_id, item.node_id, child_id);
+
+            current_tree_node.tree_child_ids.push(child_tree_node_id.clone());
+
+            if i == child_ids.len() - 1 {
+                current_tree_node.tree_last_child_id = Some(child_tree_node_id.clone());
+            }
+
+            let tree_upper_sibling_id = if i > 0 {
+                Some(format!("{}->{}->{}", root_id, item.node_id, child_ids[i - 1]))
+            } else {
+                None
+            };
+
+            stack.push(StackItem {
+                node_id: child_id.clone(),
+                tree_node_id: child_tree_node_id,
+                parent_id: Some(item.node_id.clone()),
+                tree_parent_id: Some(item.tree_node_id.clone()),
+                tree_upper_sibling_id,
+                tree_ancestor_ids: {
+                    let mut ancestors = item.tree_ancestor_ids.clone();
+                    ancestors.push(item.tree_node_id.clone());
+                    ancestors
+                },
+                tree_sibling_index: i,
+                nested_level: item.nested_level + 1,
+            });
+        }
+
+        tree_nodes.insert(item.tree_node_id.clone(), current_tree_node);
+
+
+        for ancestor_id in &item.tree_ancestor_ids {
+            tree_nodes.get_mut(ancestor_id).unwrap().tree_descendant_ids.push(item.tree_node_id.clone());
+        }
+    }
+
+    let elapsed = js_sys::Date::now() - now;
+
+    web_sys::console::log_2(&"wasm Calculating tree took: ".into(), &elapsed.into());
+
+    let now = js_sys::Date::now();
+
+    let result = (tree_nodes, ordered_tree_node_ids);
+    let serializer = Serializer::new().serialize_maps_as_objects(true);
+    let res = result.serialize(&serializer).unwrap();
+    let res = res.dyn_into::<js_sys::Object>().unwrap();
+    let res = res.into();
+
+    let elapsed = js_sys::Date::now() - now;
+    web_sys::console::log_2(&"wasm Serializing response: ".into(), &elapsed.into());
+
+    return res
 }

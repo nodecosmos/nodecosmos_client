@@ -45,8 +45,9 @@ export default {
 
       state.orderedTreeNodeIdsByRootNodeId[rootId].push(treeNodeId);
 
-      const isParentExpanded = isRoot || state.byRootNodeId[rootId][treeParentId].isExpanded;
-      const isParentMounted = isRoot || state.byRootNodeId[rootId][treeParentId].isMounted;
+      const parent = state.byRootNodeId[rootId][treeParentId];
+      const isParentExpanded = isRoot || parent.isExpanded;
+      const isParentMounted = isRoot || parent.isMounted;
 
       let currentTreeNode = state.byRootNodeId[rootId][treeNodeId] || {};
       currentTreeNode = {
@@ -65,7 +66,7 @@ export default {
         isExpanded: currentTreeNode.isExpanded
           || isRoot
           || type === TREES_TYPES.checkbox
-          || state.expandedNodeIds.includes(nodeId),
+          || state.expandedNodeIds.includes(treeNodeId),
         isEditing: isNewlyCreated || false,
         isNewlyCreated,
         nestedLevel,
