@@ -5,8 +5,9 @@ export default {
 
     if (persistentId) {
       const tmpNodeSelected = state.byId[tmpNodeId].isSelected;
-      state.byId[persistentId].isSelected = tmpNodeSelected;
+
       if (tmpNodeSelected) {
+        state.byId[persistentId].isSelected = true;
         state.selectedNodeId = persistentId;
       }
 
