@@ -27,14 +27,8 @@ export default function _useWasmTreePositionCalculator(rootId) {
 
   const [initiated, setInitiated] = useState(false);
 
-  useEffect(() => {
-    if (initiated) return;
-
-    tree().then(() => { setInitiated(true); });
-  }, [initiated]);
-
   return useMemo(() => {
-    if (!treeNodes || !orderedTreeNodeIds.length || !initiated) return {};
+    if (!treeNodes || !orderedTreeNodeIds.length) return {};
     const date = new Date();
 
     const positionsByIdMap = calculate_position(orderedTreeNodeIds, treeNodes);

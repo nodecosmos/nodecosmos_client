@@ -6,14 +6,18 @@ import { selectNodeAttribute } from '../nodes.selectors';
 import { createNode, updateNodeTitle } from '../nodes.thunks';
 import { replaceTmpNodeWithPersistedNode, setNodeCreationInProgress, updateNodeState } from '../nodesSlice';
 import { setAlert } from '../../app/appSlice';
+import { expandTreeNode } from '../../trees/treesSlice';
+import { replaceNodeIdInTreeNodeId } from '../../trees/trees.memoize';
+import { selectTreeNodeAttribute } from '../../trees/trees.selectors';
 
-export default function useNodeTitleChangeHandler({ nodeId }) {
+export default function useNodeTitleChangeHandler({ nodeId, treeNodeId }) {
   const dispatch = useDispatch();
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
   const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
   const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
+  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
   const prevTitle = usePrevious(title);
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -72,10 +76,18 @@ export default function useNodeTitleChangeHandler({ nodeId }) {
   };
 
   useEffect(() => {
-    if (shouldReplaceTmpNode && isTemp && persistentId) {
-      dispatch(replaceTmpNodeWithPersistedNode({ tmpNodeId: nodeId, persistentId }));
+    async function replaceTmpNode() {
+      await dispatch(replaceTmpNodeWithPersistedNode({ tmpNodeId: nodeId, persistentId }));
+      if (isExpanded) {
+        const newTreeNodeId = replaceNodeIdInTreeNodeId(treeNodeId, persistentId);
+        dispatch(expandTreeNode(newTreeNodeId));
+      }
     }
-  }, [dispatch, shouldReplaceTmpNode, isTemp, nodeId, persistentId]);
+
+    if (shouldReplaceTmpNode && isTemp && persistentId) {
+      replaceTmpNode().catch((error) => console.error(error));
+    }
+  }, [dispatch, shouldReplaceTmpNode, isTemp, nodeId, persistentId, isExpanded, treeNodeId]);
 
   return { handleNodeTitleChange, handleTitleChangeFinish };
 }

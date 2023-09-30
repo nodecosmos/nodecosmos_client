@@ -30,7 +30,7 @@ export default {
       const {
         nodeId,
         treeNodeId,
-        parentId,
+        // parentId,
         treeParentId,
         treeUpperSiblingId,
         treeAncestorIds,

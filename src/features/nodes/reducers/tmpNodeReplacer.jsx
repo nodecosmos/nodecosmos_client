@@ -4,7 +4,11 @@ export default {
     const { parentId } = state.byId[tmpNodeId];
 
     if (persistentId) {
-      state.byId[persistentId].isSelected = state.byId[tmpNodeId].isSelected;
+      const tmpNodeSelected = state.byId[tmpNodeId].isSelected;
+      state.byId[persistentId].isSelected = tmpNodeSelected;
+      if (tmpNodeSelected) {
+        state.selectedNodeId = persistentId;
+      }
 
       const currentChildIds = state.childIdsByParentId[parentId];
 
