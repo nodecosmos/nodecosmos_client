@@ -26,7 +26,7 @@ export default function useNodeContext() {
   } = useSelector(selectTreeNode(treeNodeId));
 
   // node attributes
-  const rootNodeId = useTreeRootNodeId();
+  const treeRootNodeId = useTreeRootNodeId();
 
   const {
     isRoot,
@@ -45,7 +45,7 @@ export default function useNodeContext() {
     isEditing,
     isTreeRoot,
     nodeId,
-    rootNodeId,
+    treeRootNodeId,
     // node attributes
     isRoot,
     title,
@@ -57,8 +57,8 @@ export default function useNodeContext() {
 }
 
 export function useNodePosition() {
-  const { rootId, treeNodeId } = useNodeContext();
-  return useSelector(selectPosition(rootId, treeNodeId));
+  const { treeRootNodeId, treeNodeId } = useNodeContext();
+  return useSelector(selectPosition(treeRootNodeId, treeNodeId));
 }
 
 export function useNodeColors() {

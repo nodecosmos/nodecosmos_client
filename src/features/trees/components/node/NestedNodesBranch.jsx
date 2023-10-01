@@ -16,13 +16,13 @@ import useNodeContext, { useNodePosition } from '../../hooks/useNodeContext';
 function NestedNodesBranch() {
   const {
     treeNodeId,
-    rootId,
+    treeRootNodeId,
     isExpanded,
   } = useNodeContext();
   const { xEnd, y } = useNodePosition();
 
   const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
-  const { y: pathYEnd } = useSelector(selectPosition(rootId, treeLastChildId));
+  const { y: pathYEnd } = useSelector(selectPosition(treeRootNodeId, treeLastChildId));
   const prevPathYEnd = usePrevious(pathYEnd);
 
   const theme = useTheme();
