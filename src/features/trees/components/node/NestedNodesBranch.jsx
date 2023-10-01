@@ -1,34 +1,34 @@
 import React, { memo } from 'react';
 import { useTheme } from '@mui/material';
-import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import usePrevious from '../../../common/hooks/usePrevious';
+import usePrevious from '../../../../common/hooks/usePrevious';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   MARGIN_LEFT,
   MARGIN_TOP,
   TRANSITION_ANIMATION_DURATION,
-} from '../trees.constants';
-import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
-import { useTreeRootNodeId } from '../hooks/useTreeContext';
+} from '../../trees.constants';
+import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
+import useNodeContext, { useNodePosition } from '../../hooks/useNodeContext';
 
-function NestedNodesBranch(props) {
-  const { treeNodeId } = props;
-  const treeRootNodeId = useTreeRootNodeId();
-
-  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
+function NestedNodesBranch() {
+  const {
+    treeNodeId,
+    rootId,
+    isExpanded,
+  } = useNodeContext();
   const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
-  const { xEnd, y } = useSelector(selectPosition(treeRootNodeId, treeNodeId));
-  const { y: pathYEnd } = useSelector(selectPosition(treeRootNodeId, treeLastChildId));
+  const { xEnd, y } = useNodePosition();
+
+  const { y: pathYEnd } = useSelector(selectPosition(rootId, treeLastChildId));
   const prevPathYEnd = usePrevious(pathYEnd);
 
   const theme = useTheme();
 
   const x = xEnd + MARGIN_LEFT;
   const linkY = y + MARGIN_TOP;
-
   const yEnd = pathYEnd || prevPathYEnd;
 
   if (!isExpanded || !treeLastChildId || !yEnd) return null;
@@ -47,9 +47,5 @@ function NestedNodesBranch(props) {
     />
   );
 }
-
-NestedNodesBranch.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
-};
 
 export default memo(NestedNodesBranch);

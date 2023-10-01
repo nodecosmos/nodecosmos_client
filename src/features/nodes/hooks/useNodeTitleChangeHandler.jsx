@@ -8,16 +8,22 @@ import { replaceTmpNodeWithPersistedNode, setNodeCreationInProgress, updateNodeS
 import { setAlert } from '../../app/appSlice';
 import { expandTreeNode } from '../../trees/treesSlice';
 import { replaceNodeIdInTreeNodeId } from '../../trees/trees.memoize';
-import { selectTreeNodeAttribute } from '../../trees/trees.selectors';
+import useNodeContext from '../../trees/hooks/useNodeContext';
 
-export default function useNodeTitleChangeHandler({ nodeId, treeNodeId }) {
+export default function useNodeTitleChangeHandler() {
   const dispatch = useDispatch();
-  const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
+  const {
+    nodeId,
+    treeNodeId,
+    parentId,
+    rootId,
+    title,
+    isExpanded,
+  } = useNodeContext();
+
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
-  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
-  const title = useSelector(selectNodeAttribute(nodeId, 'title'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
-  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
+
   const prevTitle = usePrevious(title);
 
   //--------------------------------------------------------------------------------------------------------------------

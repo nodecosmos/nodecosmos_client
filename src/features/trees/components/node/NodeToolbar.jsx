@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import {
   faPenToSquare,
@@ -6,7 +6,6 @@ import {
   faArrowUpRightFromSquare,
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 
 /* mui */
 import {
@@ -14,23 +13,23 @@ import {
   Box, Tooltip,
 } from '@mui/material';
 
-import { useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
 import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
 import useNodeRemover from '../../../nodes/hooks/useNodeRemover';
 import useTmpChildNodeBuilder from '../../../nodes/hooks/useTmpChildNodeBuilder';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
-import { selectTreeNodeAttribute } from '../../trees.selectors';
 import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
+import useNodeContext from '../../hooks/useNodeContext';
 
-export default function NodeToolbar({ treeNodeId }) {
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+function NodeToolbar() {
+  const {
+    nodeId,
+    rootId,
+  } = useNodeContext();
 
-  const { editTreeNode } = useNodeTreeEvents(treeNodeId);
+  const { editTreeNode } = useNodeTreeEvents();
   const { removeNode } = useNodeRemover(nodeId);
   const { addChildNode, loading } = useTmpChildNodeBuilder(nodeId);
 
@@ -91,6 +90,4 @@ export default function NodeToolbar({ treeNodeId }) {
   );
 }
 
-NodeToolbar.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
-};
+export default memo(NodeToolbar);

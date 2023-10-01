@@ -1,9 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
 /* nodecosmos */
 import {
   INITIAL_ANIMATION_DELAY,
@@ -12,26 +8,32 @@ import {
   NODE_BUTTON_HEIGHT,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
-import { useTreeRootNodeId } from '../../hooks/useTreeContext';
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import useNodeTitleChangeHandler from '../../../nodes/hooks/useNodeTitleChangeHandler';
+import useNodeContext, { useNodePosition } from '../../hooks/useNodeContext';
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
 
 // we have different components for text
 // because 'input' is not valid child element of 'button'
-export default function NodeContent(props) {
-  const { treeNodeId, alreadyMounted } = props;
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
-  const isRoot = useSelector(selectNodeAttribute(nodeId, 'isRoot'));
-  const isEditing = useSelector(selectTreeNodeAttribute(treeNodeId, 'isEditing'));
-  const rootNodeId = useTreeRootNodeId();
-  const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
-  const { xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
-  const { handleTreeNodeBlur } = useNodeTreeEvents(treeNodeId);
-  const { handleNodeTitleChange, handleTitleChangeFinish } = useNodeTitleChangeHandler({ nodeId, treeNodeId });
+function NodeContent() {
+  const {
+    alreadyMounted,
+    treeNodeId,
+    isExpanded,
+    isEditing,
+    isRoot,
+    isSelected,
+  } = useNodeContext();
+
+  const {
+    xEnd,
+    y,
+  } = useNodePosition();
+
+  const { handleTreeNodeBlur } = useNodeTreeEvents();
+  const { handleNodeTitleChange, handleTitleChangeFinish } = useNodeTitleChangeHandler();
 
   if (!xEnd) return null;
 
@@ -71,7 +73,4 @@ export default function NodeContent(props) {
   );
 }
 
-NodeContent.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
-  alreadyMounted: PropTypes.bool.isRequired,
-};
+export default memo(NodeContent);

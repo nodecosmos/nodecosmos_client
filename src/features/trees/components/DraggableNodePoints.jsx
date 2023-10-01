@@ -13,7 +13,13 @@ function DraggableNodePoints({ rootNodeId }) {
 
   return treeNodeIdsToView.map(([treeNodeId, alreadyMounted], index) => {
     if (index === 0) return null;
-    return <DraggableNodePoint treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />;
+    return (
+      <DraggableNodePoint
+        key={treeNodeId}
+        treeNodeId={treeNodeId}
+        alreadyMounted={alreadyMounted}
+      />
+    );
   });
 }
 

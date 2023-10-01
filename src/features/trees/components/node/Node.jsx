@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { memo } from 'react';
 import * as PropTypes from 'prop-types';
-import NestedNodesBranch from '../NestedNodesBranch';
+import { useNodeContextCreator } from '../../hooks/useNodeContext';
+import NestedNodesBranch from './NestedNodesBranch';
 
 import NodeContent from './NodeContent';
 import NodeBranch from './NodeBranch';
 
-export default function Node(props) {
-  const { treeNodeId, alreadyMounted } = props;
+function Node({ treeNodeId, alreadyMounted }) {
+  const { NodeContext, contextProviderValue } = useNodeContextCreator({ treeNodeId, alreadyMounted });
 
   return (
-    <g>
-      <NestedNodesBranch treeNodeId={treeNodeId} />
-      <NodeBranch treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
-      <NodeContent treeNodeId={treeNodeId} alreadyMounted={alreadyMounted} />
-    </g>
+    <NodeContext.Provider value={contextProviderValue}>
+      <g>
+        <NestedNodesBranch />
+        <NodeBranch />
+        <NodeContent />
+      </g>
+    </NodeContext.Provider>
   );
 }
 
@@ -21,3 +24,5 @@ Node.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
   alreadyMounted: PropTypes.bool.isRequired,
 };
+
+export default memo(Node);

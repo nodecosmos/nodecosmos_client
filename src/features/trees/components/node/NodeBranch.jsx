@@ -1,27 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTheme } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import useNodeButtonColors from '../../hooks/useNodeButtonColors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
-import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
-import { useTreeRootNodeId } from '../../hooks/useTreeContext';
+import useNodeContext, { useNodeColors, useNodePosition } from '../../hooks/useNodeContext';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function NodeBranch(props) {
-  const { treeNodeId, alreadyMounted } = props;
-
+function NodeBranch() {
   const theme = useTheme();
-
-  const isRoot = useSelector(selectTreeNodeAttribute(treeNodeId, 'isRoot'));
-  const rootNodeId = useTreeRootNodeId();
-  const { x, xEnd, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
-  const { parentBackgroundColor } = useNodeButtonColors(treeNodeId);
+  const { alreadyMounted, isRoot } = useNodeContext();
+  const { x, xEnd, y } = useNodePosition();
+  const { parentBackgroundColor } = useNodeColors();
 
   if (!x) { return null; }
 
@@ -70,7 +62,4 @@ export default function NodeBranch(props) {
   );
 }
 
-NodeBranch.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
-  alreadyMounted: PropTypes.bool.isRequired,
-};
+export default memo(NodeBranch);

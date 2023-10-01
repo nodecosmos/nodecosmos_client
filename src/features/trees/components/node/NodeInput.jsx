@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import useNodeButtonColors from '../../hooks/useNodeButtonColors';
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
-import { selectTreeNodeAttribute } from '../../trees.selectors';
 import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../../trees.constants';
+import useNodeContext, { useNodeColors } from '../../hooks/useNodeContext';
 
-export default function NodeInput({ treeNodeId, onChange, onBlur }) {
+function NodeInput({ onChange, onBlur }) {
   const ref = React.useRef(null);
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const title = useSelector(selectNodeAttribute(nodeId, 'title'));
-  const titleLength = title ? title.length : 0;
   const {
-    backgroundColor, color, hasBg, outlineColor,
-  } = useNodeButtonColors(treeNodeId);
-  const { onNodeClick } = useNodeTreeEvents(treeNodeId);
+    title,
+  } = useNodeContext();
+  const {
+    hasBg,
+    backgroundColor,
+    outlineColor,
+    color,
+  } = useNodeColors();
 
+  const { onNodeClick } = useNodeTreeEvents();
   useEffect(() => ref.current.focus(), []);
+
+  const titleLength = title ? title.length : 0;
 
   //--------------------------------------------------------------------------------------------------------------------
   return (
@@ -55,7 +57,8 @@ export default function NodeInput({ treeNodeId, onChange, onBlur }) {
 }
 
 NodeInput.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
 };
+
+export default memo(NodeInput);

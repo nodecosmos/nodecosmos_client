@@ -1,9 +1,7 @@
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 /* nodecosmos */
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { setSelectedNode } from '../../nodes/nodesSlice';
-import { selectTreeNodeAttribute } from '../trees.selectors';
 import {
   collapseTreeNode,
   expandTreeNode,
@@ -11,13 +9,16 @@ import {
   setSelectedTreeNode,
 } from '../treesSlice';
 import { useTreeCheckbox } from './useTreeContext';
+import useNodeContext from './useNodeContext';
 
-export default function useNodeTreeEvents(treeNodeId) {
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
-  const isEditing = useSelector(selectTreeNodeAttribute(treeNodeId, 'isEditing'));
-
-  const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+export default function useNodeTreeEvents() {
+  const {
+    treeNodeId,
+    nodeId,
+    isExpanded,
+    isEditing,
+    isSelected,
+  } = useNodeContext();
 
   const { treeType, commands } = useTreeCheckbox();
   const dispatch = useDispatch();

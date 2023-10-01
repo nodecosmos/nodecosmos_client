@@ -1,39 +1,36 @@
 import React, { memo, useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { ButtonBase, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
-import useNodeButtonColors from '../../hooks/useNodeButtonColors';
 import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { selectDragAndDropAttributes, selectTreeNodeAttribute } from '../../trees.selectors';
+import { selectDragAndDropAttributes } from '../../trees.selectors';
 import useTreeNodeDraggableReorderer from '../../hooks/useTreeNodeDraggableReorderer';
+import useNodeContext, { useNodeColors } from '../../hooks/useNodeContext';
 import NodeSymbol from './NodeSymbol';
 
-const MemoizedButtonBase = memo(ButtonBase);
-
-export default function NodeButton(props) {
+function NodeButton() {
   const {
     treeNodeId,
-  } = props;
-  const isTreeRoot = useSelector(selectTreeNodeAttribute(treeNodeId, 'isRoot'));
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
-  const title = useSelector(selectNodeAttribute(nodeId, 'title'));
-  const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
-  const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
-  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
-  const dragAndDropNodeId = useSelector(selectDragAndDropAttributes('nodeId'));
-
-  const theme = useTheme();
-  const { handleTreeNodeClick } = useNodeTreeEvents(treeNodeId);
+    isTreeRoot,
+    parentId,
+    nodeId,
+    title,
+    ancestorIds,
+    rootId,
+  } = useNodeContext();
   const {
     backgroundColor,
     outlineColor,
     color,
     hasBg,
     outlinedColored,
-  } = useNodeButtonColors(treeNodeId);
-  const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggableReorderer({});
+  } = useNodeColors();
+
+  const dragAndDropNodeId = useSelector(selectDragAndDropAttributes('nodeId'));
+
+  const theme = useTheme();
+  const { handleTreeNodeClick } = useNodeTreeEvents();
+  const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggableReorderer();
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragStart = useCallback((event) => {
@@ -70,8 +67,7 @@ export default function NodeButton(props) {
   };
 
   return (
-    <MemoizedButtonBase
-      disableRipple
+    <button
       draggable
       onMouseDown={(event) => event.stopPropagation()} // prevents pannable from firing
       onDragStart={handleDragStart}
@@ -95,10 +91,8 @@ export default function NodeButton(props) {
       <div className="NodeButtonText">
         {title}
       </div>
-    </MemoizedButtonBase>
+    </button>
   );
 }
 
-NodeButton.propTypes = {
-  treeNodeId: PropTypes.string.isRequired,
-};
+export default memo(NodeButton);
