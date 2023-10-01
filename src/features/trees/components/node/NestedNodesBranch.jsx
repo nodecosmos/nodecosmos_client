@@ -19,9 +19,9 @@ function NestedNodesBranch() {
     rootId,
     isExpanded,
   } = useNodeContext();
-  const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
   const { xEnd, y } = useNodePosition();
 
+  const treeLastChildId = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeLastChildId'));
   const { y: pathYEnd } = useSelector(selectPosition(rootId, treeLastChildId));
   const prevPathYEnd = usePrevious(pathYEnd);
 

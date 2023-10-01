@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import { selectPosition, selectTreeNode } from '../trees.selectors';
+import { selectNode } from '../../nodes/nodes.selectors';
 import { useTreeRootNodeId } from './useTreeContext';
 import useNodeButtonColors from './useNodeButtonColors';
 
@@ -18,19 +18,24 @@ export default function useNodeContext() {
   const { treeNodeId, alreadyMounted } = useContext(NodeContext);
 
   // tree node attributes
-  const isExpanded = useSelector(selectTreeNodeAttribute(treeNodeId, 'isExpanded'));
-  const isEditing = useSelector(selectTreeNodeAttribute(treeNodeId, 'isEditing'));
-  const isTreeRoot = useSelector(selectTreeNodeAttribute(treeNodeId, 'isRoot'));
-  const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
+  const {
+    isExpanded,
+    isEditing,
+    isTreeRoot,
+    nodeId,
+  } = useSelector(selectTreeNode(treeNodeId));
 
   // node attributes
   const rootNodeId = useTreeRootNodeId();
-  const isRoot = useSelector(selectNodeAttribute(nodeId, 'isRoot'));
-  const title = useSelector(selectNodeAttribute(nodeId, 'title'));
-  const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
-  const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
-  const rootId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
-  const isSelected = useSelector(selectNodeAttribute(nodeId, 'isSelected'));
+
+  const {
+    isRoot,
+    title,
+    parentId,
+    ancestorIds,
+    rootId,
+    isSelected,
+  } = useSelector(selectNode(nodeId));
 
   return {
     // tree node attributes

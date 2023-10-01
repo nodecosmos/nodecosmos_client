@@ -10,7 +10,7 @@ export const selectNodeCreationInProgress = (state) => state.nodes.nodeCreationI
 
 export const selectNode = (nodeId) => createSelector(
   selectNodesById,
-  (nodesById) => nodesById[nodeId],
+  (nodesById) => nodesById[nodeId] || {},
 );
 
 export const selectIndexedNode = (nodeId) => createSelector(
