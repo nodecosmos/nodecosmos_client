@@ -9,7 +9,7 @@ import useNodeContext from '../../hooks/useNodeContext';
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedCheckbox = memo(Checkbox);
 
-function NodeSymbol() {
+export default function NodeSymbol() {
   const { nodeId, outlineColor } = useNodeContext();
   const { treeType, commands, handleCheckboxChange } = useTreeCheckbox();
 
@@ -28,5 +28,3 @@ function NodeSymbol() {
     />
   );
 }
-
-export default memo(NodeSymbol);

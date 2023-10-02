@@ -6,7 +6,7 @@ import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../../trees.constants';
 import useNodeContext, { useNodeColors } from '../../hooks/useNodeContext';
 
-function NodeInput({ onChange, onBlur }) {
+export default function NodeInput({ onChange, onBlur }) {
   const ref = React.useRef(null);
   const {
     title,
@@ -60,5 +60,3 @@ NodeInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
 };
-
-export default memo(NodeInput);

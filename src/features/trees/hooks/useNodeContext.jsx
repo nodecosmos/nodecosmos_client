@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { selectPosition, selectTreeNode } from '../trees.selectors';
 import { selectNode } from '../../nodes/nodes.selectors';
+import useShallowEqualSelector from '../../../common/hooks/useShallowEqualSelector';
 import { useTreeRootNodeId } from './useTreeContext';
 import useNodeButtonColors from './useNodeButtonColors';
 
@@ -58,7 +59,7 @@ export default function useNodeContext() {
 
 export function useNodePosition() {
   const { treeRootNodeId, treeNodeId } = useNodeContext();
-  return useSelector(selectPosition(treeRootNodeId, treeNodeId));
+  return useShallowEqualSelector(selectPosition(treeRootNodeId, treeNodeId));
 }
 
 export function useNodeColors() {

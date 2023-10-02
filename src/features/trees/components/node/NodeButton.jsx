@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
@@ -8,7 +8,7 @@ import useTreeNodeDraggableReorderer from '../../hooks/useTreeNodeDraggableReord
 import useNodeContext, { useNodeColors } from '../../hooks/useNodeContext';
 import NodeSymbol from './NodeSymbol';
 
-function NodeButton() {
+export default function NodeButton() {
   const {
     treeNodeId,
     isTreeRoot,
@@ -86,7 +86,7 @@ function NodeButton() {
         color: dragOver ? theme.palette.text.primary : color,
       }}
     >
-      <NodeSymbol treeNodeId={treeNodeId} />
+      <NodeSymbol />
 
       <div className="NodeButtonText">
         {title}
@@ -94,5 +94,3 @@ function NodeButton() {
     </button>
   );
 }
-
-export default memo(NodeButton);

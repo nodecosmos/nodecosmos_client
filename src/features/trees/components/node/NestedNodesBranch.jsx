@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 /* nodecosmos */
@@ -13,7 +13,7 @@ import {
 import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
 import useNodeContext, { useNodePosition } from '../../hooks/useNodeContext';
 
-function NestedNodesBranch() {
+export default function NestedNodesBranch() {
   const {
     treeNodeId,
     treeRootNodeId,
@@ -47,5 +47,3 @@ function NestedNodesBranch() {
     />
   );
 }
-
-export default memo(NestedNodesBranch);

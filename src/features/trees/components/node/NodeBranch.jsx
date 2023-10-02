@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material';
 import {
   INITIAL_ANIMATION_DELAY,
@@ -9,7 +9,7 @@ import useNodeContext, { useNodeColors, useNodePosition } from '../../hooks/useN
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-function NodeBranch() {
+export default function NodeBranch() {
   const theme = useTheme();
   const { alreadyMounted, isRoot } = useNodeContext();
   const { x, xEnd, y } = useNodePosition();
@@ -61,5 +61,3 @@ function NodeBranch() {
     </g>
   );
 }
-
-export default memo(NodeBranch);

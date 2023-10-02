@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import {
   faPenToSquare,
@@ -23,7 +23,7 @@ import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
 import useNodeContext from '../../hooks/useNodeContext';
 
-function NodeToolbar() {
+export default function NodeToolbar() {
   const {
     nodeId,
     rootId,
@@ -89,5 +89,3 @@ function NodeToolbar() {
     </Box>
   );
 }
-
-export default memo(NodeToolbar);

@@ -11,6 +11,8 @@ import { TREES_TYPES } from '../trees.constants';
 import Node from './node/Node';
 import DraggableNodePoints from './DraggableNodePoints';
 
+const MemoizedNode = React.memo(Node);
+
 export default function TreeNodes({
   rootNodeId, type,
 }) {
@@ -33,7 +35,7 @@ export default function TreeNodes({
     <g>
       <g>
         {treeNodeIdsToView.map(([treeNodeId, alreadyMounted]) => (
-          <Node
+          <MemoizedNode
             key={treeNodeId}
             treeNodeId={treeNodeId}
             alreadyMounted={alreadyMounted}

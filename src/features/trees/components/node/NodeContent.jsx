@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 /* nodecosmos */
 import {
@@ -15,9 +15,11 @@ import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
 
+const MemoizedNodeButton = React.memo(NodeButton);
+
 // we have different components for text
 // because 'input' is not valid child element of 'button'
-function NodeContent() {
+export default function NodeContent() {
   const {
     alreadyMounted,
     treeNodeId,
@@ -56,14 +58,13 @@ function NodeContent() {
         <div className="NodeButtonContainer">
           {isEditing ? (
             <NodeInput
-              treeNodeId={treeNodeId}
               onChange={(event) => handleNodeTitleChange(event.target.value)}
               onBlur={() => {
                 handleTreeNodeBlur();
                 handleTitleChangeFinish();
               }}
             />
-          ) : <NodeButton treeNodeId={treeNodeId} />}
+          ) : <MemoizedNodeButton />}
           <div>
             {isExpanded && isSelected && <Box sx={{ ml: 2 }}><NodeToolbar treeNodeId={treeNodeId} /></Box>}
           </div>
@@ -72,5 +73,3 @@ function NodeContent() {
     </g>
   );
 }
-
-export default memo(NodeContent);
