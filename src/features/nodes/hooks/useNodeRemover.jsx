@@ -13,7 +13,7 @@ export default function useNodeRemover(nodeId) {
     if (isTemp) {
       dispatch(deleteNodeFromState({ nodeId }));
     } else {
-      dispatch(deleteNode({ nodeId, rootId }));
+      dispatch(deleteNode(nodeId));
     }
     if (rootId === nodeId) navigate('/nodes');
   };

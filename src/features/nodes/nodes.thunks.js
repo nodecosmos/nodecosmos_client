@@ -13,17 +13,8 @@ export const indexNodes = createAsyncThunk(
 
 export const showNode = createAsyncThunk(
   'nodes/showNode',
-  async ({
-    rootId,
-    id,
-  }, _thunkAPI) => {
-    let response;
-
-    if (!rootId) {
-      response = await nodecosmos.get(`/nodes/${id}`);
-    } else {
-      response = await nodecosmos.get(`/nodes/${rootId}/${id}`);
-    }
+  async (id, _thunkAPI) => {
+    const response = await nodecosmos.get(`/nodes/${id}`);
 
     return response.data;
   },
@@ -51,7 +42,6 @@ export const updateNodeTitle = createAsyncThunk(
 export const updateNodeDescription = createAsyncThunk(
   'nodes/updateNodeDescription',
   async ({
-    rootId,
     id,
     description,
     descriptionMarkdown,
@@ -62,7 +52,6 @@ export const updateNodeDescription = createAsyncThunk(
       const b64encoded = uint8ArrayToBase64(descriptionBase64);
 
       const response = await nodecosmos.put('/nodes/description', {
-        rootId,
         id,
         description,
         descriptionMarkdown,
@@ -90,20 +79,20 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async ({ rootId, nodeId }, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${rootId}/${nodeId}`);
+  async (id, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${id}`);
 
     return {
       ...response.data,
-      nodeId,
+      nodeId: id,
     };
   },
 );
 
 export const getNodeDescription = createAsyncThunk(
   'nodes/getNodeDescription',
-  async (payload, _thunkAPI) => {
-    const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description`);
+  async (id, _thunkAPI) => {
+    const response = await nodecosmos.get(`/nodes/${id}/description`);
 
     return response.data;
   },
@@ -112,8 +101,8 @@ export const getNodeDescription = createAsyncThunk(
 export const getNodeDescriptionBase64 = createAsyncThunk(
   'nodes/getNodeDescriptionBase64',
 
-  async (payload, _thunkAPI) => {
-    const response = await nodecosmos.get(`/nodes/${payload.rootId}/${payload.id}/description_base64`);
+  async (id, _thunkAPI) => {
+    const response = await nodecosmos.get(`/nodes/${id}/description_base64`);
 
     return response.data;
   },
@@ -160,8 +149,8 @@ export const reorder = createAsyncThunk(
 
 export const deleteNodeImage = createAsyncThunk(
   'nodes/deleteNodeImage',
-  async (payload, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${payload.rootId}/${payload.id}/delete_cover_image`);
+  async (id, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${id}/delete_cover_image`);
 
     return response.data;
   },

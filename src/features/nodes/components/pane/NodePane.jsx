@@ -38,10 +38,7 @@ export default function NodePane() {
 
   useEffect(() => {
     if (id && rootId) {
-      dispatch(getNodeDescription({
-        rootId,
-        id,
-      }));
+      dispatch(getNodeDescription(id));
     }
   }, [dispatch, id, rootId]);
 

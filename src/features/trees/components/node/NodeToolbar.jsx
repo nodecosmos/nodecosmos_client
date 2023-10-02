@@ -24,10 +24,7 @@ import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
 import useNodeContext from '../../hooks/useNodeContext';
 
 export default function NodeToolbar() {
-  const {
-    nodeId,
-    rootId,
-  } = useNodeContext();
+  const { nodeId } = useNodeContext();
 
   const { editTreeNode } = useNodeTreeEvents();
   const { removeNode } = useNodeRemover(nodeId);
@@ -76,7 +73,7 @@ export default function NodeToolbar() {
       <Tooltip title="Open Node In New Tab" placement="top">
         <IconButton
           target="_blank"
-          href={`/nodes/${rootId}/${nodeId}`}
+          href={`/nodes/${nodeId}`}
           className="Item"
           aria-label="Open Node in New Tab"
           sx={{ color: 'toolbar.default' }}

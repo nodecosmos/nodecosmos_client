@@ -1,5 +1,11 @@
 let prevVal = '';
 export default {
+  setOriginalChildIds(state, _action) {
+    Object.values(state.byId).forEach((node) => {
+      node.originalChildIds ||= state.childIdsByParentId[node.id] || [];
+    });
+  },
+
   searchNode(state, action) {
     const { rootId, value } = action.payload;
 
@@ -49,7 +55,7 @@ function rebuildChildIdsByParentId(state) {
 
   for (const nodeId in state.byId) {
     if (state.byId[nodeId]) {
-      newChildIdsByParentId[nodeId] = state.byId[nodeId].childIds;
+      newChildIdsByParentId[nodeId] = state.byId[nodeId].originalChildIds;
     }
   }
 

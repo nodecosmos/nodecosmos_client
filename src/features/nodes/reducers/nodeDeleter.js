@@ -14,16 +14,10 @@ export default {
           (id) => id !== nodeId,
         );
       }
-      parent.childIds = parent.childIds.filter((id) => id !== nodeId);
     }
-
-    node.descendantIds.forEach((id) => {
-      delete state.indexNodesById[id];
-    });
 
     delete state.indexNodesById[nodeId];
 
-    // delete state.byId[nodeId] - race condition: seems existing components are kept before tree re-render
-    // let's see if we can fix this
+    delete state.byId[nodeId];
   },
 };

@@ -114,6 +114,7 @@ const nodesSlice = createSlice({
     deleteNodeFromState: nodeDeleter.deleteNodeFromState,
     setSelectedNode: nodeSelectionSetter.setSelectedNode,
     setNodePaneContent: nodePaneContentSetter.setNodePaneContent,
+    setOriginalChildIds: nodeSearcher.setOriginalChildIds,
     searchNode: nodeSearcher.searchNode,
     importNode: nodeImporter.importNode,
     reorderNodes: nodeReorderer.reorderNodes,
@@ -154,6 +155,7 @@ export const {
   replaceTmpNodeWithPersistedNode,
   setNodeCreationInProgress,
   clearTmpNode,
+  setOriginalChildIds,
 } = actions;
 
 export default reducer;

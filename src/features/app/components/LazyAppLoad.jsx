@@ -95,22 +95,6 @@ export default function LazyAppLoad() {
               <Route path=":id/topics" element={<div />} />
               <Route path=":id/tasks_board" element={<div />} />
               <Route path=":id/settings" element={<div />} />
-
-              <Route path=":rootId/:id" element={<TreeShow />} />
-              <Route path=":rootId/:id/workflow" element={<WorkflowShow />} />
-              {/* Contribution Requests */}
-              <Route path=":rootId/:id/contribution_requests" element={<ContributionRequestIndex />} />
-              <Route path=":rootId/:id/contribution_requests">
-                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                  <Route path="" element={<div />} />
-                  <Route path="tree" element={<ContributionRequestTree />} />
-                  <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                  <Route path="commits" element={<div />} />
-                </Route>
-              </Route>
-              <Route path=":rootId/:id/topics" element={<div />} />
-              <Route path=":rootId/:id/tasks_board" element={<div />} />
-              <Route path=":rootId/:id/settings" element={<div />} />
             </Route>
           </Routes>
         </Box>

@@ -1,30 +1,38 @@
 export default function showNodeFulfilledReducer(state, action) {
-  const currentRootId = action.meta.arg.id;
+  const { node, descendants } = action.payload;
 
-  action.payload.forEach((node) => {
-    const stateNode = state.byId[node.id] || {};
+  const stateNode = state.byId[node.id] || {};
+  node.description = stateNode.description;
+  node.descriptionMarkdown = stateNode.descriptionMarkdown;
+  node.shortDescription = stateNode.shortDescription;
 
+  node.isTemp = false;
+  node.persistentId = node.id;
+  node.ancestorIds ||= [];
+  node.nestedLevel = node.ancestorIds.length;
+  state.byId[node.id] = node;
+  state.selectedNodeId = node.id;
+
+  state.childIdsByParentId[node.id] = [];
+
+  const childIdsByParentId = {};
+
+  descendants.forEach((descendant) => {
     // default values
-    node.isTemp = false;
-    node.persistentId = node.id;
-    node.childIds ||= [];
-    node.ancestorIds ||= [];
-    node.descendantIds ||= [];
-    node.nestedLevel = node.ancestorIds.length;
+    descendant.isTemp = false;
+    descendant.persistentId = descendant.id;
+    descendant.ancestorIds ||= [];
+    descendant.nestedLevel = node.ancestorIds.length;
+    state.byId[descendant.id] = descendant;
 
-    // description call comes faster than showNode call, so we need to make sure we don't override the descriptions
-    node.description = stateNode.description;
-    node.descriptionMarkdown = stateNode.descriptionMarkdown;
-    node.shortDescription = stateNode.shortDescription;
+    childIdsByParentId[descendant.parentId] ||= [];
+    childIdsByParentId[descendant.parentId].push(descendant.id);
 
-    // TODO: this is good for now, but we will need to add logic to append selection to url
-    if (node.id === currentRootId) {
-      state.selectedNodeId = node.id;
-    }
-
-    state.byId[node.id] = node;
-
-    state.childIdsByParentId[node.id] = node.childIds;
-    state.nodeTitlesById[node.id] = node.title;
+    childIdsByParentId[descendant.id] ||= [];
   });
+
+  state.childIdsByParentId = {
+    ...state.childIdsByParentId,
+    ...childIdsByParentId,
+  };
 }

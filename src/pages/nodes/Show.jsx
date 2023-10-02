@@ -12,7 +12,7 @@ export default function NodeShow() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { rootId, id } = useParams();
+  const { id } = useParams();
 
   if (!id) {
     navigate('/404');
@@ -25,16 +25,13 @@ export default function NodeShow() {
       return;
     }
 
-    dispatch(showNode({
-      rootId,
-      id,
-    })).then((response) => {
+    dispatch(showNode(id)).then((response) => {
       setIsNodeFetched(true);
       if (response.error) {
         navigate('/404');
       }
     });
-  }, [dispatch, navigate, rootId, id, isNodeFetched]);
+  }, [dispatch, navigate, id, isNodeFetched]);
 
   return (
     <Box height={1} display="flex">

@@ -6,6 +6,7 @@ import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { selectDragAndDropAttributes } from '../../trees.selectors';
 import useTreeNodeDraggableReorderer from '../../hooks/useTreeNodeDraggableReorderer';
 import useNodeContext, { useNodeColors } from '../../hooks/useNodeContext';
+import { selectChildIds } from '../../../nodes/nodes.selectors';
 import NodeSymbol from './NodeSymbol';
 
 export default function NodeButton() {
@@ -32,6 +33,8 @@ export default function NodeButton() {
   const { handleTreeNodeClick } = useNodeTreeEvents();
   const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggableReorderer();
   const [dragOver, setDragOver] = useState(false);
+
+  const firstChildId = useSelector(selectChildIds(nodeId))[0];
 
   const handleDragStart = useCallback((event) => {
     if (isTreeRoot) {
@@ -61,6 +64,7 @@ export default function NodeButton() {
     onDropCapture({
       newParentId: nodeId,
       newSiblingIndex: 0,
+      newBottomSiblingId: firstChildId,
     });
 
     setDragOver(false);

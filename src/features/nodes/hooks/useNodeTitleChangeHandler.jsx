@@ -23,6 +23,7 @@ export default function useNodeTitleChangeHandler() {
 
   const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
+  const order = useSelector(selectNodeAttribute(nodeId, 'order'));
 
   const prevTitle = usePrevious(title);
 
@@ -40,9 +41,7 @@ export default function useNodeTitleChangeHandler() {
 
     saveNodeTimeout.current = setTimeout(() => {
       if (persistentId) {
-        const data = { rootId, id: persistentId, title: value };
-
-        dispatch(updateNodeTitle(data)).then((response, args) => {
+        dispatch(updateNodeTitle({ id: persistentId, title: value })).then((response, args) => {
           if (response.error) handle404(response.error);
           dispatch(setNodeCreationInProgress(false));
         }).catch((error) => {
@@ -54,6 +53,7 @@ export default function useNodeTitleChangeHandler() {
           rootId,
           parentId,
           title: value,
+          order,
           tmpNodeId: nodeId,
         };
 

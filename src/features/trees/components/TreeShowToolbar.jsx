@@ -6,16 +6,20 @@ import { useDispatch } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { searchNode } from '../../nodes/nodesSlice';
+import { searchNode, setOriginalChildIds } from '../../nodes/nodesSlice';
 
 export default function TreeShowToolbar({ rootNodeId }) {
   const dispatch = useDispatch();
 
-  useEffect(() => () => {
-    dispatch(searchNode({
-      rootId: rootNodeId,
-      value: '',
-    }));
+  useEffect(() => {
+    dispatch(setOriginalChildIds());
+
+    return () => {
+      dispatch(searchNode({
+        rootId: rootNodeId,
+        value: '',
+      }));
+    };
   }, [dispatch, rootNodeId]);
 
   return (

@@ -15,10 +15,12 @@ export default function DraggableNodePoint({ treeNodeId }) {
   const dragAndDrop = useSelector(selectDragAndDrop);
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const siblingIndex = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeSiblingIndex'));
-  const selectedSiblingIndex = useSelector(selectTreeNodeAttribute(dragAndDrop.treeNodeId, 'treeSiblingIndex'));
+
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
   const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
+
+  const draggedNodeSiblingIndex = useSelector(selectTreeNodeAttribute(dragAndDrop.treeNodeId, 'treeSiblingIndex'));
 
   const { onDropCapture } = useTreeNodeDraggableReorderer();
 
@@ -26,10 +28,10 @@ export default function DraggableNodePoint({ treeNodeId }) {
 
   const isSameParent = dragAndDrop.parentId === parentId;
 
-  // handle new sibling index when  a node down on the same level
-  let correctedIndex = siblingIndex;
-  if (selectedSiblingIndex < siblingIndex && isSameParent) {
-    correctedIndex -= 1;
+  // handle new sibling index when a node is moved down on the same level
+  let newSiblingIndex = siblingIndex;
+  if (draggedNodeSiblingIndex < siblingIndex && isSameParent) {
+    newSiblingIndex -= 1;
   }
 
   if (
@@ -37,7 +39,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
     || !y
     || dragAndDrop.treeNodeId === treeNodeId
     || isTemp
-    || (isSameParent && selectedSiblingIndex === siblingIndex - 1)
+    || (isSameParent && draggedNodeSiblingIndex === siblingIndex - 1)
     || ancestorIds.includes(dragAndDrop.nodeId)
   ) return null;
 
@@ -51,7 +53,8 @@ export default function DraggableNodePoint({ treeNodeId }) {
       onDropCapture={() => {
         onDropCapture({
           newParentId: parentId,
-          newSiblingIndex: correctedIndex,
+          newSiblingIndex,
+          newBottomSiblingId: nodeId,
         });
       }}
     >

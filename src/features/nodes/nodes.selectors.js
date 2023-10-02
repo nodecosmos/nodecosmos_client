@@ -28,3 +28,8 @@ export const selectNodeAttribute = (nodeId, attribute) => createSelector(
   selectNodesById,
   (nodesById) => nodesById[nodeId] && nodesById[nodeId][attribute],
 );
+
+export const selectChildIds = (nodeId) => createSelector(
+  selectChildIdsByParentId,
+  (childIdsByParentId) => childIdsByParentId[nodeId] || [],
+);

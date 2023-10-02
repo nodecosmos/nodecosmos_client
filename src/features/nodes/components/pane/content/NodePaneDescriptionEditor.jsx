@@ -42,7 +42,6 @@ export default function NodePaneDescriptionEditor() {
       }));
 
       dispatch(updateNodeDescription({
-        rootId,
         id,
         description: descriptionHtml,
         shortDescription,
@@ -56,10 +55,7 @@ export default function NodePaneDescriptionEditor() {
 
   useEffect(() => {
     if (id && rootId) {
-      dispatch(getNodeDescriptionBase64({
-        rootId,
-        id,
-      })).then(() => {
+      dispatch(getNodeDescriptionBase64(id)).then(() => {
         setBase64Fetched(true);
       });
     }

@@ -16,8 +16,6 @@ export default function createNodeFulfilledReducer(state, action) {
   state.byId[id].descendantIds = [];
   state.byId[id].rootId = rootId;
   state.byId[id].nestedLevel = state.byId[tmpNodeId].nestedLevel;
-  state.byId[id].childIds = [];
-  state.byId[id].persistentId = id;
 
   state.byId[tmpNodeId].rootId = rootId;
   state.byId[tmpNodeId].persistentId = id;

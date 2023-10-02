@@ -33,7 +33,7 @@ function NodeCard(props) {
           <Link
             sx={{ '&:hover h2': { color: 'text.link', textDecoration: 'underline' } }}
             component={RouterLink}
-            to={`/nodes/${node.rootId}/${node.id}`}
+            to={`/nodes/${node.id}`}
           >
             <Typography
               variant="h5"

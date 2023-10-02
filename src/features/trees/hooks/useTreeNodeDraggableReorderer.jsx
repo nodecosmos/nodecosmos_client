@@ -6,15 +6,11 @@ import { selectDragAndDrop } from '../trees.selectors';
 import { reorderNodes } from '../../nodes/nodesSlice';
 import { reorder } from '../../nodes/nodes.thunks';
 import { setAlert } from '../../app/appSlice';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-
-const REORDER_DESCENDANT_LIMIT = 500;
 
 export default function useTreeNodeDraggableReorderer() {
   const dispatch = useDispatch();
 
   const { nodeId, rootId } = useSelector(selectDragAndDrop);
-  const descendantIds = useSelector(selectNodeAttribute(nodeId, 'descendantIds'));
 
   const onDragStart = useCallback(({
     event,
@@ -44,7 +40,7 @@ export default function useTreeNodeDraggableReorderer() {
 
   const [reorderInProgress, setReorderInProgress] = useState(false);
 
-  const onDropCapture = useCallback(async ({ newParentId, newSiblingIndex }) => {
+  const onDropCapture = useCallback(async ({ newParentId, newSiblingIndex, newBottomSiblingId }) => {
     if (reorderInProgress) {
       dispatch(setAlert({
         isOpen: true,
@@ -55,21 +51,13 @@ export default function useTreeNodeDraggableReorderer() {
       return;
     }
 
-    if (descendantIds.length > REORDER_DESCENDANT_LIMIT) {
-      dispatch(setAlert({
-        isOpen: true,
-        severity: 'error',
-        message: `Reorder is not allowed for nodes with more than ${REORDER_DESCENDANT_LIMIT} descendants`,
-      }));
-
-      setReorderInProgress(false);
-      dispatch(clearDragAndDrop());
-      return;
-    }
-
     try {
       const response = await dispatch(reorder({
-        rootId, id: nodeId, newParentId, newSiblingIndex,
+        rootId,
+        id: nodeId,
+        newParentId,
+        newSiblingIndex,
+        newBottomSiblingId,
       }));
 
       if (response.error) {
@@ -93,7 +81,7 @@ export default function useTreeNodeDraggableReorderer() {
       if (e.message.includes(423)) {
         message = 'Resource locked! Reorder in progress.';
       } else if (e.message.includes(403)) {
-        message = 'Forbidden! You are not allowed to reorder this node.';
+        message = 'Forbidden!';
       } else {
         message = 'Something went wrong while reordering the node. Please try again.';
         console.error(e);
@@ -103,7 +91,7 @@ export default function useTreeNodeDraggableReorderer() {
       dispatch(setTreeLoading(false));
       setReorderInProgress(false);
     }
-  }, [reorderInProgress, descendantIds?.length, dispatch, rootId, nodeId]);
+  }, [reorderInProgress, dispatch, rootId, nodeId]);
 
   return {
     onDragStart,
