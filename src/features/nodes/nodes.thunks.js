@@ -79,12 +79,16 @@ export const updateNode = createAsyncThunk(
 
 export const deleteNode = createAsyncThunk(
   'nodes/deleteNode',
-  async (id, _thunkAPI) => {
-    const response = await nodecosmos.delete(`/nodes/${id}`);
+  async ({
+    nodeId,
+    treeNodeId,
+  }, _thunkAPI) => {
+    const response = await nodecosmos.delete(`/nodes/${nodeId}`);
 
     return {
       ...response.data,
-      nodeId: id,
+      nodeId,
+      treeNodeId,
     };
   },
 );

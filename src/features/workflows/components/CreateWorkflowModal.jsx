@@ -1,5 +1,4 @@
 import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as PropTypes from 'prop-types';
@@ -9,13 +8,12 @@ import {
   InputAdornment,
   DialogContent,
 } from '@mui/material';
-import { faCodeCommit, faAdd } from '@fortawesome/pro-light-svg-icons';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import { createWorkflow } from '../workflows.thunks';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function CreateWorkflowModal({

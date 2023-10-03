@@ -1,36 +1,22 @@
 import React from 'react';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
-import {
-  faPenToSquare,
-  faTrash,
-  faArrowUpRightFromSquare,
-} from '@fortawesome/pro-regular-svg-icons';
+import { faPenToSquare, faTrash, faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 /* mui */
-import {
-  IconButton,
-  Box, Tooltip,
-} from '@mui/material';
-
+import { IconButton, Box, Tooltip } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
 import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
-import useNodeRemover from '../../../nodes/hooks/useNodeRemover';
-import useTmpChildNodeBuilder from '../../../nodes/hooks/useTmpChildNodeBuilder';
 
-import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
 import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
-import useNodeContext from '../../hooks/useNodeContext';
+import useNodeContext from '../../hooks/node/useNodeContext';
+import useNodeCommands from '../../hooks/node/useNodeCommands';
 
 export default function NodeToolbar() {
-  const { nodeId } = useNodeContext();
+  const { nodeId, isCreationInProgress } = useNodeContext();
+  const { addNode, editNode, removeNode } = useNodeCommands();
 
-  const { editTreeNode } = useNodeTreeEvents();
-  const { removeNode } = useNodeRemover(nodeId);
-  const { addChildNode, loading } = useTmpChildNodeBuilder(nodeId);
-
-  if (loading) {
+  if (isCreationInProgress) {
     return (
       <Box display="flex" alignItems="center" height={NODE_BUTTON_HEIGHT}>
         <CircularProgress size={20} sx={{ color: 'secondary.main' }} />
@@ -53,12 +39,12 @@ export default function NodeToolbar() {
       }}
     >
       <Tooltip title="Add Node" placement="top">
-        <IconButton className="Item" onClick={addChildNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
+        <IconButton className="Item" onClick={addNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
           <FontAwesomeIcon icon={faPlus} />
         </IconButton>
       </Tooltip>
       <Tooltip title="Edit Node" placement="top">
-        <IconButton className="Item" onClick={editTreeNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
+        <IconButton className="Item" onClick={editNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
           <FontAwesomeIcon icon={faPenToSquare} />
         </IconButton>
       </Tooltip>

@@ -1,4 +1,4 @@
-import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../trees.memoize';
+import { extractRootIdFromTreeNodeId } from '../trees.memoize';
 
 const mountDescendants = (state, treeNode) => {
   const { treeDescendantIds, rootId } = treeNode;

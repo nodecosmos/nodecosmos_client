@@ -1,5 +1,5 @@
 export default {
-  buildChildNode: (state, action) => {
+  buildTmpNode: (state, action) => {
     const { tmpNodeId, nodeId } = action.payload;
     const node = state.byId[nodeId];
 
@@ -14,9 +14,9 @@ export default {
       ancestorIds: [nodeId, ...node.ancestorIds],
       nestedLevel: node.nestedLevel + 1,
       order: state.childIdsByParentId[nodeId].length,
-    }; // add new node to state
+    };
 
-    state.childIdsByParentId[nodeId].push(tmpNodeId); // add new node to parent's childIds
+    state.childIdsByParentId[nodeId].push(tmpNodeId);
     state.childIdsByParentId[tmpNodeId] = [];
   },
 };

@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { selectPosition, selectTreeNode } from '../trees.selectors';
-import { selectNode } from '../../nodes/nodes.selectors';
-import useShallowEqualSelector from '../../../common/hooks/useShallowEqualSelector';
-import { useTreeRootNodeId } from './useTreeContext';
-import useNodeButtonColors from './useNodeButtonColors';
+import { selectPosition, selectTreeNode } from '../../trees.selectors';
+import { selectNode } from '../../../nodes/nodes.selectors';
+import useShallowEqualSelector from '../../../../common/hooks/useShallowEqualSelector';
+import useTreeContext from '../useTreeContext';
+import useNodeButtonColors from './context/useNodeButtonColors';
 
 const NodeContext = createContext(undefined);
 
@@ -24,18 +24,22 @@ export default function useNodeContext() {
     isEditing,
     isTreeRoot,
     nodeId,
+    treeParentId,
+    isDragOver,
+    treeAncestorIds,
+    isCreationInProgress,
   } = useSelector(selectTreeNode(treeNodeId));
 
   // node attributes
-  const treeRootNodeId = useTreeRootNodeId();
+  const { rootNodeId: treeRootNodeId } = useTreeContext();
 
   const {
     isRoot,
     title,
     parentId,
-    ancestorIds,
     rootId,
     isSelected,
+    isTemp,
   } = useSelector(selectNode(nodeId));
 
   return {
@@ -47,13 +51,17 @@ export default function useNodeContext() {
     isTreeRoot,
     nodeId,
     treeRootNodeId,
+    treeParentId,
+    isDragOver,
+    treeAncestorIds,
+    isCreationInProgress,
     // node attributes
     isRoot,
     title,
     parentId,
-    ancestorIds,
     rootId,
     isSelected,
+    isTemp,
   };
 }
 

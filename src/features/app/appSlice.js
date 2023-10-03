@@ -18,7 +18,6 @@ function fnBrowserDetect() {
     browserName = 'No browser detection';
   }
 
-  // console.log('browserName', browserName);
   return browserName;
 }
 

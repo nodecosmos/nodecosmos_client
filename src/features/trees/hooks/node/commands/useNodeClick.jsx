@@ -1,17 +1,13 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
-import { setSelectedNode } from '../../nodes/nodesSlice';
-import {
-  collapseTreeNode,
-  expandTreeNode,
-  updateTreeNode,
-  setSelectedTreeNode,
-} from '../treesSlice';
-import { useTreeCheckbox } from './useTreeContext';
-import useNodeContext from './useNodeContext';
+import { setSelectedNode } from '../../../../nodes/nodesSlice';
+import { collapseTreeNode, expandTreeNode, setSelectedTreeNode } from '../../../treesSlice';
+import useTreeContext from '../../useTreeContext';
+import useTreeCommands from '../../useTreeCommands';
+import useNodeContext from '../useNodeContext';
 
-export default function useNodeTreeEvents() {
+export default function useNodeClick() {
   const {
     treeNodeId,
     nodeId,
@@ -20,21 +16,22 @@ export default function useNodeTreeEvents() {
     isSelected,
   } = useNodeContext();
 
-  const { treeType, commands } = useTreeCheckbox();
+  const { type: treeType } = useTreeContext();
+  const { addId, deleteId, isChecked } = useTreeCommands();
   const dispatch = useDispatch();
 
   //--------------------------------------------------------------------------------------------------------------------
   const handleCheckboxChange = useCallback(() => {
-    const isNodeChecked = commands.isChecked(nodeId);
+    const isNodeChecked = isChecked(nodeId);
     if (isNodeChecked) {
-      commands.deleteId(nodeId);
+      deleteId(nodeId);
     } else {
-      commands.addId(nodeId);
+      addId(nodeId);
     }
-  }, [commands, nodeId]);
+  }, [addId, deleteId, isChecked, nodeId]);
 
   //--------------------------------------------------------------------------------------------------------------------
-  const handleTreeNodeClick = useCallback((event) => {
+  return useCallback((event) => {
     if (treeType === 'checkbox') {
       handleCheckboxChange();
       event.preventDefault();
@@ -53,15 +50,4 @@ export default function useNodeTreeEvents() {
       dispatch(setSelectedTreeNode(treeNodeId));
     }
   }, [treeType, isEditing, isExpanded, isSelected, handleCheckboxChange, dispatch, treeNodeId, nodeId]);
-
-  //--------------------------------------------------------------------------------------------------------------------
-  const editTreeNode = () => dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
-  const handleTreeNodeBlur = () => dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
-
-  //--------------------------------------------------------------------------------------------------------------------
-  return {
-    handleTreeNodeClick,
-    editTreeNode,
-    handleTreeNodeBlur,
-  };
 }

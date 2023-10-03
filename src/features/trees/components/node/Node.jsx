@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { useNodeContextCreator } from '../../hooks/useNodeContext';
+import { useNodeContextCreator } from '../../hooks/node/useNodeContext';
 import NestedNodesBranch from './NestedNodesBranch';
 
 import NodeContent from './NodeContent';

@@ -1,23 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
 /* nodecosmos */
-import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
-import { selectDragAndDropAttributes } from '../../trees.selectors';
-import useTreeNodeDraggableReorderer from '../../hooks/useTreeNodeDraggableReorderer';
-import useNodeContext, { useNodeColors } from '../../hooks/useNodeContext';
-import { selectChildIds } from '../../../nodes/nodes.selectors';
+import useNodeContext, { useNodeColors } from '../../hooks/node/useNodeContext';
+import useNodeCommands from '../../hooks/node/useNodeCommands';
 import NodeSymbol from './NodeSymbol';
 
 export default function NodeButton() {
   const {
-    treeNodeId,
-    isTreeRoot,
-    parentId,
-    nodeId,
     title,
-    ancestorIds,
-    rootId,
+    isDragOver,
   } = useNodeContext();
   const {
     backgroundColor,
@@ -26,68 +17,38 @@ export default function NodeButton() {
     hasBg,
     outlinedColored,
   } = useNodeColors();
-
-  const dragAndDropNodeId = useSelector(selectDragAndDropAttributes('nodeId'));
+  const {
+    clickNode,
+    startDrag,
+    stopDrag,
+    dragOver,
+    dragLeave,
+    captureDroppedNode,
+  } = useNodeCommands();
 
   const theme = useTheme();
-  const { handleTreeNodeClick } = useNodeTreeEvents();
-  const { onDragStart, handleDragStop, onDropCapture } = useTreeNodeDraggableReorderer();
-  const [dragOver, setDragOver] = useState(false);
 
-  const firstChildId = useSelector(selectChildIds(nodeId))[0];
-
-  const handleDragStart = useCallback((event) => {
-    if (isTreeRoot) {
-      event.preventDefault();
-      return;
-    }
-
-    onDragStart({
-      event, nodeId, parentId, treeNodeId, rootId,
-    });
-  }, [isTreeRoot, onDragStart, nodeId, parentId, treeNodeId, rootId]);
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
-    if (nodeId === dragAndDropNodeId || ancestorIds.includes(dragAndDropNodeId)) return;
-    setDragOver(true);
-  };
-
-  const handleDragEnd = (event) => {
-    handleDragStop(event);
-    setDragOver(false);
-  };
-
-  const handleDropCapture = () => {
-    if (nodeId === dragAndDropNodeId || ancestorIds.includes(dragAndDropNodeId)) return;
-
-    onDropCapture({
-      newParentId: nodeId,
-      newSiblingIndex: 0,
-      newBottomSiblingId: firstChildId,
-    });
-
-    setDragOver(false);
-  };
-
+  if (title === '1.1') {
+    console.log(isDragOver);
+  }
   return (
     <button
       draggable
       onMouseDown={(event) => event.stopPropagation()} // prevents pannable from firing
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      onDragOver={handleDragOver}
-      onDragLeave={() => setDragOver(false)}
-      onDropCapture={handleDropCapture}
+      onDragStart={startDrag}
+      onDragEnd={stopDrag}
+      onDragOver={dragOver}
+      onDragLeave={dragLeave}
+      onDropCapture={captureDroppedNode}
       type="button"
-      className={`NodeButton ${hasBg && 'selected'} ${(outlinedColored || dragOver) && 'outlined'}`}
-      onClick={handleTreeNodeClick}
+      className={`NodeButton ${hasBg && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
+      onClick={clickNode}
       onKeyUp={(event) => event.preventDefault()}
       style={{
         border: '1px solid',
         borderColor: outlineColor,
-        backgroundColor: dragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
-        color: dragOver ? theme.palette.text.primary : color,
+        backgroundColor: isDragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
+        color: isDragOver ? theme.palette.text.primary : color,
       }}
     >
       <NodeSymbol />

@@ -1,18 +1,24 @@
-import { createContext, useContext, useMemo } from 'react';
+import {
+  createContext, useContext, useMemo, useState,
+} from 'react';
 
 const TreeContext = createContext(undefined);
 
-export default function useTreeContext({
+export function useTreeContextCreator({
   type, onChange, value, rootNodeId,
 }) {
+  const [shouldRebuildTree, setShouldRebuildTree] = useState(false);
+
   const contextProviderValue = useMemo(
     () => ({
       type,
       onChange,
       selectedNodeIds: new Set(value),
       rootNodeId,
+      shouldRebuildTree,
+      setShouldRebuildTree,
     }),
-    [type, onChange, value, rootNodeId],
+    [type, onChange, value, rootNodeId, shouldRebuildTree],
   );
 
   return {
@@ -21,45 +27,13 @@ export default function useTreeContext({
   };
 }
 
-export function useTreeCheckbox() {
+export default function useTreeContext() {
   const context = useContext(TreeContext);
-  const { type, selectedNodeIds, onChange } = context;
-
-  const addId = (nodeId) => {
-    selectedNodeIds.add(nodeId);
-    onChange(Array.from(selectedNodeIds));
-  };
-
-  const deleteId = (nodeId) => {
-    selectedNodeIds.delete(nodeId);
-    onChange(Array.from(selectedNodeIds));
-  };
-
-  const isChecked = (nodeId) => selectedNodeIds.has(nodeId);
-
-  const handleCheckboxChange = (event) => {
-    const { value } = event.target;
-    if (isChecked(value)) {
-      deleteId(value);
-    } else {
-      addId(value);
-    }
-  };
+  const {
+    rootNodeId, type, shouldRebuildTree, setShouldRebuildTree,
+  } = context;
 
   return {
-    treeType: type,
-    commands: {
-      addId,
-      deleteId,
-      isChecked,
-    },
-    handleCheckboxChange,
+    rootNodeId, shouldRebuildTree, type, setShouldRebuildTree,
   };
-}
-
-export function useTreeRootNodeId() {
-  const context = useContext(TreeContext);
-  const { rootNodeId } = context;
-
-  return rootNodeId;
 }

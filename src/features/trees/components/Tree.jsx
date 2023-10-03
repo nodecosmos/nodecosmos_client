@@ -3,13 +3,13 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import Transformable from '../../../common/components/Transformable';
 import { TREES_TYPES } from '../trees.constants';
-import useTreeContext from '../hooks/useTreeContext';
+import { useTreeContextCreator } from '../hooks/useTreeContext';
 import TreeNodes from './TreeNodes';
 
 export default function Tree({
   rootNodeId, type, onChange, value,
 }) {
-  const { TreeContext, contextProviderValue } = useTreeContext({
+  const { TreeContext, contextProviderValue } = useTreeContextCreator({
     type, onChange, value, rootNodeId,
   });
 

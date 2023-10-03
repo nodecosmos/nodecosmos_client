@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createNode } from '../nodes/nodes.thunks';
+import { createNode, deleteNode } from '../nodes/nodes.thunks';
 
 /* reducers */
 import treeBuilder from './reducers/treeBuilder';
 import treeNodePositionSetter from './reducers/treeNodePositionSetter';
 import treeNodeMounter from './reducers/treeNodeMounter';
 import treeNodeUpdater from './reducers/treeNodeUpdater';
-import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
+import treeTmpNodeAdder from './reducers/tmpTreeNodeAdder';
+import treeNodeDeleter from './reducers/treeNodeDeleter';
+import tmpTreeNodeReplacer from './reducers/tmpTreeNodeReplacer';
 
 const treesSlice = createSlice({
   name: 'trees',
@@ -26,7 +28,6 @@ const treesSlice = createSlice({
      *    isRoot: boolean,
      *    isMounted: boolean,
      *    isExpanded: boolean,
-     *    isSelected: boolean,
      *    isEditing: boolean,
      *    nestedLevel: number,
      *   },
@@ -89,13 +90,12 @@ const treesSlice = createSlice({
      * @type {boolean}
      */
     isTreeLoading: false,
-
-    expandedNodeIds: [],
   },
   reducers: {
     setDragAndDrop(state, action) { state.dragAndDrop = action.payload; },
     clearDragAndDrop(state) { state.dragAndDrop = { isDragging: false, treeNodeId: null, nodeId: null }; },
     setTreeLoading(state, action) { state.isTreeLoading = action.payload; },
+    setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
 
     buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
     setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
@@ -105,16 +105,13 @@ const treesSlice = createSlice({
 
     updateTreeNode: treeNodeUpdater.updateTreeNode,
 
-    setCurrentTempNodeId(state, action) { state.currentTempNodeId = action.payload; },
-    setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
-
-    pushToExpandedNodeIds(state, action) { state.expandedNodeIds.push(action.payload); },
-    pullFromExpandedNodeIds(state, action) {
-      state.expandedNodeIds = state.expandedNodeIds.filter((id) => id !== action.payload);
-    },
+    buildTmpTreeNode: treeTmpNodeAdder.buildTmpTreeNode,
+    deleteTreeNodeFromState: treeNodeDeleter.deleteTreeNodeFromState,
+    replaceTmpTreeNodeWithPersistedNode: tmpTreeNodeReplacer.replaceTmpTreeNodeWithPersistedNode,
   },
   extraReducers(builder) {
-    builder.addCase(createNode.fulfilled, createNodeFulfilledReducer);
+    builder.addCase(createNode.fulfilled, (state) => { state.currentTempNodeId = null; });
+    builder.addCase(deleteNode.fulfilled, (state, action) => treeNodeDeleter.deleteTreeNodeFromState(state, action));
   },
 });
 
@@ -126,15 +123,16 @@ const {
 export const {
   setDragAndDrop,
   clearDragAndDrop,
+  setTreeLoading,
+  setSelectedTreeNode,
   buildTreeFromRootNode,
   setTreeNodesPositions,
   expandTreeNode,
   collapseTreeNode,
   updateTreeNode,
-  setCurrentTempNodeId,
-  setSelectedTreeNode,
-  setTreeLoading,
-  pushToExpandedNodeIds,
+  buildTmpTreeNode,
+  deleteTreeNodeFromState,
+  replaceTmpTreeNodeWithPersistedNode,
 } = actions;
 
 export default reducer;

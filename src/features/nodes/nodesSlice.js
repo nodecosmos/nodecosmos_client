@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NODE_PANE_CONTENTS } from './nodes.constants';
 import getNodeDescriptionFulfilled from './reducers/extra/getNodeDescription.fulfilled';
 /* reducers */
-import nodeChildBuilder from './reducers/tmpNodeChildBuilder';
+import tmpNodeAdder from './reducers/tmpNodeAdder';
 import nodeDeleter from './reducers/nodeDeleter';
 import nodeUpdater from './reducers/nodeUpdater';
 import nodeSelectionSetter from './reducers/nodeSelectionSetter';
@@ -106,10 +106,10 @@ const nodesSlice = createSlice({
      * @description
      * Currently used to prevent addon of new nodes while node creation is in progress.
      */
-    nodeCreationInProgress: false,
+    isNodeActionInProgress: false,
   },
   reducers: {
-    buildChildNode: nodeChildBuilder.buildChildNode,
+    buildTmpNode: tmpNodeAdder.buildTmpNode,
     updateNodeState: nodeUpdater.updateNodeState,
     deleteNodeFromState: nodeDeleter.deleteNodeFromState,
     setSelectedNode: nodeSelectionSetter.setSelectedNode,
@@ -120,8 +120,8 @@ const nodesSlice = createSlice({
     reorderNodes: nodeReorderer.reorderNodes,
     replaceTmpNodeWithPersistedNode: tmpNodeReplacer.replaceTmpNodeWithPersistedNode,
     clearTmpNode: tmpNodeCleaner.clearTmpNode,
-    setNodeCreationInProgress: (state, action) => {
-      state.nodeCreationInProgress = action.payload;
+    setIsNodeActionInProgress: (state, action) => {
+      state.isNodeActionInProgress = action.payload;
     },
   },
   extraReducers(builder) {
@@ -146,15 +146,14 @@ const {
 export const {
   updateNodeState,
   deleteNodeFromState,
-  buildChildNode,
+  buildTmpNode,
   setSelectedNode,
   setNodePaneContent,
   reorderNodes,
   searchNode,
-  importNode,
+  // importNode,
   replaceTmpNodeWithPersistedNode,
-  setNodeCreationInProgress,
-  clearTmpNode,
+  setIsNodeActionInProgress,
   setOriginalChildIds,
 } = actions;
 

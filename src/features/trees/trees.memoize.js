@@ -10,3 +10,5 @@ export const replaceNodeIdInTreeNodeId = defaultMemoize((treeNodeId, newId) => {
   parts.push(newId);
   return parts.join('->');
 });
+
+export const buildTreeNodeId = defaultMemoize((rootId, parentId, nodeId) => `${rootId}->${parentId}->${nodeId}`);

@@ -1,13 +1,13 @@
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectTreeNode } from '../../trees.selectors';
-import { useTreeCheckbox } from '../useTreeContext';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import useTreeCommands from '../useTreeCommands';
 
 export default function useNodeButtonCheckboxColors(treeId) {
   const { nodeId, isRoot } = useSelector(selectTreeNode(treeId));
   const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel'));
-  const { commands } = useTreeCheckbox();
+  const commands = useTreeCommands();
   const theme = useTheme();
 
   const { backgrounds } = theme.palette.tree;

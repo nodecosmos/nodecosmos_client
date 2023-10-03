@@ -1,46 +1,24 @@
-/* eslint-disable no-shadow */
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearDragAndDrop, setDragAndDrop, setTreeLoading } from '../treesSlice';
-import { selectDragAndDrop } from '../trees.selectors';
-import { reorderNodes } from '../../nodes/nodesSlice';
-import { reorder } from '../../nodes/nodes.thunks';
-import { setAlert } from '../../app/appSlice';
+import { clearDragAndDrop, setTreeLoading } from '../../treesSlice';
+import { selectDragAndDrop } from '../../trees.selectors';
+import { reorderNodes } from '../../../nodes/nodesSlice';
+import { reorder } from '../../../nodes/nodes.thunks';
+import { setAlert } from '../../../app/appSlice';
+import useTreeCommands from '../useTreeCommands';
 
-export default function useTreeNodeDraggableReorderer() {
+export default function useNodeDropCapture() {
   const dispatch = useDispatch();
 
   const { nodeId, rootId } = useSelector(selectDragAndDrop);
-
-  const onDragStart = useCallback(({
-    event,
-    nodeId,
-    parentId,
-    treeNodeId,
-    rootId,
-  }) => {
-    event.stopPropagation();
-
-    const img = document.createElement('img');
-    img.src = '/drag-image.svg';
-    event.dataTransfer.setDragImage(img, 5, -10);
-
-    dispatch(setDragAndDrop({
-      isDragging: true,
-      parentId,
-      treeNodeId,
-      rootId,
-      nodeId,
-    }));
-  }, [dispatch]);
-
-  const handleDragStop = useCallback(() => {
-    dispatch(clearDragAndDrop());
-  }, [dispatch]);
-
   const [reorderInProgress, setReorderInProgress] = useState(false);
+  const { rebuildTree } = useTreeCommands();
 
-  const onDropCapture = useCallback(async ({ newParentId, newSiblingIndex, newBottomSiblingId }) => {
+  return useCallback(async ({
+    newParentId,
+    newSiblingIndex,
+    newBottomSiblingId,
+  }) => {
     if (reorderInProgress) {
       dispatch(setAlert({
         isOpen: true,
@@ -70,7 +48,7 @@ export default function useTreeNodeDraggableReorderer() {
         newSiblingIndex,
       }));
 
-      console.log('hit reorder over');
+      rebuildTree();
 
       dispatch(setTreeLoading(false));
       dispatch(clearDragAndDrop());
@@ -87,15 +65,13 @@ export default function useTreeNodeDraggableReorderer() {
         console.error(e);
       }
 
-      dispatch(setAlert({ isOpen: true, severity: 'error', message }));
+      dispatch(setAlert({
+        isOpen: true,
+        severity: 'error',
+        message,
+      }));
       dispatch(setTreeLoading(false));
       setReorderInProgress(false);
     }
-  }, [reorderInProgress, dispatch, rootId, nodeId]);
-
-  return {
-    onDragStart,
-    handleDragStop,
-    onDropCapture,
-  };
+  }, [reorderInProgress, dispatch, rootId, nodeId, rebuildTree]);
 }

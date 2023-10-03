@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material';
-import { selectDragAndDrop, selectPosition, selectTreeNodeAttribute } from '../trees.selectors';
-import useTreeNodeDraggableReorderer from '../hooks/useTreeNodeDraggableReorderer';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { useTreeRootNodeId } from '../hooks/useTreeContext';
+import { selectDragAndDrop, selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
+import useNodeDropCapture from '../../hooks/reorderer/useNodeDropCapture';
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import useTreeContext from '../../hooks/useTreeContext';
 
 export default function DraggableNodePoint({ treeNodeId }) {
   const theme = useTheme();
-  const rootNodeId = useTreeRootNodeId();
+  const { rootNodeId } = useTreeContext();
 
   const { x, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
   const dragAndDrop = useSelector(selectDragAndDrop);
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const siblingIndex = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeSiblingIndex'));
+  const treeAncestorIds = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeAncestorIds'));
 
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
-  const ancestorIds = useSelector(selectNodeAttribute(nodeId, 'ancestorIds'));
 
   const draggedNodeSiblingIndex = useSelector(selectTreeNodeAttribute(dragAndDrop.treeNodeId, 'treeSiblingIndex'));
 
-  const { onDropCapture } = useTreeNodeDraggableReorderer();
+  const onDropCapture = useNodeDropCapture();
 
   const [hovered, setHovered] = useState(false);
 
@@ -40,7 +40,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
     || dragAndDrop.treeNodeId === treeNodeId
     || isTemp
     || (isSameParent && draggedNodeSiblingIndex === siblingIndex - 1)
-    || ancestorIds.includes(dragAndDrop.nodeId)
+    || treeAncestorIds.includes(dragAndDrop.treeNodeId)
   ) return null;
 
   return (

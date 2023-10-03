@@ -65,8 +65,3 @@ export const selectSelectedTreeNode = createSelector(
     return treeNodesByRootNodeId[rootId][treeNodeId];
   },
 );
-
-export const selectDragAndDropAttributes = (attribute) => createSelector(
-  selectDragAndDrop,
-  (dragAndDrop) => dragAndDrop[attribute],
-);

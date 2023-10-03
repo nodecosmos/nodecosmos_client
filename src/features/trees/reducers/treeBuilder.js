@@ -63,10 +63,7 @@ export default {
         rootId,
         isRoot,
         isMounted: isRoot || isNewlyCreated || (isParentExpanded && isParentMounted),
-        isExpanded: currentTreeNode.isExpanded
-          || isRoot
-          || type === TREES_TYPES.checkbox
-          || state.expandedNodeIds.includes(treeNodeId),
+        isExpanded: currentTreeNode.isExpanded || isRoot || type === TREES_TYPES.checkbox,
         isEditing: isNewlyCreated || false,
         isNewlyCreated,
         nestedLevel,

@@ -5,7 +5,7 @@ import {
   INITIAL_ANIMATION_DURATION,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
-import useNodeContext, { useNodeColors, useNodePosition } from '../../hooks/useNodeContext';
+import useNodeContext, { useNodeColors, useNodePosition } from '../../hooks/node/useNodeContext';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

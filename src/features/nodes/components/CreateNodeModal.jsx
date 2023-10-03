@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 /* mui */
 import {
   InputAdornment,
-  DialogContent, Box,
+  DialogContent,
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';

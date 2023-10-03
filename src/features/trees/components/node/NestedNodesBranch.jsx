@@ -11,7 +11,7 @@ import {
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
 import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
-import useNodeContext, { useNodePosition } from '../../hooks/useNodeContext';
+import useNodeContext, { useNodePosition } from '../../hooks/node/useNodeContext';
 
 export default function NestedNodesBranch() {
   const {

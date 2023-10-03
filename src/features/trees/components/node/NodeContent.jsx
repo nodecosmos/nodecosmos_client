@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '@mui/material';
-/* nodecosmos */
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION,
@@ -8,9 +7,8 @@ import {
   NODE_BUTTON_HEIGHT,
   TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
-import useNodeTreeEvents from '../../hooks/useNodeTreeEvents';
-import useNodeTitleChangeHandler from '../../../nodes/hooks/useNodeTitleChangeHandler';
-import useNodeContext, { useNodePosition } from '../../hooks/useNodeContext';
+import useNodeContext, { useNodePosition } from '../../hooks/node/useNodeContext';
+import useNodeCommands from '../../hooks/node/useNodeCommands';
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
@@ -34,8 +32,9 @@ export default function NodeContent() {
     y,
   } = useNodePosition();
 
-  const { handleTreeNodeBlur } = useNodeTreeEvents();
-  const { handleNodeTitleChange, handleTitleChangeFinish } = useNodeTitleChangeHandler();
+  // we don't use this directly in input as input unmounts on blur
+  // so command chain is broken
+  const { clickNode, blurNode, changeTitle } = useNodeCommands();
 
   if (!xEnd) return null;
 
@@ -58,11 +57,9 @@ export default function NodeContent() {
         <div className="NodeButtonContainer">
           {isEditing ? (
             <NodeInput
-              onChange={(event) => handleNodeTitleChange(event.target.value)}
-              onBlur={() => {
-                handleTreeNodeBlur();
-                handleTitleChangeFinish();
-              }}
+              onClick={clickNode}
+              onChange={(event) => changeTitle(event.target.value)}
+              onBlur={blurNode}
             />
           ) : <MemoizedNodeButton />}
           <div>
