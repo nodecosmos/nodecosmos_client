@@ -140,7 +140,7 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
         <UppyUploadImageModal
           open={openCoverImageUploader}
           onClose={handleClose}
-          endpointPath={`nodes/${rootId}/${id}/upload_cover_image`}
+          endpointPath={`nodes/${id}/upload_cover_image`}
         />
       </Suspense>
       )}

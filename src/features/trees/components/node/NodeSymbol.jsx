@@ -13,7 +13,7 @@ const MemoizedCheckbox = memo(Checkbox);
 export default function NodeSymbol() {
   const { nodeId, outlineColor } = useNodeContext();
   const { type: treeType } = useTreeContext();
-  const { commands, handleCheckboxChange } = useTreeCommands();
+  const { handleCheckboxChange, isChecked } = useTreeCommands();
 
   if (treeType !== TREES_TYPES.checkbox) {
     return (
@@ -24,8 +24,8 @@ export default function NodeSymbol() {
   return (
     <MemoizedCheckbox
       style={{ color: outlineColor }}
-      checked={commands.isChecked(nodeId)}
       value={nodeId}
+      checked={isChecked(nodeId)}
       onChange={handleCheckboxChange}
     />
   );

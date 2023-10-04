@@ -61,8 +61,7 @@ export default function NodeCardHeader({ node }) {
           )}
       />
       {node.coverImageUrl && (
-      <
-      >
+      <>
         <CardMedia
           className="AmbientImage"
           component="img"
@@ -71,7 +70,7 @@ export default function NodeCardHeader({ node }) {
         />
         <Link
           component={RouterLink}
-          to={`/nodes/${node.rootId}/${node.id}`}
+          to={`/nodes/${node.id}`}
         >
           <CardMedia
             className="CoverImage"

@@ -26,6 +26,8 @@ export default function useTreeCheckboxCommands() {
   }, [isChecked, addId, deleteId]);
 
   return {
+    addId,
+    deleteId,
     isChecked,
     handleCheckboxChange,
   };

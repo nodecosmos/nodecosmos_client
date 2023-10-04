@@ -30,10 +30,20 @@ export function useTreeContextCreator({
 export default function useTreeContext() {
   const context = useContext(TreeContext);
   const {
-    rootNodeId, type, shouldRebuildTree, setShouldRebuildTree,
+    rootNodeId,
+    type,
+    shouldRebuildTree,
+    setShouldRebuildTree,
+    onChange,
+    selectedNodeIds,
   } = context;
 
   return {
-    rootNodeId, shouldRebuildTree, type, setShouldRebuildTree,
+    rootNodeId,
+    shouldRebuildTree,
+    type,
+    setShouldRebuildTree,
+    onChange,
+    selectedNodeIds,
   };
 }

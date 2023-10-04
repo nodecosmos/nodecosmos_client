@@ -9,11 +9,18 @@ export default function useTreeCommands() {
   const finishTreeRebuild = useCallback(() => { setShouldRebuildTree(false); }, [setShouldRebuildTree]);
 
   // checkboxes
-  const { isChecked, handleCheckboxChange } = useTreeCheckboxCommands();
+  const {
+    addId,
+    deleteId,
+    isChecked,
+    handleCheckboxChange,
+  } = useTreeCheckboxCommands();
 
   return {
     rebuildTree,
     finishTreeRebuild,
+    addId,
+    deleteId,
     isChecked,
     handleCheckboxChange,
   };
