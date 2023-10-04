@@ -22,7 +22,6 @@ export default function showNodeFulfilledReducer(state, action) {
     descendant.isTemp = false;
     descendant.persistentId = descendant.id;
     descendant.ancestorIds ||= [];
-    descendant.nestedLevel = node.ancestorIds.length;
     state.byId[descendant.id] = descendant;
 
     childIdsByParentId[descendant.parentId] ||= [];
@@ -35,4 +34,20 @@ export default function showNodeFulfilledReducer(state, action) {
     ...state.childIdsByParentId,
     ...childIdsByParentId,
   };
+
+  // Use a queue to set ancestorIds iteratively
+  const queue = [node.id];
+
+  while (queue.length) {
+    const currentId = queue.shift();
+    const currentNode = state.byId[currentId];
+
+    const children = state.childIdsByParentId[currentId] || [];
+    children.forEach((childId) => {
+      const childNode = state.byId[childId];
+      childNode.ancestorIds = [...currentNode.ancestorIds, currentId];
+      childNode.nestedLevel = childNode.ancestorIds.length;
+      queue.push(childId);
+    });
+  }
 }

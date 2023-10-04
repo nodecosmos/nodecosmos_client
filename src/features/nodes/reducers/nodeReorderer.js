@@ -15,5 +15,21 @@ export default {
 
     state.childIdsByParentId[oldParentId].splice(oldIndex, 1);
     state.childIdsByParentId[newParentId].splice(newSiblingIndex, 0, nodeId);
+
+    // Use a queue to set ancestorIds iteratively
+    const queue = [node.rootId];
+
+    while (queue.length) {
+      const currentId = queue.shift();
+      const currentNode = state.byId[currentId];
+
+      const children = state.childIdsByParentId[currentId] || [];
+      children.forEach((childId) => {
+        const childNode = state.byId[childId];
+        childNode.ancestorIds = [...currentNode.ancestorIds, currentId];
+        childNode.nestedLevel = childNode.ancestorIds.length;
+        queue.push(childId);
+      });
+    }
   },
 };

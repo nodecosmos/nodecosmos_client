@@ -30,6 +30,7 @@ export default {
       (childId) => childId !== tmpNodeId,
     );
     state.byId[parentId].childIds = state.childIdsByParentId[parentId];
+
     delete state.byId[tmpNodeId];
     delete state.childIdsByParentId[tmpNodeId];
   },

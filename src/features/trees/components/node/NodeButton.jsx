@@ -28,9 +28,6 @@ export default function NodeButton() {
 
   const theme = useTheme();
 
-  if (title === '1.1') {
-    console.log(isDragOver);
-  }
   return (
     <button
       draggable

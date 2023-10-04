@@ -4,8 +4,6 @@ export default {
     const node = state.byId[nodeId];
 
     if (node && node.isTemp) {
-      console.log(nodeId);
-
       delete state[nodeId];
       delete state.childIdsByParentId[node.id];
 
