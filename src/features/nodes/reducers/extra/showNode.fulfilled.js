@@ -22,6 +22,8 @@ export default function showNodeFulfilledReducer(state, action) {
     descendant.isTemp = false;
     descendant.persistentId = descendant.id;
     descendant.ancestorIds ||= [];
+    // IMPORTANT. RootId refers to the root of whole tree, not the root of the current node's subtree
+    descendant.rootId = node.rootId;
     state.byId[descendant.id] = descendant;
 
     childIdsByParentId[descendant.parentId] ||= [];
