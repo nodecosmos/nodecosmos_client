@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { ButtonBase } from '@mui/material';
@@ -16,9 +16,9 @@ import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButto
 import {
   MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_DIAGRAM_CONTEXT, WORKFLOW_DIAGRAM_OBJECTS,
 } from '../../../workflows.constants';
-import { WorkflowsContext } from '../../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import WorkflowNodeBranch from './WorkflowNodeBranch';
 import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 
@@ -28,7 +28,7 @@ const MemoizedButtonBase = memo(ButtonBase);
 export default function WorkflowNodeButton({
   id, diagramId, workflowId, flowStepId, workflowStepIndex,
 }) {
-  const workflowContext = useContext(WorkflowsContext);
+  const { context: workflowContext } = useWorkflowContext();
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
   const dispatch = useDispatch();

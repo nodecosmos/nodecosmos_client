@@ -121,7 +121,10 @@ export default function Transformable({
           width: 1,
           height: 1,
         }}
-        style={{ transform: `scale(${scale})` }}
+        style={{
+          transform: `scale(${scale})`,
+          transition: 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

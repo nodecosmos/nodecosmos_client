@@ -9,11 +9,11 @@ import {
   WORKFLOW_DIAGRAM_OBJECTS,
   WORKFLOW_STEP_WIDTH,
 } from '../../../workflows.constants';
-import { WorkflowsContext } from '../../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 
 export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepIndex: _ }) {
   const flowTitle = useSelector(selectFlowAttribute(wfStepFlow.workflowId, wfStepFlow.id, 'title'));
@@ -22,7 +22,7 @@ export default function WorkflowStepFlow({ wfStepFlow, wfStepHovered, wfStepInde
   const { x, y } = useSelector(selectWorkflowDiagramPosition(wfStepFlow.diagramId));
 
   const dispatch = useDispatch();
-  const workflowContext = useContext(WorkflowsContext);
+  const { context: workflowContext } = useWorkflowContext();
 
   const handleFlowClick = () => {
     if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {

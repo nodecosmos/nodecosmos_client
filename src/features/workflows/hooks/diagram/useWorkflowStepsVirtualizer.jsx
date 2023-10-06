@@ -2,16 +2,21 @@ import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../../trees/trees.constants';
-import { selectWorkflowDiagram, selectWorkflowDiagramPositionById } from '../../workflows.selectors';
-import useWorkflowTransformableId from './useWorkflowTransformableId';
+import {
+  selectWorkflowDiagram,
+  selectWorkflowDiagramPositionById,
+  selectWorkflowScale,
+} from '../../workflows.selectors';
+import useWorkflowContext from '../useWorkflowContext';
 
-export default function useWorkflowStepsVirtualizer(workflowId) {
-  const workflowDiagram = useSelector(selectWorkflowDiagram(workflowId));
-  const transformableId = useWorkflowTransformableId();
-
+export default function useWorkflowStepsVirtualizer() {
+  const { id, transformableId } = useWorkflowContext();
+  const workflowDiagram = useSelector(selectWorkflowDiagram(id));
   const scrollLeft = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollLeft'));
   const clientWidth = useSelector(selectTransformablePositionAttribute(transformableId, 'clientWidth'));
   const positionsById = useSelector(selectWorkflowDiagramPositionById);
+  const wfScale = useSelector(selectWorkflowScale);
+
   const lastWorkflowStepDiagramId = useMemo(() => {
     if (!workflowDiagram?.workflowSteps) return null;
 
@@ -22,11 +27,16 @@ export default function useWorkflowStepsVirtualizer(workflowId) {
     const { x } = positionsById[currentWfStepDiagramId] || {};
     if (!x) return false;
 
+    const effectiveScrollLeft = scrollLeft / wfScale;
+    const effectiveClientWidth = clientWidth / wfScale;
+
+    const leftBoundary = effectiveScrollLeft - effectiveClientWidth * CLIENT_VIEWPORT_BUFFER_FACTOR;
+    const rightBoundary = effectiveScrollLeft + effectiveClientWidth * CLIENT_VIEWPORT_BUFFER_FACTOR;
+
     if (currentWfStepDiagramId === lastWorkflowStepDiagramId) return true;
 
-    return x > scrollLeft - clientWidth * CLIENT_VIEWPORT_BUFFER_FACTOR
-      && x < scrollLeft + clientWidth * CLIENT_VIEWPORT_BUFFER_FACTOR;
-  }, [positionsById, lastWorkflowStepDiagramId, scrollLeft, clientWidth]);
+    return x > leftBoundary && x < rightBoundary;
+  }, [positionsById, lastWorkflowStepDiagramId, scrollLeft, clientWidth, wfScale]);
 
   return useMemo(() => {
     if (!workflowDiagram) return [];

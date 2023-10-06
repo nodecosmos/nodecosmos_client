@@ -1,16 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
-import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
-import { HEADER_HEIGHT } from '../../../../app/constants';
 import Workflow from '../../../../workflows/components/diagram/Workflow';
-import WorkflowContainer from '../../../../workflows/components/WorkflowContainer';
-import WorkflowToolbar from '../../../../workflows/components/WorkflowToolbar';
-import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../../workflows/workflows.constants';
-import { WorkflowsContext } from '../../../../workflows/workflows.context';
 import { selectWorkflowsByNodeId } from '../../../../workflows/workflows.selectors';
 import { showWorkflow } from '../../../../workflows/workflows.thunks';
 import { selectSelectedNodeId } from '../../../nodes.selectors';
+import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../../workflows/workflows.constants';
 
 export default function NodePaneWorkflow() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
@@ -37,13 +32,6 @@ export default function NodePaneWorkflow() {
   }
 
   return (
-    <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.treeNodeDetails}>
-      <WorkflowContainer>
-        <WorkflowToolbar nodeId={selectedNodeId} />
-        <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-          <Workflow nodeId={selectedNodeId} />
-        </Box>
-      </WorkflowContainer>
-    </WorkflowsContext.Provider>
+    <Workflow nodeId={selectedNodeId} context={WORKFLOW_DIAGRAM_CONTEXT.treeNodeDetails} />
   );
 }

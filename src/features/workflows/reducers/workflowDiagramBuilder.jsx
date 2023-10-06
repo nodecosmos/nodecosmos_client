@@ -7,27 +7,29 @@ import {
 export default {
   buildWorkflowDiagram: (state, action) => {
     const {
-      workflow,
+      id: workflowId,
+      flowIds,
+      initialInputIds,
       flows,
       flowSteps,
     } = action.payload;
 
-    state.workflowDiagramById[workflow.id] = {
-      initialInputIds: workflow.initialInputIds,
+    state.workflowDiagramById[workflowId] = {
+      initialInputIds,
       workflowSteps: [],
       flowsCount: 0,
     };
 
-    const flowStepLengths = workflow.flowIds.map((flowId) => flows[flowId]?.stepIds?.length || 0);
+    const flowStepLengths = flowIds.map((flowId) => flows[flowId]?.stepIds?.length || 0);
     const maxFlowStepLength = Math.max(...flowStepLengths);
 
-    if (workflow.flowIds.length === 0) {
-      buildEmptyWfStepPlaceholder(state, workflow);
+    if (flowIds.length === 0) {
+      buildEmptyWfStepPlaceholder(state, workflowId);
     }
 
-    workflow.flowIds.forEach((flowId) => {
+    flowIds.forEach((flowId) => {
       const flow = flows[flowId];
-      state.workflowDiagramById[workflow.id].flowsCount += 1;
+      state.workflowDiagramById[workflowId].flowsCount += 1;
 
       if (flow.stepIds && flow.stepIds.length > 0) {
         flow.stepIds.forEach((flowStepId, flowStepIndex) => {
@@ -38,7 +40,7 @@ export default {
 
           const diagramFlowStep = {
             id: flowStepId,
-            workflowId: workflow.id,
+            workflowId,
             flowId: flow.id,
             nodes,
             nodeIds: flowStep.nodeIds,
@@ -48,20 +50,20 @@ export default {
             flowStepIndex,
           };
 
-          initFlowForWfStep(state, workflow.id, wfStepIndex, flow.id, diagramFlowStep);
+          initFlowForWfStep(state, workflowId, wfStepIndex, flow.id, diagramFlowStep);
         });
 
         const emptyLastFlowStepIndex = flow.startIndex + flow.stepIds.length;
-        initFlowForWfStep(state, workflow.id, emptyLastFlowStepIndex, flow.id, null);
+        initFlowForWfStep(state, workflowId, emptyLastFlowStepIndex, flow.id, null);
 
         // init following empty flow steps until the end of the workflow
         for (let i = emptyLastFlowStepIndex + 1; i <= maxFlowStepLength; i += 1) {
-          initFlowForWfStep(state, workflow.id, i, flow.id, null, false);
+          initFlowForWfStep(state, workflowId, i, flow.id, null, false);
         }
       } else {
-        initFlowForWfStep(state, workflow.id, flow.startIndex, flow.id);
+        initFlowForWfStep(state, workflowId, flow.startIndex, flow.id);
         for (let i = flow.startIndex + 1; i <= maxFlowStepLength; i += 1) {
-          initFlowForWfStep(state, workflow.id, i, flow.id, null, false);
+          initFlowForWfStep(state, workflowId, i, flow.id, null, false);
         }
       }
     });
@@ -118,13 +120,13 @@ function buildFlowStepInputs(flowStep) {
   }, {});
 }
 
-function buildEmptyWfStepPlaceholder(state, workflow) {
-  const lastIndex = state.workflowDiagramById[workflow.id].workflowSteps.length;
+function buildEmptyWfStepPlaceholder(state, workflowId) {
+  const lastIndex = state.workflowDiagramById[workflowId].workflowSteps.length;
 
-  state.workflowDiagramById[workflow.id].workflowSteps.push(
+  state.workflowDiagramById[workflowId].workflowSteps.push(
     {
-      diagramId: buildWorkflowStepDiagramId(workflow.id, lastIndex),
-      workflowId: workflow.id,
+      diagramId: buildWorkflowStepDiagramId(workflowId, lastIndex),
+      workflowId,
       stepIndex: lastIndex,
       wfStepFlows: [],
     },

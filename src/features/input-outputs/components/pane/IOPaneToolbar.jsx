@@ -108,7 +108,7 @@ export default function IOPaneToolbar() {
             <IconButton
               className="Item"
               aria-label="Delete Flow"
-              sx={{ svg: { color: 'toolbar.lightRed' } }}
+              sx={{ svg: { color: 'toolbar.blue' } }}
               onClick={handleDeleteIO}
             >
               <FontAwesomeIcon icon={faTrash} />

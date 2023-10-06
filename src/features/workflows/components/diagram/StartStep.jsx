@@ -22,7 +22,7 @@ import {
   selectWorkflowDiagramPosition,
   selectWorkflowScale,
 } from '../../workflows.selectors';
-import useWorkflowTransformableId from '../../hooks/diagram/useWorkflowTransformableId';
+import useWorkflowContext from '../../hooks/useWorkflowContext';
 import StartToolbar from './StartToolbar';
 import WorkflowOutputButton from './ios/WorkflowOutputButton';
 
@@ -40,7 +40,7 @@ export default function StartStep({ workflowId }) {
   const scale = useSelector(selectWorkflowScale);
 
   const [hovered, setHovered] = React.useState(false);
-  const transformableId = useWorkflowTransformableId();
+  const { transformableId } = useWorkflowContext();
 
   const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
 

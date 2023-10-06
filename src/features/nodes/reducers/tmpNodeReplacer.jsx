@@ -31,6 +31,16 @@ export default {
     );
     state.byId[parentId].childIds = state.childIdsByParentId[parentId];
 
+    // update upperSiblingId of bottom sibling
+    if (state.childIdsByParentId[parentId].length > 0) {
+      const nodeIndex = state.childIdsByParentId[parentId].indexOf(persistentId);
+      const bottomSiblingId = state.childIdsByParentId[parentId][nodeIndex + 1];
+
+      if (bottomSiblingId) {
+        state.byId[bottomSiblingId].upperSiblingId = persistentId;
+      }
+    }
+
     delete state.byId[tmpNodeId];
     delete state.childIdsByParentId[tmpNodeId];
   },

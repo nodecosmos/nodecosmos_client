@@ -8,14 +8,14 @@ import { selectTransformablePositionAttribute } from '../../../../app/app.select
 import FlowModal from '../../../../flows/components/FlowModal';
 import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition, selectWorkflowScale } from '../../../workflows.selectors';
-import useWorkflowTransformableId from '../../../hooks/diagram/useWorkflowTransformableId';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 
 export default function WorkflowStep({ wfStep, wfStepIndex }) {
   const theme = useTheme();
   const [hovered, setHovered] = React.useState(false);
 
-  const transformableId = useWorkflowTransformableId();
+  const { transformableId } = useWorkflowContext();
   const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
   const [openCreateFlowModal, setOpenCreateFlowModal] = React.useState(false);
   const { x } = useSelector(selectWorkflowDiagramPosition(wfStep.diagramId));

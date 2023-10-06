@@ -13,7 +13,7 @@ export default {
       descendantIds: [],
       ancestorIds: [nodeId, ...node.ancestorIds],
       nestedLevel: node.nestedLevel + 1,
-      order: state.childIdsByParentId[nodeId].length,
+      order: state.childIdsByParentId[nodeId].length + 1,
     };
 
     state.childIdsByParentId[nodeId].push(tmpNodeId);

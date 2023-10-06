@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
-import { Button, Typography, Box } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+  Button, Box, IconButton, Tooltip,
+} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd } from '@fortawesome/pro-light-svg-icons';
+import { faAdd, faTrash } from '@fortawesome/pro-light-svg-icons';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../workflows.selectors';
 import { setIsWfPaneOpen } from '../workflowsSlice';
 import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import EditTitleField from '../../../common/components/EditTItleField';
+import useWorkflowCommands from '../hooks/useWorkflowCommands';
+import useWorkflowContext from '../hooks/useWorkflowContext';
+import { selectIsWfPaneOpen } from '../workflows.selectors';
 import CreateWorkflowModal from './CreateWorkflowModal';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
 
-export default function WorkflowToolbar({ nodeId }) {
-  const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
-  const workflows = useSelector(selectWorkflowsByNodeId(nodeId));
-  const workflow = workflows[0] || {};
-
+export default function WorkflowToolbar() {
+  const { nodeId, id, title } = useWorkflowContext();
+  const hasWorkflow = !!id;
   const dispatch = useDispatch();
-
   const [openCreateWorkflowDialog, setOpenCreateWorkflowDialog] = useState(false);
+  const { handleTitleChange, deleteWorkflow } = useWorkflowCommands();
+  const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
 
   return (
     <Box
@@ -42,14 +45,33 @@ export default function WorkflowToolbar({ nodeId }) {
         alignItems="center"
       >
         {
-          workflow.title && (
-            <Typography color="text.secondary" pr={1} variant="body2">
-              {workflow.title}
-            </Typography>
+          hasWorkflow && (
+            <>
+              <EditTitleField
+                title={title}
+                endpoint="/workflows/title"
+                reqData={{ nodeId, id }}
+                color="text.secondary"
+                pr={1}
+                variant="body2"
+                onChange={handleTitleChange}
+              />
+              <Tooltip title="Delete Workflow" placement="top">
+                <IconButton
+                  className="Item"
+                  onClick={deleteWorkflow}
+                  aria-label="Delete Workflow"
+                  sx={{ color: 'toolbar.default' }}
+                  size="small"
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </IconButton>
+              </Tooltip>
+            </>
           )
         }
         {
-          !workflow.title && (
+          !hasWorkflow && (
             <DefaultButton
               title="Add Workflow"
               startIcon={<FontAwesomeIcon icon={faAdd} />}
@@ -59,7 +81,7 @@ export default function WorkflowToolbar({ nodeId }) {
         }
       </Box>
 
-      {workflow.title && <WorkflowZoomTools />}
+      {title && <WorkflowZoomTools />}
 
       {!isWfPaneOpen && (
         <ToolbarContainer round mr={0.5}>
@@ -85,7 +107,3 @@ export default function WorkflowToolbar({ nodeId }) {
     </Box>
   );
 }
-
-WorkflowToolbar.propTypes = {
-  nodeId: PropTypes.string.isRequired,
-};

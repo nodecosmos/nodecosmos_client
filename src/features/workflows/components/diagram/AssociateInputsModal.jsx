@@ -101,7 +101,7 @@ export default function AssociateInputsModal({
             <form style={{ height: '100%' }} onSubmit={handleSubmit}>
               {
                 workflowStepInputIds.map((inputId) => (
-                  <Box ml={1.5} key={inputId}>
+                  <Box key={inputId}>
                     <AssociateInputCheckboxField inputId={inputId} />
                   </Box>
                 ))

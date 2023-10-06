@@ -26,6 +26,9 @@ export default function TreeContainer({ children }) {
           py: 0,
           px: 1.75,
           border: 'none',
+          ':focus': {
+            outline: 'none',
+          },
           ':not(.outlined) .fa-hashtag ': {
             fontSize: 14,
             color: 'tree.hashtag',

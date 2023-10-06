@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonBase } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,21 +16,19 @@ import {
   WORKFLOW_DIAGRAM_CONTEXT,
   WORKFLOW_DIAGRAM_OBJECTS,
 } from '../../../workflows.constants';
-import { WorkflowsContext } from '../../../workflows.context';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import WorkflowOutputBranch from './WorkflowOutputBranch';
 
 const MemoizedButtonBase = memo(ButtonBase);
 
 export default function WorkflowOutputButton({ id, nodeId }) {
+  const { id: workflowId, context: workflowContext } = useWorkflowContext();
+
   const title = useSelector(selectIOAttribute(id, 'title'));
-  const workflowId = useSelector(selectIOAttribute(id, 'workflowId'));
-
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(id));
-
   const dispatch = useDispatch();
-  const workflowContext = useContext(WorkflowsContext);
 
   const handleClick = () => {
     if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {

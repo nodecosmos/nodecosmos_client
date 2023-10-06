@@ -4,7 +4,9 @@ import { deleteIO } from '../input-outputs/inputOutputs.thunks';
 import workflowDiagramBuilder from './reducers/workflowDiagramBuilder';
 import workflowDiagramPositionSetter from './reducers/workflowDiagramPositionSetter';
 import { WORKFLOW_PANE_CONTENTS } from './workflows.constants';
-import { createWorkflow, showWorkflow, updateWorkflowInitialInputs } from './workflows.thunks';
+import {
+  createWorkflow, deleteWorkflow, showWorkflow, updateWorkflowInitialInputs,
+} from './workflows.thunks';
 
 const workflowsSlice = createSlice({
   name: 'workflows',
@@ -24,7 +26,6 @@ const workflowsSlice = createSlice({
     byId: {},
 
     idsByNodeId: {
-      'node-1': ['workflow-1'],
     },
 
     /**
@@ -146,6 +147,9 @@ const workflowsSlice = createSlice({
       localStorage.setItem('workflowScale', action.payload);
       state.workflowScale = action.payload;
     },
+    updateWorkflow(state, action) {
+      state.byId[action.payload.id] = { ...state.byId[action.payload.id], ...action.payload };
+    },
   },
   extraReducers(builder) {
     builder
@@ -172,6 +176,14 @@ const workflowsSlice = createSlice({
 
         state.idsByNodeId[nodeId] = state.idsByNodeId[nodeId] || [];
         state.idsByNodeId[nodeId].push(id);
+      })
+      .addCase(deleteWorkflow.fulfilled, (state, action) => {
+        const { workflow } = action.payload;
+        const { id, nodeId } = workflow;
+
+        delete state.byId[id];
+
+        state.idsByNodeId[nodeId] = state.idsByNodeId[nodeId].filter((wfId) => wfId !== id);
       })
       .addCase(createFlow.fulfilled, (state, action) => {
         const { flow } = action.payload;
@@ -219,6 +231,7 @@ export const {
   setWorkflowScale,
   setWorkflowPaneContent,
   clearSelectedWorkflowDiagramObject,
+  updateWorkflow,
 } = actions;
 
 export default reducer;

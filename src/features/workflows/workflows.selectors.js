@@ -30,7 +30,7 @@ export const selectWorkflowDiagramPosition = (diagramId) => createSelector(
 
 export const selectWorkflow = (workflowId) => createSelector(
   selectWorkflowsById,
-  (workflowsById) => workflowsById[workflowId],
+  (workflowsById) => workflowsById[workflowId] || {},
 );
 
 export const selectWorkflowAttribute = (workflowId, attribute) => createSelector(

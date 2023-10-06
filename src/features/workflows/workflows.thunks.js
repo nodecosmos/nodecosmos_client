@@ -19,10 +19,10 @@ export const createWorkflow = createAsyncThunk(
   },
 );
 
-export const updateWorkflowTitle = createAsyncThunk(
-  'workflows/updateWorkflowTitle',
+export const deleteWorkflow = createAsyncThunk(
+  'workflows/deleteWorkflow',
   async (payload, _thunkAPI) => {
-    const response = await nodecosmos.patch('/workflows/title', payload);
+    const response = await nodecosmos.delete(`/workflows/${payload.nodeId}/${payload.id}`);
 
     return response.data;
   },

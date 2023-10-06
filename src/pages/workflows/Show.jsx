@@ -3,14 +3,9 @@ import { Box, useTheme } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../common/components/Loader';
-import { HEADER_HEIGHT } from '../../features/app/constants';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import Workflow from '../../features/workflows/components/diagram/Workflow';
 import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
-import WorkflowContainer from '../../features/workflows/components/WorkflowContainer';
-import WorkflowToolbar from '../../features/workflows/components/WorkflowToolbar';
-import { WORKFLOW_DIAGRAM_CONTEXT } from '../../features/workflows/workflows.constants';
-import { WorkflowsContext } from '../../features/workflows/workflows.context';
 import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../features/workflows/workflows.thunks';
 import Alert from '../../common/components/Alert';
@@ -80,65 +75,58 @@ export default function Show() {
       width={1}
       height={1}
     >
-      <WorkflowsContext.Provider value={WORKFLOW_DIAGRAM_CONTEXT.workflowPage}>
-        <WorkflowContainer>
-          <Box
-            height={1}
-            width={1}
-            display="flex"
-            style={{
-              cursor: resizeInProgress ? 'col-resize' : 'default',
-            }}
-          >
-            <Box
-              height={1}
-              width={(isWfPaneOpen && paneAWidth) || '100%'}
-              ref={workflowRef}
-              overflow="hidden"
-            >
-              <WorkflowToolbar nodeId={id} />
-              <Alert />
-              <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-                <Workflow nodeId={id} />
-              </Box>
-            </Box>
-            <Box
-              onMouseDown={handleResize}
-              onMouseEnter={() => setResizerHovered(true)}
-              onMouseLeave={() => {
-                if (!resizeInProgress) {
-                  setResizerHovered(false);
-                }
-              }}
-              width="8px"
-              backgroundColor="transparent"
-              height={1}
-              ml={-1}
-              sx={{
-                position: 'relative',
-                '&:hover': {
-                  cursor: 'col-resize',
-                },
-              }}
-            />
-            <Box
-              backgroundColor="background.5"
-              height={1}
-              display={isWfPaneOpen ? 'block' : 'none'}
-              width={(isWfPaneOpen && paneBWidth) || 0}
-              ref={workflowDetailsRef}
-              overflow="hidden"
-              boxShadow="left.2"
-              borderLeft={1}
-              style={{
-                borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
-              }}
-            >
-              <WorkflowPane />
-            </Box>
-          </Box>
-        </WorkflowContainer>
-      </WorkflowsContext.Provider>
+      <Box
+        height={1}
+        width={1}
+        display="flex"
+        style={{
+          cursor: resizeInProgress ? 'col-resize' : 'default',
+        }}
+      >
+        <Box
+          height={1}
+          width={(isWfPaneOpen && paneAWidth) || '100%'}
+          ref={workflowRef}
+          overflow="hidden"
+        >
+          <Alert />
+          <Workflow nodeId={id} />
+        </Box>
+        <Box
+          onMouseDown={handleResize}
+          onMouseEnter={() => setResizerHovered(true)}
+          onMouseLeave={() => {
+            if (!resizeInProgress) {
+              setResizerHovered(false);
+            }
+          }}
+          width="8px"
+          backgroundColor="transparent"
+          height={1}
+          ml={-1}
+          sx={{
+            position: 'relative',
+            '&:hover': {
+              cursor: 'col-resize',
+            },
+          }}
+        />
+        <Box
+          backgroundColor="background.5"
+          height={1}
+          display={isWfPaneOpen ? 'block' : 'none'}
+          width={(isWfPaneOpen && paneBWidth) || 0}
+          ref={workflowDetailsRef}
+          overflow="hidden"
+          boxShadow="left.2"
+          borderLeft={1}
+          style={{
+            borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
+          }}
+        >
+          <WorkflowPane />
+        </Box>
+      </Box>
     </Box>
   );
 }

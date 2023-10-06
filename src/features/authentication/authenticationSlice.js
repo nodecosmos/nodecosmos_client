@@ -54,15 +54,8 @@ const authenticationSlice = createSlice({
           localStorage.removeItem('currentUser');
         }
 
-        return {
-          ...state,
-          isAuthenticated: action.payload.success,
-          currentUser: (action.payload.success && action.payload.user) || null,
-        };
-      })
-      .addCase(syncUpCurrentUser.rejected, (state, _action) => {
-        localStorage.removeItem('currentUser');
-        return authenticationSlice.caseReducers.logout(state);
+        state.isAuthenticated = action.payload.success;
+        state.currentUser = (action.payload.success && action.payload.user) || null;
       })
       .addCase(logOut.fulfilled, (state, _action) => {
         localStorage.removeItem('currentUser');
