@@ -13,7 +13,7 @@ import {
 } from '../../../../nodes/nodesSlice';
 import { replaceTmpTreeNodeWithPersistedNode, updateTreeNode } from '../../../treesSlice';
 import useNodeContext from '../useNodeContext';
-import useHandle404Alert from '../../../../../common/hooks/useHandle404Alert';
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 
 export default function useNodeTitleChange() {
   const dispatch = useDispatch();
@@ -24,13 +24,13 @@ export default function useNodeTitleChange() {
     parentId,
     rootId,
     title,
+    isTemp,
+    persistentId,
   } = useNodeContext();
 
-  const persistentId = useSelector(selectNodeAttribute(nodeId, 'persistentId'));
-  const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
   const order = useSelector(selectNodeAttribute(nodeId, 'order'));
   const prevTitle = usePrevious(title);
-  const handle404 = useHandle404Alert();
+  const handleServerError = useHandleServerErrorAlert();
   const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -43,12 +43,15 @@ export default function useNodeTitleChange() {
     persistentId && dispatch(updateNodeState({ id: persistentId, title: value }));
 
     if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
-    if (!value || value === prevTitle) return;
+    if (!value || value === prevTitle) {
+      dispatch(setIsNodeActionInProgress(false));
+      return;
+    }
 
     saveNodeTimeout.current = setTimeout(() => {
       if (persistentId) {
-        dispatch(updateNodeTitle({ id: persistentId, title: value })).then((response, args) => {
-          if (response.error) handle404(response.error);
+        dispatch(updateNodeTitle({ id: persistentId, title: value })).then((response) => {
+          if (response.error) handleServerError(response.error);
           dispatch(setIsNodeActionInProgress(false));
         }).catch((error) => {
           console.log(error);
@@ -63,8 +66,8 @@ export default function useNodeTitleChange() {
           tmpNodeId: nodeId,
         };
 
-        dispatch(createNode(data)).then((response, args) => {
-          if (response.error) handle404(response.error);
+        dispatch(createNode(data)).then((response) => {
+          if (response.error) handleServerError(response.error);
           dispatch(setIsNodeActionInProgress(false));
         }).catch((error) => {
           console.log(error);
@@ -72,7 +75,7 @@ export default function useNodeTitleChange() {
         });
       }
     }, SAVE_NODE_TIMEOUT);
-  }, [dispatch, handle404, nodeId, order, parentId, persistentId, prevTitle, rootId]);
+  }, [dispatch, handleServerError, nodeId, order, parentId, persistentId, prevTitle, rootId]);
 
   //--------------------------------------------------------------------------------------------------------------------
   const blurNode = useCallback(() => {

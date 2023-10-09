@@ -6,18 +6,20 @@ import { reorderNodes } from '../../../nodes/nodesSlice';
 import { reorder } from '../../../nodes/nodes.thunks';
 import { setAlert } from '../../../app/appSlice';
 import useTreeCommands from '../useTreeCommands';
+import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
 
 export default function useNodeDropCapture() {
   const dispatch = useDispatch();
 
-  const { nodeId, rootId } = useSelector(selectDragAndDrop);
+  const { nodeId } = useSelector(selectDragAndDrop);
   const [reorderInProgress, setReorderInProgress] = useState(false);
   const { rebuildTree } = useTreeCommands();
+  const handleServerError = useHandleServerErrorAlert();
+  const childIdsByParentId = useSelector((state) => state.nodes.childIdsByParentId);
 
   return useCallback(async ({
     newParentId,
     newSiblingIndex,
-    newBottomSiblingId,
   }) => {
     if (reorderInProgress) {
       dispatch(setAlert({
@@ -30,11 +32,13 @@ export default function useNodeDropCapture() {
     }
 
     try {
+      const newUpperSiblingId = childIdsByParentId[newParentId][newSiblingIndex - 1];
+      const newBottomSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
+
       const response = await dispatch(reorder({
-        rootId,
-        id: nodeId,
+        nodeId,
         newParentId,
-        newSiblingIndex,
+        newUpperSiblingId,
         newBottomSiblingId,
       }));
 
@@ -54,24 +58,11 @@ export default function useNodeDropCapture() {
       dispatch(clearDragAndDrop());
       setReorderInProgress(false);
     } catch (e) {
-      let message;
-
-      if (e.message.includes(423)) {
-        message = 'Resource locked! Reorder in progress.';
-      } else if (e.message.includes(403)) {
-        message = 'Forbidden!';
-      } else {
-        message = 'Something went wrong while reordering the node. Please try again.';
-        console.error(e);
+      if (e.message) {
+        handleServerError(e);
       }
-
-      dispatch(setAlert({
-        isOpen: true,
-        severity: 'error',
-        message,
-      }));
       dispatch(setTreeLoading(false));
       setReorderInProgress(false);
     }
-  }, [reorderInProgress, dispatch, rootId, nodeId, rebuildTree]);
+  }, [reorderInProgress, dispatch, childIdsByParentId, nodeId, rebuildTree, handleServerError]);
 }

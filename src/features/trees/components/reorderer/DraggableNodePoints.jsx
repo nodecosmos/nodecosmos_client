@@ -11,13 +11,13 @@ function DraggableNodePoints({ rootNodeId }) {
 
   if (!dragAndDrop.isDragging) return null;
 
-  return treeNodeIdsToView.map(([treeNodeId, alreadyMounted], index) => {
+  return treeNodeIdsToView.map(([treeNodeId, isAlreadyMounted], index) => {
     if (index === 0) return null;
     return (
       <DraggableNodePoint
         key={treeNodeId}
         treeNodeId={treeNodeId}
-        alreadyMounted={alreadyMounted}
+        isAlreadyMounted={isAlreadyMounted}
       />
     );
   });

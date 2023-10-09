@@ -19,7 +19,7 @@ const MemoizedNodeButton = React.memo(NodeButton);
 // because 'input' is not valid child element of 'button'
 export default function NodeContent() {
   const {
-    alreadyMounted,
+    isAlreadyMounted,
     treeNodeId,
     isExpanded,
     isEditing,
@@ -38,8 +38,8 @@ export default function NodeContent() {
 
   if (!xEnd) return null;
 
-  const initialAnimationDelay = isRoot || alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
-  const initialAnimationDuration = isRoot || alreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
+  const initialAnimationDelay = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
 
   return (
     <g style={{

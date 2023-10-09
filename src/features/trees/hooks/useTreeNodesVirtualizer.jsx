@@ -29,10 +29,10 @@ export default function useTreeNodeVirtualizer(rootId) {
       if (isMounted && (isInViewport || isLastParentsChild || hasChildInViewport())) {
         // prevent animation if node is already mounted,
         // so we don't animate nodes that are outside of viewport
-        let alreadyMounted = !!prevVirtualizedNodesById.current[treeNodeId];
-        if (isNewlyCreated) alreadyMounted = false;
+        let isAlreadyMounted = !!prevVirtualizedNodesById.current[treeNodeId];
+        if (isNewlyCreated) isAlreadyMounted = false;
 
-        treeNodeIdsToViewRef.current.push([treeNodeId, alreadyMounted]);
+        treeNodeIdsToViewRef.current.push([treeNodeId, isAlreadyMounted]);
       }
 
       prevVirtualizedNodesById.current[treeNodeId] = isMounted;

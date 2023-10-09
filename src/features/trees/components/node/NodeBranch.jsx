@@ -11,7 +11,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function NodeBranch() {
   const theme = useTheme();
-  const { alreadyMounted, isRoot } = useNodeContext();
+  const { isAlreadyMounted, isRoot } = useNodeContext();
   const { x, xEnd, y } = useNodePosition();
   const { parentBackgroundColor } = useNodeColors();
 
@@ -27,8 +27,8 @@ export default function NodeBranch() {
   }
 
   const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-  const initialAnimationDuration = isSafari || alreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-  const initialAnimationDelay = isSafari || alreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
+  const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
+  const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
 
   return (
     <g>

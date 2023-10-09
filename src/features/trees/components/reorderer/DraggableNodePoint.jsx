@@ -16,10 +16,8 @@ export default function DraggableNodePoint({ treeNodeId }) {
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const siblingIndex = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeSiblingIndex'));
   const treeAncestorIds = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeAncestorIds'));
-
   const parentId = useSelector(selectNodeAttribute(nodeId, 'parentId'));
   const isTemp = useSelector(selectNodeAttribute(nodeId, 'isTemp'));
-
   const draggedNodeSiblingIndex = useSelector(selectTreeNodeAttribute(dragAndDrop.treeNodeId, 'treeSiblingIndex'));
 
   const onDropCapture = useNodeDropCapture();
@@ -54,7 +52,6 @@ export default function DraggableNodePoint({ treeNodeId }) {
         onDropCapture({
           newParentId: parentId,
           newSiblingIndex,
-          newBottomSiblingId: nodeId,
         });
       }}
     >

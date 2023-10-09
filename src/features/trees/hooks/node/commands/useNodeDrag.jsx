@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearDragAndDrop, setDragAndDrop, updateTreeNode } from '../../../treesSlice';
 import useNodeContext from '../useNodeContext';
 import { selectDragAndDrop } from '../../../trees.selectors';
-import { selectChildIds } from '../../../../nodes/nodes.selectors';
 import useNodeDropCapture from '../../reorderer/useNodeDropCapture';
+import { selectisNodeActionInProgress } from '../../../../nodes/nodes.selectors';
 
 export default function useNodeDrag() {
   const {
@@ -17,13 +17,13 @@ export default function useNodeDrag() {
     rootId,
   } = useNodeContext();
   const { nodeId: dragAndDropNodeId, treeNodeId: dragAndDropTreeNodeId } = useSelector(selectDragAndDrop);
-  const firstChildId = useSelector(selectChildIds(nodeId))[0];
   const dispatch = useDispatch();
   const onNodeDropCapture = useNodeDropCapture();
+  const isNodeActionInProgress = useSelector(selectisNodeActionInProgress);
 
   //--------------------------------------------------------------------------------------------------------------------
   const startDrag = useCallback((event) => {
-    if (isTreeRoot) {
+    if (isTreeRoot || isNodeActionInProgress) {
       event.preventDefault();
       return;
     }
@@ -41,7 +41,7 @@ export default function useNodeDrag() {
       rootId,
       nodeId,
     }));
-  }, [dispatch, isTreeRoot, nodeId, parentId, rootId, treeNodeId]);
+  }, [dispatch, isNodeActionInProgress, isTreeRoot, nodeId, parentId, rootId, treeNodeId]);
 
   //--------------------------------------------------------------------------------------------------------------------
   const dragOver = useCallback((event) => {
@@ -84,7 +84,6 @@ export default function useNodeDrag() {
       onNodeDropCapture({
         newParentId: nodeId,
         newSiblingIndex: 0,
-        newBottomSiblingId: firstChildId,
       });
 
       if (!isDragOver) return;
@@ -95,9 +94,14 @@ export default function useNodeDrag() {
       }));
     },
     [
-      nodeId,
+      dispatch,
       dragAndDropNodeId,
-      treeAncestorIds, dragAndDropTreeNodeId, onNodeDropCapture, firstChildId, isDragOver, dispatch, treeNodeId,
+      dragAndDropTreeNodeId,
+      isDragOver,
+      nodeId,
+      onNodeDropCapture,
+      treeNodeId,
+      treeAncestorIds,
     ],
   );
 

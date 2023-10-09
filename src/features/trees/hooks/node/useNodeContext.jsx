@@ -16,52 +16,54 @@ export function useNodeContextCreator(contextProviderValue) {
 }
 
 export default function useNodeContext() {
-  const { treeNodeId, alreadyMounted } = useContext(NodeContext);
+  const { treeNodeId, isAlreadyMounted } = useContext(NodeContext);
 
   // tree node attributes
   const {
-    isExpanded,
-    isEditing,
-    isTreeRoot,
     nodeId,
     treeParentId,
-    isDragOver,
     treeAncestorIds,
     isCreationInProgress,
+    isDragOver,
+    isEditing,
+    isExpanded,
+    isTreeRoot,
   } = useSelector(selectTreeNode(treeNodeId));
 
   // node attributes
   const { rootNodeId: treeRootNodeId } = useTreeContext();
 
   const {
-    isRoot,
-    title,
-    parentId,
     rootId,
-    isSelected,
+    parentId,
+    persistentId,
+    title,
+    isRoot,
     isTemp,
+    isSelected,
   } = useSelector(selectNode(nodeId));
 
   return {
     // tree node attributes
-    treeNodeId,
-    alreadyMounted,
-    isExpanded,
-    isEditing,
-    isTreeRoot,
     nodeId,
     treeRootNodeId,
     treeParentId,
-    isDragOver,
+    treeNodeId,
     treeAncestorIds,
+    isAlreadyMounted,
     isCreationInProgress,
+    isDragOver,
+    isEditing,
+    isExpanded,
+    isTreeRoot,
     // node attributes
-    isRoot,
-    title,
-    parentId,
     rootId,
-    isSelected,
+    parentId,
+    persistentId,
+    title,
+    isRoot,
     isTemp,
+    isSelected,
   };
 }
 

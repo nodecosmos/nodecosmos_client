@@ -6,8 +6,8 @@ import NestedNodesBranch from './NestedNodesBranch';
 import NodeContent from './NodeContent';
 import NodeBranch from './NodeBranch';
 
-export default function Node({ treeNodeId, alreadyMounted }) {
-  const { NodeContext, contextProviderValue } = useNodeContextCreator({ treeNodeId, alreadyMounted });
+export default function Node({ treeNodeId, isAlreadyMounted }) {
+  const { NodeContext, contextProviderValue } = useNodeContextCreator({ treeNodeId, isAlreadyMounted });
 
   return (
     <NodeContext.Provider value={contextProviderValue}>
@@ -22,5 +22,5 @@ export default function Node({ treeNodeId, alreadyMounted }) {
 
 Node.propTypes = {
   treeNodeId: PropTypes.string.isRequired,
-  alreadyMounted: PropTypes.bool.isRequired,
+  isAlreadyMounted: PropTypes.bool.isRequired,
 };

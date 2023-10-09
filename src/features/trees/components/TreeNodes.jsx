@@ -47,11 +47,11 @@ export default function TreeNodes({
   return (
     <g>
       <g>
-        {treeNodeIdsToView.map(([treeNodeId, alreadyMounted]) => (
+        {treeNodeIdsToView.map(([treeNodeId, isAlreadyMounted]) => (
           <MemoizedNode
             key={treeNodeId}
             treeNodeId={treeNodeId}
-            alreadyMounted={alreadyMounted}
+            isAlreadyMounted={isAlreadyMounted}
           />
         ))}
       </g>
