@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlert } from '../../../../app/appSlice';
 import { buildTmpTreeNode, updateTreeNode } from '../../../treesSlice';
-import { selectisNodeActionInProgress } from '../../../../nodes/nodes.selectors';
+import { selectIsNodeActionInProgress } from '../../../../nodes/nodes.selectors';
 import { buildTmpNode } from '../../../../nodes/nodesSlice';
 import useNodeContext from '../useNodeContext';
 
@@ -15,7 +15,7 @@ export default function useNodeAdd() {
     treeRootNodeId,
   } = useNodeContext();
   const dispatch = useDispatch();
-  const isNodeActionInProgress = useSelector(selectisNodeActionInProgress);
+  const isNodeActionInProgress = useSelector(selectIsNodeActionInProgress);
   const [loading, setLoading] = useState(false);
 
   const initTempChildNode = useCallback(() => {

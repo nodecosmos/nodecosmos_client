@@ -7,6 +7,7 @@ import { reorder } from '../../../nodes/nodes.thunks';
 import { setAlert } from '../../../app/appSlice';
 import useTreeCommands from '../useTreeCommands';
 import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
+import { selectChildIdsByParentId } from '../../../nodes/nodes.selectors';
 
 export default function useNodeDropCapture() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function useNodeDropCapture() {
   const [reorderInProgress, setReorderInProgress] = useState(false);
   const { rebuildTree } = useTreeCommands();
   const handleServerError = useHandleServerErrorAlert();
-  const childIdsByParentId = useSelector((state) => state.nodes.childIdsByParentId);
+  const childIdsByParentId = useSelector(selectChildIdsByParentId);
 
   return useCallback(async ({
     newParentId,

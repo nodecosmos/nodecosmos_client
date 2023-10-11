@@ -1,24 +1,16 @@
 import React, { useEffect } from 'react';
 import { Box, useTheme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setHeaderContent } from '../../features/app/appSlice';
-import { HEADER_HEIGHT } from '../../features/app/constants';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import NodePane from '../../features/nodes/components/pane/NodePane';
-import TreeContainer from '../../features/trees/components/TreeContainer';
 import Tree from '../../features/trees/components/Tree';
-import TreeShowToolbar from '../../features/trees/components/TreeShowToolbar';
-import OverlayLoader from '../../common/components/OverlayLoader';
-import { selectIsTreeLoading } from '../../features/trees/trees.selectors';
-import Alert from '../../common/components/Alert';
 
 export default function Show() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const theme = useTheme();
-
-  const isTreeLoading = useSelector(selectIsTreeLoading);
 
   const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
   const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
@@ -74,14 +66,7 @@ export default function Show() {
         height={1}
         display="flex"
       >
-        <TreeContainer>
-          <TreeShowToolbar rootNodeId={id} />
-          <Alert />
-          <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
-            {isTreeLoading && <OverlayLoader />}
-            <Tree rootNodeId={id} />
-          </Box>
-        </TreeContainer>
+        <Tree rootNodeId={id} />
         <Box
           onMouseDown={handleResize}
           width="4px"

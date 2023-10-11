@@ -1,21 +1,12 @@
-let prevVal = '';
 export default {
-  setOriginalChildIds(state, _action) {
-    Object.values(state.byId).forEach((node) => {
-      node.originalChildIds ||= state.childIdsByParentId[node.id] || [];
-    });
-  },
-
   searchNode(state, action) {
     const { rootId, value } = action.payload;
 
     if (value) {
       searchNodesByTitle(state, rootId, value);
-    } else if (prevVal !== value) {
+    } else {
       rebuildChildIdsByParentId(state, rootId);
     }
-
-    prevVal = value;
   },
 };
 
@@ -50,14 +41,10 @@ function searchNodesByTitle(state, rootId, value) {
   state.childIdsByParentId = newChildIdsByParentId;
 }
 
-function rebuildChildIdsByParentId(state) {
-  const newChildIdsByParentId = {};
-
+function rebuildChildIdsByParentId(state, rootId) {
   for (const nodeId in state.byId) {
-    if (state.byId[nodeId]) {
-      newChildIdsByParentId[nodeId] = state.byId[nodeId].originalChildIds;
+    if (state.byId[nodeId] && state.byId[nodeId].rootId === rootId) {
+      state.childIdsByParentId[nodeId] = state.byId[nodeId].childIds;
     }
   }
-
-  state.childIdsByParentId = newChildIdsByParentId;
 }

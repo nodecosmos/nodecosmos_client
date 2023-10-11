@@ -16,7 +16,7 @@ export default function useHandleServerErrorAlert() {
     } else if (error.message.includes('409')) {
       message = 'Conflict!';
     } else if (error.message.includes('423')) {
-      message = 'Resource locked! Reorder in progress.';
+      message = 'Resource Locked: Reorder in progress. If issue persist contact support.';
     } else {
       message = 'Something went wrong. Please try again later.';
     }

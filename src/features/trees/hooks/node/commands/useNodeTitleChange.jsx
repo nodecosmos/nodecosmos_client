@@ -87,6 +87,7 @@ export default function useNodeTitleChange() {
 
   useEffect(() => {
     if (shouldReplaceTmpNode && isTemp && persistentId) {
+      console.log('hit');
       dispatch(replaceTmpNodeWithPersistedNode({ tmpNodeId: nodeId, persistentId }));
       dispatch(replaceTmpTreeNodeWithPersistedNode({
         tmpTreeNodeId: treeNodeId, treeRootNodeId, tmpNodeId: nodeId, persistentId,

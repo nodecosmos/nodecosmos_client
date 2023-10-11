@@ -13,36 +13,35 @@ import {
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
-import nodecosmos from '../../../apis/nodecosmos-server';
+import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import { createNode } from '../nodes.thunks';
 
 export default function CreateNodeModal(props) {
   const { open, onClose } = props;
   const [loading, setLoading] = React.useState(false);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (formValues) => {
     setLoading(true);
 
-    try {
-      // we will implement logic once we enable subscriptions
-      const data = { isPublic: true, ...formValues };
+    const data = { isPublic: true, ...formValues };
 
-      const response = await nodecosmos.post('/nodes', data);
-      navigate(`/nodes/${response.data.rootId}`);
-      return null;
-    } catch (e) {
-      setLoading(false);
+    dispatch(createNode(data))
+      .then((response) => {
+        navigate(`/nodes/${response.payload.rootId}`);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
 
-      if (!e.response.data.title) return { title: e.response.data.error };
-      return e.response.data;
-    }
+        console.log(error);
+      });
   };
-
   return (
     <Dialog
       fullWidth

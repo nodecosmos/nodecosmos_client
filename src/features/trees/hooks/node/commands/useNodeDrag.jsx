@@ -4,7 +4,7 @@ import { clearDragAndDrop, setDragAndDrop, updateTreeNode } from '../../../trees
 import useNodeContext from '../useNodeContext';
 import { selectDragAndDrop } from '../../../trees.selectors';
 import useNodeDropCapture from '../../reorderer/useNodeDropCapture';
-import { selectisNodeActionInProgress } from '../../../../nodes/nodes.selectors';
+import { selectIsNodeActionInProgress } from '../../../../nodes/nodes.selectors';
 
 export default function useNodeDrag() {
   const {
@@ -19,7 +19,7 @@ export default function useNodeDrag() {
   const { nodeId: dragAndDropNodeId, treeNodeId: dragAndDropTreeNodeId } = useSelector(selectDragAndDrop);
   const dispatch = useDispatch();
   const onNodeDropCapture = useNodeDropCapture();
-  const isNodeActionInProgress = useSelector(selectisNodeActionInProgress);
+  const isNodeActionInProgress = useSelector(selectIsNodeActionInProgress);
 
   //--------------------------------------------------------------------------------------------------------------------
   const startDrag = useCallback((event) => {

@@ -1,26 +1,28 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField, Box } from '@mui/material';
-import { useDispatch } from 'react-redux';
-
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { searchNode, setOriginalChildIds } from '../../nodes/nodesSlice';
+import { searchNode } from '../../nodes/nodesSlice';
+import useTreeCommands from '../hooks/useTreeCommands';
+import useTreeContext from '../hooks/useTreeContext';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
-export default function TreeShowToolbar({ rootNodeId }) {
+export default function TreeShowToolbar() {
   const dispatch = useDispatch();
+  const { rootNodeId } = useTreeContext();
+  const { rebuildTree } = useTreeCommands();
 
-  useEffect(() => {
-    dispatch(setOriginalChildIds());
+  const rootId = useSelector(selectNodeAttribute(rootNodeId, 'rootId'));
 
-    return () => {
-      dispatch(searchNode({
-        rootId: rootNodeId,
-        value: '',
-      }));
-    };
-  }, [dispatch, rootNodeId]);
+  const handleSearch = (event) => {
+    dispatch(searchNode({
+      rootId,
+      value: event.target.value,
+    }));
+    requestAnimationFrame(() => rebuildTree());
+  };
 
   return (
     <Box
@@ -64,17 +66,8 @@ export default function TreeShowToolbar({ rootNodeId }) {
         color="primary"
         variant="outlined"
         placeholder="Search"
-        onChange={(event) => {
-          dispatch(searchNode({
-            rootId: rootNodeId,
-            value: event.target.value,
-          }));
-        }}
+        onChange={handleSearch}
       />
     </Box>
   );
 }
-
-TreeShowToolbar.propTypes = {
-  rootNodeId: PropTypes.string.isRequired,
-};

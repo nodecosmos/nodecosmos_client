@@ -44,11 +44,13 @@ export default function showNodeFulfilledReducer(state, action) {
     const currentId = queue.shift();
     const currentNode = state.byId[currentId];
 
-    const children = state.childIdsByParentId[currentId] || [];
-    children.forEach((childId) => {
-      const childNode = state.byId[childId];
-      childNode.ancestorIds = [...currentNode.ancestorIds, currentId];
-      childNode.nestedLevel = childNode.ancestorIds.length;
+    const childIds = state.childIdsByParentId[currentId] || [];
+    state.byId[currentId].childIds = childIds;
+
+    childIds.forEach((childId) => {
+      state.byId[childId].ancestorIds = [...currentNode.ancestorIds, currentId];
+      state.byId[childId].nestedLevel = currentNode.ancestorIds.length + 1;
+
       queue.push(childId);
     });
   }
