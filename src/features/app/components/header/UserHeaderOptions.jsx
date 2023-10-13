@@ -36,7 +36,7 @@ export default function UserHeaderOptions() {
       </Button>
       <Button
         component={Link}
-        to="/auth/login"
+        to="/auth/signup"
         variant="outlined"
         className="MicroButton focused"
       >

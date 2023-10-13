@@ -23,7 +23,9 @@ export default {
 
       state.childIdsByParentId[parentId] = newChildIds;
       state.byId[parentId].childIds = newChildIds;
+
       state.childIdsByParentId[persistentId] = [];
+      state.byId[persistentId].childIds = [];
     }
 
     state.childIdsByParentId[parentId] = state.childIdsByParentId[parentId].filter(

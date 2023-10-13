@@ -18,5 +18,7 @@ export default {
 
     state.childIdsByParentId[nodeId].push(tmpNodeId);
     state.childIdsByParentId[tmpNodeId] = [];
+
+    state.byId[tmpNodeId].childIds = [];
   },
 };
