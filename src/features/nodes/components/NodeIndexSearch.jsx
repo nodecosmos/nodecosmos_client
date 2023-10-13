@@ -14,7 +14,7 @@ export default function NodeIndexSearch() {
     dispatchTimeout.current = setTimeout(() => {
       execSearch(event);
     }, 500);
-  }, [dispatch]);
+  }, [execSearch]);
 
   const execSearch = useCallback((event) => {
     clearTimeout(dispatchTimeout.current);
