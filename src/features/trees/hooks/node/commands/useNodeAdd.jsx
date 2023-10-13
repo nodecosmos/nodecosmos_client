@@ -38,9 +38,8 @@ export default function useNodeAdd() {
         treeNodeId, isCreationInProgress: true,
       }));
 
-      const message = `Too Fast! Please wait until current node is saved before creating new node. 
-      If this problem persists, please contact us.`;
-      console.error(message);
+      const message = 'Too Fast! Please wait until current node is saved before creating new node.';
+      console.warn(message);
     } else if (isTemp) {
       const message = title ? `Node "${title}" not initialized yet. Please wait...`
         : 'Current node not initialized yet. '

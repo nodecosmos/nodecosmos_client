@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useCallback } from 'react';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,7 +35,7 @@ export default function IOPaneWysiwygEditor() {
     originalId, nodeId, workflowId, descriptionMarkdown,
   } = useSelector(selectInputOutputById(id));
 
-  const handleChange = (remirrorHelpers) => {
+  const handleChange = useCallback((remirrorHelpers) => {
     if (handleChangeTimeout.current) {
       clearTimeout(handleChangeTimeout.current);
     }
@@ -59,7 +59,7 @@ export default function IOPaneWysiwygEditor() {
         descriptionMarkdown: markdown,
       }));
     }, 500);
-  };
+  }, [dispatch, id, nodeId, originalId, workflowId]);
 
   return (
     <Suspense fallback={loading}>

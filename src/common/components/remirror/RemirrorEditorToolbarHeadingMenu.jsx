@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Menu from '@mui/material/Menu';
 import { MenuItem, ToggleButton } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +16,9 @@ export default function RemirrorEditorToolbarHeadingMenu() {
   const active = useActive();
 
   const anchorRef = React.useRef(null);
+  const toggleHeading = useCallback((level) => commands.toggleHeading({
+    level,
+  }, { level: 3 }), [commands]);
 
   return (
     <>
@@ -47,18 +50,14 @@ export default function RemirrorEditorToolbarHeadingMenu() {
         }}
       >
         <MenuItem
-          onClick={() => commands.toggleHeading({
-            level: 3,
-          })}
+          onClick={() => toggleHeading(3)}
           selected={active.heading({ level: 3 })}
         >
           <FontAwesomeIcon icon={faH3} />
           Heading 3
         </MenuItem>
         <MenuItem
-          onClick={() => commands.toggleHeading({
-            level: 4,
-          })}
+          onClick={() => toggleHeading(4)}
           selected={active.heading({ level: 4 })}
 
         >
@@ -66,11 +65,8 @@ export default function RemirrorEditorToolbarHeadingMenu() {
           Heading 4
         </MenuItem>
         <MenuItem
-          onClick={() => commands.toggleHeading({
-            level: 5,
-          })}
+          onClick={() => toggleHeading(5)}
           selected={active.heading({ level: 5 })}
-
         >
           <FontAwesomeIcon icon={faH5} />
           Heading 5

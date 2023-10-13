@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +13,7 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
   const { id, rootId } = useSelector(selectSelectedNode);
   const dispatch = useDispatch();
 
-  const handleDeleteCoverImage = () => {
+  const handleDeleteCoverImage = useCallback(() => {
     dispatch(deleteNodeImage({
       rootId,
       id,
@@ -27,7 +27,7 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
         }));
       }
     });
-  };
+  }, [dispatch, id, rootId]);
 
   return (
     <Tooltip title="Delete Cover Image">

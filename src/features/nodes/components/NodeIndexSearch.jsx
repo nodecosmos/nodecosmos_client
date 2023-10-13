@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { InputAdornment, TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
@@ -9,14 +9,14 @@ export default function NodeIndexSearch() {
   const dispatch = useDispatch();
 
   const dispatchTimeout = React.useRef(null);
-  const onChange = (event) => {
+  const onChange = useCallback((event) => {
     clearTimeout(dispatchTimeout.current);
     dispatchTimeout.current = setTimeout(() => {
       execSearch(event);
     }, 500);
-  };
+  }, [dispatch]);
 
-  const execSearch = (event) => {
+  const execSearch = useCallback((event) => {
     clearTimeout(dispatchTimeout.current);
 
     const { value } = event.target;
@@ -27,7 +27,7 @@ export default function NodeIndexSearch() {
     }
 
     dispatch(indexNodes(options));
-  };
+  }, [dispatch]);
 
   return (
     <TextField

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as Y from 'yjs';
 import useExtensions from '../../hooks/remirror/useExtensions';
@@ -14,15 +14,15 @@ export default function RemirrorEditor({
     wsRoomId,
   });
 
-  if (!extensions) return null;
-
-  const handleChange = (obj) => {
+  const handleChange = useCallback((obj) => {
     if (obj.tr && obj.tr.docChanged) {
       const encoded = (isRealTime && Y.encodeStateAsUpdateV2(doc)) || null;
 
       onChange(obj.helpers, encoded);
     }
-  };
+  }, [doc, isRealTime, onChange]);
+
+  if (!extensions) return null;
 
   return (
     <RemirrorEditorWrapper

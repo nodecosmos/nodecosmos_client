@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { faChevronRight, faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -51,19 +51,18 @@ export default function TreeShowHeader() {
     });
   }
 
-  const handleClick = (id) => {
+  const handleClick = useCallback((id) => {
     dispatch(setSelectedNode(id));
-  };
+  }, [dispatch]);
 
-  const handleCentering = (treeNodeId) => {
+  const handleCentering = useCallback((treeNodeId) => {
     const { y } = positionsById[treeNodeId];
     const scrollTop = y - MARGIN_TOP * 2;
     dispatch(setTransformablePositions({ id: selectedNode.rootId, scrollTop }));
-  };
+  }, [dispatch, positionsById, selectedNode.rootId]);
 
   const theme = useTheme();
   const nestedLevelColors = theme.palette.tree.backgrounds;
-  const getNestedLevelColor = (index) => nestedLevelColors[index % 3];
 
   if (!selectedNode.id) return null;
 
@@ -100,7 +99,7 @@ export default function TreeShowHeader() {
                 onClick={() => handleCentering(item.treeNodeId)}
                 sx={{
                   '&:hover': {
-                    color: getNestedLevelColor(index),
+                    color: nestedLevelColors[index % 3],
                   },
                 }}
               >

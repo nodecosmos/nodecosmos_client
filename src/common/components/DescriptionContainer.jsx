@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 
 // decide if we want to use width
-export default function DescriptionContainer({ children, p, width }) {
+export default function DescriptionContainer({
+  children, p, width, maxWidth,
+}) {
   return (
     <Box
       p={p}
@@ -15,7 +17,7 @@ export default function DescriptionContainer({ children, p, width }) {
       <Box
         height={1}
         sx={{
-          maxWidth: 850,
+          maxWidth,
           width: 1,
           color: 'text.secondary',
           'h1, h2, h3, h4, h5, h6': {
@@ -67,6 +69,7 @@ export default function DescriptionContainer({ children, p, width }) {
           },
           p: {
             wordWrap: 'break-word',
+            fontWeight: '500',
           },
           'img:not(.ProseMirror-separator)': {
             maxWidth: 850,
@@ -85,10 +88,12 @@ export default function DescriptionContainer({ children, p, width }) {
 DescriptionContainer.defaultProps = {
   p: 4,
   width: 1,
+  maxWidth: 850,
 };
 
 DescriptionContainer.propTypes = {
   children: PropTypes.node.isRequired,
   p: PropTypes.number,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };

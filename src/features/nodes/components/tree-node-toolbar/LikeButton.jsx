@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,7 +30,7 @@ export default function LikeButton({ nodeId, fontSize, likesCount: providedLikes
     }
   }, [dispatch, nodeId, likesCount]);
 
-  const handleLike = () => {
+  const handleLike = useCallback(() => {
     if (!currentUser) {
       dispatch(setAlert({ isOpen: true, severity: 'warning', message: 'Log in to hit that like!' }));
       return;
@@ -46,7 +46,7 @@ export default function LikeButton({ nodeId, fontSize, likesCount: providedLikes
 
     requestAnimationFrame(() => setShouldBeat(true));
     setTimeout(() => setShouldBeat(false), 1000);
-  };
+  }, [currentUser, dispatch, likedByCurrentUser, nodeId]);
 
   const [textColor, setTextColor] = React.useState(likedByCurrentUser ? 'toolbar.red' : 'text.tertiary');
 

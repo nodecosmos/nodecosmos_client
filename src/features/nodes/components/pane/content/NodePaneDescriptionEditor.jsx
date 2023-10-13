@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import { selectNodeAttribute, selectSelectedNodeId } from '../../../nodes.selectors';
@@ -22,7 +22,7 @@ export default function NodePaneDescriptionEditor() {
   const descriptionMarkdown = useSelector(selectNodeAttribute(id, 'descriptionMarkdown'));
   const descriptionBase64 = useSelector(selectNodeAttribute(id, 'descriptionBase64'));
 
-  const handleChange = (remirrorHelpers, uint8ArrayState) => {
+  const handleChange = useCallback((remirrorHelpers, uint8ArrayState) => {
     if (isTemp) return;
 
     if (handleChangeTimeout.current) {
@@ -49,7 +49,7 @@ export default function NodePaneDescriptionEditor() {
         descriptionBase64: uint8ArrayState,
       }));
     }, 1000);
-  };
+  }, [dispatch, id, isTemp]);
 
   const [base64Fetched, setBase64Fetched] = React.useState(false);
 

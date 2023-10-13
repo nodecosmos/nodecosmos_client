@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useCallback } from 'react';
 import { Box, Button, CardMedia } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
@@ -19,7 +19,7 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
   const [displayCoverImageUploadButton, setDisplayCoverImageUploadButton] = React.useState(false);
   const dispatch = useDispatch();
 
-  const handleClose = (responseBody) => {
+  const handleClose = useCallback((responseBody) => {
     setOpenCoverImageUploader(false);
 
     if (responseBody?.coverImageUrl) {
@@ -28,7 +28,7 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
         coverImageUrl: responseBody.coverImageUrl,
       }));
     }
-  };
+  }, [dispatch, id]);
 
   return (
     <>

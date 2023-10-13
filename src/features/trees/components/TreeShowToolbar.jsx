@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField, Box } from '@mui/material';
@@ -16,13 +16,13 @@ export default function TreeShowToolbar() {
 
   const rootId = useSelector(selectNodeAttribute(rootNodeId, 'rootId'));
 
-  const handleSearch = (event) => {
+  const handleSearch = useCallback((event) => {
     dispatch(searchNode({
       rootId,
       value: event.target.value,
     }));
     requestAnimationFrame(() => rebuildTree());
-  };
+  }, [dispatch, rebuildTree, rootId]);
 
   return (
     <Box

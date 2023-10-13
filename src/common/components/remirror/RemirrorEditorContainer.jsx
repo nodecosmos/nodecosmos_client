@@ -8,6 +8,7 @@ export default function RemirrorEditorContainer({ children }) {
     <Box
       sx={{
         height: '100%',
+        cursor: 'text',
         // toolbar
         '.MuiStack-root': {
           display: 'flex',
@@ -39,9 +40,6 @@ export default function RemirrorEditorContainer({ children }) {
           height: `calc(100% - ${HEADER_HEIGHT})`,
           overflow: 'auto',
           p: 4,
-          borderLeft: 1,
-          borderRight: 1,
-          borderColor: 'borders.2',
         },
         '.MuiButtonBase-root': {
           color: 'text.secondary',

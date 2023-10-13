@@ -1,9 +1,11 @@
+/* eslint-disable */
 import React from 'react';
 import { EditorComponent, Remirror, useRemirror } from '@remirror/react';
 import PropTypes from 'prop-types';
 import DescriptionContainer from '../DescriptionContainer';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
+import RemirrorClickable from './RemirrorClickable';
 
 export default function RemirrorEditorWrapper({
   extensions, setInitialContent, markdown, onChange,
@@ -28,11 +30,11 @@ export default function RemirrorEditorWrapper({
         onChange={onChange}
       >
         <RemirrorEditorToolbar />
-        <div className="RemirrorTextEditor">
-          <DescriptionContainer width={1}>
+        <RemirrorClickable>
+          <DescriptionContainer width={1} maxWidth={"100%"}>
             <EditorComponent />
           </DescriptionContainer>
-        </div>
+        </RemirrorClickable>
       </Remirror>
     </RemirrorEditorContainer>
   );
