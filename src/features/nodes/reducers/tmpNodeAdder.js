@@ -14,6 +14,7 @@ export default {
       ancestorIds: [nodeId, ...node.ancestorIds],
       nestedLevel: node.nestedLevel + 1,
       order: state.childIdsByParentId[nodeId].length + 1,
+      treeRootNodeId: node.treeRootNodeId,
     };
 
     state.childIdsByParentId[nodeId].push(tmpNodeId);

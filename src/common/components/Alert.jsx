@@ -3,10 +3,11 @@ import {
   Alert as MuiAlert, Typography, Box,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setAlert } from '../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../features/app/constants';
 
-export default function Alert() {
+export default function Alert({ position }) {
   const dispatch = useDispatch();
   const {
     isOpen, message, severity, anchorOrigin,
@@ -30,7 +31,7 @@ export default function Alert() {
       onClose={handleClose}
       anchororigin={anchorOrigin}
       minHeight={HEADER_HEIGHT}
-      position="fixed"
+      position={position}
       width={1}
       zIndex={3}
     >
@@ -64,3 +65,11 @@ export default function Alert() {
     </Box>
   );
 }
+
+Alert.defaultProps = {
+  position: 'fixed',
+};
+
+Alert.propTypes = {
+  position: PropTypes.string,
+};

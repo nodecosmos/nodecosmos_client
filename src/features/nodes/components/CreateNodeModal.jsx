@@ -29,7 +29,9 @@ export default function CreateNodeModal(props) {
   const onSubmit = async (formValues) => {
     setLoading(true);
 
-    const data = { isPublic: true, ...formValues };
+    const data = {
+      isPublic: true, isRoot: true, order: 0.0, ...formValues,
+    };
 
     dispatch(createNode(data))
       .then((response) => {
@@ -42,6 +44,7 @@ export default function CreateNodeModal(props) {
         console.log(error);
       });
   };
+
   return (
     <Dialog
       fullWidth

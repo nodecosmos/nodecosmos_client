@@ -17,7 +17,7 @@ export default {
     state.childIdsByParentId[newParentId].splice(newSiblingIndex, 0, nodeId);
 
     // Use a queue to set ancestorIds iteratively
-    const queue = [node.rootId];
+    const queue = [node.treeRootNodeId];
 
     while (queue.length) {
       const currentId = queue.shift();

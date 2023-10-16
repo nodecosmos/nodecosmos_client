@@ -9,12 +9,6 @@ export default function NodeIndexSearch() {
   const dispatch = useDispatch();
 
   const dispatchTimeout = React.useRef(null);
-  const onChange = useCallback((event) => {
-    clearTimeout(dispatchTimeout.current);
-    dispatchTimeout.current = setTimeout(() => {
-      execSearch(event);
-    }, 500);
-  }, [execSearch]);
 
   const execSearch = useCallback((event) => {
     clearTimeout(dispatchTimeout.current);
@@ -28,6 +22,13 @@ export default function NodeIndexSearch() {
 
     dispatch(indexNodes(options));
   }, [dispatch]);
+
+  const onChange = useCallback((event) => {
+    clearTimeout(dispatchTimeout.current);
+    dispatchTimeout.current = setTimeout(() => {
+      execSearch(event);
+    }, 500);
+  }, [execSearch]);
 
   return (
     <TextField

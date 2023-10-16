@@ -64,6 +64,7 @@ export default function useNodeDropCapture() {
       }
       dispatch(setTreeLoading(false));
       setReorderInProgress(false);
+      console.error(e);
     }
   }, [reorderInProgress, dispatch, childIdsByParentId, nodeId, rebuildTree, handleServerError]);
 }

@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import Alert from '../../common/components/Alert';
 
 export default function Authentication() {
   const location = useLocation();
@@ -42,6 +43,9 @@ export default function Authentication() {
             <Box component="span" color="logo.blue">node</Box>
             <Box component="span" color="logo.red">cosmos</Box>
           </Typography>
+        </Box>
+        <Box mt={0} mb={-4}>
+          <Alert position="static" />
         </Box>
         <Box mt={4}>
           <Tabs

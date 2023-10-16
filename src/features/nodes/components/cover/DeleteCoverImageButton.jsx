@@ -10,16 +10,13 @@ import { deleteNodeImage } from '../../nodes.thunks';
 import { updateNodeState } from '../../nodesSlice';
 
 export default function DeleteCoverImageButton({ displayCoverImageUploadButton }) {
-  const { id, rootId } = useSelector(selectSelectedNode);
+  const { id } = useSelector(selectSelectedNode);
   const dispatch = useDispatch();
 
   const handleDeleteCoverImage = useCallback(() => {
-    dispatch(deleteNodeImage({
-      rootId,
-      id,
-    })).then((response) => {
+    dispatch(deleteNodeImage(id)).then((response) => {
       if (response.error) {
-        console.log('error deleting cover image');
+        console.error('Error deleting cover image');
       } else {
         dispatch(updateNodeState({
           id,
@@ -27,7 +24,7 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
         }));
       }
     });
-  }, [dispatch, id, rootId]);
+  }, [dispatch, id]);
 
   return (
     <Tooltip title="Delete Cover Image">

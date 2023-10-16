@@ -24,7 +24,7 @@ export default function UppyDashboardContainer({ children }) {
         p: '0!important',
       },
       '.uppy-Dashboard-AddFiles': {
-        border: `1px dashed ${theme.palette.borders['4']}!important`,
+        border: 'none!important',
       },
       '.uppy-Dashboard-AddFiles-title': {
         color: `${theme.palette.text.secondary}!important`,

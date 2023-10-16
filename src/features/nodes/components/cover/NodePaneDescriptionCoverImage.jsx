@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { Box, Button, CardMedia } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
@@ -10,9 +10,9 @@ import DeleteCoverImageButton from './DeleteCoverImageButton';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/uppy/UppyUploadImageModal'));
 
-export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
+export default function NodePaneDescriptionCoverImage() {
   const {
-    id, isTemp,
+    id, isTemp, coverImageUrl,
   } = useSelector(selectSelectedNode);
 
   const [openCoverImageUploader, setOpenCoverImageUploader] = React.useState(false);
@@ -51,18 +51,12 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
               justifyContent: 'center',
               alignItems: 'center',
               p: 4,
-              '.AmbientImage': {
-                position: 'absolute',
-                width: 1,
-                height: 375,
-                filter: 'blur(50px) opacity(0.5)',
-              },
               '.CoverImage': {
                 position: 'relative',
                 maxWidth: '100%',
                 maxHeight: '100%',
                 '.CoverImageMedia': {
-                  borderRadius: 5,
+                  borderRadius: 1,
                   maxWidth: '100%',
                   width: 850,
                   maxHeight: 375,
@@ -70,13 +64,6 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
               },
             }}
           >
-
-            <CardMedia
-              className="AmbientImage"
-              component="img"
-              image={coverImageUrl}
-              alt="Cover Image Ambient"
-            />
             <Box
               className="CoverImage"
               onMouseOver={() => setDisplayCoverImageUploadButton(true)}
@@ -148,11 +135,3 @@ export default function NodePaneDescriptionCoverImage({ coverImageUrl }) {
 
   );
 }
-
-NodePaneDescriptionCoverImage.defaultProps = {
-  coverImageUrl: null,
-};
-
-NodePaneDescriptionCoverImage.propTypes = {
-  coverImageUrl: PropTypes.string,
-};

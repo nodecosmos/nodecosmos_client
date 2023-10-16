@@ -8,11 +8,14 @@ export default function showNodeFulfilledReducer(state, action) {
 
   node.isTemp = false;
   node.persistentId = node.id;
-  node.ancestorIds ||= [];
-  node.nestedLevel = node.ancestorIds.length;
+  node.nestedLevel = node.isRoot ? 0 : node.ancestorIds.length;
+
   state.byId[node.id] = node;
   state.selectedNodeId = node.id;
 
+  // tree data
+  node.treeRootNodeId = node.id;
+  node.ancestorIds ||= [];
   state.childIdsByParentId[node.id] = [];
 
   const childIdsByParentId = {};
@@ -24,6 +27,8 @@ export default function showNodeFulfilledReducer(state, action) {
     descendant.ancestorIds ||= [];
     // IMPORTANT. RootId refers to the root of whole tree, not the root of the current node's subtree
     descendant.rootId = node.rootId;
+    descendant.treeRootNodeId = node.id;
+
     state.byId[descendant.id] = descendant;
 
     childIdsByParentId[descendant.parentId] ||= [];

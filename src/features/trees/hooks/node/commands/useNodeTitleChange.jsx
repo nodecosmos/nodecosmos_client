@@ -50,7 +50,7 @@ export default function useNodeTitleChange() {
 
     saveNodeTimeout.current = setTimeout(() => {
       if (persistentId) {
-        dispatch(updateNodeTitle({ id: persistentId, title: value })).then((response) => {
+        dispatch(updateNodeTitle({ rootId, id: persistentId, title: value })).then((response) => {
           if (response.error) handleServerError(response.error);
           dispatch(setIsNodeActionInProgress(false));
         }).catch((error) => {
@@ -61,6 +61,8 @@ export default function useNodeTitleChange() {
         const data = {
           rootId,
           parentId,
+          isRoot: false,
+          isPublic: true,
           title: value,
           order,
           tmpNodeId: nodeId,

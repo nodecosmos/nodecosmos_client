@@ -30,7 +30,7 @@ export default function NodePaneDescription() {
 
   return (
     <div>
-      <NodePaneDescriptionCoverImage coverImageUrl={coverImageUrl} />
+      <NodePaneDescriptionCoverImage />
       <DescriptionContainer>
         {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
       </DescriptionContainer>

@@ -21,3 +21,9 @@ yarn-error.log*
 
 /build
 src/wasm/tree/target
+src/wasm/tree/**/*.rs.bk
+src/wasm/tree/Cargo.lock
+src/wasm/tree/bin/
+src/wasm/tree/pkg/
+src/wasm/tree/wasm-pack.log
+

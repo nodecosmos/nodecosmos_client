@@ -26,6 +26,8 @@ export default {
 
       state.childIdsByParentId[persistentId] = [];
       state.byId[persistentId].childIds = [];
+
+      state.byId[persistentId].treeRootNodeId = state.byId[tmpNodeId].treeRootNodeId;
     }
 
     state.childIdsByParentId[parentId] = state.childIdsByParentId[parentId].filter(
