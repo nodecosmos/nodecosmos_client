@@ -27,9 +27,11 @@ export default function DraggableNodePoint({ treeNodeId }) {
   const isSameParent = dragAndDrop.parentId === parentId;
 
   // handle new sibling index when a node is moved down on the same level
-  let newSiblingIndex = siblingIndex;
+  const newSiblingIndex = siblingIndex;
+  let newSiblingIndexAfterMove = siblingIndex;
+
   if (draggedNodeSiblingIndex < siblingIndex && isSameParent) {
-    newSiblingIndex -= 1;
+    newSiblingIndexAfterMove -= 1;
   }
 
   if (
@@ -52,6 +54,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
         onDropCapture({
           newParentId: parentId,
           newSiblingIndex,
+          newSiblingIndexAfterMove,
         });
       }}
     >

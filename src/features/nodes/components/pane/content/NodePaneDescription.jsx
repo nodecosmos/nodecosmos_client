@@ -10,7 +10,7 @@ import NodePaneDescriptionCoverImage from '../../cover/NodePaneDescriptionCoverI
 export default function NodePaneDescription() {
   const selectedNodeId = useSelector(selectSelectedNodeId);
 
-  const { description, coverImageUrl } = useSelector(selectSelectedNode);
+  const { description } = useSelector(selectSelectedNode);
 
   if (!selectedNodeId) return null;
 

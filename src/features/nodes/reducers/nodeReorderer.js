@@ -3,18 +3,18 @@ export default {
     const {
       nodeId,
       newParentId,
-      newSiblingIndex,
+      newSiblingIndexAfterMove,
     } = action.payload;
     const node = state.byId[nodeId];
     const oldParentId = node.parentId;
     const oldIndex = state.childIdsByParentId[oldParentId].indexOf(nodeId);
 
-    if (oldParentId === newParentId && newSiblingIndex === oldIndex) return;
+    if (oldParentId === newParentId && newSiblingIndexAfterMove === oldIndex) return;
 
     state.byId[nodeId].parentId = newParentId;
 
     state.childIdsByParentId[oldParentId].splice(oldIndex, 1);
-    state.childIdsByParentId[newParentId].splice(newSiblingIndex, 0, nodeId);
+    state.childIdsByParentId[newParentId].splice(newSiblingIndexAfterMove, 0, nodeId);
 
     // Use a queue to set ancestorIds iteratively
     const queue = [node.treeRootNodeId];

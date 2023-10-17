@@ -21,6 +21,7 @@ export default function useNodeDropCapture() {
   return useCallback(async ({
     newParentId,
     newSiblingIndex,
+    newSiblingIndexAfterMove,
   }) => {
     if (reorderInProgress) {
       dispatch(setAlert({
@@ -50,7 +51,7 @@ export default function useNodeDropCapture() {
       await dispatch(reorderNodes({
         nodeId,
         newParentId,
-        newSiblingIndex,
+        newSiblingIndexAfterMove,
       }));
 
       rebuildTree();

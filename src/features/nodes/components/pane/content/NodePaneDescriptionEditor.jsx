@@ -59,6 +59,10 @@ export default function NodePaneDescriptionEditor() {
         setBase64Fetched(true);
       });
     }
+
+    return () => {
+      setBase64Fetched(false);
+    };
   }, [dispatch, id, rootId]);
 
   if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
