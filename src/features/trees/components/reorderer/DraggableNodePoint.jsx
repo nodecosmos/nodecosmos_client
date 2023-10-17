@@ -11,7 +11,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
   const theme = useTheme();
   const { rootNodeId } = useTreeContext();
 
-  const { x, y } = useSelector(selectPosition(rootNodeId, treeNodeId));
+  const { x: NodeX, y: nodeY } = useSelector(selectPosition(rootNodeId, treeNodeId));
   const dragAndDrop = useSelector(selectDragAndDrop);
   const nodeId = useSelector(selectTreeNodeAttribute(treeNodeId, 'nodeId'));
   const siblingIndex = useSelector(selectTreeNodeAttribute(treeNodeId, 'treeSiblingIndex'));
@@ -35,13 +35,16 @@ export default function DraggableNodePoint({ treeNodeId }) {
   }
 
   if (
-    !x
-    || !y
+    !NodeX
+    || !nodeY
     || dragAndDrop.treeNodeId === treeNodeId
     || isTemp
     || (isSameParent && draggedNodeSiblingIndex === siblingIndex - 1)
     || treeAncestorIds.includes(dragAndDrop.treeNodeId)
   ) return null;
+
+  const x = NodeX - 10;
+  const y = newSiblingIndex === 0 ? nodeY - 20 : nodeY - 28;
 
   return (
     <g
@@ -60,8 +63,8 @@ export default function DraggableNodePoint({ treeNodeId }) {
     >
 
       <rect
-        x={x - 10}
-        y={y - 18}
+        x={x}
+        y={y}
         width="20"
         height="5"
         rx="2"
@@ -69,8 +72,8 @@ export default function DraggableNodePoint({ treeNodeId }) {
       />
 
       <rect
-        x={x - 10}
-        y={y - 45}
+        x={x}
+        y={y - 17}
         width="300"
         height="35"
         rx="4"
