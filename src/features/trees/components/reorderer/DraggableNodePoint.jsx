@@ -61,7 +61,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
 
       <rect
         x={x - 10}
-        y={y - 27}
+        y={y - 18}
         width="20"
         height="5"
         rx="2"

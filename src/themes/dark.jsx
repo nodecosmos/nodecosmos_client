@@ -27,7 +27,7 @@ export default {
 
     header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
     buttons: {
-      1: '3px 3px 0px #181a1e',
+      1: '3px 3px 0px #202328',
       2: 0,
       3: 0,
     },
@@ -174,8 +174,8 @@ export default {
     },
 
     logo: {
-      blue: '#26ccdf',
-      red: '#d71b59',
+      blue: '#2adfff',
+      red: '#e91e63',
     },
 
     text: {

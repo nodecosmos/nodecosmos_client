@@ -106,18 +106,12 @@ export default function FlowStepModal({
       <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
         <Box mt={2} height="calc(100% - 75px)">
           <Box height={1} sx={{ mx: -3, borderBottom: 1, borderColor: 'borders.4' }}>
-            <TreeContainer>
-              <TreeShowToolbar rootNodeId={nodeId} />
-              <Alert />
-              <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
-                <Tree
-                  rootNodeId={tmpNodeId || nodeId}
-                  type={TREES_TYPES.checkbox}
-                  onChange={setFlowStepNodeIds}
-                  value={flowStepNodeIds}
-                />
-              </Box>
-            </TreeContainer>
+            <Tree
+              rootNodeId={tmpNodeId || nodeId}
+              type={TREES_TYPES.checkbox}
+              onChange={setFlowStepNodeIds}
+              value={flowStepNodeIds}
+            />
           </Box>
           <DefaultModalFormButton
             loading={loading}

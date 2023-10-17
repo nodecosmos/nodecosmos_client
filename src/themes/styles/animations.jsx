@@ -17,14 +17,10 @@ export default () => ({
   '@keyframes node-button-appear': {
     '0%': {
       opacity: 1,
-      transform: 'translate(-28px, -15px)',
+      transform: 'translate(-20px, -8px)',
     },
     '50%': {
-      transform: 'translate(-28px, 0px)',
-
-    },
-    '75%': {
-      transform: 'translate(-10px, 1px)',
+      transform: 'translate(-20px, 0px)',
 
     },
     '100%': {
@@ -48,9 +44,9 @@ export default () => ({
   '@keyframes node-circle-appear': {
     '0%': {
       opacity: 1,
-      transform: 'translateY(-30px)',
+      transform: 'translateY(-15px)',
     },
-    '40%': {
+    '50%': {
       transform: 'translateY(0)',
 
     },

@@ -77,7 +77,7 @@ export default {
 
     background: {
       1: '#eee', // f8f9fa
-      2: '#ffffff', // f0f0ef ededed
+      2: '#fdfcfd', // f0f0ef ededed
       3: '#ffffff',
       4: '#ffffff',
       5: '#fcfbfe',
@@ -173,7 +173,7 @@ export default {
 
     logo: {
       blue: '#58b1ff',
-      red: '#ff5866',
+      red: '#ff3687',
     },
 
     text: {
