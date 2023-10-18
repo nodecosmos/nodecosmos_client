@@ -33,7 +33,7 @@ export default function WorkflowStep({ wfStep, wfStepIndex }) {
     setHovered,
   });
 
-  if (!x) return null;
+  if (!x || !wfStep) return null;
 
   return (
     <WorkflowStepContext.Provider value={contextProviderValue}>
