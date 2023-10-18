@@ -75,11 +75,25 @@ const flowStepsSlice = createSlice({
       })
       .addCase(deleteIO.fulfilled, (state, action) => {
         const {
-          flowStepId, workflowId, id,
+          flowStepId, workflowId, workflowIndex, id,
         } = action.payload.inputOutput;
+
+        // remove from associated inputs in next flow step
+        const nextFlowStepWorkflowIndex = workflowIndex + 1;
+
+        Object.values(state.byWorkflowId[workflowId]).forEach((nextFlowStep) => {
+          if (nextFlowStep.workflowIndex === nextFlowStepWorkflowIndex) {
+            Object.keys(nextFlowStep.inputIdsByNodeId).forEach((nodeId) => {
+              const nextFlowStepInputIds = nextFlowStep.inputIdsByNodeId[nodeId];
+
+              nextFlowStep.inputIdsByNodeId[nodeId] = nextFlowStepInputIds.filter((inputId) => inputId !== id);
+            });
+          }
+        });
 
         if (!flowStepId) return;
 
+        // remove from outputs of current step
         const flowStep = state.byWorkflowId[workflowId][flowStepId];
 
         Object.keys(flowStep.outputIdsByNodeId).forEach((nodeId) => {
