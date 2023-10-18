@@ -85,7 +85,7 @@ const inputOutputsSlice = createSlice({
         });
       })
       .addCase(deleteIO.fulfilled, (state, action) => {
-        const { id } = action.payload;
+        const { id } = action.payload.inputOutput;
         delete state.byId[id];
       })
       .addCase(deleteFlowStep.fulfilled, (state, action) => {
