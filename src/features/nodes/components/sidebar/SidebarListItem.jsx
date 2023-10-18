@@ -5,11 +5,15 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export default function SidebarListItem({
-  to, icon, title, flip, component, onClick, children, disabled, end, selected,
+  to, icon, title, flip, component, onClick, children, disabled, end, selectedIcon,
 }) {
+  const location = useLocation();
+
+  const selected = location.pathname.includes(to);
+
   return (
     <ListItem>
       <ListItemButton
@@ -18,14 +22,13 @@ export default function SidebarListItem({
         component={component}
         to={to}
         onClick={onClick}
-        selected={selected}
         {...(component === NavLink && { end, relative: true })}
       >
         <ListItemIcon sx={{
           transform: flip ? 'scaleX(-1)' : 'none',
         }}
         >
-          {icon}
+          {selectedIcon && selected ? selectedIcon : icon}
         </ListItemIcon>
         <Box display="flex" justifyContent="space-between" alignItems="center" width={1}>
           <Typography variant="subtitle2">
@@ -46,7 +49,7 @@ SidebarListItem.defaultProps = {
   children: null,
   disabled: false,
   end: true,
-  selected: null,
+  selectedIcon: null,
 };
 
 SidebarListItem.propTypes = {
@@ -59,5 +62,5 @@ SidebarListItem.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   end: PropTypes.bool,
-  selected: PropTypes.bool,
+  selectedIcon: PropTypes.node,
 };

@@ -35,7 +35,7 @@ export default function NodeInput({ onClick, onChange, onBlur }) {
     >
       <FontAwesomeIcon icon={faHashtag} />
       <input
-        className="NodeButtonText"
+        className="NodeButtonText Input"
         ref={ref}
         onClick={onClick}
         onChange={onChange}
@@ -45,10 +45,14 @@ export default function NodeInput({ onClick, onChange, onBlur }) {
           }
         }}
         onBlur={onBlur}
-        value={title || ''}
+        value={title}
         maxLength={MAX_NODE_INPUT_SIZE}
         size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}
-        style={{ color, fontFamily: 'monospace' }}
+        style={{
+          color,
+          textAlign: titleLength < 4 ? 'center' : 'left',
+          marginRight: titleLength < 4 ? 0 : -4,
+        }}
       />
     </div>
   );

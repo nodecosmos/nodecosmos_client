@@ -45,6 +45,7 @@ export default function DraggableNodePoint({ treeNodeId }) {
 
   const x = NodeX - 10;
   const y = newSiblingIndex === 0 ? nodeY - 20 : nodeY - 28;
+  const dropZoneY = newSiblingIndex === 0 ? nodeY - 40 : y - 15;
 
   return (
     <g
@@ -73,9 +74,9 @@ export default function DraggableNodePoint({ treeNodeId }) {
 
       <rect
         x={x}
-        y={y - 17}
+        y={dropZoneY}
         width="300"
-        height="35"
+        height="30"
         rx="4"
         fill={theme.palette.background[8]}
         fillOpacity={hovered ? 0.6 : 0}

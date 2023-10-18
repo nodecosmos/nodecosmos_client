@@ -7,5 +7,8 @@ export default function useNodeEdit() {
   const { treeNodeId } = useNodeContext();
   const dispatch = useDispatch();
 
-  return useCallback(() => dispatch(updateTreeNode({ treeNodeId, isEditing: true })), [dispatch, treeNodeId]);
+  return useCallback((eventy) => {
+    eventy.stopPropagation();
+    dispatch(updateTreeNode({ treeNodeId, isEditing: true }));
+  }, [dispatch, treeNodeId]);
 }

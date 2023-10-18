@@ -5,9 +5,10 @@ import {
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/pro-thin-svg-icons';
+import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 import useDebounce from '../hooks/useDebounce';
 import nodecosmos from '../../apis/nodecosmos-server';
+import ToolsContainer from './tools/ToolsContainer';
 
 export default function EditTitleFieldInput({
   title, onChange, onClose, endpoint, reqData,
@@ -72,14 +73,16 @@ export default function EditTitleFieldInput({
 
       {!shouldClose && (
         <Tooltip title="Save title" placement="top">
-          <IconButton
-            className="Item"
-            onClick={handleClose}
-            aria-label="Save title"
-            sx={{ ml: 1, color: 'toolbar.green' }}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-          </IconButton>
+          <ToolsContainer>
+            <IconButton
+              className="Item"
+              onClick={handleClose}
+              aria-label="Save title"
+              sx={{ ml: 1, color: 'toolbar.green' }}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </IconButton>
+          </ToolsContainer>
         </Tooltip>
       )}
     </Box>

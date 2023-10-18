@@ -15,6 +15,7 @@ import EditTitleField from '../../../common/components/EditTItleField';
 import useWorkflowCommands from '../hooks/useWorkflowCommands';
 import useWorkflowContext from '../hooks/useWorkflowContext';
 import { selectIsWfPaneOpen } from '../workflows.selectors';
+import ToolsContainer from '../../../common/components/tools/ToolsContainer';
 import CreateWorkflowModal from './CreateWorkflowModal';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
 
@@ -57,15 +58,17 @@ export default function WorkflowToolbar() {
                 onChange={handleTitleChange}
               />
               <Tooltip title="Delete Workflow" placement="top">
-                <IconButton
-                  className="Item"
-                  onClick={deleteWorkflow}
-                  aria-label="Delete Workflow"
-                  sx={{ color: 'toolbar.default' }}
-                  size="small"
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </IconButton>
+                <ToolsContainer>
+                  <IconButton
+                    className="Item"
+                    onClick={deleteWorkflow}
+                    aria-label="Delete Workflow"
+                    sx={{ color: 'toolbar.default' }}
+                    size="small"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </IconButton>
+                </ToolsContainer>
               </Tooltip>
             </>
           )

@@ -11,11 +11,7 @@ import { setAlert } from '../../app/appSlice';
 import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
 /* nodecosmos */
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
-import TreeShowToolbar from '../../trees/components/TreeShowToolbar';
-import Alert from '../../../common/components/Alert';
-import { HEADER_HEIGHT } from '../../app/constants';
 import Tree from '../../trees/components/Tree';
-import TreeContainer from '../../trees/components/TreeContainer';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectFlowStepAttribute } from '../flowSteps.selectors';
 import { selectNodeAttribute, selectNodesById } from '../../nodes/nodes.selectors';

@@ -90,7 +90,7 @@ const getTheme = (currentTheme) => createTheme({
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: currentTheme.palette.background[1],
+          backgroundColor: currentTheme.palette.background[7],
           color: currentTheme.palette.text.contrast,
         },
       },

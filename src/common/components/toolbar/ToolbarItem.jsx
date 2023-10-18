@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Tooltip } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 export default function ToolbarItem({
@@ -14,7 +14,6 @@ export default function ToolbarItem({
   titleAsTooltip,
   to,
 }) {
-  const content = titleAsTooltip ? null : <span>{title}</span>;
   const path = useResolvedPath(to);
   const isPathActive = useMatch(path.pathname);
   const isActive = to ? isPathActive : active;
@@ -28,23 +27,27 @@ export default function ToolbarItem({
 
   return (
     <Tooltip title={titleAsTooltip && title} placement="top">
-      <Button
-        onClick={handleClick}
-        size="large"
-        className={isActive ? 'active' : ''}
+      <Box
+        className={`ButtonWrapper ${isActive && 'active'}`}
         sx={{
-          color: 'toolbar.default',
+          button: {
+            color: 'toolbar.default',
+          },
           '&:hover, &.active': {
-            color,
+            button: {
+              color,
+            },
           },
           svg: {
             transform: flipX ? 'scaleX(-1)' : 'scaleX(1)',
           },
         }}
       >
-        <FontAwesomeIcon icon={icon} />
-        {content}
-      </Button>
+        <Box component="button" type="button" onClick={handleClick}>
+          <FontAwesomeIcon icon={icon} />
+          {titleAsTooltip ? null : <span className="ToolbarContent">{title}</span>}
+        </Box>
+      </Box>
     </Tooltip>
   );
 }

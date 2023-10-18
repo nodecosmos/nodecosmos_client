@@ -34,12 +34,14 @@ export default function RemirrorEditorContainer({ children }) {
         '.MuiBox-root': {
           backgroundColor: 'background.5',
           border: 0,
+          px: 2,
+          py: 1,
         },
         '.remirror-editor-wrapper': {
           width: 1,
           height: `calc(100% - ${HEADER_HEIGHT})`,
           overflow: 'auto',
-          p: 4,
+          p: 0,
         },
         '.MuiButtonBase-root': {
           color: 'text.secondary',

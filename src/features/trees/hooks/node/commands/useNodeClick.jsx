@@ -39,6 +39,7 @@ export default function useNodeClick() {
 
       return;
     }
+
     if (isEditing) return;
     if (isExpanded && isSelected) {
       dispatch(collapseTreeNode(treeNodeId));

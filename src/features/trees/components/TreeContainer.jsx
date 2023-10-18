@@ -38,6 +38,7 @@ export default function TreeContainer({ children }) {
             fontWeight: 700,
           },
           '.NodeButtonText': {
+            cursor: 'pointer',
             ml: 1,
             p: 0,
             backgroundColor: 'transparent',
@@ -47,9 +48,15 @@ export default function TreeContainer({ children }) {
             letterSpacing: '0.02857em',
             minWidth: 40,
             outline: 'none!important',
-            cursor: 'pointer!important',
-            pointerEvents: 'none',
             whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+            '&.hovered': {
+              cursor: 'text',
+            },
+            '&.Input': {
+              cursor: 'text!important',
+              fontFamily: 'monospace',
+              // textAlign: 'center',
+            },
           },
           '&.selected': {
             '.NodeButtonText': {
