@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
   Box, DialogContent, Typography, Dialog, DialogTitle, IconButton,
@@ -16,11 +16,14 @@ import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectFlowStepAttribute } from '../flowSteps.selectors';
 import { selectNodeAttribute, selectNodesById } from '../../nodes/nodes.selectors';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import useWorkflowStepContext from '../../workflows/hooks/diagram/workflow-steps/useWorkflowStepContext';
 
 // Dumb implementation of import feature
 export default function FlowStepModal({
   wfStepFlow, open, onClose,
 }) {
+  const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
+
   const [loading, setLoading] = React.useState(false);
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
   const tmpNodeId = useSelector(selectNodeAttribute(nodeId, 'tmpNodeId'));
@@ -29,7 +32,7 @@ export default function FlowStepModal({
   const dispatch = useDispatch();
   const [flowStepNodeIds, setFlowStepNodeIds] = useState(nodeIds);
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     setLoading(true);
 
     const filteredNodes = flowStepNodeIds.filter((flowNodeId) => !!allNodes[flowNodeId]);
@@ -38,6 +41,7 @@ export default function FlowStepModal({
       nodeIds: filteredNodes,
       nodeId,
       workflowId: wfStepFlow.workflowId,
+      workflowIndex: workflowStepIndex,
       flowId: wfStepFlow.id,
     };
 
@@ -56,7 +60,7 @@ export default function FlowStepModal({
       console.error(error);
       setTimeout(() => setLoading(false), 500);
     }
-  };
+  }, [dispatch, flowStepNodeIds, nodeId, onClose, wfStepFlow, workflowStepIndex, allNodes]);
 
   return (
     <Dialog

@@ -25,10 +25,9 @@ import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedButtonBase = memo(ButtonBase);
 
-export default function WorkflowNodeButton({
-  id, diagramId, workflowId, flowStepId, workflowStepIndex,
-}) {
-  const { context: workflowContext } = useWorkflowContext();
+export default function WorkflowNodeButton({ id, diagramId, flowStepId }) {
+  const { context: workflowContext, id: workflowId } = useWorkflowContext();
+
   const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(diagramId));
 
   const dispatch = useDispatch();
@@ -95,8 +94,6 @@ export default function WorkflowNodeButton({
             diagramId={diagramId}
             nodeId={id}
             flowStepId={flowStepId}
-            workflowId={workflowId}
-            workflowStepIndex={workflowStepIndex}
           />
         </div>
       </foreignObject>
@@ -107,7 +104,5 @@ export default function WorkflowNodeButton({
 WorkflowNodeButton.propTypes = {
   id: PropTypes.string.isRequired,
   diagramId: PropTypes.string.isRequired,
-  workflowId: PropTypes.string.isRequired,
   flowStepId: PropTypes.string.isRequired,
-  workflowStepIndex: PropTypes.number.isRequired,
 };

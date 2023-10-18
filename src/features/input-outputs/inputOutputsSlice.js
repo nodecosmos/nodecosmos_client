@@ -14,6 +14,7 @@ const inputOutputsSlice = createSlice({
      *   [id: string]: {
      *     id: string,
      *     workflowId: string,
+     *     workflowIndex: number,
      *     title: string,
      *     unit: string,
      *     dataType: string,

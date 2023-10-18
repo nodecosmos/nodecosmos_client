@@ -32,7 +32,7 @@ export default function IOPaneWysiwygEditor() {
   const dispatch = useDispatch();
   const handleChangeTimeout = React.useRef(null);
   const {
-    originalId, nodeId, workflowId, descriptionMarkdown,
+    originalId, nodeId, workflowId, workflowIndex, descriptionMarkdown,
   } = useSelector(selectInputOutputById(id));
 
   const handleChange = useCallback((remirrorHelpers) => {
@@ -55,11 +55,12 @@ export default function IOPaneWysiwygEditor() {
         originalId,
         nodeId,
         workflowId,
+        workflowIndex,
         description: descriptionHtml,
         descriptionMarkdown: markdown,
       }));
     }, 500);
-  }, [dispatch, id, nodeId, originalId, workflowId]);
+  }, [dispatch, id, nodeId, originalId, workflowId, workflowIndex]);
 
   return (
     <Suspense fallback={loading}>

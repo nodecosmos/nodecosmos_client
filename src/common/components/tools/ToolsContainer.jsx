@@ -25,5 +25,5 @@ export default function ToolsContainer({ children }) {
 }
 
 ToolsContainer.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };

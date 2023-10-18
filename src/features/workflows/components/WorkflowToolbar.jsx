@@ -42,6 +42,7 @@ export default function WorkflowToolbar() {
       zIndex={3}
     >
       <Box
+        flex={1}
         display="flex"
         alignItems="center"
       >
@@ -57,8 +58,8 @@ export default function WorkflowToolbar() {
                 variant="body2"
                 onChange={handleTitleChange}
               />
-              <Tooltip title="Delete Workflow" placement="top">
-                <ToolsContainer>
+              <ToolsContainer>
+                <Tooltip title="Delete Workflow" placement="top">
                   <IconButton
                     className="Item"
                     onClick={deleteWorkflow}
@@ -68,8 +69,8 @@ export default function WorkflowToolbar() {
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </IconButton>
-                </ToolsContainer>
-              </Tooltip>
+                </Tooltip>
+              </ToolsContainer>
             </>
           )
         }
@@ -84,21 +85,23 @@ export default function WorkflowToolbar() {
         }
       </Box>
 
-      {title && <WorkflowZoomTools />}
+      {id && <WorkflowZoomTools />}
 
       {!isWfPaneOpen && (
-        <ToolbarContainer round mr={0.5}>
-          <ToolbarItem
-            title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
-            icon={faTerminal}
-            color="toolbar.pink"
-            active={false}
-            onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
-            flipX={!isWfPaneOpen}
-          />
-          <Button sx={{ display: 'none' }} />
-          {/* hack to get styles right */}
-        </ToolbarContainer>
+        <Box flex={1}>
+          <ToolbarContainer round mr={0.5}>
+            <ToolbarItem
+              title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
+              icon={faTerminal}
+              color="toolbar.pink"
+              active={false}
+              onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
+              flipX={!isWfPaneOpen}
+            />
+            <Button sx={{ display: 'none' }} />
+            {/* hack to get styles right */}
+          </ToolbarContainer>
+        </Box>
       )}
       {isWfPaneOpen && <div />}
 

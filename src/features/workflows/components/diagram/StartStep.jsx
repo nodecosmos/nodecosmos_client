@@ -1,14 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import PropTypes from 'prop-types';
-import {
-  ButtonBase, useTheme,
-} from '@mui/material';
+import { useTheme } from '@mui/material';
 /* nodecosmos */
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { useSelector } from 'react-redux';
-import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import {
   INITIAL_ANIMATION_DELAY,
   INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
@@ -19,15 +16,12 @@ import {
 } from '../../workflows.constants';
 import {
   selectWorkflowDiagram,
-  selectWorkflowDiagramPosition,
-  selectWorkflowScale,
 } from '../../workflows.selectors';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
 import StartToolbar from './StartToolbar';
 import WorkflowOutputButton from './ios/WorkflowOutputButton';
 
 const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faPlay} />);
-const MemoizedButtonBase = memo(ButtonBase);
 
 export default function StartStep({ workflowId }) {
   const theme = useTheme();
@@ -36,16 +30,9 @@ export default function StartStep({ workflowId }) {
   const x = OUTPUT_EDGE_LENGTH;
   const y = OUTPUT_EDGE_LENGTH;
   const yEnd = y + (OUTPUT_EDGE_LENGTH) * inputsLength + WORKFLOW_START_MARGIN_TOP;
-  const { yEnd: workflowDiagramYEnd } = useSelector(selectWorkflowDiagramPosition(workflowId));
-  const scale = useSelector(selectWorkflowScale);
 
-  const [hovered, setHovered] = React.useState(false);
-  const { transformableId } = useWorkflowContext();
-
-  const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
-
-  const wfStepHeight = Math.max(clientHeight || 0, workflowDiagramYEnd || 0) * (1 / scale) - 8;
-  const rectHeight = wfStepHeight && wfStepHeight > 0 ? wfStepHeight : 0;
+  const [hovered, setHovered] = useState(false);
+  const { wfHeight } = useWorkflowContext();
 
   const fillColor = theme.palette.background[5];
   const hoverColor = theme.palette.background[7];
@@ -56,7 +43,7 @@ export default function StartStep({ workflowId }) {
         onMouseEnter={() => setHovered(true)}
         x={0}
         y={1}
-        height={rectHeight}
+        height={wfHeight}
         width={WORKFLOW_STEP_WIDTH - 1}
         fill={hovered ? hoverColor : fillColor}
         fillOpacity={0.3}
@@ -99,22 +86,19 @@ export default function StartStep({ workflowId }) {
         y={y}
       >
         <div className="NodeButtonContainer">
-          <MemoizedButtonBase
+          <button
             type="button"
             className="NodeButton"
             style={{
               backgroundColor: theme.palette.workflow.default,
               height: WORKFLOW_BUTTON_HEIGHT,
             }}
-            sx={{
-              boxShadow: 'buttons.1',
-            }}
           >
             <MemoizedTagRounded />
             <div className="NodeButtonText">
               Start
             </div>
-          </MemoizedButtonBase>
+          </button>
 
           <StartToolbar startStepHovered={hovered} workflowId={workflowId} />
         </div>

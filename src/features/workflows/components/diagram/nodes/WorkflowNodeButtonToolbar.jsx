@@ -8,10 +8,13 @@ import { selectSelectedWorkflowDiagramObject } from '../../../workflows.selector
 import CreateIOModal from '../../../../input-outputs/components/CreateIOModal';
 import AssociateInputsModal from '../AssociateInputsModal';
 import { ASSOCIATED_OBJECT_TYPES } from '../../../../input-outputs/inputOutputs.constants';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 
 export default function WorkflowNodeButtonToolbar({
-  diagramId, nodeId, workflowId, flowStepId, workflowStepIndex,
+  diagramId, nodeId, flowStepId,
 }) {
+  const { wfStepIndex } = useWorkflowStepContext();
+
   const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
   const isSelected = selectedWorkflowDiagramObject?.diagramId === diagramId;
 
@@ -63,18 +66,16 @@ export default function WorkflowNodeButtonToolbar({
       <CreateIOModal
         open={createIOModalOpen}
         onClose={() => setCreateIOModalOpen(false)}
-        workflowId={workflowId}
         associatedObject={ASSOCIATED_OBJECT_TYPES.flowStep}
         flowStepId={flowStepId}
         flowStepOutputNodeId={nodeId}
+        workflowIndex={wfStepIndex}
       />
       <AssociateInputsModal
         open={associateInputsModalOpen}
         onClose={() => setAssociateInputsModalOpen(false)}
-        workflowId={workflowId}
         flowStepId={flowStepId}
         flowStepInputNodeId={nodeId}
-        workflowStepIndex={workflowStepIndex}
       />
     </>
   );
@@ -83,7 +84,5 @@ export default function WorkflowNodeButtonToolbar({
 WorkflowNodeButtonToolbar.propTypes = {
   diagramId: PropTypes.string.isRequired,
   nodeId: PropTypes.string.isRequired,
-  workflowId: PropTypes.string.isRequired,
   flowStepId: PropTypes.string.isRequired,
-  workflowStepIndex: PropTypes.number.isRequired,
 };

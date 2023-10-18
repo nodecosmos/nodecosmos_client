@@ -12,14 +12,14 @@ import {
 import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
 import {
   MARGIN_TOP,
-  NODE_BUTTON_HEIGHT,
+  NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN,
   WORKFLOW_DIAGRAM_CONTEXT,
   WORKFLOW_DIAGRAM_OBJECTS,
 } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import WorkflowOutputBranch from './WorkflowOutputBranch';
+import WorkflowOutputButtonBranch from './WorkflowOutputButtonBranch';
 
 const MemoizedButtonBase = memo(ButtonBase);
 
@@ -27,7 +27,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
   const { id: workflowId, context: workflowContext } = useWorkflowContext();
 
   const title = useSelector(selectIOAttribute(id, 'title'));
-  const { xEnd, y } = useSelector(selectWorkflowDiagramPosition(id));
+  const { x, xEnd, y } = useSelector(selectWorkflowDiagramPosition(id));
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -51,7 +51,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
 
   return (
     <g>
-      <WorkflowOutputBranch id={id} />
+      <WorkflowOutputButtonBranch id={id} />
       <g style={{
         opacity: 0,
         animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
@@ -60,7 +60,7 @@ export default function WorkflowOutputButton({ id, nodeId }) {
         <foreignObject
           width="700"
           height={NODE_BUTTON_HEIGHT + 3}
-          x={xEnd - 10}
+          x={x + OUTPUT_BUTTON_X_MARGIN}
           y={y - MARGIN_TOP}
           style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
         >

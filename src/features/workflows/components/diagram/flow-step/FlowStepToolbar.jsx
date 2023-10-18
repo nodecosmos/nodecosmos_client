@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,9 +14,11 @@ import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import FlowModal from '../../../../flows/components/FlowModal';
 import { selectWorkflowAttribute } from '../../../workflows.selectors';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 
-export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
+export default function FlowStepToolbar({ wfStepFlow }) {
   const nodeId = useSelector(selectWorkflowAttribute(wfStepFlow.workflowId, 'nodeId'));
+  const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
 
   const dispatch = useDispatch();
 
@@ -24,18 +26,20 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
     dispatch(deleteFlowStep({
       nodeId,
       workflowId: wfStepFlow.workflowId,
-      flowId: wfStepFlow.id,
+      workflowIndex: workflowStepIndex,
       id: wfStepFlow.flowStep.id,
     }));
   };
 
-  const [addFlopStepNodesModalOpen, setAddFlowStepNodesModalOpen] = React.useState(false);
-  const [editFlowModalOpen, setEditFlowModalOpen] = React.useState(false);
+  const [addFlopStepNodesModalOpen, setAddFlowStepNodesModalOpen] = useState(false);
+  const [editFlowModalOpen, setEditFlowModalOpen] = useState(false);
+
+  const { hovered } = useWorkflowStepContext();
 
   return (
     <div>
       {
-        wfStepHovered && (
+        hovered && (
           <ToolsContainer>
             <Tooltip title="Flow Step Nodes" placement="top">
               <IconButton
@@ -82,5 +86,4 @@ export default function FlowStepToolbar({ wfStepFlow, wfStepHovered }) {
 
 FlowStepToolbar.propTypes = {
   wfStepFlow: PropTypes.object.isRequired,
-  wfStepHovered: PropTypes.bool.isRequired,
 };

@@ -16,10 +16,13 @@ import { ASSOCIATED_OBJECT_TYPES } from '../inputOutputs.constants';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 
 export default function CreateIOModal({
-  open, onClose, workflowId, associatedObject, flowStepId, flowStepOutputNodeId,
+  open, onClose, associatedObject, flowStepId, flowStepOutputNodeId, workflowIndex,
 }) {
+  const { id: workflowId } = useWorkflowContext();
+
   const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
   const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
   const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
@@ -34,6 +37,7 @@ export default function CreateIOModal({
   const { onSubmit, loading } = useIOSubmitHandler({
     onClose,
     workflowId,
+    workflowIndex,
     associatedObject,
     flowStepId,
     flowStepOutputNodeId,
@@ -92,13 +96,14 @@ export default function CreateIOModal({
 CreateIOModal.defaultProps = {
   flowStepId: null,
   flowStepOutputNodeId: null,
+  workflowIndex: -1,
 };
 
 CreateIOModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  workflowId: PropTypes.string.isRequired,
   associatedObject: PropTypes.string.isRequired,
   flowStepId: PropTypes.string,
   flowStepOutputNodeId: PropTypes.string,
+  workflowIndex: PropTypes.number,
 };

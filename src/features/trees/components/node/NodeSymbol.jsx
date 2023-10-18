@@ -23,6 +23,7 @@ export default function NodeSymbol() {
 
   return (
     <MemoizedCheckbox
+      label={nodeId}
       style={{ color: outlineColor }}
       value={nodeId}
       checked={isChecked(nodeId)}

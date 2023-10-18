@@ -13,6 +13,7 @@ import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 export default function useIOSubmitHandler({
   onClose,
   workflowId,
+  workflowIndex,
   associatedObject,
   flowStepId,
   flowStepOutputNodeId,
@@ -35,6 +36,7 @@ export default function useIOSubmitHandler({
     const payload = {
       nodeId,
       workflowId,
+      workflowIndex,
       flowStepId,
       rootNodeId,
       originalId: autocompleteValue && existingIO?.id,
@@ -65,6 +67,7 @@ export default function useIOSubmitHandler({
           await dispatch(updateFlowStepOutputs({
             nodeId: flowStepNodeId,
             workflowId,
+            workflowIndex,
             flowId,
             id: flowStepId,
             outputIdsByNodeId,

@@ -1,7 +1,9 @@
 import React from 'react';
 import { faCircleMinus, faCirclePlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton, Tooltip, Typography } from '@mui/material';
+import {
+  Box, IconButton, Tooltip, Typography,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ToolsContainer from '../../../../common/components/tools/ToolsContainer';
 import { selectWorkflowScale } from '../../workflows.selectors';
@@ -28,38 +30,40 @@ export default function WorkflowZoomTools() {
   };
 
   return (
-    <ToolsContainer>
-      <Tooltip title="Zoom in" placement="top">
-        <IconButton
-          className="Item"
-          aria-label="Zoom in"
-          sx={{ color: 'toolbar.default' }}
-          onClick={zoomIn}
+    <Box flex={1}>
+      <ToolsContainer>
+        <Tooltip title="Zoom in" placement="top">
+          <IconButton
+            className="Item"
+            aria-label="Zoom in"
+            sx={{ color: 'toolbar.default' }}
+            onClick={zoomIn}
+          >
+            <FontAwesomeIcon icon={faCirclePlus} />
+          </IconButton>
+        </Tooltip>
+        <Typography
+          color="text.tertiary"
+          textAlign="center"
+          width={24}
+          sx={{
+            borderBottom: 1,
+            pb: 0.05,
+          }}
         >
-          <FontAwesomeIcon icon={faCirclePlus} />
-        </IconButton>
-      </Tooltip>
-      <Typography
-        color="text.tertiary"
-        textAlign="center"
-        width={24}
-        sx={{
-          borderBottom: 1,
-          pb: 0.05,
-        }}
-      >
-        {workflowScale}
-      </Typography>
-      <Tooltip title="Zoom out" placement="top">
-        <IconButton
-          className="Item"
-          aria-label="Delete Flow"
-          sx={{ color: 'toolbar.default' }}
-          onClick={zoomOut}
-        >
-          <FontAwesomeIcon icon={faCircleMinus} />
-        </IconButton>
-      </Tooltip>
-    </ToolsContainer>
+          {workflowScale}
+        </Typography>
+        <Tooltip title="Zoom out" placement="top">
+          <IconButton
+            className="Item"
+            aria-label="Delete Flow"
+            sx={{ color: 'toolbar.default' }}
+            onClick={zoomOut}
+          >
+            <FontAwesomeIcon icon={faCircleMinus} />
+          </IconButton>
+        </Tooltip>
+      </ToolsContainer>
+    </Box>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import { NODE_BUTTON_HEIGHT } from '../workflows.constants';
+import { WORKFLOW_BUTTON_HEIGHT, WORKFLOW_BUTTON_WIDTH } from '../workflows.constants';
 
 export default function WorkflowContainer(props) {
   return (
@@ -10,13 +10,47 @@ export default function WorkflowContainer(props) {
         height: 1,
         transform: 'translateZ(0)',
         overflow: 'hidden',
-        '.NodeButtonContainer': { display: 'flex' },
+        '.NodeButtonContainer': {
+          display: 'flex',
+          '.NodeButton': {
+            display: 'inline-flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+            boxShadow: 'buttons.1',
+            borderRadius: 1.5,
+            py: 0,
+            px: 2,
+            border: 'none',
+            maxWidth: 250,
+            backgroundColor: 'red',
+            height: WORKFLOW_BUTTON_HEIGHT,
+            color: 'text.primary',
+            '&.selected .fa-hashtag': {
+              color: 'inherit',
+            },
+            '.NodeButtonText': {
+              ml: 1,
+              p: 0,
+              backgroundColor: 'transparent',
+              fontSize: 14,
+              fontWeight: 500,
+              letterSpacing: '0.02857em',
+              minWidth: 40,
+              outline: 'none!important',
+              cursor: 'pointer!important',
+              pointerEvents: 'none',
+              whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+            },
+          },
+        },
         '.WorkflowOutputButton': {
-          height: NODE_BUTTON_HEIGHT,
+          height: WORKFLOW_BUTTON_HEIGHT,
           ml: 1,
           borderRadius: 1,
-          minWidth: 150,
-          maxWidth: 150,
+          minWidth: WORKFLOW_BUTTON_WIDTH,
+          maxWidth: WORKFLOW_BUTTON_WIDTH,
           px: 1,
           transform: 'skewX(-30deg)',
           // boxShadow: 'buttons.1',
@@ -33,35 +67,6 @@ export default function WorkflowContainer(props) {
             textOverflow: 'ellipsis',
             overflow: 'hidden',
             fontWeight: 500,
-          },
-        },
-        '.NodeButton': {
-          display: 'inline-flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-          // boxShadow: 'buttons.1',
-          borderRadius: 1.5,
-          py: 0,
-          px: 2,
-          border: 'none',
-          maxWidth: 250,
-          '&.selected .fa-hashtag': {
-            color: 'inherit',
-          },
-          '.NodeButtonText': {
-            ml: 1,
-            p: 0,
-            backgroundColor: 'transparent',
-            fontSize: 14,
-            fontWeight: 500,
-            letterSpacing: '0.02857em',
-            minWidth: 40,
-            outline: 'none!important',
-            cursor: 'pointer!important',
-            pointerEvents: 'none',
-            whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
-            textOverflow: 'ellipsis',
-            overflow: 'hidden',
           },
         },
       }}

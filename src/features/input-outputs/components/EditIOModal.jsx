@@ -16,7 +16,7 @@ import { updateIOTitle } from '../inputOutputs.thunks';
 
 export default function EditIOModal({ id, open, onClose }) {
   const {
-    originalId, nodeId, workflowId, title,
+    originalId, nodeId, workflowId, workflowIndex, title,
   } = useSelector(selectInputOutputById(id));
   const [loading, setLoading] = React.useState(false);
 
@@ -28,6 +28,7 @@ export default function EditIOModal({ id, open, onClose }) {
     const payload = {
       nodeId,
       originalId,
+      workflowIndex,
       workflowId,
       id,
       ...formValues,
@@ -50,6 +51,9 @@ export default function EditIOModal({ id, open, onClose }) {
       maxWidth="md"
       onClose={onClose}
       open={open}
+      PaperProps={{
+        elevation: 8,
+      }}
     >
       <DialogTitle>
         Edit IO

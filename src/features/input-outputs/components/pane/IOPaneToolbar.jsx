@@ -27,7 +27,12 @@ export default function IOPaneToolbar() {
   const [openEditIO, setOpenEditIO] = React.useState(false);
 
   const handleDeleteIO = () => {
-    dispatch(deleteIO({ id: io.id, workflowId: io.workflowId, nodeId: io.nodeId }));
+    dispatch(deleteIO({
+      nodeId: io.nodeId,
+      workflowId: io.workflowId,
+      workflowIndex: io.workflowIndex,
+      id: io.id,
+    }));
   };
 
   return (

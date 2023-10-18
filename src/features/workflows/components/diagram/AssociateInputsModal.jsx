@@ -18,13 +18,18 @@ import { setAlert } from '../../../app/appSlice';
 import { selectFlowStepAttribute } from '../../../flow-steps/flowSteps.selectors';
 import { updateFlowStepInputs } from '../../../flow-steps/flowSteps.thunks';
 import { selectWorkflowDiagram } from '../../workflows.selectors';
+import useWorkflowContext from '../../hooks/useWorkflowContext';
+import useWorkflowStepContext from '../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import AssociateInputCheckboxField from './AssocateInputCheckboxField';
 
 export default function AssociateInputsModal({
-  open, onClose, workflowId, flowStepId, flowStepInputNodeId, workflowStepIndex,
+  open, onClose, flowStepId, flowStepInputNodeId,
 }) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
+
+  const { id: workflowId } = useWorkflowContext();
+  const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
 
   const currentFlowStepInputIds = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'inputIdsByNodeId'));
   const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
@@ -50,6 +55,7 @@ export default function AssociateInputsModal({
       inputIdsByNodeId[flowStepInputNodeId] = await dispatch(updateFlowStepInputs({
         nodeId,
         workflowId,
+        workflowIndex: workflowStepIndex,
         flowId,
         id: flowStepId,
         inputIdsByNodeId,
@@ -128,8 +134,6 @@ export default function AssociateInputsModal({
 AssociateInputsModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  workflowId: PropTypes.string.isRequired,
   flowStepId: PropTypes.string.isRequired,
   flowStepInputNodeId: PropTypes.string.isRequired,
-  workflowStepIndex: PropTypes.number.isRequired,
 };

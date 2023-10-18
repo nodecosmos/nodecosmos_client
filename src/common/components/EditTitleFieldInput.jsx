@@ -72,8 +72,8 @@ export default function EditTitleFieldInput({
       {inProgress && shouldClose && <CircularProgress size={20} sx={{ ml: 1, color: 'toolbar.green' }} /> }
 
       {!shouldClose && (
-        <Tooltip title="Save title" placement="top">
-          <ToolsContainer>
+        <ToolsContainer>
+          <Tooltip title="Save title" placement="top">
             <IconButton
               className="Item"
               onClick={handleClose}
@@ -82,8 +82,8 @@ export default function EditTitleFieldInput({
             >
               <FontAwesomeIcon icon={faCheck} />
             </IconButton>
-          </ToolsContainer>
-        </Tooltip>
+          </Tooltip>
+        </ToolsContainer>
       )}
     </Box>
   );

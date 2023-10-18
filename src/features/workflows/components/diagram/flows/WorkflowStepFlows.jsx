@@ -1,21 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import WorkflowStepFlow from './WorkflowStepFlow';
 
-export default function WorkflowStepFlows({ wfStep, wfStepHovered, wfStepIndex }) {
+export default function WorkflowStepFlows() {
+  const { wfStep } = useWorkflowStepContext();
+
   return wfStep.wfStepFlows.map((wfStepFlow, index) => (
     <WorkflowStepFlow
       key={wfStepFlow.diagramId}
       wfStepFlow={wfStepFlow}
-      wfStepHovered={wfStepHovered}
-      wfStepIndex={wfStepIndex}
       index={index}
     />
   ));
 }
-
-WorkflowStepFlows.propTypes = {
-  wfStep: PropTypes.object.isRequired,
-  wfStepHovered: PropTypes.bool.isRequired,
-  wfStepIndex: PropTypes.number.isRequired,
-};
