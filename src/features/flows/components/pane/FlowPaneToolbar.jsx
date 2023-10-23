@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  faPenToSquare, faTrash, faRectangleCode, faCodeCommit, faDisplay,
+    faPenToSquare, faTrash, faRectangleCode, faCodeCommit, faDisplay,
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  IconButton, Tooltip, Typography, Box,
+    IconButton, Tooltip, Typography, Box,
 } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,116 +20,116 @@ import { setFlowPaneContent } from '../../flowsSlice';
 import FlowModal from '../FlowModal';
 
 export default function FlowPaneToolbar() {
-  const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
-  const { id, workflowId } = selectedWorkflowDiagramObject;
-  const dispatch = useDispatch();
-  const ioPaneContent = useSelector(selectFlowPaneContent);
-  const [openEditFlow, setOpenEditFlow] = React.useState(false);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const { id, workflowId } = selectedWorkflowDiagramObject;
+    const dispatch = useDispatch();
+    const ioPaneContent = useSelector(selectFlowPaneContent);
+    const [openEditFlow, setOpenEditFlow] = React.useState(false);
 
-  const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
-  const title = useSelector(selectFlowAttribute(workflowId, id, 'title'));
+    const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
+    const title = useSelector(selectFlowAttribute(workflowId, id, 'title'));
 
-  const handleDeleteFlow = () => {
-    dispatch(deleteFlow({ id, workflowId, nodeId }));
-  };
+    const handleDeleteFlow = () => {
+        dispatch(deleteFlow({ id, workflowId, nodeId }));
+    };
 
-  return (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      height={HEADER_HEIGHT}
-      borderBottom={1}
-      borderColor="borders.2"
-      boxShadow="2"
-    >
-      <ToolbarContainer>
-        <ToolbarItem
-          title="Edit Description Markdown"
-          icon={faRectangleCode}
-          color="toolbar.lightRed"
-          active={ioPaneContent === FLOW_PANE_CONTENTS.markdown}
-          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown))}
-        />
-        <ToolbarItem
-          title="Edit Description Markdown"
-          icon={faPenToSquare}
-          color="toolbar.green"
-          active={ioPaneContent === FLOW_PANE_CONTENTS.editor}
-          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor))}
-        />
-        <ToolbarItem
-          title="View Description"
-          icon={faDisplay}
-          color="toolbar.blue"
-          active={ioPaneContent === FLOW_PANE_CONTENTS.description}
-          onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description))}
-        />
-      </ToolbarContainer>
-
-      <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
-        {title && <FontAwesomeIcon icon={faCodeCommit} />}
-        <Typography
-          align="center"
-          variant="body1"
-          color="text.secondary"
-          ml={1}
-          sx={{
-            maxWidth: 200,
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {title}
-        </Typography>
-
+    return (
         <Box
-          display="flex"
-          sx={{
-            ml: 1,
-            '.Item': {
-              width: 31,
-              height: 1,
-              mx: 0.25,
-              borderRadius: 1,
-              '&:hover': { backgroundColor: 'toolbar.hover' },
-            },
-            '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
-          }}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            height={HEADER_HEIGHT}
+            borderBottom={1}
+            borderColor="borders.2"
+            boxShadow="2"
         >
-          <Tooltip title="Edit Flow Title" placement="top">
-            <IconButton
-              className="Item"
-              aria-label="Edit Flow Title"
-              sx={{ svg: { color: 'toolbar.green' } }}
-              onClick={() => setOpenEditFlow(true)}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete Flow" placement="top">
-            <IconButton
-              className="Item"
-              aria-label="Delete Flow"
-              sx={{ svg: { color: 'toolbar.lightRed' } }}
-              onClick={handleDeleteFlow}
-            >
-              <FontAwesomeIcon icon={faTrash} />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Box>
-      <Box>
-        <ToggleWorkflowPaneButton />
-      </Box>
+            <ToolbarContainer>
+                <ToolbarItem
+                    title="Edit Description Markdown"
+                    icon={faRectangleCode}
+                    color="toolbar.lightRed"
+                    active={ioPaneContent === FLOW_PANE_CONTENTS.markdown}
+                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown))}
+                />
+                <ToolbarItem
+                    title="Edit Description Markdown"
+                    icon={faPenToSquare}
+                    color="toolbar.green"
+                    active={ioPaneContent === FLOW_PANE_CONTENTS.editor}
+                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor))}
+                />
+                <ToolbarItem
+                    title="View Description"
+                    icon={faDisplay}
+                    color="toolbar.blue"
+                    active={ioPaneContent === FLOW_PANE_CONTENTS.description}
+                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description))}
+                />
+            </ToolbarContainer>
 
-      <FlowModal
-        id={id}
-        workflowId={workflowId}
-        open={openEditFlow}
-        onClose={() => setOpenEditFlow(false)}
-      />
-    </Box>
-  );
+            <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
+                {title && <FontAwesomeIcon icon={faCodeCommit} />}
+                <Typography
+                    align="center"
+                    variant="body1"
+                    color="text.secondary"
+                    ml={1}
+                    sx={{
+                        maxWidth: 200,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                    }}
+                >
+                    {title}
+                </Typography>
+
+                <Box
+                    display="flex"
+                    sx={{
+                        ml: 1,
+                        '.Item': {
+                            width: 31,
+                            height: 1,
+                            mx: 0.25,
+                            borderRadius: 1,
+                            '&:hover': { backgroundColor: 'toolbar.hover' },
+                        },
+                        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
+                    }}
+                >
+                    <Tooltip title="Edit Flow Title" placement="top">
+                        <IconButton
+                            className="Item"
+                            aria-label="Edit Flow Title"
+                            sx={{ svg: { color: 'toolbar.green' } }}
+                            onClick={() => setOpenEditFlow(true)}
+                        >
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Flow" placement="top">
+                        <IconButton
+                            className="Item"
+                            aria-label="Delete Flow"
+                            sx={{ svg: { color: 'toolbar.lightRed' } }}
+                            onClick={handleDeleteFlow}
+                        >
+                            <FontAwesomeIcon icon={faTrash} />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+            </Box>
+            <Box>
+                <ToggleWorkflowPaneButton />
+            </Box>
+
+            <FlowModal
+                id={id}
+                workflowId={workflowId}
+                open={openEditFlow}
+                onClose={() => setOpenEditFlow(false)}
+            />
+        </Box>
+    );
 }

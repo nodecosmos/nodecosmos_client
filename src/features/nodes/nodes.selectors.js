@@ -9,27 +9,27 @@ export const selectNodeTitlesById = (state) => state.nodes.nodeTitlesById;
 export const selectIsNodeActionInProgress = (state) => state.nodes.isNodeActionInProgress;
 
 export const selectNode = (nodeId) => createSelector(
-  selectNodesById,
-  (nodesById) => nodesById[nodeId] || {},
+    selectNodesById,
+    (nodesById) => nodesById[nodeId] || {},
 );
 
 export const selectIndexedNode = (nodeId) => createSelector(
-  selectIndexNodesById,
-  (indexedNodesById) => indexedNodesById[nodeId],
+    selectIndexNodesById,
+    (indexedNodesById) => indexedNodesById[nodeId],
 );
 
 export const selectSelectedNode = createSelector(
-  selectNodesById,
-  selectSelectedNodeId,
-  (nodesById, selectedNodeId) => nodesById[selectedNodeId] || {},
+    selectNodesById,
+    selectSelectedNodeId,
+    (nodesById, selectedNodeId) => nodesById[selectedNodeId] || {},
 );
 
 export const selectNodeAttribute = (nodeId, attribute) => createSelector(
-  selectNodesById,
-  (nodesById) => nodesById[nodeId] && nodesById[nodeId][attribute],
+    selectNodesById,
+    (nodesById) => nodesById[nodeId] && nodesById[nodeId][attribute],
 );
 
 export const selectChildIds = (nodeId) => createSelector(
-  selectChildIdsByParentId,
-  (childIdsByParentId) => childIdsByParentId[nodeId] || [],
+    selectChildIdsByParentId,
+    (childIdsByParentId) => childIdsByParentId[nodeId] || [],
 );

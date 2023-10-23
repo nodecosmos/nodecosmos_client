@@ -6,20 +6,20 @@ import { selectWorkflowDiagram } from '../../../workflows.selectors';
 import WorkflowStep from './WorkflowStep';
 
 export default function WorkflowSteps({ workflowId }) {
-  const workflowDiagram = useSelector(selectWorkflowDiagram(workflowId));
-  const visibleWorkflowSteps = useWorkflowStepsVirtualizer(workflowId);
+    const workflowDiagram = useSelector(selectWorkflowDiagram(workflowId));
+    const visibleWorkflowSteps = useWorkflowStepsVirtualizer(workflowId);
 
-  return visibleWorkflowSteps.map((wfStep, index) => (
-    <WorkflowStep
-      key={wfStep.diagramId}
-      wfStep={wfStep}
-      wfStepIndex={
-        workflowDiagram.workflowSteps.findIndex((step) => step.diagramId === wfStep.diagramId)
-    }
-    />
-  ));
+    return visibleWorkflowSteps.map((wfStep, index) => (
+        <WorkflowStep
+            key={wfStep.diagramId}
+            wfStep={wfStep}
+            wfStepIndex={
+                workflowDiagram.workflowSteps.findIndex((step) => step.diagramId === wfStep.diagramId)
+            }
+        />
+    ));
 }
 
 WorkflowSteps.propTypes = {
-  workflowId: PropTypes.string.isRequired,
+    workflowId: PropTypes.string.isRequired,
 };

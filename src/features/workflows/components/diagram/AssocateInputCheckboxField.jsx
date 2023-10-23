@@ -5,13 +5,13 @@ import FinalFormCheckbox from '../../../../common/components/final-form/FinalFor
 import { selectIOAttribute } from '../../../input-outputs/inputOutputs.selectors';
 
 export default function AssociateInputCheckboxField({ inputId }) {
-  const title = useSelector(selectIOAttribute(inputId, 'title'));
+    const title = useSelector(selectIOAttribute(inputId, 'title'));
 
-  return (
-    <FinalFormCheckbox name="inputIds" label={title} value={inputId} />
-  );
+    return (
+        <FinalFormCheckbox name="inputIds" label={title} value={inputId} />
+    );
 }
 
 AssociateInputCheckboxField.propTypes = {
-  inputId: PropTypes.string.isRequired,
+    inputId: PropTypes.string.isRequired,
 };

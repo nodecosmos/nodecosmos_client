@@ -11,23 +11,23 @@ const MemoizedTagRounded = memo(() => <FontAwesomeIcon icon={faHashtag} />);
 const MemoizedCheckbox = memo(Checkbox);
 
 export default function NodeSymbol() {
-  const { nodeId, outlineColor } = useNodeContext();
-  const { type: treeType } = useTreeContext();
-  const { handleCheckboxChange, isChecked } = useTreeCommands();
+    const { nodeId, outlineColor } = useNodeContext();
+    const { type: treeType } = useTreeContext();
+    const { handleCheckboxChange, isChecked } = useTreeCommands();
 
-  if (treeType !== TREES_TYPES.checkbox) {
+    if (treeType !== TREES_TYPES.checkbox) {
+        return (
+            <MemoizedTagRounded style={{ color: 'inherit' }} />
+        );
+    }
+
     return (
-      <MemoizedTagRounded style={{ color: 'inherit' }} />
+        <MemoizedCheckbox
+            label={nodeId}
+            style={{ color: outlineColor }}
+            value={nodeId}
+            checked={isChecked(nodeId)}
+            onChange={handleCheckboxChange}
+        />
     );
-  }
-
-  return (
-    <MemoizedCheckbox
-      label={nodeId}
-      style={{ color: outlineColor }}
-      value={nodeId}
-      checked={isChecked(nodeId)}
-      onChange={handleCheckboxChange}
-    />
-  );
 }

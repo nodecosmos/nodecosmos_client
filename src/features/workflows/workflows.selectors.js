@@ -11,29 +11,29 @@ export const selectIsWfPaneOpen = (state) => state.workflows.isWfPaneOpen;
 export const selectWorkflowScale = (state) => state.workflows.workflowScale;
 
 export const selectWorkflowsByNodeId = (nodeId) => createSelector([
-  selectWorkflowIdsByNodeId,
-  selectWorkflowsById,
+    selectWorkflowIdsByNodeId,
+    selectWorkflowsById,
 ], (workflowIdsByNodeId, workflowsById) => {
-  const workflowIds = workflowIdsByNodeId[nodeId] || [];
-  return workflowIds.map((workflowId) => workflowsById[workflowId]);
+    const workflowIds = workflowIdsByNodeId[nodeId] || [];
+    return workflowIds.map((workflowId) => workflowsById[workflowId]);
 });
 
 export const selectWorkflowDiagram = (workflowId) => createSelector(
-  selectWorkflowDiagramById,
-  (workflowDiagramById) => workflowDiagramById[workflowId] || [],
+    selectWorkflowDiagramById,
+    (workflowDiagramById) => workflowDiagramById[workflowId] || [],
 );
 
 export const selectWorkflowDiagramPosition = (diagramId) => createSelector(
-  selectWorkflowDiagramPositionById,
-  (workflowDiagramPositionById) => workflowDiagramPositionById[diagramId] || {},
+    selectWorkflowDiagramPositionById,
+    (workflowDiagramPositionById) => workflowDiagramPositionById[diagramId] || {},
 );
 
 export const selectWorkflow = (workflowId) => createSelector(
-  selectWorkflowsById,
-  (workflowsById) => workflowsById[workflowId] || {},
+    selectWorkflowsById,
+    (workflowsById) => workflowsById[workflowId] || {},
 );
 
 export const selectWorkflowAttribute = (workflowId, attribute) => createSelector(
-  selectWorkflow(workflowId),
-  (workflow) => workflow && workflow[attribute],
+    selectWorkflow(workflowId),
+    (workflow) => workflow && workflow[attribute],
 );

@@ -7,48 +7,48 @@ import LandingPageNodeButton from './LandingPageNodeButton';
 import NodeLink from './LandingPageNodeLink';
 
 export default function LandingPageNode(props) {
-  const {
-    id,
-    upperSiblingId,
-    nestedLevel,
-    isRoot,
-    children,
-  } = props;
+    const {
+        id,
+        upperSiblingId,
+        nestedLevel,
+        isRoot,
+        children,
+    } = props;
 
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
+    const nodeExpanded = useSelector((state) => state.landingPageNodes[id].expanded);
 
-  useNodePositionCalculator({ id, upperSiblingId, isRoot });
+    useNodePositionCalculator({ id, upperSiblingId, isRoot });
 
-  useNodeUnmountService({ id });
+    useNodeUnmountService({ id });
 
-  return (
-    <g>
-      <NodeLink
-        id={id}
-        upperSiblingId={upperSiblingId}
-        isRoot={isRoot}
-        nestedLevel={nestedLevel}
-      />
-      <LandingPageNodeButton
-        id={id}
-        isRoot={isRoot}
-        nestedLevel={nestedLevel}
-      />
-      {nodeExpanded && children}
-    </g>
-  );
+    return (
+        <g>
+            <NodeLink
+                id={id}
+                upperSiblingId={upperSiblingId}
+                isRoot={isRoot}
+                nestedLevel={nestedLevel}
+            />
+            <LandingPageNodeButton
+                id={id}
+                isRoot={isRoot}
+                nestedLevel={nestedLevel}
+            />
+            {nodeExpanded && children}
+        </g>
+    );
 }
 
 LandingPageNode.defaultProps = {
-  isRoot: false,
-  children: null,
-  upperSiblingId: null,
+    isRoot: false,
+    children: null,
+    upperSiblingId: null,
 };
 
 LandingPageNode.propTypes = {
-  isRoot: PropTypes.bool,
-  children: PropTypes.object,
-  id: PropTypes.string.isRequired,
-  upperSiblingId: PropTypes.string,
-  nestedLevel: PropTypes.number.isRequired,
+    isRoot: PropTypes.bool,
+    children: PropTypes.object,
+    id: PropTypes.string.isRequired,
+    upperSiblingId: PropTypes.string,
+    nestedLevel: PropTypes.number.isRequired,
 };

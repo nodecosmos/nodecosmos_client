@@ -11,46 +11,46 @@ import WorkflowSteps from './workflow-steps/WorkflowSteps';
 import StartStep from './StartStep';
 
 export default function WorkflowContent() {
-  const {
-    id,
-    transformableId,
-    flowIds,
-    initialInputIds,
-  } = useWorkflowContext();
-  const wfScale = useSelector(selectWorkflowScale);
-  const flows = useSelector(selectWorkflowFlows(id));
-  const flowSteps = useSelector(selectWorkflowFlowSteps(id));
-  const workflowDiagramPosition = useWorkflowDiagramPositionCalculator(id);
-  const dispatch = useDispatch();
+    const {
+        id,
+        transformableId,
+        flowIds,
+        initialInputIds,
+    } = useWorkflowContext();
+    const wfScale = useSelector(selectWorkflowScale);
+    const flows = useSelector(selectWorkflowFlows(id));
+    const flowSteps = useSelector(selectWorkflowFlowSteps(id));
+    const workflowDiagramPosition = useWorkflowDiagramPositionCalculator(id);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!id) return;
+    useEffect(() => {
+        if (!id) return;
 
-    dispatch(buildWorkflow({
-      id,
-      initialInputIds,
-      flowIds,
-      flows,
-      flowSteps,
-    }));
-  }, [dispatch, id, initialInputIds, flowIds, flows, flowSteps]);
+        dispatch(buildWorkflow({
+            id,
+            initialInputIds,
+            flowIds,
+            flows,
+            flowSteps,
+        }));
+    }, [dispatch, id, initialInputIds, flowIds, flows, flowSteps]);
 
-  useEffect(() => {
-    dispatch(setWorkflowDiagramPosition(workflowDiagramPosition));
-  }, [dispatch, id, workflowDiagramPosition]);
+    useEffect(() => {
+        dispatch(setWorkflowDiagramPosition(workflowDiagramPosition));
+    }, [dispatch, id, workflowDiagramPosition]);
 
-  if (!Object.keys(workflowDiagramPosition).length > 0) return null;
+    if (!Object.keys(workflowDiagramPosition).length > 0) return null;
 
-  return (
-    <Transformable
-      transformableId={transformableId}
-      scale={wfScale}
-      heightMargin={-19}
-    >
-      <g>
-        <StartStep workflowId={id} />
-        <WorkflowSteps workflowId={id} />
-      </g>
-    </Transformable>
-  );
+    return (
+        <Transformable
+            transformableId={transformableId}
+            scale={wfScale}
+            heightMargin={-19}
+        >
+            <g>
+                <StartStep workflowId={id} />
+                <WorkflowSteps workflowId={id} />
+            </g>
+        </Transformable>
+    );
 }

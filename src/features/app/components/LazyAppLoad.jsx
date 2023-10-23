@@ -31,75 +31,75 @@ import ContributionRequestTree from '../../../pages/contribution-requests/tabs/C
 import Header from './header/Header';
 
 export default function LazyAppLoad() {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const currentUser = useSelector(selectCurrentUser);
-  const likes = useSelector(selectLikedObjectIds);
-  const dispatch = useDispatch();
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const currentUser = useSelector(selectCurrentUser);
+    const likes = useSelector(selectLikedObjectIds);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    if (Date.now() - currentUser.lastSyncUpAt < SYNC_UP_INTERVAL) return;
+    useEffect(() => {
+        if (!isAuthenticated) return;
+        if (Date.now() - currentUser.lastSyncUpAt < SYNC_UP_INTERVAL) return;
 
-    dispatch(syncUpCurrentUser()).then((response) => {
-      if (response.payload?.success) {
-        dispatch(getLikedObjectIds());
-      }
-    });
-  }, [currentUser?.lastSyncUpAt, dispatch, isAuthenticated]);
+        dispatch(syncUpCurrentUser()).then((response) => {
+            if (response.payload?.success) {
+                dispatch(getLikedObjectIds());
+            }
+        });
+    }, [currentUser?.lastSyncUpAt, dispatch, isAuthenticated]);
 
-  useEffect(() => {
-    if (isAuthenticated && !likes) {
-      dispatch(getLikedObjectIds());
-    }
-  }, [dispatch, isAuthenticated, likes]);
+    useEffect(() => {
+        if (isAuthenticated && !likes) {
+            dispatch(getLikedObjectIds());
+        }
+    }, [dispatch, isAuthenticated, likes]);
 
-  const theme = useSelector((state) => state.app.theme);
+    const theme = useSelector((state) => state.app.theme);
 
-  const themes = {
-    light,
-    dimmed,
-    dark,
-  };
-  const currentTheme = themes[theme];
+    const themes = {
+        light,
+        dimmed,
+        dark,
+    };
+    const currentTheme = themes[theme];
 
-  return (
-    <ThemeProvider theme={getTheme(currentTheme)}>
-      <CssBaseline />
-      <Box backgroundColor="background.2" height={1}>
+    return (
+        <ThemeProvider theme={getTheme(currentTheme)}>
+            <CssBaseline />
+            <Box backgroundColor="background.2" height={1}>
 
-        <Header />
-        <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-          <Routes>
-            <Route path="/nodes" element={(<NodesIndex />)} />
-            <Route
-              path="/auth"
-              element={isAuthenticated
-                ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
-            >
-              <Route path="login" element={<LoginForm />} />
-              <Route path="signup" element={<SignupForm />} />
-            </Route>
-            <Route path="/nodes" element={<NodeShow />}>
-              <Route path=":id" element={<TreeShow />} />
-              <Route path=":id/workflow" element={<WorkflowShow />} />
-              {/* Contribution Requests */}
-              <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
-              <Route path=":id/contribution_requests">
-                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                  <Route path="" element={<div />} />
-                  <Route path="tree" element={<ContributionRequestTree />} />
-                  <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                  <Route path="commits" element={<div />} />
-                </Route>
-              </Route>
-              <Route path=":id/topics" element={<div />} />
-              <Route path=":id/tasks_board" element={<div />} />
-              <Route path=":id/settings" element={<div />} />
-            </Route>
-          </Routes>
-        </Box>
+                <Header />
+                <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                    <Routes>
+                        <Route path="/nodes" element={(<NodesIndex />)} />
+                        <Route
+                            path="/auth"
+                            element={isAuthenticated
+                                ? <Navigate to={`/users/${currentUser.username}`} /> : <UserAuthentication />}
+                        >
+                            <Route path="login" element={<LoginForm />} />
+                            <Route path="signup" element={<SignupForm />} />
+                        </Route>
+                        <Route path="/nodes" element={<NodeShow />}>
+                            <Route path=":id" element={<TreeShow />} />
+                            <Route path=":id/workflow" element={<WorkflowShow />} />
+                            {/* Contribution Requests */}
+                            <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
+                            <Route path=":id/contribution_requests">
+                                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                                    <Route path="" element={<div />} />
+                                    <Route path="tree" element={<ContributionRequestTree />} />
+                                    <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                                    <Route path="commits" element={<div />} />
+                                </Route>
+                            </Route>
+                            <Route path=":id/topics" element={<div />} />
+                            <Route path=":id/tasks_board" element={<div />} />
+                            <Route path=":id/settings" element={<div />} />
+                        </Route>
+                    </Routes>
+                </Box>
 
-      </Box>
-    </ThemeProvider>
-  );
+            </Box>
+        </ThemeProvider>
+    );
 }

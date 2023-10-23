@@ -7,22 +7,22 @@ import NodeIndexSearch from './NodeIndexSearch';
 import CreateNodeModal from './CreateNodeModal';
 
 export default function NodeIndexHeader() {
-  const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);
+    const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);
 
-  return (
-    <>
-      <CreateNodeModal
-        open={openCreateNodeDialog}
-        onClose={() => setOpenCreateNodeDialog(false)}
-      />
-      <Box display="flex" alignItems="center">
-        <DefaultButton
-          title="Add Node"
-          startIcon={<FontAwesomeIcon icon={faAdd} />}
-          onClick={() => setOpenCreateNodeDialog(true)}
-        />
-        <NodeIndexSearch />
-      </Box>
-    </>
-  );
+    return (
+        <>
+            <CreateNodeModal
+                open={openCreateNodeDialog}
+                onClose={() => setOpenCreateNodeDialog(false)}
+            />
+            <Box display="flex" alignItems="center">
+                <DefaultButton
+                    title="Add Node"
+                    startIcon={<FontAwesomeIcon icon={faAdd} />}
+                    onClick={() => setOpenCreateNodeDialog(true)}
+                />
+                <NodeIndexSearch />
+            </Box>
+        </>
+    );
 }

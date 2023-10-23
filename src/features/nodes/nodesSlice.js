@@ -2,15 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NODE_PANE_CONTENTS } from './nodes.constants';
 import getNodeDescriptionFulfilled from './reducers/extra/getNodeDescription.fulfilled';
 /* reducers */
-import tmpNodeAdder from './reducers/tmpNodeAdder';
-import nodeDeleter from './reducers/nodeDeleter';
-import nodeUpdater from './reducers/nodeUpdater';
-import nodeSelectionSetter from './reducers/nodeSelectionSetter';
-import nodePaneContentSetter from './reducers/nodePaneContentSetter';
-import nodeSearcher from './reducers/nodeSearcher';
-import nodeImporter from './reducers/nodeImporter';
-import tmpNodeReplacer from './reducers/tmpNodeReplacer';
-import tmpNodeCleaner from './reducers/tmpNodeCleaner';
+import buildTmpNode from './reducers/tmpNodeAdd';
+import deleteNodeFromState from './reducers/nodeDelete';
+import updateNodeState from './reducers/nodeUpdate';
+import setSelectedNode from './reducers/nodeSelect';
+import setNodePaneContent from './reducers/nodePaneContent';
+import searchNode from './reducers/nodeSearch';
+import importNode from './reducers/nodeImport';
+import replaceTmpNodeWithPersistedNode from './reducers/tmpNodeReplace';
+import clearTmpNode from './reducers/tmpNodeClean';
+import reorderNodes from './reducers/nodeReorder';
 
 /* extra reducers */
 import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
@@ -19,22 +20,21 @@ import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
 import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
 
 import {
-  createNode,
-  indexNodes,
-  showNode,
-  deleteNode,
-  likeNode,
-  unlikeNode,
-  getLikesCount,
-  getNodeDescription,
-  getNodeDescriptionBase64,
+    createNode,
+    indexNodes,
+    showNode,
+    deleteNode,
+    likeNode,
+    unlikeNode,
+    getLikesCount,
+    getNodeDescription,
+    getNodeDescriptionBase64,
 } from './nodes.thunks';
-import nodeReorderer from './reducers/nodeReorderer';
 import getNodeDescriptionBase64Fulfilled from './reducers/extra/getNodeDescriptionBase64.fulfilled';
 
 const nodesSlice = createSlice({
-  name: 'nodes',
-  initialState: {
+    name: 'nodes',
+    initialState: {
     /**
      * @type {{
      *  [id: string]: {
@@ -67,8 +67,8 @@ const nodesSlice = createSlice({
      *
      * @description
      */
-    byId: {},
-    /**
+        byId: {},
+        /**
      * @type {{
      *   [parentId: string]: string[],
      * }}
@@ -76,83 +76,66 @@ const nodesSlice = createSlice({
      * This is a map of rootId and parentId to childIds. It is used to determine tree nodes, as
      * tree renders children of a node, and children of children, and so on.
      */
-    childIdsByParentId: {},
+        childIdsByParentId: {},
 
-    /**
+        /**
      * @description
      * Used for showing details of selected node.
      */
-    selectedNodeId: null,
+        selectedNodeId: null,
 
-    /**
+        /**
      * @type string
      * @variant 'markdown' | 'description' | 'workflow'
      */
-    nodePaneContent: NODE_PANE_CONTENTS.description,
+        nodePaneContent: NODE_PANE_CONTENTS.description,
 
-    /**
+        /**
      * @description
      * Used for search.
      */
-    nodeTitlesById: {},
+        nodeTitlesById: {},
 
-    /**
+        /**
      * @description
      * Nodes used for index page.
      */
-    indexNodesById: {},
+        indexNodesById: {},
 
-    /**
+        /**
      * @description
      * Currently used to prevent addon of new nodes while node creation is in progress.
      */
-    isNodeActionInProgress: false,
-  },
-  reducers: {
-    buildTmpNode: tmpNodeAdder.buildTmpNode,
-    updateNodeState: nodeUpdater.updateNodeState,
-    deleteNodeFromState: nodeDeleter.deleteNodeFromState,
-    setSelectedNode: nodeSelectionSetter.setSelectedNode,
-    setNodePaneContent: nodePaneContentSetter.setNodePaneContent,
-    searchNode: nodeSearcher.searchNode,
-    importNode: nodeImporter.importNode,
-    reorderNodes: nodeReorderer.reorderNodes,
-    replaceTmpNodeWithPersistedNode: tmpNodeReplacer.replaceTmpNodeWithPersistedNode,
-    clearTmpNode: tmpNodeCleaner.clearTmpNode,
-    setIsNodeActionInProgress: (state, action) => {
-      state.isNodeActionInProgress = action.payload;
+        isNodeActionInProgress: false,
     },
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(indexNodes.fulfilled, indexNodesFulfilledReducer)
-      .addCase(showNode.fulfilled, showNodeFulfilledReducer)
-      .addCase(createNode.fulfilled, createNodeFulfilledReducer)
-      .addCase(deleteNode.fulfilled, (state, action) => nodeDeleter.deleteNodeFromState(state, action))
-      .addCase(getNodeDescription.fulfilled, getNodeDescriptionFulfilled)
-      .addCase(getNodeDescriptionBase64.fulfilled, getNodeDescriptionBase64Fulfilled)
-      .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
-      .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
-      .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
-  },
+    reducers: {
+        buildTmpNode,
+        updateNodeState,
+        deleteNodeFromState,
+        setSelectedNode,
+        setNodePaneContent,
+        searchNode,
+        importNode,
+        reorderNodes,
+        replaceTmpNodeWithPersistedNode,
+        clearTmpNode,
+        setIsNodeActionInProgress: (state, action) => {
+            state.isNodeActionInProgress = action.payload;
+        },
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(indexNodes.fulfilled, indexNodesFulfilledReducer)
+            .addCase(showNode.fulfilled, showNodeFulfilledReducer)
+            .addCase(createNode.fulfilled, createNodeFulfilledReducer)
+            .addCase(deleteNode.fulfilled, (state, action) => deleteNodeFromState(state, action))
+            .addCase(getNodeDescription.fulfilled, getNodeDescriptionFulfilled)
+            .addCase(getNodeDescriptionBase64.fulfilled, getNodeDescriptionBase64Fulfilled)
+            .addCase(getLikesCount.fulfilled, likeNodeFulfilledReducer)
+            .addCase(likeNode.fulfilled, likeNodeFulfilledReducer)
+            .addCase(unlikeNode.fulfilled, likeNodeFulfilledReducer);
+    },
 });
 
-const {
-  actions,
-  reducer,
-} = nodesSlice;
-
-export const {
-  updateNodeState,
-  deleteNodeFromState,
-  buildTmpNode,
-  setSelectedNode,
-  setNodePaneContent,
-  reorderNodes,
-  searchNode,
-  // importNode,
-  replaceTmpNodeWithPersistedNode,
-  setIsNodeActionInProgress,
-} = actions;
-
-export default reducer;
+export const { actions } = nodesSlice;
+export default nodesSlice.reducer;

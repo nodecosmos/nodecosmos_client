@@ -8,86 +8,86 @@ import AnimateOnView from './AnimateOnView';
 import MvpStepIcon from './mvp/MvpStepIcon';
 
 const steps = [
-  'Design Product',
-  'Node Tree',
-  'Markdown Editor',
-  'Workflow',
-  'Media',
-  'Contribution Request',
+    'Design Product',
+    'Node Tree',
+    'Markdown Editor',
+    'Workflow',
+    'Media',
+    'Contribution Request',
 ];
 
 const XS_SCROLL_WIDTH = 800;
 
 export default function Mvp() {
-  const scrollable = React.useRef(null);
-  const theme = useTheme();
+    const scrollable = React.useRef(null);
+    const theme = useTheme();
 
-  useEffect(() => {
-    if (scrollable.current) {
-      // scroll to center
-      scrollable.current.scrollLeft = (XS_SCROLL_WIDTH - scrollable.current.clientWidth) / 2;
-    }
-  }, []);
+    useEffect(() => {
+        if (scrollable.current) {
+            // scroll to center
+            scrollable.current.scrollLeft = (XS_SCROLL_WIDTH - scrollable.current.clientWidth) / 2;
+        }
+    }, []);
 
-  return (
-    <Box
-      sx={{ width: '100%' }}
-      mt={{
-        xs: 16,
-        md: 32,
-      }}
-    >
-      <AnimateOnView>
-        <Typography
-          variant="h4"
-          variantMapping={{ h4: 'h3' }}
-          textAlign="center"
-          fontSize={{
-            xs: '28px',
-            sm: '32px',
-          }}
-          fontFamily="Comfortaa, sans-serif"
+    return (
+        <Box
+            sx={{ width: '100%' }}
+            mt={{
+                xs: 16,
+                md: 32,
+            }}
         >
+            <AnimateOnView>
+                <Typography
+                    variant="h4"
+                    variantMapping={{ h4: 'h3' }}
+                    textAlign="center"
+                    fontSize={{
+                        xs: '28px',
+                        sm: '32px',
+                    }}
+                    fontFamily="Comfortaa, sans-serif"
+                >
           Current
-          <Box component="span" color="primary.main" fontWeight="bold">
-            {' '}
+                    <Box component="span" color="primary.main" fontWeight="bold">
+                        {' '}
             Feature Progress
-            {' '}
-          </Box>
+                        {' '}
+                    </Box>
           of the MVP
-        </Typography>
-      </AnimateOnView>
-      <AnimateOnView delay={200}>
-        <Box ref={scrollable} mt={3} overflow="auto" pb={{ xs: 1, md: 0 }}>
-          <Box width={{
-            xs: XS_SCROLL_WIDTH,
-            md: '100%',
-          }}
-          >
-            <Stepper
-              activeStep={4}
-              alternativeLabel
-              sx={{
-                '.Mui-completed': {
-                  '.MuiStepConnector-line': {
-                    borderColor: theme.palette.primary.main,
-                    borderWidth: 2,
-                  },
-                },
-                '.MuiStepLabel-label': {
-                  fontFamily: "'Montserrat',sans-serif",
-                },
-              }}
-            >
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel StepIconComponent={MvpStepIcon}>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
+                </Typography>
+            </AnimateOnView>
+            <AnimateOnView delay={200}>
+                <Box ref={scrollable} mt={3} overflow="auto" pb={{ xs: 1, md: 0 }}>
+                    <Box width={{
+                        xs: XS_SCROLL_WIDTH,
+                        md: '100%',
+                    }}
+                    >
+                        <Stepper
+                            activeStep={4}
+                            alternativeLabel
+                            sx={{
+                                '.Mui-completed': {
+                                    '.MuiStepConnector-line': {
+                                        borderColor: theme.palette.primary.main,
+                                        borderWidth: 2,
+                                    },
+                                },
+                                '.MuiStepLabel-label': {
+                                    fontFamily: "'Montserrat',sans-serif",
+                                },
+                            }}
+                        >
+                            {steps.map((label) => (
+                                <Step key={label}>
+                                    <StepLabel StepIconComponent={MvpStepIcon}>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                    </Box>
+                </Box>
+            </AnimateOnView>
         </Box>
-      </AnimateOnView>
-    </Box>
-  );
+    );
 }

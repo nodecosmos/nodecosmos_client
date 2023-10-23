@@ -6,25 +6,25 @@ import useTreeNodeVirtualizer from '../../hooks/useTreeNodesVirtualizer';
 import DraggableNodePoint from './DraggableNodePoint';
 
 function DraggableNodePoints({ rootNodeId }) {
-  const dragAndDrop = useSelector(selectDragAndDrop);
-  const treeNodeIdsToView = useTreeNodeVirtualizer(rootNodeId);
+    const dragAndDrop = useSelector(selectDragAndDrop);
+    const treeNodeIdsToView = useTreeNodeVirtualizer(rootNodeId);
 
-  if (!dragAndDrop.isDragging) return null;
+    if (!dragAndDrop.isDragging) return null;
 
-  return treeNodeIdsToView.map(([treeNodeId, isAlreadyMounted], index) => {
-    if (index === 0) return null;
-    return (
-      <DraggableNodePoint
-        key={treeNodeId}
-        treeNodeId={treeNodeId}
-        isAlreadyMounted={isAlreadyMounted}
-      />
-    );
-  });
+    return treeNodeIdsToView.map(([treeNodeId, isAlreadyMounted], index) => {
+        if (index === 0) return null;
+        return (
+            <DraggableNodePoint
+                key={treeNodeId}
+                treeNodeId={treeNodeId}
+                isAlreadyMounted={isAlreadyMounted}
+            />
+        );
+    });
 }
 
 DraggableNodePoints.propTypes = {
-  rootNodeId: PropTypes.string.isRequired,
+    rootNodeId: PropTypes.string.isRequired,
 };
 
 export default DraggableNodePoints;

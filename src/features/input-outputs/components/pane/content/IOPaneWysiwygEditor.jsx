@@ -11,65 +11,65 @@ import { updateIOState } from '../../../inputOutputsSlice';
 const RemirrorEditor = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
 
 const loading = (
-  <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
-    <CircularProgress
-      size={100}
-      sx={{
-        mt: {
-          xs: 6,
-          sm: 7,
-        },
-        color: 'background.3',
-      }}
-    />
-  </Box>
+    <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
+        <CircularProgress
+            size={100}
+            sx={{
+                mt: {
+                    xs: 6,
+                    sm: 7,
+                },
+                color: 'background.3',
+            }}
+        />
+    </Box>
 );
 
 export default function IOPaneWysiwygEditor() {
-  const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
-  const { id } = selectedWorkflowDiagramObject;
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const { id } = selectedWorkflowDiagramObject;
 
-  const dispatch = useDispatch();
-  const handleChangeTimeout = React.useRef(null);
-  const {
-    originalId, nodeId, workflowId, workflowIndex, descriptionMarkdown,
-  } = useSelector(selectInputOutputById(id));
+    const dispatch = useDispatch();
+    const handleChangeTimeout = React.useRef(null);
+    const {
+        originalId, nodeId, workflowId, workflowIndex, descriptionMarkdown,
+    } = useSelector(selectInputOutputById(id));
 
-  const handleChange = useCallback((remirrorHelpers) => {
-    if (handleChangeTimeout.current) {
-      clearTimeout(handleChangeTimeout.current);
-    }
+    const handleChange = useCallback((remirrorHelpers) => {
+        if (handleChangeTimeout.current) {
+            clearTimeout(handleChangeTimeout.current);
+        }
 
-    handleChangeTimeout.current = setTimeout(() => {
-      const descriptionHtml = remirrorHelpers.getHTML();
-      const markdown = remirrorHelpers.getMarkdown();
+        handleChangeTimeout.current = setTimeout(() => {
+            const descriptionHtml = remirrorHelpers.getHTML();
+            const markdown = remirrorHelpers.getMarkdown();
 
-      dispatch(updateIOState({
-        id,
-        description: descriptionHtml,
-        descriptionMarkdown: markdown,
-      }));
+            dispatch(updateIOState({
+                id,
+                description: descriptionHtml,
+                descriptionMarkdown: markdown,
+            }));
 
-      dispatch(updateIODescription({
-        id,
-        originalId,
-        nodeId,
-        workflowId,
-        workflowIndex,
-        description: descriptionHtml,
-        descriptionMarkdown: markdown,
-      }));
-    }, 500);
-  }, [dispatch, id, nodeId, originalId, workflowId, workflowIndex]);
+            dispatch(updateIODescription({
+                id,
+                originalId,
+                nodeId,
+                workflowId,
+                workflowIndex,
+                description: descriptionHtml,
+                descriptionMarkdown: markdown,
+            }));
+        }, 500);
+    }, [dispatch, id, nodeId, originalId, workflowId, workflowIndex]);
 
-  return (
-    <Suspense fallback={loading}>
-      <Box height={1}>
-        <RemirrorEditor
-          markdown={descriptionMarkdown || ''}
-          onChange={handleChange}
-        />
-      </Box>
-    </Suspense>
-  );
+    return (
+        <Suspense fallback={loading}>
+            <Box height={1}>
+                <RemirrorEditor
+                    markdown={descriptionMarkdown || ''}
+                    onChange={handleChange}
+                />
+            </Box>
+        </Suspense>
+    );
 }

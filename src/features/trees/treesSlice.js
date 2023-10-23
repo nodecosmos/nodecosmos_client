@@ -11,8 +11,8 @@ import treeNodeDeleter from './reducers/treeNodeDeleter';
 import tmpTreeNodeReplacer from './reducers/tmpTreeNodeReplacer';
 
 const treesSlice = createSlice({
-  name: 'trees',
-  initialState: {
+    name: 'trees',
+    initialState: {
     /**
      * @type {{
      *  [rootId: string]: {
@@ -33,9 +33,9 @@ const treesSlice = createSlice({
      *   },
      * }}
      */
-    byRootNodeId: {},
+        byRootNodeId: {},
 
-    /**
+        /**
      * @type {{
      *   [treeNodeId: string]: treeNodeId[],
      * }}
@@ -45,9 +45,9 @@ const treesSlice = createSlice({
      * Parent before child, or upperSibling before lowerSibling.
      * It should have better performance than using Object.values().sort().
      */
-    orderedTreeNodeIdsByRootNodeId: {},
+        orderedTreeNodeIdsByRootNodeId: {},
 
-    /**
+        /**
      * @type {{
      *   [rootId: string]: {
      *     [treeNodeId: string]: {
@@ -59,80 +59,80 @@ const treesSlice = createSlice({
      *   }
      * }}
      */
-    positionsByRootIdAndTreeNodeId: {},
+        positionsByRootIdAndTreeNodeId: {},
 
-    /**
+        /**
      * @type {treeNodeId}
      * @description
      * Used to mount newly created nodes.
      */
-    currentTempNodeId: null,
+        currentTempNodeId: null,
 
-    /**
+        /**
      * @type {treeNodeId}
      */
-    selectedTreeNodeId: null,
+        selectedTreeNodeId: null,
 
-    /**
+        /**
      * @type {{
      *   isDragging: boolean,
      *   treeNodeId: treeNodeId,
      * }}
      */
-    dragAndDrop: {
-      isDragging: false,
-      treeNodeId: null,
-      nodeId: null,
-      rootId: null,
-    },
+        dragAndDrop: {
+            isDragging: false,
+            treeNodeId: null,
+            nodeId: null,
+            rootId: null,
+        },
 
-    /**
+        /**
      * @type {boolean}
      */
-    isTreeLoading: false,
-  },
-  reducers: {
-    setDragAndDrop(state, action) { state.dragAndDrop = action.payload; },
-    clearDragAndDrop(state) { state.dragAndDrop = { isDragging: false, treeNodeId: null, nodeId: null }; },
-    setTreeLoading(state, action) { state.isTreeLoading = action.payload; },
-    setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
+        isTreeLoading: false,
+    },
+    reducers: {
+        setDragAndDrop(state, action) { state.dragAndDrop = action.payload; },
+        clearDragAndDrop(state) { state.dragAndDrop = { isDragging: false, treeNodeId: null, nodeId: null }; },
+        setTreeLoading(state, action) { state.isTreeLoading = action.payload; },
+        setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
 
-    buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
-    setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
+        buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
+        setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
 
-    expandTreeNode: treeNodeMounter.expandTreeNode,
-    collapseTreeNode: treeNodeMounter.collapseTreeNode,
+        expandTreeNode: treeNodeMounter.expandTreeNode,
+        collapseTreeNode: treeNodeMounter.collapseTreeNode,
 
-    updateTreeNode: treeNodeUpdater.updateTreeNode,
+        updateTreeNode: treeNodeUpdater.updateTreeNode,
 
-    buildTmpTreeNode: treeTmpNodeAdder.buildTmpTreeNode,
-    deleteTreeNodeFromState: treeNodeDeleter.deleteTreeNodeFromState,
-    replaceTmpTreeNodeWithPersistedNode: tmpTreeNodeReplacer.replaceTmpTreeNodeWithPersistedNode,
-  },
-  extraReducers(builder) {
-    builder.addCase(createNode.fulfilled, (state) => { state.currentTempNodeId = null; });
-    builder.addCase(deleteNode.fulfilled, (state, action) => treeNodeDeleter.deleteTreeNodeFromState(state, action));
-  },
+        buildTmpTreeNode: treeTmpNodeAdder.buildTmpTreeNode,
+        deleteTreeNodeFromState: treeNodeDeleter.deleteTreeNodeFromState,
+        replaceTmpTreeNodeWithPersistedNode: tmpTreeNodeReplacer.replaceTmpTreeNodeWithPersistedNode,
+    },
+    extraReducers(builder) {
+        builder.addCase(createNode.fulfilled, (state) => { state.currentTempNodeId = null; });
+        builder.addCase(deleteNode.fulfilled, (state, action) => treeNodeDeleter.deleteTreeNodeFromState(state, action));
+    },
 });
 
 const {
-  actions,
-  reducer,
+    actions,
+    reducer,
 } = treesSlice;
 
 export const {
-  setDragAndDrop,
-  clearDragAndDrop,
-  setTreeLoading,
-  setSelectedTreeNode,
-  buildTreeFromRootNode,
-  setTreeNodesPositions,
-  expandTreeNode,
-  collapseTreeNode,
-  updateTreeNode,
-  buildTmpTreeNode,
-  deleteTreeNodeFromState,
-  replaceTmpTreeNodeWithPersistedNode,
+    setDragAndDrop,
+    clearDragAndDrop,
+    setTreeLoading,
+    setSelectedTreeNode,
+    buildTreeFromRootNode,
+    setTreeNodesPositions,
+    expandTreeNode,
+    collapseTreeNode,
+    updateTreeNode,
+    buildTmpTreeNode,
+    deleteTreeNodeFromState,
+    replaceTmpTreeNodeWithPersistedNode,
 } = actions;
 
 export default reducer;

@@ -18,18 +18,18 @@ import useNodeButtonContributionRequestColors from '../../colors/useNodeButtonCo
  * }}
  */
 export default function useNodeButtonColors(treeId) {
-  const { type: treeType } = useTreeContext();
-  const defaultColors = useNodeButtonDefaultColors(treeId);
-  const checkboxColors = useNodeButtonCheckboxColors(treeId);
-  const contributionRequestColors = useNodeButtonContributionRequestColors(treeId);
+    const { type: treeType } = useTreeContext();
+    const defaultColors = useNodeButtonDefaultColors(treeId);
+    const checkboxColors = useNodeButtonCheckboxColors(treeId);
+    const contributionRequestColors = useNodeButtonContributionRequestColors(treeId);
 
-  if (treeType === TREES_TYPES.checkbox) {
-    return checkboxColors;
-  }
+    if (treeType === TREES_TYPES.checkbox) {
+        return checkboxColors;
+    }
 
-  if (treeType === TREES_TYPES.contributionRequest) {
-    return contributionRequestColors;
-  }
+    if (treeType === TREES_TYPES.contributionRequest) {
+        return contributionRequestColors;
+    }
 
-  return defaultColors;
+    return defaultColors;
 }

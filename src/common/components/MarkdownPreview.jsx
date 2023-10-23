@@ -5,66 +5,66 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 export default function MarkdownPreview(props) {
-  const { value } = props;
+    const { value } = props;
 
-  return (
-    <Box sx={{
-      color: 'text.secondary',
-      'h1, h2, h3, h4, h5, h6': {
-        marginBlockStart: 0,
-        marginBlockEnd: 3,
-      },
-      a: {
-        color: 'text.sectionSecondary',
-        borderBottom: 3,
-        borderColor: 'text.sectionSecondary',
-      },
-      hr: {
-        border: 0,
-        borderBottom: 1,
-        borderColor: 'borders.2',
-      },
-      blockquote: {
-        m: 0,
-        backgroundColor: 'markdownContent.canvas',
-        borderRadius: 1,
-        borderLeft: 6,
-        p: 1,
-        pl: 2,
-        borderColor: 'markdownContent.border',
-      },
-      table: {
-        tr: {
-          borderRadius: 1,
-          'td, th': {
-            mt: 1,
-            borderBottom: 1,
-            borderRight: 1,
-            borderColor: 'borders.2',
-            p: '12px 16px',
-          },
-          'td:last-of-type': { borderRight: 0 },
-          'th:last-of-type': { borderRight: 0 },
-          '&:last-of-type td': { borderBottom: 0 },
-          '&:hover': {
-            backgroundColor: 'background.8',
-          },
-        },
-      },
-      pre: {
-        ml: 0,
-        p: 2,
-        borderRadius: 1,
-        backgroundColor: 'markdownContent.canvas',
-        overflow: 'auto',
-      },
-    }}
-    >
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
-    </Box>
-  );
+    return (
+        <Box sx={{
+            color: 'text.secondary',
+            'h1, h2, h3, h4, h5, h6': {
+                marginBlockStart: 0,
+                marginBlockEnd: 3,
+            },
+            a: {
+                color: 'text.sectionSecondary',
+                borderBottom: 3,
+                borderColor: 'text.sectionSecondary',
+            },
+            hr: {
+                border: 0,
+                borderBottom: 1,
+                borderColor: 'borders.2',
+            },
+            blockquote: {
+                m: 0,
+                backgroundColor: 'markdownContent.canvas',
+                borderRadius: 1,
+                borderLeft: 6,
+                p: 1,
+                pl: 2,
+                borderColor: 'markdownContent.border',
+            },
+            table: {
+                tr: {
+                    borderRadius: 1,
+                    'td, th': {
+                        mt: 1,
+                        borderBottom: 1,
+                        borderRight: 1,
+                        borderColor: 'borders.2',
+                        p: '12px 16px',
+                    },
+                    'td:last-of-type': { borderRight: 0 },
+                    'th:last-of-type': { borderRight: 0 },
+                    '&:last-of-type td': { borderBottom: 0 },
+                    '&:hover': {
+                        backgroundColor: 'background.8',
+                    },
+                },
+            },
+            pre: {
+                ml: 0,
+                p: 2,
+                borderRadius: 1,
+                backgroundColor: 'markdownContent.canvas',
+                overflow: 'auto',
+            },
+        }}
+        >
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
+        </Box>
+    );
 }
 
 MarkdownPreview.propTypes = {
-  value: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
 };

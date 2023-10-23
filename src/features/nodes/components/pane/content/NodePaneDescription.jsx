@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Typography, Box,
+    Typography, Box,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
@@ -8,32 +8,32 @@ import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selecto
 import NodePaneDescriptionCoverImage from '../../cover/NodePaneDescriptionCoverImage';
 
 export default function NodePaneDescription() {
-  const selectedNodeId = useSelector(selectSelectedNodeId);
+    const selectedNodeId = useSelector(selectSelectedNodeId);
 
-  const { description } = useSelector(selectSelectedNode);
+    const { description } = useSelector(selectSelectedNode);
 
-  if (!selectedNodeId) return null;
+    if (!selectedNodeId) return null;
 
-  const nodeNotSelectedContent = (
-    <Typography color="text.secondary" align="center" fontSize={30}>
+    const nodeNotSelectedContent = (
+        <Typography color="text.secondary" align="center" fontSize={30}>
       ¯\_(ツ)_/¯
-    </Typography>
-  );
+        </Typography>
+    );
 
-  const nodeHasNoDescriptionContent = (
-    <Typography color="text.secondary">
+    const nodeHasNoDescriptionContent = (
+        <Typography color="text.secondary">
       This node has no description yet.
-    </Typography>
-  );
+        </Typography>
+    );
 
-  const blankDescription = (selectedNodeId && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
+    const blankDescription = (selectedNodeId && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
 
-  return (
-    <div>
-      <NodePaneDescriptionCoverImage />
-      <DescriptionContainer>
-        {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
-      </DescriptionContainer>
-    </div>
-  );
+    return (
+        <div>
+            <NodePaneDescriptionCoverImage />
+            <DescriptionContainer>
+                {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
+            </DescriptionContainer>
+        </div>
+    );
 }

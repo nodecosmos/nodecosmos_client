@@ -4,67 +4,67 @@ import PropTypes from 'prop-types';
 import { useInView } from 'framer-motion';
 
 export default function AnimateOnView(props) {
-  const {
-    children,
-    initialScale,
-    initialOpacity,
-  } = props;
+    const {
+        children,
+        initialScale,
+        initialOpacity,
+    } = props;
 
-  let { delay } = props;
+    let { delay } = props;
 
-  const [opacity, setOpacity] = React.useState(initialOpacity);
-  const [transform, setTransform] = React.useState(`scale(${initialScale})`);
+    const [opacity, setOpacity] = React.useState(initialOpacity);
+    const [transform, setTransform] = React.useState(`scale(${initialScale})`);
 
-  const ref = useRef(null);
-  const inView = useInView(ref);
+    const ref = useRef(null);
+    const inView = useInView(ref);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  if (isMobile) {
-    delay = 0;
-  }
-
-  useEffect(() => {
-    if (inView) {
-      setTimeout(() => {
-        setOpacity(1);
-        setTransform(`scale(${1})`);
-        // reset transform so it doesn't mess absolute positioning in nested elements
-        setTimeout(() => setTransform('none'), 500);
-      }, delay);
-    } else {
-      setOpacity(initialOpacity);
-      setTransform(`scale(${initialScale})`);
+    if (isMobile) {
+        delay = 0;
     }
-  }, [inView, delay, initialOpacity, initialScale]);
 
-  return (
-    <Box
-      ref={ref}
-      height={1}
-      style={{
-        opacity,
-        transform,
-      }}
-      sx={{
-        transition: 'opacity 500ms, transform 500ms',
-      }}
-    >
-      {children}
-    </Box>
-  );
+    useEffect(() => {
+        if (inView) {
+            setTimeout(() => {
+                setOpacity(1);
+                setTransform(`scale(${1})`);
+                // reset transform so it doesn't mess absolute positioning in nested elements
+                setTimeout(() => setTransform('none'), 500);
+            }, delay);
+        } else {
+            setOpacity(initialOpacity);
+            setTransform(`scale(${initialScale})`);
+        }
+    }, [inView, delay, initialOpacity, initialScale]);
+
+    return (
+        <Box
+            ref={ref}
+            height={1}
+            style={{
+                opacity,
+                transform,
+            }}
+            sx={{
+                transition: 'opacity 500ms, transform 500ms',
+            }}
+        >
+            {children}
+        </Box>
+    );
 }
 
 AnimateOnView.defaultProps = {
-  delay: 0,
-  initialScale: 0.9,
-  initialOpacity: 0,
+    delay: 0,
+    initialScale: 0.9,
+    initialOpacity: 0,
 };
 
 AnimateOnView.propTypes = {
-  children: PropTypes.node.isRequired,
-  delay: PropTypes.number,
-  initialOpacity: PropTypes.number,
-  initialScale: PropTypes.number,
+    children: PropTypes.node.isRequired,
+    delay: PropTypes.number,
+    initialOpacity: PropTypes.number,
+    initialScale: PropTypes.number,
 };

@@ -16,78 +16,78 @@ const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
 const SIDEBAR_PATHS = ['/nodes'];
 
 export default function Header() {
-  const headerContents = {
-    NodeIndexHeader: <NodeIndexHeader />,
-    TreeShowHeader: <TreeShowHeader />,
-    ContributionRequestShowHeader: <ContributionRequestShowHeader />,
-  };
-  const location = useLocation();
-  const headerContent = useSelector(selectHeaderContent);
+    const headerContents = {
+        NodeIndexHeader: <NodeIndexHeader />,
+        TreeShowHeader: <TreeShowHeader />,
+        ContributionRequestShowHeader: <ContributionRequestShowHeader />,
+    };
+    const location = useLocation();
+    const headerContent = useSelector(selectHeaderContent);
 
-  if (NON_HEADER_PATHS.includes(location.pathname)) return null;
+    if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
-  const hasSidebar = SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path));
+    const hasSidebar = SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path));
 
-  return (
-    <Box height={HEADER_HEIGHT} width={1} position="relative" zIndex={4}>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        height={1}
-        width={1}
-      >
-        <Box
-          height={1}
-          width={SIDEBAR_WIDTH}
-          display="flex"
-          alignItems="center"
-          sm={2}
-          align="left"
-          pl={2}
-          borderRight={hasSidebar ? 1 : 0}
-          borderBottom={hasSidebar ? 0 : 1}
-          borderColor="borders.1"
-        >
-          <Button
-            component={Link}
-            to="/nodes"
-            className="MicroButton"
-          >
-            <Typography fontWeight="bold">
-              <Box component="span" color="logo.blue">node</Box>
-              <Box component="span" color="logo.red">cosmos</Box>
-            </Typography>
-          </Button>
+    return (
+        <Box height={HEADER_HEIGHT} width={1} position="relative" zIndex={4}>
+            <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                height={1}
+                width={1}
+            >
+                <Box
+                    height={1}
+                    width={SIDEBAR_WIDTH}
+                    display="flex"
+                    alignItems="center"
+                    sm={2}
+                    align="left"
+                    pl={2}
+                    borderRight={hasSidebar ? 1 : 0}
+                    borderBottom={hasSidebar ? 0 : 1}
+                    borderColor="borders.1"
+                >
+                    <Button
+                        component={Link}
+                        to="/nodes"
+                        className="MicroButton"
+                    >
+                        <Typography fontWeight="bold">
+                            <Box component="span" color="logo.blue">node</Box>
+                            <Box component="span" color="logo.red">cosmos</Box>
+                        </Typography>
+                    </Button>
+                </Box>
+                <Box
+                    display="flex"
+                    width={`calc(100% - ${SIDEBAR_WIDTH}px)`}
+                    borderBottom={1}
+                    borderColor="borders.1"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    height={1}
+                >
+                    <Box
+                        pl={1.25}
+                        height={1}
+                        display="flex"
+                        alignItems="center"
+                        width="calc(100% - 140px)"
+                    >
+                        {headerContents[headerContent]}
+                    </Box>
+                    <Box
+                        mr={2}
+                        height={1}
+                        display="flex"
+                        alignItems="center"
+                    >
+                        <UserHeaderOptions />
+                    </Box>
+                </Box>
+            </Box>
         </Box>
-        <Box
-          display="flex"
-          width={`calc(100% - ${SIDEBAR_WIDTH}px)`}
-          borderBottom={1}
-          borderColor="borders.1"
-          alignItems="center"
-          justifyContent="space-between"
-          height={1}
-        >
-          <Box
-            pl={1.25}
-            height={1}
-            display="flex"
-            alignItems="center"
-            width="calc(100% - 140px)"
-          >
-            {headerContents[headerContent]}
-          </Box>
-          <Box
-            mr={2}
-            height={1}
-            display="flex"
-            alignItems="center"
-          >
-            <UserHeaderOptions />
-          </Box>
-        </Box>
-      </Box>
-    </Box>
-  );
+    );
 }

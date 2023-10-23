@@ -12,47 +12,47 @@ import LandingPageTransformable from './LandingPageTransformable';
 import LandingPageNestedNodes from './LandingPageNestedNodes';
 
 export default function LandingPageTree(props) {
-  const { id } = props;
-  const dispatch = useDispatch();
+    const { id } = props;
+    const dispatch = useDispatch();
 
-  useEffect(() => () => {
-    dispatch(terminateNewNode());
-  }, [dispatch]);
+    useEffect(() => () => {
+        dispatch(terminateNewNode());
+    }, [dispatch]);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  return (
-    <Box className="Tree">
-      <LandingPageTransformable>
-        <g>
-          <LandingPageNode
-            id={id}
-            nestedLevel={0}
-            isRoot
-          >
-            <LandingPageNestedNodes currentNodeId={id} />
-          </LandingPageNode>
-          {!isMobile && <LandingPageNodeDescription />}
-        </g>
-      </LandingPageTransformable>
-      <Box
-        backgroundColor="background.5"
-        overflow="hidden"
-        position="sticky"
-        my={0}
-        bottom={0}
-        mx={{
-          xs: -3,
-          sm: -4,
-        }}
-      >
-        {isMobile && <SwipeableEdgeDrawer />}
-      </Box>
-    </Box>
-  );
+    return (
+        <Box className="Tree">
+            <LandingPageTransformable>
+                <g>
+                    <LandingPageNode
+                        id={id}
+                        nestedLevel={0}
+                        isRoot
+                    >
+                        <LandingPageNestedNodes currentNodeId={id} />
+                    </LandingPageNode>
+                    {!isMobile && <LandingPageNodeDescription />}
+                </g>
+            </LandingPageTransformable>
+            <Box
+                backgroundColor="background.5"
+                overflow="hidden"
+                position="sticky"
+                my={0}
+                bottom={0}
+                mx={{
+                    xs: -3,
+                    sm: -4,
+                }}
+            >
+                {isMobile && <SwipeableEdgeDrawer />}
+            </Box>
+        </Box>
+    );
 }
 
 LandingPageTree.propTypes = {
-  id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
 };

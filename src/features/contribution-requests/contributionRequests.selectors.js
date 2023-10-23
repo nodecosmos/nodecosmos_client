@@ -4,16 +4,16 @@ export const selectContributionRequestsByNodeId = (state) => state.contributionR
 export const selectSearchTerm = (state) => state.contributionRequests.searchTerm;
 export const selectCurrentContributionRequest = (state) => state.contributionRequests.currentContributionRequest;
 export const selectContributionRequests = (
-  nodeId,
+    nodeId,
 ) => createSelector(
-  selectContributionRequestsByNodeId,
-  (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId],
+    selectContributionRequestsByNodeId,
+    (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId],
 );
 export const selectContributionRequest = (
-  nodeId,
-  contributionRequestId,
+    nodeId,
+    contributionRequestId,
 ) => createSelector(
-  selectContributionRequestsByNodeId,
-  (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId]
+    selectContributionRequestsByNodeId,
+    (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId]
     && contributionRequestsByNodeId[nodeId][contributionRequestId],
 );

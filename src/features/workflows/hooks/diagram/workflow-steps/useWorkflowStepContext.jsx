@@ -3,16 +3,16 @@ import React, { useContext, useMemo } from 'react';
 const WorkflowStepContext = React.createContext(undefined);
 
 export function useWorkflowStepContextCreator({ wfStep, wfStepIndex, hovered }) {
-  const contextProviderValue = useMemo(() => ({ wfStep, wfStepIndex, hovered }), [hovered, wfStep, wfStepIndex]);
+    const contextProviderValue = useMemo(() => ({ wfStep, wfStepIndex, hovered }), [hovered, wfStep, wfStepIndex]);
 
-  return {
-    WorkflowStepContext,
-    contextProviderValue,
-  };
+    return {
+        WorkflowStepContext,
+        contextProviderValue,
+    };
 }
 
 export default function useWorkflowStepContext() {
-  const { wfStep, wfStepIndex, hovered } = useContext(WorkflowStepContext);
+    const { wfStep, wfStepIndex, hovered } = useContext(WorkflowStepContext);
 
-  return { wfStep, wfStepIndex, hovered };
+    return { wfStep, wfStepIndex, hovered };
 }

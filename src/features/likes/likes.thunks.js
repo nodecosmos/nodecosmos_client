@@ -3,10 +3,10 @@ import nodecosmos from '../../apis/nodecosmos-server';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getLikedObjectIds = createAsyncThunk(
-  'likes/getLikedObjectIds',
-  async (payload, _thunkAPI) => {
-    const response = await nodecosmos.get('/likes/liked_object_ids');
+    'likes/getLikedObjectIds',
+    async (payload) => {
+        const response = await nodecosmos.get('/likes/liked_object_ids');
 
-    return response.data;
-  },
+        return response.data;
+    },
 );

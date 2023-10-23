@@ -4,33 +4,33 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/material';
 import ContributionRequestsIndexToolbar
-  from '../../features/contribution-requests/components/ContributionRequestsIndexToolbar';
+    from '../../features/contribution-requests/components/ContributionRequestsIndexToolbar';
 import { indexContributionRequests } from '../../features/contribution-requests/contributionRequests.thunks';
 import Loader from '../../common/components/Loader';
 import ContributionRequestsList from '../../features/contribution-requests/components/ContributionRequestsList';
 import { HEADER_HEIGHT } from '../../features/app/constants';
 
 export default function Index() {
-  const { id } = useParams();
-  const [loading, setLoading] = useState(true);
+    const { id } = useParams();
+    const [loading, setLoading] = useState(true);
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!id) setLoading(true);
-    dispatch(indexContributionRequests(id)).then(() => setLoading(false));
-  }, [dispatch, id]);
+    useEffect(() => {
+        if (!id) setLoading(true);
+        dispatch(indexContributionRequests(id)).then(() => setLoading(false));
+    }, [dispatch, id]);
 
-  if (loading) {
-    return <Loader />;
-  }
+    if (loading) {
+        return <Loader />;
+    }
 
-  return (
-    <Box height={1} overflow="hidden">
-      <ContributionRequestsIndexToolbar nodeId={id} />
-      <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-        <ContributionRequestsList nodeId={id} />
-      </Box>
-    </Box>
-  );
+    return (
+        <Box height={1} overflow="hidden">
+            <ContributionRequestsIndexToolbar nodeId={id} />
+            <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                <ContributionRequestsList nodeId={id} />
+            </Box>
+        </Box>
+    );
 }

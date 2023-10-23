@@ -6,46 +6,46 @@ import WorkflowOutputButton from '../ios/WorkflowOutputButton';
 import NodeInputBranches from '../ios/NodeInputBranches';
 
 export default function FlowStep({ flowStep }) {
-  const inputIdx = useRef({});
-  const currentIdx = useRef(0);
+    const inputIdx = useRef({});
+    const currentIdx = useRef(0);
 
-  if (!flowStep) return null;
+    if (!flowStep) return null;
 
-  return (
-    <g>
-      {
-        flowStep.nodes.map((node) => (
-          <g key={node.diagramId}>
-            <NodeOutputsBranch diagramId={node.diagramId} />
-            <NodeInputBranches
-              currentIdx={currentIdx}
-              inputIdx={inputIdx}
-              flowStep={flowStep}
-              node={node}
-            />
-            <WorkflowNodeButton
-              diagramId={node.diagramId}
-              id={node.id}
-              flowStepId={flowStep.id}
-              workflowId={flowStep.workflowId}
-              workflowStepIndex={flowStep.workflowStepIndex}
-            />
+    return (
+        <g>
             {
-              flowStep.outputIdsByNodeId[node.id]?.map((id) => (
-                <WorkflowOutputButton id={id} key={id} nodeId={node.id} />
-              ))
+                flowStep.nodes.map((node) => (
+                    <g key={node.diagramId}>
+                        <NodeOutputsBranch diagramId={node.diagramId} />
+                        <NodeInputBranches
+                            currentIdx={currentIdx}
+                            inputIdx={inputIdx}
+                            flowStep={flowStep}
+                            node={node}
+                        />
+                        <WorkflowNodeButton
+                            diagramId={node.diagramId}
+                            id={node.id}
+                            flowStepId={flowStep.id}
+                            workflowId={flowStep.workflowId}
+                            workflowStepIndex={flowStep.workflowStepIndex}
+                        />
+                        {
+                            flowStep.outputIdsByNodeId[node.id]?.map((id) => (
+                                <WorkflowOutputButton id={id} key={id} nodeId={node.id} />
+                            ))
+                        }
+                    </g>
+                ))
             }
-          </g>
-        ))
-      }
-    </g>
-  );
+        </g>
+    );
 }
 
 FlowStep.defaultProps = {
-  flowStep: null,
+    flowStep: null,
 };
 
 FlowStep.propTypes = {
-  flowStep: PropTypes.object,
+    flowStep: PropTypes.object,
 };

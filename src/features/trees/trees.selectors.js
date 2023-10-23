@@ -10,58 +10,58 @@ export const selectIsTreeLoading = (state) => state.trees.isTreeLoading;
 
 // derived selectors
 export const selectOrderedTreeNodeIds = (rootId) => createSelector(
-  (state) => state.trees.orderedTreeNodeIdsByRootNodeId,
-  (orderedTreeNodeIdsByRootNodeId) => orderedTreeNodeIdsByRootNodeId[rootId] || [],
+    (state) => state.trees.orderedTreeNodeIdsByRootNodeId,
+    (orderedTreeNodeIdsByRootNodeId) => orderedTreeNodeIdsByRootNodeId[rootId] || [],
 );
 
 export const selectTreeNodes = (rootId) => createSelector(
-  selectTreesByRootNodeId,
-  (treesByRootNodeId) => treesByRootNodeId[rootId],
+    selectTreesByRootNodeId,
+    (treesByRootNodeId) => treesByRootNodeId[rootId],
 );
 
 export const selectTreeNode = (treeNodeId) => createSelector(
-  selectTreesByRootNodeId,
-  (treeNodesByRootNodeId) => {
-    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootId][treeNodeId];
-  },
+    selectTreesByRootNodeId,
+    (treeNodesByRootNodeId) => {
+        const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+        return treeNodesByRootNodeId[rootId][treeNodeId];
+    },
 );
 
 export const selectTreeNodeAttribute = (treeNodeId, attribute) => createSelector(
-  selectTreesByRootNodeId,
-  (treeNodesByRootNodeId) => {
-    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootId][treeNodeId][attribute];
-  },
+    selectTreesByRootNodeId,
+    (treeNodesByRootNodeId) => {
+        const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+        return treeNodesByRootNodeId[rootId][treeNodeId][attribute];
+    },
 );
 
 export const selectHasChildren = (treeNodeId) => createSelector(
-  selectTreesByRootNodeId,
-  (treeNodesByRootNodeId) => {
-    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootId][treeNodeId].treeChildIds.length > 0;
-  },
+    selectTreesByRootNodeId,
+    (treeNodesByRootNodeId) => {
+        const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+        return treeNodesByRootNodeId[rootId][treeNodeId].treeChildIds.length > 0;
+    },
 );
 
 export const selectPositions = (rootId) => createSelector(
-  selectPositionsByRootIdAndTreeNodeId,
-  (positionsByRootIdAndTreeNodeId) => positionsByRootIdAndTreeNodeId[rootId],
+    selectPositionsByRootIdAndTreeNodeId,
+    (positionsByRootIdAndTreeNodeId) => positionsByRootIdAndTreeNodeId[rootId],
 );
 
 export const selectPosition = (rootNodeId, treeNodeId) => createSelector(
-  selectPositionsByRootIdAndTreeNodeId,
-  (positionsByRootIdAndTreeNodeId) => (
-    positionsByRootIdAndTreeNodeId[rootNodeId] && positionsByRootIdAndTreeNodeId[rootNodeId][treeNodeId]
-  ) || {},
+    selectPositionsByRootIdAndTreeNodeId,
+    (positionsByRootIdAndTreeNodeId) => (
+        positionsByRootIdAndTreeNodeId[rootNodeId] && positionsByRootIdAndTreeNodeId[rootNodeId][treeNodeId]
+    ) || {},
 );
 
 export const selectSelectedTreeNode = createSelector(
-  selectSelectedTreeNodeId,
-  selectTreesByRootNodeId,
-  (treeNodeId, treeNodesByRootNodeId) => {
-    if (!treeNodeId) return { };
+    selectSelectedTreeNodeId,
+    selectTreesByRootNodeId,
+    (treeNodeId, treeNodesByRootNodeId) => {
+        if (!treeNodeId) return { };
 
-    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
-    return treeNodesByRootNodeId[rootId][treeNodeId];
-  },
+        const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+        return treeNodesByRootNodeId[rootId][treeNodeId];
+    },
 );

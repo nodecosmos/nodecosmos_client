@@ -8,43 +8,43 @@ import { selectFlowAttribute } from '../../../flows.selectors';
 import { getFlowDescription } from '../../../flows.thunks';
 
 export default function FlowPaneDescription() {
-  const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
-  const { id, workflowId } = selectedWorkflowDiagramObject;
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const { id, workflowId } = selectedWorkflowDiagramObject;
 
-  const description = useSelector(selectFlowAttribute(workflowId, id, 'description'));
-  const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
+    const description = useSelector(selectFlowAttribute(workflowId, id, 'description'));
+    const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
 
-  const [loading, setLoading] = React.useState(!description);
-  const dispatch = useDispatch();
+    const [loading, setLoading] = React.useState(!description);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!description) {
-      dispatch(getFlowDescription({
-        nodeId,
-        workflowId,
-        id,
-      })).then(() => setLoading(false));
+    useEffect(() => {
+        if (!description) {
+            dispatch(getFlowDescription({
+                nodeId,
+                workflowId,
+                id,
+            })).then(() => setLoading(false));
+        }
+    }, [dispatch, nodeId, workflowId, id, description]);
+
+    if (loading) {
+        return <Loader />;
     }
-  }, [dispatch, nodeId, workflowId, id, description]);
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  const noDescriptionContent = (
-    <>
-      <Typography color="text.secondary" align="center" fontWeight="bold">
+    const noDescriptionContent = (
+        <>
+            <Typography color="text.secondary" align="center" fontWeight="bold">
         Flow has no description yet.
-      </Typography>
-      <Typography color="text.secondary" align="center" fontSize={30}>
+            </Typography>
+            <Typography color="text.secondary" align="center" fontSize={30}>
         ¯\_(ツ)_/¯
-      </Typography>
-    </>
-  );
+            </Typography>
+        </>
+    );
 
-  return (
-    <DescriptionContainer>
-      {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || noDescriptionContent}
-    </DescriptionContainer>
-  );
+    return (
+        <DescriptionContainer>
+            {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || noDescriptionContent}
+        </DescriptionContainer>
+    );
 }

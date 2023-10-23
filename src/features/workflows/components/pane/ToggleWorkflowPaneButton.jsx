@@ -8,21 +8,21 @@ import { selectIsWfPaneOpen } from '../../workflows.selectors';
 import { setIsWfPaneOpen } from '../../workflowsSlice';
 
 export default function ToggleWorkflowPaneButton() {
-  const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
-  const dispatch = useDispatch();
+    const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
+    const dispatch = useDispatch();
 
-  return (
-    <ToolbarContainer round mr={0.5}>
-      <ToolbarItem
-        title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
-        icon={faTerminal}
-        color="toolbar.pink"
-        active={false}
-        onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
-        flipX={!isWfPaneOpen}
-      />
-      {/* hack to get toolbar button styles right */}
-      <Button sx={{ display: 'none' }} />
-    </ToolbarContainer>
-  );
+    return (
+        <ToolbarContainer round mr={0.5}>
+            <ToolbarItem
+                title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
+                icon={faTerminal}
+                color="toolbar.pink"
+                active={false}
+                onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
+                flipX={!isWfPaneOpen}
+            />
+            {/* hack to get toolbar button styles right */}
+            <Button sx={{ display: 'none' }} />
+        </ToolbarContainer>
+    );
 }

@@ -1,32 +1,32 @@
 // pan on mouse click and drag
 
 export default function usePannable(containerRef) {
-  const handleMouseDown = (event) => {
-    const { clientX: initialClientX, clientY: initialClientY } = event;
-    const { scrollLeft: initialScrollLeft, scrollTop: initialScrollTop } = containerRef.current;
+    const handleMouseDown = (event) => {
+        const { clientX: initialClientX, clientY: initialClientY } = event;
+        const { scrollLeft: initialScrollLeft, scrollTop: initialScrollTop } = containerRef.current;
 
-    const handleMouseMove = (moveEvent) => {
-      const { clientX, clientY } = moveEvent;
+        const handleMouseMove = (moveEvent) => {
+            const { clientX, clientY } = moveEvent;
 
-      const scrollLeft = initialScrollLeft + initialClientX - clientX;
-      const scrollTop = initialScrollTop + initialClientY - clientY;
+            const scrollLeft = initialScrollLeft + initialClientX - clientX;
+            const scrollTop = initialScrollTop + initialClientY - clientY;
 
-      if (containerRef.current) {
-        containerRef.current.scrollLeft = scrollLeft;
-        containerRef.current.scrollTop = scrollTop;
-      }
+            if (containerRef.current) {
+                containerRef.current.scrollLeft = scrollLeft;
+                containerRef.current.scrollTop = scrollTop;
+            }
+        };
+
+        const handleMouseUp = () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
     };
 
-    const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+    return {
+        onMouseDown: handleMouseDown,
     };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  };
-
-  return {
-    onMouseDown: handleMouseDown,
-  };
 }

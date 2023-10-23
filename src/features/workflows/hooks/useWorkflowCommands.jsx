@@ -5,20 +5,20 @@ import { deleteWorkflow } from '../workflows.thunks';
 import useWorkflowContext from './useWorkflowContext';
 
 export default function useWorkflowCommands() {
-  const { id, nodeId } = useWorkflowContext();
+    const { id, nodeId } = useWorkflowContext();
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const handleTitleChange = useCallback((title) => {
-    dispatch(updateWorkflow({ id, title }));
-  }, [dispatch, id]);
+    const handleTitleChange = useCallback((title) => {
+        dispatch(updateWorkflow({ id, title }));
+    }, [dispatch, id]);
 
-  const handleDelete = useCallback(() => {
-    dispatch(deleteWorkflow({ id, nodeId }));
-  }, [dispatch, id, nodeId]);
+    const handleDelete = useCallback(() => {
+        dispatch(deleteWorkflow({ id, nodeId }));
+    }, [dispatch, id, nodeId]);
 
-  return {
-    handleTitleChange,
-    deleteWorkflow: handleDelete,
-  };
+    return {
+        handleTitleChange,
+        deleteWorkflow: handleDelete,
+    };
 }

@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { terminateNewNode } from '../landingPageNodeSlice';
 
 export default function useNodeUnmountService(props) {
-  const { id } = props;
-  const dispatch = useDispatch();
+    const { id } = props;
+    const dispatch = useDispatch();
 
-  useLayoutEffect(() => () => {
+    useLayoutEffect(() => () => {
     // dispatch(collapseNode({ id }));
-    dispatch(terminateNewNode());
-  }, [dispatch, id]);
+        dispatch(terminateNewNode());
+    }, [dispatch, id]);
 }

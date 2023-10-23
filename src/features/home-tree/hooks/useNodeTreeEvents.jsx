@@ -1,63 +1,63 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
 import {
-  collapseNode,
-  deleteNodeFromState,
-  expandNode, NEW_NODE_ID, openDescription,
-  prependNewNode,
-  terminateNewNode,
+    collapseNode,
+    deleteNodeFromState,
+    expandNode, NEW_NODE_ID, openDescription,
+    prependNewNode,
+    terminateNewNode,
 } from '../landingPageNodeSlice';
 
 const ROOT_LANDING_PAGE_NODE_ID = '635a91ea690cc413ead79ce2';
 
 export default function useNodeTreeEvents(props) {
-  const { id } = props;
-  const dispatch = useDispatch();
-  const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].expanded);
-  const isNewNodePresent = useSelector((state) => state.landingPageNodes[NEW_NODE_ID]);
-  const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);
+    const { id } = props;
+    const dispatch = useDispatch();
+    const nodeExpanded = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].expanded);
+    const isNewNodePresent = useSelector((state) => state.landingPageNodes[NEW_NODE_ID]);
+    const isEditing = useSelector((state) => state.landingPageNodes[id] && state.landingPageNodes[id].isEditing);
 
-  const currentNodeId = useSelector((state) => state.app.currentNodeId);
-  const isCurrentNode = currentNodeId === id;
+    const currentNodeId = useSelector((state) => state.app.currentNodeId);
+    const isCurrentNode = currentNodeId === id;
 
-  const onNodeClick = (event) => {
-    if (nodeExpanded && isCurrentNode) {
-      if (isEditing) {
-        event.stopPropagation();
-        event.preventDefault();
-        return;
-      }
-      dispatch(collapseNode({ id }));
-      dispatch(setCurrentNode(null));
-    } else {
-      dispatch(expandNode({ id }));
-      dispatch(setCurrentNode(id));
-      dispatch(openDescription({ id }));
-    }
-  };
+    const onNodeClick = (event) => {
+        if (nodeExpanded && isCurrentNode) {
+            if (isEditing) {
+                event.stopPropagation();
+                event.preventDefault();
+                return;
+            }
+            dispatch(collapseNode({ id }));
+            dispatch(setCurrentNode(null));
+        } else {
+            dispatch(expandNode({ id }));
+            dispatch(setCurrentNode(id));
+            dispatch(openDescription({ id }));
+        }
+    };
 
-  const onNodeAdd = async () => {
-    if (isNewNodePresent) {
-      await dispatch(terminateNewNode());
-    }
-    dispatch(prependNewNode({ parent_id: id }));
-  };
+    const onNodeAdd = async () => {
+        if (isNewNodePresent) {
+            await dispatch(terminateNewNode());
+        }
+        dispatch(prependNewNode({ parent_id: id }));
+    };
 
-  const handleNodeCreation = (event) => {
-    const title = event.target.innerText;
-    prependNewNode({ title, parent_id: id });
-  };
+    const handleNodeCreation = (event) => {
+        const title = event.target.innerText;
+        prependNewNode({ title, parent_id: id });
+    };
 
-  const handleNodeDeletion = (nodeId) => {
-    if (nodeId === ROOT_LANDING_PAGE_NODE_ID) return;
+    const handleNodeDeletion = (nodeId) => {
+        if (nodeId === ROOT_LANDING_PAGE_NODE_ID) return;
 
-    dispatch(deleteNodeFromState({ id: nodeId }));
-  };
+        dispatch(deleteNodeFromState({ id: nodeId }));
+    };
 
-  return {
-    onNodeClick,
-    onNodeAdd,
-    handleNodeCreation,
-    handleNodeDeletion,
-  };
+    return {
+        onNodeClick,
+        onNodeAdd,
+        handleNodeCreation,
+        handleNodeDeletion,
+    };
 }

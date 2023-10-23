@@ -3,9 +3,9 @@ import React from 'react';
 
 // Dumb implementation of import feature
 export default function ImportNodeModal() {
-  return <div />;
+    return <div />;
 }
 
 ImportNodeModal.propTypes = {
-  // open: PropTypes.bool.isRequired,
+    // open: PropTypes.bool.isRequired,
 };

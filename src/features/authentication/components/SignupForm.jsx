@@ -12,71 +12,71 @@ const passwordsMustMatch = (value, values) => (values.password === value ? undef
 const validateEmailFormat = (email) => (emailRegex.test(email) ? undefined : 'email must be valid');
 
 export default function SignupForm() {
-  const { handleUserCreation } = useUserAuthentication();
+    const { handleUserCreation } = useUserAuthentication();
 
-  return (
-    <Form onSubmit={handleUserCreation} subscription={{ submit: true }}>
-      {({
-        handleSubmit,
-        submitting,
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2} justify="center">
-            <Grid item xs={6}>
-              <Field fullWidth name="firstName" label="First Name" />
-            </Grid>
-            <Grid item xs={6}>
-              <Field fullWidth name="lastName" label="Last Name" />
-            </Grid>
-            <Grid item xs={12}>
-              <Field fullWidth name="username" label="Username" required maxLength={20} minLength={3} />
-            </Grid>
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="email"
-                label="E-mail"
-                validate={validateEmailFormat}
-                required
-                InputProps={{
-                  autoComplete: 'off',
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                required
-                minLength={8}
-                InputProps={{
-                  autoComplete: 'off',
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="password_confirmation"
-                label="Password Confirmation"
-                type="password"
-                required
-                validate={passwordsMustMatch}
-                InputProps={{
-                  autoComplete: 'off',
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button sx={{ mt: 2 }} variant="contained" type="submit" disabled={submitting}>
+    return (
+        <Form onSubmit={handleUserCreation} subscription={{ submit: true }}>
+            {({
+                handleSubmit,
+                submitting,
+            }) => (
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2} justify="center">
+                        <Grid item xs={6}>
+                            <Field fullWidth name="firstName" label="First Name" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Field fullWidth name="lastName" label="Last Name" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field fullWidth name="username" label="Username" required maxLength={20} minLength={3} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name="email"
+                                label="E-mail"
+                                validate={validateEmailFormat}
+                                required
+                                InputProps={{
+                                    autoComplete: 'off',
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                required
+                                minLength={8}
+                                InputProps={{
+                                    autoComplete: 'off',
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name="password_confirmation"
+                                label="Password Confirmation"
+                                type="password"
+                                required
+                                validate={passwordsMustMatch}
+                                InputProps={{
+                                    autoComplete: 'off',
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button sx={{ mt: 2 }} variant="contained" type="submit" disabled={submitting}>
                 Sign up
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      )}
-    </Form>
-  );
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            )}
+        </Form>
+    );
 }

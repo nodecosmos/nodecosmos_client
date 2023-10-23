@@ -1,9 +1,9 @@
 import React from 'react';
 
 export default function Show() {
-  return (
-    <div>
+    return (
+        <div>
       Show
-    </div>
-  );
+        </div>
+    );
 }

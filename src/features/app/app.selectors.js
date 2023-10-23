@@ -5,6 +5,6 @@ export const selectTheme = (state) => state.app.theme;
 export const selectHeaderContent = (state) => state.app.headerContent;
 
 export const selectTransformablePositionAttribute = (id, attribute) => createSelector(
-  selectTransformablePositionsById(id),
-  (transformablePosition) => transformablePosition[attribute],
+    selectTransformablePositionsById(id),
+    (transformablePosition) => transformablePosition[attribute],
 );

@@ -19,91 +19,91 @@ import DefaultModalFormButton from '../../../common/components/buttons/DefaultMo
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 
 export default function CreateIOModal({
-  open, onClose, associatedObject, flowStepId, flowStepOutputNodeId, workflowIndex,
+    open, onClose, associatedObject, flowStepId, flowStepOutputNodeId, workflowIndex,
 }) {
-  const { id: workflowId } = useWorkflowContext();
+    const { id: workflowId } = useWorkflowContext();
 
-  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
-  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
-  const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
-  const allIOTitles = allWorkflowIOs.map((io) => io.title);
-  const uniqueIOTitles = [...new Set(allIOTitles)];
+    const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+    const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
+    const allIOTitles = allWorkflowIOs.map((io) => io.title);
+    const uniqueIOTitles = [...new Set(allIOTitles)];
 
-  const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow
-    ? 'Create Initial Input' : 'Create Output';
+    const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow
+        ? 'Create Initial Input' : 'Create Output';
 
-  const [autocompleteValue, setAutocompleteValue] = React.useState(null);
+    const [autocompleteValue, setAutocompleteValue] = React.useState(null);
 
-  const { onSubmit, loading } = useIOSubmitHandler({
-    onClose,
-    workflowId,
-    workflowIndex,
-    associatedObject,
-    flowStepId,
-    flowStepOutputNodeId,
-    autocompleteValue,
-  });
+    const { onSubmit, loading } = useIOSubmitHandler({
+        onClose,
+        workflowId,
+        workflowIndex,
+        associatedObject,
+        flowStepId,
+        flowStepOutputNodeId,
+        autocompleteValue,
+    });
 
-  return (
-    <Dialog
-      fullWidth
-      maxWidth="md"
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        elevation: 8,
-      }}
-    >
-      <DialogTitle>
-        {title}
-        <CloseModalButton onClose={onClose} />
-      </DialogTitle>
-      <DialogContent>
-        <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
-          {({ handleSubmit }) => (
-            <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-              <FinalFormAutocompleteField
-                freeSolo
-                selectOnFocus
-                options={uniqueIOTitles}
-                renderOption={(props, option) => (
-                  <li {...props}>
-                    <FontAwesomeIcon icon={faCodeCommit} />
-                    <span className="label">
-                      {option}
-                    </span>
-                  </li>
-                )}
-                startAdornment={(
-                  <InputAdornment position="start" sx={{ svg: { p: 2, color: 'tree.hashtag' } }}>
-                    <FontAwesomeIcon icon={faCodeCommit} />
-                  </InputAdornment>
-                )}
-                name="title"
-                placeholder="IO Title"
-                setAutocompleteValue={setAutocompleteValue}
-              />
+    return (
+        <Dialog
+            fullWidth
+            maxWidth="md"
+            onClose={onClose}
+            open={open}
+            PaperProps={{
+                elevation: 8,
+            }}
+        >
+            <DialogTitle>
+                {title}
+                <CloseModalButton onClose={onClose} />
+            </DialogTitle>
+            <DialogContent>
+                <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
+                    {({ handleSubmit }) => (
+                        <form style={{ height: '100%' }} onSubmit={handleSubmit}>
+                            <FinalFormAutocompleteField
+                                freeSolo
+                                selectOnFocus
+                                options={uniqueIOTitles}
+                                renderOption={(props, option) => (
+                                    <li {...props}>
+                                        <FontAwesomeIcon icon={faCodeCommit} />
+                                        <span className="label">
+                                            {option}
+                                        </span>
+                                    </li>
+                                )}
+                                startAdornment={(
+                                    <InputAdornment position="start" sx={{ svg: { p: 2, color: 'tree.hashtag' } }}>
+                                        <FontAwesomeIcon icon={faCodeCommit} />
+                                    </InputAdornment>
+                                )}
+                                name="title"
+                                placeholder="IO Title"
+                                setAutocompleteValue={setAutocompleteValue}
+                            />
 
-              <DefaultModalFormButton loading={loading} />
-            </form>
-          )}
-        </Form>
-      </DialogContent>
-    </Dialog>
-  );
+                            <DefaultModalFormButton loading={loading} />
+                        </form>
+                    )}
+                </Form>
+            </DialogContent>
+        </Dialog>
+    );
 }
 
 CreateIOModal.defaultProps = {
-  flowStepId: null,
-  flowStepOutputNodeId: null,
-  workflowIndex: -1,
+    flowStepId: null,
+    flowStepOutputNodeId: null,
+    workflowIndex: -1,
 };
 
 CreateIOModal.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  associatedObject: PropTypes.string.isRequired,
-  flowStepId: PropTypes.string,
-  flowStepOutputNodeId: PropTypes.string,
-  workflowIndex: PropTypes.number,
+    open: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    associatedObject: PropTypes.string.isRequired,
+    flowStepId: PropTypes.string,
+    flowStepOutputNodeId: PropTypes.string,
+    workflowIndex: PropTypes.number,
 };

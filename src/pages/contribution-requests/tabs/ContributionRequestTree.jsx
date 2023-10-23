@@ -7,92 +7,92 @@ import Tree from '../../../features/trees/components/Tree';
 import { TREES_TYPES } from '../../../features/trees/trees.constants';
 
 export default function ContributionRequestTree() {
-  const { id } = useParams();
-  const theme = useTheme();
+    const { id } = useParams();
+    const theme = useTheme();
 
-  const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
-  const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
+    const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
+    const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
 
-  const paneARef = React.useRef(null);
-  const paneBRef = React.useRef(null);
-  const [resizerHovered, setResizerHovered] = React.useState(false);
+    const paneARef = React.useRef(null);
+    const paneBRef = React.useRef(null);
+    const [resizerHovered, setResizerHovered] = React.useState(false);
 
-  const {
-    paneAWidth,
-    paneBWidth,
-    handleResize,
-    resizeInProgress,
-  } = usePaneResizable({
-    aRef: paneARef,
-    bRef: paneBRef,
-    initialWidthA: treeWidthFromLocalStorage,
-    initialWidthB: nodePaneWidthFromLocalStorage,
-  });
+    const {
+        paneAWidth,
+        paneBWidth,
+        handleResize,
+        resizeInProgress,
+    } = usePaneResizable({
+        aRef: paneARef,
+        bRef: paneBRef,
+        initialWidthA: treeWidthFromLocalStorage,
+        initialWidthB: nodePaneWidthFromLocalStorage,
+    });
 
-  useEffect(() => {
-    localStorage.setItem('treeWidth', paneAWidth);
-    localStorage.setItem('nodePaneWidth', paneBWidth);
-  }, [paneAWidth, paneBWidth]);
+    useEffect(() => {
+        localStorage.setItem('treeWidth', paneAWidth);
+        localStorage.setItem('nodePaneWidth', paneBWidth);
+    }, [paneAWidth, paneBWidth]);
 
-  useEffect(() => {
-    if (!resizeInProgress) {
-      setResizerHovered(false);
-    }
-  }, [resizeInProgress]);
+    useEffect(() => {
+        if (!resizeInProgress) {
+            setResizerHovered(false);
+        }
+    }, [resizeInProgress]);
 
-  return (
-    <Box
-      display={{ xs: 'block', md: 'flex' }}
-      width={1}
-      height={1}
-      overflow="hidden"
-      style={{
-        cursor: resizeInProgress ? 'col-resize' : 'auto',
-      }}
-    >
-      <Box
-        ref={paneARef}
-        width={paneAWidth}
-        height={1}
-        display="flex"
-      >
-        <Tree rootNodeId={id} type={TREES_TYPES.contributionRequest} />
+    return (
         <Box
-          onMouseDown={handleResize}
-          width="4px"
-          backgroundColor="transparent"
-          height={1}
-          ml={-0.5}
-          borderRight={1}
-          borderColor="transparent"
-          onMouseEnter={() => setResizerHovered(true)}
-          onMouseLeave={() => {
-            if (!resizeInProgress) {
-              setResizerHovered(false);
-            }
-          }}
-          sx={{
-            position: 'relative',
-            '&:hover': {
-              cursor: 'col-resize',
-            },
-          }}
-        />
-      </Box>
-      <Box
-        backgroundColor="background.5"
-        ref={paneBRef}
-        height={1}
-        width={paneBWidth}
-        overflow="hidden"
-        boxShadow="left.2"
-        borderLeft={1}
-        style={{
-          borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
-        }}
-      >
-        <NodePane />
-      </Box>
-    </Box>
-  );
+            display={{ xs: 'block', md: 'flex' }}
+            width={1}
+            height={1}
+            overflow="hidden"
+            style={{
+                cursor: resizeInProgress ? 'col-resize' : 'auto',
+            }}
+        >
+            <Box
+                ref={paneARef}
+                width={paneAWidth}
+                height={1}
+                display="flex"
+            >
+                <Tree rootNodeId={id} type={TREES_TYPES.contributionRequest} />
+                <Box
+                    onMouseDown={handleResize}
+                    width="4px"
+                    backgroundColor="transparent"
+                    height={1}
+                    ml={-0.5}
+                    borderRight={1}
+                    borderColor="transparent"
+                    onMouseEnter={() => setResizerHovered(true)}
+                    onMouseLeave={() => {
+                        if (!resizeInProgress) {
+                            setResizerHovered(false);
+                        }
+                    }}
+                    sx={{
+                        position: 'relative',
+                        '&:hover': {
+                            cursor: 'col-resize',
+                        },
+                    }}
+                />
+            </Box>
+            <Box
+                backgroundColor="background.5"
+                ref={paneBRef}
+                height={1}
+                width={paneBWidth}
+                overflow="hidden"
+                boxShadow="left.2"
+                borderLeft={1}
+                style={{
+                    borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
+                }}
+            >
+                <NodePane />
+            </Box>
+        </Box>
+    );
 }

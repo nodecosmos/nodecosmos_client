@@ -9,70 +9,70 @@ import useNodeButtonColors from './context/useNodeButtonColors';
 const NodeContext = createContext(undefined);
 
 export function useNodeContextCreator(contextProviderValue) {
-  return {
-    NodeContext,
-    contextProviderValue,
-  };
+    return {
+        NodeContext,
+        contextProviderValue,
+    };
 }
 
 export default function useNodeContext() {
-  const { treeNodeId, isAlreadyMounted } = useContext(NodeContext);
+    const { treeNodeId, isAlreadyMounted } = useContext(NodeContext);
 
-  // tree node attributes
-  const {
-    nodeId,
-    treeParentId,
-    treeAncestorIds,
-    isCreationInProgress,
-    isDragOver,
-    isEditing,
-    isExpanded,
-    isTreeRoot,
-  } = useSelector(selectTreeNode(treeNodeId));
-
-  // node attributes
-  const { rootNodeId: treeRootNodeId } = useTreeContext();
-
-  const {
-    rootId,
-    parentId,
-    persistentId,
-    title,
-    isRoot,
-    isTemp,
-    isSelected,
-  } = useSelector(selectNode(nodeId));
-
-  return {
     // tree node attributes
-    nodeId,
-    treeRootNodeId,
-    treeParentId,
-    treeNodeId,
-    treeAncestorIds,
-    isAlreadyMounted,
-    isCreationInProgress,
-    isDragOver,
-    isEditing,
-    isExpanded,
-    isTreeRoot,
+    const {
+        nodeId,
+        treeParentId,
+        treeAncestorIds,
+        isCreationInProgress,
+        isDragOver,
+        isEditing,
+        isExpanded,
+        isTreeRoot,
+    } = useSelector(selectTreeNode(treeNodeId));
+
     // node attributes
-    rootId,
-    parentId,
-    persistentId,
-    title,
-    isRoot,
-    isTemp,
-    isSelected,
-  };
+    const { rootNodeId: treeRootNodeId } = useTreeContext();
+
+    const {
+        rootId,
+        parentId,
+        persistentId,
+        title,
+        isRoot,
+        isTemp,
+        isSelected,
+    } = useSelector(selectNode(nodeId));
+
+    return {
+    // tree node attributes
+        nodeId,
+        treeRootNodeId,
+        treeParentId,
+        treeNodeId,
+        treeAncestorIds,
+        isAlreadyMounted,
+        isCreationInProgress,
+        isDragOver,
+        isEditing,
+        isExpanded,
+        isTreeRoot,
+        // node attributes
+        rootId,
+        parentId,
+        persistentId,
+        title,
+        isRoot,
+        isTemp,
+        isSelected,
+    };
 }
 
 export function useNodePosition() {
-  const { treeRootNodeId, treeNodeId } = useNodeContext();
-  return useShallowEqualSelector(selectPosition(treeRootNodeId, treeNodeId));
+    const { treeRootNodeId, treeNodeId } = useNodeContext();
+    return useShallowEqualSelector(selectPosition(treeRootNodeId, treeNodeId));
 }
 
 export function useNodeColors() {
-  const { treeNodeId } = useNodeContext();
-  return useNodeButtonColors(treeNodeId);
+    const { treeNodeId } = useNodeContext();
+    return useNodeButtonColors(treeNodeId);
 }

@@ -1,3 +1,3 @@
 export default function toLocalTime(utcTime) {
-  return new Date(utcTime).toLocaleString();
+    return new Date(utcTime).toLocaleString();
 }

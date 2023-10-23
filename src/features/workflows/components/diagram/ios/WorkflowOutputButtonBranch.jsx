@@ -3,70 +3,70 @@ import { useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
-  INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
+    INITIAL_ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
 import {
-  OUTPUT_VERTICAL_EDGE_LENGTH,
+    OUTPUT_VERTICAL_EDGE_LENGTH,
 } from '../../../workflows.constants';
 import { selectWorkflowDiagramPosition } from '../../../workflows.selectors';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function WorkflowOutputButtonBranch({ id }) {
-  const theme = useTheme();
-  const { x, y } = useSelector(selectWorkflowDiagramPosition(id));
+    const theme = useTheme();
+    const { x, y } = useSelector(selectWorkflowDiagramPosition(id));
 
-  if (!x) { return null; }
+    if (!x) { return null; }
 
-  const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-  const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-  const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
+    const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+    const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
+    const initialAnimationDelay = INITIAL_ANIMATION_DELAY;
 
-  const xEnd = x + OUTPUT_VERTICAL_EDGE_LENGTH;
+    const xEnd = x + OUTPUT_VERTICAL_EDGE_LENGTH;
 
-  return (
-    <g>
-      <circle
-        cx={x + 0.5}
-        cy={y - 0.5}
-        r={5}
-        fill={theme.palette.workflow.defaultInputColor}
-        style={{
-          opacity: 0,
-          animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
-          transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-        }}
-      />
-      <path
-        strokeWidth={3}
-        d={`M ${x + 5.5} ${y}
+    return (
+        <g>
+            <circle
+                cx={x + 0.5}
+                cy={y - 0.5}
+                r={5}
+                fill={theme.palette.workflow.defaultInputColor}
+                style={{
+                    opacity: 0,
+                    animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
+                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
+                }}
+            />
+            <path
+                strokeWidth={3}
+                d={`M ${x + 5.5} ${y}
             C ${x + 5.5} ${y}
               ${x + 25} ${y + 1}
               ${xEnd} ${y}
             L ${xEnd} ${y}`}
-        stroke={theme.palette.workflow.default}
-        fill="transparent"
-        style={{
-          opacity: 0,
-          animation: `appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-          transition: `d ${transitionAnimationDuration}ms`,
-        }}
-      />
-      <circle
-        cx={xEnd}
-        cy={y}
-        r={5}
-        fill={theme.palette.workflow.default}
-        style={{
-          opacity: 0,
-          animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
-          transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-        }}
-      />
-    </g>
-  );
+                stroke={theme.palette.workflow.default}
+                fill="transparent"
+                style={{
+                    opacity: 0,
+                    animation: `appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+                    transition: `d ${transitionAnimationDuration}ms`,
+                }}
+            />
+            <circle
+                cx={xEnd}
+                cy={y}
+                r={5}
+                fill={theme.palette.workflow.default}
+                style={{
+                    opacity: 0,
+                    animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${initialAnimationDelay}ms forwards`,
+                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
+                }}
+            />
+        </g>
+    );
 }
 
 WorkflowOutputButtonBranch.propTypes = {
-  id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
 };

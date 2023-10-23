@@ -5,24 +5,24 @@ import { IconButton, Box } from '@mui/material';
 import ImportNodeModal from '../importer/ImportNodeModal';
 
 export default function NodeImporter() {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  return (
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <IconButton
-        className="Item"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-label="Import Node"
-        sx={{ color: 'toolbar.lightRed' }}
-      >
-        <FontAwesomeIcon icon={faCodeBranch} />
-      </IconButton>
+    return (
+        <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+        >
+            <IconButton
+                className="Item"
+                onClick={() => setOpen((prev) => !prev)}
+                aria-label="Import Node"
+                sx={{ color: 'toolbar.lightRed' }}
+            >
+                <FontAwesomeIcon icon={faCodeBranch} />
+            </IconButton>
 
-      {open && <ImportNodeModal open={open} onClose={() => setOpen(false)} />}
-    </Box>
-  );
+            {open && <ImportNodeModal open={open} onClose={() => setOpen(false)} />}
+        </Box>
+    );
 }

@@ -1,31 +1,31 @@
 import React from 'react';
 import {
-  Typography, useMediaQuery, useTheme, Box,
+    Typography, useMediaQuery, useTheme, Box,
 } from '@mui/material';
 
 export default function PanTip() {
-  const theme = useTheme();
-  const matchesLaptop = useMediaQuery(theme.breakpoints.up('md'));
-  if (!matchesLaptop) return null;
+    const theme = useTheme();
+    const matchesLaptop = useMediaQuery(theme.breakpoints.up('md'));
+    if (!matchesLaptop) return null;
 
-  const isMac = navigator.userAgent.includes('Mac OS X');
+    const isMac = navigator.userAgent.includes('Mac OS X');
 
-  return (
-    <Box mt={3}>
-      <Typography
-        variant="body2"
-        sx={{
-          color: 'text.tertiary',
-        }}
-      >
-        <b>Tip: </b>
+    return (
+        <Box mt={3}>
+            <Typography
+                variant="body2"
+                sx={{
+                    color: 'text.tertiary',
+                }}
+            >
+                <b>Tip: </b>
         Use
-        {
-          isMac ? ' ⌘ ' : ' Ctrl '
-        }
+                {
+                    isMac ? ' ⌘ ' : ' Ctrl '
+                }
         + Left Click to pan
-        <br />
-      </Typography>
-    </Box>
-  );
+                <br />
+            </Typography>
+        </Box>
+    );
 }

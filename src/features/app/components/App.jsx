@@ -17,61 +17,61 @@ import Loader from '../../../common/components/Loader';
 const LazyAppLoad = React.lazy(() => import('./LazyAppLoad'));
 
 export default function App() {
-  const theme = useSelector((state) => state.app.theme);
+    const theme = useSelector((state) => state.app.theme);
 
-  const themes = {
-    light,
-    dark,
-    dimmed,
-  };
-  const currentTheme = themes[theme];
-  const location = useLocation();
+    const themes = {
+        light,
+        dark,
+        dimmed,
+    };
+    const currentTheme = themes[theme];
+    const location = useLocation();
 
-  const isHomepage = location.pathname === '/';
-  /**
+    const isHomepage = location.pathname === '/';
+    /**
    *
    * @type {boolean}
    * @description
    * Prevents the app from loading on homepage
    */
-  const isDevelopment = process.env.NODE_ENV === 'development';
+    const isDevelopment = process.env.NODE_ENV === 'development';
 
-  if (!isHomepage && isDevelopment) {
+    if (!isHomepage && isDevelopment) {
+        return (
+            <Suspense fallback={(
+                <Loader
+                    backgroundColor={currentTheme.palette.background.paper}
+                    color={currentTheme.palette.primary.main}
+                />
+            )}
+            >
+                <LazyAppLoad />
+            </Suspense>
+        );
+    }
+
+    // only homepage
     return (
-      <Suspense fallback={(
-        <Loader
-          backgroundColor={currentTheme.palette.background.paper}
-          color={currentTheme.palette.primary.main}
-        />
-      )}
-      >
-        <LazyAppLoad />
-      </Suspense>
+        <ThemeProvider theme={getTheme(dimmed)}>
+            <CssBaseline />
+            <Box
+                height={1}
+                width={1}
+                backgroundColor="background.1"
+            >
+                <Box
+                    height={1}
+                    width={1}
+                    boxShadow="8"
+                    backgroundColor="background.2"
+                    border={1}
+                    borderColor="borders.2"
+                >
+                    <Routes>
+                        <Route path="/" element={(<Home />)} />
+                    </Routes>
+                </Box>
+            </Box>
+        </ThemeProvider>
     );
-  }
-
-  // only homepage
-  return (
-    <ThemeProvider theme={getTheme(dimmed)}>
-      <CssBaseline />
-      <Box
-        height={1}
-        width={1}
-        backgroundColor="background.1"
-      >
-        <Box
-          height={1}
-          width={1}
-          boxShadow="8"
-          backgroundColor="background.2"
-          border={1}
-          borderColor="borders.2"
-        >
-          <Routes>
-            <Route path="/" element={(<Home />)} />
-          </Routes>
-        </Box>
-      </Box>
-    </ThemeProvider>
-  );
 }

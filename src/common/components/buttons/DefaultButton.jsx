@@ -3,55 +3,55 @@ import { Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function DefaultButton({
-  startIcon, onClick, type, title, disabled, sx, fontSize,
+    startIcon, onClick, type, title, disabled, sx, fontSize,
 }) {
-  return (
-    <Button
-      size="small"
-      color="button"
-      type={type}
-      disabled={disabled}
-      sx={{
-        border: 1,
-        borderColor: 'borders.4',
-        '.MuiButton-startIcon': {
-          display: 'flex',
-          alignItems: 'center',
-          svg: {
-            fontSize: 16,
-          },
-        },
-        '.MuiTypography-root': {
-          fontSize,
-        },
-        ...sx,
-      }}
-      variant="contained"
-      disableElevation
-      startIcon={startIcon}
-      onClick={onClick}
-    >
-      <Typography variant="subtitle1">
-        {title}
-      </Typography>
-    </Button>
-  );
+    return (
+        <Button
+            size="small"
+            color="button"
+            type={type}
+            disabled={disabled}
+            sx={{
+                border: 1,
+                borderColor: 'borders.4',
+                '.MuiButton-startIcon': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    svg: {
+                        fontSize: 16,
+                    },
+                },
+                '.MuiTypography-root': {
+                    fontSize,
+                },
+                ...sx,
+            }}
+            variant="contained"
+            disableElevation
+            startIcon={startIcon}
+            onClick={onClick}
+        >
+            <Typography variant="subtitle1">
+                {title}
+            </Typography>
+        </Button>
+    );
 }
 DefaultButton.defaultProps = {
-  onClick: () => {},
-  type: 'button',
-  startIcon: null,
-  disabled: false,
-  sx: {},
-  fontSize: '0.75rem',
+    onClick: () => {},
+    type: 'button',
+    startIcon: null,
+    disabled: false,
+    sx: {},
+    fontSize: '0.75rem',
 };
 
 DefaultButton.propTypes = {
-  type: PropTypes.string,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-  startIcon: PropTypes.object,
-  sx: PropTypes.object,
-  title: PropTypes.string.isRequired,
-  fontSize: PropTypes.string,
+    type: PropTypes.string,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    startIcon: PropTypes.object,
+    sx: PropTypes.object,
+    title: PropTypes.string.isRequired,
+    fontSize: PropTypes.string,
 };

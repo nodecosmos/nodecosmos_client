@@ -11,31 +11,31 @@ import { selectWorkflowsByNodeId } from '../../workflows.selectors';
 import WorkflowContent from './WorkflowContent';
 
 export default function Workflow({ nodeId, context }) {
-  const workflows = useSelector(selectWorkflowsByNodeId(nodeId));
-  const workflow = useMemo(() => workflows[0] || {}, [workflows]);
+    const workflows = useSelector(selectWorkflowsByNodeId(nodeId));
+    const workflow = useMemo(() => workflows[0] || {}, [workflows]);
 
-  const {
-    WorkflowContext,
-    contextProviderValue,
-  } = useWorkflowContextCreator({ context, nodeId, id: workflow.id });
+    const {
+        WorkflowContext,
+        contextProviderValue,
+    } = useWorkflowContextCreator({ context, nodeId, id: workflow.id });
 
-  return (
-    <WorkflowContext.Provider value={contextProviderValue}>
-      <WorkflowContainer>
-        <WorkflowToolbar />
-        <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-          <WorkflowContent />
-        </Box>
-      </WorkflowContainer>
-    </WorkflowContext.Provider>
-  );
+    return (
+        <WorkflowContext.Provider value={contextProviderValue}>
+            <WorkflowContainer>
+                <WorkflowToolbar />
+                <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                    <WorkflowContent />
+                </Box>
+            </WorkflowContainer>
+        </WorkflowContext.Provider>
+    );
 }
 
 Workflow.defaultProps = {
-  context: WORKFLOW_DIAGRAM_CONTEXT.workflowPage,
+    context: WORKFLOW_DIAGRAM_CONTEXT.workflowPage,
 };
 
 Workflow.propTypes = {
-  nodeId: PropTypes.string.isRequired,
-  context: PropTypes.oneOf(Object.values(WORKFLOW_DIAGRAM_CONTEXT)),
+    nodeId: PropTypes.string.isRequired,
+    context: PropTypes.oneOf(Object.values(WORKFLOW_DIAGRAM_CONTEXT)),
 };

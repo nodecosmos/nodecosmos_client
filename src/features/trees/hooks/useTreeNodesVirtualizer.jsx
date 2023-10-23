@@ -4,41 +4,41 @@ import { selectOrderedTreeNodeIds, selectTreeNodes } from '../trees.selectors';
 import useIsInsideViewport from './tree-nodes-virtualizer/useIsInsideViewport';
 
 export default function useTreeNodeVirtualizer(rootId) {
-  const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));
+    const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));
 
-  const treeNodes = useSelector(selectTreeNodes(rootId));
-  const isNodeInViewport = useIsInsideViewport(rootId);
+    const treeNodes = useSelector(selectTreeNodes(rootId));
+    const isNodeInViewport = useIsInsideViewport(rootId);
 
-  const prevVirtualizedNodesById = useRef({});
-  const treeNodeIdsToViewRef = useRef([]);
+    const prevVirtualizedNodesById = useRef({});
+    const treeNodeIdsToViewRef = useRef([]);
 
-  return useMemo(() => {
-    treeNodeIdsToViewRef.current = [];
+    return useMemo(() => {
+        treeNodeIdsToViewRef.current = [];
 
-    orderedTreeNodeIds.forEach((treeNodeId) => {
-      const {
-        isMounted,
-        treeParentId,
-        isNewlyCreated,
-        treeChildIds,
-      } = treeNodes[treeNodeId];
-      const isLastParentsChild = treeNodes[treeParentId]?.treeLastChildId === treeNodeId;
-      const isInViewport = isNodeInViewport(treeNodeId);
-      const hasChildInViewport = () => treeChildIds.some((childId) => isNodeInViewport(childId));
+        orderedTreeNodeIds.forEach((treeNodeId) => {
+            const {
+                isMounted,
+                treeParentId,
+                isNewlyCreated,
+                treeChildIds,
+            } = treeNodes[treeNodeId];
+            const isLastParentsChild = treeNodes[treeParentId]?.treeLastChildId === treeNodeId;
+            const isInViewport = isNodeInViewport(treeNodeId);
+            const hasChildInViewport = () => treeChildIds.some((childId) => isNodeInViewport(childId));
 
-      if (isMounted && (isInViewport || isLastParentsChild || hasChildInViewport())) {
-        // prevent animation if node is already mounted,
-        // so we don't animate nodes that are outside of viewport
-        let isAlreadyMounted = !!prevVirtualizedNodesById.current[treeNodeId];
-        if (isNewlyCreated) isAlreadyMounted = false;
+            if (isMounted && (isInViewport || isLastParentsChild || hasChildInViewport())) {
+                // prevent animation if node is already mounted,
+                // so we don't animate nodes that are outside of viewport
+                let isAlreadyMounted = !!prevVirtualizedNodesById.current[treeNodeId];
+                if (isNewlyCreated) isAlreadyMounted = false;
 
-        treeNodeIdsToViewRef.current.push([treeNodeId, isAlreadyMounted]);
-      }
+                treeNodeIdsToViewRef.current.push([treeNodeId, isAlreadyMounted]);
+            }
 
-      prevVirtualizedNodesById.current[treeNodeId] = isMounted;
-    });
+            prevVirtualizedNodesById.current[treeNodeId] = isMounted;
+        });
 
-    return treeNodeIdsToViewRef.current;
+        return treeNodeIdsToViewRef.current;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderedTreeNodeIds, isNodeInViewport]);
+    }, [orderedTreeNodeIds, isNodeInViewport]);
 }

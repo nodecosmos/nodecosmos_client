@@ -18,7 +18,7 @@ export const MAX_NODE_INPUT_SIZE = 50;
 export const WORKFLOW_BUTTON_HEIGHT = 34;
 
 export const TREES_TYPES = {
-  default: 'default',
-  checkbox: 'checkbox',
-  contributionRequest: 'contributionRequest',
+    default: 'default',
+    checkbox: 'checkbox',
+    contributionRequest: 'contributionRequest',
 };

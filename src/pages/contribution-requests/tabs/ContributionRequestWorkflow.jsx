@@ -13,121 +13,121 @@ import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/
 import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.constants';
 
 export default function ContributionRequestWorkflow() {
-  const { id } = useParams();
-  const theme = useTheme();
+    const { id } = useParams();
+    const theme = useTheme();
 
-  const dispatch = useDispatch();
-  const workflows = useSelector(selectWorkflowsByNodeId(id));
-  const workflow = useMemo(() => workflows[0] || {}, [workflows]);
+    const dispatch = useDispatch();
+    const workflows = useSelector(selectWorkflowsByNodeId(id));
+    const workflow = useMemo(() => workflows[0] || {}, [workflows]);
 
-  const [loading, setLoading] = React.useState(true);
-  const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
+    const [loading, setLoading] = React.useState(true);
+    const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
 
-  const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
-  const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
+    const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
+    const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
 
-  const workflowRef = React.useRef(null);
-  const workflowDetailsRef = React.useRef(null);
+    const workflowRef = React.useRef(null);
+    const workflowDetailsRef = React.useRef(null);
 
-  const [resizerHovered, setResizerHovered] = React.useState(false);
+    const [resizerHovered, setResizerHovered] = React.useState(false);
 
-  const {
-    paneAWidth,
-    paneBWidth,
-    handleResize,
-    resizeInProgress,
-  } = usePaneResizable({
-    aRef: workflowRef,
-    bRef: workflowDetailsRef,
-    initialWidthA: workflowWidthFromLocalStorage || '70%',
-    initialWidthB: workflowPaneWidthFromLocalStorage || '30%',
-  });
+    const {
+        paneAWidth,
+        paneBWidth,
+        handleResize,
+        resizeInProgress,
+    } = usePaneResizable({
+        aRef: workflowRef,
+        bRef: workflowDetailsRef,
+        initialWidthA: workflowWidthFromLocalStorage || '70%',
+        initialWidthB: workflowPaneWidthFromLocalStorage || '30%',
+    });
 
-  useEffect(() => {
-    localStorage.setItem('workflowWidth', paneAWidth);
-    localStorage.setItem('workflowPaneWidth', paneBWidth);
-  }, [paneAWidth, paneBWidth]);
+    useEffect(() => {
+        localStorage.setItem('workflowWidth', paneAWidth);
+        localStorage.setItem('workflowPaneWidth', paneBWidth);
+    }, [paneAWidth, paneBWidth]);
 
-  useEffect(() => {
-    if (!workflow.id) {
-      setLoading(true);
-      dispatch(showWorkflow(id)).then(() => setLoading(false));
-    } else {
-      setLoading(false);
+    useEffect(() => {
+        if (!workflow.id) {
+            setLoading(true);
+            dispatch(showWorkflow(id)).then(() => setLoading(false));
+        } else {
+            setLoading(false);
+        }
+
+        return () => {
+            dispatch(clearSelectedWorkflowDiagramObject());
+        };
+    }, [dispatch, id, workflow.id]);
+
+    useEffect(() => {
+        if (!resizeInProgress) {
+            setResizerHovered(false);
+        }
+    }, [resizeInProgress]);
+
+    if (loading) {
+        return <Loader />;
     }
 
-    return () => {
-      dispatch(clearSelectedWorkflowDiagramObject());
-    };
-  }, [dispatch, id, workflow.id]);
-
-  useEffect(() => {
-    if (!resizeInProgress) {
-      setResizerHovered(false);
-    }
-  }, [resizeInProgress]);
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  return (
-    <Box
-      width={1}
-      height={1}
-    >
-      <Box
-        height={1}
-        width={1}
-        display="flex"
-        style={{
-          cursor: resizeInProgress ? 'col-resize' : 'default',
-        }}
-      >
+    return (
         <Box
-          height={1}
-          width={(isWfPaneOpen && paneAWidth) || '100%'}
-          ref={workflowRef}
-          overflow="hidden"
+            width={1}
+            height={1}
         >
-          <Alert />
-          <Workflow nodeId={id} context={WORKFLOW_DIAGRAM_CONTEXT.workflowPage} />
+            <Box
+                height={1}
+                width={1}
+                display="flex"
+                style={{
+                    cursor: resizeInProgress ? 'col-resize' : 'default',
+                }}
+            >
+                <Box
+                    height={1}
+                    width={(isWfPaneOpen && paneAWidth) || '100%'}
+                    ref={workflowRef}
+                    overflow="hidden"
+                >
+                    <Alert />
+                    <Workflow nodeId={id} context={WORKFLOW_DIAGRAM_CONTEXT.workflowPage} />
+                </Box>
+                <Box
+                    onMouseDown={handleResize}
+                    onMouseEnter={() => setResizerHovered(true)}
+                    onMouseLeave={() => {
+                        if (!resizeInProgress) {
+                            setResizerHovered(false);
+                        }
+                    }}
+                    width="8px"
+                    backgroundColor="transparent"
+                    height={1}
+                    ml={-1}
+                    sx={{
+                        position: 'relative',
+                        '&:hover': {
+                            cursor: 'col-resize',
+                        },
+                    }}
+                />
+                <Box
+                    backgroundColor="background.5"
+                    height={1}
+                    display={isWfPaneOpen ? 'block' : 'none'}
+                    width={(isWfPaneOpen && paneBWidth) || 0}
+                    ref={workflowDetailsRef}
+                    overflow="hidden"
+                    boxShadow="left.2"
+                    borderLeft={1}
+                    style={{
+                        borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
+                    }}
+                >
+                    <WorkflowPane />
+                </Box>
+            </Box>
         </Box>
-        <Box
-          onMouseDown={handleResize}
-          onMouseEnter={() => setResizerHovered(true)}
-          onMouseLeave={() => {
-            if (!resizeInProgress) {
-              setResizerHovered(false);
-            }
-          }}
-          width="8px"
-          backgroundColor="transparent"
-          height={1}
-          ml={-1}
-          sx={{
-            position: 'relative',
-            '&:hover': {
-              cursor: 'col-resize',
-            },
-          }}
-        />
-        <Box
-          backgroundColor="background.5"
-          height={1}
-          display={isWfPaneOpen ? 'block' : 'none'}
-          width={(isWfPaneOpen && paneBWidth) || 0}
-          ref={workflowDetailsRef}
-          overflow="hidden"
-          boxShadow="left.2"
-          borderLeft={1}
-          style={{
-            borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
-          }}
-        >
-          <WorkflowPane />
-        </Box>
-      </Box>
-    </Box>
-  );
+    );
 }

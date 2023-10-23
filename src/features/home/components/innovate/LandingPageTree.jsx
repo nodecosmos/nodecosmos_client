@@ -7,54 +7,54 @@ import PanTip from '../tips/PanTip';
 const airplaneNodeId = '635a91ea690cc413ead79ce2';
 
 export default function LandingPageTree() {
-  return (
-    <Box
-      mb={{
-        xs: -3,
-        sm: -4,
-        md: 0,
-      }}
-    >
-      <GradientText text="Structure your Innovation" variant="h5" variantMapping={{ h5: 'h3' }} />
-      <Typography mt={3} variant="body1" color="text.secondary">
+    return (
+        <Box
+            mb={{
+                xs: -3,
+                sm: -4,
+                md: 0,
+            }}
+        >
+            <GradientText text="Structure your Innovation" variant="h5" variantMapping={{ h5: 'h3' }} />
+            <Typography mt={3} variant="body1" color="text.secondary">
         Use the Node Tree feature to structure your innovation. Each node can represent either a component of your
         project, an ingredient in your recipe, or other type of constituent.
         Public nodes can be reused by different projects.
         As a result, it allows modular approach to innovation development or knowledge sharing in general.
 
-      </Typography>
-      <Box
-        mx={{
-          // as defined in src/features/home/components/Section.jsx:28
-          // xs: -3,
-          // sm: -4,
-        }}
-        mt={3}
-      >
-        <Box>
-          <Typography
-            variant="body2"
-            color="text.tertiary"
-            pb="4px"
-            fontSize={{
-              xs: 12,
-              sm: 14,
-            }}
-          >
+            </Typography>
+            <Box
+                mx={{
+                    // as defined in src/features/home/components/Section.jsx:28
+                    // xs: -3,
+                    // sm: -4,
+                }}
+                mt={3}
+            >
+                <Box>
+                    <Typography
+                        variant="body2"
+                        color="text.tertiary"
+                        pb="4px"
+                        fontSize={{
+                            xs: 12,
+                            sm: 14,
+                        }}
+                    >
             Sample
-            <b> Node Tree </b>
+                        <b> Node Tree </b>
             playground
             representing the structure of an
-            <b> airplane </b>
+                        <b> airplane </b>
             and its components.
             Click on a node to see its details, and feel free to add, edit or delete nodes.
-          </Typography>
+                    </Typography>
+                </Box>
+                <Box>
+                    <Tree id={airplaneNodeId} />
+                </Box>
+            </Box>
+            <PanTip />
         </Box>
-        <Box>
-          <Tree id={airplaneNodeId} />
-        </Box>
-      </Box>
-      <PanTip />
-    </Box>
-  );
+    );
 }

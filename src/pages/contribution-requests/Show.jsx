@@ -10,33 +10,33 @@ import { setCurrentContributionRequest } from '../../features/contribution-reque
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
 
 export default function Show() {
-  const { id: nodeId, contributionRequestId } = useParams();
-  const dispatch = useDispatch();
+    const { id: nodeId, contributionRequestId } = useParams();
+    const dispatch = useDispatch();
 
-  const cr = useSelector(selectContributionRequest(nodeId, contributionRequestId));
+    const cr = useSelector(selectContributionRequest(nodeId, contributionRequestId));
 
-  useEffect(() => {
-    dispatch(setHeaderContent('ContributionRequestShowHeader'));
-    dispatch(showContributionRequest({ nodeId, id: contributionRequestId }));
+    useEffect(() => {
+        dispatch(setHeaderContent('ContributionRequestShowHeader'));
+        dispatch(showContributionRequest({ nodeId, id: contributionRequestId }));
 
-    return () => {
-      dispatch(setHeaderContent(''));
-      dispatch(setCurrentContributionRequest(null));
-    };
-  }, [contributionRequestId, dispatch, nodeId]);
+        return () => {
+            dispatch(setHeaderContent(''));
+            dispatch(setCurrentContributionRequest(null));
+        };
+    }, [contributionRequestId, dispatch, nodeId]);
 
-  useEffect(() => {
-    if (cr) {
-      dispatch(setCurrentContributionRequest(cr));
-    }
-  }, [dispatch, cr]);
+    useEffect(() => {
+        if (cr) {
+            dispatch(setCurrentContributionRequest(cr));
+        }
+    }, [dispatch, cr]);
 
-  return (
-    <Box height={1} overflow="hidden">
-      <CRShowToolbar />
-      <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-        <Outlet />
-      </Box>
-    </Box>
-  );
+    return (
+        <Box height={1} overflow="hidden">
+            <CRShowToolbar />
+            <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                <Outlet />
+            </Box>
+        </Box>
+    );
 }

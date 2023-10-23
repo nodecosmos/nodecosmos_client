@@ -11,86 +11,86 @@ import { ASSOCIATED_OBJECT_TYPES } from '../inputOutputs.constants';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 
 export default function useIOSubmitHandler({
-  onClose,
-  workflowId,
-  workflowIndex,
-  associatedObject,
-  flowStepId,
-  flowStepOutputNodeId,
-  autocompleteValue,
+    onClose,
+    workflowId,
+    workflowIndex,
+    associatedObject,
+    flowStepId,
+    flowStepOutputNodeId,
+    autocompleteValue,
 }) {
-  const [loading, setLoading] = React.useState(false);
-  const dispatch = useDispatch();
-  const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
-  const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
-  const currentInitialInputIds = useSelector(selectWorkflowAttribute(workflowId, 'initialInputIds'));
-  const currentFlowStepOutputs = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'outputIdsByNodeId'));
-  const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
-  const flowStepNodeId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'nodeId'));
-  const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
+    const [loading, setLoading] = React.useState(false);
+    const dispatch = useDispatch();
+    const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+    const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+    const currentInitialInputIds = useSelector(selectWorkflowAttribute(workflowId, 'initialInputIds'));
+    const currentFlowStepOutputs = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'outputIdsByNodeId'));
+    const flowId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'flowId'));
+    const flowStepNodeId = useSelector(selectFlowStepAttribute(workflowId, flowStepId, 'nodeId'));
+    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
 
-  const onSubmit = async (formValues) => {
-    setLoading(true);
-    const existingIO = autocompleteValue && allWorkflowIOs.find((io) => io.title === autocompleteValue);
+    const onSubmit = async (formValues) => {
+        setLoading(true);
+        const existingIO = autocompleteValue && allWorkflowIOs.find((io) => io.title === autocompleteValue);
 
-    const payload = {
-      nodeId,
-      workflowId,
-      workflowIndex,
-      flowStepId,
-      rootNodeId,
-      originalId: autocompleteValue && existingIO?.id,
-      ...formValues,
-    };
-
-    await dispatch(createIO(payload)).then(async (data) => {
-      const { inputOutput } = data.payload;
-
-      try {
-        if (associatedObject === ASSOCIATED_OBJECT_TYPES.workflow) {
-          const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
-
-          await dispatch(updateWorkflowInitialInputs({
+        const payload = {
             nodeId,
-            id: workflowId,
-            initialInputIds,
-          }));
-        }
-
-        if (associatedObject === ASSOCIATED_OBJECT_TYPES.flowStep) {
-          const outputIdsByNodeId = { ...currentFlowStepOutputs } || {};
-          const currentOutputIds = outputIdsByNodeId[flowStepOutputNodeId] || [];
-
-          outputIdsByNodeId[flowStepOutputNodeId] = [...currentOutputIds];
-          outputIdsByNodeId[flowStepOutputNodeId].push(inputOutput.id);
-
-          await dispatch(updateFlowStepOutputs({
-            nodeId: flowStepNodeId,
             workflowId,
             workflowIndex,
-            flowId,
-            id: flowStepId,
-            outputIdsByNodeId,
-          }));
-        }
-      } catch (e) {
-        dispatch(setAlert({
-          isOpen: true,
-          severity: 'error',
-          message: 'Failed to add output',
-        }));
+            flowStepId,
+            rootNodeId,
+            originalId: autocompleteValue && existingIO?.id,
+            ...formValues,
+        };
 
-        console.error(e);
-      }
-    });
+        await dispatch(createIO(payload)).then(async (data) => {
+            const { inputOutput } = data.payload;
 
-    setTimeout(() => setLoading(false), 500);
+            try {
+                if (associatedObject === ASSOCIATED_OBJECT_TYPES.workflow) {
+                    const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
-    onClose();
-  };
+                    await dispatch(updateWorkflowInitialInputs({
+                        nodeId,
+                        id: workflowId,
+                        initialInputIds,
+                    }));
+                }
 
-  return {
-    onSubmit,
-    loading,
-  };
+                if (associatedObject === ASSOCIATED_OBJECT_TYPES.flowStep) {
+                    const outputIdsByNodeId = { ...currentFlowStepOutputs } || {};
+                    const currentOutputIds = outputIdsByNodeId[flowStepOutputNodeId] || [];
+
+                    outputIdsByNodeId[flowStepOutputNodeId] = [...currentOutputIds];
+                    outputIdsByNodeId[flowStepOutputNodeId].push(inputOutput.id);
+
+                    await dispatch(updateFlowStepOutputs({
+                        nodeId: flowStepNodeId,
+                        workflowId,
+                        workflowIndex,
+                        flowId,
+                        id: flowStepId,
+                        outputIdsByNodeId,
+                    }));
+                }
+            } catch (e) {
+                dispatch(setAlert({
+                    isOpen: true,
+                    severity: 'error',
+                    message: 'Failed to add output',
+                }));
+
+                console.error(e);
+            }
+        });
+
+        setTimeout(() => setLoading(false), 500);
+
+        onClose();
+    };
+
+    return {
+        onSubmit,
+        loading,
+    };
 }

@@ -6,30 +6,30 @@ import useNodeDrag from './commands/useNodeDrag';
 import useNodeEdit from './commands/useNodeEdit';
 
 export default function useNodeCommands() {
-  const clickNode = useNodeClick();
-  const editNode = useNodeEdit();
-  const addNode = useNodeAdd();
-  const removeNode = useNodeRemove();
-  const { changeTitle, blurNode } = useNodeTitleChange();
-  const {
-    startDrag,
-    stopDrag,
-    dragOver,
-    dragLeave,
-    captureDroppedNode,
-  } = useNodeDrag();
+    const clickNode = useNodeClick();
+    const editNode = useNodeEdit();
+    const addNode = useNodeAdd();
+    const removeNode = useNodeRemove();
+    const { changeTitle, blurNode } = useNodeTitleChange();
+    const {
+        startDrag,
+        stopDrag,
+        dragOver,
+        dragLeave,
+        captureDroppedNode,
+    } = useNodeDrag();
 
-  return {
-    clickNode,
-    editNode,
-    addNode,
-    removeNode,
-    changeTitle,
-    blurNode,
-    startDrag,
-    stopDrag,
-    dragOver,
-    dragLeave,
-    captureDroppedNode,
-  };
+    return {
+        clickNode,
+        editNode,
+        addNode,
+        removeNode,
+        changeTitle,
+        blurNode,
+        startDrag,
+        stopDrag,
+        dragOver,
+        dragLeave,
+        captureDroppedNode,
+    };
 }
