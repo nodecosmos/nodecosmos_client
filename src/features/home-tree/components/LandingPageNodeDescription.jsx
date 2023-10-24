@@ -4,9 +4,7 @@ import {
     Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    faHashtag,
-} from '@fortawesome/pro-regular-svg-icons';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setDescriptionCoordinates } from '../../app/appSlice';
 

@@ -45,10 +45,15 @@ export default function Vision() {
                                 textAlign="center"
                                 color="text.primary"
                             >
-                Contribution Requests
+                                Contribution Requests
                             </Typography>
-                            <Typography mt={3} variant="body1" color="text.secondary" fontFamily="'Comfortaa', sans-serif">
-                Enables community members to contribute to your innovation by suggesting changes to your innovation.
+                            <Typography
+                                mt={3}
+                                variant="body1"
+                                color="text.secondary"
+                                fontFamily="'Comfortaa', sans-serif">
+                                Enables community members to contribute to your innovation by
+                                suggesting changes to your innovation.
                             </Typography>
                             <Box mt={3}>
                                 <ContributionRequest />
@@ -66,10 +71,14 @@ export default function Vision() {
                                 textAlign="center"
                                 color="text.primary"
                             >
-                Topics
+                                Topics
                             </Typography>
-                            <Typography mt={3} variant="body1" color="text.secondary" fontFamily="'Comfortaa', sans-serif">
-                Enables discussion, brainstorming, and issue tracking for your innovation.
+                            <Typography
+                                mt={3}
+                                variant="body1"
+                                color="text.secondary"
+                                fontFamily="'Comfortaa', sans-serif">
+                                Enables discussion, brainstorming, and issue tracking for your innovation.
                             </Typography>
                             <Box mt={3}>
                                 <Topics />

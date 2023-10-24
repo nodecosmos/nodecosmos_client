@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function DefaultButton({
-    startIcon, onClick, type, title, disabled, sx, fontSize,
+    startIcon, onClick, type, title, disabled, sx, fontSize, 
 }) {
     return (
         <Button

@@ -30,7 +30,7 @@ const nodeSlice = createSlice({
             parent.node_ids = parent.node_ids.filter((objectId) => objectId.$oid !== node.id);
             delete state[node.id];
         },
-        terminateNewNode(state, _action) {
+        terminateNewNode(state) {
             if (state[NEW_NODE_ID]) {
                 nodeSlice.caseReducers.deleteNodeFromState(state, { payload: { id: NEW_NODE_ID } });
             }
@@ -91,7 +91,7 @@ const nodeSlice = createSlice({
             }));
         },
 
-        deprecateNodesFetchedState(state, _action) {
+        deprecateNodesFetchedState(state) {
             Object.keys(state).forEach((id) => {
                 const node = state[id];
                 if (node.fetched) node.fetched = false;

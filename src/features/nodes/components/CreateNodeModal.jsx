@@ -33,16 +33,13 @@ export default function CreateNodeModal(props) {
             isPublic: true, isRoot: true, order: 0.0, ...formValues,
         };
 
-        dispatch(createNode(data))
-            .then((response) => {
-                navigate(`/nodes/${response.payload.rootId}`);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
-
-                console.log(error);
-            });
+        dispatch(createNode(data)).then((response) => {
+            navigate(`/nodes/${response.payload.rootId}`);
+            setLoading(false);
+        }).catch((error) => {
+            setLoading(false);
+            console.log(error);
+        });
     };
 
     return (
@@ -65,7 +62,7 @@ export default function CreateNodeModal(props) {
             }}
         >
             <DialogTitle>
-        New Node
+                New Node
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>

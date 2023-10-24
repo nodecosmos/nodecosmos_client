@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { deleteNode } from '../../../../nodes/nodes.thunks';
 import { deleteNodeFromState } from '../../../../nodes/nodeActions';
 import useNodeContext from '../useNodeContext';
-import { deleteTreeNodeFromState } from '../../../treesSlice';
+import { deleteTreeNodeFromState } from '../../../treeActions';
 
 export default function useNodeRemove() {
     const dispatch = useDispatch();
     const {
-        treeRootNodeId, nodeId, treeNodeId, isTemp,
+        treeRootNodeId, nodeId, treeNodeId, isTemp, 
     } = useNodeContext();
     const navigate = useNavigate();
 

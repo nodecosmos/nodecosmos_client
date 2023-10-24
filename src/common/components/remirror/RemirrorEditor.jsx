@@ -5,7 +5,7 @@ import useExtensions from '../../hooks/remirror/useExtensions';
 import RemirrorEditorWrapper from './RemirrorEditorWrapper';
 
 export default function RemirrorEditor({
-    markdown, onChange, wsRoomId, base64, wsAuthNodeId, isRealTime,
+    markdown, onChange, wsRoomId, base64, wsAuthNodeId, isRealTime, 
 }) {
     const { extensions, doc } = useExtensions({
         isRealTime,

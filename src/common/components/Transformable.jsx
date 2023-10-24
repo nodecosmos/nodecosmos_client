@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+    useEffect, useRef, useState, 
+} from 'react';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,12 +9,10 @@ import {
     TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
-import {
-    selectTransformablePositionAttribute,
-} from '../../features/app/app.selectors';
+import { selectTransformablePositionAttribute } from '../../features/app/app.selectors';
 
 export default function Transformable({
-    children, transformableId, scale, heightMargin,
+    children, transformableId, scale, heightMargin, 
 }) {
     const containerRef = useRef(null);
     const gRef = useRef(null);

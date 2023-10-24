@@ -2,7 +2,7 @@ import React, { Suspense, useCallback } from 'react';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
@@ -26,7 +26,7 @@ const loading = (
 );
 
 export default function IOPaneWysiwygEditor() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const { id } = selectedWorkflowDiagramObject;
 
     const dispatch = useDispatch();

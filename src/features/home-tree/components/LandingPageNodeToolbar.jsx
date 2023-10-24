@@ -28,7 +28,9 @@ export default function LandingPageNodeToolbar(props) {
     const handleEdit = () => { dispatch(updateNode({ id, isEditing: true })); };
 
     const theme = useTheme();
-    const { red, green, blue } = theme.palette.toolbar;
+    const {
+        red, green, blue, 
+    } = theme.palette.toolbar;
 
     return (
         <Box

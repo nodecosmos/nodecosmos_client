@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
 import {
-    INITIAL_ANIMATION_DELAY,
+    ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
 } from '../constants';
 import LandingPageNodeButtonText from './LandingPageNodeButtonText';
@@ -30,7 +30,7 @@ export default function LandingPageNodeButton(props) {
 
     const { onNodeClick } = useNodeTreeEvents({ id });
     const {
-        outlineColor, backgroundColor, color, hashColor,
+        outlineColor, backgroundColor, color, hashColor, 
     } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
     const isCurrentNode = nodeExpanded && id === currentNodeId;
@@ -44,7 +44,7 @@ export default function LandingPageNodeButton(props) {
             component="g"
             sx={{
                 opacity: 0,
-                animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+                animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
             }}
         >
             <foreignObject
@@ -94,7 +94,11 @@ export default function LandingPageNodeButton(props) {
                         <LandingPageNodeButtonText id={id} />
                     </Box>
                     <Box filter="none">
-                        {isCurrentNode && <Box className="NodeActions" sx={{ ml: 1 }}><LandingPageNodeToolbar id={id} /></Box>}
+                        {isCurrentNode &&
+                            <Box className="NodeActions" sx={{ ml: 1 }}>
+                                <LandingPageNodeToolbar id={id} />
+                            </Box>
+                        }
                     </Box>
                 </Box>
             </foreignObject>

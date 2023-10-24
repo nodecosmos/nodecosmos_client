@@ -13,14 +13,14 @@ import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import EditIOModal from '../EditIOModal';
 import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
-import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import { selectInputOutputById, selectIOPaneContent } from '../../inputOutputs.selectors';
 import { deleteIO } from '../../inputOutputs.thunks';
 import { IO_PANE_CONTENTS } from '../../inputOutputs.constants';
 import { setIOPaneContent } from '../../inputOutputsSlice';
 
 export default function IOPaneToolbar() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const io = useSelector(selectInputOutputById(selectedWorkflowDiagramObject.id));
     const dispatch = useDispatch();
     const ioPaneContent = useSelector(selectIOPaneContent);
@@ -69,7 +69,10 @@ export default function IOPaneToolbar() {
                 />
             </ToolbarContainer>
 
-            <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
+            <Box
+                display="flex"
+                alignItems="center"
+                sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
                 <Typography
                     align="center"
                     variant="body1"

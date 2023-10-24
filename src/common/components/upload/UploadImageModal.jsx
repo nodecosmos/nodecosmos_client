@@ -49,7 +49,7 @@ uppy.use(XHRUpload, {
 });
 
 export default function UploadImageModal({
-    open, onClose, endpointPath, aspectRatio,
+    open, onClose, endpointPath, aspectRatio, 
 }) {
     const uri = nodecosmos.getUri();
 

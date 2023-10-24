@@ -3,7 +3,9 @@ import { Uppy } from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import {
+    Dialog, DialogContent, DialogTitle, 
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import XHRUpload from '@uppy/xhr-upload';
 import { useDispatch } from 'react-redux';
@@ -32,7 +34,7 @@ uppy.use(XHRUpload, {
 });
 
 export default function UploadFileModal({
-    open, onClose, params,
+    open, onClose, params, 
 }) {
     const dispatch = useDispatch();
 

@@ -87,9 +87,13 @@ export default function LandingPageMarkdown() {
             sm: -6,
         }}
         >
-            <GradientText text="Describe your Innovation" gradientVariant={2} variant="h5" variantMapping={{ h5: 'h3' }} />
+            <GradientText
+                text="Describe your Innovation"
+                gradientVariant={2}
+                variant="h5"
+                variantMapping={{ h5: 'h3' }} />
             <Typography mt={3} variant="body1" color="text.secondary">
-        Use
+                Use
                 {' '}
                 <Box
                     component="a"
@@ -100,11 +104,11 @@ export default function LandingPageMarkdown() {
                     borderBottom="3px solid"
                     borderBottomColor="sectionSecondary"
                 >
-          Markdown
+                    Markdown
                 </Box>
                 {' '}
-        Text Editor
-        to add a description to each node in the tree and each step in the workflow.
+                Text Editor
+                to add a description to each node in the tree and each step in the workflow.
             </Typography>
             <Box
                 mt={4}

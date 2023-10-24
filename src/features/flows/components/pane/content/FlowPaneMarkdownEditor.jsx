@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
-import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectFlow } from '../../../flows.selectors';
 import { updateFlowDescription } from '../../../flows.thunks';
 import { updateFlowState } from '../../../flowsSlice';
@@ -27,12 +27,12 @@ const loading = (
 );
 
 export default function FlowPaneMarkdownEditor() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const { id, workflowId } = selectedWorkflowDiagramObject;
 
     const dispatch = useDispatch();
     const handleChangeTimeout = React.useRef(null);
-    const { nodeId, descriptionMarkdown } = useSelector(selectFlow(workflowId, id));
+    const { nodeId, descriptionMarkdown } = useSelector(selectFlow(id));
 
     const handleChange = (value) => {
         if (handleChangeTimeout.current) {

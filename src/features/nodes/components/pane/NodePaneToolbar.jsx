@@ -1,9 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
-import {
-    faHashtag,
-} from '@fortawesome/pro-light-svg-icons';
+import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
     faRectangleCode,
     faCodeCommit,

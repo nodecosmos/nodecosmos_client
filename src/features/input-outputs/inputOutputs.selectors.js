@@ -29,10 +29,14 @@ export const selectIOAttribute = (id, attribute) => createSelector(
 
 export const selectIOByWorkflowId = (workflowId) => createSelector(
     selectInputOutputsById,
-    (inputOutputsById) => Object.values(inputOutputsById).filter((inputOutput) => inputOutput.workflowId === workflowId),
+    (inputOutputsById) => Object.values(inputOutputsById).filter(
+        (inputOutput) => inputOutput.workflowId === workflowId,
+    ),
 );
 
 export const selectUniqueIOByRootNodeId = (rootNodeId) => createSelector(
     selectInputOutputsById,
-    (inputOutputsById) => Object.values(inputOutputsById).filter((inputOutput) => inputOutput.rootNodeId === rootNodeId),
+    (inputOutputsById) => Object.values(inputOutputsById).filter(
+        (inputOutput) => inputOutput.rootNodeId === rootNodeId,
+    ),
 );

@@ -1,10 +1,12 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, {
+    createContext, useState, useCallback, 
+} from 'react';
 import PropTypes from 'prop-types';
 
 const TreeContext = createContext(undefined);
 
 export default function TreeProvider({
-    children, type, onChange, value, rootNodeId,
+    children, type, onChange, value, rootNodeId, 
 }) {
     const [shouldRebuildTree, setShouldRebuildTree] = useState(false);
     const selectedNodeIds = new Set(value);

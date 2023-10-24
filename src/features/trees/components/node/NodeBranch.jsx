@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '@mui/material';
 import {
-    INITIAL_ANIMATION_DELAY,
+    ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
@@ -12,7 +12,9 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 export default function NodeBranch() {
     const theme = useTheme();
     const { isAlreadyMounted, isRoot } = useNodeContext();
-    const { x, xEnd, y } = useNodePosition();
+    const {
+        x, xEnd, y, 
+    } = useNodePosition();
     const { parentBackgroundColor } = useNodeColors();
 
     if (!x) { return null; }
@@ -28,7 +30,7 @@ export default function NodeBranch() {
 
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
     const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-    const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
+    const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
 
     return (
         <g>

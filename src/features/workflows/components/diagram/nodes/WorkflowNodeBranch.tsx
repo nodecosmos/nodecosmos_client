@@ -1,0 +1,53 @@
+import React from 'react';
+import { useTheme } from '@mui/material';
+import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import { NodecosmosTheme } from '../../../../../themes/type';
+
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+export default function WorkflowNodeBranch() {
+    const theme: NodecosmosTheme = useTheme();
+    const { position } = useFlowStepNodeContext();
+
+    const {
+        x, xEnd, y, 
+    } = position;
+
+    if (!x || !xEnd) return null;
+
+    const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+    const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
+
+    return (
+        <g>
+            <path
+                strokeWidth={3}
+                d={`M ${x} ${y}
+                    C ${x} ${y}
+                      ${x + 25} ${y + 1}
+                      ${xEnd} ${y}
+                    L ${xEnd} ${y}`}
+                stroke={theme.palette.tree.default}
+                fill="transparent"
+                style={{
+                    opacity: 0,
+                    animation: `appear ${initialAnimationDuration}ms forwards`,
+                    transition: `d ${transitionAnimationDuration}ms`,
+                }}
+            />
+            <circle
+                cx={x}
+                cy={y}
+                r={5}
+                stroke={theme.palette.secondary.main}
+                fill={theme.palette.tree.default}
+                style={{
+                    opacity: 0,
+                    animation: `node-circle-appear ${initialAnimationDuration / 2}ms forwards`,
+                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
+                }}
+            />
+        </g>
+    );
+}

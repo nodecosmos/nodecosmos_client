@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    Typography, Box,
-} from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';

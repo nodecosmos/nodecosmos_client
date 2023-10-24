@@ -1,25 +1,28 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../common/components/Loader';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
-import Workflow from '../../features/workflows/components/diagram/Workflow';
+import Workflow from '../../features/workflows/components/Workflow';
 import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
-import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../features/workflows/workflows.selectors';
+import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../features/workflows/workflows.thunks';
 import Alert from '../../common/components/Alert';
 import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
 
 export default function Show() {
-    const { id } = useParams();
+    const { id: nodeId } = useParams();
     const theme = useTheme();
 
     const dispatch = useDispatch();
-    const workflows = useSelector(selectWorkflowsByNodeId(id));
-    const workflow = useMemo(() => workflows[0] || {}, [workflows]);
+    const workflow = useSelector(selectWorkflowByNodeId(nodeId));
 
-    const [loading, setLoading] = React.useState(true);
+    const id = workflow?.id;
+
+    const [loading, setLoading] = React.useState(!id);
+    const [resizerHovered, setResizerHovered] = React.useState(false);
+
     const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
 
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
@@ -27,8 +30,6 @@ export default function Show() {
 
     const workflowRef = React.useRef(null);
     const workflowDetailsRef = React.useRef(null);
-
-    const [resizerHovered, setResizerHovered] = React.useState(false);
 
     const {
         paneAWidth,
@@ -48,9 +49,9 @@ export default function Show() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (!workflow.id) {
+        if (!id) {
             setLoading(true);
-            dispatch(showWorkflow(id)).then(() => setLoading(false));
+            dispatch(showWorkflow(nodeId)).then(() => setLoading(false));
         } else {
             setLoading(false);
         }
@@ -58,7 +59,7 @@ export default function Show() {
         return () => {
             dispatch(clearSelectedWorkflowDiagramObject());
         };
-    }, [dispatch, id, workflow.id]);
+    }, [dispatch, id, nodeId]);
 
     useEffect(() => {
         if (!resizeInProgress) {
@@ -90,7 +91,7 @@ export default function Show() {
                     overflow="hidden"
                 >
                     <Alert />
-                    <Workflow nodeId={id} />
+                    <Workflow nodeId={nodeId} />
                 </Box>
                 <Box
                     onMouseDown={handleResize}

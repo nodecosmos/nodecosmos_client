@@ -24,7 +24,6 @@ export default function HomepageTabs(props) {
     const options = [
         'Innovate',
         'Collaborate',
-        // 'Investments',
         'Open Source',
         'MVP',
         'Contact Us',

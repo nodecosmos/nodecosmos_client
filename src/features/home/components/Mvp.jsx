@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import * as React from 'react';
-import { Typography, useTheme, Box } from '@mui/material';
+import {
+    Typography, useTheme, Box, 
+} from '@mui/material';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -75,7 +77,7 @@ export default function Mvp() {
                                     },
                                 },
                                 '.MuiStepLabel-label': {
-                                    fontFamily: "'Montserrat',sans-serif",
+                                    fontFamily: '\'Montserrat\',sans-serif',
                                 },
                             }}
                         >

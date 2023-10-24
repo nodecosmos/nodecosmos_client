@@ -9,9 +9,7 @@ import { setTransformablePositions } from '../../app/appSlice';
 import { MARGIN_TOP } from '../../trees/trees.constants';
 import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../../trees/trees.memoize';
 import { selectPositions, selectSelectedTreeNode } from '../../trees/trees.selectors';
-import {
-    selectNodeTitlesById, selectSelectedNode,
-} from '../nodes.selectors';
+import { selectNodeTitlesById, selectSelectedNode } from '../nodes.selectors';
 import { setSelectedNode } from '../nodeActions';
 
 export default function TreeShowHeader() {

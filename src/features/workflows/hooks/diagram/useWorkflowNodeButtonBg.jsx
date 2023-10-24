@@ -1,10 +1,10 @@
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { selectSelectedWorkflowDiagramObject } from '../../workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../workflows.selectors';
 
-export default function useWorkflowNodeButtonBg({ id, diagramId }) {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+export default function useWorkflowNodeButtonBg({ id }) {
+    const selectedWorkflowObject = useSelector(selectSelectedWorkflowObject);
     const nestedLevel = useSelector(selectNodeAttribute(id, 'nestedLevel'));
 
     const theme = useTheme();
@@ -13,7 +13,7 @@ export default function useWorkflowNodeButtonBg({ id, diagramId }) {
     const backgroundCount = backgrounds.length;
     const color = backgrounds[nestedLevel % backgroundCount];
 
-    const isSelected = selectedWorkflowDiagramObject?.diagramId === diagramId;
+    const isSelected = selectedWorkflowObject?.id === id;
 
     const backgroundColor = isSelected ? color : theme.palette.background[3];
     const outlineColor = isSelected ? 'transparent' : color;

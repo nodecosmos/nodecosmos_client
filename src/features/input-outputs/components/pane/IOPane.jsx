@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectIOPaneContent } from '../../inputOutputs.selectors';
-import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import { setIOPaneContent } from '../../inputOutputsSlice';
 import { IO_PANE_CONTENTS } from '../../inputOutputs.constants';
 import usePrevious from '../../../../common/hooks/usePrevious';
@@ -14,7 +14,7 @@ import IOPaneWysiwygEditor from './content/IOPaneWysiwygEditor';
 
 export default function IOPane() {
     const ioPaneContent = useSelector(selectIOPaneContent);
-    const { id } = useSelector(selectSelectedWorkflowDiagramObject);
+    const { id } = useSelector(selectSelectedWorkflowObject);
     const prevId = usePrevious(id);
     const dispatch = useDispatch();
 

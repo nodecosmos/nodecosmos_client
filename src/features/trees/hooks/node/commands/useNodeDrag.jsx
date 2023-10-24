@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearDragAndDrop, setDragAndDrop, updateTreeNode } from '../../../treesSlice';
+import {
+    clearDragAndDrop, setDragAndDrop, updateTreeNode,
+} from '../../../treeActions';
 import useNodeContext from '../useNodeContext';
 import { selectDragAndDrop } from '../../../trees.selectors';
 import useNodeDropCapture from '../../reorderer/useNodeDropCapture';
@@ -21,7 +23,7 @@ export default function useNodeDrag() {
     const onNodeDropCapture = useNodeDropCapture();
     const isNodeActionInProgress = useSelector(selectIsNodeActionInProgress);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const startDrag = useCallback((event) => {
         if (isTreeRoot || isNodeActionInProgress) {
             event.preventDefault();
@@ -43,7 +45,7 @@ export default function useNodeDrag() {
         }));
     }, [dispatch, isNodeActionInProgress, isTreeRoot, nodeId, parentId, rootId, treeNodeId]);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event) => {
         event.preventDefault();
 
@@ -55,7 +57,7 @@ export default function useNodeDrag() {
         }));
     }, [isDragOver, nodeId, dragAndDropNodeId, treeAncestorIds, dragAndDropTreeNodeId, dispatch, treeNodeId]);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
         if (!isDragOver) return;
 
@@ -65,7 +67,7 @@ export default function useNodeDrag() {
         }));
     }, [dispatch, isDragOver, treeNodeId]);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
         dispatch(clearDragAndDrop());
 
@@ -76,7 +78,7 @@ export default function useNodeDrag() {
         }));
     }, [dispatch, isDragOver, treeNodeId]);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const captureDroppedNode = useCallback(
         () => {
             if (nodeId === dragAndDropNodeId || treeAncestorIds.includes(dragAndDropTreeNodeId)) return;
@@ -105,7 +107,7 @@ export default function useNodeDrag() {
         ],
     );
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     return {
         startDrag,
         stopDrag,

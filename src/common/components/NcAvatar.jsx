@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { Avatar } from '@mui/material';
 
 export default function NcAvatar({
-    model, onClick, backgroundColor, scale, width, height, fontSize,
+    model, onClick, backgroundColor, scale, width, height, fontSize, 
 }) {
     const letter = model?.name?.charAt(0)?.toUpperCase();
 

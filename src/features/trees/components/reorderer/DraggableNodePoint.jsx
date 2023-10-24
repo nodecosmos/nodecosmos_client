@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material';
-import { selectDragAndDrop, selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
+import {
+    selectDragAndDrop, selectPosition, selectTreeNodeAttribute, 
+} from '../../trees.selectors';
 import useNodeDropCapture from '../../hooks/reorderer/useNodeDropCapture';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import useTreeContext from '../../hooks/useTreeContext';

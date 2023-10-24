@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearDragAndDrop, setTreeLoading } from '../../treesSlice';
+import { clearDragAndDrop, setTreeLoading } from '../../treeActions';
 import { selectDragAndDrop } from '../../trees.selectors';
 import { reorder } from '../../../nodes/nodes.thunks';
 import { setAlert } from '../../../app/appSlice';
@@ -18,10 +20,9 @@ export default function useNodeDropCapture() {
     const handleServerError = useHandleServerErrorAlert();
     const childIdsByParentId = useSelector(selectChildIdsByParentId);
 
+    // @ts-ignore
     return useCallback(async ({
-        newParentId,
-        newSiblingIndex,
-        newSiblingIndexAfterMove,
+        newParentId, newSiblingIndex, newSiblingIndexAfterMove, 
     }) => {
         if (reorderInProgress) {
             dispatch(setAlert({
@@ -37,18 +38,22 @@ export default function useNodeDropCapture() {
             const newUpperSiblingId = childIdsByParentId[newParentId][newSiblingIndex - 1];
             const newBottomSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
 
-            const response = dispatch(reorder({
+            // @ts-ignore
+            const response = await dispatch(reorder({
                 nodeId,
                 newParentId,
                 newUpperSiblingId,
                 newBottomSiblingId,
             }));
 
+            // @ts-ignore
             if (response.error) {
+                // @ts-ignore
                 throw response.error;
             }
 
-            dispatch(reorderNodes({
+            // @ts-ignore
+            await dispatch(reorderNodes({
                 nodeId,
                 newParentId,
                 newSiblingIndexAfterMove,
@@ -60,6 +65,7 @@ export default function useNodeDropCapture() {
             dispatch(clearDragAndDrop());
             setReorderInProgress(false);
         } catch (e) {
+            // @ts-ignore
             if (e.message) {
                 handleServerError(e);
             }

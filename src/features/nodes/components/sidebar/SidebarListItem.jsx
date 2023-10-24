@@ -7,9 +7,10 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
 
-export default function SidebarListItem({
-    to, icon, title, flip, component, onClick, children, disabled, end, selectedIcon,
-}) {
+export default function SidebarListItem(props) {
+    const {
+        to, icon, title, flip, component, onClick, children, disabled, end, selectedIcon,
+    } = props;
     const location = useLocation();
 
     const selected = location.pathname.includes(to);

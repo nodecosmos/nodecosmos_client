@@ -20,7 +20,7 @@ import { createContributionRequest } from '../contributionRequests.thunks';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function CreateContributionRequestModal({
-    open, onClose, nodeId,
+    open, onClose, nodeId, 
 }) {
     const [loading, setLoading] = React.useState(false);
     const dispatch = useDispatch();

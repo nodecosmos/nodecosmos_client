@@ -15,7 +15,7 @@ import TreeContainer from './TreeContainer';
 import TreeShowToolbar from './TreeShowToolbar';
 
 export default function Tree({
-    rootNodeId, type, onChange, value,
+    rootNodeId, type, onChange, value, 
 }) {
     const { TreeContext, contextProviderValue } = useTreeContextCreator({
         type, onChange, value, rootNodeId,

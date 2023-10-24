@@ -54,9 +54,7 @@ const flowStepsSlice = createSlice({
                 delete state.byId[flowStep.id];
             })
             .addCase(deleteIO.fulfilled, (state, action) => {
-                const {
-                    flowStepId, id,
-                } = action.payload.inputOutput;
+                const { flowStepId, id } = action.payload.inputOutput;
 
                 if (!flowStepId) return;
 

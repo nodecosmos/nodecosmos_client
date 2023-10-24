@@ -5,7 +5,7 @@ import {
 const TreeContext = createContext(undefined);
 
 export function useTreeContextCreator({
-    type, onChange, value, rootNodeId,
+    type, onChange, value, rootNodeId, 
 }) {
     const [shouldRebuildTree, setShouldRebuildTree] = useState(false);
 

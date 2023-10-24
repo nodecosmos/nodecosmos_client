@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import {
-    INITIAL_ANIMATION_DELAY,
+    ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     MARGIN_LEFT,
     MARGIN_TOP,
@@ -22,7 +22,9 @@ export default function NonAnimatedNodeLink(props) {
     } = props;
 
     const theme = useTheme();
-    const { x, xEnds, y } = useSelector((state) => state.landingPageNodes[id].position);
+    const {
+        x, xEnds, y, 
+    } = useSelector((state) => state.landingPageNodes[id].position);
 
     const upperSiblingPosition = useSelector((state) => upperSiblingId
     && state.landingPageNodes[upperSiblingId].position);
@@ -78,7 +80,7 @@ export default function NonAnimatedNodeLink(props) {
                 fill="transparent"
                 sx={{
                     opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+                    animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
                     transition: `d ${animationDuration}ms`,
                 }}
             />
@@ -91,7 +93,7 @@ export default function NonAnimatedNodeLink(props) {
                 fill={parentBackgroundColor}
                 sx={{
                     opacity: 0,
-                    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+                    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms ${ANIMATION_DELAY}ms forwards`,
                     transition: `cx ${animationDuration}ms, cy ${animationDuration}ms`,
                 }}
             />

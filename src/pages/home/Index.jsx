@@ -49,7 +49,7 @@ export default function Index() {
     const [sectionHeights, setSectionHeights] = useState(null);
     const [sectionEndPositions, setSectionEndPositions] = useState(null);
 
-    // ---------------------------------------------------------------------------------------------------------------- //
+    // ----------------------------------------------------------------------------------------------------------------
     useEffect(() => {
         setSectionPositions(allRefs.map((ref) => ref.current && ref.current.offsetTop));
         setSectionHeights(allRefs.map((ref) => ref.current && ref.current.offsetHeight));
@@ -75,7 +75,7 @@ export default function Index() {
         }
     };
 
-    // ---------------------------------------------------------------------------------------------------------------- //
+    // ----------------------------------------------------------------------------------------------------------------
     const handleTabChange = useCallback((_, currentTab) => {
         preventTabChange.current = true;
 
@@ -96,7 +96,7 @@ export default function Index() {
         timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
     };
 
-    // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE -------------------------------------- //
+    // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE --------------------------------------
     const homepageTab = useSelector((state) => state.home.homepageTab);
     const dispatch = useDispatch();
 
@@ -107,7 +107,7 @@ export default function Index() {
         }
     }, [homepageTab, handleTabChange, dispatch]);
 
-    // ---------------------------------------------------------------------------------------------------------------- //
+    // ----------------------------------------------------------------------------------------------------------------
     return (
         <Box
             className="scrollable"
@@ -191,7 +191,7 @@ export default function Index() {
                     }}
                 >
                     <Typography variant="body2" color="text.secondary">
-            © 2023 nodecosmos
+                        © 2023 nodecosmos
                     </Typography>
                 </Box>
             </Box>

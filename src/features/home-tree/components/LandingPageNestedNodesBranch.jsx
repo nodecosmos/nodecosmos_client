@@ -3,7 +3,7 @@ import { useTheme, Box } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
-    INITIAL_ANIMATION_DELAY,
+    ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     MARGIN_LEFT,
     MARGIN_TOP,
@@ -33,7 +33,7 @@ export default function LandingPageNestedNodesBranch(props) {
          L ${x} ${pathY}`}
             sx={{
                 opacity: 0,
-                animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${INITIAL_ANIMATION_DELAY}ms forwards`,
+                animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
                 transition: `d ${TRANSITION_ANIMATION_DURATION}ms`,
             }}
         />

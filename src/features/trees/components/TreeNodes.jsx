@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
 import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
 import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
-import { buildTreeFromRootNode, setTreeNodesPositions } from '../treesSlice';
+import { buildTreeFromRootNode, setTreeNodesPositions } from '../treeActions';
 import { TREES_TYPES } from '../trees.constants';
 import { selectDragAndDrop, selectTreeNodes } from '../trees.selectors';
 import useTreeContext from '../hooks/useTreeContext';
@@ -16,9 +16,7 @@ import DraggableNodePoints from './reorderer/DraggableNodePoints';
 
 const MemoizedNode = React.memo(Node);
 
-export default function TreeNodes({
-    rootNodeId, type,
-}) {
+export default function TreeNodes({ rootNodeId, type }) {
     const treeNodes = useSelector(selectTreeNodes(rootNodeId));
     const childIdsByParentId = useSelector(selectChildIdsByParentId);
     const positionsById = useTreePositionCalculator(rootNodeId);

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTreeNode } from '../../../treesSlice';
+import { updateTreeNode } from '../../../treeActions';
 import useNodeContext from '../useNodeContext';
 
 export default function useNodeEdit() {

@@ -1,6 +1,10 @@
 import React from 'react';
-import { useActive, useCommands, useHelpers } from '@remirror/react';
-import { Stack, ToggleButton, Tooltip } from '@mui/material';
+import {
+    useActive, useCommands, useHelpers, 
+} from '@remirror/react';
+import {
+    Stack, ToggleButton, Tooltip, 
+} from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -29,9 +33,7 @@ import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu
 // Add uploaded files as attachments to the models.
 // Don't do anything on article change, but allow users to remove attachments in separate dialog.
 export default function RemirrorEditorToolbar() {
-    const {
-        persistentId,
-    } = useSelector(selectSelectedNode);
+    const { persistentId } = useSelector(selectSelectedNode);
 
     const commands = useCommands();
     const active = useActive();

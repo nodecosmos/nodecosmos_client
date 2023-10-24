@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 export default function useNodeButtonBackground(props) {
     const {
-        id, isRoot, nestedLevel,
+        id, isRoot, nestedLevel, 
     } = props;
 
     const theme = useTheme();

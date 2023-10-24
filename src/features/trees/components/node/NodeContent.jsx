@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import {
-    INITIAL_ANIMATION_DELAY,
+    ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT,
@@ -34,11 +34,13 @@ export default function NodeContent() {
 
     // we don't use this directly in input as input unmounts on blur
     // so command chain is broken
-    const { clickNode, blurNode, changeTitle } = useNodeCommands();
+    const {
+        clickNode, blurNode, changeTitle, 
+    } = useNodeCommands();
 
     if (!xEnd) return null;
 
-    const initialAnimationDelay = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DELAY;
+    const initialAnimationDelay = isRoot || isAlreadyMounted ? 0 : ANIMATION_DELAY;
     const initialAnimationDuration = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
 
     return (

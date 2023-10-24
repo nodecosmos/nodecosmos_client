@@ -53,10 +53,10 @@ export default function ContactUs() {
                         <Grid container spacing={2} justifyContent="center">
                             <Grid item xs={12} md={6}>
                                 <Typography variant="h4" align="center" gutterBottom>
-                  Thank you for your message!
+                                    Thank you for your message!
                                 </Typography>
                                 <Typography variant="h6" align="center" gutterBottom>
-                  We will get back to you as soon as possible.
+                                    We will get back to you as soon as possible.
                                 </Typography>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                     <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'success.main' }} />
@@ -87,14 +87,14 @@ export default function ContactUs() {
                     }}
                     fontFamily="Comfortaa, sans-serif"
                 >
-          Get in touch with us
+                    Get in touch with us
                 </Typography>
             </AnimateOnView>
             <Box mt={3}>
                 <AnimateOnView delay={400}>
                     <Section>
                         <Typography color="text.secondary">
-              Contact us at
+                            Contact us at
                             {' '}
                             <a href="mailto:contact@nodecosmos.com">
                                 <Box
@@ -106,11 +106,11 @@ export default function ContactUs() {
                                         borderBottomColor: 'secondary.main',
                                     }}
                                 >
-                  contact@nodecosmos.com
+                                    contact@nodecosmos.com
                                 </Box>
                             </a>
                             {' '}
-              or fill out the form below.
+                            or fill out the form below.
                         </Typography>
 
                         <Box mt={4}>
@@ -167,11 +167,13 @@ export default function ContactUs() {
                                             disableElevation
                                             type="submit"
                                             startIcon={
-                                                loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                                loading ? <CircularProgress
+                                                    size={20}
+                                                    sx={{ color: 'text.foreground' }} />
                                                     : <SendOutlinedIcon />
                                             }
                                         >
-                      Send
+                                            Send
                                         </Button>
                                     </form>
                                 )}

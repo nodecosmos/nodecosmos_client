@@ -11,7 +11,7 @@ import {
     setIsNodeActionInProgress,
     updateNodeState,
 } from '../../../../nodes/nodeActions';
-import { replaceTmpTreeNodeWithPersistedNode, updateTreeNode } from '../../../treesSlice';
+import { replaceTmpTreeNodeWithPersistedNode, updateTreeNode } from '../../../treeActions';
 import useNodeContext from '../useNodeContext';
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 
@@ -33,7 +33,7 @@ export default function useNodeTitleChange() {
     const handleServerError = useHandleServerErrorAlert();
     const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const saveNodeTimeout = useRef(null);
 
     const changeTitle = useCallback((value) => {
@@ -79,7 +79,7 @@ export default function useNodeTitleChange() {
         }, SAVE_NODE_TIMEOUT);
     }, [dispatch, handleServerError, nodeId, order, parentId, persistentId, prevTitle, rootId]);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {
         dispatch(updateTreeNode({ treeNodeId, isEditing: false }));
 

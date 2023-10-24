@@ -17,11 +17,11 @@ export default function LandingPageTree() {
         >
             <GradientText text="Structure your Innovation" variant="h5" variantMapping={{ h5: 'h3' }} />
             <Typography mt={3} variant="body1" color="text.secondary">
-        Use the Node Tree feature to structure your innovation. Each node can represent either a component of your
-        project, an ingredient in your recipe, or other type of constituent.
-        Public nodes can be reused by different projects.
-        As a result, it allows modular approach to innovation development or knowledge sharing in general.
-
+                Use the Node Tree feature to structure your innovation.
+                Each node can represent either a component of your
+                project, an ingredient in your recipe, or other type of constituent.
+                Public nodes can be reused by different projects.
+                As a result, it allows modular approach to innovation development or knowledge sharing in general.
             </Typography>
             <Box
                 mx={{
@@ -39,15 +39,10 @@ export default function LandingPageTree() {
                         fontSize={{
                             xs: 12,
                             sm: 14,
-                        }}
-                    >
-            Sample
-                        <b> Node Tree </b>
-            playground
-            representing the structure of an
-                        <b> airplane </b>
-            and its components.
-            Click on a node to see its details, and feel free to add, edit or delete nodes.
+                        }}>
+                        Sample <b> Node Tree </b> playground
+                        representing the structure of an <b> airplane </b> and its components.
+                        Click on a node to see its details, and feel free to add, edit or delete nodes.
                     </Typography>
                 </Box>
                 <Box>

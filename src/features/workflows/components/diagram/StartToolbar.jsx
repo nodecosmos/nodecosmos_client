@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import {
+    Box, IconButton, Tooltip,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CreateIOModal from '../../../input-outputs/components/CreateIOModal';
-import { ASSOCIATED_OBJECT_TYPES } from '../../../input-outputs/inputOutputs.constants';
+import useModalOpen from '../../../../common/hooks/useModalOpen';
 
 export default function StartToolbar({ workflowId, startStepHovered }) {
-    const [createIOModalOpen, setCreateIOModalOpen] = React.useState(false);
+    const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
         <>
@@ -31,7 +33,7 @@ export default function StartToolbar({ workflowId, startStepHovered }) {
                             className="Item"
                             aria-label="Add Initial Inputs"
                             sx={{ color: 'toolbar.red' }}
-                            onClick={() => setCreateIOModalOpen(true)}
+                            onClick={openModal}
                         >
                             <FontAwesomeIcon icon={faPlus} />
                         </IconButton>
@@ -39,10 +41,10 @@ export default function StartToolbar({ workflowId, startStepHovered }) {
                 </Box>
             )}
             <CreateIOModal
-                open={createIOModalOpen}
-                onClose={() => setCreateIOModalOpen(false)}
+                open={modalOpen}
+                onClose={closeModal}
                 workflowId={workflowId}
-                associatedObject={ASSOCIATED_OBJECT_TYPES.workflow}
+                associatedObject={'workflow'}
             />
         </>
     );

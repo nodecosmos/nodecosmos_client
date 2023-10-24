@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createWorkflow, showWorkflow } from '../workflows/workflows.thunks';
+import { showWorkflow } from '../workflows/workflows.thunks';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { UUID } from '../../types';
 import {
@@ -76,12 +76,6 @@ const inputOutputsSlice = createSlice({
 
                 outputs?.forEach((outputId: UUID) => {
                     delete state.byId[outputId];
-                });
-            })
-            .addCase(createWorkflow.fulfilled, (state, action) => {
-                const { inputOutputs } = action.payload;
-                inputOutputs.forEach((inputOutput: InputOutput) => {
-                    state.byId[inputOutput.id] = inputOutput;
                 });
             });
     },

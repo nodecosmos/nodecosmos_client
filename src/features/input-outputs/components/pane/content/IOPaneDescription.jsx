@@ -3,16 +3,16 @@ import { Typography, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
-import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById } from '../../../inputOutputs.selectors';
 import { getIODescription } from '../../../inputOutputs.thunks';
 
 export default function IOPaneDescription() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const { id } = selectedWorkflowDiagramObject;
 
     const {
-        description, nodeId, workflowId, workflowIndex,
+        description, nodeId, workflowId, workflowIndex, 
     } = useSelector(selectInputOutputById(id));
 
     const [loading, setLoading] = React.useState(!description);

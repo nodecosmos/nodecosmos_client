@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function NcLink({
-    title, maxWidth, to, onClick,
+    title, maxWidth, to, onClick, 
 }) {
     return (
         <Typography

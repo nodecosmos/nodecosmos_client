@@ -1,12 +1,14 @@
-import { UUID } from '../../types';
+import { OptionalId, UUID } from '../../types';
 import { Property } from '../properties/types';
 
-export interface InputOutput {
-    // primary key
+export interface PrimaryKey {
     rootNodeId: UUID;
     nodeId: UUID;
+    workflowId: UUID;
     id: UUID;
-    // other fields
+}
+
+export interface InputOutput extends PrimaryKey {
     originalId: UUID;
     flowStepId: UUID;
     title: string;
@@ -18,7 +20,11 @@ export interface InputOutput {
     properties: Property[];
     createdAt: Date;
     updatedAt: Date;
+
 }
+
+// primary key with optional id + partial of the rest
+export type InputOutputUpsertPayload = OptionalId<PrimaryKey> & Partial<Omit<InputOutput, keyof PrimaryKey>>;
 
 export interface InputOutputSlice {
     byId: Record<UUID, InputOutput>,

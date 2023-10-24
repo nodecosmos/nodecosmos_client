@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeCommit, faFloppyDisk } from '@fortawesome/pro-light-svg-icons';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import { Button, DialogContent, InputAdornment } from '@mui/material';
+import {
+    Button, DialogContent, InputAdornment, 
+} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -14,9 +16,11 @@ import FinalFormInputField from '../../../common/components/final-form/FinalForm
 import { selectInputOutputById } from '../inputOutputs.selectors';
 import { updateIOTitle } from '../inputOutputs.thunks';
 
-export default function EditIOModal({ id, open, onClose }) {
+export default function EditIOModal({
+    id, open, onClose, 
+}) {
     const {
-        originalId, nodeId, workflowId, workflowIndex, title,
+        originalId, nodeId, workflowId, workflowIndex, title, 
     } = useSelector(selectInputOutputById(id));
     const [loading, setLoading] = React.useState(false);
 

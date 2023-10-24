@@ -1,9 +1,13 @@
-import { UUID, Position } from '../../types';
+import {
+    UUID, Position, OptionalId,
+} from '../../types';
 
-export interface Workflow {
-    // primary key
+interface WorkflowPrimaryKey {
     nodeId: UUID;
     id: UUID;
+}
+
+export interface Workflow extends WorkflowPrimaryKey {
     // other fields
     rootNodeId: UUID;
     title: string;
@@ -11,6 +15,9 @@ export interface Workflow {
     descriptionMarkdown: string;
     initialInputIds: UUID[];
 }
+
+// primary key with optional id + partial of the rest
+export type WorkflowUpsertPayload = OptionalId<WorkflowPrimaryKey> & Partial<Omit<Workflow, keyof WorkflowPrimaryKey>>;
 
 /**
  * ### Workflow back-end structure
@@ -29,6 +36,7 @@ export interface Workflow {
 
 export interface Output {
     id: UUID;
+    nodeId: UUID | null;
     position: Position;
 }
 
@@ -40,24 +48,30 @@ export interface FlowStepNode {
     position: Position;
 }
 
-export interface WfFlowStep {
+export interface WorkflowStepFlow {
     id: UUID;
-    flowId: UUID;
+    stepId: UUID | null;
     startIndex: number;
+    verticalIndex: number;
     position: Position;
     flowStepNodes: FlowStepNode[];
 }
 
 export interface WorkflowStep {
     index: number;
-    position: Position;
-    flowSteps: WfFlowStep[];
+    flows: WorkflowStepFlow[];
     outputs: Output[];
+    position: Position;
 }
 
 export interface WorkflowDiagram {
-    initialOutputs: Output[];
+    initialInputs: Output[];
     workflowSteps: WorkflowStep[];
+}
+
+export interface WorkflowDiagramObject {
+    id: UUID;
+    type: 'flow' | 'flowStep' | 'node' | 'io';
 }
 
 export interface WorkflowState {
@@ -65,7 +79,7 @@ export interface WorkflowState {
     idByNodeId: Record<UUID, UUID>;
     // diagram
     workflowDiagramById: Record<UUID, WorkflowDiagram>;
-    selectedWorkflowObjectId: UUID | null;
+    selectedWorkflowObject: WorkflowDiagramObject | null;
     workflowScale: number;
     // pane
     isWfPaneOpen: boolean;

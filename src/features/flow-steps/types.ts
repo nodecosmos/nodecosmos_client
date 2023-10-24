@@ -1,13 +1,14 @@
-import { UUID } from '../../types';
+import { OptionalId, UUID } from '../../types';
 
-export interface FlowStep {
-    // primary key
+export interface FlowStepPrimaryKey {
     nodeId: UUID;
     workflowId: UUID;
     flowId: UUID;
     flowIndex: number;
     id: UUID;
-    // other fields
+}
+
+export interface FlowStep extends FlowStepPrimaryKey {
     nodeIds: UUID[];
     description: string;
     descriptionMarkdown: string;
@@ -16,6 +17,9 @@ export interface FlowStep {
     createdAt: Date;
     updatedAt: Date;
 }
+
+// primary key with optional id + partial of the rest
+export type FlowStepUpsertPayload = OptionalId<FlowStepPrimaryKey> & Partial<Omit<FlowStep, keyof FlowStepPrimaryKey>>;
 
 export interface FlowStepState {
     byId: Record<UUID, FlowStep>,

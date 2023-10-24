@@ -1,9 +1,13 @@
 import React from 'react';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
-import { faPenToSquare, faTrash, faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons';
+import {
+    faPenToSquare, faTrash, faArrowUpRightFromSquare,
+} from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /* mui */
-import { IconButton, Box, Tooltip } from '@mui/material';
+import {
+    IconButton, Box, Tooltip,
+} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
 import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
@@ -14,7 +18,9 @@ import useNodeCommands from '../../hooks/node/useNodeCommands';
 
 export default function NodeToolbar() {
     const { nodeId, isCreationInProgress } = useNodeContext();
-    const { addNode, editNode, removeNode } = useNodeCommands();
+    const {
+        addNode, editNode, removeNode, 
+    } = useNodeCommands();
 
     if (isCreationInProgress) {
         return (
@@ -49,7 +55,11 @@ export default function NodeToolbar() {
                 </IconButton>
             </Tooltip>
             <Tooltip title="Delete Node" placement="top">
-                <IconButton className="Item" onClick={removeNode} aria-label="Delete Node" sx={{ color: 'toolbar.blue' }}>
+                <IconButton
+                    className="Item"
+                    onClick={removeNode}
+                    aria-label="Delete Node"
+                    sx={{ color: 'toolbar.blue' }}>
                     <FontAwesomeIcon icon={faTrash} />
                 </IconButton>
             </Tooltip>

@@ -5,7 +5,7 @@ import {
     Box, CardHeader, CardMedia, Link, Typography,
 } from '@mui/material';
 import NcAvatar from '../../../common/components/NcAvatar';
-import toLocalTime from '../../../common/localTime';
+import toLocalTime from '../../../services/localTime';
 
 export default function NodeCardHeader({ node }) {
     return (

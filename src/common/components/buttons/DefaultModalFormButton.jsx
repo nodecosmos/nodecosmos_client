@@ -6,7 +6,7 @@ import { faAdd } from '@fortawesome/pro-light-svg-icons';
 import DefaultButton from './DefaultButton';
 
 export default function DefaultModalFormButton({
-    loading, startIcon, title, onSubmit,
+    loading, startIcon, title, onSubmit, 
 }) {
     return (
         <DefaultButton

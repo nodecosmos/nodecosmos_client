@@ -4,7 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 /* mui */
 import { ThemeProvider } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import {
+    Route, Routes, useLocation, 
+} from 'react-router-dom';
 /* nodecosmos */
 import Home from '../../../pages/home/Index';
 import dark from '../../../themes/dark';

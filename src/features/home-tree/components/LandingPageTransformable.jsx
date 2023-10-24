@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
-import { useMediaQuery, useTheme, Box } from '@mui/material';
+import {
+    useMediaQuery, useTheme, Box,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import usePannable from '../hooks/usePannable';
 // import useZoomable from '../../hooks/useZoomable';
@@ -51,7 +53,6 @@ export default function LandingPageTransformable(props) {
 
     const transition = isFirefox ? 'none' : 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms';
 
-    //--------------------------------------------------------------------------------------------------------------------
     return (
         <Box
             onClick={resize}

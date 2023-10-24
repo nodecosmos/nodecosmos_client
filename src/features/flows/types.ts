@@ -1,19 +1,23 @@
-import { UUID } from '../../types';
+import { OptionalId, UUID } from '../../types';
 
-export interface Flow {
-    // primary key
+export interface FlowPrimaryKey {
     nodeId: UUID;
     workflowId: UUID;
     startIndex: number;
     verticalIndex: number;
     id: UUID;
-    // other fields
+}
+
+export interface Flow extends FlowPrimaryKey {
     title: string;
     description: string;
     descriptionMarkdown: string;
     createdAt: Date;
     updatedAt: Date;
 }
+
+// primary key with optional id + partial of the rest
+export type FlowUpsertPayload = OptionalId<FlowPrimaryKey> & Partial<Omit<Flow, keyof FlowPrimaryKey>>;
 
 // eslint-disable-next-line no-shadow
 export enum FlowPaneContent {

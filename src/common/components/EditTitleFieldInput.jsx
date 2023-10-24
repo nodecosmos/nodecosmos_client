@@ -11,7 +11,7 @@ import nodecosmos from '../../apis/nodecosmos-server';
 import ToolsContainer from './tools/ToolsContainer';
 
 export default function EditTitleFieldInput({
-    title, onChange, onClose, endpoint, reqData,
+    title, onChange, onClose, endpoint, reqData, 
 }) {
     const [value, setValue] = React.useState(title);
     const [shouldClose, setShouldClose] = React.useState(false);

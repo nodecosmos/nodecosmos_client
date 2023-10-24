@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 
-export default function ToolbarContainer({
-    children, round, size, ml, mr, fontSize, hasText, borderRadius, showIndicator, hoverColor, activeColor,
-}) {
+export default function ToolbarContainer(props) {
+    const {
+        children, round, size, ml, mr,
+        fontSize, hasText, borderRadius, showIndicator, hoverColor, activeColor,
+    } = props;
+
     return (
         <Box
             sx={{

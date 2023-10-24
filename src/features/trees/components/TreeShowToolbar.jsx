@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputAdornment, TextField, Box } from '@mui/material';
+import {
+    InputAdornment, TextField, Box, 
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { searchNode } from '../../nodes/nodeActions';

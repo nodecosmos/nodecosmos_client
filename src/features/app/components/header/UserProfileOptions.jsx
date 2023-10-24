@@ -1,5 +1,7 @@
 import React from 'react';
-import { faHeadSideBrain, faLightbulbOn, faRightFromBracket } from '@fortawesome/pro-light-svg-icons';
+import {
+    faHeadSideBrain, faLightbulbOn, faRightFromBracket, 
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from '@mui/material/Menu';
 import { useDispatch, useSelector } from 'react-redux';

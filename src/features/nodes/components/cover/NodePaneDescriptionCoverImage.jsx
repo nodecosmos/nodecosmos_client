@@ -1,5 +1,7 @@
 import React, { Suspense, useCallback } from 'react';
-import { Box, Button, CardMedia } from '@mui/material';
+import {
+    Box, Button, CardMedia, 
+} from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +13,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneDescriptionCoverImage() {
     const {
-        id, isTemp, coverImageUrl,
+        id, isTemp, coverImageUrl, 
     } = useSelector(selectSelectedNode);
 
     const [openCoverImageUploader, setOpenCoverImageUploader] = React.useState(false);

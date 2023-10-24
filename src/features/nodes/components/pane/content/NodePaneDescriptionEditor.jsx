@@ -1,11 +1,14 @@
-import React, { Suspense, useCallback, useEffect } from 'react';
+import React, {
+    Suspense, useCallback, useEffect, 
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import { selectNodeAttribute, selectSelectedNodeId } from '../../../nodes.selectors';
-import extractTextFromHtml from '../../../../../common/extractTextFromHtml';
+import extractTextFromHtml from '../../../../../services/extractTextFromHtml';
 import { updateNodeState } from '../../../nodeActions';
 import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
 import Loader from '../../../../../common/components/Loader';
+import { uint8ArrayToBase64 } from '../../../../../services/serializer';
 
 const RemirrorEditor = React.lazy(
     () => import('../../../../../common/components/remirror/RemirrorEditor'),
@@ -46,7 +49,7 @@ export default function NodePaneDescriptionEditor() {
                 description: descriptionHtml,
                 shortDescription,
                 descriptionMarkdown: markdown,
-                descriptionBase64: uint8ArrayState,
+                descriptionBase64: uint8ArrayToBase64(uint8ArrayState),
             }));
         }, 1000);
     }, [dispatch, id, isTemp]);

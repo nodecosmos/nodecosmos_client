@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 // decide if we want to use width
 export default function DescriptionContainer({
-    children, p, maxWidth,
+    children, p, maxWidth, 
 }) {
     return (
         <Box

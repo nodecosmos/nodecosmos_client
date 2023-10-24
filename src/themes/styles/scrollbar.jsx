@@ -1,4 +1,4 @@
-export default (currentTheme) => ({
+export default (theme) => ({
     '::-webkit-scrollbar': {
         width: 10,
         height: 10,
@@ -9,12 +9,12 @@ export default (currentTheme) => ({
     },
     '::-webkit-scrollbar-thumb': {
         minHeight: 42,
-        backgroundColor: currentTheme.palette.background[8],
+        backgroundColor: theme.palette.background[8],
     },
     '::-webkit-scrollbar-track': {
-        backgroundColor: currentTheme.palette.background[2],
+        backgroundColor: theme.palette.background[2],
     },
     '::-webkit-scrollbar-corner': {
-        backgroundColor: currentTheme.palette.background[2],
+        backgroundColor: theme.palette.background[2],
     },
 });

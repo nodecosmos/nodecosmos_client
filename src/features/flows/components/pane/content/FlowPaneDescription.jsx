@@ -3,12 +3,12 @@ import { Typography, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
-import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectFlowAttribute } from '../../../flows.selectors';
 import { getFlowDescription } from '../../../flows.thunks';
 
 export default function FlowPaneDescription() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const { id, workflowId } = selectedWorkflowDiagramObject;
 
     const description = useSelector(selectFlowAttribute(workflowId, id, 'description'));

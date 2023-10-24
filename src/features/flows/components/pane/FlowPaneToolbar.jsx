@@ -13,14 +13,14 @@ import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { FLOW_PANE_CONTENTS } from '../../flows.constants';
 import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
-import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import { selectFlowAttribute, selectFlowPaneContent } from '../../flows.selectors';
 import { deleteFlow } from '../../flows.thunks';
 import { setFlowPaneContent } from '../../flowsSlice';
 import FlowModal from '../FlowModal';
 
 export default function FlowPaneToolbar() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const { id, workflowId } = selectedWorkflowDiagramObject;
     const dispatch = useDispatch();
     const ioPaneContent = useSelector(selectFlowPaneContent);
@@ -67,7 +67,10 @@ export default function FlowPaneToolbar() {
                 />
             </ToolbarContainer>
 
-            <Box display="flex" alignItems="center" sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
+            <Box
+                display="flex"
+                alignItems="center"
+                sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
                 {title && <FontAwesomeIcon icon={faCodeCommit} />}
                 <Typography
                     align="center"

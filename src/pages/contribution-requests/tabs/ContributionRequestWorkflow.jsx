@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import Workflow from '../../../features/workflows/components/diagram/Workflow';
+import Workflow from '../../../features/workflows/components/Workflow';
 import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
-import { selectIsWfPaneOpen, selectWorkflowsByNodeId } from '../../../features/workflows/workflows.selectors';
+import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../../features/workflows/workflows.thunks';
 import Alert from '../../../common/components/Alert';
 import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
@@ -17,8 +17,7 @@ export default function ContributionRequestWorkflow() {
     const theme = useTheme();
 
     const dispatch = useDispatch();
-    const workflows = useSelector(selectWorkflowsByNodeId(id));
-    const workflow = useMemo(() => workflows[0] || {}, [workflows]);
+    const workflow = useSelector(selectWorkflowByNodeId(id));
 
     const [loading, setLoading] = React.useState(true);
     const isWfPaneOpen = useSelector(selectIsWfPaneOpen);

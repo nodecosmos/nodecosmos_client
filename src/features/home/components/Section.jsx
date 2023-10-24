@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from '@mui/material';
 
 export default function Section({
-    padding, borderRadius, overflow, children,
+    padding, borderRadius, overflow, children, 
 }) {
     return (
         <Card

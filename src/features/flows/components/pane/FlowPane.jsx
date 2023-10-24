@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectFlowPaneContent } from '../../flows.selectors';
-import { selectSelectedWorkflowDiagramObject } from '../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import { FLOW_PANE_CONTENTS } from '../../flows.constants';
 import { setFlowPaneContent } from '../../flowsSlice';
 import usePrevious from '../../../../common/hooks/usePrevious';
@@ -14,7 +14,7 @@ import FlowPaneWysiwygEditor from './content/FlowPaneWysiwygEditor';
 
 export default function FlowPane() {
     const ioPaneContent = useSelector(selectFlowPaneContent);
-    const { id } = useSelector(selectSelectedWorkflowDiagramObject);
+    const { id } = useSelector(selectSelectedWorkflowObject);
     const prevId = usePrevious(id);
     const dispatch = useDispatch();
 

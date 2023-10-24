@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import {
+    Outlet, useNavigate, useParams, 
+} from 'react-router-dom';
 /* nodecosmos */
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export default function usePaneResizable({
-    aRef, bRef, initialWidthA, initialWidthB,
+    aRef, bRef, initialWidthA, initialWidthB, 
 }) {
     const [paneAWidth, setPaneAWidth] = useState(initialWidthA || '50%');
     const [paneBWidth, setPaneBWidth] = useState(initialWidthB || '50%');

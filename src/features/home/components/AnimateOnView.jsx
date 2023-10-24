@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import {
+    Box, useMediaQuery, useTheme,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import { useInView } from 'framer-motion';
 

@@ -2,7 +2,9 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import { setSelectedNode } from '../../../../nodes/nodeActions';
-import { collapseTreeNode, expandTreeNode, setSelectedTreeNode } from '../../../treesSlice';
+import {
+    collapseTreeNode, expandTreeNode, setSelectedTreeNode, 
+} from '../../../treeActions';
 import useTreeContext from '../../useTreeContext';
 import useTreeCommands from '../../useTreeCommands';
 import useNodeContext from '../useNodeContext';
@@ -17,10 +19,12 @@ export default function useNodeClick() {
     } = useNodeContext();
 
     const { type: treeType } = useTreeContext();
-    const { addId, deleteId, isChecked } = useTreeCommands();
+    const {
+        addId, deleteId, isChecked, 
+    } = useTreeCommands();
     const dispatch = useDispatch();
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     const handleCheckboxChange = useCallback(() => {
         const isNodeChecked = isChecked(nodeId);
         if (isNodeChecked) {
@@ -30,7 +34,7 @@ export default function useNodeClick() {
         }
     }, [addId, deleteId, isChecked, nodeId]);
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     return useCallback((event) => {
         if (treeType === 'checkbox') {
             handleCheckboxChange();

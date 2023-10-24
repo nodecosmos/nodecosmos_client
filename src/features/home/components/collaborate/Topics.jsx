@@ -216,7 +216,11 @@ export default function Topics() {
                                 </Box>
                             </TableCell>
                             <TableCell align="left" size="small">
-                                <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
+                                <Box
+                                    display="flex"
+                                    flexDirection="row"
+                                    alignItems="center"
+                                    justifyContent="space-between">
                                     <Typography
                                         variant="body2"
                                         fontSize={{

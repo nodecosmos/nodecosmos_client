@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createNode, deleteNode } from '../nodes/nodes.thunks';
 
 /* reducers */
-import treeBuilder from './reducers/treeBuilder';
-import treeNodePositionSetter from './reducers/treeNodePositionSetter';
-import treeNodeMounter from './reducers/treeNodeMounter';
-import treeNodeUpdater from './reducers/treeNodeUpdater';
-import treeTmpNodeAdder from './reducers/tmpTreeNodeAdder';
-import treeNodeDeleter from './reducers/treeNodeDeleter';
-import tmpTreeNodeReplacer from './reducers/tmpTreeNodeReplacer';
+import buildTreeFromRootNode from './reducers/treeBuilder';
+import setTreeNodesPositions from './reducers/treeNodePositionSetter';
+import { expandTreeNode, collapseTreeNode } from './reducers/treeNodeMounter';
+import updateTreeNode from './reducers/treeNodeUpdater';
+import buildTmpTreeNode from './reducers/tmpTreeNodeAdder';
+import deleteTreeNodeFromState from './reducers/treeNodeDeleter';
+import replaceTmpTreeNodeWithPersistedNode from './reducers/tmpTreeNodeReplacer';
 
 const treesSlice = createSlice({
     name: 'trees',
@@ -97,42 +97,24 @@ const treesSlice = createSlice({
         setTreeLoading(state, action) { state.isTreeLoading = action.payload; },
         setSelectedTreeNode(state, action) { state.selectedTreeNodeId = action.payload; },
 
-        buildTreeFromRootNode: treeBuilder.buildTreeFromRootNode,
-        setTreeNodesPositions: treeNodePositionSetter.setTreeNodesPositions,
+        buildTreeFromRootNode,
+        setTreeNodesPositions,
 
-        expandTreeNode: treeNodeMounter.expandTreeNode,
-        collapseTreeNode: treeNodeMounter.collapseTreeNode,
+        expandTreeNode,
+        collapseTreeNode,
 
-        updateTreeNode: treeNodeUpdater.updateTreeNode,
+        updateTreeNode,
 
-        buildTmpTreeNode: treeTmpNodeAdder.buildTmpTreeNode,
-        deleteTreeNodeFromState: treeNodeDeleter.deleteTreeNodeFromState,
-        replaceTmpTreeNodeWithPersistedNode: tmpTreeNodeReplacer.replaceTmpTreeNodeWithPersistedNode,
+        buildTmpTreeNode,
+        deleteTreeNodeFromState,
+        replaceTmpTreeNodeWithPersistedNode,
     },
     extraReducers(builder) {
         builder.addCase(createNode.fulfilled, (state) => { state.currentTempNodeId = null; });
-        builder.addCase(deleteNode.fulfilled, (state, action) => treeNodeDeleter.deleteTreeNodeFromState(state, action));
+        builder.addCase(deleteNode.fulfilled, (state, action) => deleteTreeNodeFromState(state, action));
     },
 });
 
-const {
-    actions,
-    reducer,
-} = treesSlice;
+export const { actions } = treesSlice;
 
-export const {
-    setDragAndDrop,
-    clearDragAndDrop,
-    setTreeLoading,
-    setSelectedTreeNode,
-    buildTreeFromRootNode,
-    setTreeNodesPositions,
-    expandTreeNode,
-    collapseTreeNode,
-    updateTreeNode,
-    buildTmpTreeNode,
-    deleteTreeNodeFromState,
-    replaceTmpTreeNodeWithPersistedNode,
-} = actions;
-
-export default reducer;
+export default treesSlice.reducer;

@@ -1,8 +1,12 @@
-import { useCallback, useEffect, useLayoutEffect } from 'react';
+import {
+    useCallback, useEffect, useLayoutEffect, 
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePrevious from '../../../common/hooks/usePrevious';
 import useShallowEqualSelector from '../../../common/hooks/useShallowEqualSelector';
-import { EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP } from '../constants';
+import {
+    EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP, 
+} from '../constants';
 import {
     incrementNodesYEnds,
     updateNodePosition,

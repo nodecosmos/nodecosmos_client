@@ -21,25 +21,24 @@ const unMountNodes = (state, treeNode) => {
     treeDescendantIds.forEach((id) => { rootNodesById[id].isMounted = false; });
 };
 
-export default {
-    expandTreeNode(state, action) {
-        const treeNodeId = action.payload;
-        const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+export function expandTreeNode(state, action) {
+    const treeNodeId = action.payload;
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
 
-        const treeNode = state.byRootNodeId[rootId][treeNodeId];
+    const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
-        treeNode.isExpanded = true;
+    treeNode.isExpanded = true;
 
-        mountDescendants(state, treeNode);
-    },
-    collapseTreeNode(state, action) {
-        const treeNodeId = action.payload;
-        const rootId = extractRootIdFromTreeNodeId(treeNodeId);
+    mountDescendants(state, treeNode);
+}
 
-        const treeNode = state.byRootNodeId[rootId][treeNodeId];
+export function collapseTreeNode(state, action) {
+    const treeNodeId = action.payload;
+    const rootId = extractRootIdFromTreeNodeId(treeNodeId);
 
-        treeNode.isExpanded = false;
+    const treeNode = state.byRootNodeId[rootId][treeNodeId];
 
-        unMountNodes(state, treeNode);
-    },
-};
+    treeNode.isExpanded = false;
+
+    unMountNodes(state, treeNode);
+}

@@ -10,7 +10,7 @@ import { HEADER_HEIGHT } from '../../features/app/constants';
 export default function Alert({ position }) {
     const dispatch = useDispatch();
     const {
-        isOpen, message, severity, anchorOrigin,
+        isOpen, message, severity, anchorOrigin, 
     } = useSelector((state) => state.app.alert);
 
     const handleClose = useCallback(() => dispatch(

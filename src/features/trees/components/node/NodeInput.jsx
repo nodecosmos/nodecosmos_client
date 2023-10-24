@@ -2,14 +2,16 @@ import React, { useEffect } from 'react';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT } from '../../trees.constants';
+import {
+    MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT, 
+} from '../../trees.constants';
 import useNodeContext, { useNodeColors } from '../../hooks/node/useNodeContext';
 
-export default function NodeInput({ onClick, onChange, onBlur }) {
+export default function NodeInput({
+    onClick, onChange, onBlur, 
+}) {
     const ref = React.useRef(null);
-    const {
-        title,
-    } = useNodeContext();
+    const { title } = useNodeContext();
     const {
         hasBg,
         backgroundColor,
@@ -21,7 +23,7 @@ export default function NodeInput({ onClick, onChange, onBlur }) {
 
     const titleLength = title ? title.length : 0;
 
-    //--------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
     return (
         <div
             className={`NodeButton ${hasBg && 'selected'}`}

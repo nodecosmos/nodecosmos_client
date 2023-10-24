@@ -1,8 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { WorkflowState } from '../types';
-import { ShowWorkflowResponse } from '../workflows.thunks';
+import { Workflow, WorkflowState } from '../types';
 
-export function addWorkflow(state: WorkflowState, action: PayloadAction<ShowWorkflowResponse>) {
+export function addWorkflow(state: WorkflowState, action: PayloadAction<{ workflow: Workflow }>) {
     const { workflow } = action.payload;
     const { id, nodeId } = workflow;
 

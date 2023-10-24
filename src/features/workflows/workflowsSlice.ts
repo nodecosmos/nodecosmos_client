@@ -15,7 +15,7 @@ const initialState: WorkflowState = {
     idByNodeId: {},
     // diagram
     workflowDiagramById: {},
-    selectedWorkflowObjectId: null,
+    selectedWorkflowObject: null,
     workflowScale: getScale(),
     // pane
     isWfPaneOpen: true,
@@ -26,10 +26,10 @@ const workflowsSlice = createSlice({
     initialState,
     reducers: {
         setSelectedWorkflowDiagramObject(state, action) {
-            state.selectedWorkflowObjectId = action.payload;
+            state.selectedWorkflowObject = action.payload;
         },
         clearSelectedWorkflowDiagramObject(state) {
-            state.selectedWorkflowObjectId = null;
+            state.selectedWorkflowObject = null;
         },
         setIsWfPaneOpen(state, action) {
             state.isWfPaneOpen = action.payload;
@@ -50,6 +50,11 @@ const workflowsSlice = createSlice({
             })
             .addCase(createWorkflow.fulfilled, (state, action) => {
                 addWorkflow(state, action);
+
+                const { workflow } = action.payload;
+                buildWorkflowDiagram(state,
+                    { payload: { workflow, flows: [], flowSteps: [], inputOutputs: [] }, type: action.type },
+                );
             })
             .addCase(deleteWorkflow.fulfilled, (state, action) => {
                 const { workflow } = action.payload;

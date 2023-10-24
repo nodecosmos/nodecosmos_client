@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { faCircleO } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Tooltip, useTheme } from '@mui/material';
+import {
+    Box, Tooltip, useTheme, 
+} from '@mui/material';
 import { CONTRIBUTION_REQUEST_STATUS } from '../contributionRequests.constants';
 
 export default function ContributionRequestStatusIcon({ status }) {

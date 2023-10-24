@@ -3,7 +3,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import {
+    Navigate, Route, Routes, 
+} from 'react-router-dom';
 /* nodes */
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';

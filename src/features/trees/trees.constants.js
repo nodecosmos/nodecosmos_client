@@ -5,7 +5,7 @@ export const EDGE_LENGTH = 30; // length of edge (link)
 export const COMPLETE_Y_LENGTH = EDGE_LENGTH + MARGIN_TOP; // length of edge + button
 
 export const INITIAL_ANIMATION_DURATION = 300; // ms
-export const INITIAL_ANIMATION_DELAY = 50; // ms - move down siblings first than extend current node
+export const ANIMATION_DELAY = 50; // ms - move down siblings first than extend current node
 export const TRANSITION_ANIMATION_DURATION = 150; // ms
 
 // for virtualization

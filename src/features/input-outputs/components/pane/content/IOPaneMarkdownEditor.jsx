@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
-import { selectSelectedWorkflowDiagramObject } from '../../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
@@ -27,13 +27,13 @@ const loading = (
 );
 
 export default function IOPaneMarkdownEditor() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowDiagramObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const { id } = selectedWorkflowDiagramObject;
 
     const dispatch = useDispatch();
     const handleChangeTimeout = React.useRef(null);
     const {
-        nodeId, originalId, workflowId, descriptionMarkdown,
+        nodeId, originalId, workflowId, descriptionMarkdown, 
     } = useSelector(selectInputOutputById(id));
 
     const handleChange = (value) => {

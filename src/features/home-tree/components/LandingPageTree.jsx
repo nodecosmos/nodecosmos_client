@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import * as PropTypes from 'prop-types';
 /* mui */
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import {
+    Box, useMediaQuery, useTheme, 
+} from '@mui/material';
 import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import { terminateNewNode } from '../landingPageNodeSlice';

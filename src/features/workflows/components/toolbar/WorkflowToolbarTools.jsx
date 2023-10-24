@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import {
+    Box, IconButton, Tooltip,
+} from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/pro-regular-svg-icons';
 
-export default function WorkflowToolbarTools({ workflowId }) {
+export default function WorkflowToolbarTools() {
     return (
         <Box
             display="flex"
@@ -24,7 +26,6 @@ export default function WorkflowToolbarTools({ workflowId }) {
                     className="Item"
                     aria-label="Edit IO Title"
                     sx={{ svg: { color: 'toolbar.green' } }}
-                    onClick={() => setOpenEditIO(true)}
                 >
                     <FontAwesomeIcon icon={faPenToSquare} />
                 </IconButton>
@@ -34,7 +35,6 @@ export default function WorkflowToolbarTools({ workflowId }) {
                     className="Item"
                     aria-label="Delete Flow"
                     sx={{ svg: { color: 'toolbar.blue' } }}
-                    onClick={handleDeleteIO}
                 >
                     <FontAwesomeIcon icon={faTrash} />
                 </IconButton>

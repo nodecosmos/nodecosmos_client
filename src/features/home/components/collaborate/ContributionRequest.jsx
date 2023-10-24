@@ -16,7 +16,6 @@ export default function ContributionRequest() {
 
     const dispatch = useDispatch();
 
-    //--------------------------------------------------------------------------------------------------------------------
     return (
         <Box
             component="svg"
