@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     faPenToSquare, faTrash, faRectangleCode, faDisplay,
 } from '@fortawesome/pro-regular-svg-icons';
@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import EditIOModal from '../EditIOModal';
 import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
 import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import {
@@ -27,13 +26,12 @@ export default function IOPaneToolbar() {
     const io = useSelector(selectInputOutputById(id));
     const dispatch: NodecosmosDispatch = useDispatch();
     const ioPaneContent = useSelector(selectIOPaneContent);
-    const [openEditIO, setOpenEditIO] = React.useState(false);
 
     const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
 
-    const handleDeleteIO = () => {
+    const handleDeleteIO = useCallback(() => {
         dispatch(deleteIO(primaryKey));
-    };
+    }, [dispatch, primaryKey]);
 
     return (
         <Box
@@ -107,7 +105,6 @@ export default function IOPaneToolbar() {
                             className="Item"
                             aria-label="Edit IO Title"
                             sx={{ svg: { color: 'toolbar.green' } }}
-                            onClick={() => setOpenEditIO(true)}
                         >
                             <FontAwesomeIcon icon={faPenToSquare} />
                         </IconButton>
@@ -127,8 +124,6 @@ export default function IOPaneToolbar() {
             <Box>
                 <ToggleWorkflowPaneButton />
             </Box>
-
-            <EditIOModal id={io.id} open={openEditIO} onClose={() => setOpenEditIO(false)} />
         </Box>
     );
 }
