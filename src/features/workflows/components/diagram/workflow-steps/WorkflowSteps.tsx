@@ -1,12 +1,12 @@
 import React from 'react';
-import useWorkflowStepsVirtualizer from '../../../hooks/diagram/useWorkflowStepsVirtualizer';
-import { WorkflowStep } from '../../../diagram/types';
-import WorkflowStepComponent from './WorkflowStep';
+import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
+import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
+import WorkflowStep from './WorkflowStep';
 
 export default function WorkflowSteps() {
-    const visibleWorkflowSteps = useWorkflowStepsVirtualizer();
+    const diagram = useDiagramContext();
 
-    return visibleWorkflowSteps.map((wfStep: WorkflowStep) => (
-        <WorkflowStepComponent key={wfStep.index} wfStep={wfStep} />
+    return diagram.workflowSteps.map((wfStep: WorkflowStepType) => (
+        <WorkflowStep key={wfStep.index} wfStep={wfStep} />
     ));
 }

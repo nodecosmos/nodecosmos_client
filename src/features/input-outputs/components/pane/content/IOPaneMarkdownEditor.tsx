@@ -4,9 +4,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import md from 'markdown-it';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
-import { selectInputOutputById } from '../../../inputOutputs.selectors';
+import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
+import { WorkflowDiagramObject } from '../../../../workflows/types';
+import { NodecosmosDispatch } from '../../../../../store';
 /* nodecosmos */
 
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
@@ -27,16 +29,14 @@ const loading = (
 );
 
 export default function IOPaneMarkdownEditor() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const { id } = selectedWorkflowDiagramObject;
+    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
 
-    const dispatch = useDispatch();
-    const handleChangeTimeout = React.useRef(null);
-    const {
-        nodeId, originalId, workflowId, descriptionMarkdown, 
-    } = useSelector(selectInputOutputById(id));
+    const handleChangeTimeout = React.useRef<number | null>(null);
+    const { descriptionMarkdown } = useSelector(selectInputOutputById(id));
 
-    const handleChange = (value) => {
+    const handleChange = (value: string) => {
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
         }
@@ -51,10 +51,7 @@ export default function IOPaneMarkdownEditor() {
             }));
 
             dispatch(updateIODescription({
-                id,
-                originalId,
-                nodeId,
-                workflowId,
+                ...primaryKey,
                 description: descriptionHtml,
                 descriptionMarkdown: value,
             }));

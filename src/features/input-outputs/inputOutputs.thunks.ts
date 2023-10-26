@@ -15,10 +15,10 @@ export const getIODescription = createAsyncThunk(
     'inputOutputs/getDescription',
     async (payload: PrimaryKey) => {
         const {
-            rootNodeId, nodeId, id, 
+            rootNodeId, nodeId, workflowId, id,
         } = payload;
         const response = await nodecosmos.get(
-            `input_outputs/${rootNodeId}/${nodeId}/${id}/description`,
+            `input_outputs/${rootNodeId}/${nodeId}/${workflowId}/${id}/description`,
         );
 
         return response.data;
@@ -47,11 +47,11 @@ export const deleteIO = createAsyncThunk(
     'inputOutputs/delete',
     async (payload: PrimaryKey) => {
         const {
-            rootNodeId, nodeId, id, 
+            rootNodeId, nodeId, workflowId, id,
         } = payload;
 
         const response = await nodecosmos.delete(
-            `input_outputs/${rootNodeId}/${nodeId}/${id}`,
+            `input_outputs/${rootNodeId}/${nodeId}/${workflowId}/${id}`,
         );
 
         return response.data;

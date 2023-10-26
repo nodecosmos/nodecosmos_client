@@ -33,11 +33,14 @@ export default function useFlowStepContext() {
         flowId,
         flowIndex,
         nodeIds,
-        inputIdsByNodeId,
-        outputIdsByNodeId,
+        inputIdsByNodeId = {},
+        outputIdsByNodeId = {},
     } = useSelector(selectFlowStep(id));
 
     const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(id));
+    const {
+        flowStepNodes, prevFlowStepId, nextFlowStepId, stepId,
+    } = workflowStepFlow || {};
 
     return {
         nodeId,
@@ -49,6 +52,9 @@ export default function useFlowStepContext() {
         inputIdsByNodeId,
         outputIdsByNodeId,
         flowStepPrimaryKey,
-        workflowStepFlow,
+        stepId,
+        flowStepNodes,
+        prevFlowStepId,
+        nextFlowStepId,
     };
 }

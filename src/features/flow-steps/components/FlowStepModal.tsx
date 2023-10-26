@@ -6,14 +6,16 @@ import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { faSave } from '@fortawesome/pro-light-svg-icons';
 import { setAlert } from '../../app/appSlice';
-import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
+import {
+    createFlowStep, FlowStepCreationParams, updateFlowStepNodes,
+} from '../flowSteps.thunks';
 /* nodecosmos */
 import Tree from '../../trees/components/Tree';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectNodesById } from '../../nodes/nodes.selectors';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 import useWorkflowStepContext from '../../workflows/hooks/diagram/workflow-steps/useWorkflowStepContext';
-import { FlowStepUpsertPayload } from '../types';
+import { FlowStepUpdatePayload } from '../types';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
@@ -26,9 +28,11 @@ interface Props {
 
 export default function FlowStepModal({ open, onClose }: Props) {
     const { id: workflowId, nodeId } = useWorkflowContext();
-    const { id: flowId, startIndex: flowStartIndex } = useFlowContext();
-    const { id, nodeIds } = useFlowStepContext();
     const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
+    const { id: flowId, startIndex: flowStartIndex } = useFlowContext();
+    const {
+        id, nodeIds, prevFlowStepId, nextFlowStepId,
+    } = useFlowStepContext();
     const [loading, setLoading] = React.useState(false);
     const allNodes = useSelector(selectNodesById);
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -39,7 +43,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
 
         const filteredNodeIds = flowStepNodeIds.filter((flowNodeId) => !!allNodes[flowNodeId]);
 
-        const payload: FlowStepUpsertPayload = {
+        const payload = {
             nodeId,
             workflowId,
             flowId,
@@ -51,10 +55,15 @@ export default function FlowStepModal({ open, onClose }: Props) {
             const isNew = !!id;
 
             if (isNew) {
-                payload.id = id;
-                await dispatch(updateFlowStepNodes(payload));
+                const updatePayload = payload as FlowStepUpdatePayload;
+                updatePayload.id = id;
+                await dispatch(updateFlowStepNodes(payload as FlowStepUpdatePayload));
             } else {
-                await dispatch(createFlowStep(payload));
+                const insertPayload = payload as FlowStepCreationParams;
+                insertPayload.prevFlowStepId = prevFlowStepId;
+                insertPayload.nextFlowStepId = nextFlowStepId;
+
+                await dispatch(createFlowStep(insertPayload));
             }
 
             setTimeout(() => setLoading(false), 500);
@@ -64,9 +73,12 @@ export default function FlowStepModal({ open, onClose }: Props) {
             console.error(error);
             setTimeout(() => setLoading(false), 500);
         }
-    }, [
-        allNodes, dispatch, flowId, flowStartIndex, flowStepNodeIds, id, nodeId, onClose, workflowId, workflowStepIndex,
-    ]);
+    },
+    [
+        allNodes, dispatch, flowId, flowStartIndex, flowStepNodeIds, id, nodeId,
+        onClose, workflowId, workflowStepIndex, prevFlowStepId, nextFlowStepId,
+    ],
+    );
 
     return (
         <Dialog

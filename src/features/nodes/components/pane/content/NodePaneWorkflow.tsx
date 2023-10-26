@@ -5,7 +5,8 @@ import Workflow from '../../../../workflows/components/Workflow';
 import { selectWorkflowByNodeId } from '../../../../workflows/workflows.selectors';
 import { showWorkflow } from '../../../../workflows/workflows.thunks';
 import { selectSelectedNodeId } from '../../../nodes.selectors';
-import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../../workflows/workflows.constants';
+import { WorkflowDiagramContext } from '../../../../workflows/workflows.constants';
+import { NodecosmosDispatch } from '../../../../../store';
 
 export default function NodePaneWorkflow() {
     const selectedNodeId = useSelector(selectSelectedNodeId);
@@ -13,7 +14,7 @@ export default function NodePaneWorkflow() {
 
     const workflow = useSelector(selectWorkflowByNodeId(selectedNodeId));
 
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     useEffect(() => {
         if (selectedNodeId) {
@@ -31,6 +32,6 @@ export default function NodePaneWorkflow() {
     }
 
     return (
-        <Workflow nodeId={selectedNodeId} context={WORKFLOW_DIAGRAM_CONTEXT.treeNodeDetails} />
+        <Workflow nodeId={selectedNodeId} context={WorkflowDiagramContext.treeNodeDetails} />
     );
 }

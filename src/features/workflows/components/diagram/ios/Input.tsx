@@ -37,8 +37,6 @@ export default function Input({ prevStepOutputId }: InputProps) {
     // current inputs ends where current node starts (x, y)
     const { x: xEnd, y: yEnd } = nodePosition;
 
-    if (!xEnd) return null;
-
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
     return (
@@ -60,7 +58,7 @@ export default function Input({ prevStepOutputId }: InputProps) {
                 cy={y}
                 r={5}
                 strokeWidth={1}
-                stroke={theme.palette.secondary.main}
+                stroke={selectedInputColor}
                 fill={color}
                 style={{
                     opacity: 0,

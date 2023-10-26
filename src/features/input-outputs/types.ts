@@ -26,7 +26,13 @@ export interface InputOutput extends PrimaryKey {
 // primary key with optional id + partial of the rest
 export type InputOutputUpsertPayload = OptionalId<PrimaryKey> & Partial<Omit<InputOutput, keyof PrimaryKey>>;
 
+export enum IOPaneContent {
+    Markdown = 'markdown',
+    Description = 'description',
+    Editor = 'editor',
+}
+
 export interface InputOutputSlice {
     byId: Record<UUID, InputOutput>,
-    IOPaneContent: 'markdown' | 'description' | 'editor',
+    IOPaneContent: IOPaneContent,
 }

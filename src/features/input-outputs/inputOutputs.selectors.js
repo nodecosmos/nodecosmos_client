@@ -22,6 +22,16 @@ export const selectInputOutputById = (id) => createSelector(
     (inputOutputsById) => inputOutputsById[id],
 );
 
+export const selectInputOutputPrimaryKey = (id) => createSelector(
+    selectInputOutputById(id),
+    (io) => ({
+        rootNodeId: io.rootNodeId,
+        nodeId: io.nodeId,
+        workflowId: io.workflowId,
+        id: io.id,
+    }),
+);
+
 export const selectIOAttribute = (id, attribute) => createSelector(
     selectInputOutputById(id),
     (inputOutput) => inputOutput && inputOutput[attribute],

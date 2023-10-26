@@ -10,15 +10,15 @@ import {
 import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
 import {
     MARGIN_TOP,
-    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN,
-    WORKFLOW_DIAGRAM_CONTEXT,
-    WORKFLOW_DIAGRAM_OBJECTS,
+    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
 } from '../../../workflows.constants';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { Output as OutputType } from '../../../diagram/types';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { UUID } from '../../../../../types';
+import { WorkflowDiagramObjectType } from '../../../types';
+import { NodecosmosDispatch } from '../../../../../store';
 import OutputBranch from './OutputBranch';
 
 interface OutputProps {
@@ -26,7 +26,7 @@ interface OutputProps {
 }
 
 export default function Output(props: OutputProps) {
-    const { id: workflowId, context: workflowContext } = useWorkflowContext();
+    const { context: workflowContext } = useWorkflowContext();
     const { output } = props;
     const {
         id,
@@ -40,18 +40,16 @@ export default function Output(props: OutputProps) {
         y,
     } = position;
 
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleClick = useCallback(() => {
-        if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+        if (workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(setSelectedWorkflowDiagramObject({
                 id,
-                diagramId: id,
-                workflowId,
-                type: WORKFLOW_DIAGRAM_OBJECTS.output,
+                type: WorkflowDiagramObjectType.IO,
             }));
         }
-    }, [dispatch, id, workflowContext, workflowId]);
+    }, [dispatch, id, workflowContext]);
 
     const {
         backgroundColor,

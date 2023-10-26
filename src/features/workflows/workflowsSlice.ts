@@ -7,7 +7,6 @@ import {
 } from './workflows.thunks';
 import { WorkflowState } from './types';
 import { getScale } from './workflows.helpers';
-import { addWorkflow } from './reducers/workflowAdd';
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
 
 const initialState: WorkflowState = {
@@ -43,19 +42,24 @@ const workflowsSlice = createSlice({
         },
         rebuildWorkflowDiagram(state, action) {
             const { id, data } = action.payload;
+
             state.workflowDiagramById[id] = buildWorkflowDiagram(data);
         },
     },
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
-                addWorkflow(state, action);
                 const {
                     workflow, flows, flowSteps, inputOutputs,
                 } = action.payload;
-                const { initialInputIds } = workflow;
+                const { id, nodeId } = workflow;
+
+                workflow.initialInputIds ||= [];
+                state.byId[id] = workflow;
+                state.idByNodeId[nodeId] = id;
+
                 const data = {
-                    initialInputIds,
+                    initialInputIds: workflow.initialInputIds,
                     flows,
                     flowSteps,
                     inputOutputs,
@@ -63,10 +67,15 @@ const workflowsSlice = createSlice({
                 state.workflowDiagramById[workflow.id] = buildWorkflowDiagram(data);
             })
             .addCase(createWorkflow.fulfilled, (state, action) => {
-                addWorkflow(state, action);
-
                 const { workflow } = action.payload;
-                state.workflowDiagramById[workflow.id] = buildWorkflowDiagram({} as BuildWorkflowDiagramData);
+                const { id, nodeId } = workflow;
+
+                workflow.initialInputIds ||= [];
+                state.byId[id] = workflow;
+                state.idByNodeId[nodeId] = id;
+
+                const data = { initialInputIds: workflow.initialInputIds };
+                state.workflowDiagramById[workflow.id] = buildWorkflowDiagram(data as BuildWorkflowDiagramData);
             })
             .addCase(deleteWorkflow.fulfilled, (state, action) => {
                 const { workflow } = action.payload;
@@ -79,9 +88,20 @@ const workflowsSlice = createSlice({
             .addCase(deleteFlow.fulfilled, () => {})
             .addCase(createFlowStep.fulfilled, () => {})
             .addCase(deleteFlowStep.fulfilled, () => {})
-            .addCase(updateWorkflowInitialInputs.fulfilled, () => {})
+            .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
+                const { workflow } = action.payload;
+                const { initialInputIds } = workflow;
+
+                state.byId[workflow.id].initialInputIds = initialInputIds;
+            })
             .addCase(createIO.fulfilled, () => {})
-            .addCase(deleteIO.fulfilled, () => {});
+            .addCase(deleteIO.fulfilled, (state, action) => {
+                const { inputOutput } = action.payload;
+
+                if (state.selectedWorkflowObject?.id === inputOutput.id) {
+                    state.selectedWorkflowObject = null;
+                }
+            });
     },
 });
 

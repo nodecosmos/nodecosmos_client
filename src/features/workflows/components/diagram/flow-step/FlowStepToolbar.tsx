@@ -13,28 +13,25 @@ import { deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { FLOW_STEP_SIZE, WORKFLOW_DIAGRAM_CONTEXT } from '../../../workflows.constants';
+import { FLOW_STEP_SIZE, WorkflowDiagramContext } from '../../../workflows.constants';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { NodecosmosDispatch } from '../../../../../store';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import { WorkflowDiagramObjectType } from '../../../types';
 
 export default function FlowStepToolbar() {
-    const { title: flowTitle } = useFlowContext();
+    const { title: flowTitle, id: flowId } = useFlowContext();
     const { context: workflowContext } = useWorkflowContext();
-    const {
-        flowId,
-        flowStepPrimaryKey,
-        workflowStepFlow,
-    } = useFlowStepContext();
+    const { flowStepPrimaryKey, stepId } = useFlowStepContext();
 
     const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleFlowClick = useCallback(() => {
-        if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+        if (workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(setSelectedWorkflowDiagramObject({
                 id: flowId,
-                type: 'flow',
+                type: WorkflowDiagramObjectType.Flow,
             }));
         }
     }, [dispatch, flowId, workflowContext]);
@@ -82,7 +79,7 @@ export default function FlowStepToolbar() {
                             </IconButton>
                         </Tooltip>
                         {
-                            workflowStepFlow?.stepId && (
+                            stepId && (
                                 <Tooltip title="Delete Flow Step" placement="top">
                                     <IconButton
                                         className="Item"

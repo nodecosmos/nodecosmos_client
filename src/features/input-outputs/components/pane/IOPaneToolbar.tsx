@@ -1,36 +1,38 @@
 import React from 'react';
 import {
-    faPenToSquare, faTrash, faRectangleCode, faCodeCommit, faDisplay,
-} from '@fortawesome/pro-light-svg-icons';
+    faPenToSquare, faTrash, faRectangleCode, faDisplay,
+} from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     IconButton, Tooltip, Typography, Box,
 } from '@mui/material';
-
 import { useDispatch, useSelector } from 'react-redux';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import { FLOW_PANE_CONTENTS } from '../../flows.constants';
+import EditIOModal from '../EditIOModal';
 import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
 import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
-import { selectFlowAttribute, selectFlowPaneContent } from '../../flows.selectors';
-import { deleteFlow } from '../../flows.thunks';
-import { setFlowPaneContent } from '../../flowsSlice';
-import FlowModal from '../FlowModal';
+import {
+    selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
+} from '../../inputOutputs.selectors';
+import { deleteIO } from '../../inputOutputs.thunks';
+import { IO_PANE_CONTENTS } from '../../inputOutputs.constants';
+import { setIOPaneContent } from '../../inputOutputsSlice';
+import { WorkflowDiagramObject } from '../../../workflows/types';
+import { NodecosmosDispatch } from '../../../../store';
 
-export default function FlowPaneToolbar() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const { id, workflowId } = selectedWorkflowDiagramObject;
-    const dispatch = useDispatch();
-    const ioPaneContent = useSelector(selectFlowPaneContent);
-    const [openEditFlow, setOpenEditFlow] = React.useState(false);
+export default function IOPaneToolbar() {
+    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const io = useSelector(selectInputOutputById(id));
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const ioPaneContent = useSelector(selectIOPaneContent);
+    const [openEditIO, setOpenEditIO] = React.useState(false);
 
-    const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
-    const title = useSelector(selectFlowAttribute(workflowId, id, 'title'));
+    const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
 
-    const handleDeleteFlow = () => {
-        dispatch(deleteFlow({ id, workflowId, nodeId }));
+    const handleDeleteIO = () => {
+        dispatch(deleteIO(primaryKey));
     };
 
     return (
@@ -48,22 +50,22 @@ export default function FlowPaneToolbar() {
                     title="Edit Description Markdown"
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
-                    active={ioPaneContent === FLOW_PANE_CONTENTS.markdown}
-                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown))}
+                    active={ioPaneContent === IO_PANE_CONTENTS.markdown}
+                    onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.markdown))}
                 />
                 <ToolbarItem
-                    title="Edit Description Markdown"
+                    title="Edit Description"
                     icon={faPenToSquare}
                     color="toolbar.green"
-                    active={ioPaneContent === FLOW_PANE_CONTENTS.editor}
-                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor))}
+                    active={ioPaneContent === IO_PANE_CONTENTS.editor}
+                    onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.editor))}
                 />
                 <ToolbarItem
                     title="View Description"
                     icon={faDisplay}
                     color="toolbar.blue"
-                    active={ioPaneContent === FLOW_PANE_CONTENTS.description}
-                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description))}
+                    active={ioPaneContent === IO_PANE_CONTENTS.description}
+                    onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.description))}
                 />
             </ToolbarContainer>
 
@@ -71,7 +73,6 @@ export default function FlowPaneToolbar() {
                 display="flex"
                 alignItems="center"
                 sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
-                {title && <FontAwesomeIcon icon={faCodeCommit} />}
                 <Typography
                     align="center"
                     variant="body1"
@@ -84,7 +85,7 @@ export default function FlowPaneToolbar() {
                         textOverflow: 'ellipsis',
                     }}
                 >
-                    {title}
+                    {io.title}
                 </Typography>
 
                 <Box
@@ -101,22 +102,22 @@ export default function FlowPaneToolbar() {
                         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
                     }}
                 >
-                    <Tooltip title="Edit Flow Title" placement="top">
+                    <Tooltip title="Edit IO Title" placement="top">
                         <IconButton
                             className="Item"
-                            aria-label="Edit Flow Title"
+                            aria-label="Edit IO Title"
                             sx={{ svg: { color: 'toolbar.green' } }}
-                            onClick={() => setOpenEditFlow(true)}
+                            onClick={() => setOpenEditIO(true)}
                         >
                             <FontAwesomeIcon icon={faPenToSquare} />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete Flow" placement="top">
+                    <Tooltip title="Delete IO" placement="top">
                         <IconButton
                             className="Item"
                             aria-label="Delete Flow"
-                            sx={{ svg: { color: 'toolbar.lightRed' } }}
-                            onClick={handleDeleteFlow}
+                            sx={{ svg: { color: 'toolbar.blue' } }}
+                            onClick={handleDeleteIO}
                         >
                             <FontAwesomeIcon icon={faTrash} />
                         </IconButton>
@@ -127,12 +128,7 @@ export default function FlowPaneToolbar() {
                 <ToggleWorkflowPaneButton />
             </Box>
 
-            <FlowModal
-                id={id}
-                workflowId={workflowId}
-                open={openEditFlow}
-                onClose={() => setOpenEditFlow(false)}
-            />
+            <EditIOModal id={io.id} open={openEditIO} onClose={() => setOpenEditIO(false)} />
         </Box>
     );
 }

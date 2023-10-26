@@ -28,6 +28,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
             workflowId,
             rootNodeId,
             originalId: autocompleteValue && existingIO?.id,
+            flowStepId: props.flowStepPrimaryKey?.id,
             ...formValues,
         };
 

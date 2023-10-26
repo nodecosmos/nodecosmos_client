@@ -5,11 +5,13 @@ import { UUID } from '../../types';
 import {
     createIO, deleteIO, getIODescription, updateIOTitle,
 } from './inputOutputs.thunks';
-import { InputOutput, InputOutputSlice } from './types';
+import {
+    InputOutput, InputOutputSlice, IOPaneContent, 
+} from './types';
 
 const initialState: InputOutputSlice = {
     byId: {},
-    IOPaneContent: 'markdown',
+    IOPaneContent: IOPaneContent.Description,
 };
 
 const inputOutputsSlice = createSlice({

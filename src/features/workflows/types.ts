@@ -28,9 +28,16 @@ export interface WorkflowData {
     inputOutputs: InputOutput[]
 }
 
+export enum WorkflowDiagramObjectType {
+    Flow = 'flow',
+    FlowStep = 'flowStep',
+    Node = 'node',
+    IO = 'io',
+}
+
 export interface WorkflowDiagramObject {
     id: UUID;
-    type: 'flow' | 'flowStep' | 'node' | 'io';
+    type: WorkflowDiagramObjectType;
 }
 
 export interface WorkflowState {

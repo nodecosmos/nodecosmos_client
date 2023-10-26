@@ -20,6 +20,7 @@ import { UUID } from '../../../../../types';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import { flattenValues } from '../../../../../utils/group';
 import DefaultModal from '../../../../../common/components/modal/DefaultModal';
+import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import AssociateInputCheckboxField from './AssocateInputCheckboxField';
 
 interface Props {
@@ -31,7 +32,9 @@ export default function AssociateInputsModal(props: Props) {
     const { open, onClose } = props;
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { initialInputIds, diagram } = useWorkflowContext();
+
+    const { initialInputIds } = useWorkflowContext();
+    const diagram = useDiagramContext();
     const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
     const { flowStepPrimaryKey, inputIdsByNodeId: currentFlowStepInputIds } = useFlowStepContext();
     const { id: nodeId } = useFlowStepNodeContext();

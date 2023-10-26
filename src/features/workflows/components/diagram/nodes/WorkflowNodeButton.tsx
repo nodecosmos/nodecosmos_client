@@ -13,7 +13,7 @@ import {
 import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
 import {
     EDGE_LENGTH,
-    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_DIAGRAM_CONTEXT,
+    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
 } from '../../../workflows.constants';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
@@ -40,7 +40,7 @@ export default function WorkflowNodeButton() {
             type: 'node',
         }));
 
-        if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
+        if (workflowContext === WorkflowDiagramContext.workflowPage) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             dispatch(setSelectedNode(id));

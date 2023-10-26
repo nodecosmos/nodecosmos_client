@@ -37,6 +37,8 @@ export interface WorkflowStepFlow {
     position: Position;
     flowStepNodes: FlowStepNode[];
     outputs: Output[]; // combined outputs from all nodes
+    prevFlowStepId: UUID | null;
+    nextFlowStepId: UUID | null;
 }
 
 export interface WorkflowStep {

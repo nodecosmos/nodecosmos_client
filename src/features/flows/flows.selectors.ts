@@ -1,6 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { UUID } from '../../types';
-import { Flow, FlowState } from './types';
+import {
+    Flow, FlowPrimaryKey, FlowState,
+} from './types';
 
 interface State {
     flows: FlowState;
@@ -24,4 +26,15 @@ export const selectFlowsByWorkflowId = (workflowId: UUID | null) => createSelect
     (flows) => Object.values(flows).filter(
         (flow) => flow.workflowId === workflowId,
     ),
+);
+
+export const selectFlowPrimaryKey = (flowId: UUID) => createSelector(
+    selectFlow(flowId),
+    (flow): FlowPrimaryKey => ({
+        nodeId: flow.nodeId,
+        workflowId: flow.workflowId,
+        startIndex: flow.startIndex,
+        verticalIndex: flow.verticalIndex,
+        id: flow.id,
+    }),
 );

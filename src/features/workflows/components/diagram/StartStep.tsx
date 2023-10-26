@@ -16,12 +16,15 @@ import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { NodecosmosTheme } from '../../../../themes/type';
 import { Output as OutputType } from '../../diagram/types';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import StartToolbar from './StartToolbar';
 import Output from './ios/Output';
 
 export default function StartStep() {
     const theme: NodecosmosTheme = useTheme();
-    const { id: workflowId, diagram } = useWorkflowContext();
+    const { id: workflowId } = useWorkflowContext();
+    const diagram = useDiagramContext();
+
     const inputsLength = diagram.initialInputs.length || 0;
 
     const x = OUTPUT_EDGE_LENGTH;
@@ -29,7 +32,6 @@ export default function StartStep() {
     const yEnd = y + (OUTPUT_EDGE_LENGTH) * inputsLength + WORKFLOW_START_MARGIN_TOP;
 
     const [hovered, hover, leave] = useBooleanStateValue();
-    const { wfHeight } = useWorkflowContext();
 
     const fillColor = theme.palette.background[5];
     const hoverColor = theme.palette.background[7];
@@ -40,7 +42,7 @@ export default function StartStep() {
                 onMouseEnter={hover}
                 x={0}
                 y={1}
-                height={wfHeight}
+                height={diagram.height}
                 width={WORKFLOW_STEP_WIDTH - 1}
                 fill={hovered ? hoverColor : fillColor}
                 fillOpacity={0.3}

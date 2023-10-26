@@ -4,28 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
-import { selectFlowAttribute } from '../../../flows.selectors';
-import { getFlowDescription } from '../../../flows.thunks';
+import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
+import { getIODescription } from '../../../inputOutputs.thunks';
+import { WorkflowDiagramObject } from '../../../../workflows/types';
+import { NodecosmosDispatch } from '../../../../../store';
 
-export default function FlowPaneDescription() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const { id, workflowId } = selectedWorkflowDiagramObject;
+export default function IOPaneDescription() {
+    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const dispatch: NodecosmosDispatch = useDispatch();
 
-    const description = useSelector(selectFlowAttribute(workflowId, id, 'description'));
-    const nodeId = useSelector(selectFlowAttribute(workflowId, id, 'nodeId'));
+    const { description } = useSelector(selectInputOutputById(id));
+    const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
 
     const [loading, setLoading] = React.useState(!description);
-    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!description) {
-            dispatch(getFlowDescription({
-                nodeId,
-                workflowId,
-                id,
-            })).then(() => setLoading(false));
+        if (loading) {
+            dispatch(getIODescription(primaryKey)).then(() => setLoading(false));
         }
-    }, [dispatch, nodeId, workflowId, id, description]);
+    }, [dispatch, loading, primaryKey]);
 
     if (loading) {
         return <Loader />;
@@ -34,7 +31,7 @@ export default function FlowPaneDescription() {
     const noDescriptionContent = (
         <>
             <Typography color="text.secondary" align="center" fontWeight="bold">
-        Flow has no description yet.
+        IO has no description yet.
             </Typography>
             <Typography color="text.secondary" align="center" fontSize={30}>
         ¯\_(ツ)_/¯

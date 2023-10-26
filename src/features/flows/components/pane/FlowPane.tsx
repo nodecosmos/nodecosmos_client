@@ -7,21 +7,22 @@ import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selec
 import { FLOW_PANE_CONTENTS } from '../../flows.constants';
 import { setFlowPaneContent } from '../../flowsSlice';
 import usePrevious from '../../../../common/hooks/usePrevious';
+import { WorkflowDiagramObject } from '../../../workflows/types';
 import FlowPaneDescription from './content/FlowPaneDescription';
 import FlowPaneMarkdownEditor from './content/FlowPaneMarkdownEditor';
 import FlowPaneToolbar from './FlowPaneToolbar';
-import FlowPaneWysiwygEditor from './content/FlowPaneWysiwygEditor';
+import FlowPaneDescriptionEditor from './content/FlowPaneDescriptionEditor';
 
 export default function FlowPane() {
     const ioPaneContent = useSelector(selectFlowPaneContent);
-    const { id } = useSelector(selectSelectedWorkflowObject);
+    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
     const prevId = usePrevious(id);
     const dispatch = useDispatch();
 
     const contents = {
         markdown: <FlowPaneMarkdownEditor />,
         description: <FlowPaneDescription />,
-        editor: <FlowPaneWysiwygEditor />,
+        editor: <FlowPaneDescriptionEditor />,
     };
 
     const content = contents[ioPaneContent];
@@ -36,8 +37,8 @@ export default function FlowPane() {
         <Box
             width={1}
             height={1}
-            backgroundColor="background.5"
             sx={{
+                backgroundColor: 'background.5',
                 overflow: 'hidden',
                 'h1, h2, h3, h4, h5, h6': {
                     marginBlockStart: 0,

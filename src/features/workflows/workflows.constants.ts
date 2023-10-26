@@ -9,7 +9,7 @@ export const WORKFLOW_STEP_WIDTH = 380;
 export const WORKFLOW_STEP_HEIGHT = 65;
 
 export const FLOW_STEP_SIZE = 65.5;
-export const MIN_FLOW_STEP_SIZE = 350;
+export const FLOW_BUFFER = FLOW_STEP_SIZE + EDGE_LENGTH;
 
 export const WORKFLOW_BUTTON_HEIGHT = 34;
 
@@ -18,24 +18,6 @@ export const OUTPUT_VERTICAL_EDGE_LENGTH = 220;
 export const OUTPUT_BUTTON_WIDTH = 150;
 export const OUTPUT_BUTTON_SKEWED_WIDTH = 169.63; // got it from dev tools
 export const OUTPUT_BUTTON_X_MARGIN = (OUTPUT_VERTICAL_EDGE_LENGTH - OUTPUT_BUTTON_SKEWED_WIDTH) / 2;
-
-export const WORKFLOW_DIAGRAM_OBJECTS = {
-    flow: 'flow',
-    flowStep: 'flowStep',
-    node: 'node',
-    output: 'io',
-};
-
-export const WORKFLOW_DIAGRAM_CONTEXT = {
-    workflowPage: 'workflowPage',
-    workflowNodeDetails: 'workflowNodeDetails',
-    treeNodeDetails: 'treeNodeDetails',
-};
-
-export const WORKFLOW_PANE_CONTENTS = {
-    markdown: 'markdown',
-    description: 'description',
-};
 
 export enum WorkflowDiagramContext {
     workflowPage = 'workflowPage',

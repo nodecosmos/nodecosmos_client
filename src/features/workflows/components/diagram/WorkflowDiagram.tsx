@@ -1,17 +1,41 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Transformable from '../../../../common/components/Transformable';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { selectWorkflowScale } from '../../workflows.selectors';
-import WorkflowSteps from './workflow-steps/WorkflowSteps';
+import { selectFlowsByWorkflowId } from '../../../flows/flows.selectors';
+import { selectFlowStepsByWorkflowId } from '../../../flow-steps/flowSteps.selectors';
+import { selectIOByWorkflowId } from '../../../input-outputs/inputOutputs.selectors';
+import { rebuildWorkflowDiagram } from '../../workflowsSlice';
+import { NodecosmosDispatch } from '../../../../store';
+import { useDiagramContextCreator } from '../../hooks/diagram/useDiagramContext';
 import StartStep from './StartStep';
+import WorkflowSteps from './workflow-steps/WorkflowSteps';
 
 export default function WorkflowDiagram() {
-    const { transformableId, diagram } = useWorkflowContext();
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const {
+        id, initialInputIds, transformableId,
+    } = useWorkflowContext();
 
     const wfScale = useSelector(selectWorkflowScale);
 
-    if (!diagram) return null;
+    const flows = useSelector(selectFlowsByWorkflowId(id));
+    const flowSteps = useSelector(selectFlowStepsByWorkflowId(id));
+    const inputOutputs = useSelector(selectIOByWorkflowId(id));
+
+    useEffect(() => {
+        if (id) {
+            dispatch(rebuildWorkflowDiagram({ id, data: { initialInputIds, flows, flowSteps, inputOutputs } }));
+        }
+    }, [dispatch, id, initialInputIds, flows, flowSteps, inputOutputs]);
+
+    const {
+        DiagramContext,
+        contextProviderValue,
+    } = useDiagramContextCreator({ id });
+
+    if (!id) return null;
 
     return (
         <Transformable
@@ -19,10 +43,10 @@ export default function WorkflowDiagram() {
             scale={wfScale}
             heightMargin={-19}
         >
-            <g>
+            <DiagramContext.Provider value={contextProviderValue}>
                 <StartStep />
                 <WorkflowSteps />
-            </g>
+            </DiagramContext.Provider>
         </Transformable>
     );
 }

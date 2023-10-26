@@ -5,11 +5,11 @@ import {
 import FlowModal from '../../../../flows/components/FlowModal';
 import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 
 export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
     const theme: NodecosmosTheme = useTheme();
@@ -17,7 +17,7 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
     const [hovered, setHovered] = useState(false);
     const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpen();
 
-    const { wfHeight } = useWorkflowContext();
+    const { height } = useDiagramContext();
     const { x } = wfStep.position;
     const fillColor = wfStep.index % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
     const hoverColor = theme.palette.background[7];
@@ -41,7 +41,7 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
         setHovered(false);
     }, []);
 
-    if (!x || !wfStep || !wfHeight) return null;
+    if (!x || !wfStep || !height) return null;
 
     return (
         <WorkflowStepContext.Provider value={contextProviderValue}>
@@ -51,14 +51,14 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
                 <path
                     strokeWidth={1}
                     d={`M ${x} ${0}
-                        L ${x} ${wfHeight - 2}`}
+                        L ${x} ${height - 2}`}
                     stroke={theme.palette.borders[1]}
                     fill="transparent"
                 />
                 <rect
                     x={x}
                     y={0}
-                    height={wfHeight}
+                    height={height}
                     width={WORKFLOW_STEP_WIDTH}
                     fill={hovered ? hoverColor : fillColor}
                     fillOpacity={0.3}

@@ -5,30 +5,32 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectIOPaneContent } from '../../inputOutputs.selectors';
 import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import { setIOPaneContent } from '../../inputOutputsSlice';
-import { IO_PANE_CONTENTS } from '../../inputOutputs.constants';
 import usePrevious from '../../../../common/hooks/usePrevious';
+import { WorkflowDiagramObject } from '../../../workflows/types';
+import { NodecosmosDispatch } from '../../../../store';
+import { IOPaneContent } from '../../types';
 import IOPaneDescription from './content/IOPaneDescription';
 import IOPaneMarkdownEditor from './content/IOPaneMarkdownEditor';
 import IOPaneToolbar from './IOPaneToolbar';
-import IOPaneWysiwygEditor from './content/IOPaneWysiwygEditor';
+import IOPaneDescriptionEditor from './content/IOPaneDescriptionEditor';
 
 export default function IOPane() {
-    const ioPaneContent = useSelector(selectIOPaneContent);
-    const { id } = useSelector(selectSelectedWorkflowObject);
+    const ioPaneContent = useSelector(selectIOPaneContent) as IOPaneContent;
+    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
     const prevId = usePrevious(id);
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     const contents = {
-        markdown: <IOPaneMarkdownEditor />,
-        editor: <IOPaneWysiwygEditor />,
-        description: <IOPaneDescription />,
+        'markdown': <IOPaneMarkdownEditor />,
+        'editor': <IOPaneDescriptionEditor />,
+        'description': <IOPaneDescription />,
     };
 
     const content = contents[ioPaneContent];
 
     useEffect(() => {
         if (prevId !== id) {
-            dispatch(setIOPaneContent(IO_PANE_CONTENTS.description));
+            dispatch(setIOPaneContent(IOPaneContent.Description));
         }
     }, [dispatch, id, prevId]);
 
@@ -36,8 +38,7 @@ export default function IOPane() {
         <Box
             width={1}
             height={1}
-            backgroundColor="background.5"
-            sx={{ overflow: 'hidden' }}
+            sx={{ overflow: 'hidden', backgroundColor: 'background.5' }}
             position="relative"
             zIndex={1}
         >

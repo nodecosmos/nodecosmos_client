@@ -2,19 +2,21 @@ import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import FlowPane from '../../../flows/components/pane/FlowPane';
-import IOPane from '../../../input-outputs/components/pane/IOPane';
 import NodePane from '../../../nodes/components/pane/NodePane';
 import { selectSelectedWorkflowObject } from '../../workflows.selectors';
+import { WorkflowDiagramObject } from '../../types';
+import IOPane from '../../../input-outputs/components/pane/IOPane';
 
 export default function WorkflowPane() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
+    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
 
     const { type } = selectedWorkflowDiagramObject || {};
 
     const content = {
         flow: <FlowPane />,
-        output: <IOPane />,
+        flowStep: null,
         node: <NodePane />,
+        io: <IOPane />,
     };
 
     if (!type) {

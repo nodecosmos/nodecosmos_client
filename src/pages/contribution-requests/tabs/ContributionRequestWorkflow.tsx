@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {
+    useEffect, useRef, useState,
+} from 'react';
 import { Box, useTheme } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,25 +12,28 @@ import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../../features/wo
 import { showWorkflow } from '../../../features/workflows/workflows.thunks';
 import Alert from '../../../common/components/Alert';
 import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
-import { WORKFLOW_DIAGRAM_CONTEXT } from '../../../features/workflows/workflows.constants';
+import { WorkflowDiagramContext } from '../../../features/workflows/workflows.constants';
+import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
+import { NodecosmosTheme } from '../../../themes/type';
 
 export default function ContributionRequestWorkflow() {
     const { id } = useParams();
-    const theme = useTheme();
+    const theme: NodecosmosTheme = useTheme();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
-    const dispatch = useDispatch();
-    const workflow = useSelector(selectWorkflowByNodeId(id));
+    const workflow = useSelector(selectWorkflowByNodeId(id as UUID));
 
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = useState(true);
     const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
 
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
     const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
 
-    const workflowRef = React.useRef(null);
-    const workflowDetailsRef = React.useRef(null);
+    const workflowRef = useRef(null);
+    const workflowDetailsRef = useRef(null);
 
-    const [resizerHovered, setResizerHovered] = React.useState(false);
+    const [resizerHovered, setResizerHovered] = useState(false);
 
     const {
         paneAWidth,
@@ -50,7 +55,7 @@ export default function ContributionRequestWorkflow() {
     useEffect(() => {
         if (!workflow.id) {
             setLoading(true);
-            dispatch(showWorkflow(id)).then(() => setLoading(false));
+            dispatch(showWorkflow(id as UUID)).then(() => setLoading(false));
         } else {
             setLoading(false);
         }
@@ -90,7 +95,7 @@ export default function ContributionRequestWorkflow() {
                     overflow="hidden"
                 >
                     <Alert />
-                    <Workflow nodeId={id} context={WORKFLOW_DIAGRAM_CONTEXT.workflowPage} />
+                    <Workflow nodeId={id as UUID} context={WorkflowDiagramContext.workflowPage} />
                 </Box>
                 <Box
                     onMouseDown={handleResize}
@@ -101,10 +106,10 @@ export default function ContributionRequestWorkflow() {
                         }
                     }}
                     width="8px"
-                    backgroundColor="transparent"
                     height={1}
                     ml={-1}
                     sx={{
+                        backgroundColor: 'transparent',
                         position: 'relative',
                         '&:hover': {
                             cursor: 'col-resize',
@@ -112,7 +117,6 @@ export default function ContributionRequestWorkflow() {
                     }}
                 />
                 <Box
-                    backgroundColor="background.5"
                     height={1}
                     display={isWfPaneOpen ? 'block' : 'none'}
                     width={(isWfPaneOpen && paneBWidth) || 0}
@@ -122,6 +126,9 @@ export default function ContributionRequestWorkflow() {
                     borderLeft={1}
                     style={{
                         borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
+                    }}
+                    sx={{
+                        backgroundColor: 'background.5',
                     }}
                 >
                     <WorkflowPane />

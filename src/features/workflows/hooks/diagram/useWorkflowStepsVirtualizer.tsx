@@ -6,11 +6,13 @@ import { selectWorkflowScale } from '../../workflows.selectors';
 import useWorkflowContext from '../useWorkflowContext';
 import { Position } from '../../../../types';
 import { WorkflowStep } from '../../diagram/types';
+import useDiagramContext from './useDiagramContext';
 
 type VisibleWorkflowSteps = WorkflowStep[];
 
 export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
-    const { transformableId, diagram } = useWorkflowContext();
+    const { transformableId } = useWorkflowContext();
+    const diagram = useDiagramContext();
 
     const scrollLeft = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollLeft'));
     const clientWidth = useSelector(selectTransformablePositionAttribute(transformableId, 'clientWidth'));
@@ -31,8 +33,8 @@ export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
     return useMemo(() => {
         if (!diagram) return [];
 
-        return diagram.workflowSteps.filter((wfStep, index) => {
-            const x = wfStep.position.x || 0;
+        return diagram.workflowSteps.filter((step: WorkflowStep, index: number) => {
+            const x = step.position.x || 0;
             const isLast = index === diagram.workflowSteps.length - 1;
 
             return isLast || isInsideViewport(x);

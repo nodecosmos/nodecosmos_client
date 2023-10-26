@@ -7,7 +7,7 @@ import { buildFlow } from './flow';
 import { buildInitialOutputs } from './output';
 import { WorkflowDiagram, WorkflowStep } from './types';
 
-interface BuildWorkflowDiagramData {
+export interface BuildWorkflowDiagramData {
     initialInputIds: WorkflowData['workflow']['initialInputIds'];
     flows: WorkflowData['flows'];
     flowSteps: WorkflowData['flowSteps'];

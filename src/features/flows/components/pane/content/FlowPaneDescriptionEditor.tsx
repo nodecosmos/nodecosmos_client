@@ -2,10 +2,14 @@ import React, { Suspense, useCallback } from 'react';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
+import { HelpersFromExtensions } from '@remirror/core';
+import { MarkdownExtension } from 'remirror/extensions';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
-import { selectFlow } from '../../../flows.selectors';
+import { selectFlow, selectFlowPrimaryKey } from '../../../flows.selectors';
 import { updateFlowState } from '../../../flowsSlice';
 import { updateFlowDescription } from '../../../flows.thunks';
+import { NodecosmosDispatch } from '../../../../../store';
+import { WorkflowDiagramObject } from '../../../../workflows/types';
 /* nodecosmos */
 
 const RemirrorEditor = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
@@ -25,15 +29,16 @@ const loading = (
     </Box>
 );
 
-export default function FlowPaneWysiwygEditor() {
+export default function FlowPaneDescriptionEditor() {
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const { id, workflowId } = selectedWorkflowDiagramObject;
+    const { id } = selectedWorkflowDiagramObject as WorkflowDiagramObject;
 
-    const dispatch = useDispatch();
-    const handleChangeTimeout = React.useRef(null);
-    const { nodeId, descriptionMarkdown } = useSelector(selectFlow(workflowId, id));
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const handleChangeTimeout = React.useRef<number | null>(null);
+    const { descriptionMarkdown } = useSelector(selectFlow(id));
+    const flowPrimaryKey = useSelector(selectFlowPrimaryKey(id));
 
-    const handleChange = useCallback((remirrorHelpers) => {
+    const handleChange = useCallback((remirrorHelpers: HelpersFromExtensions<MarkdownExtension>) => {
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
         }
@@ -44,20 +49,17 @@ export default function FlowPaneWysiwygEditor() {
 
             dispatch(updateFlowState({
                 id,
-                workflowId,
                 description: descriptionHtml,
                 descriptionMarkdown: markdown,
             }));
 
             dispatch(updateFlowDescription({
-                id,
-                nodeId,
-                workflowId,
+                ...flowPrimaryKey,
                 description: descriptionHtml,
                 descriptionMarkdown: markdown,
             }));
         }, 500);
-    }, [dispatch, id, nodeId, workflowId]);
+    }, [dispatch, flowPrimaryKey, id]);
 
     return (
         <Suspense fallback={loading}>

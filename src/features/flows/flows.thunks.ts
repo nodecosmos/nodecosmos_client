@@ -15,7 +15,7 @@ export const getFlowDescription = createAsyncThunk(
     'flows/getDescription',
     async (payload: FlowPrimaryKey) => {
         const {
-            nodeId, workflowId, startIndex, verticalIndex, id, 
+            nodeId, workflowId, startIndex, verticalIndex, id,
         } = payload;
         const response = await nodecosmos.get(
             `flows/${nodeId}/${workflowId}/${startIndex}/${verticalIndex}/${id}/description`,
@@ -47,11 +47,11 @@ export const deleteFlow = createAsyncThunk(
     'flows/deleteFlow',
     async (payload: FlowPrimaryKey) => {
         const {
-            nodeId, workflowId, startIndex, verticalIndex, id, 
+            nodeId, workflowId, startIndex, verticalIndex, id,
         } = payload;
 
         const response = await nodecosmos.delete(
-            `flows/${nodeId}/${workflowId}/${startIndex}/${verticalIndex}/${id}/`,
+            `/flows/${nodeId}/${workflowId}/${startIndex}/${verticalIndex}/${id}`,
         );
 
         return response.data;

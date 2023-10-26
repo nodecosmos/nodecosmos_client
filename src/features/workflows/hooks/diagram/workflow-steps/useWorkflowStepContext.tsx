@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { WorkflowStep } from '../../../diagram/types';
-import useWorkflowContext from '../../useWorkflowContext';
 import { groupById } from '../../../../../utils/group';
+import useDiagramContext from '../useDiagramContext';
 
 interface WorkflowStepContextValue {
     wfStep: WorkflowStep;
@@ -27,7 +27,7 @@ export default function useWorkflowStepContext() {
         wfStep, wfStepIndex, hovered,
     } = useContext(WorkflowStepContext);
 
-    const { diagram } = useWorkflowContext();
+    const diagram = useDiagramContext();
 
     let prevStepOutputsById: WorkflowStep['outputsById'];
 

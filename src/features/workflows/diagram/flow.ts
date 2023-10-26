@@ -1,6 +1,7 @@
 import { FlowStep } from '../../flow-steps/types';
 import { InputOutput } from '../../input-outputs/types';
 import { UUID } from '../../../types';
+import { FLOW_BUFFER } from '../workflows.constants';
 import { buildOutputs } from './output';
 import { calculateFlowStepNodePosition, calculateFlowStepPosition } from './position';
 import {
@@ -77,6 +78,9 @@ export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
             return node;
         });
 
+        const prevFlowStepId = flowSteps[stepIndex - 1]?.id;
+        const nextFlowStepId = flowSteps[stepIndex + 1]?.id;
+
         workflowStepFlows.push({
             id: flowStep.flowId,
             stepId: flowStep.id,
@@ -85,6 +89,8 @@ export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
             position: flowStepPosition,
             flowStepNodes,
             outputs: flowOutputs,
+            prevFlowStepId,
+            nextFlowStepId,
         });
     });
 
@@ -102,7 +108,9 @@ export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
         }),
         flowStepNodes: [],
         outputs: [],
+        prevFlowStepId: flowSteps[flowSteps.length - 1]?.id,
+        nextFlowStepId: null,
     });
 
-    return { workflowStepFlows, flowYEnd };
+    return { workflowStepFlows, flowYEnd: flowYEnd + FLOW_BUFFER };
 }

@@ -1,12 +1,8 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import {
-    selectWorkflow, selectWorkflowDiagram, selectWorkflowScale,
-} from '../workflows.selectors';
-import { selectTransformablePositionAttribute } from '../../app/app.selectors';
+import { selectWorkflow, selectWorkflowScale } from '../workflows.selectors';
 import { WorkflowDiagramContext } from '../workflows.constants';
 import { UUID } from '../../../types';
-import { WorkflowDiagram } from '../diagram/types';
 
 type WorkflowContextType = {
     context: WorkflowDiagramContext;
@@ -42,13 +38,8 @@ export default function useWorkflowContext() {
         initialInputIds,
     } = useSelector(selectWorkflow(id));
 
-    const diagram: WorkflowDiagram = useSelector(selectWorkflowDiagram(id));
-
     const transformableId = `WF_${context}_${id}`;
-    const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
     const scale = useSelector(selectWorkflowScale);
-
-    const wfHeight = (diagram.height > clientHeight ? diagram.height : clientHeight) + 200;
 
     return {
         context,
@@ -57,9 +48,7 @@ export default function useWorkflowContext() {
         rootNodeId,
         title,
         initialInputIds,
-        diagram,
         transformableId,
-        wfHeight,
         scale,
     };
 }
