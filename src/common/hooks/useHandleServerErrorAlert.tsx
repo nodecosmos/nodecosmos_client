@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAlert } from '../../features/app/appSlice';
+import { NodecosmosDispatch } from '../../store';
 
 // we need to update thunk to return error object from server
 export default function useHandleServerErrorAlert() {
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
-    return useCallback((error) => {
+    return useCallback((error: {message: string}) => {
         let message;
 
         if (error.message.includes('404')) {

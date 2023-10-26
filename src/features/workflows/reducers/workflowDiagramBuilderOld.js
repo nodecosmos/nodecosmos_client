@@ -5,7 +5,7 @@ import {
 } from '../workflows.memoize';
 
 export default {
-    buildWorkflowDiagram: (state, action) => {
+    createWorkflowDiagram: (state, action) => {
         const {
             id: workflowId,
             flowIds,

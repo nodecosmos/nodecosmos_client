@@ -30,7 +30,7 @@ export default function LandingPageNodeButton(props) {
 
     const { onNodeClick } = useNodeTreeEvents({ id });
     const {
-        outlineColor, backgroundColor, color, hashColor, 
+        outlineColor, backgroundColor, color, hashColor,
     } = useNodeButtonBackground({ id, nestedLevel, isRoot });
 
     const isCurrentNode = nodeExpanded && id === currentNodeId;
@@ -94,10 +94,12 @@ export default function LandingPageNodeButton(props) {
                         <LandingPageNodeButtonText id={id} />
                     </Box>
                     <Box filter="none">
-                        {isCurrentNode &&
-                            <Box className="NodeActions" sx={{ ml: 1 }}>
-                                <LandingPageNodeToolbar id={id} />
-                            </Box>
+                        {isCurrentNode
+                            && (
+                                <Box className="NodeActions" sx={{ ml: 1 }}>
+                                    <LandingPageNodeToolbar id={id} />
+                                </Box>
+                            )
                         }
                     </Box>
                 </Box>

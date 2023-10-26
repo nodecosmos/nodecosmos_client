@@ -1,21 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { UUID } from '../../types';
-import { Flow } from '../flows/types';
-import { InputOutput } from '../input-outputs/types';
-import { FlowStep } from '../flow-steps/types';
-import { Workflow, WorkflowUpsertPayload } from './types';
-
-export interface ShowWorkflowResponse {
-    workflow: Workflow,
-    flows: Flow[],
-    flowSteps: FlowStep[],
-    inputOutputs: InputOutput[]
-}
+import {
+    Workflow, WorkflowData, WorkflowUpsertPayload, 
+} from './types';
 
 export const showWorkflow = createAsyncThunk(
     'workflows/showWorkflow',
-    async (nodeId: UUID): Promise<ShowWorkflowResponse> => {
+    async (nodeId: UUID): Promise<WorkflowData> => {
         const response = await nodecosmos.get(`/workflows/${nodeId}`);
 
         return response.data;

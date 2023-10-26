@@ -21,6 +21,14 @@ export interface FlowStep extends FlowStepPrimaryKey {
 // primary key with optional id + partial of the rest
 export type FlowStepUpsertPayload = OptionalId<FlowStepPrimaryKey> & Partial<Omit<FlowStep, keyof FlowStepPrimaryKey>>;
 
+export interface FlowStepsByFlowId {
+    [flowId: string]: FlowStep[];
+}
+
+export interface FlowStepsById {
+    [id: string]: FlowStep;
+}
+
 export interface FlowStepState {
-    byId: Record<UUID, FlowStep>,
+    byId: FlowStepsById,
 }

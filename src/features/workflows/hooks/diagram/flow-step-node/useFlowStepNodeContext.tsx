@@ -1,8 +1,8 @@
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Position, UUID } from '../../../../../types';
-import { FlowStepNode } from '../../../types';
 import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
+import { FlowStepNode } from '../../../diagram/types';
 
 interface FlowStepNodeContextValue {
     id: UUID,
@@ -27,13 +27,13 @@ export default function useFlowStepNodeContext() {
 
     const title = useSelector(selectNodeAttribute(context.id, 'title'));
     const position = context.flowStepNode?.position || {} as Position;
-    const inputs = context.flowStepNode?.inputs || [];
+    const inputIds = context.flowStepNode?.inputIds || [];
     const outputs = context.flowStepNode?.outputs || [];
 
     return {
         id: context.id,
         title,
-        inputs,
+        inputIds,
         position,
         outputs,
     };

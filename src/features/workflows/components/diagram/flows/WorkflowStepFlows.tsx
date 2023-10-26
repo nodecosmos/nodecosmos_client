@@ -6,6 +6,6 @@ export default function WorkflowStepFlows() {
     const { wfStep } = useWorkflowStepContext();
 
     return wfStep.flows.map((workflowStepFlow) => (
-        <WorkflowStepFlow key={workflowStepFlow.id} workflowStepFlow={workflowStepFlow} />
+        <WorkflowStepFlow key={workflowStepFlow.stepId} workflowStepFlow={workflowStepFlow} />
     ));
 }

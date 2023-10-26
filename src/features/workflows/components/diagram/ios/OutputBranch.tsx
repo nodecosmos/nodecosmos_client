@@ -5,11 +5,15 @@ import {
 } from '../../../../trees/trees.constants';
 import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../workflows.constants';
 import { NodecosmosTheme } from '../../../../../themes/type';
-import { OutputProps } from './types';
+import { Output as OutputType } from '../../../diagram/types';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function WorkflowOutputButtonBranch(props: OutputProps) {
+interface OutputProps {
+    output: OutputType;
+}
+
+export default function OutputBranch(props: OutputProps) {
     const theme: NodecosmosTheme = useTheme();
 
     const { output } = props;

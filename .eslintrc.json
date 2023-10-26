@@ -63,6 +63,7 @@
         }],
         "object-curly-spacing": ["error", "always"],
         "object-shorthand": ["error", "always"],
+        "operator-linebreak": ["error", "before"],
         "quotes": ["error", "single"],
         "react/no-unused-prop-types": "error",
         "react/no-unused-state": 0,
@@ -82,6 +83,7 @@
         "react/jsx-no-bind": 1,
         "react-hooks/exhaustive-deps": 2,
         "semi": ["error", "always"],
+        "space-before-blocks": ["error", "always"],
         "space-infix-ops": "error",
         "space-in-parens": ["error", "never"]
     },

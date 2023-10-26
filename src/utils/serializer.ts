@@ -1,4 +1,4 @@
-export function base64ToUint8Array(base64) {
+export function base64ToUint8Array(base64: string) {
     const binaryString = window.atob(base64);
     const len = binaryString.length;
     const bytes = new Uint8Array(len);
@@ -8,7 +8,7 @@ export function base64ToUint8Array(base64) {
     return bytes;
 }
 
-export function uint8ArrayToBase64(buffer) {
+export function uint8ArrayToBase64(buffer: Uint8Array) {
     let binary = '';
     const len = buffer.byteLength;
     for (let i = 0; i < len; i += 1) {

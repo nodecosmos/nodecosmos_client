@@ -1,4 +1,4 @@
-export default function abbreviateNumber(num) {
+export default function abbreviateNumber(num: number) {
     if (!num) return null;
 
     if (num >= 1e9) {

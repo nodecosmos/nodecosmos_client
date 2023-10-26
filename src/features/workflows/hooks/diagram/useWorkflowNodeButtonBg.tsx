@@ -2,12 +2,14 @@ import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import { selectSelectedWorkflowObject } from '../../workflows.selectors';
+import { UUID } from '../../../../types';
+import { NodecosmosTheme } from '../../../../themes/type';
 
-export default function useWorkflowNodeButtonBg({ id }) {
+export default function useWorkflowNodeButtonBg({ id }: {id: UUID}) {
     const selectedWorkflowObject = useSelector(selectSelectedWorkflowObject);
     const nestedLevel = useSelector(selectNodeAttribute(id, 'nestedLevel'));
 
-    const theme = useTheme();
+    const theme: NodecosmosTheme = useTheme();
 
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;

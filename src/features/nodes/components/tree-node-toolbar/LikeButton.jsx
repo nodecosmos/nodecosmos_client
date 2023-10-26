@@ -3,7 +3,7 @@ import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Checkbox, Typography, Box, 
+    Checkbox, Typography, Box,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,10 +15,10 @@ import { selectNodeAttribute } from '../../nodes.selectors';
 import {
     getLikesCount, likeNode, unlikeNode,
 } from '../../nodes.thunks';
-import abbreviateNumber from '../../../../services/abbreviateNumber';
+import abbreviateNumber from '../../../../utils/abbreviateNumber';
 
 export default function LikeButton({
-    nodeId, fontSize, likesCount: providedLikesCount, 
+    nodeId, fontSize, likesCount: providedLikesCount,
 }) {
     const likes = useSelector(selectLikedObjectIds);
     const stateLikesCount = useSelector(selectNodeAttribute(nodeId, 'likesCount'));

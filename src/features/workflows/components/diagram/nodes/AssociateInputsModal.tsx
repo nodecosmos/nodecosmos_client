@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import Dialog from '@mui/material/Dialog';
 import { Form } from 'react-final-form';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch } from 'react-redux';
@@ -18,6 +17,9 @@ import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepCont
 import { NodecosmosDispatch } from '../../../../../store';
 import DefaultModalFormButton from '../../../../../common/components/buttons/DefaultModalFormButton';
 import { UUID } from '../../../../../types';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import { flattenValues } from '../../../../../utils/group';
+import DefaultModal from '../../../../../common/components/modal/DefaultModal';
 import AssociateInputCheckboxField from './AssocateInputCheckboxField';
 
 interface Props {
@@ -31,17 +33,17 @@ export default function AssociateInputsModal(props: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { initialInputIds, diagram } = useWorkflowContext();
     const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
-    const {
-        nodeId, flowStepPrimaryKey, inputIdsByNodeId: currentFlowStepInputIds, 
-    } = useFlowStepContext();
+    const { flowStepPrimaryKey, inputIdsByNodeId: currentFlowStepInputIds } = useFlowStepContext();
+    const { id: nodeId } = useFlowStepNodeContext();
 
-    let prevStepInputIds: UUID[] = [];
+    let prevStepOutputIds: UUID[] = [];
 
     if (workflowStepIndex === 0) {
-        prevStepInputIds = initialInputIds;
+        prevStepOutputIds = initialInputIds;
     } else {
         const prevWorkflowStep = diagram.workflowSteps[workflowStepIndex - 1];
-        prevStepInputIds = prevWorkflowStep.outputs.map((output) => output.id);
+        const prevStepOutputs = flattenValues(prevWorkflowStep.outputsById);
+        prevStepOutputIds = prevStepOutputs.map((output) => output.id);
     }
 
     const onSubmit = useCallback(async (formValues: {inputIds: UUID[]}) => {
@@ -69,12 +71,7 @@ export default function AssociateInputsModal(props: Props) {
     }, [currentFlowStepInputIds, dispatch, flowStepPrimaryKey, nodeId, onClose]);
 
     return (
-        <Dialog
-            fullWidth
-            maxWidth="sm"
-            onClose={onClose}
-            open={open}
-        >
+        <DefaultModal open={open} onClose={onClose}>
             <DialogTitle>
                 Inputs
                 <IconButton
@@ -101,7 +98,7 @@ export default function AssociateInputsModal(props: Props) {
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
                             {
-                                prevStepInputIds.map((inputId) => (
+                                prevStepOutputIds.map((inputId) => (
                                     <Box key={inputId}>
                                         <AssociateInputCheckboxField inputId={inputId} />
                                     </Box>
@@ -112,6 +109,6 @@ export default function AssociateInputsModal(props: Props) {
                     )}
                 </Form>
             </DialogContent>
-        </Dialog>
+        </DefaultModal>
     );
 }

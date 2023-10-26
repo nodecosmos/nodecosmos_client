@@ -9,7 +9,7 @@ export default function FlowStep() {
     return (
         <g>
             {
-                workflowStepFlow.flowStepNodes.map((flowStepNode) => (
+                workflowStepFlow.flowStepNodes?.map((flowStepNode) => (
                     <FlowStepNode key={flowStepNode.id} flowStepNode={flowStepNode} />
                 ))
             }

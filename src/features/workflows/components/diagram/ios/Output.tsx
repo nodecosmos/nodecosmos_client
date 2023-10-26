@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
@@ -16,23 +16,33 @@ import {
 } from '../../../workflows.constants';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import WorkflowOutputButtonBranch from './WorkflowOutputButtonBranch';
-import { OutputProps } from './types';
+import { Output as OutputType } from '../../../diagram/types';
+import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
+import { UUID } from '../../../../../types';
+import OutputBranch from './OutputBranch';
 
-export default function WorkflowOutputButton(props: OutputProps) {
+interface OutputProps {
+    output: OutputType;
+}
+
+export default function Output(props: OutputProps) {
     const { id: workflowId, context: workflowContext } = useWorkflowContext();
     const { output } = props;
     const {
-        id, nodeId, position, 
+        id,
+        nodeId,
+        position,
     } = output;
-
     const title = useSelector(selectIOAttribute(id, 'title'));
     const {
-        x, xEnd, y, 
+        x,
+        xEnd,
+        y,
     } = position;
+
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         if (workflowContext === WORKFLOW_DIAGRAM_CONTEXT.workflowPage) {
             dispatch(setSelectedWorkflowDiagramObject({
                 id,
@@ -41,19 +51,21 @@ export default function WorkflowOutputButton(props: OutputProps) {
                 type: WORKFLOW_DIAGRAM_OBJECTS.output,
             }));
         }
-    };
+    }, [dispatch, id, workflowContext, workflowId]);
 
     const {
         backgroundColor,
         outlineColor,
         color,
-    } = useWorkflowOutputButtonBg({ id, nodeId });
+    } = useWorkflowOutputButtonBg({ id, nodeId: nodeId as UUID });
+
+    const preventDefault = usePreventDefault();
 
     if (!xEnd) return null;
 
     return (
         <g>
-            <WorkflowOutputButtonBranch output={output} />
+            <OutputBranch output={output} />
             <g style={{
                 opacity: 0,
                 animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
@@ -70,7 +82,7 @@ export default function WorkflowOutputButton(props: OutputProps) {
                         type="button"
                         className="WorkflowOutputButton"
                         onClick={handleClick}
-                        onKeyUp={(event) => event.preventDefault()}
+                        onKeyUp={preventDefault}
                         style={{
                             background: backgroundColor,
                             border: `1px solid ${outlineColor}`,

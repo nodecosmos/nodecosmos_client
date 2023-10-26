@@ -52,6 +52,7 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                     maxWidth: OUTPUT_BUTTON_WIDTH,
                     px: 1,
                     transform: 'skewX(-30deg)',
+                    cursor: 'pointer',
                     // boxShadow: 'buttons.1',
                     '.IOButtonText': {
                         mx: 1,

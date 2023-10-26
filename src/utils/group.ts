@@ -1,0 +1,26 @@
+import { defaultMemoize } from 'reselect';
+import { UUID } from '../types';
+
+interface WithId {
+    id: UUID;
+}
+
+export const groupById = defaultMemoize(<T extends WithId>(items: T[]): Record<string, T> => {
+    const result: Record<string, T> = {};
+
+    items.forEach((item) => {
+        result[item.id] = item;
+    });
+
+    return result;
+});
+
+export const flattenValues = defaultMemoize(<T>(items: Record<string, T>): T[] => {
+    const result: T[] = [];
+
+    Object.values(items).forEach((item) => {
+        result.push(item);
+    });
+
+    return result;
+});

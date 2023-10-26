@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     Box, Button, Typography, useTheme,
 } from '@mui/material';
@@ -7,7 +7,7 @@ import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.co
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
-import { WorkflowStep as WorkflowStepType } from '../../../types';
+import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 
@@ -21,34 +21,33 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
     const { x } = wfStep.position;
     const fillColor = wfStep.index % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
     const hoverColor = theme.palette.background[7];
-    const {
-        WorkflowStepContext,
-        contextProviderValue,
-    } = useWorkflowStepContextCreator({
+    const { WorkflowStepContext, contextProviderValue } = useWorkflowStepContextCreator({
         wfStep,
         wfStepIndex: wfStep.index,
         hovered,
     });
 
-    if (!x || !wfStep) return null;
+    const handleMouseEnter = useCallback((event: React.MouseEvent<SVGGElement, MouseEvent>) => {
+        const targetElement = event.target as HTMLElement;
+
+        if (targetElement.classList.contains('input-branch')) {
+            event.stopPropagation();
+        } else {
+            setHovered(true);
+        }
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        setHovered(false);
+    }, []);
+
+    if (!x || !wfStep || !wfHeight) return null;
 
     return (
         <WorkflowStepContext.Provider value={contextProviderValue}>
             <g
-                key={wfStep.index}
-                onMouseEnter={(event) => {
-                    const targetElement = event.target as HTMLElement;
-
-                    if (targetElement.classList.contains('input-branch')) {
-                        event.stopPropagation();
-                    } else {
-                        setHovered(true);
-                    }
-                }}
-                onMouseLeave={() => {
-                    setHovered(false);
-                }}
-            >
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}>
                 <path
                     strokeWidth={1}
                     d={`M ${x} ${0}

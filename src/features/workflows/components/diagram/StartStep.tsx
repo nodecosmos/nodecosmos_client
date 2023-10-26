@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material';
@@ -14,9 +14,10 @@ import {
 } from '../../workflows.constants';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { NodecosmosTheme } from '../../../../themes/type';
-import { Output } from '../../types';
+import { Output as OutputType } from '../../diagram/types';
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import StartToolbar from './StartToolbar';
-import WorkflowOutputButton from './ios/WorkflowOutputButton';
+import Output from './ios/Output';
 
 export default function StartStep() {
     const theme: NodecosmosTheme = useTheme();
@@ -27,16 +28,16 @@ export default function StartStep() {
     const y = OUTPUT_EDGE_LENGTH;
     const yEnd = y + (OUTPUT_EDGE_LENGTH) * inputsLength + WORKFLOW_START_MARGIN_TOP;
 
-    const [hovered, setHovered] = useState(false);
+    const [hovered, hover, leave] = useBooleanStateValue();
     const { wfHeight } = useWorkflowContext();
 
     const fillColor = theme.palette.background[5];
     const hoverColor = theme.palette.background[7];
 
     return (
-        <g onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+        <g onMouseEnter={hover} onMouseLeave={leave}>
             <rect
-                onMouseEnter={() => setHovered(true)}
+                onMouseEnter={hover}
                 x={0}
                 y={1}
                 height={wfHeight}
@@ -100,8 +101,8 @@ export default function StartStep() {
                 </div>
             </foreignObject>
             {
-                diagram.initialInputs.map((output: Output) => (
-                    <WorkflowOutputButton key={output.id} output={output} />
+                diagram.initialInputs.map((output: OutputType) => (
+                    <Output key={output.id} output={output} />
                 ))
             }
         </g>

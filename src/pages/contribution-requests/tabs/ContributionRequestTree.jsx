@@ -5,6 +5,7 @@ import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Tree from '../../../features/trees/components/Tree';
 import { TREES_TYPES } from '../../../features/trees/trees.constants';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 
 export default function ContributionRequestTree() {
     const { id } = useParams();
@@ -15,7 +16,7 @@ export default function ContributionRequestTree() {
 
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
-    const [resizerHovered, setResizerHovered] = React.useState(false);
+    const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const {
         paneAWidth,
@@ -36,9 +37,9 @@ export default function ContributionRequestTree() {
 
     useEffect(() => {
         if (!resizeInProgress) {
-            setResizerHovered(false);
+            hoverResizer();
         }
-    }, [resizeInProgress]);
+    }, [hoverResizer, resizeInProgress]);
 
     return (
         <Box
@@ -65,12 +66,8 @@ export default function ContributionRequestTree() {
                     ml={-0.5}
                     borderRight={1}
                     borderColor="transparent"
-                    onMouseEnter={() => setResizerHovered(true)}
-                    onMouseLeave={() => {
-                        if (!resizeInProgress) {
-                            setResizerHovered(false);
-                        }
-                    }}
+                    onMouseEnter={hoverResizer}
+                    onMouseLeave={leaveResizer}
                     sx={{
                         position: 'relative',
                         '&:hover': {

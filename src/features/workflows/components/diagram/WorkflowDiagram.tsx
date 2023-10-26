@@ -8,6 +8,7 @@ import StartStep from './StartStep';
 
 export default function WorkflowDiagram() {
     const { transformableId, diagram } = useWorkflowContext();
+
     const wfScale = useSelector(selectWorkflowScale);
 
     if (!diagram) return null;

@@ -6,6 +6,7 @@ import {
 import { selectTransformablePositionAttribute } from '../../app/app.selectors';
 import { WorkflowDiagramContext } from '../workflows.constants';
 import { UUID } from '../../../types';
+import { WorkflowDiagram } from '../diagram/types';
 
 type WorkflowContextType = {
     context: WorkflowDiagramContext;
@@ -16,7 +17,7 @@ type WorkflowContextType = {
 const WorkflowContext = React.createContext<WorkflowContextType>({} as WorkflowContextType);
 
 export function useWorkflowContextCreator({
-    context, id, nodeId, 
+    context, id, nodeId,
 }: WorkflowContextType) {
     const contextProviderValue = useMemo(() => ({ context, id, nodeId }), [context, id, nodeId]);
 
@@ -28,7 +29,7 @@ export function useWorkflowContextCreator({
 
 export default function useWorkflowContext() {
     const {
-        context, id, nodeId, 
+        context, id, nodeId,
     } = React.useContext(WorkflowContext);
 
     if (context === undefined) {
@@ -41,11 +42,13 @@ export default function useWorkflowContext() {
         initialInputIds,
     } = useSelector(selectWorkflow(id));
 
-    const diagram = useSelector(selectWorkflowDiagram(id));
+    const diagram: WorkflowDiagram = useSelector(selectWorkflowDiagram(id));
 
     const transformableId = `WF_${context}_${id}`;
     const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
     const scale = useSelector(selectWorkflowScale);
+
+    const wfHeight = (diagram.height > clientHeight ? diagram.height : clientHeight) + 200;
 
     return {
         context,
@@ -56,7 +59,7 @@ export default function useWorkflowContext() {
         initialInputIds,
         diagram,
         transformableId,
-        wfHeight: clientHeight,
+        wfHeight,
         scale,
     };
 }

@@ -3,33 +3,41 @@ import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
 import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
-import { Output } from '../../../types';
 import { NodecosmosTheme } from '../../../../../themes/type';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import { UUID } from '../../../../../types';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-interface Props {
-    input: Output
+interface InputProps {
+    prevStepOutputId: UUID
 }
 
-export default function NodeInputBranch({ input }: Props) {
+export default function Input({ prevStepOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const selectedWorkflowObject = useSelector(selectSelectedWorkflowObject);
     const selectedObjectId = selectedWorkflowObject?.id;
-
-    const {
-        x, y, xEnd, yEnd, 
-    } = input.position;
+    const { prevStepOutputsById } = useWorkflowStepContext();
+    const { id: nodeId, position: nodePosition } = useFlowStepNodeContext();
 
     const {
         selectedInputColor,
         defaultInputColor,
     } = theme.palette.workflow;
 
-    const isSelected = selectedObjectId === input.nodeId;
+    const isSelected = selectedObjectId === nodeId;
     const color = isSelected ? selectedInputColor : defaultInputColor;
 
-    if (!x) return null;
+    const { position: prevOutputPosition } = prevStepOutputsById[prevStepOutputId] || {};
+
+    // current inputs starts where previous output ends (xEnd, yEnd)
+    const { xEnd: x, yEnd: y } = prevOutputPosition || {};
+
+    // current inputs ends where current node starts (x, y)
+    const { x: xEnd, y: yEnd } = nodePosition;
+
+    if (!xEnd) return null;
 
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
@@ -43,8 +51,8 @@ export default function NodeInputBranch({ input }: Props) {
                 d={`M ${x} ${y} L ${xEnd} ${yEnd}`}
                 style={{
                     opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms`,
-                    transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+                    animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
+                    transition: `d ${transitionAnimationDuration / 2}ms`,
                 }}
             />
             <circle
@@ -53,10 +61,10 @@ export default function NodeInputBranch({ input }: Props) {
                 r={5}
                 strokeWidth={1}
                 stroke={theme.palette.secondary.main}
-                fill={defaultInputColor}
+                fill={color}
                 style={{
                     opacity: 0,
-                    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms`,
+                    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
                     transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
                 }}
             />

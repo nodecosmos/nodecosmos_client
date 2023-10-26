@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { UUID } from '../../types';
 import { Workflow, WorkflowState } from './types';
 
-type State = { workflows: WorkflowState; };
+interface State{ workflows: WorkflowState; }
 
 export const selectWorkflowsById = (state: State) => state.workflows.byId;
 export const selectWorkflowIdByNodeId = (state: State) => state.workflows.idByNodeId;

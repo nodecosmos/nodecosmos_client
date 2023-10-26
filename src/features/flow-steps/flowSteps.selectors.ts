@@ -4,7 +4,9 @@ import {
     FlowStep, FlowStepPrimaryKey, FlowStepState,
 } from './types';
 
-type State = { flowSteps: FlowStepState; }
+interface State {
+    flowSteps: FlowStepState;
+}
 
 const selectFlowSteps = (state: State) => state.flowSteps.byId;
 
@@ -22,4 +24,11 @@ export const selectFlowStepPrimaryKey = (id: UUID | null) => createSelector(
         flowIndex: flowStep.flowIndex,
         id: flowStep.id,
     }),
+);
+
+export const selectFlowStepsByWorkflowId = (workflowId: UUID | null) => createSelector(
+    selectFlowSteps,
+    (flowStepsByWorkflowId) => Object.values(flowStepsByWorkflowId).filter(
+        (flowStep) => flowStep.workflowId === workflowId,
+    ),
 );

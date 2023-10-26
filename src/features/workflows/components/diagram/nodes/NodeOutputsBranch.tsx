@@ -4,7 +4,9 @@ import { useTheme } from '@mui/material';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
-import { MARGIN_LEFT, MARGIN_TOP } from '../../../workflows.constants';
+import {
+    EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP, 
+} from '../../../workflows.constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import { NodecosmosTheme } from '../../../../../themes/type';
 
@@ -18,7 +20,7 @@ export default function NodeOutputsBranch() {
 
     if (!x || !y || !xEnd || !yEnd) return null;
 
-    const branchX = xEnd + MARGIN_LEFT;
+    const branchX = x + EDGE_LENGTH + MARGIN_LEFT;
     const branchY = y + MARGIN_TOP;
 
     return (

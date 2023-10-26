@@ -1,4 +1,4 @@
-export default function extractTextFromHtml(html, maxLength = 255) {
+export default function extractTextFromHtml(html: string, maxLength = 255) {
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(html, 'text/html');
 

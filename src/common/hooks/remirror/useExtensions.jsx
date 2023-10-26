@@ -22,7 +22,7 @@ import * as Y from 'yjs';
 import { useSelector } from 'react-redux';
 import { WebsocketProvider } from 'y-websocket';
 import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
-import { base64ToUint8Array } from '../../../services/serializer';
+import { base64ToUint8Array } from '../../../utils/serializer';
 import { WS_URI } from '../../../apis/nodecosmos-server';
 
 export default function useExtensions({

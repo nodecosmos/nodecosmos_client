@@ -1,5 +1,4 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
+import React, { useCallback } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Form } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,26 +16,23 @@ import DefaultModalFormButton from '../../../common/components/buttons/DefaultMo
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { UUID } from '../../../types';
 import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/types';
+import DefaultModal from '../../../common/components/modal/DefaultModal';
 
-interface BaseIOModalProps {
+interface BaseIOProps {
     open: boolean;
     onClose: () => void;
+    associatedObject: 'workflow' | 'flowStep';
 }
 
-interface WorkflowProps extends BaseIOModalProps {
-    associatedObject: 'workflow';
-}
-
-interface FlowStepProps extends BaseIOModalProps {
-    associatedObject: 'flowStep';
+interface FlowStepProps extends BaseIOProps {
     flowStepPrimaryKey: FlowStepPrimaryKey;
     outputNodeId: UUID;
     outputIdsByNodeId: FlowStep['outputIdsByNodeId'];
 }
 
-export type CreateIOModalProps = WorkflowProps | FlowStepProps;
+export type CreateIOModalProps = BaseIOProps & FlowStepProps;
 
-export default function CreateIOModal(props: CreateIOModalProps) {
+export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
     const {
         open, onClose, associatedObject,
     } = props;
@@ -55,16 +51,17 @@ export default function CreateIOModal(props: CreateIOModalProps) {
 
     const { onSubmit, loading } = useIOSubmitHandler(props, autocompleteValue);
 
+    const renderOption = useCallback((props: React.HTMLAttributes<HTMLLIElement>, option: string) => (
+        <li {...props}>
+            <FontAwesomeIcon icon={faCodeCommit} />
+            <span className="label">
+                {option}
+            </span>
+        </li>
+    ), []);
+
     return (
-        <Dialog
-            fullWidth
-            maxWidth="md"
-            onClose={onClose}
-            open={open}
-            PaperProps={{
-                elevation: 8,
-            }}
-        >
+        <DefaultModal open={open} onClose={onClose}>
             <DialogTitle>
                 {title}
                 <CloseModalButton onClose={onClose} />
@@ -76,14 +73,7 @@ export default function CreateIOModal(props: CreateIOModalProps) {
                             <FinalFormAutocompleteField
                                 freeSolo
                                 options={uniqueIOTitles}
-                                renderOption={(props, option) => (
-                                    <li {...props}>
-                                        <FontAwesomeIcon icon={faCodeCommit} />
-                                        <span className="label">
-                                            {option}
-                                        </span>
-                                    </li>
-                                )}
+                                renderOption={renderOption}
                                 startAdornment={(
                                     <InputAdornment position="start" sx={{ svg: { p: 2, color: 'tree.hashtag' } }}>
                                         <FontAwesomeIcon icon={faCodeCommit} />
@@ -99,6 +89,6 @@ export default function CreateIOModal(props: CreateIOModalProps) {
                     )}
                 </Form>
             </DialogContent>
-        </Dialog>
+        </DefaultModal>
     );
 }

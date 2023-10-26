@@ -4,7 +4,8 @@ import { showWorkflow } from '../workflows/workflows.thunks';
 import {
     createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
 } from './flowSteps.thunks';
-import { FlowStep, FlowStepState } from './types';
+import { FlowStepState } from './types';
+import { groupFlowStepsById } from './flowSteps.memoize';
 
 const initialState: FlowStepState = {
     byId: {},
@@ -18,12 +19,9 @@ const flowStepsSlice = createSlice({
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
                 const { flowSteps } = action.payload;
-                flowSteps.forEach((flowStep: FlowStep) => {
-                    state.byId[flowStep.id] = flowStep;
+                const flowStepsById = groupFlowStepsById(flowSteps);
 
-                    flowStep.inputIdsByNodeId ||= {};
-                    flowStep.outputIdsByNodeId ||= {};
-                });
+                state.byId = { ...state.byId, ...flowStepsById };
             })
             .addCase(createFlowStep.fulfilled, (state, action) => {
                 const { flowStep } = action.payload;

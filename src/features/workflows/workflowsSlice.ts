@@ -8,7 +8,7 @@ import {
 import { WorkflowState } from './types';
 import { getScale } from './workflows.helpers';
 import { addWorkflow } from './reducers/workflowAdd';
-import { buildWorkflowDiagram } from './reducers/workflowDiagram';
+import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
 
 const initialState: WorkflowState = {
     byId: {},
@@ -41,20 +41,32 @@ const workflowsSlice = createSlice({
         updateWorkflow(state, action) {
             state.byId[action.payload.id] = { ...state.byId[action.payload.id], ...action.payload };
         },
+        rebuildWorkflowDiagram(state, action) {
+            const { id, data } = action.payload;
+            state.workflowDiagramById[id] = buildWorkflowDiagram(data);
+        },
     },
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
                 addWorkflow(state, action);
-                buildWorkflowDiagram(state, action);
+                const {
+                    workflow, flows, flowSteps, inputOutputs,
+                } = action.payload;
+                const { initialInputIds } = workflow;
+                const data = {
+                    initialInputIds,
+                    flows,
+                    flowSteps,
+                    inputOutputs,
+                };
+                state.workflowDiagramById[workflow.id] = buildWorkflowDiagram(data);
             })
             .addCase(createWorkflow.fulfilled, (state, action) => {
                 addWorkflow(state, action);
 
                 const { workflow } = action.payload;
-                buildWorkflowDiagram(state,
-                    { payload: { workflow, flows: [], flowSteps: [], inputOutputs: [] }, type: action.type },
-                );
+                state.workflowDiagramById[workflow.id] = buildWorkflowDiagram({} as BuildWorkflowDiagramData);
             })
             .addCase(deleteWorkflow.fulfilled, (state, action) => {
                 const { workflow } = action.payload;
@@ -84,6 +96,7 @@ export const {
     setWorkflowScale,
     clearSelectedWorkflowDiagramObject,
     updateWorkflow,
+    rebuildWorkflowDiagram,
 } = actions;
 
 export default reducer;

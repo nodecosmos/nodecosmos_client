@@ -1,14 +1,14 @@
 import React, {
-    Suspense, useCallback, useEffect, 
+    Suspense, useCallback, useEffect,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import { selectNodeAttribute, selectSelectedNodeId } from '../../../nodes.selectors';
-import extractTextFromHtml from '../../../../../services/extractTextFromHtml';
+import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
 import { updateNodeState } from '../../../nodeActions';
 import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
 import Loader from '../../../../../common/components/Loader';
-import { uint8ArrayToBase64 } from '../../../../../services/serializer';
+import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
 
 const RemirrorEditor = React.lazy(
     () => import('../../../../../common/components/remirror/RemirrorEditor'),

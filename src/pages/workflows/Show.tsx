@@ -10,13 +10,16 @@ import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../features/workf
 import { showWorkflow } from '../../features/workflows/workflows.thunks';
 import Alert from '../../common/components/Alert';
 import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
+import { NodecosmosDispatch } from '../../store';
+import { UUID } from '../../types';
+import { NodecosmosTheme } from '../../themes/type';
 
 export default function Show() {
     const { id: nodeId } = useParams();
-    const theme = useTheme();
+    const theme: NodecosmosTheme = useTheme();
 
-    const dispatch = useDispatch();
-    const workflow = useSelector(selectWorkflowByNodeId(nodeId));
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const workflow = useSelector(selectWorkflowByNodeId(nodeId as UUID));
 
     const id = workflow?.id;
 
@@ -51,7 +54,7 @@ export default function Show() {
     useEffect(() => {
         if (!id) {
             setLoading(true);
-            dispatch(showWorkflow(nodeId)).then(() => setLoading(false));
+            dispatch(showWorkflow(nodeId as UUID)).then(() => setLoading(false));
         } else {
             setLoading(false);
         }
@@ -91,9 +94,10 @@ export default function Show() {
                     overflow="hidden"
                 >
                     <Alert />
-                    <Workflow nodeId={nodeId} />
+                    <Workflow nodeId={nodeId as UUID} />
                 </Box>
                 <Box
+                    component="div"
                     onMouseDown={handleResize}
                     onMouseEnter={() => setResizerHovered(true)}
                     onMouseLeave={() => {
@@ -102,7 +106,7 @@ export default function Show() {
                         }
                     }}
                     width="8px"
-                    backgroundColor="transparent"
+                    // backgroundColor="transparent"
                     height={1}
                     ml={-1}
                     sx={{
@@ -113,7 +117,8 @@ export default function Show() {
                     }}
                 />
                 <Box
-                    backgroundColor="background.5"
+                    component="div"
+                    // backgroundColor="background.5"
                     height={1}
                     display={isWfPaneOpen ? 'block' : 'none'}
                     width={(isWfPaneOpen && paneBWidth) || 0}

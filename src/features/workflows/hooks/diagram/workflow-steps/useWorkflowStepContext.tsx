@@ -1,5 +1,7 @@
 import React, { useContext, useMemo } from 'react';
-import { WorkflowStep } from '../../../types';
+import { WorkflowStep } from '../../../diagram/types';
+import useWorkflowContext from '../../useWorkflowContext';
+import { groupById } from '../../../../../utils/group';
 
 interface WorkflowStepContextValue {
     wfStep: WorkflowStep;
@@ -10,7 +12,7 @@ interface WorkflowStepContextValue {
 const WorkflowStepContext = React.createContext({} as WorkflowStepContextValue);
 
 export function useWorkflowStepContextCreator({
-    wfStep, wfStepIndex, hovered, 
+    wfStep, wfStepIndex, hovered,
 }: WorkflowStepContextValue) {
     const contextProviderValue = useMemo(() => ({ wfStep, wfStepIndex, hovered }), [hovered, wfStep, wfStepIndex]);
 
@@ -21,5 +23,25 @@ export function useWorkflowStepContextCreator({
 }
 
 export default function useWorkflowStepContext() {
-    return useContext(WorkflowStepContext);
+    const {
+        wfStep, wfStepIndex, hovered,
+    } = useContext(WorkflowStepContext);
+
+    const { diagram } = useWorkflowContext();
+
+    let prevStepOutputsById: WorkflowStep['outputsById'];
+
+    if (wfStepIndex > 0) {
+        const prevStep = diagram.workflowSteps[wfStepIndex - 1];
+        prevStepOutputsById = prevStep.outputsById;
+    } else {
+        prevStepOutputsById = groupById(diagram.initialInputs);
+    }
+
+    return {
+        wfStep,
+        wfStepIndex,
+        hovered,
+        prevStepOutputsById,
+    };
 }

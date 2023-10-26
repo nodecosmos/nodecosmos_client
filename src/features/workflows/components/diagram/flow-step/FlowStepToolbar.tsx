@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,6 +17,7 @@ import { FLOW_STEP_SIZE, WORKFLOW_DIAGRAM_CONTEXT } from '../../../workflows.con
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { NodecosmosDispatch } from '../../../../../store';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import useModalOpen from '../../../../../common/hooks/useModalOpen';
 
 export default function FlowStepToolbar() {
     const { title: flowTitle } = useFlowContext();
@@ -38,11 +39,11 @@ export default function FlowStepToolbar() {
         }
     }, [dispatch, flowId, workflowContext]);
 
-    const handleFlowStepDeletion = () => {
+    const handleFlowStepDeletion = useCallback(() => {
         dispatch(deleteFlowStep(flowStepPrimaryKey));
-    };
+    }, [dispatch, flowStepPrimaryKey]);
 
-    const [addFlopStepNodesModalOpen, setAddFlowStepNodesModalOpen] = useState(false);
+    const [modalOpen, openModal, closeModal] = useModalOpen();
 
     const { hovered } = useWorkflowStepContext();
 
@@ -75,13 +76,13 @@ export default function FlowStepToolbar() {
                                 className="Item"
                                 aria-label="Add Node"
                                 sx={{ color: 'toolbar.lightRed' }}
-                                onClick={() => setAddFlowStepNodesModalOpen(true)}
+                                onClick={openModal}
                             >
                                 <FontAwesomeIcon icon={faDiagramProject} />
                             </IconButton>
                         </Tooltip>
                         {
-                            workflowStepFlow && (
+                            workflowStepFlow?.stepId && (
                                 <Tooltip title="Delete Flow Step" placement="top">
                                     <IconButton
                                         className="Item"
@@ -97,7 +98,7 @@ export default function FlowStepToolbar() {
                     </ToolsContainer>
                 )
             }
-            <FlowStepModal open={addFlopStepNodesModalOpen} onClose={() => setAddFlowStepNodesModalOpen(false)} />
+            <FlowStepModal open={modalOpen} onClose={closeModal} />
         </Box>
     );
 }
