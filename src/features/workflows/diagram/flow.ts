@@ -34,83 +34,86 @@ export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
     const workflowStepFlows: WorkflowStepFlow[] = [];
     let flowYEnd = prefFlowYEnd;
 
-    flowSteps.forEach((flowStep, stepIndex) => {
-        const flowStepPosition = calculateFlowStepPosition({
-            flowStep,
-            flowStartIndex,
-            stepIndex,
-            prefFlowYEnd,
-        });
-
-        flowYEnd = Math.max(flowStepPosition.yEnd, flowYEnd);
-
-        let prevNodeYEnd = 0;
-        const flowOutputs: Output[] = [];
-
-        const flowStepNodes = flowStep?.nodeIds?.map((nodeId) => {
-            const nodePosition = calculateFlowStepNodePosition({
-                flowStepPosition,
-                flowStep,
-                nodeId,
-                prevNodeYEnd,
-            });
-
-            const outputs = buildOutputs({
-                flowStep,
-                nodePosition,
-                nodeId,
-                flowStepData: data,
-            });
-
-            // collect all outputs from all nodes
-            flowOutputs.push(...outputs);
-
-            const node: FlowStepNode = {
-                id: nodeId,
-                flowStepId: flowStep.id,
-                inputIds: flowStep.inputIdsByNodeId[nodeId] || [],
-                outputs,
-                position: nodePosition,
-            };
-
-            prevNodeYEnd = nodePosition.yEnd;
-
-            return node;
-        });
-
-        const prevFlowStepId = flowSteps[stepIndex - 1]?.id;
-        const nextFlowStepId = flowSteps[stepIndex + 1]?.id;
-
+    if (flowSteps.length === 0) {
+        // append one empty flow step
         workflowStepFlows.push({
-            id: flowStep.flowId,
-            stepId: flowStep.id,
+            id: flowId,
+            stepId: null,
             startIndex: flowStartIndex,
             verticalIndex: flowVerticalIndex,
-            position: flowStepPosition,
-            flowStepNodes,
-            outputs: flowOutputs,
-            prevFlowStepId,
-            nextFlowStepId,
+            position: calculateFlowStepPosition({
+                flowStep: null,
+                flowStartIndex,
+                stepIndex: 0,
+                prefFlowYEnd,
+            }),
+            flowStepNodes: [],
+            outputs: [],
+            prevFlowStepId: null,
+            nextFlowStepId: null,
         });
-    });
 
-    // append one empty flow step at the end
-    workflowStepFlows.push({
-        id: flowId,
-        stepId: null,
-        startIndex: flowStartIndex,
-        verticalIndex: flowVerticalIndex,
-        position: calculateFlowStepPosition({
-            flowStep: null,
-            flowStartIndex,
-            stepIndex: flowSteps.length,
-            prefFlowYEnd,
-        }),
-        flowStepNodes: [],
-        outputs: [],
-        prevFlowStepId: flowSteps[flowSteps.length - 1]?.id,
-        nextFlowStepId: null,
-    });
+    } else {
+        flowSteps.forEach((flowStep, stepIndex) => {
+            const flowStepPosition = calculateFlowStepPosition({
+                flowStep,
+                flowStartIndex,
+                stepIndex,
+                prefFlowYEnd,
+            });
+
+            flowYEnd = Math.max(flowStepPosition.yEnd, flowYEnd);
+
+            let prevNodeYEnd = 0;
+            const flowOutputs: Output[] = [];
+
+            const flowStepNodes = flowStep?.nodeIds?.map((nodeId) => {
+                const nodePosition = calculateFlowStepNodePosition({
+                    flowStepPosition,
+                    flowStep,
+                    nodeId,
+                    prevNodeYEnd,
+                });
+
+                const outputs = buildOutputs({
+                    flowStep,
+                    nodePosition,
+                    nodeId,
+                    flowStepData: data,
+                });
+
+                // collect all outputs from all nodes
+                flowOutputs.push(...outputs);
+
+                const node: FlowStepNode = {
+                    id: nodeId,
+                    flowStepId: flowStep.id,
+                    inputIds: flowStep.inputIdsByNodeId[nodeId] || [],
+                    outputs,
+                    position: nodePosition,
+                };
+
+                prevNodeYEnd = nodePosition.yEnd;
+
+                return node;
+            });
+
+            const prevFlowStepId = flowSteps[stepIndex - 1]?.id;
+            const nextFlowStepId = flowSteps[stepIndex + 1]?.id;
+
+            workflowStepFlows.push({
+                id: flowStep.flowId,
+                stepId: flowStep.id,
+                startIndex: flowStartIndex,
+                verticalIndex: flowVerticalIndex,
+                position: flowStepPosition,
+                flowStepNodes,
+                outputs: flowOutputs,
+                prevFlowStepId,
+                nextFlowStepId,
+            });
+        });
+    }
 
     return { workflowStepFlows, flowYEnd: flowYEnd + FLOW_BUFFER };
 }

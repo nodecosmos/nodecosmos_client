@@ -1,4 +1,4 @@
-import { OptionalId, UUID } from '../../types';
+import { UUID } from '../../types';
 
 export interface FlowStepPrimaryKey {
     nodeId: UUID;
@@ -16,6 +16,17 @@ export interface FlowStep extends FlowStepPrimaryKey {
     outputIdsByNodeId: Record<UUID, UUID[]>;
     createdAt: Date;
     updatedAt: Date;
+    prevFlowStepId?: UUID;
+    nextFlowStepId?: UUID;
+}
+
+export interface FlowStepCreationParams {
+    prevFlowStepId?: UUID | null;
+    nextFlowStepId?: UUID | null;
+    nodeId: UUID;
+    workflowId: UUID;
+    flowId: UUID;
+    nodeIds: UUID[];
 }
 
 // primary key with optional id + partial of the rest

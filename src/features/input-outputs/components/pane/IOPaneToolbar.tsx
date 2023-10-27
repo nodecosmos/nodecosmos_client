@@ -16,10 +16,10 @@ import {
     selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
 } from '../../inputOutputs.selectors';
 import { deleteIO } from '../../inputOutputs.thunks';
-import { IO_PANE_CONTENTS } from '../../inputOutputs.constants';
 import { setIOPaneContent } from '../../inputOutputsSlice';
 import { WorkflowDiagramObject } from '../../../workflows/types';
 import { NodecosmosDispatch } from '../../../../store';
+import { IOPaneContent } from '../../types';
 
 export default function IOPaneToolbar() {
     const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
@@ -32,6 +32,18 @@ export default function IOPaneToolbar() {
     const handleDeleteIO = useCallback(() => {
         dispatch(deleteIO(primaryKey));
     }, [dispatch, primaryKey]);
+
+    const setMarkdown = useCallback(() => {
+        dispatch(setIOPaneContent(IOPaneContent.Markdown));
+    }, [dispatch]);
+
+    const setEditor = useCallback(() => {
+        dispatch(setIOPaneContent(IOPaneContent.Editor));
+    }, [dispatch]);
+
+    const setDescription = useCallback(() => {
+        dispatch(setIOPaneContent(IOPaneContent.Description));
+    }, [dispatch]);
 
     return (
         <Box
@@ -48,22 +60,22 @@ export default function IOPaneToolbar() {
                     title="Edit Description Markdown"
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
-                    active={ioPaneContent === IO_PANE_CONTENTS.markdown}
-                    onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.markdown))}
+                    active={ioPaneContent === IOPaneContent.Markdown}
+                    onClick={setMarkdown}
                 />
                 <ToolbarItem
                     title="Edit Description"
                     icon={faPenToSquare}
                     color="toolbar.green"
-                    active={ioPaneContent === IO_PANE_CONTENTS.editor}
-                    onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.editor))}
+                    active={ioPaneContent === IOPaneContent.Editor}
+                    onClick={setEditor}
                 />
                 <ToolbarItem
                     title="View Description"
                     icon={faDisplay}
                     color="toolbar.blue"
-                    active={ioPaneContent === IO_PANE_CONTENTS.description}
-                    onClick={() => dispatch(setIOPaneContent(IO_PANE_CONTENTS.description))}
+                    active={ioPaneContent === IOPaneContent.Description}
+                    onClick={setDescription}
                 />
             </ToolbarContainer>
 

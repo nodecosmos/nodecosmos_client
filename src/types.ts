@@ -15,3 +15,9 @@ export interface Owner {
     username: string | null;
     profileImageURL: string | null;
 }
+
+export type Exact<T, Shape> = T & {
+    [K in Exclude<keyof Shape, keyof T>]?: never;
+};
+
+export type Strict<MyType> = MyType & Exact<MyType, MyType>;

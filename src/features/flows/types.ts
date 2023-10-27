@@ -3,8 +3,8 @@ import { OptionalId, UUID } from '../../types';
 export interface FlowPrimaryKey {
     nodeId: UUID;
     workflowId: UUID;
-    startIndex: number;
     verticalIndex: number;
+    startIndex: number;
     id: UUID;
 }
 
@@ -19,7 +19,6 @@ export interface Flow extends FlowPrimaryKey {
 // primary key with optional id + partial of the rest
 export type FlowUpsertPayload = OptionalId<FlowPrimaryKey> & Partial<Omit<Flow, keyof FlowPrimaryKey>>;
 
-// eslint-disable-next-line no-shadow
 export enum FlowPaneContent {
     Description = 'description',
     Markdown = 'markdown',

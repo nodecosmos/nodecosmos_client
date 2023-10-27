@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
-import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
+import {
+    faDiagramProject, faTrash, faDiagramNext,
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box,
@@ -7,9 +9,10 @@ import {
     Tooltip, Typography,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
-import { deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
+import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
@@ -19,13 +22,21 @@ import { NodecosmosDispatch } from '../../../../../store';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { WorkflowDiagramObjectType } from '../../../types';
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
+import { Strict } from '../../../../../types';
+import { FlowStepCreationParams } from '../../../../flow-steps/types';
 
 export default function FlowStepToolbar() {
-    const { title: flowTitle, id: flowId } = useFlowContext();
     const { context: workflowContext } = useWorkflowContext();
-    const { flowStepPrimaryKey, stepId } = useFlowStepContext();
+    const { hovered } = useWorkflowStepContext();
+    const { title: flowTitle, id: flowId } = useFlowContext();
+    const {
+        flowStepPrimaryKey, stepId, nextFlowStepId,
+    } = useFlowStepContext();
 
     const dispatch: NodecosmosDispatch = useDispatch();
+    const handleServerError = useHandleServerErrorAlert();
 
     const handleFlowClick = useCallback(() => {
         if (workflowContext === WorkflowDiagramContext.workflowPage) {
@@ -40,9 +51,39 @@ export default function FlowStepToolbar() {
         dispatch(deleteFlowStep(flowStepPrimaryKey));
     }, [dispatch, flowStepPrimaryKey]);
 
-    const [modalOpen, openModal, closeModal] = useModalOpen();
+    const [createLoading, setCreateIsLoading, setCreateIsNotLoading] = useBooleanStateValue();
 
-    const { hovered } = useWorkflowStepContext();
+    const createNextFlowStep = useCallback(async () => {
+        const insertPayload: Strict<FlowStepCreationParams> = {
+            nodeId: flowStepPrimaryKey.nodeId,
+            workflowId: flowStepPrimaryKey.workflowId,
+            flowId: flowStepPrimaryKey.flowId,
+            nodeIds: [],
+            prevFlowStepId: stepId,
+            nextFlowStepId,
+        };
+
+        try {
+            setCreateIsLoading();
+            const response = await dispatch(createFlowStep(insertPayload));
+
+            if (createFlowStep.rejected.match(response)) {
+                handleServerError(response.error);
+            }
+            setCreateIsNotLoading();
+        } catch (error: unknown) {
+            console.error(error);
+        } finally {
+            setCreateIsNotLoading();
+        }
+    },
+    [
+        flowStepPrimaryKey.nodeId, flowStepPrimaryKey.workflowId, flowStepPrimaryKey.flowId,
+        stepId, nextFlowStepId, dispatch, handleServerError,
+        setCreateIsLoading, setCreateIsNotLoading,
+    ]);
+
+    const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
         <Box display="flex" alignItems="center" height={FLOW_STEP_SIZE}>
@@ -72,7 +113,7 @@ export default function FlowStepToolbar() {
                             <IconButton
                                 className="Item"
                                 aria-label="Add Node"
-                                sx={{ color: 'toolbar.lightRed' }}
+                                sx={{ color: 'toolbar.default' }}
                                 onClick={openModal}
                             >
                                 <FontAwesomeIcon icon={faDiagramProject} />
@@ -80,16 +121,36 @@ export default function FlowStepToolbar() {
                         </Tooltip>
                         {
                             stepId && (
-                                <Tooltip title="Delete Flow Step" placement="top">
-                                    <IconButton
-                                        className="Item"
-                                        aria-label="Delete Flow Step"
-                                        sx={{ color: 'toolbar.blue' }}
-                                        onClick={handleFlowStepDeletion}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </IconButton>
-                                </Tooltip>
+                                <>
+                                    <Tooltip title="Delete Flow Step" placement="top">
+                                        <IconButton
+                                            className="Item"
+                                            aria-label="Delete Flow Step"
+                                            sx={{ color: 'toolbar.blue' }}
+                                            onClick={handleFlowStepDeletion}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Add Next Flow Step" placement="top">
+                                        {
+                                            createLoading
+                                                ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                                : (
+                                                    <IconButton
+                                                        className="Item"
+                                                        aria-label="Delete Flow Step"
+                                                        sx={{ color: 'secondary.main' }}
+                                                        onClick={createNextFlowStep}>
+                                                        <FontAwesomeIcon
+                                                            rotation={270}
+                                                            icon={faDiagramNext} />
+                                                    </IconButton>
+                                                )
+
+                                        }
+                                    </Tooltip>
+                                </>
                             )
                         }
                     </ToolsContainer>

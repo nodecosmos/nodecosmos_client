@@ -30,6 +30,14 @@ const flowStepsSlice = createSlice({
                 flowStep.outputIdsByNodeId ||= {};
 
                 state.byId[flowStep.id] = flowStep;
+
+                if (flowStep.prevFlowStepId) {
+                    state.byId[flowStep.prevFlowStepId].nextFlowStepId = flowStep.id;
+                }
+
+                if (flowStep.nextFlowStepId) {
+                    state.byId[flowStep.nextFlowStepId].prevFlowStepId = flowStep.id;
+                }
             })
             .addCase(updateFlowStepNodes.fulfilled, (state, action) => {
                 const { flowStep } = action.payload;

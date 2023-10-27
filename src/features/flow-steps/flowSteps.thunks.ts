@@ -1,20 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
-import { UUID } from '../../types';
-import { FlowStepPrimaryKey, FlowStepUpdatePayload } from './types';
-
-export interface FlowStepCreationParams {
-    prevFlowStepId?: UUID | null;
-    nextFlowStepId?: UUID | null;
-    nodeId: UUID;
-    workflowId: UUID;
-    flowId: UUID;
-    nodeIds: UUID[];
-}
+import { Strict } from '../../types';
+import {
+    FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
+} from './types';
 
 export const createFlowStep = createAsyncThunk(
     'flow_steps/createFlowStep',
-    async (payload: FlowStepCreationParams) => {
+    async (payload: Strict<FlowStepCreationParams>) => {
         const response = await nodecosmos.post('/flow_steps', payload);
 
         return response.data;
@@ -23,7 +16,7 @@ export const createFlowStep = createAsyncThunk(
 
 export const updateFlowStepNodes = createAsyncThunk(
     'flow_steps/updateFlowStepNodes',
-    async (payload: FlowStepUpdatePayload) => {
+    async (payload: Strict<FlowStepUpdatePayload>) => {
         const response = await nodecosmos.put('/flow_steps/nodes', payload);
 
         return response.data;

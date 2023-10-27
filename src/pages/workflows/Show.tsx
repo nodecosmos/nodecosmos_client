@@ -8,7 +8,6 @@ import Workflow from '../../features/workflows/components/Workflow';
 import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
 import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../features/workflows/workflows.thunks';
-import Alert from '../../common/components/Alert';
 import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../store';
 import { UUID } from '../../types';
@@ -93,7 +92,6 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    <Alert />
                     <Workflow nodeId={nodeId as UUID} />
                 </Box>
                 <Box

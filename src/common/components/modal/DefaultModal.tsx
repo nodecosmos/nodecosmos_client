@@ -9,7 +9,7 @@ interface DefaultModalProps {
 }
 
 export default function DefaultModal({
-    open, onClose, children, maxWidth = 'sm',
+    open, onClose, children, maxWidth = 'md',
 }: DefaultModalProps) {
     return (
         <Dialog

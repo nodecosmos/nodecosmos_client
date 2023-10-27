@@ -5,6 +5,7 @@ import { WorkflowDiagramContext } from '../workflows.constants';
 import { useWorkflowContextCreator } from '../hooks/useWorkflowContext';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { selectWorkflowByNodeId } from '../workflows.selectors';
+import Alert from '../../../common/components/Alert';
 import WorkflowDiagram from './diagram/WorkflowDiagram';
 import WorkflowToolbar from './WorkflowToolbar';
 import WorkflowContainer from './WorkflowContainer';
@@ -31,6 +32,7 @@ const Workflow: React.FC<Props> = ({ nodeId, context = WorkflowDiagramContext.wo
         <WorkflowContext.Provider value={contextProviderValue}>
             <WorkflowContainer>
                 <WorkflowToolbar />
+                <Alert />
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <WorkflowDiagram />
                 </Box>

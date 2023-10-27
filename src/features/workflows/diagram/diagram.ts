@@ -43,9 +43,9 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
         let prefFlowYEnd = 0;
 
         flows.forEach((flow, verticalIndex) => {
+            let flowStartIndex = flow.startIndex;
             const hasEmptySteps = flow.startIndex > workflowSteps.length;
 
-            let flowStartIndex = flow.startIndex;
             if (hasEmptySteps) {
                 flowStartIndex = workflowSteps.length;
             }

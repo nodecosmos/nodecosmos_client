@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
 import {
     Button, Box, IconButton, Tooltip,
@@ -16,18 +16,23 @@ import useWorkflowCommands from '../hooks/useWorkflowCommands';
 import useWorkflowContext from '../hooks/useWorkflowContext';
 import { selectIsWfPaneOpen } from '../workflows.selectors';
 import ToolsContainer from '../../../common/components/tools/ToolsContainer';
+import useModalOpen from '../../../common/hooks/useModalOpen';
 import CreateWorkflowModal from './CreateWorkflowModal';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
 
 export default function WorkflowToolbar() {
     const {
-        nodeId, id, title, 
+        nodeId, id, title,
     } = useWorkflowContext();
     const hasWorkflow = !!id;
     const dispatch = useDispatch();
-    const [openCreateWorkflowDialog, setOpenCreateWorkflowDialog] = useState(false);
+    const [modalOpen, openModal, closeModal] = useModalOpen();
     const { handleTitleChange, deleteWorkflow } = useWorkflowCommands();
     const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
+
+    const toggleWfPane = useCallback(() => {
+        dispatch(setIsWfPaneOpen(!isWfPaneOpen));
+    }, [dispatch, isWfPaneOpen]);
 
     return (
         <Box
@@ -81,7 +86,7 @@ export default function WorkflowToolbar() {
                         <DefaultButton
                             title="Add Workflow"
                             startIcon={<FontAwesomeIcon icon={faAdd} />}
-                            onClick={() => setOpenCreateWorkflowDialog(true)}
+                            onClick={openModal}
                         />
                     )
                 }
@@ -97,7 +102,7 @@ export default function WorkflowToolbar() {
                             icon={faTerminal}
                             color="toolbar.pink"
                             active={false}
-                            onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
+                            onClick={toggleWfPane}
                             flipX={!isWfPaneOpen}
                         />
                         <Button sx={{ display: 'none' }} />
@@ -108,8 +113,8 @@ export default function WorkflowToolbar() {
             {isWfPaneOpen && <div />}
 
             <CreateWorkflowModal
-                open={openCreateWorkflowDialog}
-                onClose={() => setOpenCreateWorkflowDialog(false)}
+                open={modalOpen}
+                onClose={closeModal}
                 nodeId={nodeId}
             />
         </Box>

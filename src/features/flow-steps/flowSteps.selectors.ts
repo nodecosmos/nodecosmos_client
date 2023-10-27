@@ -28,7 +28,7 @@ export const selectFlowStepPrimaryKey = (id: UUID | null) => createSelector(
 
 export const selectFlowStepsByWorkflowId = (workflowId: UUID | null) => createSelector(
     selectFlowSteps,
-    (flowStepsByWorkflowId) => Object.values(flowStepsByWorkflowId).filter(
-        (flowStep) => flowStep.workflowId === workflowId,
-    ),
+    (flowSteps) => Object.values(flowSteps)
+        .filter((flowStep) => flowStep.workflowId === workflowId)
+        .sort((a, b) => a.flowIndex - b.flowIndex),
 );

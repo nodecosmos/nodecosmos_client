@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { SerializedError } from '@reduxjs/toolkit';
 import { setAlert } from '../../features/app/appSlice';
 import { NodecosmosDispatch } from '../../store';
 
@@ -7,16 +8,16 @@ import { NodecosmosDispatch } from '../../store';
 export default function useHandleServerErrorAlert() {
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    return useCallback((error: {message: string}) => {
+    return useCallback((error: SerializedError) => {
         let message;
 
-        if (error.message.includes('404')) {
+        if (error.message?.includes('404')) {
             message = 'Resource not found!';
-        } else if (error.message.includes('403')) {
+        } else if (error.message?.includes('403')) {
             message = 'Forbidden!';
-        } else if (error.message.includes('409')) {
+        } else if (error.message?.includes('409')) {
             message = 'Conflict!';
-        } else if (error.message.includes('423')) {
+        } else if (error.message?.includes('423')) {
             message = 'Resource Locked: Reorder in progress. If issue persist contact support.';
         } else {
             message = 'Something went wrong. Please try again later.';

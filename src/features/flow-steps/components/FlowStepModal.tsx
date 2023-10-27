@@ -6,20 +6,19 @@ import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { faSave } from '@fortawesome/pro-light-svg-icons';
 import { setAlert } from '../../app/appSlice';
-import {
-    createFlowStep, FlowStepCreationParams, updateFlowStepNodes,
-} from '../flowSteps.thunks';
+import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
 /* nodecosmos */
 import Tree from '../../trees/components/Tree';
 import { TREES_TYPES } from '../../trees/trees.constants';
 import { selectNodesById } from '../../nodes/nodes.selectors';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
-import useWorkflowStepContext from '../../workflows/hooks/diagram/workflow-steps/useWorkflowStepContext';
-import { FlowStepUpdatePayload } from '../types';
+import { FlowStepCreationParams, FlowStepUpdatePayload } from '../types';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
 import { NodecosmosDispatch } from '../../../store';
+import { Strict } from '../../../types';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 
 interface Props {
     open: boolean;
@@ -28,55 +27,65 @@ interface Props {
 
 export default function FlowStepModal({ open, onClose }: Props) {
     const { id: workflowId, nodeId } = useWorkflowContext();
-    const { wfStepIndex: workflowStepIndex } = useWorkflowStepContext();
-    const { id: flowId, startIndex: flowStartIndex } = useFlowContext();
+    const { id: flowId } = useFlowContext();
     const {
-        id, nodeIds, prevFlowStepId, nextFlowStepId,
+        id, nodeIds, prevFlowStepId, nextFlowStepId, flowIndex,
     } = useFlowStepContext();
+
     const [loading, setLoading] = React.useState(false);
-    const allNodes = useSelector(selectNodesById);
-    const dispatch: NodecosmosDispatch = useDispatch();
     const [flowStepNodeIds, setFlowStepNodeIds] = useState(nodeIds);
+
+    const handleServerError = useHandleServerErrorAlert();
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const allNodes = useSelector(selectNodesById);
 
     const onSubmit = useCallback(async () => {
         setLoading(true);
 
         const filteredNodeIds = flowStepNodeIds.filter((flowNodeId) => !!allNodes[flowNodeId]);
 
-        const payload = {
-            nodeId,
-            workflowId,
-            flowId,
-            flowIndex: workflowStepIndex - flowStartIndex,
-            nodeIds: filteredNodeIds,
-        };
-
         try {
             const isNew = !!id;
 
+            let response;
             if (isNew) {
-                const updatePayload = payload as FlowStepUpdatePayload;
-                updatePayload.id = id;
-                await dispatch(updateFlowStepNodes(payload as FlowStepUpdatePayload));
+                const updatePayload: Strict<FlowStepUpdatePayload> = {
+                    nodeId,
+                    workflowId,
+                    flowId,
+                    flowIndex,
+                    id,
+                    nodeIds: filteredNodeIds,
+                };
+                response = await dispatch(updateFlowStepNodes(updatePayload));
             } else {
-                const insertPayload = payload as FlowStepCreationParams;
-                insertPayload.prevFlowStepId = prevFlowStepId;
-                insertPayload.nextFlowStepId = nextFlowStepId;
+                const insertPayload: Strict<FlowStepCreationParams> = {
+                    nodeId,
+                    workflowId,
+                    flowId,
+                    nodeIds: filteredNodeIds,
+                    prevFlowStepId,
+                    nextFlowStepId,
+                };
 
-                await dispatch(createFlowStep(insertPayload));
+                response = await dispatch(createFlowStep(insertPayload));
             }
 
             setTimeout(() => setLoading(false), 500);
             onClose();
+
+            if (createFlowStep.rejected.match(response) || updateFlowStepNodes.rejected.match(response)) {
+                handleServerError(response.error);
+            }
         } catch (error) {
-            dispatch(setAlert({ isOpen: true, severity: 'error', message: 'Failed to add node' }));
+            dispatch(setAlert({ isOpen: true, severity: 'error', message: 'Failed to add nodes' }));
             console.error(error);
             setTimeout(() => setLoading(false), 500);
         }
     },
     [
-        allNodes, dispatch, flowId, flowStartIndex, flowStepNodeIds, id, nodeId,
-        onClose, workflowId, workflowStepIndex, prevFlowStepId, nextFlowStepId,
+        flowStepNodeIds, allNodes, id, onClose, nodeId, workflowId, flowId, flowIndex,
+        dispatch, prevFlowStepId, nextFlowStepId, handleServerError,
     ],
     );
 

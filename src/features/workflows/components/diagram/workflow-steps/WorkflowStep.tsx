@@ -72,7 +72,9 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
                     y="0"
                 >
                     <Box display="flex" height={1} alignItems="center" pl={2}>
-                        <Typography variant="body2" color="text.secondary">{wfStep.index}</Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {wfStep.index + 1}
+                        </Typography>
                         {hovered && (
                             <Button
                                 size="small"
@@ -90,6 +92,7 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
                     <FlowModal
                         open={flowModalOpen}
                         onClose={closeFlowModal}
+                        verticalIndex={wfStep.flows.length}
                         startIndex={wfStep.index} />
                 </foreignObject>
 

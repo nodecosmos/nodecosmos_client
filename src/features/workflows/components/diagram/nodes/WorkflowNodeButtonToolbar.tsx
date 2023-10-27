@@ -6,7 +6,7 @@ import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
-import CreateIOModal from '../../../../input-outputs/components/CreateIOModal';
+import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
@@ -68,7 +68,7 @@ export default function WorkflowNodeButtonToolbar() {
             <CreateIOModal
                 open={outputsModalOpen}
                 onClose={closeOutputModal}
-                associatedObject="flowStep"
+                associatedObject={associatedObjectTypes.flowStep}
                 flowStepPrimaryKey={flowStepPrimaryKey}
                 outputNodeId={id}
                 outputIdsByNodeId={outputIdsByNodeId}

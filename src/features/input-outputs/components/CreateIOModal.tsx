@@ -9,7 +9,6 @@ import CloseModalButton from '../../../common/components/modal/CloseModalButton'
 import FinalFormAutocompleteField from '../../../common/components/final-form/FinalFormAutocompleteField';
 import useIOSubmitHandler from '../hooks/useIOSubmitHandler';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
-import { ASSOCIATED_OBJECT_TYPES } from '../inputOutputs.constants';
 import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
@@ -18,10 +17,15 @@ import { UUID } from '../../../types';
 import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/types';
 import DefaultModal from '../../../common/components/modal/DefaultModal';
 
+export enum associatedObjectTypes {
+    workflow = 'workflow',
+    flowStep = 'flowStep',
+}
+
 interface BaseIOProps {
     open: boolean;
     onClose: () => void;
-    associatedObject: 'workflow' | 'flowStep';
+    associatedObject: associatedObjectTypes;
 }
 
 interface FlowStepProps extends BaseIOProps {
@@ -44,7 +48,7 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
     const allIOTitles = allWorkflowIOs.map((io) => io.title);
     const uniqueIOTitles = [...new Set(allIOTitles)];
 
-    const title = associatedObject === ASSOCIATED_OBJECT_TYPES.workflow
+    const title = associatedObject === associatedObjectTypes.workflow
         ? 'Create Initial Input' : 'Create Output';
 
     const [autocompleteValue, setAutocompleteValue] = React.useState(null);
