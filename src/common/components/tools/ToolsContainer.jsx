@@ -9,6 +9,8 @@ export default function ToolsContainer({ children }) {
             alignItems="center"
             sx={{
                 ml: 1,
+                width: 1,
+                flex: 1,
                 '.Item': {
                     width: 31,
                     height: 1,
@@ -16,7 +18,11 @@ export default function ToolsContainer({ children }) {
                     borderRadius: 1,
                     '&:hover': { backgroundColor: 'toolbar.hover' },
                 },
-                '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
+                '.svg-inline--fa, .MuiSvgIcon-root': {
+                    fontSize: 16,
+                    opacity: 0,
+                    animation: 'appear 0.25s forwards',
+                },
             }}
         >
             {children}

@@ -45,6 +45,8 @@ export default function IOPaneToolbar() {
         dispatch(setIOPaneContent(IOPaneContent.Description));
     }, [dispatch]);
 
+    const hasShadow = ioPaneContent === IOPaneContent.Description;
+
     return (
         <Box
             display="flex"
@@ -53,7 +55,7 @@ export default function IOPaneToolbar() {
             height={HEADER_HEIGHT}
             borderBottom={1}
             borderColor="borders.2"
-            boxShadow="2"
+            boxShadow={hasShadow ? '1' : 0}
         >
             <ToolbarContainer>
                 <ToolbarItem

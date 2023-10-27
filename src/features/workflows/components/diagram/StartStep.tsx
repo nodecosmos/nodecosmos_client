@@ -36,6 +36,8 @@ export default function StartStep() {
     const fillColor = theme.palette.background[5];
     const hoverColor = theme.palette.background[7];
 
+    if (!diagram.height) return null;
+
     return (
         <g onMouseEnter={hover} onMouseLeave={leave}>
             <rect

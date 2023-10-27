@@ -42,7 +42,7 @@ export default function Input({ prevStepOutputId }: InputProps) {
     return (
         <g>
             <path
-                className="input-branch"
+                className="InputBranch"
                 stroke={color}
                 fill="transparent"
                 strokeWidth={1}
@@ -54,6 +54,7 @@ export default function Input({ prevStepOutputId }: InputProps) {
                 }}
             />
             <circle
+                className="InputBranch"
                 cx={x}
                 cy={y}
                 r={5}

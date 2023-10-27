@@ -1,15 +1,11 @@
-import React, { useCallback } from 'react';
-import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
+import React from 'react';
 import {
-    Button, Box, IconButton, Tooltip,
+    Box, IconButton, Tooltip,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd, faTrash } from '@fortawesome/pro-light-svg-icons';
-import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { setIsWfPaneOpen } from '../workflowsSlice';
 import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import EditTitleField from '../../../common/components/EditTItleField';
 import useWorkflowCommands from '../hooks/useWorkflowCommands';
@@ -19,20 +15,16 @@ import ToolsContainer from '../../../common/components/tools/ToolsContainer';
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import CreateWorkflowModal from './CreateWorkflowModal';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
+import ToggleWorkflowPaneButton from './pane/ToggleWorkflowPaneButton';
 
 export default function WorkflowToolbar() {
     const {
         nodeId, id, title,
     } = useWorkflowContext();
     const hasWorkflow = !!id;
-    const dispatch = useDispatch();
     const [modalOpen, openModal, closeModal] = useModalOpen();
     const { handleTitleChange, deleteWorkflow } = useWorkflowCommands();
     const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
-
-    const toggleWfPane = useCallback(() => {
-        dispatch(setIsWfPaneOpen(!isWfPaneOpen));
-    }, [dispatch, isWfPaneOpen]);
 
     return (
         <Box
@@ -94,23 +86,7 @@ export default function WorkflowToolbar() {
 
             {id && <WorkflowZoomTools />}
 
-            {!isWfPaneOpen && (
-                <Box flex={1}>
-                    <ToolbarContainer round mr={0.5}>
-                        <ToolbarItem
-                            title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
-                            icon={faTerminal}
-                            color="toolbar.pink"
-                            active={false}
-                            onClick={toggleWfPane}
-                            flipX={!isWfPaneOpen}
-                        />
-                        <Button sx={{ display: 'none' }} />
-                        {/* hack to get styles right */}
-                    </ToolbarContainer>
-                </Box>
-            )}
-            {isWfPaneOpen && <div />}
+            {!isWfPaneOpen && (<ToggleWorkflowPaneButton />)}
 
             <CreateWorkflowModal
                 open={modalOpen}

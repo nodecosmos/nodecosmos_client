@@ -20,7 +20,6 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
     const { height } = useDiagramContext();
     const { x } = wfStep.position;
     const fillColor = wfStep.index % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
-    const hoverColor = theme.palette.background[7];
     const { WorkflowStepContext, contextProviderValue } = useWorkflowStepContextCreator({
         wfStep,
         wfStepIndex: wfStep.index,
@@ -30,8 +29,9 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
     const handleMouseEnter = useCallback((event: React.MouseEvent<SVGGElement, MouseEvent>) => {
         const targetElement = event.target as HTMLElement;
 
-        if (targetElement.classList.contains('input-branch')) {
+        if (targetElement.classList.contains('InputBranch')) {
             event.stopPropagation();
+            event.preventDefault();
         } else {
             setHovered(true);
         }
@@ -60,7 +60,7 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
                     y={0}
                     height={height}
                     width={WORKFLOW_STEP_WIDTH}
-                    fill={hovered ? hoverColor : fillColor}
+                    fill={fillColor}
                     fillOpacity={0.3}
                     stroke="transparent"
                     strokeWidth={2}
@@ -82,7 +82,7 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
                                 color="secondary"
                                 disableElevation
                                 type="submit"
-                                sx={{ ml: 2, borderRadius: 1 }}
+                                sx={{ ml: 2, borderRadius: 1, opacity: 0, animation: 'appear 0.25s forwards' }}
                                 onClick={openFlowModal}
                             >
                                 Add Flow

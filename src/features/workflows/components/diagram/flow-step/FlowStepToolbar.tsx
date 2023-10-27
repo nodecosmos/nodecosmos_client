@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import {
-    faDiagramProject, faTrash, faDiagramNext,
+    faDiagramProject, faTrash, faForward,
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -86,13 +86,14 @@ export default function FlowStepToolbar() {
     const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
-        <Box display="flex" alignItems="center" height={FLOW_STEP_SIZE}>
+        <Box display="flex" alignItems="center" width={1} height={FLOW_STEP_SIZE}>
             <Typography
                 onClick={handleFlowClick}
                 variant="body1"
                 fontWeight={600}
                 color="text.tertiary"
                 sx={{
+                    minWidth: 'fit-content(14px)',
                     maxWidth: 220,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -113,7 +114,7 @@ export default function FlowStepToolbar() {
                             <IconButton
                                 className="Item"
                                 aria-label="Add Node"
-                                sx={{ color: 'toolbar.default' }}
+                                sx={{ color: 'secondary.main' }}
                                 onClick={openModal}
                             >
                                 <FontAwesomeIcon icon={faDiagramProject} />
@@ -121,12 +122,12 @@ export default function FlowStepToolbar() {
                         </Tooltip>
                         {
                             stepId && (
-                                <>
+                                <Box display="flex" justifyContent="space-between" width="100%" pr={1}>
                                     <Tooltip title="Delete Flow Step" placement="top">
                                         <IconButton
                                             className="Item"
                                             aria-label="Delete Flow Step"
-                                            sx={{ color: 'toolbar.blue' }}
+                                            sx={{ color: 'secondary.main' }}
                                             onClick={handleFlowStepDeletion}
                                         >
                                             <FontAwesomeIcon icon={faTrash} />
@@ -143,14 +144,18 @@ export default function FlowStepToolbar() {
                                                         sx={{ color: 'secondary.main' }}
                                                         onClick={createNextFlowStep}>
                                                         <FontAwesomeIcon
-                                                            rotation={270}
-                                                            icon={faDiagramNext} />
+                                                            icon={faForward} />
                                                     </IconButton>
+                                                    // <DefaultButton
+                                                    //     endIcon={<FontAwesomeIcon icon={faChevronRight} />}
+                                                    //     onClick={createNextFlowStep}
+                                                    //     title="Add Step"
+                                                    // />
                                                 )
 
                                         }
                                     </Tooltip>
-                                </>
+                                </Box>
                             )
                         }
                     </ToolsContainer>

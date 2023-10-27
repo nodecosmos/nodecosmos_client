@@ -3,6 +3,8 @@ import { useTheme } from '@mui/material';
 /* nodecosmos */
 import useNodeContext, { useNodeColors } from '../../hooks/node/useNodeContext';
 import useNodeCommands from '../../hooks/node/useNodeCommands';
+import usePreventDefault from '../../../../common/hooks/usePreventDefault';
+import useStopPropagation from '../../../../common/hooks/useStopPropagation';
 import NodeSymbol from './NodeSymbol';
 
 export default function NodeButton() {
@@ -28,10 +30,13 @@ export default function NodeButton() {
 
     const theme = useTheme();
 
+    const preventDefault = usePreventDefault();
+    const stopPropagation = useStopPropagation();
+
     return (
         <button
             draggable
-            onMouseDown={(event) => event.stopPropagation()} // prevents pannable from firing
+            onMouseDown={stopPropagation} // prevents pannable from firing
             onDragStart={startDrag}
             onDragEnd={stopDrag}
             onDragOver={dragOver}
@@ -40,7 +45,7 @@ export default function NodeButton() {
             type="button"
             className={`NodeButton ${hasBg && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
             onClick={clickNode}
-            onKeyUp={(event) => event.preventDefault()}
+            onKeyUp={preventDefault}
             style={{
                 border: '1px solid',
                 borderColor: outlineColor,

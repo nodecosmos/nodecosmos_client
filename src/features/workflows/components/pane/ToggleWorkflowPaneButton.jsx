@@ -1,28 +1,27 @@
-import React from 'react';
-import { faTerminal } from '@fortawesome/pro-solid-svg-icons';
-import { Button } from '@mui/material';
+import React, { useCallback } from 'react';
+import { faRectangleTerminal } from '@fortawesome/pro-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { selectIsWfPaneOpen } from '../../workflows.selectors';
 import { setIsWfPaneOpen } from '../../workflowsSlice';
+import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
+import { HEADER_HEIGHT } from '../../../app/constants';
 
 export default function ToggleWorkflowPaneButton() {
     const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
     const dispatch = useDispatch();
+    const toggleWfPane = useCallback(() => dispatch(setIsWfPaneOpen(!isWfPaneOpen)), [dispatch, isWfPaneOpen]);
 
     return (
-        <ToolbarContainer round mr={0.5}>
+        <ToolbarContainer round mr={0.5} showIndicator={false} size={`calc(${HEADER_HEIGHT} - 8px)`}>
             <ToolbarItem
                 title={isWfPaneOpen ? 'Hide Workflow Pane' : 'Show Workflow Pane'}
-                icon={faTerminal}
+                icon={faRectangleTerminal}
                 color="toolbar.pink"
-                active={false}
-                onClick={() => dispatch(setIsWfPaneOpen(!isWfPaneOpen))}
+                active={isWfPaneOpen}
+                onClick={toggleWfPane}
                 flipX={!isWfPaneOpen}
             />
-            {/* hack to get toolbar button styles right */}
-            <Button sx={{ display: 'none' }} />
         </ToolbarContainer>
     );
 }

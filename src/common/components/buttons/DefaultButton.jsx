@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function DefaultButton({
-    startIcon, onClick, type, title, disabled, sx, fontSize, 
+    startIcon, endIcon, onClick, type, title, disabled, sx, fontSize,
 }) {
     return (
         <Button
@@ -29,6 +29,7 @@ export default function DefaultButton({
             variant="contained"
             disableElevation
             startIcon={startIcon}
+            endIcon={endIcon}
             onClick={onClick}
         >
             <Typography variant="subtitle1">
@@ -41,6 +42,7 @@ DefaultButton.defaultProps = {
     onClick: () => {},
     type: 'button',
     startIcon: null,
+    endIcon: null,
     disabled: false,
     sx: {},
     fontSize: '0.75rem',
@@ -51,6 +53,7 @@ DefaultButton.propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     startIcon: PropTypes.object,
+    endIcon: PropTypes.object,
     sx: PropTypes.object,
     title: PropTypes.string.isRequired,
     fontSize: PropTypes.string,

@@ -36,7 +36,9 @@ export default function useNodeTitleChange() {
     //------------------------------------------------------------------------------------------------------------------
     const saveNodeTimeout = useRef(null);
 
-    const changeTitle = useCallback((value) => {
+    const changeTitle = useCallback((event) => {
+        let value = event.target.value;
+
         dispatch(setIsNodeActionInProgress(true));
 
         dispatch(updateNodeState({ id: nodeId, title: value }));

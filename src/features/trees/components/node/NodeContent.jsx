@@ -13,8 +13,6 @@ import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
 
-const MemoizedNodeButton = React.memo(NodeButton);
-
 // we have different components for text
 // because 'input' is not valid child element of 'button'
 export default function NodeContent() {
@@ -35,7 +33,7 @@ export default function NodeContent() {
     // we don't use this directly in input as input unmounts on blur
     // so command chain is broken
     const {
-        clickNode, blurNode, changeTitle, 
+        clickNode, blurNode, changeTitle,
     } = useNodeCommands();
 
     if (!xEnd) return null;
@@ -60,10 +58,10 @@ export default function NodeContent() {
                     {isEditing ? (
                         <NodeInput
                             onClick={clickNode}
-                            onChange={(event) => changeTitle(event.target.value)}
+                            onChange={changeTitle}
                             onBlur={blurNode}
                         />
-                    ) : <MemoizedNodeButton />}
+                    ) : <NodeButton />}
                     <div>
                         {isExpanded && isSelected && <Box sx={{ ml: 2 }}><NodeToolbar treeNodeId={treeNodeId} /></Box>}
                     </div>

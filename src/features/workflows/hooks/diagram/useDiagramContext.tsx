@@ -24,11 +24,15 @@ export function useDiagramContextCreator({ id }: DiagramContextType) {
 export default function useDiagramContext() {
     const { id } = React.useContext(DiagramContext);
 
-    const { transformableId } = useWorkflowContext();
+    const { transformableId, scale } = useWorkflowContext();
 
     const diagram: WorkflowDiagram = useSelector(selectWorkflowDiagram(id));
     const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
-    const height = diagram.height > clientHeight ? diagram.height : clientHeight;
+    let height = diagram.height > clientHeight ? diagram.height : clientHeight;
+
+    if (scale < 1) {
+        height = height * (1 / scale);
+    }
 
     return useMemo(() => ({
         ...diagram,

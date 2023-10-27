@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Tooltip } from '@mui/material';
 import {
-    useMatch, useNavigate, useResolvedPath, 
+    useMatch, useNavigate, useResolvedPath,
 } from 'react-router-dom';
 
 export default function ToolbarItem({

@@ -1,14 +1,13 @@
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import { useDispatch } from 'react-redux';
 import {
     DialogTitle,
     DialogContent,
-    IconButton,
     Box,
 } from '@mui/material';
 /* nodecosmos */
+import { faSave } from '@fortawesome/pro-light-svg-icons';
 import { setAlert } from '../../../../app/appSlice';
 import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
@@ -21,6 +20,7 @@ import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlo
 import { flattenValues } from '../../../../../utils/group';
 import DefaultModal from '../../../../../common/components/modal/DefaultModal';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
+import CloseModalButton from '../../../../../common/components/modal/CloseModalButton';
 import AssociateInputCheckboxField from './AssocateInputCheckboxField';
 
 interface Props {
@@ -74,22 +74,53 @@ export default function AssociateInputsModal(props: Props) {
     }, [currentFlowStepInputIds, dispatch, flowStepPrimaryKey, nodeId, onClose]);
 
     return (
-        <DefaultModal open={open} onClose={onClose}>
-            <DialogTitle>
-                Inputs
-                <IconButton
-                    disableRipple
-                    onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 24,
-                        top: 16,
-                    }}
-                >
-                    <CloseOutlined sx={{ color: 'background.3' }} />
-                </IconButton>
+        <DefaultModal open={open} onClose={onClose} maxWidth="sm">
+            <DialogTitle
+                sx={{
+                    borderBottom: 1,
+                    borderColor: 'borders.1',
+                }}
+            >
+                Associate Inputs
+                <CloseModalButton onClose={onClose} />
             </DialogTitle>
-            <DialogContent>
+            <DialogContent sx={{
+                '.WorkflowOutputButton': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 200,
+                    height: 38,
+                    ml: 1,
+                    mt: 2,
+                    borderRadius: 1,
+                    px: 2,
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                    outline: 'none',
+                    border: '1px solid',
+                    borderColor: 'toolbar.default',
+                    // boxShadow: 'buttons.1',
+                    '.WorkflowOutputCheckbox': {
+                        p: 0,
+                    },
+                    '.IOButtonText': {
+                        flex: 1,
+                        textAlign: 'left',
+                        color: 'text.secondary',
+                        mx: 1,
+                        p: 0,
+                        letterSpacing: '0.02857em',
+                        minWidth: 40,
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                        fontWeight: 500,
+                    },
+                },
+            }}>
                 <Form
                     keepDirtyOnReinitialize
                     onSubmit={onSubmit}
@@ -107,7 +138,7 @@ export default function AssociateInputsModal(props: Props) {
                                     </Box>
                                 ))
                             }
-                            <DefaultModalFormButton loading={loading} />
+                            <DefaultModalFormButton startIcon={faSave} loading={loading} title="Save" />
                         </form>
                     )}
                 </Form>

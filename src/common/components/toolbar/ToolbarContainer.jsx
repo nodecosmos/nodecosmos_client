@@ -50,7 +50,7 @@ export default function ToolbarContainer(props) {
                         borderBottom: showIndicator ? 3 : 0,
                         borderColor: 'transparent',
                         backgroundColor: 'transparent',
-                        width: 'auto',
+                        width: '1rem',
                         height: size,
                         minWidth: size,
                         borderRadius,
