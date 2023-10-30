@@ -1,6 +1,6 @@
-import { createSelector } from '@reduxjs/toolkit';
-import { UUID } from '../../types';
 import { Workflow, WorkflowState } from './types';
+import { UUID } from '../../types';
+import { createSelector } from '@reduxjs/toolkit';
 
 interface State{ workflows: WorkflowState; }
 
@@ -10,7 +10,6 @@ export const selectSelectedWorkflowObject = (state: State) => state.workflows.se
 
 /* diagram */
 export const selectWorkflowDiagramById = (state: State) => state.workflows.workflowDiagramById;
-export const selectIsWfPaneOpen = (state: State) => state.workflows.isWfPaneOpen;
 export const selectWorkflowScale = (state: State) => state.workflows.workflowScale;
 
 export const selectWorkflowByNodeId = (nodeId: UUID) => createSelector([

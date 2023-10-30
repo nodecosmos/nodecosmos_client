@@ -1,25 +1,27 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonBase } from '@mui/material';
-import { useDispatch } from 'react-redux';
-/* nodecosmos */
-import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import WorkflowNodeBranch from './WorkflowNodeBranch';
+import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
+import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
+import { NodecosmosDispatch } from '../../../../../store';
 import { setSelectedNode } from '../../../../nodes/nodeActions';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import {
     EDGE_LENGTH,
     MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
 } from '../../../workflows.constants';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import WorkflowNodeBranch from './WorkflowNodeBranch';
-import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ButtonBase } from '@mui/material';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+/* nodecosmos */
 
 export default function WorkflowNodeButton() {
     const { context: workflowContext } = useWorkflowContext();
@@ -29,29 +31,30 @@ export default function WorkflowNodeButton() {
 
     const { x, y } = position;
 
-    const dispatch = useDispatch();
-
-    const initialAnimationDelay = ANIMATION_DELAY;
-    const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-
-    const handleClick = () => {
-        dispatch(setSelectedWorkflowDiagramObject({
-            id,
-            type: 'node',
-        }));
-
-        if (workflowContext === WorkflowDiagramContext.workflowPage) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            dispatch(setSelectedNode(id));
-        }
-    };
-
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const preventDefault = usePreventDefault();
     const {
         backgroundColor,
         outlineColor,
         color,
     } = useWorkflowNodeButtonBg({ id });
+
+    const initialAnimationDelay = ANIMATION_DELAY;
+    const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
+
+    const handleClick = useCallback(() => {
+        dispatch(setSelectedWorkflowDiagramObject({
+            id,
+            type: 'node',
+        }));
+
+        if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            // TODO: fix onc we convert nodes to typescript
+            dispatch(setSelectedNode(id));
+        }
+    }, [dispatch, id, workflowContext]);
 
     if (!x) return null;
 
@@ -73,7 +76,7 @@ export default function WorkflowNodeButton() {
                     <ButtonBase
                         type="button"
                         className="NodeButton"
-                        onKeyUp={(event) => event.preventDefault()}
+                        onKeyUp={preventDefault}
                         onClick={handleClick}
                         style={{
                             border: '1px solid',

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function Loader(props) {
     const { backgroundColor, color } = props;

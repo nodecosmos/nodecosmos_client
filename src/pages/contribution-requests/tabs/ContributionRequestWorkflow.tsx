@@ -1,21 +1,23 @@
+import Alert from '../../../common/components/Alert';
+import Loader from '../../../common/components/Loader';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import usePaneResizable from '../../../common/hooks/usePaneResizable';
+import { selectIsPaneOpen } from '../../../features/app/app.selectors';
+import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
+import Workflow from '../../../features/workflows/components/Workflow';
+import { WorkflowDiagramContext } from '../../../features/workflows/workflows.constants';
+import { selectWorkflowByNodeId } from '../../../features/workflows/workflows.selectors';
+import { showWorkflow } from '../../../features/workflows/workflows.thunks';
+import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
+import { NodecosmosDispatch } from '../../../store';
+import { NodecosmosTheme } from '../../../themes/type';
+import { UUID } from '../../../types';
+import { Box, useTheme } from '@mui/material';
 import React, {
     useEffect, useRef, useState,
 } from 'react';
-import { Box, useTheme } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../../common/components/Loader';
-import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import Workflow from '../../../features/workflows/components/Workflow';
-import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
-import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../../features/workflows/workflows.selectors';
-import { showWorkflow } from '../../../features/workflows/workflows.thunks';
-import Alert from '../../../common/components/Alert';
-import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
-import { WorkflowDiagramContext } from '../../../features/workflows/workflows.constants';
-import { NodecosmosDispatch } from '../../../store';
-import { UUID } from '../../../types';
-import { NodecosmosTheme } from '../../../themes/type';
+import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestWorkflow() {
     const { id } = useParams();
@@ -25,7 +27,7 @@ export default function ContributionRequestWorkflow() {
     const workflow = useSelector(selectWorkflowByNodeId(id as UUID));
 
     const [loading, setLoading] = useState(true);
-    const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
+    const isPaneOpen = useSelector(selectIsPaneOpen);
 
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
     const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
@@ -33,7 +35,7 @@ export default function ContributionRequestWorkflow() {
     const workflowRef = useRef(null);
     const workflowDetailsRef = useRef(null);
 
-    const [resizerHovered, setResizerHovered] = useState(false);
+    const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const {
         paneAWidth,
@@ -65,12 +67,6 @@ export default function ContributionRequestWorkflow() {
         };
     }, [dispatch, id, workflow.id]);
 
-    useEffect(() => {
-        if (!resizeInProgress) {
-            setResizerHovered(false);
-        }
-    }, [resizeInProgress]);
-
     if (loading) {
         return <Loader />;
     }
@@ -90,7 +86,7 @@ export default function ContributionRequestWorkflow() {
             >
                 <Box
                     height={1}
-                    width={(isWfPaneOpen && paneAWidth) || '100%'}
+                    width={(isPaneOpen && paneAWidth) || '100%'}
                     ref={workflowRef}
                     overflow="hidden"
                 >
@@ -99,12 +95,8 @@ export default function ContributionRequestWorkflow() {
                 </Box>
                 <Box
                     onMouseDown={handleResize}
-                    onMouseEnter={() => setResizerHovered(true)}
-                    onMouseLeave={() => {
-                        if (!resizeInProgress) {
-                            setResizerHovered(false);
-                        }
-                    }}
+                    onMouseEnter={hoverResizer}
+                    onMouseLeave={leaveResizer}
                     width="8px"
                     height={1}
                     ml={-1}
@@ -118,8 +110,8 @@ export default function ContributionRequestWorkflow() {
                 />
                 <Box
                     height={1}
-                    display={isWfPaneOpen ? 'block' : 'none'}
-                    width={(isWfPaneOpen && paneBWidth) || 0}
+                    display={isPaneOpen ? 'block' : 'none'}
+                    width={(isPaneOpen && paneBWidth) || 0}
                     ref={workflowDetailsRef}
                     overflow="hidden"
                     boxShadow="left.2"

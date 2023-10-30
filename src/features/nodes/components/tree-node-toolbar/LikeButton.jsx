@@ -1,12 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
-import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
-import { faHeart } from '@fortawesome/pro-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Checkbox, Typography, Box,
-} from '@mui/material';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import abbreviateNumber from '../../../../utils/abbreviateNumber';
 import { setAlert } from '../../../app/appSlice';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
 import { selectLikedObjectIds } from '../../../likes/likes.selectors';
@@ -15,7 +7,15 @@ import { selectNodeAttribute } from '../../nodes.selectors';
 import {
     getLikesCount, likeNode, unlikeNode,
 } from '../../nodes.thunks';
-import abbreviateNumber from '../../../../utils/abbreviateNumber';
+import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
+import { faHeart } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    Checkbox, Typography, Box,
+} from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function LikeButton({
     nodeId, fontSize, likesCount: providedLikesCount,

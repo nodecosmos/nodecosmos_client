@@ -1,19 +1,19 @@
-import {
-    useCallback, useEffect, useRef, useState,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import usePrevious from '../../../../../common/hooks/usePrevious';
-import { SAVE_NODE_TIMEOUT } from '../../../trees.constants';
-import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
-import { createNode, updateNodeTitle } from '../../../../nodes/nodes.thunks';
 import {
     replaceTmpNodeWithPersistedNode,
     setIsNodeActionInProgress,
     updateNodeState,
 } from '../../../../nodes/nodeActions';
+import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
+import { createNode, updateNodeTitle } from '../../../../nodes/nodes.thunks';
 import { replaceTmpTreeNodeWithPersistedNode, updateTreeNode } from '../../../treeActions';
+import { SAVE_NODE_TIMEOUT } from '../../../trees.constants';
 import useNodeContext from '../useNodeContext';
-import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
+import {
+    useCallback, useEffect, useRef, useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeTitleChange() {
     const dispatch = useDispatch();

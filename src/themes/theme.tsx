@@ -1,22 +1,23 @@
-import { createTheme } from '@mui/material/styles';
-import scrollbar from './styles/scrollbar';
 import animations from './styles/animations';
 /* mui customizations */
-import input from './styles/mui/inputs';
-import buttons from './styles/mui/buttons';
-import tab from './styles/mui/tab';
-import dataGrid from './styles/mui/dataGrid';
-import breadcrumbs from './styles/mui/breadcrumbs';
 import autocomplete from './styles/mui/autocomplete';
-import menu from './styles/mui/menu';
-import list from './styles/mui/list';
-import popper from './styles/mui/popper';
-import dialog from './styles/mui/dialog';
 import backdrop from './styles/mui/backdrop';
+import breadcrumbs from './styles/mui/breadcrumbs';
+import buttons from './styles/mui/buttons';
+import dataGrid from './styles/mui/dataGrid';
+import dialog from './styles/mui/dialog';
+import input from './styles/mui/inputs';
+import list from './styles/mui/list';
+import menu from './styles/mui/menu';
+import popper from './styles/mui/popper';
+import tab from './styles/mui/tab';
 import tooltip from './styles/mui/tooltip';
 import typography from './styles/mui/typography';
-
+import scrollbar from './styles/scrollbar';
+import toolbar from './styles/toolbar';
+import tree from './styles/tree';
 import { NodecosmosTheme } from './type';
+import { createTheme } from '@mui/material/styles';
 
 const getTheme = (theme: NodecosmosTheme) => createTheme({
     typography: typography(theme),
@@ -32,6 +33,8 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 },
                 ...scrollbar(theme),
                 ...animations(),
+                ...toolbar(theme),
+                ...tree(theme),
             },
         },
         ...autocomplete(theme),

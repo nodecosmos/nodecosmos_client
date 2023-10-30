@@ -1,12 +1,12 @@
-import { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import useDiagramContext from './useDiagramContext';
+import { Position } from '../../../../types';
 import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../../trees/trees.constants';
+import { WorkflowStep } from '../../diagram/types';
 import { selectWorkflowScale } from '../../workflows.selectors';
 import useWorkflowContext from '../useWorkflowContext';
-import { Position } from '../../../../types';
-import { WorkflowStep } from '../../diagram/types';
-import useDiagramContext from './useDiagramContext';
+import { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 type VisibleWorkflowSteps = WorkflowStep[];
 
@@ -27,7 +27,7 @@ export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
         const leftBoundary = effectiveScrollLeft - effectiveClientWidth * CLIENT_VIEWPORT_BUFFER_FACTOR;
         const rightBoundary = effectiveScrollLeft + effectiveClientWidth * CLIENT_VIEWPORT_BUFFER_FACTOR;
 
-        return x > leftBoundary && x < rightBoundary;
+        return (x > leftBoundary) && (x < rightBoundary);
     }, [clientWidth, scrollLeft, wfScale]);
 
     return useMemo(() => {

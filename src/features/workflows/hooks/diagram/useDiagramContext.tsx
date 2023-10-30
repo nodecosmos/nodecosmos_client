@@ -1,10 +1,9 @@
+import { UUID } from '../../../../types';
+import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
+import { selectWorkflowDiagram } from '../../workflows.selectors';
+import useWorkflowContext from '../useWorkflowContext';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { UUID } from '../../../../types';
-import { WorkflowDiagram } from '../../diagram/types';
-import { selectWorkflowDiagram } from '../../workflows.selectors';
-import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
-import useWorkflowContext from '../useWorkflowContext';
 
 type DiagramContextType = {
     id: UUID;
@@ -26,16 +25,21 @@ export default function useDiagramContext() {
 
     const { transformableId, scale } = useWorkflowContext();
 
-    const diagram: WorkflowDiagram = useSelector(selectWorkflowDiagram(id));
+    const {
+        initialInputs,
+        workflowSteps,
+        height: diagramHeight,
+    } = useSelector(selectWorkflowDiagram(id));
     const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
-    let height = diagram.height > clientHeight ? diagram.height : clientHeight;
+    let height = (diagramHeight || 0) > clientHeight ? diagramHeight : clientHeight;
 
     if (scale < 1) {
         height = height * (1 / scale);
     }
 
     return useMemo(() => ({
-        ...diagram,
+        initialInputs,
+        workflowSteps,
         height,
-    }), [diagram, height]);
+    }), [initialInputs, workflowSteps, height]);
 }

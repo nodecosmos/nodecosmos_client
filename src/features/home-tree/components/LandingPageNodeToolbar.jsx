@@ -1,4 +1,5 @@
-import React from 'react';
+import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
+import { updateNode } from '../landingPageNodeSlice';
 import {
     faBell,
     faBookmark, faHeart as faHeartOutline, faPenToSquare, faTrash,
@@ -7,18 +8,14 @@ import {
     faBookmark as faBookmarkSolid, faHeart, faPlus, faBell as faBellSolid,
 } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
-
-/* mui */
 import {
     IconButton,
     Checkbox,
     Box, useTheme,
 } from '@mui/material';
-
+import PropTypes from 'prop-types';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
-import { updateNode } from '../landingPageNodeSlice';
 
 export default function LandingPageNodeToolbar(props) {
     const { id } = props;
@@ -29,7 +26,7 @@ export default function LandingPageNodeToolbar(props) {
 
     const theme = useTheme();
     const {
-        red, green, blue, 
+        red, green, blue,
     } = theme.palette.toolbar;
 
     return (

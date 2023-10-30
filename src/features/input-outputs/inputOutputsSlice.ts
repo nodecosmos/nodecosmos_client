@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { showWorkflow } from '../workflows/workflows.thunks';
-import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
-import { UUID } from '../../types';
 import {
     createIO, deleteIO, getIODescription, updateIOTitle,
 } from './inputOutputs.thunks';
 import {
     InputOutput, InputOutputSlice, IOPaneContent, 
 } from './types';
+import { UUID } from '../../types';
+import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
+import { showWorkflow } from '../workflows/workflows.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: InputOutputSlice = {
     byId: {},

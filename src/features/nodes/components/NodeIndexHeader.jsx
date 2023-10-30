@@ -1,10 +1,10 @@
-import React from 'react';
-import { Box } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd } from '@fortawesome/pro-light-svg-icons';
-import DefaultButton from '../../../common/components/buttons/DefaultButton';
-import NodeIndexSearch from './NodeIndexSearch';
 import CreateNodeModal from './CreateNodeModal';
+import NodeIndexSearch from './NodeIndexSearch';
+import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import { faAdd } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box } from '@mui/material';
+import React from 'react';
 
 export default function NodeIndexHeader() {
     const [openCreateNodeDialog, setOpenCreateNodeDialog] = React.useState(false);

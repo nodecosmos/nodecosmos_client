@@ -1,23 +1,22 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import * as PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-
-import { useDispatch } from 'react-redux';
-
-/* mui */
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import { createContributionRequest } from '../contributionRequests.thunks';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     InputAdornment,
     DialogContent,
 } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+import { Form } from 'react-final-form';
+import { useDispatch } from 'react-redux';
+
+/* mui */
 /* nodecosmos */
-import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import CloseModalButton from '../../../common/components/modal/CloseModalButton';
-import { createContributionRequest } from '../contributionRequests.thunks';
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 
 export default function CreateContributionRequestModal({
     open, onClose, nodeId, 

@@ -1,7 +1,7 @@
+import useIsInsideViewport from './tree-nodes-virtualizer/useIsInsideViewport';
+import { selectOrderedTreeNodeIds, selectTreeNodes } from '../trees.selectors';
 import { useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectOrderedTreeNodeIds, selectTreeNodes } from '../trees.selectors';
-import useIsInsideViewport from './tree-nodes-virtualizer/useIsInsideViewport';
 
 export default function useTreeNodeVirtualizer(rootId) {
     const orderedTreeNodeIds = useSelector(selectOrderedTreeNodeIds(rootId));

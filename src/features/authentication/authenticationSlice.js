@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { logOut, syncUpCurrentUser } from './authentication.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const authenticationSlice = createSlice({
     name: 'auth',

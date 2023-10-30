@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Uppy } from '@uppy/core';
-import { Dashboard } from '@uppy/react';
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import {
-    Dialog, DialogContent, DialogTitle, 
-} from '@mui/material';
-import PropTypes from 'prop-types';
-import XHRUpload from '@uppy/xhr-upload';
-import { useDispatch } from 'react-redux';
+import UploadDashboardContainer from './UploadDashboardContainer';
 import nodecosmos from '../../../apis/nodecosmos-server';
 import { setAlert } from '../../../features/app/appSlice';
 import CloseModalButton from '../modal/CloseModalButton';
-import UploadDashboardContainer from './UploadDashboardContainer';
+import {
+    Dialog, DialogContent, DialogTitle,
+} from '@mui/material';
+import { Uppy } from '@uppy/core';
+import { Dashboard } from '@uppy/react';
+import XHRUpload from '@uppy/xhr-upload';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import { useDispatch } from 'react-redux';
 
 const uppy = new Uppy({
     restrictions: {
@@ -34,7 +34,7 @@ uppy.use(XHRUpload, {
 });
 
 export default function UploadFileModal({
-    open, onClose, params, 
+    open, onClose, params,
 }) {
     const dispatch = useDispatch();
 

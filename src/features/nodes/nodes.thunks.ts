@@ -1,7 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Node, NodePrimaryKey } from './types';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { LIKE_TYPES } from '../app/constants';
-import { Node, NodePrimaryKey } from './types';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // TODO: Add types for payload & response
 

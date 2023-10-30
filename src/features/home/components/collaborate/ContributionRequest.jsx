@@ -1,12 +1,12 @@
-import React from 'react';
+import GradientText from '../../../../common/components/GradientText';
+import { setHomepageTab, setInnovateTab } from '../../homeSlice';
+import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
 import {
     Typography, useMediaQuery, useTheme, Box,
 } from '@mui/material';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
-import GradientText from '../../../../common/components/GradientText';
-import { setHomepageTab, setInnovateTab } from '../../homeSlice';
 
 export default function ContributionRequest() {
     const theme = useTheme();

@@ -1,8 +1,8 @@
-import React from 'react';
-import * as PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import LandingPageNestedNodesBranch from './LandingPageNestedNodesBranch';
 import LandingPageNode from './LandingPageNode';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function LandingPageNestedNodes(props) {
     const { currentNodeId, nestedLevel } = props;

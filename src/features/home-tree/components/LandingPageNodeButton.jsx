@@ -1,20 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Button } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-
-/* nodecosmos */
-import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
-import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
+import LandingPageNodeButtonText from './LandingPageNodeButtonText';
+import LandingPageNodeToolbar from './LandingPageNodeToolbar';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
 } from '../constants';
-import LandingPageNodeButtonText from './LandingPageNodeButtonText';
-import LandingPageNodeToolbar from './LandingPageNodeToolbar';
+import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import useNodeTreeEvents from '../hooks/useNodeTreeEvents';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Button } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+/* nodecosmos */
 
 export default function LandingPageNodeButton(props) {
     const {

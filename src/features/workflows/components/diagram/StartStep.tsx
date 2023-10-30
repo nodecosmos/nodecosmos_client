@@ -1,24 +1,24 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material';
-/* nodecosmos */
-import { faPlay } from '@fortawesome/pro-regular-svg-icons';
+import Output from './ios/Output';
+import StartToolbar from './StartToolbar';
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import { NodecosmosTheme } from '../../../../themes/type';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
     WORKFLOW_BUTTON_HEIGHT,
 } from '../../../trees/trees.constants';
+import { Output as OutputType } from '../../diagram/types';
+import useDiagramContext from '../../hooks/diagram/useDiagramContext';
+import useWorkflowContext from '../../hooks/useWorkflowContext';
 import {
     MARGIN_LEFT, WORKFLOW_START_MARGIN_TOP, NODE_BUTTON_HEIGHT, OUTPUT_EDGE_LENGTH, WORKFLOW_STEP_WIDTH,
 } from '../../workflows.constants';
-import useWorkflowContext from '../../hooks/useWorkflowContext';
-import { NodecosmosTheme } from '../../../../themes/type';
-import { Output as OutputType } from '../../diagram/types';
-import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
-import useDiagramContext from '../../hooks/diagram/useDiagramContext';
-import StartToolbar from './StartToolbar';
-import Output from './ios/Output';
+import { faPlay } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useTheme } from '@mui/material';
+import React from 'react';
+// import PropTypes from 'prop-types';
+/* nodecosmos */
 
 export default function StartStep() {
     const theme: NodecosmosTheme = useTheme();
@@ -65,20 +65,20 @@ export default function StartStep() {
                 />
             </g>
             {
-                diagram.initialInputs.length > 0
-        && (
-            <path
-                stroke={theme.palette.workflow.default}
-                fill="transparent"
-                strokeWidth={3}
-                d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
-                style={{
-                    opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
-                    transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-                }}
-            />
-        )
+                (diagram.initialInputs.length > 0)
+                && (
+                    <path
+                        stroke={theme.palette.workflow.default}
+                        fill="transparent"
+                        strokeWidth={3}
+                        d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+                        style={{
+                            opacity: 0,
+                            animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
+                            transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+                        }}
+                    />
+                )
             }
             <foreignObject
                 width="700"

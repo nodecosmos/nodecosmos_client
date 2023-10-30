@@ -1,21 +1,21 @@
-import React from 'react';
+import CreateWorkflowModal from './CreateWorkflowModal';
+import WorkflowZoomTools from './tools/WorkflowZoomTools';
+import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import EditTitleField from '../../../common/components/EditTItleField';
+import ToolsContainer from '../../../common/components/tools/ToolsContainer';
+import useModalOpen from '../../../common/hooks/useModalOpen';
+import { selectIsPaneOpen } from '../../app/app.selectors';
+import TogglePaneButton from '../../app/components/TogglePaneButton';
+import { HEADER_HEIGHT } from '../../app/constants';
+import useWorkflowCommands from '../hooks/useWorkflowCommands';
+import useWorkflowContext from '../hooks/useWorkflowContext';
+import { faAdd, faTrash } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd, faTrash } from '@fortawesome/pro-light-svg-icons';
-import { HEADER_HEIGHT } from '../../app/constants';
-import DefaultButton from '../../../common/components/buttons/DefaultButton';
-import EditTitleField from '../../../common/components/EditTItleField';
-import useWorkflowCommands from '../hooks/useWorkflowCommands';
-import useWorkflowContext from '../hooks/useWorkflowContext';
-import { selectIsWfPaneOpen } from '../workflows.selectors';
-import ToolsContainer from '../../../common/components/tools/ToolsContainer';
-import useModalOpen from '../../../common/hooks/useModalOpen';
-import CreateWorkflowModal from './CreateWorkflowModal';
-import WorkflowZoomTools from './tools/WorkflowZoomTools';
-import ToggleWorkflowPaneButton from './pane/ToggleWorkflowPaneButton';
 
 export default function WorkflowToolbar() {
     const {
@@ -24,7 +24,7 @@ export default function WorkflowToolbar() {
     const hasWorkflow = !!id;
     const [modalOpen, openModal, closeModal] = useModalOpen();
     const { handleTitleChange, deleteWorkflow } = useWorkflowCommands();
-    const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
+    const isPaneOpen = useSelector(selectIsPaneOpen);
 
     return (
         <Box
@@ -86,7 +86,7 @@ export default function WorkflowToolbar() {
 
             {id && <WorkflowZoomTools />}
 
-            {!isWfPaneOpen && (<ToggleWorkflowPaneButton />)}
+            {!isPaneOpen && (<TogglePaneButton />)}
 
             <CreateWorkflowModal
                 open={modalOpen}

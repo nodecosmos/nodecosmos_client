@@ -1,21 +1,19 @@
-import React from 'react';
-import {
-    faHeadSideBrain, faLightbulbOn, faRightFromBracket, 
-} from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Menu from '@mui/material/Menu';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Box, Slider } from '@mui/material';
+import NcAvatar from '../../../../common/components/NcAvatar';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
-
 import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
 import SidebarListItem from '../../../nodes/components/sidebar/SidebarListItem';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
+import {
+    faHeadSideBrain, faLightbulbOn, faRightFromBracket, 
+} from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Slider } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 /* nodecosmos */
-import NcAvatar from '../../../../common/components/NcAvatar';
 
 export default function UserProfileOptions() {
     const [anchorEl, setAnchorEl] = React.useState(false);

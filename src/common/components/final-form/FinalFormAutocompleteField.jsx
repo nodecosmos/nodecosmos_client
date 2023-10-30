@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-duplicate-props */
-import React from 'react';
-import { useForm } from 'react-final-form';
+import FinalFormAutocompleteInputField from './FinalFormAutocompleteInputField';
 import { Autocomplete } from '@mui/material';
 import PropTypes from 'prop-types';
-import FinalFormAutocompleteInputField from './FinalFormAutocompleteInputField';
+import React from 'react';
+import { useForm } from 'react-final-form';
 
 export default function FinalFormAutocompleteField({
     freeSolo,

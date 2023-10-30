@@ -1,8 +1,8 @@
-import React from 'react';
+import { TextField } from '@mui/material';
 import * as PropTypes from 'prop-types';
+import React from 'react';
 import { Field } from 'react-final-form';
 /* mui */
-import { TextField } from '@mui/material';
 
 const composeValidators = (validators) => (value, values) => (
     validators.reduce((error, validator) => error || validator(value, values), undefined)
@@ -13,11 +13,11 @@ const requiredValidator = (value) => (
 );
 
 const maxLengthValidator = (maxLength) => (value) => (
-    (value && value.length > maxLength) ? `${value.length}/${maxLength} length limit` : undefined
+    (value && (value.length > maxLength)) ? `${value.length}/${maxLength} length limit` : undefined
 );
 
 const minLengthValidator = (minLength) => (value) => (
-    (value && value.length < minLength) ? `${value.length}/${minLength} minimum length` : undefined
+    (value && (value.length < minLength)) ? `${value.length}/${minLength} minimum length` : undefined
 );
 
 export default function FinalFormInputField({

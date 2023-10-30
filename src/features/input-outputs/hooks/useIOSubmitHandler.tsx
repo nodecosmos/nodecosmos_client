@@ -1,14 +1,15 @@
+import { NodecosmosDispatch } from '../../../store';
+import { Strict } from '../../../types';
+import { setAlert } from '../../app/appSlice';
+import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
+import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
+import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
+import { CreateIOModalProps } from '../components/CreateIOModal';
+import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
+import { createIO } from '../inputOutputs.thunks';
+import { InsertInputOutputPayload } from '../types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createIO } from '../inputOutputs.thunks';
-import { updateWorkflowInitialInputs } from '../../workflows/workflows.thunks';
-import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
-import { setAlert } from '../../app/appSlice';
-import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
-import { InputOutputUpsertPayload } from '../types';
-import { NodecosmosDispatch } from '../../../store';
-import { CreateIOModalProps } from '../components/CreateIOModal';
-import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 
 export default function useIOSubmitHandler(props: CreateIOModalProps, autocompleteValue: string | null) {
     const {
@@ -21,13 +22,14 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
 
     const onSubmit = async (formValues: { title: string }) => {
         setLoading(true);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const existingIO = autocompleteValue && allWorkflowIOs.find((io) => io.title === autocompleteValue);
 
-        const payload: InputOutputUpsertPayload = {
+        const payload: Strict<InsertInputOutputPayload> = {
             nodeId,
             workflowId,
             rootNodeId,
-            originalId: autocompleteValue && existingIO?.id,
+            originalId: (autocompleteValue && existingIO?.id) || null,
             flowStepId: props.flowStepPrimaryKey?.id,
             ...formValues,
         };

@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import { NodecosmosTheme } from '../../../../../themes/type';
+import FlowModal from '../../../../flows/components/FlowModal';
+import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
+import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
+import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
+import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
     Box, Button, Typography, useTheme,
 } from '@mui/material';
-import FlowModal from '../../../../flows/components/FlowModal';
-import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
-import WorkflowStepFlows from '../flows/WorkflowStepFlows';
-import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
-import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
-import { NodecosmosTheme } from '../../../../../themes/type';
-import useModalOpen from '../../../../../common/hooks/useModalOpen';
-import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
+import React, { useCallback, useState } from 'react';
 
 export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
     const theme: NodecosmosTheme = useTheme();

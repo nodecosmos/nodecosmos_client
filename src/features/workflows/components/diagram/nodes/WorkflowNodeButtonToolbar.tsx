@@ -1,16 +1,16 @@
-import React from 'react';
+import AssociateInputsModal from './AssociateInputsModal';
+import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
+import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
+import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
-import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
-import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
-import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
-import useModalOpen from '../../../../../common/hooks/useModalOpen';
-import AssociateInputsModal from './AssociateInputsModal';
 
 export default function WorkflowNodeButtonToolbar() {
     const { id } = useFlowStepNodeContext();

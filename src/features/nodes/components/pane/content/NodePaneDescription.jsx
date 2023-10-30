@@ -1,9 +1,9 @@
-import React from 'react';
-import { Typography, Box } from '@mui/material';
-import { useSelector } from 'react-redux';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
 import NodePaneDescriptionCoverImage from '../../cover/NodePaneDescriptionCoverImage';
+import { Typography, Box } from '@mui/material';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function NodePaneDescription() {
     const selectedNodeId = useSelector(selectSelectedNodeId);

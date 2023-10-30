@@ -1,10 +1,10 @@
-import * as React from 'react';
+import useDrawerHeight from '../hooks/useDrawerHeight';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
-import useDrawerHeight from '../hooks/useDrawerHeight';
 
 const EDGE_HEIGHT = 50;
 

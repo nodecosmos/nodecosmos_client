@@ -1,8 +1,8 @@
-import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { NodecosmosTheme } from '../../../../themes/type';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import { selectSelectedWorkflowObject } from '../../workflows.selectors';
-import { NodecosmosTheme } from '../../../../themes/type';
+import { useTheme } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 interface Props {
     id: string;

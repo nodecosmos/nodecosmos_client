@@ -1,13 +1,13 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 /* nodecosmos */
 import { setSelectedNode } from '../../../../nodes/nodeActions';
 import {
     collapseTreeNode, expandTreeNode, setSelectedTreeNode, 
 } from '../../../treeActions';
-import useTreeContext from '../../useTreeContext';
 import useTreeCommands from '../../useTreeCommands';
+import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function useNodeClick() {
     const {

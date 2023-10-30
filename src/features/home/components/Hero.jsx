@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
+import { Box, Typography } from '@mui/material';
+import React from 'react';
 
 export default function Hero() {
     return (

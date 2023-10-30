@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
+import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function CodeMirrorContainer({ children }) {
     return (

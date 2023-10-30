@@ -1,12 +1,12 @@
-import React from 'react';
-import {
-    Box, Grid, Typography, useTheme,
-} from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 import ContributionRequest from './collaborate/ContributionRequest';
 import Topics from './collaborate/Topics';
 import NodeSectionLink from './links/NodeSectionLink';
 import Section from './Section';
+import {
+    Box, Grid, Typography, useTheme,
+} from '@mui/material';
+import React from 'react';
 
 export default function Vision() {
     // const [tab, setTab] = useState(0);

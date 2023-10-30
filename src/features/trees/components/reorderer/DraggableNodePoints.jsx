@@ -1,9 +1,9 @@
-import React from 'react';
-import * as PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { selectDragAndDrop } from '../../trees.selectors';
-import useTreeNodeVirtualizer from '../../hooks/useTreeNodesVirtualizer';
 import DraggableNodePoint from './DraggableNodePoint';
+import useTreeNodeVirtualizer from '../../hooks/useTreeNodesVirtualizer';
+import { selectDragAndDrop } from '../../trees.selectors';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 function DraggableNodePoints({ rootNodeId }) {
     const dragAndDrop = useSelector(selectDragAndDrop);

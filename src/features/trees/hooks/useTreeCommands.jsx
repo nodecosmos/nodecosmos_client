@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import useTreeContext from './useTreeContext';
 import useTreeCheckboxCommands from './commands/useTreeCheckboxCommands';
+import useTreeContext from './useTreeContext';
+import { useCallback } from 'react';
 
 export default function useTreeCommands() {
     const { setShouldRebuildTree } = useTreeContext();

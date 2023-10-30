@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React, {
     createContext, useState, useCallback, 
 } from 'react';
-import PropTypes from 'prop-types';
 
 const TreeContext = createContext(undefined);
 

@@ -1,11 +1,11 @@
-import { WorkflowData } from '../types';
-import { FlowStep } from '../../flow-steps/types';
-import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
-import { groupInputOutputsById } from '../../input-outputs/inputOutputs.memoize';
-import { calculateWorkflowStepPosition } from './position';
 import { buildFlow } from './flow';
 import { buildInitialOutputs } from './output';
+import { calculateWorkflowStepPosition } from './position';
 import { WorkflowDiagram, WorkflowStep } from './types';
+import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
+import { FlowStep } from '../../flow-steps/types';
+import { groupInputOutputsById } from '../../input-outputs/inputOutputs.memoize';
+import { WorkflowData } from '../types';
 
 export interface BuildWorkflowDiagramData {
     initialInputIds: WorkflowData['workflow']['initialInputIds'];
@@ -34,7 +34,6 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
     if (flows.length === 0) {
         // init empty workflow step, so we can create flows
         workflowSteps[0] = initWorkflowStep(0);
-
     } else {
         // build workflow steps from flows
         const flowStepsByFlowId = groupFlowStepsByFlowId(flowSteps);

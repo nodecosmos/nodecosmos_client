@@ -1,20 +1,23 @@
-import React, { useCallback } from 'react';
+import { selectIsPaneOpen } from '../../app/app.selectors';
+import TogglePaneButton from '../../app/components/TogglePaneButton';
+import { HEADER_HEIGHT } from '../../app/constants';
+import { searchNode } from '../../nodes/nodeActions';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import useTreeCommands from '../hooks/useTreeCommands';
+import useTreeContext from '../hooks/useTreeContext';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    InputAdornment, TextField, Box, 
+    InputAdornment, TextField, Box,
 } from '@mui/material';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { HEADER_HEIGHT } from '../../app/constants';
-import { searchNode } from '../../nodes/nodeActions';
-import useTreeCommands from '../hooks/useTreeCommands';
-import useTreeContext from '../hooks/useTreeContext';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 
 export default function TreeShowToolbar() {
     const dispatch = useDispatch();
     const { rootNodeId } = useTreeContext();
     const { rebuildTree } = useTreeCommands();
+    const isPaneOpen = useSelector(selectIsPaneOpen);
 
     const rootId = useSelector(selectNodeAttribute(rootNodeId, 'rootId'));
 
@@ -32,6 +35,7 @@ export default function TreeShowToolbar() {
             width={1}
             display="flex"
             alignItems="center"
+            justifyContent="space-between"
             position="relative"
             boxShadow="2"
             borderBottom={1}
@@ -70,6 +74,7 @@ export default function TreeShowToolbar() {
                 placeholder="Search"
                 onChange={handleSearch}
             />
+            {!isPaneOpen && (<TogglePaneButton />)}
         </Box>
     );
 }

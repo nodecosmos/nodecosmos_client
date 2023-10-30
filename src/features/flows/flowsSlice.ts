@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { showWorkflow } from '../workflows/workflows.thunks';
 import {
     createFlow, deleteFlow, getFlowDescription, updateFlowTitle,
 } from './flows.thunks';
 import {
     Flow, FlowPaneContent, FlowState,
 } from './types';
+import { showWorkflow } from '../workflows/workflows.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowState = {
     byId: {},

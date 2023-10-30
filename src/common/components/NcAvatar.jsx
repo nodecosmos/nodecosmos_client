@@ -1,7 +1,7 @@
-import React from 'react';
-import * as PropTypes from 'prop-types';
-/* mui */
 import { Avatar } from '@mui/material';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+/* mui */
 
 export default function NcAvatar({
     model, onClick, backgroundColor, scale, width, height, fontSize, 

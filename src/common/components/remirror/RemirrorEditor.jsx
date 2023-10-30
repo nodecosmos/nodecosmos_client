@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import * as Y from 'yjs';
-import useExtensions from '../../hooks/remirror/useExtensions';
 import RemirrorEditorWrapper from './RemirrorEditorWrapper';
+import useExtensions from '../../hooks/remirror/useExtensions';
+import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import * as Y from 'yjs';
 
 export default function RemirrorEditor({
     markdown, onChange, wsRoomId, base64, wsAuthNodeId, isRealTime, 

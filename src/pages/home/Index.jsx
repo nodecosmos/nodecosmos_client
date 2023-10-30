@@ -1,24 +1,24 @@
-import React, {
-    useRef, useState, useEffect, useMemo, useCallback,
-} from 'react';
+import Collaborate from '../../features/home/components/Collaborate';
+import ContactUs from '../../features/home/components/ContactUs';
+import Hero from '../../features/home/components/Hero';
+import HomepageTabs from '../../features/home/components/HomepageTabs';
+import Innovate from '../../features/home/components/Innovate';
+import Mvp from '../../features/home/components/Mvp';
+import OpenSource from '../../features/home/components/OpenSource';
+import { setHomepageTab } from '../../features/home/homeSlice';
 import {
     Box,
     Button,
     Typography,
 } from '@mui/material';
 import Container from '@mui/material/Container';
+import React, {
+    useRef, useState, useEffect, useMemo, useCallback,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { scrollBy } from 'seamless-scroll-polyfill';
-import Hero from '../../features/home/components/Hero';
-import HomepageTabs from '../../features/home/components/HomepageTabs';
 /* sections */
-import Innovate from '../../features/home/components/Innovate';
-import Collaborate from '../../features/home/components/Collaborate';
 // import Investments from '../../features/home/components/Investments';
-import OpenSource from '../../features/home/components/OpenSource';
-import Mvp from '../../features/home/components/Mvp';
-import ContactUs from '../../features/home/components/ContactUs';
-import { setHomepageTab } from '../../features/home/homeSlice';
 
 const HEADER_HEIGHT = 56;
 

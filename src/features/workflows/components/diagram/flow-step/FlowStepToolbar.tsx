@@ -1,31 +1,30 @@
-import React, { useCallback } from 'react';
-import {
-    faDiagramProject, faTrash, faForward,
-} from '@fortawesome/pro-light-svg-icons';
+import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
+import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import { NodecosmosDispatch } from '../../../../../store';
+import { Strict } from '../../../../../types';
+import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
+import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
+import { FlowStepCreationParams } from '../../../../flow-steps/types';
+import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import { WorkflowDiagramObjectType } from '../../../types';
+import { FLOW_STEP_SIZE, WorkflowDiagramContext } from '../../../workflows.constants';
+import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
+import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
+import { faPlay } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box,
     IconButton,
     Tooltip, Typography,
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
-import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
-import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
-import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
-import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
-import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { FLOW_STEP_SIZE, WorkflowDiagramContext } from '../../../workflows.constants';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
-import { NodecosmosDispatch } from '../../../../../store';
-import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
-import useModalOpen from '../../../../../common/hooks/useModalOpen';
-import { WorkflowDiagramObjectType } from '../../../types';
-import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
-import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import { Strict } from '../../../../../types';
-import { FlowStepCreationParams } from '../../../../flow-steps/types';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
     const { context: workflowContext } = useWorkflowContext();
@@ -114,7 +113,7 @@ export default function FlowStepToolbar() {
                             <IconButton
                                 className="Item"
                                 aria-label="Add Node"
-                                sx={{ color: 'secondary.main' }}
+                                sx={{ color: 'toolbar.lightRed' }}
                                 onClick={openModal}
                             >
                                 <FontAwesomeIcon icon={faDiagramProject} />
@@ -127,7 +126,7 @@ export default function FlowStepToolbar() {
                                         <IconButton
                                             className="Item"
                                             aria-label="Delete Flow Step"
-                                            sx={{ color: 'secondary.main' }}
+                                            sx={{ color: 'toolbar.blue' }}
                                             onClick={handleFlowStepDeletion}
                                         >
                                             <FontAwesomeIcon icon={faTrash} />
@@ -140,11 +139,11 @@ export default function FlowStepToolbar() {
                                                 : (
                                                     <IconButton
                                                         className="Item"
-                                                        aria-label="Delete Flow Step"
-                                                        sx={{ color: 'secondary.main' }}
+                                                        aria-label="Add Next Flow Step"
+                                                        sx={{ color: 'toolbar.green' }}
                                                         onClick={createNextFlowStep}>
                                                         <FontAwesomeIcon
-                                                            icon={faForward} />
+                                                            icon={faPlay} />
                                                     </IconButton>
                                                     // <DefaultButton
                                                     //     endIcon={<FontAwesomeIcon icon={faChevronRight} />}

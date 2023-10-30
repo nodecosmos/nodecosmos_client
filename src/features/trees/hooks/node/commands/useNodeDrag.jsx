@@ -1,12 +1,12 @@
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectIsNodeActionInProgress } from '../../../../nodes/nodes.selectors';
 import {
     clearDragAndDrop, setDragAndDrop, updateTreeNode,
 } from '../../../treeActions';
-import useNodeContext from '../useNodeContext';
 import { selectDragAndDrop } from '../../../trees.selectors';
 import useNodeDropCapture from '../../reorderer/useNodeDropCapture';
-import { selectIsNodeActionInProgress } from '../../../../nodes/nodes.selectors';
+import useNodeContext from '../useNodeContext';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeDrag() {
     const {

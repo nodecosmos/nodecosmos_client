@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, useTheme } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function UploadDashboardContainer({ children }) {
     const theme = useTheme();

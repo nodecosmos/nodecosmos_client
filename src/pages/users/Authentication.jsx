@@ -1,9 +1,4 @@
-import React, {
-    useEffect,
-    useState,
-} from 'react';
-
-/* mui */
+import Alert from '../../common/components/Alert';
 import {
     Tab,
     Tabs,
@@ -11,10 +6,13 @@ import {
     Container,
     Typography,
 } from '@mui/material';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
 import {
-    Outlet, Link, useLocation, 
+    Outlet, Link, useLocation,
 } from 'react-router-dom';
-import Alert from '../../common/components/Alert';
 
 export default function Authentication() {
     const location = useLocation();

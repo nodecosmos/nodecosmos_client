@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box } from '@mui/material';
 import { WORKFLOW_BUTTON_HEIGHT, OUTPUT_BUTTON_WIDTH } from '../workflows.constants';
+import { Box } from '@mui/material';
+import React from 'react';
 
 export default function WorkflowContainer({ children }: { children: React.ReactNode }) {
     return (
@@ -21,7 +21,7 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                         px: 2,
                         border: 'none',
                         maxWidth: 250,
-                        backgroundColor: 'red',
+                        backgroundColor: 'tree.default',
                         height: WORKFLOW_BUTTON_HEIGHT,
                         color: 'text.primary',
                         '&.selected .fa-hashtag': {

@@ -1,13 +1,13 @@
-import React from 'react';
+import ToolsContainer from '../../../../common/components/tools/ToolsContainer';
+import { selectWorkflowScale } from '../../workflows.selectors';
+import { setWorkflowScale } from '../../workflowsSlice';
 import { faCircleMinus, faCirclePlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip, Typography,
 } from '@mui/material';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ToolsContainer from '../../../../common/components/tools/ToolsContainer';
-import { selectWorkflowScale } from '../../workflows.selectors';
-import { setWorkflowScale } from '../../workflowsSlice';
 
 export default function WorkflowZoomTools() {
     const dispatch = useDispatch();

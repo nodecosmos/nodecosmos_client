@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
 import {
     indexContributionRequests,
     showContributionRequest, createContributionRequest, deleteContributionRequest,
 } from './contributionRequests.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const contributionRequestsSlice = createSlice({
     name: 'contributionRequests',

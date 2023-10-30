@@ -1,8 +1,8 @@
+import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import { selectTreeNode } from '../../trees.selectors';
+import useTreeCommands from '../useTreeCommands';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectTreeNode } from '../../trees.selectors';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import useTreeCommands from '../useTreeCommands';
 
 export default function useNodeButtonCheckboxColors(treeId) {
     const { nodeId, isRoot } = useSelector(selectTreeNode(treeId));

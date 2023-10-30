@@ -1,19 +1,19 @@
-import React, { useCallback } from 'react';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
+import { selectNodeAttribute } from '../../nodes/nodes.selectors';
+import { createWorkflow } from '../workflows.thunks';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { InputAdornment, DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { InputAdornment, DialogContent } from '@mui/material';
-import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import { createWorkflow } from '../workflows.thunks';
-import CloseModalButton from '../../../common/components/modal/CloseModalButton';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
-import { UUID } from '../../../types';
-import { NodecosmosDispatch } from '../../../store';
 
 interface Props {
     open: boolean;

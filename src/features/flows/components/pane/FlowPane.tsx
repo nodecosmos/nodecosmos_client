@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { HEADER_HEIGHT } from '../../../app/constants';
-import { selectFlowPaneContent } from '../../flows.selectors';
-import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
-import { FLOW_PANE_CONTENTS } from '../../flows.constants';
-import { setFlowPaneContent } from '../../flowsSlice';
-import usePrevious from '../../../../common/hooks/usePrevious';
-import { WorkflowDiagramObject } from '../../../workflows/types';
 import FlowPaneDescription from './content/FlowPaneDescription';
+import FlowPaneDescriptionEditor from './content/FlowPaneDescriptionEditor';
 import FlowPaneMarkdownEditor from './content/FlowPaneMarkdownEditor';
 import FlowPaneToolbar from './FlowPaneToolbar';
-import FlowPaneDescriptionEditor from './content/FlowPaneDescriptionEditor';
+import usePrevious from '../../../../common/hooks/usePrevious';
+import { HEADER_HEIGHT } from '../../../app/constants';
+import { WorkflowDiagramObject } from '../../../workflows/types';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
+import { FLOW_PANE_CONTENTS } from '../../flows.constants';
+import { selectFlowPaneContent } from '../../flows.selectors';
+import { setFlowPaneContent } from '../../flowsSlice';
+import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function FlowPane() {
     const ioPaneContent = useSelector(selectFlowPaneContent);

@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
-import { Box } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useDispatch, useSelector } from 'react-redux';
-import md from 'markdown-it';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectFlow } from '../../../flows.selectors';
 import { updateFlowDescription } from '../../../flows.thunks';
 import { updateFlowState } from '../../../flowsSlice';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import md from 'markdown-it';
+import React, { Suspense } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));

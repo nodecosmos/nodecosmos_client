@@ -1,11 +1,11 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
-import { Checkbox } from '@mui/material';
-import useTreeContext from '../../hooks/useTreeContext';
-import { TREES_TYPES } from '../../trees.constants';
 import useNodeContext from '../../hooks/node/useNodeContext';
 import useTreeCommands from '../../hooks/useTreeCommands';
+import useTreeContext from '../../hooks/useTreeContext';
+import { TREES_TYPES } from '../../trees.constants';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Checkbox } from '@mui/material';
+import React from 'react';
 
 export default function NodeSymbol() {
     const { nodeId, outlineColor } = useNodeContext();

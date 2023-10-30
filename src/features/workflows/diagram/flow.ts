@@ -1,12 +1,12 @@
-import { FlowStep } from '../../flow-steps/types';
-import { InputOutput } from '../../input-outputs/types';
-import { UUID } from '../../../types';
-import { FLOW_BUFFER } from '../workflows.constants';
 import { buildOutputs } from './output';
 import { calculateFlowStepNodePosition, calculateFlowStepPosition } from './position';
 import {
     FlowStepNode, Output, WorkflowStepFlow,
 } from './types';
+import { UUID } from '../../../types';
+import { FlowStep } from '../../flow-steps/types';
+import { InputOutput } from '../../input-outputs/types';
+import { FLOW_BUFFER } from '../workflows.constants';
 
 export interface FlowStepData {
     flowId: UUID;
@@ -52,7 +52,6 @@ export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
             prevFlowStepId: null,
             nextFlowStepId: null,
         });
-
     } else {
         flowSteps.forEach((flowStep, stepIndex) => {
             const flowStepPosition = calculateFlowStepPosition({

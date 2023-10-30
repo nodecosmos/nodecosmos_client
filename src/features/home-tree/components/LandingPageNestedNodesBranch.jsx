@@ -1,7 +1,3 @@
-import React from 'react';
-import { useTheme, Box } from '@mui/material';
-import * as PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -9,6 +5,10 @@ import {
     MARGIN_TOP,
     TRANSITION_ANIMATION_DURATION,
 } from '../constants';
+import { useTheme, Box } from '@mui/material';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function LandingPageNestedNodesBranch(props) {
     const { id, lastChildId } = props;

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import useNodeContext, { useNodeColors } from '../../hooks/node/useNodeContext';
+import {
+    MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT,
+} from '../../trees.constants';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import {
-    MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT, 
-} from '../../trees.constants';
-import useNodeContext, { useNodeColors } from '../../hooks/node/useNodeContext';
+import React, { useEffect } from 'react';
 
 export default function NodeInput({
-    onClick, onChange, onBlur, 
+    onClick, onChange, onBlur,
 }) {
     const ref = React.useRef(null);
     const { title } = useNodeContext();
@@ -52,7 +52,6 @@ export default function NodeInput({
                 size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}
                 style={{
                     color,
-                    textAlign: titleLength < 4 ? 'center' : 'left',
                     marginRight: titleLength < 4 ? 0 : -4,
                 }}
             />

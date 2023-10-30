@@ -1,25 +1,25 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-/* nodecosmos */
+import OutputBranch from './OutputBranch';
+import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
+import { NodecosmosDispatch } from '../../../../../store';
+import { UUID } from '../../../../../types';
 import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
+/* nodecosmos */
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
+import { Output as OutputType } from '../../../diagram/types';
 import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import { WorkflowDiagramObjectType } from '../../../types';
 import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
 } from '../../../workflows.constants';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { Output as OutputType } from '../../../diagram/types';
-import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
-import { UUID } from '../../../../../types';
-import { WorkflowDiagramObjectType } from '../../../types';
-import { NodecosmosDispatch } from '../../../../../store';
-import OutputBranch from './OutputBranch';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface OutputProps {
     output: OutputType;

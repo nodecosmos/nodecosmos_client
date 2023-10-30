@@ -1,10 +1,10 @@
-import React from 'react';
-import { FlowStepNode as FlowStepNodeType, Output as OutputType } from '../../../diagram/types';
-import Inputs from '../ios/Inputs';
-import Output from '../ios/Output';
-import { useFlowStepNodeContextCreator } from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import NodeOutputsBranch from './NodeOutputsBranch';
 import WorkflowNodeButton from './WorkflowNodeButton';
+import { FlowStepNode as FlowStepNodeType, Output as OutputType } from '../../../diagram/types';
+import { useFlowStepNodeContextCreator } from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import Inputs from '../ios/Inputs';
+import Output from '../ios/Output';
+import React from 'react';
 
 interface Props {
     flowStepNode: FlowStepNodeType,

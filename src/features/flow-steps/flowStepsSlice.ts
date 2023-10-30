@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { deleteIO } from '../input-outputs/inputOutputs.thunks';
-import { showWorkflow } from '../workflows/workflows.thunks';
+import { groupFlowStepsById } from './flowSteps.memoize';
 import {
     createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
 } from './flowSteps.thunks';
 import { FlowStepState } from './types';
-import { groupFlowStepsById } from './flowSteps.memoize';
+import { deleteIO } from '../input-outputs/inputOutputs.thunks';
+import { showWorkflow } from '../workflows/workflows.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowStepState = {
     byId: {},
@@ -66,13 +66,12 @@ const flowStepsSlice = createSlice({
 
                 // remove from outputs of current step
                 const flowStep = state.byId[flowStepId];
+                const { outputIdsByNodeId } = flowStep;
 
-                Object.keys(flowStep.outputIdsByNodeId).forEach((nodeId) => {
-                    flowStep.outputIdsByNodeId[nodeId] = flowStep.outputIdsByNodeId[nodeId]
+                Object.keys(outputIdsByNodeId).forEach((nodeId) => {
+                    state.byId[flowStepId].outputIdsByNodeId[nodeId] = outputIdsByNodeId[nodeId]
                         .filter((outputId) => outputId !== id);
                 });
-
-                state.byId[flowStepId] = flowStep;
             });
     },
 });

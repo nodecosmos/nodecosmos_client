@@ -1,13 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createFlow, deleteFlow } from '../flows/flows.thunks';
-import { createIO, deleteIO } from '../input-outputs/inputOutputs.thunks';
-import { createFlowStep, deleteFlowStep } from '../flow-steps/flowSteps.thunks';
+import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
+import { WorkflowState } from './types';
+import { getScale } from './workflows.helpers';
 import {
     createWorkflow, deleteWorkflow, showWorkflow, updateWorkflowInitialInputs,
 } from './workflows.thunks';
-import { WorkflowState } from './types';
-import { getScale } from './workflows.helpers';
-import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
+import { UUID } from '../../types';
+import { createFlowStep, deleteFlowStep } from '../flow-steps/flowSteps.thunks';
+import { createFlow, deleteFlow } from '../flows/flows.thunks';
+import { createIO, deleteIO } from '../input-outputs/inputOutputs.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: WorkflowState = {
     byId: {},
@@ -16,8 +17,6 @@ const initialState: WorkflowState = {
     workflowDiagramById: {},
     selectedWorkflowObject: null,
     workflowScale: getScale(),
-    // pane
-    isWfPaneOpen: true,
 };
 
 const workflowsSlice = createSlice({
@@ -29,9 +28,6 @@ const workflowsSlice = createSlice({
         },
         clearSelectedWorkflowDiagramObject(state) {
             state.selectedWorkflowObject = null;
-        },
-        setIsWfPaneOpen(state, action) {
-            state.isWfPaneOpen = action.payload;
         },
         setWorkflowScale(state, action) {
             localStorage.setItem('workflowScale', action.payload);
@@ -83,11 +79,35 @@ const workflowsSlice = createSlice({
 
                 delete state.byId[id];
                 delete state.idByNodeId[nodeId];
+                state.selectedWorkflowObject = null;
             })
             .addCase(createFlow.fulfilled, () => {})
-            .addCase(deleteFlow.fulfilled, () => {})
+            .addCase(deleteFlow.fulfilled, (state) => {
+                // currently flows are deleted only from the pane
+                state.selectedWorkflowObject = null;
+            })
             .addCase(createFlowStep.fulfilled, () => {})
-            .addCase(deleteFlowStep.fulfilled, () => {})
+            .addCase(deleteFlowStep.fulfilled, (state, action) => {
+                const { flowStep } = action.payload;
+                const { outputIdsByNodeId, nodeIds } = flowStep;
+
+                // check step
+                if (state.selectedWorkflowObject?.id === flowStep.id) {
+                    state.selectedWorkflowObject = null;
+                }
+
+                // check nodes
+                if (nodeIds?.some((id: UUID) => state.selectedWorkflowObject?.id === id)) {
+                    state.selectedWorkflowObject = null;
+                }
+
+                // check outputs
+                if (!outputIdsByNodeId) return;
+
+                if (Object.values(outputIdsByNodeId).flat().some((id) => state.selectedWorkflowObject?.id === id)) {
+                    state.selectedWorkflowObject = null;
+                }
+            })
             .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
                 const { workflow } = action.payload;
                 const { initialInputIds } = workflow;
@@ -97,9 +117,15 @@ const workflowsSlice = createSlice({
             .addCase(createIO.fulfilled, () => {})
             .addCase(deleteIO.fulfilled, (state, action) => {
                 const { inputOutput } = action.payload;
+                const { workflowId } = inputOutput;
+                const { initialInputIds } = state.byId[workflowId];
 
                 if (state.selectedWorkflowObject?.id === inputOutput.id) {
                     state.selectedWorkflowObject = null;
+                }
+
+                if (initialInputIds.includes(inputOutput.id)) {
+                    state.byId[workflowId].initialInputIds = initialInputIds.filter((id) => id !== inputOutput.id);
                 }
             });
     },
@@ -112,7 +138,6 @@ const {
 
 export const {
     setSelectedWorkflowDiagramObject,
-    setIsWfPaneOpen,
     setWorkflowScale,
     clearSelectedWorkflowDiagramObject,
     updateWorkflow,

@@ -1,7 +1,3 @@
-import {
-    useCallback, useEffect, useLayoutEffect, 
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import usePrevious from '../../../common/hooks/usePrevious';
 import useShallowEqualSelector from '../../../common/hooks/useShallowEqualSelector';
 import {
@@ -11,6 +7,10 @@ import {
     incrementNodesYEnds,
     updateNodePosition,
 } from '../landingPageNodeSlice';
+import {
+    useCallback, useEffect, useLayoutEffect, 
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodePositionCalculator(props) {
     const {

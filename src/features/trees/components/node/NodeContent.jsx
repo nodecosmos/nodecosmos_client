@@ -1,5 +1,8 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import NodeButton from './NodeButton';
+import NodeInput from './NodeInput';
+import NodeToolbar from './NodeToolbar';
+import useNodeCommands from '../../hooks/node/useNodeCommands';
+import useNodeContext, { useNodePosition } from '../../hooks/node/useNodeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -7,11 +10,8 @@ import {
     NODE_BUTTON_HEIGHT,
     TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
-import useNodeContext, { useNodePosition } from '../../hooks/node/useNodeContext';
-import useNodeCommands from '../../hooks/node/useNodeCommands';
-import NodeButton from './NodeButton';
-import NodeInput from './NodeInput';
-import NodeToolbar from './NodeToolbar';
+import { Box } from '@mui/material';
+import React from 'react';
 
 // we have different components for text
 // because 'input' is not valid child element of 'button'

@@ -1,6 +1,6 @@
-import React from 'react';
-import FlowStepNode from '../nodes/FlowStepNode';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import FlowStepNode from '../nodes/FlowStepNode';
+import React from 'react';
 
 export default function FlowStep() {
     const { flowStepNodes } = useFlowStepContext();

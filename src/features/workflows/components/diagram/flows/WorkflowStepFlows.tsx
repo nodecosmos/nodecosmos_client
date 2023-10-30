@@ -1,6 +1,6 @@
-import React from 'react';
-import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import WorkflowStepFlow from './WorkflowStepFlow';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import React from 'react';
 
 export default function WorkflowStepFlows() {
     const { wfStep } = useWorkflowStepContext();

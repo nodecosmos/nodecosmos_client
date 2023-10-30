@@ -1,14 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createNode, deleteNode } from '../nodes/nodes.thunks';
 
 /* reducers */
-import buildTreeFromRootNode from './reducers/treeBuilder';
-import setTreeNodesPositions from './reducers/treeNodePositionSetter';
-import { expandTreeNode, collapseTreeNode } from './reducers/treeNodeMounter';
-import updateTreeNode from './reducers/treeNodeUpdater';
 import buildTmpTreeNode from './reducers/tmpTreeNodeAdder';
-import deleteTreeNodeFromState from './reducers/treeNodeDeleter';
 import replaceTmpTreeNodeWithPersistedNode from './reducers/tmpTreeNodeReplacer';
+import buildTreeFromRootNode from './reducers/treeBuilder';
+import deleteTreeNodeFromState from './reducers/treeNodeDeleter';
+import { expandTreeNode, collapseTreeNode } from './reducers/treeNodeMounter';
+import setTreeNodesPositions from './reducers/treeNodePositionSetter';
+import updateTreeNode from './reducers/treeNodeUpdater';
+import { createNode, deleteNode } from '../nodes/nodes.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const treesSlice = createSlice({
     name: 'trees',

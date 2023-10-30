@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import * as React from 'react';
+import AnimateOnView from './AnimateOnView';
+import MvpStepIcon from './mvp/MvpStepIcon';
 import {
     Typography, useTheme, Box, 
 } from '@mui/material';
-import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import AnimateOnView from './AnimateOnView';
-import MvpStepIcon from './mvp/MvpStepIcon';
+import Stepper from '@mui/material/Stepper';
+import { useEffect } from 'react';
+import * as React from 'react';
 
 const steps = [
     'Design Product',

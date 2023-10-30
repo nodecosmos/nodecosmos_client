@@ -1,10 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+    InsertInputOutputPayload, PrimaryKey, UpdateIODescriptionPayload, UpdateIOTitlePayload, 
+} from './types';
 import nodecosmos from '../../apis/nodecosmos-server';
-import { InputOutputUpsertPayload, PrimaryKey } from './types';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createIO = createAsyncThunk(
     'inputOutputs/create',
-    async (payload: InputOutputUpsertPayload) => {
+    async (payload: InsertInputOutputPayload) => {
         const response = await nodecosmos.post('/input_outputs', payload);
 
         return response.data;
@@ -27,7 +29,7 @@ export const getIODescription = createAsyncThunk(
 
 export const updateIOTitle = createAsyncThunk(
     'inputOutputs/updateTitle',
-    async (payload: InputOutputUpsertPayload) => {
+    async (payload: UpdateIOTitlePayload) => {
         const response = await nodecosmos.put('/input_outputs/title', payload);
 
         return response.data;
@@ -36,7 +38,7 @@ export const updateIOTitle = createAsyncThunk(
 
 export const updateIODescription = createAsyncThunk(
     'inputOutputs/updateDescription',
-    async (payload: InputOutputUpsertPayload) => {
+    async (payload: UpdateIODescriptionPayload) => {
         const response = await nodecosmos.put('/input_outputs/description', payload);
 
         return response.data;

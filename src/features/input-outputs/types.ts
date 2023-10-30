@@ -1,4 +1,4 @@
-import { OptionalId, UUID } from '../../types';
+import { UUID } from '../../types';
 import { Property } from '../properties/types';
 
 export interface PrimaryKey {
@@ -9,8 +9,8 @@ export interface PrimaryKey {
 }
 
 export interface InputOutput extends PrimaryKey {
-    originalId: UUID;
-    flowStepId: UUID;
+    originalId: UUID | null;
+    flowStepId: UUID | null;
     title: string;
     unit: string | null;
     dataType: string | null;
@@ -23,8 +23,25 @@ export interface InputOutput extends PrimaryKey {
 
 }
 
-// primary key with optional id + partial of the rest
-export type InputOutputUpsertPayload = OptionalId<PrimaryKey> & Partial<Omit<InputOutput, keyof PrimaryKey>>;
+export interface InsertInputOutputPayload {
+    rootNodeId: PrimaryKey['rootNodeId'];
+    nodeId: PrimaryKey['nodeId'];
+    workflowId: PrimaryKey['workflowId'];
+    flowStepId: InputOutput['flowStepId'];
+    originalId?: InputOutput['originalId'];
+    title: InputOutput['title'];
+}
+
+export interface UpdateIOTitlePayload extends PrimaryKey {
+    originalId: InputOutput['originalId'];
+    title: InputOutput['title'];
+}
+
+export interface UpdateIODescriptionPayload extends PrimaryKey {
+    originalId: InputOutput['originalId'];
+    description: InputOutput['description'];
+    descriptionMarkdown: InputOutput['descriptionMarkdown'];
+}
 
 export enum IOPaneContent {
     Markdown = 'markdown',

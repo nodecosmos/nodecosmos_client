@@ -1,9 +1,9 @@
-import React from 'react';
+import { faPenToSquare, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import React from 'react';
 
 export default function WorkflowToolbarTools() {
     return (

@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentNode } from '../../app/appSlice';
 import {
     collapseNode,
@@ -7,6 +6,7 @@ import {
     prependNewNode,
     terminateNewNode,
 } from '../landingPageNodeSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ROOT_LANDING_PAGE_NODE_ID = '635a91ea690cc413ead79ce2';
 

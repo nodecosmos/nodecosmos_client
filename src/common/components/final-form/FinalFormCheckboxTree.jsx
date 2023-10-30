@@ -1,8 +1,8 @@
-import React from 'react';
 import {
     Box, FormControlLabel, Checkbox, useTheme,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Field } from 'react-final-form';
 
 function FinalFormCheckboxTree({
@@ -25,16 +25,16 @@ function FinalFormCheckboxTree({
                 <Box>
                     <Box display="flex" alignItems="center">
                         {
-                            nestedLevel > 1
-              && (
-                  <Box
-                      ml={-4}
-                      height="0px"
-                      width="50px"
-                      borderTop="1px dashed"
-                      borderColor="borders.5"
-                  />
-              )
+                            (nestedLevel > 1)
+                            && (
+                                <Box
+                                    ml={-4}
+                                    height="0px"
+                                    width="50px"
+                                    borderTop="1px dashed"
+                                    borderColor="borders.5"
+                                />
+                            )
                         }
                         <FormControlLabel
                             sx={{

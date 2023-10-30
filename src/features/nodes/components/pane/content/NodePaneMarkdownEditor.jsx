@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
-import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
-/* nodecosmos */
+import Loader from '../../../../../common/components/Loader';
 import {
     selectNodeAttribute,
     selectSelectedNodeId,
 } from '../../../nodes.selectors';
-import Loader from '../../../../../common/components/Loader';
+import { Box } from '@mui/material';
+import React, { Suspense } from 'react';
+import { useSelector } from 'react-redux';
+/* nodecosmos */
 
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
 

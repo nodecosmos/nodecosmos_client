@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
 import {
     Box, useMediaQuery, useTheme,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useInView } from 'framer-motion';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 
 export default function AnimateOnView(props) {
     const {

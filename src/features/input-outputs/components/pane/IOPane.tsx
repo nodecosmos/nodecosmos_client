@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { HEADER_HEIGHT } from '../../../app/constants';
-import { selectIOPaneContent } from '../../inputOutputs.selectors';
-import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
-import { setIOPaneContent } from '../../inputOutputsSlice';
-import usePrevious from '../../../../common/hooks/usePrevious';
-import { WorkflowDiagramObject } from '../../../workflows/types';
-import { NodecosmosDispatch } from '../../../../store';
-import { IOPaneContent } from '../../types';
 import IOPaneDescription from './content/IOPaneDescription';
+import IOPaneDescriptionEditor from './content/IOPaneDescriptionEditor';
 import IOPaneMarkdownEditor from './content/IOPaneMarkdownEditor';
 import IOPaneToolbar from './IOPaneToolbar';
-import IOPaneDescriptionEditor from './content/IOPaneDescriptionEditor';
+import usePrevious from '../../../../common/hooks/usePrevious';
+import { NodecosmosDispatch } from '../../../../store';
+import { HEADER_HEIGHT } from '../../../app/constants';
+import { WorkflowDiagramObject } from '../../../workflows/types';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
+import { selectIOPaneContent } from '../../inputOutputs.selectors';
+import { setIOPaneContent } from '../../inputOutputsSlice';
+import { IOPaneContent } from '../../types';
+import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function IOPane() {
     const ioPaneContent = useSelector(selectIOPaneContent) as IOPaneContent;

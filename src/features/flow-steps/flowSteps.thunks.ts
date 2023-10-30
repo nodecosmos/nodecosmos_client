@@ -1,9 +1,9 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import nodecosmos from '../../apis/nodecosmos-server';
-import { Strict } from '../../types';
 import {
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
 } from './types';
+import nodecosmos from '../../apis/nodecosmos-server';
+import { Strict } from '../../types';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createFlowStep = createAsyncThunk(
     'flow_steps/createFlowStep',

@@ -1,8 +1,8 @@
-import { defaultMemoize } from 'reselect';
-import { UUID } from '../../types';
 import {
     FlowStep, FlowStepsByFlowId, FlowStepsById, 
 } from './types';
+import { UUID } from '../../types';
+import { defaultMemoize } from 'reselect';
 
 export const groupFlowStepsByFlowId = defaultMemoize((flowSteps: FlowStep[]): FlowStepsByFlowId => {
     const flowStepsByFlowId: Record<UUID, FlowStep[]> = {};

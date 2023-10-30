@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import {
-    Tab, Tabs, Box, useMediaQuery, useTheme,
-} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 // import { faDiagramNested, faSquareCode, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
-import {
-    faDiagramNested, faSquareCode, faChartNetwork, faGamepadModern,
-} from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setCurrentNode } from '../../app/appSlice';
-import { setInnovateTab } from '../homeSlice';
 import AnimateOnView from './AnimateOnView';
 import Other from './innovate/AndMore';
 import LandingPageMarkdown from './innovate/LandingPageMarkdown';
 import LandingPageTree from './innovate/LandingPageTree';
 import LandingPageWorkflow from './innovate/LandingPageWorkflow';
 import Section from './Section';
+import { setCurrentNode } from '../../app/appSlice';
+import { setInnovateTab } from '../homeSlice';
+import {
+    faDiagramNested, faSquareCode, faChartNetwork, faGamepadModern,
+} from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    Tab, Tabs, Box, useMediaQuery, useTheme,
+} from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PRESELECTED_NODE_ID = '635a91ea690cc413ead79ce2';
 

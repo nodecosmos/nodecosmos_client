@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect } from 'react';
+import ToolsContainer from './tools/ToolsContainer';
+import nodecosmos from '../../apis/nodecosmos-server';
+import useDebounce from '../hooks/useDebounce';
+import { faCheck } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, TextField, Tooltip,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/pro-solid-svg-icons';
-import useDebounce from '../hooks/useDebounce';
-import nodecosmos from '../../apis/nodecosmos-server';
-import ToolsContainer from './tools/ToolsContainer';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect } from 'react';
 
 export default function EditTitleFieldInput({
     title, onChange, onClose, endpoint, reqData, 

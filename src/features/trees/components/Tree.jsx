@@ -1,21 +1,20 @@
 /* mui */
-import React from 'react';
-import * as PropTypes from 'prop-types';
-import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
-import Transformable from '../../../common/components/Transformable';
-import { TREES_TYPES } from '../trees.constants';
-import { useTreeContextCreator } from '../hooks/useTreeContext';
-import Alert from '../../../common/components/Alert';
-import { HEADER_HEIGHT } from '../../app/constants';
-import OverlayLoader from '../../../common/components/OverlayLoader';
-import { selectIsTreeLoading } from '../trees.selectors';
 import TreeNodes from './TreeNodes';
-import TreeContainer from './TreeContainer';
 import TreeShowToolbar from './TreeShowToolbar';
+import Alert from '../../../common/components/Alert';
+import OverlayLoader from '../../../common/components/OverlayLoader';
+import Transformable from '../../../common/components/Transformable';
+import { HEADER_HEIGHT } from '../../app/constants';
+import { useTreeContextCreator } from '../hooks/useTreeContext';
+import { TREES_TYPES } from '../trees.constants';
+import { selectIsTreeLoading } from '../trees.selectors';
+import { Box } from '@mui/material';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Tree({
-    rootNodeId, type, onChange, value, 
+    rootNodeId, type, onChange, value,
 }) {
     const { TreeContext, contextProviderValue } = useTreeContextCreator({
         type, onChange, value, rootNodeId,
@@ -26,16 +25,16 @@ export default function Tree({
     return (
 
         <TreeContext.Provider value={contextProviderValue}>
-            <TreeContainer>
+            <div className="Tree">
                 <TreeShowToolbar rootNodeId={rootNodeId} />
                 <Alert />
                 <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
-                    {isTreeLoading && <OverlayLoader />}
+                    {isTreeLoading ? <OverlayLoader /> : null}
                     <Transformable transformableId={rootNodeId}>
                         <TreeNodes rootNodeId={rootNodeId} type={type} />
                     </Transformable>
                 </Box>
-            </TreeContainer>
+            </div>
         </TreeContext.Provider>
     );
 }

@@ -1,5 +1,5 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { extractRootIdFromTreeNodeId } from './trees.memoize';
+import { createSelector } from '@reduxjs/toolkit';
 
 // top level selectors
 export const selectTreesByRootNodeId = (state) => state.trees.byRootNodeId;

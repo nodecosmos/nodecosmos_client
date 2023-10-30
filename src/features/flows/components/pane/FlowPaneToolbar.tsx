@@ -1,4 +1,18 @@
-import React from 'react';
+
+import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { NodecosmosDispatch } from '../../../../store';
+import TogglePaneButton from '../../../app/components/TogglePaneButton';
+import { HEADER_HEIGHT } from '../../../app/constants';
+import { WorkflowDiagramObject } from '../../../workflows/types';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
+import { FLOW_PANE_CONTENTS } from '../../flows.constants';
+import {
+    selectFlowAttribute, selectFlowPaneContent, selectFlowPrimaryKey,
+} from '../../flows.selectors';
+import { deleteFlow } from '../../flows.thunks';
+import { setFlowPaneContent } from '../../flowsSlice';
+import { FlowPaneContent } from '../../types';
 import {
     faPenToSquare, faTrash, faRectangleCode, faCodeCommit, faDisplay,
 } from '@fortawesome/pro-light-svg-icons';
@@ -6,22 +20,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     IconButton, Tooltip, Typography, Box,
 } from '@mui/material';
-
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
-import { HEADER_HEIGHT } from '../../../app/constants';
-import { FLOW_PANE_CONTENTS } from '../../flows.constants';
-import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
-import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
-import {
-    selectFlowAttribute, selectFlowPaneContent, selectFlowPrimaryKey,
-} from '../../flows.selectors';
-import { deleteFlow } from '../../flows.thunks';
-import { setFlowPaneContent } from '../../flowsSlice';
-import { WorkflowDiagramObject } from '../../../workflows/types';
-import { NodecosmosDispatch } from '../../../../store';
-import { FlowPaneContent } from '../../types';
 
 export default function FlowPaneToolbar() {
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
@@ -32,11 +32,23 @@ export default function FlowPaneToolbar() {
     const title = useSelector(selectFlowAttribute(id, 'title'));
     const primaryKey = useSelector(selectFlowPrimaryKey(id));
 
-    const handleDeleteFlow = () => {
+    const handleDeleteFlow = useCallback(() => {
         dispatch(deleteFlow(primaryKey));
-    };
+    }, [dispatch, primaryKey]);
 
     const hasShadow = ioPaneContent === FlowPaneContent.Description;
+
+    const setMarkdown = useCallback(() => {
+        dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown));
+    }, [dispatch]);
+
+    const setEditor = useCallback(() => {
+        dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor));
+    }, [dispatch]);
+
+    const setDescription = useCallback(() => {
+        dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description));
+    }, [dispatch]);
 
     return (
         <Box
@@ -54,21 +66,21 @@ export default function FlowPaneToolbar() {
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
                     active={ioPaneContent === FLOW_PANE_CONTENTS.markdown}
-                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown))}
+                    onClick={setMarkdown}
                 />
                 <ToolbarItem
                     title="Edit Description Markdown"
                     icon={faPenToSquare}
                     color="toolbar.green"
                     active={ioPaneContent === FLOW_PANE_CONTENTS.editor}
-                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor))}
+                    onClick={setEditor}
                 />
                 <ToolbarItem
                     title="View Description"
                     icon={faDisplay}
                     color="toolbar.blue"
                     active={ioPaneContent === FLOW_PANE_CONTENTS.description}
-                    onClick={() => dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description))}
+                    onClick={setDescription}
                 />
             </ToolbarContainer>
 
@@ -119,7 +131,7 @@ export default function FlowPaneToolbar() {
                 </Box>
             </Box>
             <Box>
-                <ToggleWorkflowPaneButton />
+                <TogglePaneButton />
             </Box>
 
         </Box>

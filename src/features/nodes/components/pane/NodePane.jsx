@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import NodePaneDescription from './content/NodePaneDescription';
+import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
+import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
+import NodePaneWorkflow from './content/NodePaneWorkflow';
+import NodePaneToolbar from './NodePaneToolbar';
+import usePrevious from '../../../../common/hooks/usePrevious';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import { setNodePaneContent } from '../../nodeActions';
+import { NODE_PANE_CONTENTS } from '../../nodes.constants';
 import {
     selectNodeAttribute,
     selectNodeDetailsAction,
     selectSelectedNodeId,
 } from '../../nodes.selectors';
 import { getNodeDescription } from '../../nodes.thunks';
-import { setNodePaneContent } from '../../nodeActions';
-import { NODE_PANE_CONTENTS } from '../../nodes.constants';
-import usePrevious from '../../../../common/hooks/usePrevious';
-import NodePaneToolbar from './NodePaneToolbar';
-import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
-import NodePaneDescription from './content/NodePaneDescription';
-import NodePaneWorkflow from './content/NodePaneWorkflow';
-import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
+import { Box, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function NodePane() {
+export default function NodePane({ page }) {
     const id = useSelector(selectSelectedNodeId);
     const rootId = useSelector(selectNodeAttribute(id, 'rootId'));
     const isTemp = useSelector(selectNodeAttribute(id, 'isTemp'));
@@ -83,16 +84,25 @@ export default function NodePane() {
 
     return (
         <Box
+            backgroundColor="background.5"
             width={1}
             height={1}
             sx={{ overflow: 'hidden' }}
             position="relative"
             zIndex={1}
         >
-            <NodePaneToolbar id={id} />
+            <NodePaneToolbar page={page} />
             <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
                 <SelectedComponent />
             </Box>
         </Box>
     );
 }
+
+NodePane.defaultProps = {
+    page: 'nodes',
+};
+
+NodePane.propTypes = {
+    page: PropTypes.oneOf(['nodes', 'workflow']),
+};

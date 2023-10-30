@@ -1,5 +1,5 @@
-import { defaultMemoize } from 'reselect';
 import { UUID } from '../types';
+import { defaultMemoize } from 'reselect';
 
 interface WithId {
     id: UUID;

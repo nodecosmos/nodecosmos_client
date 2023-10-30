@@ -1,6 +1,10 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Typography, Box } from '@mui/material';
+import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import TogglePaneButton from '../../../app/components/TogglePaneButton';
+import { HEADER_HEIGHT } from '../../../app/constants';
+import { setNodePaneContent } from '../../nodeActions';
+import { NODE_PANE_CONTENTS } from '../../nodes.constants';
+import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
     faRectangleCode,
@@ -8,17 +12,13 @@ import {
     faDisplay,
     faPenToSquare,
 } from '@fortawesome/pro-regular-svg-icons';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Typography, Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
-import { HEADER_HEIGHT } from '../../../app/constants';
-import { NODE_PANE_CONTENTS } from '../../nodes.constants';
 
-import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
-import { setNodePaneContent } from '../../nodeActions';
-
-export default function NodePaneToolbar() {
+export default function NodePaneToolbar({ page }) {
     const { title } = useSelector(selectSelectedNode);
 
     const dispatch = useDispatch();
@@ -81,7 +81,6 @@ export default function NodePaneToolbar() {
                     color="text.secondary"
                     ml={1}
                     sx={{
-                        lineHeight: 1,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
@@ -90,7 +89,17 @@ export default function NodePaneToolbar() {
                     {title}
                 </Typography>
             </Box>
-            <div />
+            {
+                (page === 'workflow' && <TogglePaneButton />) || <div />
+            }
         </Box>
     );
 }
+
+NodePaneToolbar.defaultProps = {
+    page: 'nodes',
+};
+
+NodePaneToolbar.propTypes = {
+    page: PropTypes.oneOf(['nodes', 'workflow']),
+};

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Box } from '@mui/material';
+
+import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
+import { HEADER_HEIGHT } from '../../app/constants';
 import {
     faCodeCommit, faDiagramNested, faListTree, faComments,
 } from '@fortawesome/pro-light-svg-icons';
-
-import { HEADER_HEIGHT } from '../../app/constants';
-import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
+import { Box } from '@mui/material';
+import React from 'react';
 
 export default function ContributionRequestsShowToolbar() {
     return (

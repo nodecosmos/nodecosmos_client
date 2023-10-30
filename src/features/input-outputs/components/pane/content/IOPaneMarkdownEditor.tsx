@@ -1,14 +1,16 @@
-import React, { Suspense } from 'react';
-import { Box } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useDispatch, useSelector } from 'react-redux';
-import md from 'markdown-it';
+import { NodecosmosDispatch } from '../../../../../store';
+import { WorkflowDiagramObject } from '../../../../workflows/types';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
-import { WorkflowDiagramObject } from '../../../../workflows/types';
-import { NodecosmosDispatch } from '../../../../../store';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import md from 'markdown-it';
+import React, { Suspense, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
@@ -34,29 +36,36 @@ export default function IOPaneMarkdownEditor() {
     const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
 
     const handleChangeTimeout = React.useRef<number | null>(null);
-    const { descriptionMarkdown } = useSelector(selectInputOutputById(id));
+    const { descriptionMarkdown, originalId } = useSelector(selectInputOutputById(id));
 
-    const handleChange = (value: string) => {
+    const handleChange = useCallback((value: string) => {
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
         }
 
         handleChangeTimeout.current = setTimeout(() => {
-            const descriptionHtml = md().render(value);
+            if (handleChangeTimeout.current) {
+                clearTimeout(handleChangeTimeout.current);
+            }
 
-            dispatch(updateIOState({
-                id,
-                description: descriptionHtml,
-                descriptionMarkdown: value,
-            }));
+            handleChangeTimeout.current = setTimeout(() => {
+                const descriptionHtml = md().render(value);
 
-            dispatch(updateIODescription({
-                ...primaryKey,
-                description: descriptionHtml,
-                descriptionMarkdown: value,
-            }));
-        }, 500);
-    };
+                dispatch(updateIOState({
+                    id,
+                    description: descriptionHtml,
+                    descriptionMarkdown: value,
+                }));
+
+                dispatch(updateIODescription({
+                    ...primaryKey,
+                    originalId,
+                    description: descriptionHtml,
+                    descriptionMarkdown: value,
+                }));
+            }, 500);
+        });
+    }, [dispatch, id, originalId, primaryKey]);
 
     return (
         <Suspense fallback={loading}>

@@ -1,12 +1,7 @@
-import React from 'react';
-import {
-    useActive, useCommands, useHelpers, 
-} from '@remirror/react';
-import {
-    Stack, ToggleButton, Tooltip, 
-} from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
+import { selectSelectedNode } from '../../../features/nodes/nodes.selectors';
+import UppyUploadFileModal from '../upload/UploadFileModal';
+import UploadImageModal from '../upload/UploadImageModal';
 import {
     faBold,
     faItalic,
@@ -23,12 +18,15 @@ import {
     faCamera,
     faFileArrowUp,
 } from '@fortawesome/pro-solid-svg-icons';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    Stack, ToggleButton, Tooltip, 
+} from '@mui/material';
+import {
+    useActive, useCommands, useHelpers, 
+} from '@remirror/react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import UploadImageModal from '../upload/UploadImageModal';
-import { selectSelectedNode } from '../../../features/nodes/nodes.selectors';
-import UppyUploadFileModal from '../upload/UploadFileModal';
-import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
 
 // Add uploaded files as attachments to the models.
 // Don't do anything on article change, but allow users to remove attachments in separate dialog.

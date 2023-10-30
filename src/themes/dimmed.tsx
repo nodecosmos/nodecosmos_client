@@ -30,7 +30,7 @@ const theme: NodecosmosTheme = {
 
         header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
         buttons: {
-            1: '4px 4px 0px rgb(0 0 0 / 14%)',
+            1: '3px 3px 0px rgb(0 0 0 / 14%)',
             2: '6px 8px 0px rgb(48 49 58 / 65%)',
             3: '6px 6px 0px rgb(0 0 0 / 8%)',
         },
@@ -106,12 +106,12 @@ const theme: NodecosmosTheme = {
         },
 
         toolbar: {
-            red: '#e91e63',
-            green: '#b6fd7b',
-            blue: '#2adfff',
+            red: '#fd526f',
+            green: '#c1e68c',
+            blue: '#78b1eb',
             lightRed: '#ff6881',
             pink: '#a9749e',
-            purple: '#b775ff',
+            purple: '#9377e2',
             yellow: '#f0f26f',
             hover: 'rgba(63,78,89,0.53)',
             active: 'rgba(63,78,89,0.53)',
@@ -122,15 +122,22 @@ const theme: NodecosmosTheme = {
         tree: {
             default: '#444a54',
             backgrounds: [
-                '#f13575',
+                '#fd526f',
                 '#a38dff', // 539bf5
-                '#77bbff',
-                '#77e2ff',
-                '#72fcad',
-                '#b3ff68',
-                '#e7e96d',
-                '#f5a07b',
+                '#78b1eb',
+                '#84d697',
+                '#c1ed95',
+                '#fbf77f',
+                '#ffc564',
             ],
+            // outlines: [
+            //     '#f13575',
+            //     '#a38dff', // 539bf5
+            //     '#77bbff',
+            //     '#b3ff68',
+            //     '#e7e96d',
+            //     '#f5a07b',
+            // ],
             defaultText: '#ffffff',
             selectedText: 'rgba(0, 0, 0, 0.9)',
             hashtag: '#898f9c',

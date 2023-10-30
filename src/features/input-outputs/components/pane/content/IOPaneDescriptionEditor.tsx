@@ -1,15 +1,15 @@
-import React, { Suspense, useCallback } from 'react';
-import { Box } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useDispatch, useSelector } from 'react-redux';
-import { HelpersFromExtensions } from '@remirror/core';
-import { MarkdownExtension } from 'remirror/extensions';
+import { NodecosmosDispatch } from '../../../../../store';
+import { WorkflowDiagramObject } from '../../../../workflows/types';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
-import { WorkflowDiagramObject } from '../../../../workflows/types';
-import { NodecosmosDispatch } from '../../../../../store';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { HelpersFromExtensions } from '@remirror/core';
+import React, { Suspense, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MarkdownExtension } from 'remirror/extensions';
 /* nodecosmos */
 
 const RemirrorEditor = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
@@ -34,7 +34,7 @@ export default function IOPaneDescriptionEditor() {
     const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleChangeTimeout = React.useRef<number| null>(null);
-    const { descriptionMarkdown } = useSelector(selectInputOutputById(id));
+    const { descriptionMarkdown, originalId } = useSelector(selectInputOutputById(id));
     const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
 
     const handleChange = useCallback((remirrorHelpers: HelpersFromExtensions<MarkdownExtension>) => {
@@ -54,11 +54,12 @@ export default function IOPaneDescriptionEditor() {
 
             dispatch(updateIODescription({
                 ...primaryKey,
+                originalId,
                 description: descriptionHtml,
                 descriptionMarkdown: markdown,
             }));
         }, 500);
-    }, [dispatch, id, primaryKey]);
+    }, [dispatch, id, originalId, primaryKey]);
 
     return (
         <Suspense fallback={loading}>

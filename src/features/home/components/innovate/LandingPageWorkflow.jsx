@@ -1,6 +1,6 @@
-import React from 'react';
-import { Typography, Box } from '@mui/material';
 import GradientText from '../../../../common/components/GradientText';
+import { Typography, Box } from '@mui/material';
+import React from 'react';
 
 export default function LandingPageWorkflow() {
     return (

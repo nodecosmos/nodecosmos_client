@@ -1,6 +1,6 @@
+import { terminateNewNode } from '../landingPageNodeSlice';
 import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { terminateNewNode } from '../landingPageNodeSlice';
 
 export default function useNodeUnmountService(props) {
     const { id } = props;

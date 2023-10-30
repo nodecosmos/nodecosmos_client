@@ -1,16 +1,16 @@
-import React from 'react';
+import AnimateOnView from './AnimateOnView';
+import Section from './Section';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import {
     Button, Grid, Typography,
     Box,
 } from '@mui/material';
-import { Form } from 'react-final-form';
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import AnimateOnView from './AnimateOnView';
-import Section from './Section';
+import axios from 'axios';
+import React from 'react';
+import { Form } from 'react-final-form';
 
 // eslint-disable-next-line max-len
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

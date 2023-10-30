@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
-import { Box, useTheme } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../common/components/Loader';
+import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
-import Workflow from '../../features/workflows/components/Workflow';
+import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
-import { selectIsWfPaneOpen, selectWorkflowByNodeId } from '../../features/workflows/workflows.selectors';
+import Workflow from '../../features/workflows/components/Workflow';
+import { selectWorkflowByNodeId } from '../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../features/workflows/workflows.thunks';
 import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../store';
-import { UUID } from '../../types';
 import { NodecosmosTheme } from '../../themes/type';
+import { UUID } from '../../types';
+import { Box, useTheme } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export default function Show() {
     const { id: nodeId } = useParams();
@@ -19,13 +21,12 @@ export default function Show() {
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const workflow = useSelector(selectWorkflowByNodeId(nodeId as UUID));
+    const isPaneOpen = useSelector(selectIsPaneOpen);
 
     const id = workflow?.id;
 
     const [loading, setLoading] = React.useState(!id);
-    const [resizerHovered, setResizerHovered] = React.useState(false);
-
-    const isWfPaneOpen = useSelector(selectIsWfPaneOpen);
+    const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
     const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
@@ -63,11 +64,11 @@ export default function Show() {
         };
     }, [dispatch, id, nodeId]);
 
-    useEffect(() => {
-        if (!resizeInProgress) {
-            setResizerHovered(false);
-        }
-    }, [resizeInProgress]);
+    // useEffect(() => {
+    //     if (!resizeInProgress) {
+    //         leaveResizer();
+    //     }
+    // }, [leaveResizer, resizeInProgress]);
 
     if (loading) {
         return <Loader />;
@@ -88,7 +89,7 @@ export default function Show() {
             >
                 <Box
                     height={1}
-                    width={(isWfPaneOpen && paneAWidth) || '100%'}
+                    width={(isPaneOpen && paneAWidth) || '100%'}
                     ref={workflowRef}
                     overflow="hidden"
                 >
@@ -97,12 +98,8 @@ export default function Show() {
                 <Box
                     component="div"
                     onMouseDown={handleResize}
-                    onMouseEnter={() => setResizerHovered(true)}
-                    onMouseLeave={() => {
-                        if (!resizeInProgress) {
-                            setResizerHovered(false);
-                        }
-                    }}
+                    onMouseEnter={hoverResizer}
+                    onMouseLeave={leaveResizer}
                     width="8px"
                     // backgroundColor="transparent"
                     height={1}
@@ -118,12 +115,14 @@ export default function Show() {
                     component="div"
                     // backgroundColor="background.5"
                     height={1}
-                    display={isWfPaneOpen ? 'block' : 'none'}
-                    width={(isWfPaneOpen && paneBWidth) || 0}
+                    display={isPaneOpen ? 'block' : 'none'}
+                    width={(isPaneOpen && paneBWidth) || 0}
                     ref={workflowDetailsRef}
+                    position="relative"
                     overflow="hidden"
                     boxShadow="left.2"
                     borderLeft={1}
+                    zIndex={1}
                     style={{
                         borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
                     }}

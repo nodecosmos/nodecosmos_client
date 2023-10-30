@@ -1,10 +1,9 @@
-import React from 'react';
-import * as PropTypes from 'prop-types';
-import { useNodeContextCreator } from '../../hooks/node/useNodeContext';
 import NestedNodesBranch from './NestedNodesBranch';
-
-import NodeContent from './NodeContent';
 import NodeBranch from './NodeBranch';
+import NodeContent from './NodeContent';
+import { useNodeContextCreator } from '../../hooks/node/useNodeContext';
+import * as PropTypes from 'prop-types';
+import React from 'react';
 
 export default function Node({ treeNodeId, isAlreadyMounted }) {
     const { NodeContext, contextProviderValue } = useNodeContextCreator({ treeNodeId, isAlreadyMounted });

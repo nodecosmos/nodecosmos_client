@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import CodeMirrorContainer from './CodeMirrorContainer';
+import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import CodeMirror from '@uiw/react-codemirror';
 import PropTypes from 'prop-types';
-import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
-import CodeMirrorContainer from './CodeMirrorContainer';
+import React, { useRef } from 'react';
 
 export default function CodeMirrorEditor({
     value,

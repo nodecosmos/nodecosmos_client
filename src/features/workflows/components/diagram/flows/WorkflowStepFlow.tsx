@@ -1,11 +1,11 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import { WorkflowStepFlow as WorkflowStepFlowType } from '../../../diagram/types';
+import { useFlowStepContextCreator } from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import { useFlowContextCreator } from '../../../hooks/diagram/flows/useFlowContext';
 import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
-import { WorkflowStepFlow as WorkflowStepFlowType } from '../../../diagram/types';
-import { useFlowContextCreator } from '../../../hooks/diagram/flows/useFlowContext';
-import { useFlowStepContextCreator } from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import { Box } from '@mui/material';
+import React from 'react';
 
 interface Props {
     workflowStepFlow: WorkflowStepFlowType;

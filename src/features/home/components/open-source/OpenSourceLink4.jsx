@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
-import React from 'react';
+import { setHomepageTab } from '../../homeSlice';
 import {
     Typography, useMediaQuery, useTheme, Box,
 } from '@mui/material';
 import { useInView } from 'framer-motion';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setHomepageTab } from '../../homeSlice';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

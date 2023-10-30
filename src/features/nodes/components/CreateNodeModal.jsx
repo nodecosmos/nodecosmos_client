@@ -1,24 +1,20 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import * as PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-
-import { useNavigate } from 'react-router-dom';
-
-/* mui */
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import { createNode } from '../nodes.thunks';
+import { faHashtag } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     InputAdornment,
     DialogContent,
 } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHashtag } from '@fortawesome/pro-light-svg-icons';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import * as PropTypes from 'prop-types';
+import React from 'react';
+import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
-/* nodecosmos */
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
-import CloseModalButton from '../../../common/components/modal/CloseModalButton';
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
-import { createNode } from '../nodes.thunks';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateNodeModal(props) {
     const { open, onClose } = props;

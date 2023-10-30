@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
 import {
     ListItem, ListItemButton, ListItemIcon, Box,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
+import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 export default function SidebarListItem(props) {

@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
+import NcAvatar from '../../../common/components/NcAvatar';
+import toLocalTime from '../../../utils/localTime';
 import {
     Box, CardHeader, CardMedia, Link, Typography,
 } from '@mui/material';
-import NcAvatar from '../../../common/components/NcAvatar';
-import toLocalTime from '../../../utils/localTime';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function NodeCardHeader({ node }) {
     return (

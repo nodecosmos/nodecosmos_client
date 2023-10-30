@@ -1,6 +1,6 @@
-import { defaultMemoize } from 'reselect';
-import { UUID } from '../../types';
 import { InputOutput } from './types';
+import { UUID } from '../../types';
+import { defaultMemoize } from 'reselect';
 
 export type InputOutputsById = Record<UUID, InputOutput>;
 

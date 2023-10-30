@@ -1,18 +1,18 @@
 /* mui */
-import React, { useEffect } from 'react';
-import * as PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-/* nodecosmos */
+import Node from './node/Node';
+import DraggableNodePoints from './reorderer/DraggableNodePoints';
 import { selectChildIdsByParentId } from '../../nodes/nodes.selectors';
+import useTreeCommands from '../hooks/useTreeCommands';
+import useTreeContext from '../hooks/useTreeContext';
 import useTreeNodeVirtualizer from '../hooks/useTreeNodesVirtualizer';
+/* nodecosmos */
 import useTreePositionCalculator from '../hooks/useTreePositionCalculator';
 import { buildTreeFromRootNode, setTreeNodesPositions } from '../treeActions';
 import { TREES_TYPES } from '../trees.constants';
 import { selectDragAndDrop, selectTreeNodes } from '../trees.selectors';
-import useTreeContext from '../hooks/useTreeContext';
-import useTreeCommands from '../hooks/useTreeCommands';
-import Node from './node/Node';
-import DraggableNodePoints from './reorderer/DraggableNodePoints';
+import * as PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const MemoizedNode = React.memo(Node);
 

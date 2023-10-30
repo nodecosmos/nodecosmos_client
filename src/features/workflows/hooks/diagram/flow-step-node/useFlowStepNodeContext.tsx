@@ -1,8 +1,8 @@
-import React, { useMemo, useContext } from 'react';
-import { useSelector } from 'react-redux';
 import { Position, UUID } from '../../../../../types';
 import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
 import { FlowStepNode } from '../../../diagram/types';
+import React, { useMemo, useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 interface FlowStepNodeContextValue {
     id: UUID,

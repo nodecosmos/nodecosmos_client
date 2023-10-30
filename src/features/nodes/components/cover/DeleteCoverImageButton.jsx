@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/pro-regular-svg-icons';
-import IconButton from '@mui/material/IconButton';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Tooltip } from '@mui/material';
+import { updateNodeState } from '../../nodeActions';
 import { selectSelectedNode } from '../../nodes.selectors';
 import { deleteNodeImage } from '../../nodes.thunks';
-import { updateNodeState } from '../../nodeActions';
+import { faClose } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Tooltip } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function DeleteCoverImageButton({ displayCoverImageUploadButton }) {
     const { id } = useSelector(selectSelectedNode);

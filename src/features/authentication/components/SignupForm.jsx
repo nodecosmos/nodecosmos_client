@@ -1,9 +1,9 @@
-import React from 'react';
-import { Form } from 'react-final-form';
-import { Button, Grid } from '@mui/material';
-/* nodecosmos */
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import useUserAuthentication from '../hooks/useUserAuthentication';
+import { Button, Grid } from '@mui/material';
+import React from 'react';
+import { Form } from 'react-final-form';
+/* nodecosmos */
 
 // eslint-disable-next-line max-len
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

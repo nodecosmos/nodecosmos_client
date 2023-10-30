@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
 import useTreeContext from '../useTreeContext';
+import { useCallback } from 'react';
 
 export default function useTreeCheckboxCommands() {
     const { selectedNodeIds, onChange } = useTreeContext();

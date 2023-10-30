@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { Box, Container } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import { setHeaderContent } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import NodeCards from '../../features/nodes/components/NodeCards';
 import { indexNodes } from '../../features/nodes/nodes.thunks';
+import { Box, Container } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function NodeIndex() {
     const dispatch = useDispatch();

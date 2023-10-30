@@ -1,7 +1,7 @@
-import React, { useMemo, useContext } from 'react';
-import { useSelector } from 'react-redux';
 import { UUID } from '../../../../../types';
 import { selectFlow } from '../../../../flows/flows.selectors';
+import React, { useMemo, useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 interface FlowContextValue {
     id: UUID

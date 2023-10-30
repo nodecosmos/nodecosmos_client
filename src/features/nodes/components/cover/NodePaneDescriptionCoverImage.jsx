@@ -1,13 +1,13 @@
-import React, { Suspense, useCallback } from 'react';
+import DeleteCoverImageButton from './DeleteCoverImageButton';
+import { updateNodeState } from '../../nodeActions';
+import { selectSelectedNode } from '../../nodes.selectors';
+import { faCamera } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Button, CardMedia, 
 } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/pro-light-svg-icons';
+import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedNode } from '../../nodes.selectors';
-import { updateNodeState } from '../../nodeActions';
-import DeleteCoverImageButton from './DeleteCoverImageButton';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
 

@@ -1,24 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { NODE_PANE_CONTENTS } from './nodes.constants';
-import getNodeDescriptionFulfilled from './reducers/extra/getNodeDescription.fulfilled';
-/* reducers */
-import buildTmpNode from './reducers/tmpNodeAdd';
-import deleteNodeFromState from './reducers/nodeDelete';
-import updateNodeState from './reducers/nodeUpdate';
-import setSelectedNode from './reducers/nodeSelect';
-import setNodePaneContent from './reducers/nodePaneContent';
-import searchNode from './reducers/nodeSearch';
-import importNode from './reducers/nodeImport';
-import replaceTmpNodeWithPersistedNode from './reducers/tmpNodeReplace';
-import clearTmpNode from './reducers/tmpNodeClean';
-import reorderNodes from './reducers/nodeReorder';
-
-/* extra reducers */
-import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
-import indexNodesFulfilledReducer from './reducers/extra/indexNodes.fulfilled';
-import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
-import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
-
 import {
     createNode,
     indexNodes,
@@ -30,7 +10,23 @@ import {
     getNodeDescription,
     getNodeDescriptionBase64,
 } from './nodes.thunks';
+import createNodeFulfilledReducer from './reducers/extra/createNode.fulfilled';
+import getNodeDescriptionFulfilled from './reducers/extra/getNodeDescription.fulfilled';
 import getNodeDescriptionBase64Fulfilled from './reducers/extra/getNodeDescriptionBase64.fulfilled';
+import indexNodesFulfilledReducer from './reducers/extra/indexNodes.fulfilled';
+import likeNodeFulfilledReducer from './reducers/extra/likeNode.fulfilled';
+import showNodeFulfilledReducer from './reducers/extra/showNode.fulfilled';
+import deleteNodeFromState from './reducers/nodeDelete';
+import importNode from './reducers/nodeImport';
+import setNodePaneContent from './reducers/nodePaneContent';
+import reorderNodes from './reducers/nodeReorder';
+import searchNode from './reducers/nodeSearch';
+import setSelectedNode from './reducers/nodeSelect';
+import updateNodeState from './reducers/nodeUpdate';
+import buildTmpNode from './reducers/tmpNodeAdd';
+import clearTmpNode from './reducers/tmpNodeClean';
+import replaceTmpNodeWithPersistedNode from './reducers/tmpNodeReplace';
+import { createSlice } from '@reduxjs/toolkit';
 
 const nodesSlice = createSlice({
     name: 'nodes',

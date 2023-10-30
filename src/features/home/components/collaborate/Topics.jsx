@@ -1,4 +1,5 @@
-import * as React from 'react';
+import NcAvatar from '../../../../common/components/NcAvatar';
+import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import {
     Badge, Chip, IconButton, Typography,
     Box,
@@ -8,8 +9,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
-import NcAvatar from '../../../../common/components/NcAvatar';
+import * as React from 'react';
 
 const rows = [
     {

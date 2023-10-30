@@ -1,16 +1,16 @@
-import React, { useCallback } from 'react';
+import { setTransformablePositions } from '../../app/appSlice';
+import { MARGIN_TOP } from '../../trees/trees.constants';
+import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../../trees/trees.memoize';
+import { selectPositions, selectSelectedTreeNode } from '../../trees/trees.selectors';
+import { setSelectedNode } from '../nodeActions';
+import { selectNodeTitlesById, selectSelectedNode } from '../nodes.selectors';
 import { faChevronRight, faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Breadcrumbs, IconButton, Link, Tooltip, useTheme, Box,
 } from '@mui/material';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTransformablePositions } from '../../app/appSlice';
-import { MARGIN_TOP } from '../../trees/trees.constants';
-import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../../trees/trees.memoize';
-import { selectPositions, selectSelectedTreeNode } from '../../trees/trees.selectors';
-import { selectNodeTitlesById, selectSelectedNode } from '../nodes.selectors';
-import { setSelectedNode } from '../nodeActions';
 
 export default function TreeShowHeader() {
     const selectedNode = useSelector(selectSelectedNode);

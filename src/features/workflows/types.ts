@@ -1,8 +1,8 @@
-import { UUID, OptionalId } from '../../types';
-import { Flow } from '../flows/types';
-import { FlowStep } from '../flow-steps/types';
-import { InputOutput } from '../input-outputs/types';
 import { WorkflowDiagram } from './diagram/types';
+import { UUID, OptionalId } from '../../types';
+import { FlowStep } from '../flow-steps/types';
+import { Flow } from '../flows/types';
+import { InputOutput } from '../input-outputs/types';
 
 interface WorkflowPrimaryKey {
     nodeId: UUID;
@@ -47,6 +47,4 @@ export interface WorkflowState {
     workflowDiagramById: Record<UUID, WorkflowDiagram>;
     selectedWorkflowObject: WorkflowDiagramObject | null;
     workflowScale: number;
-    // pane
-    isWfPaneOpen: boolean;
 }

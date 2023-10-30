@@ -1,8 +1,8 @@
-import React from 'react';
-import { useTheme } from '@mui/material';
+import { NodecosmosTheme } from '../../../../../themes/type';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { useTheme } from '@mui/material';
+import React from 'react';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

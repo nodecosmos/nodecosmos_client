@@ -1,27 +1,27 @@
-import React, { useCallback } from 'react';
-import { Form } from 'react-final-form';
-import { useDispatch } from 'react-redux';
+import AssociateInputCheckboxField from './AssocateInputCheckboxField';
+import DefaultModalFormButton from '../../../../../common/components/buttons/DefaultModalFormButton';
+import CloseModalButton from '../../../../../common/components/modal/CloseModalButton';
+import DefaultModal from '../../../../../common/components/modal/DefaultModal';
+import { NodecosmosDispatch } from '../../../../../store';
+import { UUID } from '../../../../../types';
+import { flattenValues } from '../../../../../utils/group';
+import { setAlert } from '../../../../app/appSlice';
+import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
+import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import { faSave } from '@fortawesome/pro-light-svg-icons';
 import {
     DialogTitle,
     DialogContent,
     Box,
 } from '@mui/material';
+import React, { useCallback } from 'react';
+import { Form } from 'react-final-form';
+import { useDispatch } from 'react-redux';
 /* nodecosmos */
-import { faSave } from '@fortawesome/pro-light-svg-icons';
-import { setAlert } from '../../../../app/appSlice';
-import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
-import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
-import { NodecosmosDispatch } from '../../../../../store';
-import DefaultModalFormButton from '../../../../../common/components/buttons/DefaultModalFormButton';
-import { UUID } from '../../../../../types';
-import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import { flattenValues } from '../../../../../utils/group';
-import DefaultModal from '../../../../../common/components/modal/DefaultModal';
-import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
-import CloseModalButton from '../../../../../common/components/modal/CloseModalButton';
-import AssociateInputCheckboxField from './AssocateInputCheckboxField';
 
 interface Props {
     open: boolean;
@@ -92,7 +92,7 @@ export default function AssociateInputsModal(props: Props) {
                     width: 200,
                     height: 38,
                     ml: 1,
-                    mt: 2,
+                    mt: 1,
                     borderRadius: 1,
                     px: 2,
                     cursor: 'pointer',

@@ -1,36 +1,35 @@
-import React, { useEffect } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    Navigate, Route, Routes, 
-} from 'react-router-dom';
-/* nodes */
+import Header from './header/Header';
+import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
+import ContributionRequestShow from '../../../pages/contribution-requests/Show';
+import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
+import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
 import NodesIndex from '../../../pages/nodes/Index';
+/* nodes */
 import NodeShow from '../../../pages/nodes/Show';
 import TreeShow from '../../../pages/trees/Show';
+import UserAuthentication from '../../../pages/users/Authentication';
 import WorkflowShow from '../../../pages/workflows/Show';
 /* users */
-import UserAuthentication from '../../../pages/users/Authentication';
-import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
-import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
-import { selectLikedObjectIds } from '../../likes/likes.selectors';
-import { getLikedObjectIds } from '../../likes/likes.thunks';
-import { HEADER_HEIGHT, SYNC_UP_INTERVAL } from '../constants';
-import LoginForm from '../../authentication/components/LoginForm';
-import SignupForm from '../../authentication/components/SignupForm';
-/* theme */
 import dark from '../../../themes/dark';
 import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
-
-import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
-import ContributionRequestShow from '../../../pages/contribution-requests/Show';
-import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
-import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
-import Header from './header/Header';
+import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
+import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
+import LoginForm from '../../authentication/components/LoginForm';
+import SignupForm from '../../authentication/components/SignupForm';
+import { selectLikedObjectIds } from '../../likes/likes.selectors';
+import { getLikedObjectIds } from '../../likes/likes.thunks';
+import { HEADER_HEIGHT, SYNC_UP_INTERVAL } from '../constants';
+/* theme */
+import { Box } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    Navigate, Route, Routes, 
+} from 'react-router-dom';
 
 export default function LazyAppLoad() {
     const isAuthenticated = useSelector(selectIsAuthenticated);

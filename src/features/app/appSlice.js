@@ -50,12 +50,16 @@ const appSlice = createSlice({
             x: 0,
             y: 0,
         },
+        isPaneOpen: true,
     },
     reducers: {
         setHeaderContent(state, action) { state.headerContent = action.payload; },
         setTheme(state, action) {
             state.theme = action.payload;
             localStorage.setItem('theme', action.payload);
+        },
+        setIsPaneOpen(state, action) {
+            state.isPaneOpen = action.payload;
         },
         setCurrentNode(state, action) { state.currentNodeId = action.payload; },
         setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
@@ -79,6 +83,7 @@ const { actions, reducer } = appSlice;
 
 export const {
     setTheme,
+    setIsPaneOpen,
     setCurrentNode,
     setHeaderContent,
     setTransformablePositions,

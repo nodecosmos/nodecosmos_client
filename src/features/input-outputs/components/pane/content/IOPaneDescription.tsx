@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { Typography, Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../../../../common/components/Loader';
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
+import Loader from '../../../../../common/components/Loader';
+import { NodecosmosDispatch } from '../../../../../store';
+import { WorkflowDiagramObject } from '../../../../workflows/types';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { getIODescription } from '../../../inputOutputs.thunks';
-import { WorkflowDiagramObject } from '../../../../workflows/types';
-import { NodecosmosDispatch } from '../../../../../store';
+import { Typography, Box } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function IOPaneDescription() {
     const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;

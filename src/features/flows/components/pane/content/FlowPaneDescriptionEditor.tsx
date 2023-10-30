@@ -1,15 +1,15 @@
-import React, { Suspense, useCallback } from 'react';
-import { Box } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useDispatch, useSelector } from 'react-redux';
-import { HelpersFromExtensions } from '@remirror/core';
-import { MarkdownExtension } from 'remirror/extensions';
-import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
-import { selectFlow, selectFlowPrimaryKey } from '../../../flows.selectors';
-import { updateFlowState } from '../../../flowsSlice';
-import { updateFlowDescription } from '../../../flows.thunks';
 import { NodecosmosDispatch } from '../../../../../store';
 import { WorkflowDiagramObject } from '../../../../workflows/types';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
+import { selectFlow, selectFlowPrimaryKey } from '../../../flows.selectors';
+import { updateFlowDescription } from '../../../flows.thunks';
+import { updateFlowState } from '../../../flowsSlice';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { HelpersFromExtensions } from '@remirror/core';
+import React, { Suspense, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MarkdownExtension } from 'remirror/extensions';
 /* nodecosmos */
 
 const RemirrorEditor = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));

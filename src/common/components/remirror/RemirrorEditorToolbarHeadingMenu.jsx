@@ -1,14 +1,14 @@
-import React, { useCallback } from 'react';
-import Menu from '@mui/material/Menu';
-import { MenuItem, ToggleButton } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faChevronDown,
     faH3,
     faH4,
     faH5,
 } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MenuItem, ToggleButton } from '@mui/material';
+import Menu from '@mui/material/Menu';
 import { useActive, useCommands } from '@remirror/react';
+import React, { useCallback } from 'react';
 
 export default function RemirrorEditorToolbarHeadingMenu() {
     const [open, setOpen] = React.useState(false);

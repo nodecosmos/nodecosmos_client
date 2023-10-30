@@ -1,6 +1,6 @@
-import React from 'react';
-import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import Input from './Input';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import React from 'react';
 
 export default function Inputs() {
     const { inputIds } = useFlowStepNodeContext();

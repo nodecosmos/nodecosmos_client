@@ -1,24 +1,24 @@
-import React, { useCallback, useState } from 'react';
+import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
+import { NodecosmosDispatch } from '../../../store';
+import { Strict } from '../../../types';
+import { setAlert } from '../../app/appSlice';
+import { selectNodesById } from '../../nodes/nodes.selectors';
+import Tree from '../../trees/components/Tree';
+import { TREES_TYPES } from '../../trees/trees.constants';
+import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
+import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
+import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
+import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
+import { FlowStepCreationParams, FlowStepUpdatePayload } from '../types';
+import { faSave } from '@fortawesome/pro-light-svg-icons';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import {
     Box, DialogContent, Typography, Dialog, DialogTitle, IconButton,
 } from '@mui/material';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { faSave } from '@fortawesome/pro-light-svg-icons';
-import { setAlert } from '../../app/appSlice';
-import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
 /* nodecosmos */
-import Tree from '../../trees/components/Tree';
-import { TREES_TYPES } from '../../trees/trees.constants';
-import { selectNodesById } from '../../nodes/nodes.selectors';
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
-import { FlowStepCreationParams, FlowStepUpdatePayload } from '../types';
-import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
-import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
-import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
-import { NodecosmosDispatch } from '../../../store';
-import { Strict } from '../../../types';
-import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 
 interface Props {
     open: boolean;

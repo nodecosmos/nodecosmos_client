@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { Typography } from '@mui/material';
 import EditTitleFieldInput from './EditTitleFieldInput';
+import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 
 export default function EditTitleField({
     title,

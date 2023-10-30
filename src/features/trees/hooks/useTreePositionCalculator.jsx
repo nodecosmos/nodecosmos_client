@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-
 import {
     COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
 } from '../trees.constants';
-/* nodecosmos */
 import { selectOrderedTreeNodeIds, selectTreeNodes } from '../trees.selectors';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+
+/* nodecosmos */
 
 export default function useTreePositionCalculator(rootId) {
     const treeNodes = useSelector(selectTreeNodes(rootId));

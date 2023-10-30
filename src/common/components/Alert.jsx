@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import { setAlert } from '../../features/app/appSlice';
+import { HEADER_HEIGHT } from '../../features/app/constants';
 import {
     Alert as MuiAlert, Typography, Box,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setAlert } from '../../features/app/appSlice';
-import { HEADER_HEIGHT } from '../../features/app/constants';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Alert({ position }) {
     const dispatch = useDispatch();

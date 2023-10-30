@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Tooltip } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
     useMatch, useNavigate, useResolvedPath,
 } from 'react-router-dom';
@@ -32,9 +32,6 @@ export default function ToolbarItem({
             <Box
                 className={`ButtonWrapper ${isActive && 'active'}`}
                 sx={{
-                    button: {
-                        color: 'toolbar.default',
-                    },
                     '&:hover, &.active': {
                         button: {
                             color,

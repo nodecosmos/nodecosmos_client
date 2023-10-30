@@ -1,8 +1,3 @@
-import React, { useRef } from 'react';
-import { useTheme, Box } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -10,6 +5,11 @@ import {
     MARGIN_TOP,
     TRANSITION_ANIMATION_DURATION,
 } from '../constants';
+import useNodeButtonBackground from '../hooks/useNodeButtonBackground';
+import { useTheme, Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import SidebarListItem from './SidebarListItem';
 import {
     faChartSimple,
     faCodeCommit,
@@ -18,8 +18,8 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, Box } from '@mui/material';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import SidebarListItem from './SidebarListItem';
 
 export default function Sidebar() {
     const { rootId, id } = useParams();

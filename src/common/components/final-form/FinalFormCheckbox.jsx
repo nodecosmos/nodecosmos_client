@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Field } from 'react-final-form';
 
 export default function FinalFormCheckbox({

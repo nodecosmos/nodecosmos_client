@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { getLikedObjectIds } from './likes.thunks';
+import { createSlice } from '@reduxjs/toolkit';
 
 const likesSlice = createSlice({
     name: 'likes',

@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import nodecosmos from '../../apis/nodecosmos-server';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getLikedObjectIds = createAsyncThunk(

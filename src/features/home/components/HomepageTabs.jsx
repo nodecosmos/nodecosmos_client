@@ -1,4 +1,4 @@
-import React from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
     Drawer,
     IconButton,
@@ -7,8 +7,8 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const tabSx = {
     ml: 1,

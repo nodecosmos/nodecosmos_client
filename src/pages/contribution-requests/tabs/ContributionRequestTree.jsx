@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { Box, useTheme } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Tree from '../../../features/trees/components/Tree';
 import { TREES_TYPES } from '../../../features/trees/trees.constants';
-import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import { Box, useTheme } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestTree() {
     const { id } = useParams();

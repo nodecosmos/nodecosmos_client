@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import landingPageNodes from './landingPageNodes';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const NEW_NODE_ID = 'NEW_NODE_ID';
 

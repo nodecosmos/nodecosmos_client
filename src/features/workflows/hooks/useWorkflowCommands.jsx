@@ -1,8 +1,8 @@
+import useWorkflowContext from './useWorkflowContext';
+import { deleteWorkflow } from '../workflows.thunks';
+import { updateWorkflow } from '../workflowsSlice';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateWorkflow } from '../workflowsSlice';
-import { deleteWorkflow } from '../workflows.thunks';
-import useWorkflowContext from './useWorkflowContext';
 
 export default function useWorkflowCommands() {
     const { id, nodeId } = useWorkflowContext();

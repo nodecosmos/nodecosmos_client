@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAdd } from '@fortawesome/pro-light-svg-icons';
 import DefaultButton from './DefaultButton';
+import { faAdd } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CircularProgress from '@mui/material/CircularProgress';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function DefaultModalFormButton({
     loading, startIcon, title, onSubmit, 

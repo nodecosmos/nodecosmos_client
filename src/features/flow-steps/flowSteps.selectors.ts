@@ -1,8 +1,8 @@
-import { createSelector } from '@reduxjs/toolkit';
-import { UUID } from '../../types';
 import {
     FlowStep, FlowStepPrimaryKey, FlowStepState,
 } from './types';
+import { UUID } from '../../types';
+import { createSelector } from '@reduxjs/toolkit';
 
 interface State {
     flowSteps: FlowStepState;
@@ -12,7 +12,7 @@ const selectFlowSteps = (state: State) => state.flowSteps.byId;
 
 export const selectFlowStep = (id: UUID | null) => createSelector(
     selectFlowSteps,
-    (flowStepsByWorkflowId) => id && flowStepsByWorkflowId[id] || {} as FlowStep,
+    (flowStepsByWorkflowId) => (id && flowStepsByWorkflowId[id]) || {} as FlowStep,
 );
 
 export const selectFlowStepPrimaryKey = (id: UUID | null) => createSelector(

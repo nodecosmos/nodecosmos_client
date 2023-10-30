@@ -29,20 +29,14 @@
         "import/newline-after-import": ["error", { "count": 1 }],
         "import/no-anonymous-default-export": 0,
         "import/no-unused-modules": [0, { "missingExports": true, "unusedExports": true }],
-        "import/order": [
-            "error",
-            {
-                "pathGroups": [
-                    {
-                        "pattern": "react",
-                        "group": "builtin",
-                        "position": "before"
-                    }
-                ],
-                "pathGroupsExcludedImportTypes": ["react"],
-                "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
+        "import/order": ["error", {
+            "groups": [["builtin", "external", "internal", "parent", "sibling", "index"]],
+            "newlines-between": "always",
+            "alphabetize": {
+                "order": "asc",
+                "caseInsensitive": true
             }
-        ],
+        }],
         "keyword-spacing": ["error", {
             "before": true,
             "after": true
@@ -54,6 +48,16 @@
         "no-debugger": 1,
         "no-multiple-empty-lines": ["error", { "max": 1 }],
         "no-multi-spaces": "error",
+        "no-mixed-operators": ["error", {
+            "groups": [
+                ["*", "/", "%", "**"],
+                ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                ["&&", "||" , ">", ">=", "<", "<="],
+                ["in", "instanceof"]
+            ],
+            "allowSamePrecedence": false
+        }],
         "no-param-reassign": ["error", { "props": false }],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": false }],
         "no-redeclare": "error",
@@ -82,6 +86,7 @@
         }],
         "react/jsx-no-bind": 1,
         "react-hooks/exhaustive-deps": 2,
+        "padded-blocks": ["error", "never"],
         "semi": ["error", "always"],
         "space-before-blocks": ["error", "always"],
         "space-infix-ops": "error",

@@ -1,8 +1,8 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { SerializedError } from '@reduxjs/toolkit';
 import { setAlert } from '../../features/app/appSlice';
 import { NodecosmosDispatch } from '../../store';
+import { SerializedError } from '@reduxjs/toolkit';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 // we need to update thunk to return error object from server
 export default function useHandleServerErrorAlert() {

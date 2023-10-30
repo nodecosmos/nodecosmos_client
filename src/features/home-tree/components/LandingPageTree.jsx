@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import * as PropTypes from 'prop-types';
-/* mui */
-import {
-    Box, useMediaQuery, useTheme, 
-} from '@mui/material';
-import { useDispatch } from 'react-redux';
-/* nodecosmos */
-import { terminateNewNode } from '../landingPageNodeSlice';
+import LandingPageNestedNodes from './LandingPageNestedNodes';
 import LandingPageNode from './LandingPageNode';
 import LandingPageNodeDescription from './LandingPageNodeDescription';
 import SwipeableEdgeDrawer from './LandingPageSwipeableNodeDescMobile';
 import LandingPageTransformable from './LandingPageTransformable';
-import LandingPageNestedNodes from './LandingPageNestedNodes';
+import { terminateNewNode } from '../landingPageNodeSlice';
+import {
+    Box, useMediaQuery, useTheme, 
+} from '@mui/material';
+import * as PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+/* mui */
+import { useDispatch } from 'react-redux';
+/* nodecosmos */
 
 export default function LandingPageTree(props) {
     const { id } = props;

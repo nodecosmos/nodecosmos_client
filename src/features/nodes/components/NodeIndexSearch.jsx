@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
-import { InputAdornment, TextField } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
-import { useDispatch } from 'react-redux';
 import { indexNodes } from '../nodes.thunks';
+import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { InputAdornment, TextField } from '@mui/material';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function NodeIndexSearch() {
     const dispatch = useDispatch();

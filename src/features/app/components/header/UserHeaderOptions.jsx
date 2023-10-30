@@ -1,15 +1,15 @@
-import React from 'react';
+import UserProfileOptions from './UserProfileOptions';
+import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { selectIsAuthenticated } from '../../../authentication/authentication.selectors';
 import { faBell, faMessages } from '@fortawesome/pro-regular-svg-icons';
 import {
     Box,
     Button, Tooltip,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
-import { selectIsAuthenticated } from '../../../authentication/authentication.selectors';
-import UserProfileOptions from './UserProfileOptions';
+import { Link } from 'react-router-dom';
 
 export default function UserHeaderOptions() {
     const isAuthenticated = useSelector(selectIsAuthenticated);

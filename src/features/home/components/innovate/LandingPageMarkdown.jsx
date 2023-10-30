@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
+import GradientText from '../../../../common/components/GradientText';
+import CodeIcon from '@mui/icons-material/Code';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import {
     ToggleButton, ToggleButtonGroup, Typography,
     Box,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import CodeIcon from '@mui/icons-material/Code';
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import GradientText from '../../../../common/components/GradientText';
+import React, { Suspense } from 'react';
 
 const CustomCodeMirror = React.lazy(() => import('../../../../common/components/codemirror/CodeMirrorEditor'));
 const MarkdownPreview = React.lazy(() => import('../../../../common/components/MarkdownPreview'));

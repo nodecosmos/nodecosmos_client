@@ -1,16 +1,16 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import appSlice from './features/app/appSlice';
 import authSlice from './features/authentication/authenticationSlice';
+import contributionRequestSlice from './features/contribution-requests/contributionRequestsSlice';
+import flowStepsSlice from './features/flow-steps/flowStepsSlice';
+import flowsSlice from './features/flows/flowsSlice';
+import homeSlice from './features/home/homeSlice';
+import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
+import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
+import likesSlice from './features/likes/likesSlice';
 import nodesSlice from './features/nodes/nodesSlice';
 import treesSlice from './features/trees/treesSlice';
-import appSlice from './features/app/appSlice';
-import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
-import homeSlice from './features/home/homeSlice';
-import likesSlice from './features/likes/likesSlice';
 import workflowsSlice from './features/workflows/workflowsSlice';
-import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
-import flowsSlice from './features/flows/flowsSlice';
-import flowStepsSlice from './features/flow-steps/flowStepsSlice';
-import contributionRequestSlice from './features/contribution-requests/contributionRequestsSlice';
+import { combineReducers } from '@reduxjs/toolkit';
 
 export default combineReducers({
     app: appSlice,

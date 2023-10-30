@@ -1,19 +1,19 @@
-import React, { Suspense } from 'react';
-import { Box } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
-/* mui */
-import { ThemeProvider } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
-import {
-    Route, Routes, useLocation, 
-} from 'react-router-dom';
-/* nodecosmos */
+import Loader from '../../../common/components/Loader';
 import Home from '../../../pages/home/Index';
 import dark from '../../../themes/dark';
 import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
 import getTheme from '../../../themes/theme';
-import Loader from '../../../common/components/Loader';
+import { Box } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+/* mui */
+import { ThemeProvider } from '@mui/material/styles';
+import React, { Suspense } from 'react';
+import { useSelector } from 'react-redux';
+import {
+    Route, Routes, useLocation, 
+} from 'react-router-dom';
+/* nodecosmos */
 /* sx */
 
 const LazyAppLoad = React.lazy(() => import('./LazyAppLoad'));

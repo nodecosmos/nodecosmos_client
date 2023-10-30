@@ -1,6 +1,6 @@
-import React from 'react';
 import { Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function GradientText(props) {
     const {

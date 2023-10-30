@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import { setDescriptionCoordinates } from '../../app/appSlice';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box,
     Typography,
 } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setDescriptionCoordinates } from '../../app/appSlice';
 
 export default function NodeDescriptionMd() {
     const currentNodeId = useSelector((state) => state.app.currentNodeId);

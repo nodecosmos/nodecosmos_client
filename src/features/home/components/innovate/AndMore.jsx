@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Typography, Box } from '@mui/material';
 import GradientText from '../../../../common/components/GradientText';
+import { Typography, Box } from '@mui/material';
+import React, { useEffect } from 'react';
 
 export default function Other() {
     const coolRef = React.useRef(null);

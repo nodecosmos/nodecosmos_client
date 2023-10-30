@@ -1,9 +1,9 @@
-import useNodeClick from './commands/useNodeClick';
-import useNodeRemove from './commands/useNodeRemove';
 import useNodeAdd from './commands/useNodeAdd';
-import useNodeTitleChange from './commands/useNodeTitleChange';
+import useNodeClick from './commands/useNodeClick';
 import useNodeDrag from './commands/useNodeDrag';
 import useNodeEdit from './commands/useNodeEdit';
+import useNodeRemove from './commands/useNodeRemove';
+import useNodeTitleChange from './commands/useNodeTitleChange';
 
 export default function useNodeCommands() {
     const clickNode = useNodeClick();

@@ -1,12 +1,12 @@
-import React from 'react';
+import useModalOpen from '../../../../common/hooks/useModalOpen';
+import CreateIOModal from '../../../input-outputs/components/CreateIOModal';
+import { faPlus } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { faPlus } from '@fortawesome/pro-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CreateIOModal from '../../../input-outputs/components/CreateIOModal';
-import useModalOpen from '../../../../common/hooks/useModalOpen';
+import React from 'react';
 
 export default function StartToolbar({ workflowId, startStepHovered }) {
     const [modalOpen, openModal, closeModal] = useModalOpen();

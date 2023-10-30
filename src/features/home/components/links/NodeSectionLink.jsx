@@ -1,7 +1,7 @@
-import React from 'react';
 import { useTheme, Box } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useInView } from 'framer-motion';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function NodeSectionLink(props) {
     const { strokeWidth } = props;

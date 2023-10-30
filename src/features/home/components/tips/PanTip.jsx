@@ -1,7 +1,7 @@
-import React from 'react';
 import {
     Typography, useMediaQuery, useTheme, Box,
 } from '@mui/material';
+import React from 'react';
 
 export default function PanTip() {
     const theme = useTheme();

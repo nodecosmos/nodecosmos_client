@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { Box, useTheme } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { setHeaderContent } from '../../features/app/appSlice';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
+import { setHeaderContent } from '../../features/app/appSlice';
 import NodePane from '../../features/nodes/components/pane/NodePane';
 import Tree from '../../features/trees/components/Tree';
+import { Box, useTheme } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export default function Show() {
     const { id } = useParams();
@@ -90,7 +90,6 @@ export default function Show() {
                 />
             </Box>
             <Box
-                backgroundColor="background.5"
                 ref={paneBRef}
                 height={1}
                 width={paneBWidth}

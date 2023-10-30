@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Uppy } from '@uppy/core';
-import { Dashboard } from '@uppy/react';
-import ImageEditor from '@uppy/image-editor';
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/image-editor/dist/style.min.css';
+import UploadDashboardContainer from './UploadDashboardContainer';
+import nodecosmos from '../../../apis/nodecosmos-server';
+import CloseModalButton from '../modal/CloseModalButton';
 import { DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import PropTypes from 'prop-types';
+import { Uppy } from '@uppy/core';
+import ImageEditor from '@uppy/image-editor';
+import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import nodecosmos from '../../../apis/nodecosmos-server';
-import CloseModalButton from '../modal/CloseModalButton';
-import UploadDashboardContainer from './UploadDashboardContainer';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import '@uppy/core/dist/style.min.css';
+import '@uppy/dashboard/dist/style.min.css';
+import '@uppy/image-editor/dist/style.min.css';
 
 const uppy = new Uppy({
     restrictions: {
@@ -49,7 +49,7 @@ uppy.use(XHRUpload, {
 });
 
 export default function UploadImageModal({
-    open, onClose, endpointPath, aspectRatio, 
+    open, onClose, endpointPath, aspectRatio,
 }) {
     const uri = nodecosmos.getUri();
 

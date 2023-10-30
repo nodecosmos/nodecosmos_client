@@ -24,3 +24,4 @@ export enum WorkflowDiagramContext {
     workflowNodeDetails = 'workflowNodeDetails',
     treeNodeDetails = 'treeNodeDetails',
 }
+

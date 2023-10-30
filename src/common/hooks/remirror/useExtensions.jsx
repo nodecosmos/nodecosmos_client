@@ -1,4 +1,9 @@
+import { WS_URI } from '../../../apis/nodecosmos-server';
+import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
+import { base64ToUint8Array } from '../../../utils/serializer';
 import React, { useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { ExtensionPriority } from 'remirror';
 import {
     BlockquoteExtension,
     BoldExtension,
@@ -17,13 +22,8 @@ import {
     StrikeExtension, TaskListExtension,
     TrailingNodeExtension, YjsExtension,
 } from 'remirror/extensions';
-import { ExtensionPriority } from 'remirror';
-import * as Y from 'yjs';
-import { useSelector } from 'react-redux';
 import { WebsocketProvider } from 'y-websocket';
-import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
-import { base64ToUint8Array } from '../../../utils/serializer';
-import { WS_URI } from '../../../apis/nodecosmos-server';
+import * as Y from 'yjs';
 
 export default function useExtensions({
     isRealTime,

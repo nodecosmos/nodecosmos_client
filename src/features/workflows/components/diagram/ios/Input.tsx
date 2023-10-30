@@ -1,12 +1,12 @@
-import React from 'react';
-import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
-import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
 import { NodecosmosTheme } from '../../../../../themes/type';
-import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import { UUID } from '../../../../../types';
+import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
+import { useTheme } from '@mui/material';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

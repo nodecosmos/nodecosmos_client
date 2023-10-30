@@ -1,29 +1,25 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../../../common/components/Loader';
+import { NodecosmosDispatch } from '../../../../../store';
 import Workflow from '../../../../workflows/components/Workflow';
-import { selectWorkflowByNodeId } from '../../../../workflows/workflows.selectors';
+import { WorkflowDiagramContext } from '../../../../workflows/workflows.constants';
 import { showWorkflow } from '../../../../workflows/workflows.thunks';
 import { selectSelectedNodeId } from '../../../nodes.selectors';
-import { WorkflowDiagramContext } from '../../../../workflows/workflows.constants';
-import { NodecosmosDispatch } from '../../../../../store';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function NodePaneWorkflow() {
     const selectedNodeId = useSelector(selectSelectedNodeId);
     const [loading, setLoading] = React.useState(true);
 
-    const workflow = useSelector(selectWorkflowByNodeId(selectedNodeId));
-
     const dispatch: NodecosmosDispatch = useDispatch();
 
     useEffect(() => {
-        if (selectedNodeId) {
-            if (!workflow.id) setLoading(true);
+        if (loading) {
             dispatch(showWorkflow(selectedNodeId)).then(() => setLoading(false));
         } else {
             setLoading(false);
         }
-    }, [dispatch, selectedNodeId, workflow.id]);
+    }, [dispatch, loading, selectedNodeId]);
 
     if (!selectedNodeId) return null;
 

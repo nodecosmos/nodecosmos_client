@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import ImportNodeModal from '../importer/ImportNodeModal';
 import { faCodeBranch } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Box } from '@mui/material';
-import ImportNodeModal from '../importer/ImportNodeModal';
+import React, { useState } from 'react';
 
 export default function NodeImporter() {
     const [open, setOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function NodeImporter() {
                 className="Item"
                 onClick={() => setOpen((prev) => !prev)}
                 aria-label="Import Node"
-                sx={{ color: 'toolbar.lightRed' }}
+                sx={{ color: 'secondary.main' }}
             >
                 <FontAwesomeIcon icon={faCodeBranch} />
             </IconButton>

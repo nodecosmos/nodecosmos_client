@@ -1,10 +1,10 @@
+import useNodeButtonColors from './context/useNodeButtonColors';
+import useShallowEqualSelector from '../../../../common/hooks/useShallowEqualSelector';
+import { selectNode } from '../../../nodes/nodes.selectors';
+import { selectPosition, selectTreeNode } from '../../trees.selectors';
+import useTreeContext from '../useTreeContext';
 import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { selectPosition, selectTreeNode } from '../../trees.selectors';
-import { selectNode } from '../../../nodes/nodes.selectors';
-import useShallowEqualSelector from '../../../../common/hooks/useShallowEqualSelector';
-import useTreeContext from '../useTreeContext';
-import useNodeButtonColors from './context/useNodeButtonColors';
 
 const NodeContext = createContext(undefined);
 

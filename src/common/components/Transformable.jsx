@@ -1,15 +1,15 @@
-import React, {
-    useEffect, useRef, useState, 
-} from 'react';
-import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectTransformablePositionAttribute } from '../../features/app/app.selectors';
 import { setTransformablePositions } from '../../features/app/appSlice';
 import {
     TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
-import { selectTransformablePositionAttribute } from '../../features/app/app.selectors';
+import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import React, {
+    useEffect, useRef, useState, 
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Transformable({
     children, transformableId, scale, heightMargin, 

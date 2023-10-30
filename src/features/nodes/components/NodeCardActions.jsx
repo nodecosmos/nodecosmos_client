@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-    Box, CardActions, Tooltip, Typography,
-} from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LikeButton from './tree-node-toolbar/LikeButton';
 import {
     faCodePullRequest, faHashtag, faUserGroup,
 } from '@fortawesome/pro-light-svg-icons';
-import LikeButton from './tree-node-toolbar/LikeButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    Box, CardActions, Tooltip, Typography,
+} from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function NodeCardActions({ node }) {
     return (

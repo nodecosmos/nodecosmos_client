@@ -1,11 +1,11 @@
-import React from 'react';
-import { useTheme } from '@mui/material';
+import useNodeContext, { useNodeColors, useNodePosition } from '../../hooks/node/useNodeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
-import useNodeContext, { useNodeColors, useNodePosition } from '../../hooks/node/useNodeContext';
+import { useTheme } from '@mui/material';
+import React from 'react';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 

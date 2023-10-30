@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box } from '@mui/material';
 import Loader from './Loader';
+import { Box } from '@mui/material';
+import React from 'react';
 
 export default function OverlayLoader() {
     return (

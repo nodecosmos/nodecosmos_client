@@ -1,18 +1,18 @@
 /* mui */
-import React from 'react';
+import UserHeaderOptions from './UserHeaderOptions';
+import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
+import NodeIndexHeader from '../../../nodes/components/NodeIndexHeader';
+import TreeShowHeader from '../../../nodes/components/TreeShowHeader';
+import { selectHeaderContent } from '../../app.selectors';
+import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import {
     Box, Button, Typography, 
 } from '@mui/material';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import TreeShowHeader from '../../../nodes/components/TreeShowHeader';
 
 /* nodecosmos */
-import NodeIndexHeader from '../../../nodes/components/NodeIndexHeader';
-import { selectHeaderContent } from '../../app.selectors';
-import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
-import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
-import UserHeaderOptions from './UserHeaderOptions';
 
 const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
 const SIDEBAR_PATHS = ['/nodes'];

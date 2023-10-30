@@ -1,7 +1,7 @@
-import React, { useContext, useMemo } from 'react';
-import { WorkflowStep } from '../../../diagram/types';
 import { groupById } from '../../../../../utils/group';
+import { WorkflowStep } from '../../../diagram/types';
 import useDiagramContext from '../useDiagramContext';
+import React, { useContext, useMemo } from 'react';
 
 interface WorkflowStepContextValue {
     wfStep: WorkflowStep;

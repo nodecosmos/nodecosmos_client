@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { CONTRIBUTION_REQUEST_STATUS } from '../contributionRequests.constants';
 import { faCircleO } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Tooltip, useTheme, 
 } from '@mui/material';
-import { CONTRIBUTION_REQUEST_STATUS } from '../contributionRequests.constants';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function ContributionRequestStatusIcon({ status }) {
     const theme = useTheme();

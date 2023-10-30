@@ -1,20 +1,19 @@
-import React from 'react';
-import { faPlus } from '@fortawesome/pro-solid-svg-icons';
+import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
+import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
+import useNodeCommands from '../../hooks/node/useNodeCommands';
+import useNodeContext from '../../hooks/node/useNodeContext';
+import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
 import {
     faPenToSquare, faTrash, faArrowUpRightFromSquare,
 } from '@fortawesome/pro-regular-svg-icons';
+import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /* mui */
 import {
     IconButton, Box, Tooltip,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import LikeButton from '../../../nodes/components/tree-node-toolbar/LikeButton';
-import NodeImporter from '../../../nodes/components/tree-node-toolbar/NodeImporter';
-
-import { NODE_BUTTON_HEIGHT } from '../../trees.constants';
-import useNodeContext from '../../hooks/node/useNodeContext';
-import useNodeCommands from '../../hooks/node/useNodeCommands';
+import React from 'react';
 
 export default function NodeToolbar() {
     const { nodeId, isCreationInProgress } = useNodeContext();

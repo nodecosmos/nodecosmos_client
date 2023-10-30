@@ -1,8 +1,5 @@
-import React from 'react';
-import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
-/* nodecosmos */
 import usePrevious from '../../../../common/hooks/usePrevious';
+import useNodeContext, { useNodePosition } from '../../hooks/node/useNodeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -11,7 +8,10 @@ import {
     TRANSITION_ANIMATION_DURATION,
 } from '../../trees.constants';
 import { selectPosition, selectTreeNodeAttribute } from '../../trees.selectors';
-import useNodeContext, { useNodePosition } from '../../hooks/node/useNodeContext';
+import { useTheme } from '@mui/material';
+import React from 'react';
+import { useSelector } from 'react-redux';
+/* nodecosmos */
 
 export default function NestedNodesBranch() {
     const {

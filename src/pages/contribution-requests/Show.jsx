@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Box } from '@mui/material';
-import { Outlet, useParams } from 'react-router-dom';
+import { setHeaderContent } from '../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../features/app/constants';
 import CRShowToolbar from '../../features/contribution-requests/components/ContributionRequestsShowToolbar';
-import { setHeaderContent } from '../../features/app/appSlice';
 import { selectContributionRequest } from '../../features/contribution-requests/contributionRequests.selectors';
-import { setCurrentContributionRequest } from '../../features/contribution-requests/contributionRequestsSlice';
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
+import { setCurrentContributionRequest } from '../../features/contribution-requests/contributionRequestsSlice';
+import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useParams } from 'react-router-dom';
 
 export default function Show() {
     const { id: nodeId, contributionRequestId } = useParams();

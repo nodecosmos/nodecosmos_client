@@ -1,6 +1,6 @@
-import React from 'react';
 import { Button, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function DefaultButton({
     startIcon, endIcon, onClick, type, title, disabled, sx, fontSize,

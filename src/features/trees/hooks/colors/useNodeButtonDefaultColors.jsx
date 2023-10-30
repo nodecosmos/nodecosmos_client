@@ -1,7 +1,7 @@
-import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import { selectHasChildren, selectTreeNode } from '../../trees.selectors';
+import { useTheme } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 export default function useNodeButtonDefaultColors(treeId) {
     const { nodeId, isRoot } = useSelector(selectTreeNode(treeId));

@@ -1,4 +1,16 @@
-import React, { useCallback } from 'react';
+import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { NodecosmosDispatch } from '../../../../store';
+import TogglePaneButton from '../../../app/components/TogglePaneButton';
+import { HEADER_HEIGHT } from '../../../app/constants';
+import { WorkflowDiagramObject } from '../../../workflows/types';
+import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
+import {
+    selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
+} from '../../inputOutputs.selectors';
+import { deleteIO } from '../../inputOutputs.thunks';
+import { setIOPaneContent } from '../../inputOutputsSlice';
+import { IOPaneContent } from '../../types';
 import {
     faPenToSquare, faTrash, faRectangleCode, faDisplay,
 } from '@fortawesome/pro-regular-svg-icons';
@@ -6,20 +18,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     IconButton, Tooltip, Typography, Box,
 } from '@mui/material';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
-import { HEADER_HEIGHT } from '../../../app/constants';
-import ToggleWorkflowPaneButton from '../../../workflows/components/pane/ToggleWorkflowPaneButton';
-import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
-import {
-    selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
-} from '../../inputOutputs.selectors';
-import { deleteIO } from '../../inputOutputs.thunks';
-import { setIOPaneContent } from '../../inputOutputsSlice';
-import { WorkflowDiagramObject } from '../../../workflows/types';
-import { NodecosmosDispatch } from '../../../../store';
-import { IOPaneContent } from '../../types';
 
 export default function IOPaneToolbar() {
     const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
@@ -114,15 +114,6 @@ export default function IOPaneToolbar() {
                         '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
                     }}
                 >
-                    <Tooltip title="Edit IO Title" placement="top">
-                        <IconButton
-                            className="Item"
-                            aria-label="Edit IO Title"
-                            sx={{ svg: { color: 'toolbar.green' } }}
-                        >
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                        </IconButton>
-                    </Tooltip>
                     <Tooltip title="Delete IO" placement="top">
                         <IconButton
                             className="Item"
@@ -135,9 +126,7 @@ export default function IOPaneToolbar() {
                     </Tooltip>
                 </Box>
             </Box>
-            <Box>
-                <ToggleWorkflowPaneButton />
-            </Box>
+            <TogglePaneButton />
         </Box>
     );
 }

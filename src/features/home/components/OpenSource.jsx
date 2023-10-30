@@ -1,11 +1,11 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
 import AnimateOnView from './AnimateOnView';
 import OpenSourceLink1 from './open-source/OpenSourceLink1';
 import OpenSourceLink2 from './open-source/OpenSourceLink2';
 import OpenSourceLink3 from './open-source/OpenSourceLink3';
 import OpenSourceLink4 from './open-source/OpenSourceLink4';
 import OpenSourceLink5 from './open-source/OpenSourceLink5';
+import { Box, Typography } from '@mui/material';
+import React from 'react';
 
 export default function OpenSource() {
     return (

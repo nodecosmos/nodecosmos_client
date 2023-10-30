@@ -1,8 +1,8 @@
 import { TREES_TYPES } from '../../../trees.constants';
-import useNodeButtonDefaultColors from '../../colors/useNodeButtonDefaultColors';
 import useNodeButtonCheckboxColors from '../../colors/useNodeButtonCheckboxColors';
-import useTreeContext from '../../useTreeContext';
 import useNodeButtonContributionRequestColors from '../../colors/useNodeButtonContributionRequestColors';
+import useNodeButtonDefaultColors from '../../colors/useNodeButtonDefaultColors';
+import useTreeContext from '../../useTreeContext';
 
 /**
  *

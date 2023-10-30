@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { InputAdornment, TextField } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
-import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../contributionRequestsSlice';
+import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { InputAdornment, TextField } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function ContributionRequestSearchInput() {
     const dispatch = useDispatch();

@@ -1,4 +1,6 @@
-import * as React from 'react';
+import NodeCardActions from './NodeCardActions';
+import NodeCardHeader from './NodeCardHeader';
+import { selectIndexedNode } from '../nodes.selectors';
 import {
     Box,
     Card,
@@ -7,11 +9,9 @@ import {
     Link,
 } from '@mui/material';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import { selectIndexedNode } from '../nodes.selectors';
-import NodeCardActions from './NodeCardActions';
-import NodeCardHeader from './NodeCardHeader';
 
 function NodeCard(props) {
     const { id } = props;

@@ -1,6 +1,6 @@
-import { createTheme } from '@uiw/codemirror-themes';
 import { tags as t } from '@lezer/highlight';
 import { useTheme } from '@mui/material';
+import { createTheme } from '@uiw/codemirror-themes';
 
 export default function useCodeMirrorTheme() {
     const theme = useTheme();
