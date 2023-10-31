@@ -6,7 +6,6 @@ import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/workflows.constants';
-import { selectWorkflowByNodeId } from '../../../features/workflows/workflows.selectors';
 import { showWorkflow } from '../../../features/workflows/workflows.thunks';
 import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../../store';
@@ -23,8 +22,6 @@ export default function ContributionRequestWorkflow() {
     const { id } = useParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-
-    const workflow = useSelector(selectWorkflowByNodeId(id as UUID));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -55,17 +52,14 @@ export default function ContributionRequestWorkflow() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (!workflow.id) {
-            setLoading(true);
+        if (loading) {
             dispatch(showWorkflow(id as UUID)).then(() => setLoading(false));
-        } else {
-            setLoading(false);
         }
 
         return () => {
             dispatch(clearSelectedWorkflowDiagramObject());
         };
-    }, [dispatch, id, workflow.id]);
+    }, [dispatch, id, loading]);
 
     if (loading) {
         return <Loader />;

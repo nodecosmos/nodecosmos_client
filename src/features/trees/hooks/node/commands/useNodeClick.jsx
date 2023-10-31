@@ -1,7 +1,7 @@
 /* nodecosmos */
 import { setSelectedNode } from '../../../../nodes/nodeActions';
 import {
-    collapseTreeNode, expandTreeNode, setSelectedTreeNode, 
+    collapseTreeNode, expandTreeNode, setSelectedTreeNode,
 } from '../../../treeActions';
 import useTreeCommands from '../../useTreeCommands';
 import useTreeContext from '../../useTreeContext';
@@ -20,7 +20,7 @@ export default function useNodeClick() {
 
     const { type: treeType } = useTreeContext();
     const {
-        addId, deleteId, isChecked, 
+        addId, deleteId, isChecked,
     } = useTreeCommands();
     const dispatch = useDispatch();
 
@@ -37,9 +37,14 @@ export default function useNodeClick() {
     //------------------------------------------------------------------------------------------------------------------
     return useCallback((event) => {
         if (treeType === 'checkbox') {
-            handleCheckboxChange();
             event.preventDefault();
             event.stopPropagation();
+
+            dispatch(expandTreeNode(treeNodeId));
+            dispatch(setSelectedNode(nodeId));
+            dispatch(setSelectedTreeNode(treeNodeId));
+
+            handleCheckboxChange();
 
             return;
         }
