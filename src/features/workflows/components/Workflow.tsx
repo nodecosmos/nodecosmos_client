@@ -7,7 +7,7 @@ import { useWorkflowContextCreator } from '../hooks/useWorkflowContext';
 import { WorkflowDiagramContext } from '../workflows.constants';
 import { selectWorkflowByNodeId } from '../workflows.selectors';
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 
 interface DefaultProps {
@@ -41,4 +41,4 @@ const Workflow: React.FC<Props> = ({ nodeId, context = WorkflowDiagramContext.wo
     );
 };
 
-export default Workflow;
+export default memo(Workflow);

@@ -1,5 +1,6 @@
 import { UUID } from '../../../../../types';
 import { selectFlow } from '../../../../flows/flows.selectors';
+import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -30,6 +31,9 @@ export default function useFlowContext() {
         title,
     } = useSelector(selectFlow(context.id));
 
+    const { id: selectedObjectId } = useSelector(selectSelectedWorkflowObject);
+    const flowSelected = id === selectedObjectId;
+
     return {
         nodeId,
         workflowId,
@@ -37,5 +41,6 @@ export default function useFlowContext() {
         verticalIndex,
         id,
         title,
+        flowSelected,
     };
 }

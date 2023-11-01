@@ -88,6 +88,7 @@
         "react-hooks/exhaustive-deps": 2,
         "padded-blocks": ["error", "never"],
         "semi": ["error", "always"],
+        "semi-spacing": ["error", {"before": false, "after": true}],
         "space-before-blocks": ["error", "always"],
         "space-infix-ops": "error",
         "space-in-parens": ["error", "never"]

@@ -1,7 +1,6 @@
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import FlowModal from '../../../../flows/components/FlowModal';
-import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
@@ -9,15 +8,18 @@ import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
     Box, Button, Typography, useTheme,
 } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, {
+    memo, useCallback, useState,
+} from 'react';
 
-export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
+function WorkflowStep({ index }: { index: number }) {
+    const { height, workflowSteps } = useDiagramContext();
+    const wfStep = workflowSteps[index];
     const theme: NodecosmosTheme = useTheme();
 
     const [hovered, setHovered] = useState(false);
     const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpen();
 
-    const { height } = useDiagramContext();
     const { x } = wfStep.position;
     const fillColor = wfStep.index % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
     const { WorkflowStepContext, contextProviderValue } = useWorkflowStepContextCreator({
@@ -101,3 +103,5 @@ export default function WorkflowStep({ wfStep }: { wfStep: WorkflowStepType }) {
         </WorkflowStepContext.Provider>
     );
 }
+
+export default memo(WorkflowStep);

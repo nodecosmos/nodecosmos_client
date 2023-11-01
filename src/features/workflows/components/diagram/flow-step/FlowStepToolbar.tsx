@@ -10,9 +10,8 @@ import { FlowStepCreationParams } from '../../../../flow-steps/types';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { WorkflowDiagramObject, WorkflowDiagramObjectType } from '../../../types';
+import { WorkflowDiagramObjectType } from '../../../types';
 import { FLOW_STEP_SIZE, WorkflowDiagramContext } from '../../../workflows.constants';
-import { selectSelectedWorkflowObject } from '../../../workflows.selectors';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { faPlay } from '@fortawesome/pro-solid-svg-icons';
@@ -24,16 +23,16 @@ import {
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
     const { context: workflowContext } = useWorkflowContext();
-    const { title: flowTitle, id: flowId } = useFlowContext();
+    const {
+        title: flowTitle, id: flowId, flowSelected,
+    } = useFlowContext();
     const {
         flowStepPrimaryKey, stepId, nextFlowStepId,
     } = useFlowStepContext();
-    const { id: selectedObjectId } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
-    const flowSelected = flowId === selectedObjectId;
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Alert({ position }) {
     const dispatch = useDispatch();
     const {
-        isOpen, message, severity, anchorOrigin, 
+        isOpen, message, severity, anchorOrigin,
     } = useSelector((state) => state.app.alert);
 
     const handleClose = useCallback(() => dispatch(
