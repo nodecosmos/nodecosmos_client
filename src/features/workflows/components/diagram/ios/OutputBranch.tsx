@@ -2,8 +2,8 @@ import { NodecosmosTheme } from '../../../../../themes/type';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
+import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/types';
-import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
 

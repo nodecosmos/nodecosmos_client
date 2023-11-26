@@ -80,12 +80,12 @@ const theme: NodecosmosTheme = {
         },
 
         background: {
-            1: '#eee', // f8f9fa
+            1: '#f7f3ff', // f8f9fa
             2: '#fdfcfd', // f0f0ef ededed
-            3: '#ffffff',
+            3: '#f8f9fa',
             4: '#ffffff',
             5: '#fcfbfe',
-            6: '#f3f3ff',
+            6: '#f7f3ff',
             7: 'rgba(238,238,245,0.42)',
             8: '#eeedf0',
 
@@ -107,12 +107,13 @@ const theme: NodecosmosTheme = {
 
         toolbar: {
             red: '#ff7878',
-            green: '#1ac143',
+            green: '#c1e68c',
             blue: '#0095ff',
             lightRed: '#ff8686',
-            pink: '#d53f8c',
+            pink: '#bb7eaf',
             purple: '#b775ff',
             yellow: '#ffd000',
+            orange: '#dd9432',
             hover: '#eff2fb',
             active: '#eff2fb',
             default: '#68757d',
@@ -125,12 +126,10 @@ const theme: NodecosmosTheme = {
             backgrounds: [
                 '#ff5866',
                 '#bb8aff',
-                '#4193ff', // 77e2ff
-                '#00b7e3', // 009fff
-                '#00b773',
-                '#57ad00',
-                '#d5ad00',
-                '#f08d7f',
+                '#4193ff',
+                '#87c849',
+                '#e0c534',
+                '#f5a638',
             ],
             hashtag: '#aaaac4',
             defaultText: '#21212c',

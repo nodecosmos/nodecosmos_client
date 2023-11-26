@@ -1,5 +1,5 @@
 /**
- * ### Workflow back-end structure
+ * ### Back-end structure
  * - Each `Workflow` has multiple `Flows`.
  * - Each `Flow` represents isolated process within the `Workflow`.
  * - Each `Flow` has multiple `FlowSteps`.

@@ -1,0 +1,109 @@
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../../store';
+import { UUID } from '../../../../types';
+import abbreviateNumber from '../../../../utils/abbreviateNumber';
+import { setAlert } from '../../../app/appSlice';
+import { selectCurrentUser } from '../../../authentication/authentication.selectors';
+import { selectLikedObjectIds } from '../../../likes/likes.selectors';
+import {
+    getLikesCount, likeObject, unlikeObject,
+} from '../../../likes/likes.thunks';
+import { addLikedObjectId, removeLikedObjectId } from '../../../likes/likesSlice';
+import { selectNodeAttribute } from '../../selectors';
+import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
+import { faHeart } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    Checkbox, Typography, Box,
+} from '@mui/material';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+interface LikeButtonProps {
+    nodeId: UUID;
+    fontSize?: number;
+    likesCount?: number;
+}
+
+export default function LikeButton(props: LikeButtonProps) {
+    const {
+        nodeId, fontSize, likesCount: providedLikesCount,
+    } = props;
+    const likes = useSelector(selectLikedObjectIds);
+    const stateLikesCount = useSelector(selectNodeAttribute(nodeId, nodeId, 'likesCount'));
+    const likesCount = providedLikesCount !== null ? providedLikesCount : stateLikesCount;
+    const likedByCurrentUser = likes.includes(nodeId);
+    const [shouldBeat, setShouldBeat] = React.useState(false);
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const currentUser = useSelector(selectCurrentUser);
+
+    useEffect(() => {
+        if (nodeId && likesCount === undefined) {
+            dispatch(getLikesCount(nodeId));
+        }
+    }, [dispatch, nodeId, likesCount]);
+
+    const handleLike = useCallback(() => {
+        if (!currentUser) {
+            dispatch(setAlert({ isOpen: true, severity: 'warning', message: 'Log in to hit that like!' }));
+            return;
+        }
+
+        if (likedByCurrentUser) {
+            dispatch(removeLikedObjectId({ id: nodeId }));
+            dispatch(unlikeObject(nodeId));
+        } else {
+            dispatch(addLikedObjectId({ id: nodeId }));
+            dispatch(likeObject(nodeId));
+        }
+
+        requestAnimationFrame(() => setShouldBeat(true));
+        setTimeout(() => setShouldBeat(false), 1000);
+    }, [currentUser, dispatch, likedByCurrentUser, nodeId]);
+
+    const [likeHovered, hoverLike, leaveLike] = useBooleanStateValue();
+
+    const textColor = likeHovered || likedByCurrentUser ? 'toolbar.red' : 'text.tertiary';
+
+    return (
+        <Box
+            onMouseOver={hoverLike}
+            onMouseLeave={leaveLike}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+        >
+            <Checkbox
+                checked={likedByCurrentUser}
+                onClick={handleLike}
+                className="Item"
+                disableRipple
+                sx={{ svg: { fontSize, color: 'toolbar.red' } }}
+                icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
+                checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
+                inputProps={{ 'aria-label': 'Favorite' }}
+            />
+            <Typography
+                variant="caption"
+                sx={{
+                    color: textColor,
+                    lineHeight: 1,
+                }}
+            >
+                {abbreviateNumber(likesCount)}
+            </Typography>
+        </Box>
+    );
+}
+
+LikeButton.defaultProps = {
+    fontSize: 14,
+    likesCount: null,
+};
+
+LikeButton.propTypes = {
+    nodeId: PropTypes.string.isRequired,
+    fontSize: PropTypes.number,
+    likesCount: PropTypes.number,
+};

@@ -1,0 +1,95 @@
+import Loader from '../../../../../common/components/Loader';
+import { NodecosmosDispatch } from '../../../../../store';
+import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
+import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
+import { selectNodeAttribute, selectSelectedNodePrimaryKey } from '../../../selectors';
+import { updateNodeState } from '../../../slice';
+import { getNodeDescriptionBase64, updateNodeDescription } from '../../../thunks';
+import { NodePrimaryKey } from '../../../types';
+import { Box } from '@mui/material';
+import { HelpersFromExtensions } from '@remirror/core';
+import React, {
+    Suspense, useCallback, useEffect,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MarkdownExtension } from 'remirror/extensions';
+
+const RemirrorEditor = React.lazy(
+    () => import('../../../../../common/components/remirror/RemirrorEditor'),
+);
+
+export default function NodePaneDescriptionEditor() {
+    const { branchId, id } = useSelector(selectSelectedNodePrimaryKey) as NodePrimaryKey;
+
+    const isTemp = useSelector(selectNodeAttribute(branchId, id, 'isTemp'));
+    const rootId = useSelector(selectNodeAttribute(branchId, id, 'rootId'));
+
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const handleChangeTimeout = React.useRef<number| null>(null);
+    const descriptionMarkdown = useSelector(selectNodeAttribute(branchId, id, 'descriptionMarkdown'));
+    const descriptionBase64 = useSelector(selectNodeAttribute(branchId, id, 'descriptionBase64'));
+
+    const handleChange = useCallback((
+        helpers: HelpersFromExtensions<MarkdownExtension>,
+        uint8ArrayState: Uint8Array | null,
+    ) => {
+        if (isTemp) return;
+
+        if (handleChangeTimeout.current) {
+            clearTimeout(handleChangeTimeout.current);
+        }
+
+        handleChangeTimeout.current = setTimeout(() => {
+            const descriptionHtml = helpers.getHTML();
+            const shortDescription = extractTextFromHtml(descriptionHtml);
+            const markdown = helpers.getMarkdown();
+
+            dispatch(updateNodeState({
+                id,
+                description: descriptionHtml,
+                shortDescription,
+                descriptionMarkdown: markdown,
+            }));
+
+            dispatch(updateNodeDescription({
+                branchId,
+                id,
+                description: descriptionHtml,
+                shortDescription,
+                descriptionMarkdown: markdown,
+                descriptionBase64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
+            }));
+        }, 1000);
+    }, [dispatch, branchId, id, isTemp]);
+
+    const [base64Fetched, setBase64Fetched] = React.useState(false);
+
+    useEffect(() => {
+        if (id && rootId) {
+            dispatch(getNodeDescriptionBase64({ branchId, id })).then(() => {
+                setBase64Fetched(true);
+            });
+        }
+
+        return () => {
+            setBase64Fetched(false);
+        };
+    }, [dispatch, branchId, id, rootId]);
+
+    if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
+
+    return (
+        <Suspense fallback={<Loader />}>
+            <Box height={1}>
+                <RemirrorEditor
+                    markdown={descriptionMarkdown || ''}
+                    onChange={handleChange}
+                    wsRoomId={id}
+                    wsAuthNodeId={id}
+                    base64={descriptionBase64}
+                    isRealTime
+                />
+            </Box>
+        </Suspense>
+    );
+}

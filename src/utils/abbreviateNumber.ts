@@ -1,5 +1,5 @@
-export default function abbreviateNumber(num: number) {
-    if (!num) return null;
+export default function abbreviateNumber(num?: number) {
+    if (num === undefined) return 0;
 
     if (num >= 1e9) {
         return `${(num / 1e9).toFixed(1)}B`;

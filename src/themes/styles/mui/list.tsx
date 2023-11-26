@@ -28,7 +28,7 @@ export default (theme: NodecosmosTheme) => ({
                 },
                 '&:hover': {
                     '.MuiListItemButton-root': {
-                        // backgroundColor: theme.palette.background[2],
+                        backgroundColor: theme.palette.background[6],
                     },
                 },
                 '.active': {

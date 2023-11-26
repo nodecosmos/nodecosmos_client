@@ -3,8 +3,8 @@ import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { NodecosmosDispatch } from '../../../../store';
 import TogglePaneButton from '../../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import { selectSelectedWorkflowObject } from '../../../workflows/selectors';
 import { WorkflowDiagramObject } from '../../../workflows/types';
-import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
 import {
     selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
 } from '../../inputOutputs.selectors';

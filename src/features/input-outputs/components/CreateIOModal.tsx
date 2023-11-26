@@ -6,7 +6,7 @@ import { UUID } from '../../../types';
 import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/types';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
-import { selectWorkflowAttribute } from '../../workflows/workflows.selectors';
+import { selectWorkflowAttribute } from '../../workflows/selectors';
 import useIOSubmitHandler from '../hooks/useIOSubmitHandler';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';

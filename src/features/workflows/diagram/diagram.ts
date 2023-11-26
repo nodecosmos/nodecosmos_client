@@ -14,6 +14,13 @@ export interface BuildWorkflowDiagramData {
     inputOutputs: WorkflowData['inputOutputs'];
 }
 
+const initWorkflowStep = (stepIndex: number): WorkflowStep => ({
+    index: stepIndex,
+    position: calculateWorkflowStepPosition(stepIndex),
+    flows: [],
+    outputsById: {},
+});
+
 export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDiagram {
     const {
         initialInputIds, flows = [], flowSteps = [], inputOutputs = [],
@@ -21,13 +28,6 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
 
     const initialInputs = buildInitialOutputs(initialInputIds);
     const workflowSteps: WorkflowStep[] = [];
-
-    const initWorkflowStep = (stepIndex: number): WorkflowStep => ({
-        index: stepIndex,
-        position: calculateWorkflowStepPosition(stepIndex),
-        flows: [],
-        outputsById: {},
-    });
 
     let height = 0;
 

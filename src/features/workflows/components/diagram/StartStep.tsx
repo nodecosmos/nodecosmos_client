@@ -7,12 +7,12 @@ import {
     INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
     WORKFLOW_BUTTON_HEIGHT,
 } from '../../../trees/trees.constants';
+import {
+    MARGIN_LEFT, WORKFLOW_START_MARGIN_TOP, NODE_BUTTON_HEIGHT, OUTPUT_EDGE_LENGTH, WORKFLOW_STEP_WIDTH,
+} from '../../constants';
 import { Output as OutputType } from '../../diagram/types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
-import {
-    MARGIN_LEFT, WORKFLOW_START_MARGIN_TOP, NODE_BUTTON_HEIGHT, OUTPUT_EDGE_LENGTH, WORKFLOW_STEP_WIDTH,
-} from '../../workflows.constants';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme } from '@mui/material';

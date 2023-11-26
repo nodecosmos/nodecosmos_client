@@ -1,5 +1,5 @@
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
-import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
+import { selectSelectedNode, selectSelectedNodeId } from '../../../selectors';
 import NodePaneDescriptionCoverImage from '../../cover/NodePaneDescriptionCoverImage';
 import { Typography, Box } from '@mui/material';
 import React from 'react';

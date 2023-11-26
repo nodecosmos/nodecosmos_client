@@ -1,6 +1,6 @@
 import ToolsContainer from '../../../../common/components/tools/ToolsContainer';
-import { selectWorkflowScale } from '../../workflows.selectors';
-import { setWorkflowScale } from '../../workflowsSlice';
+import { selectWorkflowScale } from '../../selectors';
+import { setWorkflowScale } from '../../slice';
 import { faCircleMinus, faCirclePlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

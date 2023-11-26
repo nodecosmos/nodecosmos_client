@@ -7,12 +7,11 @@ import { Strict } from '../../../../../types';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import { FlowStepCreationParams } from '../../../../flow-steps/types';
+import { FLOW_STEP_SIZE } from '../../../constants';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import { setSelectedWorkflowDiagramObject } from '../../../slice';
 import { WorkflowDiagramObjectType } from '../../../types';
-import { FLOW_STEP_SIZE, WorkflowDiagramContext } from '../../../workflows.constants';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { faPlay } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,7 +25,6 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
-    const { context: workflowContext } = useWorkflowContext();
     const {
         title: flowTitle, id: flowId, flowSelected,
     } = useFlowContext();
@@ -38,13 +36,11 @@ export default function FlowStepToolbar() {
     const handleServerError = useHandleServerErrorAlert();
 
     const handleFlowClick = useCallback(() => {
-        if (workflowContext === WorkflowDiagramContext.workflowPage) {
-            dispatch(setSelectedWorkflowDiagramObject({
-                id: flowId,
-                type: WorkflowDiagramObjectType.Flow,
-            }));
-        }
-    }, [dispatch, flowId, workflowContext]);
+        dispatch(setSelectedWorkflowDiagramObject({
+            id: flowId,
+            type: WorkflowDiagramObjectType.Flow,
+        }));
+    }, [dispatch, flowId]);
 
     const handleFlowStepDeletion = useCallback(() => {
         dispatch(deleteFlowStep(flowStepPrimaryKey));

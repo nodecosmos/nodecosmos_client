@@ -1,9 +1,9 @@
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import FlowModal from '../../../../flows/components/FlowModal';
+import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
-import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
     Box, Button, Typography, useTheme,

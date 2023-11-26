@@ -19,6 +19,7 @@ export default function useNodeTitleChange() {
     const dispatch = useDispatch();
     const {
         nodeId,
+        branchId,
         treeNodeId,
         treeRootNodeId,
         parentId,
@@ -52,7 +53,7 @@ export default function useNodeTitleChange() {
 
         saveNodeTimeout.current = setTimeout(() => {
             if (persistentId) {
-                dispatch(updateNodeTitle({ rootId, id: persistentId, title: value })).then((response) => {
+                dispatch(updateNodeTitle({ rootId, id: persistentId, branchId, title: value })).then((response) => {
                     if (response.error) handleServerError(response.error);
                     dispatch(setIsNodeActionInProgress(false));
                 }).catch((error) => {
@@ -79,7 +80,7 @@ export default function useNodeTitleChange() {
                 });
             }
         }, SAVE_NODE_TIMEOUT);
-    }, [dispatch, handleServerError, nodeId, order, parentId, persistentId, prevTitle, rootId]);
+    }, [branchId, dispatch, handleServerError, nodeId, order, parentId, persistentId, prevTitle, rootId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {

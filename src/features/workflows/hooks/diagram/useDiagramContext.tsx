@@ -1,6 +1,6 @@
 import { UUID } from '../../../../types';
 import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
-import { selectWorkflowDiagram } from '../../workflows.selectors';
+import { selectWorkflowDiagram } from '../../selectors';
 import useWorkflowContext from '../useWorkflowContext';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';

@@ -1,8 +1,8 @@
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import Loader from '../../../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../../../store';
+import { selectSelectedWorkflowObject } from '../../../../workflows/selectors';
 import { WorkflowDiagramObject } from '../../../../workflows/types';
-import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectFlowAttribute, selectFlowPrimaryKey } from '../../../flows.selectors';
 import { getFlowDescription } from '../../../flows.thunks';
 import { Typography, Box } from '@mui/material';

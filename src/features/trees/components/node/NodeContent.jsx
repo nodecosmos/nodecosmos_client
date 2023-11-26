@@ -42,11 +42,9 @@ export default function NodeContent() {
     const initialAnimationDuration = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
 
     return (
-        <g style={{
-            opacity: 0,
-            animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-        }}
-        >
+        <g style={{ opacity: 0,
+            animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms 
+                        forwards ease-in-out` }}>
             <foreignObject
                 width="700"
                 height={NODE_BUTTON_HEIGHT + 8}

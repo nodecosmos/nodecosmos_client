@@ -1,4 +1,5 @@
 import {
+    FlowStep,
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
 } from './types';
 import nodecosmos from '../../apis/nodecosmos-server';
@@ -7,7 +8,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createFlowStep = createAsyncThunk(
     'flow_steps/createFlowStep',
-    async (payload: Strict<FlowStepCreationParams>) => {
+    async (payload: Strict<FlowStepCreationParams>): Promise<FlowStep> => {
         const response = await nodecosmos.post('/flow_steps', payload);
 
         return response.data;
@@ -16,7 +17,7 @@ export const createFlowStep = createAsyncThunk(
 
 export const updateFlowStepNodes = createAsyncThunk(
     'flow_steps/updateFlowStepNodes',
-    async (payload: Strict<FlowStepUpdatePayload>) => {
+    async (payload: Strict<FlowStepUpdatePayload>): Promise<Partial<FlowStep>> => {
         const response = await nodecosmos.put('/flow_steps/nodes', payload);
 
         return response.data;
@@ -25,7 +26,7 @@ export const updateFlowStepNodes = createAsyncThunk(
 
 export const updateFlowStepOutputs = createAsyncThunk(
     'flow_steps/updateFlowStepOutputs',
-    async (payload: FlowStepUpdatePayload) => {
+    async (payload: FlowStepUpdatePayload): Promise<Partial<FlowStep>> => {
         const response = await nodecosmos.put('/flow_steps/outputs', payload);
 
         return response.data;
@@ -34,7 +35,7 @@ export const updateFlowStepOutputs = createAsyncThunk(
 
 export const updateFlowStepInputs = createAsyncThunk(
     'flow_steps/updateFlowStepInputs',
-    async (payload: FlowStepUpdatePayload) => {
+    async (payload: FlowStepUpdatePayload): Promise<Partial<FlowStep>> => {
         const response = await nodecosmos.put('/flow_steps/inputs', payload);
 
         return response.data;
@@ -43,7 +44,7 @@ export const updateFlowStepInputs = createAsyncThunk(
 
 export const deleteFlowStep = createAsyncThunk(
     'flow_steps/deleteFlowStep',
-    async (payload: FlowStepPrimaryKey) => {
+    async (payload: FlowStepPrimaryKey): Promise<Partial<FlowStep>> => {
         const {
             nodeId, workflowId, flowId, flowIndex, id,
         } = payload;

@@ -1,6 +1,6 @@
 import useWorkflowContext from './useWorkflowContext';
-import { deleteWorkflow } from '../workflows.thunks';
-import { updateWorkflow } from '../workflowsSlice';
+import { updateWorkflow } from '../slice';
+import { deleteWorkflow } from '../thunks';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 

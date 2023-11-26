@@ -5,7 +5,7 @@ import { useNodeContextCreator } from '../../hooks/node/useNodeContext';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Node({ treeNodeId, isAlreadyMounted }) {
+function Node({ treeNodeId, isAlreadyMounted }) {
     const { NodeContext, contextProviderValue } = useNodeContextCreator({ treeNodeId, isAlreadyMounted });
 
     return (
@@ -23,3 +23,5 @@ Node.propTypes = {
     treeNodeId: PropTypes.string.isRequired,
     isAlreadyMounted: PropTypes.bool.isRequired,
 };
+
+export default React.memo(Node);

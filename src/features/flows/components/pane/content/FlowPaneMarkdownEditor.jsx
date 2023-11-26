@@ -1,4 +1,4 @@
-import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../../../workflows/selectors';
 import { selectFlow } from '../../../flows.selectors';
 import { updateFlowDescription } from '../../../flows.thunks';
 import { updateFlowState } from '../../../flowsSlice';

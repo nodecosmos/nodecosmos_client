@@ -10,8 +10,8 @@ export interface FlowPrimaryKey {
 
 export interface Flow extends FlowPrimaryKey {
     title: string;
-    description: string;
-    descriptionMarkdown: string;
+    description: string | null;
+    descriptionMarkdown: string | null;
     createdAt: Date;
     updatedAt: Date;
 }

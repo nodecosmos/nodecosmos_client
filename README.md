@@ -37,7 +37,7 @@ on nested element change. We do this so emotion does not need to recompute style
      * **fix**: a bug fix
      * **refactor**: a code refactoring or restructuring
      * **docs**: changes to documentation
-     * **chore**: maintenance or other non-code changes
+     * **maint**: maintenance or other non-code changes
      * **test**: changes to testing code or configuration
      * **perf**: performance improvements
      * **revert**: a commit that reverts a previous change

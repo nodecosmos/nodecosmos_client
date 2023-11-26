@@ -1,6 +1,6 @@
 import { NodecosmosDispatch } from '../../../../../store';
+import { selectSelectedWorkflowObject } from '../../../../workflows/selectors';
 import { WorkflowDiagramObject } from '../../../../workflows/types';
-import { selectSelectedWorkflowObject } from '../../../../workflows/workflows.selectors';
 import { selectFlow, selectFlowPrimaryKey } from '../../../flows.selectors';
 import { updateFlowDescription } from '../../../flows.thunks';
 import { updateFlowState } from '../../../flowsSlice';

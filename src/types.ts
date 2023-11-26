@@ -16,6 +16,11 @@ export interface Owner {
     profileImageURL: string | null;
 }
 
+export enum OwnerType {
+    User = 'user',
+    Organization = 'organization',
+}
+
 export type Exact<T, Shape> = T & {
     [K in Exclude<keyof Shape, keyof T>]?: never;
 };

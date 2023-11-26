@@ -9,15 +9,15 @@ import {
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
-import { Output as OutputType } from '../../../diagram/types';
-import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { WorkflowDiagramObjectType } from '../../../types';
 import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
-} from '../../../workflows.constants';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
+} from '../../../constants';
+import { Output as OutputType } from '../../../diagram/types';
+import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import { setSelectedWorkflowDiagramObject } from '../../../slice';
+import { WorkflowDiagramObjectType } from '../../../types';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

@@ -103,6 +103,7 @@ interface Palette {
         pink: string;
         purple: string;
         yellow: string;
+        orange: string;
         hover: string;
         active: string;
         default: string;

@@ -4,7 +4,8 @@ import {
 import {
     Flow, FlowPaneContent, FlowState,
 } from './types';
-import { showWorkflow } from '../workflows/workflows.thunks';
+import { UUID } from '../../types';
+import { showWorkflow } from '../workflows/thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowState = {
@@ -28,15 +29,15 @@ const flowStepsSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(createFlow.fulfilled, (state, action) => {
-                const { flow } = action.payload;
+                const flow = action.payload;
                 state.byId[flow.id] = flow;
             })
             .addCase(getFlowDescription.fulfilled, (state, action) => {
-                const { flow } = action.payload;
+                const flow = action.payload;
                 const { description, descriptionMarkdown } = flow;
 
-                state.byId[flow.id].description = description;
-                state.byId[flow.id].descriptionMarkdown = descriptionMarkdown;
+                state.byId[flow.id as UUID].description = description as string | null;
+                state.byId[flow.id as UUID].descriptionMarkdown = descriptionMarkdown as string | null;
             })
             .addCase(showWorkflow.fulfilled, (state, action) => {
                 const { flows } = action.payload;
@@ -45,13 +46,13 @@ const flowStepsSlice = createSlice({
                 });
             })
             .addCase(deleteFlow.fulfilled, (state, action) => {
-                const { flow } = action.payload;
+                const flow = action.payload;
 
-                delete state.byId[flow.id];
+                delete state.byId[flow.id as UUID];
             })
             .addCase(updateFlowTitle.fulfilled, (state, action) => {
-                const { flow } = action.payload;
-                state.byId[flow.id].title = flow.title;
+                const flow = action.payload;
+                state.byId[flow.id as UUID].title = flow.title as string;
             });
     },
 });

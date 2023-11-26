@@ -1,7 +1,7 @@
 import { NodecosmosTheme } from '../../../../themes/type';
 import { UUID } from '../../../../types';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { selectSelectedWorkflowObject } from '../../workflows.selectors';
+import { selectSelectedWorkflowObject } from '../../selectors';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 

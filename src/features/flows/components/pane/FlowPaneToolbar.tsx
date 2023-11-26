@@ -4,9 +4,8 @@ import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { NodecosmosDispatch } from '../../../../store';
 import TogglePaneButton from '../../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import { selectSelectedWorkflowObject } from '../../../workflows/selectors';
 import { WorkflowDiagramObject } from '../../../workflows/types';
-import { selectSelectedWorkflowObject } from '../../../workflows/workflows.selectors';
-import { FLOW_PANE_CONTENTS } from '../../flows.constants';
 import {
     selectFlowAttribute, selectFlowPaneContent, selectFlowPrimaryKey,
 } from '../../flows.selectors';
@@ -39,15 +38,15 @@ export default function FlowPaneToolbar() {
     const hasShadow = ioPaneContent === FlowPaneContent.Description;
 
     const setMarkdown = useCallback(() => {
-        dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.markdown));
+        dispatch(setFlowPaneContent(FlowPaneContent.Markdown));
     }, [dispatch]);
 
     const setEditor = useCallback(() => {
-        dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.editor));
+        dispatch(setFlowPaneContent(FlowPaneContent.Editor));
     }, [dispatch]);
 
     const setDescription = useCallback(() => {
-        dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description));
+        dispatch(setFlowPaneContent(FlowPaneContent.Description));
     }, [dispatch]);
 
     return (
@@ -65,21 +64,21 @@ export default function FlowPaneToolbar() {
                     title="Edit Description Markdown"
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
-                    active={ioPaneContent === FLOW_PANE_CONTENTS.markdown}
+                    active={ioPaneContent === FlowPaneContent.Markdown}
                     onClick={setMarkdown}
                 />
                 <ToolbarItem
                     title="Edit Description Markdown"
                     icon={faPenToSquare}
                     color="toolbar.green"
-                    active={ioPaneContent === FLOW_PANE_CONTENTS.editor}
+                    active={ioPaneContent === FlowPaneContent.Editor}
                     onClick={setEditor}
                 />
                 <ToolbarItem
                     title="View Description"
                     icon={faDisplay}
                     color="toolbar.blue"
-                    active={ioPaneContent === FLOW_PANE_CONTENTS.description}
+                    active={ioPaneContent === FlowPaneContent.Description}
                     onClick={setDescription}
                 />
             </ToolbarContainer>

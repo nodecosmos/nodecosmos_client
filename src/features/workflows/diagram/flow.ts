@@ -6,7 +6,7 @@ import {
 import { UUID } from '../../../types';
 import { FlowStep } from '../../flow-steps/types';
 import { InputOutput } from '../../input-outputs/types';
-import { FLOW_BUFFER } from '../workflows.constants';
+import { FLOW_BUFFER } from '../constants';
 
 export interface FlowStepData {
     flowId: UUID;

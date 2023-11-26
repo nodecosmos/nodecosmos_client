@@ -8,14 +8,14 @@ import {
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
 } from '../../../../trees/trees.constants';
-import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import {
     EDGE_LENGTH,
     MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
-} from '../../../workflows.constants';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
+} from '../../../constants';
+import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import { setSelectedWorkflowDiagramObject } from '../../../slice';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';

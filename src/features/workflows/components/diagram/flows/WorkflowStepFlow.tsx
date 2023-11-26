@@ -1,7 +1,7 @@
+import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import { WorkflowStepFlow as WorkflowStepFlowType } from '../../../diagram/types';
 import { useFlowStepContextCreator } from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import { useFlowContextCreator } from '../../../hooks/diagram/flows/useFlowContext';
-import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import FlowStep from '../flow-step/FlowStep';
 import FlowStepToolbar from '../flow-step/FlowStepToolbar';
 import { Box } from '@mui/material';

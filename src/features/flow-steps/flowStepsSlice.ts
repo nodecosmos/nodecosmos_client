@@ -2,9 +2,10 @@ import { groupFlowStepsById } from './flowSteps.memoize';
 import {
     createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
 } from './flowSteps.thunks';
-import { FlowStepState } from './types';
+import { FlowStep, FlowStepState } from './types';
+import { UUID } from '../../types';
 import { deleteIO } from '../input-outputs/inputOutputs.thunks';
-import { showWorkflow } from '../workflows/workflows.thunks';
+import { showWorkflow } from '../workflows/thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowStepState = {
@@ -24,7 +25,7 @@ const flowStepsSlice = createSlice({
                 state.byId = { ...state.byId, ...flowStepsById };
             })
             .addCase(createFlowStep.fulfilled, (state, action) => {
-                const { flowStep } = action.payload;
+                const flowStep = action.payload;
 
                 flowStep.inputIdsByNodeId ||= {};
                 flowStep.outputIdsByNodeId ||= {};
@@ -40,27 +41,29 @@ const flowStepsSlice = createSlice({
                 }
             })
             .addCase(updateFlowStepNodes.fulfilled, (state, action) => {
-                const { flowStep } = action.payload;
+                const flowStep = action.payload;
 
-                state.byId[flowStep.id].nodeIds = flowStep.nodeIds;
+                state.byId[flowStep.id as UUID].nodeIds = flowStep.nodeIds as UUID[];
             })
             .addCase(updateFlowStepOutputs.fulfilled, (state, action) => {
-                const { flowStep } = action.payload;
+                const flowStep = action.payload;
 
-                state.byId[flowStep.id].outputIdsByNodeId = flowStep.outputIdsByNodeId;
+                state.byId[flowStep.id as UUID].outputIdsByNodeId
+                    = flowStep.outputIdsByNodeId as FlowStep['outputIdsByNodeId'];
             })
             .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
-                const { flowStep } = action.payload;
+                const flowStep = action.payload;
 
-                state.byId[flowStep.id].inputIdsByNodeId = flowStep.inputIdsByNodeId;
+                state.byId[flowStep.id as UUID].inputIdsByNodeId
+                    = flowStep.inputIdsByNodeId as FlowStep['inputIdsByNodeId'];
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const { flowStep } = action.payload;
+                const flowStep = action.payload;
 
-                delete state.byId[flowStep.id];
+                delete state.byId[flowStep.id as UUID];
             })
             .addCase(deleteIO.fulfilled, (state, action) => {
-                const { flowStepId, id } = action.payload.inputOutput;
+                const { flowStepId, id } = action.payload;
 
                 if (!flowStepId) return;
 

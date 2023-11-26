@@ -1,10 +1,12 @@
-import { FlowPrimaryKey, FlowUpsertPayload } from './types';
+import {
+    Flow, FlowPrimaryKey, FlowUpsertPayload,
+} from './types';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createFlow = createAsyncThunk(
     'flows/createFlow',
-    async (payload: FlowUpsertPayload) => {
+    async (payload: FlowUpsertPayload): Promise<Flow> => {
         const response = await nodecosmos.post('/flows', payload);
 
         return response.data;
@@ -13,7 +15,7 @@ export const createFlow = createAsyncThunk(
 
 export const getFlowDescription = createAsyncThunk(
     'flows/getDescription',
-    async (payload: FlowPrimaryKey) => {
+    async (payload: FlowPrimaryKey): Promise<Partial<Flow>> => {
         const {
             nodeId, workflowId, verticalIndex, startIndex, id,
         } = payload;
@@ -27,7 +29,7 @@ export const getFlowDescription = createAsyncThunk(
 
 export const updateFlowTitle = createAsyncThunk(
     'flows/updateFlowTitle',
-    async (payload: FlowUpsertPayload) => {
+    async (payload: FlowUpsertPayload): Promise<Partial<Flow>> => {
         const response = await nodecosmos.put('/flows/title', payload);
 
         return response.data;
@@ -36,7 +38,7 @@ export const updateFlowTitle = createAsyncThunk(
 
 export const updateFlowDescription = createAsyncThunk(
     'flows/updateFlowDescription',
-    async (payload: FlowUpsertPayload) => {
+    async (payload: FlowUpsertPayload): Promise<Partial<Flow>> => {
         const response = await nodecosmos.put('/flows/description', payload);
 
         return response.data;
@@ -45,7 +47,7 @@ export const updateFlowDescription = createAsyncThunk(
 
 export const deleteFlow = createAsyncThunk(
     'flows/deleteFlow',
-    async (payload: FlowPrimaryKey) => {
+    async (payload: FlowPrimaryKey): Promise<Partial<Flow>> => {
         const {
             nodeId, workflowId, verticalIndex, startIndex, id,
         } = payload;
