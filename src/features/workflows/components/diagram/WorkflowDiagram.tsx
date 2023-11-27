@@ -7,8 +7,8 @@ import { selectFlowsByWorkflowId } from '../../../flows/flows.selectors';
 import { selectIOByWorkflowId } from '../../../input-outputs/inputOutputs.selectors';
 import { useDiagramContextCreator } from '../../hooks/diagram/useDiagramContext';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
-import { selectWorkflowScale } from '../../selectors';
-import { rebuildWorkflowDiagram } from '../../slice';
+import { selectWorkflowScale } from '../../workflow.selectors';
+import { rebuildWorkflowDiagram } from '../../workflowsSlice';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

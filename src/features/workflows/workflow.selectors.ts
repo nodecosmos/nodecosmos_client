@@ -1,6 +1,6 @@
 import {
     Workflow, WorkflowDiagramObject, WorkflowState,
-} from './types';
+} from './workflow.types';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 

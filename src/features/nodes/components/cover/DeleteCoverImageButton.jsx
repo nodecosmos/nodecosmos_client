@@ -1,6 +1,6 @@
-import { selectSelectedNode } from '../../selectors';
-import { updateNodeState } from '../../slice';
-import { deleteNodeImage } from '../../thunks';
+import { updateState } from '../../actions';
+import { selectSelectedNode } from '../../nodes.selectors';
+import { deleteNodeImage } from '../../nodes.thunks';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@mui/material';
@@ -18,7 +18,7 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
             if (response.error) {
                 console.error('Error deleting cover image');
             } else {
-                dispatch(updateNodeState({
+                dispatch(updateState({
                     id,
                     coverImageURL: null,
                 }));

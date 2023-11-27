@@ -2,8 +2,8 @@ import DefaultModalFormButton from '../../../common/components/buttons/DefaultMo
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
-import { createNode } from '../thunks';
-import { NodeCreationPayload, Node } from '../types';
+import { createNode } from '../nodes.thunks';
+import { NodeCreationPayload, Node } from '../nodes.types';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

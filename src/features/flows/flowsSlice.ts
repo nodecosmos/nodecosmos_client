@@ -5,7 +5,7 @@ import {
     Flow, FlowPaneContent, FlowState,
 } from './types';
 import { UUID } from '../../types';
-import { showWorkflow } from '../workflows/thunks';
+import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowState = {

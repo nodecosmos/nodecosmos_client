@@ -2,9 +2,9 @@ import Loader from '../../../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../../../store';
 import Workflow from '../../../../workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../../workflows/constants';
-import { showWorkflow } from '../../../../workflows/thunks';
-import { selectSelectedNodePrimaryKey } from '../../../selectors';
-import { NodePrimaryKey } from '../../../types';
+import { showWorkflow } from '../../../../workflows/worfklow.thunks';
+import { selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
+import { NodePrimaryKey } from '../../../nodes.types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

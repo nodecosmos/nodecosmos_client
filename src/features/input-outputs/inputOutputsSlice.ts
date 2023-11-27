@@ -6,7 +6,7 @@ import {
 } from './types';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
-import { showWorkflow } from '../workflows/thunks';
+import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: InputOutputSlice = {

@@ -16,8 +16,8 @@ import {
 import { Output as OutputType } from '../../../diagram/types';
 import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { setSelectedWorkflowDiagramObject } from '../../../slice';
-import { WorkflowDiagramObjectType } from '../../../types';
+import { WorkflowDiagramObjectType } from '../../../workflow.types';
+import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

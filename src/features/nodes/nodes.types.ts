@@ -1,7 +1,8 @@
 import {
-    Owner, OwnerType, UUID,
+    Owner, OwnerType, Position, UUID,
 } from '../../types';
 
+// for main nodes branch id is equal to branch id
 export interface NodePrimaryKey {
     id: UUID;
     branchId: UUID;
@@ -31,14 +32,23 @@ export interface Node extends NodePrimaryKey {
     updatedAt?: Date | null;
 }
 
-export interface AppNode extends Node {
-    persistentId?: UUID | null;
-    isTemp: boolean;
-    isSelected: boolean;
+export interface NodeTreeAttributes extends Position {
+    treeRootNodeId: UUID;
+    upperSiblingId?: UUID;
+    lowerSiblingId?: UUID;
     childIds: UUID[];
     descendantIds: UUID[];
     nestedLevel: number;
-    treeRootNodeId: UUID;
+    treeIndex?: number;
+    isMounted?: boolean;
+    isExpanded?: boolean;
+    isEditing?: boolean;
+}
+
+export interface AppNode extends Node, NodeTreeAttributes {
+    persistentId: UUID | null;
+    isTemp: boolean;
+    isSelected: boolean;
     likedByCurrentUser?: boolean | null;
 }
 
@@ -83,6 +93,21 @@ export interface NodeCreationPayload {
 
 export type NodePayload = NodePrimaryKey & Partial<Omit<Node, keyof NodePrimaryKey>>;
 
+export interface ReorderPayload {
+    id: UUID;
+    branchId: UUID;
+    newParentId: UUID;
+    newUpperSiblingId: UUID;
+    newBottomSiblingId: UUID;
+    newSiblingIndexAfterMove: number;
+}
+
+export interface SearchNodePayload {
+    rootId: UUID;
+    branchId: UUID;
+    value: string;
+}
+
 export enum NodePaneContents {
     Markdown = 'markdown',
     Description = 'description',
@@ -93,12 +118,20 @@ export enum NodePaneContents {
 type BranchId = UUID;
 type NodeId = UUID;
 
+export interface DragAndDrop {
+    isDragging: boolean;
+    id: NodeId;
+    rootId: NodeId;
+}
+
 export interface NodeState {
     byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
+    orderedTreeIds: Record<BranchId, NodeId[]>;
     titles: Record<BranchId, Record<NodeId, string>>;
     selectedNodePrimaryKey: NodePrimaryKey | null;
     nodePaneContent: NodePaneContents;
     indexNodesById: Record<NodeId, IndexNode>;
-    isNodeActionInProgress: boolean;
+    actionInProgress: boolean;
+    dragAndDrop: DragAndDrop | null;
 }

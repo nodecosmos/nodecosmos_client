@@ -1,5 +1,5 @@
 import LikeButton from './tree-node-toolbar/LikeButton';
-import { IndexNode } from '../types';
+import { IndexNode } from '../nodes.types';
 import {
     faCodePullRequest, faHashtag, faUserGroup,
 } from '@fortawesome/pro-light-svg-icons';

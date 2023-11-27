@@ -5,7 +5,7 @@ import Alert from '../../../common/components/Alert';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { WorkflowDiagramContext } from '../constants';
 import { useWorkflowContextCreator } from '../hooks/useWorkflowContext';
-import { selectWorkflowByNodeId } from '../selectors';
+import { selectWorkflowByNodeId } from '../workflow.selectors';
 import { Box } from '@mui/material';
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';

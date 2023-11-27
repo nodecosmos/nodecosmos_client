@@ -1,6 +1,6 @@
 import { NodecosmosDispatch } from '../../../../../store';
-import { selectSelectedWorkflowObject } from '../../../../workflows/selectors';
-import { WorkflowDiagramObject } from '../../../../workflows/types';
+import { selectSelectedWorkflowObject } from '../../../../workflows/workflow.selectors';
+import { WorkflowDiagramObject } from '../../../../workflows/workflow.types';
 import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';

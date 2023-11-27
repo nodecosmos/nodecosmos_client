@@ -1,6 +1,6 @@
 import { UUID } from '../../../types';
 import { WorkflowDiagramContext } from '../constants';
-import { selectWorkflow, selectWorkflowScale } from '../selectors';
+import { selectWorkflow, selectWorkflowScale } from '../workflow.selectors';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 

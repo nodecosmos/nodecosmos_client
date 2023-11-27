@@ -1,6 +1,6 @@
 import NcAvatar from '../../../common/components/NcAvatar';
 import toLocalTime from '../../../utils/localTime';
-import { IndexNode } from '../types';
+import { IndexNode } from '../nodes.types';
 import {
     Box, CardHeader, CardMedia, Link, Typography,
 } from '@mui/material';

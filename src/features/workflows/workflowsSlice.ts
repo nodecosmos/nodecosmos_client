@@ -1,9 +1,9 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
 import {
     createWorkflow, deleteWorkflow, showWorkflow, updateWorkflowInitialInputs,
-} from './thunks';
-import { WorkflowState } from './types';
-import { getScale } from './utils';
+} from './worfklow.thunks';
+import { WorkflowState } from './workflow.types';
+import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { deleteFlow } from '../flows/flows.thunks';
@@ -19,7 +19,7 @@ const initialState: WorkflowState = {
     workflowScale: getScale(),
 };
 
-const slice = createSlice({
+const workflowsSlice = createSlice({
     name: 'workflows',
     initialState,
     reducers: {
@@ -131,7 +131,7 @@ const slice = createSlice({
 const {
     actions,
     reducer,
-} = slice;
+} = workflowsSlice;
 
 export const {
     setSelectedWorkflowDiagramObject,

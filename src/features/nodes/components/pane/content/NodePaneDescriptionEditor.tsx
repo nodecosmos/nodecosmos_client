@@ -2,10 +2,10 @@ import Loader from '../../../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../../../store';
 import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
 import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
-import { selectNodeAttribute, selectSelectedNodePrimaryKey } from '../../../selectors';
-import { updateNodeState } from '../../../slice';
-import { getNodeDescriptionBase64, updateNodeDescription } from '../../../thunks';
-import { NodePrimaryKey } from '../../../types';
+import { updateState } from '../../../actions';
+import { selectNodeAttribute, selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
+import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
+import { NodePrimaryKey } from '../../../nodes.types';
 import { Box } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
 import React, {
@@ -44,7 +44,7 @@ export default function NodePaneDescriptionEditor() {
             const shortDescription = extractTextFromHtml(descriptionHtml);
             const markdown = helpers.getMarkdown();
 
-            dispatch(updateNodeState({
+            dispatch(updateState({
                 id,
                 description: descriptionHtml,
                 shortDescription,

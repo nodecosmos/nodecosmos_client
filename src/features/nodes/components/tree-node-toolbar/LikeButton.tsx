@@ -9,7 +9,7 @@ import {
     getLikesCount, likeObject, unlikeObject,
 } from '../../../likes/likes.thunks';
 import { addLikedObjectId, removeLikedObjectId } from '../../../likes/likesSlice';
-import { selectNodeAttribute } from '../../selectors';
+import { selectNodeAttribute } from '../../nodes.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

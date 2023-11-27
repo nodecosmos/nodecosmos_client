@@ -2,9 +2,9 @@ import ToolbarContainer from '../../../../common/components/toolbar/ToolbarConta
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import TogglePaneButton from '../../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import { setNodePaneContent } from '../../actions';
 import { NODE_PANE_CONTENTS } from '../../nodes.constants';
-import { selectNodeDetailsAction, selectSelectedNode } from '../../selectors';
-import { setNodePaneContent } from '../../slice';
+import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
     faRectangleCode,

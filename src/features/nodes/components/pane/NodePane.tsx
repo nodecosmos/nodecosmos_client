@@ -6,14 +6,14 @@ import NodePaneToolbar from './NodePaneToolbar';
 import usePrevious from '../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import { setNodePaneContent } from '../../actions';
 import {
     selectNodeAttribute,
     selectNodePaneContent,
     selectSelectedNodePrimaryKey,
-} from '../../selectors';
-import { setNodePaneContent } from '../../slice';
-import { getNodeDescription } from '../../thunks';
-import { NodePaneContents, NodePrimaryKey } from '../../types';
+} from '../../nodes.selectors';
+import { getNodeDescription } from '../../nodes.thunks';
+import { NodePaneContents, NodePrimaryKey } from '../../nodes.types';
 import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';

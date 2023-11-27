@@ -15,7 +15,7 @@ import {
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { setSelectedWorkflowDiagramObject } from '../../../slice';
+import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';

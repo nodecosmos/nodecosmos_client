@@ -1,9 +1,9 @@
 import DeleteCoverImageButton from './DeleteCoverImageButton';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
-import { selectSelectedNode } from '../../selectors';
-import { updateNodeState } from '../../slice';
-import { AppNode } from '../../types';
+import { updateState } from '../../actions';
+import { selectSelectedNode } from '../../nodes.selectors';
+import { AppNode } from '../../nodes.types';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -27,7 +27,7 @@ export default function NodePaneDescriptionCoverImage() {
         closeModal();
 
         if (responseBody?.coverImageURL) {
-            dispatch(updateNodeState({
+            dispatch(updateState({
                 branchId,
                 id,
                 coverImageURL: responseBody.coverImageURL,

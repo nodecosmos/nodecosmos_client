@@ -1,6 +1,6 @@
 import NodeCard from './NodeCard';
 import NodeCardsContainer from './NodeCardsContainer';
-import { selectIndexedNode } from '../selectors';
+import { selectIndexedNode } from '../nodes.selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 

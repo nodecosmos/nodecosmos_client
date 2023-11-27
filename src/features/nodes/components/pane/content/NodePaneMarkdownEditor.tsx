@@ -1,6 +1,6 @@
 import Loader from '../../../../../common/components/Loader';
-import { selectNodeAttribute, selectSelectedNodePrimaryKey } from '../../../selectors';
-import { NodePrimaryKey } from '../../../types';
+import { selectNodeAttribute, selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
+import { NodePrimaryKey } from '../../../nodes.types';
 import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';

@@ -3,7 +3,7 @@ import { Position } from '../../../../types';
 import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../../trees/trees.constants';
 import { WorkflowStep } from '../../diagram/types';
-import { selectWorkflowScale } from '../../selectors';
+import { selectWorkflowScale } from '../../workflow.selectors';
 import useWorkflowContext from '../useWorkflowContext';
 import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';

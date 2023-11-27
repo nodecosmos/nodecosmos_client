@@ -3,7 +3,7 @@ import { Strict } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
-import { updateWorkflowInitialInputs } from '../../workflows/thunks';
+import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
 import { CreateIOModalProps } from '../components/CreateIOModal';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { createIO } from '../inputOutputs.thunks';

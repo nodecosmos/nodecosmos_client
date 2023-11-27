@@ -1,7 +1,7 @@
 import NodeCardActions from './NodeCardActions';
 import NodeCardHeader from './NodeCardHeader';
 import { UUID } from '../../../types';
-import { selectIndexedNode } from '../selectors';
+import { selectIndexedNode } from '../nodes.selectors';
 import {
     Box,
     Card,

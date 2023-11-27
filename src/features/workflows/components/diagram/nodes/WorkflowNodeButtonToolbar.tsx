@@ -3,7 +3,7 @@ import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import { selectSelectedWorkflowObject } from '../../../selectors';
+import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

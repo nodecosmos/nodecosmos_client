@@ -1,6 +1,6 @@
 import { UUID } from '../../../../../types';
 import { selectFlow } from '../../../../flows/flows.selectors';
-import { selectSelectedWorkflowObject } from '../../../selectors';
+import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 

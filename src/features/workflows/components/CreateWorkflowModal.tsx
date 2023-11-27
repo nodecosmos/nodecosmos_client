@@ -4,7 +4,7 @@ import CloseModalButton from '../../../common/components/modal/CloseModalButton'
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
-import { createWorkflow } from '../thunks';
+import { createWorkflow } from '../worfklow.thunks';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';

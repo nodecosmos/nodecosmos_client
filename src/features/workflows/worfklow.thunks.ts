@@ -1,6 +1,6 @@
 import {
     Workflow, WorkflowData, WorkflowUpsertPayload,
-} from './types';
+} from './workflow.types';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';

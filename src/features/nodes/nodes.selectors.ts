@@ -1,4 +1,4 @@
-import { AppNode, NodeState } from './types';
+import { AppNode, NodeState } from './nodes.types';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
@@ -32,10 +32,14 @@ export const selectSelectedNode = createSelector(
     },
 );
 
-export const selectNodeAttribute = <K extends keyof AppNode>(branchId: UUID, nodeId: UUID, attribute: K) => createSelector(
-    selectNode(branchId, nodeId),
-    (node) => node && node[attribute],
-);
+export const selectNodeAttribute = <K extends keyof AppNode>(
+    branchId: UUID,
+    nodeId: UUID,
+    attribute: K,
+) => createSelector(
+        selectNode(branchId, nodeId),
+        (node) => node && node[attribute],
+    );
 
 export const selectBranchTitles = (branchId?: UUID) => createSelector(
     selectTitles,

@@ -4,8 +4,8 @@ import { setTransformablePositions } from '../../app/appSlice';
 import { MARGIN_TOP } from '../../trees/trees.constants';
 import { extractNodeIdFromTreeNodeId, extractRootIdFromTreeNodeId } from '../../trees/trees.memoize';
 import { selectPositions, selectSelectedTreeNode } from '../../trees/trees.selectors';
-import { selectBranchTitles, selectSelectedNode } from '../selectors';
-import { setSelectedNode } from '../slice';
+import { setSelectedNode } from '../actions';
+import { selectBranchTitles, selectSelectedNode } from '../nodes.selectors';
 import { faChevronRight, faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

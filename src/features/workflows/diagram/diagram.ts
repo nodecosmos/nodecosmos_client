@@ -5,7 +5,7 @@ import { WorkflowDiagram, WorkflowStep } from './types';
 import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
 import { FlowStep } from '../../flow-steps/types';
 import { groupInputOutputsById } from '../../input-outputs/inputOutputs.memoize';
-import { WorkflowData } from '../types';
+import { WorkflowData } from '../workflow.types';
 
 export interface BuildWorkflowDiagramData {
     initialInputIds: WorkflowData['workflow']['initialInputIds'];

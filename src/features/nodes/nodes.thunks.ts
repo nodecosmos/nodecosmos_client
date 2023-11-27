@@ -1,6 +1,13 @@
 import {
-    IndexNodesPayload, NodeCreationPayload, NodePayload, NodePrimaryKey, NodeDescendant, Node, IndexNode,
-} from './types';
+    IndexNodesPayload,
+    NodeCreationPayload,
+    NodePayload,
+    NodePrimaryKey,
+    NodeDescendant,
+    Node,
+    IndexNode,
+    ReorderPayload,
+} from './nodes.types';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -22,8 +29,6 @@ export const showNode = createAsyncThunk(
     },
 );
 
-// For now thunks are handled automatically by extraReducers in nodesSlice and treesSlice.
-// Rethink this approach as it may be too implicit.
 export const createNode = createAsyncThunk(
     'nodes/createNode',
     async (payload: NodeCreationPayload): Promise<Node> => {
@@ -46,16 +51,6 @@ export const updateNodeDescription = createAsyncThunk(
     'nodes/updateNodeDescription',
     async (payload: NodePayload): Promise<NodePayload> => {
         const response = await nodecosmos.put('/nodes/description', payload);
-
-        return response.data;
-    },
-);
-
-export const updateNode = createAsyncThunk(
-    'nodes/updateNode',
-    async (payload: NodePayload): Promise<NodePayload> => {
-        const { id } = payload;
-        const response = await nodecosmos.put(`/nodes/${id}.json`, payload);
 
         return response.data;
     },
@@ -91,7 +86,7 @@ export const getNodeDescriptionBase64 = createAsyncThunk(
 
 export const reorder = createAsyncThunk(
     'nodes/reorder',
-    async (payload) => {
+    async (payload: ReorderPayload) => {
         const response = await nodecosmos.put('/nodes/reorder', payload);
 
         return response.data;
@@ -100,8 +95,8 @@ export const reorder = createAsyncThunk(
 
 export const deleteNodeImage = createAsyncThunk(
     'nodes/deleteNodeImage',
-    async (id) => {
-        const response = await nodecosmos.delete(`/nodes/${id}/delete_cover_image`);
+    async ({ branchId, id }: NodePrimaryKey) => {
+        const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/delete_cover_image`);
 
         return response.data;
     },
