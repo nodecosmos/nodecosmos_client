@@ -49,7 +49,7 @@ export default function TreeNodes({ rootNodeId, type }) {
                     />
                 ))}
             </g>
-            <DraggableNodePoints />
+            <DraggableNodePoints rootNodeId={rootNodeId} />
         </g>
 
     );

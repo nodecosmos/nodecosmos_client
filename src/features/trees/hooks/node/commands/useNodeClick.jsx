@@ -40,10 +40,9 @@ export default function useNodeClick() {
             event.preventDefault();
             event.stopPropagation();
 
-            // this doesn't work on node pane
-            // dispatch(expandTreeNode(treeNodeId));
-            // dispatch(setSelectedNode(nodeId));
-            // dispatch(setSelectedTreeNode(treeNodeId));
+            dispatch(expandTreeNode(treeNodeId));
+            dispatch(setSelectedNode(nodeId));
+            dispatch(setSelectedTreeNode(treeNodeId));
 
             handleCheckboxChange();
 

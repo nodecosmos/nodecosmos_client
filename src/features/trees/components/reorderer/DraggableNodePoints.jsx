@@ -1,12 +1,11 @@
 import DraggableNodePoint from './DraggableNodePoint';
-import useTreeContext from '../../hooks/useTreeContext';
 import useTreeNodeVirtualizer from '../../hooks/useTreeNodesVirtualizer';
 import { selectDragAndDrop } from '../../trees.selectors';
+import * as PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-export default function DraggableNodePoints() {
-    const { rootNodeId } = useTreeContext();
+function DraggableNodePoints({ rootNodeId }) {
     const dragAndDrop = useSelector(selectDragAndDrop);
     const treeNodeIdsToView = useTreeNodeVirtualizer(rootNodeId);
 
@@ -23,3 +22,9 @@ export default function DraggableNodePoints() {
         );
     });
 }
+
+DraggableNodePoints.propTypes = {
+    rootNodeId: PropTypes.string.isRequired,
+};
+
+export default DraggableNodePoints;

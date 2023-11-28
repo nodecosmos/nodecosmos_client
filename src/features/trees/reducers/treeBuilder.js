@@ -1,8 +1,14 @@
+// We use this approach to build tree as we want to enable reusability of nodes.
+// This way we can either have *same* node multiple times in the tree & we can have
+// same node in multiple trees.
+// We construct the id by appending the original root node id, tree parent id and original node id.
+// Reasoning is that parent can not have two completely same nodes as children. However, in future
+// we will enable node count or node types in order to address this limitation.
 import { TREES_TYPES } from '../trees.constants';
 
 export default function buildTreeFromRootNode(state, action) {
     const {
-        rootId, childIdsByParentId, type,
+        rootId, childIdsByParentId, type, 
     } = action.payload;
 
     state.byRootNodeId[rootId] ||= {};

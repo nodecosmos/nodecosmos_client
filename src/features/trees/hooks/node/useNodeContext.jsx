@@ -23,6 +23,7 @@ export default function useNodeContext() {
         nodeId,
         treeParentId,
         treeAncestorIds,
+        isCreationInProgress,
         isDragOver,
         isEditing,
         isExpanded,
@@ -34,7 +35,6 @@ export default function useNodeContext() {
 
     const {
         rootId,
-        branchId,
         parentId,
         persistentId,
         title,
@@ -44,23 +44,20 @@ export default function useNodeContext() {
     } = useSelector(selectNode(nodeId));
 
     return {
+    // tree node attributes
         nodeId,
-
-        // tree node attributes
         treeRootNodeId,
         treeParentId,
         treeNodeId,
         treeAncestorIds,
         isAlreadyMounted,
-        isCreationInProgress: false,
+        isCreationInProgress,
         isDragOver,
         isEditing,
         isExpanded,
         isTreeRoot,
-
         // node attributes
         rootId,
-        branchId,
         parentId,
         persistentId,
         title,

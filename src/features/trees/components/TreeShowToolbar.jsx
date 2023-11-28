@@ -1,3 +1,5 @@
+import { selectIsPaneOpen } from '../../app/app.selectors';
+import TogglePaneButton from '../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { searchNode } from '../../nodes/nodeActions';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
@@ -15,6 +17,7 @@ export default function TreeShowToolbar() {
     const dispatch = useDispatch();
     const { rootNodeId } = useTreeContext();
     const { rebuildTree } = useTreeCommands();
+    const isPaneOpen = useSelector(selectIsPaneOpen);
 
     const rootId = useSelector(selectNodeAttribute(rootNodeId, 'rootId'));
 
@@ -71,6 +74,7 @@ export default function TreeShowToolbar() {
                 placeholder="Search"
                 onChange={handleSearch}
             />
+            {!isPaneOpen && (<TogglePaneButton />)}
         </Box>
     );
 }

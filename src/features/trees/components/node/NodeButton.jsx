@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material';
 import React from 'react';
 /* nodecosmos */
 
-function NodeButton() {
+export default function NodeButton() {
     const {
         title,
         isDragOver,
@@ -61,7 +61,3 @@ function NodeButton() {
         </button>
     );
 }
-
-// parent component NodeContent can change on position change, but this one remains the same,
-// so we should get better performance by memoizing it
-export default React.memo(NodeButton);
