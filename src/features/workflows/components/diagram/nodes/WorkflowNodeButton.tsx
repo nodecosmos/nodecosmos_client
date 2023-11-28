@@ -2,12 +2,12 @@ import WorkflowNodeBranch from './WorkflowNodeBranch';
 import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
-import { setSelectedNode } from '../../../../nodes/nodeActions';
+import { select } from '../../../../nodes/actions';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
-} from '../../../../trees/trees.constants';
+} from '../../../../nodes/constants';
 import {
     EDGE_LENGTH,
     MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
@@ -49,10 +49,8 @@ export default function WorkflowNodeButton() {
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            // TODO: fix onc we convert nodes to typescript
-            dispatch(setSelectedNode(id));
+            // TODO
+            dispatch(select({ branchId: id, id }));
         }
     }, [dispatch, id, workflowContext]);
 

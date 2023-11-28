@@ -16,7 +16,7 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             persistentId: id,
             isTemp: false,
             isSelected: true,
-            treeRootNodeId: id,
+            treeRootId: id,
             descendantIds: [],
             childIds: [],
             nestedLevel: tmpNode.nestedLevel || 0,

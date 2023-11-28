@@ -1,31 +1,32 @@
+import { buildTree } from './tree';
 import { UUID } from '../../../types';
 import { NodePrimaryKey, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 // redux action
 export interface BuildTmpNodeAction {
-    tmpNodeId: UUID;
+    tmpId: UUID;
     branchId: UUID;
-    nodeId: UUID;
+    id: UUID;
 }
 
 export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNodeAction>) {
     const {
-        tmpNodeId, branchId, nodeId,
+        tmpId, branchId, id,
     } = action.payload;
 
-    const node = state.byBranchId[branchId][nodeId];
+    const node = state.byBranchId[branchId][id];
 
-    state.byBranchId[node.branchId][tmpNodeId] = {
-        id: tmpNodeId,
+    state.byBranchId[node.branchId][tmpId] = {
+        id: tmpId,
         branchId: node.branchId,
         rootId: node.rootId,
-        parentId: nodeId,
-        order: state.childIds[branchId][nodeId].length + 1,
+        parentId: id,
+        order: state.childIds[branchId][id].length + 1,
         isPublic: node.isPublic,
         isRoot: false,
         title: '',
-        ancestorIds: [nodeId, ...node.ancestorIds],
+        ancestorIds: [id, ...node.ancestorIds],
         description: null,
         shortDescription: null,
         descriptionMarkdown: null,
@@ -46,13 +47,15 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         nestedLevel: node.nestedLevel + 1,
         descendantIds: [],
         childIds: [],
-        treeRootNodeId: node.treeRootNodeId,
         likedByCurrentUser: null,
+        treeRootId: node.treeRootId,
         x: 0, xEnd: 0, y: 0, yEnd: 0,
     };
 
-    state.childIds[branchId][nodeId].push(tmpNodeId);
-    state.childIds[branchId][tmpNodeId] = [];
+    state.childIds[branchId][id].push(tmpId);
+    state.childIds[branchId][tmpId] = [];
+
+    buildTree(state, branchId, node.rootId);
 }
 
 export function clearTmp(state: NodeState, action: PayloadAction<NodePrimaryKey>) {
@@ -72,16 +75,16 @@ export function clearTmp(state: NodeState, action: PayloadAction<NodePrimaryKey>
 
 export interface NodeReplacePayload {
     branchId: UUID;
-    tmpNodeId: UUID;
+    tmpId: UUID;
     persistentId: UUID;
 }
 
 export function replaceTmpWithPersisted(state: NodeState, action: PayloadAction<NodeReplacePayload>) {
     const {
-        branchId, tmpNodeId, persistentId,
+        branchId, tmpId, persistentId,
     } = action.payload;
     const newNode = state.byBranchId[branchId][persistentId];
-    const tmpNode = state.byBranchId[branchId][tmpNodeId];
+    const tmpNode = state.byBranchId[branchId][tmpId];
     const { parentId } = tmpNode;
 
     state.byBranchId[branchId][persistentId] = {
@@ -101,17 +104,17 @@ export function replaceTmpWithPersisted(state: NodeState, action: PayloadAction<
         state.selectedNodePrimaryKey = { id: persistentId, branchId };
     }
 
-    // replace tmpNodeId with persistentId within the childIds of the parent
+    // replace tmpId with persistentId within the childIds of the parent
     const parentChildIds = state.childIds[branchId][parentId];
-    const tmpNodeParentIndex = parentChildIds.indexOf(tmpNodeId);
+    const tmpNodeParentIndex = parentChildIds.indexOf(tmpId);
 
     parentChildIds.splice(tmpNodeParentIndex, 1, persistentId);
     state.childIds[branchId][parentId] = state.byBranchId[branchId][parentId].childIds;
 
-    // put the persistentId in the place of tmpNodeId
-    const tmpNodeTreeIndex = state.orderedTreeIds[branchId].indexOf(tmpNodeId);
+    // put the persistentId in the place of tmpId
+    const tmpNodeTreeIndex = state.orderedTreeIds[branchId].indexOf(tmpId);
     state.orderedTreeIds[branchId].splice(tmpNodeTreeIndex, 1, persistentId);
 
-    delete state.byBranchId[branchId][tmpNodeId];
-    delete state.childIds[branchId][tmpNodeId];
+    delete state.byBranchId[branchId][tmpId];
+    delete state.childIds[branchId][tmpId];
 }

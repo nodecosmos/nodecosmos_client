@@ -1,11 +1,11 @@
 import NodeCard from './NodeCard';
 import NodeCardsContainer from './NodeCardsContainer';
-import { selectIndexedNode } from '../nodes.selectors';
+import { selectIndexNodesById } from '../nodes.selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function NodeCards() {
-    const nodes = useSelector(selectIndexedNode);
+    const nodes = useSelector(selectIndexNodesById);
 
     return (
         <NodeCardsContainer>

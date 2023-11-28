@@ -1,4 +1,4 @@
-import LikeButton from './tree-node-toolbar/LikeButton';
+import LikeButton from './LikeButton';
 import { IndexNode } from '../nodes.types';
 import {
     faCodePullRequest, faHashtag, faUserGroup,

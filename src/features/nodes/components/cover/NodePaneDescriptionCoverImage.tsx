@@ -123,9 +123,7 @@ export default function NodePaneDescriptionCoverImage() {
                         variant="outlined"
                         startIcon={<FontAwesomeIcon icon={faCamera} />}
                         onClick={openModal}
-                        sx={{
-                            color: 'buttonContrast',
-                        }}
+                        color="buttonContrast"
                     >
                         Upload cover image
                     </Button>

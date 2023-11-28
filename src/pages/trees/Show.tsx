@@ -1,15 +1,20 @@
-import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
-import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import NodePane from '../../../features/nodes/components/pane/NodePane';
-import Tree from '../../../features/trees/components/Tree';
-import { TREES_TYPES } from '../../../features/trees/trees.constants';
+import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
+import usePaneResizable from '../../common/hooks/usePaneResizable';
+import { setHeaderContent } from '../../features/app/appSlice';
+import NodePane from '../../features/nodes/components/pane/NodePane';
+import Tree from '../../features/nodes/components/tree/Tree';
+import { NodecosmosDispatch } from '../../store';
+import { NodecosmosTheme } from '../../themes/type';
+import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-export default function ContributionRequestTree() {
-    const { id } = useParams();
-    const theme = useTheme();
+export default function Show() {
+    const { id } = useParams<{id: UUID}>();
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const theme: NodecosmosTheme = useTheme();
 
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
@@ -36,10 +41,24 @@ export default function ContributionRequestTree() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
+        dispatch(setHeaderContent('TreeShowHeader'));
+
+        return () => {
+            dispatch(setHeaderContent(''));
+        };
+    }, [dispatch]);
+
+    useEffect(() => {
         if (!resizeInProgress) {
-            hoverResizer();
+            leaveResizer();
         }
-    }, [hoverResizer, resizeInProgress]);
+    }, [resizeInProgress, leaveResizer]);
+
+    const onResizerLeave = useCallback(() => {
+        if (!resizeInProgress) {
+            leaveResizer();
+        }
+    }, [resizeInProgress, leaveResizer]);
 
     return (
         <Box
@@ -57,18 +76,19 @@ export default function ContributionRequestTree() {
                 height={1}
                 display="flex"
             >
-                <Tree rootNodeId={id} type={TREES_TYPES.contributionRequest} />
+                <Tree branchId={id as UUID} rootNodeId={id as UUID} />
                 <Box
+                    component="span"
                     onMouseDown={handleResize}
                     width="4px"
-                    backgroundColor="transparent"
                     height={1}
                     ml={-0.5}
                     borderRight={1}
                     borderColor="transparent"
                     onMouseEnter={hoverResizer}
-                    onMouseLeave={leaveResizer}
+                    onMouseLeave={onResizerLeave}
                     sx={{
+                        backgroundColor: 'transparent',
                         position: 'relative',
                         '&:hover': {
                             cursor: 'col-resize',
@@ -77,7 +97,6 @@ export default function ContributionRequestTree() {
                 />
             </Box>
             <Box
-                backgroundColor="background.5"
                 ref={paneBRef}
                 height={1}
                 width={paneBWidth}

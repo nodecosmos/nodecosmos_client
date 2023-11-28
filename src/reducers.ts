@@ -8,7 +8,6 @@ import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
 import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
 import likesSlice from './features/likes/likesSlice';
 import nodesSlice from './features/nodes/nodesSlice';
-import treesSlice from './features/trees/treesSlice';
 import workflowsSlice from './features/workflows/workflowsSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 
@@ -16,7 +15,6 @@ export default combineReducers({
     app: appSlice,
     auth: authSlice,
     nodes: nodesSlice,
-    trees: treesSlice,
     landingPageNodes: landingPageNodeSlice,
     home: homeSlice,
     likes: likesSlice,

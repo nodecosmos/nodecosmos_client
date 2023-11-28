@@ -1,15 +1,15 @@
-import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
-import { NodecosmosDispatch } from '../../../../store';
-import { UUID } from '../../../../types';
-import abbreviateNumber from '../../../../utils/abbreviateNumber';
-import { setAlert } from '../../../app/appSlice';
-import { selectCurrentUser } from '../../../authentication/authentication.selectors';
-import { selectLikedObjectIds } from '../../../likes/likes.selectors';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
+import abbreviateNumber from '../../../utils/abbreviateNumber';
+import { setAlert } from '../../app/appSlice';
+import { selectCurrentUser } from '../../authentication/authentication.selectors';
+import { selectLikedObjectIds } from '../../likes/likes.selectors';
 import {
     getLikesCount, likeObject, unlikeObject,
-} from '../../../likes/likes.thunks';
-import { addLikedObjectId, removeLikedObjectId } from '../../../likes/likesSlice';
-import { selectNodeAttribute } from '../../nodes.selectors';
+} from '../../likes/likes.thunks';
+import { addLikedObjectId, removeLikedObjectId } from '../../likes/likesSlice';
+import { selectNodeAttribute } from '../nodes.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,28 +21,28 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
-    nodeId: UUID;
+    id: UUID;
     fontSize?: number;
     likesCount?: number;
 }
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        nodeId, fontSize, likesCount: providedLikesCount,
+        id, fontSize, likesCount: providedLikesCount,
     } = props;
     const likes = useSelector(selectLikedObjectIds);
-    const stateLikesCount = useSelector(selectNodeAttribute(nodeId, nodeId, 'likesCount'));
+    const stateLikesCount = useSelector(selectNodeAttribute(id, id, 'likesCount'));
     const likesCount = providedLikesCount !== null ? providedLikesCount : stateLikesCount;
-    const likedByCurrentUser = likes.includes(nodeId);
+    const likedByCurrentUser = likes.includes(id);
     const [shouldBeat, setShouldBeat] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
 
     useEffect(() => {
-        if (nodeId && likesCount === undefined) {
-            dispatch(getLikesCount(nodeId));
+        if (id && likesCount === undefined) {
+            dispatch(getLikesCount(id));
         }
-    }, [dispatch, nodeId, likesCount]);
+    }, [dispatch, id, likesCount]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
@@ -51,16 +51,16 @@ export default function LikeButton(props: LikeButtonProps) {
         }
 
         if (likedByCurrentUser) {
-            dispatch(removeLikedObjectId({ id: nodeId }));
-            dispatch(unlikeObject(nodeId));
+            dispatch(removeLikedObjectId({ id }));
+            dispatch(unlikeObject(id));
         } else {
-            dispatch(addLikedObjectId({ id: nodeId }));
-            dispatch(likeObject(nodeId));
+            dispatch(addLikedObjectId({ id }));
+            dispatch(likeObject(id));
         }
 
         requestAnimationFrame(() => setShouldBeat(true));
         setTimeout(() => setShouldBeat(false), 1000);
-    }, [currentUser, dispatch, likedByCurrentUser, nodeId]);
+    }, [currentUser, dispatch, likedByCurrentUser, id]);
 
     const [likeHovered, hoverLike, leaveLike] = useBooleanStateValue();
 
@@ -103,7 +103,7 @@ LikeButton.defaultProps = {
 };
 
 LikeButton.propTypes = {
-    nodeId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     fontSize: PropTypes.number,
     likesCount: PropTypes.number,
 };

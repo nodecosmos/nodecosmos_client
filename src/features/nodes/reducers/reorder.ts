@@ -1,14 +1,14 @@
-import { NodeState, ReorderPayload } from '../nodes.types';
-import { buildTree } from '../tree';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { buildTree } from './tree';
+import { reorder } from '../nodes.thunks';
+import { NodeState } from '../nodes.types';
 
-export default function reorder(state: NodeState, action: PayloadAction<ReorderPayload>) {
+export default function reorderFulfilled(state: NodeState, action: ReturnType<typeof reorder.fulfilled>) {
     const {
         branchId,
         id,
         newParentId,
         newSiblingIndexAfterMove,
-    } = action.payload;
+    } = action.meta.arg;
     const node = state.byBranchId[branchId][id];
     const oldParentId = node.parentId;
     const oldIndex = state.childIds[branchId][oldParentId].indexOf(id);

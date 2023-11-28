@@ -1,10 +1,11 @@
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { NodecosmosDispatch } from '../../../../store';
 import TogglePaneButton from '../../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { setNodePaneContent } from '../../actions';
-import { NODE_PANE_CONTENTS } from '../../nodes.constants';
-import { selectNodeDetailsAction, selectSelectedNode } from '../../nodes.selectors';
+import { selectNodePaneContent, selectSelectedNode } from '../../nodes.selectors';
+import { NodePaneContent } from '../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
     faRectangleCode,
@@ -14,18 +15,25 @@ import {
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function NodePaneToolbar({ page }) {
+interface NodePaneToolbarProps {
+    page?: 'nodes' | 'workflow';
+}
+
+export default function NodePaneToolbar(props: NodePaneToolbarProps) {
+    const { page = 'nodes' } = props;
+    const dispatch: NodecosmosDispatch = useDispatch();
     const { title } = useSelector(selectSelectedNode);
+    const nodePaneContent = useSelector(selectNodePaneContent);
 
-    const dispatch = useDispatch();
-    const nodePaneContent = useSelector(selectNodeDetailsAction);
+    const hasBoxShadow = nodePaneContent === NodePaneContent.Markdown
+        || nodePaneContent === NodePaneContent.Description;
 
-    const hasBoxShadow = nodePaneContent === NODE_PANE_CONTENTS.markdown
-    || nodePaneContent === NODE_PANE_CONTENTS.description;
+    const handleTogglePane = useCallback((paneContent: NodePaneContent) => {
+        dispatch(setNodePaneContent(paneContent));
+    }, [dispatch]);
 
     return (
         <Box
@@ -42,29 +50,33 @@ export default function NodePaneToolbar({ page }) {
                     title="Description Markdown (Read Only)"
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
-                    active={nodePaneContent === NODE_PANE_CONTENTS.markdown}
-                    onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.markdown))}
+                    active={nodePaneContent === NodePaneContent.Markdown}
+                    onClick={handleTogglePane}
+                    onClickValue={NodePaneContent.Markdown}
                 />
                 <ToolbarItem
                     title="Edit Description"
                     icon={faPenToSquare}
                     color="toolbar.green"
-                    active={nodePaneContent === NODE_PANE_CONTENTS.editor}
-                    onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.editor))}
+                    active={nodePaneContent === NodePaneContent.Editor}
+                    onClick={handleTogglePane}
+                    onClickValue={NodePaneContent.Editor}
                 />
                 <ToolbarItem
                     title="View Description"
                     icon={faDisplay}
                     color="toolbar.blue"
-                    active={nodePaneContent === NODE_PANE_CONTENTS.description}
-                    onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.description))}
+                    active={nodePaneContent === NodePaneContent.Description}
+                    onClick={handleTogglePane}
+                    onClickValue={NodePaneContent.Description}
                 />
                 <ToolbarItem
                     title="Workflow"
                     icon={faCodeCommit}
                     color="toolbar.yellow"
-                    active={nodePaneContent === NODE_PANE_CONTENTS.workflow}
-                    onClick={() => dispatch(setNodePaneContent(NODE_PANE_CONTENTS.workflow))}
+                    active={nodePaneContent === NodePaneContent.Workflow}
+                    onClick={handleTogglePane}
+                    onClickValue={NodePaneContent.Workflow}
                 />
             </ToolbarContainer>
 
@@ -95,11 +107,3 @@ export default function NodePaneToolbar({ page }) {
         </Box>
     );
 }
-
-NodePaneToolbar.defaultProps = {
-    page: 'nodes',
-};
-
-NodePaneToolbar.propTypes = {
-    page: PropTypes.oneOf(['nodes', 'workflow']),
-};

@@ -1,5 +1,12 @@
+import { HttpStatusCode } from 'axios';
+
 export type UUID = string;
 export type OptionalId<T> = Omit<T, 'id'> & { id?: UUID };
+
+export type NodecosmosError = {
+    status?: HttpStatusCode;
+    message?: string;
+};
 
 export interface Position {
     x: number;

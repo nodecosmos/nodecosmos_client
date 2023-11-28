@@ -2,8 +2,18 @@ import { getLikedObjectIds } from './likes.thunks';
 import { LikeState } from './types';
 import { createSlice } from '@reduxjs/toolkit';
 
+function getLikedObjectIdsFromLocalStorage(): string[] {
+    const likedObjectIds = localStorage.getItem('likedObjectIds');
+
+    if (likedObjectIds) {
+        return JSON.parse(likedObjectIds);
+    }
+
+    return [];
+}
+
 const initialState: LikeState = {
-    likedObjectIds: JSON.parse(localStorage.getItem('likedObjectIds') || '') || [],
+    likedObjectIds: getLikedObjectIdsFromLocalStorage(),
 };
 const likesSlice = createSlice({
     name: 'likes',

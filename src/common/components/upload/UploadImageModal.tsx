@@ -144,9 +144,8 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             }}
         >
             <DialogTitle>
-        Upload Cover Image
-                <CloseModalButton onClose={onModalClose}
-                />
+                Upload  Image
+                <CloseModalButton onClose={onModalClose} />
             </DialogTitle>
             <DialogContent>
                 <UploadDashboardContainer>

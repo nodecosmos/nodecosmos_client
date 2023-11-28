@@ -1,11 +1,11 @@
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { Strict } from '../../../types';
+import { Strict, UUID } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import { selectNodesById } from '../../nodes/nodes.selectors';
-import Tree from '../../trees/components/Tree';
-import { TREES_TYPES } from '../../trees/trees.constants';
+import Tree from '../../nodes/components/tree/Tree';
+import { selectBranchNodes } from '../../nodes/nodes.selectors';
+import { AppNode, TreeType } from '../../nodes/nodes.types';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
@@ -14,12 +14,12 @@ import { FlowStepCreationParams, FlowStepUpdatePayload } from '../types';
 import { faSave } from '@fortawesome/pro-light-svg-icons';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import {
-    Box, DialogContent, Typography, Dialog, DialogTitle, IconButton,
+    Box, Dialog, DialogContent, DialogTitle, IconButton, Typography,
 } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-/* nodecosmos */
 
+/* nodecosmos */
 interface Props {
     open: boolean;
     onClose: () => void;
@@ -37,7 +37,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
 
     const handleServerError = useHandleServerErrorAlert();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const allNodes = useSelector(selectNodesById);
+    const allNodes = useSelector(selectBranchNodes(nodeId)) as Record<UUID, AppNode>;
 
     const onSubmit = useCallback(async () => {
         setLoading(true);
@@ -133,7 +133,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
                     <Box height={1} sx={{ mx: -3, borderBottom: 1, borderColor: 'borders.4' }}>
                         <Tree
                             rootNodeId={nodeId}
-                            type={TREES_TYPES.checkbox}
+                            branchId={nodeId}
+                            type={TreeType.Checkbox}
                             onChange={setFlowStepNodeIds}
                             value={flowStepNodeIds}
                         />

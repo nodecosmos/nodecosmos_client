@@ -1,6 +1,6 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
 import { UUID } from '../../../../../types';
-import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
+import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../nodes/constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import { selectSelectedWorkflowObject } from '../../../workflow.selectors';

@@ -102,12 +102,8 @@ export default function UploadFileModal({
             }}
         >
             <DialogTitle>
-        Upload Cover Image
-                <CloseModalButton onClose={() => {
-                    uppy.cancelAll();
-                    onClose();
-                }}
-                />
+                Upload Cover Image
+                <CloseModalButton onClose={() => {uppy.cancelAll(); onClose();}} />
             </DialogTitle>
             <DialogContent>
                 <UploadDashboardContainer>

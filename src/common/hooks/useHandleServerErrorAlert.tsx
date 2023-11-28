@@ -1,6 +1,6 @@
 import { setAlert } from '../../features/app/appSlice';
 import { NodecosmosDispatch } from '../../store';
-import { SerializedError } from '@reduxjs/toolkit';
+import { NodecosmosError } from '../../types';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -8,19 +8,31 @@ import { useDispatch } from 'react-redux';
 export default function useHandleServerErrorAlert() {
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    return useCallback((error: SerializedError) => {
+    return useCallback((error: NodecosmosError) => {
         let message;
 
-        if (error.message?.includes('404')) {
-            message = 'Resource not found!';
-        } else if (error.message?.includes('403')) {
+        switch (error.status) {
+        case 400:
+            message = 'Bad request!';
+            break;
+        case 401:
+            message = 'Unauthorized!';
+            break;
+        case 403:
             message = 'Forbidden!';
-        } else if (error.message?.includes('409')) {
-            message = 'Conflict!';
-        } else if (error.message?.includes('423')) {
-            message = 'Resource Locked: Reorder in progress. If issue persist contact support.';
-        } else {
+            break;
+        case 404:
+            message = 'Resource not found!';
+            break;
+        case 409:
+            message = `Conflict: ${error.message}`;
+            break;
+        case 423:
+            message = `Resource Locked: ${error.message}`;
+            break;
+        default:
             message = 'Something went wrong. Please try again later.';
+            break;
         }
 
         dispatch(setAlert({ isOpen: true, severity: 'error', message }));

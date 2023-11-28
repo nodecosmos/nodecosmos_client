@@ -1,7 +1,7 @@
-import { NodePayload, NodeState } from '../nodes.types';
+import { AppNodePayload, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export default function updateState(state: NodeState, action: PayloadAction<NodePayload>) {
+export default function updateState(state: NodeState, action: PayloadAction<AppNodePayload>) {
     const { branchId, id } = action.payload;
     const current = state.byBranchId[branchId][id];
 

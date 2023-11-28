@@ -3,12 +3,11 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { UUID } from '../../../../../types';
 import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
-/* nodecosmos */
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
-} from '../../../../trees/trees.constants';
+} from '../../../../nodes/constants';
 import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,

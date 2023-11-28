@@ -1,16 +1,16 @@
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
-import { selectSelectedNode, selectSelectedNodeId } from '../../../nodes.selectors';
+import { selectSelectedNode, selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
 import NodePaneDescriptionCoverImage from '../../cover/NodePaneDescriptionCoverImage';
 import { Typography, Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function NodePaneDescription() {
-    const selectedNodeId = useSelector(selectSelectedNodeId);
+    const selectedNodePk = useSelector(selectSelectedNodePrimaryKey);
 
     const { description } = useSelector(selectSelectedNode);
 
-    if (!selectedNodeId) return null;
+    if (!selectedNodePk) return null;
 
     const nodeNotSelectedContent = (
         <Typography color="text.secondary" align="center" fontSize={30}>
@@ -24,7 +24,7 @@ export default function NodePaneDescription() {
         </Typography>
     );
 
-    const blankDescription = (selectedNodeId && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
+    const blankDescription = (selectedNodePk && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
 
     return (
         <div>

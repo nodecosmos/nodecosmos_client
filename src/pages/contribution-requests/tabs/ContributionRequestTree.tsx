@@ -1,23 +1,24 @@
-import usePaneResizable from '../../common/hooks/usePaneResizable';
-import { setHeaderContent } from '../../features/app/appSlice';
-import NodePane from '../../features/nodes/components/pane/NodePane';
-import Tree from '../../features/trees/components/Tree';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import usePaneResizable from '../../../common/hooks/usePaneResizable';
+import NodePane from '../../../features/nodes/components/pane/NodePane';
+import Tree from '../../../features/nodes/components/tree/Tree';
+import { TreeType } from '../../../features/nodes/nodes.types';
+import { NodecosmosTheme } from '../../../themes/type';
+import { UUID } from '../../../types';
 import { Box, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function Show() {
+export default function ContributionRequestTree() {
     const { id } = useParams();
-    const dispatch = useDispatch();
-    const theme = useTheme();
+    const theme: NodecosmosTheme = useTheme();
 
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
 
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
-    const [resizerHovered, setResizerHovered] = React.useState(false);
+    const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const {
         paneAWidth,
@@ -37,18 +38,16 @@ export default function Show() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        dispatch(setHeaderContent('TreeShowHeader'));
-
-        return () => {
-            dispatch(setHeaderContent(''));
-        };
-    }, [dispatch]);
-
-    useEffect(() => {
         if (!resizeInProgress) {
-            setResizerHovered(false);
+            leaveResizer();
         }
-    }, [resizeInProgress]);
+    }, [resizeInProgress, leaveResizer]);
+
+    const onResizerLeave = useCallback(() => {
+        if (!resizeInProgress) {
+            leaveResizer();
+        }
+    }, [resizeInProgress, leaveResizer]);
 
     return (
         <Box
@@ -66,22 +65,19 @@ export default function Show() {
                 height={1}
                 display="flex"
             >
-                <Tree rootNodeId={id} />
+                <Tree branchId={id as UUID} rootNodeId={id as UUID} type={TreeType.ContributionRequest} />
                 <Box
+                    component="span"
                     onMouseDown={handleResize}
                     width="4px"
-                    backgroundColor="transparent"
                     height={1}
                     ml={-0.5}
                     borderRight={1}
                     borderColor="transparent"
-                    onMouseEnter={() => setResizerHovered(true)}
-                    onMouseLeave={() => {
-                        if (!resizeInProgress) {
-                            setResizerHovered(false);
-                        }
-                    }}
+                    onMouseEnter={hoverResizer}
+                    onMouseLeave={onResizerLeave}
                     sx={{
+                        backgroundColor: 'transparent',
                         position: 'relative',
                         '&:hover': {
                             cursor: 'col-resize',

@@ -14,13 +14,13 @@ export default function NodeIndexHeader() {
         <>
             <CreateNodeModal
                 open={createNodeDialogOpen}
-                onClose={openCreateNodeDialog}
+                onClose={closeNodeDialog}
             />
             <Box display="flex" alignItems="center">
                 <DefaultButton
                     title="Add Node"
                     startIcon={<FontAwesomeIcon icon={faAdd} />}
-                    onClick={closeNodeDialog}
+                    onClick={openCreateNodeDialog}
                 />
                 <NodeIndexSearch />
             </Box>

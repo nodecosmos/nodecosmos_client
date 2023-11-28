@@ -6,9 +6,9 @@ import usePrevious from '../../../../common/hooks/usePrevious';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectSelectedWorkflowObject } from '../../../workflows/workflow.selectors';
 import { WorkflowDiagramObject } from '../../../workflows/workflow.types';
-import { FLOW_PANE_CONTENTS } from '../../flows.constants';
 import { selectFlowPaneContent } from '../../flows.selectors';
 import { setFlowPaneContent } from '../../flowsSlice';
+import { FlowPaneContent } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ export default function FlowPane() {
 
     useEffect(() => {
         if (prevId !== id) {
-            dispatch(setFlowPaneContent(FLOW_PANE_CONTENTS.description));
+            dispatch(setFlowPaneContent(FlowPaneContent.Description));
         }
     }, [dispatch, id, prevId]);
 

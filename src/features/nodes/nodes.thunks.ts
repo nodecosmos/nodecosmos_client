@@ -9,18 +9,24 @@ import {
     ReorderPayload,
 } from './nodes.types';
 import nodecosmos from '../../apis/nodecosmos-server';
+import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const indexNodes = createAsyncThunk(
+export const indexNodes = createAsyncThunk<IndexNode[], IndexNodesPayload, { rejectValue: NodecosmosError }>(
     'nodes/indexNodes',
-    async (payload: IndexNodesPayload): Promise<IndexNode[]> => {
+    async (payload) => {
         const response = await nodecosmos.get('/nodes', { params: payload });
 
         return response.data;
     },
 );
 
-export const showNode = createAsyncThunk(
+interface ShowNodeResponse {
+    node: Node;
+    descendants: NodeDescendant[];
+}
+
+export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: NodecosmosError }>(
     'nodes/showNode',
     async (id): Promise<{node: Node, descendants: NodeDescendant[]}> => {
         const response = await nodecosmos.get(`/nodes/${id}`);
@@ -29,71 +35,75 @@ export const showNode = createAsyncThunk(
     },
 );
 
-export const createNode = createAsyncThunk(
+export const createNode = createAsyncThunk<Node, NodeCreationPayload, { rejectValue: NodecosmosError }>(
     'nodes/createNode',
-    async (payload: NodeCreationPayload): Promise<Node> => {
+    async (payload) => {
         const response = await nodecosmos.post('/nodes', payload);
 
         return response.data;
     },
 );
 
-export const updateNodeTitle = createAsyncThunk(
+export const updateNodeTitle = createAsyncThunk<NodePayload, NodePayload, { rejectValue: NodecosmosError }>(
     'nodes/updateNodeTitle',
-    async (payload: NodePayload): Promise<NodePayload> => {
+    async (payload) => {
         const response = await nodecosmos.put('/nodes/title', payload);
 
         return response.data;
     },
 );
 
-export const updateNodeDescription = createAsyncThunk(
+export const updateNodeDescription = createAsyncThunk<NodePayload, NodePayload, { rejectValue: NodecosmosError }>(
     'nodes/updateNodeDescription',
-    async (payload: NodePayload): Promise<NodePayload> => {
+    async (payload) => {
         const response = await nodecosmos.put('/nodes/description', payload);
 
         return response.data;
     },
 );
 
-export const deleteNode = createAsyncThunk(
+export const deleteNode = createAsyncThunk<Node, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/deleteNode',
-    async ({ branchId, id }: NodePrimaryKey): Promise<Node> => {
+    async ({ branchId, id }) => {
         const response = await nodecosmos.delete(`/nodes/${id}/${branchId}`);
 
         return response.data;
     },
 );
 
-export const getNodeDescription = createAsyncThunk(
+export const getNodeDescription = createAsyncThunk<NodePayload, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/getNodeDescription',
-    async ({ branchId, id }: NodePrimaryKey): Promise<NodePayload> => {
+    async ({ branchId, id }) => {
         const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description`);
 
         return response.data;
     },
 );
 
-export const getNodeDescriptionBase64 = createAsyncThunk(
+export const getNodeDescriptionBase64 = createAsyncThunk<NodePayload, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/getNodeDescriptionBase64',
 
-    async ({ branchId, id }: NodePrimaryKey): Promise<NodePayload> => {
+    async ({ branchId, id }) => {
         const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description_base64`);
 
         return response.data;
     },
 );
 
-export const reorder = createAsyncThunk(
+export const reorder = createAsyncThunk<null, ReorderPayload, { rejectValue: NodecosmosError }>(
     'nodes/reorder',
-    async (payload: ReorderPayload) => {
-        const response = await nodecosmos.put('/nodes/reorder', payload);
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/nodes/reorder', payload);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error as NodecosmosError);
+        }
     },
 );
 
-export const deleteNodeImage = createAsyncThunk(
+export const deleteNodeImage = createAsyncThunk<null, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/deleteNodeImage',
     async ({ branchId, id }: NodePrimaryKey) => {
         const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/delete_cover_image`);

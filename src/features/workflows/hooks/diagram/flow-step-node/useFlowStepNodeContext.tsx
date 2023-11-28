@@ -25,7 +25,8 @@ export function useFlowStepNodeContextCreator(val: FlowStepNodeContextValue) {
 export default function useFlowStepNodeContext() {
     const context = useContext(FlowStepNodeContext);
 
-    const title = useSelector(selectNodeAttribute(context.id, 'title'));
+    // TODO:
+    const title = useSelector(selectNodeAttribute(context.id, context.id, 'title'));
     const position = context.flowStepNode?.position || {} as Position;
     const inputIds = context.flowStepNode?.inputIds || [];
     const outputs = context.flowStepNode?.outputs || [];

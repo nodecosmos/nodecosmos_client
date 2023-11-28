@@ -11,6 +11,7 @@ export default function ToolbarItem({
     icon,
     color,
     onClick,
+    onClickValue,
     active,
     flipX,
     titleAsTooltip,
@@ -24,7 +25,7 @@ export default function ToolbarItem({
         if (to) {
             navigate(to);
         }
-        onClick && onClick();
+        onClick && onClick(onClickValue);
     };
 
     return (
@@ -53,6 +54,7 @@ export default function ToolbarItem({
 
 ToolbarItem.defaultProps = {
     onClick: null,
+    onClickValue: null,
     active: false,
     flipX: false,
     titleAsTooltip: true,
@@ -66,6 +68,7 @@ ToolbarItem.propTypes = {
     titleAsTooltip: PropTypes.bool,
     active: PropTypes.bool,
     onClick: PropTypes.func,
+    onClickValue: PropTypes.any,
     flipX: PropTypes.bool,
     to: PropTypes.string,
 };

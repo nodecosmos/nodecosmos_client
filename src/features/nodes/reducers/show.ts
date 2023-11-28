@@ -1,6 +1,6 @@
+import { buildTree } from './tree';
 import { showNode } from '../nodes.thunks';
 import { AppNode, NodeState } from '../nodes.types';
-import { buildTree } from '../tree';
 
 export default function showFulfilled(
     state: NodeState,
@@ -8,17 +8,19 @@ export default function showFulfilled(
 ) {
     const { node, descendants } = action.payload;
     const { branchId, id } = node;
-
+    state.byBranchId[branchId] ||= {};
+    state.childIds[branchId] ||= {};
     const stateNode = state.byBranchId[branchId][id] || {};
 
     const appNode: AppNode = {
         ...stateNode,
         ...node,
+        ancestorIds: [],
         isTemp: false,
         persistentId: id,
         nestedLevel: node.isRoot ? 0 : node.ancestorIds.length,
         isSelected: true,
-        treeRootNodeId: id,
+        treeRootId: id,
         descendantIds: [],
         childIds: [],
         likedByCurrentUser: null,
@@ -49,7 +51,7 @@ export default function showFulfilled(
             nestedLevel: 0,
             isSelected: false,
             ancestorIds: [],
-            treeRootNodeId: id,
+            treeRootId: id,
             descendantIds: [],
             childIds: [],
             likesCount: 0,
@@ -66,6 +68,7 @@ export default function showFulfilled(
             x: 0, xEnd: 0, y: 0, yEnd: 0,
         };
 
+        childIds[branchId] ||= {};
         childIds[branchId][descendant.parentId] ||= [];
         childIds[branchId][descendant.parentId].push(descendant.id);
 

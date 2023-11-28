@@ -63,6 +63,8 @@ const appSlice = createSlice({
         },
         setCurrentNode(state, action) { state.currentNodeId = action.payload; },
         setAnimationEnabled(state, action) { state.animationEnabled = action.payload; },
+
+        // move to actions that can be reused by other slices
         setTransformablePositions(state, action) {
             const current = state.transformablePositionsById[action.payload.id] || {};
             state.transformablePositionsById[action.payload.id] = { ...current, ...action.payload };

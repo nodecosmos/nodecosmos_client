@@ -1,7 +1,9 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
 import {
-    ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
-} from '../../../../trees/trees.constants';
+    ANIMATION_DELAY,
+    INITIAL_ANIMATION_DURATION,
+    TRANSITION_ANIMATION_DURATION,
+} from '../../../../nodes/constants';
 import {
     EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
 } from '../../../constants';

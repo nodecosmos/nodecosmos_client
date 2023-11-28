@@ -2,11 +2,11 @@
 import UserHeaderOptions from './UserHeaderOptions';
 import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
 import NodeIndexHeader from '../../../nodes/components/NodeIndexHeader';
-import TreeShowHeader from '../../../nodes/components/TreeShowHeader';
+import TreeShowHeader from '../../../nodes/components/tree/TreeShowHeader';
 import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import {
-    Box, Button, Typography, 
+    Box, Button, Typography,
 } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';

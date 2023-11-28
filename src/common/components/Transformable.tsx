@@ -5,29 +5,36 @@ import {
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
 import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
 import React, {
-    useEffect, useRef, useState, 
+    useCallback,
+    useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Transformable({
-    children, transformableId, scale, heightMargin, 
-}) {
-    const containerRef = useRef(null);
-    const gRef = useRef(null);
+interface TransformableProps {
+    children: React.ReactNode;
+    transformableId: string;
+    scale?: number;
+    heightMargin?: number;
+}
+
+export default function Transformable(props: TransformableProps) {
+    const {
+        children, transformableId, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
+    } = props;
+    const containerRef = useRef<HTMLElement>(null);
+    const gRef = useRef<SVGSVGElement>(null);
     const dispatch = useDispatch();
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
     useEffect(() => {
         const handleResize = () => {
-            const svgHeight = (gRef.current && gRef.current.getBBox().height) + heightMargin;
+            const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
             const clientHeight = containerRef.current?.clientHeight || 0;
             const height = Math.max(svgHeight, clientHeight - 8);
 
-            const newWidth = (gRef.current && gRef.current.getBBox().width
-        + TRANSFORMABLE_WIDTH_MARGIN);
+            const newWidth = (gRef.current?.getBBox().width || 0) + TRANSFORMABLE_WIDTH_MARGIN;
             const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
             if (height !== dimensions.height || width !== dimensions.width) {
@@ -52,15 +59,17 @@ export default function Transformable({
     const { onMouseDown } = usePannable(containerRef);
 
     //------------------------------------------------------------------------------------------------
-    const handleScroll = () => {
+    const handleScroll = useCallback((() => {
         requestAnimationFrame(() => {
+            if (!containerRef.current) return;
+
             dispatch(setTransformablePositions({
                 id: transformableId,
                 scrollTop: containerRef.current.scrollTop,
                 scrollLeft: containerRef.current.scrollLeft,
             }));
         });
-    };
+    }), [dispatch, transformableId]);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -79,7 +88,7 @@ export default function Transformable({
         if (containerRef.current) { containerRef.current.scrollTop = scrollTop; }
     }, [scrollTop]);
 
-    const resizeTimeout = useRef(null);
+    const resizeTimeout = useRef<number | null>(null);
     const clientHeight = containerRef.current?.clientHeight;
 
     useEffect(() => {
@@ -108,7 +117,7 @@ export default function Transformable({
         <Box
             ref={containerRef}
             onMouseDown={onMouseDown}
-            onScroll={(e) => handleScroll(e)}
+            onScroll={handleScroll}
             sx={{
                 overflow: 'auto',
                 width: 1,
@@ -136,7 +145,6 @@ export default function Transformable({
                         WebkitUserSelect: 'none',
                         KhtmlUserSelect: 'none',
                         MozUserSelect: 'none',
-                        MsUserSelect: 'none',
                         userSelect: 'none',
                         transformOrigin: 'top left',
                         display: 'block',
@@ -150,18 +158,3 @@ export default function Transformable({
         </Box>
     );
 }
-
-Transformable.defaultProps = {
-    scale: 1,
-    heightMargin: TRANSFORMABLE_HEIGHT_MARGIN,
-};
-
-Transformable.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.element.isRequired,
-        PropTypes.arrayOf(PropTypes.element.isRequired),
-    ]).isRequired,
-    transformableId: PropTypes.string.isRequired,
-    scale: PropTypes.number,
-    heightMargin: PropTypes.number,
-};

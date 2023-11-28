@@ -1,10 +1,10 @@
+import { buildTree } from './tree';
 import { NodeState, SearchNodePayload } from '../nodes.types';
-import { buildTree } from '../tree';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export default function search(state: NodeState, action: PayloadAction<SearchNodePayload>) {
     const {
-        rootId, branchId, value,
+        branchId, rootId, value,
     } = action.payload;
 
     if (value) {

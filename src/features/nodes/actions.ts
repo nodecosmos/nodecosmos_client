@@ -6,9 +6,11 @@ export const {
     deleteFromState,
     select,
     search,
-    reorder,
     replaceTmpWithPersisted,
     clearTmp,
+    setDragAndDrop,
     setNodePaneContent,
     setActionInProgress,
+    collapseNode,
+    expandNode,
 } = actions;

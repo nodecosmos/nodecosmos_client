@@ -1,5 +1,5 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
-import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../trees/trees.constants';
+import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../nodes/constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import { useTheme } from '@mui/material';
 import React from 'react';
@@ -11,7 +11,7 @@ export default function WorkflowNodeBranch() {
     const { position } = useFlowStepNodeContext();
 
     const {
-        x, xEnd, y, 
+        x, xEnd, y,
     } = position;
 
     if (!x || !xEnd) return null;

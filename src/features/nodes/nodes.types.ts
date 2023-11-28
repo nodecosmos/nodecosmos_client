@@ -33,16 +33,19 @@ export interface Node extends NodePrimaryKey {
 }
 
 export interface NodeTreeAttributes extends Position {
-    treeRootNodeId: UUID;
+    treeRootId: UUID;
     upperSiblingId?: UUID;
     lowerSiblingId?: UUID;
+    lastChildId?: UUID;
     childIds: UUID[];
     descendantIds: UUID[];
     nestedLevel: number;
     treeIndex?: number;
+    siblingIndex?: number;
     isMounted?: boolean;
     isExpanded?: boolean;
     isEditing?: boolean;
+    isCreationInProgress?: boolean;
 }
 
 export interface AppNode extends Node, NodeTreeAttributes {
@@ -50,6 +53,7 @@ export interface AppNode extends Node, NodeTreeAttributes {
     isTemp: boolean;
     isSelected: boolean;
     likedByCurrentUser?: boolean | null;
+    isDragOver?: boolean;
 }
 
 export interface NodeDescendant extends NodePrimaryKey {
@@ -92,6 +96,7 @@ export interface NodeCreationPayload {
 }
 
 export type NodePayload = NodePrimaryKey & Partial<Omit<Node, keyof NodePrimaryKey>>;
+export type AppNodePayload = NodePrimaryKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
 export interface ReorderPayload {
     id: UUID;
@@ -108,7 +113,7 @@ export interface SearchNodePayload {
     value: string;
 }
 
-export enum NodePaneContents {
+export enum NodePaneContent {
     Markdown = 'markdown',
     Description = 'description',
     Workflow = 'workflow',
@@ -121,7 +126,9 @@ type NodeId = UUID;
 export interface DragAndDrop {
     isDragging: boolean;
     id: NodeId;
-    rootId: NodeId;
+    branchId: BranchId;
+    parentId: NodeId;
+    siblingIndex: number;
 }
 
 export interface NodeState {
@@ -130,8 +137,14 @@ export interface NodeState {
     orderedTreeIds: Record<BranchId, NodeId[]>;
     titles: Record<BranchId, Record<NodeId, string>>;
     selectedNodePrimaryKey: NodePrimaryKey | null;
-    nodePaneContent: NodePaneContents;
+    nodePaneContent: NodePaneContent;
     indexNodesById: Record<NodeId, IndexNode>;
     actionInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
+}
+
+export enum TreeType {
+    Default = 'default',
+    Checkbox = 'checkbox',
+    ContributionRequest = 'contributionRequest',
 }
