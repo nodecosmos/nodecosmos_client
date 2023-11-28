@@ -82,7 +82,10 @@ export default function Index() {
         const yOffset = -115;
         const y = allRefs[currentTab].current.getBoundingClientRect().top + yOffset;
 
-        scrollBy(rootRef.current, { top: y, behavior: 'smooth' });
+        scrollBy(rootRef.current, {
+            top: y,
+            behavior: 'smooth', 
+        });
         setTab(currentTab);
 
         if (timeout.current) clearTimeout(timeout.current);
@@ -91,7 +94,10 @@ export default function Index() {
 
     const handleNodecosmosClick = () => {
         preventTabChange.current = true;
-        scrollBy(rootRef.current, { top: -rootRef.current.scrollTop, behavior: 'smooth' });
+        scrollBy(rootRef.current, {
+            top: -rootRef.current.scrollTop,
+            behavior: 'smooth', 
+        });
         setTab(0);
         timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
     };

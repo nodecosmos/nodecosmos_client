@@ -51,7 +51,10 @@ export default function WorkflowToolbar() {
                             <EditTitleField
                                 title={title}
                                 endpoint="/workflows/title"
-                                reqData={{ nodeId, id }}
+                                reqData={{
+                                    nodeId,
+                                    id, 
+                                }}
                                 color="text.secondary"
                                 pr={1}
                                 variant="body2"

@@ -8,7 +8,6 @@ import {
 import { Uppy } from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
@@ -19,30 +18,26 @@ const uppy = new Uppy({
         maxNumberOfFiles: 1,
         maxFileSize: 25 * 1024 * 1024,
     },
-    locale: {
-        strings: {
-            dropPasteFiles: 'Drop files here, paste or %{browse}',
-        },
-    },
+    locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
 });
-uppy.use(XHRUpload, {
-    formData: true,
-    method: 'PUT',
-    allowedMetaFields: [],
-    metaFields: null,
-    withCredentials: true,
-});
+uppy.use(XHRUpload);
 
-export default function UploadFileModal({
-    open, onClose, params,
-}) {
+interface UploadFileModalProps {
+    open: boolean;
+    onClose: (attachment?: { url: string; key: string }) => void;
+    params: { nodeId: string; objectId: string };
+}
+
+export default function UploadFileModal(props: UploadFileModalProps) {
+    const { open, onClose, params } = props;
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         uppy.on('upload-success', (file) => {
             const postAttachmentParams = {
                 ...params,
-                key: file.name,
+                key: file?.name,
             };
 
             nodecosmos.post('/attachments', postAttachmentParams)
@@ -56,7 +51,10 @@ export default function UploadFileModal({
                 .catch((error) => {
                     console.error(error);
                     dispatch(setAlert({
-                        isOpen: true, severity: 'error', message: 'Error creating attachment', duration: 5000,
+                        isOpen: true,
+                        severity: 'error',
+                        message: 'Error creating attachment',
+                        duration: 5000,
                     }));
                 });
         });
@@ -70,7 +68,11 @@ export default function UploadFileModal({
                 const { url } = res.data;
                 const xhrUpload = uppy.getPlugin('XHRUpload');
 
-                xhrUpload.setOptions({
+                xhrUpload?.setOptions({
+                    formData: true,
+                    method: 'PUT',
+                    allowedMetaFields: [],
+                    withCredentials: true,
                     endpoint: url,
                 });
 
@@ -78,13 +80,16 @@ export default function UploadFileModal({
             }).catch((error) => {
                 console.error(error);
                 dispatch(setAlert({
-                    isOpen: true, severity: 'error', message: 'Error uploading attachment!', duration: 5000,
+                    isOpen: true,
+                    severity: 'error',
+                    message: 'Error uploading attachment!',
+                    duration: 5000,
                 }));
             });
         });
 
         return () => {
-            uppy.off('upload-success');
+            uppy.off('upload-success', () => {});
         };
     }, [dispatch, onClose, params]);
 
@@ -97,9 +102,7 @@ export default function UploadFileModal({
                 uppy.cancelAll();
                 onClose();
             }}
-            PaperProps={{
-                elevation: 8,
-            }}
+            PaperProps={{ elevation: 8 }}
         >
             <DialogTitle>
                 Upload Cover Image
@@ -119,12 +122,3 @@ export default function UploadFileModal({
         </Dialog>
     );
 }
-
-UploadFileModal.propTypes = {
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    params: PropTypes.shape({
-        nodeId: PropTypes.string.isRequired,
-        objectId: PropTypes.string.isRequired,
-    }).isRequired,
-};

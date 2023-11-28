@@ -32,6 +32,4 @@ export default function ContributionRequestStatusIcon({ status }) {
     );
 }
 
-ContributionRequestStatusIcon.propTypes = {
-    status: PropTypes.string.isRequired,
-};
+ContributionRequestStatusIcon.propTypes = { status: PropTypes.string.isRequired };

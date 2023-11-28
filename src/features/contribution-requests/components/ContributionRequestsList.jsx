@@ -62,7 +62,10 @@ export default function ContributionRequestsList({ nodeId }) {
                 <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => dispatch(deleteContributionRequest({ nodeId, id: params.row.id }))}
+                    onClick={() => dispatch(deleteContributionRequest({
+                        nodeId,
+                        id: params.row.id, 
+                    }))}
                 >
           Delete
                 </Button>
@@ -81,14 +84,13 @@ export default function ContributionRequestsList({ nodeId }) {
             rows={rows}
             columns={columns}
             initialState={{
-                pagination: {
-                    paginationModel: {
-                        pageSize: 50,
-                    },
-                },
+                pagination: { paginationModel: { pageSize: 50 } },
                 sorting: {
                     sortModel: [
-                        { field: 'status', sort: 'asc' },
+                        {
+                            field: 'status',
+                            sort: 'asc', 
+                        },
                     ],
                 },
             }}
@@ -103,13 +105,9 @@ export default function ContributionRequestsList({ nodeId }) {
                     quickFilterValues: [searchTerm],
                 }
             }
-            style={{
-                height: '100%',
-            }}
+            style={{ height: '100%' }}
         />
     );
 }
 
-ContributionRequestsList.propTypes = {
-    nodeId: PropTypes.string.isRequired,
-};
+ContributionRequestsList.propTypes = { nodeId: PropTypes.string.isRequired };

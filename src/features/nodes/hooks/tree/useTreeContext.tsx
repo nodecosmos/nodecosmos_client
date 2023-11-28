@@ -34,20 +34,5 @@ export function useTreeContextCreator(props: TreeProps) {
 }
 
 export default function useTreeContext() {
-    const context = useContext(TreeContext);
-    const {
-        branchId,
-        rootNodeId,
-        type,
-        onChange,
-        selectedNodeIds,
-    } = context;
-
-    return {
-        branchId,
-        rootNodeId,
-        type,
-        onChange,
-        selectedNodeIds,
-    };
+    return useContext(TreeContext);
 }

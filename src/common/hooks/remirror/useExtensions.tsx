@@ -1,5 +1,6 @@
 import { WS_URI } from '../../../apis/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
+import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
 import { Extension } from '@remirror/core';
 import React, { useEffect, useMemo } from 'react';
@@ -29,8 +30,9 @@ import * as Y from 'yjs';
 interface UseExtensionsProps {
     isRealTime?: boolean;
     base64?: string | null;
-    wsAuthNodeId?: string;
-    wsRoomId?: string;
+    wsAuthNodeId?: UUID;
+    wsAuthNodeBranchId?: UUID;
+    wsRoomId?: UUID;
 }
 
 export default function useExtensions(props: UseExtensionsProps) {
@@ -38,6 +40,7 @@ export default function useExtensions(props: UseExtensionsProps) {
         isRealTime,
         base64,
         wsAuthNodeId,
+        wsAuthNodeBranchId,
         wsRoomId,
     } = props;
 
@@ -81,15 +84,15 @@ export default function useExtensions(props: UseExtensionsProps) {
         () => {
             if (!isRealTime || !wsRoomId || !doc) return null;
 
-            const wsProvider = new WebsocketProvider(`${WS_URI}ws/description/${wsAuthNodeId}`, wsRoomId, doc);
+            const wsProvider = new WebsocketProvider(
+                `${WS_URI}ws/description/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
+            );
 
-            wsProvider.awareness.setLocalStateField('user', {
-                name: currentUser.username,
-            });
+            wsProvider.awareness.setLocalStateField('user', { name: currentUser.username });
 
             return wsProvider;
         },
-        [currentUser.username, doc, isRealTime, wsAuthNodeId, wsRoomId],
+        [currentUser.username, doc, isRealTime, wsAuthNodeBranchId, wsAuthNodeId, wsRoomId],
     );
 
     useEffect(() => {
@@ -114,5 +117,8 @@ export default function useExtensions(props: UseExtensionsProps) {
         return undefined;
     }, [baseExtensions, isRealTime, provider]);
 
-    return { extensions, doc };
+    return {
+        extensions,
+        doc,
+    };
 }

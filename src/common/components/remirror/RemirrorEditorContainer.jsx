@@ -74,6 +74,4 @@ export default function RemirrorEditorContainer({ children }) {
     );
 }
 
-RemirrorEditorContainer.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+RemirrorEditorContainer.propTypes = { children: PropTypes.node.isRequired };

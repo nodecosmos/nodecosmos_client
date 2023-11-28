@@ -62,9 +62,7 @@ export default function FinalFormAutocompleteInputField({
             {({ input, meta }) => (
                 <TextField
                     sx={{
-                        '& .MuiInputBase-input': {
-                            p: label ? '28px 14px 14px' : 2,
-                        },
+                        '& .MuiInputBase-input': { p: label ? '28px 14px 14px' : 2 },
                         ...sx,
                     }}
                     color="primary"

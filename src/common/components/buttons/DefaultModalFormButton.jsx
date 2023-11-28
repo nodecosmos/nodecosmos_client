@@ -10,7 +10,10 @@ export default function DefaultModalFormButton({
 }) {
     return (
         <DefaultButton
-            sx={{ mt: 3, float: 'right' }}
+            sx={{
+                mt: 3,
+                float: 'right', 
+            }}
             title={title}
             type="submit"
             disabled={loading}

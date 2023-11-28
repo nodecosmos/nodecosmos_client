@@ -15,9 +15,7 @@ export default function CodeMirrorContainer({ children }) {
                 xs: 11,
                 sm: 16,
             },
-            '@media (max-width: 325px)': {
-                fontSize: 9,
-            },
+            '@media (max-width: 325px)': { fontSize: 9 },
             '.cm-theme': { height: 1 },
             '.cm-content': {
                 whiteSpace_fallback: 'pre-wrap',
@@ -29,12 +27,8 @@ export default function CodeMirrorContainer({ children }) {
                 height: 1,
                 ml: 1,
             },
-            '.cm-line': {
-                width: 'calc(100% - 8px)',
-            },
-            '.cm-focused': {
-                outline: 'none!important',
-            },
+            '.cm-line': { width: 'calc(100% - 8px)' },
+            '.cm-focused': { outline: 'none!important' },
             '.cm-lineNumbers': {
                 pl: {
                     xs: 1.3,
@@ -73,6 +67,4 @@ export default function CodeMirrorContainer({ children }) {
     );
 }
 
-CodeMirrorContainer.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+CodeMirrorContainer.propTypes = { children: PropTypes.node.isRequired };

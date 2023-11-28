@@ -16,9 +16,7 @@ export default function RemirrorEditorToolbarHeadingMenu() {
     const active = useActive();
 
     const anchorRef = React.useRef(null);
-    const toggleHeading = useCallback((level) => commands.toggleHeading({
-        level,
-    }, { level: 3 }), [commands]);
+    const toggleHeading = useCallback((level) => commands.toggleHeading({ level }, { level: 3 }), [commands]);
 
     return (
         <>
@@ -43,11 +41,7 @@ export default function RemirrorEditorToolbarHeadingMenu() {
                     vertical: 'top',
                     horizontal: 'left',
                 }}
-                sx={{
-                    svg: {
-                        mr: 2,
-                    },
-                }}
+                sx={{ svg: { mr: 2 } }}
             >
                 <MenuItem
                     onClick={() => toggleHeading(3)}

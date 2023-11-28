@@ -61,15 +61,16 @@ function FinalFormCheckboxTree({
                                     value={option.value}
                                     onChange={input.onChange}
                                     name={input.name}
-                                    sx={{
-                                        color: nodeBackgroundColors[nestedLevel % bgCount],
-                                    }}
+                                    sx={{ color: nodeBackgroundColors[nestedLevel % bgCount] }}
                                 />
                             )}
                         />
                     </Box>
                     <Box
-                        sx={{ borderLeft: '1px dashed', borderColor: 'borders.5' }}
+                        sx={{
+                            borderLeft: '1px dashed',
+                            borderColor: 'borders.5', 
+                        }}
                         ml={nestedLevel > 1 ? 3.5 : 1}
                         pl={4}
                     >
@@ -83,9 +84,7 @@ function FinalFormCheckboxTree({
     return options && options.map((option) => renderOption(option));
 }
 
-FinalFormCheckboxTree.defaultProps = {
-    initialNestedLevel: 0,
-};
+FinalFormCheckboxTree.defaultProps = { initialNestedLevel: 0 };
 
 FinalFormCheckboxTree.propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({

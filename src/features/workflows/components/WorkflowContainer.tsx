@@ -24,9 +24,7 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                         backgroundColor: 'tree.default',
                         height: WORKFLOW_BUTTON_HEIGHT,
                         color: 'text.primary',
-                        '&.selected .fa-hashtag': {
-                            color: 'inherit',
-                        },
+                        '&.selected .fa-hashtag': { color: 'inherit' },
                         '.NodeButtonText': {
                             ml: 1,
                             p: 0,

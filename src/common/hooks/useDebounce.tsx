@@ -20,5 +20,8 @@ export default function useDebounce<T>(callback: (value: T) => void, timeout = 5
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
     }, []);
 
-    return { debounce, inProgress };
+    return {
+        debounce,
+        inProgress, 
+    };
 }

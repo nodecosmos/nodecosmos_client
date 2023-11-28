@@ -2,8 +2,8 @@ import DeleteCoverImageButton from './DeleteCoverImageButton';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { updateState } from '../../actions';
-import { selectSelectedNode } from '../../nodes.selectors';
-import { AppNode } from '../../nodes.types';
+import { selectSelected, selectSelectedNode } from '../../nodes.selectors';
+import { AppNode, SelectedNode } from '../../nodes.types';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,26 +14,29 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
 
-export default function NodePaneDescriptionCoverImage() {
+export default function NodePaneCoverImage() {
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const { treeBranchId } = useSelector(selectSelected) as SelectedNode;
     const {
         id, branchId, isTemp, coverImageURL,
     } = useSelector(selectSelectedNode) as AppNode;
 
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
+
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
-    const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleClose = useCallback((responseBody?: { coverImageURL: string }) => {
         closeModal();
 
         if (responseBody?.coverImageURL) {
             dispatch(updateState({
+                treeBranchId,
                 branchId,
                 id,
                 coverImageURL: responseBody.coverImageURL,
             }));
         }
-    }, [closeModal, dispatch, branchId, id]);
+    }, [closeModal, treeBranchId, dispatch, branchId, id]);
 
     return (
         <>
@@ -94,9 +97,7 @@ export default function NodePaneDescriptionCoverImage() {
                                     color: 'text.primary',
                                     bottom: 16,
                                     right: 16,
-                                    '&:hover': {
-                                        backgroundColor: 'background.1',
-                                    },
+                                    '&:hover': { backgroundColor: 'background.1' },
                                 }}
                             >
                                 Upload cover image

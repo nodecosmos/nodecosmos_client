@@ -19,9 +19,7 @@ export default function LoginForm() {
                                 fullWidth
                                 name="username_or_email"
                                 label="username || email"
-                                InputProps={{
-                                    autoComplete: 'on',
-                                }}
+                                InputProps={{ autoComplete: 'on' }}
                                 required
                             />
                         </Grid>
@@ -31,9 +29,7 @@ export default function LoginForm() {
                                 label="password"
                                 name="password"
                                 type="password"
-                                InputProps={{
-                                    autoComplete: 'on',
-                                }}
+                                InputProps={{ autoComplete: 'on' }}
                                 required
                             />
                         </Grid>

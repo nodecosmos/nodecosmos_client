@@ -53,11 +53,7 @@ export default function HomepageTabs(props) {
                             handleTabChange(event, newValue);
                             setTimeout(() => setOpen(false), 500);
                         }}
-                        TabIndicatorProps={{
-                            sx: {
-                                left: -1,
-                            },
-                        }}
+                        TabIndicatorProps={{ sx: { left: -1 } }}
                         centered
                     >
                         {options.map((option) => <Tab label={option} disableRipple sx={tabSx} key={option} />)}
@@ -74,9 +70,7 @@ export default function HomepageTabs(props) {
             centered
             sx={{
                 height: 1,
-                '.MuiButtonBase-root': {
-                    color: 'text.primary',
-                },
+                '.MuiButtonBase-root': { color: 'text.primary' },
             }}
             TabIndicatorProps={{
                 sx: {

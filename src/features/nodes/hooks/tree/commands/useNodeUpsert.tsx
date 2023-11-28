@@ -1,11 +1,11 @@
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import usePrevious from '../../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../../store';
-import { NodecosmosError, UUID } from '../../../../../types';
-import { SAVE_NODE_TIMEOUT } from '../../../../nodes/constants';
+import { NodecosmosError } from '../../../../../types';
 import {
     replaceTmpWithPersisted, setActionInProgress, updateState,
 } from '../../../actions';
+import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
 import { selectNodeAttribute } from '../../../nodes.selectors';
 import { createNode, updateNodeTitle } from '../../../nodes.thunks';
 import useNodeContext from '../useNodeContext';
@@ -15,16 +15,17 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function useNodeTitleChange() {
+export default function useNodeUpsert() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
+        treeBranchId,
         branchId,
         id,
         parentId,
         rootId,
         title,
         isTemp,
-        persistentId,
+        persistedId,
     } = useNodeContext();
 
     const order = useSelector(selectNodeAttribute(branchId, id, 'order'));
@@ -39,12 +40,17 @@ export default function useNodeTitleChange() {
         const value = event.target.value;
 
         dispatch(setActionInProgress(true));
-        dispatch(updateState({ id, title: value }));
+        dispatch(updateState({
+            treeBranchId,
+            branchId,
+            id,
+            title: value,
+        }));
 
         // TODO: Check if this is necessary
-        if (persistentId !== id) {
-            dispatch(updateState({ id: persistentId as UUID, title: value }));
-        }
+        // if (persistedId !== id) {
+        //     dispatch(updateState({ branchId, id: persistedId as UUID, title: value }));
+        // }
 
         if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
 
@@ -54,8 +60,14 @@ export default function useNodeTitleChange() {
         }
 
         saveNodeTimeout.current = setTimeout(async () => {
-            if (persistentId) {
-                const response = await dispatch(updateNodeTitle({ rootId, id: persistentId, branchId, title: value }));
+            if (persistedId) {
+                const response = await dispatch(updateNodeTitle({
+                    treeBranchId,
+                    rootId,
+                    id: persistedId,
+                    branchId,
+                    title: value,
+                }));
 
                 if (response.meta.requestStatus === 'rejected') {
                     const error: NodecosmosError = response.payload as NodecosmosError;
@@ -67,6 +79,8 @@ export default function useNodeTitleChange() {
                 dispatch(setActionInProgress(false));
             } else {
                 const data = {
+                    treeBranchId,
+                    branchId,
                     rootId,
                     parentId,
                     isRoot: false,
@@ -91,23 +105,35 @@ export default function useNodeTitleChange() {
                 });
             }
         }, SAVE_NODE_TIMEOUT);
-    }, [branchId, dispatch, handleServerError, id, order, parentId, persistentId, prevTitle, rootId]);
+    }, [treeBranchId, branchId, dispatch, handleServerError, id, order, parentId, persistedId, prevTitle, rootId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {
-        dispatch(updateState({ branchId, id, isEditing: false }));
+        dispatch(updateState({
+            treeBranchId,
+            branchId,
+            id,
+            isEditing: false,
+        }));
 
         const shouldReplace = !!title; // if title is empty, we don't have to replace tmp node with persisted node
         setShouldReplaceTmpNode(shouldReplace);
-    }, [branchId, dispatch, id, title]);
+    }, [treeBranchId, branchId, dispatch, id, title]);
 
     //------------------------------------------------------------------------------------------------------------------
     useEffect(() => {
-        if (shouldReplaceTmpNode && isTemp && persistentId) {
-            dispatch(replaceTmpWithPersisted({ branchId, tmpId: id, persistentId }));
+        if (shouldReplaceTmpNode && isTemp && persistedId) {
+            dispatch(replaceTmpWithPersisted({
+                branchId,
+                tmpId: id,
+                persistedId,
+            }));
         }
-    }, [branchId, dispatch, id, isTemp, persistentId, shouldReplaceTmpNode]);
+    }, [treeBranchId, branchId, dispatch, id, isTemp, persistedId, shouldReplaceTmpNode]);
 
     //------------------------------------------------------------------------------------------------------------------
-    return { changeTitle, blurNode };
+    return {
+        changeTitle,
+        blurNode,
+    };
 }

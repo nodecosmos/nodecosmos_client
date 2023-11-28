@@ -29,9 +29,7 @@ export default function LandingPageNestedNodes(props) {
     );
 }
 
-LandingPageNestedNodes.defaultProps = {
-    nestedLevel: 1,
-};
+LandingPageNestedNodes.defaultProps = { nestedLevel: 1 };
 
 LandingPageNestedNodes.propTypes = {
     currentNodeId: PropTypes.string.isRequired,

@@ -12,9 +12,7 @@ function getLikedObjectIdsFromLocalStorage(): string[] {
     return [];
 }
 
-const initialState: LikeState = {
-    likedObjectIds: getLikedObjectIdsFromLocalStorage(),
-};
+const initialState: LikeState = { likedObjectIds: getLikedObjectIdsFromLocalStorage() };
 const likesSlice = createSlice({
     name: 'likes',
     initialState,

@@ -20,7 +20,10 @@ const inputOutputsSlice = createSlice({
     reducers: {
         updateIOState(state, action) {
             const { id } = action.payload;
-            state.byId[id] = { ...state.byId[id], ...action.payload };
+            state.byId[id] = {
+                ...state.byId[id],
+                ...action.payload, 
+            };
 
             Object.values(state.byId).forEach((io) => {
                 if (io.originalId === state.byId[id].originalId) {

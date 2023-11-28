@@ -40,9 +40,7 @@ export default function LandingPageNestedNodesBranch(props) {
     );
 }
 
-LandingPageNestedNodesBranch.defaultProps = {
-    lastChildId: null,
-};
+LandingPageNestedNodesBranch.defaultProps = { lastChildId: null };
 LandingPageNestedNodesBranch.propTypes = {
     id: PropTypes.string.isRequired,
     lastChildId: PropTypes.string,

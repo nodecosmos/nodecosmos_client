@@ -19,11 +19,7 @@ const uppy = new Uppy({
         maxFileSize: 5 * 1024 * 1024,
         allowedFileTypes: ['image/jpeg', 'image/png'],
     },
-    locale: {
-        strings: {
-            dropPasteFiles: 'Drop files here, paste or %{browse}',
-        },
-    },
+    locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
 }).use(ImageEditor, {
     id: 'ImageEditor',
     quality: 0.8,
@@ -64,9 +60,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
     useEffect(() => {
         const xhrUpload = uppy.getPlugin('XHRUpload');
         if (xhrUpload) {
-            xhrUpload.setOptions({
-                endpoint: `${uri}${endpointPath}`,
-            });
+            xhrUpload.setOptions({ endpoint: `${uri}${endpointPath}` });
         }
     }, [endpointPath, uri]);
 
@@ -139,9 +133,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             maxWidth="md"
             open={open}
             onClose={onModalClose}
-            PaperProps={{
-                elevation: 8,
-            }}
+            PaperProps={{ elevation: 8 }}
         >
             <DialogTitle>
                 Upload  Image

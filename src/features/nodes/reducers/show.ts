@@ -12,12 +12,15 @@ export default function showFulfilled(
     state.childIds[branchId] ||= {};
     const stateNode = state.byBranchId[branchId][id] || {};
 
+    state.titles[branchId] ||= {};
+    state.titles[branchId][id] = node.title;
+
     const appNode: AppNode = {
         ...stateNode,
         ...node,
         ancestorIds: [],
         isTemp: false,
-        persistentId: id,
+        persistedId: id,
         nestedLevel: node.isRoot ? 0 : node.ancestorIds.length,
         isSelected: true,
         treeRootId: id,
@@ -27,7 +30,11 @@ export default function showFulfilled(
     };
 
     state.byBranchId[branchId][id] = appNode;
-    state.selectedNodePrimaryKey = { branchId, id };
+    state.selected = {
+        treeBranchId: branchId,
+        branchId,
+        id,
+    };
 
     // tree data
     node.ancestorIds ||= [];
@@ -47,7 +54,7 @@ export default function showFulfilled(
             isTemp: false,
             isPublic: appNode.isPublic,
             isRoot: false,
-            persistentId: descendant.id,
+            persistedId: descendant.id,
             nestedLevel: 0,
             isSelected: false,
             ancestorIds: [],
@@ -65,13 +72,15 @@ export default function showFulfilled(
             coverImageKey: null,
             owner: appNode.owner,
             likedByCurrentUser: null,
-            x: 0, xEnd: 0, y: 0, yEnd: 0,
+            x: 0,
+            xEnd: 0,
+            y: 0,
+            yEnd: 0,
         };
 
         childIds[branchId] ||= {};
         childIds[branchId][descendant.parentId] ||= [];
         childIds[branchId][descendant.parentId].push(descendant.id);
-
         childIds[branchId][descendant.id] ||= [];
     });
 

@@ -10,7 +10,7 @@ import { setNodePaneContent } from '../../actions';
 import {
     selectNodeAttribute,
     selectNodePaneContent,
-    selectSelectedNodePrimaryKey,
+    selectSelectedNode,
 } from '../../nodes.selectors';
 import { getNodeDescription } from '../../nodes.thunks';
 import { NodePaneContent as NodePaneContentType, NodePrimaryKey } from '../../nodes.types';
@@ -23,7 +23,7 @@ interface NodePaneProps {
 }
 
 export default function NodePaneContent({ page }: NodePaneProps) {
-    const { branchId, id } = useSelector(selectSelectedNodePrimaryKey) as NodePrimaryKey;
+    const { branchId, id } = useSelector(selectSelectedNode) as NodePrimaryKey;
     const rootId = useSelector(selectNodeAttribute(branchId, id, 'rootId'));
     const isTemp = useSelector(selectNodeAttribute(branchId, id, 'isTemp'));
     const nodePaneContent = useSelector(selectNodePaneContent);
@@ -43,7 +43,10 @@ export default function NodePaneContent({ page }: NodePaneProps) {
 
     useEffect(() => {
         if (id && rootId) {
-            dispatch(getNodeDescription({ branchId, id }));
+            dispatch(getNodeDescription({
+                branchId,
+                id, 
+            }));
         }
     }, [dispatch, branchId, id, rootId]);
 
@@ -91,7 +94,10 @@ export default function NodePaneContent({ page }: NodePaneProps) {
             component="section"
             width={1}
             height={1}
-            sx={{ overflow: 'hidden', backgroundColor: 'background.5' }}
+            sx={{
+                overflow: 'hidden',
+                backgroundColor: 'background.5', 
+            }}
             position="relative"
             zIndex={1}
         >

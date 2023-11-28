@@ -26,11 +26,7 @@ export default function ContactUs() {
         axios.post(
             'https://z9cnfgotre.execute-api.us-east-1.amazonaws.com/contact/contact-us',
             formValues,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            },
+            { headers: { 'Content-Type': 'application/json' } },
         ).then(() => {
             setLoading(false);
             setSuccess(true);
@@ -58,8 +54,14 @@ export default function ContactUs() {
                                 <Typography variant="h6" align="center" gutterBottom>
                                     We will get back to you as soon as possible.
                                 </Typography>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <CheckCircleOutlineRoundedIcon sx={{ fontSize: 100, color: 'success.main' }} />
+                                <Box sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center', 
+                                }}>
+                                    <CheckCircleOutlineRoundedIcon sx={{
+                                        fontSize: 100,
+                                        color: 'success.main', 
+                                    }} />
                                 </Box>
                             </Grid>
                         </Grid>
@@ -157,9 +159,7 @@ export default function ContactUs() {
                                         <Button
                                             sx={{
                                                 mt: 3,
-                                                '&:disabled': {
-                                                    backgroundColor: 'success.main',
-                                                },
+                                                '&:disabled': { backgroundColor: 'success.main' },
                                             }}
                                             disabled={loading}
                                             color="success"

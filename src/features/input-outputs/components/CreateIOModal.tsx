@@ -79,7 +79,14 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
                                 options={uniqueIOTitles}
                                 renderOption={renderOption}
                                 startAdornment={(
-                                    <InputAdornment position="start" sx={{ svg: { p: 2, color: 'tree.hashtag' } }}>
+                                    <InputAdornment
+                                        position="start"
+                                        sx={{
+                                            svg: {
+                                                p: 2,
+                                                color: 'tree.hashtag', 
+                                            }, 
+                                        }}>
                                         <FontAwesomeIcon icon={faCodeCommit} />
                                     </InputAdornment>
                                 )}

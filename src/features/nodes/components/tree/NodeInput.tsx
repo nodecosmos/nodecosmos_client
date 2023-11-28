@@ -1,8 +1,8 @@
-import {
-    MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT,
-} from '../../../nodes/constants';
 import useNodeColors from '../../hooks/tree/useNodeColors';
 import useNodeContext from '../../hooks/tree/useNodeContext';
+import {
+    MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT,
+} from '../../nodes.constants';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';

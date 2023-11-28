@@ -38,7 +38,10 @@ const nodeSlice = createSlice({
         updateNode(state, action) {
             const { id } = action.payload;
             if (state[id]) {
-                state[id] = { ...state[id], ...action.payload };
+                state[id] = {
+                    ...state[id],
+                    ...action.payload, 
+                };
             }
         },
         openDescription(state, action) {
@@ -75,9 +78,7 @@ const nodeSlice = createSlice({
                 ancestor_ids: nodeAncestorIdObjects,
                 node_ids: [],
                 position: { y: 0 },
-                owner: {
-                    username: '',
-                },
+                owner: { username: '' },
                 ...action.payload,
             };
 

@@ -14,7 +14,11 @@ const WorkflowStepContext = React.createContext({} as WorkflowStepContextValue);
 export function useWorkflowStepContextCreator({
     wfStep, wfStepIndex, hovered,
 }: WorkflowStepContextValue) {
-    const contextProviderValue = useMemo(() => ({ wfStep, wfStepIndex, hovered }), [hovered, wfStep, wfStepIndex]);
+    const contextProviderValue = useMemo(() => ({
+        wfStep,
+        wfStepIndex,
+        hovered, 
+    }), [hovered, wfStep, wfStepIndex]);
 
     return {
         WorkflowStepContext,

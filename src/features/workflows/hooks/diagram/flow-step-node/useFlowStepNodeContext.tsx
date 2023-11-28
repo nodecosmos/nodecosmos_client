@@ -14,7 +14,10 @@ const FlowStepNodeContext = React.createContext({} as FlowStepNodeContextValue);
 export function useFlowStepNodeContextCreator(val: FlowStepNodeContextValue) {
     const { id, flowStepNode } = val;
 
-    const flowStepContextValue = useMemo(() => ({ id, flowStepNode }), [id, flowStepNode]);
+    const flowStepContextValue = useMemo(() => ({
+        id,
+        flowStepNode, 
+    }), [id, flowStepNode]);
 
     return {
         FlowStepNodeContext,

@@ -84,7 +84,12 @@ function WorkflowStep({ index }: { index: number }) {
                                 color="secondary"
                                 disableElevation
                                 type="submit"
-                                sx={{ ml: 2, borderRadius: 1, opacity: 0, animation: 'appear 0.25s forwards' }}
+                                sx={{
+                                    ml: 2,
+                                    borderRadius: 1,
+                                    opacity: 0,
+                                    animation: 'appear 0.25s forwards', 
+                                }}
                                 onClick={openFlowModal}
                             >
                                 Add Flow

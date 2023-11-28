@@ -17,9 +17,7 @@ export default function NodeIndexSearch() {
     const execSearch = useCallback((value: string) => {
         if (dispatchTimeout.current) clearTimeout(dispatchTimeout.current);
 
-        const payload: IndexNodesPayload = {
-            q: value,
-        };
+        const payload: IndexNodesPayload = { q: value };
 
         dispatch(indexNodes(payload));
     }, [dispatch]);
@@ -48,18 +46,14 @@ export default function NodeIndexSearch() {
                 ml: 1.25,
                 height: 1,
                 width: '350px',
-                svg: {
-                    color: 'toolbar.default',
-                },
+                svg: { color: 'toolbar.default' },
                 '.MuiInputBase-root': {
                     borderColor: 'transparent',
                     height: 32,
                     borderRadius: 1,
                     pl: 0.5,
                 },
-                '.MuiOutlinedInput-notchedOutline': {
-                    '&, &:hover, &:focus': {},
-                },
+                '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
             }}
             InputProps={{
                 startAdornment: (

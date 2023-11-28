@@ -1,4 +1,4 @@
-import { NODE_BUTTON_HEIGHT } from '../../features/nodes/constants';
+import { NODE_BUTTON_HEIGHT } from '../../features/nodes/nodes.constants';
 import { NodecosmosTheme } from '../type';
 
 export default (theme: NodecosmosTheme) => ({
@@ -21,9 +21,7 @@ export default (theme: NodecosmosTheme) => ({
             borderRadius: 5,
             padding: '0px 14px',
             border: 'none',
-            ':focus': {
-                outline: 'none',
-            },
+            ':focus': { outline: 'none' },
             ':not(.outlined) .fa-hashtag ': {
                 fontSize: 14,
                 color: theme.palette.tree.hashtag,
@@ -43,24 +41,16 @@ export default (theme: NodecosmosTheme) => ({
                 minWidth: 40,
                 outline: 'none!important',
                 whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
-                '&.hovered': {
-                    cursor: 'text',
-                },
+                '&.hovered': { cursor: 'text' },
                 '&.Input': {
                     cursor: 'text!important',
                     fontFamily: 'monospace',
                 },
             },
-            '&.selected': {
-                '.NodeButtonText': {
-                    fontWeight: 500,
-                },
-            },
+            '&.selected': { '.NodeButtonText': { fontWeight: 500 } },
             '.MuiCheckbox-root': {
                 padding: 0,
-                svg: {
-                    fontSize: '1.4rem',
-                },
+                svg: { fontSize: '1.4rem' },
             },
         },
     },

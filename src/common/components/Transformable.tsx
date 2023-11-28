@@ -25,7 +25,10 @@ export default function Transformable(props: TransformableProps) {
     const containerRef = useRef<HTMLElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
     const dispatch = useDispatch();
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [dimensions, setDimensions] = useState({
+        width: 0,
+        height: 0, 
+    });
     const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
     useEffect(() => {
@@ -38,7 +41,10 @@ export default function Transformable(props: TransformableProps) {
             const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
             if (height !== dimensions.height || width !== dimensions.width) {
-                setDimensions({ height, width });
+                setDimensions({
+                    height,
+                    width, 
+                });
             }
         };
 

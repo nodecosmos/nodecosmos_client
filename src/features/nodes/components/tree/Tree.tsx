@@ -22,10 +22,14 @@ export default function Tree(props: TreeProps) {
     const {
         branchId, rootNodeId, type = TreeType.Default, onChange, value = null,
     } = props;
-
-    const { TreeContext, ctxProviderValue } = useTreeContextCreator({ branchId, rootNodeId, type, onChange, value });
-
-    const isTreeLoading = false;
+    const { TreeContext, ctxProviderValue } = useTreeContextCreator({
+        branchId,
+        rootNodeId,
+        type,
+        onChange,
+        value, 
+    });
+    const isTreeLoading = false; // TODO
 
     return (
 

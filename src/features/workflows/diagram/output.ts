@@ -44,7 +44,10 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
             const wfOutput = {
                 id: io.id,
                 nodeId,
-                position: calculateIOPosition({ nodePosition, ioIndex }),
+                position: calculateIOPosition({
+                    nodePosition,
+                    ioIndex, 
+                }),
             };
 
             outputs.push(wfOutput);

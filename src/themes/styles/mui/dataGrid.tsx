@@ -11,18 +11,12 @@ export default (theme: NodecosmosTheme) => ({
                     color: theme.palette.background[8],
                 },
             },
-            overlay: {
-                backgroundColor: theme.palette.background[3],
-            },
+            overlay: { backgroundColor: theme.palette.background[3] },
             columnHeaders: {
                 borderRadius: 0,
                 backgroundColor: theme.palette.background[6],
             },
-            columnHeader: {
-                '&:focus': {
-                    outline: 'none',
-                },
-            },
+            columnHeader: { '&:focus': { outline: 'none' } },
             columnHeaderTitle: {
                 WebkitTapHighlightColor: 'transparent',
                 WebkitTouchCallout: 'none',
@@ -34,24 +28,12 @@ export default (theme: NodecosmosTheme) => ({
             },
             row: {
                 color: theme.palette.text.secondary,
-                '&:hover': {
-                    backgroundColor: theme.palette.background[5],
-                },
+                '&:hover': { backgroundColor: theme.palette.background[5] },
             },
-            cell: {
-                '&:focus': {
-                    outline: 'none',
-                },
-            },
-            withBorderColor: {
-                borderColor: theme.palette.borders[2],
-            },
-            columnSeparator: {
-                color: theme.palette.borders[2],
-            },
-            footerContainer: {
-                backgroundColor: theme.palette.background[6],
-            },
+            cell: { '&:focus': { outline: 'none' } },
+            withBorderColor: { borderColor: theme.palette.borders[2] },
+            columnSeparator: { color: theme.palette.borders[2] },
+            footerContainer: { backgroundColor: theme.palette.background[6] },
         },
     },
 });

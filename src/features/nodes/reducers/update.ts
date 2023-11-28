@@ -6,7 +6,10 @@ export default function updateState(state: NodeState, action: PayloadAction<AppN
     const current = state.byBranchId[branchId][id];
 
     if (current) {
-        state.byBranchId[branchId][id] = { ...current, ...action.payload };
+        state.byBranchId[branchId][id] = {
+            ...current,
+            ...action.payload, 
+        };
         state.titles[branchId][id] = state.byBranchId[branchId][id].title;
     }
 }

@@ -1,14 +1,14 @@
 import usePrevious from '../../../../common/hooks/usePrevious';
 import { NodecosmosTheme } from '../../../../themes/type';
 import { UUID } from '../../../../types';
+import useNodeContext from '../../hooks/tree/useNodeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     MARGIN_LEFT,
     MARGIN_TOP,
     TRANSITION_ANIMATION_DURATION,
-} from '../../constants';
-import useNodeContext from '../../hooks/tree/useNodeContext';
+} from '../../nodes.constants';
 import { selectNodeAttribute } from '../../nodes.selectors';
 import { useTheme } from '@mui/material';
 import React from 'react';

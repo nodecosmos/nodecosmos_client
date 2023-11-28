@@ -12,7 +12,10 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 export default function OpenSourceLink() {
     const ref = React.createRef();
 
-    const refInView = useInView(ref, { amount: 0.1, once: false });
+    const refInView = useInView(ref, {
+        amount: 0.1,
+        once: false, 
+    });
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
     const color = theme.palette.secondary.main;
@@ -106,9 +109,7 @@ export default function OpenSourceLink() {
                                     color="secondary.main"
                                     borderBottom={1}
                                     borderColor="secondary.main"
-                                    sx={{
-                                        cursor: 'pointer',
-                                    }}
+                                    sx={{ cursor: 'pointer' }}
                                     onClick={() => dispatch(setHomepageTab(1))}
                                     target="_blank"
                                 >

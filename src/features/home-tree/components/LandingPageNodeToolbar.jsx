@@ -22,7 +22,10 @@ export default function LandingPageNodeToolbar(props) {
     const { onNodeAdd, handleNodeDeletion } = useNodeTreeEvents({ id });
 
     const dispatch = useDispatch();
-    const handleEdit = () => { dispatch(updateNode({ id, isEditing: true })); };
+    const handleEdit = () => { dispatch(updateNode({
+        id,
+        isEditing: true, 
+    })); };
 
     const theme = useTheme();
     const {
@@ -76,6 +79,4 @@ export default function LandingPageNodeToolbar(props) {
     );
 }
 
-LandingPageNodeToolbar.propTypes = {
-    id: PropTypes.string.isRequired,
-};
+LandingPageNodeToolbar.propTypes = { id: PropTypes.string.isRequired };

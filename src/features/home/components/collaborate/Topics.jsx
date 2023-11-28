@@ -176,9 +176,7 @@ export default function Topics() {
                                 },
                                 'td:last-of-type': { borderRight: 0 },
                                 '&:last-of-type td': { borderBottom: 0 },
-                                '&:hover': {
-                                    backgroundColor: 'background.hover',
-                                },
+                                '&:hover': { backgroundColor: 'background.hover' },
                             }}
                         >
                             <TableCell>

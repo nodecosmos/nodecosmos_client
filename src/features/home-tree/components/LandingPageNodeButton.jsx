@@ -31,7 +31,11 @@ export default function LandingPageNodeButton(props) {
     const { onNodeClick } = useNodeTreeEvents({ id });
     const {
         outlineColor, backgroundColor, color, hashColor,
-    } = useNodeButtonBackground({ id, nestedLevel, isRoot });
+    } = useNodeButtonBackground({
+        id,
+        nestedLevel,
+        isRoot, 
+    });
 
     const isCurrentNode = nodeExpanded && id === currentNodeId;
 
@@ -53,9 +57,7 @@ export default function LandingPageNodeButton(props) {
                 height={NODE_BUTTON_HEIGHT + 6}
                 x={x}
                 y={y}
-                style={{
-                    transition: isNew ? null : `y ${TRANSITION_ANIMATION_DURATION}ms`,
-                }}
+                style={{ transition: isNew ? null : `y ${TRANSITION_ANIMATION_DURATION}ms` }}
             >
                 <Box display="flex" width="100%">
                     <Box
@@ -72,9 +74,7 @@ export default function LandingPageNodeButton(props) {
                             height: NODE_BUTTON_HEIGHT,
                             backgroundColor,
                             color,
-                            input: {
-                                color,
-                            },
+                            input: { color },
                             '&:hover': {
                                 backgroundColor,
                                 outlineColor: 'tree.default',

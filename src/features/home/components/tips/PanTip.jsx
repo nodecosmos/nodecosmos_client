@@ -14,9 +14,7 @@ export default function PanTip() {
         <Box mt={3}>
             <Typography
                 variant="body2"
-                sx={{
-                    color: 'text.tertiary',
-                }}
+                sx={{ color: 'text.tertiary' }}
             >
                 <b>Tip: </b>
         Use

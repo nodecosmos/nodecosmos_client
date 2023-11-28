@@ -1,12 +1,12 @@
 import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
-import { selectSelectedNode, selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
-import NodePaneDescriptionCoverImage from '../../cover/NodePaneDescriptionCoverImage';
+import { selectSelected, selectSelectedNode } from '../../../nodes.selectors';
+import NodePaneCoverImage from '../../cover/NodePaneCoverImage';
 import { Typography, Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function NodePaneDescription() {
-    const selectedNodePk = useSelector(selectSelectedNodePrimaryKey);
+    const selectedNodePk = useSelector(selectSelected);
 
     const { description } = useSelector(selectSelectedNode);
 
@@ -28,7 +28,7 @@ export default function NodePaneDescription() {
 
     return (
         <div>
-            <NodePaneDescriptionCoverImage />
+            <NodePaneCoverImage />
             <DescriptionContainer>
                 {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
             </DescriptionContainer>

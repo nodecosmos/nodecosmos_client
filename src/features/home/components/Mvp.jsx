@@ -60,7 +60,14 @@ export default function Mvp() {
                 </Typography>
             </AnimateOnView>
             <AnimateOnView delay={200}>
-                <Box ref={scrollable} mt={3} overflow="auto" pb={{ xs: 1, md: 0 }}>
+                <Box
+                    ref={scrollable}
+                    mt={3}
+                    overflow="auto"
+                    pb={{
+                        xs: 1,
+                        md: 0, 
+                    }}>
                     <Box width={{
                         xs: XS_SCROLL_WIDTH,
                         md: '100%',
@@ -76,9 +83,7 @@ export default function Mvp() {
                                         borderWidth: 2,
                                     },
                                 },
-                                '.MuiStepLabel-label': {
-                                    fontFamily: '\'Montserrat\',sans-serif',
-                                },
+                                '.MuiStepLabel-label': { fontFamily: '\'Montserrat\',sans-serif' },
                             }}
                         >
                             {steps.map((label) => (

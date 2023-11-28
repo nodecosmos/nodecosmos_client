@@ -6,7 +6,7 @@ interface State { nodes: NodeState; }
 
 export const selectNodesByBranchId = (state: State) => state.nodes.byBranchId;
 export const selectIndexNodesById = (state: State) => state.nodes.indexNodesById;
-export const selectSelectedNodePrimaryKey = (state: State) => state.nodes.selectedNodePrimaryKey;
+export const selectSelected = (state: State) => state.nodes.selected;
 export const selectTitles = (state: State) => state.nodes.titles;
 export const selectNodePaneContent = (state: State) => state.nodes.nodePaneContent;
 export const selectDragAndDrop = (state: State) => state.nodes.dragAndDrop;
@@ -25,14 +25,14 @@ export const selectIndexedNode = (nodeId: UUID) => createSelector(
 );
 
 export const selectSelectedNode = createSelector(
-    selectSelectedNodePrimaryKey,
+    selectSelected,
     selectNodesByBranchId,
-    (selectedNodePrimaryKey, nodesByBranchId) => {
-        if (!selectedNodePrimaryKey) {
+    (selected, nodesByBranchId) => {
+        if (!selected) {
             return {} as AppNode;
         }
-        const { branchId, id } = selectedNodePrimaryKey;
-        return nodesByBranchId[branchId]?.[id] || {} as AppNode;
+        const { treeBranchId, id } = selected;
+        return nodesByBranchId[treeBranchId]?.[id] || {} as AppNode;
     },
 );
 
@@ -45,9 +45,9 @@ export const selectNodeAttribute = <K extends keyof AppNode>(
         (node) => node && node[attribute],
     );
 
-export const selectBranchNodes = (branchId?: UUID) => createSelector(
+export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,
-    (nodesByBranchId) => branchId && nodesByBranchId[branchId],
+    (nodesByBranchId) => nodesByBranchId[branchId],
 );
 
 export const selectBranchTitles = (branchId?: UUID) => createSelector(

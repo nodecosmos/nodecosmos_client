@@ -40,9 +40,7 @@ function SwipeableEdgeDrawer() {
                 borderBottom={1}
                 px={3}
                 backgroundColor="background.7"
-                style={{
-                    borderBottomColor: height > 0 ? border2Color : 'transparent',
-                }}
+                style={{ borderBottomColor: height > 0 ? border2Color : 'transparent' }}
                 sx={{
                     '.fa-hashtag': {
                         color: 'background.list.default',
@@ -74,9 +72,7 @@ function SwipeableEdgeDrawer() {
                     overflow: 'hidden',
                     transition: 'height 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
                 }}
-                style={{
-                    height,
-                }}
+                style={{ height }}
             >
                 <Typography
                     p={2}

@@ -41,11 +41,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
                     size="small"
                     className="tools"
                     onClick={onCentering}
-                    sx={{
-                        '&:hover': {
-                            color: nestedLevelColors[index % 3],
-                        },
-                    }}
+                    sx={{ '&:hover': { color: nestedLevelColors[index % 3] } }}
                 >
                     <FontAwesomeIcon icon={faCircle} />
                 </IconButton>

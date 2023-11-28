@@ -102,6 +102,4 @@ export default function LandingPageTransformable(props) {
     );
 }
 
-LandingPageTransformable.propTypes = {
-    children: PropTypes.element.isRequired,
-};
+LandingPageTransformable.propTypes = { children: PropTypes.element.isRequired };

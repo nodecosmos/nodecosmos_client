@@ -28,9 +28,18 @@ export default function NodeCard({ id }: {id: UUID}) {
                 }}
             >
                 <NodeCardHeader node={node} />
-                <CardContent sx={{ px: 3, pt: node.coverImageURL ? 3 : 0, pb: 0 }}>
+                <CardContent sx={{
+                    px: 3,
+                    pt: node.coverImageURL ? 3 : 0,
+                    pb: 0, 
+                }}>
                     <Link
-                        sx={{ '&:hover h2': { color: 'text.link', textDecoration: 'underline' } }}
+                        sx={{
+                            '&:hover h2': {
+                                color: 'text.link',
+                                textDecoration: 'underline', 
+                            }, 
+                        }}
                         component={RouterLink}
                         to={`/nodes/${node.id}`}
                     >

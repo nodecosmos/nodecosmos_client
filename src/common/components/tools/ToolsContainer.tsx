@@ -1,8 +1,11 @@
 import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function ToolsContainer({ children }) {
+interface ToolsContainerProps {
+    children: React.ReactNode;
+}
+
+export default function ToolsContainer({ children }: ToolsContainerProps) {
     return (
         <Box
             display="flex"
@@ -29,7 +32,3 @@ export default function ToolsContainer({ children }) {
         </Box>
     );
 }
-
-ToolsContainer.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-};

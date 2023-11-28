@@ -23,7 +23,10 @@ const flowStepsSlice = createSlice({
         updateFlowState(state, action) {
             const { id } = action.payload;
 
-            state.byId[id] = { ...state.byId[id], ...action.payload };
+            state.byId[id] = {
+                ...state.byId[id],
+                ...action.payload, 
+            };
         },
     },
     extraReducers(builder) {

@@ -43,12 +43,8 @@ export default (theme: NodecosmosTheme) => ({
         letterSpacing: 'normal',
         color: theme.palette.text.contrast,
     },
-    body2: {
-        fontSize: '1rem',
-    },
-    subtitle1: {
-        fontSize: '0.75rem',
-    },
+    body2: { fontSize: '1rem' },
+    subtitle1: { fontSize: '0.75rem' },
     subtitle2: {
         fontSize: '0.75rem',
         fontWeight: 500,

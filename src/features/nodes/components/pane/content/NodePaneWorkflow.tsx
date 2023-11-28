@@ -3,13 +3,13 @@ import { NodecosmosDispatch } from '../../../../../store';
 import Workflow from '../../../../workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../../workflows/constants';
 import { showWorkflow } from '../../../../workflows/worfklow.thunks';
-import { selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
+import { selectSelectedNode } from '../../../nodes.selectors';
 import { NodePrimaryKey } from '../../../nodes.types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function NodePaneWorkflow() {
-    const { id } = useSelector(selectSelectedNodePrimaryKey) as NodePrimaryKey;
+    const { id } = useSelector(selectSelectedNode) as NodePrimaryKey;
     const [loading, setLoading] = React.useState(true);
 
     const dispatch: NodecosmosDispatch = useDispatch();

@@ -23,7 +23,12 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 <Box
                     display="flex"
                     alignItems="center"
-                    sx={{ svg: { fontSize: 16, color: 'text.tertiary' } }}
+                    sx={{
+                        svg: {
+                            fontSize: 16,
+                            color: 'text.tertiary', 
+                        }, 
+                    }}
                 >
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
                         <FontAwesomeIcon
@@ -39,7 +44,12 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 <Box
                     display="flex"
                     alignItems="center"
-                    sx={{ svg: { fontSize: 16, color: 'text.tertiary' } }}
+                    sx={{
+                        svg: {
+                            fontSize: 16,
+                            color: 'text.tertiary', 
+                        }, 
+                    }}
                 >
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
                         <FontAwesomeIcon
@@ -55,7 +65,12 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 <Box
                     display="flex"
                     alignItems="center"
-                    sx={{ svg: { fontSize: 16, color: 'text.tertiary' } }}
+                    sx={{
+                        svg: {
+                            fontSize: 16,
+                            color: 'text.tertiary', 
+                        }, 
+                    }}
                 >
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
                         <FontAwesomeIcon
@@ -71,6 +86,4 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
     );
 }
 
-NodeCardActions.propTypes = {
-    node: PropTypes.object.isRequired,
-};
+NodeCardActions.propTypes = { node: PropTypes.object.isRequired };

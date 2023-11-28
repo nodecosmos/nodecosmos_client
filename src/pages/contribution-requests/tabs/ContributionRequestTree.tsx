@@ -51,13 +51,14 @@ export default function ContributionRequestTree() {
 
     return (
         <Box
-            display={{ xs: 'block', md: 'flex' }}
+            display={{
+                xs: 'block',
+                md: 'flex', 
+            }}
             width={1}
             height={1}
             overflow="hidden"
-            style={{
-                cursor: resizeInProgress ? 'col-resize' : 'auto',
-            }}
+            style={{ cursor: resizeInProgress ? 'col-resize' : 'auto' }}
         >
             <Box
                 ref={paneARef}
@@ -79,9 +80,7 @@ export default function ContributionRequestTree() {
                     sx={{
                         backgroundColor: 'transparent',
                         position: 'relative',
-                        '&:hover': {
-                            cursor: 'col-resize',
-                        },
+                        '&:hover': { cursor: 'col-resize' },
                     }}
                 />
             </Box>
@@ -92,9 +91,7 @@ export default function ContributionRequestTree() {
                 overflow="hidden"
                 boxShadow="left.2"
                 borderLeft={1}
-                style={{
-                    borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
-                }}
+                style={{ borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'] }}
             >
                 <NodePane />
             </Box>

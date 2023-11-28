@@ -49,9 +49,7 @@ export default function AnimateOnView(props) {
                 opacity,
                 transform,
             }}
-            sx={{
-                transition: 'opacity 500ms, transform 500ms',
-            }}
+            sx={{ transition: 'opacity 500ms, transform 500ms' }}
         >
             {children}
         </Box>

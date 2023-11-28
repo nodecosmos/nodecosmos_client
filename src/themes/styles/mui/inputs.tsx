@@ -27,16 +27,10 @@ export default (theme: NodecosmosTheme) => ({
                     top: 0,
                     borderColor: theme.palette.borders[3],
                     borderWidth: 1,
-                    '& legend': {
-                        display: 'none',
-                    },
+                    '& legend': { display: 'none' },
                 },
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: theme.palette.borders[4],
-                },
-                '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-                    borderColor: theme.palette.error.main,
-                },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: theme.palette.borders[4] },
+                '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: theme.palette.error.main },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     borderWidth: 1,
                     borderStyle: 'solid',
@@ -75,18 +69,10 @@ export default (theme: NodecosmosTheme) => ({
     MuiCheckbox: {
         styleOverrides: {
             root: {
-                '&:hover': {
-                    backgroundColor: theme.palette.background[6],
-                },
+                '&:hover': { backgroundColor: theme.palette.background[6] },
             },
         },
     },
 
-    MuiInputAdornment: {
-        styleOverrides: {
-            root: {
-                marginRight: 0,
-            },
-        },
-    },
+    MuiInputAdornment: { styleOverrides: { root: { marginRight: 0 } } },
 });

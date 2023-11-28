@@ -34,7 +34,10 @@ const workflowsSlice = createSlice({
             state.workflowScale = action.payload;
         },
         updateWorkflow(state, action) {
-            state.byId[action.payload.id] = { ...state.byId[action.payload.id], ...action.payload };
+            state.byId[action.payload.id] = {
+                ...state.byId[action.payload.id],
+                ...action.payload, 
+            };
         },
         rebuildWorkflowDiagram(state, action) {
             const { id, data } = action.payload;

@@ -12,9 +12,7 @@ export default function MvpStepIcon(props) {
         display: 'flex',
         height: 22,
         alignItems: 'center',
-        ...(ownerState.active && {
-            color: theme.palette.primary.main,
-        }),
+        ...(ownerState.active && { color: theme.palette.primary.main }),
         '& .QontoStepIcon-completedIcon': {
             color: theme.palette.primary.main,
             zIndex: 1,

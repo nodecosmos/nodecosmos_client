@@ -1,20 +1,21 @@
 import DraggableNodePoint from './DraggableNodePoint';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
-import { selectDragAndDrop, selectTreeNodeIds } from '../../../nodes.selectors';
+import useTreeNodeVirtualizer, { VirtualizedNode } from '../../../hooks/tree/useTreeNodesVirtualizer';
+import { selectDragAndDrop } from '../../../nodes.selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function DraggableNodePoints() {
     const { branchId } = useTreeContext();
     const dragAndDrop = useSelector(selectDragAndDrop);
-    const treeNodeIds = useSelector(selectTreeNodeIds(branchId));
+    const treeNodeIds: VirtualizedNode[] = useTreeNodeVirtualizer(branchId);
 
     if (!dragAndDrop?.isDragging) return null;
 
-    return treeNodeIds.map((treeNodeId, index) => {
+    return treeNodeIds.map(([id], index) => {
         if (index === 0) return null;
         return (
-            <DraggableNodePoint key={treeNodeId} id={treeNodeId} />
+            <DraggableNodePoint key={id} id={id} />
         );
     });
 }

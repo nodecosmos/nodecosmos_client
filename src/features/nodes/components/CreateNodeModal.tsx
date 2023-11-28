@@ -27,7 +27,10 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
         setLoading(true);
 
         const payload: NodeCreationPayload = {
-            isPublic: true, isRoot: true, ...formValues, order: 0,
+            isPublic: true,
+            isRoot: true,
+            ...formValues,
+            order: 0,
         };
 
         dispatch(createNode(payload)).then((response) => {
@@ -49,9 +52,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             open={open}
             PaperProps={{
                 elevation: 0,
-                sx: {
-                    borderRadius: 2.5,
-                },
+                sx: { borderRadius: 2.5 },
             }}
             sx={{
                 '& .MuiDialog-paper': {

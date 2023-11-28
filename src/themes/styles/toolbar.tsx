@@ -12,16 +12,8 @@ export default (theme: NodecosmosTheme) => ({
             fontWeight: 500,
         },
         '.ButtonWrapper': {
-            '&:hover': {
-                button: {
-                    borderColor: 'transparent',
-                },
-            },
-            '&.active': {
-                button: {
-                    borderColor: 'inherit',
-                },
-            },
+            '&:hover': { button: { borderColor: 'transparent' } },
+            '&.active': { button: { borderColor: 'inherit' } },
             button: {
                 padding: 0,
                 cursor: 'pointer',
@@ -30,9 +22,7 @@ export default (theme: NodecosmosTheme) => ({
                 borderColor: 'transparent',
                 backgroundColor: 'transparent',
                 color: theme.palette.toolbar.default,
-                '&.active': {
-                    borderColor: 'inherit',
-                },
+                '&.active': { borderColor: 'inherit' },
             },
         },
     },

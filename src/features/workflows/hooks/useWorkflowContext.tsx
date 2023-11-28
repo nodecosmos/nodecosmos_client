@@ -15,7 +15,11 @@ const WorkflowContext = React.createContext<WorkflowContextType>({} as WorkflowC
 export function useWorkflowContextCreator({
     context, id, nodeId,
 }: WorkflowContextType) {
-    const contextProviderValue = useMemo(() => ({ context, id, nodeId }), [context, id, nodeId]);
+    const contextProviderValue = useMemo(() => ({
+        context,
+        id,
+        nodeId, 
+    }), [context, id, nodeId]);
 
     return {
         WorkflowContext,

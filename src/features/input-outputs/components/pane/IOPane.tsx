@@ -38,7 +38,10 @@ export default function IOPane() {
         <Box
             width={1}
             height={1}
-            sx={{ overflow: 'hidden', backgroundColor: 'background.5' }}
+            sx={{
+                overflow: 'hidden',
+                backgroundColor: 'background.5', 
+            }}
             position="relative"
             zIndex={1}
         >

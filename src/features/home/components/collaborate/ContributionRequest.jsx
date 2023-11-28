@@ -22,9 +22,7 @@ export default function ContributionRequest() {
             width={1}
             height={1}
             xmlns="http://www.w3.org/2000/svg"
-            sx={{
-                transformOrigin: 'top left',
-            }}
+            sx={{ transformOrigin: 'top left' }}
             viewBox={viewBox}
         >
             <g>
@@ -89,7 +87,10 @@ export default function ContributionRequest() {
                         <foreignObject className="NodeName" width="100%" height="29" x="155" y="105">
                             <Typography
                                 color="text.secondary"
-                                fontSize={{ xs: 14, sm: 18 }}
+                                fontSize={{
+                                    xs: 14,
+                                    sm: 18, 
+                                }}
                             >
                 Add/Remove/Update Nodes in the
                                 {' '}
@@ -133,7 +134,10 @@ export default function ContributionRequest() {
                         <foreignObject className="NodeName" width="100%" height="29" x="155" y="145">
                             <Typography
                                 color="text.secondary"
-                                fontSize={{ xs: 14, sm: 18 }}
+                                fontSize={{
+                                    xs: 14,
+                                    sm: 18, 
+                                }}
                             >
                 Add/Remove/Update Workflow
                             </Typography>
@@ -160,7 +164,10 @@ export default function ContributionRequest() {
                         <foreignObject className="NodeName" width="100%" height="29" x="155" y="185">
                             <Typography
                                 color="text.secondary"
-                                fontSize={{ xs: 14, sm: 18 }}
+                                fontSize={{
+                                    xs: 14,
+                                    sm: 18, 
+                                }}
                             >
                 Add/Remove/Update Media
                             </Typography>
@@ -220,7 +227,10 @@ export default function ContributionRequest() {
                         <foreignObject className="NodeName" width="100%" height="29" x="155" y="264">
                             <Typography
                                 color="text.secondary"
-                                fontSize={{ xs: 14, sm: 18 }}
+                                fontSize={{
+                                    xs: 14,
+                                    sm: 18, 
+                                }}
                             >
                 Discuss Contribution
                             </Typography>
@@ -310,7 +320,10 @@ export default function ContributionRequest() {
                             </Typography>
                             <Typography
                                 color="text.secondary"
-                                fontSize={{ xs: 14, sm: 18 }}
+                                fontSize={{
+                                    xs: 14,
+                                    sm: 18, 
+                                }}
                             >
                 let contribution become part of your innovation
                             </Typography>

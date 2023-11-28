@@ -3,8 +3,8 @@ import StartToolbar from './StartToolbar';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosTheme } from '../../../../themes/type';
 import {
-    ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION, 
-} from '../../../nodes/constants';
+    ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
+} from '../../../nodes/nodes.constants';
 import {
     MARGIN_LEFT,
     WORKFLOW_START_MARGIN_TOP,

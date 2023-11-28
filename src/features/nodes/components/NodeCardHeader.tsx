@@ -16,9 +16,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                     p: 3,
                     pr: 0,
                     mr: 0,
-                    '& .MuiCardHeader-avatar': {
-                        mr: 0,
-                    },
+                    '& .MuiCardHeader-avatar': { mr: 0 },
                 }}
                 avatar={(
                     <Box display="flex" alignItems="center" zIndex={1} position="relative">
@@ -33,11 +31,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                         <Link
                             component={RouterLink}
                             to={`/users/${node.owner.id}`}
-                            sx={{
-                                '&:hover h6': {
-                                    color: 'text.link',
-                                },
-                            }}
+                            sx={{ '&:hover h6': { color: 'text.link' } }}
                         >
                             {node.owner.username && (
                                 <Typography variant="h6" color="text.tertiary" ml={1}>

@@ -35,6 +35,4 @@ export default function CloseModalButton({ onClose }) {
     );
 }
 
-CloseModalButton.propTypes = {
-    onClose: PropTypes.func.isRequired,
-};
+CloseModalButton.propTypes = { onClose: PropTypes.func.isRequired };

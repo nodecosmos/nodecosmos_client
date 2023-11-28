@@ -92,6 +92,4 @@ export default function DraggableNodePoint({ id }: { id: UUID }) {
     );
 }
 
-DraggableNodePoint.propTypes = {
-    id: PropTypes.string.isRequired,
-};
+DraggableNodePoint.propTypes = { id: PropTypes.string.isRequired };

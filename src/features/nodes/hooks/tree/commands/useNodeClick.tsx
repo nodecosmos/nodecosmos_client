@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 
 export default function useNodeClick() {
     const {
+        treeBranchId,
         branchId,
         id,
         isExpanded,
@@ -33,7 +34,7 @@ export default function useNodeClick() {
     }, [addId, deleteId, isChecked, id]);
 
     //------------------------------------------------------------------------------------------------------------------
-    return useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    return useCallback((event: MouseEvent<HTMLButtonElement | HTMLInputElement>) => {
         if (treeType === 'checkbox') {
             event.preventDefault();
             event.stopPropagation();
@@ -45,11 +46,23 @@ export default function useNodeClick() {
 
         if (isEditing) return;
         if (isExpanded && isSelected) {
-            dispatch(collapseNode({ branchId, id }));
+            dispatch(collapseNode({
+                treeBranchId,
+                branchId,
+                id,
+            }));
             dispatch(select(null));
         } else {
-            dispatch(expandNode({ branchId, id }));
-            dispatch(select({ branchId, id }));
+            dispatch(expandNode({
+                treeBranchId,
+                branchId,
+                id,
+            }));
+            dispatch(select({
+                treeBranchId,
+                branchId,
+                id,
+            }));
         }
-    }, [branchId, dispatch, handleCheckboxChange, id, isEditing, isExpanded, isSelected, treeType]);
+    }, [dispatch, treeBranchId, branchId, handleCheckboxChange, id, isEditing, isExpanded, isSelected, treeType]);
 }

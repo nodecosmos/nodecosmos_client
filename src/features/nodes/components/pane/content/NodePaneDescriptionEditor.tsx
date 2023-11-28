@@ -3,9 +3,9 @@ import { NodecosmosDispatch } from '../../../../../store';
 import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
 import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
 import { updateState } from '../../../actions';
-import { selectNodeAttribute, selectSelectedNodePrimaryKey } from '../../../nodes.selectors';
+import { selectNodeAttribute, selectSelected } from '../../../nodes.selectors';
 import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
-import { NodePrimaryKey } from '../../../nodes.types';
+import { SelectedNode } from '../../../nodes.types';
 import { Box } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
 import React, {
@@ -19,7 +19,9 @@ const RemirrorEditor = React.lazy(
 );
 
 export default function NodePaneDescriptionEditor() {
-    const { branchId, id } = useSelector(selectSelectedNodePrimaryKey) as NodePrimaryKey;
+    const {
+        treeBranchId, branchId, id,
+    } = useSelector(selectSelected) as SelectedNode;
 
     const isTemp = useSelector(selectNodeAttribute(branchId, id, 'isTemp'));
     const rootId = useSelector(selectNodeAttribute(branchId, id, 'rootId'));
@@ -45,13 +47,16 @@ export default function NodePaneDescriptionEditor() {
             const markdown = helpers.getMarkdown();
 
             dispatch(updateState({
+                treeBranchId,
                 id,
+                branchId,
                 description: descriptionHtml,
                 shortDescription,
                 descriptionMarkdown: markdown,
             }));
 
             dispatch(updateNodeDescription({
+                treeBranchId,
                 branchId,
                 id,
                 description: descriptionHtml,
@@ -60,13 +65,16 @@ export default function NodePaneDescriptionEditor() {
                 descriptionBase64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
             }));
         }, 1000);
-    }, [dispatch, branchId, id, isTemp]);
+    }, [dispatch, treeBranchId, branchId, id, isTemp]);
 
     const [base64Fetched, setBase64Fetched] = React.useState(false);
 
     useEffect(() => {
         if (id && rootId) {
-            dispatch(getNodeDescriptionBase64({ branchId, id })).then(() => {
+            dispatch(getNodeDescriptionBase64({
+                branchId,
+                id,
+            })).then(() => {
                 setBase64Fetched(true);
             });
         }
@@ -86,6 +94,7 @@ export default function NodePaneDescriptionEditor() {
                     onChange={handleChange}
                     wsRoomId={id}
                     wsAuthNodeId={id}
+                    wsAuthNodeBranchId={branchId}
                     base64={descriptionBase64}
                     isRealTime
                 />

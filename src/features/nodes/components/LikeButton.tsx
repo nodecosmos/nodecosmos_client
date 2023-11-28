@@ -46,7 +46,11 @@ export default function LikeButton(props: LikeButtonProps) {
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
-            dispatch(setAlert({ isOpen: true, severity: 'warning', message: 'Log in to hit that like!' }));
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'warning',
+                message: 'Log in to hit that like!', 
+            }));
             return;
         }
 
@@ -79,7 +83,12 @@ export default function LikeButton(props: LikeButtonProps) {
                 onClick={handleLike}
                 className="Item"
                 disableRipple
-                sx={{ svg: { fontSize, color: 'toolbar.red' } }}
+                sx={{
+                    svg: {
+                        fontSize,
+                        color: 'toolbar.red', 
+                    }, 
+                }}
                 icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
                 checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
                 inputProps={{ 'aria-label': 'Favorite' }}

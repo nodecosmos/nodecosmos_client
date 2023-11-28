@@ -23,7 +23,12 @@ export default function Vision() {
                 alignItems="center"
                 justifyContent="center"
                 flexDirection="column"
-                sx={{ display: { xs: 'none', md: 'flex' } }}
+                sx={{
+                    display: {
+                        xs: 'none',
+                        md: 'flex', 
+                    }, 
+                }}
             >
                 <NodeSectionLink circleFill={nodeLinkColor} />
             </Box>
@@ -61,7 +66,14 @@ export default function Vision() {
                         </Section>
                     </AnimateOnView>
                 </Grid>
-                <Grid item xs={12} md={6} mt={{ xs: 3, md: 0 }}>
+                <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    mt={{
+                        xs: 3,
+                        md: 0, 
+                    }}>
                     <AnimateOnView delay={600}>
                         <Section>
                             <Typography

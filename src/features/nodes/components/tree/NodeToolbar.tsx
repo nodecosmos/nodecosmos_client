@@ -1,6 +1,6 @@
-import { NODE_BUTTON_HEIGHT } from '../../constants';
 import useNodeCommands from '../../hooks/tree/useNodeCommands';
 import useNodeContext from '../../hooks/tree/useNodeContext';
+import { NODE_BUTTON_HEIGHT } from '../../nodes.constants';
 import LikeButton from '../LikeButton';
 import {
     faArrowUpRightFromSquare, faPenToSquare, faTrash,

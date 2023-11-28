@@ -84,7 +84,13 @@ export default function IOPaneToolbar() {
             <Box
                 display="flex"
                 alignItems="center"
-                sx={{ svg: { color: 'background.list.defaultColor', mr: 0.5, ml: 1 } }}>
+                sx={{
+                    svg: {
+                        color: 'background.list.defaultColor',
+                        mr: 0.5,
+                        ml: 1, 
+                    }, 
+                }}>
                 <Typography
                     align="center"
                     variant="body1"

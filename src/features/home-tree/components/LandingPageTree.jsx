@@ -55,6 +55,4 @@ export default function LandingPageTree(props) {
     );
 }
 
-LandingPageTree.propTypes = {
-    id: PropTypes.string.isRequired,
-};
+LandingPageTree.propTypes = { id: PropTypes.string.isRequired };

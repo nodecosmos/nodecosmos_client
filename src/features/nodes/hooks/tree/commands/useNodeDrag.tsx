@@ -52,14 +52,22 @@ export default function useNodeDrag() {
 
         if (isDragOver || id === dragAndDropNodeId || ancestorIds.includes(id)) return;
 
-        dispatch(updateState({ branchId, id, isDragOver: true }));
+        dispatch(updateState({
+            branchId,
+            id,
+            isDragOver: true, 
+        }));
     }, [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
         if (!isDragOver) return;
 
-        dispatch(updateState({ branchId, id, isDragOver: false }));
+        dispatch(updateState({
+            branchId,
+            id,
+            isDragOver: false, 
+        }));
     }, [dispatch, isDragOver, branchId, id]);
 
     //------------------------------------------------------------------------------------------------------------------
@@ -81,7 +89,11 @@ export default function useNodeDrag() {
 
             if (!isDragOver) return;
 
-            dispatch(updateState({ branchId, id, isDragOver: false }));
+            dispatch(updateState({
+                branchId,
+                id,
+                isDragOver: false, 
+            }));
         },
         [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver, onNodeDropCapture],
     );

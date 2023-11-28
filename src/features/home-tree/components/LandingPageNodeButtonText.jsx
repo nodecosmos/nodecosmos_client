@@ -16,13 +16,16 @@ export default function LandingPageNodeButtonText(props) {
         const title = event.currentTarget.value;
 
         dispatch(updateNode({
-            id, title,
+            id,
+            title,
         }));
     };
 
     const handleBlur = () => {
         dispatch(updateNode({
-            id, isEditing: false, isNew: false,
+            id,
+            isEditing: false,
+            isNew: false,
         }));
         ref.current.blur();
     };
@@ -62,6 +65,4 @@ export default function LandingPageNodeButtonText(props) {
     );
 }
 
-LandingPageNodeButtonText.propTypes = {
-    id: PropTypes.string.isRequired,
-};
+LandingPageNodeButtonText.propTypes = { id: PropTypes.string.isRequired };

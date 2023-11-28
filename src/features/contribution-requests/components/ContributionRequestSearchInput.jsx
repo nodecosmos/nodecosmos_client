@@ -21,18 +21,14 @@ export default function ContributionRequestSearchInput() {
                 ml: 1.25,
                 height: 32,
                 width: '350px',
-                svg: {
-                    color: 'toolbar.default',
-                },
+                svg: { color: 'toolbar.default' },
                 '.MuiInputBase-root': {
                     borderColor: 'transparent',
                     height: 32,
                     borderRadius: 1,
                     pl: 0.5,
                 },
-                '.MuiOutlinedInput-notchedOutline': {
-                    '&, &:hover, &:focus': {},
-                },
+                '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
             }}
             InputProps={{
                 startAdornment: (

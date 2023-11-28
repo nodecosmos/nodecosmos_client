@@ -16,22 +16,14 @@ export default function UploadDashboardContainer({ children }) {
                 backgroundColor: 'transparent!important',
                 borderTop: 'none!important',
             },
-            '.uppy-StatusBar:before': {
-                backgroundColor: 'transparent!important',
-            },
+            '.uppy-StatusBar:before': { backgroundColor: 'transparent!important' },
             '.uppy-DashboardContent-bar': {
                 backgroundColor: 'transparent!important',
                 p: '0!important',
             },
-            '.uppy-Dashboard-AddFiles': {
-                border: 'none!important',
-            },
-            '.uppy-Dashboard-AddFiles-title': {
-                color: `${theme.palette.text.secondary}!important`,
-            },
-            '.uppy-Dashboard-poweredBy, .uppy-DashboardContent-title': {
-                display: 'none',
-            },
+            '.uppy-Dashboard-AddFiles': { border: 'none!important' },
+            '.uppy-Dashboard-AddFiles-title': { color: `${theme.palette.text.secondary}!important` },
+            '.uppy-Dashboard-poweredBy, .uppy-DashboardContent-title': { display: 'none' },
             '.uppy-Dashboard-browse': {
                 color: `${theme.palette.button.contrastText}!important`,
                 p: 1,
@@ -52,9 +44,7 @@ export default function UploadDashboardContainer({ children }) {
                 borderRadius: 1,
 
             },
-            '.cropper-modal': {
-                backgroundColor: '#ffffff5c',
-            },
+            '.cropper-modal': { backgroundColor: '#ffffff5c' },
         }}
         >
             {children}
@@ -62,6 +52,4 @@ export default function UploadDashboardContainer({ children }) {
     );
 }
 
-UploadDashboardContainer.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+UploadDashboardContainer.propTypes = { children: PropTypes.node.isRequired };

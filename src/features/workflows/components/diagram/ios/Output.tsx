@@ -7,7 +7,7 @@ import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
-} from '../../../../nodes/constants';
+} from '../../../../nodes/nodes.constants';
 import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
@@ -54,7 +54,10 @@ export default function Output(props: OutputProps) {
         backgroundColor,
         outlineColor,
         color,
-    } = useWorkflowOutputButtonBg({ id, nodeId: nodeId as UUID });
+    } = useWorkflowOutputButtonBg({
+        id,
+        nodeId: nodeId as UUID, 
+    });
 
     const preventDefault = usePreventDefault();
 

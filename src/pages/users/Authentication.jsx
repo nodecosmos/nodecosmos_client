@@ -37,9 +37,21 @@ export default function Authentication() {
                 justifyContent: 'center',
             }}
         >
-            <Box sx={{ height: 600, width: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Typography sx={{ fontSize: 50, ml: 1 }} fontWeight="bold">
+            <Box sx={{
+                height: 600,
+                width: 1, 
+            }}>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center', 
+                }}>
+                    <Typography
+                        sx={{
+                            fontSize: 50,
+                            ml: 1, 
+                        }}
+                        fontWeight="bold">
                         <Box component="span" color="logo.blue">node</Box>
                         <Box component="span" color="logo.red">cosmos</Box>
                     </Typography>

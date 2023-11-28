@@ -1,8 +1,7 @@
 import Node from './Node';
 import DraggableNodePoints from './reorder/DraggableNodePoints';
-import { selectTreeNodeIds } from '../../nodes.selectors';
+import useTreeNodeVirtualizer, { VirtualizedNode } from '../../hooks/tree/useTreeNodesVirtualizer';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 export interface TreeNodesProps {
     branchId: string;
@@ -11,24 +10,23 @@ export interface TreeNodesProps {
 export default function TreeNodes(props: TreeNodesProps) {
     const { branchId } = props;
 
-    const treeNodeIds = useSelector(selectTreeNodeIds(branchId));
+    const treeNodeIds: VirtualizedNode[] = useTreeNodeVirtualizer(branchId);
 
-    if (!treeNodeIds) return null;
+    if (treeNodeIds.length === 0) return null;
 
     return (
         <g>
             <g>
-                {treeNodeIds.map((id) => (
+                {treeNodeIds.map(([id, alreadyMounted]) => (
                     <Node
                         key={id}
                         branchId={branchId}
                         id={id}
+                        alreadyMounted={alreadyMounted}
                     />
                 ))}
             </g>
             <DraggableNodePoints />
         </g>
-
     );
 }
-

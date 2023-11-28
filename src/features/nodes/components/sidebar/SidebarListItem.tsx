@@ -34,11 +34,12 @@ export default function SidebarListItem(props: SidebarListItemProps) {
                 disableRipple
                 to={to}
                 onClick={onClick}
-                {...(component === NavLink && { end, relative: true })}
+                {...(component === NavLink && {
+                    end,
+                    relative: true, 
+                })}
             >
-                <ListItemIcon sx={{
-                    transform: flip ? 'scaleX(-1)' : 'none',
-                }}
+                <ListItemIcon sx={{ transform: flip ? 'scaleX(-1)' : 'none' }}
                 >
                     {selectedIcon && selected ? selectedIcon : icon}
                 </ListItemIcon>

@@ -135,13 +135,9 @@ export default function LandingPageMarkdown() {
                             border: 'none',
                             '&.Mui-selected': {
                                 backgroundColor: 'toggle',
-                                '&:hover': {
-                                    backgroundColor: 'toggle',
-                                },
+                                '&:hover': { backgroundColor: 'toggle' },
                             },
-                            '&:hover': {
-                                backgroundColor: 'toggle',
-                            },
+                            '&:hover': { backgroundColor: 'toggle' },
                         }}
                         value="markdown"
                         aria-label="left aligned"
@@ -156,13 +152,9 @@ export default function LandingPageMarkdown() {
                             border: 'none',
                             '&.Mui-selected': {
                                 backgroundColor: 'toggle',
-                                '&:hover': {
-                                    backgroundColor: 'toggle',
-                                },
+                                '&:hover': { backgroundColor: 'toggle' },
                             },
-                            '&:hover': {
-                                backgroundColor: 'toggle',
-                            },
+                            '&:hover': { backgroundColor: 'toggle' },
                         }}
                         value="content"
                         aria-label="centered"
@@ -194,7 +186,10 @@ export default function LandingPageMarkdown() {
                     </Suspense>
                 )}
                 {mode === 'content' && (
-                    <Box m={{ xs: 3, sm: 4 }}>
+                    <Box m={{
+                        xs: 3,
+                        sm: 4, 
+                    }}>
                         <Suspense fallback={loading}>
                             <MarkdownPreview value={description} />
                         </Suspense>

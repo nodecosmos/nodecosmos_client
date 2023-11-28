@@ -1,20 +1,20 @@
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './NodeToolbar';
+import useNodeCommands from '../../hooks/tree/useNodeCommands';
+import useNodeContext from '../../hooks/tree/useNodeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
-} from '../../constants';
-import useNodeCommands from '../../hooks/tree/useNodeCommands';
-import useNodeContext from '../../hooks/tree/useNodeContext';
+} from '../../nodes.constants';
 import { Box } from '@mui/material';
 import React from 'react';
 
 export default function NodeContent() {
     const {
-        isAlreadyMounted,
+        alreadyMounted,
         isExpanded,
         isEditing,
         isRoot,
@@ -31,13 +31,15 @@ export default function NodeContent() {
 
     if (!xEnd) return null;
 
-    const initialAnimationDelay = isRoot || isAlreadyMounted ? 0 : ANIMATION_DELAY;
-    const initialAnimationDuration = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
+    const initialAnimationDelay = isRoot || alreadyMounted ? 0 : ANIMATION_DELAY;
+    const initialAnimationDuration = isRoot || alreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
 
     return (
-        <g style={{ opacity: 0,
+        <g style={{
+            opacity: 0,
             animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms 
-                        forwards ease-in-out` }}>
+                        forwards ease-in-out`, 
+        }}>
             <foreignObject
                 width="700"
                 height={NODE_BUTTON_HEIGHT + 8}

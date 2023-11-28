@@ -34,9 +34,7 @@ export default function FinalFormCheckboxButton(props: Props) {
                 <button
                     type="button"
                     className="WorkflowOutputButton"
-                    style={{
-                        backgroundColor: input.checked ? theme.palette.tree.default : 'transparent',
-                    }}
+                    style={{ backgroundColor: input.checked ? theme.palette.tree.default : 'transparent' }}
                     onClick={clickCheckbox}
                 >
                     <Checkbox

@@ -40,17 +40,13 @@ export default function TreeShowToolbar() {
                 sx={{
                     height: 32,
                     width: '350px',
-                    svg: {
-                        color: 'toolbar.default',
-                    },
+                    svg: { color: 'toolbar.default' },
                     '.MuiInputBase-root': {
                         borderRadius: 1,
                         borderColor: 'transparent',
                         height: 1,
                     },
-                    '.MuiOutlinedInput-notchedOutline': {
-                        '&, &:hover, &:focus': {},
-                    },
+                    '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
                 }}
                 InputProps={{
                     startAdornment: (

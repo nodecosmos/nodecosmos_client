@@ -34,11 +34,12 @@ const initialState: NodeState = {
     childIds: {},
     orderedTreeIds: {},
     titles: {},
-    selectedNodePrimaryKey: null,
+    selected: null,
     nodePaneContent: NodePaneContent.Markdown,
     indexNodesById: {},
     actionInProgress: false,
     dragAndDrop: null,
+    currentTmpNode: null,
 };
 
 const nodesSlice = createSlice({

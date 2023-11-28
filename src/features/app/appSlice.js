@@ -67,7 +67,10 @@ const appSlice = createSlice({
         // move to actions that can be reused by other slices
         setTransformablePositions(state, action) {
             const current = state.transformablePositionsById[action.payload.id] || {};
-            state.transformablePositionsById[action.payload.id] = { ...current, ...action.payload };
+            state.transformablePositionsById[action.payload.id] = {
+                ...current,
+                ...action.payload, 
+            };
         },
         setAlert(state, action) {
             state.alert = {

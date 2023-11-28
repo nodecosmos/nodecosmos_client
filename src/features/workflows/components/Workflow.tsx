@@ -26,7 +26,11 @@ const Workflow: React.FC<Props> = ({ nodeId, context = WorkflowDiagramContext.wo
     const {
         WorkflowContext,
         contextProviderValue,
-    } = useWorkflowContextCreator({ context, nodeId, id });
+    } = useWorkflowContextCreator({
+        context,
+        nodeId,
+        id, 
+    });
 
     return (
         <WorkflowContext.Provider value={contextProviderValue}>

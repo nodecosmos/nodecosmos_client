@@ -38,9 +38,7 @@ export default function SignupForm() {
                                 label="E-mail"
                                 validate={validateEmailFormat}
                                 required
-                                InputProps={{
-                                    autoComplete: 'off',
-                                }}
+                                InputProps={{ autoComplete: 'off' }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -51,9 +49,7 @@ export default function SignupForm() {
                                 type="password"
                                 required
                                 minLength={8}
-                                InputProps={{
-                                    autoComplete: 'off',
-                                }}
+                                InputProps={{ autoComplete: 'off' }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -64,9 +60,7 @@ export default function SignupForm() {
                                 type="password"
                                 required
                                 validate={passwordsMustMatch}
-                                InputProps={{
-                                    autoComplete: 'off',
-                                }}
+                                InputProps={{ autoComplete: 'off' }}
                             />
                         </Grid>
                         <Grid item xs={12}>

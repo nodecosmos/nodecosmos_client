@@ -42,6 +42,4 @@ export default function ContributionRequestsIndexToolbar({ nodeId }) {
     );
 }
 
-ContributionRequestsIndexToolbar.propTypes = {
-    nodeId: PropTypes.string.isRequired,
-};
+ContributionRequestsIndexToolbar.propTypes = { nodeId: PropTypes.string.isRequired };

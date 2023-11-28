@@ -3,7 +3,7 @@ import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     TRANSITION_ANIMATION_DURATION,
-} from '../../../../nodes/constants';
+} from '../../../../nodes/nodes.constants';
 import {
     EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
 } from '../../../constants';

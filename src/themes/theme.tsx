@@ -26,11 +26,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
     components: {
         MuiCssBaseline: {
             styleOverrides: {
-                a: {
-                    '&, &.MuiTypography-root': {
-                        textDecoration: 'none',
-                    },
-                },
+                a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 ...scrollbar(theme),
                 ...animations(),
                 ...toolbar(theme),

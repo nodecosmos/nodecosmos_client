@@ -51,9 +51,7 @@ export default function DescriptionContainer({
                             'td:last-of-type': { borderRight: 0 },
                             'th:last-of-type': { borderRight: 0 },
                             '&:last-of-type td': { borderBottom: 0 },
-                            '&:hover': {
-                                backgroundColor: 'background.8',
-                            },
+                            '&:hover': { backgroundColor: 'background.8' },
                         },
                     },
                     pre: {

@@ -14,7 +14,11 @@ export default function Alert({ position }) {
     } = useSelector((state) => state.app.alert);
 
     const handleClose = useCallback(() => dispatch(
-        setAlert({ isOpen: false, message, severity }),
+        setAlert({
+            isOpen: false,
+            message,
+            severity,
+        }),
     ), [dispatch, message, severity]);
 
     useEffect(() => () => {
@@ -66,10 +70,6 @@ export default function Alert({ position }) {
     );
 }
 
-Alert.defaultProps = {
-    position: 'fixed',
-};
+Alert.defaultProps = { position: 'fixed' };
 
-Alert.propTypes = {
-    position: PropTypes.string,
-};
+Alert.propTypes = { position: PropTypes.string };

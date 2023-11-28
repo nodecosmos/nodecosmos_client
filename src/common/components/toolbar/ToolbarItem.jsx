@@ -33,14 +33,8 @@ export default function ToolbarItem({
             <Box
                 className={`ButtonWrapper ${isActive && 'active'}`}
                 sx={{
-                    '&:hover, &.active': {
-                        button: {
-                            color,
-                        },
-                    },
-                    svg: {
-                        transform: flipX ? 'scaleX(-1)' : 'scaleX(1)',
-                    },
+                    '&:hover, &.active': { button: { color } },
+                    svg: { transform: flipX ? 'scaleX(-1)' : 'scaleX(1)' },
                 }}
             >
                 <Box component="button" type="button" onClick={handleClick}>

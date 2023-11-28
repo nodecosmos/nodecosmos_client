@@ -1,5 +1,5 @@
 import NodePaneContent from './NodePaneContent';
-import { selectSelectedNodePrimaryKey } from '../../nodes.selectors';
+import { selectSelectedNode } from '../../nodes.selectors';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ interface NodePaneProps {
 }
 
 export default function NodePane({ page }: NodePaneProps) {
-    const pk = useSelector(selectSelectedNodePrimaryKey);
+    const pk = useSelector(selectSelectedNode);
 
     if (!pk) {
         return (

@@ -46,9 +46,7 @@ export default function CreateContributionRequestModal({
             open={open}
             PaperProps={{
                 elevation: 5,
-                sx: {
-                    borderRadius: 2.5,
-                },
+                sx: { borderRadius: 2.5 },
             }}
             sx={{
                 '& .MuiDialog-paper': {

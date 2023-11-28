@@ -74,6 +74,8 @@ export default function Show() {
         return <Loader />;
     }
 
+    const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
+
     return (
         <Box
             width={1}
@@ -83,9 +85,7 @@ export default function Show() {
                 height={1}
                 width={1}
                 display="flex"
-                style={{
-                    cursor: resizeInProgress ? 'col-resize' : 'default',
-                }}
+                style={{ cursor: resizeInProgress ? 'col-resize' : 'default' }}
             >
                 <Box
                     height={1}
@@ -106,9 +106,7 @@ export default function Show() {
                     ml={-1}
                     sx={{
                         position: 'relative',
-                        '&:hover': {
-                            cursor: 'col-resize',
-                        },
+                        '&:hover': { cursor: 'col-resize' },
                     }}
                 />
                 <Box
@@ -123,9 +121,7 @@ export default function Show() {
                     boxShadow="left.2"
                     borderLeft={1}
                     zIndex={1}
-                    style={{
-                        borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
-                    }}
+                    style={{ borderLeftColor }}
                 >
                     <WorkflowPane />
                 </Box>

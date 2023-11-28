@@ -49,9 +49,7 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
                         color: 'button.contrastText',
                         fontSize: 18,
                     },
-                    '&:hover': {
-                        backgroundColor: 'rgba(0,0,0,0.5)',
-                    },
+                    '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
                 }}
             >
                 <FontAwesomeIcon icon={faClose} />
@@ -60,6 +58,4 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
     );
 }
 
-DeleteCoverImageButton.propTypes = {
-    displayCoverImageUploadButton: PropTypes.bool.isRequired,
-};
+DeleteCoverImageButton.propTypes = { displayCoverImageUploadButton: PropTypes.bool.isRequired };

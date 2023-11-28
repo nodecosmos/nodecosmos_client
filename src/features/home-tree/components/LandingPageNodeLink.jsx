@@ -101,9 +101,7 @@ export default function NonAnimatedNodeLink(props) {
     );
 }
 
-NonAnimatedNodeLink.defaultProps = {
-    upperSiblingId: null,
-};
+NonAnimatedNodeLink.defaultProps = { upperSiblingId: null };
 
 NonAnimatedNodeLink.propTypes = {
     id: PropTypes.string.isRequired,

@@ -1,6 +1,5 @@
 import {
     IndexNodesPayload,
-    NodeCreationPayload,
     NodePayload,
     NodePrimaryKey,
     NodeDescendant,
@@ -34,6 +33,17 @@ export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: 
         return response.data;
     },
 );
+
+interface NodeCreationPayload {
+    treeBranchId?: UUID;
+    tmpNodeId?: UUID;
+    branchId?: UUID;
+    parentId?: UUID;
+    title: string;
+    isPublic: boolean;
+    isRoot: boolean;
+    order: number;
+}
 
 export const createNode = createAsyncThunk<Node, NodeCreationPayload, { rejectValue: NodecosmosError }>(
     'nodes/createNode',

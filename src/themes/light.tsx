@@ -24,9 +24,7 @@ const theme: NodecosmosTheme = {
             2: '2px 0px 1px -1px rgba(0,0,0,0.2)',
         },
 
-        top: {
-            1: '0px -3px 3px -2px rgb(0 0 0 / 10%)',
-        },
+        top: { 1: '0px -3px 3px -2px rgb(0 0 0 / 10%)' },
 
         header: '0px 3px 1px -2px rgb(0 0 0 / 15%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 5%)',
         buttons: {
@@ -42,9 +40,7 @@ const theme: NodecosmosTheme = {
             contrastText: '#fff',
         },
 
-        secondary: {
-            main: '#58b1ff',
-        },
+        secondary: { main: '#58b1ff' },
 
         error: {
             main: '#f56565',

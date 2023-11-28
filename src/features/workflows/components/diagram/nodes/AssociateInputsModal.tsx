@@ -102,9 +102,7 @@ export default function AssociateInputsModal(props: Props) {
                     border: '1px solid',
                     borderColor: 'toolbar.default',
                     // boxShadow: 'buttons.1',
-                    '.WorkflowOutputCheckbox': {
-                        p: 0,
-                    },
+                    '.WorkflowOutputCheckbox': { p: 0 },
                     '.IOButtonText': {
                         flex: 1,
                         textAlign: 'left',
@@ -125,9 +123,7 @@ export default function AssociateInputsModal(props: Props) {
                     keepDirtyOnReinitialize
                     onSubmit={onSubmit}
                     subscription={{ submitting: true }}
-                    initialValues={{
-                        inputIds: currentFlowStepInputIds[nodeId] || [],
-                    }}
+                    initialValues={{ inputIds: currentFlowStepInputIds[nodeId] || [] }}
                 >
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>

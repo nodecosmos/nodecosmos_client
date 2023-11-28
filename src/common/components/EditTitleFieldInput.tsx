@@ -1,5 +1,6 @@
 import ToolsContainer from './tools/ToolsContainer';
 import nodecosmos from '../../apis/nodecosmos-server';
+import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import useDebounce from '../hooks/useDebounce';
 import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,39 +8,55 @@ import {
     Box, IconButton, TextField, Tooltip,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 
-export default function EditTitleFieldInput({
-    title, onChange, onClose, endpoint, reqData, 
-}) {
+interface EditTitleFieldInputProps {
+    title: string;
+    onChange: (value: string) => void;
+    onClose: () => void;
+    endpoint: string;
+    reqData?: object;
+}
+
+export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
+    const {
+        title, onChange, onClose, endpoint, reqData = {},
+    } = props;
+
     const [value, setValue] = React.useState(title);
-    const [shouldClose, setShouldClose] = React.useState(false);
-    const inputRef = React.useRef(null);
+    const [shouldClose, setShouldClose, setShouldNotClose] = useBooleanStateValue();
+    const inputRef = React.useRef<HTMLInputElement | null>(null);
 
     const storeTitle = useCallback(async () => {
-        const response = await nodecosmos.put(endpoint, { ...reqData, title: value });
+        const response = await nodecosmos.put(endpoint, {
+            ...reqData,
+            title: value,
+        });
 
         return response.data;
     }, [endpoint, reqData, value]);
 
     const { debounce, inProgress } = useDebounce(storeTitle);
 
-    const handleChange = (event) => {
+    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
         setValue(newValue);
         debounce(newValue);
-    };
+    }, [debounce]);
 
-    const handleClose = () => { setShouldClose(true); };
-
-    useEffect(() => { inputRef.current.focus(); }, []);
+    useEffect(() => { inputRef.current?.focus(); }, []);
     useEffect(() => {
         if (!inProgress && shouldClose) {
             onChange(value);
             onClose();
         }
     }, [onClose, onChange, shouldClose, value, inProgress]);
+
+    const onEnterDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            setShouldNotClose();
+        }
+    }, [setShouldNotClose]);
 
     return (
         <Box
@@ -62,23 +79,27 @@ export default function EditTitleFieldInput({
                 focused
                 value={value}
                 onChange={handleChange}
-                onBlur={handleClose}
-                onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                        handleClose();
-                    }
-                }}
+                onBlur={setShouldClose}
+                onKeyDown={onEnterDown}
             />
-            {inProgress && shouldClose && <CircularProgress size={20} sx={{ ml: 1, color: 'toolbar.green' }} /> }
+            {inProgress && shouldClose && <CircularProgress
+                size={20}
+                sx={{
+                    ml: 1,
+                    color: 'toolbar.green',
+                }} /> }
 
             {!shouldClose && (
                 <ToolsContainer>
                     <Tooltip title="Save title" placement="top">
                         <IconButton
                             className="Item"
-                            onClick={handleClose}
+                            onClick={setShouldClose}
                             aria-label="Save title"
-                            sx={{ ml: 1, color: 'toolbar.green' }}
+                            sx={{
+                                ml: 1,
+                                color: 'toolbar.green',
+                            }}
                         >
                             <FontAwesomeIcon icon={faCheck} />
                         </IconButton>
@@ -88,15 +109,3 @@ export default function EditTitleFieldInput({
         </Box>
     );
 }
-
-EditTitleFieldInput.defaultProps = {
-    reqData: {},
-};
-
-EditTitleFieldInput.propTypes = {
-    title: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    endpoint: PropTypes.string.isRequired,
-    reqData: PropTypes.object,
-};

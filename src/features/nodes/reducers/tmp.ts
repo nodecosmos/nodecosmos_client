@@ -41,7 +41,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         updatedAt: new Date(),
         editorIds: [],
         owner: node.owner,
-        persistentId: null,
+        persistedId: null,
         isTemp: true,
         isSelected: false,
         nestedLevel: node.nestedLevel + 1,
@@ -49,11 +49,16 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         childIds: [],
         likedByCurrentUser: null,
         treeRootId: node.treeRootId,
-        x: 0, xEnd: 0, y: 0, yEnd: 0,
+        x: 0,
+        xEnd: 0,
+        y: 0,
+        yEnd: 0,
     };
 
     state.childIds[branchId][id].push(tmpId);
     state.childIds[branchId][tmpId] = [];
+
+    state.currentTmpNode = tmpId;
 
     buildTree(state, branchId, node.rootId);
 }
@@ -76,21 +81,21 @@ export function clearTmp(state: NodeState, action: PayloadAction<NodePrimaryKey>
 export interface NodeReplacePayload {
     branchId: UUID;
     tmpId: UUID;
-    persistentId: UUID;
+    persistedId: UUID;
 }
 
 export function replaceTmpWithPersisted(state: NodeState, action: PayloadAction<NodeReplacePayload>) {
     const {
-        branchId, tmpId, persistentId,
+        branchId, tmpId, persistedId,
     } = action.payload;
-    const newNode = state.byBranchId[branchId][persistentId];
+    const newNode = state.byBranchId[branchId][persistedId];
     const tmpNode = state.byBranchId[branchId][tmpId];
     const { parentId } = tmpNode;
 
-    state.byBranchId[branchId][persistentId] = {
+    state.byBranchId[branchId][persistedId] = {
         ...newNode,
-        id: persistentId,
-        persistentId,
+        id: persistedId,
+        persistedId,
         isTemp: false,
         isSelected: tmpNode.isSelected,
         x: tmpNode.x,
@@ -101,19 +106,22 @@ export function replaceTmpWithPersisted(state: NodeState, action: PayloadAction<
     };
 
     if (tmpNode.isSelected) {
-        state.selectedNodePrimaryKey = { id: persistentId, branchId };
+        state.selected = {
+            id: persistedId,
+            branchId, 
+        };
     }
 
-    // replace tmpId with persistentId within the childIds of the parent
+    // replace tmpId with persistedId within the childIds of the parent
     const parentChildIds = state.childIds[branchId][parentId];
     const tmpNodeParentIndex = parentChildIds.indexOf(tmpId);
 
-    parentChildIds.splice(tmpNodeParentIndex, 1, persistentId);
+    parentChildIds.splice(tmpNodeParentIndex, 1, persistedId);
     state.childIds[branchId][parentId] = state.byBranchId[branchId][parentId].childIds;
 
-    // put the persistentId in the place of tmpId
+    // put the persistedId in the place of tmpId
     const tmpNodeTreeIndex = state.orderedTreeIds[branchId].indexOf(tmpId);
-    state.orderedTreeIds[branchId].splice(tmpNodeTreeIndex, 1, persistentId);
+    state.orderedTreeIds[branchId].splice(tmpNodeTreeIndex, 1, persistedId);
 
     delete state.byBranchId[branchId][tmpId];
     delete state.childIds[branchId][tmpId];

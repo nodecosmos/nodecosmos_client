@@ -9,9 +9,7 @@ export default () => ({
                 transition: 'all 450ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
             },
 
-            labelIcon: {
-                minHeight: 1,
-            },
+            labelIcon: { minHeight: 1 },
         },
     },
     MuiTabs: {

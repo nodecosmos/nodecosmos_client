@@ -59,9 +59,7 @@ export default function Innovate() {
                             color: 'button.contrastText',
                         },
                         mb: -1.5,
-                        svg: {
-                            fontSize: 24,
-                        },
+                        svg: { fontSize: 24 },
                     }}
                     variant={matchesSm ? 'scrollable' : 'standard'}
                     value={currentTab}

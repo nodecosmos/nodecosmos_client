@@ -31,11 +31,20 @@ export interface Node extends NodePrimaryKey {
     createdAt?: Date | null;
     updatedAt?: Date | null;
 }
+export interface NodeDescendant extends NodePrimaryKey {
+    rootId: UUID;
+    branchId: UUID;
+    nodeId: UUID;
+    order: number;
+    id: UUID;
+    parentId: UUID;
+    title: string;
+}
 
 export interface NodeTreeAttributes extends Position {
     treeRootId: UUID;
-    upperSiblingId?: UUID;
-    lowerSiblingId?: UUID;
+    upperSiblingId?: UUID | null;
+    lowerSiblingId?: UUID | null;
     lastChildId?: UUID;
     childIds: UUID[];
     descendantIds: UUID[];
@@ -49,21 +58,11 @@ export interface NodeTreeAttributes extends Position {
 }
 
 export interface AppNode extends Node, NodeTreeAttributes {
-    persistentId: UUID | null;
+    persistedId: UUID | null;
     isTemp: boolean;
     isSelected: boolean;
     likedByCurrentUser?: boolean | null;
     isDragOver?: boolean;
-}
-
-export interface NodeDescendant extends NodePrimaryKey {
-    rootId: UUID;
-    branchId: UUID;
-    nodeId: UUID;
-    order: number;
-    id: UUID;
-    parentId: UUID;
-    title: string;
 }
 
 export interface IndexNode {
@@ -85,18 +84,12 @@ export interface IndexNodesPayload {
     page?: number;
 }
 
-export interface NodeCreationPayload {
-    tmpNodeId?: UUID;
-    branchId?: UUID;
-    parentId?: UUID;
-    title: string;
-    isPublic: boolean;
-    isRoot: boolean;
-    order: number;
+export interface TreeBranch {
+    treeBranchId: UUID;
 }
 
-export type NodePayload = NodePrimaryKey & Partial<Omit<Node, keyof NodePrimaryKey>>;
-export type AppNodePayload = NodePrimaryKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
+export type NodePayload = NodePrimaryKey & TreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
+export type AppNodePayload = NodePrimaryKey & TreeBranch & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
 export interface ReorderPayload {
     id: UUID;
@@ -131,16 +124,19 @@ export interface DragAndDrop {
     siblingIndex: number;
 }
 
+export type SelectedNode = NodePrimaryKey & TreeBranch;
+
 export interface NodeState {
     byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
     orderedTreeIds: Record<BranchId, NodeId[]>;
     titles: Record<BranchId, Record<NodeId, string>>;
-    selectedNodePrimaryKey: NodePrimaryKey | null;
+    selected: SelectedNode | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<NodeId, IndexNode>;
     actionInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
+    currentTmpNode: UUID | null;
 }
 
 export enum TreeType {

@@ -8,9 +8,7 @@ import { deleteIO } from '../input-outputs/inputOutputs.thunks';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: FlowStepState = {
-    byId: {},
-};
+const initialState: FlowStepState = { byId: {} };
 
 const flowStepsSlice = createSlice({
     name: 'flowSteps',
@@ -22,7 +20,10 @@ const flowStepsSlice = createSlice({
                 const { flowSteps } = action.payload;
                 const flowStepsById = groupFlowStepsById(flowSteps);
 
-                state.byId = { ...state.byId, ...flowStepsById };
+                state.byId = {
+                    ...state.byId,
+                    ...flowStepsById, 
+                };
             })
             .addCase(createFlowStep.fulfilled, (state, action) => {
                 const flowStep = action.payload;

@@ -45,7 +45,10 @@ export default function useNodeTreeEvents(props) {
 
     const handleNodeCreation = (event) => {
         const title = event.target.innerText;
-        prependNewNode({ title, parent_id: id });
+        prependNewNode({
+            title,
+            parent_id: id, 
+        });
     };
 
     const handleNodeDeletion = (nodeId) => {

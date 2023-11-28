@@ -22,11 +22,5 @@ export default (theme: NodecosmosTheme) => ({
             },
         },
     },
-    MuiButtonBase: {
-        styleOverrides: {
-            root: {
-                overflow: 'hidden',
-            },
-        },
-    },
+    MuiButtonBase: { styleOverrides: { root: { overflow: 'hidden' } } },
 });

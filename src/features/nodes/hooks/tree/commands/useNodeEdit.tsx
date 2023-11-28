@@ -9,6 +9,10 @@ export default function useNodeEdit() {
 
     return useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        dispatch(updateState({ branchId, id, isEditing: true }));
+        dispatch(updateState({
+            branchId,
+            id,
+            isEditing: true, 
+        }));
     }, [branchId, dispatch, id]);
 }

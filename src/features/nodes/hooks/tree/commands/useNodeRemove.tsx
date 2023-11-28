@@ -15,9 +15,15 @@ export default function useNodeRemove() {
 
     return useCallback(() => {
         if (isTemp) {
-            dispatch(deleteFromState({ branchId, id }));
+            dispatch(deleteFromState({
+                branchId,
+                id, 
+            }));
         } else {
-            dispatch(deleteNode({ branchId, id }));
+            dispatch(deleteNode({
+                branchId,
+                id, 
+            }));
         }
         if (treeRootId === id) navigate('/nodes');
     }, [branchId, dispatch, id, isTemp, navigate, treeRootId]);

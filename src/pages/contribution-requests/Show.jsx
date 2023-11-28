@@ -17,7 +17,10 @@ export default function Show() {
 
     useEffect(() => {
         dispatch(setHeaderContent('ContributionRequestShowHeader'));
-        dispatch(showContributionRequest({ nodeId, id: contributionRequestId }));
+        dispatch(showContributionRequest({
+            nodeId,
+            id: contributionRequestId, 
+        }));
 
         return () => {
             dispatch(setHeaderContent(''));

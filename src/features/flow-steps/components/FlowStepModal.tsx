@@ -78,7 +78,11 @@ export default function FlowStepModal({ open, onClose }: Props) {
                 handleServerError(response.error);
             }
         } catch (error) {
-            dispatch(setAlert({ isOpen: true, severity: 'error', message: 'Failed to add nodes' }));
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'error',
+                message: 'Failed to add nodes', 
+            }));
             console.error(error);
             setTimeout(() => setLoading(false), 500);
         }
@@ -128,9 +132,18 @@ export default function FlowStepModal({ open, onClose }: Props) {
                     <CloseOutlined sx={{ color: 'background.3' }} />
                 </IconButton>
             </DialogTitle>
-            <DialogContent sx={{ overflow: 'hidden', height: 1 }}>
+            <DialogContent sx={{
+                overflow: 'hidden',
+                height: 1, 
+            }}>
                 <Box mt={2} height="calc(100% - 75px)">
-                    <Box height={1} sx={{ mx: -3, borderBottom: 1, borderColor: 'borders.4' }}>
+                    <Box
+                        height={1}
+                        sx={{
+                            mx: -3,
+                            borderBottom: 1,
+                            borderColor: 'borders.4', 
+                        }}>
                         <Tree
                             rootNodeId={nodeId}
                             branchId={nodeId}

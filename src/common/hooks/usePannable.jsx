@@ -26,7 +26,5 @@ export default function usePannable(containerRef) {
         document.addEventListener('mouseup', handleMouseUp);
     };
 
-    return {
-        onMouseDown: handleMouseDown,
-    };
+    return { onMouseDown: handleMouseDown };
 }

@@ -16,7 +16,10 @@ const contributionRequestsSlice = createSlice({
             const { nodeId, contributionRequestId } = action.payload;
             const contributionRequest = state.byNodeId[nodeId][contributionRequestId];
 
-            state[nodeId][contributionRequestId] = { ...action.payload, ...contributionRequest };
+            state[nodeId][contributionRequestId] = {
+                ...action.payload,
+                ...contributionRequest, 
+            };
         },
         setSearchTerm(state, action) {
             state.searchTerm = action.payload;

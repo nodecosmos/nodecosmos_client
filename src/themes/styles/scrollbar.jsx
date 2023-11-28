@@ -11,10 +11,6 @@ export default (theme) => ({
         minHeight: 42,
         backgroundColor: theme.palette.background[8],
     },
-    '::-webkit-scrollbar-track': {
-        backgroundColor: theme.palette.background[2],
-    },
-    '::-webkit-scrollbar-corner': {
-        backgroundColor: theme.palette.background[2],
-    },
+    '::-webkit-scrollbar-track': { backgroundColor: theme.palette.background[2] },
+    '::-webkit-scrollbar-corner': { backgroundColor: theme.palette.background[2] },
 });

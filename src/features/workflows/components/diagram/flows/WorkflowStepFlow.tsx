@@ -16,7 +16,10 @@ export default function WorkflowStepFlow({ workflowStepFlow }: Props) {
     const {
         FlowStepContext,
         flowStepContextValue,
-    } = useFlowStepContextCreator({ id: workflowStepFlow.stepId, workflowStepFlow });
+    } = useFlowStepContextCreator({
+        id: workflowStepFlow.stepId,
+        workflowStepFlow, 
+    });
 
     const { x, y } = workflowStepFlow.position;
 

@@ -26,7 +26,15 @@ export default function WorkflowDiagram() {
 
     useEffect(() => {
         if (id) {
-            dispatch(rebuildWorkflowDiagram({ id, data: { initialInputIds, flows, flowSteps, inputOutputs } }));
+            dispatch(rebuildWorkflowDiagram({
+                id,
+                data: {
+                    initialInputIds,
+                    flows,
+                    flowSteps,
+                    inputOutputs, 
+                }, 
+            }));
         }
     }, [dispatch, id, initialInputIds, flows, flowSteps, inputOutputs]);
 

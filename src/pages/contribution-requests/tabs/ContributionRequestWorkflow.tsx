@@ -65,6 +65,8 @@ export default function ContributionRequestWorkflow() {
         return <Loader />;
     }
 
+    const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
+
     return (
         <Box
             width={1}
@@ -74,9 +76,7 @@ export default function ContributionRequestWorkflow() {
                 height={1}
                 width={1}
                 display="flex"
-                style={{
-                    cursor: resizeInProgress ? 'col-resize' : 'default',
-                }}
+                style={{ cursor: resizeInProgress ? 'col-resize' : 'default' }}
             >
                 <Box
                     height={1}
@@ -97,9 +97,7 @@ export default function ContributionRequestWorkflow() {
                     sx={{
                         backgroundColor: 'transparent',
                         position: 'relative',
-                        '&:hover': {
-                            cursor: 'col-resize',
-                        },
+                        '&:hover': { cursor: 'col-resize' },
                     }}
                 />
                 <Box
@@ -110,12 +108,8 @@ export default function ContributionRequestWorkflow() {
                     overflow="hidden"
                     boxShadow="left.2"
                     borderLeft={1}
-                    style={{
-                        borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'],
-                    }}
-                    sx={{
-                        backgroundColor: 'background.5',
-                    }}
+                    style={{ borderLeftColor }}
+                    sx={{ backgroundColor: 'background.5' }}
                 >
                     <WorkflowPane />
                 </Box>

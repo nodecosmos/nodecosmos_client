@@ -5,8 +5,20 @@ import { useNodeContextCreator } from '../../hooks/tree/useNodeContext';
 import { NodePrimaryKey } from '../../nodes.types';
 import React from 'react';
 
-function Node({ branchId, id }: NodePrimaryKey) {
-    const { NodeContext, contextProviderValue } = useNodeContextCreator({ branchId, id });
+export interface NodeProps extends NodePrimaryKey {
+    alreadyMounted: boolean;
+}
+
+function Node(props: NodeProps) {
+    const {
+        branchId, id, alreadyMounted,
+    } = props;
+
+    const { NodeContext, contextProviderValue } = useNodeContextCreator({
+        branchId,
+        id,
+        alreadyMounted,
+    });
 
     return (
         <NodeContext.Provider value={contextProviderValue}>

@@ -14,7 +14,10 @@ export default function FlowStepNode({ flowStepNode }: Props) {
     const {
         FlowStepNodeContext,
         flowStepContextValue,
-    } = useFlowStepNodeContextCreator({ id: flowStepNode.id, flowStepNode });
+    } = useFlowStepNodeContextCreator({
+        id: flowStepNode.id,
+        flowStepNode, 
+    });
 
     return (
         <FlowStepNodeContext.Provider value={flowStepContextValue}>

@@ -59,12 +59,8 @@ export default function FinalFormInputField({
             {({ input, meta }) => (
                 <TextField
                     sx={{
-                        '& .MuiInputBase-input': {
-                            p: label ? '28px 14px 14px' : 2,
-                        },
-                        '.MuiInputAdornment-root': {
-                            color: 'text.foreground',
-                        },
+                        '& .MuiInputBase-input': { p: label ? '28px 14px 14px' : 2 },
+                        '.MuiInputAdornment-root': { color: 'text.foreground' },
                         ...sx,
                     }}
                     color="primary"

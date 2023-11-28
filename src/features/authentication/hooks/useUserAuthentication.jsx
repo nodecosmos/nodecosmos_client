@@ -25,7 +25,10 @@ export default function useUserAuthentication() {
         } catch ({ response }) {
             if (response.status === 404) {
                 dispatch(setAlert({
-                    isOpen: true, severity: 'error', message: 'Incorrect username or password', duration: 5000,
+                    isOpen: true,
+                    severity: 'error',
+                    message: 'Incorrect username or password',
+                    duration: 5000,
                 }));
             }
         }

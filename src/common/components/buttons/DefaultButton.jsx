@@ -17,13 +17,9 @@ export default function DefaultButton({
                 '.MuiButton-startIcon': {
                     display: 'flex',
                     alignItems: 'center',
-                    svg: {
-                        fontSize: 16,
-                    },
+                    svg: { fontSize: 16 },
                 },
-                '.MuiTypography-root': {
-                    fontSize,
-                },
+                '.MuiTypography-root': { fontSize },
                 ...sx,
             }}
             variant="contained"

@@ -21,17 +21,23 @@ export default function useNodeAdd() {
     const initTempChildNode = useCallback(() => {
         const tmpId = `tmp_${Date.now()}`;
 
-        dispatch(setAlert({
-            isOpen: false,
+        dispatch(setAlert({ isOpen: false }));
+        dispatch(buildTmpNode({
+            id,
+            branchId,
+            tmpId, 
         }));
-        dispatch(buildTmpNode({ id, branchId, tmpId }));
     }, [dispatch, id, branchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const addNode = useCallback(async () => {
         if (actionInProgress) {
             setLoading(true);
-            dispatch(updateState({ branchId, id, isCreationInProgress: true }));
+            dispatch(updateState({
+                branchId,
+                id,
+                isCreationInProgress: true, 
+            }));
 
             const message = 'Too Fast! Please wait until current node is saved before creating new node.';
             console.warn(message);
@@ -41,7 +47,13 @@ export default function useNodeAdd() {
                 + 'Please add title to current node in order to create child node.';
 
             dispatch(setAlert({
-                isOpen: true, severity: 'error', message, anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+                isOpen: true,
+                severity: 'error',
+                message,
+                anchorOrigin: {
+                    vertical: 'bottom',
+                    horizontal: 'left', 
+                },
             }));
         } else {
             initTempChildNode();
@@ -51,7 +63,11 @@ export default function useNodeAdd() {
     useEffect(() => {
         if (loading && !actionInProgress) {
             setLoading(false);
-            dispatch(updateState({ branchId, id, isCreationInProgress: false }));
+            dispatch(updateState({
+                branchId,
+                id,
+                isCreationInProgress: false, 
+            }));
 
             initTempChildNode();
         }

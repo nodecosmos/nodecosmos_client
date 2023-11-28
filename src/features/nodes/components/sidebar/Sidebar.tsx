@@ -1,4 +1,5 @@
 import SidebarListItem from './SidebarListItem';
+import { UUID } from '../../../../types';
 import {
     faChartSimple,
     faCodeCommit,
@@ -24,7 +25,7 @@ import { useParams } from 'react-router-dom';
 export default function Sidebar() {
     const { rootId, id } = useParams();
 
-    const toPath = rootId ? `${rootId}/${id}` : id;
+    const toPath = rootId ? `${rootId}/${id}` : id as UUID;
 
     return (
         <Box

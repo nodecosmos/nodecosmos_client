@@ -144,3 +144,15 @@ export interface NodecosmosTheme {
     shadows: Shadows;
     palette: Palette;
 }
+
+export interface NodecosmosThemeOptions {
+    shadows?: Shadows;
+    palette?: Palette;
+}
+
+declare module '@mui/material/Button' {
+    interface ButtonPropsColorOverrides {
+        toggle: true;
+        buttonContrast: true;
+    }
+}

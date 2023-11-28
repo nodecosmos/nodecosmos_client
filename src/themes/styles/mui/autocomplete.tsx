@@ -8,22 +8,16 @@ export default (theme: NodecosmosTheme) => ({
                 height: 60,
                 color: theme.palette.text.secondary,
                 fontWeight: 'bold',
-                svg: {
-                    color: theme.palette.tree.hashtag,
-                },
+                svg: { color: theme.palette.tree.hashtag },
                 '&:hover, &.Mui-focused': {
                     backgroundColor: theme.palette.background[6],
                     color: theme.palette.text.link,
                     textDecoration: 'underline',
                 },
-                '.label': {
-                    marginLeft: 24,
-                },
+                '.label': { marginLeft: 24 },
                 '&.MuiAutocomplete-option[aria-selected="true"]': {
                     backgroundColor: theme.palette.background[6],
-                    '&:hover, &.Mui-focused': {
-                        backgroundColor: theme.palette.background[6],
-                    },
+                    '&:hover, &.Mui-focused': { backgroundColor: theme.palette.background[6] },
                 },
             },
         },

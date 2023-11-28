@@ -2,18 +2,16 @@ import { createNode } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
 export default function createFulfilled(state: NodeState, action: ReturnType<typeof createNode.fulfilled>) {
-    const {
-        branchId, id, rootId,
-    } = action.payload;
-    const { tmpNodeId } = action.meta.arg;
+    const { id, rootId } = action.payload;
+    const { tmpNodeId, treeBranchId } = action.meta.arg;
 
-    if (tmpNodeId) {
-        const tmpNode = state.byBranchId[branchId][tmpNodeId];
+    if (tmpNodeId && treeBranchId) {
+        const tmpNode = state.byBranchId[treeBranchId][tmpNodeId];
 
         const newNode = action.payload;
-        state.byBranchId[branchId][id] = {
+        state.byBranchId[treeBranchId][id] = {
             ...newNode,
-            persistentId: id,
+            persistedId: id,
             isTemp: false,
             isSelected: true,
             treeRootId: id,
@@ -21,15 +19,18 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             childIds: [],
             nestedLevel: tmpNode.nestedLevel || 0,
             likedByCurrentUser: null,
-            x: 0, xEnd: 0, y: 0, yEnd: 0,
+            x: 0,
+            xEnd: 0,
+            y: 0,
+            yEnd: 0,
         };
 
-        state.titles[branchId][id] = action.payload.title;
-        state.childIds[branchId][id] = [];
+        state.titles[treeBranchId][id] = action.payload.title;
+        state.childIds[treeBranchId][id] = [];
 
         if (tmpNode) {
-            state.byBranchId[branchId][tmpNodeId].rootId = rootId;
-            state.byBranchId[branchId][tmpNodeId].persistentId = id;
+            state.byBranchId[treeBranchId][tmpNodeId].rootId = rootId;
+            state.byBranchId[treeBranchId][tmpNodeId].persistedId = id;
         }
     }
 }
