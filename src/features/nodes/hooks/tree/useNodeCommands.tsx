@@ -3,14 +3,14 @@ import useNodeClick from './commands/useNodeClick';
 import useNodeDrag from './commands/useNodeDrag';
 import useNodeEdit from './commands/useNodeEdit';
 import useNodeRemove from './commands/useNodeRemove';
-import useNodeUpsert from './commands/useNodeUpsert';
+import useNodeSaver from './commands/useNodeSaver';
 
 export default function useNodeCommands() {
     const clickNode = useNodeClick();
     const editNode = useNodeEdit();
     const addNode = useNodeAdd();
     const removeNode = useNodeRemove();
-    const { changeTitle, blurNode } = useNodeUpsert();
+    const { saveNode, blurNode } = useNodeSaver();
     const {
         startDrag,
         stopDrag,
@@ -24,7 +24,7 @@ export default function useNodeCommands() {
         editNode,
         addNode,
         removeNode,
-        changeTitle,
+        saveNode,
         blurNode,
         startDrag,
         stopDrag,

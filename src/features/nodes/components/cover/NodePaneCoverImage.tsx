@@ -77,7 +77,7 @@ export default function NodePaneCoverImage() {
                             onMouseOver={displayButton}
                             onMouseLeave={hideButton}
                         >
-                            <DeleteCoverImageButton displayCoverImageUploadButton={buttonDisplayed} />
+                            <DeleteCoverImageButton show={buttonDisplayed} />
                             <CardMedia
                                 className="CoverImageMedia"
                                 component="img"

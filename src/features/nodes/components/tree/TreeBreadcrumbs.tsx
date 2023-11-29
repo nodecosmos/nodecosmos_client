@@ -15,11 +15,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function TreeBreadcrumbs() {
     const selected = useSelector(selectSelected);
-    const { treeBranchId, branchId } = selected || {};
+    const { treeBranchId } = selected || {};
     const selectedNode = useSelector(selectSelectedNode);
-    const nodeTitlesById = useSelector(selectBranchTitles(branchId));
+    const nodeTitlesById = useSelector(selectBranchTitles(treeBranchId));
     const dispatch = useDispatch();
-    const branchNodes = useSelector(selectBranchNodes(branchId as UUID)) as Record<UUID, AppNode>;
+    const branchNodes = useSelector(selectBranchNodes(treeBranchId as UUID)) as Record<UUID, AppNode>;
 
     const items: { id: UUID; title?: string; }[] = [];
 
@@ -50,18 +50,17 @@ export default function TreeBreadcrumbs() {
         dispatch(select({
             treeBranchId: treeBranchId as UUID,
             id,
-            branchId: branchId as UUID,
         }));
-    }, [dispatch, treeBranchId, branchId]);
+    }, [dispatch, treeBranchId]);
 
     const handleCentering = useCallback((id: UUID) => {
         const { y } = branchNodes[id];
         const scrollTop = y - MARGIN_TOP * 2;
         dispatch(setTransformablePositions({
-            id: branchId,
+            id: treeBranchId,
             scrollTop,
         }));
-    }, [branchNodes, dispatch, branchId]);
+    }, [branchNodes, dispatch, treeBranchId]);
 
     return (
         <Breadcrumbs

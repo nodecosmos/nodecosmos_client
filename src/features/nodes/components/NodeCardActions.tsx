@@ -18,7 +18,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 gap: 1,
             }}
         >
-            <LikeButton nodeId={node.id} fontSize={16} likesCount={node.likesCount} />
+            <LikeButton id={node.id} fontSize={16} likesCount={node.likesCount} />
             <Tooltip title="Nodes">
                 <Box
                     display="flex"
@@ -26,8 +26,8 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                     sx={{
                         svg: {
                             fontSize: 16,
-                            color: 'text.tertiary', 
-                        }, 
+                            color: 'text.tertiary',
+                        },
                     }}
                 >
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
@@ -47,8 +47,8 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                     sx={{
                         svg: {
                             fontSize: 16,
-                            color: 'text.tertiary', 
-                        }, 
+                            color: 'text.tertiary',
+                        },
                     }}
                 >
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
@@ -68,8 +68,8 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                     sx={{
                         svg: {
                             fontSize: 16,
-                            color: 'text.tertiary', 
-                        }, 
+                            color: 'text.tertiary',
+                        },
                     }}
                 >
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">

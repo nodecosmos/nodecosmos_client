@@ -4,21 +4,21 @@ import { NodeState } from '../nodes.types';
 
 export default function reorderFulfilled(state: NodeState, action: ReturnType<typeof reorder.fulfilled>) {
     const {
-        branchId,
+        treeBranchId,
         id,
         newParentId,
         newSiblingIndexAfterMove,
     } = action.meta.arg;
-    const node = state.byBranchId[branchId][id];
+    const node = state.byBranchId[treeBranchId][id];
     const oldParentId = node.parentId;
-    const oldIndex = state.childIds[branchId][oldParentId].indexOf(id);
+    const oldIndex = state.childIds[treeBranchId][oldParentId].indexOf(id);
 
     if (oldParentId === newParentId && newSiblingIndexAfterMove === oldIndex) return;
 
-    state.byBranchId[branchId][id].parentId = newParentId;
+    state.byBranchId[treeBranchId][id].parentId = newParentId;
 
-    state.childIds[branchId][oldParentId].splice(oldIndex, 1);
-    state.childIds[branchId][newParentId].splice(newSiblingIndexAfterMove, 0, id);
+    state.childIds[treeBranchId][oldParentId].splice(oldIndex, 1);
+    state.childIds[treeBranchId][newParentId].splice(newSiblingIndexAfterMove, 0, id);
 
-    buildTree(state, branchId, node.rootId);
+    buildTree(state, treeBranchId, node.rootId);
 }

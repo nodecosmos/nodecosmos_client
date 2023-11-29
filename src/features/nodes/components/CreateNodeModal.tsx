@@ -2,8 +2,8 @@ import DefaultModalFormButton from '../../../common/components/buttons/DefaultMo
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
-import { createNode } from '../nodes.thunks';
-import { NodeCreationPayload, Node } from '../nodes.types';
+import { create, NodeCreationPayload } from '../nodes.thunks';
+import { Node } from '../nodes.types';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -33,7 +33,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             order: 0,
         };
 
-        dispatch(createNode(payload)).then((response) => {
+        dispatch(create(payload)).then((response) => {
             const node = response.payload as Node;
 
             navigate(`/nodes/${node.rootId}`);

@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 export default function NodePaneDescription() {
     const selectedNodePk = useSelector(selectSelected);
-
     const { description } = useSelector(selectSelectedNode);
 
     if (!selectedNodePk) return null;
@@ -20,7 +19,7 @@ export default function NodePaneDescription() {
 
     const nodeHasNoDescriptionContent = (
         <Typography color="text.secondary">
-      This node has no description yet.
+            This node has no description yet.
         </Typography>
     );
 

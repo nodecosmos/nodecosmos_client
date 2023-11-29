@@ -42,6 +42,7 @@ export interface NodeDescendant extends NodePrimaryKey {
 }
 
 export interface NodeTreeAttributes extends Position {
+    isTreeRoot: boolean;
     treeRootId: UUID;
     upperSiblingId?: UUID | null;
     lowerSiblingId?: UUID | null;
@@ -88,22 +89,19 @@ export interface TreeBranch {
     treeBranchId: UUID;
 }
 
+export type PKWithTreeBranch = NodePrimaryKey & TreeBranch;
 export type NodePayload = NodePrimaryKey & TreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
-export type AppNodePayload = NodePrimaryKey & TreeBranch & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
+export type TreeNodeKey = TreeBranch & Omit<NodePrimaryKey, 'branchId'>
+export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
 export interface ReorderPayload {
     id: UUID;
     branchId: UUID;
+    treeBranchId: UUID;
     newParentId: UUID;
     newUpperSiblingId: UUID;
-    newBottomSiblingId: UUID;
+    newlowerSiblingId: UUID;
     newSiblingIndexAfterMove: number;
-}
-
-export interface SearchNodePayload {
-    rootId: UUID;
-    branchId: UUID;
-    value: string;
 }
 
 export enum NodePaneContent {
@@ -119,19 +117,18 @@ type NodeId = UUID;
 export interface DragAndDrop {
     isDragging: boolean;
     id: NodeId;
+    treeBranchId: BranchId;
     branchId: BranchId;
     parentId: NodeId;
     siblingIndex: number;
 }
-
-export type SelectedNode = NodePrimaryKey & TreeBranch;
 
 export interface NodeState {
     byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
     orderedTreeIds: Record<BranchId, NodeId[]>;
     titles: Record<BranchId, Record<NodeId, string>>;
-    selected: SelectedNode | null;
+    selected: TreeNodeKey | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<NodeId, IndexNode>;
     actionInProgress: boolean;

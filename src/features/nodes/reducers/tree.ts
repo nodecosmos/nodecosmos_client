@@ -4,7 +4,7 @@ import {
     EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
 } from '../nodes.constants';
 import {
-    AppNode, NodeState, SelectedNode,
+    AppNode, NodeState, TreeNodeKey,
 } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
@@ -21,11 +21,13 @@ export function buildTree(state: NodeState, branchId: UUID, rootId: UUID) {
 
     const queue: Queue = [[rootId, null, null, 0]];
 
+    let treeIndex = 0;
     while (queue.length > 0) {
         const [currentId, upperSiblingId, lowerSiblingId, siblingIndex] = queue.pop() as QueueItem;
         const currentNode = state.byBranchId[branchId][currentId];
         const { parentId } = currentNode;
         const childIds = state.childIds[branchId][currentId] || [];
+        const isTreeRoot = rootId === currentId;
 
         orderedTreeIds.push(currentId);
         currentNode.childIds = childIds;
@@ -38,7 +40,7 @@ export function buildTree(state: NodeState, branchId: UUID, rootId: UUID) {
         let isParentExpanded = false;
         let isParentMounted = false;
 
-        if (parentId) {
+        if (!isTreeRoot) {
             const parent = state.byBranchId[branchId][parentId];
             isParentExpanded = parent.isExpanded as boolean;
             isParentMounted = parent.isMounted as boolean;
@@ -47,9 +49,11 @@ export function buildTree(state: NodeState, branchId: UUID, rootId: UUID) {
         currentNode.upperSiblingId = upperSiblingId;
         currentNode.lowerSiblingId = lowerSiblingId;
         currentNode.lastChildId = childIds[childIds.length - 1];
-        currentNode.siblingIndex = siblingIndex;
-        currentNode.isMounted = currentNode.isRoot || (isParentMounted && isParentExpanded);
+        currentNode.isMounted = isTreeRoot || (isParentMounted && isParentExpanded);
         currentNode.isEditing = currentNode.isTemp && currentNode.id === state.currentTmpNode;
+        currentNode.siblingIndex = siblingIndex;
+        currentNode.treeIndex = treeIndex;
+        currentNode.isTreeRoot = isTreeRoot;
 
         calculatePosition(state, branchId, currentId);
 
@@ -65,12 +69,14 @@ export function buildTree(state: NodeState, branchId: UUID, rootId: UUID) {
 
             queue.push([childId, upperSiblingId, lowerSiblingId, i]);
         }
+
+        treeIndex += 1;
     }
 
     state.orderedTreeIds[branchId] = orderedTreeIds;
 }
 
-export function expandNode(state: NodeState, action: PayloadAction<SelectedNode>) {
+export function expandNode(state: NodeState, action: PayloadAction<TreeNodeKey>) {
     const { treeBranchId, id } = action.payload;
 
     const node = state.byBranchId[treeBranchId][id];
@@ -79,10 +85,10 @@ export function expandNode(state: NodeState, action: PayloadAction<SelectedNode>
 
     mountDescendants(state, node);
 
-    buildTree(state, treeBranchId, node.treeRootId);
+    calculatePositions(state, treeBranchId);
 }
 
-export function collapseNode(state: NodeState, action: PayloadAction<SelectedNode>) {
+export function collapseNode(state: NodeState, action: PayloadAction<TreeNodeKey>) {
     const { treeBranchId, id } = action.payload;
 
     const node = state.byBranchId[treeBranchId][id];
@@ -91,19 +97,26 @@ export function collapseNode(state: NodeState, action: PayloadAction<SelectedNod
 
     unmountDescendants(state, node);
 
-    buildTree(state, treeBranchId, node.treeRootId);
+    calculatePositions(state, treeBranchId);
+}
+
+export function calculatePositions(state: NodeState, branchId: UUID) {
+    const ids = state.orderedTreeIds[branchId];
+
+    ids.forEach((id) => {
+        calculatePosition(state, branchId, id);
+    });
 }
 
 function mountDescendants(state: NodeState, node: AppNode) {
     const { descendantIds, branchId } = node;
 
     descendantIds.forEach((id) => {
-        const { ancestorIds } = state.byBranchId[branchId][id];
+        // mount node if parent is mounted & expanded
+        const parentId = state.byBranchId[branchId][id].parentId;
+        const { isMounted: isParentMounted, isExpanded: isParentExpanded } = state.byBranchId[branchId][parentId];
 
-        // mount node if all ancestors are expanded
-        state.byBranchId[branchId][id].isMounted = ancestorIds.every(
-            (ancestorId) => state.byBranchId[branchId][ancestorId].isExpanded,
-        );
+        state.byBranchId[branchId][id].isMounted = isParentMounted && isParentExpanded;
     });
 }
 
@@ -122,7 +135,7 @@ function calculatePosition(state: NodeState, branchId: UUID, id: UUID) {
         upperSiblingId,
         parentId,
         ancestorIds,
-        isRoot,
+        isTreeRoot,
     } = node;
 
     let upperSiblingYEnd = null;
@@ -130,7 +143,7 @@ function calculatePosition(state: NodeState, branchId: UUID, id: UUID) {
         upperSiblingYEnd = state.byBranchId[branchId][upperSiblingId].yEnd as number;
     }
 
-    if (isRoot) {
+    if (isTreeRoot) {
         node.x = EDGE_LENGTH;
         node.y = EDGE_LENGTH + MARGIN_TOP;
     } else {

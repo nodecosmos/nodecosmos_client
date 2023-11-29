@@ -6,9 +6,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function DraggableNodePoints() {
-    const { branchId } = useTreeContext();
+    const { treeBranchId } = useTreeContext();
     const dragAndDrop = useSelector(selectDragAndDrop);
-    const treeNodeIds: VirtualizedNode[] = useTreeNodeVirtualizer(branchId);
+    const treeNodeIds: VirtualizedNode[] = useTreeNodeVirtualizer(treeBranchId);
 
     if (!dragAndDrop?.isDragging) return null;
 

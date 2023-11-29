@@ -12,15 +12,15 @@ import { useDispatch } from 'react-redux';
 
 export default function TreeShowToolbar() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { branchId, rootNodeId } = useTreeContext();
+    const { treeBranchId, rootNodeId } = useTreeContext();
 
     const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(search({
-            branchId,
+            treeBranchId,
             rootId: rootNodeId,
             value: event.target.value,
         }));
-    }, [dispatch, branchId, rootNodeId]);
+    }, [dispatch, treeBranchId, rootNodeId]);
 
     return (
         <Box

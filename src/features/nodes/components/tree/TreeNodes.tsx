@@ -4,13 +4,13 @@ import useTreeNodeVirtualizer, { VirtualizedNode } from '../../hooks/tree/useTre
 import React from 'react';
 
 export interface TreeNodesProps {
-    branchId: string;
+    treeBranchId: string;
 }
 
 export default function TreeNodes(props: TreeNodesProps) {
-    const { branchId } = props;
+    const { treeBranchId } = props;
 
-    const treeNodeIds: VirtualizedNode[] = useTreeNodeVirtualizer(branchId);
+    const treeNodeIds: VirtualizedNode[] = useTreeNodeVirtualizer(treeBranchId);
 
     if (treeNodeIds.length === 0) return null;
 
@@ -20,7 +20,7 @@ export default function TreeNodes(props: TreeNodesProps) {
                 {treeNodeIds.map(([id, alreadyMounted]) => (
                     <Node
                         key={id}
-                        branchId={branchId}
+                        treeBranchId={treeBranchId}
                         id={id}
                         alreadyMounted={alreadyMounted}
                     />

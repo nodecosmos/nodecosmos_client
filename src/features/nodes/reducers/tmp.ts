@@ -4,25 +4,25 @@ import { NodePrimaryKey, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 // redux action
-export interface BuildTmpNodeAction {
+export interface BuildTmpNodeAction extends NodePrimaryKey {
+    treeBranchId: UUID;
     tmpId: UUID;
-    branchId: UUID;
-    id: UUID;
 }
 
 export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNodeAction>) {
     const {
-        tmpId, branchId, id,
+        treeBranchId, tmpId, branchId, id,
     } = action.payload;
 
-    const node = state.byBranchId[branchId][id];
+    const node = state.byBranchId[treeBranchId][id];
 
-    state.byBranchId[node.branchId][tmpId] = {
+    // init tmp child for node
+    state.byBranchId[treeBranchId][tmpId] = {
         id: tmpId,
-        branchId: node.branchId,
+        branchId,
         rootId: node.rootId,
         parentId: id,
-        order: state.childIds[branchId][id].length + 1,
+        order: state.childIds[treeBranchId][id].length + 1,
         isPublic: node.isPublic,
         isRoot: false,
         title: '',
@@ -42,6 +42,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         editorIds: [],
         owner: node.owner,
         persistedId: null,
+        isTreeRoot: false,
         isTemp: true,
         isSelected: false,
         nestedLevel: node.nestedLevel + 1,
@@ -55,30 +56,16 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         yEnd: 0,
     };
 
-    state.childIds[branchId][id].push(tmpId);
-    state.childIds[branchId][tmpId] = [];
+    state.childIds[treeBranchId][id].push(tmpId);
+    state.childIds[treeBranchId][tmpId] = [];
 
     state.currentTmpNode = tmpId;
 
-    buildTree(state, branchId, node.rootId);
-}
-
-export function clearTmp(state: NodeState, action: PayloadAction<NodePrimaryKey>) {
-    const { branchId, id } = action.payload;
-    const node = state.byBranchId[branchId][id];
-
-    if (node && node.isTemp) {
-        delete state.byBranchId[branchId][id];
-        delete state.childIds[branchId][node.id];
-
-        const parent = state.byBranchId[branchId][node.parentId];
-        state.childIds[branchId][node.parentId] = state.childIds[branchId][node.parentId]
-            .filter((childId) => childId !== id);
-        state.byBranchId[branchId][parent.id].childIds = state.childIds[branchId][parent.id];
-    }
+    buildTree(state, treeBranchId, node.rootId);
 }
 
 export interface NodeReplacePayload {
+    treeBranchId: UUID;
     branchId: UUID;
     tmpId: UUID;
     persistedId: UUID;
@@ -86,43 +73,35 @@ export interface NodeReplacePayload {
 
 export function replaceTmpWithPersisted(state: NodeState, action: PayloadAction<NodeReplacePayload>) {
     const {
-        branchId, tmpId, persistedId,
+        treeBranchId, branchId, tmpId, persistedId,
     } = action.payload;
-    const newNode = state.byBranchId[branchId][persistedId];
-    const tmpNode = state.byBranchId[branchId][tmpId];
+    const tmpNode = state.byBranchId[treeBranchId][tmpId];
     const { parentId } = tmpNode;
 
-    state.byBranchId[branchId][persistedId] = {
-        ...newNode,
-        id: persistedId,
-        persistedId,
-        isTemp: false,
-        isSelected: tmpNode.isSelected,
-        x: tmpNode.x,
-        xEnd: tmpNode.xEnd,
-        y: tmpNode.y,
-        yEnd: tmpNode.yEnd,
+    // replace tmpId with persistedId within the childIds of the parent
+    const tmpNodeSiblingIndex = tmpNode.siblingIndex as number;
+    const parentChildIds = state.childIds[treeBranchId][parentId];
 
-    };
+    parentChildIds.splice(tmpNodeSiblingIndex, 1, persistedId);
+    state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
+
+    // replace tmpId with persistedId within the tree
+    const tmpNodeTreeIndex = tmpNode.treeIndex as number;
+    state.orderedTreeIds[treeBranchId].splice(tmpNodeTreeIndex, 1, persistedId);
 
     if (tmpNode.isSelected) {
         state.selected = {
+            treeBranchId,
             id: persistedId,
-            branchId, 
+            branchId,
         };
     }
 
-    // replace tmpId with persistedId within the childIds of the parent
-    const parentChildIds = state.childIds[branchId][parentId];
-    const tmpNodeParentIndex = parentChildIds.indexOf(tmpId);
+    if (state.currentTmpNode === tmpId) {
+        state.currentTmpNode = null;
+    }
 
-    parentChildIds.splice(tmpNodeParentIndex, 1, persistedId);
-    state.childIds[branchId][parentId] = state.byBranchId[branchId][parentId].childIds;
-
-    // put the persistedId in the place of tmpId
-    const tmpNodeTreeIndex = state.orderedTreeIds[branchId].indexOf(tmpId);
-    state.orderedTreeIds[branchId].splice(tmpNodeTreeIndex, 1, persistedId);
-
-    delete state.byBranchId[branchId][tmpId];
-    delete state.childIds[branchId][tmpId];
+    delete state.byBranchId[treeBranchId][tmpId];
+    delete state.childIds[treeBranchId][tmpId];
+    delete state.titles[treeBranchId][tmpId];
 }

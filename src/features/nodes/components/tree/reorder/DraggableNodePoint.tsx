@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 export default function DraggableNodePoint({ id }: { id: UUID }) {
     const theme: NodecosmosTheme = useTheme();
-    const { branchId, rootNodeId } = useTreeContext();
+    const { treeBranchId, rootNodeId } = useTreeContext();
 
     const {
         x: NodeX,
@@ -20,7 +20,7 @@ export default function DraggableNodePoint({ id }: { id: UUID }) {
         isTemp,
         siblingIndex,
         ancestorIds,
-    } = useSelector(selectNode(branchId, rootNodeId));
+    } = useSelector(selectNode(treeBranchId, rootNodeId));
     const dragAndDrop = useSelector(selectDragAndDrop);
 
     const onDropCapture = useNodeDropCapture();

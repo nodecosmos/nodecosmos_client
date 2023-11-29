@@ -49,7 +49,7 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(setAlert({
                 isOpen: true,
                 severity: 'warning',
-                message: 'Log in to hit that like!', 
+                message: 'Log in to hit that like!',
             }));
             return;
         }
@@ -86,12 +86,12 @@ export default function LikeButton(props: LikeButtonProps) {
                 sx={{
                     svg: {
                         fontSize,
-                        color: 'toolbar.red', 
-                    }, 
+                        color: 'toolbar.red',
+                    },
                 }}
                 icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
                 checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
-                inputProps={{ 'aria-label': 'Favorite' }}
+                inputProps={{ 'aria-label': 'Like' }}
             />
             <Typography
                 variant="caption"

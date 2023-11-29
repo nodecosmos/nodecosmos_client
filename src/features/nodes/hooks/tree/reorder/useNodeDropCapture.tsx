@@ -23,6 +23,7 @@ export default function useNodeDropCapture() {
 
     const id = dragAndDrop?.id;
     const branchId = dragAndDrop?.branchId;
+    const treeBranchId = dragAndDrop?.treeBranchId;
 
     const childIdsByParentId = useSelector(selectBranchChildIds(branchId as UUID)) as Record<UUID, UUID[]>;
 
@@ -42,14 +43,15 @@ export default function useNodeDropCapture() {
         }
 
         const newUpperSiblingId = childIdsByParentId[newParentId][newSiblingIndex - 1];
-        const newBottomSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
+        const newlowerSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
 
         const response = await dispatch(reorder({
+            treeBranchId: treeBranchId as UUID,
             id: id as UUID,
             branchId: branchId as UUID,
             newParentId,
             newUpperSiblingId,
-            newBottomSiblingId,
+            newlowerSiblingId,
             newSiblingIndexAfterMove,
         }));
 
@@ -64,6 +66,6 @@ export default function useNodeDropCapture() {
 
         dispatch(setDragAndDrop(null));
         setReorderInProgress(false);
-    }, [reorderInProgress, dispatch, childIdsByParentId, branchId, id, handleServerError]);
+    }, [branchId, childIdsByParentId, dispatch, handleServerError, id, reorderInProgress, treeBranchId]);
 }
 

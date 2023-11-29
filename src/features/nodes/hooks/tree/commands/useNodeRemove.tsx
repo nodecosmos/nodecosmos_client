@@ -9,22 +9,24 @@ import { useNavigate } from 'react-router-dom';
 export default function useNodeRemove() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        treeRootId, branchId, id, isTemp,
+        treeRootId, treeBranchId, branchId, id, isTemp,
     } = useNodeContext();
     const navigate = useNavigate();
 
     return useCallback(() => {
         if (isTemp) {
             dispatch(deleteFromState({
+                treeBranchId,
                 branchId,
-                id, 
+                id,
             }));
         } else {
             dispatch(deleteNode({
+                treeBranchId,
                 branchId,
-                id, 
+                id,
             }));
         }
         if (treeRootId === id) navigate('/nodes');
-    }, [branchId, dispatch, id, isTemp, navigate, treeRootId]);
+    }, [branchId, dispatch, id, isTemp, navigate, treeBranchId, treeRootId]);
 }

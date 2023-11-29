@@ -1,9 +1,9 @@
-import { getNodeDescription, getNodeDescriptionBase64 } from '../nodes.thunks';
+import { getDescription, getDescriptionBase64 } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
-export function getNodeDescriptionFulfilled(
+export function getDescriptionFulfilled(
     state: NodeState,
-    action: ReturnType<typeof getNodeDescription.fulfilled>,
+    action: ReturnType<typeof getDescription.fulfilled>,
 ) {
     const {
         branchId, id, description, descriptionMarkdown, coverImageURL,
@@ -14,9 +14,9 @@ export function getNodeDescriptionFulfilled(
     state.byBranchId[branchId][id].coverImageURL = coverImageURL as string | null;
 }
 
-export function getNodeDescriptionBase64Fulfilled(
+export function getDescriptionBase64Fulfilled(
     state: NodeState,
-    action: ReturnType<typeof getNodeDescriptionBase64.fulfilled>,
+    action: ReturnType<typeof getDescriptionBase64.fulfilled>,
 ) {
     const {
         branchId, id, descriptionBase64,

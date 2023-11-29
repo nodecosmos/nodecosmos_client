@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeDrag() {
     const {
+        treeBranchId,
         branchId,
         parentId,
         siblingIndex,
@@ -38,13 +39,14 @@ export default function useNodeDrag() {
         event.dataTransfer?.setDragImage(img, 5, -10);
 
         dispatch(setDragAndDrop({
+            treeBranchId,
             isDragging: true,
             id,
             branchId,
             parentId,
             siblingIndex,
         }));
-    }, [branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex]);
+    }, [branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
@@ -53,22 +55,24 @@ export default function useNodeDrag() {
         if (isDragOver || id === dragAndDropNodeId || ancestorIds.includes(id)) return;
 
         dispatch(updateState({
+            treeBranchId,
             branchId,
             id,
-            isDragOver: true, 
+            isDragOver: true,
         }));
-    }, [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver]);
+    }, [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
         if (!isDragOver) return;
 
         dispatch(updateState({
+            treeBranchId,
             branchId,
             id,
-            isDragOver: false, 
+            isDragOver: false,
         }));
-    }, [dispatch, isDragOver, branchId, id]);
+    }, [branchId, dispatch, id, isDragOver, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
@@ -90,12 +94,13 @@ export default function useNodeDrag() {
             if (!isDragOver) return;
 
             dispatch(updateState({
+                treeBranchId,
                 branchId,
                 id,
-                isDragOver: false, 
+                isDragOver: false,
             }));
         },
-        [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver, onNodeDropCapture],
+        [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver, onNodeDropCapture, treeBranchId],
     );
 
     //------------------------------------------------------------------------------------------------------------------

@@ -12,7 +12,7 @@ import {
     selectNodePaneContent,
     selectSelectedNode,
 } from '../../nodes.selectors';
-import { getNodeDescription } from '../../nodes.thunks';
+import { getDescription } from '../../nodes.thunks';
 import { NodePaneContent as NodePaneContentType, NodePrimaryKey } from '../../nodes.types';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
@@ -43,7 +43,7 @@ export default function NodePaneContent({ page }: NodePaneProps) {
 
     useEffect(() => {
         if (id && rootId) {
-            dispatch(getNodeDescription({
+            dispatch(getDescription({
                 branchId,
                 id, 
             }));

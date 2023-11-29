@@ -24,7 +24,7 @@ import { useDispatch } from 'react-redux';
 /* nodecosmos */
 
 export default function WorkflowNodeButton() {
-    const { context: workflowContext } = useWorkflowContext();
+    const { context: workflowContext, nodeId } = useWorkflowContext();
     const {
         id, title, position,
     } = useFlowStepNodeContext();
@@ -49,13 +49,14 @@ export default function WorkflowNodeButton() {
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
-            // TODO
+            // TODO update tree branch id
             dispatch(select({
+                treeBranchId: nodeId,
                 branchId: id,
-                id, 
+                id,
             }));
         }
-    }, [dispatch, id, workflowContext]);
+    }, [dispatch, id, nodeId, workflowContext]);
 
     if (!x) return null;
 

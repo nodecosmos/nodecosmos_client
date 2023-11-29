@@ -1,30 +1,46 @@
+import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
+import { NodecosmosDispatch } from '../../../../store';
+import { NodecosmosError } from '../../../../types';
 import { updateState } from '../../actions';
-import { selectSelectedNode } from '../../nodes.selectors';
+import { selectSelected } from '../../nodes.selectors';
 import { deleteNodeImage } from '../../nodes.thunks';
+import { SelectedNode } from '../../nodes.types';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function DeleteCoverImageButton({ displayCoverImageUploadButton }) {
-    const { id } = useSelector(selectSelectedNode);
-    const dispatch = useDispatch();
+interface DeleteCoverImageButtonProps {
+    show: boolean;
+}
+
+export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonProps) {
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const { treeBranchId, branchId, id } = useSelector(selectSelected) as SelectedNode;
+    const handleServerError = useHandleServerErrorAlert();
 
     const handleDeleteCoverImage = useCallback(() => {
-        dispatch(deleteNodeImage(id)).then((response) => {
-            if (response.error) {
-                console.error('Error deleting cover image');
-            } else {
-                dispatch(updateState({
-                    id,
-                    coverImageURL: null,
-                }));
+        dispatch(deleteNodeImage({
+            branchId,
+            id,
+        })).then((response) => {
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+                handleServerError(error);
+                console.error(error);
+
+                return;
             }
+            dispatch(updateState({
+                treeBranchId,
+                branchId,
+                id,
+                coverImageURL: null,
+            }));
         });
-    }, [dispatch, id]);
+    }, [branchId, dispatch, handleServerError, id, treeBranchId]);
 
     return (
         <Tooltip title="Delete Cover Image">
@@ -34,7 +50,7 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
                 sx={{
                     zIndex: 1,
                     backgroundColor: 'background.1',
-                    opacity: displayCoverImageUploadButton ? 0.8 : 0,
+                    opacity: show ? 0.8 : 0,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -57,5 +73,3 @@ export default function DeleteCoverImageButton({ displayCoverImageUploadButton }
         </Tooltip>
     );
 }
-
-DeleteCoverImageButton.propTypes = { displayCoverImageUploadButton: PropTypes.bool.isRequired };

@@ -154,5 +154,14 @@ declare module '@mui/material/Button' {
     interface ButtonPropsColorOverrides {
         toggle: true;
         buttonContrast: true;
+        button: true;
+    }
+}
+
+declare module '@mui/material/IconButton' {
+    interface IconButtonPropsColorOverrides {
+        toggle: true;
+        buttonContrast: true;
+        button: true;
     }
 }

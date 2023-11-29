@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useNodeAdd() {
     const {
         id,
+        treeBranchId,
         branchId,
         isTemp,
         title,
@@ -23,20 +24,22 @@ export default function useNodeAdd() {
 
         dispatch(setAlert({ isOpen: false }));
         dispatch(buildTmpNode({
+            treeBranchId,
+            tmpId,
             id,
             branchId,
-            tmpId, 
         }));
-    }, [dispatch, id, branchId]);
+    }, [branchId, dispatch, id, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const addNode = useCallback(async () => {
         if (actionInProgress) {
             setLoading(true);
             dispatch(updateState({
+                treeBranchId,
                 branchId,
                 id,
-                isCreationInProgress: true, 
+                isCreationInProgress: true,
             }));
 
             const message = 'Too Fast! Please wait until current node is saved before creating new node.';
@@ -52,26 +55,27 @@ export default function useNodeAdd() {
                 message,
                 anchorOrigin: {
                     vertical: 'bottom',
-                    horizontal: 'left', 
+                    horizontal: 'left',
                 },
             }));
         } else {
             initTempChildNode();
         }
-    }, [actionInProgress, branchId, dispatch, id, initTempChildNode, isTemp, title]);
+    }, [actionInProgress, branchId, dispatch, id, initTempChildNode, isTemp, title, treeBranchId]);
 
     useEffect(() => {
         if (loading && !actionInProgress) {
             setLoading(false);
             dispatch(updateState({
+                treeBranchId,
                 branchId,
                 id,
-                isCreationInProgress: false, 
+                isCreationInProgress: false,
             }));
 
             initTempChildNode();
         }
-    }, [actionInProgress, branchId, dispatch, id, initTempChildNode, loading]);
+    }, [actionInProgress, branchId, dispatch, id, initTempChildNode, loading, treeBranchId]);
 
     return addNode;
 }

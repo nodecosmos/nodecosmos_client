@@ -11,7 +11,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 export interface TreeProps {
-    branchId: UUID;
+    treeBranchId: UUID;
     rootNodeId: UUID;
     type?: TreeType;
     onChange?: (ids: UUID[]) => void;
@@ -20,14 +20,14 @@ export interface TreeProps {
 
 export default function Tree(props: TreeProps) {
     const {
-        branchId, rootNodeId, type = TreeType.Default, onChange, value = null,
+        treeBranchId, rootNodeId, type = TreeType.Default, onChange, value = null,
     } = props;
     const { TreeContext, ctxProviderValue } = useTreeContextCreator({
-        branchId,
+        treeBranchId,
         rootNodeId,
         type,
         onChange,
-        value, 
+        value,
     });
     const isTreeLoading = false; // TODO
 
@@ -39,8 +39,8 @@ export default function Tree(props: TreeProps) {
                 <Alert />
                 <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                     {isTreeLoading ? <OverlayLoader /> : null}
-                    <Transformable transformableId={branchId}>
-                        <TreeNodes branchId={branchId} />
+                    <Transformable transformableId={treeBranchId}>
+                        <TreeNodes treeBranchId={treeBranchId} />
                     </Transformable>
                 </Box>
             </div>

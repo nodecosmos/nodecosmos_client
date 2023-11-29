@@ -1,46 +1,79 @@
+import { calculatePositions } from './tree';
+import { UUID } from '../../../types';
 import { deleteNode } from '../nodes.thunks';
-import { NodePrimaryKey, NodeState } from '../nodes.types';
+import { NodeState, PKWithTreeBranch } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export function deleteFromState(state: NodeState, action: PayloadAction<NodePrimaryKey>) {
-    const { branchId, id } = action.payload;
+export function deleteFromState(state: NodeState, action: PayloadAction<PKWithTreeBranch>) {
+    const { treeBranchId, id } = action.payload;
 
+    deleteNodeFromState(state, treeBranchId, id);
+    calculatePositions(state, treeBranchId);
+}
+
+export function deleteFulfilled(state: NodeState, action: ReturnType<typeof deleteNode.fulfilled>) {
+    const { id } = action.payload;
+    const { treeBranchId } = action.meta.arg;
+
+    deleteNodeFromState(state, treeBranchId, id);
+    calculatePositions(state, treeBranchId);
+}
+
+function deleteNodeFromState(state: NodeState, branchId: UUID, id: UUID) {
     const node = state.byBranchId[branchId][id];
     const parent = state.byBranchId[branchId][node.parentId];
+    const descendantIds = node.descendantIds;
 
     delete state.childIds[branchId][id];
 
-    // filter from childIds[branchId]
+    // remove from parent
     if (parent) {
         if (state.childIds[branchId][node.parentId]) {
             state.childIds[branchId][node.parentId] = state.childIds[branchId][node.parentId].filter(
                 (id) => id !== id,
             );
+
+            parent.childIds = parent.childIds.filter((childId) => childId !== id);
         }
     }
 
-    delete state.indexNodesById[id];
-    delete state.byBranchId[branchId][id];
-}
+    // remove node and descendants from ancestors
+    node.ancestorIds.forEach((ancestorId) => {
+        const ancestor = state.byBranchId[branchId][ancestorId];
 
-export function deleteFulfilled(state: NodeState, action: ReturnType<typeof deleteNode.fulfilled>) {
-    const { branchId, id } = action.payload;
+        if (ancestor) {
+            ancestor.descendantIds = ancestor.descendantIds.filter((descendantId) => {
+                return descendantId !== id && !descendantIds.includes(descendantId);
+            });
+        }
+    });
 
-    const node = state.byBranchId[branchId][id];
-    const parent = state.byBranchId[branchId][node.parentId];
+    // remove from tree
+    if (state.orderedTreeIds[branchId]) {
+        state.orderedTreeIds[branchId] = state.orderedTreeIds[branchId].filter((treeId) => treeId !== id);
+    }
 
-    delete state.childIds[branchId][id];
+    // update upper sibling of bottom sibling & vice versa
+    if (node.upperSiblingId) {
+        const upperSibling = state.byBranchId[branchId][node.upperSiblingId];
 
-    // filter from childIds[branchId]
-    if (parent) {
-        if (state.childIds[branchId][node.parentId]) {
-            state.childIds[branchId][node.parentId] = state.childIds[branchId][node.parentId].filter(
-                (childId) => childId !== id,
-            );
+        if (upperSibling) {
+            upperSibling.lowerSiblingId = node.lowerSiblingId;
         }
     }
 
-    delete state.indexNodesById[id];
+    if (node.lowerSiblingId) {
+        const lowerSibling = state.byBranchId[branchId][node.lowerSiblingId];
 
-    delete state.byBranchId[branchId][id];
+        if (lowerSibling) {
+            lowerSibling.upperSiblingId = node.upperSiblingId;
+        }
+    }
+
+    const nodeIdsToDelete = [id, ...descendantIds];
+
+    nodeIdsToDelete.forEach((nodeId: UUID) => {
+        delete state.indexNodesById[nodeId];
+        delete state.byBranchId[branchId][nodeId];
+    });
 }

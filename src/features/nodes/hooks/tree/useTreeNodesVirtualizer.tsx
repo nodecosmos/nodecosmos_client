@@ -8,11 +8,11 @@ type NodeId = UUID;
 type AlreadyMounted = boolean;
 export type VirtualizedNode = [NodeId, AlreadyMounted];
 
-export default function useTreeNodeVirtualizer(branchId: UUID): VirtualizedNode[] {
-    const treeNodeIds = useSelector(selectTreeNodeIds(branchId));
-    const branchNodes = useSelector(selectBranchNodes(branchId));
+export default function useTreeNodeVirtualizer(treeBranchId: UUID): VirtualizedNode[] {
+    const treeNodeIds = useSelector(selectTreeNodeIds(treeBranchId));
+    const branchNodes = useSelector(selectBranchNodes(treeBranchId));
 
-    const isNodeInViewport = useIsInsideViewport(branchId);
+    const isNodeInViewport = useIsInsideViewport(treeBranchId);
 
     const prevVirtualizedNodesById = useRef<Record<UUID, boolean>>({});
     const treeNodeIdsToViewRef = useRef<VirtualizedNode[]>([]);

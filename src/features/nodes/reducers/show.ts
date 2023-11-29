@@ -1,23 +1,31 @@
 import { buildTree } from './tree';
 import { showNode } from '../nodes.thunks';
-import { AppNode, NodeState } from '../nodes.types';
+import { NodeState } from '../nodes.types';
 
 export default function showFulfilled(
     state: NodeState,
     action: ReturnType<typeof showNode.fulfilled>,
 ) {
     const { node, descendants } = action.payload;
-    const { branchId, id } = node;
+    const { branchId, id, isPublic, owner } = node;
+    const isMainBranch = branchId === id;
+
+    // init state for branch
     state.byBranchId[branchId] ||= {};
     state.childIds[branchId] ||= {};
+    state.titles[branchId] ||= {};
+
+    state.titles[branchId][id] = node.title;
     const stateNode = state.byBranchId[branchId][id] || {};
 
-    state.titles[branchId] ||= {};
-    state.titles[branchId][id] = node.title;
-
-    const appNode: AppNode = {
+    state.byBranchId[branchId][id] = {
         ...stateNode,
         ...node,
+        isTreeRoot: true,
+        x: 0,
+        xEnd: 0,
+        y: 0,
+        yEnd: 0,
         ancestorIds: [],
         isTemp: false,
         persistedId: id,
@@ -29,10 +37,8 @@ export default function showFulfilled(
         likedByCurrentUser: null,
     };
 
-    state.byBranchId[branchId][id] = appNode;
     state.selected = {
         treeBranchId: branchId,
-        branchId,
         id,
     };
 
@@ -47,15 +53,17 @@ export default function showFulfilled(
 
         state.byBranchId[branchId][descendant.id] = {
             ...descendant,
+            branchId: isMainBranch ? descendant.id : branchId,
             description: stateNode.description,
             descriptionMarkdown: stateNode.descriptionMarkdown,
             shortDescription: stateNode.shortDescription,
             descriptionBase64: stateNode.descriptionBase64,
             isTemp: false,
-            isPublic: appNode.isPublic,
+            isPublic,
             isRoot: false,
             persistedId: descendant.id,
             nestedLevel: 0,
+            isTreeRoot: false,
             isSelected: false,
             ancestorIds: [],
             treeRootId: id,
@@ -70,7 +78,7 @@ export default function showFulfilled(
             creatorId: null,
             coverImageURL: null,
             coverImageKey: null,
-            owner: appNode.owner,
+            owner,
             likedByCurrentUser: null,
             x: 0,
             xEnd: 0,
@@ -82,6 +90,8 @@ export default function showFulfilled(
         childIds[branchId][descendant.parentId] ||= [];
         childIds[branchId][descendant.parentId].push(descendant.id);
         childIds[branchId][descendant.id] ||= [];
+
+        state.titles[branchId][descendant.id] = descendant.title;
     });
 
     state.childIds[branchId] = {

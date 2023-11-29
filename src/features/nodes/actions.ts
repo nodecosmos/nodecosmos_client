@@ -7,10 +7,10 @@ export const {
     select,
     search,
     replaceTmpWithPersisted,
-    clearTmp,
     setDragAndDrop,
     setNodePaneContent,
     setActionInProgress,
     collapseNode,
     expandNode,
+    clearCurrentTmpNode,
 } = actions;

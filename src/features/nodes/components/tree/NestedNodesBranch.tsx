@@ -18,14 +18,14 @@ export default function NestedNodesBranch() {
     const theme: NodecosmosTheme = useTheme();
 
     const {
-        branchId,
+        treeBranchId,
         lastChildId,
         isExpanded,
         y,
         xEnd,
     } = useNodeContext();
 
-    const lastChildY = useSelector(selectNodeAttribute(branchId, lastChildId as UUID, 'y'));
+    const lastChildY = useSelector(selectNodeAttribute(treeBranchId, lastChildId as UUID, 'y'));
     const prevPathYEnd = usePrevious(lastChildY);
 
     const x = xEnd + MARGIN_LEFT;

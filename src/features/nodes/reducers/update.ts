@@ -2,14 +2,14 @@ import { AppNodePayload, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export default function updateState(state: NodeState, action: PayloadAction<AppNodePayload>) {
-    const { branchId, id } = action.payload;
-    const current = state.byBranchId[branchId][id];
+    const { treeBranchId, id } = action.payload;
+    const current = state.byBranchId[treeBranchId][id];
 
     if (current) {
-        state.byBranchId[branchId][id] = {
+        state.byBranchId[treeBranchId][id] = {
             ...current,
-            ...action.payload, 
+            ...action.payload,
         };
-        state.titles[branchId][id] = state.byBranchId[branchId][id].title;
+        state.titles[treeBranchId][id] = state.byBranchId[treeBranchId][id].title;
     }
 }

@@ -4,7 +4,7 @@ import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
 import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
 import { updateState } from '../../../actions';
 import { selectNodeAttribute, selectSelected } from '../../../nodes.selectors';
-import { getNodeDescriptionBase64, updateNodeDescription } from '../../../nodes.thunks';
+import { getDescriptionBase64, updateDescription } from '../../../nodes.thunks';
 import { SelectedNode } from '../../../nodes.types';
 import { Box } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
@@ -55,7 +55,7 @@ export default function NodePaneDescriptionEditor() {
                 descriptionMarkdown: markdown,
             }));
 
-            dispatch(updateNodeDescription({
+            dispatch(updateDescription({
                 treeBranchId,
                 branchId,
                 id,
@@ -71,7 +71,8 @@ export default function NodePaneDescriptionEditor() {
 
     useEffect(() => {
         if (id && rootId) {
-            dispatch(getNodeDescriptionBase64({
+            dispatch(getDescriptionBase64({
+                treeBranchId,
                 branchId,
                 id,
             })).then(() => {
@@ -82,7 +83,7 @@ export default function NodePaneDescriptionEditor() {
         return () => {
             setBase64Fetched(false);
         };
-    }, [dispatch, branchId, id, rootId]);
+    }, [branchId, dispatch, id, rootId, treeBranchId]);
 
     if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
 

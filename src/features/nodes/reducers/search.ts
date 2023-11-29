@@ -1,35 +1,42 @@
 import { buildTree } from './tree';
-import { NodeState, SearchNodePayload } from '../nodes.types';
+import { UUID } from '../../../types';
+import { NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
+
+export interface SearchNodePayload {
+    rootId: UUID;
+    treeBranchId: UUID;
+    value: string;
+}
 
 export default function search(state: NodeState, action: PayloadAction<SearchNodePayload>) {
     const {
-        branchId, rootId, value,
+        treeBranchId, rootId, value,
     } = action.payload;
 
     if (value) {
         // search by title
         const newChildIds: NodeState['childIds'] = {};
 
-        for (const nodeId in state.byBranchId[branchId]) {
-            if (state.byBranchId[branchId][nodeId].title
-                && state.byBranchId[branchId][nodeId].rootId === rootId
-                && state.byBranchId[branchId][nodeId].title.toLowerCase()
+        for (const nodeId in state.byBranchId[treeBranchId]) {
+            if (state.byBranchId[treeBranchId][nodeId].title
+                && state.byBranchId[treeBranchId][nodeId].rootId === rootId
+                && state.byBranchId[treeBranchId][nodeId].title.toLowerCase()
                     .includes(value.toLowerCase())) {
-                newChildIds[branchId][nodeId] ||= [];
+                newChildIds[treeBranchId][nodeId] ||= [];
                 let currentNodeId = nodeId;
-                let { parentId } = state.byBranchId[branchId][nodeId];
+                let { parentId } = state.byBranchId[treeBranchId][nodeId];
 
                 while (parentId) {
-                    if (state.byBranchId[branchId][parentId]) {
-                        newChildIds[branchId][parentId] ||= [];
+                    if (state.byBranchId[treeBranchId][parentId]) {
+                        newChildIds[treeBranchId][parentId] ||= [];
 
-                        if (!newChildIds[branchId][parentId].includes(currentNodeId)) {
-                            newChildIds[branchId][parentId].push(currentNodeId);
+                        if (!newChildIds[treeBranchId][parentId].includes(currentNodeId)) {
+                            newChildIds[treeBranchId][parentId].push(currentNodeId);
                         }
 
                         currentNodeId = parentId;
-                        parentId = state.byBranchId[branchId][parentId].parentId;
+                        parentId = state.byBranchId[treeBranchId][parentId].parentId;
                     } else {
                         break;
                     }
@@ -39,13 +46,13 @@ export default function search(state: NodeState, action: PayloadAction<SearchNod
 
         state.childIds = newChildIds;
     } else {
-        // reset childIds[branchId]
-        for (const nodeId in state.byBranchId[branchId]) {
-            if (state.byBranchId[branchId][nodeId] && state.byBranchId[branchId][nodeId].rootId === rootId) {
-                state.childIds[branchId][nodeId] = state.byBranchId[branchId][nodeId].childIds;
+        // reset childIds[treeBranchId]
+        for (const nodeId in state.byBranchId[treeBranchId]) {
+            if (state.byBranchId[treeBranchId][nodeId] && state.byBranchId[treeBranchId][nodeId].rootId === rootId) {
+                state.childIds[treeBranchId][nodeId] = state.byBranchId[treeBranchId][nodeId].childIds;
             }
         }
     }
 
-    buildTree(state, branchId, rootId);
+    buildTree(state, treeBranchId, rootId);
 }

@@ -26,7 +26,7 @@ export default function NodeContent() {
     // we don't use this directly in input as input unmounts on blur
     // so command chain is broken
     const {
-        clickNode, blurNode, changeTitle,
+        clickNode, blurNode, saveNode,
     } = useNodeCommands();
 
     if (!xEnd) return null;
@@ -51,7 +51,7 @@ export default function NodeContent() {
                     {isEditing ? (
                         <NodeInput
                             onClick={clickNode}
-                            onChange={changeTitle}
+                            onChange={saveNode}
                             onBlur={blurNode}
                         />
                     ) : <NodeButton />}

@@ -17,7 +17,7 @@ export function useNodeContextCreator(contextProviderValue: NodeProps) {
 
 export default function useNodeContext() {
     const {
-        branchId: treeBranchId, id, alreadyMounted,
+        treeBranchId, id, alreadyMounted,
     } = useContext(NodeContext);
     const { type } = useTreeContext();
 

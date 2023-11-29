@@ -43,7 +43,8 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
     const { id: workflowId } = useWorkflowContext();
 
     const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
-    const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+    // TODO: introduce branch
+    const rootNodeId = useSelector(selectNodeAttribute(nodeId, nodeId, 'rootId'));
     const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
     const allIOTitles = allWorkflowIOs.map((io) => io.title);
     const uniqueIOTitles = [...new Set(allIOTitles)];
@@ -51,7 +52,7 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
     const title = associatedObject === associatedObjectTypes.workflow
         ? 'Create Initial Input' : 'Create Output';
 
-    const [autocompleteValue, setAutocompleteValue] = React.useState(null);
+    const [autocompleteValue, setAutocompleteValue] = React.useState<string | null>(null);
 
     const { onSubmit, loading } = useIOSubmitHandler(props, autocompleteValue);
 
@@ -84,8 +85,8 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
                                         sx={{
                                             svg: {
                                                 p: 2,
-                                                color: 'tree.hashtag', 
-                                            }, 
+                                                color: 'tree.hashtag',
+                                            },
                                         }}>
                                         <FontAwesomeIcon icon={faCodeCommit} />
                                     </InputAdornment>
