@@ -2,20 +2,25 @@ import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServ
 import usePrevious from '../../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../../store';
 import { NodecosmosError } from '../../../../../types';
-import { clearCurrentTmpNode, setActionInProgress, updateState } from '../../../actions';
+import {
+    clearCurrentTmpNode, setActionInProgress, updateState,
+} from '../../../actions';
 import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
 import { selectNodeAttribute } from '../../../nodes.selectors';
 import { create, updateTitle } from '../../../nodes.thunks';
 import { TreeType } from '../../../nodes.types';
 import useNodeContext from '../useNodeContext';
 import useTreeContext from '../useTreeContext';
-import { ChangeEvent, useCallback, useRef } from 'react';
+import {
+    ChangeEvent, useCallback, useEffect, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeSaver() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { type: treeType } = useTreeContext();
     const {
+        isJustCreated,
         treeBranchId,
         branchId,
         id,
@@ -25,7 +30,7 @@ export default function useNodeSaver() {
         persistedId,
     } = useNodeContext();
 
-    const order = useSelector(selectNodeAttribute(branchId, id, 'order'));
+    const order = useSelector(selectNodeAttribute(treeBranchId, id, 'order'));
     const prevTitle = usePrevious(title);
     const handleServerError = useHandleServerErrorAlert();
 
@@ -72,10 +77,7 @@ export default function useNodeSaver() {
                     const error: NodecosmosError = response.payload as NodecosmosError;
                     handleServerError(error);
                     console.error(error);
-
-                    return;
                 }
-                dispatch(setActionInProgress(false));
             } else {
                 // Create new node
                 let creationBranchId;
@@ -100,10 +102,10 @@ export default function useNodeSaver() {
                     const error: NodecosmosError = response.payload as NodecosmosError;
                     handleServerError(error);
                     console.error(error);
-
-                    return;
                 }
             }
+
+            dispatch(setActionInProgress(false));
         }, SAVE_NODE_TIMEOUT);
     },
     [
@@ -115,23 +117,26 @@ export default function useNodeSaver() {
     const blurNode = useCallback(() => {
         dispatch(updateState({
             treeBranchId,
-            branchId,
             id,
             isEditing: false,
+            isJustCreated: false,
         }));
 
         dispatch(clearCurrentTmpNode());
+    }, [dispatch, treeBranchId, id]);
 
-        // if title is empty, we don't have to replace tmp node with persisted node as it will not be created
-        // if (!!title && isTemp && persistedId) {
-        //     dispatch(replaceTmpWithPersisted({
-        //         treeBranchId,
-        //         branchId,
-        //         tmpId: id,
-        //         persistedId,
-        //     }));
-        // }
-    }, [dispatch, treeBranchId, branchId, id]);
+    useEffect(() => {
+        return () => {
+            if (isJustCreated) {
+                dispatch(updateState({
+                    treeBranchId,
+                    id,
+                    isEditing: false,
+                    isJustCreated: false,
+                }));
+            }
+        };
+    }, [dispatch, id, isJustCreated, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     return {

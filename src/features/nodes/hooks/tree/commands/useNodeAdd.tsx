@@ -37,7 +37,6 @@ export default function useNodeAdd() {
             setLoading(true);
             dispatch(updateState({
                 treeBranchId,
-                branchId,
                 id,
                 isCreationInProgress: true,
             }));
@@ -61,14 +60,13 @@ export default function useNodeAdd() {
         } else {
             initTempChildNode();
         }
-    }, [actionInProgress, branchId, dispatch, id, initTempChildNode, isTemp, title, treeBranchId]);
+    }, [actionInProgress, dispatch, id, initTempChildNode, isTemp, title, treeBranchId]);
 
     useEffect(() => {
         if (loading && !actionInProgress) {
             setLoading(false);
             dispatch(updateState({
                 treeBranchId,
-                branchId,
                 id,
                 isCreationInProgress: false,
             }));

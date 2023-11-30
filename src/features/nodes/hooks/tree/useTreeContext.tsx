@@ -13,18 +13,18 @@ const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
 
 export function useTreeContextCreator(props: TreeProps) {
     const {
-        branchId, rootNodeId, type = TreeType.Default, onChange, value = null,
+        treeBranchId, rootNodeId, type = TreeType.Default, onChange, value = null,
     } = props;
 
     const ctxProviderValue = useMemo(
         () => ({
-            branchId,
+            treeBranchId,
             rootNodeId,
             type,
             onChange,
             selectedNodeIds: new Set(value),
         }),
-        [branchId, rootNodeId, type, onChange, value],
+        [treeBranchId, rootNodeId, type, onChange, value],
     );
 
     return {

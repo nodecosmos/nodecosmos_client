@@ -10,10 +10,10 @@ import { setNodePaneContent } from '../../actions';
 import {
     selectNodeAttribute,
     selectNodePaneContent,
-    selectSelectedNode,
+    selectSelected,
 } from '../../nodes.selectors';
 import { getDescription } from '../../nodes.thunks';
-import { NodePaneContent as NodePaneContentType, NodePrimaryKey } from '../../nodes.types';
+import { NodePaneContent as NodePaneContentType, PKWithTreeBranch } from '../../nodes.types';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +23,9 @@ interface NodePaneProps {
 }
 
 export default function NodePaneContent({ page }: NodePaneProps) {
-    const { branchId, id } = useSelector(selectSelectedNode) as NodePrimaryKey;
+    const {
+        treeBranchId, branchId, id,
+    } = useSelector(selectSelected) as PKWithTreeBranch;
     const rootId = useSelector(selectNodeAttribute(branchId, id, 'rootId'));
     const isTemp = useSelector(selectNodeAttribute(branchId, id, 'isTemp'));
     const nodePaneContent = useSelector(selectNodePaneContent);
@@ -44,11 +46,12 @@ export default function NodePaneContent({ page }: NodePaneProps) {
     useEffect(() => {
         if (id && rootId) {
             dispatch(getDescription({
+                treeBranchId,
                 branchId,
-                id, 
+                id,
             }));
         }
-    }, [dispatch, branchId, id, rootId]);
+    }, [branchId, dispatch, id, rootId, treeBranchId]);
 
     useEffect(() => {
         if (prevSelectedNodeId !== id && nodePaneContent !== NodePaneContentType.Workflow) {
@@ -96,7 +99,7 @@ export default function NodePaneContent({ page }: NodePaneProps) {
             height={1}
             sx={{
                 overflow: 'hidden',
-                backgroundColor: 'background.5', 
+                backgroundColor: 'background.5',
             }}
             position="relative"
             zIndex={1}

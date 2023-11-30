@@ -23,17 +23,18 @@ function deleteNodeFromState(state: NodeState, branchId: UUID, id: UUID) {
     const node = state.byBranchId[branchId][id];
     const parent = state.byBranchId[branchId][node.parentId];
     const descendantIds = node.descendantIds;
-
-    delete state.childIds[branchId][id];
+    const nodeIdsToDelete = [id, ...descendantIds];
+    const nodeIdsToDeleteSet = new Set(nodeIdsToDelete);
 
     // remove from parent
     if (parent) {
-        if (state.childIds[branchId][node.parentId]) {
-            state.childIds[branchId][node.parentId] = state.childIds[branchId][node.parentId].filter(
-                (id) => id !== id,
-            );
+        const newChildIds = parent.childIds.filter((childId) => childId !== id);
 
-            parent.childIds = parent.childIds.filter((childId) => childId !== id);
+        parent.childIds = newChildIds;
+        state.childIds[branchId][node.parentId] = newChildIds;
+
+        if (parent.lastChildId === id) {
+            parent.lastChildId = node.upperSiblingId;
         }
     }
 
@@ -42,16 +43,9 @@ function deleteNodeFromState(state: NodeState, branchId: UUID, id: UUID) {
         const ancestor = state.byBranchId[branchId][ancestorId];
 
         if (ancestor) {
-            ancestor.descendantIds = ancestor.descendantIds.filter((descendantId) => {
-                return descendantId !== id && !descendantIds.includes(descendantId);
-            });
+            ancestor.descendantIds = ancestor.descendantIds.filter((descId) => !nodeIdsToDeleteSet.has(descId));
         }
     });
-
-    // remove from tree
-    if (state.orderedTreeIds[branchId]) {
-        state.orderedTreeIds[branchId] = state.orderedTreeIds[branchId].filter((treeId) => treeId !== id);
-    }
 
     // update upper sibling of bottom sibling & vice versa
     if (node.upperSiblingId) {
@@ -70,9 +64,14 @@ function deleteNodeFromState(state: NodeState, branchId: UUID, id: UUID) {
         }
     }
 
-    const nodeIdsToDelete = [id, ...descendantIds];
+    if (state.selected?.id === id) {
+        state.selected = null;
+    }
+
+    state.orderedTreeIds[branchId] = state.orderedTreeIds[branchId].filter((id) => !nodeIdsToDeleteSet.has(id));
 
     nodeIdsToDelete.forEach((nodeId: UUID) => {
+        delete state.childIds[branchId][id];
         delete state.indexNodesById[nodeId];
         delete state.byBranchId[branchId][nodeId];
     });

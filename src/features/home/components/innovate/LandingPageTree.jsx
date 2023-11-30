@@ -23,14 +23,7 @@ export default function LandingPageTree() {
                 Public nodes can be reused by different projects.
                 As a result, it allows modular approach to innovation development or knowledge sharing in general.
             </Typography>
-            <Box
-                mx={{
-                    // as defined in src/features/home/components/Section.jsx:28
-                    // xs: -3,
-                    // sm: -4,
-                }}
-                mt={3}
-            >
+            <Box mt={3}>
                 <Box>
                     <Typography
                         variant="body2"

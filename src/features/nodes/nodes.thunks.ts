@@ -5,7 +5,6 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    ReorderPayload,
     PKWithTreeBranch,
 } from './nodes.types';
 import nodecosmos from '../../apis/nodecosmos-server';
@@ -36,23 +35,35 @@ export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: 
     },
 );
 
-export interface NodeCreationPayload {
-    treeBranchId?: UUID;
-    tmpNodeId?: UUID;
-    branchId?: UUID; // we provide branch only when creating a node for non-main branch e.g. for contribution request
+export interface NodeCreationApiPayload {
+    branchId?: UUID;
     parentId?: UUID;
+    rootId?: UUID;
     title: string;
     isPublic: boolean;
     isRoot: boolean;
     order: number;
 }
 
+export interface NodeCreationPayload extends NodeCreationApiPayload {
+    treeBranchId?: UUID;
+    tmpNodeId?: UUID;
+}
+
 export const create = createAsyncThunk<Node, NodeCreationPayload, { rejectValue: NodecosmosError }>(
     'nodes/create',
-    async (payload) => {
-        const response = await nodecosmos.post('/nodes', payload);
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/nodes', payload);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 
@@ -65,8 +76,7 @@ export const updateTitle = createAsyncThunk<NodePayload, NodePayload, { rejectVa
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
-                // Handle the error using rejectWithValue
-                return rejectWithValue(error.response.data); // This passes the server response to the rejected action
+                return rejectWithValue(error.response.data);
             }
 
             console.error(error);
@@ -76,40 +86,82 @@ export const updateTitle = createAsyncThunk<NodePayload, NodePayload, { rejectVa
 
 export const updateDescription = createAsyncThunk<NodePayload, NodePayload, { rejectValue: NodecosmosError }>(
     'nodes/updateDescription',
-    async (payload) => {
-        const response = await nodecosmos.put('/nodes/description', payload);
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/nodes/description', payload);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 
 export const deleteNode = createAsyncThunk<Node, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
     'nodes/deleteNode',
-    async ({ branchId, id }) => {
-        const response = await nodecosmos.delete(`/nodes/${id}/${branchId}`);
+    async ({ branchId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.delete(`/nodes/${id}/${branchId}`);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 
 export const getDescription = createAsyncThunk<NodePayload, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
     'nodes/getDescription',
-    async ({ branchId, id }) => {
-        const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description`);
+    async ({ branchId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description`);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 
 export const getDescriptionBase64 = createAsyncThunk<NodePayload, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
     'nodes/getDescriptionBase64',
 
-    async ({ branchId, id }) => {
-        const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description_base64`);
+    async ({ branchId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description_base64`);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
+
+export interface ReorderPayload {
+    id: UUID;
+    branchId: UUID;
+    treeBranchId: UUID;
+    newParentId: UUID;
+    newUpperSiblingId: UUID;
+    newLowerSiblingId: UUID;
+    newSiblingIndexAfterMove: number;
+}
 
 export const reorder = createAsyncThunk<null, ReorderPayload, { rejectValue: NodecosmosError }>(
     'nodes/reorder',
@@ -119,16 +171,28 @@ export const reorder = createAsyncThunk<null, ReorderPayload, { rejectValue: Nod
 
             return response.data;
         } catch (error) {
-            return rejectWithValue(error as NodecosmosError);
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
         }
     },
 );
 
 export const deleteNodeImage = createAsyncThunk<null, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/deleteNodeImage',
-    async ({ branchId, id }: NodePrimaryKey) => {
-        const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/delete_cover_image`);
+    async ({ branchId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/delete_cover_image`);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );

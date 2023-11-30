@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 export default function useNodeClick() {
     const {
         treeBranchId,
+        branchId,
         id,
         isExpanded,
         isEditing,
@@ -57,8 +58,9 @@ export default function useNodeClick() {
             }));
             dispatch(select({
                 treeBranchId,
+                branchId,
                 id,
             }));
         }
-    }, [dispatch, treeBranchId, handleCheckboxChange, id, isEditing, isExpanded, isSelected, treeType]);
+    }, [treeType, isEditing, isExpanded, isSelected, handleCheckboxChange, dispatch, treeBranchId, id, branchId]);
 }

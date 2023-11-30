@@ -2,7 +2,7 @@ import { create } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
 export default function createFulfilled(state: NodeState, action: ReturnType<typeof create.fulfilled>) {
-    const { id, parentId, branchId } = action.payload;
+    const { id, parentId } = action.payload;
     const { tmpNodeId, treeBranchId } = action.meta.arg;
 
     if (tmpNodeId && treeBranchId) {
@@ -13,6 +13,7 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             ...tmpNode,
             ...newNode,
             persistedId: id,
+            isJustCreated: true,
             isTemp: false,
         };
 
@@ -26,6 +27,22 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         parentChildIds.splice(tmpNodeSiblingIndex, 1, id);
         state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
 
+        // replace lastChildId of the parent
+        if (state.byBranchId[treeBranchId][parentId].lastChildId === tmpNodeId) {
+            state.byBranchId[treeBranchId][parentId].lastChildId = id;
+        }
+
+        // replace tmpId with persistedId within the descendantIds of the ancestors
+        const ancestorIds = state.byBranchId[treeBranchId][id].ancestorIds;
+        ancestorIds.forEach((ancestorId) => {
+            const ancestor = state.byBranchId[treeBranchId][ancestorId];
+            if (ancestor) {
+                const { descendantIds } = ancestor;
+                const tmpNodeDescendantIndex = descendantIds.indexOf(tmpNodeId);
+                descendantIds.splice(tmpNodeDescendantIndex, 1, id);
+            }
+        });
+
         // replace tmpId with persistedId within the tree
         const tmpNodeTreeIndex = tmpNode.treeIndex as number;
         state.orderedTreeIds[treeBranchId].splice(tmpNodeTreeIndex, 1, id);
@@ -33,9 +50,15 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         if (tmpNode.isSelected) {
             state.selected = {
                 treeBranchId,
+                branchId: newNode.branchId,
                 id,
-                branchId,
             };
+        }
+
+        // update lower sibling of upper sibling
+        const upperSiblingId = tmpNode.upperSiblingId as string;
+        if (upperSiblingId) {
+            state.byBranchId[treeBranchId][upperSiblingId].lowerSiblingId = id;
         }
 
         delete state.byBranchId[treeBranchId][tmpNodeId];

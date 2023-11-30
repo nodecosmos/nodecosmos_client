@@ -1,4 +1,4 @@
-import { buildTree } from './tree';
+import { calculatePositions } from './tree';
 import { UUID } from '../../../types';
 import { NodePrimaryKey, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -13,11 +13,20 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
     const {
         treeBranchId, tmpId, branchId, id,
     } = action.payload;
-
     const node = state.byBranchId[treeBranchId][id];
+    const upperSiblingId = node.childIds[node.childIds.length - 1];
+    const siblingIndex = node.childIds.length;
+
+    let treeIndex;
+    if (upperSiblingId) {
+        const upperSibling = state.byBranchId[treeBranchId][upperSiblingId];
+        treeIndex = upperSibling.treeIndex as number + upperSibling.descendantIds.length + 1;
+    } else {
+        treeIndex = node.treeIndex as number + 1;
+    }
 
     // init tmp child for node
-    state.byBranchId[treeBranchId][tmpId] = {
+    const tmpNode = {
         id: tmpId,
         branchId,
         rootId: node.rootId,
@@ -45,6 +54,13 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         isTreeRoot: false,
         isTemp: true,
         isSelected: false,
+        upperSiblingId,
+        lowerSiblingId: null,
+        lastChildId: null,
+        isMounted: true,
+        isEditing: true,
+        siblingIndex,
+        treeIndex,
         nestedLevel: node.nestedLevel + 1,
         descendantIds: [],
         childIds: [],
@@ -56,52 +72,25 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         yEnd: 0,
     };
 
+    state.byBranchId[treeBranchId][tmpId] = tmpNode;
+
     state.childIds[treeBranchId][id].push(tmpId);
     state.childIds[treeBranchId][tmpId] = [];
 
+    state.byBranchId[treeBranchId][id].childIds.push(tmpId);
+    state.byBranchId[treeBranchId][id].lastChildId = tmpId;
+
     state.currentTmpNode = tmpId;
 
-    buildTree(state, treeBranchId, node.rootId);
-}
+    tmpNode.ancestorIds.forEach((ancestorId) => {
+        const ancestor = state.byBranchId[treeBranchId][ancestorId];
 
-export interface NodeReplacePayload {
-    treeBranchId: UUID;
-    branchId: UUID;
-    tmpId: UUID;
-    persistedId: UUID;
-}
+        if (ancestor) {
+            ancestor.descendantIds.push(tmpId);
+        }
+    });
 
-export function replaceTmpWithPersisted(state: NodeState, action: PayloadAction<NodeReplacePayload>) {
-    const {
-        treeBranchId, branchId, tmpId, persistedId,
-    } = action.payload;
-    const tmpNode = state.byBranchId[treeBranchId][tmpId];
-    const { parentId } = tmpNode;
+    state.orderedTreeIds[treeBranchId].splice(treeIndex, 0, tmpId);
 
-    // replace tmpId with persistedId within the childIds of the parent
-    const tmpNodeSiblingIndex = tmpNode.siblingIndex as number;
-    const parentChildIds = state.childIds[treeBranchId][parentId];
-
-    parentChildIds.splice(tmpNodeSiblingIndex, 1, persistedId);
-    state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
-
-    // replace tmpId with persistedId within the tree
-    const tmpNodeTreeIndex = tmpNode.treeIndex as number;
-    state.orderedTreeIds[treeBranchId].splice(tmpNodeTreeIndex, 1, persistedId);
-
-    if (tmpNode.isSelected) {
-        state.selected = {
-            treeBranchId,
-            id: persistedId,
-            branchId,
-        };
-    }
-
-    if (state.currentTmpNode === tmpId) {
-        state.currentTmpNode = null;
-    }
-
-    delete state.byBranchId[treeBranchId][tmpId];
-    delete state.childIds[treeBranchId][tmpId];
-    delete state.titles[treeBranchId][tmpId];
+    calculatePositions(state, treeBranchId);
 }

@@ -19,9 +19,7 @@ import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
 import select from './reducers/select';
 import showFulfilled from './reducers/show';
-import {
-    buildTmpNode, replaceTmpWithPersisted,
-} from './reducers/tmp';
+import { buildTmpNode } from './reducers/tmp';
 import { expandNode, collapseNode } from './reducers/tree';
 import updateState from './reducers/update';
 import {
@@ -51,7 +49,6 @@ const nodesSlice = createSlice({
         deleteFromState,
         select,
         search,
-        replaceTmpWithPersisted,
         expandNode,
         collapseNode,
         setNodePaneContent(state: NodeState, action: PayloadAction<NodePaneContent>) {

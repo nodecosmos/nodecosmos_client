@@ -7,18 +7,21 @@ export default function showFulfilled(
     action: ReturnType<typeof showNode.fulfilled>,
 ) {
     const { node, descendants } = action.payload;
-    const { branchId, id, isPublic, owner } = node;
-    const isMainBranch = branchId === id;
+    const {
+        branchId: treeBranchId, id, isPublic, owner,
+    } = node;
+    const isMainBranch = treeBranchId === id;
 
     // init state for branch
-    state.byBranchId[branchId] ||= {};
-    state.childIds[branchId] ||= {};
-    state.titles[branchId] ||= {};
+    state.byBranchId[treeBranchId] ||= {};
+    state.childIds[treeBranchId] ||= {};
+    state.titles[treeBranchId] ||= {};
 
-    state.titles[branchId][id] = node.title;
-    const stateNode = state.byBranchId[branchId][id] || {};
+    state.titles[treeBranchId][id] = node.title;
+    const stateNode = state.byBranchId[treeBranchId][id] || {};
+    node.ancestorIds ||= [];
 
-    state.byBranchId[branchId][id] = {
+    state.byBranchId[treeBranchId][id] = {
         ...stateNode,
         ...node,
         isTreeRoot: true,
@@ -26,7 +29,6 @@ export default function showFulfilled(
         xEnd: 0,
         y: 0,
         yEnd: 0,
-        ancestorIds: [],
         isTemp: false,
         persistedId: id,
         nestedLevel: node.isRoot ? 0 : node.ancestorIds.length,
@@ -38,22 +40,23 @@ export default function showFulfilled(
     };
 
     state.selected = {
-        treeBranchId: branchId,
+        treeBranchId,
+        branchId: node.branchId,
         id,
     };
 
     // tree data
     node.ancestorIds ||= [];
-    state.childIds[branchId][id] = [];
+    state.childIds[treeBranchId][id] = [];
 
     const childIds: NodeState['childIds'] = {};
 
     descendants.forEach((descendant) => {
-        const stateNode = state.byBranchId[branchId][id] || {};
+        const stateNode = state.byBranchId[treeBranchId][id] || {};
 
-        state.byBranchId[branchId][descendant.id] = {
+        state.byBranchId[treeBranchId][descendant.id] = {
             ...descendant,
-            branchId: isMainBranch ? descendant.id : branchId,
+            branchId: isMainBranch ? descendant.id : treeBranchId,
             description: stateNode.description,
             descriptionMarkdown: stateNode.descriptionMarkdown,
             shortDescription: stateNode.shortDescription,
@@ -86,18 +89,18 @@ export default function showFulfilled(
             yEnd: 0,
         };
 
-        childIds[branchId] ||= {};
-        childIds[branchId][descendant.parentId] ||= [];
-        childIds[branchId][descendant.parentId].push(descendant.id);
-        childIds[branchId][descendant.id] ||= [];
+        childIds[treeBranchId] ||= {};
+        childIds[treeBranchId][descendant.parentId] ||= [];
+        childIds[treeBranchId][descendant.parentId].push(descendant.id);
+        childIds[treeBranchId][descendant.id] ||= [];
 
-        state.titles[branchId][descendant.id] = descendant.title;
+        state.titles[treeBranchId][descendant.id] = descendant.title;
     });
 
-    state.childIds[branchId] = {
-        ...state.childIds[branchId],
-        ...childIds[branchId],
+    state.childIds[treeBranchId] = {
+        ...state.childIds[treeBranchId],
+        ...childIds[treeBranchId],
     };
 
-    buildTree(state, branchId, id);
+    buildTree(state, treeBranchId, id);
 }

@@ -28,7 +28,7 @@ export default function CreateWorkflowModal(props: Props) {
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const rootNodeId = useSelector(selectNodeAttribute(nodeId, 'rootId'));
+    const rootNodeId = useSelector(selectNodeAttribute(nodeId, nodeId, 'rootId'));
 
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);

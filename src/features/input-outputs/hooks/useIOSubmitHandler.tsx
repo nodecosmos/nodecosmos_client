@@ -35,7 +35,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
         };
 
         await dispatch(createIO(payload)).then(async (data) => {
-            const { inputOutput } = data.payload;
+            const inputOutput = data.payload;
 
             try {
                 if (props.associatedObject === 'workflow') {

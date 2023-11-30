@@ -6,7 +6,7 @@ import { MARGIN_TOP } from '../../nodes.constants';
 import {
     selectBranchNodes, selectBranchTitles, selectSelected, selectSelectedNode,
 } from '../../nodes.selectors';
-import { AppNode } from '../../nodes.types';
+import { AppNode, PKWithTreeBranch } from '../../nodes.types';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Breadcrumbs } from '@mui/material';
@@ -14,8 +14,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function TreeBreadcrumbs() {
-    const selected = useSelector(selectSelected);
-    const { treeBranchId } = selected || {};
+    const { treeBranchId, branchId } = useSelector(selectSelected) as PKWithTreeBranch;
     const selectedNode = useSelector(selectSelectedNode);
     const nodeTitlesById = useSelector(selectBranchTitles(treeBranchId));
     const dispatch = useDispatch();
@@ -49,9 +48,10 @@ export default function TreeBreadcrumbs() {
     const handleClick = useCallback((id: UUID) => {
         dispatch(select({
             treeBranchId: treeBranchId as UUID,
+            branchId: branchId as UUID,
             id,
         }));
-    }, [dispatch, treeBranchId]);
+    }, [branchId, dispatch, treeBranchId]);
 
     const handleCentering = useCallback((id: UUID) => {
         const { y } = branchNodes[id];

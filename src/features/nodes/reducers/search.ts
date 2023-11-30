@@ -17,6 +17,7 @@ export default function search(state: NodeState, action: PayloadAction<SearchNod
     if (value) {
         // search by title
         const newChildIds: NodeState['childIds'] = {};
+        newChildIds[treeBranchId] = {};
 
         for (const nodeId in state.byBranchId[treeBranchId]) {
             if (state.byBranchId[treeBranchId][nodeId].title

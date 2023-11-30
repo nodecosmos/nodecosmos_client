@@ -4,7 +4,7 @@ import { NodecosmosError } from '../../../../types';
 import { updateState } from '../../actions';
 import { selectSelected } from '../../nodes.selectors';
 import { deleteNodeImage } from '../../nodes.thunks';
-import { SelectedNode } from '../../nodes.types';
+import { PKWithTreeBranch } from '../../nodes.types';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@mui/material';
@@ -18,7 +18,9 @@ interface DeleteCoverImageButtonProps {
 
 export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId, branchId, id } = useSelector(selectSelected) as SelectedNode;
+    const {
+        treeBranchId, branchId, id,
+    } = useSelector(selectSelected) as PKWithTreeBranch;
     const handleServerError = useHandleServerErrorAlert();
 
     const handleDeleteCoverImage = useCallback(() => {
@@ -35,7 +37,6 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
             }
             dispatch(updateState({
                 treeBranchId,
-                branchId,
                 id,
                 coverImageURL: null,
             }));

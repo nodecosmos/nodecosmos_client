@@ -1,7 +1,7 @@
-import { NodeState, TreeNodeKey } from '../nodes.types';
+import { NodeState, PKWithTreeBranch } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export default function select(state: NodeState, action: PayloadAction<TreeNodeKey | null>) {
+export default function select(state: NodeState, action: PayloadAction<PKWithTreeBranch | null>) {
     const current = state.selected;
 
     if (current) {

@@ -43,7 +43,7 @@ export default function useNodeDropCapture() {
         }
 
         const newUpperSiblingId = childIdsByParentId[newParentId][newSiblingIndex - 1];
-        const newlowerSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
+        const newLowerSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
 
         const response = await dispatch(reorder({
             treeBranchId: treeBranchId as UUID,
@@ -51,7 +51,7 @@ export default function useNodeDropCapture() {
             branchId: branchId as UUID,
             newParentId,
             newUpperSiblingId,
-            newlowerSiblingId,
+            newLowerSiblingId,
             newSiblingIndexAfterMove,
         }));
 

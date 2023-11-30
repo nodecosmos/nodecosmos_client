@@ -64,7 +64,7 @@ export default function Show() {
         <Box
             display={{
                 xs: 'block',
-                md: 'flex', 
+                md: 'flex',
             }}
             width={1}
             height={1}
@@ -77,7 +77,7 @@ export default function Show() {
                 height={1}
                 display="flex"
             >
-                <Tree branchId={id as UUID} rootNodeId={id as UUID} />
+                <Tree treeBranchId={id as UUID} rootNodeId={id as UUID} />
                 <Box
                     component="span"
                     onMouseDown={handleResize}

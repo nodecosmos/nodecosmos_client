@@ -46,7 +46,7 @@ export interface NodeTreeAttributes extends Position {
     treeRootId: UUID;
     upperSiblingId?: UUID | null;
     lowerSiblingId?: UUID | null;
-    lastChildId?: UUID;
+    lastChildId?: UUID | null;
     childIds: UUID[];
     descendantIds: UUID[];
     nestedLevel: number;
@@ -55,6 +55,7 @@ export interface NodeTreeAttributes extends Position {
     isMounted?: boolean;
     isExpanded?: boolean;
     isEditing?: boolean;
+    isJustCreated?: boolean;
     isCreationInProgress?: boolean;
 }
 
@@ -90,19 +91,10 @@ export interface TreeBranch {
 }
 
 export type PKWithTreeBranch = NodePrimaryKey & TreeBranch;
-export type NodePayload = NodePrimaryKey & TreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
+export type NodePayload = PKWithTreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
+
 export type TreeNodeKey = TreeBranch & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
-
-export interface ReorderPayload {
-    id: UUID;
-    branchId: UUID;
-    treeBranchId: UUID;
-    newParentId: UUID;
-    newUpperSiblingId: UUID;
-    newlowerSiblingId: UUID;
-    newSiblingIndexAfterMove: number;
-}
 
 export enum NodePaneContent {
     Markdown = 'markdown',
@@ -128,7 +120,7 @@ export interface NodeState {
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
     orderedTreeIds: Record<BranchId, NodeId[]>;
     titles: Record<BranchId, Record<NodeId, string>>;
-    selected: TreeNodeKey | null;
+    selected: PKWithTreeBranch | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<NodeId, IndexNode>;
     actionInProgress: boolean;

@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 
 export default function useNodeButtonCheckboxColors() {
     const {
-        branchId, id, isRoot,
+        treeBranchId, id, isRoot,
     } = useNodeContext();
 
-    const nestedLevel = useSelector(selectNodeAttribute(branchId, id, 'nestedLevel'));
+    const nestedLevel = useSelector(selectNodeAttribute(treeBranchId, id, 'nestedLevel'));
     const theme: NodecosmosTheme = useTheme();
 
     const commands = useTreeCommands();

@@ -56,11 +56,10 @@ export default function useNodeDrag() {
 
         dispatch(updateState({
             treeBranchId,
-            branchId,
             id,
             isDragOver: true,
         }));
-    }, [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver, treeBranchId]);
+    }, [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
@@ -68,11 +67,10 @@ export default function useNodeDrag() {
 
         dispatch(updateState({
             treeBranchId,
-            branchId,
             id,
             isDragOver: false,
         }));
-    }, [branchId, dispatch, id, isDragOver, treeBranchId]);
+    }, [dispatch, id, isDragOver, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
@@ -95,12 +93,11 @@ export default function useNodeDrag() {
 
             dispatch(updateState({
                 treeBranchId,
-                branchId,
                 id,
                 isDragOver: false,
             }));
         },
-        [ancestorIds, branchId, dispatch, dragAndDropNodeId, id, isDragOver, onNodeDropCapture, treeBranchId],
+        [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, onNodeDropCapture, treeBranchId],
     );
 
     //------------------------------------------------------------------------------------------------------------------
