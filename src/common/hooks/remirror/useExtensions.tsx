@@ -2,7 +2,6 @@ import { WS_URI } from '../../../apis/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
-import { Extension } from '@remirror/core';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ExtensionPriority } from 'remirror';
@@ -21,8 +20,10 @@ import {
     MarkdownExtension,
     OrderedListExtension,
     PlaceholderExtension,
-    StrikeExtension, TaskListExtension,
-    TrailingNodeExtension, YjsExtension,
+    StrikeExtension,
+    TaskListExtension,
+    TrailingNodeExtension,
+    YjsExtension,
 } from 'remirror/extensions';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';
@@ -34,6 +35,25 @@ interface UseExtensionsProps {
     wsAuthNodeBranchId?: UUID;
     wsRoomId?: UUID;
 }
+
+export type RemirrorExtensions = BlockquoteExtension
+    | BoldExtension
+    | BulletListExtension
+    | CodeBlockExtension
+    | CodeExtension
+    | HardBreakExtension
+    | HeadingExtension
+    | ImageExtension
+    | ItalicExtension
+    | LinkExtension
+    | ListItemExtension
+    | MarkdownExtension
+    | OrderedListExtension
+    | PlaceholderExtension
+    | StrikeExtension
+    | TaskListExtension
+    | TrailingNodeExtension
+    | YjsExtension
 
 export default function useExtensions(props: UseExtensionsProps) {
     const {
@@ -59,14 +79,14 @@ export default function useExtensions(props: UseExtensionsProps) {
             enableCollapsible: true,
         }),
         new TrailingNodeExtension(),
-        new MarkdownExtension({ copyAsMarkdown: true }),
+        new MarkdownExtension(),
         new CodeExtension(),
         new CodeBlockExtension(),
         new ImageExtension(),
         new HardBreakExtension(),
         new TaskListExtension(),
     ], []);
-    const [extensions, setExtensions] = React.useState<Extension[]>([]);
+    const [extensions, setExtensions] = React.useState<RemirrorExtensions[]>([]);
     const currentUser = useSelector(selectCurrentUser);
 
     const doc = useMemo(() => {
@@ -105,7 +125,7 @@ export default function useExtensions(props: UseExtensionsProps) {
             provider.on('status', (event: {status: string}) => {
                 if (event.status === 'connected') {
                     const extensions = [...baseExtensions, yjsExtension];
-                    setExtensions(extensions as Extension[]);
+                    setExtensions(extensions);
                 }
             });
 

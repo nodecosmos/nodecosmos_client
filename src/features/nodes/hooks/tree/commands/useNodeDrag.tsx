@@ -1,13 +1,14 @@
 import { NodecosmosDispatch } from '../../../../../store';
+import { UUID } from '../../../../../types';
 import { setDragAndDrop, updateState } from '../../../actions';
 import { selectDragAndDrop, selectActionInProgress } from '../../../nodes.selectors';
-import { DragAndDrop } from '../../../nodes.types';
 import useNodeDropCapture from '../reorder/useNodeDropCapture';
 import useNodeContext from '../useNodeContext';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeDrag() {
+    const dispatch: NodecosmosDispatch = useDispatch();
     const {
         treeBranchId,
         branchId,
@@ -18,11 +19,9 @@ export default function useNodeDrag() {
         isDragOver,
         ancestorIds,
     } = useNodeContext();
-    const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
-    const dispatch: NodecosmosDispatch = useDispatch();
+    const dragAndDrop = useSelector(selectDragAndDrop);
     const onNodeDropCapture = useNodeDropCapture();
     const isNodeActionInProgress = useSelector(selectActionInProgress);
-
     const dragAndDropNodeId = dragAndDrop?.id;
 
     //------------------------------------------------------------------------------------------------------------------
@@ -40,7 +39,6 @@ export default function useNodeDrag() {
 
         dispatch(setDragAndDrop({
             treeBranchId,
-            isDragging: true,
             id,
             branchId,
             parentId,
@@ -52,12 +50,12 @@ export default function useNodeDrag() {
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if (isDragOver || id === dragAndDropNodeId || ancestorIds.includes(id)) return;
+        if (isDragOver || id === dragAndDropNodeId || ancestorIds.includes(dragAndDropNodeId as UUID)) return;
 
         dispatch(updateState({
             treeBranchId,
             id,
-            isDragOver: true,
+            isDragOver: !ancestorIds.includes(id),
         }));
     }, [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, treeBranchId]);
 
@@ -74,12 +72,11 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
-        if (!isDragOver) return;
         dispatch(setDragAndDrop(null));
-    }, [dispatch, isDragOver]);
+    }, [dispatch]);
 
     //------------------------------------------------------------------------------------------------------------------
-    const captureDroppedNode = useCallback(
+    const dropCapture = useCallback(
         async () => {
             if (id === dragAndDropNodeId || ancestorIds.includes(id)) return;
 
@@ -88,16 +85,9 @@ export default function useNodeDrag() {
                 newSiblingIndex: 0,
                 newSiblingIndexAfterMove: 0,
             });
-
-            if (!isDragOver) return;
-
-            dispatch(updateState({
-                treeBranchId,
-                id,
-                isDragOver: false,
-            }));
         },
-        [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, onNodeDropCapture, treeBranchId],
+
+        [ancestorIds, dragAndDropNodeId, id, onNodeDropCapture],
     );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -106,6 +96,6 @@ export default function useNodeDrag() {
         stopDrag,
         dragOver,
         dragLeave,
-        captureDroppedNode,
+        dropCapture,
     };
 }

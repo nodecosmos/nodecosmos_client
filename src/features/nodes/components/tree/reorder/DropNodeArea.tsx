@@ -3,37 +3,43 @@ import { NodecosmosTheme } from '../../../../../themes/type';
 import { UUID } from '../../../../../types';
 import useNodeDropCapture from '../../../hooks/tree/reorder/useNodeDropCapture';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
-import { selectDragAndDrop, selectNode } from '../../../nodes.selectors';
+import { selectNode } from '../../../nodes.selectors';
+import { DragAndDrop } from '../../../nodes.types';
 import { useTheme } from '@mui/material';
-import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
-export default function DraggableNodePoint({ id }: { id: UUID }) {
-    const theme: NodecosmosTheme = useTheme();
-    const { treeBranchId, rootNodeId } = useTreeContext();
+export interface DropNodeAreaProps {
+    id: UUID;
+    dragAndDrop: DragAndDrop;
+}
 
+function DropNodeArea(props: DropNodeAreaProps) {
+    const { id, dragAndDrop } = props;
     const {
-        x: NodeX,
+        id: dragAndDropId,
+        parentId: dragAndDropParentId,
+        siblingIndex: dragAndDropSiblingIndex,
+    } = dragAndDrop;
+    const { treeBranchId } = useTreeContext();
+    const {
+        x: nodeX,
         y: nodeY,
         parentId,
         isTemp,
         siblingIndex,
         ancestorIds,
-    } = useSelector(selectNode(treeBranchId, rootNodeId));
-    const dragAndDrop = useSelector(selectDragAndDrop);
-
+    } = useSelector(selectNode(treeBranchId, id));
+    const theme: NodecosmosTheme = useTheme();
     const onDropCapture = useNodeDropCapture();
-
     const [hovered, hover, leave] = useBooleanStateValue();
-
-    const isSameParent = dragAndDrop?.parentId === parentId;
+    const isSameParent = dragAndDropParentId === parentId;
 
     // handle new sibling index when a node is moved down on the same level
     const newSiblingIndex = siblingIndex as number;
     let newSiblingIndexAfterMove = siblingIndex as number;
 
-    if (dragAndDrop?.siblingIndex && siblingIndex && (dragAndDrop.siblingIndex < siblingIndex) && isSameParent) {
+    if ((dragAndDropSiblingIndex < newSiblingIndex) && isSameParent) {
         newSiblingIndexAfterMove -= 1;
     }
 
@@ -51,15 +57,16 @@ export default function DraggableNodePoint({ id }: { id: UUID }) {
     }, [newSiblingIndex, newSiblingIndexAfterMove, onDropCapture, parentId]);
 
     if (
-        !NodeX
+        siblingIndex === undefined
+        || !nodeX
         || !nodeY
-        || dragAndDrop?.id === id
+        || dragAndDropId === id
         || isTemp
-        || (isSameParent && dragAndDrop?.siblingIndex && siblingIndex && dragAndDrop.siblingIndex === siblingIndex - 1)
-        || ancestorIds.includes(dragAndDrop?.id as UUID)
+        || (isSameParent && dragAndDropSiblingIndex === (siblingIndex - 1))
+        || ancestorIds.includes(dragAndDropId)
     ) return null;
 
-    const x = NodeX - 10;
+    const x = nodeX - 10;
     const y = newSiblingIndex === 0 ? nodeY - 20 : nodeY - 28;
     const dropZoneY = newSiblingIndex === 0 ? nodeY - 40 : y - 15;
 
@@ -92,4 +99,4 @@ export default function DraggableNodePoint({ id }: { id: UUID }) {
     );
 }
 
-DraggableNodePoint.propTypes = { id: PropTypes.string.isRequired };
+export default React.memo(DropNodeArea);

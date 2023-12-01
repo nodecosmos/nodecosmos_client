@@ -10,7 +10,6 @@ import React from 'react';
 
 function NodeButton() {
     const theme: NodecosmosTheme = useTheme();
-
     const {
         title,
         isDragOver,
@@ -28,7 +27,7 @@ function NodeButton() {
         stopDrag,
         dragOver,
         dragLeave,
-        captureDroppedNode,
+        dropCapture,
     } = useNodeCommands();
 
     const preventDefault = usePreventDefault();
@@ -42,7 +41,7 @@ function NodeButton() {
             onDragEnd={stopDrag}
             onDragOver={dragOver}
             onDragLeave={dragLeave}
-            onDropCapture={captureDroppedNode}
+            onDropCapture={dropCapture}
             type="button"
             className={`NodeButton ${hasBg && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
             onClick={clickNode}

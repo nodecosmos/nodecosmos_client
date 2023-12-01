@@ -1,5 +1,5 @@
 import Node from './Node';
-import DraggableNodePoints from './reorder/DraggableNodePoints';
+import DropNodeAreas from './reorder/DropNodeAreas';
 import useTreeNodeVirtualizer, { VirtualizedNode } from '../../hooks/tree/useTreeNodesVirtualizer';
 import React from 'react';
 
@@ -26,7 +26,7 @@ export default function TreeNodes(props: TreeNodesProps) {
                     />
                 ))}
             </g>
-            <DraggableNodePoints />
+            <DropNodeAreas />
         </g>
     );
 }

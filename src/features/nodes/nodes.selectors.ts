@@ -16,7 +16,9 @@ export const selectOrderedTreeIds = (state: State) => state.nodes.orderedTreeIds
 
 export const selectNode = (branchId: UUID, nodeId: UUID) => createSelector(
     selectNodesByBranchId,
-    (nodesByBranchId) => nodesByBranchId[branchId]?.[nodeId],
+    (nodesByBranchId) => {
+        return nodesByBranchId[branchId][nodeId];
+    },
 );
 
 export const selectIndexedNode = (nodeId: UUID) => createSelector(

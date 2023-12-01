@@ -1,17 +1,17 @@
 import RemirrorClickable from './RemirrorClickable';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
+import { RemirrorExtensions } from '../../hooks/remirror/useExtensions';
 import DescriptionContainer from '../DescriptionContainer';
-import { AnyExtension, RemirrorEventListenerProps } from '@remirror/core';
+import { RemirrorEventListenerProps } from '@remirror/core';
 import {
     EditorComponent, Remirror, useRemirror,
 } from '@remirror/react';
-import { UseRemirrorProps } from '@remirror/react-core';
 import React from 'react';
 import { MarkdownExtension } from 'remirror/extensions';
 
 interface RemirrorEditorWrapperProps {
-    extensions: AnyExtension[];
+    extensions: RemirrorExtensions[];
     setInitialContent: boolean;
     markdown: string;
     onChange?: (props: RemirrorEventListenerProps<MarkdownExtension>) => void;
@@ -22,16 +22,11 @@ export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps)
         extensions, setInitialContent, markdown, onChange,
     } = props;
 
-    const options: UseRemirrorProps<AnyExtension> = {
+    const { manager, state } = useRemirror<RemirrorExtensions>({
         extensions: () => extensions,
+        content: (setInitialContent && markdown) || undefined,
         stringHandler: 'markdown',
-    };
-
-    if (setInitialContent) {
-        options.content = markdown;
-    }
-
-    const { manager, state } = useRemirror(options);
+    });
 
     return (
         <RemirrorEditorContainer>

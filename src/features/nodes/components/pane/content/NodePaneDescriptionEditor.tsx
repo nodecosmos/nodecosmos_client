@@ -5,7 +5,7 @@ import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
 import { updateState } from '../../../actions';
 import { selectNodeAttribute, selectSelected } from '../../../nodes.selectors';
 import { getDescriptionBase64, updateDescription } from '../../../nodes.thunks';
-import { SelectedNode } from '../../../nodes.types';
+import { PKWithTreeBranch } from '../../../nodes.types';
 import { Box } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
 import React, {
@@ -19,17 +19,15 @@ const RemirrorEditor = React.lazy(
 );
 
 export default function NodePaneDescriptionEditor() {
+    const dispatch: NodecosmosDispatch = useDispatch();
     const {
         treeBranchId, branchId, id,
-    } = useSelector(selectSelected) as SelectedNode;
-
-    const isTemp = useSelector(selectNodeAttribute(branchId, id, 'isTemp'));
-    const rootId = useSelector(selectNodeAttribute(branchId, id, 'rootId'));
-
-    const dispatch: NodecosmosDispatch = useDispatch();
+    } = useSelector(selectSelected) as PKWithTreeBranch;
+    const isTemp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTemp'));
+    const rootId = useSelector(selectNodeAttribute(treeBranchId, id, 'rootId'));
+    const descriptionMarkdown = useSelector(selectNodeAttribute(treeBranchId, id, 'descriptionMarkdown'));
+    const descriptionBase64 = useSelector(selectNodeAttribute(treeBranchId, id, 'descriptionBase64'));
     const handleChangeTimeout = React.useRef<number| null>(null);
-    const descriptionMarkdown = useSelector(selectNodeAttribute(branchId, id, 'descriptionMarkdown'));
-    const descriptionBase64 = useSelector(selectNodeAttribute(branchId, id, 'descriptionBase64'));
 
     const handleChange = useCallback((
         helpers: HelpersFromExtensions<MarkdownExtension>,
@@ -49,7 +47,6 @@ export default function NodePaneDescriptionEditor() {
             dispatch(updateState({
                 treeBranchId,
                 id,
-                branchId,
                 description: descriptionHtml,
                 shortDescription,
                 descriptionMarkdown: markdown,

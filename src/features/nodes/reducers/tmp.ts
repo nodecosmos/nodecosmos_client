@@ -92,5 +92,15 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
 
     state.orderedTreeIds[treeBranchId].splice(treeIndex, 0, tmpId);
 
+    // update indexes of subsequent nodes
+    for (let i = treeIndex + 1; i < state.orderedTreeIds[treeBranchId].length; i += 1) {
+        const nodeId = state.orderedTreeIds[treeBranchId][i];
+        const node = state.byBranchId[treeBranchId][nodeId];
+
+        if (node) {
+            node.treeIndex = i;
+        }
+    }
+
     calculatePositions(state, treeBranchId);
 }

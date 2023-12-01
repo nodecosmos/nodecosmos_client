@@ -7,34 +7,28 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
 
     if (tmpNodeId && treeBranchId) {
         const tmpNode = state.byBranchId[treeBranchId][tmpNodeId];
-
-        const newNode = action.payload;
-        state.byBranchId[treeBranchId][id] = {
+        const treeIndex = tmpNode.treeIndex as number;
+        const siblingIndex = tmpNode.siblingIndex as number;
+        const upperSiblingId = tmpNode.upperSiblingId as string;
+        const parentChildIds = state.childIds[treeBranchId][parentId];
+        const newNode = {
             ...tmpNode,
-            ...newNode,
+            ...action.payload,
             persistedId: id,
             isJustCreated: true,
             isTemp: false,
         };
 
-        state.titles[treeBranchId][id] = action.payload.title;
-        state.childIds[treeBranchId][id] = [];
-
-        // replace tmpId with persistedId within the childIds of the parent
-        const tmpNodeSiblingIndex = tmpNode.siblingIndex as number;
-        const parentChildIds = state.childIds[treeBranchId][parentId];
-
-        parentChildIds.splice(tmpNodeSiblingIndex, 1, id);
+        // replace tmp id with persisted id within the parent
+        parentChildIds.splice(siblingIndex, 1, id);
         state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
 
-        // replace lastChildId of the parent
         if (state.byBranchId[treeBranchId][parentId].lastChildId === tmpNodeId) {
             state.byBranchId[treeBranchId][parentId].lastChildId = id;
         }
 
         // replace tmpId with persistedId within the descendantIds of the ancestors
-        const ancestorIds = state.byBranchId[treeBranchId][id].ancestorIds;
-        ancestorIds.forEach((ancestorId) => {
+        newNode.ancestorIds.forEach((ancestorId) => {
             const ancestor = state.byBranchId[treeBranchId][ancestorId];
             if (ancestor) {
                 const { descendantIds } = ancestor;
@@ -42,10 +36,6 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
                 descendantIds.splice(tmpNodeDescendantIndex, 1, id);
             }
         });
-
-        // replace tmpId with persistedId within the tree
-        const tmpNodeTreeIndex = tmpNode.treeIndex as number;
-        state.orderedTreeIds[treeBranchId].splice(tmpNodeTreeIndex, 1, id);
 
         if (tmpNode.isSelected) {
             state.selected = {
@@ -56,10 +46,22 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         }
 
         // update lower sibling of upper sibling
-        const upperSiblingId = tmpNode.upperSiblingId as string;
         if (upperSiblingId) {
             state.byBranchId[treeBranchId][upperSiblingId].lowerSiblingId = id;
         }
+
+        // update upper sibling of lower sibling
+        if (newNode.lowerSiblingId) {
+            state.byBranchId[treeBranchId][newNode.lowerSiblingId].upperSiblingId = id;
+        }
+
+        // update tree
+        state.orderedTreeIds[treeBranchId].splice(treeIndex, 1, id);
+
+        // update node state
+        state.byBranchId[treeBranchId][id] = newNode;
+        state.titles[treeBranchId][id] = newNode.title;
+        state.childIds[treeBranchId][id] = [];
 
         delete state.byBranchId[treeBranchId][tmpNodeId];
         delete state.childIds[treeBranchId][tmpNodeId];

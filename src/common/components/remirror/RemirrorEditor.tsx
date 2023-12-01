@@ -40,7 +40,7 @@ export default function RemirrorEditor(props: RemirrorEditorProps) {
         }
     }, [doc, isRealTime, onChange]);
 
-    if (!extensions) return null;
+    if (extensions.length === 0) return null;
 
     return (
         <RemirrorEditorWrapper

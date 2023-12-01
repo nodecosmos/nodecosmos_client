@@ -1,6 +1,7 @@
 import useNodeCommands from '../../hooks/tree/useNodeCommands';
 import useNodeContext from '../../hooks/tree/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../nodes.constants';
+import { selectNodeAttribute } from '../../nodes.selectors';
 import LikeButton from '../LikeButton';
 import {
     faArrowUpRightFromSquare, faPenToSquare, faTrash,
@@ -12,12 +13,16 @@ import {
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function NodeToolbar() {
-    const { id, isCreationInProgress } = useNodeContext();
+    const {
+        treeBranchId, id, isCreationInProgress,
+    } = useNodeContext();
     const {
         addNode, editNode, removeNode,
     } = useNodeCommands();
+    const likesCount = useSelector(selectNodeAttribute(treeBranchId, id, 'likesCount'));
 
     if (isCreationInProgress) {
         return (
@@ -60,7 +65,8 @@ export default function NodeToolbar() {
                     <FontAwesomeIcon icon={faTrash} />
                 </IconButton>
             </Tooltip>
-            <LikeButton id={id} />
+
+            <LikeButton id={id} likesCount={likesCount} />
 
             <Tooltip title="Open Node In New Tab" placement="top">
                 <IconButton

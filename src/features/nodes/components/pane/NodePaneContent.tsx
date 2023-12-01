@@ -10,7 +10,6 @@ import { setNodePaneContent } from '../../actions';
 import {
     selectNodeAttribute,
     selectNodePaneContent,
-    selectSelected,
 } from '../../nodes.selectors';
 import { getDescription } from '../../nodes.thunks';
 import { NodePaneContent as NodePaneContentType, PKWithTreeBranch } from '../../nodes.types';
@@ -19,18 +18,19 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface NodePaneProps {
+    selected: PKWithTreeBranch;
     page?: 'nodes' | 'workflow';
 }
 
-export default function NodePaneContent({ page }: NodePaneProps) {
+export default function NodePaneContent({ page, selected }: NodePaneProps) {
+    const dispatch: NodecosmosDispatch = useDispatch();
     const {
         treeBranchId, branchId, id,
-    } = useSelector(selectSelected) as PKWithTreeBranch;
-    const rootId = useSelector(selectNodeAttribute(branchId, id, 'rootId'));
-    const isTemp = useSelector(selectNodeAttribute(branchId, id, 'isTemp'));
+    } = selected;
+    const rootId = useSelector(selectNodeAttribute(treeBranchId, id, 'rootId'));
+    const isTemp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTemp'));
+    const title = useSelector(selectNodeAttribute(treeBranchId, id, 'title'));
     const nodePaneContent = useSelector(selectNodePaneContent);
-    const title = useSelector(selectNodeAttribute(branchId, id, 'title'));
-    const dispatch: NodecosmosDispatch = useDispatch();
 
     const nodePaneContents = {
         description: NodePaneDescription,

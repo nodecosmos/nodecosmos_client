@@ -158,8 +158,8 @@ export interface ReorderPayload {
     branchId: UUID;
     treeBranchId: UUID;
     newParentId: UUID;
-    newUpperSiblingId: UUID;
-    newLowerSiblingId: UUID;
+    newUpperSiblingId?: UUID;
+    newLowerSiblingId?: UUID;
     newSiblingIndexAfterMove: number;
 }
 

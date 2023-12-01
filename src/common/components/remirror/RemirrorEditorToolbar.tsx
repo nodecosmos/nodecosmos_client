@@ -1,6 +1,7 @@
 import RemirrorEditorToolbarHeadingMenu from './RemirrorEditorToolbarHeadingMenu';
 import { selectSelectedNode } from '../../../features/nodes/nodes.selectors';
 import { UUID } from '../../../types';
+import { RemirrorExtensions } from '../../hooks/remirror/useExtensions';
 import useBooleanStateValue from '../../hooks/useBooleanStateValue';
 import UppyUploadFileModal from '../upload/UploadFileModal';
 import UploadImageModal from '../upload/UploadImageModal';
@@ -35,8 +36,8 @@ import { useSelector } from 'react-redux';
 export default function RemirrorEditorToolbar() {
     const { persistedId } = useSelector(selectSelectedNode);
 
-    const commands = useCommands();
-    const active = useActive();
+    const commands = useCommands<RemirrorExtensions>();
+    const active = useActive<RemirrorExtensions>();
 
     const { undoDepth, redoDepth } = useHelpers(true);
 

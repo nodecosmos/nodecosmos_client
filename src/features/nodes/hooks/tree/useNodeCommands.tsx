@@ -16,7 +16,7 @@ export default function useNodeCommands() {
         stopDrag,
         dragOver,
         dragLeave,
-        captureDroppedNode,
+        dropCapture,
     } = useNodeDrag();
 
     return {
@@ -30,6 +30,6 @@ export default function useNodeCommands() {
         stopDrag,
         dragOver,
         dragLeave,
-        captureDroppedNode,
+        dropCapture,
     };
 }

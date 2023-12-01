@@ -107,7 +107,6 @@ type BranchId = UUID;
 type NodeId = UUID;
 
 export interface DragAndDrop {
-    isDragging: boolean;
     id: NodeId;
     treeBranchId: BranchId;
     branchId: BranchId;

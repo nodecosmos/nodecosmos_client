@@ -20,7 +20,9 @@ const uppy = new Uppy({
     },
     locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
 });
-uppy.use(XHRUpload);
+uppy.use(XHRUpload, {
+    endpoint: '',
+});
 
 interface UploadFileModalProps {
     open: boolean;
@@ -29,7 +31,9 @@ interface UploadFileModalProps {
 }
 
 export default function UploadFileModal(props: UploadFileModalProps) {
-    const { open, onClose, params } = props;
+    const {
+        open, onClose, params,
+    } = props;
 
     const dispatch = useDispatch();
 

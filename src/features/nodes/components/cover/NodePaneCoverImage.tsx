@@ -3,7 +3,7 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import { NodecosmosDispatch } from '../../../../store';
 import { updateState } from '../../actions';
 import { selectSelected, selectSelectedNode } from '../../nodes.selectors';
-import { AppNode, SelectedNode } from '../../nodes.types';
+import { AppNode, PKWithTreeBranch } from '../../nodes.types';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -16,9 +16,9 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId } = useSelector(selectSelected) as SelectedNode;
+    const { treeBranchId } = useSelector(selectSelected) as PKWithTreeBranch;
     const {
-        id, branchId, isTemp, coverImageURL,
+        id, isTemp, coverImageURL,
     } = useSelector(selectSelectedNode) as AppNode;
 
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
@@ -31,12 +31,11 @@ export default function NodePaneCoverImage() {
         if (responseBody?.coverImageURL) {
             dispatch(updateState({
                 treeBranchId,
-                branchId,
                 id,
                 coverImageURL: responseBody.coverImageURL,
             }));
         }
-    }, [closeModal, treeBranchId, dispatch, branchId, id]);
+    }, [closeModal, treeBranchId, dispatch, id]);
 
     return (
         <>

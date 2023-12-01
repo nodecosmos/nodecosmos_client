@@ -9,7 +9,6 @@ import {
     getLikesCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
 import { addLikedObjectId, removeLikedObjectId } from '../../likes/likesSlice';
-import { selectNodeAttribute } from '../nodes.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,17 +21,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
     id: UUID;
+    likesCount: number;
     fontSize?: number;
-    likesCount?: number;
 }
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, fontSize, likesCount: providedLikesCount,
+        id, fontSize, likesCount,
     } = props;
     const likes = useSelector(selectLikedObjectIds);
-    const stateLikesCount = useSelector(selectNodeAttribute(id, id, 'likesCount'));
-    const likesCount = providedLikesCount !== null ? providedLikesCount : stateLikesCount;
     const likedByCurrentUser = likes.includes(id);
     const [shouldBeat, setShouldBeat] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
