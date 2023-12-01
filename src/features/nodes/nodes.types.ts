@@ -1,6 +1,7 @@
 import {
     Owner, OwnerType, Position, UUID,
 } from '../../types';
+import { TransformablePositions } from '../app/app.types';
 
 // for main nodes branch id is equal to branch id
 export interface NodePrimaryKey {
@@ -55,16 +56,17 @@ export interface NodeTreeAttributes extends Position {
     isMounted?: boolean;
     isExpanded?: boolean;
     isEditing?: boolean;
+    isDragOver?: boolean;
     isJustCreated?: boolean;
+    alreadyMounted?: boolean;
     isCreationInProgress?: boolean;
+    render: boolean;
 }
 
 export interface AppNode extends Node, NodeTreeAttributes {
     persistedId: UUID | null;
     isTemp: boolean;
     isSelected: boolean;
-    likedByCurrentUser?: boolean | null;
-    isDragOver?: boolean;
 }
 
 export interface IndexNode {
@@ -118,6 +120,7 @@ export interface NodeState {
     byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
     orderedTreeIds: Record<BranchId, NodeId[]>;
+    visibleOrderedTreeIds: Record<BranchId, NodeId[]>;
     titles: Record<BranchId, Record<NodeId, string>>;
     selected: PKWithTreeBranch | null;
     nodePaneContent: NodePaneContent;
@@ -125,6 +128,8 @@ export interface NodeState {
     actionInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
     currentTmpNode: UUID | null;
+    _transformablePositionsById: Record<UUID, TransformablePositions>;
+    _prevVisibleNodes: Record<BranchId, Record<UUID, boolean>>;
 }
 
 export enum TreeType {

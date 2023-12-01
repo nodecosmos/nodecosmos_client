@@ -27,7 +27,7 @@ export default function Transformable(props: TransformableProps) {
     const dispatch = useDispatch();
     const [dimensions, setDimensions] = useState({
         width: 0,
-        height: 0, 
+        height: 0,
     });
     const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
 
@@ -43,7 +43,7 @@ export default function Transformable(props: TransformableProps) {
             if (height !== dimensions.height || width !== dimensions.width) {
                 setDimensions({
                     height,
-                    width, 
+                    width,
                 });
             }
         };
@@ -71,6 +71,8 @@ export default function Transformable(props: TransformableProps) {
 
             dispatch(setTransformablePositions({
                 id: transformableId,
+                clientHeight: containerRef.current.clientHeight,
+                clientWidth: containerRef.current.clientWidth,
                 scrollTop: containerRef.current.scrollTop,
                 scrollLeft: containerRef.current.scrollLeft,
             }));
@@ -109,6 +111,8 @@ export default function Transformable(props: TransformableProps) {
                     id: transformableId,
                     clientHeight: containerRef.current.clientHeight,
                     clientWidth: containerRef.current.clientWidth,
+                    scrollTop: containerRef.current.scrollTop,
+                    scrollLeft: containerRef.current.scrollLeft,
                 }));
             }, 100);
         };

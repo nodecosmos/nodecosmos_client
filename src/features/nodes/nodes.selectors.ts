@@ -13,6 +13,7 @@ export const selectDragAndDrop = (state: State) => state.nodes.dragAndDrop;
 export const selectChildIds = (state: State) => state.nodes.childIds;
 export const selectActionInProgress = (state: State) => state.nodes.actionInProgress;
 export const selectOrderedTreeIds = (state: State) => state.nodes.orderedTreeIds;
+export const selectvisibleOrderedTreeIds = (state: State) => state.nodes.visibleOrderedTreeIds;
 
 export const selectNode = (branchId: UUID, nodeId: UUID) => createSelector(
     selectNodesByBranchId,
@@ -65,4 +66,9 @@ export const selectBranchChildIds = (branchId?: UUID) => createSelector(
 export const selectTreeNodeIds = (branchId: UUID) => createSelector(
     selectOrderedTreeIds,
     (orderedTreeIds) => orderedTreeIds[branchId],
+);
+
+export const selectVisibleTreeNodeIds = (branchId: UUID) => createSelector(
+    selectvisibleOrderedTreeIds,
+    (visibleOrderedTreeIds) => visibleOrderedTreeIds[branchId],
 );

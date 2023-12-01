@@ -32,7 +32,7 @@ export default function NestedNodesBranch() {
     const linkY = y + MARGIN_TOP;
     const yEnd = lastChildY || prevPathYEnd;
 
-    if (!isExpanded || !yEnd) return null;
+    if (!lastChildId || !isExpanded || !yEnd) return null;
 
     return (
         <path

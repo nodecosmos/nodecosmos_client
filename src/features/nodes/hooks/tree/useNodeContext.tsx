@@ -1,14 +1,13 @@
 import useTreeContext from './useTreeContext';
 import { UUID } from '../../../../types';
-import { NodeProps } from '../../components/tree/Node';
 import { selectNode } from '../../nodes.selectors';
-import { TreeType } from '../../nodes.types';
+import { TreeNodeKey, TreeType } from '../../nodes.types';
 import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
-const NodeContext = createContext<NodeProps>({} as NodeProps);
+const NodeContext = createContext<TreeNodeKey>({} as TreeNodeKey);
 
-export function useNodeContextCreator(contextProviderValue: NodeProps) {
+export function useNodeContextCreator(contextProviderValue: TreeNodeKey) {
     return {
         NodeContext,
         contextProviderValue,
@@ -16,9 +15,7 @@ export function useNodeContextCreator(contextProviderValue: NodeProps) {
 }
 
 export default function useNodeContext() {
-    const {
-        treeBranchId, id, alreadyMounted,
-    } = useContext(NodeContext);
+    const { treeBranchId, id } = useContext(NodeContext);
     const { type } = useTreeContext();
 
     // tree node attributes
@@ -44,6 +41,7 @@ export default function useNodeContext() {
         y,
         xEnd,
         yEnd,
+        alreadyMounted,
     } = useSelector(selectNode(treeBranchId, id as UUID));
 
     // if the node is a contribution request, we need to use the tree branch id

@@ -4,12 +4,11 @@ import ContributionRequestShow from '../../../pages/contribution-requests/Show';
 import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
 import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
 import NodesIndex from '../../../pages/nodes/Index';
-/* nodes */
 import NodeShow from '../../../pages/nodes/Show';
 import TreeShow from '../../../pages/trees/Show';
 import UserAuthentication from '../../../pages/users/Authentication';
 import WorkflowShow from '../../../pages/workflows/Show';
-/* users */
+import { NodecosmosDispatch } from '../../../store';
 import dark from '../../../themes/dark';
 import dimmed from '../../../themes/dimmed';
 import light from '../../../themes/light';
@@ -18,24 +17,24 @@ import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/a
 import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
 import LoginForm from '../../authentication/components/LoginForm';
 import SignupForm from '../../authentication/components/SignupForm';
-import { selectLikedObjectIds } from '../../likes/likes.selectors';
-import { getLikedObjectIds } from '../../likes/likes.thunks';
+import { selectLikesByBranchId } from '../../likes/likes.selectors';
+import { getUserLikes } from '../../likes/likes.thunks';
+import { selectTheme } from '../app.selectors';
 import { HEADER_HEIGHT, SYNC_UP_INTERVAL } from '../constants';
-/* theme */
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Navigate, Route, Routes, 
+    Navigate, Route, Routes,
 } from 'react-router-dom';
 
 export default function LazyAppLoad() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const currentUser = useSelector(selectCurrentUser);
-    const likes = useSelector(selectLikedObjectIds);
-    const dispatch = useDispatch();
+    const likes = useSelector(selectLikesByBranchId);
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     useEffect(() => {
         if (!isAuthenticated) return;
@@ -43,18 +42,18 @@ export default function LazyAppLoad() {
 
         dispatch(syncUpCurrentUser()).then((response) => {
             if (response.payload?.success) {
-                dispatch(getLikedObjectIds());
+                dispatch(getUserLikes());
             }
         });
     }, [currentUser?.lastSyncUpAt, dispatch, isAuthenticated]);
 
     useEffect(() => {
-        if (isAuthenticated && !likes) {
-            dispatch(getLikedObjectIds());
+        if (isAuthenticated && Object.keys(likes).length === 0) {
+            dispatch(getUserLikes());
         }
     }, [dispatch, isAuthenticated, likes]);
 
-    const theme = useSelector((state) => state.app.theme);
+    const theme = useSelector(selectTheme);
 
     const themes = {
         light,
@@ -66,8 +65,7 @@ export default function LazyAppLoad() {
     return (
         <ThemeProvider theme={getTheme(currentTheme)}>
             <CssBaseline />
-            <Box backgroundColor="background.2" height={1}>
-
+            <Box component="div" height={1} sx={{ backgroundColor: 'background.2' }}>
                 <Header />
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>

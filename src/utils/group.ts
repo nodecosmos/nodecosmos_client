@@ -1,11 +1,7 @@
 import { UUID } from '../types';
 import { defaultMemoize } from 'reselect';
 
-interface WithId {
-    id: UUID;
-}
-
-export const groupById = defaultMemoize(<T extends WithId>(items: T[]): Record<string, T> => {
+export const groupById = defaultMemoize(<T extends { id: UUID }>(items: T[]): Record<string, T> => {
     const result: Record<string, T> = {};
 
     items.forEach((item) => {

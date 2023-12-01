@@ -2,6 +2,7 @@ import { HttpStatusCode } from 'axios';
 
 export type UUID = string;
 export type OptionalId<T> = Omit<T, 'id'> & { id?: UUID };
+export type WithId<T> = T & { id: UUID };
 
 export type NodecosmosError = {
     status?: HttpStatusCode;
@@ -33,3 +34,4 @@ export type Exact<T, Shape> = T & {
 };
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
+

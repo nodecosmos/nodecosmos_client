@@ -20,9 +20,7 @@ const uppy = new Uppy({
     },
     locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
 });
-uppy.use(XHRUpload, {
-    endpoint: '',
-});
+uppy.use(XHRUpload, { endpoint: '' });
 
 interface UploadFileModalProps {
     open: boolean;

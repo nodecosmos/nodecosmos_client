@@ -53,6 +53,7 @@ export default function Alert({ position }) {
                     backgroundColor: 'background.5',
                     '.MuiTypography-root, .MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
                         color: `${severity}.main`,
+                        // eslint-disable-next-line object-curly-newline
                     },
                     '.MuiAlert-action': {
                         p: 0,

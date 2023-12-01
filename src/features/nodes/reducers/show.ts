@@ -83,6 +83,7 @@ export default function showFulfilled(
             coverImageKey: null,
             owner,
             likedByCurrentUser: null,
+            render: false,
             x: 0,
             xEnd: 0,
             y: 0,

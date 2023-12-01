@@ -1,7 +1,7 @@
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
-import { setIsPaneOpen } from '../../app/appSlice';
 import { selectIsPaneOpen } from '../app.selectors';
+import { setIsPaneOpen } from '../appSlice';
 import { HEADER_HEIGHT } from '../constants';
 import { faRectangleTerminal } from '@fortawesome/pro-solid-svg-icons';
 import React, { useCallback } from 'react';

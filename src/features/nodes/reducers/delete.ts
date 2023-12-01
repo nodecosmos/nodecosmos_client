@@ -1,4 +1,4 @@
-import { calculatePositions } from './tree';
+import { calculatePositions, virtualizeNodes } from './tree';
 import { UUID } from '../../../types';
 import { deleteNode } from '../nodes.thunks';
 import { NodeState, PKWithTreeBranch } from '../nodes.types';
@@ -86,4 +86,6 @@ function deleteNodeFromState(state: NodeState, treeBranchId: UUID, id: UUID) {
         delete state.indexNodesById[nodeId];
         delete state.byBranchId[treeBranchId][nodeId];
     });
+
+    virtualizeNodes(state, treeBranchId);
 }

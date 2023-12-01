@@ -1,4 +1,4 @@
-import { calculatePositions } from './tree';
+import { calculatePositions, virtualizeNodes } from './tree';
 import { UUID } from '../../../types';
 import { NodePrimaryKey, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -59,6 +59,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         lastChildId: null,
         isMounted: true,
         isEditing: true,
+        render: true,
         siblingIndex,
         treeIndex,
         nestedLevel: node.nestedLevel + 1,
@@ -103,4 +104,5 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
     }
 
     calculatePositions(state, treeBranchId);
+    virtualizeNodes(state, treeBranchId);
 }

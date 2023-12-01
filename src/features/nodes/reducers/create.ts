@@ -1,3 +1,4 @@
+import { virtualizeNodes } from './tree';
 import { create } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
@@ -9,7 +10,8 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         const tmpNode = state.byBranchId[treeBranchId][tmpNodeId];
         const treeIndex = tmpNode.treeIndex as number;
         const siblingIndex = tmpNode.siblingIndex as number;
-        const upperSiblingId = tmpNode.upperSiblingId as string;
+        const upperSiblingId = tmpNode.upperSiblingId;
+        const lowerSiblingId = tmpNode.lowerSiblingId;
         const parentChildIds = state.childIds[treeBranchId][parentId];
         const newNode = {
             ...tmpNode,
@@ -51,8 +53,8 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         }
 
         // update upper sibling of lower sibling
-        if (newNode.lowerSiblingId) {
-            state.byBranchId[treeBranchId][newNode.lowerSiblingId].upperSiblingId = id;
+        if (lowerSiblingId) {
+            state.byBranchId[treeBranchId][lowerSiblingId].upperSiblingId = id;
         }
 
         // update tree
@@ -66,5 +68,7 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         delete state.byBranchId[treeBranchId][tmpNodeId];
         delete state.childIds[treeBranchId][tmpNodeId];
         delete state.titles[treeBranchId][tmpNodeId];
+
+        virtualizeNodes(state, treeBranchId);
     }
 }
