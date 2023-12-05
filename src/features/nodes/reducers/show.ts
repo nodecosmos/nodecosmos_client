@@ -1,4 +1,3 @@
-import { buildTree } from './tree';
 import { showNode } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
@@ -24,14 +23,9 @@ export default function showFulfilled(
     state.byBranchId[treeBranchId][id] = {
         ...stateNode,
         ...node,
-        isTreeRoot: true,
         isTemp: false,
         persistedId: id,
-        nestedLevel: node.isRoot ? 0 : node.ancestorIds.length,
         isSelected: true,
-        treeRootId: id,
-        descendantIds: [],
-        childIds: [],
     };
 
     state.selected = {
@@ -60,13 +54,8 @@ export default function showFulfilled(
             isPublic,
             isRoot: false,
             persistedId: descendant.id,
-            nestedLevel: 0,
-            isTreeRoot: false,
             isSelected: false,
             ancestorIds: [],
-            treeRootId: id,
-            descendantIds: [],
-            childIds: [],
             likesCount: 0,
             ownerId: null,
             ownerType: null,
@@ -77,6 +66,7 @@ export default function showFulfilled(
             coverImageURL: null,
             coverImageKey: null,
             owner,
+            childIds: [],
         };
 
         childIds[treeBranchId] ||= {};
@@ -87,10 +77,12 @@ export default function showFulfilled(
         state.titles[treeBranchId][descendant.id] = descendant.title;
     });
 
+    for (const parentId in childIds[treeBranchId]) {
+        state.byBranchId[treeBranchId][parentId].childIds = childIds[treeBranchId][parentId];
+    }
+
     state.childIds[treeBranchId] = {
         ...state.childIds[treeBranchId],
         ...childIds[treeBranchId],
     };
-
-    buildTree(state, treeBranchId, id);
 }

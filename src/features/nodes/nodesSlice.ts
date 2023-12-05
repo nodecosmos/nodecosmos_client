@@ -22,7 +22,6 @@ import search from './reducers/search';
 import select from './reducers/select';
 import showFulfilled from './reducers/show';
 import { buildTmpNode } from './reducers/tmp';
-import { expandNode, collapseNode } from './reducers/tree';
 import updateState from './reducers/update';
 import {
     getLikesCount, likeObject, unlikeObject,
@@ -40,7 +39,7 @@ const initialState: NodeState = {
     indexNodesById: {},
     actionInProgress: false,
     dragAndDrop: null,
-    currentTmpNode: null,
+    justCreatedNodeId: null,
 };
 
 const nodesSlice = createSlice({
@@ -52,8 +51,6 @@ const nodesSlice = createSlice({
         deleteFromState,
         select,
         search,
-        expandNode,
-        collapseNode,
         setNodePaneContent(state: NodeState, action: PayloadAction<NodePaneContent>) {
             state.nodePaneContent = action.payload;
         },
@@ -63,8 +60,8 @@ const nodesSlice = createSlice({
         setDragAndDrop: (state: NodeState, action: PayloadAction<DragAndDrop | null>) => {
             state.dragAndDrop = action.payload;
         },
-        clearCurrentTmpNode: (state: NodeState) => {
-            state.currentTmpNode = null;
+        clearJustCreatedNode: (state: NodeState) => {
+            state.justCreatedNodeId = null;
         },
     },
     extraReducers(builder) {

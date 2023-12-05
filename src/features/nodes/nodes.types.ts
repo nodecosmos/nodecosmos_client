@@ -15,7 +15,7 @@ export interface Node extends NodePrimaryKey {
     isPublic: boolean;
     isRoot: boolean;
     title: string;
-    ancestorIds: UUID[];
+    ancestorIds?: UUID[];
     description?: string | null;
     shortDescription?: string | null;
     descriptionMarkdown?: string | null;
@@ -42,22 +42,11 @@ export interface NodeDescendant extends NodePrimaryKey {
 }
 
 export interface NodeTreeAttributes {
-    isTreeRoot: boolean;
-    treeRootId: UUID;
-    upperSiblingId?: UUID | null;
-    lowerSiblingId?: UUID | null;
-    lastChildId?: UUID | null;
-    childIds: UUID[];
-    descendantIds: UUID[];
-    nestedLevel: number;
-    treeIndex?: number;
-    siblingIndex?: number;
-    isMounted?: boolean;
-    isExpanded?: boolean;
     isEditing?: boolean;
     isDragOver?: boolean;
     isJustCreated?: boolean;
     isCreationInProgress?: boolean;
+    childIds: UUID[];
 }
 
 export interface AppNode extends Node, NodeTreeAttributes {
@@ -126,7 +115,7 @@ export interface NodeState {
     indexNodesById: Record<NodeId, IndexNode>;
     actionInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
-    currentTmpNode: UUID | null;
+    justCreatedNodeId: UUID | null;
 }
 
 export enum TreeType {

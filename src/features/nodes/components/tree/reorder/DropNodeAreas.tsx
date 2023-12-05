@@ -1,17 +1,16 @@
 import DropNodeArea from './DropNodeArea';
-import useTreeContext from '../../../hooks/useTreeContext';
-import { selectDragAndDrop, selectVisibleNodes } from '../../../nodes.selectors';
+import useNodeVirtualizer from '../../../hooks/tree/useNodeVirtualizer';
+import { selectDragAndDrop } from '../../../nodes.selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function DropNodeAreas() {
-    const { treeBranchId } = useTreeContext();
-    const visibleNodes = useSelector(selectVisibleNodes(treeBranchId));
+    const visibleNodes = useNodeVirtualizer();
     const dragAndDrop = useSelector(selectDragAndDrop);
 
     if (!dragAndDrop) return null;
 
-    return visibleNodes?.map((id, index) => {
+    return visibleNodes?.map(([id], index) => {
         if (index === 0) return null;
         return (
             <DropNodeArea key={id} id={id} dragAndDrop={dragAndDrop} />

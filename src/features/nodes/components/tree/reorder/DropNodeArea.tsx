@@ -3,7 +3,7 @@ import { NodecosmosTheme } from '../../../../../themes/type';
 import { UUID } from '../../../../../types';
 import useNodeDropCapture from '../../../hooks/tree/reorder/useNodeDropCapture';
 import useTreeContext from '../../../hooks/useTreeContext';
-import { selectNode, selectPosition } from '../../../nodes.selectors';
+import { selectNode } from '../../../nodes.selectors';
 import { DragAndDrop } from '../../../nodes.types';
 import { useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -21,18 +21,18 @@ function DropNodeArea(props: DropNodeAreaProps) {
         parentId: dragAndDropParentId,
         siblingIndex: dragAndDropSiblingIndex,
     } = dragAndDrop;
-    const { treeBranchId } = useTreeContext();
+    const { treeBranchId, treeNodes } = useTreeContext();
     const {
         parentId,
         isTemp,
+    } = useSelector(selectNode(treeBranchId, id));
+    const {
         upperSiblingId,
         siblingIndex,
         ancestorIds,
-    } = useSelector(selectNode(treeBranchId, id));
-    const {
         x: nodeX,
         y: nodeY,
-    } = useSelector(selectPosition(treeBranchId, id));
+    } = treeNodes[id];
     const theme: NodecosmosTheme = useTheme();
     const onDropCapture = useNodeDropCapture();
     const [hovered, hover, leave] = useBooleanStateValue();

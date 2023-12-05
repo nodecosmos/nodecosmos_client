@@ -1,4 +1,3 @@
-import { calculatePositions } from './tree';
 import { UUID } from '../../../types';
 import { NodePrimaryKey, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -14,20 +13,8 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         treeBranchId, tmpId, branchId, id,
     } = action.payload;
     const node = state.byBranchId[treeBranchId][id];
-    const upperSiblingId = node.childIds[node.childIds.length - 1];
-    const siblingIndex = node.childIds.length;
 
-    let treeIndex;
-    if (upperSiblingId) {
-        const upperSibling = state.byBranchId[treeBranchId][upperSiblingId];
-        upperSibling.lowerSiblingId = tmpId;
-        treeIndex = upperSibling.treeIndex as number + upperSibling.descendantIds.length + 1;
-    } else {
-        treeIndex = node.treeIndex as number + 1;
-    }
-
-    // init tmp child for node
-    const tmpNode = {
+    state.byBranchId[treeBranchId][tmpId] = {
         id: tmpId,
         branchId,
         rootId: node.rootId,
@@ -36,7 +23,6 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         isPublic: node.isPublic,
         isRoot: false,
         title: '',
-        ancestorIds: [...node.ancestorIds, id],
         description: null,
         shortDescription: null,
         descriptionMarkdown: null,
@@ -52,57 +38,13 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         editorIds: [],
         owner: node.owner,
         persistedId: null,
-        isTreeRoot: false,
         isTemp: true,
         isSelected: false,
-        upperSiblingId,
-        lowerSiblingId: null,
-        lastChildId: null,
-        isMounted: true,
         isEditing: true,
-        render: true,
-        siblingIndex,
-        treeIndex,
-        nestedLevel: node.nestedLevel + 1,
-        descendantIds: [],
         childIds: [],
-        likedByCurrentUser: null,
-        treeRootId: node.treeRootId,
     };
-
-    state.byBranchId[treeBranchId][tmpId] = tmpNode;
 
     state.childIds[treeBranchId][id].push(tmpId);
     state.childIds[treeBranchId][tmpId] = [];
-
     state.byBranchId[treeBranchId][id].childIds.push(tmpId);
-    state.byBranchId[treeBranchId][id].lastChildId = tmpId;
-
-    state.currentTmpNode = tmpId;
-
-    tmpNode.ancestorIds.forEach((ancestorId) => {
-        const ancestor = state.byBranchId[treeBranchId][ancestorId];
-
-        if (ancestor) {
-            ancestor.descendantIds.push(tmpId);
-        }
-    });
-
-    const orderedTreeIds = [...state.orderedTreeIds[treeBranchId]];
-
-    orderedTreeIds.splice(treeIndex, 0, tmpId);
-
-    state.orderedTreeIds[treeBranchId] = orderedTreeIds;
-
-    // update indexes of subsequent nodes
-    for (let i = treeIndex + 1; i < state.orderedTreeIds[treeBranchId].length; i += 1) {
-        const nodeId = state.orderedTreeIds[treeBranchId][i];
-        const node = state.byBranchId[treeBranchId][nodeId];
-
-        if (node) {
-            node.treeIndex = i;
-        }
-    }
-
-    calculatePositions(state, treeBranchId);
 }

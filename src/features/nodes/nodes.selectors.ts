@@ -1,9 +1,5 @@
-import {
-    AppNode, NodeId, NodeState,
-} from './nodes.types';
+import { AppNode, NodeState } from './nodes.types';
 import { UUID } from '../../types';
-import { isYInViewport } from '../../utils/position';
-import { selectTransformablePositionsById } from '../app/app.selectors';
 import { createSelector } from '@reduxjs/toolkit';
 
 interface State { nodes: NodeState; }
@@ -18,6 +14,7 @@ export const selectChildIds = (state: State) => state.nodes.childIds;
 export const selectActionInProgress = (state: State) => state.nodes.actionInProgress;
 export const selectOrderedTreeIds = (state: State) => state.nodes.orderedTreeIds;
 export const selectPositions = (state: State) => state.nodes.positions;
+export const selectJustCreatedNodeId = (state: State) => state.nodes.justCreatedNodeId;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,
@@ -63,8 +60,20 @@ export const selectNodeAttribute = <K extends keyof AppNode>(
     nodeId: UUID,
     attribute: K,
 ) => createSelector(
-        selectNode(branchId, nodeId),
-        (node) => node && node[attribute],
+        selectNodesByBranchId,
+        (nodesByBranchId) => {
+            const branchNodes = nodesByBranchId[branchId];
+            if (!branchNodes) {
+                return null;
+            }
+
+            const node = branchNodes[nodeId];
+            if (!node) {
+                return null;
+            }
+
+            return node[attribute];
+        },
     );
 
 export const selectBranchTitles = (branchId?: UUID) => createSelector(
@@ -82,45 +91,3 @@ export const selectBranchOrderedTreeIds = (treeBranchId?: UUID) => createSelecto
     (orderedTreeIds) => treeBranchId && orderedTreeIds[treeBranchId],
 );
 
-// seems that having a selector instead of reducer improves performance
-// as reading is done on raw state instead of proxy that is created by immer
-export const selectVisibleNodes = (treeBranchId: UUID) => createSelector(
-    selectBranchPositions(treeBranchId),
-    selectBranchOrderedTreeIds(treeBranchId),
-    selectTransformablePositionsById(treeBranchId),
-    selectBranchNodes(treeBranchId),
-    (branchPositions, treeNodeIds, transformablePositions, branchNodes): NodeId[] => {
-        const visibleNodes = [];
-        const alreadyRendered = new Set<NodeId>();
-
-        if (!treeNodeIds) return [];
-
-        for (let i = 0; i < treeNodeIds.length; i += 1) {
-            const id = treeNodeIds[i];
-            const node = branchNodes[id];
-            const {
-                isMounted,
-                parentId,
-            } = node;
-            const { y } = branchPositions[id];
-            const parent = branchNodes[parentId];
-            const isInViewport = isYInViewport(y, transformablePositions);
-            const isLastChild = parent?.lastChildId === id;
-
-            if (isMounted && (isInViewport || isLastChild)) {
-                alreadyRendered.add(id);
-
-                // we render parent and its last child if any child is rendered
-                if (parent && !alreadyRendered.has(parentId)) {
-                    alreadyRendered.add(parentId);
-
-                    visibleNodes.push(parentId);
-                }
-
-                visibleNodes.push(id);
-            }
-        }
-
-        return visibleNodes;
-    },
-);

@@ -9,7 +9,5 @@ export const {
     setDragAndDrop,
     setNodePaneContent,
     setActionInProgress,
-    collapseNode,
-    expandNode,
-    clearCurrentTmpNode,
+    clearJustCreatedNode,
 } = actions;

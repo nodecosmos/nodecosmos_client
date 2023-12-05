@@ -1,3 +1,4 @@
+import useTree from './tree/useTree';
 import { Position, UUID } from '../../../types';
 import { TreeProps } from '../components/tree/Tree';
 import { NodeId, TreeType } from '../nodes.types';
@@ -5,8 +6,11 @@ import {
     createContext, useContext, useMemo,
 } from 'react';
 
-interface TreeContextValue extends TreeProps{
+interface TreeContextValue extends TreeProps {
     selectedNodeIds: Set<UUID>;
+    treeNodes: TreeNodes;
+    setTreeNodes: (treeNodes: TreeNodes) => void;
+    orderedTreeNodeIds: NodeId[];
 }
 
 export type UpperSiblingId = UUID | null;
@@ -14,7 +18,10 @@ export type LowerSiblingId = UUID | null;
 export type SiblingIndex = number;
 
 export interface TreeNode extends Position {
+    id: NodeId;
+    parentId?: NodeId;
     childIds: NodeId[];
+    treeRootId: NodeId;
     upperSiblingId: UpperSiblingId;
     lowerSiblingId: LowerSiblingId;
     lastChildId: NodeId;
@@ -36,8 +43,18 @@ const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
 
 export function useTreeContextCreator(props: TreeProps) {
     const {
-        treeBranchId, rootNodeId, type = TreeType.Default, onChange, value = null,
+        rootNodeId,
+        treeBranchId,
+        type = TreeType.Default,
+        onChange,
+        value,
     } = props;
+    const selectedNodeIds = useMemo(() => new Set<UUID>(value), [value]);
+    const {
+        treeNodes,
+        orderedTreeNodeIds,
+        setTreeNodes,
+    } = useTree(rootNodeId, treeBranchId);
 
     const ctxProviderValue = useMemo(
         () => ({
@@ -45,9 +62,15 @@ export function useTreeContextCreator(props: TreeProps) {
             rootNodeId,
             type,
             onChange,
-            selectedNodeIds: new Set(value),
+            selectedNodeIds,
+            treeNodes,
+            orderedTreeNodeIds,
+            setTreeNodes,
         }),
-        [treeBranchId, rootNodeId, type, onChange, value],
+        [
+            onChange, orderedTreeNodeIds, rootNodeId, selectedNodeIds,
+            setTreeNodes, treeBranchId, treeNodes, type,
+        ],
     );
 
     return {

@@ -3,7 +3,7 @@ import usePrevious from '../../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../../store';
 import { NodecosmosError } from '../../../../../types';
 import {
-    clearCurrentTmpNode, setActionInProgress, updateState,
+    clearJustCreatedNode, setActionInProgress, updateState,
 } from '../../../actions';
 import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
 import { selectNodeAttribute } from '../../../nodes.selectors';
@@ -93,7 +93,7 @@ export default function useNodeSaver() {
                     isRoot: false,
                     isPublic: true,
                     title: value,
-                    order,
+                    order: order as number,
                     tmpNodeId: id,
                 };
 
@@ -122,7 +122,7 @@ export default function useNodeSaver() {
             isJustCreated: false,
         }));
 
-        dispatch(clearCurrentTmpNode());
+        dispatch(clearJustCreatedNode());
     }, [dispatch, treeBranchId, id]);
 
     useEffect(() => {

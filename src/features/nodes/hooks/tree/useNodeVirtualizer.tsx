@@ -1,47 +1,44 @@
-import { UUID } from '../../../../types';
 import { isYInViewport } from '../../../../utils/position';
 import { selectTransformablePositionsById } from '../../../app/app.selectors';
-import {
-    selectBranchNodes, selectBranchOrderedTreeIds, selectBranchPositions,
-} from '../../nodes.selectors';
+import { selectJustCreatedNodeId } from '../../nodes.selectors';
 import { NodeId } from '../../nodes.types';
+import useTreeContext from '../useTreeContext';
 import { useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 type AlreadyMounted = boolean;
 type VirtualizedNode = [NodeId, AlreadyMounted];
 
-export default function useNodeVirtualizer(treeBranchId: UUID): VirtualizedNode[] {
-    const branchPositions = useSelector(selectBranchPositions(treeBranchId));
-    const treeNodeIds = useSelector(selectBranchOrderedTreeIds(treeBranchId));
+export default function useNodeVirtualizer(): VirtualizedNode[] {
+    const {
+        treeBranchId, orderedTreeNodeIds, treeNodes,
+    } = useTreeContext();
+    const justCreatedNodeId = useSelector(selectJustCreatedNodeId);
     const transformablePositions = useSelector(selectTransformablePositionsById(treeBranchId));
-    const branchNodes = useSelector(selectBranchNodes(treeBranchId));
     const prevIsMounted = useRef<Set<NodeId>>(new Set());
 
     return useMemo(() => {
         const visibleNodes: VirtualizedNode[] = [];
         const alreadyRendered = new Set<NodeId>();
 
-        if (!treeNodeIds) return [];
+        if (!orderedTreeNodeIds) return [];
 
-        for (let i = 0; i < treeNodeIds.length; i += 1) {
-            const id = treeNodeIds[i];
-            const node = branchNodes[id];
+        for (let i = 0; i < orderedTreeNodeIds.length; i += 1) {
+            const id = orderedTreeNodeIds[i];
+            const node = treeNodes[id];
             const {
                 isMounted,
                 parentId,
-                isJustCreated,
+                y,
             } = node;
-            const { y } = branchPositions[id];
-            const parent = branchNodes[parentId];
+            const parent = parentId ? treeNodes[parentId] : null;
             const isInViewport = isYInViewport(y, transformablePositions);
             const isLastChild = parent?.lastChildId === id;
 
             if (isMounted && (isInViewport || isLastChild)) {
                 alreadyRendered.add(id);
 
-                // we render parent if any child is rendered
-                if (parent && !alreadyRendered.has(parentId)) {
+                if (parentId && !alreadyRendered.has(parentId)) {
                     alreadyRendered.add(parentId);
 
                     visibleNodes.push([
@@ -52,7 +49,7 @@ export default function useNodeVirtualizer(treeBranchId: UUID): VirtualizedNode[
 
                 visibleNodes.push([
                     id,
-                    Boolean(isJustCreated || prevIsMounted.current.has(id)),
+                    Boolean(justCreatedNodeId === id || prevIsMounted.current.has(id)),
                 ]);
             }
 
@@ -64,6 +61,5 @@ export default function useNodeVirtualizer(treeBranchId: UUID): VirtualizedNode[
         }
 
         return visibleNodes;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [branchPositions, transformablePositions, treeNodeIds]);
+    }, [justCreatedNodeId, orderedTreeNodeIds, transformablePositions, treeNodes]);
 }

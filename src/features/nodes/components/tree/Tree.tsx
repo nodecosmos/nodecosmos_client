@@ -8,7 +8,7 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import { useTreeContextCreator } from '../../hooks/useTreeContext';
 import { TreeType } from '../../nodes.types';
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 
 export interface TreeProps {
     treeBranchId: UUID;
@@ -18,7 +18,7 @@ export interface TreeProps {
     value?: UUID[] | null;
 }
 
-export default function Tree(props: TreeProps) {
+function Tree(props: TreeProps) {
     const {
         treeBranchId, rootNodeId, type = TreeType.Default, onChange, value = null,
     } = props;
@@ -29,6 +29,7 @@ export default function Tree(props: TreeProps) {
         onChange,
         value,
     });
+
     const isTreeLoading = false; // TODO
 
     return (
@@ -40,10 +41,12 @@ export default function Tree(props: TreeProps) {
                 <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                     {isTreeLoading ? <OverlayLoader /> : null}
                     <Transformable transformableId={treeBranchId}>
-                        <TreeNodes treeBranchId={treeBranchId} />
+                        <TreeNodes />
                     </Transformable>
                 </Box>
             </div>
         </TreeContext.Provider>
     );
 }
+
+export default memo(Tree);

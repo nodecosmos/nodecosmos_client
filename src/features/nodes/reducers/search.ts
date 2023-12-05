@@ -1,4 +1,3 @@
-import { buildTree } from './tree';
 import { UUID } from '../../../types';
 import { NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -47,11 +46,8 @@ export default function search(state: NodeState, action: PayloadAction<SearchNod
 
         state.childIds = newChildIds;
     } else {
-        // reset childIds[treeBranchId]
         for (const nodeId in state.byBranchId[treeBranchId]) {
             state.childIds[treeBranchId][nodeId] = state.byBranchId[treeBranchId][nodeId].childIds;
         }
     }
-
-    buildTree(state, treeBranchId, rootId, false);
 }

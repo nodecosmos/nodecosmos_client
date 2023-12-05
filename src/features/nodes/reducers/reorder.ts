@@ -1,4 +1,3 @@
-import { buildTree } from './tree';
 import { reorder } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
@@ -20,8 +19,7 @@ export default function reorderFulfilled(state: NodeState, action: ReturnType<ty
     state.childIds[treeBranchId][oldParentId].splice(oldIndex, 1);
     state.childIds[treeBranchId][newParentId].splice(newSiblingIndexAfterMove, 0, id);
 
+    state.byBranchId[treeBranchId][oldParentId].childIds.splice(oldIndex, 1);
+    state.byBranchId[treeBranchId][newParentId].childIds.splice(newSiblingIndexAfterMove, 0, id);
     state.byBranchId[treeBranchId][newParentId].isDragOver = false;
-    state.byBranchId[treeBranchId][newParentId].isExpanded = true;
-
-    buildTree(state, treeBranchId, node.treeRootId);
 }

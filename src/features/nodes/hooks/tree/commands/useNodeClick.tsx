@@ -1,6 +1,5 @@
-import {
-    collapseNode, expandNode, select,
-} from '../../../actions';
+import { NodecosmosDispatch } from '../../../../../store';
+import { select } from '../../../actions';
 import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
 import useTreeCommands from '../useTreeCommands';
@@ -16,12 +15,11 @@ export default function useNodeClick() {
         isEditing,
         isSelected,
     } = useNodeContext();
-
     const { type: treeType } = useTreeContext();
     const {
-        addId, deleteId, isChecked,
+        addId, deleteId, isChecked, expandNode, collapseNode,
     } = useTreeCommands();
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     //------------------------------------------------------------------------------------------------------------------
     const handleCheckboxChange = useCallback(() => {
@@ -46,21 +44,18 @@ export default function useNodeClick() {
 
         if (isEditing) return;
         if (isExpanded && isSelected) {
-            dispatch(collapseNode({
-                treeBranchId,
-                id,
-            }));
+            collapseNode(id);
             dispatch(select(null));
         } else {
-            dispatch(expandNode({
-                treeBranchId,
-                id,
-            }));
+            expandNode(id);
             dispatch(select({
                 treeBranchId,
                 branchId,
                 id,
             }));
         }
-    }, [treeType, isEditing, isExpanded, isSelected, handleCheckboxChange, dispatch, treeBranchId, id, branchId]);
+    }, [
+        branchId, collapseNode, dispatch, expandNode, handleCheckboxChange, id,
+        isEditing, isExpanded, isSelected, treeBranchId, treeType,
+    ]);
 }

@@ -1,9 +1,52 @@
+import { calculatePositions } from './position';
 import { UUID } from '../../../../types';
-import useTreeContext from '../useTreeContext';
+import useTreeContext, { TreeNode, TreeNodes } from '../useTreeContext';
 import { ChangeEvent, useCallback } from 'react';
 
 export default function useTreeCommands() {
-    const { selectedNodeIds, onChange } = useTreeContext();
+    const {
+        orderedTreeNodeIds, selectedNodeIds, onChange, treeNodes, setTreeNodes,
+    } = useTreeContext();
+
+    const expandNode = useCallback((nodeId: UUID) => {
+        const node = treeNodes[nodeId];
+
+        if (node.isExpanded) return;
+
+        const newTreeNodes = {
+            ...treeNodes,
+            [nodeId]: {
+                ...node,
+                isExpanded: true,
+            },
+        };
+
+        if (node.childIds.length > 0) {
+            mountDescendants(newTreeNodes, node);
+            calculatePositions(orderedTreeNodeIds, newTreeNodes);
+        }
+
+        setTreeNodes(newTreeNodes);
+    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
+
+    const collapseNode = useCallback((nodeId: UUID) => {
+        const node = treeNodes[nodeId];
+
+        const newTreeNodes = {
+            ...treeNodes,
+            [nodeId]: {
+                ...node,
+                isExpanded: false,
+            },
+        };
+
+        if (node.childIds.length > 0) {
+            unmountDescendants(newTreeNodes, node); // Ensure this function respects immutability
+            calculatePositions(orderedTreeNodeIds, newTreeNodes); // Same here
+        }
+
+        setTreeNodes(newTreeNodes);
+    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
 
     // checkboxes
     const addId = useCallback((nodeId: UUID) => {
@@ -28,9 +71,36 @@ export default function useTreeCommands() {
     }, [isChecked, addId, deleteId]);
 
     return {
+        expandNode,
+        collapseNode,
         addId,
         deleteId,
         isChecked,
         handleCheckboxChange,
     };
+}
+
+function mountDescendants(treeNodes: TreeNodes, node: TreeNode) {
+    const { descendantIds } = node;
+
+    descendantIds.forEach((id) => {
+        const parentId = treeNodes[id].parentId;
+        const { isMounted: isParentMounted, isExpanded: isParentExpanded } = treeNodes[parentId as UUID];
+
+        treeNodes[id] = {
+            ...treeNodes[id],
+            isMounted: isParentMounted && isParentExpanded,
+        };
+    });
+}
+
+function unmountDescendants(treeNodes: TreeNodes, node: TreeNode) {
+    const { descendantIds } = node;
+
+    descendantIds.forEach((id) => {
+        treeNodes[id] = {
+            ...treeNodes[id],
+            isMounted: false,
+        };
+    });
 }

@@ -1,6 +1,6 @@
 import { UUID } from '../../../../types';
 import { NodeProps } from '../../components/tree/Node';
-import { selectNode, selectPosition } from '../../nodes.selectors';
+import { selectNode } from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
 import useTreeContext from '../useTreeContext';
 import { createContext, useContext } from 'react';
@@ -19,36 +19,36 @@ export default function useNodeContext() {
     const {
         treeBranchId, id, alreadyMounted,
     } = useContext(NodeContext);
-    const { type } = useTreeContext();
+    const { type, treeNodes } = useTreeContext();
 
     // tree node attributes
     const {
         branchId: currentBranchId,
-        treeRootId,
         rootId,
         parentId,
         persistedId,
         ancestorIds,
-        lastChildId,
-        siblingIndex,
         title,
         isRoot,
         isTemp,
         isJustCreated,
         isSelected,
-        isExpanded,
         isEditing,
         isDragOver,
         isCreationInProgress,
-        nestedLevel,
     } = useSelector(selectNode(treeBranchId, id as UUID));
 
     const {
+        treeRootId,
+        lastChildId,
+        siblingIndex,
+        isExpanded,
+        nestedLevel,
         x,
         y,
         xEnd,
         yEnd,
-    } = useSelector(selectPosition(treeBranchId, id as UUID)) || {};
+    } = treeNodes[id] || {};
 
     // if the node is a contribution request, we need to use the tree branch id
     let branchId = currentBranchId;
