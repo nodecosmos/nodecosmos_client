@@ -2,8 +2,8 @@ import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateVal
 import { NodecosmosTheme } from '../../../../../themes/type';
 import { UUID } from '../../../../../types';
 import useNodeDropCapture from '../../../hooks/tree/reorder/useNodeDropCapture';
-import useTreeContext from '../../../hooks/tree/useTreeContext';
-import { selectNode } from '../../../nodes.selectors';
+import useTreeContext from '../../../hooks/useTreeContext';
+import { selectNode, selectPosition } from '../../../nodes.selectors';
 import { DragAndDrop } from '../../../nodes.types';
 import { useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -23,13 +23,16 @@ function DropNodeArea(props: DropNodeAreaProps) {
     } = dragAndDrop;
     const { treeBranchId } = useTreeContext();
     const {
-        x: nodeX,
-        y: nodeY,
         parentId,
         isTemp,
+        upperSiblingId,
         siblingIndex,
         ancestorIds,
     } = useSelector(selectNode(treeBranchId, id));
+    const {
+        x: nodeX,
+        y: nodeY,
+    } = useSelector(selectPosition(treeBranchId, id));
     const theme: NodecosmosTheme = useTheme();
     const onDropCapture = useNodeDropCapture();
     const [hovered, hover, leave] = useBooleanStateValue();
@@ -64,6 +67,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
         || isTemp
         || (isSameParent && dragAndDropSiblingIndex === (siblingIndex - 1))
         || ancestorIds.includes(dragAndDropId)
+        || upperSiblingId?.includes('tmp')
     ) return null;
 
     const x = nodeX - 10;

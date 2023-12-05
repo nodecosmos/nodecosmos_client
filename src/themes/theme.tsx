@@ -1,3 +1,6 @@
+import dark from './dark';
+import dimmed from './dimmed';
+import light from './light';
 import animations from './styles/animations';
 /* mui customizations */
 import autocomplete from './styles/mui/autocomplete';
@@ -51,3 +54,5 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
 });
 
 export default getTheme;
+
+export const themes = [dark, dimmed, light];

@@ -23,5 +23,5 @@ export default function reorderFulfilled(state: NodeState, action: ReturnType<ty
     state.byBranchId[treeBranchId][newParentId].isDragOver = false;
     state.byBranchId[treeBranchId][newParentId].isExpanded = true;
 
-    buildTree(state, treeBranchId, node.rootId);
+    buildTree(state, treeBranchId, node.treeRootId);
 }

@@ -1,7 +1,6 @@
 import {
     Owner, OwnerType, Position, UUID,
 } from '../../types';
-import { TransformablePositions } from '../app/app.types';
 
 // for main nodes branch id is equal to branch id
 export interface NodePrimaryKey {
@@ -26,7 +25,7 @@ export interface Node extends NodePrimaryKey {
     creatorId?: UUID | null;
     editorIds?: UUID[] | null;
     owner?: Owner | null;
-    likesCount?: number;
+    likesCount: number;
     coverImageURL?: string | null;
     coverImageKey?: string | null;
     createdAt?: Date | null;
@@ -42,7 +41,7 @@ export interface NodeDescendant extends NodePrimaryKey {
     title: string;
 }
 
-export interface NodeTreeAttributes extends Position {
+export interface NodeTreeAttributes {
     isTreeRoot: boolean;
     treeRootId: UUID;
     upperSiblingId?: UUID | null;
@@ -58,9 +57,7 @@ export interface NodeTreeAttributes extends Position {
     isEditing?: boolean;
     isDragOver?: boolean;
     isJustCreated?: boolean;
-    alreadyMounted?: boolean;
     isCreationInProgress?: boolean;
-    render: boolean;
 }
 
 export interface AppNode extends Node, NodeTreeAttributes {
@@ -98,6 +95,8 @@ export type NodePayload = PKWithTreeBranch & Partial<Omit<Node, keyof NodePrimar
 export type TreeNodeKey = TreeBranch & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
+export type WithOptTreeBranchId<T> = T & { treeBranchId?: UUID; };
+
 export enum NodePaneContent {
     Markdown = 'markdown',
     Description = 'description',
@@ -105,8 +104,8 @@ export enum NodePaneContent {
     Editor = 'editor',
 }
 
-type BranchId = UUID;
-type NodeId = UUID;
+export type BranchId = UUID;
+export type NodeId = UUID;
 
 export interface DragAndDrop {
     id: NodeId;
@@ -120,7 +119,7 @@ export interface NodeState {
     byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
     orderedTreeIds: Record<BranchId, NodeId[]>;
-    visibleOrderedTreeIds: Record<BranchId, NodeId[]>;
+    positions: Record<BranchId, Record<NodeId, Position>>;
     titles: Record<BranchId, Record<NodeId, string>>;
     selected: PKWithTreeBranch | null;
     nodePaneContent: NodePaneContent;
@@ -128,8 +127,6 @@ export interface NodeState {
     actionInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
     currentTmpNode: UUID | null;
-    _transformablePositionsById: Record<UUID, TransformablePositions>;
-    _prevVisibleNodes: Record<BranchId, Record<UUID, boolean>>;
 }
 
 export enum TreeType {

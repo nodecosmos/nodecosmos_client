@@ -1,4 +1,4 @@
-import { calculatePositions, virtualizeNodes } from './tree';
+import { calculatePositions } from './tree';
 import { UUID } from '../../../types';
 import { NodePrimaryKey, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -20,6 +20,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
     let treeIndex;
     if (upperSiblingId) {
         const upperSibling = state.byBranchId[treeBranchId][upperSiblingId];
+        upperSibling.lowerSiblingId = tmpId;
         treeIndex = upperSibling.treeIndex as number + upperSibling.descendantIds.length + 1;
     } else {
         treeIndex = node.treeIndex as number + 1;
@@ -35,7 +36,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         isPublic: node.isPublic,
         isRoot: false,
         title: '',
-        ancestorIds: [id, ...node.ancestorIds],
+        ancestorIds: [...node.ancestorIds, id],
         description: null,
         shortDescription: null,
         descriptionMarkdown: null,
@@ -67,10 +68,6 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         childIds: [],
         likedByCurrentUser: null,
         treeRootId: node.treeRootId,
-        x: 0,
-        xEnd: 0,
-        y: 0,
-        yEnd: 0,
     };
 
     state.byBranchId[treeBranchId][tmpId] = tmpNode;
@@ -91,7 +88,11 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         }
     });
 
-    state.orderedTreeIds[treeBranchId].splice(treeIndex, 0, tmpId);
+    const orderedTreeIds = [...state.orderedTreeIds[treeBranchId]];
+
+    orderedTreeIds.splice(treeIndex, 0, tmpId);
+
+    state.orderedTreeIds[treeBranchId] = orderedTreeIds;
 
     // update indexes of subsequent nodes
     for (let i = treeIndex + 1; i < state.orderedTreeIds[treeBranchId].length; i += 1) {
@@ -104,5 +105,4 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
     }
 
     calculatePositions(state, treeBranchId);
-    virtualizeNodes(state, treeBranchId);
 }

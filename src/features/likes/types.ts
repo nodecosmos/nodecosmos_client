@@ -1,4 +1,5 @@
 import { UUID } from '../../types';
+import { WithOptTreeBranchId } from '../nodes/nodes.types';
 
 export interface LikeKey {
     objectId: UUID;
@@ -16,7 +17,7 @@ export interface Like extends LikePrimaryKey {
     updatedAt: Date;
 }
 
-export type LikeCreate = Omit<Like, 'createdAt' | 'updatedAt'>;
+export type LikeCreate = WithOptTreeBranchId<Omit<Like, 'createdAt' | 'updatedAt'>>;
 
 export enum LikeType {
     Node = 'Node',

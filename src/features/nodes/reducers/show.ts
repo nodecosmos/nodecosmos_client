@@ -25,10 +25,6 @@ export default function showFulfilled(
         ...stateNode,
         ...node,
         isTreeRoot: true,
-        x: 0,
-        xEnd: 0,
-        y: 0,
-        yEnd: 0,
         isTemp: false,
         persistedId: id,
         nestedLevel: node.isRoot ? 0 : node.ancestorIds.length,
@@ -36,7 +32,6 @@ export default function showFulfilled(
         treeRootId: id,
         descendantIds: [],
         childIds: [],
-        likedByCurrentUser: null,
     };
 
     state.selected = {
@@ -82,12 +77,6 @@ export default function showFulfilled(
             coverImageURL: null,
             coverImageKey: null,
             owner,
-            likedByCurrentUser: null,
-            render: false,
-            x: 0,
-            xEnd: 0,
-            y: 0,
-            yEnd: 0,
         };
 
         childIds[treeBranchId] ||= {};

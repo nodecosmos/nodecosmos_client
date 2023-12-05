@@ -49,11 +49,9 @@ export default function search(state: NodeState, action: PayloadAction<SearchNod
     } else {
         // reset childIds[treeBranchId]
         for (const nodeId in state.byBranchId[treeBranchId]) {
-            if (state.byBranchId[treeBranchId][nodeId] && state.byBranchId[treeBranchId][nodeId].rootId === rootId) {
-                state.childIds[treeBranchId][nodeId] = state.byBranchId[treeBranchId][nodeId].childIds;
-            }
+            state.childIds[treeBranchId][nodeId] = state.byBranchId[treeBranchId][nodeId].childIds;
         }
     }
 
-    buildTree(state, treeBranchId, rootId);
+    buildTree(state, treeBranchId, rootId, false);
 }

@@ -1,7 +1,7 @@
 import { UUID } from '../types';
-import { defaultMemoize } from 'reselect';
+import { lruMemoize } from 'reselect';
 
-export const groupById = defaultMemoize(<T extends { id: UUID }>(items: T[]): Record<string, T> => {
+export const groupById = lruMemoize(<T extends { id: UUID }>(items: T[]): Record<string, T> => {
     const result: Record<string, T> = {};
 
     items.forEach((item) => {
@@ -11,7 +11,7 @@ export const groupById = defaultMemoize(<T extends { id: UUID }>(items: T[]): Re
     return result;
 });
 
-export const flattenValues = defaultMemoize(<T>(items: Record<string, T>): T[] => {
+export const flattenValues = lruMemoize(<T>(items: Record<string, T>): T[] => {
     const result: T[] = [];
 
     Object.values(items).forEach((item) => {

@@ -15,18 +15,15 @@ import createFulfilled from './reducers/create';
 import { deleteFulfilled, deleteFromState } from './reducers/delete';
 import { getDescriptionBase64Fulfilled, getDescriptionFulfilled } from './reducers/description';
 import {
-    getLikesCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled, 
+    getLikesCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
 } from './reducers/like';
 import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
 import select from './reducers/select';
 import showFulfilled from './reducers/show';
 import { buildTmpNode } from './reducers/tmp';
-import {
-    expandNode, collapseNode, virtualizeNodes,
-} from './reducers/tree';
+import { expandNode, collapseNode } from './reducers/tree';
 import updateState from './reducers/update';
-import { setTransformablePositions } from '../app/appSlice';
 import {
     getLikesCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
@@ -36,7 +33,7 @@ const initialState: NodeState = {
     byBranchId: {},
     childIds: {},
     orderedTreeIds: {},
-    visibleOrderedTreeIds: {},
+    positions: {},
     titles: {},
     selected: null,
     nodePaneContent: NodePaneContent.Markdown,
@@ -44,8 +41,6 @@ const initialState: NodeState = {
     actionInProgress: false,
     dragAndDrop: null,
     currentTmpNode: null,
-    _transformablePositionsById: {},
-    _prevVisibleNodes: {},
 };
 
 const nodesSlice = createSlice({
@@ -83,13 +78,7 @@ const nodesSlice = createSlice({
             .addCase(getDescriptionBase64.fulfilled, getDescriptionBase64Fulfilled)
             .addCase(getLikesCount.fulfilled, getLikesCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
-            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
-            .addCase(setTransformablePositions, (state, action) => {
-                const { id } = action.payload;
-
-                state._transformablePositionsById[id] = action.payload;
-                virtualizeNodes(state, id);
-            });
+            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled);
     },
 });
 

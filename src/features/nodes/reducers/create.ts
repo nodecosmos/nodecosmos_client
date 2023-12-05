@@ -1,4 +1,3 @@
-import { virtualizeNodes } from './tree';
 import { create } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
@@ -8,6 +7,7 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
 
     if (tmpNodeId && treeBranchId) {
         const tmpNode = state.byBranchId[treeBranchId][tmpNodeId];
+        const tmpNodePosition = state.positions[treeBranchId][tmpNodeId];
         const treeIndex = tmpNode.treeIndex as number;
         const siblingIndex = tmpNode.siblingIndex as number;
         const upperSiblingId = tmpNode.upperSiblingId;
@@ -20,6 +20,8 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             isJustCreated: true,
             isTemp: false,
         };
+        // handle position
+        state.positions[treeBranchId][id] = tmpNodePosition;
 
         // replace tmp id with persisted id within the parent
         parentChildIds.splice(siblingIndex, 1, id);
@@ -68,7 +70,5 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         delete state.byBranchId[treeBranchId][tmpNodeId];
         delete state.childIds[treeBranchId][tmpNodeId];
         delete state.titles[treeBranchId][tmpNodeId];
-
-        virtualizeNodes(state, treeBranchId);
     }
 }

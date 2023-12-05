@@ -1,9 +1,9 @@
 import {
     collapseNode, expandNode, select,
 } from '../../../actions';
+import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
 import useTreeCommands from '../useTreeCommands';
-import useTreeContext from '../useTreeContext';
 import { MouseEvent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 

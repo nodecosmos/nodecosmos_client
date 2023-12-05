@@ -5,6 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 interface State {
     app: AppState;
 }
+
 export const selectTransformablePositionsById = (id: UUID) => (
     state: State,
 ) => state.app.transformablePositionsById[id] || {};

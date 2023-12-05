@@ -5,35 +5,37 @@ import {
 import { NodeState } from '../nodes.types';
 
 export function getLikesCountFulfilled(state: NodeState, action: ReturnType<typeof getLikesCount.fulfilled>) {
-    const {
-        id, branchId, likesCount,
-    } = action.payload;
-    // currently only for main branch
-    if (state.byBranchId[branchId] && state.byBranchId[branchId][id]) {
-        state.byBranchId[branchId][id].likesCount = likesCount;
-    }
+    const { id, likesCount } = action.payload;
+
+    Object.values(state.byBranchId).forEach((branch) => {
+        if (branch[id]) {
+            branch[id].likesCount = likesCount;
+        }
+    });
 }
 
 export function likeObjectFulfilled(state: NodeState, action: ReturnType<typeof likeObject.fulfilled>) {
-    const {
-        id, branchId, likesCount,
-    } = action.payload;
-    handleLike(state, id, branchId, likesCount);
+    const { treeBranchId } = action.meta.arg;
+
+    const { id, branchId } = action.payload;
+
+    handleLike(state, id, branchId, 1, treeBranchId);
 }
 
 export function unlikeObjectFulfilled(state: NodeState, action: ReturnType<typeof unlikeObject.fulfilled>) {
-    const {
-        id, branchId, likesCount,
-    } = action.payload;
-    handleLike(state, id, branchId, likesCount);
+    const { treeBranchId } = action.meta.arg;
+
+    const { id, branchId } = action.payload;
+
+    handleLike(state, id, branchId, -1, treeBranchId);
 }
 
-function handleLike(state: NodeState, id: UUID, branchId: UUID, likesCount: number) {
-    if (state.byBranchId[branchId] && state.byBranchId[branchId][id]) {
-        state.byBranchId[branchId][id].likesCount = likesCount as number;
+function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number, treeBranchId?: UUID) {
+    if (treeBranchId) {
+        state.byBranchId[treeBranchId][id].likesCount += increment;
     }
 
-    if (state.indexNodesById[id]) {
-        state.indexNodesById[id].likesCount = likesCount;
+    if (id === branchId && state.indexNodesById[id]) {
+        state.indexNodesById[id].likesCount += increment;
     }
 }

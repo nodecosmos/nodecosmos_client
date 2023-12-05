@@ -1,14 +1,9 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
-import { selectNodeAttribute } from '../../../nodes.selectors';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
 
 export default function useNodeButtonContributionRequestColors() {
-    const { treeBranchId, id } = useNodeContext();
-
-    const isSelected = useSelector(selectNodeAttribute(treeBranchId, id, 'isSelected'));
-    const nestedLevel = useSelector(selectNodeAttribute(treeBranchId, id, 'nestedLevel'));
+    const { isSelected, nestedLevel } = useNodeContext();
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;

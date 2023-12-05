@@ -1,16 +1,12 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
-import { selectNodeAttribute } from '../../../nodes.selectors';
 import useNodeContext from '../useNodeContext';
 import useTreeCommands from '../useTreeCommands';
 import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
 
 export default function useNodeButtonCheckboxColors() {
     const {
-        treeBranchId, id, isRoot,
+        id, isRoot, nestedLevel,
     } = useNodeContext();
-
-    const nestedLevel = useSelector(selectNodeAttribute(treeBranchId, id, 'nestedLevel'));
     const theme: NodecosmosTheme = useTheme();
 
     const commands = useTreeCommands();

@@ -9,8 +9,8 @@ import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
 import { selectNodeAttribute } from '../../../nodes.selectors';
 import { create, updateTitle } from '../../../nodes.thunks';
 import { TreeType } from '../../../nodes.types';
+import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
-import useTreeContext from '../useTreeContext';
 import {
     ChangeEvent, useCallback, useEffect, useRef,
 } from 'react';

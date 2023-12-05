@@ -1,15 +1,13 @@
-import { UUID } from '../../../types';
+import { Position, UUID } from '../../../types';
 import {
-    CLIENT_VIEWPORT_BUFFER_FACTOR,
     COMPLETE_Y_LENGTH,
     EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
 } from '../nodes.constants';
 import {
-    AppNode, NodeState, TreeNodeKey,
+    AppNode, NodeId, NodeState, TreeNodeKey,
 } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-type NodeId = UUID;
 type UpperSiblingId = UUID | null;
 type LowerSiblingId = UUID | null;
 type SiblingIndex = number;
@@ -17,7 +15,7 @@ type QueueItem = [NodeId, UpperSiblingId, LowerSiblingId, SiblingIndex];
 type Queue = QueueItem[];
 
 // not a reducer for now
-export function buildTree(state: NodeState, treeBranchId: UUID, rootId: UUID) {
+export function buildTree(state: NodeState, treeBranchId: UUID, rootId: UUID, setChildIds = true) {
     const orderedTreeIds = [];
 
     const queue: Queue = [[rootId, null, null, 0]];
@@ -49,7 +47,10 @@ export function buildTree(state: NodeState, treeBranchId: UUID, rootId: UUID) {
             isParentMounted = parent.isMounted as boolean;
         }
 
-        currentNode.childIds = childIds;
+        if (setChildIds) {
+            currentNode.childIds = childIds;
+        }
+
         currentNode.upperSiblingId = upperSiblingId;
         currentNode.lowerSiblingId = lowerSiblingId;
         currentNode.lastChildId = childIds[childIds.length - 1];
@@ -57,10 +58,7 @@ export function buildTree(state: NodeState, treeBranchId: UUID, rootId: UUID) {
         currentNode.siblingIndex = siblingIndex;
         currentNode.treeIndex = treeIndex;
         currentNode.isTreeRoot = isTreeRoot;
-        currentNode.render = true;
         currentNode.descendantIds = [];
-
-        calculatePosition(state, treeBranchId, currentId);
 
         // reversely populate ancestorIds
         for (let i = childIds.length - 1; i >= 0; i -= 1) {
@@ -79,7 +77,7 @@ export function buildTree(state: NodeState, treeBranchId: UUID, rootId: UUID) {
 
     state.orderedTreeIds[treeBranchId] = orderedTreeIds;
 
-    virtualizeNodes(state, treeBranchId);
+    calculatePositions(state, treeBranchId);
 }
 
 export function expandNode(state: NodeState, action: PayloadAction<TreeNodeKey>) {
@@ -87,12 +85,15 @@ export function expandNode(state: NodeState, action: PayloadAction<TreeNodeKey>)
 
     const node = state.byBranchId[treeBranchId][id];
 
+    if (node.isExpanded) return;
+
     node.isExpanded = true;
+
+    if (node.childIds.length === 0) return;
 
     mountDescendants(state, treeBranchId, node);
 
     calculatePositions(state, treeBranchId);
-    virtualizeNodes(state, treeBranchId);
 }
 
 export function collapseNode(state: NodeState, action: PayloadAction<TreeNodeKey>) {
@@ -102,70 +103,11 @@ export function collapseNode(state: NodeState, action: PayloadAction<TreeNodeKey
 
     node.isExpanded = false;
 
+    if (node.childIds.length === 0) return;
+
     unmountDescendants(state, treeBranchId, node);
 
     calculatePositions(state, treeBranchId);
-    virtualizeNodes(state, treeBranchId);
-}
-
-export function virtualizeNodes(state: NodeState, treeBranchId: UUID) {
-    const branchNodes = state.byBranchId[treeBranchId];
-    const treeNodeIds = state.orderedTreeIds[treeBranchId];
-    state._prevVisibleNodes[treeBranchId] ||= {};
-    const prevVirtualizedNodesById = state._prevVisibleNodes[treeBranchId];
-
-    state.visibleOrderedTreeIds[treeBranchId] = treeNodeIds?.filter((id) => {
-        const {
-            isMounted,
-            parentId,
-            isJustCreated,
-        } = branchNodes[id];
-        const parent = branchNodes[parentId];
-        const isLastParentsChild = parent?.lastChildId === id;
-        const isInViewport = isNodeInViewport(state, treeBranchId, id);
-
-        if (isMounted && (isInViewport || isLastParentsChild)) {
-            //  we don't animate nodes that are mounted but not in viewport
-            branchNodes[id].render = true;
-            branchNodes[id].alreadyMounted = isJustCreated || prevVirtualizedNodesById[id];
-            prevVirtualizedNodesById[id] = true;
-
-            // we render parent if any child is rendered
-            if (parent && !parent.render) {
-                parent.render = true;
-                parent.alreadyMounted = isJustCreated || prevVirtualizedNodesById[parentId];
-                prevVirtualizedNodesById[parentId] = true;
-            }
-
-            return true;
-        } else {
-            branchNodes[id].render = false;
-            prevVirtualizedNodesById[id] = false;
-
-            return false;
-        }
-    });
-}
-
-export function calculatePositions(state: NodeState, treeBranchId: UUID) {
-    const ids = state.orderedTreeIds[treeBranchId];
-
-    ids.forEach((id) => {
-        calculatePosition(state, treeBranchId, id);
-    });
-}
-
-function isNodeInViewport(state: NodeState, treeBranchId: UUID, id: UUID) {
-    const { y } = state.byBranchId[treeBranchId][id];
-    const {
-        scrollTop,
-        clientHeight,
-    } = state._transformablePositionsById[treeBranchId];
-
-    const bellowTop = y > (scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR);
-    const aboveBottom = y < (scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR);
-
-    return bellowTop && aboveBottom;
 }
 
 function mountDescendants(state: NodeState, treeBranchId: UUID, node: AppNode) {
@@ -188,10 +130,22 @@ function unmountDescendants (state: NodeState, treeBranchId: UUID, node: AppNode
     });
 }
 
-function calculatePosition(state: NodeState, treeBranchId: UUID, id: UUID) {
-    const node = state.byBranchId[treeBranchId][id];
+export function calculatePositions(state: NodeState, treeBranchId: UUID) {
+    const ids = state.orderedTreeIds[treeBranchId];
+    const branchPositions: Record<NodeId, Position> = {};
 
+    for (let i = 0; i < ids.length; i += 1) {
+        const id = ids[i];
+        const node = state.byBranchId[treeBranchId][id];
+        calculatePosition(branchPositions, node);
+    }
+
+    state.positions[treeBranchId] = branchPositions;
+}
+
+function calculatePosition(branchPositions: Record<NodeId, Position>, node: AppNode) {
     const {
+        id,
         upperSiblingId,
         parentId,
         ancestorIds,
@@ -200,26 +154,32 @@ function calculatePosition(state: NodeState, treeBranchId: UUID, id: UUID) {
 
     let upperSiblingYEnd = null;
     if (upperSiblingId) {
-        upperSiblingYEnd = state.byBranchId[treeBranchId][upperSiblingId].yEnd as number;
+        upperSiblingYEnd = branchPositions[upperSiblingId].yEnd as number;
     }
+
+    let x, y;
 
     if (isTreeRoot) {
-        node.x = EDGE_LENGTH;
-        node.y = EDGE_LENGTH + MARGIN_TOP;
+        x = EDGE_LENGTH;
+        y = EDGE_LENGTH + MARGIN_TOP;
     } else {
-        const { x: parentX, y: parentY } = state.byBranchId[treeBranchId][parentId];
+        const { x: parentX, y: parentY } = branchPositions[parentId];
 
-        node.x = parentX as number + MARGIN_LEFT + EDGE_LENGTH;
-        node.y = (upperSiblingYEnd || parentY) + COMPLETE_Y_LENGTH;
+        x = parentX + MARGIN_LEFT + EDGE_LENGTH;
+        y = (upperSiblingYEnd || parentY) + COMPLETE_Y_LENGTH;
     }
 
-    node.xEnd = node.x + EDGE_LENGTH;
-    node.yEnd = node.y;
+    branchPositions[id] = {
+        x,
+        y,
+        xEnd: x + EDGE_LENGTH,
+        yEnd: y,
+    };
 
     if (node.isMounted) {
         ancestorIds.forEach((ancestorId) => {
-            if (state.byBranchId[treeBranchId][ancestorId]) {
-                state.byBranchId[treeBranchId][ancestorId].yEnd += COMPLETE_Y_LENGTH;
+            if (branchPositions[ancestorId]) {
+                branchPositions[ancestorId].yEnd += COMPLETE_Y_LENGTH;
             }
         });
     }

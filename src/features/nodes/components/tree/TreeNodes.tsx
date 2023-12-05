@@ -1,8 +1,7 @@
 import Node from './Node';
 import DropNodeAreas from './reorder/DropNodeAreas';
-import { selectVisibleTreeNodeIds } from '../../nodes.selectors';
+import useNodeVirtualizer from '../../hooks/tree/useNodeVirtualizer';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 export interface TreeNodesProps {
     treeBranchId: string;
@@ -11,18 +10,19 @@ export interface TreeNodesProps {
 export default function TreeNodes(props: TreeNodesProps) {
     const { treeBranchId } = props;
 
-    const treeNodeIds = useSelector(selectVisibleTreeNodeIds(treeBranchId));
+    const visibleNodes = useNodeVirtualizer(treeBranchId);
 
-    if (!treeNodeIds || treeNodeIds.length === 0) return null;
+    if (!visibleNodes || visibleNodes.length === 0) return null;
 
     return (
         <g>
             <g>
-                {treeNodeIds.map((id) => (
+                {visibleNodes.map(([id, alreadyMounted]) => (
                     <Node
                         key={id}
                         treeBranchId={treeBranchId}
                         id={id}
+                        alreadyMounted={alreadyMounted}
                     />
                 ))}
             </g>

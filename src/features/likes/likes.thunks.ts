@@ -4,6 +4,7 @@ import {
     LikesCountResponse,
 } from './types';
 import nodecosmos from '../../apis/nodecosmos-server';
+import { WithOptTreeBranchId } from '../nodes/nodes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getUserLikes = createAsyncThunk(
@@ -35,7 +36,7 @@ export const likeObject = createAsyncThunk(
 
 export const unlikeObject = createAsyncThunk(
     'nodes/unlikeObject',
-    async ({ objectId, branchId }: LikeKey): Promise<LikesCountResponse> => {
+    async ({ objectId, branchId }: WithOptTreeBranchId<LikeKey>): Promise<LikesCountResponse> => {
         const response = await nodecosmos.delete(`/likes/${objectId}/${branchId}`);
 
         return response.data;

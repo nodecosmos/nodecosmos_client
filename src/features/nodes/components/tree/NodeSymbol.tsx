@@ -1,7 +1,7 @@
 import useNodeColors from '../../hooks/tree/useNodeColors';
 import useNodeContext from '../../hooks/tree/useNodeContext';
 import useTreeCommands from '../../hooks/tree/useTreeCommands';
-import useTreeContext from '../../hooks/tree/useTreeContext';
+import useTreeContext from '../../hooks/useTreeContext';
 import { TreeType } from '../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

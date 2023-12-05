@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { search } from '../../actions';
-import useTreeContext from '../../hooks/tree/useTreeContext';
+import useTreeContext from '../../hooks/useTreeContext';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

@@ -20,14 +20,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
     id: UUID;
+    treeBranchId?: UUID;
     branchId?: UUID;
-    likesCount: number;
+    likesCount?: number;
     fontSize?: number;
 }
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, branchId = id, fontSize, likesCount,
+        id, branchId = id, fontSize, likesCount, treeBranchId,
     } = props;
     const likes = useSelector(selectBranchLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -36,7 +37,7 @@ export default function LikeButton(props: LikeButtonProps) {
     const currentUser = useSelector(selectCurrentUser);
 
     useEffect(() => {
-        if (id && likesCount === undefined) {
+        if (id && !likesCount) {
             dispatch(getLikesCount({
                 objectId: id,
                 branchId,
@@ -56,11 +57,13 @@ export default function LikeButton(props: LikeButtonProps) {
 
         if (likedByCurrentUser) {
             dispatch(unlikeObject({
+                treeBranchId,
                 objectId: id,
                 branchId,
             }));
         } else {
             dispatch(likeObject({
+                treeBranchId,
                 objectId: id,
                 branchId,
                 objectType: LikeType.Node,
@@ -69,7 +72,7 @@ export default function LikeButton(props: LikeButtonProps) {
 
         requestAnimationFrame(() => setShouldBeat(true));
         setTimeout(() => setShouldBeat(false), 1000);
-    }, [branchId, currentUser, dispatch, id, likedByCurrentUser]);
+    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, treeBranchId]);
 
     const [likeHovered, hoverLike, leaveLike] = useBooleanStateValue();
 

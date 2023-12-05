@@ -1,43 +1,35 @@
 import NcAvatar from '../../../../common/components/NcAvatar';
+import { NodecosmosDispatch } from '../../../../store';
 import { selectCurrentUser } from '../../../authentication/authentication.selectors';
 import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
 import SidebarListItem from '../../../nodes/components/sidebar/SidebarListItem';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
-    faHeadSideBrain, faLightbulbOn, faRightFromBracket, 
+    faHeadSideBrain, faLightbulbOn, faRightFromBracket,
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Slider } from '@mui/material';
 import Menu from '@mui/material/Menu';
-import React from 'react';
+import React, {
+    MouseEvent, useCallback, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-/* nodecosmos */
-
 export default function UserProfileOptions() {
-    const [anchorEl, setAnchorEl] = React.useState(false);
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const currentUser = useSelector(selectCurrentUser);
     const theme = useSelector(selectTheme);
-    const handleClick = (event) => { setAnchorEl(event.currentTarget); };
-    const handleClose = () => { setAnchorEl(null); };
-    const dispatch = useDispatch();
     const { handleLogout } = useUserAuthentication();
-    const themesBySliderValue = {
-        0: 'dark',
-        1: 'dimmed',
-        2: 'light',
-    };
-    const valuesByTheme = {
-        dark: 0,
-        dimmed: 1,
-        light: 2,
-    };
-
-    const toggleTheme = (_event, value) => {
-        dispatch(setTheme(themesBySliderValue[value]));
-    };
+    const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    }, []);
+    const handleClose = useCallback(() => { setAnchorEl(null); }, []);
+    const handleChange = useCallback((_e: Event, value: number | number[]) => {
+        dispatch(setTheme(value));
+    }, [dispatch]);
 
     return (
         <>
@@ -72,23 +64,24 @@ export default function UserProfileOptions() {
                 <SidebarListItem
                     to={`/user/${currentUser.username}`}
                     icon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
+                    selectedIcon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
                     title="Profile"
                 />
                 <SidebarListItem
+                    component="button"
                     onClick={handleLogout}
                     icon={(<FontAwesomeIcon icon={faRightFromBracket} />)}
-                    component={null}
                     title="Log Out"
                 />
                 <SidebarListItem
+                    component="button"
                     icon={(<FontAwesomeIcon icon={faLightbulbOn} />)}
                     title="Theme"
-                    component={null}
                 >
                     <Box width={150} mr={2} display="flex" alignItems="center">
                         <Slider
                             aria-label="Theme"
-                            defaultValue={valuesByTheme[theme]}
+                            defaultValue={Number(theme)}
                             color="secondary"
                             step={1}
                             min={0}
@@ -98,7 +91,7 @@ export default function UserProfileOptions() {
                             marks={[
                                 {
                                     value: 0,
-                                    label: 'dark',
+                                    label: 'Dark',
                                 },
                                 {
                                     value: 1,
@@ -106,10 +99,10 @@ export default function UserProfileOptions() {
                                 },
                                 {
                                     value: 2,
-                                    label: 'light',
+                                    label: 'Light',
                                 },
                             ]}
-                            onChange={(_, value) => toggleTheme(_, value)}
+                            onChange={handleChange}
                         />
                     </Box>
                 </SidebarListItem>

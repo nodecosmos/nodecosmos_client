@@ -93,7 +93,7 @@ export default function Transformable(props: TransformableProps) {
 
     // used by breadcrumbs
     useEffect(() => {
-        if (containerRef.current) { containerRef.current.scrollTop = scrollTop; }
+        if (containerRef.current) { containerRef.current.scrollTop = Number(scrollTop); }
     }, [scrollTop]);
 
     const resizeTimeout = useRef<number | null>(null);

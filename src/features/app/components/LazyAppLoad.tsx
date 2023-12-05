@@ -9,10 +9,7 @@ import TreeShow from '../../../pages/trees/Show';
 import UserAuthentication from '../../../pages/users/Authentication';
 import WorkflowShow from '../../../pages/workflows/Show';
 import { NodecosmosDispatch } from '../../../store';
-import dark from '../../../themes/dark';
-import dimmed from '../../../themes/dimmed';
-import light from '../../../themes/light';
-import getTheme from '../../../themes/theme';
+import getTheme, { themes } from '../../../themes/theme';
 import { selectCurrentUser, selectIsAuthenticated } from '../../authentication/authentication.selectors';
 import { syncUpCurrentUser } from '../../authentication/authentication.thunks';
 import LoginForm from '../../authentication/components/LoginForm';
@@ -31,10 +28,12 @@ import {
 } from 'react-router-dom';
 
 export default function LazyAppLoad() {
+    const dispatch: NodecosmosDispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const currentUser = useSelector(selectCurrentUser);
     const likes = useSelector(selectLikesByBranchId);
-    const dispatch: NodecosmosDispatch = useDispatch();
+    const theme = useSelector(selectTheme);
+    const currentTheme = themes[theme];
 
     useEffect(() => {
         if (!isAuthenticated) return;
@@ -52,15 +51,6 @@ export default function LazyAppLoad() {
             dispatch(getUserLikes());
         }
     }, [dispatch, isAuthenticated, likes]);
-
-    const theme = useSelector(selectTheme);
-
-    const themes = {
-        light,
-        dimmed,
-        dark,
-    };
-    const currentTheme = themes[theme];
 
     return (
         <ThemeProvider theme={getTheme(currentTheme)}>

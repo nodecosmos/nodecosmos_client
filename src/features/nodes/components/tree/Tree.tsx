@@ -5,7 +5,7 @@ import OverlayLoader from '../../../../common/components/OverlayLoader';
 import Transformable from '../../../../common/components/Transformable';
 import { UUID } from '../../../../types';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import { useTreeContextCreator } from '../../hooks/tree/useTreeContext';
+import { useTreeContextCreator } from '../../hooks/useTreeContext';
 import { TreeType } from '../../nodes.types';
 import { Box } from '@mui/material';
 import React from 'react';

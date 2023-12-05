@@ -1,4 +1,4 @@
-import { calculatePositions, virtualizeNodes } from './tree';
+import { calculatePositions } from './tree';
 import { UUID } from '../../../types';
 import { deleteNode } from '../nodes.thunks';
 import { NodeState, PKWithTreeBranch } from '../nodes.types';
@@ -69,23 +69,23 @@ function deleteNodeFromState(state: NodeState, treeBranchId: UUID, id: UUID) {
         state.selected = null;
     }
 
-    state.orderedTreeIds[treeBranchId] = state.orderedTreeIds[treeBranchId].filter((id) => !nodeIdsToDeleteSet.has(id));
-
     // decrement indexes of subsequent nodes
     for (let i = treeIndex + 1; i < state.orderedTreeIds[treeBranchId].length; i += 1) {
         const nodeId = state.orderedTreeIds[treeBranchId][i];
         const node = state.byBranchId[treeBranchId][nodeId];
 
         if (node) {
-            node.treeIndex = i - 1;
+            node.treeIndex = i - nodeIdsToDelete.length;
         }
     }
 
+    // remove from orderedTreeIds
+    state.orderedTreeIds[treeBranchId] = state.orderedTreeIds[treeBranchId].filter((id) => !nodeIdsToDeleteSet.has(id));
+
+    // remove from state
     nodeIdsToDelete.forEach((nodeId: UUID) => {
         delete state.childIds[treeBranchId][id];
         delete state.indexNodesById[nodeId];
         delete state.byBranchId[treeBranchId][nodeId];
     });
-
-    virtualizeNodes(state, treeBranchId);
 }

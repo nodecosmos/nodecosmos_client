@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 
 export default function NodeToolbar() {
     const {
-        treeBranchId, id, isCreationInProgress,
+        treeBranchId, branchId, id, isCreationInProgress,
     } = useNodeContext();
     const {
         addNode, editNode, removeNode,
@@ -66,7 +66,7 @@ export default function NodeToolbar() {
                 </IconButton>
             </Tooltip>
 
-            <LikeButton id={id} likesCount={likesCount} />
+            <LikeButton id={id} branchId={branchId} treeBranchId={treeBranchId} likesCount={likesCount} />
 
             <Tooltip title="Open Node In New Tab" placement="top">
                 <IconButton
