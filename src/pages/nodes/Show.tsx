@@ -2,16 +2,18 @@
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode } from '../../features/nodes/nodes.thunks';
+import { NodecosmosDispatch } from '../../store';
+import { NodecosmosError } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-    Outlet, useNavigate, useParams, 
+    Outlet, useNavigate, useParams,
 } from 'react-router-dom';
 /* nodecosmos */
 
 export default function NodeShow() {
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -27,10 +29,19 @@ export default function NodeShow() {
             return;
         }
 
+        if (!id) {
+            throw new Error('Node ID is not defined');
+        }
+
         dispatch(showNode(id)).then((response) => {
             setIsNodeFetched(true);
-            if (response.error) {
+
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
                 navigate('/404');
+                console.error(error);
+
+                return;
             }
         });
     }, [dispatch, navigate, id, isNodeFetched]);

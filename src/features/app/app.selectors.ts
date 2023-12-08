@@ -8,7 +8,7 @@ interface State {
 
 export const selectTransformablePositionsById = (id: UUID) => (
     state: State,
-) => state.app.transformablePositionsById[id] || {};
+) => state.app.transformablePositionsById[id];
 
 export const selectTheme = (state: State) => state.app.theme;
 export const selectHeaderContent = (state: State) => state.app.headerContent;
@@ -19,6 +19,5 @@ export const selectTransformablePositionAttribute = (
     attribute: keyof TransformablePositions,
 ) => createSelector(
     selectTransformablePositionsById(id),
-    (transformablePosition) => transformablePosition[attribute],
+    (transformablePosition) => transformablePosition && transformablePosition[attribute],
 );
-

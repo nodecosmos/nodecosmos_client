@@ -33,7 +33,8 @@ function deleteNodeFromState(state: NodeState, treeBranchId: UUID, id: UUID) {
     }
 
     // remove from state
-    // delete state.childIds[treeBranchId][id];
-    // delete state.indexNodesById[id];
+    delete state.childIds[treeBranchId][id];
+    delete state.titles[treeBranchId][id];
+    delete state.indexNodesById[id];
     // delete state.byBranchId[treeBranchId][id];
 }

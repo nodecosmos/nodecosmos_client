@@ -46,7 +46,7 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
                 nodeId,
                 position: calculateIOPosition({
                     nodePosition,
-                    ioIndex, 
+                    ioIndex,
                 }),
             };
 
@@ -56,4 +56,3 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
 
     return outputs;
 }
-

@@ -36,7 +36,7 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
         return response.data;
     }, [endpoint, reqData, value]);
 
-    const { debounce, inProgress } = useDebounce(storeTitle);
+    const [debounce, inProgress] = useDebounce(storeTitle);
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;

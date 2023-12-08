@@ -13,13 +13,11 @@ export default function useTreeCommands() {
 
         if (node.isExpanded) return;
 
-        const newTreeNodes = {
-            ...treeNodes,
-            [nodeId]: {
-                ...node,
-                isExpanded: true,
-            },
+        const newNode = {
+            ...node,
+            isExpanded: true,
         };
+        const newTreeNodes = Object.assign({}, treeNodes, { [nodeId]: newNode });
 
         if (node.childIds.length > 0) {
             mountDescendants(newTreeNodes, node);
@@ -32,17 +30,15 @@ export default function useTreeCommands() {
     const collapseNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];
 
-        const newTreeNodes = {
-            ...treeNodes,
-            [nodeId]: {
-                ...node,
-                isExpanded: false,
-            },
+        const newNode = {
+            ...node,
+            isExpanded: false,
         };
+        const newTreeNodes = Object.assign({}, treeNodes, { [nodeId]: newNode });
 
         if (node.childIds.length > 0) {
-            unmountDescendants(newTreeNodes, node); // Ensure this function respects immutability
-            calculatePositions(orderedTreeNodeIds, newTreeNodes); // Same here
+            unmountDescendants(newTreeNodes, node);
+            calculatePositions(orderedTreeNodeIds, newTreeNodes);
         }
 
         setTreeNodes(newTreeNodes);
@@ -59,7 +55,9 @@ export default function useTreeCommands() {
         if (onChange) onChange(Array.from(selectedNodeIds));
     }, [selectedNodeIds, onChange]);
 
-    const isChecked = useCallback((nodeId: UUID) => selectedNodeIds && selectedNodeIds.has(nodeId), [selectedNodeIds]);
+    const isChecked = useCallback((nodeId: UUID) => {
+        return selectedNodeIds && selectedNodeIds.has(nodeId);
+    }, [selectedNodeIds]);
 
     const handleCheckboxChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
@@ -87,10 +85,7 @@ function mountDescendants(treeNodes: TreeNodes, node: TreeNode) {
         const parentId = treeNodes[id].parentId;
         const { isMounted: isParentMounted, isExpanded: isParentExpanded } = treeNodes[parentId as UUID];
 
-        treeNodes[id] = {
-            ...treeNodes[id],
-            isMounted: isParentMounted && isParentExpanded,
-        };
+        treeNodes[id].isMounted = isParentMounted && isParentExpanded;
     });
 }
 
@@ -98,9 +93,6 @@ function unmountDescendants(treeNodes: TreeNodes, node: TreeNode) {
     const { descendantIds } = node;
 
     descendantIds.forEach((id) => {
-        treeNodes[id] = {
-            ...treeNodes[id],
-            isMounted: false,
-        };
+        treeNodes[id].isMounted = false;
     });
 }

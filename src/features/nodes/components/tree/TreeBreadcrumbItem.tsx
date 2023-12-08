@@ -12,12 +12,12 @@ interface TreeBreadcrumbItemProps {
     title?: string;
     index: number;
     handleClick: (id: UUID) => void;
-    handleCentering: (id: UUID) => void;
+    // handleCentering: (id: UUID) => void;
 }
 
 export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
     const {
-        id, title, index, handleClick, handleCentering,
+        id, title, index, handleClick,
     } = props;
 
     const theme: NodecosmosTheme = useTheme();
@@ -27,9 +27,9 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
         handleClick(id);
     }, [handleClick, id]);
 
-    const onCentering = useCallback(() => {
-        handleCentering(id);
-    }, [handleCentering, id]);
+    // const onCentering = useCallback(() => {
+    //     handleCentering(id);
+    // }, [handleCentering, id]);
 
     return (
         <div className="BreadcrumbItem">
@@ -40,7 +40,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
                 <IconButton
                     size="small"
                     className="tools"
-                    onClick={onCentering}
+                    // onClick={onCentering}
                     sx={{ '&:hover': { color: nestedLevelColors[index % 3] } }}
                 >
                     <FontAwesomeIcon icon={faCircle} />

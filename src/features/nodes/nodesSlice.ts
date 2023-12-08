@@ -12,7 +12,7 @@ import {
 } from './nodes.types';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
-import { deleteFulfilled, deleteFromState } from './reducers/delete';
+import { deleteFromState, deleteFulfilled } from './reducers/delete';
 import { getDescriptionBase64Fulfilled, getDescriptionFulfilled } from './reducers/description';
 import {
     getLikesCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
@@ -31,7 +31,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: NodeState = {
     byBranchId: {},
     childIds: {},
-    orderedTreeIds: {},
     positions: {},
     titles: {},
     selected: null,

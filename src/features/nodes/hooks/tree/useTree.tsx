@@ -1,7 +1,7 @@
 import { calculatePosition } from './position';
 import { UUID } from '../../../../types';
 import { selectBranchChildIds, selectNodeAttribute } from '../../nodes.selectors';
-import { NodeId } from '../../nodes.types';
+import { NodeId, TreeType } from '../../nodes.types';
 import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from '../useTreeContext';
@@ -20,7 +20,24 @@ type QueueItem = {
 };
 type Queue = QueueItem[];
 
-export default function useTree(treeRootId: UUID, treeBranchId: UUID) {
+interface Tree {
+    treeNodes: TreeNodes;
+    orderedTreeNodeIds: NodeId[];
+    setTreeNodes: (treeNodes: TreeNodes) => void;
+}
+
+type Props = {
+    treeRootId: UUID;
+    treeBranchId: UUID;
+    type: TreeType;
+};
+
+export default function useTree(props: Props): Tree {
+    const {
+        treeRootId,
+        treeBranchId,
+        type,
+    } = props;
     const ancestorIds = useSelector(selectNodeAttribute(treeBranchId, treeRootId, 'ancestorIds'));
     const branchChildIds = useSelector(selectBranchChildIds(treeBranchId));
     const [treeState, setTreeState] = useState({
@@ -54,10 +71,21 @@ export default function useTree(treeRootId: UUID, treeBranchId: UUID) {
                 siblingIndex,
                 ancestorIds,
             } = queue.pop() as QueueItem;
-
+            const isTreeRoot = treeRootId === currentId;
+            const isCheckbox = type === TreeType.Checkbox;
+            const isExpanded = isCheckbox
+                || isTreeRoot
+                || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false);
             orderedTreeNodeIds.push(currentId);
             const childIds = (branchChildIds && branchChildIds[currentId]) || [];
-            const isTreeRoot = treeRootId === currentId;
+
+            let isParentExpanded = false;
+            let isParentMounted = false;
+
+            if (!isTreeRoot && parentId) {
+                isParentExpanded = isCheckbox || treeNodes[parentId].isExpanded as boolean;
+                isParentMounted = isCheckbox || treeNodes[parentId].isMounted as boolean;
+            }
 
             // populate ancestor's descendantIds
             ancestorIds.forEach((ancestorId) => {
@@ -67,16 +95,6 @@ export default function useTree(treeRootId: UUID, treeBranchId: UUID) {
                 }
             });
 
-            let isParentExpanded = false;
-            let isParentMounted = false;
-
-            if (!isTreeRoot && parentId) {
-                const parent = treeNodes[parentId];
-                isParentExpanded = parent.isExpanded as boolean;
-                isParentMounted = parent.isMounted as boolean;
-            }
-
-            const isExpanded = treeNodes[currentId] ? treeNodes[currentId].isExpanded : false;
             const treeNode: TreeNode = {
                 id: currentId,
                 parentId: parentId || undefined,
@@ -127,6 +145,7 @@ export default function useTree(treeRootId: UUID, treeBranchId: UUID) {
             orderedTreeNodeIds,
         });
 
+        // we use treeNodes to check current state, but we don't want to rebuild tree when treeNodes changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ancestorIds, branchChildIds, treeRootId]);
 

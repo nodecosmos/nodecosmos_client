@@ -1,12 +1,15 @@
 import {
+    useCallback,
     useEffect, useRef, useState,
 } from 'react';
 
-export default function useDebounce<T>(callback: (value: T) => void, timeout = 500) {
+type Callback<T> = (value: T) => void;
+
+export default function useDebounce<T>(callback: Callback<T>, timeout = 500): [Callback<T>, boolean] {
     const timeoutRef = useRef<number| null>(null);
     const [inProgress, setInProgress] = useState(false);
 
-    const debounce = (value: T) => {
+    const debounce = useCallback((value: T) => {
         setInProgress(true);
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -14,14 +17,14 @@ export default function useDebounce<T>(callback: (value: T) => void, timeout = 5
             callback(value);
             setInProgress(false);
         }, timeout);
-    };
+    }, [callback, timeout]);
 
     useEffect(() => () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
     }, []);
 
-    return {
+    return [
         debounce,
-        inProgress, 
-    };
+        inProgress,
+    ];
 }

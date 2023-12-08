@@ -12,7 +12,6 @@ export const selectNodePaneContent = (state: State) => state.nodes.nodePaneConte
 export const selectDragAndDrop = (state: State) => state.nodes.dragAndDrop;
 export const selectChildIds = (state: State) => state.nodes.childIds;
 export const selectActionInProgress = (state: State) => state.nodes.actionInProgress;
-export const selectOrderedTreeIds = (state: State) => state.nodes.orderedTreeIds;
 export const selectPositions = (state: State) => state.nodes.positions;
 export const selectJustCreatedNodeId = (state: State) => state.nodes.justCreatedNodeId;
 
@@ -85,9 +84,3 @@ export const selectBranchChildIds = (branchId?: UUID) => createSelector(
     selectChildIds,
     (childIds) => branchId && childIds[branchId],
 );
-
-export const selectBranchOrderedTreeIds = (treeBranchId?: UUID) => createSelector(
-    selectOrderedTreeIds,
-    (orderedTreeIds) => treeBranchId && orderedTreeIds[treeBranchId],
-);
-

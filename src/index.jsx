@@ -1,4 +1,4 @@
-import App from './features/app/components/App';
+import Homepage from './features/app/components/Homepage';
 import store from './store';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -30,7 +30,7 @@ const root = createRoot(container);
 root.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <Homepage />
         </BrowserRouter>
     </Provider>,
 );

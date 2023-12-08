@@ -50,12 +50,16 @@ export function useTreeContextCreator(props: TreeProps) {
         value,
     } = props;
     const selectedNodeIds = useMemo(() => new Set<UUID>(value), [value]);
+    // build tree
     const {
         treeNodes,
         orderedTreeNodeIds,
         setTreeNodes,
-    } = useTree(rootNodeId, treeBranchId);
-
+    } = useTree({
+        treeRootId: rootNodeId,
+        treeBranchId,
+        type,
+    });
     const ctxProviderValue = useMemo(
         () => ({
             treeBranchId,

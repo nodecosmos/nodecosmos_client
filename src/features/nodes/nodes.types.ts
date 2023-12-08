@@ -51,7 +51,8 @@ export interface NodeTreeAttributes {
 
 export interface AppNode extends Node, NodeTreeAttributes {
     persistedId: UUID | null;
-    isTemp: boolean;
+    isTmp: boolean;
+    tmpId?: UUID;
     isSelected: boolean;
 }
 
@@ -107,7 +108,6 @@ export interface DragAndDrop {
 export interface NodeState {
     byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
-    orderedTreeIds: Record<BranchId, NodeId[]>;
     positions: Record<BranchId, Record<NodeId, Position>>;
     titles: Record<BranchId, Record<NodeId, string>>;
     selected: PKWithTreeBranch | null;

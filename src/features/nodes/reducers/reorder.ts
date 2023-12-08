@@ -1,3 +1,4 @@
+import { updateAncestors } from './show';
 import { reorder } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
@@ -22,4 +23,6 @@ export default function reorderFulfilled(state: NodeState, action: ReturnType<ty
     state.byBranchId[treeBranchId][oldParentId].childIds.splice(oldIndex, 1);
     state.byBranchId[treeBranchId][newParentId].childIds.splice(newSiblingIndexAfterMove, 0, id);
     state.byBranchId[treeBranchId][newParentId].isDragOver = false;
+
+    updateAncestors(state, treeBranchId);
 }

@@ -165,4 +165,3 @@ declare module '@mui/material/IconButton' {
         button: true;
     }
 }
-

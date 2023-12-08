@@ -13,6 +13,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         treeBranchId, tmpId, branchId, id,
     } = action.payload;
     const node = state.byBranchId[treeBranchId][id];
+    const parentAncestors = node.ancestorIds || [];
 
     state.byBranchId[treeBranchId][tmpId] = {
         id: tmpId,
@@ -38,9 +39,10 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         editorIds: [],
         owner: node.owner,
         persistedId: null,
-        isTemp: true,
+        isTmp: true,
         isSelected: false,
         isEditing: true,
+        ancestorIds: [...parentAncestors, id],
         childIds: [],
     };
 

@@ -37,7 +37,7 @@ export default function WorkflowNodeButton() {
         backgroundColor,
         outlineColor,
         color,
-    } = useWorkflowNodeButtonBg({ id });
+    } = useWorkflowNodeButtonBg();
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;

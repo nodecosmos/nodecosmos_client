@@ -18,7 +18,7 @@ export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { treeBranchId, branchId } = useSelector(selectSelected) as PKWithTreeBranch;
     const {
-        id, isTemp, coverImageURL,
+        id, isTmp, coverImageURL,
     } = useSelector(selectSelectedNode) as AppNode;
 
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
@@ -106,7 +106,7 @@ export default function NodePaneCoverImage() {
                 )}
 
             </Box>
-            {!coverImageURL && !isTemp && (
+            {!coverImageURL && !isTmp && (
                 <Box
                     component="div"
                     sx={{

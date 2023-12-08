@@ -12,13 +12,12 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             ...action.payload,
             persistedId: id,
             isJustCreated: true,
-            isTemp: false,
+            isTmp: false,
         };
         const parentChildIds = state.childIds[treeBranchId][parentId];
         const siblingIndex = parentChildIds.indexOf(tmpNodeId);
 
         parentChildIds.splice(siblingIndex, 1, id);
-
         state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
 
         if (tmpNode.isSelected) {
@@ -35,9 +34,9 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         state.childIds[treeBranchId][id] = [];
 
         state.justCreatedNodeId = id;
-        //
+
+        delete state.childIds[treeBranchId][tmpNodeId];
+        delete state.titles[treeBranchId][tmpNodeId];
         // delete state.byBranchId[treeBranchId][tmpNodeId];
-        // delete state.childIds[treeBranchId][tmpNodeId];
-        // delete state.titles[treeBranchId][tmpNodeId];
     }
 }

@@ -2,6 +2,7 @@ import Loader from '../../common/components/Loader';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
+import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
 import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
@@ -22,6 +23,7 @@ export default function Show() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const workflow = useSelector(selectWorkflowByNodeId(nodeId as UUID));
     const isPaneOpen = useSelector(selectIsPaneOpen);
+    const branchNodes = useSelector(selectBranchNodes(nodeId as UUID));
 
     const id = workflow?.id;
 
@@ -53,7 +55,6 @@ export default function Show() {
 
     useEffect(() => {
         if (!id) {
-            setLoading(true);
             dispatch(showWorkflow(nodeId as UUID)).then(() => setLoading(false));
         } else {
             setLoading(false);
@@ -70,7 +71,7 @@ export default function Show() {
     //     }
     // }, [leaveResizer, resizeInProgress]);
 
-    if (loading) {
+    if (loading || !branchNodes) {
         return <Loader />;
     }
 

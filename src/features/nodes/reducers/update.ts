@@ -6,10 +6,10 @@ export default function updateState(state: NodeState, action: PayloadAction<AppN
     const current = state.byBranchId[treeBranchId][id];
 
     if (current) {
-        state.byBranchId[treeBranchId][id] = {
-            ...current,
-            ...action.payload,
-        };
-        state.titles[treeBranchId][id] = state.byBranchId[treeBranchId][id].title;
+        Object.assign(current, action.payload);
+
+        if (action.payload.title) {
+            state.titles[treeBranchId][id] = action.payload.title;
+        }
     }
 }

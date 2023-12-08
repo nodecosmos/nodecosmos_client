@@ -66,7 +66,7 @@ export default function NodeToolbar() {
                 </IconButton>
             </Tooltip>
 
-            <LikeButton id={id} branchId={branchId} treeBranchId={treeBranchId} likesCount={likesCount} />
+            <LikeButton id={id} branchId={branchId} treeBranchId={treeBranchId} likesCount={likesCount || undefined} />
 
             <Tooltip title="Open Node In New Tab" placement="top">
                 <IconButton

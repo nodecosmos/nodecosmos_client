@@ -24,7 +24,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
     const { treeBranchId, treeNodes } = useTreeContext();
     const {
         parentId,
-        isTemp,
+        isTmp,
     } = useSelector(selectNode(treeBranchId, id));
     const {
         upperSiblingId,
@@ -64,7 +64,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
         || !nodeX
         || !nodeY
         || dragAndDropId === id
-        || isTemp
+        || isTmp
         || (isSameParent && dragAndDropSiblingIndex === (siblingIndex - 1))
         || ancestorIds.includes(dragAndDropId)
         || upperSiblingId?.includes('tmp')

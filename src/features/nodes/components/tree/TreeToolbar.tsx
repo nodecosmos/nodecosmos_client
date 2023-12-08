@@ -1,3 +1,5 @@
+import Loader from '../../../../common/components/Loader';
+import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { search } from '../../actions';
@@ -7,20 +9,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, InputAdornment, TextField,
 } from '@mui/material';
-import React, { ChangeEvent, useCallback } from 'react';
+import React, {
+    ChangeEvent, useCallback, useEffect, useRef,
+} from 'react';
 import { useDispatch } from 'react-redux';
 
-export default function TreeShowToolbar() {
+export default function TreeToolbar() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId, rootNodeId } = useTreeContext();
+    const { treeBranchId } = useTreeContext();
+    const searchVal = useRef<string>('');
 
     const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(search({
             treeBranchId,
-            rootId: rootNodeId,
             value: event.target.value,
         }));
-    }, [dispatch, treeBranchId, rootNodeId]);
+
+        searchVal.current = event.target.value;
+    }, [dispatch, treeBranchId]);
+
+    useEffect(() => {
+        return () => {
+            if (searchVal.current) {
+                dispatch(search({
+                    treeBranchId,
+                    value: '',
+                }));
+            }
+        };
+    }, [dispatch, treeBranchId]);
+
+    const [handleChange, inProgress] = useDebounce<ChangeEvent<HTMLInputElement>>(handleSearch, 100);
 
     return (
         <Box
@@ -28,7 +47,7 @@ export default function TreeShowToolbar() {
             width={1}
             display="flex"
             alignItems="center"
-            justifyContent="space-between"
+            justifyContent="start"
             position="relative"
             boxShadow="2"
             borderBottom={1}
@@ -61,8 +80,9 @@ export default function TreeShowToolbar() {
                 color="primary"
                 variant="outlined"
                 placeholder="Search"
-                onChange={handleSearch}
+                onChange={handleChange}
             />
+            {inProgress && <Loader size={20} width={20} ml={1} />}
         </Box>
     );
 }

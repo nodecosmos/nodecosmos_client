@@ -26,7 +26,9 @@ interface Props {
 }
 
 export default function FlowStepModal({ open, onClose }: Props) {
-    const { id: workflowId, nodeId } = useWorkflowContext();
+    const {
+        id: workflowId, nodeId, branchId, 
+    } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
         id, nodeIds, prevFlowStepId, nextFlowStepId, flowIndex,
@@ -37,7 +39,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
 
     const handleServerError = useHandleServerErrorAlert();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const allNodes = useSelector(selectBranchNodes(nodeId)) as Record<UUID, AppNode>;
+    const allNodes = useSelector(selectBranchNodes(branchId)) as Record<UUID, AppNode>;
 
     const onSubmit = useCallback(async () => {
         setLoading(true);
@@ -81,7 +83,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
             dispatch(setAlert({
                 isOpen: true,
                 severity: 'error',
-                message: 'Failed to add nodes', 
+                message: 'Failed to add nodes',
             }));
             console.error(error);
             setTimeout(() => setLoading(false), 500);
@@ -134,7 +136,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
             </DialogTitle>
             <DialogContent sx={{
                 overflow: 'hidden',
-                height: 1, 
+                height: 1,
             }}>
                 <Box mt={2} height="calc(100% - 75px)">
                     <Box
@@ -142,11 +144,11 @@ export default function FlowStepModal({ open, onClose }: Props) {
                         sx={{
                             mx: -3,
                             borderBottom: 1,
-                            borderColor: 'borders.4', 
+                            borderColor: 'borders.4',
                         }}>
                         <Tree
                             rootNodeId={nodeId}
-                            branchId={nodeId}
+                            treeBranchId={nodeId}
                             type={TreeType.Checkbox}
                             onChange={setFlowStepNodeIds}
                             value={flowStepNodeIds}

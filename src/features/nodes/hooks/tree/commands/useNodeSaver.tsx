@@ -134,6 +134,8 @@ export default function useNodeSaver() {
                     isEditing: false,
                     isJustCreated: false,
                 }));
+
+                dispatch(clearJustCreatedNode());
             }
         };
     }, [dispatch, id, isJustCreated, treeBranchId]);

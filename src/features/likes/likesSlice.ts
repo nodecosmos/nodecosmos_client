@@ -66,4 +66,3 @@ const likesSlice = createSlice({
 const { reducer } = likesSlice;
 
 export default reducer;
-

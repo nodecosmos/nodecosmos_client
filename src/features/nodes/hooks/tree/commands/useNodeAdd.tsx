@@ -12,7 +12,7 @@ export default function useNodeAdd() {
         id,
         treeBranchId,
         branchId,
-        isTemp,
+        isTmp,
         title,
     } = useNodeContext();
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export default function useNodeAdd() {
 
             const message = 'Too Fast! Please wait until current node is saved before creating new node.';
             console.warn(message);
-        } else if (isTemp) {
+        } else if (isTmp) {
             const message = title ? `Node "${title}" not initialized yet. Please wait...`
                 : 'Current node not initialized yet. '
                 + 'Please add title to current node in order to create child node.';
@@ -60,7 +60,7 @@ export default function useNodeAdd() {
         } else {
             initTempChildNode();
         }
-    }, [actionInProgress, dispatch, id, initTempChildNode, isTemp, title, treeBranchId]);
+    }, [actionInProgress, dispatch, id, initTempChildNode, isTmp, title, treeBranchId]);
 
     useEffect(() => {
         if (loading && !actionInProgress) {

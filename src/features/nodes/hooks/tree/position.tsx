@@ -38,7 +38,6 @@ export function calculatePosition(treeNodes: TreeNodes, node: TreeNode) {
     if (node.isMounted) {
         ancestorIds.forEach((ancestorId) => {
             if (treeNodes[ancestorId]) {
-                treeNodes[ancestorId] = { ...treeNodes[ancestorId] };
                 treeNodes[ancestorId].yEnd += COMPLETE_Y_LENGTH;
             }
         });
@@ -48,10 +47,6 @@ export function calculatePosition(treeNodes: TreeNodes, node: TreeNode) {
 export function calculatePositions(orderedTreeNodeIds: UUID[], treeNodes: TreeNodes) {
     for (let i = 0; i < orderedTreeNodeIds.length; i += 1) {
         const id = orderedTreeNodeIds[i];
-        const node = { ...treeNodes[id] };
-
-        treeNodes[id] = node;
-
-        calculatePosition(treeNodes, node);
+        calculatePosition(treeNodes, treeNodes[id]);
     }
 }

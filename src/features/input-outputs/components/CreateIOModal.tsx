@@ -40,11 +40,10 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
     const {
         open, onClose, associatedObject,
     } = props;
-    const { id: workflowId } = useWorkflowContext();
+    const { id: workflowId, branchId } = useWorkflowContext();
 
     const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
-    // TODO: introduce branch
-    const rootNodeId = useSelector(selectNodeAttribute(nodeId, nodeId, 'rootId'));
+    const rootNodeId = useSelector(selectNodeAttribute(branchId, nodeId, 'rootId'));
     const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
     const allIOTitles = allWorkflowIOs.map((io) => io.title);
     const uniqueIOTitles = [...new Set(allIOTitles)];

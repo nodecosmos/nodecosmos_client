@@ -1,6 +1,7 @@
 import { Position, UUID } from '../../../../../types';
 import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
 import { FlowStepNode } from '../../../diagram/types';
+import useWorkflowContext from '../../useWorkflowContext';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -16,7 +17,7 @@ export function useFlowStepNodeContextCreator(val: FlowStepNodeContextValue) {
 
     const flowStepContextValue = useMemo(() => ({
         id,
-        flowStepNode, 
+        flowStepNode,
     }), [id, flowStepNode]);
 
     return {
@@ -27,14 +28,15 @@ export function useFlowStepNodeContextCreator(val: FlowStepNodeContextValue) {
 
 export default function useFlowStepNodeContext() {
     const context = useContext(FlowStepNodeContext);
+    const { branchId } = useWorkflowContext();
 
-    // TODO:
-    const title = useSelector(selectNodeAttribute(context.id, context.id, 'title'));
+    const title = useSelector(selectNodeAttribute(branchId, context.id, 'title'));
     const position = context.flowStepNode?.position || {} as Position;
     const inputIds = context.flowStepNode?.inputIds || [];
     const outputs = context.flowStepNode?.outputs || [];
 
     return {
+        branchId,
         id: context.id,
         title,
         inputIds,

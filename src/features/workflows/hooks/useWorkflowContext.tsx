@@ -18,7 +18,7 @@ export function useWorkflowContextCreator({
     const contextProviderValue = useMemo(() => ({
         context,
         id,
-        nodeId, 
+        nodeId,
     }), [context, id, nodeId]);
 
     return {
@@ -49,6 +49,7 @@ export default function useWorkflowContext() {
         context,
         id,
         nodeId,
+        branchId: nodeId,
         rootNodeId,
         title,
         initialInputIds,

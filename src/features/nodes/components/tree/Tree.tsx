@@ -1,5 +1,5 @@
 import TreeNodes from './TreeNodes';
-import TreeShowToolbar from './TreeShowToolbar';
+import TreeToolbar from './TreeToolbar';
 import Alert from '../../../../common/components/Alert';
 import OverlayLoader from '../../../../common/components/OverlayLoader';
 import Transformable from '../../../../common/components/Transformable';
@@ -36,7 +36,7 @@ function Tree(props: TreeProps) {
 
         <TreeContext.Provider value={ctxProviderValue}>
             <div className="Tree">
-                <TreeShowToolbar />
+                <TreeToolbar />
                 <Alert />
                 <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                     {isTreeLoading ? <OverlayLoader /> : null}

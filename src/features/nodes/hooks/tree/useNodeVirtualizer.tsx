@@ -26,6 +26,8 @@ export default function useNodeVirtualizer(): VirtualizedNode[] {
         for (let i = 0; i < orderedTreeNodeIds.length; i += 1) {
             const id = orderedTreeNodeIds[i];
             const node = treeNodes[id];
+            if (!node) continue;
+
             const {
                 isMounted,
                 parentId,

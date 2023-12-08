@@ -23,7 +23,7 @@ export default function NodePaneDescriptionEditor() {
     const {
         treeBranchId, branchId, id,
     } = useSelector(selectSelected) as PKWithTreeBranch;
-    const isTemp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTemp'));
+    const isTmp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTmp'));
     const rootId = useSelector(selectNodeAttribute(treeBranchId, id, 'rootId'));
     const descriptionMarkdown = useSelector(selectNodeAttribute(treeBranchId, id, 'descriptionMarkdown'));
     const descriptionBase64 = useSelector(selectNodeAttribute(treeBranchId, id, 'descriptionBase64'));
@@ -33,7 +33,7 @@ export default function NodePaneDescriptionEditor() {
         helpers: HelpersFromExtensions<MarkdownExtension>,
         uint8ArrayState: Uint8Array | null,
     ) => {
-        if (isTemp) return;
+        if (isTmp) return;
 
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
@@ -62,7 +62,7 @@ export default function NodePaneDescriptionEditor() {
                 descriptionBase64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
             }));
         }, 1000);
-    }, [dispatch, treeBranchId, branchId, id, isTemp]);
+    }, [dispatch, treeBranchId, branchId, id, isTmp]);
 
     const [base64Fetched, setBase64Fetched] = React.useState(false);
 

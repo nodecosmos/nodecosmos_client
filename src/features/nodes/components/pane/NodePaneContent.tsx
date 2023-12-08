@@ -28,7 +28,7 @@ export default function NodePaneContent({ page, selected }: NodePaneProps) {
         treeBranchId, branchId, id,
     } = selected;
     const rootId = useSelector(selectNodeAttribute(treeBranchId, id, 'rootId'));
-    const isTemp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTemp'));
+    const isTmp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTmp'));
     const title = useSelector(selectNodeAttribute(treeBranchId, id, 'title'));
     const nodePaneContent = useSelector(selectNodePaneContent);
 
@@ -63,7 +63,7 @@ export default function NodePaneContent({ page, selected }: NodePaneProps) {
 
     if (!id) {
         blankStateMessage = 'Select a node to view its details.';
-    } else if (isTemp) {
+    } else if (isTmp) {
         blankStateMessage = 'Selected node is not initialized yet.';
 
         if (!title) {

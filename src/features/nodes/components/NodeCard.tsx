@@ -66,4 +66,3 @@ export default function NodeCard({ id }: {id: UUID}) {
         </Box>
     );
 }
-

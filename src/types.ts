@@ -34,4 +34,3 @@ export type Exact<T, Shape> = T & {
 };
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
-

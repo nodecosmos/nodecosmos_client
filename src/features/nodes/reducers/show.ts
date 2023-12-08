@@ -1,5 +1,6 @@
+import { UUID } from '../../../types';
 import { showNode } from '../nodes.thunks';
-import { NodeState } from '../nodes.types';
+import { NodeId, NodeState } from '../nodes.types';
 
 export default function showFulfilled(
     state: NodeState,
@@ -23,7 +24,7 @@ export default function showFulfilled(
     state.byBranchId[treeBranchId][id] = {
         ...stateNode,
         ...node,
-        isTemp: false,
+        isTmp: false,
         persistedId: id,
         isSelected: true,
     };
@@ -38,7 +39,8 @@ export default function showFulfilled(
     node.ancestorIds ||= [];
     state.childIds[treeBranchId][id] = [];
 
-    const childIds: NodeState['childIds'] = {};
+    const childIds: Record<NodeId, NodeId[]> = {};
+    childIds[id] ||= [];
 
     descendants.forEach((descendant) => {
         const stateNode = state.byBranchId[treeBranchId][id] || {};
@@ -50,7 +52,7 @@ export default function showFulfilled(
             descriptionMarkdown: stateNode.descriptionMarkdown,
             shortDescription: stateNode.shortDescription,
             descriptionBase64: stateNode.descriptionBase64,
-            isTemp: false,
+            isTmp: false,
             isPublic,
             isRoot: false,
             persistedId: descendant.id,
@@ -69,20 +71,42 @@ export default function showFulfilled(
             childIds: [],
         };
 
-        childIds[treeBranchId] ||= {};
-        childIds[treeBranchId][descendant.parentId] ||= [];
-        childIds[treeBranchId][descendant.parentId].push(descendant.id);
-        childIds[treeBranchId][descendant.id] ||= [];
+        childIds[descendant.parentId] ||= [];
+        childIds[descendant.parentId].push(descendant.id);
+        childIds[descendant.id] ||= [];
 
         state.titles[treeBranchId][descendant.id] = descendant.title;
     });
 
-    for (const parentId in childIds[treeBranchId]) {
-        state.byBranchId[treeBranchId][parentId].childIds = childIds[treeBranchId][parentId];
+    for (const parentId in childIds) {
+        state.byBranchId[treeBranchId][parentId].childIds = childIds[parentId];
     }
 
-    state.childIds[treeBranchId] = {
-        ...state.childIds[treeBranchId],
-        ...childIds[treeBranchId],
-    };
+    state.childIds[treeBranchId] = childIds;
+
+    updateAncestors(state, treeBranchId);
+}
+
+export function updateAncestors(state: NodeState, treeBranchId: UUID) {
+    // update ancestors
+    const childIds = state.childIds[treeBranchId];
+    const stack: UUID[] = [treeBranchId];
+
+    while (stack.length) {
+        const nodeId = stack.pop() as UUID;
+
+        // skip root
+        if (nodeId !== treeBranchId) {
+            const node = state.byBranchId[treeBranchId][nodeId];
+            const parent = state.byBranchId[treeBranchId][node.parentId];
+            const parentAncestors = parent?.ancestorIds || [];
+
+            state.byBranchId[treeBranchId][nodeId].ancestorIds = [...parentAncestors, parent.id];
+        }
+
+        const nodeChildIds = childIds[nodeId];
+        for (let i = 0; i < nodeChildIds.length; i += 1) {
+            stack.push(nodeChildIds[i]);
+        }
+    }
 }
