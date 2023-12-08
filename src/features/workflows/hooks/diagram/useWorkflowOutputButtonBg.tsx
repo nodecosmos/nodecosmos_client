@@ -1,6 +1,7 @@
 import { NodecosmosTheme } from '../../../../themes/type';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import { selectSelectedWorkflowObject } from '../../workflow.selectors';
+import useWorkflowContext from '../useWorkflowContext';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -10,8 +11,11 @@ interface Props {
 }
 
 export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
+    const { branchId } = useWorkflowContext();
+
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const nestedLevel = useSelector(selectNodeAttribute(nodeId, 'nestedLevel')) || 1;
+    const ancestorIds = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));
+    const nestedLevel = ancestorIds?.length || 0;
 
     const theme: NodecosmosTheme = useTheme();
 

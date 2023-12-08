@@ -53,7 +53,7 @@ export default function ContributionRequestTree() {
         <Box
             display={{
                 xs: 'block',
-                md: 'flex', 
+                md: 'flex',
             }}
             width={1}
             height={1}
@@ -66,7 +66,10 @@ export default function ContributionRequestTree() {
                 height={1}
                 display="flex"
             >
-                <Tree branchId={id as UUID} rootNodeId={id as UUID} type={TreeType.ContributionRequest} />
+                <Tree
+                    treeBranchId={id as UUID}
+                    rootNodeId={id as UUID}
+                    type={TreeType.ContributionRequest} />
                 <Box
                     component="span"
                     onMouseDown={handleResize}
@@ -91,8 +94,10 @@ export default function ContributionRequestTree() {
                 overflow="hidden"
                 boxShadow="left.2"
                 borderLeft={1}
-                style={{ borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'] }}
-            >
+                style={{
+                    borderLeftColor: resizerHovered
+                        ? theme.palette.borders['5'] : theme.palette.borders['3'],
+                }}>
                 <NodePane />
             </Box>
         </Box>

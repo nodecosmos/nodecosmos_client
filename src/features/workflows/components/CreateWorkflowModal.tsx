@@ -33,6 +33,8 @@ export default function CreateWorkflowModal(props: Props) {
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
 
+        if (!rootNodeId) throw new Error('Root node id is not defined');
+
         const payload = {
             nodeId,
             rootNodeId,

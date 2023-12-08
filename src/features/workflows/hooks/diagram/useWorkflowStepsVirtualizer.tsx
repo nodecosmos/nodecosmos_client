@@ -14,8 +14,12 @@ export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
     const { transformableId } = useWorkflowContext();
     const diagram = useDiagramContext();
 
-    const scrollLeft = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollLeft'));
-    const clientWidth = useSelector(selectTransformablePositionAttribute(transformableId, 'clientWidth'));
+    const scrollLeft = useSelector(
+        selectTransformablePositionAttribute(transformableId, 'scrollLeft'),
+    ) as number;
+    const clientWidth = useSelector(
+        selectTransformablePositionAttribute(transformableId, 'clientWidth'),
+    ) as number;
     const wfScale = useSelector(selectWorkflowScale);
 
     const isInsideViewport = useCallback((x: Position['x']) => {

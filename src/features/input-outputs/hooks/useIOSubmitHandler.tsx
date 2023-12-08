@@ -1,5 +1,6 @@
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { Strict } from '../../../types';
+import { NodecosmosError, Strict } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
@@ -7,7 +8,7 @@ import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
 import { CreateIOModalProps } from '../components/CreateIOModal';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { createIO } from '../inputOutputs.thunks';
-import { InsertInputOutputPayload } from '../types';
+import { InputOutput, InsertInputOutputPayload } from '../types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,6 +20,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
+    const handleServerError = useHandleServerErrorAlert();
 
     const onSubmit = async (formValues: { title: string }) => {
         setLoading(true);
@@ -34,42 +36,50 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
             ...formValues,
         };
 
-        await dispatch(createIO(payload)).then(async (data) => {
-            const inputOutput = data.payload;
+        const response = await dispatch(createIO(payload));
 
-            try {
-                if (props.associatedObject === 'workflow') {
-                    const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
+            handleServerError(error);
+            console.error(error);
 
-                    await dispatch(updateWorkflowInitialInputs({
-                        nodeId,
-                        id: workflowId,
-                        initialInputIds,
-                    }));
-                }
+            return;
+        }
 
-                if (props.associatedObject === 'flowStep') {
-                    const { outputIdsByNodeId, outputNodeId } = props;
-                    const currentNodeOutputIds = outputIdsByNodeId[outputNodeId] || [];
-                    const newOutputIdsByNodeId = { ...outputIdsByNodeId } || {};
+        const inputOutput = response.payload as InputOutput;
 
-                    newOutputIdsByNodeId[outputNodeId] = [...currentNodeOutputIds, inputOutput.id];
+        try {
+            if (props.associatedObject === 'workflow') {
+                const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
-                    await dispatch(updateFlowStepOutputs({
-                        ...props.flowStepPrimaryKey,
-                        outputIdsByNodeId: newOutputIdsByNodeId,
-                    }));
-                }
-            } catch (e) {
-                dispatch(setAlert({
-                    isOpen: true,
-                    severity: 'error',
-                    message: 'Failed to add output',
+                await dispatch(updateWorkflowInitialInputs({
+                    nodeId,
+                    id: workflowId,
+                    initialInputIds,
                 }));
-
-                console.error(e);
             }
-        });
+
+            if (props.associatedObject === 'flowStep') {
+                const { outputIdsByNodeId, outputNodeId } = props;
+                const currentNodeOutputIds = outputIdsByNodeId[outputNodeId] || [];
+                const newOutputIdsByNodeId = { ...outputIdsByNodeId } || {};
+
+                newOutputIdsByNodeId[outputNodeId] = [...currentNodeOutputIds, inputOutput.id];
+
+                await dispatch(updateFlowStepOutputs({
+                    ...props.flowStepPrimaryKey,
+                    outputIdsByNodeId: newOutputIdsByNodeId,
+                }));
+            }
+        } catch (e) {
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'error',
+                message: 'Failed to add output',
+            }));
+
+            console.error(e);
+        }
 
         setTimeout(() => setLoading(false), 500);
 

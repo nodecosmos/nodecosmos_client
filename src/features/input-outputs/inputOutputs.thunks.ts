@@ -3,14 +3,24 @@ import {
     InsertInputOutputPayload, PrimaryKey, UpdateIODescriptionPayload, UpdateIOTitlePayload,
 } from './types';
 import nodecosmos from '../../apis/nodecosmos-server';
+import { NodecosmosError } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isAxiosError } from 'axios';
 
-export const createIO = createAsyncThunk(
+export const createIO = createAsyncThunk<InputOutput, InsertInputOutputPayload, { rejectValue: NodecosmosError }>(
     'inputOutputs/create',
-    async (payload: InsertInputOutputPayload): Promise<InputOutput> => {
-        const response = await nodecosmos.post('/input_outputs', payload);
+    async (payload: InsertInputOutputPayload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/input_outputs', payload);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 

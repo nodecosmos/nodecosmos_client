@@ -30,7 +30,10 @@ export default function useDiagramContext() {
         workflowSteps,
         height: diagramHeight,
     } = useSelector(selectWorkflowDiagram(id));
-    const clientHeight = useSelector(selectTransformablePositionAttribute(transformableId, 'clientHeight'));
+    const clientHeight = useSelector(
+        selectTransformablePositionAttribute(transformableId, 'clientHeight'),
+    ) as number;
+
     let height = (diagramHeight || 0) > clientHeight ? diagramHeight : clientHeight;
 
     if (scale < 1) {

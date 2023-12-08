@@ -50,12 +50,12 @@ export default function useNodeDrag() {
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if (isDragOver || id === dragAndDropNodeId || ancestorIds.includes(dragAndDropNodeId as UUID)) return;
+        if (isDragOver || id === dragAndDropNodeId || ancestorIds?.includes(dragAndDropNodeId as UUID)) return;
 
         dispatch(updateState({
             treeBranchId,
             id,
-            isDragOver: !ancestorIds.includes(id),
+            isDragOver: true,
         }));
     }, [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, treeBranchId]);
 
@@ -78,7 +78,7 @@ export default function useNodeDrag() {
     //------------------------------------------------------------------------------------------------------------------
     const dropCapture = useCallback(
         async () => {
-            if (id === dragAndDropNodeId || ancestorIds.includes(id)) return;
+            if (id === dragAndDropNodeId || ancestorIds?.includes(id)) return;
 
             await onNodeDropCapture({
                 newParentId: id,
