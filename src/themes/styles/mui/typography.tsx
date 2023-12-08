@@ -10,37 +10,30 @@ export default (theme: NodecosmosTheme) => ({
     h1: {
         fontSize: '2.5rem',
         fontWeight: 500,
-        letterSpacing: 'normal',
     },
     h2: {
         fontSize: '2.25rem',
         fontWeight: 500,
-        // letterSpacing: 'normal',
     },
     h3: {
         fontSize: '2rem',
         fontWeight: 500,
-        // letterSpacing: 'normal',
     },
     h4: {
         fontSize: '1.75rem',
         fontWeight: 500,
-        // letterSpacing: 'normal',
     },
     h5: {
         fontSize: '1.5rem',
         fontWeight: 500,
-        // letterSpacing: 'normal',
     },
     h6: {
         fontSize: '1.25rem',
         fontWeight: 500,
-        letterSpacing: 'normal',
     },
     body1: {
         fontSize: '1.15rem',
         fontWeight: 300,
-        letterSpacing: 'normal',
         color: theme.palette.text.contrast,
     },
     body2: { fontSize: '1rem' },

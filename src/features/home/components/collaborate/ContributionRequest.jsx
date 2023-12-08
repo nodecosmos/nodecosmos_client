@@ -1,20 +1,16 @@
 import GradientText from '../../../../common/components/GradientText';
-import { setHomepageTab, setInnovateTab } from '../../homeSlice';
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import {
     Typography, useMediaQuery, useTheme, Box,
 } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 export default function ContributionRequest() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const viewBox = isMobile ? '40 34 370 364' : '40 33 450 365';
-
-    const dispatch = useDispatch();
 
     return (
         <Box
@@ -52,9 +48,10 @@ export default function ContributionRequest() {
                             fill={theme.palette.text.collaboratePurple}
                         />
                     </g>
-                    <foreignObject className="NodeName" width="100%" height="29" x="110" y="65">
+                    <foreignObject className="NodeName" width="100%" height="29" x="110" y="66">
                         <Box mt="2px">
                             <GradientText
+                                fontFamily="'Comfortaa', sans-serif"
                                 text="Create Contribution Request"
                                 fontSize={18}
                                 variant="h4"
@@ -84,32 +81,13 @@ export default function ContributionRequest() {
                                 fill={theme.palette.tree.default}
                             />
                         </g>
-                        <foreignObject className="NodeName" width="100%" height="29" x="155" y="105">
+                        <foreignObject className="NodeName" width="100%" height="29" x="155" y="107">
                             <Typography
+                                fontFamily="'Comfortaa', sans-serif"
                                 color="text.secondary"
-                                fontSize={{
-                                    xs: 14,
-                                    sm: 18, 
-                                }}
+                                fontSize={16}
                             >
-                Add/Remove/Update Nodes in the
-                                {' '}
-                                <Box
-                                    component="span"
-                                    color="secondary.main"
-                                    fontWeight="bold"
-                                    sx={{
-                                        cursor: 'pointer',
-                                        borderBottom: '3px solid',
-                                        borderColor: 'secondary.main',
-                                    }}
-                                    onClick={() => {
-                                        dispatch(setInnovateTab(0));
-                                        dispatch(setHomepageTab(0));
-                                    }}
-                                >
-                  tree
-                                </Box>
+                                Edit Nodes
                             </Typography>
                         </foreignObject>
                     </g>
@@ -133,13 +111,11 @@ export default function ContributionRequest() {
                         </g>
                         <foreignObject className="NodeName" width="100%" height="29" x="155" y="145">
                             <Typography
+                                fontFamily="'Comfortaa', sans-serif"
                                 color="text.secondary"
-                                fontSize={{
-                                    xs: 14,
-                                    sm: 18, 
-                                }}
+                                fontSize={16}
                             >
-                Add/Remove/Update Workflow
+                Edit Workflows
                             </Typography>
                         </foreignObject>
                     </g>
@@ -163,13 +139,11 @@ export default function ContributionRequest() {
                         </g>
                         <foreignObject className="NodeName" width="100%" height="29" x="155" y="185">
                             <Typography
+                                fontFamily="'Comfortaa', sans-serif"
                                 color="text.secondary"
-                                fontSize={{
-                                    xs: 14,
-                                    sm: 18, 
-                                }}
+                                fontSize={16}
                             >
-                Add/Remove/Update Media
+                Edit Properties
                             </Typography>
                         </foreignObject>
                     </g>
@@ -197,9 +171,10 @@ export default function ContributionRequest() {
                             fill={theme.palette.text.collaboratePurple}
                         />
                     </g>
-                    <foreignObject className="NodeName" width="100%" height="29" x="110" y="224">
+                    <foreignObject className="NodeName" width="100%" height="29" x="110" y="225">
                         <Box mt="1px">
                             <GradientText
+                                fontFamily="'Comfortaa', sans-serif"
                                 text="Review Contribution Request"
                                 fontSize={18}
                                 variant="h4"
@@ -224,15 +199,13 @@ export default function ContributionRequest() {
                             />
                             <circle cx="140" cy="278.25" r="5.5" fill={theme.palette.tree.default} />
                         </g>
-                        <foreignObject className="NodeName" width="100%" height="29" x="155" y="264">
+                        <foreignObject className="NodeName" width="100%" height="29" x="155" y="270">
                             <Typography
+                                fontFamily="'Comfortaa', sans-serif"
                                 color="text.secondary"
-                                fontSize={{
-                                    xs: 14,
-                                    sm: 18, 
-                                }}
+                                fontSize={16}
                             >
-                Discuss Contribution
+                                Discuss Contribution
                             </Typography>
                         </foreignObject>
                     </g>
@@ -241,14 +214,14 @@ export default function ContributionRequest() {
                             <path
                                 strokeWidth="3.5"
                                 d="M 95 245
-                   C 95 245
-                     94 270.625
-                     95 308
-                   L 95 308
-                   C 95 308
-                     95 318
-                     103 318
-                   L 140 318"
+                                   C 95 245
+                                     94 270.625
+                                     95 308
+                                   L 95 308
+                                   C 95 308
+                                     95 318
+                                     103 318
+                                   L 140 318"
                                 stroke={theme.palette.tree.default}
                                 fill="transparent"
                             />
@@ -260,22 +233,26 @@ export default function ContributionRequest() {
                                 <Typography
                                     ml={1}
                                     color="text.secondary"
+                                    fontFamily="'Comfortaa', sans-serif"
+                                    fontSize={16}
                                 >
-                  Approve
+                                    Approve
                                 </Typography>
                                 <Box
                                     ml={1}
                                     mr={0.7}
                                     color="text.secondary"
                                 >
-                  |
+                                    |
                                 </Box>
                                 <CloseIcon color="error" fontSize="small" />
                                 <Typography
                                     ml={1}
+                                    fontFamily="'Comfortaa', sans-serif"
                                     color="text.secondary"
+                                    fontSize={16}
                                 >
-                  Reject
+                                    Reject
                                 </Typography>
                             </Box>
                         </foreignObject>
@@ -306,26 +283,17 @@ export default function ContributionRequest() {
                         <foreignObject
                             className="NodeName"
                             x="110"
-                            y="345"
+                            y="350"
                             width="425"
                             height="80"
                         >
                             <Typography
-                                fontFamily="Montserrat"
+                                fontFamily="'Comfortaa', sans-serif"
                                 color="text.mergeGreen"
                                 fontSize={18}
                                 variant="h4"
                             >
                 Merge Contribution Request
-                            </Typography>
-                            <Typography
-                                color="text.secondary"
-                                fontSize={{
-                                    xs: 14,
-                                    sm: 18, 
-                                }}
-                            >
-                let contribution become part of your innovation
                             </Typography>
                         </foreignObject>
                     </g>

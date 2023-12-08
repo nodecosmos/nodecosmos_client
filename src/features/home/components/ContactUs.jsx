@@ -56,11 +56,11 @@ export default function ContactUs() {
                                 </Typography>
                                 <Box sx={{
                                     display: 'flex',
-                                    justifyContent: 'center', 
+                                    justifyContent: 'center',
                                 }}>
                                     <CheckCircleOutlineRoundedIcon sx={{
                                         fontSize: 100,
-                                        color: 'success.main', 
+                                        color: 'success.main',
                                     }} />
                                 </Box>
                             </Grid>
@@ -95,7 +95,7 @@ export default function ContactUs() {
             <Box mt={3}>
                 <AnimateOnView delay={400}>
                     <Section>
-                        <Typography color="text.secondary">
+                        <Typography fontFamily="'Comfortaa', sans-serif" color="text.secondary">
                             Contact us at
                             {' '}
                             <a href="mailto:contact@nodecosmos.com">

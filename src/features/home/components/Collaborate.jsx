@@ -26,8 +26,8 @@ export default function Vision() {
                 sx={{
                     display: {
                         xs: 'none',
-                        md: 'flex', 
-                    }, 
+                        md: 'flex',
+                    },
                 }}
             >
                 <NodeSectionLink circleFill={nodeLinkColor} />
@@ -48,15 +48,15 @@ export default function Vision() {
                                 variantMapping={{ h4: 'h3' }}
                                 fontFamily="'Cherry Bomb One', sans-serif"
                                 textAlign="center"
-                                color="text.primary"
-                            >
+                                color="text.primary">
                                 Contribution Requests
                             </Typography>
                             <Typography
                                 mt={3}
                                 variant="body1"
                                 color="text.secondary"
-                                fontFamily="'Comfortaa', sans-serif">
+                                fontFamily="'Comfortaa', sans-serif"
+                            >
                                 Enables community members to contribute to your innovation by
                                 suggesting changes to your innovation.
                             </Typography>
@@ -72,7 +72,7 @@ export default function Vision() {
                     md={6}
                     mt={{
                         xs: 3,
-                        md: 0, 
+                        md: 0,
                     }}>
                     <AnimateOnView delay={600}>
                         <Section>
@@ -86,10 +86,10 @@ export default function Vision() {
                                 Topics
                             </Typography>
                             <Typography
+                                fontFamily="'Comfortaa', sans-serif"
                                 mt={3}
                                 variant="body1"
-                                color="text.secondary"
-                                fontFamily="'Comfortaa', sans-serif">
+                                color="text.secondary">
                                 Enables discussion, brainstorming, and issue tracking for your innovation.
                             </Typography>
                             <Box mt={3}>

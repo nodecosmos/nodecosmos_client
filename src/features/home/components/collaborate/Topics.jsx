@@ -86,7 +86,6 @@ const rows = [
         username: 'investor',
         topic: 'Commercial support',
         date: '2022-12-16 10:00',
-
         comments: 12,
         avatar: '(₿_₿)',
         chips: (
@@ -103,7 +102,7 @@ const rows = [
                 />
                 <Chip
                     size="small"
-                    label="tokens "
+                    label="tokens"
                     sx={{
                         border: '1px solid',
                         borderColor: 'background.labels.purple',
@@ -119,7 +118,6 @@ const rows = [
         username: 'marketer',
         topic: 'Get customers',
         date: '2022-12-16 20:30',
-
         comments: 42,
         avatar: '(O_o)',
         chips: (
@@ -250,13 +248,13 @@ export default function Topics() {
                                         sx={{
                                             color: 'text.secondary',
                                             '.MuiBadge-badge': {
-                                                backgroundColor: 'primary.main',
-                                                color: 'text.foreground',
+                                                backgroundColor: 'background.labels.red',
+                                                color: 'text.primary',
                                             },
                                         }}
                                         badgeContent={row.comments}
                                     >
-                                        <ChatBubbleRoundedIcon />
+                                        <ChatBubbleRoundedIcon sx={{ color: 'secondary' }} />
                                     </Badge>
                                 </IconButton>
                             </TableCell>

@@ -1,7 +1,7 @@
 import AnimateOnView from './AnimateOnView';
 import MvpStepIcon from './mvp/MvpStepIcon';
 import {
-    Typography, useTheme, Box, 
+    Typography, useTheme, Box,
 } from '@mui/material';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -50,13 +50,13 @@ export default function Mvp() {
                     }}
                     fontFamily="Comfortaa, sans-serif"
                 >
-          Current
+                    Current
                     <Box component="span" color="primary.main" fontWeight="bold">
                         {' '}
-            Feature Progress
+                        Feature Progress
                         {' '}
                     </Box>
-          of the MVP
+                    of the MVP
                 </Typography>
             </AnimateOnView>
             <AnimateOnView delay={200}>
@@ -66,7 +66,7 @@ export default function Mvp() {
                     overflow="auto"
                     pb={{
                         xs: 1,
-                        md: 0, 
+                        md: 0,
                     }}>
                     <Box width={{
                         xs: XS_SCROLL_WIDTH,
@@ -74,7 +74,7 @@ export default function Mvp() {
                     }}
                     >
                         <Stepper
-                            activeStep={4}
+                            activeStep={5}
                             alternativeLabel
                             sx={{
                                 '.Mui-completed': {

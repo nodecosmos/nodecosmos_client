@@ -125,8 +125,9 @@ export default function NodeDescriptionMd() {
                     </Box>
                     <Box p={2} backgroundColor="background.5" minHeight={176}>
                         <Typography
-                            variant="body1"
+                            variant="body2"
                             color="text.secondary"
+                            fontFamily="'Comfortaa', sans-serif"
                             textAlign={currentNodeDescription ? 'left' : 'center'}
                         >
                             {currentNodeDescription || (currentNodeId && 'This node has no description yet.') || (

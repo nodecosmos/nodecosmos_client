@@ -12,7 +12,7 @@ export default function OpenSourceLink() {
 
     const refInView = useInView(ref, {
         amount: 0.1,
-        once: false, 
+        once: false,
     });
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -101,7 +101,7 @@ export default function OpenSourceLink() {
                                     sm: 0,
                                 }}
                             >
-                One of the most powerful concepts in software development is open source.
+                                One of the most powerful concepts in software development is open source.
                             </Typography>
                         </foreignObject>
                     </g>

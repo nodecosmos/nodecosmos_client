@@ -16,7 +16,7 @@ export default function LandingPageTree() {
             }}
         >
             <GradientText text="Structure your Innovation" variant="h5" variantMapping={{ h5: 'h3' }} />
-            <Typography mt={3} variant="body1" color="text.secondary">
+            <Typography mt={3} variant="body2" color="text.secondary" fontFamily="'Comfortaa', sans-serif">
                 Use the Node Tree feature to structure your innovation.
                 Each node can represent either a component of your
                 project, an ingredient in your recipe, or other type of constituent.

@@ -6,8 +6,13 @@ export default function LandingPageWorkflow() {
     return (
         <Box>
             <GradientText text="Define processes" variant="h5" variantMapping={{ h5: 'h3' }} />
-            <Typography mt={3} variant="body1" color="text.secondary">
-        Use Workflow feature to describe how your innovation works or other processes related to your innovation.
+            <Typography
+                mt={3}
+                variant="body2"
+                color="text.secondary"
+                fontFamily="'Comfortaa', sans-serif">
+                Use Workflow feature to describe how your innovation works or other processes
+                related to your innovation.
             </Typography>
             <Box
                 mx={{

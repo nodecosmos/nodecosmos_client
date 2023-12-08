@@ -87,7 +87,7 @@ const theme: NodecosmosTheme = {
 
             labels: {
                 red: '#e15e7d',
-                green: '#abe15e',
+                green: '#c1e68c',
                 blue: '#85c7f3',
                 purple: '#c187ff',
             },

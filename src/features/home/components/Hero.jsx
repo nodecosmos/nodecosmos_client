@@ -82,14 +82,12 @@ export default function Hero() {
                 </AnimateOnView>
                 <Box
                     component="ul"
-                    variant="h6"
+                    variant="h2"
                     fontFamily="'Cherry Bomb One', sans-serif"
                     fontSize={{
-                        xs: 20,
-                        sm: 24,
-                        md: 31,
+                        xs: 22,
+                        md: 36,
                     }}
-                    fontWeight={700}
                     textAlign="left"
                     lineHeight={1.5}
                     mt={1.5}
@@ -115,18 +113,18 @@ export default function Hero() {
               💡 Share Your Innovation
                         </AnimateOnView>
                     </Box>
-                    <Box component="li" color="tree.backgrounds.3">
+                    <Box component="li" color="tree.backgrounds.2">
                         <AnimateOnView delay={450}>
               👩‍💻 Connect With Communities
                         </AnimateOnView>
                     </Box>
-                    <Box component="li" color="tree.backgrounds.4">
+                    <Box component="li" color="tree.backgrounds.3">
                         <AnimateOnView delay={600}>
               🔧 Get Contributions
                         </AnimateOnView>
                     </Box>
                     <AnimateOnView delay={750}>
-                        <Box component="li" color="tree.backgrounds.5">
+                        <Box component="li" color="tree.backgrounds.4">
               ✨ And much more...
                         </Box>
                     </AnimateOnView>

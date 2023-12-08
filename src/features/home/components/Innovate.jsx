@@ -1,15 +1,10 @@
-// import { faDiagramNested, faSquareCode, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import AnimateOnView from './AnimateOnView';
-import Other from './innovate/AndMore';
-import LandingPageMarkdown from './innovate/LandingPageMarkdown';
 import LandingPageTree from './innovate/LandingPageTree';
 import LandingPageWorkflow from './innovate/LandingPageWorkflow';
 import Section from './Section';
 import { setCurrentNode } from '../../app/appSlice';
 import { setInnovateTab } from '../homeSlice';
-import {
-    faDiagramNested, faSquareCode, faChartNetwork, faGamepadModern,
-} from '@fortawesome/pro-light-svg-icons';
+import { faDiagramNested, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Tab, Tabs, Box, useMediaQuery, useTheme,
@@ -49,7 +44,7 @@ export default function Innovate() {
 
     return (
         <Box w={1}>
-            <Box display="flex" justifyContent="start">
+            <Box display="flex" justifyContent="s">
                 <Tabs
                     textColor="secondary"
                     indicatorColor="secondary"
@@ -76,35 +71,18 @@ export default function Innovate() {
                     />
                     <Tab
                         iconPosition="start"
-                        icon={<FontAwesomeIcon icon={faSquareCode} />}
-                        label="Markdown"
-                        disableRipple
-                        sx={tabSx}
-                    />
-                    <Tab
-                        iconPosition="start"
                         icon={<FontAwesomeIcon icon={faChartNetwork} />}
                         label="Workflow"
                         disableRipple
                         sx={tabSx}
                     />
-                    <Tab
-                        iconPosition="start"
-                        icon={<FontAwesomeIcon icon={faGamepadModern} />}
-                        label="And More"
-                        disableRipple
-                        sx={tabSx}
-                    />
-                    {/* <Tab label="Media" disableRipple sx={tabSx} /> */}
                 </Tabs>
             </Box>
             <Box mt={3}>
                 <AnimateOnView>
                     <Section overflow={currentTab === 0 ? 'initial' : 'hidden'}>
                         {currentTab === 0 && <LandingPageTree />}
-                        {currentTab === 1 && <LandingPageMarkdown />}
-                        {currentTab === 2 && <LandingPageWorkflow />}
-                        {currentTab === 3 && <Other />}
+                        {currentTab === 1 && <LandingPageWorkflow />}
                     </Section>
                 </AnimateOnView>
             </Box>
