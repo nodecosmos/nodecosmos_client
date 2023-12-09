@@ -24,6 +24,7 @@ export default function showFulfilled(
     state.byBranchId[treeBranchId][id] = {
         ...stateNode,
         ...node,
+        treeRootId: id,
         isTmp: false,
         persistedId: id,
         isSelected: true,
@@ -47,11 +48,12 @@ export default function showFulfilled(
 
         state.byBranchId[treeBranchId][descendant.id] = {
             ...descendant,
+            treeRootId: id,
             branchId: isMainBranch ? descendant.id : treeBranchId,
-            description: stateNode.description,
-            descriptionMarkdown: stateNode.descriptionMarkdown,
-            shortDescription: stateNode.shortDescription,
-            descriptionBase64: stateNode.descriptionBase64,
+            description: stateNode.description || null,
+            descriptionMarkdown: stateNode.descriptionMarkdown || null,
+            shortDescription: stateNode.shortDescription || null,
+            descriptionBase64: stateNode.descriptionBase64 || null,
             isTmp: false,
             isPublic,
             isRoot: false,
@@ -84,22 +86,20 @@ export default function showFulfilled(
 
     state.childIds[treeBranchId] = childIds;
 
-    updateAncestors(state, treeBranchId);
+    updateAncestors(state, id, treeBranchId);
 }
 
-export function updateAncestors(state: NodeState, treeBranchId: UUID) {
-    // update ancestors
+export function updateAncestors(state: NodeState, rootId: UUID, treeBranchId: UUID) {
     const childIds = state.childIds[treeBranchId];
-    const stack: UUID[] = [treeBranchId];
+    const stack: UUID[] = [rootId];
 
     while (stack.length) {
         const nodeId = stack.pop() as UUID;
+        const node = state.byBranchId[treeBranchId][nodeId];
 
-        // skip root
-        if (nodeId !== treeBranchId) {
-            const node = state.byBranchId[treeBranchId][nodeId];
-            const parent = state.byBranchId[treeBranchId][node.parentId];
-            const parentAncestors = parent?.ancestorIds || [];
+        const parent = state.byBranchId[treeBranchId][node.parentId];
+        if (parent) {
+            const parentAncestors = parent.ancestorIds || [];
 
             state.byBranchId[treeBranchId][nodeId].ancestorIds = [...parentAncestors, parent.id];
         }

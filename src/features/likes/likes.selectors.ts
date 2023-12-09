@@ -1,9 +1,7 @@
-import { LikeState } from './types';
+import { RootState } from '../../store';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface State { likes: LikeState; }
-
-export const selectLikesByBranchId = (state: State) => state.likes.byBranchId;
+export const selectLikesByBranchId = (state: RootState) => state.likes.byBranchId;
 
 export const selectBranchLikes = (branchId: string) => createSelector(
     selectLikesByBranchId,

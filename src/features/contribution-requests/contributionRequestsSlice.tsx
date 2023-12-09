@@ -1,24 +1,27 @@
+import { ContributionRequestsState } from './contributionRequest.types';
 import {
     indexContributionRequests,
     showContributionRequest, createContributionRequest, deleteContributionRequest,
 } from './contributionRequests.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState: ContributionRequestsState = {
+    byNodeId: {},
+    searchTerm: null,
+    currentContributionRequest: null,
+};
+
 const contributionRequestsSlice = createSlice({
     name: 'contributionRequests',
-    initialState: {
-        byNodeId: {},
-        searchTerm: null,
-        currentContributionRequest: null,
-    },
+    initialState,
     reducers: {
         updateContributionRequestState(state, action) {
             const { nodeId, contributionRequestId } = action.payload;
             const contributionRequest = state.byNodeId[nodeId][contributionRequestId];
 
-            state[nodeId][contributionRequestId] = {
+            state.byNodeId[nodeId][contributionRequestId] = {
                 ...action.payload,
-                ...contributionRequest, 
+                ...contributionRequest,
             };
         },
         setSearchTerm(state, action) {
@@ -47,7 +50,7 @@ const contributionRequestsSlice = createSlice({
                 });
             })
             .addCase(showContributionRequest.fulfilled, (state, action) => {
-                const contributionRequest = action.payload;
+                const { contributionRequest } = action.payload;
                 const { nodeId } = contributionRequest;
 
                 contributionRequest.createdAt = new Date(contributionRequest.createdAt);

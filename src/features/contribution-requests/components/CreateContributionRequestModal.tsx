@@ -1,6 +1,9 @@
 import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
+import { ContributionRequestStatus } from '../contributionRequest.types';
 import { createContributionRequest } from '../contributionRequests.thunks';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,25 +13,32 @@ import {
 } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import * as PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
 
 /* mui */
 /* nodecosmos */
 
-export default function CreateContributionRequestModal({
-    open, onClose, nodeId, 
-}) {
-    const [loading, setLoading] = React.useState(false);
-    const dispatch = useDispatch();
+interface Props {
+    open: boolean;
+    onClose: () => void;
+    nodeId: UUID;
+}
 
-    const onSubmit = (formValues) => {
+export default function CreateContributionRequestModal(props: Props) {
+    const {
+        open, onClose, nodeId,
+    } = props;
+    const [loading, setLoading] = React.useState(false);
+    const dispatch: NodecosmosDispatch = useDispatch();
+
+    const onSubmit = useCallback((formValues: {title: string}) => {
         setLoading(true);
 
         const payload = {
             nodeId,
+            status: ContributionRequestStatus.WorkInProgress,
             ...formValues,
         };
 
@@ -36,7 +46,7 @@ export default function CreateContributionRequestModal({
             onClose();
             setTimeout(() => setLoading(false), 500);
         });
-    };
+    }, [dispatch, nodeId, onClose]);
 
     return (
         <Dialog
@@ -53,10 +63,9 @@ export default function CreateContributionRequestModal({
                     border: 1,
                     borderColor: 'borders.4',
                 },
-            }}
-        >
+            }}>
             <DialogTitle>
-        New Contribution Request
+                New Contribution Request
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
@@ -84,9 +93,3 @@ export default function CreateContributionRequestModal({
         </Dialog>
     );
 }
-
-CreateContributionRequestModal.propTypes = {
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    nodeId: PropTypes.string.isRequired,
-};

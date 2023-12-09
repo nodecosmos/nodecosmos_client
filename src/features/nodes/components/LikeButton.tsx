@@ -1,4 +1,3 @@
-import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import abbreviateNumber from '../../../utils/abbreviateNumber';
@@ -12,9 +11,7 @@ import { LikeType } from '../../likes/types';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Checkbox, Typography, Box,
-} from '@mui/material';
+import { Checkbox, Typography } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -74,42 +71,21 @@ export default function LikeButton(props: LikeButtonProps) {
         setTimeout(() => setShouldBeat(false), 1000);
     }, [branchId, currentUser, dispatch, id, likedByCurrentUser, treeBranchId]);
 
-    const [likeHovered, hoverLike, leaveLike] = useBooleanStateValue();
-
-    const textColor = likeHovered || likedByCurrentUser ? 'toolbar.red' : 'text.tertiary';
-
     return (
-        <Box
-            onMouseOver={hoverLike}
-            onMouseLeave={leaveLike}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-        >
+        <div className={`Like ${likedByCurrentUser && 'liked'}`}>
             <Checkbox
                 checked={likedByCurrentUser}
                 onClick={handleLike}
-                className="Item"
+                className="Heart"
                 disableRipple
-                sx={{
-                    svg: {
-                        fontSize,
-                        color: 'toolbar.red',
-                    },
-                }}
+                style={{ fontSize }}
                 icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
                 checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
                 inputProps={{ 'aria-label': 'Like' }}
             />
-            <Typography
-                variant="caption"
-                sx={{
-                    color: textColor,
-                    lineHeight: 1,
-                }}
-            >
+            <Typography variant="caption">
                 {abbreviateNumber(likesCount)}
             </Typography>
-        </Box>
+        </div>
     );
 }

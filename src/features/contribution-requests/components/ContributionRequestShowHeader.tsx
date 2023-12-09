@@ -18,13 +18,14 @@ export default function ContributionRequestShowHeader() {
             key="1"
             color="text.tertiary"
             component={Link}
-            relative="path"
+            relative="route"
             to="../"
             variant="body2"
             fontWeight="bold"
         >
-      Contribution Requests
-        </MuiLink>,
+            Contribution Requests
+        </MuiLink>
+        ,
         <Typography
             variant="body2"
             color="text.link"
@@ -32,8 +33,8 @@ export default function ContributionRequestShowHeader() {
             p={0.5}
             px={2}
             borderRadius={1}
-            backgroundColor="toolbar.active"
             key="2"
+            sx={{ backgroundColor: 'toolbar.active' }}
         >
             {cr?.title}
         </Typography>,

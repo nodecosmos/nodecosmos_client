@@ -1,0 +1,123 @@
+import {
+    BaseCR, ContributionRequest, CreateCRPayload, CRPrimaryKey, UpdateDescriptionCRPayload, UpdateTitleCRPayload,
+} from './contributionRequest.types';
+import nodecosmos from '../../apis/nodecosmos-server';
+import { NodecosmosError } from '../../types';
+import { Branch } from '../branch/branches.types';
+import { NodeId } from '../nodes/nodes.types';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isAxiosError } from 'axios';
+
+export const indexContributionRequests = createAsyncThunk<BaseCR[], NodeId, { rejectValue: NodecosmosError }>(
+    'contributionRequests/indexContributionRequests',
+    async (nodeId) => {
+        const response = await nodecosmos.get(`/contribution_requests/${nodeId}`);
+        return response.data;
+    },
+);
+
+interface ShowResponse {
+    contributionRequest: ContributionRequest;
+    branch: Branch;
+}
+
+export const showContributionRequest = createAsyncThunk<
+    ShowResponse,
+    CRPrimaryKey,
+    { rejectValue: NodecosmosError }
+>(
+    'contributionRequests/showContributionRequest',
+    async ({ nodeId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/contribution_requests/${nodeId}/${id}`);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const createContributionRequest = createAsyncThunk<
+    ContributionRequest,
+    CreateCRPayload,
+    { rejectValue: NodecosmosError }
+>(
+    'contributionRequests/createContributionRequest',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/contribution_requests', payload);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const updateContributionRequestTitle = createAsyncThunk<
+    UpdateTitleCRPayload,
+    UpdateTitleCRPayload,
+    { rejectValue: NodecosmosError }
+> (
+    'contributionRequests/updateContributionRequestTitle',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.patch('/contribution_requests/title', payload);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const updateContributionRequestDescription = createAsyncThunk<
+    UpdateDescriptionCRPayload,
+    UpdateDescriptionCRPayload,
+    { rejectValue: NodecosmosError }
+>(
+    'contributionRequests/updateContributionRequestDescription',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.patch('/contribution_requests/description', payload);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const deleteContributionRequest = createAsyncThunk<
+    ContributionRequest,
+    CRPrimaryKey,
+    { rejectValue: NodecosmosError }
+>(
+    'contributionRequests/deleteContributionRequest',
+    async ({ nodeId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.delete(`/contribution_requests/${nodeId}/${id}`);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);

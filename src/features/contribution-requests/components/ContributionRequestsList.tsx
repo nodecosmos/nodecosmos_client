@@ -1,51 +1,70 @@
 import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
 import NcAvatar from '../../../common/components/NcAvatar';
 import NcLink from '../../../common/components/NcLink';
-import { CONTRIBUTION_REQUEST_STATUS } from '../contributionRequests.constants';
+import { NodecosmosDispatch } from '../../../store';
+import { Owner, UUID } from '../../../types';
+import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequests, selectSearchTerm } from '../contributionRequests.selectors';
 import { deleteContributionRequest } from '../contributionRequests.thunks';
 import { Button } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
+import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function ContributionRequestsList({ nodeId }) {
+interface Props {
+    nodeId: UUID;
+}
+
+const STATUS_ORDER = {
+    [ContributionRequestStatus.WorkInProgress]: 1,
+    [ContributionRequestStatus.Published]: 2,
+    [ContributionRequestStatus.Merged]: 3,
+    [ContributionRequestStatus.Closed]: 4,
+};
+
+export default function ContributionRequestsList({ nodeId }: Props) {
     const contributionRequests = useSelector(selectContributionRequests(nodeId));
     const searchTerm = useSelector(selectSearchTerm);
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
-    const columns = [
+    const deleteCR = useCallback((id: UUID) => {
+        return () => dispatch(deleteContributionRequest({
+            nodeId,
+            id,
+        }));
+    }, [dispatch, nodeId]);
+
+    const columns: GridColDef<ContributionRequest>[] = [
         {
             headerName: 'Status',
-            sortComparator: (v1, v2) => {
-                // Define a custom order for status values
-                const order = {
-                    [CONTRIBUTION_REQUEST_STATUS.WORK_IN_PROGRESS]: 1,
-                    [CONTRIBUTION_REQUEST_STATUS.PUBLISHED]: 2,
-                    [CONTRIBUTION_REQUEST_STATUS.MERGED]: 3,
-                    [CONTRIBUTION_REQUEST_STATUS.CLOSED]: 4,
-                };
-
-                return order[v1] - order[v2];
+            sortComparator: (v1: ContributionRequestStatus, v2: ContributionRequestStatus) => {
+                return STATUS_ORDER[v1] - STATUS_ORDER[v2];
             },
             field: 'status',
             flex: 0,
             type: 'string',
-            renderCell: (params) => <ContributionRequestStatusIcon status={params.value} />,
+            renderCell: (params: GridRenderCellParams<ContributionRequest, ContributionRequestStatus>) => {
+                return <ContributionRequestStatusIcon status={params.value as ContributionRequestStatus} />;
+            },
         },
         {
             headerName: 'Author',
             field: 'owner',
             flex: 0,
             type: 'object',
-            renderCell: (params) => <NcAvatar scale={0.8} model={{ name: params.value?.name }} />,
+            renderCell: (params: GridRenderCellParams<ContributionRequest, Owner>) => {
+                return <NcAvatar scale={0.8} model={{ name: params.value?.name }} />;
+            },
         },
         {
             field: 'title',
             flex: 1,
             headerName: 'Title',
-            renderCell: (params) => <NcLink to={params.row.id} title={params.value} />,
+            renderCell: (params: GridRenderCellParams<ContributionRequest, string>) => {
+                return <NcLink to={params.row.id} title={params.value as string} />;
+            },
         },
         {
             field: 'createdAt',
@@ -58,22 +77,19 @@ export default function ContributionRequestsList({ nodeId }) {
             field: 'actions',
             flex: 1,
             type: 'string',
-            renderCell: (params) => (
+            renderCell: (params: GridRenderCellParams<ContributionRequest>) => (
                 <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => dispatch(deleteContributionRequest({
-                        nodeId,
-                        id: params.row.id, 
-                    }))}
+                    onClick={deleteCR(params.row.id)}
                 >
-          Delete
+                    Delete
                 </Button>
             ),
         },
     ];
 
-    let rows = [];
+    let rows: GridRowsProp<ContributionRequest> = [];
 
     if (contributionRequests) {
         rows = Object.values(contributionRequests);
@@ -89,7 +105,7 @@ export default function ContributionRequestsList({ nodeId }) {
                     sortModel: [
                         {
                             field: 'status',
-                            sort: 'asc', 
+                            sort: 'asc',
                         },
                     ],
                 },
@@ -109,5 +125,3 @@ export default function ContributionRequestsList({ nodeId }) {
         />
     );
 }
-
-ContributionRequestsList.propTypes = { nodeId: PropTypes.string.isRequired };

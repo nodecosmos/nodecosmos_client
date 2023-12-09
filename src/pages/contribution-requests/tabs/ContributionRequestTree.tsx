@@ -2,24 +2,27 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Tree from '../../../features/nodes/components/tree/Tree';
+import { showBranchNode } from '../../../features/nodes/nodes.thunks';
 import { TreeType } from '../../../features/nodes/nodes.types';
+import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/type';
-import { UUID } from '../../../types';
+import { NodecosmosError, UUID } from '../../../types';
 import { Box, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestTree() {
-    const { id } = useParams();
+    const { id: nodeId, contributionRequestId } = useParams();
     const theme: NodecosmosTheme = useTheme();
-
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
-
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
-
+    const [isNodeFetched, setIsNodeFetched] = React.useState(false);
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const branchId = contributionRequestId as UUID;
     const {
         paneAWidth,
         paneBWidth,
@@ -31,6 +34,15 @@ export default function ContributionRequestTree() {
         initialWidthA: treeWidthFromLocalStorage,
         initialWidthB: nodePaneWidthFromLocalStorage,
     });
+    const onResizerLeave = useCallback(() => {
+        if (!resizeInProgress) {
+            leaveResizer();
+        }
+    }, [resizeInProgress, leaveResizer]);
+
+    if (!nodeId) {
+        throw new Error('Node ID is not defined');
+    }
 
     useEffect(() => {
         localStorage.setItem('treeWidth', paneAWidth);
@@ -43,11 +55,25 @@ export default function ContributionRequestTree() {
         }
     }, [resizeInProgress, leaveResizer]);
 
-    const onResizerLeave = useCallback(() => {
-        if (!resizeInProgress) {
-            leaveResizer();
+    useEffect(() => {
+        if (isNodeFetched) {
+            return;
         }
-    }, [resizeInProgress, leaveResizer]);
+
+        dispatch(showBranchNode({
+            branchId: branchId as UUID,
+            id: nodeId,
+        })).then((response) => {
+            setIsNodeFetched(true);
+
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+                console.error(error);
+
+                return;
+            }
+        });
+    }, [branchId, dispatch, isNodeFetched, nodeId]);
 
     return (
         <Box
@@ -67,8 +93,8 @@ export default function ContributionRequestTree() {
                 display="flex"
             >
                 <Tree
-                    treeBranchId={id as UUID}
-                    rootNodeId={id as UUID}
+                    treeBranchId={branchId}
+                    rootNodeId={nodeId}
                     type={TreeType.ContributionRequest} />
                 <Box
                     component="span"

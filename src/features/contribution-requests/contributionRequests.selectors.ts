@@ -1,17 +1,22 @@
+import { RootState } from '../../store';
+import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectContributionRequestsByNodeId = (state) => state.contributionRequests.byNodeId;
-export const selectSearchTerm = (state) => state.contributionRequests.searchTerm;
-export const selectCurrentContributionRequest = (state) => state.contributionRequests.currentContributionRequest;
+export const selectContributionRequestsByNodeId = (state: RootState) => state.contributionRequests.byNodeId;
+export const selectSearchTerm = (state: RootState) => state.contributionRequests.searchTerm;
+export const selectCurrentContributionRequest = (
+    state: RootState,
+) => state.contributionRequests.currentContributionRequest;
+
 export const selectContributionRequests = (
-    nodeId,
+    nodeId: UUID,
 ) => createSelector(
     selectContributionRequestsByNodeId,
     (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId],
 );
 export const selectContributionRequest = (
-    nodeId,
-    contributionRequestId,
+    nodeId: UUID,
+    contributionRequestId: UUID,
 ) => createSelector(
     selectContributionRequestsByNodeId,
     (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId]

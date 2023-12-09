@@ -5,7 +5,7 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    PKWithTreeBranch,
+    PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload,
 } from './nodes.types';
 import nodecosmos from '../../apis/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -30,6 +30,15 @@ export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: 
     'nodes/showNode',
     async (id): Promise<{node: Node, descendants: NodeDescendant[]}> => {
         const response = await nodecosmos.get(`/nodes/${id}`);
+
+        return response.data;
+    },
+);
+
+export const showBranchNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rejectValue: NodecosmosError }>(
+    'nodes/showNode',
+    async ({ branchId, id }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
+        const response = await nodecosmos.get(`/nodes/${id}/${branchId}`);
 
         return response.data;
     },
@@ -67,7 +76,7 @@ export const create = createAsyncThunk<Node, NodeCreationPayload, { rejectValue:
     },
 );
 
-export const updateTitle = createAsyncThunk<NodePayload, NodePayload, { rejectValue: NodecosmosError }>(
+export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { rejectValue: NodecosmosError }>(
     'nodes/updateTitle',
     async (payload, { rejectWithValue }) => {
         try {
@@ -84,7 +93,11 @@ export const updateTitle = createAsyncThunk<NodePayload, NodePayload, { rejectVa
     },
 );
 
-export const updateDescription = createAsyncThunk<NodePayload, NodePayload, { rejectValue: NodecosmosError }>(
+export const updateDescription = createAsyncThunk<
+    NodePayload,
+    UpdateDescriptionPayload,
+    { rejectValue: NodecosmosError }
+>(
     'nodes/updateDescription',
     async (payload, { rejectWithValue }) => {
         try {

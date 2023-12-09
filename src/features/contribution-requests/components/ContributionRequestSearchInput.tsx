@@ -2,14 +2,16 @@ import { setSearchTerm } from '../contributionRequestsSlice';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, {
+    ChangeEvent, useCallback, useEffect, 
+} from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function ContributionRequestSearchInput() {
     const dispatch = useDispatch();
-    const handleSearch = (event) => {
+    const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(setSearchTerm(event.target.value));
-    };
+    }, [dispatch]);
 
     useEffect(() => () => {
         dispatch(setSearchTerm(null));

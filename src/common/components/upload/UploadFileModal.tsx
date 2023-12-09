@@ -8,7 +8,7 @@ import {
 import { Uppy } from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import { useDispatch } from 'react-redux';
@@ -34,6 +34,11 @@ export default function UploadFileModal(props: UploadFileModalProps) {
     } = props;
 
     const dispatch = useDispatch();
+
+    const handleClose = useCallback(() => {
+        uppy.cancelAll();
+        onClose();
+    }, [onClose]);
 
     useEffect(() => {
         uppy.on('upload-success', (file) => {
@@ -100,15 +105,12 @@ export default function UploadFileModal(props: UploadFileModalProps) {
             fullWidth
             maxWidth="md"
             open={open}
-            onClose={() => {
-                uppy.cancelAll();
-                onClose();
-            }}
+            onClose={handleClose}
             PaperProps={{ elevation: 8 }}
         >
             <DialogTitle>
                 Upload Cover Image
-                <CloseModalButton onClose={() => {uppy.cancelAll(); onClose();}} />
+                <CloseModalButton onClose={handleClose} />
             </DialogTitle>
             <DialogContent>
                 <UploadDashboardContainer>

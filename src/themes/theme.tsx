@@ -3,6 +3,7 @@ import dimmed from './dimmed';
 import light from './light';
 import animations from './styles/animations';
 /* mui customizations */
+import like from './styles/like';
 import autocomplete from './styles/mui/autocomplete';
 import backdrop from './styles/mui/backdrop';
 import breadcrumbs from './styles/mui/breadcrumbs';
@@ -30,8 +31,9 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         MuiCssBaseline: {
             styleOverrides: {
                 a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
-                ...scrollbar(theme),
                 ...animations(),
+                ...like(theme),
+                ...scrollbar(theme),
                 ...toolbar(theme),
                 ...tree(theme),
             },

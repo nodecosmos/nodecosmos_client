@@ -1,14 +1,11 @@
-import {
-    Workflow, WorkflowDiagramObject, WorkflowState,
-} from './workflow.types';
+import { Workflow, WorkflowDiagramObject } from './workflow.types';
+import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface State { workflows: WorkflowState; }
-
-export const selectWorkflowsById = (state: State) => state.workflows.byId;
-export const selectWorkflowIdByNodeId = (state: State) => state.workflows.idByNodeId;
-export const selectRawSelectedWorkflowObject = (state: State) =>
+export const selectWorkflowsById = (state: RootState) => state.workflows.byId;
+export const selectWorkflowIdByNodeId = (state: RootState) => state.workflows.idByNodeId;
+export const selectRawSelectedWorkflowObject = (state: RootState) =>
     state.workflows.selectedWorkflowObject || {} as WorkflowDiagramObject;
 
 export const selectSelectedWorkflowObject = createSelector(
@@ -17,8 +14,8 @@ export const selectSelectedWorkflowObject = createSelector(
 );
 
 /* diagram */
-export const selectWorkflowDiagramById = (state: State) => state.workflows.workflowDiagramById;
-export const selectWorkflowScale = (state: State) => state.workflows.workflowScale;
+export const selectWorkflowDiagramById = (state: RootState) => state.workflows.workflowDiagramById;
+export const selectWorkflowScale = (state: RootState) => state.workflows.workflowScale;
 
 export const selectWorkflowByNodeId = (nodeId: UUID) => createSelector([
     selectWorkflowIdByNodeId,

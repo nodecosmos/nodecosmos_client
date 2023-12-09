@@ -9,3 +9,5 @@ const store = configureStore({
 export type NodecosmosDispatch = typeof store.dispatch;
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;

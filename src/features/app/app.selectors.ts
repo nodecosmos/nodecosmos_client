@@ -1,19 +1,14 @@
-import { AppState, TransformablePositions } from './app.types';
+import { TransformablePositions } from './app.types';
+import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface State {
-    app: AppState;
-}
-
 export const selectTransformablePositionsById = (id: UUID) => (
-    state: State,
+    state: RootState,
 ) => state.app.transformablePositionsById[id];
-
-export const selectTheme = (state: State) => state.app.theme;
-export const selectHeaderContent = (state: State) => state.app.headerContent;
-export const selectIsPaneOpen = (state: State) => state.app.isPaneOpen;
-
+export const selectTheme = (state: RootState) => state.app.theme;
+export const selectHeaderContent = (state: RootState) => state.app.headerContent;
+export const selectIsPaneOpen = (state: RootState) => state.app.isPaneOpen;
 export const selectTransformablePositionAttribute = (
     id: UUID,
     attribute: keyof TransformablePositions,

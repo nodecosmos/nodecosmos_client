@@ -1,15 +1,10 @@
-import {
-    Flow, FlowPrimaryKey, FlowState,
-} from './types';
+import { Flow, FlowPrimaryKey } from './types';
+import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface State {
-    flows: FlowState;
-}
-
-export const selectFlowPaneContent = (state: State) => state.flows.flowPaneContent;
-const selectFlowById = (state: State) => state.flows.byId;
+export const selectFlowPaneContent = (state: RootState) => state.flows.flowPaneContent;
+const selectFlowById = (state: RootState) => state.flows.byId;
 
 export const selectFlow = (flowId?: UUID | null) => createSelector(
     selectFlowById,

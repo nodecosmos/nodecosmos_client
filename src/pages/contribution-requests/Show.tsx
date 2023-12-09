@@ -4,6 +4,8 @@ import CRShowToolbar from '../../features/contribution-requests/components/Contr
 import { selectContributionRequest } from '../../features/contribution-requests/contributionRequests.selectors';
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
 import { setCurrentContributionRequest } from '../../features/contribution-requests/contributionRequestsSlice';
+import { NodecosmosDispatch } from '../../store';
+import { UUID } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,15 +13,15 @@ import { Outlet, useParams } from 'react-router-dom';
 
 export default function Show() {
     const { id: nodeId, contributionRequestId } = useParams();
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     const cr = useSelector(selectContributionRequest(nodeId, contributionRequestId));
 
     useEffect(() => {
         dispatch(setHeaderContent('ContributionRequestShowHeader'));
         dispatch(showContributionRequest({
-            nodeId,
-            id: contributionRequestId, 
+            nodeId: nodeId as UUID,
+            id: contributionRequestId as UUID, 
         }));
 
         return () => {

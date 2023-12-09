@@ -1,15 +1,20 @@
 import ContributionRequestSearchInput from './ContributionRequestSearchInput';
 import CreateContributionRequestModal from './CreateContributionRequestModal';
 import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import useModalOpen from '../../../common/hooks/useModalOpen';
+import { UUID } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { faAdd } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function ContributionRequestsIndexToolbar({ nodeId }) {
-    const [openCreateWorkflowDialog, setOpenCreateWorkflowDialog] = useState(false);
+interface Props {
+    nodeId: UUID;
+}
+
+export default function ContributionRequestsIndexToolbar({ nodeId }: Props) {
+    const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
         <>
@@ -28,18 +33,16 @@ export default function ContributionRequestsIndexToolbar({ nodeId }) {
                 <DefaultButton
                     title="Add Contribution Request"
                     startIcon={<FontAwesomeIcon icon={faAdd} />}
-                    onClick={() => setOpenCreateWorkflowDialog(true)}
+                    onClick={openModal}
                 />
 
                 <ContributionRequestSearchInput />
             </Box>
             <CreateContributionRequestModal
                 nodeId={nodeId}
-                open={openCreateWorkflowDialog}
-                onClose={() => setOpenCreateWorkflowDialog(false)}
+                open={modalOpen}
+                onClose={closeModal}
             />
         </>
     );
 }
-
-ContributionRequestsIndexToolbar.propTypes = { nodeId: PropTypes.string.isRequired };

@@ -44,6 +44,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         isEditing: true,
         ancestorIds: [...parentAncestors, id],
         childIds: [],
+        treeRootId: node.treeRootId,
     };
 
     state.childIds[treeBranchId][id].push(tmpId);

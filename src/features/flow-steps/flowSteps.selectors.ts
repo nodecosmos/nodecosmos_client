@@ -1,14 +1,9 @@
-import {
-    FlowStep, FlowStepPrimaryKey, FlowStepState,
-} from './types';
+import { FlowStep, FlowStepPrimaryKey } from './types';
+import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface State {
-    flowSteps: FlowStepState;
-}
-
-const selectFlowSteps = (state: State) => state.flowSteps.byId;
+const selectFlowSteps = (state: RootState) => state.flowSteps.byId;
 
 export const selectFlowStep = (id: UUID | null) => createSelector(
     selectFlowSteps,

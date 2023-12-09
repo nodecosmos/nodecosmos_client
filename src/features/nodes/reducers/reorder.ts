@@ -24,5 +24,5 @@ export default function reorderFulfilled(state: NodeState, action: ReturnType<ty
     state.byBranchId[treeBranchId][newParentId].childIds.splice(newSiblingIndexAfterMove, 0, id);
     state.byBranchId[treeBranchId][newParentId].isDragOver = false;
 
-    updateAncestors(state, treeBranchId);
+    updateAncestors(state, node.treeRootId, treeBranchId);
 }

@@ -9,7 +9,7 @@ import {
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, IconButton, Tooltip,
+    Box, Tooltip, ButtonBase, 
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
@@ -27,60 +27,50 @@ export default function NodeToolbar() {
     if (isCreationInProgress) {
         return (
             <Box display="flex" alignItems="center" height={NODE_BUTTON_HEIGHT}>
-                <CircularProgress size={20} sx={{ color: 'secondary.main' }} />
+                <CircularProgress size={20} />
             </Box>
         );
     }
 
     return (
-        <Box
-            display="flex"
-            sx={{
-                '.Item': {
-                    width: 31,
-                    height: 1,
-                    mx: 0.5,
-                    borderRadius: 1,
-                    '&:hover': { backgroundColor: 'toolbar.hover' },
-                },
-                '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
-            }}
-        >
+        <div className="NodeToolbar">
             <Tooltip title="Add Node" placement="top">
-                <IconButton className="Item" onClick={addNode} aria-label="Add Node" sx={{ color: 'toolbar.red' }}>
+                <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
                     <FontAwesomeIcon icon={faPlus} />
-                </IconButton>
+                </ButtonBase>
             </Tooltip>
             <Tooltip title="Edit Node" placement="top">
-                <IconButton className="Item" onClick={editNode} aria-label="Edit Node" sx={{ color: 'toolbar.green' }}>
+                <ButtonBase className="Item" onClick={editNode} aria-label="Edit Node">
                     <FontAwesomeIcon icon={faPenToSquare} />
-                </IconButton>
+                </ButtonBase>
             </Tooltip>
             <Tooltip title="Delete Node" placement="top">
-                <IconButton
+                <ButtonBase
                     className="Item"
                     onClick={removeNode}
-                    aria-label="Delete Node"
-                    sx={{ color: 'toolbar.blue' }}>
+                    aria-label="Delete Node">
                     <FontAwesomeIcon icon={faTrash} />
-                </IconButton>
+                </ButtonBase>
             </Tooltip>
 
-            <LikeButton id={id} branchId={branchId} treeBranchId={treeBranchId} likesCount={likesCount || undefined} />
+            <LikeButton
+                id={id}
+                branchId={branchId}
+                treeBranchId={treeBranchId}
+                likesCount={likesCount || undefined} />
 
             <Tooltip title="Open Node In New Tab" placement="top">
-                <IconButton
+                <ButtonBase
                     target="_blank"
                     href={`/nodes/${id}`}
                     className="Item"
                     aria-label="Open Node in New Tab"
-                    sx={{ color: 'toolbar.default' }}
                 >
                     <FontAwesomeIcon
                         icon={faArrowUpRightFromSquare}
                     />
-                </IconButton>
+                </ButtonBase>
             </Tooltip>
-        </Box>
+        </div>
     );
 }

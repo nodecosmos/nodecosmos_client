@@ -1,19 +1,18 @@
-import { AppNode, NodeState } from './nodes.types';
+import { AppNode } from './nodes.types';
+import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-interface State { nodes: NodeState; }
-
-export const selectNodesByBranchId = (state: State) => state.nodes.byBranchId;
-export const selectIndexNodesById = (state: State) => state.nodes.indexNodesById;
-export const selectSelected = (state: State) => state.nodes.selected;
-export const selectTitles = (state: State) => state.nodes.titles;
-export const selectNodePaneContent = (state: State) => state.nodes.nodePaneContent;
-export const selectDragAndDrop = (state: State) => state.nodes.dragAndDrop;
-export const selectChildIds = (state: State) => state.nodes.childIds;
-export const selectActionInProgress = (state: State) => state.nodes.actionInProgress;
-export const selectPositions = (state: State) => state.nodes.positions;
-export const selectJustCreatedNodeId = (state: State) => state.nodes.justCreatedNodeId;
+export const selectNodesByBranchId = (state: RootState) => state.nodes.byBranchId;
+export const selectIndexNodesById = (state: RootState) => state.nodes.indexNodesById;
+export const selectSelected = (state: RootState) => state.nodes.selected;
+export const selectTitles = (state: RootState) => state.nodes.titles;
+export const selectNodePaneContent = (state: RootState) => state.nodes.nodePaneContent;
+export const selectDragAndDrop = (state: RootState) => state.nodes.dragAndDrop;
+export const selectChildIds = (state: RootState) => state.nodes.childIds;
+export const selectActionInProgress = (state: RootState) => state.nodes.actionInProgress;
+export const selectPositions = (state: RootState) => state.nodes.positions;
+export const selectJustCreatedNodeId = (state: RootState) => state.nodes.justCreatedNodeId;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,
