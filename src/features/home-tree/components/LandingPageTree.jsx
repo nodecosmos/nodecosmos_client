@@ -5,7 +5,7 @@ import SwipeableEdgeDrawer from './LandingPageSwipeableNodeDescMobile';
 import LandingPageTransformable from './LandingPageTransformable';
 import { terminateNewNode } from '../landingPageNodeSlice';
 import {
-    Box, useMediaQuery, useTheme, 
+    Box, useMediaQuery, useTheme,
 } from '@mui/material';
 import * as PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
@@ -25,19 +25,22 @@ export default function LandingPageTree(props) {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
-        <Box className="Tree">
-            <LandingPageTransformable>
-                <g>
-                    <LandingPageNode
-                        id={id}
-                        nestedLevel={0}
-                        isRoot
-                    >
-                        <LandingPageNestedNodes currentNodeId={id} />
-                    </LandingPageNode>
-                    {!isMobile && <LandingPageNodeDescription />}
-                </g>
-            </LandingPageTransformable>
+        <div>
+            <Box className="Tree">
+                <LandingPageTransformable>
+                    <g>
+                        <LandingPageNode
+                            id={id}
+                            nestedLevel={0}
+                            isRoot
+                        >
+                            <LandingPageNestedNodes currentNodeId={id} />
+                        </LandingPageNode>
+                        {!isMobile && <LandingPageNodeDescription />}
+                    </g>
+                </LandingPageTransformable>
+
+            </Box>
             <Box
                 backgroundColor="background.5"
                 overflow="hidden"
@@ -51,7 +54,7 @@ export default function LandingPageTree(props) {
             >
                 {isMobile && <SwipeableEdgeDrawer />}
             </Box>
-        </Box>
+        </div>
     );
 }
 
