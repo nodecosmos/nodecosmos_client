@@ -44,7 +44,7 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
 
     const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
     const rootNodeId = useSelector(selectNodeAttribute(branchId, nodeId, 'rootId'));
-    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
+    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId as UUID));
     const allIOTitles = allWorkflowIOs.map((io) => io.title);
     const uniqueIOTitles = [...new Set(allIOTitles)];
 

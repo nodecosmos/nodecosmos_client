@@ -24,8 +24,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
 
     const onSubmit = async (formValues: { title: string }) => {
         setLoading(true);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const existingIO = autocompleteValue && allWorkflowIOs.find((io) => io.title === autocompleteValue);
+        const existingIO = autocompleteValue ? allWorkflowIOs.find((io) => io.title === autocompleteValue) : null;
 
         const payload: Strict<InsertInputOutputPayload> = {
             nodeId,

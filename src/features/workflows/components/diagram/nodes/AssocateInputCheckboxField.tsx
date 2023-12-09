@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function AssociateInputCheckboxField({ inputId }: Props) {
-    const title = useSelector(selectIOAttribute(inputId, 'title'));
+    const title = useSelector(selectIOAttribute(inputId, 'title')) as string;
 
     return (
         <FinalFormCheckboxButton name="inputIds" label={title} value={inputId} />

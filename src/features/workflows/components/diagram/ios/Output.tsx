@@ -32,7 +32,7 @@ export default function Output(props: OutputProps) {
         nodeId,
         position,
     } = output;
-    const title = useSelector(selectIOAttribute(id, 'title'));
+    const title = useSelector(selectIOAttribute(id, 'title')) as string;
     const {
         x,
         xEnd,
@@ -56,7 +56,7 @@ export default function Output(props: OutputProps) {
         color,
     } = useWorkflowOutputButtonBg({
         id,
-        nodeId: nodeId as UUID, 
+        nodeId: nodeId as UUID,
     });
 
     const preventDefault = usePreventDefault();

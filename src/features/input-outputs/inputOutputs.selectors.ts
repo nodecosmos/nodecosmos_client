@@ -23,7 +23,7 @@ export const selectInputOutputPrimaryKey = (id: UUID) => createSelector(
 
 export const selectIOAttribute = (id: UUID, attribute: keyof InputOutput) => createSelector(
     selectInputOutputById(id),
-    (inputOutput) => inputOutput && inputOutput[attribute],
+    (inputOutput) => inputOutput ? inputOutput[attribute] : null,
 );
 
 export const selectIOByWorkflowId = (workflowId: UUID) => createSelector(

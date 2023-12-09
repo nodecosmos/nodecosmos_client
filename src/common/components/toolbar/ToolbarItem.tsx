@@ -6,19 +6,19 @@ import {
     useMatch, useNavigate, useResolvedPath,
 } from 'react-router-dom';
 
-interface Props {
+interface Props<Val> {
     title: string;
     color: string;
     icon: IconProp;
     titleAsTooltip?: boolean;
     active?: boolean;
-    onClick?: (value?: string | number) => void;
-    onClickValue?: string | number;
+    onClick?: (value?: Val) => void;
+    onClickValue?: Val;
     flipX?: boolean;
     to?: string;
 }
 
-export default function ToolbarItem(props: Props) {
+export default function ToolbarItem<Val>(props: Props<Val>) {
     const {
         title,
         icon,

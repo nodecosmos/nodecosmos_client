@@ -15,13 +15,13 @@ export default function Show() {
     const { id: nodeId, contributionRequestId } = useParams();
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    const cr = useSelector(selectContributionRequest(nodeId, contributionRequestId));
+    const cr = useSelector(selectContributionRequest(nodeId as UUID, contributionRequestId as UUID));
 
     useEffect(() => {
         dispatch(setHeaderContent('ContributionRequestShowHeader'));
         dispatch(showContributionRequest({
             nodeId: nodeId as UUID,
-            id: contributionRequestId as UUID, 
+            id: contributionRequestId as UUID,
         }));
 
         return () => {
