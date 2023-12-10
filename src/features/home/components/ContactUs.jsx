@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 
 // eslint-disable-next-line max-len
@@ -20,7 +20,7 @@ export default function ContactUs() {
     const [loading, setLoading] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
 
-    const onSubmit = async (formValues) => {
+    const onSubmit = useCallback(async (formValues) => {
         setLoading(true);
         // eslint-disable-next-line no-undef
         axios.post(
@@ -34,7 +34,7 @@ export default function ContactUs() {
             setLoading(false);
             console.error(error);
         });
-    };
+    }, []);
 
     if (success) {
         return (

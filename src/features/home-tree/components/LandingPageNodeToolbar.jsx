@@ -14,23 +14,26 @@ import {
     Box, useTheme,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function LandingPageNodeToolbar(props) {
     const { id } = props;
     const { onNodeAdd, handleNodeDeletion } = useNodeTreeEvents({ id });
-
-    const dispatch = useDispatch();
-    const handleEdit = () => { dispatch(updateNode({
-        id,
-        isEditing: true, 
-    })); };
-
     const theme = useTheme();
     const {
         red, green, blue,
     } = theme.palette.toolbar;
+    const dispatch = useDispatch();
+    const handleEdit = useCallback(() => {
+        dispatch(updateNode({
+            id,
+            isEditing: true,
+        }));
+    }, [dispatch, id]);
+    const handleDelete = useCallback(() => {
+        handleNodeDeletion(id);
+    }, [handleNodeDeletion, id]);
 
     return (
         <Box
@@ -54,7 +57,7 @@ export default function LandingPageNodeToolbar(props) {
             <IconButton className="Item" onClick={handleEdit} aria-label="Edit Node">
                 <FontAwesomeIcon icon={faPenToSquare} />
             </IconButton>
-            <IconButton className="Item" onClick={() => handleNodeDeletion(id)} aria-label="Delete Node">
+            <IconButton className="Item" onClick={handleDelete} aria-label="Delete Node">
                 <FontAwesomeIcon icon={faTrash} />
             </IconButton>
             <Checkbox

@@ -1,9 +1,14 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
+import { selectBranch } from '../../../../branch/branches.selectors';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 export default function useNodeButtonContributionRequestColors() {
-    const { isSelected, nestedLevel } = useNodeContext();
+    const {
+        treeBranchId, isSelected, nestedLevel, id,
+    } = useNodeContext();
+    const branch = useSelector(selectBranch(treeBranchId));
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
@@ -15,7 +20,11 @@ export default function useNodeButtonContributionRequestColors() {
     const color = (hasBg && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
     const parentBackgroundColor = theme.palette.workflow.defaultInputColor;
 
-    const outlineColor = defaultBorder;
+    let outlineColor = defaultBorder;
+
+    if (branch?.createdNodesById?.[id]) {
+        outlineColor = theme.palette.tree.backgrounds[3];
+    }
 
     return {
         backgroundColor,

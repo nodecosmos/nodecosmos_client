@@ -37,10 +37,10 @@ export default function NodeBranch() {
             <path
                 strokeWidth={3.5}
                 d={`M ${x} ${y}
-            C ${x} ${y}
-              ${x + 25} ${y + 1}
-              ${xEnd} ${y}
-            L ${xEnd} ${y}`}
+                    C ${x} ${y}
+                      ${x + 25} ${y + 1}
+                      ${xEnd} ${y}
+                    L ${xEnd} ${y}`}
                 stroke={theme.palette.tree.default}
                 fill="transparent"
                 style={{

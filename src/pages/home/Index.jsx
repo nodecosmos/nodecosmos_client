@@ -59,7 +59,7 @@ export default function Index() {
         setSectionEndPositions(sectionPositions && sectionPositions.map((pos, i) => pos + sectionHeights[i]));
     }, [sectionHeights, sectionPositions]);
 
-    const handleScrollCapture = () => {
+    const handleScrollCapture = useCallback(() => {
         if (preventTabChange.current) return;
 
         const scrollPosition = rootRef.current.scrollTop;
@@ -73,7 +73,7 @@ export default function Index() {
         if (scrollPosition < sectionEndPosition) {
             setTab(sectionIndex);
         }
-    };
+    }, [sectionEndPositions, sectionHeights]);
 
     // ----------------------------------------------------------------------------------------------------------------
     const handleTabChange = useCallback((_, currentTab) => {
@@ -84,7 +84,7 @@ export default function Index() {
 
         scrollBy(rootRef.current, {
             top: y,
-            behavior: 'smooth', 
+            behavior: 'smooth',
         });
         setTab(currentTab);
 
@@ -92,15 +92,15 @@ export default function Index() {
         timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
     }, [allRefs]);
 
-    const handleNodecosmosClick = () => {
+    const handleNodecosmosClick = useCallback(() => {
         preventTabChange.current = true;
         scrollBy(rootRef.current, {
             top: -rootRef.current.scrollTop,
-            behavior: 'smooth', 
+            behavior: 'smooth',
         });
         setTab(0);
         timeout.current = setTimeout(() => { preventTabChange.current = false; }, 1000);
-    };
+    }, []);
 
     // ------------------------------------- HANDLE EXTERNAL HOMEPAGE TAB CHANGE --------------------------------------
     const homepageTab = useSelector((state) => state.home.homepageTab);

@@ -1,7 +1,7 @@
 import { updateNode } from '../landingPageNodeSlice';
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function LandingPageNodeButtonText(props) {
@@ -12,23 +12,25 @@ export default function LandingPageNodeButtonText(props) {
     const nodeTitle = useSelector((state) => state.landingPageNodes[id].title);
     const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
 
-    const handleChange = (event) => {
+    const handleChange = useCallback((event) => {
         const title = event.currentTarget.value;
 
         dispatch(updateNode({
             id,
             title,
         }));
-    };
+    }, [dispatch, id]);
 
-    const handleBlur = () => {
+    const handleBlur = useCallback(() => {
         dispatch(updateNode({
             id,
             isEditing: false,
             isNew: false,
         }));
         ref.current.blur();
-    };
+    }, [dispatch, id]);
+
+    const handleKeyDown = useCallback((event) => event.key === 'Enter' && handleBlur(), [handleBlur]);
 
     useEffect(() => {
         if (isEditing) {
@@ -42,7 +44,7 @@ export default function LandingPageNodeButtonText(props) {
             ref={ref}
             onChange={handleChange}
             onBlur={handleBlur}
-            onKeyDown={(event) => event.key === 'Enter' && handleBlur()}
+            onKeyDown={handleKeyDown}
             value={nodeTitle || ''}
             fontSize={14}
             fontWeight={500}

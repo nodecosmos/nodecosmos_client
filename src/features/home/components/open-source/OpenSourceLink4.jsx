@@ -4,7 +4,7 @@ import {
     Typography, useMediaQuery, useTheme, Box,
 } from '@mui/material';
 import { useInView } from 'framer-motion';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -14,7 +14,7 @@ export default function OpenSourceLink() {
 
     const refInView = useInView(ref, {
         amount: 0.1,
-        once: false, 
+        once: false,
     });
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -23,6 +23,8 @@ export default function OpenSourceLink() {
     const viewBox = matchesXs ? '-55 277 218 178' : '-80 277 268 103';
 
     const dispatch = useDispatch();
+
+    const setHomePageTab = useCallback(() => dispatch(setHomepageTab(1)), [dispatch]);
 
     return (
         <Box
@@ -110,7 +112,7 @@ export default function OpenSourceLink() {
                                     borderBottom={1}
                                     borderColor="secondary.main"
                                     sx={{ cursor: 'pointer' }}
-                                    onClick={() => dispatch(setHomepageTab(1))}
+                                    onClick={setHomePageTab}
                                     target="_blank"
                                 >
                   Contribution Request

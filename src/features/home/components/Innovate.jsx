@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Tab, Tabs, Box, useMediaQuery, useTheme,
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const PRESELECTED_NODE_ID = '635a91ea690cc413ead79ce2';
@@ -42,6 +42,8 @@ export default function Innovate() {
         },
     };
 
+    const setInnovate = useCallback((_event, value) => dispatch(setInnovateTab(value)), [dispatch]);
+
     return (
         <Box w={1}>
             <Box display="flex" justifyContent="s">
@@ -58,7 +60,7 @@ export default function Innovate() {
                     }}
                     variant={matchesSm ? 'scrollable' : 'standard'}
                     value={currentTab}
-                    onChange={(_event, value) => dispatch(setInnovateTab(value))}
+                    onChange={setInnovate}
                     TabIndicatorProps={{ sx: indicatorSx }}
                     visibleScrollbar
                 >

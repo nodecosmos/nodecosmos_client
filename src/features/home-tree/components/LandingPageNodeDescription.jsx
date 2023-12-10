@@ -5,7 +5,9 @@ import {
     Box,
     Typography,
 } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, {
+    useCallback, useEffect, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function NodeDescriptionMd() {
@@ -21,10 +23,8 @@ export default function NodeDescriptionMd() {
         dispatch(setDescriptionCoordinates({ y: 267.5 }));
     }, [dispatch]);
 
-    if (!currentNodeTitle) return null;
-
     // enable svg element descriptionRef to be dragged up and down
-    const handleMouseDown = (e) => {
+    const handleMouseDown = useCallback((e) => {
         e.stopPropagation();
         const initialY = e.clientY;
         const initialElementY = descriptionRef.current.getBBox().y;
@@ -43,7 +43,9 @@ export default function NodeDescriptionMd() {
 
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
-    };
+    }, [dispatch]);
+
+    if (!currentNodeTitle) return null;
 
     return (
         <g>

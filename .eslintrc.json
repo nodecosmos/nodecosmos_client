@@ -88,7 +88,7 @@
             "afterOpening": "never",
             "beforeClosing": "never"
         }],
-        "react/jsx-no-bind": 1,
+        "react/jsx-no-bind": 2,
         "react-hooks/exhaustive-deps": 2,
         "padded-blocks": ["error", "never"],
         "semi": ["error", "always"],

@@ -1,3 +1,4 @@
+import useModalOpen from '../../../common/hooks/useModalOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
     Drawer,
@@ -8,7 +9,7 @@ import {
     useTheme,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 const tabSx = {
     ml: 1,
@@ -19,7 +20,7 @@ export default function HomepageTabs(props) {
     const { tab, handleTabChange } = props;
     const theme = useTheme();
     const matchesSm = useMediaQuery(theme.breakpoints.down('md'));
-    const [open, setOpen] = React.useState(false);
+    const [menuOpen, , closeMenu, toggleModal] = useModalOpen();
 
     const options = [
         'Innovate',
@@ -29,16 +30,21 @@ export default function HomepageTabs(props) {
         'Contact Us',
     ];
 
+    const handleChange = useCallback((event, newValue) => {
+        handleTabChange(event, newValue);
+        setTimeout(() => closeMenu(), 500);
+    }, [handleTabChange, closeMenu]);
+
     if (matchesSm) {
         return (
             <>
-                <IconButton aria-label="delete" size="large" onClick={() => setOpen(!open)}>
+                <IconButton size="large" onClick={toggleModal}>
                     <MenuIcon fontSize="inherit" sx={{ color: 'background.8' }} />
                 </IconButton>
                 <Drawer
                     anchor="right"
-                    open={open}
-                    onClose={() => setOpen(false)}
+                    open={menuOpen}
+                    onClose={closeMenu}
                     PaperProps={{
                         sx: {
                             pl: 0,
@@ -49,10 +55,7 @@ export default function HomepageTabs(props) {
                     <Tabs
                         orientation="vertical"
                         value={tab}
-                        onChange={(event, newValue) => {
-                            handleTabChange(event, newValue);
-                            setTimeout(() => setOpen(false), 500);
-                        }}
+                        onChange={handleChange}
                         TabIndicatorProps={{ sx: { left: -1 } }}
                         centered
                     >

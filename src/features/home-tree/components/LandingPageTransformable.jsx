@@ -3,7 +3,7 @@ import {
     useMediaQuery, useTheme, Box,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 // import useZoomable from '../../hooks/useZoomable';
 const isFirefox = typeof InstallTrigger !== 'undefined';
 
@@ -30,13 +30,13 @@ export default function LandingPageTransformable(props) {
     const minHeight = matchesSm ? 825 : 825;
     const minWidth = 1050;
 
-    const resize = () => {
+    const resize = useCallback(() => {
         const newHeight = gRef.current.getBBox().height + 50;
         const newWidth = gRef.current.getBBox().width + 50;
 
         svgRef.current.setAttribute('height', newHeight > minHeight ? newHeight : minHeight);
         svgRef.current.setAttribute('width', newWidth > minWidth ? newWidth : minWidth);
-    };
+    }, [minHeight, minWidth]);
 
     // handle pan
     const {

@@ -9,6 +9,7 @@ import {
 import React, {
     useEffect,
     useState,
+    useCallback,
 } from 'react';
 import {
     Outlet, Link, useLocation,
@@ -26,6 +27,8 @@ export default function Authentication() {
         }
     }, [location.pathname]);
 
+    const handleTabChange = useCallback((_event, value) => setCurrentPage(value), []);
+
     return (
         <Container
             maxWidth="sm"
@@ -39,17 +42,17 @@ export default function Authentication() {
         >
             <Box sx={{
                 height: 600,
-                width: 1, 
+                width: 1,
             }}>
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center', 
+                    justifyContent: 'center',
                 }}>
                     <Typography
                         sx={{
                             fontSize: 50,
-                            ml: 1, 
+                            ml: 1,
                         }}
                         fontWeight="bold">
                         <Box component="span" color="logo.blue">node</Box>
@@ -62,7 +65,7 @@ export default function Authentication() {
                 <Box mt={4}>
                     <Tabs
                         value={currentPage}
-                        onChange={(_event, value) => setCurrentPage(value)}
+                        onChange={handleTabChange}
                         centered
                     >
                         <Tab label="Log in" disableRipple LinkComponent={Link} to="/auth/login" />

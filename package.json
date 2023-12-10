@@ -2,6 +2,7 @@
   "name": "nodecosmos",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@codemirror/lang-markdown": "^6.2.3",
     "@codemirror/language-data": "^6.3.1",

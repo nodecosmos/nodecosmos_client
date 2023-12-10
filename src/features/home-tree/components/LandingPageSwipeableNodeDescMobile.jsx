@@ -3,7 +3,7 @@ import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 const EDGE_HEIGHT = 50;
@@ -23,12 +23,16 @@ function SwipeableEdgeDrawer() {
     const theme = useTheme();
     const border2Color = theme.palette.borders[2];
 
+    const handleClick = useCallback(() => {
+        setHeight((prevHeight) => (prevHeight > 0 ? 0 : textRef.current.clientHeight));
+    }, [setHeight, textRef]);
+
     return (
         <Box
             border={1}
             borderColor="borders.3"
             boxShadow="top.1"
-            onClick={() => setHeight((prevHeight) => (prevHeight > 0 ? 0 : textRef.current.clientHeight))}
+            onClick={handleClick}
             sx={{
                 borderRadius: 1,
                 overflow: 'hidden',

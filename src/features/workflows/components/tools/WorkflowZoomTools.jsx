@@ -6,28 +6,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip, Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function WorkflowZoomTools() {
     const dispatch = useDispatch();
     const workflowScale = useSelector(selectWorkflowScale);
 
-    const zoomIn = () => {
+    const zoomIn = useCallback(() => {
         const newScale = Math.round((workflowScale + 0.1) * 10) / 10;
 
         if (newScale > 2) return;
 
         dispatch(setWorkflowScale(newScale));
-    };
+    }, [dispatch, workflowScale]);
 
-    const zoomOut = () => {
+    const zoomOut = useCallback(() => {
         const newScale = Math.round((workflowScale - 0.1) * 10) / 10;
 
         if (newScale < 0.5) return;
 
         dispatch(setWorkflowScale(newScale));
-    };
+    }, [dispatch, workflowScale]);
 
     return (
         <Box flex={1}>

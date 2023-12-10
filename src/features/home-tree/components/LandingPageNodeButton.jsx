@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import LandingPageNodeButtonText from './LandingPageNodeButtonText';
 import LandingPageNodeToolbar from './LandingPageNodeToolbar';
+import usePreventDefault from '../../../common/hooks/usePreventDefault';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION, MARGIN_TOP, NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
@@ -27,6 +28,7 @@ export default function LandingPageNodeButton(props) {
     const currentNodeId = useSelector((state) => state.app.currentNodeId);
     const isEditing = useSelector((state) => state.landingPageNodes[id].isEditing);
     const isNew = useSelector((state) => state.landingPageNodes[id].isNew);
+    const preventDefault = usePreventDefault();
 
     const { onNodeClick } = useNodeTreeEvents({ id });
     const {
@@ -34,7 +36,7 @@ export default function LandingPageNodeButton(props) {
     } = useNodeButtonBackground({
         id,
         nestedLevel,
-        isRoot, 
+        isRoot,
     });
 
     const isCurrentNode = nodeExpanded && id === currentNodeId;
@@ -63,7 +65,7 @@ export default function LandingPageNodeButton(props) {
                     <Box
                         component={isEditing ? 'div' : Button}
                         onClick={onNodeClick}
-                        onKeyUp={(event) => event.preventDefault()}
+                        onKeyUp={preventDefault}
                         display="inline-flex"
                         alignItems="center"
                         {...(!isEditing && { disableRipple: true })}

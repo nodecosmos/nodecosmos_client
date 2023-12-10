@@ -6,8 +6,7 @@ import {
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
-import { useEffect } from 'react';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 
 const steps = [
     'Design Product',

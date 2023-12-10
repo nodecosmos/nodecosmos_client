@@ -1,11 +1,14 @@
+import { NodecosmosDispatch } from '../../../../../store';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflow.selectors';
-import { selectFlow } from '../../../flows.selectors';
+import { WorkflowDiagramObject } from '../../../../workflows/workflow.types';
+import { selectFlow, selectFlowPrimaryKey } from '../../../flows.selectors';
 import { updateFlowDescription } from '../../../flows.thunks';
 import { updateFlowState } from '../../../flowsSlice';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+// @ts-expect-error: No types available
 import md from 'markdown-it';
-import React, { Suspense } from 'react';
+import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 
@@ -28,13 +31,14 @@ const loading = (
 
 export default function FlowPaneMarkdownEditor() {
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const { id, workflowId } = selectedWorkflowDiagramObject;
+    const { id } = selectedWorkflowDiagramObject as WorkflowDiagramObject;
 
-    const dispatch = useDispatch();
-    const handleChangeTimeout = React.useRef(null);
-    const { nodeId, descriptionMarkdown } = useSelector(selectFlow(id));
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const handleChangeTimeout = React.useRef<number | null>(null);
+    const { descriptionMarkdown } = useSelector(selectFlow(id));
+    const flowPrimaryKey = useSelector(selectFlowPrimaryKey(id));
 
-    const handleChange = (value) => {
+    const handleChange = useCallback((value: string) => {
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
         }
@@ -43,21 +47,18 @@ export default function FlowPaneMarkdownEditor() {
             const descriptionHtml = md().render(value);
 
             dispatch(updateFlowState({
-                id,
-                workflowId,
+                ...flowPrimaryKey,
                 description: descriptionHtml,
                 descriptionMarkdown: value,
             }));
 
             dispatch(updateFlowDescription({
-                id,
-                nodeId,
-                workflowId,
+                ...flowPrimaryKey,
                 description: descriptionHtml,
                 descriptionMarkdown: value,
             }));
         }, 500);
-    };
+    }, [dispatch, flowPrimaryKey]);
 
     return (
         <Suspense fallback={loading}>
