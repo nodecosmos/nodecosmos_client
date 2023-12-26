@@ -3,7 +3,7 @@ import { NodecosmosDispatch } from '../../../../../store';
 import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
 import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
 import { updateState } from '../../../actions';
-import { selectNodeAttribute, selectSelected } from '../../../nodes.selectors';
+import { selectNode, selectSelected } from '../../../nodes.selectors';
 import { getDescriptionBase64, updateDescription } from '../../../nodes.thunks';
 import { PKWithTreeBranch } from '../../../nodes.types';
 import { Box } from '@mui/material';
@@ -23,11 +23,29 @@ export default function NodePaneDescriptionEditor() {
     const {
         treeBranchId, branchId, id,
     } = useSelector(selectSelected) as PKWithTreeBranch;
-    const isTmp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTmp'));
-    const rootId = useSelector(selectNodeAttribute(treeBranchId, id, 'rootId'));
-    const descriptionMarkdown = useSelector(selectNodeAttribute(treeBranchId, id, 'descriptionMarkdown'));
-    const descriptionBase64 = useSelector(selectNodeAttribute(treeBranchId, id, 'descriptionBase64'));
+    const {
+        isTmp,
+        descriptionMarkdown,
+        descriptionBase64,
+    } = useSelector(selectNode(treeBranchId, id));
     const handleChangeTimeout = React.useRef<number| null>(null);
+    const [base64Fetched, setBase64Fetched] = React.useState(false);
+
+    useEffect(() => {
+        if (id) {
+            dispatch(getDescriptionBase64({
+                treeBranchId,
+                branchId,
+                id,
+            })).then(() => {
+                setBase64Fetched(true);
+            });
+        }
+
+        return () => {
+            setBase64Fetched(false);
+        };
+    }, [branchId, dispatch, id, treeBranchId]);
 
     const handleChange = useCallback((
         helpers: HelpersFromExtensions<MarkdownExtension>,
@@ -63,24 +81,6 @@ export default function NodePaneDescriptionEditor() {
             }));
         }, 1000);
     }, [dispatch, treeBranchId, branchId, id, isTmp]);
-
-    const [base64Fetched, setBase64Fetched] = React.useState(false);
-
-    useEffect(() => {
-        if (id && rootId) {
-            dispatch(getDescriptionBase64({
-                treeBranchId,
-                branchId,
-                id,
-            })).then(() => {
-                setBase64Fetched(true);
-            });
-        }
-
-        return () => {
-            setBase64Fetched(false);
-        };
-    }, [branchId, dispatch, id, rootId, treeBranchId]);
 
     if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
 

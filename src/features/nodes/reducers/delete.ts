@@ -20,6 +20,10 @@ function deleteNodeFromState(state: NodeState, treeBranchId: UUID, id: UUID) {
     const node = state.byBranchId[treeBranchId][id];
     const parent = state.byBranchId[treeBranchId][node.parentId];
 
+    if (node.branchId !== node.id) {
+        return;
+    }
+
     // remove from parent
     if (parent) {
         const childIds = parent.childIds.filter((childId) => childId !== id);

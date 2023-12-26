@@ -1,4 +1,5 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
+import { appendOpacityToHex } from '../../../../../utils/colors';
 import { selectBranch } from '../../../../branch/branches.selectors';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
@@ -15,15 +16,27 @@ export default function useNodeButtonContributionRequestColors() {
     const nestedTreeColor = backgrounds[nestedLevel % backgroundCount];
     const { defaultBorder } = theme.palette.tree;
 
-    const hasBg = isSelected;
-    const backgroundColor = hasBg ? nestedTreeColor : theme.palette.tree.default;
-    const color = (hasBg && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
+    let backgroundColor = isSelected ? nestedTreeColor : theme.palette.tree.default;
+    let color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
     const parentBackgroundColor = theme.palette.workflow.defaultInputColor;
 
     let outlineColor = defaultBorder;
+    let outlinedColored = isSelected;
 
-    if (branch?.createdNodesById?.[id]) {
+    if (branch?.createdNodes?.has(id)) {
         outlineColor = theme.palette.tree.backgrounds[3];
+        color = theme.palette.tree.backgrounds[3];
+        backgroundColor = isSelected
+            ? appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.3)
+            : appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.1);
+        outlinedColored = true;
+    } else if (branch?.deletedNodes?.has(id)) {
+        outlineColor = theme.palette.tree.backgrounds[0];
+        color = theme.palette.tree.backgrounds[0];
+        backgroundColor = isSelected
+            ? appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.3)
+            : appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.1);
+        outlinedColored = true;
     }
 
     return {
@@ -31,8 +44,8 @@ export default function useNodeButtonContributionRequestColors() {
         outlineColor,
         parentBackgroundColor,
         color,
-        hasBg,
-        outlinedColored: false,
+        isSelected,
+        outlinedColored,
         nestedTreeColor,
     };
 }

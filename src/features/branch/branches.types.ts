@@ -8,26 +8,26 @@ export interface Branch {
     owner: Owner;
     editorIds?: UUID[];
     isContributionRequest: boolean;
-    createdNodesById?: Record<UUID, boolean>;
-    deletedNodesById?: Record<UUID, boolean>;
-    editedNodeTitlesById?: Record<UUID, boolean>;
-    editedNodeDescriptionsById?: Record<UUID, boolean>;
-    editedNodeTreePositionsById?: Record<UUID, boolean>;
-    createdWorkflowsById?: Record<UUID, boolean>;
-    deletedWorkflowsById?: Record<UUID, boolean>;
-    editedWorkflowTitlesById?: Record<UUID, boolean>;
-    createdFlowsById?: Record<UUID, boolean>;
-    deletedFlowsById?: Record<UUID, boolean>;
-    editedFlowTitlesById?: Record<UUID, boolean>;
-    editedFlowDescriptionsById?: Record<UUID, boolean>;
-    createdIosById?: Record<UUID, boolean>;
-    deletedIosById?: Record<UUID, boolean>;
-    editedIoTitlesById?: Record<UUID, boolean>;
-    editedIoDescriptionsById?: Record<UUID, boolean>;
-    createdFlowStepsById?: Record<UUID, boolean>;
-    deletedFlowStepsById?: Record<UUID, boolean>;
-    createdFlowStepInputsById?: Record<UUID, boolean>;
-    deletedFlowStepInputsById?: Record<UUID, boolean>;
+    createdNodes?: Set<UUID>;
+    deletedNodes?: Set<UUID>;
+    editedNodeTitles?: Set<UUID>;
+    editedNodeDescriptions?: Set<UUID>;
+    editedNodeTreePositions?: Set<UUID>;
+    createdWorkflows?: Set<UUID>;
+    deletedWorkflows?: Set<UUID>;
+    editedWorkflowTitles?: Set<UUID>;
+    createdFlows?: Set<UUID>;
+    deletedFlows?: Set<UUID>;
+    editedFlowTitles?: Set<UUID>;
+    editedFlowDescriptions?: Set<UUID>;
+    createdIos?: Set<UUID>;
+    deletedIos?: Set<UUID>;
+    editedIoTitles?: Set<UUID>;
+    editedIoDescriptions?: Set<UUID>;
+    createdFlowSteps?: Set<UUID>;
+    deletedFlowSteps?: Set<UUID>;
+    createdFlowStepInputsByNode?: Record<UUID, Set<UUID>>;
+    deletedFlowStepInputsByNode?: Record<UUID, Set<UUID>>;
 }
 
 export interface BranchesState {

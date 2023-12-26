@@ -18,7 +18,7 @@ function NodeButton() {
         backgroundColor,
         outlineColor,
         color,
-        hasBg,
+        isSelected,
         outlinedColored,
     } = useNodeColors();
     const {
@@ -43,7 +43,7 @@ function NodeButton() {
             onDragLeave={dragLeave}
             onDropCapture={dropCapture}
             type="button"
-            className={`NodeButton ${hasBg && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
+            className={`NodeButton ${isSelected && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
             onClick={clickNode}
             onKeyUp={preventDefault}
             style={{

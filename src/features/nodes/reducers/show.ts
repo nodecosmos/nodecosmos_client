@@ -12,32 +12,24 @@ export default function showFulfilled(
     } = node;
     const isMainBranch = treeBranchId === id;
 
+    const stateNode = state.byBranchId[treeBranchId]?.[id] || {};
+
     // init state for branch
-    state.byBranchId[treeBranchId] ||= {};
     state.childIds[treeBranchId] ||= {};
     state.titles[treeBranchId] ||= {};
-
-    state.titles[treeBranchId][id] = node.title;
-    const stateNode = state.byBranchId[treeBranchId][id] || {};
-    node.ancestorIds ||= [];
+    state.byBranchId[treeBranchId] = {};
 
     state.byBranchId[treeBranchId][id] = {
         ...stateNode,
         ...node,
+        ancestorIds: node.ancestorIds || [],
         treeRootId: id,
         isTmp: false,
         persistedId: id,
-        isSelected: true,
+        isSelected: false,
     };
 
-    state.selected = {
-        treeBranchId,
-        branchId: node.branchId,
-        id,
-    };
-
-    // tree data
-    node.ancestorIds ||= [];
+    state.titles[treeBranchId][id] = node.title;
     state.childIds[treeBranchId][id] = [];
 
     const childIds: Record<NodeId, NodeId[]> = {};

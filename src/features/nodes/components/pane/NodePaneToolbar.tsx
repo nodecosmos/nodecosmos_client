@@ -28,9 +28,6 @@ export default function NodePaneToolbar(props: NodePaneToolbarProps) {
     const { title } = useSelector(selectSelectedNode);
     const nodePaneContent = useSelector(selectNodePaneContent);
 
-    const hasBoxShadow = nodePaneContent === NodePaneContent.Markdown
-        || nodePaneContent === NodePaneContent.Description;
-
     const handleTogglePane = useCallback((paneContent: NodePaneContent | undefined) => {
         if (paneContent) {
             dispatch(setNodePaneContent(paneContent));
@@ -45,7 +42,6 @@ export default function NodePaneToolbar(props: NodePaneToolbarProps) {
             height={HEADER_HEIGHT}
             borderBottom={1}
             borderColor="borders.2"
-            boxShadow={hasBoxShadow ? '2' : 0}
         >
             <ToolbarContainer>
                 <ToolbarItem

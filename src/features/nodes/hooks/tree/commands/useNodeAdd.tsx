@@ -27,9 +27,8 @@ export default function useNodeAdd() {
             treeBranchId,
             tmpId,
             id,
-            branchId,
         }));
-    }, [branchId, dispatch, id, treeBranchId]);
+    }, [dispatch, id, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const addNode = useCallback(async () => {

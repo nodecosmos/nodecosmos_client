@@ -36,9 +36,6 @@ export default function StartStep() {
 
     const [hovered, hover, leave] = useBooleanStateValue();
 
-    const fillColor = theme.palette.background[5];
-    const hoverColor = theme.palette.background[7];
-
     if (!diagram.height) return null;
 
     return (
@@ -49,8 +46,8 @@ export default function StartStep() {
                 y={1}
                 height={diagram.height}
                 width={WORKFLOW_STEP_WIDTH - 1}
-                fill={hovered ? hoverColor : fillColor}
                 fillOpacity={0.3}
+                fill="transparent"
                 stroke="transparent"
                 strokeWidth={2}
             />

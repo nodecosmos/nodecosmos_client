@@ -63,7 +63,7 @@ export default function NodePaneCoverImage() {
                                 maxWidth: '100%',
                                 maxHeight: '100%',
                                 '.CoverImageMedia': {
-                                    borderRadius: 1,
+                                    borderRadius: 4,
                                     maxWidth: '100%',
                                     width: 850,
                                     maxHeight: 375,

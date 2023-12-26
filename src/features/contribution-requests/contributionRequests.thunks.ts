@@ -70,7 +70,7 @@ export const updateContributionRequestTitle = createAsyncThunk<
     'contributionRequests/updateContributionRequestTitle',
     async (payload, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.patch('/contribution_requests/title', payload);
+            const response = await nodecosmos.put('/contribution_requests/title', payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
@@ -90,7 +90,7 @@ export const updateContributionRequestDescription = createAsyncThunk<
     'contributionRequests/updateContributionRequestDescription',
     async (payload, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.patch('/contribution_requests/description', payload);
+            const response = await nodecosmos.put('/contribution_requests/description', payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
@@ -111,6 +111,26 @@ export const deleteContributionRequest = createAsyncThunk<
     async ({ nodeId, id }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.delete(`/contribution_requests/${nodeId}/${id}`);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const mergeContributionRequest = createAsyncThunk<
+    ContributionRequest,
+    CRPrimaryKey,
+    { rejectValue: NodecosmosError }
+>(
+    'contributionRequests/mergeContributionRequest',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/contribution_requests/merge', payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

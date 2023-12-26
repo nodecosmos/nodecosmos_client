@@ -35,7 +35,6 @@ export default function WorkflowToolbar() {
             alignItems="center"
             justifyContent="space-between"
             position="relative"
-            boxShadow="2"
             borderBottom={1}
             borderColor="borders.1"
             zIndex={3}
@@ -53,7 +52,7 @@ export default function WorkflowToolbar() {
                                 endpoint="/workflows/title"
                                 reqData={{
                                     nodeId,
-                                    id, 
+                                    id,
                                 }}
                                 color="text.secondary"
                                 pr={1}

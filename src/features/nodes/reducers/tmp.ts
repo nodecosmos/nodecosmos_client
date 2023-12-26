@@ -1,23 +1,23 @@
 import { UUID } from '../../../types';
-import { NodePrimaryKey, NodeState } from '../nodes.types';
+import { NodeState, TreeNodeKey } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 // redux action
-export interface BuildTmpNodeAction extends NodePrimaryKey {
+export interface BuildTmpNodeAction extends TreeNodeKey {
     treeBranchId: UUID;
     tmpId: UUID;
 }
 
 export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNodeAction>) {
     const {
-        treeBranchId, tmpId, branchId, id,
+        treeBranchId, tmpId, id,
     } = action.payload;
     const node = state.byBranchId[treeBranchId][id];
     const parentAncestors = node.ancestorIds || [];
 
     state.byBranchId[treeBranchId][tmpId] = {
         id: tmpId,
-        branchId,
+        branchId: tmpId,
         rootId: node.rootId,
         parentId: id,
         order: state.childIds[treeBranchId][id].length + 1,

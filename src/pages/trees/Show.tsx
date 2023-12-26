@@ -102,7 +102,7 @@ export default function Show() {
                 overflow="hidden"
                 boxShadow="left.2"
                 borderLeft={1}
-                style={{ borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'] }}
+                style={{ borderLeftColor: resizerHovered ? theme.palette.borders['4'] : theme.palette.borders['2'] }}
             >
                 <NodePane />
             </Box>

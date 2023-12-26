@@ -8,18 +8,20 @@ type WorkflowContextType = {
     context: WorkflowDiagramContext;
     id: UUID;
     nodeId: UUID;
+    branchId: UUID;
 };
 
 const WorkflowContext = React.createContext<WorkflowContextType>({} as WorkflowContextType);
 
 export function useWorkflowContextCreator({
-    context, id, nodeId,
+    context, id, nodeId, branchId,
 }: WorkflowContextType) {
     const contextProviderValue = useMemo(() => ({
         context,
         id,
         nodeId,
-    }), [context, id, nodeId]);
+        branchId,
+    }), [branchId, context, id, nodeId]);
 
     return {
         WorkflowContext,
@@ -29,7 +31,7 @@ export function useWorkflowContextCreator({
 
 export default function useWorkflowContext() {
     const {
-        context, id, nodeId,
+        context, id, nodeId, branchId,
     } = React.useContext(WorkflowContext);
 
     if (context === undefined) {
@@ -49,7 +51,7 @@ export default function useWorkflowContext() {
         context,
         id,
         nodeId,
-        branchId: nodeId,
+        branchId,
         rootNodeId,
         title,
         initialInputIds,

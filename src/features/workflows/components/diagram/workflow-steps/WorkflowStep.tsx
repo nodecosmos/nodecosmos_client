@@ -21,7 +21,6 @@ function WorkflowStep({ index }: { index: number }) {
     const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpen();
 
     const { x } = wfStep.position;
-    const fillColor = wfStep.index % 2 === 0 ? theme.palette.background[6] : theme.palette.background[5];
     const { WorkflowStepContext, contextProviderValue } = useWorkflowStepContextCreator({
         wfStep,
         wfStepIndex: wfStep.index,
@@ -62,8 +61,7 @@ function WorkflowStep({ index }: { index: number }) {
                     y={0}
                     height={height}
                     width={WORKFLOW_STEP_WIDTH}
-                    fill={fillColor}
-                    fillOpacity={0.3}
+                    fill="transparent"
                     stroke="transparent"
                     strokeWidth={2}
                 />
@@ -88,7 +86,7 @@ function WorkflowStep({ index }: { index: number }) {
                                     ml: 2,
                                     borderRadius: 1,
                                     opacity: 0,
-                                    animation: 'appear 0.25s forwards', 
+                                    animation: 'appear 0.25s forwards',
                                 }}
                                 onClick={openFlowModal}
                             >

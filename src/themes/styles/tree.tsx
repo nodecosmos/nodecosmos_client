@@ -19,16 +19,12 @@ export default (theme: NodecosmosTheme) => ({
                 boxShadow: theme.shadows.buttons[1],
                 borderRadius: 5,
                 padding: '0px 14px',
-                border: 'none',
                 ':focus': { outline: 'none' },
                 ':not(.outlined) .fa-hashtag ': {
                     fontSize: 14,
                     color: theme.palette.tree.hashtag,
                 },
-                '&.selected .fa-hashtag': {
-                    color: 'inherit',
-                    fontWeight: 700,
-                },
+                '&.selected .fa-hashtag': { color: 'inherit' },
                 '.NodeButtonText': {
                     cursor: 'pointer',
                     marginLeft: 8,
@@ -46,7 +42,6 @@ export default (theme: NodecosmosTheme) => ({
                         fontFamily: 'monospace',
                     },
                 },
-                '&.selected': { '.NodeButtonText': { fontWeight: 500 } },
                 '.MuiCheckbox-root': {
                     padding: 0,
                     svg: { fontSize: '1.4rem' },

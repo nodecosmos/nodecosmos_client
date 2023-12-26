@@ -35,7 +35,7 @@ export default function LoginForm() {
                         </Grid>
                         <Grid item xs={12}>
                             <Button sx={{ mt: 2 }} variant="contained" type="submit">
-                Log In
+                                Log In
                             </Button>
                         </Grid>
                     </Grid>

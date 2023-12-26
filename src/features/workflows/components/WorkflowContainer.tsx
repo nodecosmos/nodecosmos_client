@@ -9,6 +9,7 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                 height: 1,
                 transform: 'translateZ(0)',
                 overflow: 'hidden',
+                background: 'background.8',
                 '.NodeButtonContainer': {
                     display: 'flex',
                     '.NodeButton': {

@@ -19,7 +19,7 @@ export default function ContributionRequestShowHeader() {
             color="text.tertiary"
             component={Link}
             relative="route"
-            to="../"
+            to={`nodes/${cr?.nodeId}/contribution_requests`}
             variant="body2"
             fontWeight="bold"
         >

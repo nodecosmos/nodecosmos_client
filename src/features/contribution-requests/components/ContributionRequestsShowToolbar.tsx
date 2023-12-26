@@ -1,14 +1,47 @@
 
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
+import { NodecosmosDispatch } from '../../../store';
+import { NodecosmosError } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
+import { CRPrimaryKey } from '../contributionRequest.types';
+import { mergeContributionRequest } from '../contributionRequests.thunks';
 import {
-    faCodeCommit, faDiagramNested, faListTree, faComments,
+    faCodeCommit, faDiagramNested, faListTree, faComments, faCodeMerge,
 } from '@fortawesome/pro-light-svg-icons';
-import { Box } from '@mui/material';
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Button } from '@mui/material';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function ContributionRequestsShowToolbar() {
+    const {
+        id: nodeId,
+        contributionRequestId: id,
+    } = useParams();
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const handleServerError = useHandleServerErrorAlert();
+    const navigate = useNavigate();
+
+    const merge = useCallback(async () => {
+        const response = await dispatch(mergeContributionRequest({
+            nodeId,
+            id,
+        } as CRPrimaryKey));
+
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
+            handleServerError(error);
+            console.error(error);
+
+            return;
+        }
+
+        navigate(`/nodes/${nodeId}`);
+    }, [dispatch, handleServerError, id, navigate, nodeId]);
+
     return (
         <Box
             display="flex"
@@ -57,6 +90,16 @@ export default function ContributionRequestsShowToolbar() {
                     to="commits"
                 />
             </ToolbarContainer>
+
+            <Button
+                sx={{ ml: 1 }}
+                variant="outlined"
+                className="NodeButton focused"
+                onClick={merge}
+                startIcon={<FontAwesomeIcon icon={faCodeMerge} />}
+            >
+                Merge
+            </Button>
         </Box>
     );
 }

@@ -8,7 +8,9 @@ export default function extractTextFromHtml(html: string, maxLength = 255) {
         heading.remove();
     });
 
-    let text = htmlDoc.body.textContent || '';
+    // get content of first paragraph
+    const firstParagraph = htmlDoc.querySelector('p');
+    let text = firstParagraph?.textContent || '';
 
     if (text.length > maxLength) {
         text = `${text.substring(0, maxLength - 3)}...`;

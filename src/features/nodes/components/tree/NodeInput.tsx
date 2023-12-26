@@ -24,7 +24,7 @@ export default function NodeInput(props: NodeInputProps) {
     const ref = React.useRef<HTMLInputElement | null>(null);
     const { title } = useNodeContext();
     const {
-        hasBg,
+        isSelected,
         backgroundColor,
         outlineColor,
         color,
@@ -43,7 +43,7 @@ export default function NodeInput(props: NodeInputProps) {
     //------------------------------------------------------------------------------------------------------------------
     return (
         <div
-            className={`NodeButton ${hasBg && 'selected'}`}
+            className={`NodeButton ${isSelected && 'selected'}`}
             style={{
                 border: '1px solid',
                 borderColor: outlineColor,

@@ -48,7 +48,7 @@ export default function ToolbarItem<Val>(props: Props<Val>) {
                 sx={{ '&:hover, &.active': { button: { color } } }}>
                 <button onClick={handleClick}>
                     <FontAwesomeIcon icon={icon} style={{ transform: flipX ? 'scaleX(-1)' : 'scaleX(1)' }} />
-                    {titleAsTooltip ? null : <span className="ToolbarContent">{title}</span>}
+                    {titleAsTooltip ? null : <span className="ButtonContent">{title}</span>}
                 </button>
             </Box>
         </Tooltip>

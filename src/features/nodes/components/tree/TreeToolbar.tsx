@@ -49,7 +49,6 @@ export default function TreeToolbar() {
             alignItems="center"
             justifyContent="start"
             position="relative"
-            boxShadow="2"
             borderBottom={1}
             borderColor="borders.1"
             zIndex={3}
@@ -68,6 +67,9 @@ export default function TreeToolbar() {
                     '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
                 }}
                 InputProps={{
+                    name: 'customSearch',
+                    type: 'search',
+                    autoComplete: 'off',
                     startAdornment: (
                         <InputAdornment position="start" sx={{ mr: 2 }}>
                             <FontAwesomeIcon
@@ -76,7 +78,6 @@ export default function TreeToolbar() {
                         </InputAdornment>
                     ),
                 }}
-                name="search"
                 color="primary"
                 variant="outlined"
                 placeholder="Search"

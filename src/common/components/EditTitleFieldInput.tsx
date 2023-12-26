@@ -24,39 +24,38 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
     } = props;
 
     const [value, setValue] = React.useState(title);
-    const [shouldClose, setShouldClose, setShouldNotClose] = useBooleanStateValue();
+    const [shouldClose, setShouldClose] = useBooleanStateValue();
     const inputRef = React.useRef<HTMLInputElement | null>(null);
 
-    const storeTitle = useCallback(async () => {
+    const storeTitle = useCallback(async (title: string) => {
         const response = await nodecosmos.put(endpoint, {
             ...reqData,
-            title: value,
+            title,
         });
 
         return response.data;
-    }, [endpoint, reqData, value]);
+    }, [endpoint, reqData]);
 
-    const [debounce, inProgress] = useDebounce(storeTitle);
+    const [debounce, debounceInProgress] = useDebounce(storeTitle);
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value;
-        setValue(newValue);
-        debounce(newValue);
+        setValue(event.target.value);
+        debounce(event.target.value);
     }, [debounce]);
 
     useEffect(() => { inputRef.current?.focus(); }, []);
     useEffect(() => {
-        if (!inProgress && shouldClose) {
+        if (!debounceInProgress && shouldClose) {
             onChange(value);
             onClose();
         }
-    }, [onClose, onChange, shouldClose, value, inProgress]);
+    }, [onClose, onChange, shouldClose, value, debounceInProgress]);
 
     const onEnterDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            setShouldNotClose();
+            setShouldClose();
         }
-    }, [setShouldNotClose]);
+    }, [setShouldClose]);
 
     return (
         <Box
@@ -82,7 +81,7 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
                 onBlur={setShouldClose}
                 onKeyDown={onEnterDown}
             />
-            {inProgress && shouldClose && <CircularProgress
+            {debounceInProgress && shouldClose && <CircularProgress
                 size={20}
                 sx={{
                     ml: 1,

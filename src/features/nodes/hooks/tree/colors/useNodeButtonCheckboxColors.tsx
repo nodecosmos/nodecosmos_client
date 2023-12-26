@@ -31,7 +31,7 @@ export default function useNodeButtonCheckboxColors() {
         outlineColor,
         parentBackgroundColor,
         color,
-        hasBg: false,
+        isSelected: false,
         outlinedColored,
         nestedTreeColor,
     };

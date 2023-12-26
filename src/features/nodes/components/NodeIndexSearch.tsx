@@ -56,6 +56,7 @@ export default function NodeIndexSearch() {
                 '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
             }}
             InputProps={{
+                autoComplete: 'off',
                 startAdornment: (
                     <InputAdornment position="start" sx={{ p: 1 }}>
                         <FontAwesomeIcon

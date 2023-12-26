@@ -34,7 +34,7 @@ export default function LikeButton(props: LikeButtonProps) {
     const currentUser = useSelector(selectCurrentUser);
 
     useEffect(() => {
-        if (id && !likesCount) {
+        if (id && likesCount === undefined) {
             dispatch(getLikesCount({
                 objectId: id,
                 branchId,

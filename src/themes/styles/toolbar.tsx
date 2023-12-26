@@ -6,11 +6,6 @@ export default (theme: NodecosmosTheme) => ({
         alignItems: 'center',
         justifyContent: 'flex-start',
         height: '100%',
-        '.ToolbarContent': {
-            marginLeft: 8,
-            marginRight: 12,
-            fontWeight: 500,
-        },
         '.ButtonWrapper': {
             '&:hover': { button: { borderColor: 'transparent' } },
             '&.active': { button: { borderColor: 'inherit' } },
@@ -23,6 +18,11 @@ export default (theme: NodecosmosTheme) => ({
                 backgroundColor: 'transparent',
                 color: theme.palette.toolbar.default,
                 '&.active': { borderColor: 'inherit' },
+                '.ButtonContent': {
+                    marginLeft: 8,
+                    marginRight: 12,
+                    fontWeight: 500,
+                },
             },
         },
     },

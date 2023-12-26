@@ -9,6 +9,7 @@ import { selectWorkflowByNodeId } from '../workflow.selectors';
 import { Box } from '@mui/material';
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 interface DefaultProps {
     context: WorkflowDiagramContext;
@@ -22,14 +23,16 @@ interface Props extends Partial<DefaultProps> {
 const Workflow: React.FC<Props> = ({ nodeId, context = WorkflowDiagramContext.workflowPage }) => {
     const workflow = useSelector(selectWorkflowByNodeId(nodeId));
     const id = workflow?.id;
+    const { id: branchId } = useParams() as { id: string };
 
     const {
         WorkflowContext,
         contextProviderValue,
     } = useWorkflowContextCreator({
         context,
+        branchId,
         nodeId,
-        id, 
+        id,
     });
 
     return (

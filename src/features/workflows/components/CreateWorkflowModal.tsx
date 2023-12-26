@@ -14,6 +14,7 @@ import * as PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 interface Props {
     open: boolean;
@@ -26,9 +27,10 @@ export default function CreateWorkflowModal(props: Props) {
         open, onClose, nodeId,
     } = props;
 
+    const { id: branchId } = useParams<{ id: string }>();
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const rootNodeId = useSelector(selectNodeAttribute(nodeId, nodeId, 'rootId'));
+    const rootNodeId = useSelector(selectNodeAttribute(branchId as UUID, nodeId, 'rootId'));
 
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
