@@ -7,7 +7,7 @@ import {
     IndexNode,
     PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload,
 } from './nodes.types';
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';

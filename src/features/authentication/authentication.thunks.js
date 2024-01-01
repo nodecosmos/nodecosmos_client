@@ -1,4 +1,4 @@
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const syncUpCurrentUser = createAsyncThunk(

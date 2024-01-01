@@ -1,5 +1,5 @@
 import ToolsContainer from './tools/ToolsContainer';
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import useDebounce from '../hooks/useDebounce';
 import { faCheck } from '@fortawesome/pro-solid-svg-icons';

@@ -1,7 +1,7 @@
 import {
     Flow, FlowPrimaryKey, FlowUpsertPayload,
 } from './types';
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createFlow = createAsyncThunk(

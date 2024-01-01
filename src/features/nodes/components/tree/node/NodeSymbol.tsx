@@ -1,8 +1,8 @@
-import useNodeColors from '../../hooks/tree/useNodeColors';
-import useNodeContext from '../../hooks/tree/useNodeContext';
-import useTreeCommands from '../../hooks/tree/useTreeCommands';
-import useTreeContext from '../../hooks/useTreeContext';
-import { TreeType } from '../../nodes.types';
+import useNodeColors from '../../../hooks/tree/node/useNodeColors';
+import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useTreeCommands from '../../../hooks/tree/useTreeCommands';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
+import { TreeType } from '../../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox } from '@mui/material';

@@ -1,51 +1,66 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
 import { appendOpacityToHex } from '../../../../../utils/colors';
-import { selectBranch } from '../../../../branch/branches.selectors';
-import useNodeContext from '../useNodeContext';
+import useNodeContext from '../node/useNodeContext';
 import { useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 export default function useNodeButtonContributionRequestColors() {
     const {
-        treeBranchId, isSelected, nestedLevel, id,
+        isSelected, nestedLevel, branchChanges,
     } = useNodeContext();
-    const branch = useSelector(selectBranch(treeBranchId));
+    const {
+        isCreated, isDeleted, isOriginalDeleted,
+    } = branchChanges;
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
     const nestedTreeColor = backgrounds[nestedLevel % backgroundCount];
     const { defaultBorder } = theme.palette.tree;
 
-    let backgroundColor = isSelected ? nestedTreeColor : theme.palette.tree.default;
-    let color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
-    const parentBackgroundColor = theme.palette.workflow.defaultInputColor;
+    return useMemo(() => {
+        let backgroundColor = isSelected ? nestedTreeColor : theme.palette.tree.default;
+        let color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
+        const parentBackgroundColor = theme.palette.workflow.defaultInputColor;
 
-    let outlineColor = defaultBorder;
-    let outlinedColored = isSelected;
+        let outlineColor = defaultBorder;
+        let outlinedColored = isSelected;
 
-    if (branch?.createdNodes?.has(id)) {
-        outlineColor = theme.palette.tree.backgrounds[3];
-        color = theme.palette.tree.backgrounds[3];
-        backgroundColor = isSelected
-            ? appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.3)
-            : appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.1);
-        outlinedColored = true;
-    } else if (branch?.deletedNodes?.has(id)) {
-        outlineColor = theme.palette.tree.backgrounds[0];
-        color = theme.palette.tree.backgrounds[0];
-        backgroundColor = isSelected
-            ? appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.3)
-            : appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.1);
-        outlinedColored = true;
-    }
+        if (isCreated) {
+            outlineColor = theme.palette.tree.backgrounds[3];
+            color = theme.palette.tree.backgrounds[3];
+            backgroundColor = isSelected
+                ? appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.3)
+                : appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.1);
+            outlinedColored = true;
+        } else if (isDeleted) {
+            outlineColor = theme.palette.tree.backgrounds[0];
+            color = theme.palette.tree.backgrounds[0];
+            backgroundColor = isSelected
+                ? appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.3)
+                : appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.1);
+            outlinedColored = true;
+        } else if (isOriginalDeleted) {
+            outlineColor = theme.palette.tree.backgrounds[5];
+            color = theme.palette.tree.backgrounds[5];
+            backgroundColor = isSelected
+                ? appendOpacityToHex(theme.palette.tree.backgrounds[5], 0.3)
+                : appendOpacityToHex(theme.palette.tree.backgrounds[5], 0.1);
+            outlinedColored = true;
+        }
 
-    return {
-        backgroundColor,
-        outlineColor,
-        parentBackgroundColor,
-        color,
-        isSelected,
-        outlinedColored,
-        nestedTreeColor,
-    };
+        return {
+            backgroundColor,
+            outlineColor,
+            parentBackgroundColor,
+            color,
+            isSelected,
+            outlinedColored,
+            nestedTreeColor,
+        };
+    },
+    [
+        defaultBorder, isCreated, isDeleted, isOriginalDeleted, isSelected, nestedTreeColor,
+        theme.palette.tree.backgrounds, theme.palette.tree.default, theme.palette.tree.defaultText,
+        theme.palette.tree.selectedText, theme.palette.workflow.defaultInputColor,
+    ]);
 }

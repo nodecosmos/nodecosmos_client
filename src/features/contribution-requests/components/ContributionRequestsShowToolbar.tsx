@@ -89,17 +89,15 @@ export default function ContributionRequestsShowToolbar() {
                     titleAsTooltip={false}
                     to="commits"
                 />
+                <Button
+                    variant="outlined"
+                    className="NodeButton focused"
+                    onClick={merge}
+                    startIcon={<FontAwesomeIcon icon={faCodeMerge} />}
+                >
+                    Merge
+                </Button>
             </ToolbarContainer>
-
-            <Button
-                sx={{ ml: 1 }}
-                variant="outlined"
-                className="NodeButton focused"
-                onClick={merge}
-                startIcon={<FontAwesomeIcon icon={faCodeMerge} />}
-            >
-                Merge
-            </Button>
         </Box>
     );
 }

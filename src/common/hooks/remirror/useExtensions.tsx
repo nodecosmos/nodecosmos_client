@@ -1,4 +1,4 @@
-import { WS_URI } from '../../../apis/nodecosmos-server';
+import { WS_URI } from '../../../api/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';

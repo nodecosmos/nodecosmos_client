@@ -9,6 +9,7 @@ export interface Branch {
     editorIds?: UUID[];
     isContributionRequest: boolean;
     createdNodes?: Set<UUID>;
+    restoredNodes?: Set<UUID>;
     deletedNodes?: Set<UUID>;
     editedNodeTitles?: Set<UUID>;
     editedNodeDescriptions?: Set<UUID>;

@@ -1,9 +1,9 @@
-import { NodecosmosTheme } from '../../../../themes/type';
-import useNodeColors from '../../hooks/tree/useNodeColors';
-import useNodeContext from '../../hooks/tree/useNodeContext';
+import { NodecosmosTheme } from '../../../../../themes/type';
+import useNodeColors from '../../../hooks/tree/node/useNodeColors';
+import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
-} from '../../nodes.constants';
+} from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
 
@@ -12,7 +12,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 export default function NodeBranch() {
     const theme: NodecosmosTheme = useTheme();
     const {
-        isRoot, x, xEnd, y, alreadyMounted,
+        isRoot, x, xEnd, y, isAlreadyMounted,
     } = useNodeContext();
 
     const { parentBackgroundColor } = useNodeColors();
@@ -29,8 +29,8 @@ export default function NodeBranch() {
     }
 
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-    const initialAnimationDuration = isSafari || alreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-    const initialAnimationDelay = isSafari || alreadyMounted ? 0 : ANIMATION_DELAY;
+    const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
+    const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
 
     return (
         <g>

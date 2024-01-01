@@ -1,7 +1,7 @@
 import { setAlert } from '../../../../app/appSlice';
 import { buildTmpNode, updateState } from '../../../actions';
 import { selectActionInProgress } from '../../../nodes.selectors';
-import useNodeContext from '../useNodeContext';
+import useNodeContext from '../node/useNodeContext';
 import {
     useCallback, useEffect, useState,
 } from 'react';

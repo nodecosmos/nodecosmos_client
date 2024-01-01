@@ -1,5 +1,5 @@
 import UploadDashboardContainer from './UploadDashboardContainer';
-import nodecosmos from '../../../apis/nodecosmos-server';
+import nodecosmos from '../../../api/nodecosmos-server';
 import CloseModalButton from '../modal/CloseModalButton';
 import { DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';

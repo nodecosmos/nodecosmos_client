@@ -1,5 +1,5 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
-import useNodeContext from '../useNodeContext';
+import useNodeContext from '../node/useNodeContext';
 import { useTheme } from '@mui/material';
 
 export default function useNodeButtonDefaultColors() {

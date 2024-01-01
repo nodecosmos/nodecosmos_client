@@ -1,12 +1,7 @@
 import { UUID } from '../../types';
 import { WithOptTreeBranchId } from '../nodes/nodes.types';
 
-export interface LikeKey {
-    objectId: UUID;
-    branchId: UUID;
-}
-
-export interface LikePrimaryKey extends LikeKey{
+export interface LikePrimaryKey {
     objectId: UUID;
     branchId: UUID;
 }

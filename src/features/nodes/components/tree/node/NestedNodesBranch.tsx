@@ -1,14 +1,14 @@
-import usePrevious from '../../../../common/hooks/usePrevious';
-import { NodecosmosTheme } from '../../../../themes/type';
-import useNodeContext from '../../hooks/tree/useNodeContext';
-import useTreeContext from '../../hooks/useTreeContext';
+import usePrevious from '../../../../../common/hooks/usePrevious';
+import { NodecosmosTheme } from '../../../../../themes/type';
+import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
     MARGIN_LEFT,
     MARGIN_TOP,
     TRANSITION_ANIMATION_DURATION,
-} from '../../nodes.constants';
+} from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
 

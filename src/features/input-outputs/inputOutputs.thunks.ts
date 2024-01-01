@@ -2,7 +2,7 @@ import {
     InputOutput,
     InsertInputOutputPayload, PrimaryKey, UpdateIODescriptionPayload, UpdateIOTitlePayload,
 } from './types';
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';

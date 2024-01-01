@@ -2,7 +2,7 @@ import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateVal
 import { NodecosmosTheme } from '../../../../../themes/type';
 import { UUID } from '../../../../../types';
 import useNodeDropCapture from '../../../hooks/tree/reorder/useNodeDropCapture';
-import useTreeContext from '../../../hooks/useTreeContext';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { selectNode } from '../../../nodes.selectors';
 import { DragAndDrop } from '../../../nodes.types';
 import { useTheme } from '@mui/material';

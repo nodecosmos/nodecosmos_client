@@ -1,5 +1,5 @@
-import LikeButton from './LikeButton';
-import { IndexNode } from '../nodes.types';
+import { IndexNode } from '../../nodes.types';
+import LikeButton from '../LikeButton';
 import {
     faCodePullRequest, faHashtag, faUserGroup,
 } from '@fortawesome/pro-light-svg-icons';

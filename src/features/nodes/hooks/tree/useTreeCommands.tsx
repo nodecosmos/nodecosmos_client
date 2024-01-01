@@ -1,6 +1,6 @@
-import { calculatePositions } from './position';
+import { calculatePositions } from './context/position';
+import useTreeContext, { TreeNode, TreeNodes } from './useTreeContext';
 import { UUID } from '../../../../types';
-import useTreeContext, { TreeNode, TreeNodes } from '../useTreeContext';
 import { ChangeEvent, useCallback } from 'react';
 
 export default function useTreeCommands() {

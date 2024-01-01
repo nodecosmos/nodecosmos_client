@@ -1,10 +1,10 @@
 import NodeSymbol from './NodeSymbol';
-import usePreventDefault from '../../../../common/hooks/usePreventDefault';
-import useStopPropagation from '../../../../common/hooks/useStopPropagation';
-import { NodecosmosTheme } from '../../../../themes/type';
-import useNodeColors from '../../hooks/tree/useNodeColors';
-import useNodeCommands from '../../hooks/tree/useNodeCommands';
-import useNodeContext from '../../hooks/tree/useNodeContext';
+import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
+import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
+import { NodecosmosTheme } from '../../../../../themes/type';
+import useNodeColors from '../../../hooks/tree/node/useNodeColors';
+import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
+import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import { useTheme } from '@mui/material';
 import React from 'react';
 

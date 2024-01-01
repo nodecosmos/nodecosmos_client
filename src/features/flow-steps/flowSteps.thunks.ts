@@ -2,7 +2,7 @@ import {
     FlowStep,
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
 } from './types';
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import { Strict } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 

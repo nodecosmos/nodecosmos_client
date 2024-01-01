@@ -1,5 +1,5 @@
 import { updateState } from '../../../actions';
-import useNodeContext from '../useNodeContext';
+import useNodeContext from '../node/useNodeContext';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 

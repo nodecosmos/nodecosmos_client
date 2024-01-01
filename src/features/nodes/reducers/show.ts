@@ -52,7 +52,6 @@ export default function showFulfilled(
             persistedId: descendant.id,
             isSelected: false,
             ancestorIds: [],
-            likesCount: 0,
             ownerId: null,
             ownerType: null,
             editorIds: [],

@@ -1,15 +1,15 @@
-import useNodeCommands from '../../hooks/tree/useNodeCommands';
-import useNodeContext from '../../hooks/tree/useNodeContext';
-import { NODE_BUTTON_HEIGHT } from '../../nodes.constants';
-import { selectNodeAttribute } from '../../nodes.selectors';
-import LikeButton from '../LikeButton';
+import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
+import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import { NODE_BUTTON_HEIGHT } from '../../../nodes.constants';
+import { selectNodeAttribute } from '../../../nodes.selectors';
+import LikeButton from '../../LikeButton';
 import {
     faArrowUpRightFromSquare, faPenToSquare, faTrash,
 } from '@fortawesome/pro-regular-svg-icons';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, Tooltip, ButtonBase, 
+    Box, Tooltip, ButtonBase,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
@@ -57,7 +57,7 @@ export default function NodeToolbar() {
                 id={id}
                 branchId={branchId}
                 treeBranchId={treeBranchId}
-                likesCount={likesCount || undefined} />
+                likesCount={likesCount} />
 
             <Tooltip title="Open Node In New Tab" placement="top">
                 <ButtonBase

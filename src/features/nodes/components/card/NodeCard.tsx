@@ -1,7 +1,7 @@
 import NodeCardActions from './NodeCardActions';
 import NodeCardHeader from './NodeCardHeader';
-import { UUID } from '../../../types';
-import { selectIndexedNode } from '../nodes.selectors';
+import { UUID } from '../../../../types';
+import { selectIndexedNode } from '../../nodes.selectors';
 import {
     Box,
     Card,
@@ -31,14 +31,14 @@ export default function NodeCard({ id }: {id: UUID}) {
                 <CardContent sx={{
                     px: 3,
                     pt: node.coverImageURL ? 3 : 0,
-                    pb: 0, 
+                    pb: 0,
                 }}>
                     <Link
                         sx={{
                             '&:hover h2': {
                                 color: 'text.link',
-                                textDecoration: 'underline', 
-                            }, 
+                                textDecoration: 'underline',
+                            },
                         }}
                         component={RouterLink}
                         to={`/nodes/${node.id}`}

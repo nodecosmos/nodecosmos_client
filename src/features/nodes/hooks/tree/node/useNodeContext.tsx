@@ -1,7 +1,8 @@
-import { UUID } from '../../../../types';
-import { NodeProps } from '../../components/tree/Node';
-import { selectNode } from '../../nodes.selectors';
-import { TreeType } from '../../nodes.types';
+import useBranchChanges from './context/useBranchChanges';
+import { UUID } from '../../../../../types';
+import { NodeProps } from '../../../components/tree/node/Node';
+import { selectNode } from '../../../nodes.selectors';
+import { TreeType } from '../../../nodes.types';
 import useTreeContext from '../useTreeContext';
 import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,9 +18,10 @@ export function useNodeContextCreator(contextProviderValue: NodeProps) {
 
 export default function useNodeContext() {
     const {
-        treeBranchId, id, alreadyMounted,
+        treeBranchId, id, isAlreadyMounted,
     } = useContext(NodeContext);
     const { type, treeNodes } = useTreeContext();
+    const branchChanges = useBranchChanges(treeBranchId, id);
 
     // tree node attributes
     const {
@@ -69,9 +71,10 @@ export default function useNodeContext() {
         lastChildId,
         siblingIndex: siblingIndex as number,
         title,
+        tmpId,
         isRoot,
         isTmp,
-        tmpId,
+        isAlreadyMounted,
         isJustCreated,
         isSelected,
         isExpanded,
@@ -83,6 +86,6 @@ export default function useNodeContext() {
         y,
         xEnd,
         yEnd,
-        alreadyMounted,
+        branchChanges,
     };
 }

@@ -4,6 +4,7 @@ export default (theme: NodecosmosTheme) => ({
     MuiButton: {
         styleOverrides: {
             root: {
+                height: 32,
                 textTransform: 'none',
                 borderRadius: 4,
                 '&.MicroButton': {

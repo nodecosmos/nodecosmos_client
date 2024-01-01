@@ -1,11 +1,11 @@
 import DropNodeArea from './DropNodeArea';
-import useNodeVirtualizer from '../../../hooks/tree/useNodeVirtualizer';
+import useTreeVirtualizer from '../../../hooks/tree/useTreeVirtualizer';
 import { selectDragAndDrop } from '../../../nodes.selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function DropNodeAreas() {
-    const visibleNodes = useNodeVirtualizer();
+    const visibleNodes = useTreeVirtualizer();
     const dragAndDrop = useSelector(selectDragAndDrop);
 
     if (!dragAndDrop) return null;

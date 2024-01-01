@@ -1,6 +1,6 @@
-import { NodecosmosDispatch } from '../../../store';
-import { indexNodes } from '../nodes.thunks';
-import { IndexNodesPayload } from '../nodes.types';
+import { NodecosmosDispatch } from '../../../../store';
+import { indexNodes } from '../../nodes.thunks';
+import { IndexNodesPayload } from '../../nodes.types';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField } from '@mui/material';

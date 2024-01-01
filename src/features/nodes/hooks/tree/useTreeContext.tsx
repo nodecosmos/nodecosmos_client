@@ -1,7 +1,7 @@
-import useTree from './tree/useTree';
-import { Position, UUID } from '../../../types';
-import { TreeProps } from '../components/tree/Tree';
-import { NodeId, TreeType } from '../nodes.types';
+import useTreeBuilder from './context/useTreeBuilder';
+import { Position, UUID } from '../../../../types';
+import { TreeProps } from '../../components/tree/Tree';
+import { NodeId, TreeType } from '../../nodes.types';
 import {
     createContext, useContext, useMemo,
 } from 'react';
@@ -55,7 +55,7 @@ export function useTreeContextCreator(props: TreeProps) {
         treeNodes,
         orderedTreeNodeIds,
         setTreeNodes,
-    } = useTree({
+    } = useTreeBuilder({
         treeRootId: rootNodeId,
         treeBranchId,
         type,

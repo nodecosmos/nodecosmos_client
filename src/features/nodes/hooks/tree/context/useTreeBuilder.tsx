@@ -1,7 +1,7 @@
 import { calculatePosition } from './position';
-import { UUID } from '../../../../types';
-import { selectBranchChildIds, selectNodeAttribute } from '../../nodes.selectors';
-import { NodeId, TreeType } from '../../nodes.types';
+import { UUID } from '../../../../../types';
+import { selectBranchChildIds, selectNodeAttribute } from '../../../nodes.selectors';
+import { NodeId, TreeType } from '../../../nodes.types';
 import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from '../useTreeContext';
@@ -32,7 +32,7 @@ type Props = {
     type: TreeType;
 };
 
-export default function useTree(props: Props): Tree {
+export default function useTreeBuilder(props: Props): Tree {
     const {
         treeRootId,
         treeBranchId,
@@ -145,7 +145,8 @@ export default function useTree(props: Props): Tree {
             orderedTreeNodeIds,
         });
 
-        // we use treeNodes to check current state, but we don't want to rebuild tree when treeNodes changes
+        // we use this to build tree, but we don't rebuild it if structure is not changed,
+        // so we don't need to observe treeNodes here
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ancestorIds, branchChildIds, treeRootId]);
 

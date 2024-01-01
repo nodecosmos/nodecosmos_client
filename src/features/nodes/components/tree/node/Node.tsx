@@ -1,24 +1,24 @@
 import NestedNodesBranch from './NestedNodesBranch';
 import NodeBranch from './NodeBranch';
 import NodeContent from './NodeContent';
-import { useNodeContextCreator } from '../../hooks/tree/useNodeContext';
+import { useNodeContextCreator } from '../../../hooks/tree/node/useNodeContext';
 import React from 'react';
 
 export interface NodeProps {
     treeBranchId: string;
     id: string;
-    alreadyMounted: boolean;
+    isAlreadyMounted: boolean;
 }
 
 function Node(props: NodeProps) {
     const {
-        treeBranchId, id, alreadyMounted,
+        treeBranchId, id, isAlreadyMounted,
     } = props;
 
     const { NodeContext, contextProviderValue } = useNodeContextCreator({
         treeBranchId,
         id,
-        alreadyMounted,
+        isAlreadyMounted,
     });
 
     return (

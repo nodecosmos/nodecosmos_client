@@ -19,7 +19,7 @@ interface LikeButtonProps {
     id: UUID;
     treeBranchId?: UUID;
     branchId?: UUID;
-    likesCount?: number;
+    likesCount?: number | null;
     fontSize?: number;
 }
 
@@ -38,9 +38,10 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(getLikesCount({
                 objectId: id,
                 branchId,
+                treeBranchId,
             }));
         }
-    }, [branchId, dispatch, id, likesCount]);
+    }, [branchId, dispatch, id, likesCount, treeBranchId]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
@@ -84,7 +85,7 @@ export default function LikeButton(props: LikeButtonProps) {
                 inputProps={{ 'aria-label': 'Like' }}
             />
             <Typography variant="caption">
-                {abbreviateNumber(likesCount)}
+                {abbreviateNumber(likesCount || 0)}
             </Typography>
         </div>
     );

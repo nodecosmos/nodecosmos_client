@@ -25,7 +25,7 @@ export interface Node extends NodePrimaryKey {
     creatorId?: UUID | null;
     editorIds?: UUID[] | null;
     owner?: Owner | null;
-    likesCount: number;
+    likesCount?: number;
     coverImageURL?: string | null;
     coverImageKey?: string | null;
     createdAt?: Date | null;

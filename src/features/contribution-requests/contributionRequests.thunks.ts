@@ -1,7 +1,7 @@
 import {
     BaseCR, ContributionRequest, CreateCRPayload, CRPrimaryKey, UpdateDescriptionCRPayload, UpdateTitleCRPayload,
 } from './contributionRequest.types';
-import nodecosmos from '../../apis/nodecosmos-server';
+import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError } from '../../types';
 import { Branch } from '../branch/branches.types';
 import { NodeId } from '../nodes/nodes.types';

@@ -1,6 +1,6 @@
 import { setHeaderContent } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
-import NodeCards from '../../features/nodes/components/NodeCards';
+import NodeCards from '../../features/nodes/components/card/NodeCards';
 import { indexNodes } from '../../features/nodes/nodes.thunks';
 import { Box, Container } from '@mui/material';
 import React, { useEffect } from 'react';

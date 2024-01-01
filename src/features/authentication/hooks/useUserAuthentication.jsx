@@ -1,4 +1,4 @@
-import nodecosmos from '../../../apis/nodecosmos-server';
+import nodecosmos from '../../../api/nodecosmos-server';
 import { setAlert } from '../../app/appSlice';
 import { logOut } from '../authentication.thunks';
 import { login } from '../authenticationSlice';

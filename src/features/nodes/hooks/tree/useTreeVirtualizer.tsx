@@ -1,15 +1,15 @@
+import useTreeContext from './useTreeContext';
 import { isYInViewport } from '../../../../utils/position';
 import { selectTransformablePositionsById } from '../../../app/app.selectors';
 import { selectJustCreatedNodeId } from '../../nodes.selectors';
 import { NodeId } from '../../nodes.types';
-import useTreeContext from '../useTreeContext';
 import { useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-type AlreadyMounted = boolean;
-type VirtualizedNode = [NodeId, AlreadyMounted];
+type isAlreadyMounted = boolean;
+type VirtualizedNode = [NodeId, isAlreadyMounted];
 
-export default function useNodeVirtualizer(): VirtualizedNode[] {
+export default function useTreeVirtualizer(): VirtualizedNode[] {
     const {
         treeBranchId, orderedTreeNodeIds, treeNodes,
     } = useTreeContext();

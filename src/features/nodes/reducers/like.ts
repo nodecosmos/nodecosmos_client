@@ -5,13 +5,13 @@ import {
 import { NodeState } from '../nodes.types';
 
 export function getLikesCountFulfilled(state: NodeState, action: ReturnType<typeof getLikesCount.fulfilled>) {
+    const { treeBranchId } = action.meta.arg;
+
     const { id, likesCount } = action.payload;
 
-    Object.values(state.byBranchId).forEach((branch) => {
-        if (branch[id]) {
-            branch[id].likesCount = likesCount;
-        }
-    });
+    if (treeBranchId) {
+        state.byBranchId[treeBranchId][id].likesCount = likesCount;
+    }
 }
 
 export function likeObjectFulfilled(state: NodeState, action: ReturnType<typeof likeObject.fulfilled>) {
@@ -32,7 +32,8 @@ export function unlikeObjectFulfilled(state: NodeState, action: ReturnType<typeo
 
 function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number, treeBranchId?: UUID) {
     if (treeBranchId) {
-        state.byBranchId[treeBranchId][id].likesCount += increment;
+        const likesCount = state.byBranchId[treeBranchId][id].likesCount || 0;
+        state.byBranchId[treeBranchId][id].likesCount = likesCount + increment;
     }
 
     if (id === branchId && state.indexNodesById[id]) {
