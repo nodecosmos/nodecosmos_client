@@ -1,9 +1,9 @@
-import { NodecosmosTheme } from '../../../../../themes/type';
-import useNodeContext from '../node/useNodeContext';
-import useTreeCommands from '../useTreeCommands';
+import { NodecosmosTheme } from '../../../../../../themes/type';
+import useTreeCommands from '../../useTreeCommands';
+import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 
-export default function useNodeButtonCheckboxColors() {
+export default function useNodeCheckboxColors() {
     const {
         id, isRoot, nestedLevel,
     } = useNodeContext();

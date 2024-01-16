@@ -1,8 +1,8 @@
-import { UUID } from '../../../../../types';
+import { UUID } from '../../../types';
+import { TreeNode, TreeNodes } from '../hooks/tree/useTreeContext';
 import {
     COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
-} from '../../../nodes.constants';
-import { TreeNode, TreeNodes } from '../useTreeContext';
+} from '../nodes.constants';
 
 export function calculatePosition(treeNodes: TreeNodes, node: TreeNode) {
     const {

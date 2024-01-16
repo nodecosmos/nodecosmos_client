@@ -3,7 +3,7 @@ import { UUID } from '../../../../../types';
 import { setDragAndDrop, updateState } from '../../../actions';
 import { selectDragAndDrop, selectActionInProgress } from '../../../nodes.selectors';
 import useNodeContext from '../node/useNodeContext';
-import useNodeDropCapture from '../reorder/useNodeDropCapture';
+import useReorder from '../useReorder';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,7 +20,7 @@ export default function useNodeDrag() {
         ancestorIds,
     } = useNodeContext();
     const dragAndDrop = useSelector(selectDragAndDrop);
-    const onNodeDropCapture = useNodeDropCapture();
+    const onNodeDropCapture = useReorder();
     const isNodeActionInProgress = useSelector(selectActionInProgress);
     const dragAndDropNodeId = dragAndDrop?.id;
 

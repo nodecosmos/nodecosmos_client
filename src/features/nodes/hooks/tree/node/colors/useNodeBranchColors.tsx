@@ -1,16 +1,15 @@
-import { NodecosmosTheme } from '../../../../../themes/type';
-import { appendOpacityToHex } from '../../../../../utils/colors';
-import useNodeContext from '../node/useNodeContext';
+import { NodecosmosTheme } from '../../../../../../themes/type';
+import { appendOpacityToHex } from '../../../../../../utils/colors';
+import useBranchContext from '../useBranchContext';
+import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 import { useMemo } from 'react';
 
-export default function useNodeButtonContributionRequestColors() {
-    const {
-        isSelected, nestedLevel, branchChanges,
-    } = useNodeContext();
+export default function useNodeBranchColors() {
+    const { isSelected, nestedLevel } = useNodeContext();
     const {
         isCreated, isDeleted, isOriginalDeleted,
-    } = branchChanges;
+    } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;

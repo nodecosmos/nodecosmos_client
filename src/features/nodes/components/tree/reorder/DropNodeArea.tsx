@@ -1,7 +1,7 @@
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import { UUID } from '../../../../../types';
-import useNodeDropCapture from '../../../hooks/tree/reorder/useNodeDropCapture';
+import useReorder from '../../../hooks/tree/useReorder';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { selectNode } from '../../../nodes.selectors';
 import { DragAndDrop } from '../../../nodes.types';
@@ -34,7 +34,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
         y: nodeY,
     } = treeNodes[id];
     const theme: NodecosmosTheme = useTheme();
-    const onDropCapture = useNodeDropCapture();
+    const onDropCapture = useReorder();
     const [hovered, hover, leave] = useBooleanStateValue();
     const isSameParent = dragAndDropParentId === parentId;
 

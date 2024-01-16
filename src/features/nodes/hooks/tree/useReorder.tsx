@@ -1,11 +1,11 @@
-import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
-import { NodecosmosDispatch } from '../../../../../store';
-import { NodecosmosError, UUID } from '../../../../../types';
-import { setAlert } from '../../../../app/appSlice';
-import { setDragAndDrop } from '../../../actions';
-import { selectBranchChildIds, selectDragAndDrop } from '../../../nodes.selectors';
-import { reorder } from '../../../nodes.thunks';
-import { DragAndDrop } from '../../../nodes.types';
+import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
+import { NodecosmosDispatch } from '../../../../store';
+import { NodecosmosError, UUID } from '../../../../types';
+import { setAlert } from '../../../app/appSlice';
+import { setDragAndDrop } from '../../actions';
+import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
+import { reorder } from '../../nodes.thunks';
+import { DragAndDrop } from '../../nodes.types';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ export interface NodeDropCaptureParams {
     newSiblingIndexAfterMove: number;
 }
 
-export default function useNodeDropCapture() {
+export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
 
     const dispatch: NodecosmosDispatch = useDispatch();

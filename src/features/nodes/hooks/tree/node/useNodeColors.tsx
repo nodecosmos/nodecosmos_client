@@ -1,13 +1,13 @@
+import useNodeBranchColors from './colors/useNodeBranchColors';
+import useNodeCheckboxColors from './colors/useNodeCheckboxColors';
+import useNodeDefaultColors from './colors/useNodeDefaultColors';
 import { TreeType } from '../../../nodes.types';
-import useNodeButtonCheckboxColors from '../colors/useNodeButtonCheckboxColors';
-import useNodeButtonContributionRequestColors from '../colors/useNodeButtonContributionRequestColors';
-import useNodeButtonDefaultColors from '../colors/useNodeButtonDefaultColors';
 import useTreeContext from '../useTreeContext';
 
 export default function useNodeColors() {
-    const defaultColors = useNodeButtonDefaultColors();
-    const checkboxColors = useNodeButtonCheckboxColors();
-    const contributionRequestColors = useNodeButtonContributionRequestColors();
+    const defaultColors = useNodeDefaultColors();
+    const checkboxColors = useNodeCheckboxColors();
+    const contributionRequestColors = useNodeBranchColors();
 
     const { type: treeType } = useTreeContext();
 

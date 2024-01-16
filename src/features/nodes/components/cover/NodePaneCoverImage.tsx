@@ -20,11 +20,8 @@ export default function NodePaneCoverImage() {
     const {
         id, isTmp, coverImageURL,
     } = useSelector(selectSelectedNode) as AppNode;
-
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
-
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
-
     const handleClose = useCallback((responseBody?: { coverImageURL: string }) => {
         closeModal();
 
@@ -39,73 +36,61 @@ export default function NodePaneCoverImage() {
 
     return (
         <>
-            <Box
-                sx={{
-                    position: 'relative',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                }}
-            >
-                {coverImageURL && (
-                    <Box
-                        sx={{
-                            width: 1,
-                            height: 475,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            p: 4,
-                            '.CoverImage': {
-                                position: 'relative',
+            {coverImageURL && (
+                <Box
+                    sx={{
+                        height: 475,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        p: 4,
+                        '.CoverImage': {
+                            position: 'relative',
+                            maxWidth: '100%',
+                            maxHeight: '100%',
+                            '.CoverImageMedia': {
+                                borderRadius: 4,
                                 maxWidth: '100%',
-                                maxHeight: '100%',
-                                '.CoverImageMedia': {
-                                    borderRadius: 4,
-                                    maxWidth: '100%',
-                                    width: 850,
-                                    maxHeight: 375,
-                                },
+                                width: 850,
+                                maxHeight: 375,
                             },
-                        }}
+                        },
+                    }}
+                >
+                    <Box
+                        className="CoverImage"
+                        onMouseOver={displayButton}
+                        onMouseLeave={hideButton}
                     >
-                        <Box
-                            className="CoverImage"
-                            onMouseOver={displayButton}
-                            onMouseLeave={hideButton}
+                        <DeleteCoverImageButton show={buttonDisplayed} />
+                        <CardMedia
+                            className="CoverImageMedia"
+                            component="img"
+                            image={coverImageURL}
+                            alt="Cover Image"
+                        />
+                        <Button
+                            component="label"
+                            variant="contained"
+                            startIcon={<FontAwesomeIcon icon={faCamera} />}
+                            onClick={openModal}
+                            sx={{
+                                opacity: buttonDisplayed ? 0.8 : 0,
+                                transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+                                position: 'absolute',
+                                backgroundColor: 'background.1',
+                                color: 'text.primary',
+                                bottom: 16,
+                                right: 16,
+                                '&:hover': { backgroundColor: 'background.1' },
+                            }}
                         >
-                            <DeleteCoverImageButton show={buttonDisplayed} />
-                            <CardMedia
-                                className="CoverImageMedia"
-                                component="img"
-                                image={coverImageURL}
-                                alt="Cover Image"
-                            />
-                            <Button
-                                component="label"
-                                variant="contained"
-                                startIcon={<FontAwesomeIcon icon={faCamera} />}
-                                onClick={openModal}
-                                sx={{
-                                    opacity: buttonDisplayed ? 0.8 : 0,
-                                    transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                                    position: 'absolute',
-                                    backgroundColor: 'background.1',
-                                    color: 'text.primary',
-                                    bottom: 16,
-                                    right: 16,
-                                    '&:hover': { backgroundColor: 'background.1' },
-                                }}
-                            >
                                 Upload cover image
-                            </Button>
-                        </Box>
+                        </Button>
                     </Box>
-                )}
+                </Box>
+            )}
 
-            </Box>
             {!coverImageURL && !isTmp && (
                 <Box
                     component="div"

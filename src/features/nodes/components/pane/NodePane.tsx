@@ -26,7 +26,7 @@ export default function NodePane({ page }: NodePaneProps) {
                     Select a node to view its details.
                 </Typography>
                 <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
-          ¯\_(ツ)_/¯
+                    ¯\_(ツ)_/¯
                 </Typography>
             </Box>
         );

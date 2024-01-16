@@ -50,6 +50,7 @@ export default (theme: NodecosmosTheme) => ({
 
             '.NodeToolbar': {
                 display: 'flex',
+                alignItems: 'center',
                 '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
                 '.Item': {
                     display: 'inline-flex',

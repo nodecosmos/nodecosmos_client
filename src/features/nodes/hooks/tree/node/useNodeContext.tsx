@@ -1,4 +1,3 @@
-import useBranchChanges from './context/useBranchChanges';
 import { UUID } from '../../../../../types';
 import { NodeProps } from '../../../components/tree/node/Node';
 import { selectNode } from '../../../nodes.selectors';
@@ -21,7 +20,6 @@ export default function useNodeContext() {
         treeBranchId, id, isAlreadyMounted,
     } = useContext(NodeContext);
     const { type, treeNodes } = useTreeContext();
-    const branchChanges = useBranchChanges(treeBranchId, id);
 
     // tree node attributes
     const {
@@ -86,6 +84,5 @@ export default function useNodeContext() {
         y,
         xEnd,
         yEnd,
-        branchChanges,
     };
 }

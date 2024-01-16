@@ -1,5 +1,29 @@
 import { Owner, UUID } from '../../types';
 
+enum ConflictType {
+    AncestorsDeleted,
+    WorkflowDeleted,
+    FlowDeleted,
+    FlowStepDeleted,
+    PrevFlowStepDeleted,
+    NextFlowStepDeleted,
+    PrevStepOutputDeleted,
+    FlowStepNodeDeleted,
+    NoPreviousFlow,
+    NoInitialInput,
+}
+
+enum ConflictStatus {
+    Pending,
+    Resolved,
+}
+
+export interface Conflict {
+    objectId: UUID;
+    type: ConflictType;
+    status: ConflictStatus;
+}
+
 export interface Branch {
     id: UUID;
     title: string;
@@ -29,6 +53,7 @@ export interface Branch {
     deletedFlowSteps?: Set<UUID>;
     createdFlowStepInputsByNode?: Record<UUID, Set<UUID>>;
     deletedFlowStepInputsByNode?: Record<UUID, Set<UUID>>;
+    conflicts?: Set<Conflict>;
 }
 
 export interface BranchesState {

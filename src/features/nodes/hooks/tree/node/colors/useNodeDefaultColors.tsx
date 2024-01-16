@@ -1,8 +1,8 @@
-import { NodecosmosTheme } from '../../../../../themes/type';
-import useNodeContext from '../node/useNodeContext';
+import { NodecosmosTheme } from '../../../../../../themes/type';
+import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 
-export default function useNodeButtonDefaultColors() {
+export default function useNodeDefaultColors() {
     const {
         isSelected, nestedLevel, isRoot, lastChildId,
     } = useNodeContext();

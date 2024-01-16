@@ -9,7 +9,6 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export default function NodeCardHeader({ node }: {node: IndexNode}) {
     return (
-
         <Box className={node.coverImageURL ? 'CoverHeader' : ''}>
             <CardHeader
                 sx={{

@@ -1,7 +1,7 @@
-import { calculatePosition } from './position';
 import { UUID } from '../../../../../types';
 import { selectBranchChildIds, selectNodeAttribute } from '../../../nodes.selectors';
 import { NodeId, TreeType } from '../../../nodes.types';
+import { calculatePosition } from '../../../utils/position';
 import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from '../useTreeContext';
