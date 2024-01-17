@@ -8,44 +8,16 @@ import { Uppy } from '@uppy/core';
 import ImageEditor from '@uppy/image-editor';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
 
-const uppy = new Uppy({
-    restrictions: {
-        maxNumberOfFiles: 1,
-        maxFileSize: 5 * 1024 * 1024,
-        allowedFileTypes: ['image/jpeg', 'image/png', 'image/gif'],
-    },
-    locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
-}).use(ImageEditor, {
-    id: 'ImageEditor',
-    quality: 0.8,
-    actions: {
-        revert: true,
-        rotate: false,
-        granularRotate: false,
-        flip: false,
-        zoomIn: true,
-        zoomOut: true,
-        cropSquare: false,
-        cropWidescreen: false,
-        cropWidescreenVertical: false,
-    },
-});
-uppy.use(XHRUpload, {
-    formData: true,
-    method: 'POST',
-    allowedMetaFields: [],
-    withCredentials: true,
-    endpoint: '',
-});
-
 interface UploadImageModalProps {
     open: boolean;
-    onClose: (responseBody?: { coverImageURL: string }) => void;
+    onClose: (responseBody?: { url: string }) => void;
     endpointPath: string; // no leading slash
     aspectRatio?: number;
 }
@@ -54,28 +26,44 @@ export default function UploadImageModal(props: UploadImageModalProps) {
     const {
         open, onClose, endpointPath, aspectRatio = 850 / 375,
     } = props;
-
     const uri = nodecosmos.getUri();
 
-    useEffect(() => {
-        const xhrUpload = uppy.getPlugin('XHRUpload');
-        if (xhrUpload) {
-            xhrUpload.setOptions({ endpoint: `${uri}${endpointPath}` });
-        }
-    }, [endpointPath, uri]);
-
-    useEffect(() => {
-        const imageEditor = uppy.getPlugin('ImageEditor');
-        if (imageEditor) {
-            imageEditor.setOptions({
-                cropperOptions: {
-                    viewMode: 3,
-                    aspectRatio,
-                    rotatable: false,
-                },
-            });
-        }
-    }, [aspectRatio]);
+    const uppy = useMemo(() => {
+        return new Uppy({
+            restrictions: {
+                maxNumberOfFiles: 1,
+                maxFileSize: 5 * 1024 * 1024,
+                allowedFileTypes: ['image/jpeg', 'image/png', 'image/gif'],
+            },
+            locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
+        }).use(ImageEditor, {
+            id: 'ImageEditor',
+            quality: 0.8,
+            cropperOptions: {
+                croppedCanvasOptions: {},
+                viewMode: 3,
+                aspectRatio,
+                rotatable: false,
+            },
+            actions: {
+                revert: true,
+                rotate: false,
+                granularRotate: false,
+                flip: false,
+                zoomIn: true,
+                zoomOut: true,
+                cropSquare: false,
+                cropWidescreen: false,
+                cropWidescreenVertical: false,
+            },
+        }).use(XHRUpload, {
+            formData: true,
+            method: 'POST',
+            allowedMetaFields: [],
+            withCredentials: true,
+            endpoint: `${uri}${endpointPath}`,
+        });
+    }, [aspectRatio, endpointPath, uri]);
 
     useEffect(() => {
         uppy.on('upload-success', (_, response) => {
@@ -90,12 +78,12 @@ export default function UploadImageModal(props: UploadImageModalProps) {
         return () => {
             uppy.off('upload-success', () => {});
         };
-    }, [onClose]);
+    }, [onClose, uppy]);
 
     const onModalClose = useCallback(() => {
         uppy.cancelAll();
         onClose();
-    }, [onClose]);
+    }, [onClose, uppy]);
 
     // https://github.com/transloadit/uppy/issues/4045
     // until this issue is fixed, we need to manually remove the file from uppy on cancel

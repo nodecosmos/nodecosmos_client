@@ -41,35 +41,40 @@ export default function NodeIndexSearch() {
     }, [execSearch]);
 
     return (
-        <TextField
-            sx={{
-                ml: 1.25,
-                height: 1,
-                width: '350px',
-                svg: { color: 'toolbar.default' },
-                '.MuiInputBase-root': {
-                    borderColor: 'transparent',
-                    height: 32,
-                    borderRadius: 1,
-                    pl: 0.5,
-                },
-                '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
-            }}
-            InputProps={{
-                autoComplete: 'off',
-                startAdornment: (
-                    <InputAdornment position="start" sx={{ p: 1 }}>
-                        <FontAwesomeIcon
-                            icon={faMagnifyingGlass}
-                        />
-                    </InputAdornment>
-                ),
-            }}
-            color="primary"
-            variant="outlined"
-            placeholder="Search"
-            onKeyDown={onEnter}
-            onChange={onChange}
-        />
+        <>
+            <input type="text" style={{ display: 'none' }} />
+            <TextField
+                sx={{
+                    ml: 1.25,
+                    height: 1,
+                    width: '350px',
+                    svg: { color: 'toolbar.default' },
+                    '.MuiInputBase-root': {
+                        borderColor: 'transparent',
+                        height: 32,
+                        borderRadius: 1,
+                        pl: 0.5,
+                    },
+                    '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
+                }}
+                InputProps={{
+                    id: 'search',
+                    name: 'search',
+                    autoComplete: 'search',
+                    startAdornment: (
+                        <InputAdornment position="start" sx={{ p: 1 }}>
+                            <FontAwesomeIcon
+                                icon={faMagnifyingGlass}
+                            />
+                        </InputAdornment>
+                    ),
+                }}
+                color="primary"
+                variant="outlined"
+                placeholder="Search"
+                onKeyDown={onEnter}
+                onChange={onChange}
+            />
+        </>
     );
 }

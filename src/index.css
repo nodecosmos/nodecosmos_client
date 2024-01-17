@@ -39,7 +39,7 @@ input:focus {
 
 /* This gives the remote user caret. The colors are automatically overwritten*/
 .ProseMirror-yjs-cursor {
-    position: relative;
+    position: absolute;
     word-break: normal;
     pointer-events: none;
 

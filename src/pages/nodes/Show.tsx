@@ -1,16 +1,13 @@
-/* mui */
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import { showNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
-import { NodecosmosError } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
     Outlet, useNavigate, useParams,
 } from 'react-router-dom';
-/* nodecosmos */
 
 export default function NodeShow() {
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -37,9 +34,8 @@ export default function NodeShow() {
             setIsNodeFetched(true);
 
             if (response.meta.requestStatus === 'rejected') {
-                const error: NodecosmosError = response.payload as NodecosmosError;
                 navigate('/404');
-                console.error(error);
+                console.error(response);
 
                 return;
             }

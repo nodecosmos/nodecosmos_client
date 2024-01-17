@@ -28,37 +28,40 @@ import {
 import {
     useActive, useCommands, useHelpers,
 } from '@remirror/react';
-import React, { useCallback } from 'react';
+import React, {
+    Suspense, useCallback, useMemo,
+} from 'react';
 import { useSelector } from 'react-redux';
 
 // Add uploaded files as attachments to the models.
 // Don't do anything on article change, but allow users to remove attachments in separate dialog.
 export default function RemirrorEditorToolbar() {
     const { persistedId } = useSelector(selectSelectedNode);
-
     const commands = useCommands<RemirrorExtensions>();
     const active = useActive<RemirrorExtensions>();
-
     const { undoDepth, redoDepth } = useHelpers(true);
-
     const [imageDialogOpen, openImageDialog, closeImageDialog] = useBooleanStateValue();
     const [fileDialogOpen, openFileDialog, closeFileDialog] = useBooleanStateValue();
+    const fileUploadParams = useMemo(() => ({
+        nodeId: persistedId as UUID,
+        objectId: persistedId as UUID,
+    }), [persistedId]);
 
-    const handleImageDialogClose = useCallback((responseBody?: { coverImageURL: string }) => {
+    const handleImageDialogClose = useCallback((responseBody?: { url: string }) => {
         closeImageDialog();
-        if (responseBody?.coverImageURL) {
-            commands.insertImage({ src: responseBody?.coverImageURL });
+        if (responseBody?.url) {
+            commands.insertImage({ src: responseBody.url });
             commands.insertText('\n\n');
         }
     }, [closeImageDialog, commands]);
 
     const handleFileDialogClose = useCallback((attachment?: { url: string; key: string }) => {
-        closeFileDialog();
-
         if (attachment) {
             const url = new URL(attachment.url);
             commands.insertMarkdown(`[${attachment.key}](${url.href})`);
         }
+
+        closeFileDialog();
     }, [closeFileDialog, commands]);
 
     const toggleBold = useCallback(() => {
@@ -220,16 +223,19 @@ export default function RemirrorEditorToolbar() {
                     </Tooltip>
                 </div>
             </Stack>
-            <UploadImageModal
-                endpointPath={`attachments/${persistedId}/${persistedId}/upload_image`}
-                open={imageDialogOpen}
-                onClose={handleImageDialogClose}
-            />
+
+            {imageDialogOpen && (
+                <Suspense>
+                    <UploadImageModal
+                        endpointPath={`attachments/${persistedId}/${persistedId}/upload_image`}
+                        open={imageDialogOpen}
+                        onClose={handleImageDialogClose}
+                    />
+                </Suspense>
+            )}
+
             <UppyUploadFileModal
-                params={{
-                    nodeId: persistedId as UUID,
-                    objectId: persistedId as UUID,
-                }}
+                params={fileUploadParams}
                 open={fileDialogOpen}
                 onClose={handleFileDialogClose}
             />

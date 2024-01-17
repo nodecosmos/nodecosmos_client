@@ -8,19 +8,12 @@ import {
 import { Uppy } from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import XHRUpload from '@uppy/xhr-upload';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import { useDispatch } from 'react-redux';
-
-const uppy = new Uppy({
-    restrictions: {
-        maxNumberOfFiles: 1,
-        maxFileSize: 25 * 1024 * 1024,
-    },
-    locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
-});
-uppy.use(XHRUpload, { endpoint: '' });
 
 interface UploadFileModalProps {
     open: boolean;
@@ -35,10 +28,18 @@ export default function UploadFileModal(props: UploadFileModalProps) {
 
     const dispatch = useDispatch();
 
+    const uppy = useMemo(() => new Uppy({
+        restrictions: {
+            maxNumberOfFiles: 1,
+            maxFileSize: 25 * 1024 * 1024,
+        },
+        locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
+    }).use(XHRUpload, { endpoint: '' }), []);
+
     const handleClose = useCallback(() => {
         uppy.cancelAll();
         onClose();
-    }, [onClose]);
+    }, [onClose, uppy]);
 
     useEffect(() => {
         uppy.on('upload-success', (file) => {
@@ -98,7 +99,7 @@ export default function UploadFileModal(props: UploadFileModalProps) {
         return () => {
             uppy.off('upload-success', () => {});
         };
-    }, [dispatch, onClose, params]);
+    }, [dispatch, onClose, params, uppy]);
 
     return (
         <Dialog

@@ -1,4 +1,5 @@
 import DeleteCoverImageButton from './DeleteCoverImageButton';
+import UploadImageModal from '../../../../common/components/upload/UploadImageModal';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { updateState } from '../../actions';
@@ -12,8 +13,6 @@ import {
 import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
-
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { treeBranchId, branchId } = useSelector(selectSelected) as PKWithTreeBranch;
@@ -22,14 +21,14 @@ export default function NodePaneCoverImage() {
     } = useSelector(selectSelectedNode) as AppNode;
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
-    const handleClose = useCallback((responseBody?: { coverImageURL: string }) => {
+    const handleClose = useCallback((responseBody?: { url: string }) => {
         closeModal();
 
-        if (responseBody?.coverImageURL) {
+        if (responseBody?.url) {
             dispatch(updateState({
                 treeBranchId,
                 id,
-                coverImageURL: responseBody.coverImageURL,
+                coverImageURL: responseBody.url,
             }));
         }
     }, [closeModal, treeBranchId, dispatch, id]);
@@ -117,7 +116,7 @@ export default function NodePaneCoverImage() {
 
             {modalOpen && (
                 <Suspense>
-                    <UppyUploadImageModal
+                    <UploadImageModal
                         open={modalOpen}
                         onClose={handleClose}
                         endpointPath={`nodes/${id}/${branchId}/upload_cover_image`}
