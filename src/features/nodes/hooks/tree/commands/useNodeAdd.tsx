@@ -29,8 +29,9 @@ export default function useNodeAdd() {
         }));
     }, [dispatch, id, treeBranchId]);
 
-    //------------------------------------------------------------------------------------------------------------------
     const addNode = useCallback(async () => {
+        if (shouldAddNode) return;
+
         if (saveInProgress) {
             setShouldAddNode(true);
             dispatch(updateState({
@@ -58,7 +59,7 @@ export default function useNodeAdd() {
         } else {
             initTempChildNode();
         }
-    }, [saveInProgress, dispatch, id, initTempChildNode, isTmp, title, treeBranchId]);
+    }, [shouldAddNode, saveInProgress, isTmp, dispatch, treeBranchId, id, title, initTempChildNode]);
 
     useEffect(() => {
         if (shouldAddNode && !saveInProgress) {
