@@ -1,4 +1,4 @@
-import useTreeBuilder, { Tree } from './context/useTreeBuilder';
+import useTreeBuilder from './context/useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
 import { NodeId, TreeType } from '../../nodes.types';
@@ -11,7 +11,6 @@ interface TreeContextValue extends TreeProps {
     treeNodes: TreeNodes;
     orderedTreeNodeIds: NodeId[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
-    replaceTmpTreeNode: Tree['replaceTmpTreeNode'];
 }
 
 export type UpperSiblingId = UUID | null;
@@ -58,7 +57,6 @@ export function useTreeContextCreator(props: TreeProps) {
         orderedTreeNodeIds,
         setTreeNodes,
         buildTree,
-        replaceTmpTreeNode,
     } = useTreeBuilder({
         treeRootId: rootNodeId,
         treeBranchId,
@@ -79,11 +77,10 @@ export function useTreeContextCreator(props: TreeProps) {
             orderedTreeNodeIds,
             onChange,
             setTreeNodes,
-            replaceTmpTreeNode,
         }),
         [
             orderedTreeNodeIds, rootNodeId, selectedNodeIds, treeBranchId, treeNodes, type,
-            onChange, replaceTmpTreeNode, setTreeNodes,
+            onChange, setTreeNodes,
         ],
     );
 

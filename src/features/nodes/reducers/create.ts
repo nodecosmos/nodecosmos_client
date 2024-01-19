@@ -7,17 +7,17 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
 
     if (tmpId && treeBranchId) {
         const tmpNode = state.byBranchId[treeBranchId][tmpId];
-        const newNode = {
+        state.byBranchId[treeBranchId][id] = {
             ...tmpNode,
             ...action.payload,
             persistedId: id,
+            isCreationInProgress: false,
             isJustCreated: true,
             isTmp: false,
             isEditing: false,
         };
         // update node state
-        state.byBranchId[treeBranchId][id] = newNode;
-        state.titles[treeBranchId][id] = newNode.title;
+        state.titles[treeBranchId][id] = tmpNode.title;
         state.childIds[treeBranchId][id] = [];
 
         tmpNode.persistedId = id;

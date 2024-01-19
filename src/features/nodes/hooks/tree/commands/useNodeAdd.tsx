@@ -11,13 +11,12 @@ export default function useNodeAdd() {
     const {
         id,
         treeBranchId,
-        branchId,
         isTmp,
         title,
     } = useNodeContext();
     const dispatch = useDispatch();
     const saveInProgress = useSelector(selectSaveInProgress);
-    const [loading, setLoading] = useState(false);
+    const [shouldAddNode, setShouldAddNode] = useState(false);
 
     const initTempChildNode = useCallback(() => {
         const tmpId = `tmp_${Date.now()}`;
@@ -33,7 +32,7 @@ export default function useNodeAdd() {
     //------------------------------------------------------------------------------------------------------------------
     const addNode = useCallback(async () => {
         if (saveInProgress) {
-            setLoading(true);
+            setShouldAddNode(true);
             dispatch(updateState({
                 treeBranchId,
                 id,
@@ -62,17 +61,16 @@ export default function useNodeAdd() {
     }, [saveInProgress, dispatch, id, initTempChildNode, isTmp, title, treeBranchId]);
 
     useEffect(() => {
-        if (loading && !saveInProgress) {
-            setLoading(false);
+        if (shouldAddNode && !saveInProgress) {
+            initTempChildNode();
+            setShouldAddNode(false);
             dispatch(updateState({
                 treeBranchId,
                 id,
                 isCreationInProgress: false,
             }));
-
-            initTempChildNode();
         }
-    }, [saveInProgress, branchId, dispatch, id, initTempChildNode, loading, treeBranchId]);
+    }, [dispatch, id, initTempChildNode, saveInProgress, shouldAddNode, treeBranchId]);
 
     return addNode;
 }

@@ -44,14 +44,14 @@ export default function NodePaneContent({ page, selected }: NodePaneProps) {
     const prevSelectedNodeId = usePrevious(id);
 
     useEffect(() => {
-        if (id && rootId) {
+        if (id && rootId && !isTmp) {
             dispatch(getDescription({
                 treeBranchId,
                 branchId,
                 id,
             }));
         }
-    }, [branchId, dispatch, id, rootId, treeBranchId]);
+    }, [branchId, dispatch, id, isTmp, rootId, treeBranchId]);
 
     useEffect(() => {
         if (prevSelectedNodeId !== id && nodePaneContent !== NodePaneContentType.Workflow) {

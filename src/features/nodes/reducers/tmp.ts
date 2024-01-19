@@ -72,6 +72,8 @@ export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAct
         state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
 
         if (tmpNode.isSelected) {
+            newNode.isSelected = true;
+            newNode.isCreationInProgress = false;
             state.selected = {
                 treeBranchId,
                 branchId: newNode.branchId,
@@ -86,8 +88,8 @@ export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAct
 
         state.justCreatedNodeId = persistedId;
 
-        delete state.childIds[treeBranchId][tmpNode.id];
-        delete state.titles[treeBranchId][tmpNode.id];
-        delete state.byBranchId[treeBranchId][tmpNode.id];
+        // delete state.childIds[treeBranchId][tmpNode.id];
+        // delete state.titles[treeBranchId][tmpNode.id];
+        // delete state.byBranchId[treeBranchId][tmpNode.id];
     }
 }

@@ -1,6 +1,6 @@
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../../store';
-import { NodecosmosError, UUID } from '../../../../../types';
+import { NodecosmosError } from '../../../../../types';
 import {
     clearJustCreatedNode, replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
 } from '../../../actions';
@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeSaver() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { type: treeType, replaceTmpTreeNode } = useTreeContext();
+    const { type: treeType } = useTreeContext();
     const {
         isTmp,
         isJustCreated,
@@ -31,7 +31,7 @@ export default function useNodeSaver() {
     const order = useSelector(selectNodeAttribute(treeBranchId, id, 'order'));
     const handleServerError = useHandleServerErrorAlert();
     const saveInProgress = useSelector(selectSaveInProgress);
-    const [saveNodeTimeoutInProgress, setSaveNodeTimeoutInProgress] = useState(false);
+    const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
 
     //------------------------------------------------------------------------------------------------------------------
     // debounce save node
@@ -40,19 +40,20 @@ export default function useNodeSaver() {
     const queueInProgress = useRef(false);
     const saveNode = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
         const title = event.target.value;
-        dispatch(setSaveInProgress(true));
 
+        // Update title of tmp node within redux store
         dispatch(updateState({
             treeBranchId,
             id,
             title,
+            isCreationInProgress: true,
         }));
 
         // Change title of persisted node if tmp node is not replaced yet
-        if (persistedId !== id) {
+        if (isTmp && persistedId) {
             dispatch(updateState({
                 treeBranchId,
-                id: persistedId as UUID,
+                id: persistedId,
                 title,
             }));
         }
@@ -61,11 +62,11 @@ export default function useNodeSaver() {
             clearTimeout(saveNodeTimeout.current);
         }
         saveNodeTimeout.current = setTimeout(async () => {
-            if (saveNodeTimeoutInProgress) {
+            if (saveInProgress) {
                 saveQueue.current.push(event);
                 return;
             }
-            setSaveNodeTimeoutInProgress(true);
+            dispatch(setSaveInProgress(true));
 
             let response;
             if (persistedId) {
@@ -104,13 +105,12 @@ export default function useNodeSaver() {
                 console.error(error);
             }
 
-            setSaveNodeTimeoutInProgress(false);
             dispatch(setSaveInProgress(false));
         }, SAVE_NODE_TIMEOUT);
     },
     [
-        treeBranchId, branchId, dispatch, handleServerError, id, saveNodeTimeoutInProgress,
-        order, parentId, persistedId, rootId, treeType,
+        treeBranchId, branchId, dispatch, handleServerError, id, saveInProgress,
+        order, parentId, persistedId, rootId, treeType, isTmp,
     ]);
 
     const processQueue = useCallback(async () => {
@@ -134,27 +134,24 @@ export default function useNodeSaver() {
 
     //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {
-        if (persistedId || !saveInProgress) {
-            dispatch(updateState({
-                treeBranchId,
-                id,
-                isEditing: false,
-                isJustCreated: false,
-            }));
+        dispatch(updateState({
+            treeBranchId,
+            id,
+            isEditing: false,
+            isJustCreated: false,
+        }));
+        setShouldReplaceTmpNode(true);
+    }, [dispatch, id, treeBranchId]);
 
-            dispatch(clearJustCreatedNode());
-        }
-        if (isTmp && persistedId) {
-            // Replace tmp node with persisted node within tree state
-            replaceTmpTreeNode(id, persistedId);
-
+    useEffect(() => {
+        if (shouldReplaceTmpNode && isTmp && persistedId) {
             // Replace tmp node with persisted node within redux store
             dispatch(replaceTmpNodeWithPersisted({
                 treeBranchId,
                 tmpId: id,
             }));
         }
-    }, [saveInProgress, dispatch, treeBranchId, id, isTmp, persistedId, replaceTmpTreeNode]);
+    }, [dispatch, id, isTmp, persistedId, shouldReplaceTmpNode, treeBranchId]);
 
     useEffect(() => {
         return () => {
@@ -169,7 +166,7 @@ export default function useNodeSaver() {
                 dispatch(clearJustCreatedNode());
             }
         };
-    }, [dispatch, id, isJustCreated, isTmp, persistedId, replaceTmpTreeNode, treeBranchId]);
+    }, [dispatch, id, isJustCreated, isTmp, persistedId, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     return {
