@@ -56,7 +56,7 @@ export interface NodeCreationApiPayload {
 
 export interface NodeCreationPayload extends NodeCreationApiPayload {
     treeBranchId?: UUID;
-    tmpNodeId?: UUID;
+    tmpId?: UUID;
 }
 
 export const create = createAsyncThunk<Node, NodeCreationPayload, { rejectValue: NodecosmosError }>(

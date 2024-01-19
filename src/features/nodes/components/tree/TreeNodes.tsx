@@ -6,7 +6,6 @@ import React from 'react';
 
 export default function TreeNodes() {
     const { treeBranchId } = useTreeContext();
-
     const visibleNodes = useTreeVirtualizer();
 
     if (!visibleNodes || visibleNodes.length === 0) return null;

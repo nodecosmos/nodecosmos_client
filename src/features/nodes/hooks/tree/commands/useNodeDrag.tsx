@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../../store';
 import { UUID } from '../../../../../types';
 import { setDragAndDrop, updateState } from '../../../actions';
-import { selectDragAndDrop, selectActionInProgress } from '../../../nodes.selectors';
+import { selectDragAndDrop, selectSaveInProgress } from '../../../nodes.selectors';
 import useNodeContext from '../node/useNodeContext';
 import useReorder from '../useReorder';
 import React, { useCallback } from 'react';
@@ -21,7 +21,7 @@ export default function useNodeDrag() {
     } = useNodeContext();
     const dragAndDrop = useSelector(selectDragAndDrop);
     const onNodeDropCapture = useReorder();
-    const isNodeActionInProgress = useSelector(selectActionInProgress);
+    const isNodeActionInProgress = useSelector(selectSaveInProgress);
     const dragAndDropNodeId = dragAndDrop?.id;
 
     //------------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import { setAlert } from '../../../../app/appSlice';
 import { buildTmpNode, updateState } from '../../../actions';
-import { selectActionInProgress } from '../../../nodes.selectors';
+import { selectSaveInProgress } from '../../../nodes.selectors';
 import useNodeContext from '../node/useNodeContext';
 import {
     useCallback, useEffect, useState,
@@ -16,7 +16,7 @@ export default function useNodeAdd() {
         title,
     } = useNodeContext();
     const dispatch = useDispatch();
-    const actionInProgress = useSelector(selectActionInProgress);
+    const saveInProgress = useSelector(selectSaveInProgress);
     const [loading, setLoading] = useState(false);
 
     const initTempChildNode = useCallback(() => {
@@ -32,7 +32,7 @@ export default function useNodeAdd() {
 
     //------------------------------------------------------------------------------------------------------------------
     const addNode = useCallback(async () => {
-        if (actionInProgress) {
+        if (saveInProgress) {
             setLoading(true);
             dispatch(updateState({
                 treeBranchId,
@@ -59,10 +59,10 @@ export default function useNodeAdd() {
         } else {
             initTempChildNode();
         }
-    }, [actionInProgress, dispatch, id, initTempChildNode, isTmp, title, treeBranchId]);
+    }, [saveInProgress, dispatch, id, initTempChildNode, isTmp, title, treeBranchId]);
 
     useEffect(() => {
-        if (loading && !actionInProgress) {
+        if (loading && !saveInProgress) {
             setLoading(false);
             dispatch(updateState({
                 treeBranchId,
@@ -72,7 +72,7 @@ export default function useNodeAdd() {
 
             initTempChildNode();
         }
-    }, [actionInProgress, branchId, dispatch, id, initTempChildNode, loading, treeBranchId]);
+    }, [saveInProgress, branchId, dispatch, id, initTempChildNode, loading, treeBranchId]);
 
     return addNode;
 }

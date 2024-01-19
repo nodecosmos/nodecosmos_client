@@ -1,16 +1,17 @@
-import useTreeBuilder from './context/useTreeBuilder';
+import useTreeBuilder, { Tree } from './context/useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
 import { NodeId, TreeType } from '../../nodes.types';
 import {
-    createContext, useContext, useMemo,
+    createContext, useContext, useEffect, useMemo,
 } from 'react';
 
 interface TreeContextValue extends TreeProps {
     selectedNodeIds: Set<UUID>;
     treeNodes: TreeNodes;
-    setTreeNodes: (treeNodes: TreeNodes) => void;
     orderedTreeNodeIds: NodeId[];
+    setTreeNodes: (treeNodes: TreeNodes) => void;
+    replaceTmpTreeNode: Tree['replaceTmpTreeNode'];
 }
 
 export type UpperSiblingId = UUID | null;
@@ -50,30 +51,39 @@ export function useTreeContextCreator(props: TreeProps) {
         value,
     } = props;
     const selectedNodeIds = useMemo(() => new Set<UUID>(value), [value]);
+
     // build tree
     const {
         treeNodes,
         orderedTreeNodeIds,
         setTreeNodes,
+        buildTree,
+        replaceTmpTreeNode,
     } = useTreeBuilder({
         treeRootId: rootNodeId,
         treeBranchId,
         type,
     });
+
+    useEffect(() => {
+        buildTree();
+    }, [buildTree]);
+
     const ctxProviderValue = useMemo(
         () => ({
             treeBranchId,
             rootNodeId,
             type,
-            onChange,
             selectedNodeIds,
             treeNodes,
             orderedTreeNodeIds,
+            onChange,
             setTreeNodes,
+            replaceTmpTreeNode,
         }),
         [
-            onChange, orderedTreeNodeIds, rootNodeId, selectedNodeIds,
-            setTreeNodes, treeBranchId, treeNodes, type,
+            orderedTreeNodeIds, rootNodeId, selectedNodeIds, treeBranchId, treeNodes, type,
+            onChange, replaceTmpTreeNode, setTreeNodes,
         ],
     );
 

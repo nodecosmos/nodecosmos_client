@@ -51,3 +51,43 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
     state.childIds[treeBranchId][tmpId] = [];
     state.byBranchId[treeBranchId][id].childIds.push(tmpId);
 }
+
+interface ReplaceProps {
+    treeBranchId: UUID;
+    tmpId: UUID;
+}
+
+export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAction<ReplaceProps>) {
+    const { tmpId, treeBranchId } = action.payload;
+
+    if (tmpId && treeBranchId) {
+        const tmpNode = state.byBranchId[treeBranchId][tmpId];
+        const persistedId = tmpNode.persistedId as UUID;
+        const newNode = state.byBranchId[treeBranchId][persistedId];
+        const parentId = tmpNode.parentId;
+        const parentChildIds = state.childIds[treeBranchId][parentId];
+        const siblingIndex = parentChildIds.indexOf(tmpId);
+
+        parentChildIds.splice(siblingIndex, 1, persistedId);
+        state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
+
+        if (tmpNode.isSelected) {
+            state.selected = {
+                treeBranchId,
+                branchId: newNode.branchId,
+                id: persistedId,
+            };
+        }
+
+        // update node state
+        state.byBranchId[treeBranchId][persistedId] = newNode;
+        state.titles[treeBranchId][persistedId] = newNode.title;
+        state.childIds[treeBranchId][persistedId] = [];
+
+        state.justCreatedNodeId = persistedId;
+
+        delete state.childIds[treeBranchId][tmpNode.id];
+        delete state.titles[treeBranchId][tmpNode.id];
+        delete state.byBranchId[treeBranchId][tmpNode.id];
+    }
+}

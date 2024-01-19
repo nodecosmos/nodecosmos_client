@@ -14,5 +14,3 @@ export const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
 export const SAVE_NODE_TIMEOUT = 500; // ms
 export const MIN_NODE_INPUT_SIZE = 3;
 export const MAX_NODE_INPUT_SIZE = 50;
-
-export const WORKFLOW_BUTTON_HEIGHT = 34;

@@ -38,7 +38,7 @@ export default function useHandleServerErrorAlert() {
         dispatch(setAlert({
             isOpen: true,
             severity: 'error',
-            message, 
+            message,
         }));
     }, [dispatch]);
 }

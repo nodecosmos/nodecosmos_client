@@ -91,7 +91,7 @@ export default function ContributionRequestTree() {
             width={1}
             height={1}
             overflow="hidden"
-            style={{ cursor: resizeInProgress ? 'col-resize' : 'auto' }}
+            style={{ cursor: resizeInProgress ? 'col-resize' : 'inherit' }}
         >
             <Box
                 ref={paneARef}

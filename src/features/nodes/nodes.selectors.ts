@@ -10,7 +10,7 @@ export const selectTitles = (state: RootState) => state.nodes.titles;
 export const selectNodePaneContent = (state: RootState) => state.nodes.nodePaneContent;
 export const selectDragAndDrop = (state: RootState) => state.nodes.dragAndDrop;
 export const selectChildIds = (state: RootState) => state.nodes.childIds;
-export const selectActionInProgress = (state: RootState) => state.nodes.actionInProgress;
+export const selectSaveInProgress = (state: RootState) => state.nodes.saveInProgress;
 export const selectPositions = (state: RootState) => state.nodes.positions;
 export const selectJustCreatedNodeId = (state: RootState) => state.nodes.justCreatedNodeId;
 

@@ -118,7 +118,7 @@ export interface NodeState {
     selected: PKWithTreeBranch | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<NodeId, IndexNode>;
-    actionInProgress: boolean;
+    saveInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
     justCreatedNodeId: UUID | null;
 }

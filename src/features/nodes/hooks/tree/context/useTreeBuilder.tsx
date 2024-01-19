@@ -5,9 +5,7 @@ import { calculatePosition } from '../../../utils/position';
 import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from '../useTreeContext';
-import {
-    useCallback, useEffect, useState,
-} from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 type QueueItem = {
@@ -20,10 +18,12 @@ type QueueItem = {
 };
 type Queue = QueueItem[];
 
-interface Tree {
+export interface Tree {
     treeNodes: TreeNodes;
     orderedTreeNodeIds: NodeId[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
+    buildTree: () => void;
+    replaceTmpTreeNode: (tmpId: UUID, persistedId: UUID) => void;
 }
 
 type Props = {
@@ -44,8 +44,7 @@ export default function useTreeBuilder(props: Props): Tree {
         treeNodes: {} as TreeNodes,
         orderedTreeNodeIds: [] as NodeId[],
     });
-
-    useEffect(() => {
+    const buildTree = useCallback(() => {
         if (!branchChildIds) return;
 
         const treeNodes = { ...treeState.treeNodes };
@@ -157,9 +156,60 @@ export default function useTreeBuilder(props: Props): Tree {
         }));
     }, []);
 
+    const replaceTmpTreeNode = useCallback((tmpId: UUID, persistedId: UUID) => {
+        setTreeState((prev) => {
+            const newTreeNodes = { ...prev.treeNodes };
+            const treeNode = newTreeNodes[tmpId];
+            const orderedTreeNodeIds = prev.orderedTreeNodeIds.map((id) => {
+                if (id === tmpId) return persistedId;
+                return id;
+            });
+
+            treeNode.id = persistedId;
+            treeNode.childIds.forEach((childId) => {
+                newTreeNodes[childId].ancestorIds = newTreeNodes[childId].ancestorIds.map((id) => {
+                    if (id === tmpId) return persistedId;
+                    return id;
+                });
+            });
+
+            newTreeNodes[persistedId] = treeNode;
+            delete newTreeNodes[tmpId];
+
+            // parent's child ids
+            const parentId = treeNode.parentId;
+
+            if (!parentId) throw new Error('Parent id is not defined');
+
+            const parent = newTreeNodes[parentId];
+            parent.childIds = parent.childIds.map((id) => {
+                if (id === tmpId) return persistedId;
+                return id;
+            });
+            if (parent.lastChildId === tmpId) parent.lastChildId = persistedId;
+
+            // ancestor's descendant ids
+            treeNode.ancestorIds.forEach((ancestorId) => {
+                const ancestor = newTreeNodes[ancestorId];
+                ancestor.descendantIds = ancestor.descendantIds.map((id) => {
+                    if (id === tmpId) return persistedId;
+                    return id;
+                });
+            });
+
+            return {
+                ...prev,
+                treeNodes: newTreeNodes,
+                orderedTreeNodeIds,
+            };
+        });
+    }, []);
+
     return {
         treeNodes: treeState.treeNodes,
         orderedTreeNodeIds: treeState.orderedTreeNodeIds,
         setTreeNodes,
+        buildTree,
+        replaceTmpTreeNode,
     };
 }

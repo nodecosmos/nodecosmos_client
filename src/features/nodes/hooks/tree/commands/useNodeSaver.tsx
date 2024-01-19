@@ -1,83 +1,81 @@
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
-import usePrevious from '../../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../../store';
-import { NodecosmosError } from '../../../../../types';
+import { NodecosmosError, UUID } from '../../../../../types';
 import {
-    clearJustCreatedNode, setActionInProgress, updateState,
+    clearJustCreatedNode, replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
 } from '../../../actions';
 import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
-import { selectNodeAttribute } from '../../../nodes.selectors';
+import { selectNodeAttribute, selectSaveInProgress } from '../../../nodes.selectors';
 import { create, updateTitle } from '../../../nodes.thunks';
 import { TreeType } from '../../../nodes.types';
 import useNodeContext from '../node/useNodeContext';
 import useTreeContext from '../useTreeContext';
 import {
-    ChangeEvent, useCallback, useEffect, useRef,
+    ChangeEvent, useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeSaver() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { type: treeType } = useTreeContext();
+    const { type: treeType, replaceTmpTreeNode } = useTreeContext();
     const {
+        isTmp,
         isJustCreated,
         treeBranchId,
         branchId,
         id,
         parentId,
         rootId,
-        title,
         persistedId,
     } = useNodeContext();
-
     const order = useSelector(selectNodeAttribute(treeBranchId, id, 'order'));
-    const prevTitle = usePrevious(title);
     const handleServerError = useHandleServerErrorAlert();
+    const saveInProgress = useSelector(selectSaveInProgress);
+    const [saveNodeTimeoutInProgress, setSaveNodeTimeoutInProgress] = useState(false);
 
     //------------------------------------------------------------------------------------------------------------------
     // debounce save node
     const saveNodeTimeout = useRef<number | null>(null);
-
+    const saveQueue = useRef<ChangeEvent<HTMLInputElement>[]>([]);
+    const queueInProgress = useRef(false);
     const saveNode = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
+        const title = event.target.value;
+        dispatch(setSaveInProgress(true));
 
-        dispatch(setActionInProgress(true));
         dispatch(updateState({
             treeBranchId,
             id,
-            title: value,
+            title,
         }));
 
         // Change title of persisted node if tmp node is not replaced yet
         if (persistedId !== id) {
             dispatch(updateState({
                 treeBranchId,
-                id: persistedId as string,
-                title: value,
+                id: persistedId as UUID,
+                title,
             }));
         }
 
-        if (!value || value === prevTitle) {
-            dispatch(setActionInProgress(false));
-            return;
+        if (saveNodeTimeout.current) {
+            clearTimeout(saveNodeTimeout.current);
         }
-
-        if (saveNodeTimeout.current) clearTimeout(saveNodeTimeout.current);
         saveNodeTimeout.current = setTimeout(async () => {
+            if (saveNodeTimeoutInProgress) {
+                saveQueue.current.push(event);
+                return;
+            }
+            setSaveNodeTimeoutInProgress(true);
+
+            let response;
             if (persistedId) {
                 // Update persisted node
-                const response = await dispatch(updateTitle({
+                response = await dispatch(updateTitle({
                     treeBranchId,
                     branchId,
                     id: persistedId,
-                    title: value,
+                    title,
                 }));
-
-                if (response.meta.requestStatus === 'rejected') {
-                    const error: NodecosmosError = response.payload as NodecosmosError;
-                    handleServerError(error);
-                    console.error(error);
-                }
             } else {
                 // Create new node
                 let creationBranchId;
@@ -92,38 +90,71 @@ export default function useNodeSaver() {
                     parentId,
                     isRoot: false,
                     isPublic: true,
-                    title: value,
+                    title,
                     order: order as number,
-                    tmpNodeId: id,
+                    tmpId: id,
                 };
 
-                const response = await dispatch(create(data));
-                if (response.meta.requestStatus === 'rejected') {
-                    const error: NodecosmosError = response.payload as NodecosmosError;
-                    handleServerError(error);
-                    console.error(error);
-                }
+                response = await dispatch(create(data));
             }
 
-            dispatch(setActionInProgress(false));
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+                handleServerError(error);
+                console.error(error);
+            }
+
+            setSaveNodeTimeoutInProgress(false);
+            dispatch(setSaveInProgress(false));
         }, SAVE_NODE_TIMEOUT);
     },
     [
-        treeBranchId, branchId, dispatch, handleServerError, id,
-        order, parentId, persistedId, prevTitle, rootId, treeType,
+        treeBranchId, branchId, dispatch, handleServerError, id, saveNodeTimeoutInProgress,
+        order, parentId, persistedId, rootId, treeType,
     ]);
+
+    const processQueue = useCallback(async () => {
+        if ((saveQueue.current.length > 0) && !queueInProgress.current) {
+            queueInProgress.current = true;
+            const nextItem = saveQueue.current.shift();
+
+            if (nextItem) {
+                await saveNode(nextItem);
+                queueInProgress.current = false;
+                await processQueue();
+            }
+        }
+    }, [saveNode]);
+
+    useEffect(() => {
+        processQueue().catch((error) => {
+            console.error(error);
+        });
+    }, [processQueue]);
 
     //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {
-        dispatch(updateState({
-            treeBranchId,
-            id,
-            isEditing: false,
-            isJustCreated: false,
-        }));
+        if (persistedId || !saveInProgress) {
+            dispatch(updateState({
+                treeBranchId,
+                id,
+                isEditing: false,
+                isJustCreated: false,
+            }));
 
-        dispatch(clearJustCreatedNode());
-    }, [dispatch, treeBranchId, id]);
+            dispatch(clearJustCreatedNode());
+        }
+        if (isTmp && persistedId) {
+            // Replace tmp node with persisted node within tree state
+            replaceTmpTreeNode(id, persistedId);
+
+            // Replace tmp node with persisted node within redux store
+            dispatch(replaceTmpNodeWithPersisted({
+                treeBranchId,
+                tmpId: id,
+            }));
+        }
+    }, [saveInProgress, dispatch, treeBranchId, id, isTmp, persistedId, replaceTmpTreeNode]);
 
     useEffect(() => {
         return () => {
@@ -138,7 +169,7 @@ export default function useNodeSaver() {
                 dispatch(clearJustCreatedNode());
             }
         };
-    }, [dispatch, id, isJustCreated, treeBranchId]);
+    }, [dispatch, id, isJustCreated, isTmp, persistedId, replaceTmpTreeNode, treeBranchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     return {
