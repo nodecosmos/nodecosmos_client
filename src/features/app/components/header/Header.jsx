@@ -56,7 +56,7 @@ export default function Header() {
                         to="/nodes"
                         className="LogoButton"
                     >
-                        <img src="/logo.svg" alt="logo" height={18} width={18} />
+                        <img src="/logo.svg" alt="logo" height={30} width={30} />
                         <Typography fontWeight="bold">
                             <Box component="span" color="logo.blue">node</Box>
                             <Box component="span" color="logo.red">cosmos</Box>
