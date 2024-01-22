@@ -7,7 +7,7 @@ export default (theme: NodecosmosTheme) => ({
                 height: 32,
                 textTransform: 'none',
                 borderRadius: 4,
-                '&.MicroButton': {
+                '&.LogoButton': {
                     padding: '3px 8px',
                     border: '1.5px solid transparent',
                     borderRadius: 6,
@@ -18,6 +18,9 @@ export default (theme: NodecosmosTheme) => ({
                     '&:focus, &.focused': {
                         borderColor: theme.palette.primary.main,
                         background: 'rgb(73 176 244 / 7%)',
+                    },
+                    p: {
+                        marginLeft: 8,
                     },
                 },
             },

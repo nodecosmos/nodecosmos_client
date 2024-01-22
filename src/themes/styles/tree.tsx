@@ -51,6 +51,8 @@ export default (theme: NodecosmosTheme) => ({
             '.NodeToolbar': {
                 display: 'flex',
                 alignItems: 'center',
+                marginLeft: 16,
+                minHeight: 34,
                 '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
                 '.Item': {
                     display: 'inline-flex',
@@ -69,7 +71,13 @@ export default (theme: NodecosmosTheme) => ({
                     borderRadius: 4,
                     '&:hover': { backgroundColor: theme.palette.toolbar.hover },
                 },
-
+                '.ToolbarChip': {
+                    height: '100%',
+                    border: '1px solid',
+                    color: theme.palette.toolbar.lightRed,
+                    width: 'fit-content',
+                    marginRight: 8,
+                },
                 // set first item color
                 '.Item:first-of-type': { color: theme.palette.toolbar.red },
                 '.Item:last-of-type': { color: theme.palette.toolbar.purple },

@@ -46,7 +46,7 @@ export default function useNodeSaver() {
             treeBranchId,
             id,
             title,
-            isCreationInProgress: true,
+            isCreationInProgress: isTmp,
         }));
 
         // Change title of persisted node if tmp node is not replaced yet

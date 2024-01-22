@@ -1,4 +1,5 @@
 import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
+import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import { faRotateLeft, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,37 +9,40 @@ import React from 'react';
 
 export default function ConflictToolbar() {
     const { addNode, removeNode } = useNodeCommands();
+    const {
+        isExpanded,
+        isSelected,
+    } = useNodeContext();
+    const showToolbar = isExpanded && isSelected;
 
     return (
         <div className="NodeToolbar">
             <Tooltip
-                title="Node deleted on main branch. You can either delete it from CR or restore it."
+                title="Node deleted on root. You can either delete it from Contribution Request or restore it."
                 placement="top">
                 <Chip
+                    className="ToolbarChip"
                     size="small"
-                    label="Conflict!"
-                    sx={{
-                        border: '1px solid',
-                        color: 'toolbar.lightRed',
-                        width: 'fit-content',
-                        mr: 1,
-                    }}
+                    label="Conflict -> Deleted"
                 />
             </Tooltip>
-            <Tooltip title="Delete Node" placement="top">
-                <ButtonBase
-                    className="Item"
-                    onClick={removeNode}
-                    aria-label="Delete Node">
-                    <FontAwesomeIcon icon={faTrash} />
-                </ButtonBase>
-            </Tooltip>
-            <Tooltip title="Restore Node" placement="top">
-                <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
-                    <FontAwesomeIcon icon={faRotateLeft} />
-                </ButtonBase>
-            </Tooltip>
-
+            {showToolbar && (
+                <>
+                    <Tooltip title="Delete Node and it's descendants" placement="top">
+                        <ButtonBase
+                            className="Item"
+                            onClick={removeNode}
+                            aria-label="Delete Node">
+                            <FontAwesomeIcon icon={faTrash} />
+                        </ButtonBase>
+                    </Tooltip>
+                    <Tooltip title="Restore Node in Contribution Request" placement="top">
+                        <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
+                            <FontAwesomeIcon icon={faRotateLeft} />
+                        </ButtonBase>
+                    </Tooltip>
+                </>
+            )}
         </div>
     );
 }

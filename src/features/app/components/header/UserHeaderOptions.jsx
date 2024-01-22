@@ -38,7 +38,7 @@ export default function UserHeaderOptions() {
                 component={Link}
                 to="/auth/signup"
                 variant="outlined"
-                className="MicroButton focused"
+                className="LogoButton focused"
             >
         Sign Up
             </Button>

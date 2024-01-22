@@ -9,16 +9,13 @@ import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
-import { Box } from '@mui/material';
 import React from 'react';
 
 export default function NodeContent() {
     const {
         isAlreadyMounted,
-        isExpanded,
         isEditing,
         isRoot,
-        isSelected,
         xEnd,
         y,
     } = useNodeContext();
@@ -55,9 +52,7 @@ export default function NodeContent() {
                             onBlur={blurNode}
                         />
                     ) : <NodeButton />}
-                    <div>
-                        {isExpanded && isSelected && <Box sx={{ ml: 2 }}><NodeToolbar /></Box>}
-                    </div>
+                    <NodeToolbar />
                 </div>
             </foreignObject>
         </g>

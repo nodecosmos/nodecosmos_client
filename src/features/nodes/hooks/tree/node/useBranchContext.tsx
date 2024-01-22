@@ -14,7 +14,7 @@ export interface BranchChanges {
 
 export default function useBranchContext(): BranchChanges {
     const {
-        treeBranchId, id, isTmp, 
+        treeBranchId, id, isTmp,
     } = useNodeContext();
     const { id: originalTreeBranchId } = useParams() as { id: UUID };
     const branch = useSelector(selectBranch(treeBranchId));
@@ -36,7 +36,5 @@ export default function useBranchContext(): BranchChanges {
             isDeleted,
             isOriginalDeleted,
         };
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [branch?.createdNodes, branch?.deletedNodes, id]);
+    }, [branch?.createdNodes, branch?.deletedNodes, id, isTmp, originalBranchNodes]);
 }

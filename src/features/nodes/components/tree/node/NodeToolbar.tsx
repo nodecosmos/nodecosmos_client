@@ -19,7 +19,12 @@ import { useSelector } from 'react-redux';
 
 export default function NodeToolbar() {
     const {
-        treeBranchId, branchId, id, isCreationInProgress,
+        isExpanded,
+        isSelected,
+        treeBranchId,
+        branchId,
+        id,
+        isCreationInProgress,
     } = useNodeContext();
     const {
         addNode, editNode, removeNode,
@@ -31,10 +36,12 @@ export default function NodeToolbar() {
         return <ConflictToolbar />;
     }
 
+    if (!isExpanded || !isSelected) return null;
+
     if (isCreationInProgress) {
         return (
-            <Box display="flex" alignItems="center" height={NODE_BUTTON_HEIGHT}>
-                <CircularProgress size={20} />
+            <Box className="NodeToolbar" display="flex" alignItems="center" height={NODE_BUTTON_HEIGHT}>
+                <CircularProgress color="secondary" size={20} />
             </Box>
         );
     }
