@@ -37,7 +37,6 @@ export default function useNodeSaver() {
     // debounce save node
     const saveNodeTimeout = useRef<number | null>(null);
     const saveQueue = useRef<ChangeEvent<HTMLInputElement>[]>([]);
-    const queueInProgress = useRef(false);
     const saveNode = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
         const title = event.target.value;
 
@@ -114,13 +113,11 @@ export default function useNodeSaver() {
     ]);
 
     const processQueue = useCallback(async () => {
-        if ((saveQueue.current.length > 0) && !queueInProgress.current) {
-            queueInProgress.current = true;
+        if ((saveQueue.current.length > 0)) {
             const nextItem = saveQueue.current.shift();
 
             if (nextItem) {
                 await saveNode(nextItem);
-                queueInProgress.current = false;
                 await processQueue();
             }
         }

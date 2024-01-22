@@ -5,7 +5,7 @@ import { ChangeEvent, useCallback } from 'react';
 
 export default function useTreeCommands() {
     const {
-        orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes, replaceTmpTreeNode,
+        orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
     } = useTreeContext();
 
     const expandNode = useCallback((nodeId: UUID) => {
@@ -75,7 +75,6 @@ export default function useTreeCommands() {
         deleteId,
         isChecked,
         handleCheckboxChange,
-        replaceTmpTreeNode,
     };
 }
 
