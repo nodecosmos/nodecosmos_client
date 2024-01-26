@@ -2,6 +2,8 @@ import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerE
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError, UUID } from '../../../../types';
 import { setAlert } from '../../../app/appSlice';
+import { checkDeletedAncestorConflict } from '../../../branch/branches.thunks';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { setDragAndDrop } from '../../actions';
 import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
 import { reorder } from '../../nodes.thunks';
@@ -17,7 +19,7 @@ export interface NodeDropCaptureParams {
 
 export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
-
+    const { mainBranchId } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         id,
@@ -70,7 +72,13 @@ export default function useReorder() {
             return;
         }
 
+        dispatch(checkDeletedAncestorConflict({
+            mainBranchId: mainBranchId as UUID,
+            nodeId: id,
+            branchId: treeBranchId,
+        }));
+
         dispatch(setDragAndDrop(null));
         setReorderInProgress(false);
-    }, [branchId, childIdsByParentId, dispatch, handleServerError, id, reorderInProgress, treeBranchId]);
+    }, [branchId, childIdsByParentId, dispatch, handleServerError, id, mainBranchId, reorderInProgress, treeBranchId]);
 }

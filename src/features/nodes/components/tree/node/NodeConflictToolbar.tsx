@@ -8,7 +8,7 @@ import {
 import React from 'react';
 
 export default function ConflictToolbar() {
-    const { addNode, removeNode } = useNodeCommands();
+    const { removeNode, restoreNode } = useNodeCommands();
     const {
         isExpanded,
         isSelected,
@@ -18,12 +18,13 @@ export default function ConflictToolbar() {
     return (
         <div className="NodeToolbar">
             <Tooltip
-                title="Node deleted on root. You can either delete it from Contribution Request or restore it."
+                title="Node deleted on root. You can delete it from Contribution Request,
+                       restore it, or move created node to another place."
                 placement="top">
                 <Chip
                     className="ToolbarChip"
                     size="small"
-                    label="Conflict -> Deleted"
+                    label="Conflict"
                 />
             </Tooltip>
             {showToolbar && (
@@ -37,7 +38,7 @@ export default function ConflictToolbar() {
                         </ButtonBase>
                     </Tooltip>
                     <Tooltip title="Restore Node in Contribution Request" placement="top">
-                        <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
+                        <ButtonBase className="Item" onClick={restoreNode} aria-label="Add Node">
                             <FontAwesomeIcon icon={faRotateLeft} />
                         </ButtonBase>
                     </Tooltip>

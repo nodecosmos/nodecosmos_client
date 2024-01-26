@@ -1,4 +1,5 @@
-import { BranchesState } from './branches.types';
+import { checkDeletedAncestorConflict } from './branches.thunks';
+import { BranchesState, ConflictStatus } from './branches.types';
 import { showContributionRequest } from '../contribution-requests/contributionRequests.thunks';
 import {
     create, deleteNode, updateDescription, updateTitle,
@@ -15,6 +16,7 @@ const branchesSlice = createSlice({
         builder
             .addCase(showContributionRequest.fulfilled, (state, action) => {
                 const { branch } = action.payload;
+                const { conflict } = branch;
 
                 state.byId[branch.id] = {
                     id: branch.id,
@@ -44,6 +46,10 @@ const branchesSlice = createSlice({
                     deletedFlowSteps: new Set(branch.deletedFlowSteps),
                     createdFlowStepInputsByNode: branch.createdFlowStepInputsByNode,
                     deletedFlowStepInputsByNode: branch.deletedFlowStepInputsByNode,
+                    conflict: conflict && {
+                        status: conflict.status,
+                        deletedAncestors: new Set(conflict.deletedAncestors),
+                    },
                 };
             })
             .addCase(create.fulfilled, (state, action) => {
@@ -84,6 +90,29 @@ const branchesSlice = createSlice({
                 if (branch) {
                     branch.editedNodeDescriptions ||= new Set();
                     branch.editedNodeDescriptions.add(nodeId);
+                }
+            })
+            .addCase(checkDeletedAncestorConflict.fulfilled, (state, action) => {
+                const { branchId } = action.meta.arg;
+                const deletedAncestors = action.payload;
+                const branch = state.byId[branchId];
+                const hasNewConflicts = !!deletedAncestors?.size;
+
+                if (!branch) {
+                    return;
+                }
+
+                if (branch.conflict && hasNewConflicts) {
+                    branch.conflict.status = ConflictStatus.Pending;
+                    branch.conflict.deletedAncestors = deletedAncestors;
+                } else if (!branch.conflict && hasNewConflicts) {
+                    branch.conflict = {
+                        status: ConflictStatus.Pending,
+                        deletedAncestors,
+                    };
+                } else if (branch.conflict && !hasNewConflicts) {
+                    branch.conflict.status = ConflictStatus.Resolved;
+                    branch.conflict.deletedAncestors = null;
                 }
             });
     },

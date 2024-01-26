@@ -1,10 +1,7 @@
 import useNodeContext from './useNodeContext';
-import { UUID } from '../../../../../types';
-import { selectBranch } from '../../../../branch/branches.selectors';
-import { selectBranchNodes } from '../../../nodes.selectors';
+import { selectBranch, selectDeletedAncestors } from '../../../../branch/branches.selectors';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 export interface BranchChanges {
     isCreated: boolean;
@@ -13,28 +10,15 @@ export interface BranchChanges {
 }
 
 export default function useBranchContext(): BranchChanges {
-    const {
-        treeBranchId, id, isTmp,
-    } = useNodeContext();
-    const { id: originalTreeBranchId } = useParams() as { id: UUID };
+    const { treeBranchId, id } = useNodeContext();
     const branch = useSelector(selectBranch(treeBranchId));
-    const originalBranchNodes = useSelector(selectBranchNodes(originalTreeBranchId));
+    const deletedAncestors = useSelector(selectDeletedAncestors(treeBranchId));
 
     return useMemo(() => {
-        let isCreated = false, isDeleted = false, isOriginalDeleted = false;
-
-        if (branch?.createdNodes?.has(id)) {
-            isCreated = true;
-        } else if (branch?.deletedNodes?.has(id)) {
-            isDeleted = true;
-        } else if (!isTmp && originalBranchNodes && !originalBranchNodes[id]) {
-            isOriginalDeleted = true;
-        }
-
         return {
-            isCreated,
-            isDeleted,
-            isOriginalDeleted,
+            isCreated: branch?.createdNodes?.has(id) ?? false,
+            isDeleted: branch?.deletedNodes?.has(id) ?? false,
+            isOriginalDeleted: deletedAncestors?.has(id) ?? false,
         };
-    }, [branch?.createdNodes, branch?.deletedNodes, id, isTmp, originalBranchNodes]);
+    }, [branch?.createdNodes, branch?.deletedNodes, deletedAncestors, id]);
 }

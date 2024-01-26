@@ -71,7 +71,8 @@ export default function useTreeBuilder(props: Props): Tree {
             } = queue.pop() as QueueItem;
             const isTreeRoot = treeRootId === currentId;
             const isCheckbox = type === TreeType.Checkbox;
-            const isExpanded = isCheckbox
+            const isContributionRequest = type === TreeType.ContributionRequest;
+            const isExpanded = isCheckbox || isContributionRequest
                 || isTreeRoot
                 || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false);
             orderedTreeNodeIds.push(currentId);

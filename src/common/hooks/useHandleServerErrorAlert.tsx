@@ -27,6 +27,9 @@ export default function useHandleServerErrorAlert() {
         case 409:
             message = `Conflict: ${error.message}`;
             break;
+        case 412:
+            message = `Precondition Failed: ${error.message}`;
+            break;
         case 423:
             message = `Resource Locked: ${error.message}`;
             break;
