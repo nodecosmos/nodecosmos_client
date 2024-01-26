@@ -1,10 +1,11 @@
-
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
+import { checkDeletedAncestorConflict } from '../../branch/branches.thunks';
+import useBranchParams from '../../branch/hooks/useBranchParams';
 import { CRPrimaryKey } from '../contributionRequest.types';
 import { mergeContributionRequest } from '../contributionRequests.thunks';
 import {
@@ -21,9 +22,14 @@ export default function ContributionRequestsShowToolbar() {
         id: nodeId,
         contributionRequestId: id,
     } = useParams();
+    const { mainBranchId, branchId } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
     const navigate = useNavigate();
+
+    if (!nodeId) {
+        throw new Error('Missing nodeId');
+    }
 
     const merge = useCallback(async () => {
         const response = await dispatch(mergeContributionRequest({
@@ -36,11 +42,17 @@ export default function ContributionRequestsShowToolbar() {
             handleServerError(error);
             console.error(error);
 
+            dispatch(checkDeletedAncestorConflict({
+                mainBranchId,
+                branchId,
+                nodeId,
+            }));
+
             return;
         }
 
         navigate(`/nodes/${nodeId}`);
-    }, [dispatch, handleServerError, id, navigate, nodeId]);
+    }, [branchId, dispatch, handleServerError, id, mainBranchId, navigate, nodeId]);
 
     return (
         <Box

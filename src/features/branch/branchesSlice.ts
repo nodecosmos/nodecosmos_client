@@ -1,4 +1,4 @@
-import { checkDeletedAncestorConflict } from './branches.thunks';
+import { checkDeletedAncestorConflict, restoreNode } from './branches.thunks';
 import { BranchesState, ConflictStatus } from './branches.types';
 import { showContributionRequest } from '../contribution-requests/contributionRequests.thunks';
 import {
@@ -28,6 +28,7 @@ const branchesSlice = createSlice({
                     isContributionRequest: branch.isContributionRequest,
                     createdNodes: new Set(branch.createdNodes),
                     deletedNodes: new Set(branch.deletedNodes),
+                    restoredNodes: new Set(branch.restoredNodes),
                     editedNodeTitles: new Set(branch.editedNodeTitles),
                     editedNodeDescriptions: new Set(branch.editedNodeDescriptions),
                     editedNodeTreePositions: new Set(branch.editedNodeTreePositions),
@@ -90,6 +91,15 @@ const branchesSlice = createSlice({
                 if (branch) {
                     branch.editedNodeDescriptions ||= new Set();
                     branch.editedNodeDescriptions.add(nodeId);
+                }
+            })
+            .addCase(restoreNode.fulfilled, (state, action) => {
+                const { branchId, nodeId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
+
+                if (branch) {
+                    branch.restoredNodes ||= new Set();
+                    branch.restoredNodes.add(nodeId);
                 }
             })
             .addCase(checkDeletedAncestorConflict.fulfilled, (state, action) => {
