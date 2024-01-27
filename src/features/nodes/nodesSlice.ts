@@ -4,7 +4,7 @@ import {
     getDescription,
     getDescriptionBase64,
     indexNodes,
-    reorder,
+    reorder, showBranchNode,
     showNode,
 } from './nodes.thunks';
 import {
@@ -68,6 +68,7 @@ const nodesSlice = createSlice({
         builder
             .addCase(indexNodes.fulfilled, indexNodesFulfilled)
             .addCase(showNode.fulfilled, showFulfilled)
+            .addCase(showBranchNode.fulfilled, showFulfilled)
             .addCase(create.fulfilled, createFulfilled)
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)

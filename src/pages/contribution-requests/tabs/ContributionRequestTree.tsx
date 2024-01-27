@@ -82,6 +82,10 @@ export default function ContributionRequestTree() {
         });
     }, [branchId, dispatch, isNodeFetched, nodeId]);
 
+    if (!isNodeFetched) {
+        return null;
+    }
+
     return (
         <Box
             display={{

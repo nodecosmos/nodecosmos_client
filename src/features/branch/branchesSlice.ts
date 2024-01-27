@@ -1,6 +1,9 @@
 import { checkDeletedAncestorConflict, restoreNode } from './branches.thunks';
 import { BranchesState, ConflictStatus } from './branches.types';
-import { showContributionRequest } from '../contribution-requests/contributionRequests.thunks';
+import {
+    mergeContributionRequest,
+    showContributionRequest,
+} from '../contribution-requests/contributionRequests.thunks';
 import {
     create, deleteNode, updateDescription, updateTitle,
 } from '../nodes/nodes.thunks';
@@ -123,6 +126,17 @@ const branchesSlice = createSlice({
                 } else if (branch.conflict && !hasNewConflicts) {
                     branch.conflict.status = ConflictStatus.Resolved;
                     branch.conflict.deletedAncestors = null;
+                }
+            })
+            .addCase(mergeContributionRequest.rejected, (state, action) => {
+                const branch = action.payload?.branch;
+
+                if (branch) {
+                    const { conflict } = branch;
+                    state.byId[branch.id].conflict = conflict && {
+                        status: conflict.status,
+                        deletedAncestors: new Set(conflict.deletedAncestors),
+                    };
                 }
             });
     },

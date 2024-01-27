@@ -20,7 +20,6 @@ export default function useNodeRestore() {
         dispatch(checkDeletedAncestorConflict({
             mainBranchId,
             branchId: treeBranchId,
-            nodeId: id,
         }));
     }, [dispatch, id, mainBranchId, treeBranchId]);
 }

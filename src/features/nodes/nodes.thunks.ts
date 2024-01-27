@@ -36,7 +36,7 @@ export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: 
 );
 
 export const showBranchNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rejectValue: NodecosmosError }>(
-    'nodes/showNode',
+    'nodes/showBranchNode',
     async ({ branchId, id }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
         const response = await nodecosmos.get(`/nodes/${id}/${branchId}`);
 

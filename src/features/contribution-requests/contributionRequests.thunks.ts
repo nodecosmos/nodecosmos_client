@@ -122,10 +122,14 @@ export const deleteContributionRequest = createAsyncThunk<
     },
 );
 
+interface MergeRejectValue extends NodecosmosError {
+    branch?: Branch;
+}
+
 export const mergeContributionRequest = createAsyncThunk<
     ContributionRequest,
     CRPrimaryKey,
-    { rejectValue: NodecosmosError }
+    { rejectValue: MergeRejectValue }
 >(
     'contributionRequests/mergeContributionRequest',
     async (payload, { rejectWithValue }) => {

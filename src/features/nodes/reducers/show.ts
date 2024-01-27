@@ -1,10 +1,10 @@
 import { UUID } from '../../../types';
-import { showNode } from '../nodes.thunks';
+import { showBranchNode, showNode } from '../nodes.thunks';
 import { NodeId, NodeState } from '../nodes.types';
 
 export default function showFulfilled(
     state: NodeState,
-    action: ReturnType<typeof showNode.fulfilled>,
+    action: ReturnType<typeof showNode.fulfilled | typeof showBranchNode.fulfilled>,
 ) {
     const { node, descendants } = action.payload;
     const {

@@ -74,7 +74,6 @@ export default function useReorder() {
 
         dispatch(checkDeletedAncestorConflict({
             mainBranchId: mainBranchId as UUID,
-            nodeId: id,
             branchId: treeBranchId,
         }));
 

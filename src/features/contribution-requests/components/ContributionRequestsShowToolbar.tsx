@@ -1,59 +1,14 @@
+import ContributionRequestMergeButton from './ContributionRequestMergeButton';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
-import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
-import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { checkDeletedAncestorConflict } from '../../branch/branches.thunks';
-import useBranchParams from '../../branch/hooks/useBranchParams';
-import { CRPrimaryKey } from '../contributionRequest.types';
-import { mergeContributionRequest } from '../contributionRequests.thunks';
 import {
-    faCodeCommit, faDiagramNested, faListTree, faComments, faCodeMerge,
+    faCodeCommit, faDiagramNested, faListTree, faComments,
 } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Button } from '@mui/material';
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
+import React from 'react';
 
 export default function ContributionRequestsShowToolbar() {
-    const {
-        id: nodeId,
-        contributionRequestId: id,
-    } = useParams();
-    const { mainBranchId, branchId } = useBranchParams();
-    const dispatch: NodecosmosDispatch = useDispatch();
-    const handleServerError = useHandleServerErrorAlert();
-    const navigate = useNavigate();
-
-    if (!nodeId) {
-        throw new Error('Missing nodeId');
-    }
-
-    const merge = useCallback(async () => {
-        const response = await dispatch(mergeContributionRequest({
-            nodeId,
-            id,
-        } as CRPrimaryKey));
-
-        if (response.meta.requestStatus === 'rejected') {
-            const error: NodecosmosError = response.payload as NodecosmosError;
-            handleServerError(error);
-            console.error(error);
-
-            dispatch(checkDeletedAncestorConflict({
-                mainBranchId,
-                branchId,
-                nodeId,
-            }));
-
-            return;
-        }
-
-        navigate(`/nodes/${nodeId}`);
-    }, [branchId, dispatch, handleServerError, id, mainBranchId, navigate, nodeId]);
-
     return (
         <Box
             display="flex"
@@ -101,14 +56,7 @@ export default function ContributionRequestsShowToolbar() {
                     titleAsTooltip={false}
                     to="commits"
                 />
-                <Button
-                    variant="outlined"
-                    className="NodeButton focused"
-                    onClick={merge}
-                    startIcon={<FontAwesomeIcon icon={faCodeMerge} />}
-                >
-                    Merge
-                </Button>
+                <ContributionRequestMergeButton />
             </ToolbarContainer>
         </Box>
     );

@@ -27,13 +27,9 @@ export const restoreNode = createAsyncThunk<Branch, RestoreNodePayload, { reject
     },
 );
 
-interface AncestorConflictPayload extends BranchParams {
-    nodeId: UUID;
-}
-
 export const checkDeletedAncestorConflict = createAsyncThunk<
     Set<UUID> | null,
-    AncestorConflictPayload,
+    BranchParams,
     { state: RootState }
 > (
     'branches/checkConflict',

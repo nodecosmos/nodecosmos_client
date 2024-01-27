@@ -107,6 +107,10 @@ export default function ContributionRequestsList({ nodeId }: Props) {
                             field: 'status',
                             sort: 'asc',
                         },
+                        {
+                            field: 'createdAt',
+                            sort: 'desc',
+                        },
                     ],
                 },
             }}
