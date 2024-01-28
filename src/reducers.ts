@@ -9,6 +9,7 @@ import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
 import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
 import likesSlice from './features/likes/likesSlice';
 import nodesSlice from './features/nodes/nodesSlice';
+import usersSlice from './features/users/usersSlice';
 import workflowsSlice from './features/workflows/workflowsSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 
@@ -25,4 +26,5 @@ export default combineReducers({
     inputOutputs: inputOutputsSlice,
     contributionRequests: contributionRequestSlice,
     branches: branchesSlice,
+    users: usersSlice,
 });
