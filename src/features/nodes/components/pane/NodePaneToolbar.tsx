@@ -18,12 +18,17 @@ import { Typography, Box } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+export enum Page {
+    Nodes = 'nodes',
+    Workflow = 'workflow',
+}
+
 interface NodePaneToolbarProps {
-    page?: 'nodes' | 'workflow';
+    page?: Page;
 }
 
 export default function NodePaneToolbar(props: NodePaneToolbarProps) {
-    const { page = 'nodes' } = props;
+    const { page = Page.Nodes } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const { title } = useSelector(selectSelectedNode);
     const nodePaneContent = useSelector(selectNodePaneContent);
@@ -100,7 +105,7 @@ export default function NodePaneToolbar(props: NodePaneToolbarProps) {
                 </Typography>
             </Box>
             {
-                (page === 'workflow' && <TogglePaneButton />) || <div />
+                (page === Page.Workflow && <TogglePaneButton />) || <div />
             }
         </Box>
     );

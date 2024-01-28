@@ -58,7 +58,7 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
                     position: 'absolute',
                     borderRadius: '50%',
                     top: 16,
-                    right: 24,
+                    right: 64,
                     width: 30,
                     height: 30,
                     p: 0,

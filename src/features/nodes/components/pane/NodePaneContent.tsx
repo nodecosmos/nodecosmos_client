@@ -2,7 +2,7 @@ import NodePaneDescription from './content/NodePaneDescription';
 import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneWorkflow from './content/NodePaneWorkflow';
-import NodePaneToolbar from './NodePaneToolbar';
+import NodePaneToolbar, { Page } from './NodePaneToolbar';
 import usePrevious from '../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface NodePaneProps {
     selected: PKWithTreeBranch;
-    page?: 'nodes' | 'workflow';
+    page?: Page;
 }
 
 export default function NodePaneContent({ page, selected }: NodePaneProps) {

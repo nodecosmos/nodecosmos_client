@@ -38,20 +38,22 @@ export default function NodePaneCoverImage() {
             {coverImageURL && (
                 <Box
                     sx={{
-                        height: 475,
+                        height: 375,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        p: 4,
+                        position: 'relative',
                         '.CoverImage': {
-                            position: 'relative',
-                            maxWidth: '100%',
-                            maxHeight: '100%',
+                            px: 6,
+                            position: 'absolute',
+                            top: 0,
                             '.CoverImageMedia': {
-                                borderRadius: 4,
+                                borderRadius: 6,
                                 maxWidth: '100%',
                                 width: 850,
                                 maxHeight: 375,
+                                borderTopLeftRadius: 0,
+                                borderTopRightRadius: 0,
                             },
                         },
                     }}
@@ -80,7 +82,7 @@ export default function NodePaneCoverImage() {
                                 backgroundColor: 'background.1',
                                 color: 'text.primary',
                                 bottom: 16,
-                                right: 16,
+                                right: 64,
                                 '&:hover': { backgroundColor: 'background.1' },
                             }}
                         >

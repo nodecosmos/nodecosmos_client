@@ -1,11 +1,12 @@
 import NodePaneContent from './NodePaneContent';
+import { Page } from './NodePaneToolbar';
 import { selectSelected } from '../../nodes.selectors';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 interface NodePaneProps {
-    page?: 'nodes' | 'workflow';
+    page?: Page;
 }
 
 export default function NodePane({ page }: NodePaneProps) {

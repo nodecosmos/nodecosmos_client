@@ -3,6 +3,7 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import FlowPane from '../../../flows/components/pane/FlowPane';
 import IOPane from '../../../input-outputs/components/pane/IOPane';
 import NodePane from '../../../nodes/components/pane/NodePane';
+import { Page } from '../../../nodes/components/pane/NodePaneToolbar';
 import { selectSelectedWorkflowObject } from '../../workflow.selectors';
 import { WorkflowDiagramObject } from '../../workflow.types';
 import { Typography, Box } from '@mui/material';
@@ -17,7 +18,7 @@ export default function WorkflowPane() {
     const content = {
         flow: <FlowPane />,
         flowStep: null,
-        node: <NodePane page="workflow" />,
+        node: <NodePane page={Page.Workflow} />,
         io: <IOPane />,
     };
 

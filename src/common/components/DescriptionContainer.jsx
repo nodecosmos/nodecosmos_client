@@ -4,7 +4,7 @@ import React from 'react';
 
 // decide if we want to use width
 export default function DescriptionContainer({
-    children, p, maxWidth, 
+    children, p, maxWidth,
 }) {
     return (
         <Box
@@ -84,7 +84,7 @@ export default function DescriptionContainer({
 }
 
 DescriptionContainer.defaultProps = {
-    p: 4,
+    p: 6,
     width: 1,
     maxWidth: 850,
 };

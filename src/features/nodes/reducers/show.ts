@@ -36,7 +36,7 @@ export default function showFulfilled(
     childIds[id] ||= [];
 
     descendants.forEach((descendant) => {
-        const stateNode = state.byBranchId[treeBranchId][id] || {};
+        const stateNode = state.byBranchId[treeBranchId][descendant.id] || {};
 
         state.byBranchId[treeBranchId][descendant.id] = {
             ...descendant,
