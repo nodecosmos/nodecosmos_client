@@ -1,7 +1,7 @@
 import UserProfileOptions from './UserProfileOptions';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
-import { selectIsAuthenticated } from '../../../authentication/authentication.selectors';
+import { selectIsAuthenticated } from '../../../users/users.selectors';
 import { faBell, faMessages } from '@fortawesome/pro-regular-svg-icons';
 import {
     Box,

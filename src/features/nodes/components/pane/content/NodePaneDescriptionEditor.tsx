@@ -79,7 +79,7 @@ export default function NodePaneDescriptionEditor() {
                 descriptionMarkdown: markdown,
                 descriptionBase64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
             }));
-        }, 1000);
+        }, 500);
     }, [dispatch, treeBranchId, branchId, id, isTmp]);
 
     if (!!descriptionMarkdown && !base64Fetched) return <Loader />;

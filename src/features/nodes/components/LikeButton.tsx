@@ -2,12 +2,12 @@ import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import abbreviateNumber from '../../../utils/abbreviateNumber';
 import { setAlert } from '../../app/appSlice';
-import { selectCurrentUser } from '../../authentication/authentication.selectors';
 import { selectBranchLikes } from '../../likes/likes.selectors';
 import {
     getLikesCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
 import { LikeType } from '../../likes/types';
+import { selectCurrentUser } from '../../users/users.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

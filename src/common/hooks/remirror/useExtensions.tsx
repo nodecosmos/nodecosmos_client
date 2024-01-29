@@ -1,5 +1,5 @@
 import { WS_URI } from '../../../api/nodecosmos-server';
-import { selectCurrentUser } from '../../../features/authentication/authentication.selectors';
+import { selectCurrentUser } from '../../../features/users/users.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
 import React, { useEffect, useMemo } from 'react';
@@ -88,6 +88,10 @@ export default function useExtensions(props: UseExtensionsProps) {
     ], []);
     const [extensions, setExtensions] = React.useState<RemirrorExtensions[]>([]);
     const currentUser = useSelector(selectCurrentUser);
+
+    if (!currentUser) {
+        throw new Error('User not found');
+    }
 
     const doc = useMemo(() => {
         if (!isRealTime) return null;

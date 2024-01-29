@@ -20,10 +20,6 @@ export default function DescriptionContainer({
                     maxWidth,
                     width: 1,
                     color: 'text.secondary',
-                    'h1, h2, h3, h4, h5, h6': {
-                        marginBlockStart: 0,
-                        marginBlockEnd: 2,
-                    },
                     hr: {
                         border: 0,
                         borderBottom: 1,

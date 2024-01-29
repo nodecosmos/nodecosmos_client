@@ -38,17 +38,15 @@ export default function NodePaneCoverImage() {
             {coverImageURL && (
                 <Box
                     sx={{
-                        height: 375,
+                        height: 'auto',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         position: 'relative',
                         '.CoverImage': {
                             px: 6,
-                            position: 'absolute',
-                            top: 0,
                             '.CoverImageMedia': {
-                                borderRadius: 6,
+                                borderRadius: 4,
                                 maxWidth: '100%',
                                 width: 850,
                                 maxHeight: 375,

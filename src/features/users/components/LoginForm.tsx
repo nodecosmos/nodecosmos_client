@@ -1,23 +1,22 @@
-import Field from '../../../common/components/final-form/FinalFormInputField';
+import Field from '../../../common/components/final-form/FinalFormInputField.jsx';
 import useUserAuthentication from '../hooks/useUserAuthentication';
+import { LoginForm } from '../users.thunks';
 import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { Form } from 'react-final-form';
-/* mui */
-/* nodecosmos */
 
-export default function LoginForm() {
+export default function Login() {
     const { handleLogin } = useUserAuthentication();
 
     return (
-        <Form onSubmit={handleLogin} subscription={{ submitting: true }}>
+        <Form<LoginForm> onSubmit={handleLogin} subscription={{ submitting: true }}>
             {({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2} justify="center">
+                    <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <Field
                                 fullWidth
-                                name="username_or_email"
+                                name="usernameOrEmail"
                                 label="username || email"
                                 InputProps={{ autoComplete: 'on' }}
                                 required

@@ -1,8 +1,8 @@
 import NcAvatar from '../../../../common/components/NcAvatar';
 import { NodecosmosDispatch } from '../../../../store';
-import { selectCurrentUser } from '../../../authentication/authentication.selectors';
-import useUserAuthentication from '../../../authentication/hooks/useUserAuthentication';
 import SidebarListItem from '../../../nodes/components/sidebar/SidebarListItem';
+import useUserAuthentication from '../../../users/hooks/useUserAuthentication';
+import { selectCurrentUser } from '../../../users/users.selectors';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
@@ -30,6 +30,10 @@ export default function UserProfileOptions() {
     const handleChange = useCallback((_e: Event, value: number | number[]) => {
         dispatch(setTheme(value));
     }, [dispatch]);
+
+    if (!currentUser) {
+        throw new Error('User not found');
+    }
 
     return (
         <>

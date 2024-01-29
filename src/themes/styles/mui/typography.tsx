@@ -54,5 +54,4 @@ export default (theme: NodecosmosTheme) => ({
         fontSize: '0.75rem',
         fontWeight: 500,
     },
-
 });

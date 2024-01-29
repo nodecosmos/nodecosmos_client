@@ -1,5 +1,4 @@
 import appSlice from './features/app/appSlice';
-import authSlice from './features/authentication/authenticationSlice';
 import branchesSlice from './features/branch/branchesSlice';
 import contributionRequestSlice from './features/contribution-requests/contributionRequestsSlice';
 import flowStepsSlice from './features/flow-steps/flowStepsSlice';
@@ -15,7 +14,6 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 export default combineReducers({
     app: appSlice,
-    auth: authSlice,
     nodes: nodesSlice,
     landingPageNodes: landingPageNodeSlice,
     home: homeSlice,
