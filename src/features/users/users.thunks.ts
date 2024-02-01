@@ -18,7 +18,7 @@ export const logIn = createAsyncThunk<CurrentUser, LoginForm, { rejectValue: Nod
     'users/logIn',
     async (loginForm, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.post('/users/login', loginForm);
+            const response = await nodecosmos.post('/users/session/login', loginForm);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
@@ -54,7 +54,7 @@ export const syncUpCurrentUser = createAsyncThunk<
 >(
     'users/syncUpCurrentUser',
     async (_, {
-        rejectWithValue, dispatch, getState,
+        rejectWithValue, fulfillWithValue, dispatch, getState,
     }) => {
         const state = getState();
         const currentUser = state.users.currentUser;
@@ -64,15 +64,17 @@ export const syncUpCurrentUser = createAsyncThunk<
             return rejectWithValue({ message: 'No current user' });
         }
 
-        if ((Date.now() - Number(currentUser.lastSyncUpAt)) < SYNC_UP_INTERVAL) {
+        if ((Date.now() - currentUser.lastSyncUpAt.getTime()) < SYNC_UP_INTERVAL) {
             if (Object.keys(likes).length === 0) {
-                dispatch(getUserLikes());
+                await dispatch(getUserLikes());
             }
-            return currentUser;
+            return fulfillWithValue({ ...currentUser });
         }
 
         try {
-            const response = await nodecosmos.get('/users/sync');
+            const response = await nodecosmos.get('/users/session/sync');
+            dispatch(getUserLikes());
+
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
@@ -81,8 +83,6 @@ export const syncUpCurrentUser = createAsyncThunk<
 
             console.error(error);
         }
-
-        dispatch(getUserLikes());
     },
 );
 
@@ -90,7 +90,7 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: NodecosmosErro
     'users/logOut',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.delete('/users/sessions/logout');
+            const response = await nodecosmos.delete('/users/session/logout');
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

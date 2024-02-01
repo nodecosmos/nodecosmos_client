@@ -1,5 +1,5 @@
 import useNodeContext from './useNodeContext';
-import { selectBranch, selectDeletedAncestors } from '../../../../branch/branches.selectors';
+import { selectBranch, selectConflict } from '../../../../branch/branches.selectors';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -12,13 +12,23 @@ export interface BranchChanges {
 export default function useBranchContext(): BranchChanges {
     const { treeBranchId, id } = useNodeContext();
     const branch = useSelector(selectBranch(treeBranchId));
-    const deletedAncestors = useSelector(selectDeletedAncestors(treeBranchId));
+    const conflict = useSelector(selectConflict(treeBranchId));
+    const {
+        deletedNodes,
+        createdNodes,
+    } = branch ?? {};
+    const {
+        deletedAncestors,
+        deletedEditedNodes,
+    } = conflict ?? {};
+
+    console.log(deletedEditedNodes);
 
     return useMemo(() => {
         return {
-            isCreated: branch?.createdNodes?.has(id) ?? false,
-            isDeleted: branch?.deletedNodes?.has(id) ?? false,
-            isOriginalDeleted: deletedAncestors?.has(id) ?? false,
+            isCreated: createdNodes?.has(id) ?? false,
+            isDeleted: deletedNodes?.has(id) ?? false,
+            isOriginalDeleted: (deletedAncestors?.has(id) || deletedEditedNodes?.has(id)) ?? false,
         };
-    }, [branch?.createdNodes, branch?.deletedNodes, deletedAncestors, id]);
+    }, [createdNodes, deletedAncestors, deletedEditedNodes, deletedNodes, id]);
 }

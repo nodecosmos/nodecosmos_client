@@ -7,6 +7,7 @@ import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
 import TreeShow from '../../../pages/trees/Show';
 import UserAuthentication from '../../../pages/users/Authentication';
+import UserShow from '../../../pages/users/Show';
 import WorkflowShow from '../../../pages/workflows/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
@@ -47,7 +48,7 @@ export default function App() {
                         <Route
                             path="/auth"
                             element={isAuthenticated
-                                ? <Navigate to={`/users/${currentUser?.username}`} /> : <UserAuthentication />}
+                                ? <Navigate to={`/${currentUser?.username}`} /> : <UserAuthentication />}
                         >
                             <Route path="login" element={<LoginForm />} />
                             <Route path="signup" element={<SignupForm />} />
@@ -69,6 +70,7 @@ export default function App() {
                             <Route path=":id/tasks_board" element={<div />} />
                             <Route path=":id/settings" element={<div />} />
                         </Route>
+                        <Route path=":username" element={<UserShow />} />
                     </Routes>
                 </Box>
 

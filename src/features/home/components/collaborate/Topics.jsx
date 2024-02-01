@@ -184,7 +184,7 @@ export default function Topics() {
                                     alignItems="center"
                                     justifyContent="start"
                                 >
-                                    <NcAvatar model={{ name: row.username }} />
+                                    <NcAvatar name={row.username} />
                                     <Box ml={1}>
                                         <Typography
                                             variant="body2"

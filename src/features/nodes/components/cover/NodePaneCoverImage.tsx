@@ -1,5 +1,4 @@
 import DeleteCoverImageButton from './DeleteCoverImageButton';
-import UploadImageModal from '../../../../common/components/upload/UploadImageModal';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { updateState } from '../../actions';
@@ -12,6 +11,8 @@ import {
 } from '@mui/material';
 import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
 
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -116,7 +117,7 @@ export default function NodePaneCoverImage() {
 
             {modalOpen && (
                 <Suspense>
-                    <UploadImageModal
+                    <UppyUploadImageModal
                         open={modalOpen}
                         onClose={handleClose}
                         endpointPath={`nodes/${id}/${branchId}/upload_cover_image`}

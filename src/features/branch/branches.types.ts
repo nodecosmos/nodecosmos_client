@@ -8,6 +8,7 @@ export enum ConflictStatus {
 export interface Conflict {
     status: ConflictStatus;
     deletedAncestors: Set<UUID> | null;
+    deletedEditedNodes: Set<UUID> | null;
 }
 
 export interface BranchParams {

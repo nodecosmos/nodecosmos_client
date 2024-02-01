@@ -38,7 +38,8 @@ export default function UserProfileOptions() {
     return (
         <>
             <NcAvatar
-                model={{ name: currentUser.username }}
+                src={currentUser.profileImageURL}
+                name={currentUser.username}
                 onClick={handleClick}
                 width={30}
                 height={30}
@@ -66,7 +67,7 @@ export default function UserProfileOptions() {
                 }}
             >
                 <SidebarListItem
-                    to={`/user/${currentUser.username}`}
+                    to={`/${currentUser.username}`}
                     icon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
                     title="Profile"

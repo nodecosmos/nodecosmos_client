@@ -1,4 +1,4 @@
-import { UUID } from '../../types';
+import { Owner, UUID } from '../../types';
 
 export enum ContributionRequestStatus {
     WorkInProgress = 'WORK_IN_PROGRESS',
@@ -20,6 +20,7 @@ export interface ContributionRequest extends CRPrimaryKey {
     descriptionMarkdown?: string;
     createdAt: Date;
     updatedAt: Date;
+    owner: Owner;
 }
 
 export type DescriptionAttrs = Pick<ContributionRequest, 'description' | 'descriptionMarkdown'>;

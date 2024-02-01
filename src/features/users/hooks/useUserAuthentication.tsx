@@ -19,6 +19,7 @@ export default function useUserAuthentication() {
         if (response.meta.requestStatus === 'rejected') {
             const error: NodecosmosError = response.payload as NodecosmosError;
 
+            debugger;
             if (error.status === 404) {
                 dispatch(setAlert({
                     isOpen: true,
@@ -27,6 +28,8 @@ export default function useUserAuthentication() {
                     duration: 5000,
                 }));
             }
+
+            return;
         }
 
         navigate(-1);

@@ -9,7 +9,7 @@ export const selectBranch = (id: UUID) => createSelector(
     (branches) => branches[id],
 );
 
-export const selectDeletedAncestors = (branchId: UUID) => createSelector(
+export const selectConflict = (branchId: UUID) => createSelector(
     selectBranch(branchId),
-    (branch) => branch?.conflict?.deletedAncestors,
+    (branch) => branch?.conflict,
 );

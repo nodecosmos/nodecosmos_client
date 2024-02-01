@@ -1,4 +1,6 @@
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../../store';
+import { NodecosmosError } from '../../../../../types';
 import { checkDeletedAncestorConflict, restoreNode } from '../../../../branch/branches.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import useNodeContext from '../node/useNodeContext';
@@ -10,16 +12,25 @@ export default function useNodeRestore() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id, treeBranchId } = useNodeContext();
     const { mainBranchId } = useBranchParams();
+    const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async () => {
-        await dispatch(restoreNode({
+        const response = await dispatch(restoreNode({
             branchId: treeBranchId,
             nodeId: id,
         }));
+
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
+            handleServerError(error);
+            console.error(error);
+
+            return;
+        }
 
         dispatch(checkDeletedAncestorConflict({
             mainBranchId,
             branchId: treeBranchId,
         }));
-    }, [dispatch, id, mainBranchId, treeBranchId]);
+    }, [dispatch, handleServerError, id, mainBranchId, treeBranchId]);
 }

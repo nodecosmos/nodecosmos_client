@@ -55,7 +55,7 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             flex: 0,
             type: 'object',
             renderCell: (params: GridRenderCellParams<ContributionRequest, Owner>) => {
-                return <NcAvatar scale={0.8} model={{ name: params.value?.name }} />;
+                return <NcAvatar scale={0.8} name={(params.value as Owner).name} />;
             },
         },
         {

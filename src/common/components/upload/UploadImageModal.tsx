@@ -41,7 +41,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             quality: 0.8,
             cropperOptions: {
                 croppedCanvasOptions: {},
-                viewMode: 3,
+                viewMode: 0,
                 aspectRatio,
                 rotatable: false,
             },

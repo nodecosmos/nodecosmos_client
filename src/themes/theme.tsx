@@ -2,7 +2,6 @@ import dark from './dark';
 import dimmed from './dimmed';
 import light from './light';
 import animations from './styles/animations';
-/* mui customizations */
 import card from './styles/card';
 import like from './styles/like';
 import autocomplete from './styles/mui/autocomplete';

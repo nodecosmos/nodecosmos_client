@@ -2,8 +2,11 @@ import {
     showUserByUsername,
     logIn, logOut, syncUpCurrentUser,
 } from './users.thunks';
-import { CurrentUser, UserState } from './users.types';
-import { createSlice } from '@reduxjs/toolkit';
+import {
+    CurrentUser, UpdateUserStatePayload, UserState,
+} from './users.types';
+import { updatePropertiesOf } from '../../utils/object';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 function getCurrentUser(): CurrentUser | null {
     const user = localStorage.getItem('currentUser');
@@ -19,7 +22,7 @@ function getCurrentUser(): CurrentUser | null {
 }
 
 const initialState: UserState = {
-    byId: {},
+    byUsername: {},
     isAuthenticated: Boolean(localStorage.getItem('currentUser')),
     currentUser: getCurrentUser(),
 };
@@ -27,29 +30,55 @@ const initialState: UserState = {
 const usersSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        updateUserState(state: UserState, action: PayloadAction<UpdateUserStatePayload>) {
+            const { username } = action.payload;
+            state.byUsername[username] = {
+                ...state.byUsername[username],
+                ...action.payload,
+            };
+
+            if (state.currentUser && state.currentUser?.id === state.byUsername[username].id) {
+                updatePropertiesOf<CurrentUser, UpdateUserStatePayload>(state.currentUser, state.byUsername[username]);
+
+                localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(logIn.fulfilled, (state, action) => {
                 const user = action.payload;
                 user.lastSyncUpAt = new Date();
 
-                localStorage.setItem('currentUser', JSON.stringify(user));
-
                 state.isAuthenticated = true;
                 state.currentUser = user;
+
+                localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
             })
             .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
                 const user = action.payload;
 
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                if (user) {
+                    state.currentUser = {
+                        ...user,
+                        lastSyncUpAt: new Date(),
+                    };
 
-                state.currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+                } else {
+                    state.currentUser = null;
+                    localStorage.removeItem('currentUser');
+                }
+            })
+            .addCase(syncUpCurrentUser.rejected, (state) => {
+                state.currentUser = null;
+                localStorage.removeItem('currentUser');
             })
             .addCase(showUserByUsername.fulfilled, (state, action) => {
                 const user = action.payload;
 
-                state.byId[user.id] = user;
+                state.byUsername[user.username] = user;
             })
             .addCase(logOut.fulfilled, (state) => {
                 localStorage.removeItem('currentUser');
@@ -59,5 +88,7 @@ const usersSlice = createSlice({
             });
     },
 });
+
+export const { updateUserState } = usersSlice.actions;
 
 export default usersSlice.reducer;

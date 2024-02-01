@@ -3,9 +3,9 @@ import { createSelector } from '@reduxjs/toolkit';
 
 export const selectIsAuthenticated = (state: RootState) => state.users.isAuthenticated;
 export const selectCurrentUser = (state: RootState) => state.users.currentUser;
-export const selectUsersById = (state: RootState) => state.users.byId;
+export const selectUsersByUsername = (state: RootState) => state.users.byUsername;
 
-export const selectUser = (id: string) => createSelector(
-    selectUsersById,
-    (usersById) => usersById[id],
+export const selectUser = (username: string) => createSelector(
+    selectUsersByUsername,
+    (users) => users[username],
 );

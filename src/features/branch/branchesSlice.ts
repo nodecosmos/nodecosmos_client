@@ -53,6 +53,7 @@ const branchesSlice = createSlice({
                     conflict: conflict && {
                         status: conflict.status,
                         deletedAncestors: new Set(conflict.deletedAncestors),
+                        deletedEditedNodes: new Set(conflict.deletedEditedNodes),
                     },
                 };
             })
@@ -122,6 +123,7 @@ const branchesSlice = createSlice({
                     branch.conflict = {
                         status: ConflictStatus.Pending,
                         deletedAncestors,
+                        deletedEditedNodes: new Set(),
                     };
                 } else if (branch.conflict && !hasNewConflicts) {
                     branch.conflict.status = ConflictStatus.Resolved;
@@ -136,6 +138,7 @@ const branchesSlice = createSlice({
                     state.byId[branch.id].conflict = conflict && {
                         status: conflict.status,
                         deletedAncestors: new Set(conflict.deletedAncestors),
+                        deletedEditedNodes: new Set(conflict.deletedEditedNodes),
                     };
                 }
             });

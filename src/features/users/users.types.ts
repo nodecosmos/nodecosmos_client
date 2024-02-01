@@ -16,7 +16,7 @@ export interface User {
     password: string;
     bio: string;
     profileImageFilename: string;
-    profileImageUrl: string;
+    profileImageURL: string;
     isConfirmed: boolean;
     isBlocked: boolean;
     address: Address;
@@ -36,8 +36,10 @@ export interface CurrentUser extends Omit<User, 'password' | 'address' | 'bio' |
     lastSyncUpAt: Date;
 }
 
+export type UpdateUserStatePayload = Pick<User, 'username'> & Partial<User>;
+
 export interface UserState {
-    byId: Record<UUID, User>;
+    byUsername: { [username: string]: User };
     isAuthenticated: boolean;
     currentUser: CurrentUser | null;
 }

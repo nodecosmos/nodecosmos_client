@@ -4,12 +4,11 @@ import React from 'react';
 /* mui */
 
 export default function NcAvatar({
-    model, onClick, backgroundColor, scale, width, height, fontSize, 
+    name, src, onClick, backgroundColor, scale, width, height, fontSize,
 }) {
-    const letter = model?.name?.charAt(0)?.toUpperCase();
-
     return (
         <Avatar
+            src={src}
             onClick={onClick}
             sx={{
                 transform: `scale(${scale})`,
@@ -21,7 +20,7 @@ export default function NcAvatar({
                 cursor: 'pointer',
             }}
         >
-            {letter}
+            {name?.charAt(0)?.toUpperCase()}
         </Avatar>
     );
 }
@@ -33,14 +32,16 @@ NcAvatar.defaultProps = {
     width: 40,
     height: 40,
     fontSize: 20,
+    src: null,
 };
 
 NcAvatar.propTypes = {
+    name: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string,
-    model: PropTypes.object.isRequired,
     onClick: PropTypes.func,
     scale: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
     fontSize: PropTypes.number,
+    src: PropTypes.string,
 };
