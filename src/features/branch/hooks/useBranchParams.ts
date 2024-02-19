@@ -2,7 +2,11 @@ import { UUID } from '../../../types';
 import { BranchParams } from '../branches.types';
 import { useParams } from 'react-router-dom';
 
-export default function useBranchParams(): BranchParams {
+interface UseBranchParams extends BranchParams {
+    isBranched: boolean;
+}
+
+export default function useBranchParams(): UseBranchParams {
     const { id: mainBranchId } = useParams<{ id: UUID }>();
     let { contributionRequestId: branchId } = useParams<{ contributionRequestId: UUID }>();
 
@@ -11,6 +15,7 @@ export default function useBranchParams(): BranchParams {
     }
 
     return {
+        isBranched: mainBranchId !== branchId,
         mainBranchId: mainBranchId as UUID,
         branchId,
     };

@@ -22,8 +22,6 @@ export default function useBranchContext(): BranchChanges {
         deletedEditedNodes,
     } = conflict ?? {};
 
-    console.log(deletedEditedNodes);
-
     return useMemo(() => {
         return {
             isCreated: createdNodes?.has(id) ?? false,

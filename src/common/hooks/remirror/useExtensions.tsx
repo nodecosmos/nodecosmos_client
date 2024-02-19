@@ -28,12 +28,26 @@ import {
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';
 
-interface UseExtensionsProps {
-    isRealTime?: boolean;
-    base64?: string | null;
-    wsAuthNodeId?: UUID;
-    wsAuthNodeBranchId?: UUID;
-    wsRoomId?: UUID;
+// sort alphabetically
+export enum EnabledExtensions {
+    Blockquote = 'blockquote',
+    Bold = 'bold',
+    BulletList = 'bulletList',
+    Code = 'code',
+    CodeBlock = 'codeBlock',
+    File = 'file',
+    HardBreak = 'hardBreak',
+    Heading = 'heading',
+    Image = 'image',
+    Italic = 'italic',
+    Link = 'link',
+    ListItem = 'listItem',
+    Markdown = 'markdown',
+    OrderedList = 'orderedList',
+    Placeholder = 'placeholder',
+    Strike = 'strike',
+    TaskList = 'taskList',
+    TrailingNode = 'trailingNode',
 }
 
 export type RemirrorExtensions = BlockquoteExtension
@@ -55,6 +69,39 @@ export type RemirrorExtensions = BlockquoteExtension
     | TrailingNodeExtension
     | YjsExtension
 
+const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
+    [EnabledExtensions.Link]: () => new LinkExtension(),
+    [EnabledExtensions.Placeholder]: () => new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
+    [EnabledExtensions.Bold]: () => new BoldExtension(),
+    [EnabledExtensions.Strike]: () => new StrikeExtension(),
+    [EnabledExtensions.Italic]: () => new ItalicExtension(),
+    [EnabledExtensions.Heading]: () => new HeadingExtension(),
+    [EnabledExtensions.Blockquote]: () => new BlockquoteExtension(),
+    [EnabledExtensions.BulletList]: () => new BulletListExtension({ enableSpine: true }),
+    [EnabledExtensions.OrderedList]: () => new OrderedListExtension(),
+    [EnabledExtensions.ListItem]: () => new ListItemExtension({
+        priority: ExtensionPriority.High,
+        enableCollapsible: true,
+    }),
+    [EnabledExtensions.TrailingNode]: () => new TrailingNodeExtension(),
+    [EnabledExtensions.Markdown]: () => new MarkdownExtension(),
+    [EnabledExtensions.Code]: () => new CodeExtension(),
+    [EnabledExtensions.CodeBlock]: () => new CodeBlockExtension(),
+    [EnabledExtensions.Image]: () => new ImageExtension(),
+    [EnabledExtensions.HardBreak]: () => new HardBreakExtension(),
+    [EnabledExtensions.TaskList]: () => new TaskListExtension(),
+    [EnabledExtensions.File]: () => new LinkExtension(),
+};
+
+interface UseExtensionsProps {
+    isRealTime?: boolean;
+    base64?: string | null;
+    wsAuthNodeId?: UUID;
+    wsAuthNodeBranchId?: UUID;
+    wsRoomId?: UUID;
+    enabledExtensions?: EnabledExtensions[];
+}
+
 export default function useExtensions(props: UseExtensionsProps) {
     const {
         isRealTime,
@@ -62,31 +109,18 @@ export default function useExtensions(props: UseExtensionsProps) {
         wsAuthNodeId,
         wsAuthNodeBranchId,
         wsRoomId,
+        enabledExtensions,
     } = props;
 
-    const baseExtensions = useMemo(() => [
-        new LinkExtension({ autoLink: true }),
-        new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
-        new BoldExtension(),
-        new StrikeExtension(),
-        new ItalicExtension(),
-        new HeadingExtension(),
-        new BlockquoteExtension(),
-        new BulletListExtension({ enableSpine: true }),
-        new OrderedListExtension(),
-        new ListItemExtension({
-            priority: ExtensionPriority.High,
-            enableCollapsible: true,
-        }),
-        new TrailingNodeExtension(),
-        new MarkdownExtension(),
-        new CodeExtension(),
-        new CodeBlockExtension(),
-        new ImageExtension(),
-        new HardBreakExtension(),
-        new TaskListExtension(),
-    ], []);
-    const [extensions, setExtensions] = React.useState<RemirrorExtensions[]>([]);
+    const baseExtensions = useMemo(() => {
+        if (enabledExtensions) {
+            return enabledExtensions.map(extension => extensionMap[extension]()).filter(Boolean);
+        } else {
+            // Return all extensions if none are specifically enabled
+            return Object.values(extensionMap).map(extension => extension()).filter(Boolean);
+        }
+    }, [enabledExtensions]);
+    const [initExtensions, setExtensions] = React.useState<RemirrorExtensions[]>([]);
     const currentUser = useSelector(selectCurrentUser);
 
     if (!currentUser) {
@@ -128,8 +162,7 @@ export default function useExtensions(props: UseExtensionsProps) {
 
             provider.on('status', (event: {status: string}) => {
                 if (event.status === 'connected') {
-                    const extensions = [...baseExtensions, yjsExtension];
-                    setExtensions(extensions);
+                    setExtensions([...baseExtensions, yjsExtension]);
                 }
             });
 
@@ -142,7 +175,7 @@ export default function useExtensions(props: UseExtensionsProps) {
     }, [baseExtensions, isRealTime, provider]);
 
     return {
-        extensions,
+        extensions: initExtensions,
         doc,
     };
 }

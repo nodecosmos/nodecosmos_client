@@ -11,25 +11,17 @@ export default function NodePaneDescription() {
 
     if (!selectedNodePk) return null;
 
-    const nodeNotSelectedContent = (
-        <Typography color="text.secondary" align="center" fontSize={30}>
-      ¯\_(ツ)_/¯
-        </Typography>
-    );
-
-    const nodeHasNoDescriptionContent = (
+    const blankDescription = (
         <Typography color="text.secondary">
             This node has no description yet.
         </Typography>
     );
 
-    const blankDescription = (selectedNodePk && nodeHasNoDescriptionContent) || nodeNotSelectedContent;
-
     return (
         <div>
             <NodePaneCoverImage />
             <DescriptionContainer>
-                {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || blankDescription}
+                {description ? <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} /> : blankDescription}
             </DescriptionContainer>
         </div>
     );

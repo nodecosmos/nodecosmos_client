@@ -170,6 +170,13 @@ const theme: NodecosmosTheme = {
             gutterActiveForeground: '#bec8d8',
         },
 
+        diff: {
+            addedBg: 'rgba(177, 244, 122, 0.3)',
+            addedFg: '#b1f47a',
+            removedBg: 'rgba(255,0,0,0.24)',
+            removedFg: '#fd526f',
+        },
+
         logo: {
             blue: '#2adfff',
             red: '#e91e63',

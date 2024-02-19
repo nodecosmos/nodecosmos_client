@@ -16,10 +16,25 @@ export interface BranchParams {
     branchId: UUID; // either id of the current node or id of the contribution request, depending on the context
 }
 
+// TextChange is used to store the old and new values of a text field at time of merge
+export interface TextChange {
+    old: string;
+    new: string;
+}
+
+export enum BranchStatus {
+    Open = 'OPEN',
+    Merged = 'MERGED',
+    Recovered = 'RECOVERED',
+    RecoveryFailed = 'RECOVERY_FAILED',
+    Closed = 'CLOSED',
+}
+
 export interface Branch {
     id: UUID;
     title: string;
     description: string;
+    status: BranchStatus;
     ownerId: UUID;
     owner: Owner;
     editorIds?: UUID[];
@@ -45,6 +60,8 @@ export interface Branch {
     deletedFlowSteps: Set<UUID>;
     createdFlowStepInputsByNode: Record<UUID, Set<UUID>>;
     deletedFlowStepInputsByNode: Record<UUID, Set<UUID>>;
+    titleChangeByObject: Record<UUID, TextChange>;
+    descriptionChangeByObject: Record<UUID, TextChange>;
     conflict?: Conflict;
 }
 

@@ -104,10 +104,6 @@ export default function ContributionRequestsList({ nodeId }: Props) {
                 sorting: {
                     sortModel: [
                         {
-                            field: 'status',
-                            sort: 'asc',
-                        },
-                        {
                             field: 'createdAt',
                             sort: 'desc',
                         },

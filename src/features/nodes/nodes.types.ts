@@ -45,7 +45,6 @@ export interface NodeTreeAttributes {
     treeRootId: UUID;
     isEditing?: boolean;
     isDragOver?: boolean;
-    isJustCreated?: boolean;
     isCreationInProgress?: boolean;
     childIds: UUID[];
 }

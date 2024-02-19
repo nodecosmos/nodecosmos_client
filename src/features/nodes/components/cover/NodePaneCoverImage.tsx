@@ -45,6 +45,7 @@ export default function NodePaneCoverImage() {
                         alignItems: 'center',
                         position: 'relative',
                         '.CoverImage': {
+                            position: 'relative',
                             px: 6,
                             '.CoverImageMedia': {
                                 borderRadius: 4,

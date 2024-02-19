@@ -1,7 +1,7 @@
 import RemirrorClickable from './RemirrorClickable';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
-import { RemirrorExtensions } from '../../hooks/remirror/useExtensions';
+import { EnabledExtensions, RemirrorExtensions } from '../../hooks/remirror/useExtensions';
 import DescriptionContainer from '../DescriptionContainer';
 import { RemirrorEventListenerProps } from '@remirror/core';
 import {
@@ -15,11 +15,13 @@ interface RemirrorEditorWrapperProps {
     setInitialContent: boolean;
     markdown: string;
     onChange?: (props: RemirrorEventListenerProps<MarkdownExtension>) => void;
+    enabledExtensions?: EnabledExtensions[];
+
 }
 
 export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps) {
     const {
-        extensions, setInitialContent, markdown, onChange,
+        extensions, setInitialContent, markdown, onChange, enabledExtensions,
     } = props;
 
     const { manager, state } = useRemirror<RemirrorExtensions>({
@@ -36,7 +38,7 @@ export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps)
                 autoFocus
                 onChange={onChange}
             >
-                <RemirrorEditorToolbar />
+                <RemirrorEditorToolbar enabledExtensions={enabledExtensions} />
                 <RemirrorClickable>
                     <DescriptionContainer width={1} maxWidth={'100%'}>
                         <EditorComponent />

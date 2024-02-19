@@ -1,9 +1,10 @@
+import { NodecosmosTheme } from '../../../themes/type';
 import { tags as t } from '@lezer/highlight';
 import { useTheme } from '@mui/material';
 import { createTheme } from '@uiw/codemirror-themes';
 
 export default function useCodeMirrorTheme() {
-    const theme = useTheme();
+    const theme: NodecosmosTheme = useTheme();
 
     const {
         tagName,
@@ -28,7 +29,7 @@ export default function useCodeMirrorTheme() {
         gutterActiveForeground,
     } = theme.palette.markdownEditor;
 
-    const codeMirrorTheme = createTheme({
+    return createTheme({
         theme: 'dark',
         settings: {
             background: 'transparent',
@@ -92,6 +93,4 @@ export default function useCodeMirrorTheme() {
             },
         ],
     });
-
-    return codeMirrorTheme;
 }

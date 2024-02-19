@@ -12,7 +12,6 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             ...action.payload,
             persistedId: id,
             isCreationInProgress: false,
-            isJustCreated: true,
             isTmp: false,
             isEditing: false,
         };

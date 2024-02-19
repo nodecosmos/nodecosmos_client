@@ -40,7 +40,7 @@ const theme: NodecosmosTheme = {
             contrastText: '#fff',
         },
 
-        secondary: { main: '#58b1ff' },
+        secondary: { main: '#afbcef' },
 
         error: {
             main: '#f56565',
@@ -94,7 +94,7 @@ const theme: NodecosmosTheme = {
 
             list: {
                 defaultColor: '#525264',
-                activeColor: '#0a68ff',
+                activeColor: '#3ba0ff',
             },
 
             paper: '#fcfbfe',
@@ -103,7 +103,7 @@ const theme: NodecosmosTheme = {
 
         toolbar: {
             red: '#ff7878',
-            green: '#c1e68c',
+            green: '#a4d166',
             blue: '#0095ff',
             lightRed: '#ff8686',
             pink: '#bb7eaf',
@@ -117,7 +117,7 @@ const theme: NodecosmosTheme = {
         },
 
         tree: {
-            default: '#f0f2f5',
+            default: '#f0edf5',
             defaultBorder: '#e0e0f0',
             backgrounds: [
                 '#ff5866',
@@ -171,8 +171,8 @@ const theme: NodecosmosTheme = {
         },
 
         logo: {
-            blue: '#58b1ff',
-            red: '#ff3687',
+            blue: '#23b9ff',
+            red: '#fd526f',
         },
 
         text: {

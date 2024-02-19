@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 /* nodecosmos */
 
-const RemirrorEditor = React.lazy(() => import('../../../../../common/components/remirror/RemirrorEditor'));
+const RemirrorEditor = React.lazy(() => import('../../../../../common/components/editor/RemirrorEditor'));
 
 const loading = (
     <Box display="flex" alignItems="center" justifyContent="center" mb={8}>

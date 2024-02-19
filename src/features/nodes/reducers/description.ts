@@ -10,7 +10,7 @@ export function getDescriptionFulfilled(
         id, description, descriptionMarkdown, coverImageURL,
     } = action.payload;
 
-    state.byBranchId[treeBranchId][id].description = description as string | null;
+    state.byBranchId[treeBranchId][id].description = description || 'This node has no description yet!';
     state.byBranchId[treeBranchId][id].descriptionMarkdown = descriptionMarkdown as string | null;
     state.byBranchId[treeBranchId][id].coverImageURL = coverImageURL as string | null;
 }

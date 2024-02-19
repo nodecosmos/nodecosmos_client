@@ -2,7 +2,7 @@ import {
     create,
     deleteNode,
     getDescription,
-    getDescriptionBase64,
+    getDescriptionBase64, getOriginalDescription,
     indexNodes,
     reorder, showBranchNode,
     showNode,
@@ -73,6 +73,7 @@ const nodesSlice = createSlice({
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)
             .addCase(getDescription.fulfilled, getDescriptionFulfilled)
+            .addCase(getOriginalDescription.fulfilled, getDescriptionFulfilled)
             .addCase(getDescriptionBase64.fulfilled, getDescriptionBase64Fulfilled)
             .addCase(getLikesCount.fulfilled, getLikesCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)

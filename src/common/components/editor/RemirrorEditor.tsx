@@ -1,6 +1,6 @@
 import RemirrorEditorWrapper from './RemirrorEditorWrapper';
 import { UUID } from '../../../types';
-import useExtensions from '../../hooks/remirror/useExtensions';
+import useExtensions, { EnabledExtensions } from '../../hooks/remirror/useExtensions';
 import { HelpersFromExtensions, RemirrorEventListenerProps } from '@remirror/core';
 import React, { useCallback } from 'react';
 import { MarkdownExtension } from 'remirror/extensions';
@@ -14,11 +14,13 @@ interface RemirrorEditorProps {
     wsAuthNodeId?: UUID;
     wsAuthNodeBranchId?: UUID;
     isRealTime?: boolean;
+    extensions?: EnabledExtensions[];
 }
 
 export default function RemirrorEditor(props: RemirrorEditorProps) {
     const {
-        markdown, onChange, wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId, isRealTime,
+        markdown, onChange, wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId,
+        isRealTime, extensions: enabledExtensions,
     } = props;
 
     const { extensions, doc } = useExtensions({
@@ -27,6 +29,7 @@ export default function RemirrorEditor(props: RemirrorEditorProps) {
         wsAuthNodeId,
         wsAuthNodeBranchId,
         wsRoomId,
+        enabledExtensions,
     });
 
     const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
@@ -48,6 +51,7 @@ export default function RemirrorEditor(props: RemirrorEditorProps) {
             markdown={markdown}
             onChange={handleChange}
             setInitialContent={!base64}
+            enabledExtensions={enabledExtensions}
         />
     );
 }

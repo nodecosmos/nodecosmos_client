@@ -1,5 +1,6 @@
 import useHandleServerErrorAlert from '../../common/hooks/useHandleServerErrorAlert';
-import ProfileImage from '../../features/users/components/profile-image/ProfileImage';
+import { SIDEBAR_WIDTH } from '../../features/app/constants';
+import Profile from '../../features/users/components/profile/Profile';
 import useUsername from '../../features/users/hooks/useUsername';
 import { selectUser } from '../../features/users/users.selectors';
 import { showUserByUsername } from '../../features/users/users.thunks';
@@ -36,14 +37,16 @@ export default function Show() {
     useEffect(() => { showUser(); }, [showUser]);
 
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            mt: 4,
-        }}>
-            <ProfileImage />
+        <Box height={1} display="flex">
+            <Box
+                width={SIDEBAR_WIDTH}
+                borderRight={1}
+                height={1}
+                borderColor="borders.1"
+            />
+            <Box m={4} width={1}>
+                <Profile />
+            </Box>
         </Box>
     );
 }

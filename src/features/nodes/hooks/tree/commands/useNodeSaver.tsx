@@ -2,7 +2,8 @@ import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServ
 import { NodecosmosDispatch } from '../../../../../store';
 import { NodecosmosError } from '../../../../../types';
 import {
-    clearJustCreatedNode, replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
+    clearJustCreatedNode,
+    replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
 } from '../../../actions';
 import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
 import { selectNodeAttribute, selectSaveInProgress } from '../../../nodes.selectors';
@@ -20,7 +21,6 @@ export default function useNodeSaver() {
     const { type: treeType } = useTreeContext();
     const {
         isTmp,
-        isJustCreated,
         treeBranchId,
         branchId,
         id,
@@ -135,7 +135,6 @@ export default function useNodeSaver() {
             treeBranchId,
             id,
             isEditing: false,
-            isJustCreated: false,
         }));
         setShouldReplaceTmpNode(true);
     }, [dispatch, id, treeBranchId]);
@@ -152,18 +151,11 @@ export default function useNodeSaver() {
 
     useEffect(() => {
         return () => {
-            if (isJustCreated) {
-                dispatch(updateState({
-                    treeBranchId,
-                    id,
-                    isEditing: false,
-                    isJustCreated: false,
-                }));
-
+            if (persistedId) {
                 dispatch(clearJustCreatedNode());
             }
         };
-    }, [dispatch, id, isJustCreated, isTmp, persistedId, treeBranchId]);
+    }, [dispatch, persistedId]);
 
     //------------------------------------------------------------------------------------------------------------------
     return {

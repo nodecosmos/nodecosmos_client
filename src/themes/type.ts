@@ -131,8 +131,36 @@ interface Palette {
         background: string;
     };
     markdownEditor: {
-        [key: string]: string;
+        tagName: string;
+        string: string;
+        number: string;
+        attributeName: string;
+        className: string;
+        operator: string;
+        bracket: string;
+        caret: string;
+        heading: string;
+        emphasis: string;
+        quote: string;
+        meta: string;
+        link: string;
+        background: string;
+        foreground: string;
+        selection: string;
+        selectionMatch: string;
+        lineHighlight: string;
+        gutterBackground: string;
+        gutterForeground: string;
+        gutterActiveForeground: string;
     };
+
+    diff: {
+        addedBg: string;
+        addedFg: string;
+        removedBg: string;
+        removedFg: string;
+    };
+
     logo: {
         blue: string;
         red: string;
@@ -163,5 +191,11 @@ declare module '@mui/material/IconButton' {
         toggle: true;
         buttonContrast: true;
         button: true;
+    }
+}
+
+declare module '@mui/material/Box' {
+    interface SystemPropsOverrides {
+        opacity: true;
     }
 }

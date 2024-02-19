@@ -27,6 +27,14 @@ export default function CodeMirrorContainer({ children }) {
                 height: 1,
                 ml: 1,
             },
+            '.diff-added': {
+                backgroundColor: 'diff.addedBg',
+                color: 'diff.addedFg',
+            },
+            '.diff-removed': {
+                backgroundColor: 'diff.removedBg',
+                color: 'diff.removedFg',
+            },
             '.cm-line': { width: 'calc(100% - 8px)' },
             '.cm-focused': { outline: 'none!important' },
             '.cm-lineNumbers': {

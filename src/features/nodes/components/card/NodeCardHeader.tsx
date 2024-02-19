@@ -19,17 +19,17 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                 }}
                 avatar={(
                     <Box display="flex" alignItems="center" zIndex={1} position="relative">
-                        <Link component={RouterLink} to={`/users/${node.owner.id}`}>
+                        <Link component={RouterLink} to={`/${node.owner.username}`}>
                             <NcAvatar name={node.owner.name} src={node.owner.profileImageURL} />
                         </Link>
-                        <Link component={RouterLink} to={`/users/${node.owner.id}`}>
+                        <Link component={RouterLink} to={`/${node.owner.username}`}>
                             <Typography variant="h6" color="text.primary" ml={1} fontWeight="bold">
                                 {node.owner.name}
                             </Typography>
                         </Link>
                         <Link
                             component={RouterLink}
-                            to={`/users/${node.owner.id}`}
+                            to={`/${node.owner.username}`}
                             sx={{ '&:hover h6': { color: 'text.link' } }}
                         >
                             {node.owner.username && (

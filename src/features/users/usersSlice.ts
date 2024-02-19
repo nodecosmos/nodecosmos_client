@@ -1,6 +1,6 @@
 import {
     showUserByUsername,
-    logIn, logOut, syncUpCurrentUser,
+    logIn, logOut, syncUpCurrentUser, updateBio,
 } from './users.thunks';
 import {
     CurrentUser, UpdateUserStatePayload, UserState,
@@ -85,6 +85,11 @@ const usersSlice = createSlice({
 
                 state.isAuthenticated = false;
                 state.currentUser = null;
+            })
+            .addCase(updateBio.fulfilled, (state, action) => {
+                const { username, bio } = action.payload;
+
+                state.byUsername[username].bio = bio;
             });
     },
 });

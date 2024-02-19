@@ -4,14 +4,14 @@ import React from 'react';
 
 // decide if we want to use width
 export default function DescriptionContainer({
-    children, p, maxWidth,
+    children, p, maxWidth, justifyContent,
 }) {
     return (
         <Box
             p={p}
             sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent,
             }}
         >
             <Box
@@ -29,7 +29,7 @@ export default function DescriptionContainer({
                         m: 0,
                         backgroundColor: 'markdownContent.canvas',
                         borderRadius: 1,
-                        borderLeft: 4,
+                        borderLeft: 8,
                         p: 1,
                         pl: 2,
                         borderColor: 'markdownContent.border',
@@ -83,10 +83,12 @@ DescriptionContainer.defaultProps = {
     p: 6,
     width: 1,
     maxWidth: 850,
+    justifyContent: 'center',
 };
 
 DescriptionContainer.propTypes = {
     children: PropTypes.node.isRequired,
     p: PropTypes.number,
     maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    justifyContent: PropTypes.string,
 };

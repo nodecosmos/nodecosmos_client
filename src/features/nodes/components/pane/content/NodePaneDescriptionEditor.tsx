@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
 const RemirrorEditor = React.lazy(
-    () => import('../../../../../common/components/remirror/RemirrorEditor'),
+    () => import('../../../../../common/components/editor/RemirrorEditor'),
 );
 
 export default function NodePaneDescriptionEditor() {

@@ -3,55 +3,62 @@ import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneWorkflow from './content/NodePaneWorkflow';
 import NodePaneToolbar, { Page } from './NodePaneToolbar';
+import Loader from '../../../../common/components/Loader';
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import usePrevious from '../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { setNodePaneContent } from '../../actions';
 import {
-    selectNodeAttribute,
-    selectNodePaneContent,
+    selectNodePaneContent, selectSelected, selectSelectedNode,
 } from '../../nodes.selectors';
 import { getDescription } from '../../nodes.thunks';
-import { NodePaneContent as NodePaneContentType, PKWithTreeBranch } from '../../nodes.types';
+import { NodePaneContent, NodePaneContent as NodePaneContentType } from '../../nodes.types';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface NodePaneProps {
-    selected: PKWithTreeBranch;
     page?: Page;
 }
 
-export default function NodePaneContent({ page, selected }: NodePaneProps) {
-    const dispatch: NodecosmosDispatch = useDispatch();
+const NODE_PANE_CONTENTS = {
+    [NodePaneContent.Description]: NodePaneDescription,
+    [NodePaneContent.Markdown]: NodePaneMarkdownEditor,
+    [NodePaneContent.Editor]: NodePaneDescriptionEditor,
+    [NodePaneContent.Workflow]: NodePaneWorkflow,
+};
+
+export default function Content({ page }: NodePaneProps) {
+    const selectedPk = useSelector(selectSelected);
+    if (!selectedPk) {
+        throw new Error('NodePaneContent: selected node is required');
+    }
+
+    const nodePaneContent = useSelector(selectNodePaneContent);
+    const {
+        rootId, isTmp, title, description,
+    } = useSelector(selectSelectedNode);
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const PaneContent = NODE_PANE_CONTENTS[nodePaneContent];
     const {
         treeBranchId, branchId, id,
-    } = selected;
-    const rootId = useSelector(selectNodeAttribute(treeBranchId, id, 'rootId'));
-    const isTmp = useSelector(selectNodeAttribute(treeBranchId, id, 'isTmp'));
-    const title = useSelector(selectNodeAttribute(treeBranchId, id, 'title'));
-    const nodePaneContent = useSelector(selectNodePaneContent);
-
-    const nodePaneContents = {
-        description: NodePaneDescription,
-        markdown: NodePaneMarkdownEditor,
-        editor: NodePaneDescriptionEditor,
-        workflow: NodePaneWorkflow,
-    };
-
-    const SelectedComponent = nodePaneContents[nodePaneContent];
-
+    } = selectedPk;
     const prevSelectedNodeId = usePrevious(id);
+    const dispatch: NodecosmosDispatch = useDispatch();
 
     useEffect(() => {
-        if (id && rootId && !isTmp) {
+        if (id && rootId && !isTmp && !description && !loading) {
+            setLoading();
             dispatch(getDescription({
                 treeBranchId,
                 branchId,
                 id,
-            }));
+            })).finally(() => {
+                setTimeout(unsetLoading, 250);
+            });
         }
-    }, [branchId, dispatch, id, isTmp, rootId, treeBranchId]);
+    }, [branchId, description, dispatch, id, isTmp, loading, rootId, setLoading, treeBranchId, unsetLoading]);
 
     useEffect(() => {
         if (prevSelectedNodeId !== id && nodePaneContent !== NodePaneContentType.Workflow) {
@@ -106,7 +113,11 @@ export default function NodePaneContent({ page, selected }: NodePaneProps) {
         >
             <NodePaneToolbar page={page} />
             <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
-                <SelectedComponent />
+                {
+                    loading
+                        ? <Loader />
+                        : <PaneContent />
+                }
             </Box>
         </Box>
     );

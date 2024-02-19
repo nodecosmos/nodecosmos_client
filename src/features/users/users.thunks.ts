@@ -1,5 +1,5 @@
 import {
-    CurrentUser, User, UserCreateForm,
+    CurrentUser, UpdateUserBase, User, UserCreateForm,
 } from './users.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosDispatch, RootState } from '../../store';
@@ -107,6 +107,26 @@ export const create = createAsyncThunk<CurrentUser, UserCreateForm, { rejectValu
     async (user, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.post('/users', user);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+interface UpdateBioPayload extends UpdateUserBase {
+    bio: string;
+}
+
+export const updateBio = createAsyncThunk<UpdateBioPayload, UpdateBioPayload, { rejectValue: NodecosmosError }>(
+    'users/updateBio',
+    async (updateUserBase, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/users/bio', updateUserBase);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

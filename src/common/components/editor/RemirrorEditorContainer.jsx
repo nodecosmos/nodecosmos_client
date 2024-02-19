@@ -31,12 +31,6 @@ export default function RemirrorEditorContainer({ children }) {
                     height: `calc(100% - ${HEADER_HEIGHT})`,
                     width: 1,
                 },
-                '.MuiBox-root': {
-                    backgroundColor: 'background.5',
-                    border: 0,
-                    px: 2,
-                    py: 1,
-                },
                 '.remirror-editor-wrapper': {
                     width: 1,
                     height: `calc(100% - ${HEADER_HEIGHT})`,

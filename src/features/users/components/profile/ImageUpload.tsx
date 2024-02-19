@@ -2,15 +2,19 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import useUsername from '../../hooks/useUsername';
 import { selectCurrentUser, selectUser } from '../../users.selectors';
 import { updateUserState } from '../../usersSlice';
-import { faCamera } from '@fortawesome/pro-light-svg-icons';
+import { faCamera } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Button } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
 
-export default function UploadButton() {
+interface UploadButtonProps {
+    onModalClose: () => void;
+}
+export default function ImageUpload(props: UploadButtonProps) {
+    const { onModalClose } = props;
     const username = useUsername();
     const user = useSelector(selectUser(username));
     const currentUser = useSelector(selectCurrentUser);
@@ -26,24 +30,39 @@ export default function UploadButton() {
                 profileImageURL: responseBody.url,
             }));
         }
-    }, [closeModal, dispatch, username]);
+
+        onModalClose();
+    }, [closeModal, dispatch, onModalClose, username]);
 
     if (!user || currentUser?.id !== user.id) return null;
 
     return (
         <Box
             component="div"
-            sx={{ mt: 2 }}
+            position="absolute"
+            width={1}
+            height={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            zIndex={1}
+            bgcolor="background.2"
+            sx={{
+                opacity: 0,
+                transition: 'opacity 0.3s',
+                '&:hover': { opacity: 0.8 },
+            }}
         >
-            <Button
-                component="label"
-                variant="outlined"
-                startIcon={<FontAwesomeIcon icon={faCamera} />}
-                onClick={openModal}
-                color="buttonContrast"
-            >
-                Upload Profile image
-            </Button>
+            <IconButton
+                color="secondary"
+                sx={{
+                    height: 1,
+                    width: 1,
+                    cursor: 'pointer',
+                }}
+                onClick={openModal}>
+                <FontAwesomeIcon size="2xl" icon={faCamera} />
+            </IconButton>
 
             {modalOpen && (
                 <Suspense>

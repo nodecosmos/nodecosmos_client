@@ -33,5 +33,5 @@ export default function NodePane({ page }: NodePaneProps) {
         );
     }
 
-    return <NodePaneContent page={page} selected={pk} />;
+    return <NodePaneContent page={page} />;
 }

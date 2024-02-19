@@ -49,21 +49,15 @@ function WorkflowStep({ index }: { index: number }) {
             <g
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}>
-                <path
-                    strokeWidth={1}
-                    d={`M ${x} ${0}
-                        L ${x} ${height - 2}`}
-                    stroke={theme.palette.borders[1]}
-                    fill="transparent"
-                />
+
                 <rect
                     x={x}
                     y={0}
                     height={height}
                     width={WORKFLOW_STEP_WIDTH}
                     fill="transparent"
-                    stroke="transparent"
-                    strokeWidth={2}
+                    strokeWidth={1}
+                    stroke={theme.palette.borders[1]}
                 />
                 <foreignObject
                     width={WORKFLOW_STEP_WIDTH}

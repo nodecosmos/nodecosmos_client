@@ -184,6 +184,13 @@ const theme: NodecosmosTheme = {
             red: '#fd526f',
         },
 
+        diff: {
+            addedBg: 'rgba(177, 244, 122, 0.3)',
+            addedFg: '#b1f47a',
+            removedBg: 'rgba(255,0,0,0.24)',
+            removedFg: '#fd526f',
+        },
+
         text: {
             primary: '#f5f5f2',
             secondary: '#babece',

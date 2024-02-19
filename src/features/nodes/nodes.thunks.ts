@@ -166,6 +166,27 @@ export const getDescriptionBase64 = createAsyncThunk<NodePayload, PKWithTreeBran
     },
 );
 
+export const getOriginalDescription = createAsyncThunk<
+    NodePayload,
+    PKWithTreeBranch,
+    { rejectValue: NodecosmosError }
+> (
+    'nodes/getOriginalDescription',
+    async ({ id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/nodes/${id}/original/description`);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
 export interface ReorderPayload {
     id: UUID;
     branchId: UUID;
