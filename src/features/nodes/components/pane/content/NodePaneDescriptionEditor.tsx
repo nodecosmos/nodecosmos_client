@@ -2,7 +2,6 @@ import Loader from '../../../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../../../store';
 import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
 import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
-import { updateState } from '../../../actions';
 import { selectNode, selectSelected } from '../../../nodes.selectors';
 import { getDescriptionBase64, updateDescription } from '../../../nodes.thunks';
 import { PKWithTreeBranch } from '../../../nodes.types';
@@ -61,14 +60,6 @@ export default function NodePaneDescriptionEditor() {
             const descriptionHtml = helpers.getHTML();
             const shortDescription = extractTextFromHtml(descriptionHtml);
             const markdown = helpers.getMarkdown();
-
-            dispatch(updateState({
-                treeBranchId,
-                id,
-                description: descriptionHtml,
-                shortDescription,
-                descriptionMarkdown: markdown,
-            }));
 
             dispatch(updateDescription({
                 treeBranchId,

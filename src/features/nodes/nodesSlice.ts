@@ -5,7 +5,7 @@ import {
     getDescriptionBase64, getOriginalDescription,
     indexNodes,
     reorder, showBranchNode,
-    showNode,
+    showNode, updateDescription,
 } from './nodes.thunks';
 import {
     DragAndDrop, NodePaneContent, NodeState,
@@ -74,6 +74,7 @@ const nodesSlice = createSlice({
             .addCase(reorder.fulfilled, reorderFulfilled)
             .addCase(getDescription.fulfilled, getDescriptionFulfilled)
             .addCase(getOriginalDescription.fulfilled, getDescriptionFulfilled)
+            .addCase(updateDescription.fulfilled, getDescriptionFulfilled)
             .addCase(getDescriptionBase64.fulfilled, getDescriptionBase64Fulfilled)
             .addCase(getLikesCount.fulfilled, getLikesCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
