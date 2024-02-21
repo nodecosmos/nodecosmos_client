@@ -15,12 +15,13 @@ interface RemirrorEditorProps {
     wsAuthNodeBranchId?: UUID;
     isRealTime?: boolean;
     extensions?: EnabledExtensions[];
+    p?: number;
 }
 
 export default function RemirrorEditor(props: RemirrorEditorProps) {
     const {
         markdown, onChange, wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId,
-        isRealTime, extensions: enabledExtensions,
+        isRealTime, extensions: enabledExtensions, p,
     } = props;
 
     const { extensions, doc } = useExtensions({
@@ -47,6 +48,7 @@ export default function RemirrorEditor(props: RemirrorEditorProps) {
 
     return (
         <RemirrorEditorWrapper
+            p={p}
             extensions={extensions}
             markdown={markdown}
             onChange={handleChange}

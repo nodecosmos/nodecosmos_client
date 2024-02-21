@@ -3,6 +3,7 @@ import dimmed from './dimmed';
 import light from './light';
 import animations from './styles/animations';
 import card from './styles/card';
+import description from './styles/description';
 import like from './styles/like';
 import autocomplete from './styles/mui/autocomplete';
 import backdrop from './styles/mui/backdrop';
@@ -33,6 +34,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 ...animations(),
                 ...card(),
+                ...description(theme),
                 ...like(theme),
                 ...scrollbar(theme),
                 ...toolbar(theme),

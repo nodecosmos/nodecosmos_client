@@ -1,4 +1,3 @@
-import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import Loader from '../../../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../../../store';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflow.selectors';
@@ -40,8 +39,10 @@ export default function FlowPaneDescription() {
     );
 
     return (
-        <DescriptionContainer>
-            {(description && <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} />) || noDescriptionContent}
-        </DescriptionContainer>
+        (
+            description
+            && <Box className="DescriptionHTML" pb={2} dangerouslySetInnerHTML={{ __html: description }} />
+        )
+        || noDescriptionContent
     );
 }

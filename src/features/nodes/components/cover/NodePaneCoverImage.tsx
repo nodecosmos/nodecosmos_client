@@ -46,7 +46,6 @@ export default function NodePaneCoverImage() {
                         position: 'relative',
                         '.CoverImage': {
                             position: 'relative',
-                            px: 6,
                             '.CoverImageMedia': {
                                 borderRadius: 4,
                                 maxWidth: '100%',

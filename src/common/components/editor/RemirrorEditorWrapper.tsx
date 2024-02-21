@@ -2,7 +2,7 @@ import RemirrorClickable from './RemirrorClickable';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
 import { EnabledExtensions, RemirrorExtensions } from '../../hooks/remirror/useExtensions';
-import DescriptionContainer from '../DescriptionContainer';
+import { Box } from '@mui/material';
 import { RemirrorEventListenerProps } from '@remirror/core';
 import {
     EditorComponent, Remirror, useRemirror,
@@ -16,12 +16,12 @@ interface RemirrorEditorWrapperProps {
     markdown: string;
     onChange?: (props: RemirrorEventListenerProps<MarkdownExtension>) => void;
     enabledExtensions?: EnabledExtensions[];
-
+    p?: number;
 }
 
 export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps) {
     const {
-        extensions, setInitialContent, markdown, onChange, enabledExtensions,
+        extensions, setInitialContent, markdown, onChange, enabledExtensions, p = 8,
     } = props;
 
     const { manager, state } = useRemirror<RemirrorExtensions>({
@@ -40,9 +40,9 @@ export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps)
             >
                 <RemirrorEditorToolbar enabledExtensions={enabledExtensions} />
                 <RemirrorClickable>
-                    <DescriptionContainer width={1} maxWidth={'100%'}>
+                    <Box className="DescriptionHTML" p={p}>
                         <EditorComponent />
-                    </DescriptionContainer>
+                    </Box>
                 </RemirrorClickable>
             </Remirror>
         </RemirrorEditorContainer>

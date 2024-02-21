@@ -1,4 +1,3 @@
-import DescriptionContainer from '../../../../common/components/DescriptionContainer';
 import Loader from '../../../../common/components/Loader';
 import { EnabledExtensions } from '../../../../common/hooks/remirror/useExtensions';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
@@ -40,12 +39,20 @@ export default function Bio() {
             {!editorOpen
                 && (
                     <Box width={1}>
-                        <Box p={2} width={1} border={1} borderColor="borders.1" borderRadius={2}>
-                            <DescriptionContainer justifyContent="start" p={0}>
-                                <Box dangerouslySetInnerHTML={{ __html: user.bio }} />
-                            </DescriptionContainer>
-
-                        </Box>
+                        {
+                            user.bio && (
+                                <Box
+                                    p={2}
+                                    width={1}
+                                    border={1}
+                                    borderColor="borders.1"
+                                    borderRadius={2}>
+                                    <Box
+                                        className="DescriptionHTML"
+                                        dangerouslySetInnerHTML={{ __html: user.bio }} />
+                                </Box>
+                            )
+                        }
                         <Button
                             sx={{
                                 mt: 2,
@@ -61,10 +68,8 @@ export default function Bio() {
                                Edit Bio
                         </Button>
                     </Box>
-
                 )
             }
-
             {
                 editorOpen && (
                     <Suspense fallback={<Loader />}>
@@ -81,6 +86,7 @@ export default function Bio() {
                                     Link,
                                     OrderedList,
                                 ]}
+                                p={2}
                             />
                         </Box>
                         <Button

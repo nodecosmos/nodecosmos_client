@@ -1,4 +1,3 @@
-import DescriptionContainer from '../../../../../common/components/DescriptionContainer';
 import { selectSelected, selectSelectedNode } from '../../../nodes.selectors';
 import NodePaneCoverImage from '../../cover/NodePaneCoverImage';
 import { Typography, Box } from '@mui/material';
@@ -18,11 +17,21 @@ export default function NodePaneDescription() {
     );
 
     return (
-        <div>
+        <Box px={4}>
             <NodePaneCoverImage />
-            <DescriptionContainer>
-                {description ? <Box pb={2} dangerouslySetInnerHTML={{ __html: description }} /> : blankDescription}
-            </DescriptionContainer>
-        </div>
+            {
+                description
+                    ? (
+                        <Box display="flex" justifyContent="center">
+                            <Box
+                                mt={2}
+                                maxWidth={850}
+                                className="DescriptionHTML"
+                                dangerouslySetInnerHTML={{ __html: description }} />
+                        </Box>
+                    )
+                    : blankDescription
+            }
+        </Box>
     );
 }
