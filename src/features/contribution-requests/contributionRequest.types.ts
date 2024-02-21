@@ -1,4 +1,4 @@
-import { Owner, UUID } from '../../types';
+import { Profile, UUID } from '../../types';
 
 export enum ContributionRequestStatus {
     WorkInProgress = 'WORK_IN_PROGRESS',
@@ -20,12 +20,12 @@ export interface ContributionRequest extends CRPrimaryKey {
     descriptionMarkdown?: string;
     createdAt: Date;
     updatedAt: Date;
-    owner: Owner;
+    owner: Profile;
 }
 
 export type DescriptionAttrs = Pick<ContributionRequest, 'description' | 'descriptionMarkdown'>;
 export type BaseCR = Omit<ContributionRequest, keyof DescriptionAttrs>;
-export type CreateCRPayload = Omit<ContributionRequest, 'nodeId' | 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateCRPayload = Omit<ContributionRequest, 'nodeId' | 'id' | 'createdAt' | 'updatedAt' | 'owner'>;
 export type UpdateTitleCRPayload = CRPrimaryKey & Pick<ContributionRequest, 'title'>;
 export type UpdateDescriptionCRPayload = CRPrimaryKey
     & Pick<ContributionRequest, 'description' | 'descriptionMarkdown'>;

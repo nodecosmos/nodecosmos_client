@@ -2,7 +2,7 @@ import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
 import NcAvatar from '../../../common/components/NcAvatar';
 import NcLink from '../../../common/components/NcLink';
 import { NodecosmosDispatch } from '../../../store';
-import { Owner, UUID } from '../../../types';
+import { Profile, UUID } from '../../../types';
 import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequests, selectSearchTerm } from '../contributionRequests.selectors';
 import { deleteContributionRequest } from '../contributionRequests.thunks';
@@ -54,8 +54,8 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             field: 'owner',
             flex: 0,
             type: 'object',
-            renderCell: (params: GridRenderCellParams<ContributionRequest, Owner>) => {
-                return <NcAvatar scale={0.8} name={(params.value as Owner).name} />;
+            renderCell: (params: GridRenderCellParams<ContributionRequest, Profile>) => {
+                return <NcAvatar scale={0.8} name={(params.value as Profile).name} />;
             },
         },
         {

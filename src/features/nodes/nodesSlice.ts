@@ -23,6 +23,7 @@ import select from './reducers/select';
 import showFulfilled from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
+import { mergeContributionRequest } from '../contribution-requests/contributionRequests.thunks';
 import {
     getLikesCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
@@ -78,7 +79,19 @@ const nodesSlice = createSlice({
             .addCase(getDescriptionBase64.fulfilled, getDescriptionBase64Fulfilled)
             .addCase(getLikesCount.fulfilled, getLikesCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
-            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled);
+            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
+            .addCase(mergeContributionRequest.fulfilled, (state, action) => {
+                // clear description of each node so we can fetch the new one
+                const branchId = action.payload.nodeId;
+
+                if (state.byBranchId[branchId]) {
+                    Object.values(state.byBranchId[branchId]).forEach((node) => {
+                        node.description = null;
+                        node.descriptionMarkdown = null;
+                        node.descriptionBase64 = null;
+                    });
+                }
+            });
     },
 });
 

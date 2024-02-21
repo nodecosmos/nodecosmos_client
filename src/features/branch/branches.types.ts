@@ -1,4 +1,4 @@
-import { Owner, UUID } from '../../types';
+import { Profile, UUID } from '../../types';
 
 export enum ConflictStatus {
     Pending,
@@ -36,7 +36,7 @@ export interface Branch {
     description: string;
     status: BranchStatus;
     ownerId: UUID;
-    owner: Owner;
+    owner: Profile;
     editorIds?: UUID[];
     isContributionRequest: boolean;
     createdNodes: Set<UUID>;

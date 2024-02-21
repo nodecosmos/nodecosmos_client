@@ -166,8 +166,16 @@ const theme: NodecosmosTheme = {
             selection: 'rgba(0,0,0,0.06)',
             selectionMatch: 'rgba(0,0,0,0.06)',
             lineHighlight: '#e5e7eb',
+            gutterActiveForeground: '#000',
             gutterBackground: 'transparent',
             gutterForeground: '#636b73',
+        },
+
+        diff: {
+            addedBg: 'rgba(177, 244, 122, 0.3)',
+            addedFg: '#b1f47a',
+            removedBg: 'rgba(255,0,0,0.24)',
+            removedFg: '#fd526f',
         },
 
         logo: {

@@ -2,7 +2,6 @@ import { HttpStatusCode } from 'axios';
 
 export type UUID = string;
 export type OptionalId<T> = Omit<T, 'id'> & { id?: UUID };
-export type WithId<T> = T & { id: UUID };
 
 export type NodecosmosError = {
     status?: HttpStatusCode;
@@ -16,7 +15,7 @@ export interface Position {
     yEnd: number;
 }
 
-export interface Owner {
+export interface Profile {
     id: UUID;
     ownerType: string;
     name: string;
@@ -24,7 +23,7 @@ export interface Owner {
     profileImageURL: string | null;
 }
 
-export enum OwnerType {
+export enum ProfileType {
     User = 'user',
     Organization = 'organization',
 }

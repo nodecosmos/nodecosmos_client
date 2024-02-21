@@ -1,5 +1,5 @@
 import {
-    Owner, OwnerType, Position, UUID,
+    Profile, ProfileType, Position, UUID,
 } from '../../types';
 
 // for main nodes branch id is equal to branch id
@@ -21,10 +21,10 @@ export interface Node extends NodePrimaryKey {
     descriptionMarkdown: string | null;
     descriptionBase64: string | null;
     ownerId?: UUID | null;
-    ownerType?: OwnerType | null;
+    ownerType?: ProfileType | null;
     creatorId?: UUID | null;
     editorIds?: UUID[] | null;
-    owner?: Owner | null;
+    owner?: Profile | null;
     likesCount?: number;
     coverImageURL?: string | null;
     coverImageKey?: string | null;
@@ -64,7 +64,7 @@ export interface IndexNode {
     shortDescription: string | null;
     title: string;
     likesCount: number;
-    owner: Owner;
+    owner: Profile;
     coverImageURL: string | null;
     createdAt: string;
     updatedAt: string;

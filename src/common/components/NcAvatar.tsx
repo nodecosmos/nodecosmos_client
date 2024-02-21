@@ -1,10 +1,10 @@
 import { Avatar } from '@mui/material';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 interface NcAvatarProps {
     name: string;
-    src?: string;
-    onClick?: () => void;
+    src?: string | null;
+    onClick?: (event: MouseEvent<HTMLElement>) => void;
     backgroundColor?: string;
     scale?: number;
     width?: number;
@@ -28,7 +28,7 @@ export default function NcAvatar(props: NcAvatarProps) {
 
     return (
         <Avatar
-            src={src}
+            src={src ?? undefined}
             onClick={onClick}
             sx={{
                 transform: `scale(${scale})`,

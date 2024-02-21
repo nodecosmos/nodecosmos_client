@@ -198,7 +198,7 @@ export default function Index() {
                     }}
                 >
                     <Typography variant="body2" color="text.secondary">
-                        © 2023 nodecosmos
+                        © 2022 nodecosmos
                     </Typography>
                 </Box>
             </Box>
