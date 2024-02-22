@@ -52,7 +52,7 @@ export default function diffExtension(originalText: string, newText: string): Di
             const dmp = new diff_match_patch();
 
             const diffs = dmp.diff_main(originalText, newText);
-            dmp.diff_cleanupMerge(diffs);
+            dmp.diff_cleanupSemantic(diffs);
             this.decorations = createDiffDecorations(diffs);
         }
 
@@ -60,7 +60,7 @@ export default function diffExtension(originalText: string, newText: string): Di
             if (update.docChanged) {
                 const dmp = new diff_match_patch();
                 const diffs = dmp.diff_main(update.state.doc.toString(), newText);
-                dmp.diff_cleanupMerge(diffs);
+                dmp.diff_cleanupSemantic(diffs);
                 this.decorations = createDiffDecorations(diffs);
             }
         }

@@ -2,7 +2,8 @@ import {
     create,
     deleteNode,
     getDescription,
-    getDescriptionBase64, getOriginalDescription,
+    getDescriptionBase64,
+    getOriginalDescriptionBase64,
     indexNodes,
     reorder, showBranchNode,
     showNode, updateDescription,
@@ -13,7 +14,11 @@ import {
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
 import { deleteFromState, deleteFulfilled } from './reducers/delete';
-import { getDescriptionBase64Fulfilled, getDescriptionFulfilled } from './reducers/description';
+import {
+    getDescriptionBase64Fulfilled,
+    getDescriptionFulfilled,
+    getOriginalDescriptionBase64Fulfilled,
+} from './reducers/description';
 import {
     getLikesCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
 } from './reducers/like';
@@ -35,7 +40,7 @@ const initialState: NodeState = {
     positions: {},
     titles: {},
     selected: null,
-    nodePaneContent: NodePaneContent.Markdown,
+    nodePaneContent: NodePaneContent.Description,
     indexNodesById: {},
     saveInProgress: false,
     dragAndDrop: null,
@@ -74,14 +79,14 @@ const nodesSlice = createSlice({
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)
             .addCase(getDescription.fulfilled, getDescriptionFulfilled)
-            .addCase(getOriginalDescription.fulfilled, getDescriptionFulfilled)
             .addCase(updateDescription.fulfilled, getDescriptionFulfilled)
             .addCase(getDescriptionBase64.fulfilled, getDescriptionBase64Fulfilled)
+            .addCase(getOriginalDescriptionBase64.fulfilled, getOriginalDescriptionBase64Fulfilled)
             .addCase(getLikesCount.fulfilled, getLikesCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
             .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
             .addCase(mergeContributionRequest.fulfilled, (state, action) => {
-                // clear description of each node so we can fetch the new one
+                // clear description of each node, so we can fetch the new one
                 const branchId = action.payload.nodeId;
 
                 if (state.byBranchId[branchId]) {

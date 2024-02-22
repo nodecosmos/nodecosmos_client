@@ -3,8 +3,6 @@ import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneWorkflow from './content/NodePaneWorkflow';
 import NodePaneToolbar, { Page } from './NodePaneToolbar';
-import Loader from '../../../../common/components/Loader';
-import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import usePrevious from '../../../../common/hooks/usePrevious';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
@@ -12,7 +10,6 @@ import { setNodePaneContent } from '../../actions';
 import {
     selectNodePaneContent, selectSelected, selectSelectedNode,
 } from '../../nodes.selectors';
-import { getDescription } from '../../nodes.thunks';
 import { NodePaneContent, NodePaneContent as NodePaneContentType } from '../../nodes.types';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
@@ -36,29 +33,11 @@ export default function Content({ page }: NodePaneProps) {
     }
 
     const nodePaneContent = useSelector(selectNodePaneContent);
-    const {
-        rootId, isTmp, title, description,
-    } = useSelector(selectSelectedNode);
-    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const { isTmp, title } = useSelector(selectSelectedNode);
     const PaneContent = NODE_PANE_CONTENTS[nodePaneContent];
-    const {
-        treeBranchId, branchId, id,
-    } = selectedPk;
+    const { id } = selectedPk;
     const prevSelectedNodeId = usePrevious(id);
     const dispatch: NodecosmosDispatch = useDispatch();
-
-    useEffect(() => {
-        if (id && rootId && !isTmp && !description && !loading) {
-            setLoading();
-            dispatch(getDescription({
-                treeBranchId,
-                branchId,
-                id,
-            })).finally(() => {
-                setTimeout(unsetLoading, 250);
-            });
-        }
-    }, [branchId, description, dispatch, id, isTmp, loading, rootId, setLoading, treeBranchId, unsetLoading]);
 
     useEffect(() => {
         if (prevSelectedNodeId !== id && nodePaneContent !== NodePaneContentType.Workflow) {
@@ -113,11 +92,7 @@ export default function Content({ page }: NodePaneProps) {
         >
             <NodePaneToolbar page={page} />
             <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
-                {
-                    loading
-                        ? <Loader />
-                        : <PaneContent />
-                }
+                <PaneContent />
             </Box>
         </Box>
     );

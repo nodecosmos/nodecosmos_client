@@ -5,7 +5,7 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload,
+    PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload, NodeBranchDiffPayload,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -148,7 +148,19 @@ export const getDescription = createAsyncThunk<NodePayload, PKWithTreeBranch, { 
     },
 );
 
-export const getDescriptionBase64 = createAsyncThunk<NodePayload, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
+interface DescriptionBase64Res {
+    id: UUID;
+    branchId: UUID;
+    description: string;
+    descriptionBase64: string;
+    descriptionMarkdown: string;
+}
+
+export const getDescriptionBase64 = createAsyncThunk<
+    DescriptionBase64Res,
+    PKWithTreeBranch,
+    { rejectValue: NodecosmosError }
+>(
     'nodes/getDescriptionBase64',
 
     async ({ branchId, id }, { rejectWithValue }) => {
@@ -166,15 +178,15 @@ export const getDescriptionBase64 = createAsyncThunk<NodePayload, PKWithTreeBran
     },
 );
 
-export const getOriginalDescription = createAsyncThunk<
-    NodePayload,
-    PKWithTreeBranch,
+export const getOriginalDescriptionBase64 = createAsyncThunk<
+    DescriptionBase64Res,
+    NodeBranchDiffPayload,
     { rejectValue: NodecosmosError }
 > (
-    'nodes/getOriginalDescription',
+    'nodes/getOriginalDescriptionBase64',
     async ({ id }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.get(`/nodes/${id}/original/description`);
+            const response = await nodecosmos.get(`/nodes/${id}/original/description_base64`);
 
             return response.data;
         } catch (error) {

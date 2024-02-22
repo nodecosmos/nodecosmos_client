@@ -6,7 +6,8 @@ import CodeMirror, { Extension } from '@uiw/react-codemirror';
 import React, { useMemo, useRef } from 'react';
 
 interface CodeMirrorEditorProps {
-    currentValue?: string | null;
+    showDiff?: boolean;
+    currentValue?: string;
     value: string;
     onChange?: (value: string) => void;
     editable?: boolean;
@@ -15,7 +16,8 @@ interface CodeMirrorEditorProps {
 // eslint-disable-next-line
 
 export default function CodeMirrorEditor({
-    currentValue,
+    showDiff = false,
+    currentValue = '',
     value = '',
     onChange,
     editable,
@@ -25,12 +27,12 @@ export default function CodeMirrorEditor({
     const extensions = useMemo(() => {
         const extensions: Extension[] = [markdown()];
 
-        if (currentValue) {
+        if (showDiff) {
             extensions.push(diff(currentValue, value));
         }
 
         return extensions;
-    }, [currentValue, value]);
+    }, [currentValue, showDiff, value]);
 
     return (
         <CodeMirrorContainer>

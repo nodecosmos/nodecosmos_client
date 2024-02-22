@@ -1,6 +1,5 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import { select } from '../../../features/nodes/actions';
 import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Tree from '../../../features/nodes/components/tree/Tree';
 import { showBranchNode } from '../../../features/nodes/nodes.thunks';
@@ -73,12 +72,6 @@ export default function ContributionRequestTree() {
 
                 return;
             }
-
-            dispatch(select({
-                treeBranchId: branchId as UUID,
-                id: nodeId,
-                branchId: branchId as UUID,
-            }));
         });
     }, [branchId, dispatch, isNodeFetched, nodeId]);
 

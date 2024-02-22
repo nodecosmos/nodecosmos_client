@@ -82,6 +82,12 @@ export interface TreeBranch {
 export type PKWithTreeBranch = NodePrimaryKey & TreeBranch;
 export type NodePayload = PKWithTreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
 
+export interface NodeBranchDiffPayload extends Partial<Omit<Node, keyof NodePrimaryKey>> {
+    mainBranchId: UUID;
+    currentBranchId: UUID;
+    id: UUID;
+}
+
 export type UpdateTitlePayload = PKWithTreeBranch & Pick<Node, 'title'>;
 export type UpdateDescriptionPayload = PKWithTreeBranch
     & Pick<Node, 'description' | 'descriptionMarkdown' | 'descriptionBase64' | 'shortDescription'>;

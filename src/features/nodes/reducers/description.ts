@@ -1,4 +1,6 @@
-import { getDescription, getDescriptionBase64 } from '../nodes.thunks';
+import {
+    getDescription, getDescriptionBase64, getOriginalDescriptionBase64,
+} from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
 
 export function getDescriptionFulfilled(
@@ -20,9 +22,28 @@ export function getDescriptionBase64Fulfilled(
     action: ReturnType<typeof getDescriptionBase64.fulfilled>,
 ) {
     const { treeBranchId } = action.meta.arg;
-    const { id, descriptionBase64 } = action.payload;
+    const {
+        id, description, descriptionMarkdown, descriptionBase64,
+    } = action.payload;
 
-    if (descriptionBase64) {
-        state.byBranchId[treeBranchId][id].descriptionBase64 = descriptionBase64;
-    }
+    state.byBranchId[treeBranchId][id].description = description;
+    state.byBranchId[treeBranchId][id].descriptionMarkdown = descriptionMarkdown;
+    state.byBranchId[treeBranchId][id].descriptionBase64 = descriptionBase64;
+}
+
+export function getOriginalDescriptionBase64Fulfilled(
+    state: NodeState,
+    action: ReturnType<typeof getOriginalDescriptionBase64.fulfilled>,
+) {
+    const { mainBranchId } = action.meta.arg;
+    const {
+        id,
+        description: originalDescription,
+        descriptionBase64: originalBranchBase64,
+        descriptionMarkdown: originalBranchMarkdown,
+    } = action.payload;
+
+    state.byBranchId[mainBranchId][id].description = originalDescription;
+    state.byBranchId[mainBranchId][id].descriptionBase64 = originalBranchBase64;
+    state.byBranchId[mainBranchId][id].descriptionMarkdown = originalBranchMarkdown;
 }

@@ -1,79 +1,26 @@
 import Loader from '../../../../../common/components/Loader';
-import { NodecosmosDispatch } from '../../../../../store';
-import extractTextFromHtml from '../../../../../utils/extractTextFromHtml';
-import { uint8ArrayToBase64 } from '../../../../../utils/serializer';
-import { selectNode, selectSelected } from '../../../nodes.selectors';
-import { getDescriptionBase64, updateDescription } from '../../../nodes.thunks';
+import useNodeDescription from '../../../hooks/useNodeDescription';
+import { selectSelected } from '../../../nodes.selectors';
 import { PKWithTreeBranch } from '../../../nodes.types';
 import { Box } from '@mui/material';
-import { HelpersFromExtensions } from '@remirror/core';
-import React, {
-    Suspense, useCallback, useEffect,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { MarkdownExtension } from 'remirror/extensions';
+import React, { Suspense } from 'react';
+import { useSelector } from 'react-redux';
 
 const RemirrorEditor = React.lazy(
     () => import('../../../../../common/components/editor/RemirrorEditor'),
 );
 
 export default function NodePaneDescriptionEditor() {
-    const dispatch: NodecosmosDispatch = useDispatch();
+    const { branchId, id } = useSelector(selectSelected) as PKWithTreeBranch;
+
     const {
-        treeBranchId, branchId, id,
-    } = useSelector(selectSelected) as PKWithTreeBranch;
-    const {
-        isTmp,
+        handleChange,
+        loading,
         descriptionMarkdown,
         descriptionBase64,
-    } = useSelector(selectNode(treeBranchId, id));
-    const handleChangeTimeout = React.useRef<number| null>(null);
-    const [base64Fetched, setBase64Fetched] = React.useState(false);
+    } = useNodeDescription();
 
-    useEffect(() => {
-        if (id) {
-            dispatch(getDescriptionBase64({
-                treeBranchId,
-                branchId,
-                id,
-            })).then(() => {
-                setBase64Fetched(true);
-            });
-        }
-
-        return () => {
-            setBase64Fetched(false);
-        };
-    }, [branchId, dispatch, id, treeBranchId]);
-
-    const handleChange = useCallback((
-        helpers: HelpersFromExtensions<MarkdownExtension>,
-        uint8ArrayState: Uint8Array | null,
-    ) => {
-        if (isTmp) return;
-
-        if (handleChangeTimeout.current) {
-            clearTimeout(handleChangeTimeout.current);
-        }
-
-        handleChangeTimeout.current = setTimeout(() => {
-            const descriptionHtml = helpers.getHTML();
-            const shortDescription = extractTextFromHtml(descriptionHtml);
-            const markdown = helpers.getMarkdown();
-
-            dispatch(updateDescription({
-                treeBranchId,
-                branchId,
-                id,
-                description: descriptionHtml,
-                shortDescription,
-                descriptionMarkdown: markdown,
-                descriptionBase64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
-            }));
-        }, 500);
-    }, [dispatch, treeBranchId, branchId, id, isTmp]);
-
-    if (!!descriptionMarkdown && !base64Fetched) return <Loader />;
+    if (loading) return <Loader />;
 
     return (
         <Suspense fallback={<Loader />}>
