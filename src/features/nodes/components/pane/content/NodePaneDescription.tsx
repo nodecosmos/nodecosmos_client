@@ -23,19 +23,31 @@ export default function NodePaneDescription() {
         treeBranchId, branchId, id,
     } = selectedPk;
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
 
     useEffect(() => {
-        if (id && rootId && !isTmp && !description && !loading) {
+        if (id && rootId && !isTmp && !fetched && !loading) {
             setLoading();
             dispatch(getDescription({
                 treeBranchId,
                 branchId,
                 id,
             })).finally(() => {
+                setFetched();
                 setTimeout(unsetLoading, 250);
             });
         }
-    }, [branchId, description, dispatch, id, isTmp, loading, rootId, setLoading, treeBranchId, unsetLoading]);
+
+        return () => {
+            if (!loading && fetched) {
+                unsetFetched();
+            }
+        };
+    },
+    [
+        branchId, dispatch, fetched, id, isTmp, loading, rootId, treeBranchId,
+        setFetched, setLoading, unsetLoading, unsetFetched,
+    ]);
 
     if (loading) {
         return <Loader />;

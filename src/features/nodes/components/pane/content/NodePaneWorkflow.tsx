@@ -1,4 +1,5 @@
 import Loader from '../../../../../common/components/Loader';
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../../store';
 import Workflow from '../../../../workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../../workflows/constants';
@@ -10,17 +11,26 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function NodePaneWorkflow() {
     const { id } = useSelector(selectSelected) as PKWithTreeBranch;
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
 
     const dispatch: NodecosmosDispatch = useDispatch();
 
     useEffect(() => {
-        if (loading) {
-            dispatch(showWorkflow(id)).then(() => setLoading(false));
-        } else {
-            setLoading(false);
+        if (!fetched && !loading) {
+            setLoading();
+            dispatch(showWorkflow(id)).finally(() => {
+                setFetched();
+                setTimeout(unsetLoading, 250);
+            });
         }
-    }, [dispatch, loading, id]);
+
+        return () => {
+            if (!loading && fetched) {
+                unsetFetched();
+            }
+        };
+    }, [dispatch, fetched, id, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
 
     if (!id) return null;
 

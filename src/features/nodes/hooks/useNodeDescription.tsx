@@ -2,13 +2,8 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import extractTextFromHtml from '../../../utils/extractTextFromHtml';
 import { uint8ArrayToBase64 } from '../../../utils/serializer';
-import useBranchParams from '../../branch/hooks/useBranchParams';
-import {
-    selectNode, selectNodeAttribute, selectSelected,
-} from '../nodes.selectors';
-import {
-    getDescriptionBase64, getOriginalDescriptionBase64, updateDescription,
-} from '../nodes.thunks';
+import { selectNode, selectSelected } from '../nodes.selectors';
+import { getDescriptionBase64, updateDescription } from '../nodes.thunks';
 import { PKWithTreeBranch } from '../nodes.types';
 import { HelpersFromExtensions } from '@remirror/core';
 import React, { useCallback, useEffect } from 'react';
@@ -16,57 +11,49 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
 interface UseNodeDescription {
-    showDiff: boolean;
     handleChange: (
         helpers: HelpersFromExtensions<MarkdownExtension>,
         uint8ArrayState: Uint8Array | null,
     ) => void;
     loading: boolean;
-    currentDescriptionMarkdown: string | null;
     descriptionMarkdown: string | null;
     descriptionBase64: string | null;
 }
 
 export default function useNodeDescription(): UseNodeDescription {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { isBranched, mainBranchId } = useBranchParams();
     const {
         treeBranchId, branchId, id,
     } = useSelector(selectSelected) as PKWithTreeBranch;
     const { isTmp } = useSelector(selectNode(treeBranchId, id));
     const handleChangeTimeout = React.useRef<number| null>(null);
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
+
     const {
         descriptionMarkdown,
         descriptionBase64,
     } = useSelector(selectNode(treeBranchId, id));
-    const currentDescriptionMarkdown = useSelector(selectNodeAttribute(mainBranchId, id, 'descriptionMarkdown'));
-
-    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
     useEffect(() => {
-        if (isBranched) {
+        if (!fetched && !loading) {
             setLoading();
-
             dispatch(getDescriptionBase64({
                 treeBranchId,
                 branchId,
                 id,
-            })).then(() => dispatch(getOriginalDescriptionBase64({
-                mainBranchId,
-                currentBranchId: branchId,
-                id,
-            }))).finally(unsetLoading);
-        } else if (!currentDescriptionMarkdown) {
-            dispatch(getDescriptionBase64({
-                treeBranchId,
-                branchId,
-                id,
-            })).finally(unsetLoading);
+            })).finally(() => {
+                setFetched();
+                setTimeout(unsetLoading, 250);
+            });
         }
-    }, [
-        dispatch, treeBranchId, branchId, id, isBranched,
-        mainBranchId, currentDescriptionMarkdown, setLoading, unsetLoading,
-    ]);
+
+        return () => {
+            if (!loading && fetched) {
+                unsetFetched();
+            }
+        };
+    }, [branchId, dispatch, fetched, id, loading, setFetched, setLoading, treeBranchId, unsetFetched, unsetLoading]);
 
     const handleChange = useCallback((
         helpers: HelpersFromExtensions<MarkdownExtension>,
@@ -96,10 +83,8 @@ export default function useNodeDescription(): UseNodeDescription {
     }, [dispatch, treeBranchId, branchId, id, isTmp]);
 
     return {
-        showDiff: isBranched,
         handleChange,
         loading,
-        currentDescriptionMarkdown,
         descriptionMarkdown,
         descriptionBase64,
     };

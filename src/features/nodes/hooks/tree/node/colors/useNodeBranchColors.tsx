@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 export default function useNodeBranchColors() {
     const { isSelected, nestedLevel } = useNodeContext();
     const {
-        isCreated, isDeleted, isOriginalDeleted,
+        isCreated, isDeleted, isOriginalDeleted, isReordered, isDescriptionEdited,
     } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
@@ -45,6 +45,13 @@ export default function useNodeBranchColors() {
                 ? appendOpacityToHex(theme.palette.tree.backgrounds[5], 0.3)
                 : appendOpacityToHex(theme.palette.tree.backgrounds[5], 0.1);
             outlinedColored = true;
+        } else if (isReordered || isDescriptionEdited) {
+            outlineColor = theme.palette.tree.backgrounds[4];
+            color = theme.palette.tree.backgrounds[4];
+            backgroundColor = isSelected
+                ? appendOpacityToHex(theme.palette.tree.backgrounds[4], 0.3)
+                : appendOpacityToHex(theme.palette.tree.backgrounds[4], 0.1);
+            outlinedColored = true;
         }
 
         return {
@@ -58,8 +65,8 @@ export default function useNodeBranchColors() {
         };
     },
     [
-        defaultBorder, isCreated, isDeleted, isOriginalDeleted, isSelected, nestedTreeColor,
-        theme.palette.tree.backgrounds, theme.palette.tree.default, theme.palette.tree.defaultText,
-        theme.palette.tree.selectedText, theme.palette.workflow.defaultInputColor,
-    ]);
+        isCreated, isDeleted, isOriginalDeleted, isSelected, isReordered, isDescriptionEdited,
+        defaultBorder, nestedTreeColor, theme.palette,
+    ],
+    );
 }

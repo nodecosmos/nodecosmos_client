@@ -7,6 +7,8 @@ export interface BranchChanges {
     isCreated: boolean;
     isDeleted: boolean;
     isOriginalDeleted: boolean;
+    isReordered: boolean;
+    isDescriptionEdited: boolean;
 }
 
 export default function useBranchContext(): BranchChanges {
@@ -16,6 +18,8 @@ export default function useBranchContext(): BranchChanges {
     const {
         deletedNodes,
         createdNodes,
+        reorderedNodes,
+        editedNodeDescriptions,
     } = branch ?? {};
     const {
         deletedAncestors,
@@ -26,7 +30,17 @@ export default function useBranchContext(): BranchChanges {
         return {
             isCreated: createdNodes?.has(id) ?? false,
             isDeleted: deletedNodes?.has(id) ?? false,
+            isReordered: reorderedNodes?.some((reorder) => reorder.id === id) ?? false,
             isOriginalDeleted: (deletedAncestors?.has(id) || deletedEditedNodes?.has(id)) ?? false,
+            isDescriptionEdited: editedNodeDescriptions?.has(id) ?? false,
         };
-    }, [createdNodes, deletedAncestors, deletedEditedNodes, deletedNodes, id]);
+    }, [
+        createdNodes,
+        deletedAncestors,
+        deletedEditedNodes,
+        deletedNodes,
+        editedNodeDescriptions,
+        id,
+        reorderedNodes,
+    ]);
 }

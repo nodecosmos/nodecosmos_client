@@ -4,29 +4,29 @@ import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 interface UseBranchParams extends BranchParams {
-    isBranched: boolean;
+    isBranch: boolean;
     branchedId: (id: UUID) => UUID; // returns either id of the object or branchId
 }
 
 export default function useBranchParams(): UseBranchParams {
     const { id: mainBranchId } = useParams<{ id: UUID }>();
     let { contributionRequestId: branchId } = useParams<{ contributionRequestId: UUID }>();
-    const isBranched = mainBranchId !== branchId;
+    const isBranch = !!branchId && mainBranchId !== branchId;
 
     if (!branchId) {
         branchId = mainBranchId as UUID;
     }
 
     const branchedId = useCallback((id: UUID) => {
-        if (isBranched) {
+        if (isBranch) {
             return branchId as UUID;
         } else {
             return id;
         }
-    }, [branchId, isBranched]);
+    }, [branchId, isBranch]);
 
     return {
-        isBranched,
+        isBranch,
         mainBranchId: mainBranchId as UUID,
         branchId,
         branchedId,

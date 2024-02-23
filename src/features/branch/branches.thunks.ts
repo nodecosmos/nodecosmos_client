@@ -49,7 +49,10 @@ export const checkDeletedAncestorConflict = createAsyncThunk<
                 const branchNode = branchNodes[id];
 
                 for (const ancestorId of branchNode.ancestorIds) {
-                    if (!mainNodes[ancestorId] && !branch.restoredNodes.has(ancestorId)) {
+                    if (!mainNodes[ancestorId]
+                        && !branch.restoredNodes.has(ancestorId)
+                        && !branch.createdNodes.has(ancestorId)
+                    ) {
                         if (!deletedAncestorIds) {
                             deletedAncestorIds = new Set<UUID>();
                         }
