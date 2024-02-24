@@ -34,7 +34,9 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     const { descriptionMarkdown, descriptionBase64 } = useSelector(selectNode(treeBranchId, id));
     const mainDescMarkdown = useSelector(selectNodeAttribute(mainBranchId, id, 'descriptionMarkdown'));
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
+    const isDescriptionEdited = branch?.editedNodeDescriptions?.has(id);
     const isMerged = branch?.status === BranchStatus.Merged;
+    const mergedDescriptionChange = branch?.descriptionChangeByObject?.[id];
 
     // fetch original and branch description base64
     const getBranchDescriptionBase64 = useCallback(() => {
@@ -54,7 +56,6 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     }, [dispatch, mainBranchId, branchId, id]);
 
     const { originalDescriptionMarkdown, branchDescriptionMarkdown } = useMemo(() => {
-        const mergedDescriptionChange = branch?.descriptionChangeByObject?.[id];
         // if the branch is merged and the description has been changed,
         // show the state of the description at the time of the merge
         if (isMerged && mergedDescriptionChange) {
@@ -67,7 +68,7 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
             originalDescriptionMarkdown: mainDescMarkdown,
             branchDescriptionMarkdown: descriptionMarkdown,
         };
-    }, [branch?.descriptionChangeByObject, descriptionMarkdown, id, isMerged, mainDescMarkdown]);
+    }, [mergedDescriptionChange, descriptionMarkdown, isMerged, mainDescMarkdown]);
 
     const loadMarkdown = useCallback(() => {
         if (isBranch && !isMerged && branch?.editedNodeDescriptions?.has(id)) {
@@ -107,7 +108,7 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     }, [fetched, loadMarkdown, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
 
     return {
-        showDiff: isBranch,
+        showDiff: isBranch && ((!isMerged && isDescriptionEdited) || (isMerged && !!mergedDescriptionChange)),
         loading,
         originalDescriptionMarkdown,
         branchDescriptionMarkdown,

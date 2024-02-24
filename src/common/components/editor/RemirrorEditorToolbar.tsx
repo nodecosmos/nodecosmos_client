@@ -64,10 +64,14 @@ export default function RemirrorEditorToolbar({ enabledExtensions }: RemirrorEdi
             <Stack direction="row" spacing={1}>
                 <div>
                     {enabledExtMap?.[EnabledExtensions.Bold]}
+                </div>
+                <div>
                     {enabledExtMap?.[EnabledExtensions.Italic]}
                 </div>
                 <div>
                     {enabledExtMap?.[EnabledExtensions.Strike]}
+                </div>
+                <div>
                     {enabledExtMap?.[EnabledExtensions.Code]}
                 </div>
                 <div>

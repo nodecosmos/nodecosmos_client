@@ -1,5 +1,8 @@
 import CodeMirrorContainer from './CodeMirrorContainer';
-import diff from '../../extensions/diff';
+import {
+    commentGutter, hoveredLineField, mouseoverExtension,
+} from '../../extensions/codemirror/comment';
+import diff from '../../extensions/codemirror/diff';
 import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
 import { markdown } from '@codemirror/lang-markdown';
 import CodeMirror, { Extension } from '@uiw/react-codemirror';
@@ -13,8 +16,6 @@ interface CodeMirrorEditorProps {
     editable?: boolean;
 }
 
-// eslint-disable-next-line
-
 export default function CodeMirrorEditor({
     showDiff = false,
     currentValue = '',
@@ -24,11 +25,18 @@ export default function CodeMirrorEditor({
 }: CodeMirrorEditorProps) {
     const codeMirrorRef = useRef(null);
     const codeMirrorTheme = useCodeMirrorTheme();
+
     const extensions = useMemo(() => {
         const extensions: Extension[] = [markdown()];
 
         if (showDiff) {
-            extensions.push(diff(currentValue, value));
+            extensions.push(
+                diff(currentValue, value),
+                hoveredLineField,
+                mouseoverExtension,
+                mouseoverExtension,
+                commentGutter,
+            );
         }
 
         return extensions;
