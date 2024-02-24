@@ -1,5 +1,6 @@
 import NodePaneContent from './NodePaneContent';
 import { Page } from './NodePaneToolbar';
+import { useNodePaneContextCreator } from '../../hooks/pane/useNodePaneContext';
 import { selectSelected } from '../../nodes.selectors';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
@@ -11,6 +12,7 @@ interface NodePaneProps {
 
 export default function NodePane({ page }: NodePaneProps) {
     const pk = useSelector(selectSelected);
+    const { NodePaneContext, ctxValue } = useNodePaneContextCreator();
 
     if (!pk) {
         return (
@@ -33,5 +35,9 @@ export default function NodePane({ page }: NodePaneProps) {
         );
     }
 
-    return <NodePaneContent page={page} />;
+    return (
+        <NodePaneContext.Provider value={ctxValue}>
+            <NodePaneContent page={page} />
+        </NodePaneContext.Provider>
+    );
 }

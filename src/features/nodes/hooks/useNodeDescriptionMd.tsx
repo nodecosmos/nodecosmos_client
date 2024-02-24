@@ -1,13 +1,11 @@
+import { useNodePaneContext } from './pane/useNodePaneContext';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { selectBranch } from '../../branch/branches.selectors';
 import { BranchStatus } from '../../branch/branches.types';
 import useBranchParams from '../../branch/hooks/useBranchParams';
-import {
-    selectNode, selectNodeAttribute, selectSelected,
-} from '../nodes.selectors';
+import { selectNode, selectNodeAttribute } from '../nodes.selectors';
 import { getDescriptionBase64, getOriginalDescriptionBase64 } from '../nodes.thunks';
-import { PKWithTreeBranch } from '../nodes.types';
 import {
     useCallback, useEffect, useMemo,
 } from 'react';
@@ -25,12 +23,16 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isBranch, mainBranchId } = useBranchParams();
     const {
-        treeBranchId, branchId, id,
-    } = useSelector(selectSelected) as PKWithTreeBranch;
+        treeBranchId, // branchId of the current tree
+        id,
+        branchId, // branchId of the selected node
+        loading,
+        setLoading,
+        unsetLoading,
+    } = useNodePaneContext();
     const branch = useSelector(selectBranch(treeBranchId));
     const { descriptionMarkdown, descriptionBase64 } = useSelector(selectNode(treeBranchId, id));
     const mainDescMarkdown = useSelector(selectNodeAttribute(mainBranchId, id, 'descriptionMarkdown'));
-    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     const isMerged = branch?.status === BranchStatus.Merged;
 
@@ -51,13 +53,10 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
         }));
     }, [dispatch, mainBranchId, branchId, id]);
 
-    const unsetLoader = useCallback(() => {
-        setTimeout(unsetLoading, 250);
-    }, [unsetLoading]);
-
     const { originalDescriptionMarkdown, branchDescriptionMarkdown } = useMemo(() => {
         const mergedDescriptionChange = branch?.descriptionChangeByObject?.[id];
-
+        // if the branch is merged and the description has been changed,
+        // show the state of the description at the time of the merge
         if (isMerged && mergedDescriptionChange) {
             return {
                 originalDescriptionMarkdown: mergedDescriptionChange.old,
@@ -72,8 +71,10 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
 
     const loadMarkdown = useCallback(() => {
         if (isBranch && !isMerged && branch?.editedNodeDescriptions?.has(id)) {
+            setLoading();
             return getBranchDescriptionBase64().then(getOriginalDescriptionBase64Cb);
-        } else if (!branchDescriptionMarkdown) {
+        } else if (!branchDescriptionMarkdown && !fetched) {
+            setLoading();
             return getBranchDescriptionBase64();
         }
 
@@ -86,15 +87,15 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
         id,
         isBranch,
         isMerged,
+        fetched,
+        setLoading,
     ]);
 
     useEffect(() => {
         if (!fetched && !loading) {
-            setLoading();
-
             loadMarkdown().then(() => {
                 setFetched();
-                unsetLoader();
+                unsetLoading();
             });
         }
 
@@ -103,7 +104,7 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
                 unsetFetched();
             }
         };
-    }, [fetched, loadMarkdown, loading, setFetched, setLoading, unsetFetched, unsetLoader]);
+    }, [fetched, loadMarkdown, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
 
     return {
         showDiff: isBranch,

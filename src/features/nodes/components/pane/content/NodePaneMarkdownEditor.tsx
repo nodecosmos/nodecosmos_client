@@ -1,4 +1,5 @@
 import Loader from '../../../../../common/components/Loader';
+import { useNodePaneContext } from '../../../hooks/pane/useNodePaneContext';
 import useNodeDescriptionMd from '../../../hooks/useNodeDescriptionMd';
 import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
@@ -7,12 +8,15 @@ import React, { Suspense } from 'react';
 const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
 
 export default function NodePaneMarkdownEditor() {
+    const { loading } = useNodePaneContext();
+
     const {
         showDiff, originalDescriptionMarkdown, branchDescriptionMarkdown,
     } = useNodeDescriptionMd();
 
-    console.log('originalDescriptionMarkdown', originalDescriptionMarkdown);
-    console.log('branchDescriptionMarkdown', branchDescriptionMarkdown);
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <Suspense fallback={<Loader />}>

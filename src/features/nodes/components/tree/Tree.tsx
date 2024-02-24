@@ -22,7 +22,7 @@ function Tree(props: TreeProps) {
     const {
         treeBranchId, rootNodeId, type = TreeType.Default, onChange, value = null,
     } = props;
-    const { TreeContext, ctxProviderValue } = useTreeContextCreator({
+    const { TreeContext, ctxValue } = useTreeContextCreator({
         treeBranchId,
         rootNodeId,
         type,
@@ -33,8 +33,7 @@ function Tree(props: TreeProps) {
     const isTreeLoading = false; // TODO
 
     return (
-
-        <TreeContext.Provider value={ctxProviderValue}>
+        <TreeContext.Provider value={ctxValue}>
             <div className="Tree">
                 <TreeToolbar />
                 <Alert />

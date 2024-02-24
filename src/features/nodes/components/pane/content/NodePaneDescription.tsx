@@ -1,80 +1,29 @@
 import Loader from '../../../../../common/components/Loader';
-import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import { NodecosmosDispatch } from '../../../../../store';
-import { selectSelected, selectSelectedNode } from '../../../nodes.selectors';
-import { getDescription } from '../../../nodes.thunks';
+import { useNodePaneContext } from '../../../hooks/pane/useNodePaneContext';
+import useNodeDescription from '../../../hooks/useNodeDescription';
 import NodePaneCoverImage from '../../cover/NodePaneCoverImage';
-import { Typography, Box } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Box } from '@mui/material';
+import React from 'react';
 
 export default function NodePaneDescription() {
-    const selectedPk = useSelector(selectSelected);
+    const { description, loading } = useNodePaneContext();
 
-    if (!selectedPk) {
-        throw new Error('NodePaneContent: selected node is required');
-    }
-
-    const dispatch: NodecosmosDispatch = useDispatch();
-    const {
-        rootId, isTmp, description,
-    } = useSelector(selectSelectedNode);
-    const {
-        treeBranchId, branchId, id,
-    } = selectedPk;
-    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
-    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
-
-    useEffect(() => {
-        if (id && rootId && !isTmp && !fetched && !loading) {
-            setLoading();
-            dispatch(getDescription({
-                treeBranchId,
-                branchId,
-                id,
-            })).finally(() => {
-                setFetched();
-                setTimeout(unsetLoading, 250);
-            });
-        }
-
-        return () => {
-            if (!loading && fetched) {
-                unsetFetched();
-            }
-        };
-    },
-    [
-        branchId, dispatch, fetched, id, isTmp, loading, rootId, treeBranchId,
-        setFetched, setLoading, unsetLoading, unsetFetched,
-    ]);
+    useNodeDescription();
 
     if (loading) {
         return <Loader />;
     }
 
-    const blankDescription = (
-        <Typography color="text.secondary">
-            This node has no description yet.
-        </Typography>
-    );
-
     return (
         <Box px={4}>
             <NodePaneCoverImage />
-            {
-                description
-                    ? (
-                        <Box display="flex" justifyContent="center">
-                            <Box
-                                mt={2}
-                                maxWidth={850}
-                                className="DescriptionHTML"
-                                dangerouslySetInnerHTML={{ __html: description }} />
-                        </Box>
-                    )
-                    : blankDescription
-            }
+            <Box display="flex" justifyContent="center">
+                <Box
+                    mt={2}
+                    maxWidth={850}
+                    className="DescriptionHTML"
+                    dangerouslySetInnerHTML={{ __html: description as TrustedHTML }} />
+            </Box>
         </Box>
     );
 }

@@ -67,7 +67,7 @@ export function useTreeContextCreator(props: TreeProps) {
         buildTree();
     }, [buildTree]);
 
-    const ctxProviderValue = useMemo(
+    const ctxValue = useMemo(
         () => ({
             treeBranchId,
             rootNodeId,
@@ -86,7 +86,7 @@ export function useTreeContextCreator(props: TreeProps) {
 
     return {
         TreeContext,
-        ctxProviderValue,
+        ctxValue,
     };
 }
 

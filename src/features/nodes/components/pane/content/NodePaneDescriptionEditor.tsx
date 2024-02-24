@@ -1,5 +1,6 @@
 import Loader from '../../../../../common/components/Loader';
-import useNodeDescription from '../../../hooks/useNodeDescription';
+import { useNodePaneContext } from '../../../hooks/pane/useNodePaneContext';
+import useNodeDescription from '../../../hooks/useNodeDescriptionEdit';
 import { selectSelected } from '../../../nodes.selectors';
 import { PKWithTreeBranch } from '../../../nodes.types';
 import { Box } from '@mui/material';
@@ -12,15 +13,17 @@ const RemirrorEditor = React.lazy(
 
 export default function NodePaneDescriptionEditor() {
     const { branchId, id } = useSelector(selectSelected) as PKWithTreeBranch;
+    const { loading } = useNodePaneContext();
 
     const {
         handleChange,
-        loading,
         descriptionMarkdown,
         descriptionBase64,
     } = useNodeDescription();
 
-    if (loading) return <Loader />;
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <Suspense fallback={<Loader />}>

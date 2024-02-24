@@ -3,17 +3,13 @@ import NodePaneDescriptionEditor from './content/NodePaneDescriptionEditor';
 import NodePaneMarkdownEditor from './content/NodePaneMarkdownEditor';
 import NodePaneWorkflow from './content/NodePaneWorkflow';
 import NodePaneToolbar, { Page } from './NodePaneToolbar';
-import usePrevious from '../../../../common/hooks/usePrevious';
-import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import { setNodePaneContent } from '../../actions';
-import {
-    selectNodePaneContent, selectSelected, selectSelectedNode,
-} from '../../nodes.selectors';
-import { NodePaneContent, NodePaneContent as NodePaneContentType } from '../../nodes.types';
+import { useNodePaneContext } from '../../hooks/pane/useNodePaneContext';
+import { selectNodePaneContent, selectSelected } from '../../nodes.selectors';
+import { NodePaneContent } from '../../nodes.types';
 import { Box, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface NodePaneProps {
     page?: Page;
@@ -31,25 +27,13 @@ export default function Content({ page }: NodePaneProps) {
     if (!selectedPk) {
         throw new Error('NodePaneContent: selected node is required');
     }
-
     const nodePaneContent = useSelector(selectNodePaneContent);
-    const { isTmp, title } = useSelector(selectSelectedNode);
+    const { title, isTmp } = useNodePaneContext();
     const PaneContent = NODE_PANE_CONTENTS[nodePaneContent];
-    const { id } = selectedPk;
-    const prevSelectedNodeId = usePrevious(id);
-    const dispatch: NodecosmosDispatch = useDispatch();
-
-    useEffect(() => {
-        if (prevSelectedNodeId !== id && nodePaneContent !== NodePaneContentType.Workflow) {
-            dispatch(setNodePaneContent(NodePaneContentType.Description));
-        }
-    }, [dispatch, prevSelectedNodeId, id, nodePaneContent]);
 
     let blankStateMessage = null;
 
-    if (!id) {
-        blankStateMessage = 'Select a node to view its details.';
-    } else if (isTmp) {
+    if (isTmp) {
         blankStateMessage = 'Selected node is not initialized yet.';
 
         if (!title) {
