@@ -1,15 +1,19 @@
 import CodeMirrorContainer from './CodeMirrorContainer';
-import {
-    commentGutter, hoveredLineField, mouseoverExtension,
-} from '../../extensions/codemirror/comment';
-import diff from '../../extensions/codemirror/diff';
 import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
+import useComments from '../../hooks/codemirror/useComments';
+import { commentGutter } from '../../lib/codemirror/extensions/comment';
+import diff from '../../lib/codemirror/extensions/diff';
+import mouseoverExtension from '../../lib/codemirror/extensions/mouseover';
+import { commentWidgetsField, hoveredLineField } from '../../lib/codemirror/stateFields';
 import { markdown } from '@codemirror/lang-markdown';
-import CodeMirror, { Extension } from '@uiw/react-codemirror';
-import React, { useMemo, useRef } from 'react';
+import { Extension, useCodeMirror } from '@uiw/react-codemirror';
+import React, {
+    useEffect, useMemo, useRef,
+} from 'react';
 
 interface CodeMirrorEditorProps {
-    showDiff?: boolean;
+    diffViewEnabled?: boolean;
+    commentsEnabled?: boolean;
     currentValue?: string;
     value: string;
     onChange?: (value: string) => void;
@@ -17,42 +21,60 @@ interface CodeMirrorEditorProps {
 }
 
 export default function CodeMirrorEditor({
-    showDiff = false,
+    diffViewEnabled = false,
+    commentsEnabled = false,
     currentValue = '',
     value = '',
     onChange,
     editable,
 }: CodeMirrorEditorProps) {
-    const codeMirrorRef = useRef(null);
+    const codeMirrorRef = useRef<HTMLDivElement>(null);
     const codeMirrorTheme = useCodeMirrorTheme();
 
     const extensions = useMemo(() => {
         const extensions: Extension[] = [markdown()];
 
-        if (showDiff) {
+        if (diffViewEnabled) {
             extensions.push(
                 diff(currentValue, value),
+            );
+        }
+
+        if (commentsEnabled) {
+            extensions.push(
                 hoveredLineField,
-                mouseoverExtension,
+                commentWidgetsField,
                 mouseoverExtension,
                 commentGutter,
             );
         }
-
         return extensions;
-    }, [currentValue, showDiff, value]);
+    }, [currentValue, commentsEnabled, diffViewEnabled, value]);
+
+    const { setContainer, view } = useCodeMirror({
+        container: codeMirrorRef.current,
+        extensions,
+        value,
+        editable,
+        onChange,
+        theme: codeMirrorTheme,
+        height: '100%',
+    });
+
+    useComments({
+        view,
+        commentsEnabled,
+    });
+
+    useEffect(() => {
+        if (codeMirrorRef.current) {
+            setContainer(codeMirrorRef.current);
+        }
+    }, [setContainer]);
 
     return (
         <CodeMirrorContainer>
-            <CodeMirror
-                editable={editable}
-                ref={codeMirrorRef}
-                value={value}
-                onChange={onChange}
-                theme={codeMirrorTheme}
-                extensions={[extensions]}
-                height="100%"
-            />
+            <div ref={codeMirrorRef} />
         </CodeMirrorContainer>
     );
 }

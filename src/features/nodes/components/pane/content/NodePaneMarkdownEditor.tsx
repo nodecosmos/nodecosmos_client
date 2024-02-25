@@ -11,7 +11,7 @@ export default function NodePaneMarkdownEditor() {
     const { loading } = useNodePaneContext();
 
     const {
-        showDiff, originalDescriptionMarkdown, branchDescriptionMarkdown,
+        diffViewEnabled, originalDescriptionMarkdown, branchDescriptionMarkdown,
     } = useNodeDescriptionMd();
 
     if (loading) {
@@ -22,7 +22,8 @@ export default function NodePaneMarkdownEditor() {
         <Suspense fallback={<Loader />}>
             <Box height={1}>
                 <CustomCodeMirror
-                    showDiff={showDiff}
+                    diffViewEnabled={diffViewEnabled}
+                    commentsEnabled={true}
                     currentValue={originalDescriptionMarkdown || ''}
                     value={branchDescriptionMarkdown || ''}
                     editable={false}

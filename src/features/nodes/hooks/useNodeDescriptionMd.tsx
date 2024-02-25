@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 interface UseNodeDescriptionMd {
-    showDiff: boolean;
+    diffViewEnabled: boolean;
     loading: boolean;
     originalDescriptionMarkdown: string | null;
     branchDescriptionMarkdown: string | null;
@@ -108,7 +108,7 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     }, [fetched, loadMarkdown, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
 
     return {
-        showDiff: isBranch && ((!isMerged && isDescriptionEdited) || (isMerged && !!mergedDescriptionChange)),
+        diffViewEnabled: isBranch && ((!isMerged && isDescriptionEdited) || (isMerged && !!mergedDescriptionChange)),
         loading,
         originalDescriptionMarkdown,
         branchDescriptionMarkdown,
