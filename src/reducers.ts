@@ -1,5 +1,6 @@
 import appSlice from './features/app/appSlice';
 import branchesSlice from './features/branch/branchesSlice';
+import commentsSlice from './features/comments/commentsSlice';
 import contributionRequestSlice from './features/contribution-requests/contributionRequestsSlice';
 import flowStepsSlice from './features/flow-steps/flowStepsSlice';
 import flowsSlice from './features/flows/flowsSlice';
@@ -25,4 +26,5 @@ export default combineReducers({
     contributionRequests: contributionRequestSlice,
     branches: branchesSlice,
     users: usersSlice,
+    comments: commentsSlice,
 });

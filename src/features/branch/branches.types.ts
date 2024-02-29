@@ -23,10 +23,10 @@ export interface TextChange {
 }
 
 export enum BranchStatus {
-    Open = 'OPEN',
-    Merged = 'MERGED',
-    Recovered = 'RECOVERED',
-    RecoveryFailed = 'RECOVERY_FAILED',
+    Open = 'Open',
+    Merged = 'Merged',
+    Recovered = 'Recovered',
+    RecoveryFailed = 'RecoveryFailed',
     Closed = 'CLOSED',
 }
 

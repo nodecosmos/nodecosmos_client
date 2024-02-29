@@ -1,10 +1,10 @@
 import { Profile, UUID } from '../../types';
 
 export enum ContributionRequestStatus {
-    WorkInProgress = 'WORK_IN_PROGRESS',
-    Published = 'PUBLISHED',
-    Merged = 'MERGED',
-    Closed = 'CLOSED',
+    WorkInProgress = 'WorkInProgress',
+    Published = 'Published',
+    Merged = 'Merged',
+    Closed = 'Closed',
 }
 
 // CR branch id is equal to CR's id

@@ -13,6 +13,7 @@ type DiffExtension = ViewPlugin<{
 export default function diffExtension(originalText: string, newText: string): DiffExtension {
     const dmp = new diff_match_patch();
     const diffs = dmp.diff_main(originalText, newText);
+
     dmp.diff_cleanupSemantic(diffs);
 
     const createDiffDecorations = (diffs: Diff[]): RangeSet<Decoration> => {
@@ -23,7 +24,7 @@ export default function diffExtension(originalText: string, newText: string): Di
             if (op === 0) { // No change
                 index += text.length;
             } else if (op === 1) { // Addition
-                const deco = Decoration.mark({ class: 'diff-added' });
+                const deco = Decoration.mark({ class: 'cm-diffAdd' });
                 builder.add(index, index + text.length, deco);
                 index += text.length;
             } else if (op === -1) {
@@ -32,7 +33,7 @@ export default function diffExtension(originalText: string, newText: string): Di
                         toDOM() {
                             const node = document.createElement('span');
                             node.textContent = text;
-                            node.className = 'diff-removed'; // Apply custom styling
+                            node.className = 'cm-diffRemoved'; // Apply custom styling
                             return node;
                         }
                     },

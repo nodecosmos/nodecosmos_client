@@ -17,15 +17,15 @@ export interface Position {
 
 export interface Profile {
     id: UUID;
-    ownerType: string;
+    profileType: string;
     name: string;
     username: string | null;
     profileImageURL: string | null;
 }
 
 export enum ProfileType {
-    User = 'user',
-    Organization = 'organization',
+    User = 'User',
+    Organization = 'Organization',
 }
 
 export type Exact<T, Shape> = T & {

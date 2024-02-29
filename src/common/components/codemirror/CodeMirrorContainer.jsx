@@ -27,14 +27,6 @@ export default function CodeMirrorContainer({ children }) {
                 height: 1,
                 ml: 1,
             },
-            '.diff-added': {
-                backgroundColor: 'diff.addedBg',
-                color: 'diff.addedFg',
-            },
-            '.diff-removed': {
-                backgroundColor: 'diff.removedBg',
-                color: 'diff.removedFg',
-            },
             '.cm-line': { width: 'calc(100% - 8px)' },
             '.cm-focused': { outline: 'none!important' },
             '.cm-lineNumbers': {
@@ -61,14 +53,26 @@ export default function CodeMirrorContainer({ children }) {
             '.cm-gutters': {
                 minHeight: 1,
                 borderRight: 1,
+                borderColor: 'borders.2',
                 minWidth: {
                     xs: '1px',
                     md: HEADER_HEIGHT,
                 },
                 justifyContent: 'center',
+            },
+            '.cm-diffAdd': {
+                backgroundColor: 'diff.addedBg',
+                color: 'diff.addedFg',
+            },
+            '.cm-diffRemoved': {
+                backgroundColor: 'diff.removedBg',
+                color: 'diff.removedFg',
+            },
+            '.cm-commentGutter': {
+                width: 16,
+                borderLeft: 1,
                 borderColor: 'borders.2',
             },
-            '.cm-commentGutter': { width: 16 },
         }}
         >
             {children}
