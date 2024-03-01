@@ -73,7 +73,6 @@ const theme: NodecosmosTheme = {
             3: '#484d55',
             4: '#595c65',
             5: '#848ea8',
-            focus: '#edb96d',
         },
 
         background: {
@@ -127,14 +126,6 @@ const theme: NodecosmosTheme = {
                 '#eef47a',
                 '#f4af7a',
             ],
-            // outlines: [
-            //     '#f13575',
-            //     '#a38dff', // 539bf5
-            //     '#77bbff',
-            //     '#b3ff68',
-            //     '#e7e96d',
-            //     '#f5a07b',
-            // ],
             defaultText: '#ffffff',
             selectedText: 'rgba(0, 0, 0, 0.9)',
             hashtag: '#898f9c',

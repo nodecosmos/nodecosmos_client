@@ -72,7 +72,6 @@ interface Palette {
         3: string;
         4: string;
         5: string;
-        focus: string;
     };
     background: {
         1: string;

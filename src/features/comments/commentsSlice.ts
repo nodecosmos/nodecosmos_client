@@ -7,6 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState: CommentState = {
     byObjectId: {},
     idsByThreadId: {},
+    threadIdsByLine: new Map(),
 };
 
 const commentsSlice = createSlice({
@@ -16,7 +17,9 @@ const commentsSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(indexComments.fulfilled, (state, action) => {
-                action.payload.forEach((comment) => {
+                const { comments, threads } = action.payload;
+
+                comments.forEach((comment) => {
                     if (!state.byObjectId[comment.objectId]) {
                         state.byObjectId[comment.objectId] = [];
                     }
@@ -28,9 +31,20 @@ const commentsSlice = createSlice({
 
                     state.idsByThreadId[comment.threadId].push(comment.id);
                 });
+
+                threads.forEach((thread) => {
+                    if (thread.lineContent) {
+                        const threadIdsByLine = state.threadIdsByLine.get(thread.lineContent);
+                        if (threadIdsByLine) {
+                            threadIdsByLine.push(thread.id);
+                        } else {
+                            state.threadIdsByLine.set(thread.lineContent, [thread.id]);
+                        }
+                    }
+                });
             })
             .addCase(createComment.fulfilled, (state, action) => {
-                const comment = action.payload;
+                const { comment, thread } = action.payload;
 
                 if (!state.byObjectId[comment.objectId]) {
                     state.byObjectId[comment.objectId] = [];
@@ -42,6 +56,10 @@ const commentsSlice = createSlice({
                 }
 
                 state.idsByThreadId[comment.threadId].push(comment.id);
+
+                if (thread && thread.lineContent) {
+                    state.threadIdsByLine.set(thread.lineContent, [thread.id]);
+                }
             })
             .addCase(updateCommentContent.fulfilled, (state, action) => {
                 const { objectId, content } = action.payload;

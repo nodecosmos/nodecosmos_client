@@ -1,5 +1,5 @@
-import RemirrorClickable from './RemirrorClickable';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
+import RemirrorEditorFocusContainer from './RemirrorEditorFocusContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import { RemirrorExtensions } from '../../hooks/editor/useExtensions';
@@ -46,11 +46,11 @@ export default function RemirrorEditorWrapper() {
                 editable
             >
                 <RemirrorEditorToolbar />
-                <RemirrorClickable>
+                <RemirrorEditorFocusContainer>
                     <Box className="DescriptionHTML" p={p}>
                         <EditorComponent />
                     </Box>
-                </RemirrorClickable>
+                </RemirrorEditorFocusContainer>
                 {
                     info && (
                         <Box sx={{

@@ -73,7 +73,6 @@ const theme: NodecosmosTheme = {
             3: '#ecebf1',
             4: '#c8c8c8',
             5: '#9fadff',
-            focus: '#0095ff',
         },
 
         background: {

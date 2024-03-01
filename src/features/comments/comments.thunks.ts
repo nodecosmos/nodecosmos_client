@@ -1,5 +1,5 @@
 import {
-    Comment, CommentPrimaryKey, ThreadType,
+    Comment, CommentInsertPayload, CommentPrimaryKey, CommentThread, CommentThreadInsertPayload,
 } from './comments.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -10,7 +10,16 @@ interface IndexCommentsPayload {
     objectId: UUID;
 }
 
-export const indexComments = createAsyncThunk<Comment[], IndexCommentsPayload, { rejectValue: NodecosmosError }>(
+interface IndexCommentsResponse {
+    comments: Comment[];
+    threads: CommentThread[];
+}
+
+export const indexComments = createAsyncThunk<
+    IndexCommentsResponse,
+    IndexCommentsPayload,
+    { rejectValue: NodecosmosError }
+>(
     'comments/indexComments',
     async ({ objectId }) => {
         const response = await nodecosmos.get(`/comments/${objectId}`);
@@ -19,13 +28,20 @@ export const indexComments = createAsyncThunk<Comment[], IndexCommentsPayload, {
 );
 
 interface CreateCommentPayload {
-    objectId: UUID;
-    threadId?: UUID;
-    threadType: ThreadType;
-    lineNumber?: number;
-    content: string;
+    comment: CommentInsertPayload,
+    thread?: CommentThreadInsertPayload,
 }
-export const createComment = createAsyncThunk<Comment, CreateCommentPayload, { rejectValue: NodecosmosError }>(
+
+interface CreateCommentResponse {
+    comment: Comment,
+    thread?: CommentThread,
+}
+
+export const createComment = createAsyncThunk<
+    CreateCommentResponse,
+    CreateCommentPayload,
+    { rejectValue: NodecosmosError }
+>(
     'comments/createComment',
     async (payload, { rejectWithValue }) => {
         try {

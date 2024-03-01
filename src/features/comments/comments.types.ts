@@ -13,9 +13,8 @@ export enum ThreadType {
     ContributionRequestNodeDescription = 'ContributionRequest::NodeDescription',
 }
 
-export interface CommentPrimaryKey {
+export interface CommentThreadPrimaryKey {
     objectId: UUID;
-    threadId: UUID;
     id: UUID;
 }
 
@@ -24,24 +23,39 @@ export interface CommentPrimaryKey {
  *   * **`ContributionRequest['id']`** for ContributionRequest related comments
  *   * **`Topic['id']`**  for Topic related comments
  *
- * **threadId**  corresponds to following:
+ * **id**  corresponds to following:
  *  - **`Node['id']`**  for node related comments within ContributionRequest
  *  - **`ContributionRequest['id']`**  for main thread of ContributionRequest comments
  */
-export interface Comment extends CommentPrimaryKey {
+export interface CommentThread extends CommentThreadPrimaryKey {
     objectType: ObjectType;
     threadType: ThreadType;
-    // nodeId of the contribution request or topic but not for the comments related to nodes
-    nodeId: UUID;
-    lineNumber: number;
+    nodeId: UUID; // nodeId of the contribution request or topic but not for the comments related to nodes
+    lineNumber?: number; // line number of the description where the thread is created
+    lineContent?: string; // line of description where the thread is created
+}
+
+export type CommentThreadInsertPayload = Omit<CommentThread, 'objectId' | 'id'>;
+
+export interface CommentPrimaryKey {
+    objectId: UUID;
+    threadId: UUID;
+    id: UUID;
+}
+
+export interface Comment extends CommentPrimaryKey {
     content: string;
+    threadId: UUID;
     authorId: UUID;
     author: Profile;
     createdAt: Date;
     updatedAt: Date;
 }
 
+export type CommentInsertPayload = Omit<Comment, 'objectId' | 'threadId' | 'id'>;
+
 export interface CommentState {
     byObjectId: Record<UUID, Comment[]>;
     idsByThreadId: Record<UUID, UUID[]>;
+    threadIdsByLine: Map<string, UUID[]>;
 }

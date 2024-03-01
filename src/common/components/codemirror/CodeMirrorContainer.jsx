@@ -60,9 +60,16 @@ export default function CodeMirrorContainer({ children }) {
                 },
                 justifyContent: 'center',
             },
+            '.cm-commentGutter': { width: 12 },
             '.cm-addCommentButton': {
-                backgroundColor: 'toolbar.green',
+                left: 31,
+                color: 'text.primary',
+                backgroundColor: 'text.collaboratePurple',
                 minHeight: 23,
+                borderRadius: 1,
+                boxShadow: 'buttons.1',
+                zIndex: 1,
+                position: 'absolute',
             },
             '.cm-diffAdd': {
                 backgroundColor: 'diff.addedBg',

@@ -20,7 +20,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
                 height: '100%',
                 cursor: 'text',
                 overflow: 'hidden',
-                backgroundColor: editorBackgroundColor ?? 'background.5',
+                backgroundColor: editorBackgroundColor ?? 'background.3',
                 // toolbar
                 '.RemirrorToolbar': {
                     display: 'flex',
@@ -40,9 +40,12 @@ export default function RemirrorEditorContainer({ children }: Props) {
                     height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
                     border: 1,
                     borderRadius: 1,
-                    borderColor: 'borders.2',
+                    borderColor: 'borders.4',
                     m: 1,
-                    '&:focus-within': { borderColor: editorFocusColor ?? 'borders.focus' },
+                    '&:focus-within': {
+                        outline: 2,
+                        outlineColor: editorFocusColor ?? 'toolbar.purple',
+                    },
                 },
                 '.remirror-editor-wrapper': {
                     width: 1,

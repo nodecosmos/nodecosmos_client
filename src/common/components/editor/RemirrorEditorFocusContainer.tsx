@@ -1,18 +1,20 @@
-
 import { RemirrorExtensions } from '../../hooks/editor/useExtensions';
-import { useCommands } from '@remirror/react';
+import { useCommands, useEditorFocus } from '@remirror/react';
 import React, { ReactNode, useCallback } from 'react';
 
 interface RemirrorClickableProps {
     children: ReactNode;
 }
 
-export default function RemirrorClickable({ children }: RemirrorClickableProps) {
+export default function RemirrorEditorFocusContainer({ children }: RemirrorClickableProps) {
+    const [isFocused] = useEditorFocus();
     const commands = useCommands<RemirrorExtensions>();
 
     const handleClick = useCallback(() => {
-        commands.focus();
-    }, [commands]);
+        if (!isFocused) {
+            commands.focus();
+        }
+    }, [commands, isFocused]);
 
     return (
         <div className="RemirrorTextEditor" onClick={handleClick}>
