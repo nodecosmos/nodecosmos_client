@@ -11,7 +11,8 @@ import OrderedList from './toolbar/OrderedList';
 import Redo from './toolbar/Redo';
 import Strikethrough from './toolbar/Strikethrough';
 import Undo from './toolbar/Undo';
-import { EnabledExtensions } from '../../hooks/remirror/useExtensions';
+import { useEditorContext } from '../../hooks/editor/useEditorContext';
+import { EnabledExtensions } from '../../hooks/editor/useExtensions';
 import { Stack } from '@mui/material';
 import React, { useMemo, ReactNode } from 'react';
 
@@ -41,11 +42,9 @@ const TOOLBAR_MAP: ToolbarMap = {
     [EnabledExtensions.TrailingNode]: null,
 };
 
-interface RemirrorEditorToolbarProps {
-    enabledExtensions?: EnabledExtensions[];
-}
+export default function RemirrorEditorToolbar() {
+    const { enabledExtensions } = useEditorContext();
 
-export default function RemirrorEditorToolbar({ enabledExtensions }: RemirrorEditorToolbarProps) {
     const enabledExtMap: Partial<ToolbarMap> = useMemo(() => {
         if (enabledExtensions) {
             const toolbarMap: Partial<ToolbarMap> = {};

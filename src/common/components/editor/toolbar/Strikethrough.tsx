@@ -1,4 +1,4 @@
-import { RemirrorExtensions } from '../../../hooks/remirror/useExtensions';
+import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import { faStrikethrough } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';

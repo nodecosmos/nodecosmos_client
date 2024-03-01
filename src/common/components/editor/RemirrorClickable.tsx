@@ -1,5 +1,5 @@
 
-import { RemirrorExtensions } from '../../hooks/remirror/useExtensions';
+import { RemirrorExtensions } from '../../hooks/editor/useExtensions';
 import { useCommands } from '@remirror/react';
 import React, { ReactNode, useCallback } from 'react';
 

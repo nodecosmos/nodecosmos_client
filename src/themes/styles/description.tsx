@@ -14,7 +14,7 @@ export default (theme: NodecosmosTheme) => ({
             backgroundColor: theme.palette.markdownContent.canvas,
             borderRadius: 4,
             borderLeft: '8px solid',
-            padding: 16,
+            padding: '12px 6px',
             borderColor: theme.palette.borders[5],
         },
         table: {
@@ -44,10 +44,7 @@ export default (theme: NodecosmosTheme) => ({
             color: theme.palette.text.link,
             fontWeight: 'bold',
         },
-        p: {
-            wordWrap: 'break-word',
-            fontWeight: '500',
-        },
+        p: { wordWrap: 'break-word' },
         'img:not(.ProseMirror-separator)': {
             maxWidth: 850,
             width: '100%',

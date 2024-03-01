@@ -1,4 +1,4 @@
-import { hoveredLineField } from '../stateFields';
+import { hoveredLineField, selectedLineField } from '../stateFields';
 import { GutterMarker, gutter } from '@codemirror/view';
 import {
     EditorView,
@@ -8,6 +8,7 @@ import {
 export class CommentGutterMarker extends GutterMarker {
     toDOM() {
         const marker = document.createElement('button');
+        marker.className = 'cm-addCommentButton';
         marker.textContent = '+';
         marker.style.cursor = 'pointer';
         marker.onclick = () => this.addComment();
@@ -22,10 +23,11 @@ export const commentGutter = gutter({
     markers: (view: EditorView) => {
         const builder = new RangeSetBuilder<GutterMarker>();
         const hoveredLine = view.state.field(hoveredLineField);
+        const selectedLine = view.state.field(selectedLineField);
 
-        if (hoveredLine !== null) {
+        if (hoveredLine !== null || selectedLine !== null) {
             // Assuming line numbers start at 1 and converting to a zero-based index for positions
-            const linePos = view.state.doc.line(hoveredLine).from;
+            const linePos = view.state.doc.line((hoveredLine ?? selectedLine) as number).from;
             builder.add(linePos, linePos, new CommentGutterMarker());
         }
 

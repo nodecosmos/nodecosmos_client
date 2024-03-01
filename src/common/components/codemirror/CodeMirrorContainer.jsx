@@ -25,7 +25,6 @@ export default function CodeMirrorContainer({ children }) {
                 flexShrink: 1,
                 fontFamily: 'monospace',
                 height: 1,
-                ml: 1,
             },
             '.cm-line': { width: 'calc(100% - 8px)' },
             '.cm-focused': { outline: 'none!important' },
@@ -36,6 +35,7 @@ export default function CodeMirrorContainer({ children }) {
                 },
                 pb: 2,
             },
+
             '.cm-gutterElement': {
                 textAlign: 'left!important',
                 display: 'flex',
@@ -60,6 +60,10 @@ export default function CodeMirrorContainer({ children }) {
                 },
                 justifyContent: 'center',
             },
+            '.cm-addCommentButton': {
+                backgroundColor: 'toolbar.green',
+                minHeight: 23,
+            },
             '.cm-diffAdd': {
                 backgroundColor: 'diff.addedBg',
                 color: 'diff.addedFg',
@@ -67,11 +71,6 @@ export default function CodeMirrorContainer({ children }) {
             '.cm-diffRemoved': {
                 backgroundColor: 'diff.removedBg',
                 color: 'diff.removedFg',
-            },
-            '.cm-commentGutter': {
-                width: 16,
-                borderLeft: 1,
-                borderColor: 'borders.2',
             },
         }}
         >

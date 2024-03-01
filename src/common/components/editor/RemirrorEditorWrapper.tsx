@@ -1,32 +1,38 @@
 import RemirrorClickable from './RemirrorClickable';
 import RemirrorEditorContainer from './RemirrorEditorContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
-import { EnabledExtensions, RemirrorExtensions } from '../../hooks/remirror/useExtensions';
-import { Box } from '@mui/material';
+import { useEditorContext } from '../../hooks/editor/useEditorContext';
+import { RemirrorExtensions } from '../../hooks/editor/useExtensions';
+import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Typography } from '@mui/material';
 import { RemirrorEventListenerProps } from '@remirror/core';
 import {
     EditorComponent, Remirror, useRemirror,
 } from '@remirror/react';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { MarkdownExtension } from 'remirror/extensions';
+import * as Y from 'yjs';
 
-interface RemirrorEditorWrapperProps {
-    extensions: RemirrorExtensions[];
-    setInitialContent: boolean;
-    markdown: string;
-    onChange?: (props: RemirrorEventListenerProps<MarkdownExtension>) => void;
-    enabledExtensions?: EnabledExtensions[];
-    p?: number;
-}
-
-export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps) {
+export default function RemirrorEditorWrapper() {
     const {
-        extensions, setInitialContent, markdown, onChange, enabledExtensions, p = 8,
-    } = props;
+        base64, markdown, onChange, p = 8, doc, isRealTime, extensions, info,
+    } = useEditorContext();
+
+    const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
+        if (remirrorProps.tr && remirrorProps.tr.docChanged) {
+            let encoded = null;
+            if (doc && isRealTime) {
+                encoded = Y.encodeStateAsUpdateV2(doc);
+            }
+
+            onChange(remirrorProps.helpers, encoded);
+        }
+    }, [doc, isRealTime, onChange]);
 
     const { manager, state } = useRemirror<RemirrorExtensions>({
         extensions: () => extensions,
-        content: (setInitialContent && markdown) || undefined,
+        content: (!base64 && markdown) || undefined,
         stringHandler: 'markdown',
     });
 
@@ -36,14 +42,38 @@ export default function RemirrorEditorWrapper(props: RemirrorEditorWrapperProps)
                 manager={manager}
                 initialContent={state}
                 autoFocus
-                onChange={onChange}
+                onChange={handleChange}
+                editable
             >
-                <RemirrorEditorToolbar enabledExtensions={enabledExtensions} />
+                <RemirrorEditorToolbar />
                 <RemirrorClickable>
                     <Box className="DescriptionHTML" p={p}>
                         <EditorComponent />
                     </Box>
                 </RemirrorClickable>
+                {
+                    info && (
+                        <Box sx={{
+                            ml: 1,
+                            mb: 1,
+                            color: 'text.tertiary',
+                            backgroundColor: 'transparent',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'start',
+                        }}
+                        >
+                            <FontAwesomeIcon icon={faCircleInfo} />
+                            <Typography
+                                ml={1}
+                                fontWeight="bold"
+                                variant="caption"
+                                color="text.tertiary">
+                                {info}
+                            </Typography>
+                        </Box>
+                    )
+                }
             </Remirror>
         </RemirrorEditorContainer>
     );

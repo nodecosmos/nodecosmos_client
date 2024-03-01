@@ -12,7 +12,7 @@ import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 /* nodecosmos */
 
-const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
+const CodeMirrorEditor = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
 
 const loading = (
     <Box display="flex" alignItems="center" justifyContent="center" mb={8}>
@@ -63,7 +63,7 @@ export default function FlowPaneMarkdownEditor() {
     return (
         <Suspense fallback={loading}>
             <Box height={1}>
-                <CustomCodeMirror value={descriptionMarkdown || ''} onChange={handleChange} />
+                <CodeMirrorEditor value={descriptionMarkdown || ''} onChange={handleChange} />
             </Box>
         </Suspense>
     );

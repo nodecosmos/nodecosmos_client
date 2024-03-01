@@ -73,10 +73,11 @@ const theme: NodecosmosTheme = {
             3: '#ecebf1',
             4: '#c8c8c8',
             5: '#9fadff',
+            focus: '#0095ff',
         },
 
         background: {
-            1: '#f7f3ff', // f8f9fa
+            1: '#ffffff', // f8f9fa
             2: '#fdfcfd', // f0f0ef ededed
             3: '#f8f9fa',
             4: '#ffffff',
@@ -172,10 +173,10 @@ const theme: NodecosmosTheme = {
         },
 
         diff: {
-            addedBg: 'rgba(177, 244, 122, 0.3)',
-            addedFg: '#b1f47a',
+            addedBg: '#8CAC77FF',
+            addedFg: '#9bff4a',
             removedBg: 'rgba(255,0,0,0.24)',
-            removedFg: '#fd526f',
+            removedFg: '#f53152',
         },
 
         logo: {

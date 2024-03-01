@@ -1,12 +1,13 @@
+/* eslint-disable react/no-unused-prop-types */
 import RemirrorEditorWrapper from './RemirrorEditorWrapper';
 import { UUID } from '../../../types';
-import useExtensions, { EnabledExtensions } from '../../hooks/remirror/useExtensions';
-import { HelpersFromExtensions, RemirrorEventListenerProps } from '@remirror/core';
-import React, { useCallback } from 'react';
+import { useEditorContextCreator } from '../../hooks/editor/useEditorContext';
+import { EnabledExtensions } from '../../hooks/editor/useExtensions';
+import { HelpersFromExtensions } from '@remirror/core';
+import React from 'react';
 import { MarkdownExtension } from 'remirror/extensions';
-import * as Y from 'yjs';
 
-interface RemirrorEditorProps {
+export interface RemirrorEditorProps {
     markdown: string;
     onChange: (helpers: HelpersFromExtensions<MarkdownExtension>, uint8ArrayState: Uint8Array | null) => void;
     wsRoomId?: UUID;
@@ -14,46 +15,27 @@ interface RemirrorEditorProps {
     wsAuthNodeId?: UUID;
     wsAuthNodeBranchId?: UUID;
     isRealTime?: boolean;
-    extensions?: EnabledExtensions[];
+    enabledExtensions?: EnabledExtensions[];
     p?: number;
+    px?: number;
+    py?: number;
+    toolbarHeight?: number;
+    editorBackgroundColor?: string;
+    editorFocusColor?: string;
+    info?: string;
 }
 
 export default function RemirrorEditor(props: RemirrorEditorProps) {
     const {
-        markdown, onChange, wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId,
-        isRealTime, extensions: enabledExtensions, p,
-    } = props;
+        EditorContext,
+        ctxValue,
+    } = useEditorContextCreator(props);
 
-    const { extensions, doc } = useExtensions({
-        isRealTime,
-        base64,
-        wsAuthNodeId,
-        wsAuthNodeBranchId,
-        wsRoomId,
-        enabledExtensions,
-    });
-
-    const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
-        if (remirrorProps.tr && remirrorProps.tr.docChanged) {
-            let encoded = null;
-            if (doc && isRealTime) {
-                encoded = Y.encodeStateAsUpdateV2(doc);
-            }
-
-            onChange(remirrorProps.helpers, encoded);
-        }
-    }, [doc, isRealTime, onChange]);
-
-    if (extensions.length === 0) return null;
+    if (ctxValue.extensions.length === 0) return null;
 
     return (
-        <RemirrorEditorWrapper
-            p={p}
-            extensions={extensions}
-            markdown={markdown}
-            onChange={handleChange}
-            setInitialContent={!base64}
-            enabledExtensions={enabledExtensions}
-        />
+        <EditorContext.Provider value={ctxValue}>
+            <RemirrorEditorWrapper />
+        </EditorContext.Provider>
     );
 }

@@ -11,4 +11,5 @@ import { Decoration } from '@codemirror/view';
  * Effects can be used to add or remove decorations, update a field, or trigger other state changes.
  */
 export const setHoveredLine = StateEffect.define<number | null>();
+export const setSelectedLine = StateEffect.define<number | null>();
 export const addCommentWidget = StateEffect.define<{deco: Decoration, from: number}>();

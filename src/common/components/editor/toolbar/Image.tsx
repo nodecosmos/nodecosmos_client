@@ -1,5 +1,5 @@
 import { selectSelectedNode } from '../../../../features/nodes/nodes.selectors';
-import { RemirrorExtensions } from '../../../hooks/remirror/useExtensions';
+import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import { faCamera } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

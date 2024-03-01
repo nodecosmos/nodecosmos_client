@@ -1,10 +1,12 @@
 import CodeMirrorContainer from './CodeMirrorContainer';
+import useDescriptionComments from '../../../features/comments/hooks/useDescriptionComments';
 import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
-import useComments from '../../hooks/codemirror/useComments';
-import { commentGutter } from '../../lib/codemirror/extensions/comment';
 import diff from '../../lib/codemirror/extensions/diff';
-import mouseoverExtension from '../../lib/codemirror/extensions/mouseover';
-import { commentWidgetsField, hoveredLineField } from '../../lib/codemirror/stateFields';
+import { click, hover } from '../../lib/codemirror/extensions/events';
+import { commentGutter } from '../../lib/codemirror/extensions/gutter';
+import {
+    commentWidgetsField, hoveredLineField, selectedLineField,
+} from '../../lib/codemirror/stateFields';
 import { markdown } from '@codemirror/lang-markdown';
 import { Extension, useCodeMirror } from '@uiw/react-codemirror';
 import React, {
@@ -43,8 +45,10 @@ export default function CodeMirrorEditor({
         if (commentsEnabled) {
             extensions.push(
                 hoveredLineField,
+                selectedLineField,
                 commentWidgetsField,
-                mouseoverExtension,
+                click,
+                hover,
                 commentGutter,
             );
         }
@@ -61,7 +65,7 @@ export default function CodeMirrorEditor({
         height: '100%',
     });
 
-    useComments({
+    const createCommentPortal = useDescriptionComments({
         view,
         commentsEnabled,
     });
@@ -73,8 +77,12 @@ export default function CodeMirrorEditor({
     }, [setContainer]);
 
     return (
-        <CodeMirrorContainer>
-            <div ref={codeMirrorRef} />
-        </CodeMirrorContainer>
+        <div>
+            <CodeMirrorContainer>
+                <div ref={codeMirrorRef} />
+            </CodeMirrorContainer>
+            {createCommentPortal}
+        </div>
+
     );
 }

@@ -1,6 +1,6 @@
 import { selectSelectedNode } from '../../../../features/nodes/nodes.selectors';
 import { UUID } from '../../../../types';
-import { RemirrorExtensions } from '../../../hooks/remirror/useExtensions';
+import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import UppyUploadFileModal from '../../upload/UploadFileModal';
 import { faFileArrowUp } from '@fortawesome/pro-solid-svg-icons';

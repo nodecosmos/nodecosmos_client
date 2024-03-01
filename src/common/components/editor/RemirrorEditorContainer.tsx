@@ -1,41 +1,58 @@
 import { HEADER_HEIGHT } from '../../../features/app/constants';
-import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
+import { NodecosmosTheme } from '../../../themes/type';
+import { useEditorContext } from '../../hooks/editor/useEditorContext';
+import { Box, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function RemirrorEditorContainer({ children }) {
+interface Props {
+    children: React.ReactNode;
+}
+
+export default function RemirrorEditorContainer({ children }: Props) {
+    const theme: NodecosmosTheme = useTheme();
+    const {
+        toolbarHeight, p = 0, px = 0, py = 0, editorBackgroundColor, editorFocusColor,
+    } = useEditorContext();
+
     return (
         <Box
             sx={{
                 height: '100%',
                 cursor: 'text',
+                overflow: 'hidden',
+                backgroundColor: editorBackgroundColor ?? 'background.5',
                 // toolbar
-                '.MuiStack-root': {
+                '.RemirrorToolbar': {
                     display: 'flex',
                     alignItems: 'center',
-                    backgroundColor: 'background.5',
-                    border: 1,
-                    borderColor: 'borders.2',
-                    pb: 0.5,
-                    pl: 0.5,
-                    height: HEADER_HEIGHT,
-                    boxShadow: '1',
+                    height: toolbarHeight ?? HEADER_HEIGHT,
                     position: 'relative',
                     zIndex: 1,
                     width: 1,
                     whiteSpace: 'nowrap',
                     overflow: 'auto',
+                    borderBottom: 1,
+                    borderColor: 'borders.2',
+                    backgroundColor: 'background.5',
                 },
                 '.RemirrorTextEditor': {
                     overflow: 'auto',
-                    height: `calc(100% - ${HEADER_HEIGHT})`,
-                    width: 1,
+                    height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
+                    border: 1,
+                    borderRadius: 1,
+                    borderColor: 'borders.2',
+                    m: 1,
+                    '&:focus-within': { borderColor: editorFocusColor ?? 'borders.focus' },
                 },
                 '.remirror-editor-wrapper': {
                     width: 1,
                     height: `calc(100% - ${HEADER_HEIGHT})`,
+                    minHeight: 100,
                     overflow: 'auto',
-                    p: 0,
+                    p: p ?? 0,
+                    px: px ?? 0,
+                    py: py ?? 0,
+                    caretColor: theme.palette.text.primary + '!important',
                 },
                 '.MuiButtonBase-root': {
                     color: 'text.secondary',
@@ -67,5 +84,3 @@ export default function RemirrorEditorContainer({ children }) {
         </Box>
     );
 }
-
-RemirrorEditorContainer.propTypes = { children: PropTypes.node.isRequired };

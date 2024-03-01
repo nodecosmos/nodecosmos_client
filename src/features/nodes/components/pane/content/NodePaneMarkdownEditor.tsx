@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 /* nodecosmos */
 
-const CustomCodeMirror = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
+const CodeMirrorEditor = React.lazy(() => import('../../../../../common/components/codemirror/CodeMirrorEditor'));
 
 export default function NodePaneMarkdownEditor() {
     const { loading } = useNodePaneContext();
@@ -21,7 +21,7 @@ export default function NodePaneMarkdownEditor() {
     return (
         <Suspense fallback={<Loader />}>
             <Box height={1}>
-                <CustomCodeMirror
+                <CodeMirrorEditor
                     diffViewEnabled={diffViewEnabled}
                     commentsEnabled={true}
                     currentValue={originalDescriptionMarkdown || ''}

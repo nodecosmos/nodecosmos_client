@@ -1,5 +1,5 @@
 import Loader from '../../../../common/components/Loader';
-import { EnabledExtensions } from '../../../../common/hooks/remirror/useExtensions';
+import { EnabledExtensions } from '../../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
@@ -73,11 +73,16 @@ export default function Bio() {
             {
                 editorOpen && (
                     <Suspense fallback={<Loader />}>
-                        <Box width={1} border={1} borderColor="borders.1" borderRadius={2} borderTop={0}>
+                        <Box
+                            width={1}
+                            border={1}
+                            borderColor="borders.1"
+                            borderRadius={2}
+                            overflow="hidden">
                             <RemirrorEditor
                                 markdown={user.bio}
                                 onChange={handleUpdateBioDebounced}
-                                extensions={[
+                                enabledExtensions={[
                                     Bold,
                                     Italic,
                                     Strike,
@@ -86,7 +91,9 @@ export default function Bio() {
                                     Link,
                                     OrderedList,
                                 ]}
-                                p={2}
+                                p={1}
+                                toolbarHeight={38}
+                                editorBackgroundColor="background.2"
                             />
                         </Box>
                         <Button

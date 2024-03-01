@@ -1,4 +1,4 @@
-import { RemirrorExtensions } from '../../../hooks/remirror/useExtensions';
+import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import {
     faChevronDown,

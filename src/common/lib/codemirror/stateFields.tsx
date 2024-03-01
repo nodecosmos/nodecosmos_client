@@ -1,4 +1,6 @@
-import { addCommentWidget, setHoveredLine } from './stateEffects';
+import {
+    addCommentWidget, setHoveredLine, setSelectedLine,
+} from './stateEffects';
 import { StateField } from '@codemirror/state';
 import { Decoration } from '@codemirror/view';
 import { DecorationSet, EditorView } from '@uiw/react-codemirror';
@@ -15,9 +17,23 @@ export const hoveredLineField = StateField.define<number | null>({
     create() {
         return null;
     },
-    update(value, tr) {
+    update(_value, tr) {
         for (const effect of tr.effects) {
             if (effect.is(setHoveredLine)) {
+                return effect.value;
+            }
+        }
+        return null;
+    },
+});
+
+export const selectedLineField = StateField.define<number | null>({
+    create() {
+        return null;
+    },
+    update(value, tr) {
+        for (const effect of tr.effects) {
+            if (effect.is(setSelectedLine)) {
                 return effect.value;
             }
         }
@@ -35,8 +51,6 @@ export const commentWidgetsField = StateField.define<DecorationSet>({
         for (const e of tr.effects) {
             if (e.is(addCommentWidget)) {
                 const { deco, from } = e.value;
-
-                console.log('Adding widget at:', from); // Debugging line
 
                 widgets = widgets.update({ add: [deco.range(from)] });
             }
