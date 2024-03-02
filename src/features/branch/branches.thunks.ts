@@ -34,13 +34,13 @@ export const checkDeletedAncestorConflict = createAsyncThunk<
 > (
     'branches/checkConflict',
     async (payload, { getState }) => {
-        if (payload.mainBranchId === payload.branchId) {
+        if (payload.currentRootNodeId === payload.branchId) {
             return null;
         }
         const state = getState();
         const nodes = state.nodes.byBranchId;
         const branch = state.branches.byId[payload.branchId];
-        const mainNodes = nodes[payload.mainBranchId];
+        const mainNodes = nodes[payload.currentRootNodeId];
         const branchNodes = nodes[payload.branchId];
         let deletedAncestorIds = null;
 

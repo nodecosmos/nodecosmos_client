@@ -1,5 +1,6 @@
 import { setHeaderContent } from '../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../features/app/constants';
+import { indexComments } from '../../features/comments/comments.thunks';
 import CRShowToolbar from '../../features/contribution-requests/components/ContributionRequestsShowToolbar';
 import { selectContributionRequest } from '../../features/contribution-requests/contributionRequests.selectors';
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
@@ -23,7 +24,7 @@ export default function Show() {
         dispatch(showContributionRequest({
             nodeId: nodeId as UUID,
             id: contributionRequestId as UUID,
-        }));
+        })).then(() => dispatch(indexComments(contributionRequestId as UUID)));
 
         return () => {
             dispatch(setHeaderContent(''));

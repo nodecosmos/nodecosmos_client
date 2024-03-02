@@ -1,27 +1,78 @@
+import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import Loader from '../../../common/components/Loader';
 import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../store';
+import { createComment } from '../comments.thunks';
+import { CommentPrimaryKey, CreateCommentPayload } from '../comments.types';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Button } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
 import React, { Suspense, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
 const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
 
-interface AddDescriptionCommentProps {
-    closeInsertComment: () => void;
+interface WithThread {
+    thread: CreateCommentPayload['thread'];
+    commentPk?: never;
 }
 
-export default function AddDescriptionComment({ closeInsertComment }: AddDescriptionCommentProps) {
+interface WithoutThread {
+    commentPk: CommentPrimaryKey;
+    thread?: never;
+}
+
+export type CreateCommentProps = WithThread | WithoutThread;
+export type AddDescriptionCommentProps = CreateCommentProps & {
+    onClose?: () => void;
+};
+
+const {
+    Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
+} = EnabledExtensions;
+
+export default function CreateComment(props: AddDescriptionCommentProps) {
     const {
-        Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
-    } = EnabledExtensions;
-    const [content, setContent] = React.useState('');
+        thread, commentPk = null, onClose,
+    } = props;
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const [content, setContent] = React.useState<string>('');
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
     const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
         setContent(helpers.getText());
     }, []);
+
+    const handleCommentCreation = useCallback(() => {
+        setLoading();
+
+        let payload: CreateCommentPayload;
+
+        if (commentPk) {
+            payload = {
+                comment: {
+                    ...commentPk,
+                    content,
+                },
+            };
+        } else if (thread) {
+            payload = {
+                thread,
+                comment: { content },
+            };
+        } else {
+            throw new Error('Invalid props');
+        }
+
+        dispatch(createComment(payload)).then(() => {
+            if (onClose) {
+                onClose();
+            }
+            unsetLoading();
+        });
+    }, [onClose, commentPk, content, dispatch, setLoading, thread, unsetLoading]);
 
     return (
         <Box py={0.5}>
@@ -31,7 +82,7 @@ export default function AddDescriptionComment({ closeInsertComment }: AddDescrip
                 p={1}
                 sx={{ backgroundColor: 'background.1' }}
                 boxSizing="border-box">
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={<Loader p={4} />}>
                     <Box maxWidth={780}>
                         <Box
                             overflow="hidden"
@@ -63,16 +114,17 @@ export default function AddDescriptionComment({ closeInsertComment }: AddDescrip
                             display="flex"
                             justifyContent="flex-end"
                         >
-                            <Button variant="outlined" color="buttonContrast" onClick={closeInsertComment}>
+                            <Button variant="outlined" color="buttonContrast" onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button
+                            <DefaultButton
                                 sx={{ ml: 1 }}
                                 variant="outlined"
-                                color="primary"
-                                startIcon={<FontAwesomeIcon icon={faSave} />}>
-                                Save
-                            </Button>
+                                startIcon={faSave}
+                                loading={loading}
+                                title="Create"
+                                onClick={handleCommentCreation}
+                            />
                         </Box>
                     </Box>
                 </Suspense>

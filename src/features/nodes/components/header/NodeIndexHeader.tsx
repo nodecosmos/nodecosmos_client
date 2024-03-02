@@ -3,7 +3,6 @@ import DefaultButton from '../../../../common/components/buttons/DefaultButton';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import CreateNodeModal from '../CreateNodeModal';
 import { faAdd } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -19,7 +18,7 @@ export default function NodeIndexHeader() {
             <Box display="flex" alignItems="center">
                 <DefaultButton
                     title="Add Node"
-                    startIcon={<FontAwesomeIcon icon={faAdd} />}
+                    startIcon={faAdd}
                     onClick={openCreateNodeDialog}
                 />
                 <NodeIndexSearch />

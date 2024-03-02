@@ -144,7 +144,7 @@ export default function useTreeBuilder(props: Props): Tree {
             orderedTreeNodeIds,
         });
 
-        // we use this to build tree, but we don't rebuild it if structure is not changed,
+        // we use `treeNodes` to build tree, but we don't rebuild it if structure is not changed,
         // so we don't need to observe treeNodes here
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ancestorIds, branchChildIds, treeRootId]);

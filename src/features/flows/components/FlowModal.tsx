@@ -1,4 +1,4 @@
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
@@ -88,7 +88,7 @@ export default function FlowModal(props: Props) {
                                     ),
                                 }}
                             />
-                            <DefaultModalFormButton loading={loading} />
+                            <DefaultFormButton loading={loading} />
                         </form>
                     )}
                 </Form>

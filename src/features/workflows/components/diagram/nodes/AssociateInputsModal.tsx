@@ -1,5 +1,5 @@
 import AssociateInputCheckboxField from './AssocateInputCheckboxField';
-import DefaultModalFormButton from '../../../../../common/components/buttons/DefaultModalFormButton';
+import DefaultFormButton from '../../../../../common/components/buttons/DefaultFormButton';
 import CloseModalButton from '../../../../../common/components/modal/CloseModalButton';
 import DefaultModal from '../../../../../common/components/modal/DefaultModal';
 import { NodecosmosDispatch } from '../../../../../store';
@@ -134,7 +134,7 @@ export default function AssociateInputsModal(props: Props) {
                                     </Box>
                                 ))
                             }
-                            <DefaultModalFormButton startIcon={faSave} loading={loading} title="Save" />
+                            <DefaultFormButton startIcon={faSave} loading={loading} title="Save" />
                         </form>
                     )}
                 </Form>

@@ -2,16 +2,33 @@ import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectComments = (state: RootState) => state.comments.byObjectId;
+export const selectComments = (state: RootState) => state.comments.byId;
 export const selectCommentIdsByThreadId = (state: RootState) => state.comments.idsByThreadId;
+export const selectThreadById = (state: RootState) => state.comments.threadsById;
+export const selectThreadIdsByObjectId = (state: RootState) => state.comments.threadIdsByObjectId;
+export const selectThreadIdByLine = (state: RootState) => state.comments.threadIdByLine;
 
-export const selectComment = (objectId: UUID) => createSelector(
+export const selectComment = (id: UUID) => createSelector(
     selectComments,
-    (comments) => comments[objectId],
+    (commentsById) => commentsById[id],
 );
 
-export const selectCommentsByThreadId = (threadId: UUID) => createSelector(
+export const selectThreadCommentIds = (threadId: UUID) => createSelector(
     selectCommentIdsByThreadId,
-    selectComments,
-    (idsByThreadId, comments) => idsByThreadId[threadId]?.map((id) => comments[id]),
+    (idsByThreadId) => idsByThreadId[threadId],
+);
+
+export const selectObjectThreadIds = (objectId: UUID) => createSelector(
+    selectThreadIdsByObjectId,
+    (threadIdsByObjectId) => threadIdsByObjectId[objectId],
+);
+
+export const selectThread = (threadId: UUID) => createSelector(
+    selectThreadById,
+    (threadsById) => threadsById[threadId],
+);
+
+export const selectNodeThreadsByLine = (objectId: UUID, nodeId: UUID) => createSelector(
+    selectThreadIdByLine,
+    (threadIdByLine) => threadIdByLine[objectId]?.[nodeId],
 );

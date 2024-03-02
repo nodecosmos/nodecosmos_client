@@ -1,14 +1,10 @@
 import {
-    Comment, CommentInsertPayload, CommentPrimaryKey, CommentThread, CommentThreadInsertPayload,
+    Comment, CreateCommentPayload, CommentPrimaryKey, CommentThread, UpdateCommentPayload,
 } from './comments.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
-
-interface IndexCommentsPayload {
-    objectId: UUID;
-}
 
 interface IndexCommentsResponse {
     comments: Comment[];
@@ -17,20 +13,15 @@ interface IndexCommentsResponse {
 
 export const indexComments = createAsyncThunk<
     IndexCommentsResponse,
-    IndexCommentsPayload,
+    UUID,
     { rejectValue: NodecosmosError }
 >(
     'comments/indexComments',
-    async ({ objectId }) => {
+    async (objectId) => {
         const response = await nodecosmos.get(`/comments/${objectId}`);
         return response.data;
     },
 );
-
-interface CreateCommentPayload {
-    comment: CommentInsertPayload,
-    thread?: CommentThreadInsertPayload,
-}
 
 interface CreateCommentResponse {
     comment: Comment,
@@ -56,9 +47,6 @@ export const createComment = createAsyncThunk<
     },
 );
 
-interface UpdateCommentPayload extends CommentPrimaryKey {
-    content: string;
-}
 export const updateCommentContent = createAsyncThunk<
     UpdateCommentPayload,
     UpdateCommentPayload,

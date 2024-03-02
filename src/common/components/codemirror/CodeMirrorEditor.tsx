@@ -2,8 +2,9 @@ import CodeMirrorContainer from './CodeMirrorContainer';
 import useDescriptionComments from '../../../features/comments/hooks/useDescriptionComments';
 import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
 import diff from '../../lib/codemirror/extensions/diff';
-import { click, hover } from '../../lib/codemirror/extensions/events';
+import { onClick, onHover } from '../../lib/codemirror/extensions/events';
 import { commentGutter } from '../../lib/codemirror/extensions/gutter';
+import hover from '../../lib/codemirror/extensions/hover';
 import {
     commentWidgetsField, hoveredLineField, selectedLineField,
 } from '../../lib/codemirror/stateFields';
@@ -44,12 +45,16 @@ export default function CodeMirrorEditor({
 
         if (commentsEnabled) {
             extensions.push(
+                // fields
                 hoveredLineField,
                 selectedLineField,
                 commentWidgetsField,
-                click,
-                hover,
+                // events
+                onClick,
+                onHover,
+                // extensions
                 commentGutter,
+                hover,
             );
         }
         return extensions;
@@ -65,7 +70,7 @@ export default function CodeMirrorEditor({
         height: '100%',
     });
 
-    const createCommentPortal = useDescriptionComments({
+    const { createCommentPortal, showThreadsPortals } = useDescriptionComments({
         view,
         commentsEnabled,
     });
@@ -82,6 +87,7 @@ export default function CodeMirrorEditor({
                 <div ref={codeMirrorRef} />
             </CodeMirrorContainer>
             {createCommentPortal}
+            {showThreadsPortals}
         </div>
 
     );

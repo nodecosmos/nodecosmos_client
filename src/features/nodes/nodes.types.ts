@@ -83,7 +83,7 @@ export type PKWithTreeBranch = NodePrimaryKey & TreeBranch;
 export type NodePayload = PKWithTreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
 
 export interface NodeBranchDiffPayload extends Partial<Omit<Node, keyof NodePrimaryKey>> {
-    mainBranchId: UUID;
+    currentRootNodeId: UUID;
     currentBranchId: UUID;
     id: UUID;
 }

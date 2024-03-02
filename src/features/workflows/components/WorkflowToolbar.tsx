@@ -79,7 +79,7 @@ export default function WorkflowToolbar() {
                     !hasWorkflow && (
                         <DefaultButton
                             title="Add Workflow"
-                            startIcon={<FontAwesomeIcon icon={faAdd} />}
+                            startIcon={faAdd}
                             onClick={openModal}
                         />
                     )

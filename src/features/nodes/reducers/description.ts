@@ -35,7 +35,7 @@ export function getOriginalDescriptionBase64Fulfilled(
     state: NodeState,
     action: ReturnType<typeof getOriginalDescriptionBase64.fulfilled>,
 ) {
-    const { mainBranchId } = action.meta.arg;
+    const { currentRootNodeId } = action.meta.arg;
     const {
         id,
         description: originalDescription,
@@ -43,7 +43,7 @@ export function getOriginalDescriptionBase64Fulfilled(
         descriptionMarkdown: originalBranchMarkdown,
     } = action.payload;
 
-    state.byBranchId[mainBranchId][id].description = originalDescription;
-    state.byBranchId[mainBranchId][id].descriptionBase64 = originalBranchBase64;
-    state.byBranchId[mainBranchId][id].descriptionMarkdown = originalBranchMarkdown;
+    state.byBranchId[currentRootNodeId][id].description = originalDescription;
+    state.byBranchId[currentRootNodeId][id].descriptionBase64 = originalBranchBase64;
+    state.byBranchId[currentRootNodeId][id].descriptionMarkdown = originalBranchMarkdown;
 }

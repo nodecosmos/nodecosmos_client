@@ -12,7 +12,7 @@ export interface Conflict {
 }
 
 export interface BranchParams {
-    mainBranchId: UUID; // corresponds to the id of the current node
+    currentRootNodeId: UUID; // corresponds to the id of the current node
     branchId: UUID; // either id of the current node or id of the contribution request, depending on the context
 }
 

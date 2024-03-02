@@ -1,20 +1,18 @@
-
-
-# Nodecosmos 
+# Nodecosmos
 
 ### Directory & File structure: 
 *  **common** - everything that does not relate to redux state
    * **components** - common view components
    * **hooks** - common business logic
 
-*  **features** - each feature has its own slice of state
+*  **features** - each feature corresponds to a model in the database with an exception to the app and home
    * **feature-name**
        *  **components** - view components
-       *  **hooks** - business logic
-       *  **reducers** - reducers for feature
+       *  **hooks** - domain specific logic
+       *  **reducers** - (optional) state management for feature, usually used for large slices
           * **extra** - handle async actions usually defined within feature.thunks.js (createNode, updateNode, deleteNode...)
-       *  **feature.thunks.js** - thunks for feature
-       *  **feature.selectors.js** - selectors for feature
+       *  **feature.thunks.js** - usually used for api calls but it can be used for async actions that require state changes from multiple reducers
+       *  **feature.selectors.js** - used to select data from feature state
        *  **featureSlice.js** - state management for feature
 *  **pages** - Each route has associated page. Nested routes are handled with reactrouter `<Outlet />`
 
@@ -49,19 +47,6 @@ on nested element change. We do this so emotion does not need to recompute style
 3) Once you're ready to merge your changes into the main codebase, create a pull request and have your changes reviewed by other members of your team.
 4) If there are any issues identified during the review process, make changes to your code and commit those changes to your branch.
 5) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
-6) Once your pull request has been approved, merge your changes into the main codebase. 5
+6) Once your pull request has been approved, merge your changes into the main codebase.
 7) Finally, delete your branch to keep your repository clean and organized.
----
 
-### Important Considerations:
-Node ids are complex at the moment as we want to support smooth tree flow, so we have:
-
-* **nodeId** - id of node in nodeSlice
-* **treeNodeId** - id of node in treeSlice
-* **persistentId** - id of node in database and in slice
-
-Usually `persistentId` and `nodeId` are the same. However, in case we work with the Tree, we generate 
-tmp id for new node as `nodeId`. Obviously, we cannot use tmp id to communicate with the backend, so we need to leave 
-`nodeId` as it is, and use `persistentId` to communicate with the backend and get the latest changes from state.
-We can get the latest changes from state because we map newly created node wit its own id to nodeSlice after node is 
-created.

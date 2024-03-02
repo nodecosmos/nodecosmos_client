@@ -3,7 +3,7 @@ import { setHoveredLine, setSelectedLine } from '../stateEffects';
 import { hoveredLineField, selectedLineField } from '../stateFields';
 import { EditorView } from '@uiw/react-codemirror';
 
-export const hover = EditorView.domEventHandlers({
+export const onHover = EditorView.domEventHandlers({
     mouseover(event, view) {
         const pos = view.posAtCoords({
             x: event.clientX,
@@ -24,7 +24,7 @@ export const hover = EditorView.domEventHandlers({
 
 // setSelectedLine
 
-export const click = EditorView.domEventHandlers({
+export const onClick = EditorView.domEventHandlers({
     mousedown(event, view) {
         const pos = view.posAtCoords({
             x: event.clientX,

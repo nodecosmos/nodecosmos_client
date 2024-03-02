@@ -1,4 +1,4 @@
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { Strict, UUID } from '../../../types';
@@ -27,7 +27,7 @@ interface Props {
 
 export default function FlowStepModal({ open, onClose }: Props) {
     const {
-        id: workflowId, nodeId, branchId, 
+        id: workflowId, nodeId, branchId,
     } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
@@ -154,7 +154,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                             value={flowStepNodeIds}
                         />
                     </Box>
-                    <DefaultModalFormButton
+                    <DefaultFormButton
                         loading={loading}
                         startIcon={faSave}
                         title="Save"

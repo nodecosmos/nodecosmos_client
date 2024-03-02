@@ -21,7 +21,7 @@ interface UseNodeDescriptionMd {
 
 export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { isBranch, mainBranchId } = useBranchParams();
+    const { isBranch, currentRootNodeId } = useBranchParams();
     const {
         treeBranchId, // branchId of the current tree
         id,
@@ -32,7 +32,7 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
     } = useNodePaneContext();
     const branch = useSelector(selectBranch(treeBranchId));
     const { descriptionMarkdown, descriptionBase64 } = useSelector(selectNode(treeBranchId, id));
-    const mainDescMarkdown = useSelector(selectNodeAttribute(mainBranchId, id, 'descriptionMarkdown'));
+    const mainDescMarkdown = useSelector(selectNodeAttribute(currentRootNodeId, id, 'descriptionMarkdown'));
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     const isDescriptionEdited = branch?.editedNodeDescriptions?.has(id);
     const isMerged = branch?.status === BranchStatus.Merged;
@@ -49,11 +49,11 @@ export default function useNodeDescriptionMd(): UseNodeDescriptionMd {
 
     const getOriginalDescriptionBase64Cb = useCallback(() => {
         return dispatch(getOriginalDescriptionBase64({
-            mainBranchId,
+            currentRootNodeId,
             currentBranchId: branchId,
             id,
         }));
-    }, [dispatch, mainBranchId, branchId, id]);
+    }, [dispatch, currentRootNodeId, branchId, id]);
 
     const { originalDescriptionMarkdown, branchDescriptionMarkdown } = useMemo(() => {
         // if the branch is merged and the description has been changed,

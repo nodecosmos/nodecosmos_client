@@ -13,29 +13,34 @@ export enum ThreadType {
     ContributionRequestNodeDescription = 'ContributionRequest::NodeDescription',
 }
 
-export interface CommentThreadPrimaryKey {
-    objectId: UUID;
-    id: UUID;
-}
-
 /**
  * **objectId** corresponds to the following:
  *   * **`ContributionRequest['id']`** for ContributionRequest related comments
  *   * **`Topic['id']`**  for Topic related comments
  *
- * **id**  corresponds to following:
- *  - **`Node['id']`**  for node related comments within ContributionRequest
- *  - **`ContributionRequest['id']`**  for main thread of ContributionRequest comments
+ * **objectNodeId** corresponds to nodeId of the `ContributionRequest` or `Topic`
+ *
+ * **nodeId** corresponds to the following:
+ * ContributionRequest::NodeAddition,
+ * ContributionRequest::NodeRemoval,
+ * ContributionRequest::NodeDescription
+ *
  */
+export interface CommentThreadPrimaryKey {
+    objectId: UUID;
+    id: UUID;
+}
+
 export interface CommentThread extends CommentThreadPrimaryKey {
     objectType: ObjectType;
+    objectNodeId: UUID; // nodeId of the contribution request or topic
     threadType: ThreadType;
-    nodeId: UUID; // nodeId of the contribution request or topic but not for the comments related to nodes
+    threadNodeId?: UUID;
     lineNumber?: number; // line number of the description where the thread is created
     lineContent?: string; // line of description where the thread is created
 }
 
-export type CommentThreadInsertPayload = Omit<CommentThread, 'objectId' | 'id'>;
+export type CommentThreadInsertPayload = Omit<CommentThread, keyof CommentThreadPrimaryKey>;
 
 export interface CommentPrimaryKey {
     objectId: UUID;
@@ -44,18 +49,40 @@ export interface CommentPrimaryKey {
 }
 
 export interface Comment extends CommentPrimaryKey {
-    content: string;
     threadId: UUID;
+    content: string;
     authorId: UUID;
     author: Profile;
     createdAt: Date;
     updatedAt: Date;
 }
 
-export type CommentInsertPayload = Omit<Comment, 'objectId' | 'threadId' | 'id'>;
+export type RawCommentInsertPayload = Pick<Comment, 'content'>
+export type ExistingThreadInsertCommentPayload = Pick<Comment, keyof CommentPrimaryKey | 'content'>
+
+export type UpdateCommentPayload = Pick<Comment, keyof CommentPrimaryKey | 'content'>
+
+interface WithThreadCommentInsertPayload {
+    thread: CommentThreadInsertPayload;
+    comment: RawCommentInsertPayload;
+}
+
+interface WithoutThreadCommentInsertPayload {
+    thread?: never;
+    comment: ExistingThreadInsertCommentPayload;
+}
+
+export type CreateCommentPayload = WithThreadCommentInsertPayload | WithoutThreadCommentInsertPayload;
+
+type NodeId = UUID;
+type ObjectId = UUID;
+type LineContent = string;
 
 export interface CommentState {
-    byObjectId: Record<UUID, Comment[]>;
+    byId: Record<UUID, Comment>;
+    idsByObjectId: Record<UUID, UUID[]>;
     idsByThreadId: Record<UUID, UUID[]>;
-    threadIdsByLine: Map<string, UUID[]>;
+    threadsById: Record<UUID, CommentThread>;
+    threadIdsByObjectId: Record<UUID, UUID[]>;
+    threadIdByLine: Record<ObjectId, Record<NodeId, Map<LineContent, UUID>>>;
 }

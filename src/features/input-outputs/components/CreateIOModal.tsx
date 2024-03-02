@@ -1,4 +1,4 @@
-import DefaultModalFormButton from '../../../common/components/buttons/DefaultModalFormButton';
+import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import FinalFormAutocompleteField from '../../../common/components/final-form/FinalFormAutocompleteField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import DefaultModal from '../../../common/components/modal/DefaultModal';
@@ -95,7 +95,7 @@ export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
                                 setAutocompleteValue={setAutocompleteValue}
                             />
 
-                            <DefaultModalFormButton loading={loading} />
+                            <DefaultFormButton loading={loading} />
                         </form>
                     )}
                 </Form>

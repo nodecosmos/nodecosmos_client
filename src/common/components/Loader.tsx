@@ -8,11 +8,12 @@ interface Props {
     size?: number;
     width?: number;
     ml?: number;
+    p?: number;
 }
 
 export default function Loader(props: Props) {
     const {
-        backgroundColor, color = 'background.8', size = 100, width = 1, ml = 0,
+        backgroundColor, color = 'background.8', size = 100, width = 1, ml = 0, p = 0,
     } = props;
 
     return (
@@ -24,7 +25,8 @@ export default function Loader(props: Props) {
             justifyContent="center"
             sx={{
                 backgroundColor,
-                ml, 
+                ml,
+                p,
             }}
         >
             <CircularProgress

@@ -5,7 +5,6 @@ import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { faAdd } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -32,7 +31,7 @@ export default function ContributionRequestsIndexToolbar({ nodeId }: Props) {
             >
                 <DefaultButton
                     title="Add Contribution Request"
-                    startIcon={<FontAwesomeIcon icon={faAdd} />}
+                    startIcon={faAdd}
                     onClick={openModal}
                 />
 
