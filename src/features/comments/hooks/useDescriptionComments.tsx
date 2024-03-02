@@ -1,5 +1,5 @@
-import useDescriptionInsertCommentPortal from './description/useDescriptionInsertCommentPortal';
-import useDescriptionThreadsPortals from './description/useDescriptionThreadsPortals';
+import useInsertCommentPortal from './description/useInsertCommentPortal';
+import useThreadsPortals from './description/useThreadsPortals';
 import { EditorView } from '@uiw/react-codemirror';
 
 export interface CommentProps {
@@ -9,13 +9,13 @@ export interface CommentProps {
 
 export default function useDescriptionComments({ view, commentsEnabled }: CommentProps) {
     //Creates a portal for inserting a comment in the description
-    const createCommentPortal = useDescriptionInsertCommentPortal({
+    const createCommentPortal = useInsertCommentPortal({
         view,
         commentsEnabled,
     });
 
     // Creates portals for showing comment threads in the description
-    const showThreadsPortals = useDescriptionThreadsPortals({
+    const showThreadsPortals = useThreadsPortals({
         view,
         commentsEnabled,
     });

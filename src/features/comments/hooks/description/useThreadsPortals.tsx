@@ -18,11 +18,11 @@ interface ThreadLine {
     id: UUID;
 }
 
-export default function useDescriptionThreadsPortals({ view, commentsEnabled }: CommentProps) {
+export default function useThreadsPortals({ view, commentsEnabled }: CommentProps) {
     const { id } = useNodePaneContext();
-    const { currentRootNodeId } = useBranchParams();
+    const { branchId } = useBranchParams();
 
-    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(currentRootNodeId, id));
+    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, id));
 
     const [descriptionThreadPortals, setDescThreadPortals] = useState<ReactPortal[] | null>();
 
@@ -34,10 +34,12 @@ export default function useDescriptionThreadsPortals({ view, commentsEnabled }: 
             for (let pos = 0; pos <= view.state.doc.length;) {
                 const line = view.state.doc.lineAt(pos);
 
-                if (nodeThreadsByLine.get(line.text)) {
+                const threadId = nodeThreadsByLine.get(line.text);
+
+                if (threadId) {
                     threadLines.push({
                         lineNumber: line.number,
-                        id: nodeThreadsByLine.get(line.text) as UUID,
+                        id: threadId,
                     });
                 }
                 pos = line.to + 1; // Move to the start of the next line
@@ -47,7 +49,7 @@ export default function useDescriptionThreadsPortals({ view, commentsEnabled }: 
                 const descriptionThreadPortals: ReactPortal[] = [];
                 threadLines.forEach(({ lineNumber, id }) => {
                     const pos = view.state.doc.line(lineNumber).to;
-                    const widgetId = `comment-widget-${lineNumber}-${id}-${pos}`;
+                    const widgetId = `comment-widget-${lineNumber}-${id}`;
 
                     // Create a widget decoration
                     const widget = new CommentWidget(widgetId);

@@ -16,12 +16,10 @@ import React, {
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 
-export default function useDescriptionInsertCommentPortal({ view, commentsEnabled }: CommentProps) {
+export default function useInsertCommentPortal({ view, commentsEnabled }: CommentProps) {
     const dispatch = useDispatch();
-    const {
-        treeBranchId, branchId, id,
-    } = useNodePaneContext();
-    const { currentRootNodeId } = useBranchParams();
+    const { treeBranchId, id } = useNodePaneContext();
+    const { currentRootNodeId, branchId } = useBranchParams();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
     const [createDescriptionPortal, setCreateDescriptionPortal] = useState<ReactPortal | null>();
@@ -33,7 +31,7 @@ export default function useDescriptionInsertCommentPortal({ view, commentsEnable
         closeInsertComment();
         if (view && commentsEnabled && lineNum !== null) {
             const pos = view.state.doc.line(lineNum).to;
-            const widgetId = `comment-widget-${treeBranchId}-${branchId}-${id}-${pos}`;
+            const widgetId = `comment-widget-${treeBranchId}-${id}-${pos}`;
 
             // Create a widget decoration
             const widget = new CommentWidget(widgetId);
@@ -52,6 +50,7 @@ export default function useDescriptionInsertCommentPortal({ view, commentsEnable
             });
 
             const threadPayload: CommentThreadInsertPayload = {
+                objectId: branchId,
                 objectType: ObjectType.ContributionRequest,
                 objectNodeId: currentRootNodeId,
                 threadType: ThreadType.ContributionRequestNodeDescription,
@@ -78,7 +77,7 @@ export default function useDescriptionInsertCommentPortal({ view, commentsEnable
                 const lineNumber = hoveredLineNumber !== null ? hoveredLineNumber : selectedLineNumber;
 
                 if (lineNumber !== null) {
-                    const lineContent = view.state.doc.lineAt(lineNumber).text;
+                    const lineContent = view.state.doc.line(lineNumber).text;
                     initCreateDescriptionPortal(lineNumber, lineContent);
                 }
             };

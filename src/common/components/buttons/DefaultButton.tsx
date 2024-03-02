@@ -40,7 +40,6 @@ export default function DefaultButton(props: DefaultButtonProps) {
             disabled={disabled}
             sx={{
                 border: 1,
-                borderColor: 'borders.4',
                 '.MuiButton-startIcon': {
                     display: 'flex',
                     alignItems: 'center',

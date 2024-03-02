@@ -120,6 +120,7 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
                             <DefaultButton
                                 sx={{ ml: 1 }}
                                 variant="outlined"
+                                color="primary"
                                 startIcon={faSave}
                                 loading={loading}
                                 title="Create"
