@@ -40,7 +40,7 @@ export interface CommentThread extends CommentThreadPrimaryKey {
     lineContent?: string; // line of description where the thread is created
 }
 
-export type WithThreadInsertPayload = Omit<CommentThread, 'id'>;
+export type ThreadInsertPayload = Omit<CommentThread, 'id'>;
 
 export interface CommentPrimaryKey {
     objectId: UUID;
@@ -62,7 +62,7 @@ export type WithoutThreadInsertPayload = Pick<Comment, 'content' | 'objectId' | 
 export type UpdateCommentPayload = Pick<Comment, keyof CommentPrimaryKey | 'content'>
 
 interface WithThreadCommentInsertPayload {
-    thread?: WithThreadInsertPayload;
+    thread?: ThreadInsertPayload;
     comment: CommentContent;
 }
 

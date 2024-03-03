@@ -48,7 +48,7 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
     const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
-        setContent(helpers.getText());
+        setContent(helpers.getHTML());
     }, []);
 
     const handleCommentCreation = useCallback(() => {

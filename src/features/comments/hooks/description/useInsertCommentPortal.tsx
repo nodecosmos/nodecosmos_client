@@ -5,7 +5,7 @@ import { hoveredLineField, selectedLineField } from '../../../../common/lib/code
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext';
 import {
-    CommentThreadInsertPayload, ObjectType, ThreadType,
+    ObjectType, ThreadType, ThreadInsertPayload,
 } from '../../comments.types';
 import CreateComment from '../../components/CreateComment';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
@@ -37,8 +37,6 @@ export default function useInsertCommentPortal(view: EditorView) {
     }, [view]);
 
     const insertCreateCommentWidget = useCallback((lineNumber: number | null) => {
-        closeInsertComment();
-
         if (view && lineNumber !== null) {
             const pos = view.state.doc.line(lineNumber).to;
             const widgetId = `comment-widget-${lineNumber}`;
@@ -59,7 +57,7 @@ export default function useInsertCommentPortal(view: EditorView) {
                 }),
             });
 
-            const threadPayload: CommentThreadInsertPayload = {
+            const threadPayload: ThreadInsertPayload = {
                 objectId: branchId,
                 objectType: ObjectType.ContributionRequest,
                 objectNodeId: currentRootNodeId,

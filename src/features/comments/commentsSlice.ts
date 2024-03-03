@@ -58,9 +58,10 @@ const commentsSlice = createSlice({
             .addCase(indexComments.fulfilled, (state, action) => {
                 const { comments, threads } = action.payload;
 
-                comments.forEach((comment) => {
-                    populateComment(state, comment);
-                });
+                comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+                    .forEach((comment) => {
+                        populateComment(state, comment);
+                    });
 
                 threads.forEach((thread) => {
                     populateThread(state, thread);

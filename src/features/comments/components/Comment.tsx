@@ -15,7 +15,9 @@ export default function Comment({ id }: CommentProps) {
         <Box mt={1}>
             <CommentHeader id={id} />
             <Box p={1} pl="51px">
-                {comment.content}
+                <div
+                    className="DescriptionHTML"
+                    dangerouslySetInnerHTML={{ __html: comment.content as TrustedHTML }} />
             </Box>
         </Box>
     );

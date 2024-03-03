@@ -55,7 +55,13 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             flex: 0,
             type: 'object',
             renderCell: (params: GridRenderCellParams<ContributionRequest, Profile>) => {
-                return <NcAvatar scale={0.8} name={(params.value as Profile).name} />;
+                const value = params.value as Profile;
+
+                return <NcAvatar
+                    width={25}
+                    height={25}
+                    name={value.name}
+                    src={value.profileImageURL} />;
             },
         },
         {
