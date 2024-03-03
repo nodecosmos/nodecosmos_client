@@ -1,5 +1,10 @@
 import {
-    addCommentWidget, setHoveredLine, setSelectedLine,
+    setInsertCommentWidget,
+    setThreadWidget,
+    removeInsertCommentWidget,
+    setHoveredLine,
+    setSelectedLine,
+    removeThreadWidget,
 } from './stateEffects';
 import { StateField } from '@codemirror/state';
 import { Decoration } from '@codemirror/view';
@@ -49,10 +54,38 @@ export const commentWidgetsField = StateField.define<DecorationSet>({
         let widgets = widgetsVal.map(tr.changes);
 
         for (const e of tr.effects) {
-            if (e.is(addCommentWidget)) {
+            if (e.is(setInsertCommentWidget)) {
                 const { deco, from } = e.value;
 
                 widgets = widgets.update({ add: [deco.range(from)] });
+            } else if (e.is(removeInsertCommentWidget)) {
+                const { deco } = e.value;
+
+                widgets = widgets.update({ filter: (_from, _to, value) => value === deco });
+            }
+        }
+
+        return widgets;
+    },
+    provide: f => EditorView.decorations.from(f),
+});
+
+export const commentThreadWidgetField = StateField.define<DecorationSet>({
+    create() {
+        return Decoration.none;
+    },
+    update(widgetsVal, tr) {
+        let widgets = widgetsVal.map(tr.changes);
+
+        for (const e of tr.effects) {
+            if (e.is(setThreadWidget)) {
+                const { deco, from } = e.value;
+
+                widgets = widgets.update({ add: [deco.range(from)] });
+            } else if (e.is(removeThreadWidget)) {
+                const { deco } = e.value;
+
+                widgets = widgets.update({ filter: (_from, _to, value) => value === deco });
             }
         }
 

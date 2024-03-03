@@ -1,12 +1,12 @@
 import CodeMirrorContainer from './CodeMirrorContainer';
-import useDescriptionComments from '../../../features/comments/hooks/useDescriptionComments';
+import DescriptionComments from '../../../features/comments/components/DescriptionComments';
 import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
 import diff from '../../lib/codemirror/extensions/diff';
 import { onClick, onHover } from '../../lib/codemirror/extensions/events';
 import { commentGutter } from '../../lib/codemirror/extensions/gutter';
 import hover from '../../lib/codemirror/extensions/hover';
 import {
-    commentWidgetsField, hoveredLineField, selectedLineField,
+    commentWidgetsField, commentThreadWidgetField, hoveredLineField, selectedLineField,
 } from '../../lib/codemirror/stateFields';
 import { markdown } from '@codemirror/lang-markdown';
 import { Extension, useCodeMirror } from '@uiw/react-codemirror';
@@ -49,6 +49,7 @@ export default function CodeMirrorEditor({
                 hoveredLineField,
                 selectedLineField,
                 commentWidgetsField,
+                commentThreadWidgetField,
                 // events
                 onClick,
                 onHover,
@@ -70,11 +71,6 @@ export default function CodeMirrorEditor({
         height: '100%',
     });
 
-    const { createCommentPortal, showThreadsPortals } = useDescriptionComments({
-        view,
-        commentsEnabled,
-    });
-
     useEffect(() => {
         if (codeMirrorRef.current) {
             setContainer(codeMirrorRef.current);
@@ -86,8 +82,9 @@ export default function CodeMirrorEditor({
             <CodeMirrorContainer>
                 <div ref={codeMirrorRef} />
             </CodeMirrorContainer>
-            {createCommentPortal}
-            {showThreadsPortals}
+            {
+                commentsEnabled && view && <DescriptionComments view={view} />
+            }
         </div>
 
     );

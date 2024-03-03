@@ -4,7 +4,7 @@ import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { createComment } from '../comments.thunks';
-import { CommentPrimaryKey, CreateCommentPayload } from '../comments.types';
+import { CommentThreadPrimaryKey, CreateCommentPayload } from '../comments.types';
 import { MAX_COMMENT_WIDTH } from '../commentsSlice';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
 import { Box, Button } from '@mui/material';
@@ -15,17 +15,22 @@ import { MarkdownExtension } from 'remirror/extensions';
 
 const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
 
-interface WithThread {
+// when we create both a thread and a comment
+interface WithThreadInsertPayload {
     thread: CreateCommentPayload['thread'];
-    commentPk?: never;
+    threadPk?: never;
 }
 
-interface WithoutThread {
-    commentPk: CommentPrimaryKey;
+// when we create only a comment
+interface WithoutThreadInsertPayload {
     thread?: never;
+    threadPk: {
+        objectId: CommentThreadPrimaryKey['objectId'];
+        threadId: CommentThreadPrimaryKey['id']
+    };
 }
 
-export type CreateCommentProps = WithThread | WithoutThread;
+export type CreateCommentProps = WithThreadInsertPayload | WithoutThreadInsertPayload;
 export type AddDescriptionCommentProps = CreateCommentProps & {
     onClose?: () => void;
 };
@@ -36,7 +41,7 @@ const {
 
 export default function CreateComment(props: AddDescriptionCommentProps) {
     const {
-        thread, commentPk = null, onClose,
+        thread, threadPk = null, onClose,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>('');
@@ -51,10 +56,10 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
 
         let payload: CreateCommentPayload;
 
-        if (commentPk) {
+        if (threadPk) {
             payload = {
                 comment: {
-                    ...commentPk,
+                    ...threadPk,
                     content,
                 },
             };
@@ -73,10 +78,10 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
             }
             unsetLoading();
         });
-    }, [onClose, commentPk, content, dispatch, setLoading, thread, unsetLoading]);
+    }, [onClose, threadPk, content, dispatch, setLoading, thread, unsetLoading]);
 
     return (
-        <Box my={0.5}>
+        <Box>
             <Box
                 border={1}
                 borderColor="borders.4"
@@ -122,6 +127,7 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
                                 sx={{ ml: 1 }}
                                 variant="outlined"
                                 color="primary"
+                                borderColor="primary"
                                 startIcon={faSave}
                                 loading={loading}
                                 title="Create"

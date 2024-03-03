@@ -1,3 +1,4 @@
+import { CommentThreadWidget } from './widgets';
 import { hoveredLineField, selectedLineField } from '../stateFields';
 import { GutterMarker, gutter } from '@codemirror/view';
 import {
@@ -27,9 +28,32 @@ export const commentGutter = gutter({
         const selectedLine = view.state.field(selectedLineField);
 
         if (hoveredLine !== null || selectedLine !== null) {
-            // Assuming line numbers start at 1 and converting to a zero-based index for positions
-            const linePos = view.state.doc.line((hoveredLine ?? selectedLine) as number).from;
-            builder.add(linePos, linePos, new CommentGutterMarker());
+            const lineNumber = hoveredLine ?? selectedLine as number;
+            const linePos = view.state.doc.line(lineNumber);
+            const { from } = linePos;
+            const nextLinePos = view.state.doc.line(lineNumber + 1);
+            const { from: nextLineFrom, to: nextLineTo } = nextLinePos;
+
+            // get decorations
+            let hasComments = false;
+            const decorations = view.state.facet(EditorView.decorations);
+
+            // check if there are any decorations on the next line
+            for (const deco of decorations) {
+                if (hasComments) break;
+
+                if (typeof deco !== 'function') {
+                    deco.between(nextLineFrom, nextLineTo, (_from, _to, value) => {
+                        if (value.spec.widget instanceof CommentThreadWidget) {
+                            hasComments = true;
+                        }
+                    });
+                }
+            }
+
+            if (!hasComments) {
+                builder.add(from, from, new CommentGutterMarker());
+            }
         }
 
         return builder.finish();

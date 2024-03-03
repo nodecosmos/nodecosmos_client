@@ -16,6 +16,7 @@ interface DefaultButtonProps {
     variant?: 'contained' | 'outlined' | 'text';
     loading?: boolean;
     color?: 'primary' | 'secondary' | 'button';
+    borderColor?: string;
 }
 export default function DefaultButton(props: DefaultButtonProps) {
     const {
@@ -30,6 +31,7 @@ export default function DefaultButton(props: DefaultButtonProps) {
         variant = 'contained',
         loading = false,
         color = 'button',
+        borderColor = 'borders.4',
     } = props;
 
     return (
@@ -40,6 +42,7 @@ export default function DefaultButton(props: DefaultButtonProps) {
             disabled={disabled}
             sx={{
                 border: 1,
+                borderColor,
                 '.MuiButton-startIcon': {
                     display: 'flex',
                     alignItems: 'center',

@@ -1,6 +1,6 @@
 import { CommentGutterMarker } from '../../../../common/lib/codemirror/extensions/gutter';
 import { CommentWidget } from '../../../../common/lib/codemirror/extensions/widgets';
-import { addCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
+import { removeInsertCommentWidget, setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { hoveredLineField, selectedLineField } from '../../../../common/lib/codemirror/stateFields';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext';
@@ -8,30 +8,41 @@ import {
     CommentThreadInsertPayload, ObjectType, ThreadType,
 } from '../../comments.types';
 import CreateComment from '../../components/CreateComment';
-import { CommentProps } from '../useDescriptionComments';
+import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
 import { Decoration } from '@codemirror/view';
+import { EditorView } from '@uiw/react-codemirror';
 import React, {
     ReactPortal, useCallback, useEffect, useState,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { useDispatch } from 'react-redux';
 
-export default function useInsertCommentPortal({ view, commentsEnabled }: CommentProps) {
-    const dispatch = useDispatch();
-    const { treeBranchId, id } = useNodePaneContext();
+export default function useInsertCommentPortal(view: EditorView) {
+    const { id } = useNodePaneContext();
     const { currentRootNodeId, branchId } = useBranchParams();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
-    const [createDescriptionPortal, setCreateDescriptionPortal] = useState<ReactPortal | null>();
-    const closeInsertComment = useCallback(() => {
-        setCreateDescriptionPortal(null);
-    }, []);
+    const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
 
-    const initCreateDescriptionPortal = useCallback((lineNum: number | null, lineContent: string) => {
+    const closeInsertComment = useCallback(() => {
+        view?.dispatch({
+            effects: removeInsertCommentWidget.of({
+                deco: Decoration.widget({
+                    widget: CommentWidget.prototype,
+                    block: true,
+                }),
+            }),
+        });
+
+        setCreateDescriptionPortals(null);
+    }, [view]);
+
+    const insertCreateCommentWidget = useCallback((lineNumber: number | null) => {
         closeInsertComment();
-        if (view && commentsEnabled && lineNum !== null) {
-            const pos = view.state.doc.line(lineNum).to;
-            const widgetId = `comment-widget-${treeBranchId}-${id}-${pos}`;
+
+        if (view && lineNumber !== null) {
+            const pos = view.state.doc.line(lineNumber).to;
+            const widgetId = `comment-widget-${lineNumber}`;
+            const lineContent = view.state.doc.lineAt(pos).text;
 
             // Create a widget decoration
             const widget = new CommentWidget(widgetId);
@@ -39,11 +50,10 @@ export default function useInsertCommentPortal({ view, commentsEnabled }: Commen
             const decoration = Decoration.widget({
                 widget,
                 block: true,
-                side: 0,
             });
 
             view.dispatch({
-                effects: addCommentWidget.of({
+                effects: setInsertCommentWidget.of({
                     deco: decoration,
                     from: pos + 1,
                 }),
@@ -55,8 +65,8 @@ export default function useInsertCommentPortal({ view, commentsEnabled }: Commen
                 objectNodeId: currentRootNodeId,
                 threadType: ThreadType.ContributionRequestNodeDescription,
                 threadNodeId: id,
-                lineNumber: lineNum,
-                lineContent,
+                lineNumber,
+                lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
             };
 
             const portal = createPortal(
@@ -65,25 +75,34 @@ export default function useInsertCommentPortal({ view, commentsEnabled }: Commen
                 widgetId,
             );
 
-            setCreateDescriptionPortal(portal);
+            setCreateDescriptionPortals(portals => portals ? [...portals, portal] : [portal]);
         }
-    }, [branchId, closeInsertComment, commentsEnabled, currentRootNodeId, id, treeBranchId, view]);
+    }, [branchId, closeInsertComment, currentRootNodeId, id, view]);
 
     useEffect(() => {
-        if (view && commentsEnabled) {
-            // Extend the CommentGutterMarker to dispatch Redux actions
+        if (view) {
             CommentGutterMarker.prototype.addComment = function() {
                 const hoveredLineNumber = view.state.field(hoveredLineField);
                 const selectedLineNumber = view.state.field(selectedLineField);
                 const lineNumber = hoveredLineNumber !== null ? hoveredLineNumber : selectedLineNumber;
 
                 if (lineNumber !== null) {
-                    const lineContent = view.state.doc.line(lineNumber).text;
-                    initCreateDescriptionPortal(lineNumber, lineContent);
+                    insertCreateCommentWidget(lineNumber);
                 }
             };
         }
-    }, [dispatch, view, commentsEnabled, initCreateDescriptionPortal]);
 
-    return createDescriptionPortal;
+        return () => {
+            view?.dispatch({
+                effects: removeInsertCommentWidget.of({
+                    deco: Decoration.widget({
+                        widget: CommentWidget.prototype,
+                        block: true,
+                    }),
+                }),
+            });
+        };
+    }, [view, insertCreateCommentWidget]);
+
+    return createDescriptionPortals;
 }

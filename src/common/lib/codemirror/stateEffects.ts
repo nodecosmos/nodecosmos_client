@@ -12,4 +12,7 @@ import { Decoration } from '@codemirror/view';
  */
 export const setHoveredLine = StateEffect.define<number | null>();
 export const setSelectedLine = StateEffect.define<number | null>();
-export const addCommentWidget = StateEffect.define<{deco: Decoration, from: number}>();
+export const setInsertCommentWidget = StateEffect.define<{deco: Decoration, from: number}>();
+export const removeInsertCommentWidget = StateEffect.define<{deco: Decoration}>();
+export const setThreadWidget = StateEffect.define<{deco: Decoration, from: number}>();
+export const removeThreadWidget = StateEffect.define<{deco: Decoration}>();
