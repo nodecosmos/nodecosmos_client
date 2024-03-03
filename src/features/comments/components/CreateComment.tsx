@@ -5,6 +5,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { createComment } from '../comments.thunks';
 import { CommentPrimaryKey, CreateCommentPayload } from '../comments.types';
+import { MAX_COMMENT_WIDTH } from '../commentsSlice';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
 import { Box, Button } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
@@ -83,7 +84,7 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
                 sx={{ backgroundColor: 'background.1' }}
                 boxSizing="border-box">
                 <Suspense fallback={<Loader p={4} />}>
-                    <Box maxWidth={780}>
+                    <Box maxWidth={MAX_COMMENT_WIDTH}>
                         <Box
                             overflow="hidden"
                             border={1}

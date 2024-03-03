@@ -8,6 +8,8 @@ import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 
+export const MAX_COMMENT_WIDTH = 780;
+
 const initialState: CommentState = {
     byId: {},
     idsByObjectId: {},
@@ -41,8 +43,9 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
     if (thread.lineContent) {
         if (!thread.threadNodeId) throw new Error('Thread node id is required for line content');
         state.threadIdByLine[thread.objectId] ||= {};
-        state.threadIdByLine[thread.objectId][thread.threadNodeId] ||= new Map<string, UUID>();
-        state.threadIdByLine[thread.objectId][thread.threadNodeId].set(thread.lineContent, thread.id);
+        state.threadIdByLine[thread.objectId][thread.threadNodeId] ||= new Map<string, [UUID, number]>();
+        state.threadIdByLine[thread.objectId][thread.threadNodeId]
+            .set(thread.lineContent, [thread.id, thread.lineNumber as number]);
     }
 }
 

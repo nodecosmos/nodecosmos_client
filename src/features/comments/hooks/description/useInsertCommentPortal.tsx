@@ -39,7 +39,7 @@ export default function useInsertCommentPortal({ view, commentsEnabled }: Commen
             const decoration = Decoration.widget({
                 widget,
                 block: true,
-                side: -1,
+                side: 1,
             });
 
             view.dispatch({
@@ -62,6 +62,7 @@ export default function useInsertCommentPortal({ view, commentsEnabled }: Commen
             const portal = createPortal(
                 <CreateComment onClose={closeInsertComment} thread={threadPayload} />,
                 document.getElementById(widgetId) as HTMLElement,
+                widgetId,
             );
 
             setCreateDescriptionPortal(portal);

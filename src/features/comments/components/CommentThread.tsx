@@ -14,15 +14,13 @@ export default function CommentThread(props: CommentThreadProps) {
     const commentIds = useSelector(selectThreadCommentIds(id));
 
     return (
-        <Box py={0.5}>
-            <Box
-                border={1}
-                borderColor="borders.4"
-                p={1}
-                sx={{ backgroundColor: 'background.1' }}
-                boxSizing="border-box">
-                {commentIds.map((commentId) => <Comment key={commentId} id={commentId} />)}
-            </Box>
+        <Box
+            border={1}
+            borderColor="borders.4"
+            p={1}
+            sx={{ backgroundColor: 'background.1' }}
+            boxSizing="border-box">
+            {commentIds.map((commentId) => <Comment key={commentId} id={commentId} />)}
         </Box>
     );
 }

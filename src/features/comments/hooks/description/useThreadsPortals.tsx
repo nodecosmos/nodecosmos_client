@@ -21,9 +21,7 @@ interface ThreadLine {
 export default function useThreadsPortals({ view, commentsEnabled }: CommentProps) {
     const { id } = useNodePaneContext();
     const { branchId } = useBranchParams();
-
     const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, id));
-
     const [descriptionThreadPortals, setDescThreadPortals] = useState<ReactPortal[] | null>();
 
     useEffect(() => {
@@ -33,16 +31,23 @@ export default function useThreadsPortals({ view, commentsEnabled }: CommentProp
             //iterate lines of text in view
             for (let pos = 0; pos <= view.state.doc.length;) {
                 const line = view.state.doc.lineAt(pos);
+                pos = line.to + 1; // Move to the start of the next line
 
-                const threadId = nodeThreadsByLine.get(line.text);
+                const threadByLine = nodeThreadsByLine.get(line.text);
 
-                if (threadId) {
+                if (!threadByLine) {
+                    continue;
+                }
+
+                const [threadId, lineNumber] = threadByLine;
+
+                // check if line is in radius of 2 lines
+                if ((lineNumber - line.number <= 1) && (lineNumber - line.number >= -1)) {
                     threadLines.push({
                         lineNumber: line.number,
                         id: threadId,
                     });
                 }
-                pos = line.to + 1; // Move to the start of the next line
             }
 
             if (threadLines.length > 0) {
@@ -57,7 +62,7 @@ export default function useThreadsPortals({ view, commentsEnabled }: CommentProp
                     const decoration = Decoration.widget({
                         widget,
                         block: true,
-                        side: -1,
+                        side: 1,
                     });
 
                     view.dispatch({
@@ -70,6 +75,7 @@ export default function useThreadsPortals({ view, commentsEnabled }: CommentProp
                     const portal = createPortal(
                         <CommentThread id={id} />,
                         document.getElementById(widgetId) as HTMLElement,
+                        widgetId,
                     );
 
                     descriptionThreadPortals.push(portal);

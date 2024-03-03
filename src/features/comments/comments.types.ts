@@ -53,8 +53,8 @@ export interface Comment extends CommentPrimaryKey {
     content: string;
     authorId: UUID;
     author: Profile;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export type RawCommentInsertPayload = Pick<Comment, 'content'>
@@ -78,6 +78,7 @@ type NodeId = UUID;
 type ObjectId = UUID;
 type ThreadId = UUID;
 type LineContent = string;
+type LineNumber = number;
 
 export interface CommentState {
     byId: Record<UUID, Comment>;
@@ -85,5 +86,5 @@ export interface CommentState {
     idsByThreadId: Record<UUID, UUID[]>;
     threadsById: Record<UUID, CommentThread>;
     threadIdsByObjectId: Record<UUID, UUID[]>;
-    threadIdByLine: Record<ObjectId, Record<NodeId, Map<LineContent, ThreadId>>>;
+    threadIdByLine: Record<ObjectId, Record<NodeId, Map<LineContent, [ThreadId, LineNumber]>>>;
 }

@@ -2,9 +2,13 @@ import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
+export const selectCommentsState = (state: RootState) => state.comments;
 export const selectComments = (state: RootState) => state.comments.byId;
 export const selectCommentIdsByThreadId = (state: RootState) => state.comments.idsByThreadId;
-export const selectThreadById = (state: RootState) => state.comments.threadsById;
+export const selectThreadById = createSelector(
+    selectCommentsState,
+    (comments) => comments.threadsById,
+);
 export const selectThreadIdsByObjectId = (state: RootState) => state.comments.threadIdsByObjectId;
 export const selectThreadIdByLine = (state: RootState) => state.comments.threadIdByLine;
 
