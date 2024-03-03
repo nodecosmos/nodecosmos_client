@@ -39,7 +39,7 @@ export default function useInsertCommentPortal({ view, commentsEnabled }: Commen
             const decoration = Decoration.widget({
                 widget,
                 block: true,
-                side: 1,
+                side: 0,
             });
 
             view.dispatch({

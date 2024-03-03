@@ -53,7 +53,7 @@ export default function CodeMirrorContainer({ children }) {
             '.cm-gutters': {
                 minHeight: 1,
                 borderRight: 1,
-                borderColor: 'borders.2',
+                borderColor: 'borders.4',
                 minWidth: {
                     xs: '1px',
                     md: HEADER_HEIGHT,
@@ -70,6 +70,12 @@ export default function CodeMirrorContainer({ children }) {
                 boxShadow: 'buttons.1',
                 zIndex: 1,
                 position: 'absolute',
+            },
+            '.cm-comment': {
+                position: 'relative',
+                left: '-53px',
+                width: 'calc(100% + 52px)',
+                zIndex: 2000,
             },
             '.cm-diffAdd': {
                 backgroundColor: 'diff.addedBg',

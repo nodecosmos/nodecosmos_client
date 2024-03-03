@@ -20,7 +20,7 @@ export default function Comment({ id }: CommentProps) {
             maxWidth={MAX_COMMENT_WIDTH}
             borderRadius={1.5}>
             <CommentHeader id={id} />
-            <Box p={1} pl="50px">
+            <Box p={1} pl="51px">
                 {comment.content}
             </Box>
         </Box>

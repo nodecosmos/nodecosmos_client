@@ -76,7 +76,7 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
     }, [onClose, commentPk, content, dispatch, setLoading, thread, unsetLoading]);
 
     return (
-        <Box py={0.5}>
+        <Box my={0.5}>
             <Box
                 border={1}
                 borderColor="borders.4"
@@ -107,7 +107,7 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
                                 p={1}
                                 toolbarHeight={38}
                                 editorBackgroundColor="background.1"
-                                info="Add contribution request review."
+                                info="Add description review comment."
                             />
                         </Box>
                         <Box
