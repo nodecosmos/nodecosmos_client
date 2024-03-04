@@ -38,6 +38,8 @@ export interface CommentThread extends CommentThreadPrimaryKey {
     threadNodeId?: UUID;
     lineNumber?: number; // line number of the description where the thread is created
     lineContent?: string; // line of description where the thread is created
+    createdAt: string;
+    updatedAt: string;
 }
 
 export type ThreadInsertPayload = Omit<CommentThread, 'id'>;

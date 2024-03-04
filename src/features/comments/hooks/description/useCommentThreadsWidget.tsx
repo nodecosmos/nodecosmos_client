@@ -44,9 +44,9 @@ export default function useCommentThreadsWidget(view: EditorView) {
     }, [view]);
 
     useEffect(() => {
+        console.log('hit');
         if (nodeThreadsByLine) {
-            setTimeout(() => {
-                clearWidgets();
+            requestAnimationFrame(() => {
                 const threadLines: ThreadLine[] = [];
 
                 //iterate lines of text in view
@@ -100,7 +100,7 @@ export default function useCommentThreadsWidget(view: EditorView) {
 
                     setDescThreadPortals(descriptionThreadPortals);
                 }
-            }, 0);
+            });
         }
 
         return clearWidgets;

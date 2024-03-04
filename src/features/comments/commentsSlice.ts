@@ -76,7 +76,7 @@ const commentsSlice = createSlice({
 
                 resetObjectState(state, objectId);
 
-                threads.forEach((thread) => {
+                threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
                     populateThread(state, thread);
                 });
 
@@ -86,11 +86,12 @@ const commentsSlice = createSlice({
                     });
             })
             .addCase(createComment.fulfilled, (state, action) => {
+                const isThreadCreation = Boolean(action.meta.arg.thread);
                 const { comment, thread } = action.payload;
 
                 populateComment(state, comment);
 
-                if (thread && thread.lineContent) {
+                if (isThreadCreation && thread && thread.lineContent) {
                     populateThread(state, thread);
                 }
             })

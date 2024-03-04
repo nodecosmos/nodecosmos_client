@@ -58,6 +58,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>(comment?.content || '');
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const isUpdate = Boolean(comment);
 
     const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
         setContent(helpers.getHTML());
@@ -109,7 +110,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     return (
         <Box>
             <Box
-                border={1}
+                border={isUpdate ? 0 : 1}
                 borderColor="borders.4"
                 p={1}
                 sx={{ backgroundColor: 'background.1' }}

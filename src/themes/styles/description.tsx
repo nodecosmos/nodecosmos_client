@@ -2,6 +2,12 @@ import { NodecosmosTheme } from '../type';
 
 export default (theme: NodecosmosTheme) => ({
     '.DescriptionHTML': {
+        fontFamily: [
+            '-apple-system',
+            'system-ui',
+            'Roboto',
+            'sans-serif',
+        ].join(','),
         width: '100%',
         color: theme.palette.text.secondary,
         hr: {

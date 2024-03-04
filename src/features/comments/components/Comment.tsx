@@ -6,9 +6,10 @@ import React from 'react';
 
 interface CommentProps {
     id: string;
+    isLast?: boolean;
 }
 
-export default function Comment({ id }: CommentProps) {
+export default function Comment({ id, isLast }: CommentProps) {
     const {
         CommentContext,
         ctxValue,
@@ -18,8 +19,8 @@ export default function Comment({ id }: CommentProps) {
         <CommentContext.Provider value={ctxValue}>
             <Box mt={1}>
                 <CommentHeader />
-                <Box p={1} pl="51px">
-                    <CommentContent />
+                <Box pl="24px">
+                    <CommentContent isLast={isLast} />
                 </Box>
             </Box>
         </CommentContext.Provider>

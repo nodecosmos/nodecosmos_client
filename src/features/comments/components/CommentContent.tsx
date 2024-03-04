@@ -4,7 +4,10 @@ import { useCommentContext } from '../hooks/useCommentContext';
 import { Box } from '@mui/material';
 import React from 'react';
 
-export default function CommentContent() {
+interface CommentContentProps {
+    isLast?: boolean;
+}
+export default function CommentContent({ isLast }: CommentContentProps) {
     const {
         objectId, threadId, id, content, editorOpen,
     } = useCommentContext();
@@ -23,7 +26,13 @@ export default function CommentContent() {
         : <div className="DescriptionHTML" dangerouslySetInnerHTML={{ __html: content as TrustedHTML }} />;
 
     return (
-        <Box p={1} pl="51px">
+        <Box
+            py={3}
+            px="26px"
+            mt={-4}
+            mb={isLast ? 0 : -5}
+            borderLeft={isLast ? 0 : 3}
+            borderColor="borders.3">
             {commentContent}
         </Box>
     );
