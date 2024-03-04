@@ -1,6 +1,6 @@
 import Comment from './Comment';
+import CommentEditor from './CommentEditor';
 import InsertCommentPlaceholder from './CommentInsertPlaceholder';
-import CreateComment from './CreateComment';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../types';
 import { selectThread, selectThreadCommentIds } from '../comments.selectors';
@@ -19,7 +19,7 @@ export default function CommentThread(props: CommentThreadProps) {
     const commentIds = useSelector(selectThreadCommentIds(id));
     const [insertComment, setInsertComment, removeInsertComment] = useBooleanStateValue(false);
 
-    const insertCommentBlock = insertComment ? <CreateComment
+    const insertCommentBlock = insertComment ? <CommentEditor
         threadPk={
             {
                 objectId: thread.objectId,

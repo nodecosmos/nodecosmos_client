@@ -75,7 +75,7 @@ const theme: NodecosmosTheme = {
         },
 
         background: {
-            1: '#26292f',
+            1: '#1c1e22',
             2: '#26292f',
             3: '#24282e',
             4: '#272b31',

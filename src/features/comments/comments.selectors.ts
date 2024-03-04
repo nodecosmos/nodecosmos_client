@@ -10,7 +10,7 @@ export const selectThreadById = createSelector(
     (comments) => comments.threadsById,
 );
 export const selectThreadIdsByObjectId = (state: RootState) => state.comments.threadIdsByObjectId;
-export const selectThreadIdByLine = (state: RootState) => state.comments.threadIdByLine;
+export const selectThreadByDescriptionLine = (state: RootState) => state.comments.threadByDescriptionLine;
 
 export const selectComment = (id: UUID) => createSelector(
     selectComments,
@@ -33,6 +33,6 @@ export const selectThread = (threadId: UUID) => createSelector(
 );
 
 export const selectNodeThreadsByLine = (objectId: UUID, nodeId: UUID) => createSelector(
-    selectThreadIdByLine,
-    (threadIdByLine) => threadIdByLine[objectId]?.[nodeId],
+    selectThreadByDescriptionLine,
+    (threadByDescriptionLine) => threadByDescriptionLine[objectId]?.[nodeId],
 );

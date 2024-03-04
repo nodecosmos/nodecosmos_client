@@ -1,10 +1,14 @@
 import { CommentThreadWidget } from '../../../../common/lib/codemirror/extensions/widgets';
-import { setThreadWidget, removeInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
+import {
+    setThreadWidget,
+    removeThreadWidget,
+} from '../../../../common/lib/codemirror/stateEffects';
 import { UUID } from '../../../../types';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext';
 import { selectNodeThreadsByLine } from '../../comments.selectors';
 import CommentThread from '../../components/CommentThread';
+import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
 import { Decoration } from '@codemirror/view';
 import { EditorView } from '@uiw/react-codemirror';
 import React, {
@@ -18,15 +22,15 @@ interface ThreadLine {
     id: UUID;
 }
 
-export default function useThreadsPortals(view: EditorView) {
+export default function useCommentThreadsWidget(view: EditorView) {
     const { id } = useNodePaneContext();
     const { branchId } = useBranchParams();
     const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, id));
     const [descriptionThreadPortals, setDescThreadPortals] = useState<ReactPortal[] | null>();
 
-    const clearWidgets = useCallback(() => {
-        view?.dispatch({
-            effects: removeInsertCommentWidget.of({
+    const clearWidgets = useCallback((clearState?: boolean) => {
+        view.dispatch({
+            effects: removeThreadWidget.of({
                 deco: Decoration.widget({
                     widget: CommentThreadWidget.prototype,
                     block: true,
@@ -34,7 +38,9 @@ export default function useThreadsPortals(view: EditorView) {
             }),
         });
 
-        setDescThreadPortals(null);
+        if (clearState) {
+            setDescThreadPortals(null);
+        }
     }, [view]);
 
     useEffect(() => {
@@ -47,8 +53,8 @@ export default function useThreadsPortals(view: EditorView) {
                 for (let pos = 0; pos <= view.state.doc.length;) {
                     const line = view.state.doc.lineAt(pos);
                     pos = line.to + 1; // Move to the start of the next line
-
-                    const threadByLine = nodeThreadsByLine.get(line.text);
+                    const lineContent = line.text || EMPTY_LINE_PLACEHOLDER;
+                    const threadByLine = nodeThreadsByLine.get(lineContent);
 
                     if (!threadByLine) {
                         continue;
@@ -97,9 +103,7 @@ export default function useThreadsPortals(view: EditorView) {
             }, 0);
         }
 
-        return () => {
-            clearWidgets();
-        };
+        return clearWidgets;
     }, [clearWidgets, nodeThreadsByLine, view]);
 
     return descriptionThreadPortals;

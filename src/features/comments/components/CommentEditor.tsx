@@ -3,8 +3,10 @@ import Loader from '../../../common/components/Loader';
 import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
-import { createComment } from '../comments.thunks';
-import { CommentThreadPrimaryKey, CreateCommentPayload } from '../comments.types';
+import { createComment, updateCommentContent } from '../comments.thunks';
+import {
+    CommentThreadPrimaryKey, CreateCommentPayload, UpdateCommentPayload,
+} from '../comments.types';
 import { MAX_COMMENT_WIDTH } from '../commentsSlice';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
 import { Box, Button } from '@mui/material';
@@ -15,22 +17,32 @@ import { MarkdownExtension } from 'remirror/extensions';
 
 const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
 
-// when we create both a thread and a comment
+// when we create both a new thread and a comment
 interface WithThreadInsertPayload {
-    thread: CreateCommentPayload['thread'];
+    newThread: CreateCommentPayload['thread'];
     threadPk?: never;
+    comment?: never;
 }
 
-// when we create only a comment
+// when we create only a comment within an existing thread
 interface WithoutThreadInsertPayload {
-    thread?: never;
+    newThread?: never;
+    comment?: never;
     threadPk: {
         objectId: CommentThreadPrimaryKey['objectId'];
         threadId: CommentThreadPrimaryKey['id']
     };
 }
 
-export type CreateCommentProps = WithThreadInsertPayload | WithoutThreadInsertPayload;
+// when we update a comment
+interface UpdatePayload {
+    comment: UpdateCommentPayload
+    threadPk?: never;
+    newThread?: never;
+}
+
+export type CreateCommentProps = WithThreadInsertPayload | WithoutThreadInsertPayload | UpdatePayload;
+
 export type AddDescriptionCommentProps = CreateCommentProps & {
     onClose?: () => void;
 };
@@ -39,46 +51,60 @@ const {
     Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
 } = EnabledExtensions;
 
-export default function CreateComment(props: AddDescriptionCommentProps) {
+export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
-        thread, threadPk = null, onClose,
+        newThread, threadPk = null, onClose, comment,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [content, setContent] = React.useState<string>('');
+    const [content, setContent] = React.useState<string>(comment?.content || '');
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
     const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
         setContent(helpers.getHTML());
     }, []);
 
-    const handleCommentCreation = useCallback(() => {
+    const handleSave = useCallback(() => {
         setLoading();
 
-        let payload: CreateCommentPayload;
+        if (comment) {
+            const payload = {
+                ...comment,
+                content,
+            };
 
-        if (threadPk) {
-            payload = {
-                comment: {
-                    ...threadPk,
-                    content,
-                },
-            };
-        } else if (thread) {
-            payload = {
-                thread,
-                comment: { content },
-            };
+            dispatch(updateCommentContent(payload)).then(() => {
+                if (onClose) {
+                    onClose();
+                }
+                unsetLoading();
+            });
         } else {
-            throw new Error('Invalid props');
-        }
+            let payload: CreateCommentPayload;
 
-        dispatch(createComment(payload)).then(() => {
-            if (onClose) {
-                onClose();
+            if (threadPk) {
+                payload = {
+                    comment: {
+                        ...threadPk,
+                        content,
+                    },
+                };
+            } else if (newThread) {
+                payload = {
+                    thread: newThread,
+                    comment: { content },
+                };
+            } else {
+                throw new Error('Invalid props');
             }
-            unsetLoading();
-        });
-    }, [onClose, threadPk, content, dispatch, setLoading, thread, unsetLoading]);
+
+            dispatch(createComment(payload)).then(() => {
+                if (onClose) {
+                    onClose();
+                }
+                unsetLoading();
+            });
+        }
+    }, [setLoading, comment, content, dispatch, onClose, unsetLoading, threadPk, newThread]);
 
     return (
         <Box>
@@ -130,8 +156,8 @@ export default function CreateComment(props: AddDescriptionCommentProps) {
                                 borderColor="primary"
                                 startIcon={faSave}
                                 loading={loading}
-                                title="Create"
-                                onClick={handleCommentCreation}
+                                title={comment ? 'Update' : 'Create'}
+                                onClick={handleSave}
                             />
                         </Box>
                     </Box>

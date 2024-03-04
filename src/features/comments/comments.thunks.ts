@@ -1,5 +1,5 @@
 import {
-    Comment, CreateCommentPayload, CommentPrimaryKey, CommentThread, UpdateCommentPayload,
+    Comment, CreateCommentPayload, CommentPrimaryKey, CommentThread, UpdateCommentPayload, UpdateCommentContentResponse,
 } from './comments.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -48,7 +48,7 @@ export const createComment = createAsyncThunk<
 );
 
 export const updateCommentContent = createAsyncThunk<
-    UpdateCommentPayload,
+    UpdateCommentContentResponse,
     UpdateCommentPayload,
     { rejectValue: NodecosmosError }
 >(

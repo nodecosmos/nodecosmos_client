@@ -1,10 +1,10 @@
-import { UUID } from '../../../../../types';
-import { selectBranchChildIds, selectNodeAttribute } from '../../../nodes.selectors';
-import { NodeId, TreeType } from '../../../nodes.types';
-import { calculatePosition } from '../../../utils/position';
 import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
-} from '../useTreeContext';
+} from './useTreeContext';
+import { UUID } from '../../../../types';
+import { selectBranchChildIds, selectNodeAttribute } from '../../nodes.selectors';
+import { NodeId, TreeType } from '../../nodes.types';
+import { calculatePosition } from '../../utils/position';
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 

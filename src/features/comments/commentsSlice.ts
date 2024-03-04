@@ -16,8 +16,23 @@ const initialState: CommentState = {
     idsByThreadId: {},
     threadsById: {},
     threadIdsByObjectId: {},
-    threadIdByLine: {},
+    threadByDescriptionLine: {},
 };
+
+function resetObjectState(state: RootState['comments'], objectId: UUID) {
+    state.idsByObjectId[objectId] = [];
+
+    const currentThreadIds = state.threadIdsByObjectId[objectId];
+
+    if (currentThreadIds) {
+        currentThreadIds.forEach((threadId) => {
+            state.idsByThreadId[threadId] = [];
+        });
+    }
+
+    state.threadIdsByObjectId[objectId] = [];
+    state.threadByDescriptionLine[objectId] = {};
+}
 
 function populateComment(state: RootState['comments'], comment: Comment) {
     if (!state.idsByObjectId[comment.objectId]) {
@@ -42,9 +57,9 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
 
     if (thread.lineContent) {
         if (!thread.threadNodeId) throw new Error('Thread node id is required for line content');
-        state.threadIdByLine[thread.objectId] ||= {};
-        state.threadIdByLine[thread.objectId][thread.threadNodeId] ||= new Map<string, [UUID, number]>();
-        state.threadIdByLine[thread.objectId][thread.threadNodeId]
+        state.threadByDescriptionLine[thread.objectId] ||= {};
+        state.threadByDescriptionLine[thread.objectId][thread.threadNodeId] ||= new Map<string, [UUID, number]>();
+        state.threadByDescriptionLine[thread.objectId][thread.threadNodeId]
             .set(thread.lineContent, [thread.id, thread.lineNumber as number]);
     }
 }
@@ -57,15 +72,18 @@ const commentsSlice = createSlice({
         builder
             .addCase(indexComments.fulfilled, (state, action) => {
                 const { comments, threads } = action.payload;
+                const objectId = action.meta.arg;
+
+                resetObjectState(state, objectId);
+
+                threads.forEach((thread) => {
+                    populateThread(state, thread);
+                });
 
                 comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
                     .forEach((comment) => {
                         populateComment(state, comment);
                     });
-
-                threads.forEach((thread) => {
-                    populateThread(state, thread);
-                });
             })
             .addCase(createComment.fulfilled, (state, action) => {
                 const { comment, thread } = action.payload;
@@ -77,9 +95,12 @@ const commentsSlice = createSlice({
                 }
             })
             .addCase(updateCommentContent.fulfilled, (state, action) => {
-                const { id, content } = action.payload;
+                const {
+                    id, content, updatedAt,
+                } = action.payload;
 
                 state.byId[id].content = content;
+                state.byId[id].updatedAt = updatedAt;
             })
             .addCase(deleteComment.fulfilled, (state, action) => {
                 const {
@@ -99,7 +120,9 @@ const commentsSlice = createSlice({
                     if (thread.lineContent) {
                         if (!thread.threadNodeId) throw new Error('Thread node id is required for line content');
 
-                        state.threadIdByLine[thread.objectId]?.[thread.threadNodeId]?.delete(thread.lineContent);
+                        state.threadByDescriptionLine[thread.objectId]
+                            ?.[thread.threadNodeId]
+                            ?.delete(thread.lineContent);
                     }
 
                     const threadIdsByObjectId = state.threadIdsByObjectId[thread.objectId];

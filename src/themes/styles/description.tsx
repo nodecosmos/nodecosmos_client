@@ -16,6 +16,7 @@ export default (theme: NodecosmosTheme) => ({
             borderLeft: '8px solid',
             padding: '12px 6px',
             borderColor: theme.palette.borders[5],
+            marginBlockEnd: '1em',
         },
         table: {
             tr: {

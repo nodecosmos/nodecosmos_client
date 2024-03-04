@@ -1,16 +1,16 @@
-import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
-import { NodecosmosDispatch } from '../../../../../store';
-import { NodecosmosError } from '../../../../../types';
+import useHandleServerErrorAlert from '../../../../../../common/hooks/useHandleServerErrorAlert';
+import { NodecosmosDispatch } from '../../../../../../store';
+import { NodecosmosError } from '../../../../../../types';
 import {
     clearJustCreatedNode,
     replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
-} from '../../../actions';
-import { SAVE_NODE_TIMEOUT } from '../../../nodes.constants';
-import { selectNodeAttribute, selectSaveInProgress } from '../../../nodes.selectors';
-import { create, updateTitle } from '../../../nodes.thunks';
-import { TreeType } from '../../../nodes.types';
-import useNodeContext from '../node/useNodeContext';
-import useTreeContext from '../useTreeContext';
+} from '../../../../actions';
+import { SAVE_NODE_TIMEOUT } from '../../../../nodes.constants';
+import { selectNodeAttribute, selectSaveInProgress } from '../../../../nodes.selectors';
+import { create, updateTitle } from '../../../../nodes.thunks';
+import { TreeType } from '../../../../nodes.types';
+import useTreeContext from '../../useTreeContext';
+import useNodeContext from '../useNodeContext';
 import {
     ChangeEvent, useCallback, useEffect, useRef, useState,
 } from 'react';

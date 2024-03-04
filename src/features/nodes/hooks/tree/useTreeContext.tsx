@@ -1,4 +1,4 @@
-import useTreeBuilder from './context/useTreeBuilder';
+import useTreeBuilder from './useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
 import { NodeId, TreeType } from '../../nodes.types';
@@ -90,6 +90,8 @@ export function useTreeContextCreator(props: TreeProps) {
     };
 }
 
+// TODO: separate state and commands
+// TODO: consider renaming commands to actions
 export default function useTreeContext() {
     return useContext(TreeContext);
 }

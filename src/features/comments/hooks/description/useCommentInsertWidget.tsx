@@ -7,7 +7,7 @@ import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext
 import {
     ObjectType, ThreadType, ThreadInsertPayload,
 } from '../../comments.types';
-import CreateComment from '../../components/CreateComment';
+import CommentEditor from '../../components/CommentEditor';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
 import { Decoration } from '@codemirror/view';
 import { EditorView } from '@uiw/react-codemirror';
@@ -16,7 +16,7 @@ import React, {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-export default function useInsertCommentPortal(view: EditorView) {
+export default function useCommentInsertWidget(view: EditorView) {
     const { id } = useNodePaneContext();
     const { currentRootNodeId, branchId } = useBranchParams();
 
@@ -24,7 +24,7 @@ export default function useInsertCommentPortal(view: EditorView) {
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
 
     const closeInsertComment = useCallback(() => {
-        view?.dispatch({
+        view.dispatch({
             effects: removeInsertCommentWidget.of({
                 deco: Decoration.widget({
                     widget: CommentWidget.prototype,
@@ -67,8 +67,10 @@ export default function useInsertCommentPortal(view: EditorView) {
                 lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
             };
 
+            // Codemirror widget is rendered with widgetId as the id
+            // Here we create a portal to render the CommentEditor component within the widget
             const portal = createPortal(
-                <CreateComment onClose={closeInsertComment} thread={threadPayload} />,
+                <CommentEditor onClose={closeInsertComment} newThread={threadPayload} />,
                 document.getElementById(widgetId) as HTMLElement,
                 widgetId,
             );
@@ -78,29 +80,18 @@ export default function useInsertCommentPortal(view: EditorView) {
     }, [branchId, closeInsertComment, currentRootNodeId, id, view]);
 
     useEffect(() => {
-        if (view) {
-            CommentGutterMarker.prototype.addComment = function() {
-                const hoveredLineNumber = view.state.field(hoveredLineField);
-                const selectedLineNumber = view.state.field(selectedLineField);
-                const lineNumber = hoveredLineNumber !== null ? hoveredLineNumber : selectedLineNumber;
+        CommentGutterMarker.prototype.addComment = function() {
+            const hoveredLineNumber = view.state.field(hoveredLineField);
+            const selectedLineNumber = view.state.field(selectedLineField);
+            const lineNumber = hoveredLineNumber !== null ? hoveredLineNumber : selectedLineNumber;
 
-                if (lineNumber !== null) {
-                    insertCreateCommentWidget(lineNumber);
-                }
-            };
-        }
-
-        return () => {
-            view?.dispatch({
-                effects: removeInsertCommentWidget.of({
-                    deco: Decoration.widget({
-                        widget: CommentWidget.prototype,
-                        block: true,
-                    }),
-                }),
-            });
+            if (lineNumber !== null) {
+                insertCreateCommentWidget(lineNumber);
+            }
         };
-    }, [view, insertCreateCommentWidget]);
+
+        return closeInsertComment;
+    }, [view, insertCreateCommentWidget, closeInsertComment]);
 
     return createDescriptionPortals;
 }

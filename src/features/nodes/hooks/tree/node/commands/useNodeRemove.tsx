@@ -1,7 +1,7 @@
-import { NodecosmosDispatch } from '../../../../../store';
-import { deleteFromState } from '../../../actions';
-import { deleteNode } from '../../../nodes.thunks';
-import useNodeContext from '../node/useNodeContext';
+import { NodecosmosDispatch } from '../../../../../../store';
+import { deleteFromState } from '../../../../actions';
+import { deleteNode } from '../../../../nodes.thunks';
+import useNodeContext from '../useNodeContext';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

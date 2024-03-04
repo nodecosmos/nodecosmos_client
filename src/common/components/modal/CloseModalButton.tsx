@@ -1,10 +1,13 @@
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IconButton from '@mui/material/IconButton';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function CloseModalButton({ onClose }) {
+interface CloseModalButtonProps {
+    onClose: () => void;
+}
+
+export default function CloseModalButton({ onClose }: CloseModalButtonProps) {
     return (
         <IconButton
             disableRipple
@@ -34,5 +37,3 @@ export default function CloseModalButton({ onClose }) {
         </IconButton>
     );
 }
-
-CloseModalButton.propTypes = { onClose: PropTypes.func.isRequired };

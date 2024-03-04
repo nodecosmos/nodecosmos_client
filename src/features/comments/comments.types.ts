@@ -60,6 +60,7 @@ export interface Comment extends CommentPrimaryKey {
 type CommentContent = Pick<Comment, 'content'>;
 export type WithoutThreadInsertPayload = Pick<Comment, 'content' | 'objectId' | 'threadId'>
 export type UpdateCommentPayload = Pick<Comment, keyof CommentPrimaryKey | 'content'>
+export type UpdateCommentContentResponse = Pick<Comment, 'id' | 'content' | 'updatedAt'>
 
 interface WithThreadCommentInsertPayload {
     thread?: ThreadInsertPayload;
@@ -85,5 +86,5 @@ export interface CommentState {
     idsByThreadId: Record<UUID, UUID[]>;
     threadsById: Record<UUID, CommentThread>;
     threadIdsByObjectId: Record<UUID, UUID[]>;
-    threadIdByLine: Record<ObjectId, Record<NodeId, Map<LineContent, [ThreadId, LineNumber]>>>;
+    threadByDescriptionLine: Record<ObjectId, Record<NodeId, Map<LineContent, [ThreadId, LineNumber]>>>;
 }

@@ -1,5 +1,5 @@
-import useInsertCommentPortal from '../hooks/description/useInsertCommentPortal';
-import useThreadsPortals from '../hooks/description/useThreadsPortals';
+import useCommentInsertWidget from '../hooks/description/useCommentInsertWidget';
+import useCommentThreadsWidget from '../hooks/description/useCommentThreadsWidget';
 import { EditorView } from '@uiw/react-codemirror';
 import React from 'react';
 
@@ -10,8 +10,8 @@ interface DescriptionCommentsProps {
 }
 
 export default function DescriptionComments({ view }: DescriptionCommentsProps) {
-    const insertCommentPortal = useInsertCommentPortal(view);
-    const commentThreadsPortal = useThreadsPortals(view);
+    const insertCommentPortal = useCommentInsertWidget(view);
+    const commentThreadsPortal = useCommentThreadsWidget(view);
 
     return (
         <div>
