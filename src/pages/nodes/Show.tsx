@@ -1,6 +1,6 @@
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
-import { showNode } from '../../features/nodes/nodes.thunks';
+import { listenNodeSSE, showNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
@@ -39,6 +39,8 @@ export default function NodeShow() {
 
                 return;
             }
+        }).then(() => {
+            dispatch(listenNodeSSE(id));
         });
     }, [dispatch, navigate, id, isNodeFetched]);
 

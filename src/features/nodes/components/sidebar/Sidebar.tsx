@@ -1,22 +1,23 @@
 import SidebarListItem from './SidebarListItem';
 import { UUID } from '../../../../types';
 import {
-    faChartSimple,
-    faCodeCommit,
-    faCodePullRequest,
-    faGears,
-    faUserGroup,
-    faHashtag,
-    faTable,
-
     faChartSimple as faChartSimpleSolid,
     faCodeCommit as faCodeCommitSolid,
     faCodePullRequest as faCodePullRequestSolid,
     faGears as faGearsSolid,
-    faUserGroup as faUserGroupSolid,
-    faHashtag as faHashtagSolid,
+    faMessageBot as faMessageBotSolid,
     faTable as faTableSolid,
+} from '@fortawesome/pro-duotone-svg-icons';
+import {
+    faChartSimple,
+    faCodeCommit,
+    faCodePullRequest,
+    faGears,
+    faMessageBot,
+    faHashtag,
+    faTable,
 } from '@fortawesome/pro-light-svg-icons';
+import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, Box } from '@mui/material';
 import React from 'react';
@@ -58,9 +59,9 @@ export default function Sidebar() {
                 />
                 <SidebarListItem
                     to={`${toPath}/topics`}
-                    icon={(<FontAwesomeIcon icon={faUserGroup} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faUserGroupSolid} />)}
-                    title="Topics"
+                    icon={(<FontAwesomeIcon icon={faMessageBot} />)}
+                    selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
+                    title="Threads"
                 />
                 <SidebarListItem
                     disabled

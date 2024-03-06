@@ -8,7 +8,11 @@ import {
     PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload, NodeBranchDiffPayload,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError, UUID } from '../../types';
+import {
+    ActionTypes, NodecosmosError, UUID,
+} from '../../types';
+import { Comment } from '../comments/comments.types';
+import { createCommentAction } from '../comments/commentsSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -32,6 +36,32 @@ export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: 
         const response = await nodecosmos.get(`/nodes/${id}`);
 
         return response.data;
+    },
+);
+
+export const listenNodeSSE = createAsyncThunk<void, UUID, { rejectValue: NodecosmosError }>(
+    'nodes/listenNodeSSE',
+    async (id, { dispatch, rejectWithValue }) => {
+        try {
+            const eventSource = new EventSource(
+                `${nodecosmos.defaults.baseURL}nodes/${id}/events/listen`,
+                { withCredentials: true },
+            );
+
+            eventSource.addEventListener(ActionTypes.CreateComment, (event) => {
+                const comment: Comment = JSON.parse(event.data);
+
+                debugger;
+
+                dispatch(createCommentAction(comment));
+            });
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 

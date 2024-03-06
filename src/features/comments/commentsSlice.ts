@@ -67,7 +67,13 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
 const commentsSlice = createSlice({
     name: 'comments',
     initialState,
-    reducers: {},
+    reducers: {
+        createComment: (state, action) => {
+            const comment = action.payload;
+
+            populateComment(state, comment);
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(indexComments.fulfilled, (state, action) => {
@@ -136,6 +142,8 @@ const commentsSlice = createSlice({
     },
 });
 
-const { reducer } = commentsSlice;
+const { actions, reducer } = commentsSlice;
+
+export const { createComment: createCommentAction } = actions;
 
 export default reducer;

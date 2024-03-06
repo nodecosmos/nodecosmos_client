@@ -60,7 +60,6 @@ export default function CodeMirrorContainer({ children }) {
                 },
                 justifyContent: 'center',
             },
-            '.cm-commentGutter': { width: 12 },
             '.cm-addCommentButton': {
                 left: 31,
                 color: 'text.primary',

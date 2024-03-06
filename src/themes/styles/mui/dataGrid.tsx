@@ -31,7 +31,7 @@ export default (theme: NodecosmosTheme) => ({
                 '&:hover': { backgroundColor: theme.palette.background[5] },
             },
             cell: { '&:focus': { outline: 'none' } },
-            withBorderColor: { borderColor: theme.palette.borders[2] },
+            withBorderColor: { borderColor: 'transparent' },
             columnSeparator: { color: theme.palette.borders[2] },
             footerContainer: { backgroundColor: theme.palette.background[6] },
         },

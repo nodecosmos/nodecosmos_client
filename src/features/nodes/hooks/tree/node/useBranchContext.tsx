@@ -12,7 +12,9 @@ export interface BranchChanges {
 }
 
 export default function useBranchContext(): BranchChanges {
-    const { treeBranchId, id } = useNodeContext();
+    const {
+        treeBranchId, id, ancestorIds,
+    } = useNodeContext();
     const branch = useSelector(selectBranch(treeBranchId));
     const conflict = useSelector(selectConflict(treeBranchId));
     const {
@@ -22,21 +24,27 @@ export default function useBranchContext(): BranchChanges {
         editedNodeDescriptions,
     } = branch ?? {};
     const {
-        deletedAncestors,
+        deletedAncestors: deletedAncestorConflict,
         deletedEditedNodes,
     } = conflict ?? {};
 
     return useMemo(() => {
         return {
             isCreated: createdNodes?.has(id) ?? false,
-            isDeleted: deletedNodes?.has(id) ?? false,
+            isDeleted: (deletedNodes
+                && (
+                    deletedNodes?.has(id)
+                    || ancestorIds?.some((ancestorId) => deletedNodes?.has(ancestorId))
+                )
+            ) ?? false,
             isReordered: reorderedNodes?.some((reorder) => reorder.id === id) ?? false,
-            isOriginalDeleted: (deletedAncestors?.has(id) || deletedEditedNodes?.has(id)) ?? false,
+            isOriginalDeleted: (deletedAncestorConflict?.has(id) || deletedEditedNodes?.has(id)) ?? false,
             isDescriptionEdited: editedNodeDescriptions?.has(id) ?? false,
         };
     }, [
+        ancestorIds,
         createdNodes,
-        deletedAncestors,
+        deletedAncestorConflict,
         deletedEditedNodes,
         deletedNodes,
         editedNodeDescriptions,

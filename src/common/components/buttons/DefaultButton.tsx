@@ -39,7 +39,7 @@ export default function DefaultButton(props: DefaultButtonProps) {
             size="small"
             color={color}
             type={type}
-            disabled={disabled}
+            disabled={disabled || loading}
             sx={{
                 border: 1,
                 borderColor,

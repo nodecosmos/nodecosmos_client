@@ -1,3 +1,5 @@
+import { Comment } from './features/comments/comments.types';
+import { Node } from './features/nodes/nodes.types';
 import { HttpStatusCode } from 'axios';
 
 export type UUID = string;
@@ -33,3 +35,35 @@ export type Exact<T, Shape> = T & {
 };
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
+
+export enum ActionTypes {
+    CreateNode = 'CREATE_NODE',
+    ReadNode = 'READ_NODE',
+    UpdateNode = 'UPDATE_NODE',
+    DeleteNode = 'DELETE_NODE',
+    ReorderNode = 'REORDER_NODE',
+    Merge = 'MERGE',
+    CreateWorkflow = 'CREATE_WORKFLOW',
+    ReadWorkflow = 'READ_WORKFLOW',
+    UpdateWorkflow = 'UPDATE_WORKFLOW',
+    DeleteWorkflow = 'DELETE_WORKFLOW',
+    CreateFlow = 'CREATE_FLOW',
+    ReadFlow = 'READ_FLOW',
+    UpdateFlow = 'UPDATE_FLOW',
+    DeleteFlow = 'DELETE_FLOW',
+    ReorderFlow = 'REORDER_FLOW',
+    CreateFlowStep = 'CREATE_FLOW_STEP',
+    ReadFlowStep = 'READ_FLOW_STEP',
+    UpdateFlowStep = 'UPDATE_FLOW_STEP',
+    DeleteFlowStep = 'DELETE_FLOW_STEP',
+    CreateIo = 'CREATE_INPUT_OUTPUT',
+    ReadIo = 'READ_INPUT_OUTPUT',
+    UpdateIo = 'UPDATE_INPUT_OUTPUT',
+    DeleteIo = 'DELETE_INPUT_OUTPUT',
+    CreateComment = 'CREATE_COMMENT',
+    ReadComment = 'READ_COMMENT',
+    UpdateComment = 'UPDATE_COMMENT',
+    DeleteComment = 'DELETE_COMMENT',
+}
+
+export type EventData = Comment | Node;
