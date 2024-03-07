@@ -17,12 +17,12 @@ export interface FlowStepData {
     prefFlowYEnd: number;
 }
 
-interface WfFlowStepBuilderResult {
+interface FlowRes {
     workflowStepFlows: WorkflowStepFlow[];
     flowYEnd: number;
 }
 
-export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
+export function buildFlow(data: FlowStepData): FlowRes {
     const {
         flowId,
         flowSteps,
@@ -116,6 +116,6 @@ export function buildFlow(data: FlowStepData): WfFlowStepBuilderResult {
 
     return {
         workflowStepFlows,
-        flowYEnd: flowYEnd + FLOW_BUFFER, 
+        flowYEnd: flowYEnd + FLOW_BUFFER,
     };
 }

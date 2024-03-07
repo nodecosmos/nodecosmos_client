@@ -1,7 +1,9 @@
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
-import { listenNodeSSE, showNode } from '../../features/nodes/nodes.thunks';
+import useNodeSSE from '../../features/nodes/hooks/useNodeSSE';
+import { showNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
+import { UUID } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -21,6 +23,8 @@ export default function NodeShow() {
 
     const [isNodeFetched, setIsNodeFetched] = React.useState(false);
 
+    useNodeSSE(id as UUID, isNodeFetched);
+
     useEffect(() => {
         if (isNodeFetched) {
             return;
@@ -39,8 +43,6 @@ export default function NodeShow() {
 
                 return;
             }
-        }).then(() => {
-            dispatch(listenNodeSSE(id));
         });
     }, [dispatch, navigate, id, isNodeFetched]);
 

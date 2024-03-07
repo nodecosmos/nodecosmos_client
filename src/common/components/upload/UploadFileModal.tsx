@@ -17,8 +17,17 @@ import { useDispatch } from 'react-redux';
 
 interface UploadFileModalProps {
     open: boolean;
-    onClose: (attachment?: { url: string; key: string }) => void;
+    onClose: (attachment?: { url: string; filename: string }) => void;
     params: { nodeId: string; objectId: string };
+}
+
+interface ResponseData {
+    url: string;
+    key: string;
+}
+
+interface S3Response {
+    responseURL: string;
 }
 
 export default function UploadFileModal(props: UploadFileModalProps) {
@@ -34,7 +43,18 @@ export default function UploadFileModal(props: UploadFileModalProps) {
             maxFileSize: 25 * 1024 * 1024,
         },
         locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
-    }).use(XHRUpload, { endpoint: '' }), []);
+    }).use(XHRUpload, {
+        endpoint: '',
+        getResponseData: (_responseText: string, res: unknown): ResponseData => {
+            const response = res as S3Response;
+            const url = new URL(response.responseURL);
+
+            return {
+                url: url.origin + url.pathname,
+                key: url.pathname.substring(1),
+            };
+        },
+    }), []);
 
     const handleClose = useCallback(() => {
         uppy.cancelAll();
@@ -42,18 +62,20 @@ export default function UploadFileModal(props: UploadFileModalProps) {
     }, [onClose, uppy]);
 
     useEffect(() => {
-        uppy.on('upload-success', (file) => {
+        uppy.on('upload-success', (file, response) => {
             const postAttachmentParams = {
                 ...params,
-                key: file?.name,
+                url: response.body.url,
+                key: response.body.key,
             };
 
             nodecosmos.post('/attachments', postAttachmentParams)
                 .then((res) => {
                     uppy.cancelAll();
+
                     onClose({
                         url: res.data.url,
-                        key: res.data.key,
+                        filename: file?.name || 'file',
                     });
                 })
                 .catch((error) => {
@@ -110,7 +132,7 @@ export default function UploadFileModal(props: UploadFileModalProps) {
             PaperProps={{ elevation: 8 }}
         >
             <DialogTitle>
-                Upload Cover Image
+                Upload File
                 <CloseModalButton onClose={handleClose} />
             </DialogTitle>
             <DialogContent>

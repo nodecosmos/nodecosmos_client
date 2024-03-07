@@ -1,6 +1,6 @@
 import Loader from '../../../../../common/components/Loader';
 import { useNodePaneContext } from '../../../hooks/pane/useNodePaneContext';
-import useNodeDescription from '../../../hooks/useNodeDescriptionEdit';
+import useNodeDescriptionEdit from '../../../hooks/useNodeDescriptionEdit';
 import { selectSelected } from '../../../nodes.selectors';
 import { PKWithTreeBranch } from '../../../nodes.types';
 import { Box } from '@mui/material';
@@ -19,7 +19,7 @@ export default function NodePaneDescriptionEditor() {
         handleChange,
         descriptionMarkdown,
         descriptionBase64,
-    } = useNodeDescription();
+    } = useNodeDescriptionEdit();
 
     if (loading) {
         return <Loader />;

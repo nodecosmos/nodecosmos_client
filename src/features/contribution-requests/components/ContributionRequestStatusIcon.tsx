@@ -8,11 +8,14 @@ import {
 import React from 'react';
 
 interface Props {
-    status: ContributionRequestStatus;
+    status?: ContributionRequestStatus;
 }
 
 export default function ContributionRequestStatusIcon({ status }: Props) {
     const theme: NodecosmosTheme = useTheme();
+
+    if (!status) return null;
+
     const statusColors = {
         [ContributionRequestStatus.WorkInProgress]: theme.palette.toolbar.yellow,
         [ContributionRequestStatus.Published]: theme.palette.toolbar.green,

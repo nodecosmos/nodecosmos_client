@@ -35,6 +35,15 @@ function resetObjectState(state: RootState['comments'], objectId: UUID) {
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
+    if (state.byId[comment.id]) {
+        state.byId[comment.id] = {
+            ...state.byId[comment.id],
+            ...comment,
+        };
+
+        return;
+    }
+    '';
     if (!state.idsByObjectId[comment.objectId]) {
         state.idsByObjectId[comment.objectId] = [];
     }
@@ -68,7 +77,7 @@ const commentsSlice = createSlice({
     name: 'comments',
     initialState,
     reducers: {
-        createComment: (state, action) => {
+        SSECreateComment: (state, action) => {
             const comment = action.payload;
 
             populateComment(state, comment);
@@ -144,6 +153,6 @@ const commentsSlice = createSlice({
 
 const { actions, reducer } = commentsSlice;
 
-export const { createComment: createCommentAction } = actions;
+export const { SSECreateComment } = actions;
 
 export default reducer;

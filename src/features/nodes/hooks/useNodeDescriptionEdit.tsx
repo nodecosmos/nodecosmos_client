@@ -19,6 +19,8 @@ interface UseNodeDescriptionEdit {
     descriptionBase64: string | null;
 }
 
+const EMPTY_PARAGRAPH = '<p></p>';
+
 export default function useNodeDescription(): UseNodeDescriptionEdit {
     const {
         treeBranchId, // branchId of the current tree
@@ -36,6 +38,7 @@ export default function useNodeDescription(): UseNodeDescriptionEdit {
     const {
         descriptionMarkdown,
         descriptionBase64,
+        description: currentDescription,
     } = useSelector(selectNode(treeBranchId, id));
 
     useEffect(() => {
@@ -70,6 +73,12 @@ export default function useNodeDescription(): UseNodeDescriptionEdit {
 
         handleChangeTimeout.current = setTimeout(() => {
             const descriptionHtml = helpers.getHTML();
+            const isEmptySame = !currentDescription && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
+
+            if (isEmptySame || (descriptionHtml === currentDescription)) {
+                return;
+            }
+
             const shortDescription = extractTextFromHtml(descriptionHtml);
             const markdown = helpers.getMarkdown();
 
@@ -83,7 +92,7 @@ export default function useNodeDescription(): UseNodeDescriptionEdit {
                 descriptionBase64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
             }));
         }, 500);
-    }, [dispatch, treeBranchId, branchId, id, isTmp]);
+    }, [isTmp, currentDescription, dispatch, treeBranchId, branchId, id]);
 
     return {
         handleChange,

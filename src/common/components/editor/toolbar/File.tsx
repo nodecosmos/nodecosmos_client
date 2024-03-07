@@ -19,10 +19,10 @@ export default function File() {
         objectId: persistedId as UUID,
     }), [persistedId]);
 
-    const handleFileDialogClose = useCallback((attachment?: { url: string; key: string }) => {
+    const handleFileDialogClose = useCallback((attachment?: { url: string;, filename: string }) => {
         if (attachment) {
             const url = new URL(attachment.url);
-            commands.insertMarkdown(`[${attachment.key}](${url.href})`);
+            commands.insertMarkdown(`[${attachment.filename}](${url.href})`);
         }
 
         closeFileDialog();

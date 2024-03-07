@@ -4,7 +4,7 @@ import { Output } from './types';
 import { Position, UUID } from '../../../types';
 import { FlowStep } from '../../flow-steps/types';
 
-export function buildInitialOutputs(initialInputIds: UUID[]): Output[] {
+export function buildInitialInputs(initialInputIds: UUID[]): Output[] {
     const outputs: Output[] = [];
 
     initialInputIds.forEach((inputId: UUID, ioIndex) => {

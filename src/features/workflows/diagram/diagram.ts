@@ -1,5 +1,5 @@
 import { buildFlow } from './flow';
-import { buildInitialOutputs } from './output';
+import { buildInitialInputs } from './output';
 import { calculateWorkflowStepPosition } from './position';
 import { WorkflowDiagram, WorkflowStep } from './types';
 import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
@@ -26,7 +26,7 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
         initialInputIds, flows = [], flowSteps = [], inputOutputs = [],
     } = data;
 
-    const initialInputs = buildInitialOutputs(initialInputIds);
+    const initialInputs = buildInitialInputs(initialInputIds);
     const workflowSteps: WorkflowStep[] = [];
 
     let height = 0;

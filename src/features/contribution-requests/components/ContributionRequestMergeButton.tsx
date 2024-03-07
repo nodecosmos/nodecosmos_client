@@ -1,4 +1,5 @@
 import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
+import { UUID } from '../../../types';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import useMerge from '../hooks/useMerge';
@@ -15,29 +16,21 @@ export default function ContributionRequestMergeButton() {
         contributionRequestId: id,
     } = useParams();
 
-    if (!nodeId) {
-        throw new Error('Missing nodeId');
-    }
-
-    if (!id) {
-        throw new Error('Missing contributionRequestId');
-    }
-
-    const contributionRequest = useSelector(selectContributionRequest(nodeId, id));
+    const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
     const merge = useMerge();
 
-    if (!contributionRequest) return null;
-
-    if (contributionRequest.status == ContributionRequestStatus.Merged) {
+    if (contributionRequest?.status == ContributionRequestStatus.Merged) {
         return (
             <Button
                 color="secondary"
                 className="NodeButton"
-                startIcon={ContributionRequestStatusIcon({ status: contributionRequest.status })}>
+                startIcon={<ContributionRequestStatusIcon status={contributionRequest.status} />}>
                 Merged
             </Button>
         );
     }
+
+    if (!contributionRequest) return null;
 
     return (
         <Button
