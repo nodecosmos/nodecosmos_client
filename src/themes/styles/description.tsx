@@ -51,7 +51,10 @@ export default (theme: NodecosmosTheme) => ({
             color: theme.palette.text.link,
             fontWeight: 'bold',
         },
-        p: { wordWrap: 'break-word' },
+        p: {
+            wordWrap: 'break-word',
+            '&:empty': { height: 32 },
+        },
         'img:not(.ProseMirror-separator)': {
             maxWidth: 850,
             width: '100%',

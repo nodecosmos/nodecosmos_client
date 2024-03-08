@@ -12,25 +12,21 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function NodePaneWorkflow() {
     const { id } = useSelector(selectSelected) as PKWithTreeBranch;
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
-    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
 
     const dispatch: NodecosmosDispatch = useDispatch();
 
     useEffect(() => {
-        if (!fetched && !loading) {
+        if (!loading) {
             setLoading();
-            dispatch(showWorkflow(id)).finally(() => {
-                setFetched();
-                setTimeout(unsetLoading, 250);
-            });
+            dispatch(showWorkflow(id))
+                .then(() => {
+                    unsetLoading();
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
         }
-
-        return () => {
-            if (!loading && fetched) {
-                unsetFetched();
-            }
-        };
-    }, [dispatch, fetched, id, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
+    }, [dispatch, id, loading, setLoading, unsetLoading]);
 
     if (!id) return null;
 

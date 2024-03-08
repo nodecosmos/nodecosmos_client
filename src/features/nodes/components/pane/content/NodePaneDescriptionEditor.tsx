@@ -35,7 +35,9 @@ export default function NodePaneDescriptionEditor() {
                     wsAuthNodeId={id}
                     wsAuthNodeBranchId={branchId}
                     base64={descriptionBase64}
-                    editorFocusColor="borders.4"
+                    editorOutline={0}
+                    editorBackgroundColor="background.5"
+                    editorFocusBorderColor="toolbar.default"
                     isRealTime
                 />
             </Box>

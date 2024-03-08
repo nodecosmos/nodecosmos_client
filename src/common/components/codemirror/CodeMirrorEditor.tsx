@@ -68,7 +68,6 @@ export default function CodeMirrorEditor({
         editable,
         onChange,
         theme: codeMirrorTheme,
-        height: '100%',
     });
 
     useEffect(() => {

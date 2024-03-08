@@ -3,7 +3,8 @@ import { Node } from './features/nodes/nodes.types';
 import { HttpStatusCode } from 'axios';
 
 export type UUID = string;
-export type OptionalId<T> = Omit<T, 'id'> & { id?: UUID };
+export type OptionalId = { id?: UUID };
+export type WithOptionalId<T> = Omit<T, 'id'> & OptionalId;
 
 export type NodecosmosError = {
     status?: HttpStatusCode;

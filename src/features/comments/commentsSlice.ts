@@ -22,11 +22,11 @@ const initialState: CommentState = {
 function resetObjectState(state: RootState['comments'], objectId: UUID) {
     state.idsByObjectId[objectId] = [];
 
-    const currentThreadIds = state.threadIdsByObjectId[objectId];
+    const currentThreadCommentIds = state.threadIdsByObjectId[objectId];
 
-    if (currentThreadIds) {
-        currentThreadIds.forEach((threadId) => {
-            state.idsByThreadId[threadId] = [];
+    if (currentThreadCommentIds) {
+        currentThreadCommentIds.forEach((commentId) => {
+            state.idsByThreadId[commentId] = [];
         });
     }
 
@@ -43,7 +43,7 @@ function populateComment(state: RootState['comments'], comment: Comment) {
 
         return;
     }
-    '';
+
     if (!state.idsByObjectId[comment.objectId]) {
         state.idsByObjectId[comment.objectId] = [];
     }
@@ -101,7 +101,7 @@ const commentsSlice = createSlice({
                     });
             })
             .addCase(createComment.fulfilled, (state, action) => {
-                const isThreadCreation = Boolean(action.meta.arg.thread);
+                const isThreadCreation = Boolean(action.meta.arg.newThread);
                 const { comment, thread } = action.payload;
 
                 populateComment(state, comment);

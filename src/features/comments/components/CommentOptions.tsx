@@ -1,5 +1,5 @@
 import SidebarListItem from '../../nodes/components/sidebar/SidebarListItem';
-import useCommentCommands from '../hooks/useCommentCommands';
+import { useCommentCommands } from '../hooks/useCommentContext';
 import {
     faEllipsis, faEdit, faTrash,
 } from '@fortawesome/pro-solid-svg-icons';
@@ -24,7 +24,7 @@ export default function CommentOptions() {
         handleClose();
     }, [openEditor, handleClose]);
 
-    const haandleDeleteComment = useCallback(() => {
+    const handleDeleteComment = useCallback(() => {
         deleteComment();
         handleClose();
     }, [deleteComment, handleClose]);
@@ -77,7 +77,7 @@ export default function CommentOptions() {
                 />
                 <SidebarListItem
                     component="button"
-                    onClick={haandleDeleteComment}
+                    onClick={handleDeleteComment}
                     icon={(<FontAwesomeIcon icon={faTrash} />)}
                     title="Delete"
                 />

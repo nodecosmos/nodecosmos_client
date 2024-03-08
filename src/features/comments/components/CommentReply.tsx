@@ -11,6 +11,7 @@ export default function CommentReply({ id }: CommentThreadProps) {
     const [insertComment, setInsertComment, removeInsertComment] = useBooleanStateValue(false);
 
     return insertComment ? <CommentEditor
+        withThreadBlock
         threadPk={
             {
                 objectId: thread.objectId,

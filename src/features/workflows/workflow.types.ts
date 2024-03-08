@@ -1,5 +1,5 @@
 import { WorkflowDiagram } from './diagram/types';
-import { UUID, OptionalId } from '../../types';
+import { UUID, WithOptionalId } from '../../types';
 import { FlowStep } from '../flow-steps/types';
 import { Flow } from '../flows/types';
 import { InputOutput } from '../input-outputs/types';
@@ -19,7 +19,8 @@ export interface Workflow extends WorkflowPrimaryKey {
 }
 
 // primary key with optional id + partial of the rest
-export type WorkflowUpsertPayload = OptionalId<WorkflowPrimaryKey> & Partial<Omit<Workflow, keyof WorkflowPrimaryKey>>;
+export type WorkflowUpsertPayload =
+    WithOptionalId<WorkflowPrimaryKey> & Partial<Omit<Workflow, keyof WorkflowPrimaryKey>>;
 
 export interface WorkflowData {
     workflow: Workflow,

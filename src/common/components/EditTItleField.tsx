@@ -10,8 +10,14 @@ interface EditTitleFieldProps {
     pr?: number;
     variant?: Variant;
     endpoint: string;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     reqData?: object;
+    maxWidth?: number | string;
+    inputHeight?: number | string;
+    inputFontSize?: number | string;
+    inputFontWeight?: number | string;
+    inputBorder?: string;
+    inputP: number;
 }
 
 export default function EditTitleField(props: EditTitleFieldProps) {
@@ -23,8 +29,13 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         endpoint,
         onChange,
         reqData,
+        maxWidth = '350px',
+        inputHeight = 32,
+        inputFontSize = 'inherit',
+        inputFontWeight = 'inherit',
+        inputBorder = 'borders.4',
+        inputP = 1,
     } = props;
-
     const [editing, setEditing, unsetEditing] = useBooleanStateValue();
 
     if (editing) {
@@ -35,6 +46,12 @@ export default function EditTitleField(props: EditTitleFieldProps) {
                 onClose={unsetEditing}
                 endpoint={endpoint}
                 reqData={reqData}
+                maxWidth={maxWidth}
+                inputHeight={inputHeight}
+                inputFontSize={inputFontSize}
+                inputFontWeight={inputFontWeight}
+                inputBorder={inputBorder}
+                inputP={inputP}
             />
         );
     }
@@ -48,7 +65,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
                 height: 1,
                 display: 'table-cell',
                 verticalAlign: 'middle',
-                maxWidth: '350px',
+                maxWidth,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',

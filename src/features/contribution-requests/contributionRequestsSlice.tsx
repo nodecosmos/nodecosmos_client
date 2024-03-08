@@ -1,7 +1,7 @@
 import { ContributionRequestsState } from './contributionRequest.types';
 import {
     indexContributionRequests,
-    showContributionRequest, createContributionRequest, deleteContributionRequest,
+    showContributionRequest, createContributionRequest, deleteContributionRequest, updateContributionRequestDescription,
 } from './contributionRequests.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -16,12 +16,12 @@ const contributionRequestsSlice = createSlice({
     initialState,
     reducers: {
         updateContributionRequestState(state, action) {
-            const { nodeId, contributionRequestId } = action.payload;
-            const contributionRequest = state.byNodeId[nodeId][contributionRequestId];
+            const { nodeId, id } = action.payload;
+            const contributionRequest = state.byNodeId[nodeId][id];
 
-            state.byNodeId[nodeId][contributionRequestId] = {
-                ...action.payload,
+            state.byNodeId[nodeId][id] = {
                 ...contributionRequest,
+                ...action.payload,
             };
         },
         setSearchTerm(state, action) {
@@ -45,7 +45,6 @@ const contributionRequestsSlice = createSlice({
                 state.byNodeId[nodeId] ||= {};
 
                 contributionRequests.forEach((contributionRequest) => {
-                    contributionRequest.createdAt = new Date(contributionRequest.createdAt);
                     state.byNodeId[nodeId][contributionRequest.id] = contributionRequest;
                 });
             })
@@ -53,16 +52,19 @@ const contributionRequestsSlice = createSlice({
                 const { contributionRequest } = action.payload;
                 const { nodeId } = contributionRequest;
 
-                contributionRequest.createdAt = new Date(contributionRequest.createdAt);
-
                 state.byNodeId[nodeId] ||= {};
                 state.byNodeId[nodeId][contributionRequest.id] = contributionRequest;
+            })
+            .addCase(updateContributionRequestDescription.fulfilled, (state, action) => {
+                const {
+                    nodeId, id, description,
+                } = action.payload;
+
+                state.byNodeId[nodeId][id].description = description;
             })
             .addCase(createContributionRequest.fulfilled, (state, action) => {
                 const contributionRequest = action.payload;
                 const { nodeId } = contributionRequest;
-
-                contributionRequest.createdAt = new Date(contributionRequest.createdAt);
 
                 state.byNodeId[nodeId] ||= {};
                 state.byNodeId[nodeId][contributionRequest.id] = contributionRequest;

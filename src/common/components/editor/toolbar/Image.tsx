@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
 
+/// TODO: we need to pass pros from RemirrorEditor
 export default function Image() {
     const [imageDialogOpen, openImageDialog, closeImageDialog] = useBooleanStateValue();
     const { persistedId } = useSelector(selectSelectedNode);

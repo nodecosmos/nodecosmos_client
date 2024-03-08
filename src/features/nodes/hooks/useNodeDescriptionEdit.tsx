@@ -48,9 +48,11 @@ export default function useNodeDescription(): UseNodeDescriptionEdit {
                 treeBranchId,
                 branchId,
                 id,
-            })).finally(() => {
+            })).then(() => {
                 setFetched();
                 unsetLoading();
+            }).catch((e) => {
+                console.error(e);
             });
         }
 

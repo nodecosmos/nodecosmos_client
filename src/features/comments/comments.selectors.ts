@@ -5,6 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 export const selectCommentsState = (state: RootState) => state.comments;
 export const selectComments = (state: RootState) => state.comments.byId;
 export const selectCommentIdsByThreadId = (state: RootState) => state.comments.idsByThreadId;
+
 export const selectThreadById = createSelector(
     selectCommentsState,
     (comments) => comments.threadsById,
@@ -35,4 +36,9 @@ export const selectThread = (threadId: UUID) => createSelector(
 export const selectNodeThreadsByLine = (objectId: UUID, nodeId: UUID) => createSelector(
     selectThreadByDescriptionLine,
     (threadByDescriptionLine) => threadByDescriptionLine[objectId]?.[nodeId],
+);
+
+export const mainCrThread = (objectId: UUID) => createSelector(
+    selectThread(objectId),
+    (thread) => thread,
 );

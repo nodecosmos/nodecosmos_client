@@ -67,10 +67,10 @@ export default function useCommentInsertWidget(view: EditorView) {
                 lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
             };
 
-            // Codemirror widget is rendered with widgetId as the id
+            // Codemirror Widget element is created and appended to the DOM
             // Here we create a portal to render the CommentEditor component within the widget
             const portal = createPortal(
-                <CommentEditor onClose={closeInsertComment} newThread={threadPayload} />,
+                <CommentEditor onClose={closeInsertComment} newThread={threadPayload} withThreadBlock />,
                 document.getElementById(widgetId) as HTMLElement,
                 widgetId,
             );

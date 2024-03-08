@@ -1,6 +1,5 @@
 import CommentEditor from './CommentEditor';
-import useCommentCommands from '../hooks/useCommentCommands';
-import { useCommentContext } from '../hooks/useCommentContext';
+import { useCommentCommands, useCommentContext } from '../hooks/useCommentContext';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -27,7 +26,7 @@ export default function CommentContent({ isLast }: CommentContentProps) {
 
     return (
         <Box
-            py={3}
+            py={5}
             px="26px"
             mt={-4}
             mb={isLast ? 0 : -5}

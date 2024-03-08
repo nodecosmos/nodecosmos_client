@@ -1,5 +1,4 @@
 import { useNodePaneContext } from './pane/useNodePaneContext';
-import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { getDescription } from '../nodes.thunks';
 import { useEffect } from 'react';
@@ -17,23 +16,23 @@ export default function useNodeDescription() {
         unsetLoading,
     } = useNodePaneContext();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [fetched, setFetched] = useBooleanStateValue();
 
     useEffect(() => {
-        if (id && !isTmp && !description && !loading && !fetched) {
+        if (id && !isTmp && !description && !loading) {
             setLoading();
             dispatch(getDescription({
                 treeBranchId,
                 branchId,
                 id,
-            })).finally(() => {
+            })).then(() => {
                 unsetLoading();
-                setFetched();
+            }).catch((error) => {
+                console.error(error);
             });
         }
     },
     [
         branchId, dispatch, id, isTmp, loading, treeBranchId,
-        setLoading, unsetLoading, description, fetched, setFetched,
+        setLoading, unsetLoading, description,
     ]);
 }

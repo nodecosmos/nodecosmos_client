@@ -11,7 +11,13 @@ interface Props {
 export default function RemirrorEditorContainer({ children }: Props) {
     const theme: NodecosmosTheme = useTheme();
     const {
-        toolbarHeight, p = 0, px = 0, py = 0, editorBackgroundColor, editorFocusColor,
+        toolbarHeight,
+        editorBackgroundColor,
+        editorOutline = 2,
+        editorFocusBorderColor,
+        p = 0,
+        px = 0,
+        py = 0,
     } = useEditorContext();
 
     return (
@@ -23,6 +29,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
                 backgroundColor: editorBackgroundColor ?? 'background.3',
                 // toolbar
                 '.RemirrorToolbar': {
+                    pl: 1,
                     display: 'flex',
                     alignItems: 'center',
                     height: toolbarHeight ?? HEADER_HEIGHT,
@@ -43,8 +50,9 @@ export default function RemirrorEditorContainer({ children }: Props) {
                     borderColor: 'borders.4',
                     m: 1,
                     '&:focus-within': {
-                        outline: 2,
-                        outlineColor: editorFocusColor ?? 'toolbar.purple',
+                        outline: editorOutline,
+                        outlineColor: 'toolbar.purple',
+                        borderColor: editorFocusBorderColor,
                     },
                 },
                 '.remirror-editor-wrapper': {

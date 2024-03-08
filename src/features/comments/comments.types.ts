@@ -1,4 +1,6 @@
-import { Profile, UUID } from '../../types';
+import {
+    OptionalId, Profile, UUID,
+} from '../../types';
 
 export enum ObjectType {
     ContributionRequest = 'ContributionRequest',
@@ -38,11 +40,14 @@ export interface CommentThread extends CommentThreadPrimaryKey {
     threadNodeId?: UUID;
     lineNumber?: number; // line number of the description where the thread is created
     lineContent?: string; // line of description where the thread is created
+    authorId: UUID;
+    author: Profile;
     createdAt: string;
     updatedAt: string;
 }
 
-export type ThreadInsertPayload = Omit<CommentThread, 'id'>;
+export type ThreadInsertPayload =
+    Omit<CommentThread, 'id' | 'authorId' | 'author' | 'createdAt' | 'updatedAt'> & OptionalId;
 
 export interface CommentPrimaryKey {
     objectId: UUID;
@@ -65,12 +70,12 @@ export type UpdateCommentPayload = Pick<Comment, keyof CommentPrimaryKey | 'cont
 export type UpdateCommentContentResponse = Pick<Comment, 'id' | 'content' | 'updatedAt'>
 
 interface WithThreadCommentInsertPayload {
-    thread?: ThreadInsertPayload;
+    newThread?: ThreadInsertPayload;
     comment: CommentContent;
 }
 
 interface WithoutThreadCommentInsertPayload {
-    thread?: never;
+    newThread?: never;
     comment: WithoutThreadInsertPayload;
 }
 

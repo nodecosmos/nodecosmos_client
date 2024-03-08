@@ -31,7 +31,13 @@ export default function diffExtension(originalText: string, newText: string): Di
                 const deco = Decoration.widget({
                     widget: new class extends WidgetType {
                         toDOM() {
-                            const node = document.createElement('span');
+                            // if node.textContent trimmed is empty we create a paragraph
+                            let node;
+                            if (text.trim() === '') {
+                                node = document.createElement('p');
+                            } else {
+                                node = document.createElement('span');
+                            }
                             node.textContent = text;
                             node.className = 'cm-diffRemoved'; // Apply custom styling
                             return node;

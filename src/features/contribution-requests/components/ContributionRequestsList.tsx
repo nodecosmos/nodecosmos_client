@@ -77,6 +77,9 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             flex: 1,
             headerName: 'Date',
             type: 'dateTime',
+            valueGetter: (params: GridRenderCellParams<ContributionRequest, string>) => {
+                return new Date(params.value as string);
+            },
         },
         {
             headerName: '',

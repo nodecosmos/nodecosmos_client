@@ -10,6 +10,7 @@ import { useCommands } from '@remirror/react';
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+/// TODO: we need to pass pros from RemirrorEditor
 export default function File() {
     const { persistedId } = useSelector(selectSelectedNode);
     const commands = useCommands<RemirrorExtensions>();
@@ -19,10 +20,12 @@ export default function File() {
         objectId: persistedId as UUID,
     }), [persistedId]);
 
-    const handleFileDialogClose = useCallback((attachment?: { url: string;, filename: string }) => {
+    const handleFileDialogClose = useCallback((attachment?: { url: string; filename: string }) => {
         if (attachment) {
-            const url = new URL(attachment.url);
-            commands.insertMarkdown(`[${attachment.filename}](${url.href})`);
+            commands.insertMarkdown(
+                // eslint-disable-next-line max-len
+                `<a href="${attachment.url}">${attachment.filename}</a>`,
+            );
         }
 
         closeFileDialog();

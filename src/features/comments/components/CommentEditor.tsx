@@ -11,7 +11,9 @@ import { MAX_COMMENT_WIDTH } from '../commentsSlice';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
 import { Box, Button } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
-import React, { Suspense, useCallback } from 'react';
+import React, {
+    Suspense, useCallback, useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
@@ -19,7 +21,7 @@ const RemirrorEditor = React.lazy(() => import('../../../common/components/edito
 
 // when we create both a new thread and a comment
 interface WithThreadInsertPayload {
-    newThread: CreateCommentPayload['thread'];
+    newThread: CreateCommentPayload['newThread'];
     threadPk?: never;
     comment?: never;
 }
@@ -45,20 +47,28 @@ export type CreateCommentProps = WithThreadInsertPayload | WithoutThreadInsertPa
 
 export type AddDescriptionCommentProps = CreateCommentProps & {
     onClose?: () => void;
+    withThreadBlock?: boolean;
+    autoFocus?: boolean;
 };
 
 const {
-    Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
+    Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link, OrderedList, Image, File,
 } = EnabledExtensions;
 
 export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
-        newThread, threadPk = null, onClose, comment,
+        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>(comment?.content || '');
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
     const isUpdate = Boolean(comment);
+    const [clearState, setClearStateTrigger] = useState(false);
+
+    const clearContent = useCallback(() => {
+        setContent('');
+        setClearStateTrigger((prev) => !prev);
+    }, []);
 
     const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
         setContent(helpers.getHTML());
@@ -91,7 +101,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                 };
             } else if (newThread) {
                 payload = {
-                    thread: newThread,
+                    newThread,
                     comment: { content },
                 };
             } else {
@@ -101,19 +111,23 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
             dispatch(createComment(payload)).then(() => {
                 if (onClose) {
                     onClose();
+                } else {
+                    clearContent();
                 }
                 unsetLoading();
             });
         }
-    }, [setLoading, comment, content, dispatch, onClose, unsetLoading, threadPk, newThread]);
+    }, [setLoading, comment, content, dispatch, onClose, unsetLoading, threadPk, newThread, clearContent]);
 
     return (
         <Box>
             <Box
-                border={isUpdate ? 0 : 1}
+                borderRadius={0}
+                borderTop={!isUpdate && withThreadBlock ? 1 : 0}
+                borderBottom={withThreadBlock ? 1 : 0}
                 borderColor="borders.4"
-                p={1}
-                sx={{ backgroundColor: 'background.1' }}
+                p={withThreadBlock ? 2 : 0}
+                sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
                 boxSizing="border-box">
                 <Suspense fallback={<Loader p={4} />}>
                     <Box maxWidth={MAX_COMMENT_WIDTH}>
@@ -133,13 +147,18 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                                     Strike,
                                     Markdown,
                                     Blockquote,
+                                    CodeBlock,
                                     Link,
                                     OrderedList,
+                                    Image,
+                                    File,
                                 ]}
                                 p={1}
                                 toolbarHeight={38}
-                                editorBackgroundColor="background.1"
+                                editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}
                                 info="Add description review comment."
+                                clearState={clearState}
+                                autoFocus={autoFocus}
                             />
                         </Box>
                         <Box
@@ -147,9 +166,14 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                             display="flex"
                             justifyContent="flex-end"
                         >
-                            <Button variant="outlined" color="buttonContrast" onClick={onClose}>
-                                Cancel
-                            </Button>
+                            {
+                                onClose
+                                && (
+                                    <Button variant="outlined" color="buttonContrast" onClick={onClose}>
+                                        Cancel
+                                    </Button>
+                                )
+                            }
                             <DefaultButton
                                 sx={{ ml: 1 }}
                                 variant="outlined"

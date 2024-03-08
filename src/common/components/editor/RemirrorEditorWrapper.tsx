@@ -10,13 +10,13 @@ import { RemirrorEventListenerProps } from '@remirror/core';
 import {
     EditorComponent, Remirror, useRemirror,
 } from '@remirror/react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { MarkdownExtension } from 'remirror/extensions';
 import * as Y from 'yjs';
 
 export default function RemirrorEditorWrapper() {
     const {
-        base64, markdown, onChange, p = 8, doc, isRealTime, extensions, info,
+        base64, markdown, onChange, p = 8, doc, isRealTime, extensions, info, clearState, autoFocus = true,
     } = useEditorContext();
 
     const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
@@ -30,18 +30,29 @@ export default function RemirrorEditorWrapper() {
         }
     }, [doc, isRealTime, onChange]);
 
-    const { manager, state } = useRemirror<RemirrorExtensions>({
+    const {
+        manager, state, setState,
+    } = useRemirror<RemirrorExtensions>({
         extensions: () => extensions,
         content: (!base64 && markdown) || undefined,
         stringHandler: 'markdown',
     });
+
+    useEffect(() => {
+        // Whenever clearState changes, clear the content
+        if (clearState !== undefined) {
+            if (manager.output) {
+                manager.output.clearContent();
+            }
+        }
+    }, [clearState, manager, setState]);
 
     return (
         <RemirrorEditorContainer>
             <Remirror
                 manager={manager}
                 initialContent={state}
-                autoFocus
+                autoFocus={autoFocus}
                 onChange={handleChange}
                 editable
             >

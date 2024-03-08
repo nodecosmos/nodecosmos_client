@@ -11,7 +11,7 @@ export default (theme: NodecosmosTheme) => ({
                         WebkitTextFillColor: theme.palette.text.primary,
                     },
                 },
-                caretColor: theme.palette.primary.main,
+                caretColor: theme.palette.text.tertiary,
                 fontSize: '1rem',
             },
             root: {

@@ -1,8 +1,12 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { selectComment } from '../comments.selectors';
-import { createContext, useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { deleteComment as deleteCommentThunk, updateCommentContent } from '../comments.thunks';
+import {
+    createContext, useCallback, useContext,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface CtxValue {
     id: UUID;
@@ -50,5 +54,37 @@ export function useCommentContext() {
         updatedAt,
         editorOpen,
         isEdited: createdAt !== updatedAt,
+    };
+}
+
+export function useCommentCommands() {
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const {
+        objectId, threadId, id,
+    } = useCommentContext();
+    const { openEditor, closeEditor } = useContext(CommentContext);
+
+    const updateComment = useCallback((content: string) => {
+        dispatch(updateCommentContent({
+            objectId,
+            threadId,
+            id,
+            content,
+        }));
+    }, [dispatch, id, objectId, threadId]);
+
+    const deleteComment = useCallback(() => {
+        dispatch(deleteCommentThunk({
+            objectId,
+            threadId,
+            id,
+        }));
+    }, [dispatch, id, objectId, threadId]);
+
+    return {
+        updateComment,
+        deleteComment,
+        openEditor,
+        closeEditor,
     };
 }

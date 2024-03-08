@@ -12,6 +12,7 @@ interface DescriptionCommentsProps {
 export default function DescriptionComments({ view }: DescriptionCommentsProps) {
     const insertCommentPortal = useCommentInsertWidget(view);
     const commentThreadsPortal = useCommentThreadsWidget(view);
+
     return (
         <div>
             {insertCommentPortal}

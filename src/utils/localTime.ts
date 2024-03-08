@@ -10,23 +10,34 @@ export function timeSince(utcTime: string) {
     let interval = seconds / 31536000;
 
     if (interval > 1) {
-        return Math.floor(interval) + ' years ago';
+        return floorAndPluralize(interval, 'year');
     }
+
     interval = seconds / 2592000;
     if (interval > 1) {
-        return Math.floor(interval) + ' months ago';
+        return floorAndPluralize(interval, 'month');
     }
+
     interval = seconds / 86400;
     if (interval > 1) {
-        return Math.floor(interval) + ' days ago';
+        return floorAndPluralize(interval, 'day');
     }
+
     interval = seconds / 3600;
     if (interval > 1) {
-        return Math.floor(interval) + ' hours ago';
+        return floorAndPluralize(interval, 'hour');
     }
+
     interval = seconds / 60;
     if (interval > 1) {
-        return Math.floor(interval) + ' minutes ago';
+        return floorAndPluralize(interval, 'minute');
     }
-    return Math.floor(seconds) + ' seconds ago';
+
+    return 'Just now';
+}
+
+function floorAndPluralize(value: number, unit: string) {
+    const floor = Math.floor(value);
+
+    return `${floor} ${unit}${floor > 1 ? 's' : ''} ago`;
 }

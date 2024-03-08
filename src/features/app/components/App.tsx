@@ -2,6 +2,7 @@ import Header from './header/Header';
 import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
 import ContributionRequestShow from '../../../pages/contribution-requests/Show';
 import ContributionRequestCommits from '../../../pages/contribution-requests/tabs/ContributionRequestCommits';
+import ContributionRequestConversation from '../../../pages/contribution-requests/tabs/ContributionRequestConversation';
 import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
 import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
 import NodesIndex from '../../../pages/nodes/Index';
@@ -61,7 +62,7 @@ export default function App() {
                             <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
                             <Route path=":id/contribution_requests">
                                 <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                                    <Route path="" element={<div />} />
+                                    <Route path="" element={<ContributionRequestConversation />} />
                                     <Route path="tree" element={<ContributionRequestTree />} />
                                     <Route path="workflow" element={<ContributionRequestWorkflow />} />
                                     <Route path="commits" element={<ContributionRequestCommits />} />

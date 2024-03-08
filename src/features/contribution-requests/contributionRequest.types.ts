@@ -17,18 +17,17 @@ export interface ContributionRequest extends CRPrimaryKey {
     title: string;
     status: ContributionRequestStatus;
     description?: string;
-    descriptionMarkdown?: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
     owner: Profile;
 }
 
-export type DescriptionAttrs = Pick<ContributionRequest, 'description' | 'descriptionMarkdown'>;
+export type DescriptionAttrs = Pick<ContributionRequest, 'description'>;
 export type BaseCR = Omit<ContributionRequest, keyof DescriptionAttrs>;
 export type CreateCRPayload = Omit<ContributionRequest, 'nodeId' | 'id' | 'createdAt' | 'updatedAt' | 'owner'>;
 export type UpdateTitleCRPayload = CRPrimaryKey & Pick<ContributionRequest, 'title'>;
 export type UpdateDescriptionCRPayload = CRPrimaryKey
-    & Pick<ContributionRequest, 'description' | 'descriptionMarkdown'>;
+    & Pick<ContributionRequest, 'description'>;
 
 export interface ContributionRequestsState {
     byNodeId: Record<UUID, Record<UUID, ContributionRequest>>;

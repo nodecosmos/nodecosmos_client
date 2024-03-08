@@ -84,6 +84,12 @@ export default function CodeMirrorContainer({ children }) {
                 backgroundColor: 'diff.removedBg',
                 color: 'diff.removedFg',
             },
+
+            '.cm-diffRemoved:empty': {
+                display: 'block',
+                width: 1,
+            },
+
         }}
         >
             {children}

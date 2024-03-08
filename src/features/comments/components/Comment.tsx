@@ -17,7 +17,7 @@ export default function Comment({ id, isLast }: CommentProps) {
 
     return (
         <CommentContext.Provider value={ctxValue}>
-            <Box mt={1}>
+            <Box m={1}>
                 <CommentHeader />
                 <Box pl="24px">
                     <CommentContent isLast={isLast} />

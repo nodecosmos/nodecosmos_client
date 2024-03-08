@@ -12,15 +12,28 @@ import React, { useCallback, useEffect } from 'react';
 
 interface EditTitleFieldInputProps {
     title: string;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     onClose: () => void;
     endpoint: string;
     reqData?: object;
+    maxWidth?: number | string;
+    inputHeight?: number | string;
+    inputFontSize?: number | string;
+    inputFontWeight?: number | string;
+    inputBorder?: number | string;
+    inputP?: number ;
 }
 
 export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
     const {
-        title, onChange, onClose, endpoint, reqData = {},
+        title, onChange, onClose, endpoint,
+        reqData = {},
+        inputHeight = 32,
+        inputFontSize = 'inherit',
+        maxWidth = '350px',
+        inputFontWeight = 'inherit',
+        inputBorder = 'borders.4',
+        inputP = 1,
     } = props;
 
     const [value, setValue] = React.useState(title);
@@ -46,7 +59,9 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
     useEffect(() => { inputRef.current?.focus(); }, []);
     useEffect(() => {
         if (!debounceInProgress && shouldClose) {
-            onChange(value);
+            if (onChange) {
+                onChange(value);
+            }
             onClose();
         }
     }, [onClose, onChange, shouldClose, value, debounceInProgress]);
@@ -59,20 +74,33 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
 
     return (
         <Box
+            width={1}
             display="flex"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="start"
         >
             <TextField
                 inputRef={inputRef}
                 sx={{
-                    width: '350px',
+                    width: maxWidth,
                     '.MuiInputBase-root': {
                         borderColor: 'transparent',
-                        height: 32,
+                        height: inputHeight,
                         borderRadius: 1,
-                        pl: 0.5,
+                        backgroundColor: 'transparent',
+                        '.MuiOutlinedInput-notchedOutline': {
+                            borderWidth: 1,
+                            borderColor: inputBorder,
+                        },
                     },
+
+                    '.MuiInputBase-input': {
+                        color: 'text.secondary',
+                        fontWeight: inputFontWeight,
+                        fontSize: inputFontSize,
+                        p: inputP,
+                    },
+
                 }}
                 variant="outlined"
                 focused

@@ -21,8 +21,11 @@ export interface RemirrorEditorProps {
     py?: number;
     toolbarHeight?: number;
     editorBackgroundColor?: string;
-    editorFocusColor?: string;
+    editorOutline?: number;
+    editorFocusBorderColor?: string;
     info?: string;
+    clearState?: boolean;
+    autoFocus?: boolean;
 }
 
 export default function RemirrorEditor(props: RemirrorEditorProps) {
