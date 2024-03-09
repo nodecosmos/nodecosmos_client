@@ -83,8 +83,10 @@ interface Palette {
         7: string;
         8: string;
         labels: {
+            orange: string;
             red: string;
             green: string;
+            green1: string;
             blue: string;
             purple: string;
         };

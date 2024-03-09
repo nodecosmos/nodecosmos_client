@@ -1,5 +1,5 @@
 import { NodecosmosTheme } from '../../../../../../themes/type';
-import { appendOpacityToHex } from '../../../../../../utils/colors';
+import { withOpacity } from '../../../../../../utils/colors';
 import useBranchContext from '../useBranchContext';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
@@ -28,29 +28,29 @@ export default function useNodeBranchColors() {
             outlineColor = theme.palette.tree.backgrounds[3];
             color = theme.palette.tree.backgrounds[3];
             backgroundColor = isSelected
-                ? appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.3)
-                : appendOpacityToHex(theme.palette.tree.backgrounds[3], 0.1);
+                ? withOpacity(theme.palette.tree.backgrounds[3], 0.3)
+                : withOpacity(theme.palette.tree.backgrounds[3], 0.1);
             outlinedColored = true;
         } else if (isDeleted) {
             outlineColor = theme.palette.tree.backgrounds[0];
             color = theme.palette.tree.backgrounds[0];
             backgroundColor = isSelected
-                ? appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.3)
-                : appendOpacityToHex(theme.palette.tree.backgrounds[0], 0.1);
+                ? withOpacity(theme.palette.tree.backgrounds[0], 0.3)
+                : withOpacity(theme.palette.tree.backgrounds[0], 0.1);
             outlinedColored = true;
         } else if (isOriginalDeleted) {
             outlineColor = theme.palette.tree.backgrounds[5];
             color = theme.palette.tree.backgrounds[5];
             backgroundColor = isSelected
-                ? appendOpacityToHex(theme.palette.tree.backgrounds[5], 0.3)
-                : appendOpacityToHex(theme.palette.tree.backgrounds[5], 0.1);
+                ? withOpacity(theme.palette.tree.backgrounds[5], 0.3)
+                : withOpacity(theme.palette.tree.backgrounds[5], 0.1);
             outlinedColored = true;
         } else if (isReordered || isDescriptionEdited) {
             outlineColor = theme.palette.tree.backgrounds[4];
             color = theme.palette.tree.backgrounds[4];
             backgroundColor = isSelected
-                ? appendOpacityToHex(theme.palette.tree.backgrounds[4], 0.3)
-                : appendOpacityToHex(theme.palette.tree.backgrounds[4], 0.1);
+                ? withOpacity(theme.palette.tree.backgrounds[4], 0.3)
+                : withOpacity(theme.palette.tree.backgrounds[4], 0.1);
             outlinedColored = true;
         }
 

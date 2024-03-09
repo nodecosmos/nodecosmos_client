@@ -157,7 +157,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                                 toolbarHeight={38}
                                 editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}
                                 info="Add description review comment."
-                                clearState={clearState}
+                                clearState={isUpdate ? undefined : clearState}
                                 autoFocus={autoFocus}
                             />
                         </Box>

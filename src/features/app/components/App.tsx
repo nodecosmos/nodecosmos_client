@@ -5,6 +5,8 @@ import ContributionRequestCommits from '../../../pages/contribution-requests/tab
 import ContributionRequestConversation from '../../../pages/contribution-requests/tabs/ContributionRequestConversation';
 import ContributionRequestTree from '../../../pages/contribution-requests/tabs/ContributionRequestTree';
 import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
+import Activity from '../../../pages/contribution-requests/tabs/conversation-tabs/Activity';
+import MainThread from '../../../pages/contribution-requests/tabs/conversation-tabs/MainThread';
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
 import TreeShow from '../../../pages/trees/Show';
@@ -62,7 +64,10 @@ export default function App() {
                             <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
                             <Route path=":id/contribution_requests">
                                 <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
-                                    <Route path="" element={<ContributionRequestConversation />} />
+                                    <Route path="" element={<ContributionRequestConversation />}>
+                                        <Route path="" element={<MainThread />} />
+                                        <Route path="activity" element={<Activity />} />
+                                    </Route>
                                     <Route path="tree" element={<ContributionRequestTree />} />
                                     <Route path="workflow" element={<ContributionRequestWorkflow />} />
                                     <Route path="commits" element={<ContributionRequestCommits />} />

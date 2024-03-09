@@ -1,4 +1,5 @@
 import SidebarListItem from './SidebarListItem';
+import { NodecosmosTheme } from '../../../../themes/type';
 import { UUID } from '../../../../types';
 import {
     faChartSimple as faChartSimpleSolid,
@@ -7,6 +8,7 @@ import {
     faGears as faGearsSolid,
     faMessageBot as faMessageBotSolid,
     faTable as faTableSolid,
+    faCircle0,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
     faChartSimple,
@@ -19,12 +21,15 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { List, Box } from '@mui/material';
+import {
+    List, Box, useTheme,
+} from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function Sidebar() {
     const { rootId, id } = useParams();
+    const theme: NodecosmosTheme = useTheme();
 
     const toPath = rootId ? `${rootId}/${id}` : id as UUID;
 
@@ -62,7 +67,9 @@ export default function Sidebar() {
                     icon={(<FontAwesomeIcon icon={faMessageBot} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
                     title="Threads"
-                />
+                >
+                    <FontAwesomeIcon icon={faCircle0} color={theme.palette.background.labels.green1} size="2xs" />
+                </SidebarListItem>
                 <SidebarListItem
                     disabled
                     to={`${toPath}/tasks_board`}

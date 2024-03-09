@@ -1,4 +1,5 @@
 import { useThreadContext } from '../../hooks/thread/useThreadContext';
+import { EMPTY_LINE_PLACEHOLDER } from '../DescriptionComments';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -8,7 +9,7 @@ export default function ThreadLine () {
         lineNumber, lineContent, showLine,
     } = useThreadContext();
 
-    if (!showLine) {
+    if (!showLine || !lineContent) {
         return null;
     }
 
@@ -26,7 +27,7 @@ export default function ThreadLine () {
                 {lineNumber}
             </Box>
             <Box p={1} color="secondary.main">
-                {lineContent}
+                {lineContent === EMPTY_LINE_PLACEHOLDER ? '' : lineContent}
             </Box>
         </Box>
     );

@@ -24,6 +24,8 @@ export default function useCommentInsertWidget(view: EditorView) {
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
 
     const closeInsertComment = useCallback(() => {
+        setCreateDescriptionPortals(null);
+
         view.dispatch({
             effects: removeInsertCommentWidget.of({
                 deco: Decoration.widget({
@@ -32,8 +34,6 @@ export default function useCommentInsertWidget(view: EditorView) {
                 }),
             }),
         });
-
-        setCreateDescriptionPortals(null);
     }, [view]);
 
     const insertCreateCommentWidget = useCallback((lineNumber: number | null) => {

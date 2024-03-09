@@ -20,6 +20,17 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
     const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, id));
     const [portalsById, setDescThreadPortals] = useState<Record<UUID, ReactPortal> | null>();
 
+    // const clearWidgets = useCallback(() => {
+    //     view.dispatch({
+    //         effects: removeThreadWidget.of({
+    //             deco: Decoration.widget({
+    //                 widget: CommentThreadWidget.prototype,
+    //                 block: true,
+    //             }),
+    //         }),
+    //     });
+    // }, [view]);
+
     /**
      * We use ReactPortal to render the CommentThread component within the CodeMirror editor.
      * However, as CodeMirror is virtualized the CommentThread component gets unmounted.
@@ -49,17 +60,17 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                         }
                     });
 
-                    mutation.removedNodes.forEach((node) => {
-                        if (node instanceof HTMLElement && node.classList.contains(COMMENT_THREAD_WIDGET_CLASS)) {
-                            const threadId = node.dataset.threadId as UUID;
-
-                            setDescThreadPortals((prevPortals) => {
-                                const newPortals = { ...prevPortals };
-                                delete newPortals[threadId];
-                                return newPortals;
-                            });
-                        }
-                    });
+                    // mutation.removedNodes.forEach((node) => {
+                    //     if (node instanceof HTMLElement && node.classList.contains(COMMENT_THREAD_WIDGET_CLASS)) {
+                    //         const threadId = node.dataset.threadId as UUID;
+                    //
+                    //         setDescThreadPortals((prevPortals) => {
+                    //             const newPortals = { ...prevPortals };
+                    //             delete newPortals[threadId];
+                    //             return newPortals;
+                    //         });
+                    //     }
+                    // });
                 }
             }
         });
@@ -96,9 +107,12 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                 }
 
                 const [threadId, lineNumber] = threadByLine;
+                const emptyOnSameLine = lineContent === EMPTY_LINE_PLACEHOLDER && lineNumber === line.number;
+                const withContentInRadius = lineContent !== EMPTY_LINE_PLACEHOLDER
+                    && (lineNumber - line.number <= 1) && (lineNumber - line.number >= -1);
 
                 // check if line is in radius of 2 lines
-                if ((lineNumber - line.number <= 1) && (lineNumber - line.number >= -1)) {
+                if (emptyOnSameLine || withContentInRadius) {
                     linesThreads.push({
                         lineNumber: line.number,
                         threadId,
@@ -114,6 +128,10 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
 
     const addCommentThreadWidgets = useCallback(() => {
         linesThreads.forEach(({ lineNumber, threadId }) => {
+            if (portalsById && portalsById[threadId]) {
+                return;
+            }
+
             const pos = view.state.doc.line(lineNumber).to;
             const decoration = Decoration.widget({
                 widget: new CommentThreadWidget(threadId),
@@ -127,7 +145,7 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                 }),
             });
         });
-    }, [linesThreads, view]);
+    }, [linesThreads, portalsById, view]);
 
     useEffect(() => {
         if (nodeThreadsByLine) {

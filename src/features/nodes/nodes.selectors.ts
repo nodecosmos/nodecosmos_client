@@ -26,6 +26,13 @@ export const selectNode = (branchId: UUID, nodeId: UUID) => createSelector(
     },
 );
 
+export const selectOptNode = (branchId: UUID, nodeId?: UUID) => createSelector(
+    selectBranchNodes(branchId),
+    (branchNodes) => {
+        return nodeId && branchNodes && branchNodes[nodeId];
+    },
+);
+
 export const selectBranchPositions = (branchId: UUID) => createSelector(
     selectPositions,
     (positions) => positions[branchId],

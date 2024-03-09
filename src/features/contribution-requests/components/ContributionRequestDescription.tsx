@@ -48,22 +48,19 @@ export default function ContributionRequestDescription() {
                 && (
                     <Box
                         width={1}
-                        border={2}
+                        border={1}
                         borderRadius={2}
                         borderColor="transparent"
                         onClick={openEditor}
                         sx={{
                             transition: 'border-color 0.2s',
-                            p: 1,
+                            borderColor: 'borders.3',
+                            p: 2,
                             '&:hover': { borderColor: 'borders.5' },
                         }}>
                         {descriptionEmpty && (
-                            <Typography
-                                color="text.tertiary"
-                                fontWeight="bold"
-                                fontStyle="italic"
-                            >
-                                Add a description...
+                            <Typography color="text.tertiary" fontWeight="bold" variant="body2">
+                                Describe contribution request...
                             </Typography>
                         )}
                         <div

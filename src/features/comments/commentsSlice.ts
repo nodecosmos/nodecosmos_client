@@ -35,15 +35,6 @@ function resetObjectState(state: RootState['comments'], objectId: UUID) {
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
-    if (state.byId[comment.id]) {
-        state.byId[comment.id] = {
-            ...state.byId[comment.id],
-            ...comment,
-        };
-
-        return;
-    }
-
     if (!state.idsByObjectId[comment.objectId]) {
         state.idsByObjectId[comment.objectId] = [];
     }
@@ -80,7 +71,14 @@ const commentsSlice = createSlice({
         SSECreateComment: (state, action) => {
             const comment = action.payload;
 
-            populateComment(state, comment);
+            if (state.byId[comment.id]) {
+                state.byId[comment.id] = {
+                    ...state.byId[comment.id],
+                    ...comment,
+                };
+            } else {
+                populateComment(state, comment);
+            }
         },
     },
     extraReducers(builder) {
@@ -104,7 +102,14 @@ const commentsSlice = createSlice({
                 const isThreadCreation = Boolean(action.meta.arg.newThread);
                 const { comment, thread } = action.payload;
 
-                populateComment(state, comment);
+                if (state.byId[comment.id]) {
+                    state.byId[comment.id] = {
+                        ...state.byId[comment.id],
+                        ...comment,
+                    };
+                } else {
+                    populateComment(state, comment);
+                }
 
                 if (isThreadCreation && thread && thread.lineContent) {
                     populateThread(state, thread);

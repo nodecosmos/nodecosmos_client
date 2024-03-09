@@ -1,9 +1,12 @@
+import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
 import EditTitleField from '../../../common/components/EditTItleField';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
+import { withOpacity } from '../../../utils/colors';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import { updateContributionRequestState } from '../contributionRequestsSlice';
-import { Box } from '@mui/material';
+import { useStatus } from '../hooks/useStatus';
+import { Box, Chip } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -19,6 +22,7 @@ export default function ContributionRequestTitle() {
         }));
     }, [dispatch, id, nodeId]);
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
+    const { color: statusColor, label: statusLabel } = useStatus(contributionRequest.status);
 
     if (!contributionRequest) {
         return null;
@@ -33,7 +37,7 @@ export default function ContributionRequestTitle() {
             borderBottom={2}
             borderColor="transparent"
             sx={{
-                p: 1,
+                p: 0,
                 transition: 'border-color 0.2s',
                 '&:hover': { borderColor: 'borders.5' },
                 '&:focus-within': {
@@ -42,22 +46,41 @@ export default function ContributionRequestTitle() {
                 },
             }}
         >
-            <EditTitleField
-                inputFontSize="2rem"
-                variant="h2"
-                title={title}
-                endpoint="/contribution_requests/title"
-                reqData={{
-                    nodeId,
-                    id,
-                }}
-                color="text.secondary"
-                onChange={onTitleChange}
-                maxWidth="100%"
-                inputHeight="auto"
-                inputBorder="transparent!important"
-                inputP={0}
-            />
+            <Box
+                display="flex"
+                alignItems="center"
+            >
+                <Chip
+                    variant="filled"
+                    color="primary"
+                    sx={{
+                        px: 2,
+                        color: statusColor,
+                        backgroundColor: withOpacity(statusColor, 0.1),
+                    }}
+                    label={statusLabel}
+                    icon={<ContributionRequestStatusIcon status={contributionRequest.status} />}
+                />
+            </Box>
+
+            <Box ml={2} width={1}>
+                <EditTitleField
+                    inputFontSize="2rem"
+                    variant="h2"
+                    title={title}
+                    endpoint="/contribution_requests/title"
+                    reqData={{
+                        nodeId,
+                        id,
+                    }}
+                    color="text.secondary"
+                    onChange={onTitleChange}
+                    maxWidth="100%"
+                    inputHeight="auto"
+                    inputBorder="transparent!important"
+                    inputP={0}
+                />
+            </Box>
         </Box>
     );
 }

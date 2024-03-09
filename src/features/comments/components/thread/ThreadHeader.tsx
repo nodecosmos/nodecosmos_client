@@ -1,14 +1,38 @@
 import ThreadLine from './ThreadLine';
 import { timeSince } from '../../../../utils/localTime';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
+import { selectOptNode } from '../../../nodes/nodes.selectors';
+import { ThreadType } from '../../comments.types';
 import { useThreadContext } from '../../hooks/thread/useThreadContext';
 import {
     Box, Link, Typography,
 } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function ThreadHeader() {
-    const { author, createdAt } = useThreadContext();
+    const {
+        author, createdAt, threadType, threadNodeId,
+    } = useThreadContext();
+    const { branchId } = useBranchParams();
+    const node = useSelector(selectOptNode(branchId, threadNodeId));
+    const nodeTitle = node ? node.title : '';
+
+    let commentAction;
+    switch (threadType) {
+    case ThreadType.ContributionRequestNodeAddition:
+        commentAction = <span>commented added node <em>{nodeTitle}</em></span>;
+        break;
+    case ThreadType.ContributionRequestNodeRemoval:
+        commentAction = <span>commented removed node <em>{nodeTitle}</em></span>;
+        break;
+    case ThreadType.ContributionRequestNodeDescription:
+        commentAction = <span>commented line of node <em>{nodeTitle}</em></span>;
+        break;
+    default:
+        commentAction = 'commented';
+    }
 
     return (
         <div>
@@ -20,7 +44,7 @@ export default function ThreadHeader() {
                 </Link>
 
                 <Typography variant="body2" color="text.tertiary" ml={1}>
-                    commented line · {timeSince(createdAt)}
+                    {commentAction} · {timeSince(createdAt)}
                 </Typography>
             </Box>
 

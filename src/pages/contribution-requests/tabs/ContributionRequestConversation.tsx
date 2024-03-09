@@ -1,24 +1,25 @@
 import NcAvatar from '../../../common/components/NcAvatar';
-import { selectObjectThreadIds } from '../../../features/comments/comments.selectors';
-import CommentThread from '../../../features/comments/components/CommentThread';
+import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
+import { HEADER_HEIGHT } from '../../../features/app/constants';
 import ContributionRequestDescription
     from '../../../features/contribution-requests/components/ContributionRequestDescription';
-import ContributionRequestMainThread
-    from '../../../features/contribution-requests/components/ContributionRequestMainThread';
 import ContributionRequestTitle from '../../../features/contribution-requests/components/ContributionRequestTitle';
 import { selectContributionRequest } from '../../../features/contribution-requests/contributionRequests.selectors';
 import { UUID } from '../../../types';
 import { timeSince } from '../../../utils/localTime';
+import { faComments, faDiagramNested } from '@fortawesome/pro-light-svg-icons';
 import {
     Box, Container, Link, Typography,
 } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link as RouterLink, useParams } from 'react-router-dom';
+import {
+    Outlet, Link as RouterLink, useParams,
+} from 'react-router-dom';
 
 export default function ContributionRequestConversation() {
     const { id: nodeId, contributionRequestId: id } = useParams();
-    const threadIds = useSelector(selectObjectThreadIds(id as UUID));
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
 
     if (!contributionRequest) {
@@ -29,7 +30,7 @@ export default function ContributionRequestConversation() {
 
     return (
         <Box height={1} overflow="auto" my={2} pb={8}>
-            <Container maxWidth="lg">
+            <Container maxWidth="md">
                 <Box display="flex" alignItems="center">
                     <Link component={RouterLink} to={`/${owner.username}`}>
                         <NcAvatar
@@ -55,21 +56,43 @@ export default function ContributionRequestConversation() {
                 </Box>
                 <ContributionRequestTitle />
                 <ContributionRequestDescription />
-                <Typography color="text.secondary" variant="h6" mt={2}>
-                    Activity
-                </Typography>
 
-                <Box mb={2}>
-                    {
-                        threadIds && threadIds.filter(threadId => threadId !== id).map((threadId) => (
-                            <Box mt={2} key={threadId} p={0}>
-                                <CommentThread id={threadId} showLine />
-                            </Box>
-                        ))
-                    }
+                <Box
+                    mt={1}
+                    display="flex"
+                    alignItems="center"
+                    borderBottom={1}
+                    borderColor="borders.2"
+                    height={HEADER_HEIGHT}
+                >
+                    <ToolbarContainer
+                        hasText
+                        round={false}
+                        showIndicator={false}
+                        size={32}
+                        mr={1}
+                        borderRadius={1.25}
+                        hoverColor="background.7"
+                        activeColor="background.7"
+                    >
+                        <ToolbarItem
+                            color="text.primary"
+                            title="Main Conversation"
+                            icon={faComments}
+                            to="."
+                            titleAsTooltip={false}
+                        />
+                        <ToolbarItem
+                            color="text.primary"
+                            title="Activity"
+                            icon={faDiagramNested}
+                            to="activity"
+                            titleAsTooltip={false}
+                        />
+                    </ToolbarContainer>
                 </Box>
 
-                <ContributionRequestMainThread />
+                <Outlet />
             </Container>
         </Box>
     );

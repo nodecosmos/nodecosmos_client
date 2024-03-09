@@ -43,4 +43,14 @@ export class CommentThreadWidget extends WidgetType {
 
         return div;
     }
+
+    get estimatedHeight() {
+        const container = document.getElementById(this.threadId);
+
+        if (container) {
+            return container.clientHeight;
+        }
+
+        return -1;
+    }
 }

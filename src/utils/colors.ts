@@ -1,4 +1,4 @@
-export function appendOpacityToHex(color: string, opacity: number): string {
+export function withOpacity(color: string, opacity: number): string {
     // Check if color is a valid hex color
     if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)) {
         throw new Error('Invalid color. Color should be a hex color.');

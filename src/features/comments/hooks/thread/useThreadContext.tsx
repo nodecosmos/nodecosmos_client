@@ -28,11 +28,11 @@ export function useThreadContextCreator(props: CommentThreadProps) {
 
 export function useThreadContext() {
     const {
-        id, showLine, collapsed, 
+        id, showLine, collapsed,
     } = useContext(ThreadContext);
 
     const {
-        author, lineNumber, lineContent, createdAt,
+        author, lineNumber, lineContent, threadType, threadNodeId, createdAt,
     } = useSelector(selectThread(id));
 
     const commentIds = useSelector(selectThreadCommentIds(id));
@@ -42,6 +42,8 @@ export function useThreadContext() {
         author,
         lineNumber,
         lineContent,
+        threadType,
+        threadNodeId,
         createdAt,
         commentIds,
         commentCount: commentIds.length,

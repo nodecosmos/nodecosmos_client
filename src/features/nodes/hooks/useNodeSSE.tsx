@@ -29,9 +29,6 @@ export default function useNodeSSE(id: UUID, isNodeFetched: boolean) {
     eventSource.addEventListener(ActionTypes.CreateComment, (event) => {
         const comment: Comment = JSON.parse(event.data);
 
-        // use request animation frame to avoid React's batched updates as
-        // in case request is returned right after the dispatch, the state resulting in the same comment being
-        // added to the state twice
         dispatch(SSECreateComment(comment));
     });
 

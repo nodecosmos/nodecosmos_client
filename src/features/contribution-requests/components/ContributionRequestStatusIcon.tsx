@@ -1,38 +1,32 @@
-import { NodecosmosTheme } from '../../../themes/type';
 import { ContributionRequestStatus } from '../contributionRequest.types';
+import { useStatus } from '../hooks/useStatus';
 import { faCircleO } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Box, Tooltip, useTheme,
-} from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import React from 'react';
 
 interface Props {
-    status?: ContributionRequestStatus;
+    status: ContributionRequestStatus;
+    fontSize?: string;
 }
 
-export default function ContributionRequestStatusIcon({ status }: Props) {
-    const theme: NodecosmosTheme = useTheme();
-
-    if (!status) return null;
-
-    const statusColors = {
-        [ContributionRequestStatus.WorkInProgress]: theme.palette.toolbar.yellow,
-        [ContributionRequestStatus.Published]: theme.palette.toolbar.green,
-        [ContributionRequestStatus.Merged]: theme.palette.toolbar.purple,
-        [ContributionRequestStatus.Closed]: theme.palette.toolbar.lightRed,
-    };
+export default function ContributionRequestStatusIcon(props: Props) {
+    const { status, fontSize = '1rem' } = props;
+    const { color } = useStatus(status);
 
     return (
-        <Box sx={{
-            svg: {
-                fontSize: '1rem',
-                cursor: 'pointer',
-            },
-        }}
+        <Box
+            display="flex"
+            alignItems="center"
+            sx={{
+                svg: {
+                    fontSize,
+                    cursor: 'pointer',
+                },
+            }}
         >
             <Tooltip title={status} placement="top">
-                <FontAwesomeIcon icon={faCircleO} color={statusColors[status]} />
+                <FontAwesomeIcon icon={faCircleO} color={color} />
             </Tooltip>
         </Box>
     );
