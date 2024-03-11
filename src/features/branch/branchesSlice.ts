@@ -101,12 +101,15 @@ const branchesSlice = createSlice({
                 }
             })
             .addCase(restoreNode.fulfilled, (state, action) => {
-                const { branchId, nodeId } = action.meta.arg;
+                const { branchId } = action.meta.arg;
+                const branchRes = action.payload;
                 const branch = branchId && state.byId[branchId];
 
                 if (branch) {
-                    branch.restoredNodes ||= new Set();
-                    branch.restoredNodes.add(nodeId);
+                    state.byId[branchId] = {
+                        ...branch,
+                        ...branchRes,
+                    };
                 }
             })
             .addCase(checkDeletedAncestorConflict.fulfilled, (state, action) => {

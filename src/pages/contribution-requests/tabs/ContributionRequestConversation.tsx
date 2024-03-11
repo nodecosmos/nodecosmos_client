@@ -1,7 +1,6 @@
 import NcAvatar from '../../../common/components/NcAvatar';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
-import { HEADER_HEIGHT } from '../../../features/app/constants';
 import ContributionRequestDescription
     from '../../../features/contribution-requests/components/ContributionRequestDescription';
 import ContributionRequestTitle from '../../../features/contribution-requests/components/ContributionRequestTitle';
@@ -30,8 +29,13 @@ export default function ContributionRequestConversation() {
 
     return (
         <Box height={1} overflow="auto" my={2} pb={8}>
-            <Container maxWidth="md">
-                <Box display="flex" alignItems="center">
+            <Container
+                maxWidth="md">
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    borderBottom={1}
+                    borderColor="borders.2">
                     <Link component={RouterLink} to={`/${owner.username}`}>
                         <NcAvatar
                             width={35}
@@ -54,16 +58,18 @@ export default function ContributionRequestConversation() {
                         {timeSince(createdAt)}
                     </Typography>
                 </Box>
-                <ContributionRequestTitle />
-                <ContributionRequestDescription />
-
+                <Box mt={2}>
+                    <ContributionRequestTitle />
+                </Box>
+                <Box mt={2}>
+                    <ContributionRequestDescription />
+                </Box>
                 <Box
-                    mt={1}
+                    mt={2}
                     display="flex"
                     alignItems="center"
-                    borderBottom={1}
+                    borderBottom={0}
                     borderColor="borders.2"
-                    height={HEADER_HEIGHT}
                 >
                     <ToolbarContainer
                         hasText

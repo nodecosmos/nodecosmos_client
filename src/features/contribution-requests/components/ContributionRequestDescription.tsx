@@ -43,7 +43,7 @@ export default function ContributionRequestDescription() {
     const descriptionEmpty = !description || description === '<p></p>';
 
     return (
-        <Box mt={2} width={1}>
+        <Box width={1}>
             {!editorOpen
                 && (
                     <Box
@@ -59,7 +59,7 @@ export default function ContributionRequestDescription() {
                             '&:hover': { borderColor: 'borders.5' },
                         }}>
                         {descriptionEmpty && (
-                            <Typography color="text.tertiary" fontWeight="bold" variant="body2">
+                            <Typography color="text.tertiary" variant="body2">
                                 Describe contribution request...
                             </Typography>
                         )}
