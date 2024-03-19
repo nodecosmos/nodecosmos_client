@@ -6,7 +6,6 @@ import { InputOutput } from '../input-outputs/types';
 
 interface WorkflowPrimaryKey {
     nodeId: UUID;
-    branchId: UUID;
     id: UUID;
 }
 
