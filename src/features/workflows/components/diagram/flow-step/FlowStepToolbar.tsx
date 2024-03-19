@@ -43,12 +43,19 @@ export default function FlowStepToolbar() {
     }, [dispatch, flowId]);
 
     const handleFlowStepDeletion = useCallback(() => {
+        if (!flowStepPrimaryKey) {
+            throw new Error('Flow Step Primary Key is not defined');
+        }
         dispatch(deleteFlowStep(flowStepPrimaryKey));
     }, [dispatch, flowStepPrimaryKey]);
 
     const [createLoading, setCreateIsLoading, setCreateIsNotLoading] = useBooleanStateValue();
 
     const createNextFlowStep = useCallback(async () => {
+        if (!flowStepPrimaryKey) {
+            throw new Error('Flow Step Primary Key is not defined');
+        }
+
         const insertPayload: Strict<FlowStepCreationParams> = {
             nodeId: flowStepPrimaryKey.nodeId,
             workflowId: flowStepPrimaryKey.workflowId,
@@ -73,8 +80,7 @@ export default function FlowStepToolbar() {
         }
     },
     [
-        flowStepPrimaryKey.nodeId, flowStepPrimaryKey.workflowId, flowStepPrimaryKey.flowId,
-        stepId, nextFlowStepId, dispatch, handleServerError,
+        flowStepPrimaryKey, stepId, nextFlowStepId, dispatch, handleServerError,
         setCreateIsLoading, setCreateIsNotLoading,
     ]);
 

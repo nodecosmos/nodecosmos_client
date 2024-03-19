@@ -53,7 +53,7 @@ export default function useFlowStepContext() {
         nodeIds,
         inputIdsByNodeId,
         outputIdsByNodeId,
-        flowStepPrimaryKey: flowStepPrimaryKey || {},
+        flowStepPrimaryKey,
         stepId,
         flowStepNodes,
         prevFlowStepId,
