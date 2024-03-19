@@ -1,5 +1,5 @@
-import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useNodeCommands from '../../../../hooks/tree/node/useNodeCommands';
+import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { faRotateLeft, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

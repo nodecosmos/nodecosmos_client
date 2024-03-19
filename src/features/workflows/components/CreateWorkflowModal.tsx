@@ -1,8 +1,9 @@
 import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { UUID } from '../../../types';
+import { NodecosmosError, UUID } from '../../../types';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import { createWorkflow } from '../worfklow.thunks';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
@@ -31,7 +32,7 @@ export default function CreateWorkflowModal(props: Props) {
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const rootNodeId = useSelector(selectNodeAttribute(branchId as UUID, nodeId, 'rootId'));
-
+    const handleServerError = useHandleServerErrorAlert();
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
 
@@ -43,11 +44,18 @@ export default function CreateWorkflowModal(props: Props) {
             ...formValues,
         };
 
-        await dispatch(createWorkflow(payload));
+        const response = await dispatch(createWorkflow(payload));
+
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
+
+            handleServerError(error);
+            console.error(error);
+        }
 
         setTimeout(() => setLoading(false), 500);
         onClose();
-    }, [dispatch, nodeId, onClose, rootNodeId]);
+    }, [dispatch, handleServerError, nodeId, onClose, rootNodeId]);
 
     return (
         <Dialog

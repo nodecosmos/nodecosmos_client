@@ -1,6 +1,6 @@
+import { Output } from './diagram.types';
 import { FlowStepData } from './flow';
 import { calculateInitialIoPosition, calculateIOPosition } from './position';
-import { Output } from './types';
 import { Position, UUID } from '../../../types';
 import { FlowStep } from '../../flow-steps/types';
 

@@ -141,6 +141,7 @@ const theme: NodecosmosTheme = {
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#cdd4ff',
+            selectedLoopInputColor: '#ffb387',
             defaultInputColor: '#52565e',
         },
 
@@ -181,7 +182,7 @@ const theme: NodecosmosTheme = {
         diff: {
             addedBg: 'rgba(177, 244, 122, 0.3)',
             addedFg: '#b1f47a',
-            removedBg: 'rgba(255,0,0,0.24)',
+            removedBg: 'rgba(253,82,111,0.3)',
             removedFg: '#fd526f',
         },
 

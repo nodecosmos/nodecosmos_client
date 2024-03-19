@@ -35,8 +35,6 @@ export default function FlowPaneToolbar() {
         dispatch(deleteFlow(primaryKey));
     }, [dispatch, primaryKey]);
 
-    const hasShadow = ioPaneContent === FlowPaneContent.Description;
-
     const setMarkdown = useCallback(() => {
         dispatch(setFlowPaneContent(FlowPaneContent.Markdown));
     }, [dispatch]);
@@ -57,7 +55,6 @@ export default function FlowPaneToolbar() {
             height={HEADER_HEIGHT}
             borderBottom={1}
             borderColor="borders.2"
-            boxShadow={hasShadow ? '2' : 0}
         >
             <ToolbarContainer>
                 <ToolbarItem
@@ -90,8 +87,8 @@ export default function FlowPaneToolbar() {
                     svg: {
                         color: 'background.list.defaultColor',
                         mr: 0.5,
-                        ml: 1, 
-                    }, 
+                        ml: 1,
+                    },
                 }}>
                 {title && <FontAwesomeIcon icon={faCodeCommit} />}
                 <Typography

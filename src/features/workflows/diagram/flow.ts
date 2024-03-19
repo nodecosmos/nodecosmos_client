@@ -1,8 +1,8 @@
-import { buildOutputs } from './output';
-import { calculateFlowStepNodePosition, calculateFlowStepPosition } from './position';
 import {
     FlowStepNode, Output, WorkflowStepFlow,
-} from './types';
+} from './diagram.types';
+import { buildOutputs } from './output';
+import { calculateFlowStepNodePosition, calculateFlowStepPosition } from './position';
 import { UUID } from '../../../types';
 import { FlowStep } from '../../flow-steps/types';
 import { InputOutput } from '../../input-outputs/types';

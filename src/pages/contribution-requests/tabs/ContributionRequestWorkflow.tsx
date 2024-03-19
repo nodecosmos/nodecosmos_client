@@ -1,4 +1,3 @@
-import Alert from '../../../common/components/Alert';
 import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
@@ -84,7 +83,6 @@ export default function ContributionRequestWorkflow() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    <Alert />
                     <Workflow nodeId={id as UUID} context={WorkflowDiagramContext.workflowPage} />
                 </Box>
                 <Box

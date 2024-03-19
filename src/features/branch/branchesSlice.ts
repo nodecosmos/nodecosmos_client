@@ -1,5 +1,9 @@
-import { checkDeletedAncestorConflict, restoreNode } from './branches.thunks';
-import { BranchesState, ConflictStatus } from './branches.types';
+import {
+    checkDeletedAncestorConflict, restoreNode, undoDeleteNode,
+} from './branches.thunks';
+import {
+    Branch, BranchesState, ConflictStatus,
+} from './branches.types';
 import {
     mergeContributionRequest,
     showContributionRequest,
@@ -11,6 +15,49 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: BranchesState = { byId: {} };
 
+function initBranch(state: BranchesState, branch: Branch) {
+    const { conflict } = branch;
+
+    state.byId[branch.id] = {
+        id: branch.id,
+        title: branch.title,
+        description: branch.description,
+        ownerId: branch.ownerId,
+        owner: branch.owner,
+        status: branch.status,
+        editorIds: branch.editorIds,
+        isContributionRequest: branch.isContributionRequest,
+        titleChangeByObject: branch.titleChangeByObject,
+        descriptionChangeByObject: branch.descriptionChangeByObject || {},
+        createdNodes: new Set(branch.createdNodes),
+        deletedNodes: new Set(branch.deletedNodes),
+        restoredNodes: new Set(branch.restoredNodes),
+        editedNodeTitles: new Set(branch.editedNodeTitles),
+        editedNodeDescriptions: new Set(branch.editedNodeDescriptions),
+        reorderedNodes: branch.reorderedNodes || [],
+        createdWorkflows: new Set(branch.createdWorkflows),
+        deletedWorkflows: new Set(branch.deletedWorkflows),
+        editedWorkflowTitles: new Set(branch.editedWorkflowTitles),
+        createdFlows: new Set(branch.createdFlows),
+        deletedFlows: new Set(branch.deletedFlows),
+        editedFlowTitles: new Set(branch.editedFlowTitles),
+        editedFlowDescriptions: new Set(branch.editedFlowDescriptions),
+        createdIos: new Set(branch.createdIos),
+        deletedIos: new Set(branch.deletedIos),
+        editedIoTitles: new Set(branch.editedIoTitles),
+        editedIoDescriptions: new Set(branch.editedIoDescriptions),
+        createdFlowSteps: new Set(branch.createdFlowSteps),
+        deletedFlowSteps: new Set(branch.deletedFlowSteps),
+        createdFlowStepInputsByNode: branch.createdFlowStepInputsByNode,
+        deletedFlowStepInputsByNode: branch.deletedFlowStepInputsByNode,
+        conflict: conflict && {
+            status: conflict.status,
+            deletedAncestors: new Set(conflict.deletedAncestors),
+            deletedEditedNodes: new Set(conflict.deletedEditedNodes),
+        },
+    };
+}
+
 const branchesSlice = createSlice({
     name: 'branch',
     initialState,
@@ -19,46 +66,10 @@ const branchesSlice = createSlice({
         builder
             .addCase(showContributionRequest.fulfilled, (state, action) => {
                 const { branch } = action.payload;
-                const { conflict } = branch;
 
-                state.byId[branch.id] = {
-                    id: branch.id,
-                    title: branch.title,
-                    description: branch.description,
-                    ownerId: branch.ownerId,
-                    owner: branch.owner,
-                    status: branch.status,
-                    editorIds: branch.editorIds,
-                    isContributionRequest: branch.isContributionRequest,
-                    titleChangeByObject: branch.titleChangeByObject,
-                    descriptionChangeByObject: branch.descriptionChangeByObject || {},
-                    createdNodes: new Set(branch.createdNodes),
-                    deletedNodes: new Set(branch.deletedNodes),
-                    restoredNodes: new Set(branch.restoredNodes),
-                    editedNodeTitles: new Set(branch.editedNodeTitles),
-                    editedNodeDescriptions: new Set(branch.editedNodeDescriptions),
-                    reorderedNodes: branch.reorderedNodes || [],
-                    createdWorkflows: new Set(branch.createdWorkflows),
-                    deletedWorkflows: new Set(branch.deletedWorkflows),
-                    editedWorkflowTitles: new Set(branch.editedWorkflowTitles),
-                    createdFlows: new Set(branch.createdFlows),
-                    deletedFlows: new Set(branch.deletedFlows),
-                    editedFlowTitles: new Set(branch.editedFlowTitles),
-                    editedFlowDescriptions: new Set(branch.editedFlowDescriptions),
-                    createdIos: new Set(branch.createdIos),
-                    deletedIos: new Set(branch.deletedIos),
-                    editedIoTitles: new Set(branch.editedIoTitles),
-                    editedIoDescriptions: new Set(branch.editedIoDescriptions),
-                    createdFlowSteps: new Set(branch.createdFlowSteps),
-                    deletedFlowSteps: new Set(branch.deletedFlowSteps),
-                    createdFlowStepInputsByNode: branch.createdFlowStepInputsByNode,
-                    deletedFlowStepInputsByNode: branch.deletedFlowStepInputsByNode,
-                    conflict: conflict && {
-                        status: conflict.status,
-                        deletedAncestors: new Set(conflict.deletedAncestors),
-                        deletedEditedNodes: new Set(conflict.deletedEditedNodes),
-                    },
-                };
+                if (branch) {
+                    initBranch(state, branch);
+                }
             })
             .addCase(create.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload;
@@ -101,16 +112,14 @@ const branchesSlice = createSlice({
                 }
             })
             .addCase(restoreNode.fulfilled, (state, action) => {
-                const { branchId } = action.meta.arg;
-                const branchRes = action.payload;
-                const branch = branchId && state.byId[branchId];
+                const branch = action.payload;
 
-                if (branch) {
-                    state.byId[branchId] = {
-                        ...branch,
-                        ...branchRes,
-                    };
-                }
+                initBranch(state, branch);
+            })
+            .addCase(undoDeleteNode.fulfilled, (state, action) => {
+                const branch = action.payload;
+
+                initBranch(state, branch);
             })
             .addCase(checkDeletedAncestorConflict.fulfilled, (state, action) => {
                 const { branchId } = action.meta.arg;
@@ -140,12 +149,7 @@ const branchesSlice = createSlice({
                 const branch = action.payload?.branch;
 
                 if (branch) {
-                    const { conflict } = branch;
-                    state.byId[branch.id].conflict = conflict && {
-                        status: conflict.status,
-                        deletedAncestors: new Set(conflict.deletedAncestors),
-                        deletedEditedNodes: new Set(conflict.deletedEditedNodes),
-                    };
+                    initBranch(state, branch);
                 }
             });
     },

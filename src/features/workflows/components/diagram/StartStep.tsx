@@ -13,7 +13,7 @@ import {
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_BUTTON_HEIGHT,
 } from '../../constants';
-import { Output as OutputType } from '../../diagram/types';
+import { Output as OutputType } from '../../diagram/diagram.types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';

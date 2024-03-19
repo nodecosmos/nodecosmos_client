@@ -1,28 +1,38 @@
-import AssociateInputsModal from './AssociateInputsModal';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import { UUID } from '../../../../../types';
 import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function WorkflowNodeButtonToolbar() {
-    const { id } = useFlowStepNodeContext();
-    const { flowStepPrimaryKey, outputIdsByNodeId } = useFlowStepContext();
+    const { activateInputsAddition } = useWorkflowContext();
 
+    const { id } = useFlowStepNodeContext();
+    const {
+        flowStepPrimaryKey, outputIdsByNodeId, inputIdsByNodeId: currentFlowStepInputIds,
+    } = useFlowStepContext();
+    const { setSelectedInputs } = useWorkflowContext();
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const isSelected = selectedWorkflowDiagramObject?.id === id;
 
     const [outputsModalOpen, openOutputModal, closeOutputModal] = useModalOpen();
-    const [inputsModalOpen, openInputsModal, closeInputsModal] = useModalOpen();
 
-    if (!isSelected) return null;
+    const handleOpenInputsAddition = useCallback(() => {
+        setSelectedInputs(new Set<UUID>(currentFlowStepInputIds[id] || []));
+
+        activateInputsAddition();
+    }, [activateInputsAddition, currentFlowStepInputIds, id, setSelectedInputs]);
+
+    if (!isSelected || !flowStepPrimaryKey) return null;
 
     return (
         <>
@@ -46,7 +56,7 @@ export default function WorkflowNodeButtonToolbar() {
                         className="Item"
                         aria-label="Inputs"
                         sx={{ color: 'secondary.main' }}
-                        onClick={openInputsModal}
+                        onClick={handleOpenInputsAddition}
                     >
                         <FontAwesomeIcon icon={faChartNetwork} />
                     </IconButton>
@@ -62,8 +72,6 @@ export default function WorkflowNodeButtonToolbar() {
                     </IconButton>
                 </Tooltip>
             </Box>
-
-            <AssociateInputsModal open={inputsModalOpen} onClose={closeInputsModal} />
 
             <CreateIOModal
                 open={outputsModalOpen}

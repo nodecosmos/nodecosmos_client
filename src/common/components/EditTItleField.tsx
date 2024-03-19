@@ -17,7 +17,7 @@ interface EditTitleFieldProps {
     inputFontSize?: number | string;
     inputFontWeight?: number | string;
     inputBorder?: string;
-    inputP: number;
+    inputP?: number;
 }
 
 export default function EditTitleField(props: EditTitleFieldProps) {

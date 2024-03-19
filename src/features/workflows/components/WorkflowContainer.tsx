@@ -44,6 +44,9 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                     },
                 },
                 '.WorkflowOutputButton': {
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     height: WORKFLOW_BUTTON_HEIGHT,
                     ml: 1,
                     borderRadius: 1,
@@ -52,7 +55,9 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                     px: 1,
                     transform: 'skewX(-30deg)',
                     cursor: 'pointer',
+                    overflow: 'hidden',
                     // boxShadow: 'buttons.1',
+                    '.IOButtonText, .MuiCheckbox-root': { transform: 'skewX(30deg)' },
                     '.IOButtonText': {
                         mx: 1,
                         p: 0,
@@ -62,7 +67,6 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                         cursor: 'pointer!important',
                         pointerEvents: 'none',
                         whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
-                        transform: 'skewX(30deg)',
                         textOverflow: 'ellipsis',
                         overflow: 'hidden',
                         fontWeight: 500,

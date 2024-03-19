@@ -49,6 +49,7 @@ export type AddDescriptionCommentProps = CreateCommentProps & {
     onClose?: () => void;
     withThreadBlock?: boolean;
     autoFocus?: boolean;
+    info?: string;
 };
 
 const {
@@ -57,7 +58,7 @@ const {
 
 export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
-        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true,
+        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>(comment?.content || '');
@@ -156,7 +157,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                                 p={1}
                                 toolbarHeight={38}
                                 editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}
-                                info="Add description review comment."
+                                info={info}
                                 clearState={isUpdate ? undefined : clearState}
                                 autoFocus={autoFocus}
                             />

@@ -1,11 +1,11 @@
 import { UUID } from '../../../../../types';
 import { selectFlowStep, selectFlowStepPrimaryKey } from '../../../../flow-steps/flowSteps.selectors';
-import { WorkflowStepFlow } from '../../../diagram/types';
+import { WorkflowStepFlow } from '../../../diagram/diagram.types';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 interface FlowStepContextValue {
-    id: UUID | null,
+    id: UUID,
     workflowStepFlow?: WorkflowStepFlow,
 }
 

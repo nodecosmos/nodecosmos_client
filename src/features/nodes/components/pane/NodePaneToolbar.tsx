@@ -3,8 +3,11 @@ import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { NodecosmosDispatch } from '../../../../store';
 import TogglePaneButton from '../../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../app/constants';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { setNodePaneContent } from '../../actions';
-import { selectNodePaneContent, selectSelectedNode } from '../../nodes.selectors';
+import {
+    selectNodeAttribute, selectNodePaneContent, selectSelectedNode,
+} from '../../nodes.selectors';
 import { NodePaneContent } from '../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
@@ -30,8 +33,12 @@ interface NodePaneToolbarProps {
 export default function NodePaneToolbar(props: NodePaneToolbarProps) {
     const { page = Page.Nodes } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { title } = useSelector(selectSelectedNode);
+    const { id, title } = useSelector(selectSelectedNode);
     const nodePaneContent = useSelector(selectNodePaneContent);
+    const { currentRootNodeId } = useBranchParams();
+    const oldTitle = useSelector(selectNodeAttribute(currentRootNodeId, id, 'title'));
+
+    const isTitleEdited = oldTitle && title !== oldTitle;
 
     const handleTogglePane = useCallback((paneContent: NodePaneContent | undefined) => {
         if (paneContent) {
@@ -99,9 +106,22 @@ export default function NodePaneToolbar(props: NodePaneToolbarProps) {
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
+                        span: { p: 1 },
+                        '.diff-removed': {
+                            backgroundColor: 'diff.removedBg',
+                            color: 'diff.removedFg',
+                            fontWeight: 'bold',
+                        },
+                        '.diff-added': {
+                            backgroundColor: 'diff.addedBg',
+                            color: 'diff.addedFg',
+                            fontWeight: 'bold',
+                        },
                     }}
                 >
-                    {title}
+                    {isTitleEdited && <span className="diff-removed">{oldTitle}</span>}
+
+                    <span className={isTitleEdited ? 'diff-added' : undefined}>{title}</span>
                 </Typography>
             </Box>
             {

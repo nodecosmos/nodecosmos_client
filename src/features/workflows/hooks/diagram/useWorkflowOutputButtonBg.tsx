@@ -12,9 +12,10 @@ interface Props {
 
 export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
     const { branchId } = useWorkflowContext();
-
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const ancestorIds = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));
+    const selectedNodeAncestorIds
+        = useSelector(selectNodeAttribute(branchId, selectedWorkflowDiagramObject?.id, 'ancestorIds'));
     const nestedLevel = ancestorIds?.length || 0;
 
     const theme: NodecosmosTheme = useTheme();
@@ -22,6 +23,8 @@ export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
     const nestedLevelColor = backgrounds[nestedLevel % backgroundCount];
+    const selectedNodeNestedLevel = selectedNodeAncestorIds?.length || 0;
+    const selectedNodeNestedLevelColor = backgrounds[selectedNodeNestedLevel % backgroundCount];
 
     const isSelected = selectedWorkflowDiagramObject?.id === id;
 
@@ -31,5 +34,6 @@ export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
         backgroundColor,
         outlineColor: isSelected ? nestedLevelColor : theme.palette.workflow.defaultInputColor,
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
+        checkboxColor: selectedNodeNestedLevelColor,
     };
 }

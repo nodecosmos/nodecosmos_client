@@ -36,7 +36,7 @@ const workflowsSlice = createSlice({
         updateWorkflow(state, action) {
             state.byId[action.payload.id] = {
                 ...state.byId[action.payload.id],
-                ...action.payload, 
+                ...action.payload,
             };
         },
         rebuildWorkflowDiagram(state, action) {
@@ -75,6 +75,20 @@ const workflowsSlice = createSlice({
 
                 const data = { initialInputIds: workflow.initialInputIds };
                 state.workflowDiagramById[workflow.id] = buildWorkflowDiagram(data as BuildWorkflowDiagramData);
+            })
+            .addCase(createWorkflow.rejected, (state, action) => {
+                const workflow = action?.payload?.workflow;
+
+                if (workflow) {
+                    const { id, nodeId } = workflow;
+
+                    workflow.initialInputIds ||= [];
+                    state.byId[id] = workflow;
+                    state.idByNodeId[nodeId] = id;
+
+                    const data = { initialInputIds: workflow.initialInputIds };
+                    state.workflowDiagramById[workflow.id] = buildWorkflowDiagram(data as BuildWorkflowDiagramData);
+                }
             })
             .addCase(deleteWorkflow.fulfilled, (state, action) => {
                 const workflow = action.payload;

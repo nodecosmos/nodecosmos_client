@@ -1,4 +1,4 @@
-import { WorkflowDiagram } from './diagram/types';
+import { WorkflowDiagram } from './diagram/diagram.types';
 import { UUID, WithOptionalId } from '../../types';
 import { FlowStep } from '../flow-steps/types';
 import { Flow } from '../flows/types';
@@ -38,6 +38,7 @@ export enum WorkflowDiagramObjectType {
 
 export interface WorkflowDiagramObject {
     id: UUID;
+    flowStepId?: UUID; // used for node selection
     type: WorkflowDiagramObjectType;
 }
 

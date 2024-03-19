@@ -5,16 +5,33 @@ import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-interface RestoreNodePayload {
+interface BranchNodeParams {
     branchId: UUID;
     nodeId: UUID;
 }
 
-export const restoreNode = createAsyncThunk<Branch, RestoreNodePayload, { rejectValue: NodecosmosError }>(
+export const restoreNode = createAsyncThunk<Branch, BranchNodeParams, { rejectValue: NodecosmosError }>(
     'branches/restoreNode',
     async (payload, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.put('/branches/restore_node', payload);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const undoDeleteNode = createAsyncThunk<Branch, BranchNodeParams, { rejectValue: NodecosmosError }>(
+    'branches/undoDeleteNode',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/branches/undo_delete_node', payload);
 
             return response.data;
         } catch (error) {

@@ -3,7 +3,7 @@ import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../../nodes/nodes.constants';
 import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../constants';
-import { Output as OutputType } from '../../../diagram/types';
+import { Output as OutputType } from '../../../diagram/diagram.types';
 import { useTheme } from '@mui/material';
 import React from 'react';
 

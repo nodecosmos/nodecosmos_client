@@ -11,16 +11,17 @@ import { useParams } from 'react-router-dom';
 export default function ContributionRequestMainThread() {
     const { id: nodeId, contributionRequestId: id } = useParams();
     const mainThread = useSelector(mainCrThread(id as UUID));
-    const mainThreadCreated = Boolean(mainThread);
     const mainThreadCommentEditor = React.useMemo(() => {
-        if (mainThreadCreated) {
+        if (mainThread) {
             return (
                 <CommentEditor
                     autoFocus={false}
                     threadPk={{
                         objectId: id as UUID,
                         threadId: id as UUID,
-                    }} />
+                    }}
+                    info="Add a comment to the main thread"
+                />
             );
         }
 
@@ -33,9 +34,11 @@ export default function ContributionRequestMainThread() {
                     objectType: ObjectType.ContributionRequest,
                     objectNodeId: nodeId as UUID,
                     threadType: ThreadType.ContributionRequestMainThread,
-                }} />
+                }}
+                info="Start a conversation about this contribution request"
+            />
         );
-    }, [id, mainThreadCreated, nodeId]);
+    }, [id, mainThread, nodeId]);
 
     return (
         <Box p={2} borderRadius={2} border={1} borderColor="borders.4" sx={{ backgroundColor: 'background.5' }}>

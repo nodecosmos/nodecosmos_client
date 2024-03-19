@@ -1,5 +1,5 @@
 import WorkflowStep from './WorkflowStep';
-import { WorkflowStep as WorkflowStepType } from '../../../diagram/types';
+import { WorkflowStep as WorkflowStepType } from '../../../diagram/diagram.types';
 import useWorkflowStepsVirtualizer from '../../../hooks/diagram/useWorkflowStepsVirtualizer';
 import React from 'react';
 

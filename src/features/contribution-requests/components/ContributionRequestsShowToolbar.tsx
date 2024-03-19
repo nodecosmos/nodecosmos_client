@@ -34,6 +34,7 @@ export default function ContributionRequestsShowToolbar() {
                     color="text.primary"
                     titleAsTooltip={false}
                     to="."
+                    additionalActivePaths={['activity', null, null]}
                 />
                 <ToolbarItem
                     title="Tree changes"

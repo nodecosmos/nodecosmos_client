@@ -28,6 +28,7 @@ export default function useDiagramContext() {
     const {
         initialInputs,
         workflowSteps,
+        outputsById,
         height: diagramHeight,
     } = useSelector(selectWorkflowDiagram(id));
     const clientHeight = useSelector(
@@ -43,6 +44,7 @@ export default function useDiagramContext() {
     return useMemo(() => ({
         initialInputs,
         workflowSteps,
+        outputsById,
         height,
-    }), [initialInputs, workflowSteps, height]);
+    }), [initialInputs, workflowSteps, outputsById, height]);
 }

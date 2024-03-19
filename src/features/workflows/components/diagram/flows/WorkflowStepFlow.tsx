@@ -1,5 +1,6 @@
+import { UUID } from '../../../../../types';
 import { FLOW_STEP_SIZE, WORKFLOW_STEP_WIDTH } from '../../../constants';
-import { WorkflowStepFlow as WorkflowStepFlowType } from '../../../diagram/types';
+import { WorkflowStepFlow as WorkflowStepFlowType } from '../../../diagram/diagram.types';
 import { useFlowStepContextCreator } from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import { useFlowContextCreator } from '../../../hooks/diagram/flows/useFlowContext';
 import FlowStep from '../flow-step/FlowStep';
@@ -17,8 +18,8 @@ export default function WorkflowStepFlow({ workflowStepFlow }: Props) {
         FlowStepContext,
         flowStepContextValue,
     } = useFlowStepContextCreator({
-        id: workflowStepFlow.stepId,
-        workflowStepFlow, 
+        id: workflowStepFlow.stepId as UUID,
+        workflowStepFlow,
     });
 
     const { x, y } = workflowStepFlow.position;

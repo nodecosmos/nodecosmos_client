@@ -1,4 +1,5 @@
 import CreateWorkflowModal from './CreateWorkflowModal';
+import CloseFlowStepInputsButton from './tools/CloseFlowStepInputsButton';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
 import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import EditTitleField from '../../../common/components/EditTItleField';
@@ -87,6 +88,8 @@ export default function WorkflowToolbar() {
             </Box>
 
             {id && <WorkflowZoomTools />}
+
+            <CloseFlowStepInputsButton />
 
             {!isPaneOpen && (<TogglePaneButton />)}
 

@@ -7,7 +7,7 @@ import ContributionRequestTitle from '../../../features/contribution-requests/co
 import { selectContributionRequest } from '../../../features/contribution-requests/contributionRequests.selectors';
 import { UUID } from '../../../types';
 import { timeSince } from '../../../utils/localTime';
-import { faComments, faDiagramNested } from '@fortawesome/pro-light-svg-icons';
+import { faTimeline, faComments } from '@fortawesome/pro-thin-svg-icons';
 import {
     Box, Container, Link, Typography,
 } from '@mui/material';
@@ -58,14 +58,14 @@ export default function ContributionRequestConversation() {
                         {timeSince(createdAt)}
                     </Typography>
                 </Box>
-                <Box mt={2}>
+                <Box mt={3}>
                     <ContributionRequestTitle />
                 </Box>
-                <Box mt={2}>
+                <Box mt={3}>
                     <ContributionRequestDescription />
                 </Box>
                 <Box
-                    mt={2}
+                    mt={3}
                     display="flex"
                     alignItems="center"
                     borderBottom={0}
@@ -83,15 +83,17 @@ export default function ContributionRequestConversation() {
                     >
                         <ToolbarItem
                             color="text.primary"
-                            title="Main Conversation"
+                            iconColor="background.labels.green"
+                            title="Main Thread"
                             icon={faComments}
                             to="."
                             titleAsTooltip={false}
                         />
                         <ToolbarItem
                             color="text.primary"
-                            title="Activity"
-                            icon={faDiagramNested}
+                            iconColor="toolbar.lightRed"
+                            title="Activity Thread"
+                            icon={faTimeline}
                             to="activity"
                             titleAsTooltip={false}
                         />

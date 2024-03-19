@@ -44,12 +44,13 @@ export interface WorkflowStepFlow {
 export interface WorkflowStep {
     index: number;
     flows: WorkflowStepFlow[];
-    outputsById: Record<UUID, Output>;
     position: Position;
+    outputIds: Set<UUID>;
 }
 
 export interface WorkflowDiagram {
     initialInputs: Output[];
     workflowSteps: WorkflowStep[];
+    outputsById: Record<UUID, Output>;
     height: number;
 }

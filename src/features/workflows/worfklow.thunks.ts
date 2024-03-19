@@ -2,8 +2,10 @@ import {
     Workflow, WorkflowData, WorkflowUpsertPayload,
 } from './workflow.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { UUID } from '../../types';
+import { NodecosmosError, UUID } from '../../types';
+import { InputOutput } from '../input-outputs/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isAxiosError } from 'axios';
 
 export const showWorkflow = createAsyncThunk(
     'workflows/showWorkflow',
@@ -14,12 +16,35 @@ export const showWorkflow = createAsyncThunk(
     },
 );
 
-export const createWorkflow = createAsyncThunk(
-    'workflows/createWorkflow',
-    async (payload: WorkflowUpsertPayload): Promise<{ workflow: Workflow, inputOutputs: [] }> => {
-        const response = await nodecosmos.post('/workflows', payload);
+interface WorkflowResponse {
+    workflow: Workflow;
+    inputOutputs: InputOutput[];
+}
 
-        return response.data;
+// in case workflow exists
+interface RejectValue extends NodecosmosError {
+    workflow?: Workflow;
+    inputOutputs?: InputOutput[];
+}
+
+export const createWorkflow = createAsyncThunk<
+    WorkflowResponse,
+    WorkflowUpsertPayload,
+    { rejectValue: RejectValue }
+>(
+    'workflows/createWorkflow',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/workflows', payload);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
     },
 );
 

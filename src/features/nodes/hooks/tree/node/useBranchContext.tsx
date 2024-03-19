@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux';
 export interface BranchChanges {
     isCreated: boolean;
     isDeleted: boolean;
+    isAncestorDeleted: boolean;
     isOriginalDeleted: boolean;
     isReordered: boolean;
     isDescriptionEdited: boolean;
+    isTitleEdited: boolean;
 }
 
 export default function useBranchContext(): BranchChanges {
@@ -22,6 +24,7 @@ export default function useBranchContext(): BranchChanges {
         createdNodes,
         reorderedNodes,
         editedNodeDescriptions,
+        editedNodeTitles,
     } = branch ?? {};
     const {
         deletedAncestors: deletedAncestorConflict,
@@ -29,17 +32,23 @@ export default function useBranchContext(): BranchChanges {
     } = conflict ?? {};
 
     return useMemo(() => {
+        const isAncestorDeleted = (
+            deletedNodes && ancestorIds?.some((ancestorId) => deletedNodes?.has(ancestorId))
+        ) ?? false;
+
         return {
             isCreated: createdNodes?.has(id) ?? false,
             isDeleted: (deletedNodes
                 && (
                     deletedNodes?.has(id)
-                    || ancestorIds?.some((ancestorId) => deletedNodes?.has(ancestorId))
+                    || isAncestorDeleted
                 )
             ) ?? false,
+            isAncestorDeleted: isAncestorDeleted ?? false,
             isReordered: reorderedNodes?.some((reorder) => reorder.id === id) ?? false,
             isOriginalDeleted: (deletedAncestorConflict?.has(id) || deletedEditedNodes?.has(id)) ?? false,
             isDescriptionEdited: editedNodeDescriptions?.has(id) ?? false,
+            isTitleEdited: editedNodeTitles?.has(id) ?? false,
         };
     }, [
         ancestorIds,
@@ -50,5 +59,6 @@ export default function useBranchContext(): BranchChanges {
         editedNodeDescriptions,
         id,
         reorderedNodes,
+        editedNodeTitles,
     ]);
 }

@@ -1,27 +1,54 @@
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../types';
 import { WorkflowDiagramContext } from '../constants';
 import { selectWorkflow, selectWorkflowScale } from '../workflow.selectors';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-type WorkflowContextType = {
+interface WorkflowContextType {
     context: WorkflowDiagramContext;
     id: UUID;
     nodeId: UUID;
     branchId: UUID;
-};
+    inputsAdditionActive: boolean;
+    activateInputsAddition: () => void;
+    deactivateInputsAddition: () => void;
+    selectedInputs: Set<UUID>;
+    setSelectedInputs: React.Dispatch<React.SetStateAction<Set<UUID>>>;
+}
 
 const WorkflowContext = React.createContext<WorkflowContextType>({} as WorkflowContextType);
 
+type WorkflowContextProviderProps = Pick<WorkflowContextType, 'context' | 'id' | 'nodeId' | 'branchId'>;
+
 export function useWorkflowContextCreator({
     context, id, nodeId, branchId,
-}: WorkflowContextType) {
+}: WorkflowContextProviderProps) {
+    const [inputsAdditionActive, activateInputsAddition, deactivateInputsAddition] = useBooleanStateValue();
+    const [selectedInputs, setSelectedInputs] = React.useState<Set<UUID>>(new Set<UUID>());
+
+    useEffect(() => {
+        if (!inputsAdditionActive) {
+            setSelectedInputs(new Set<UUID>());
+        }
+    }, [inputsAdditionActive]);
+
     const contextProviderValue = useMemo(() => ({
         context,
         id,
         nodeId,
         branchId,
-    }), [branchId, context, id, nodeId]);
+        inputsAdditionActive,
+        activateInputsAddition,
+        deactivateInputsAddition,
+        selectedInputs,
+        setSelectedInputs,
+    }),
+    [
+        context, id, nodeId, branchId,
+        inputsAdditionActive, activateInputsAddition, deactivateInputsAddition,
+        selectedInputs,
+    ]);
 
     return {
         WorkflowContext,
@@ -31,7 +58,15 @@ export function useWorkflowContextCreator({
 
 export default function useWorkflowContext() {
     const {
-        context, id, nodeId, branchId,
+        context,
+        id,
+        nodeId,
+        branchId,
+        inputsAdditionActive,
+        activateInputsAddition,
+        deactivateInputsAddition,
+        selectedInputs,
+        setSelectedInputs,
     } = React.useContext(WorkflowContext);
 
     if (context === undefined) {
@@ -57,5 +92,10 @@ export default function useWorkflowContext() {
         initialInputIds,
         transformableId,
         scale,
+        inputsAdditionActive,
+        activateInputsAddition,
+        deactivateInputsAddition,
+        selectedInputs,
+        setSelectedInputs,
     };
 }

@@ -20,10 +20,14 @@ export default (theme: NodecosmosTheme) => ({
                 borderRadius: 5,
                 padding: '0px 14px',
                 ':focus': { outline: 'none' },
-                ':not(.outlined) .fa-hashtag ': {
-                    fontSize: 14,
-                    color: theme.palette.tree.hashtag,
+                ':not(.outlined)': {
+                    '.fa-hashtag': {
+                        fontSize: 14,
+                        color: theme.palette.tree.hashtag,
+                    },
+                    '.fa-arrow': { color: theme.palette.tree.hashtag },
                 },
+                '.fa-arrow': { margin: '0 8px' },
                 '&.selected .fa-hashtag': { color: 'inherit' },
                 '.NodeButtonText': {
                     cursor: 'pointer',
@@ -36,10 +40,31 @@ export default (theme: NodecosmosTheme) => ({
                     minWidth: 40,
                     outline: 'none!important',
                     whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+                    overflow: 'hidden',
                     '&.hovered': { cursor: 'text' },
                     '&.Input': {
                         cursor: 'text!important',
                         fontFamily: 'monospace',
+                    },
+                    span: {
+                        borderRadius: 4,
+                        padding: '4px 8px',
+                        display: 'inline-block',
+                    },
+                    '.diff-removed': {
+                        color: theme.palette.diff.removedFg,
+                        backgroundColor: theme.palette.diff.removedBg,
+                    },
+                    '.diff-added': {
+                        color: theme.palette.diff.addedFg,
+                        backgroundColor: theme.palette.diff.addedBg,
+                    },
+                },
+                '&.selected': {
+                    '.diff-removed, .diff-added': {
+                        color: 'inherit',
+                        backgroundColor: 'inherit',
+                        fontWeight: 500,
                     },
                 },
                 '.MuiCheckbox-root': {

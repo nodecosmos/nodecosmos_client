@@ -7,7 +7,7 @@ export default function Inputs() {
 
     return (
         inputIds.map((id) => (
-            <Input prevStepOutputId={id} key={id} />
+            <Input nodeOutputId={id} key={id} />
         ))
     );
 }

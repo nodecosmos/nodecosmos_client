@@ -2,7 +2,7 @@ import useDiagramContext from './useDiagramContext';
 import { Position } from '../../../../types';
 import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../../nodes/nodes.constants';
-import { WorkflowStep } from '../../diagram/types';
+import { WorkflowStep } from '../../diagram/diagram.types';
 import { selectWorkflowScale } from '../../workflow.selectors';
 import useWorkflowContext from '../useWorkflowContext';
 import { useCallback, useMemo } from 'react';

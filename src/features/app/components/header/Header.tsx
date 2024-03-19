@@ -6,7 +6,7 @@ import TreeShowHeader from '../../../nodes/components/tree/TreeShowHeader';
 import { selectHeaderContent } from '../../app.selectors';
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from '../../constants';
 import {
-    Box, Button, Typography,
+    Box, Button, Chip, Typography,
 } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -40,12 +40,11 @@ export default function Header() {
                 width={1}
             >
                 <Box
+                    component="div"
                     height={1}
                     width={SIDEBAR_WIDTH}
                     display="flex"
                     alignItems="center"
-                    sm={2}
-                    align="left"
                     pl={2}
                     borderRight={hasSidebar ? 1 : 0}
                     borderBottom={hasSidebar ? 0 : 1}
@@ -62,6 +61,16 @@ export default function Header() {
                             <Box component="span" color="logo.red">cosmos</Box>
                         </Typography>
                     </Button>
+                    <Chip
+                        size="small"
+                        label="beta"
+                        sx={{
+                            ml: 1,
+                            width: 50,
+                            borderColor: 'transparent',
+                            color: 'toolbar.default',
+                        }}
+                    />
                 </Box>
                 <Box
                     display="flex"
@@ -79,7 +88,7 @@ export default function Header() {
                         alignItems="center"
                         width="calc(100% - 140px)"
                     >
-                        {headerContents[headerContent]}
+                        {headerContent && headerContents[headerContent]}
                     </Box>
                     <Box
                         mr={2}

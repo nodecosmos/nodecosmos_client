@@ -111,7 +111,7 @@ const commentsSlice = createSlice({
                     populateComment(state, comment);
                 }
 
-                if (isThreadCreation && thread && thread.lineContent) {
+                if (isThreadCreation && thread) {
                     populateThread(state, thread);
                 }
             })
@@ -135,9 +135,7 @@ const commentsSlice = createSlice({
 
                 const thread = state.threadsById[threadId];
 
-                if (state.idsByThreadId[threadId].length === 0 && thread.lineContent) {
-                    delete state.threadsById[threadId];
-
+                if (state.idsByThreadId[threadId].length === 0) {
                     if (thread.lineContent) {
                         if (!thread.threadNodeId) throw new Error('Thread node id is required for line content');
 
@@ -151,6 +149,8 @@ const commentsSlice = createSlice({
                         state.threadIdsByObjectId[thread.objectId]
                             = threadIdsByObjectId.filter((threadId) => threadId !== thread.id);
                     }
+
+                    delete state.threadsById[threadId];
                 }
             });
     },

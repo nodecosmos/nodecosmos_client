@@ -1,7 +1,7 @@
+import { WorkflowDiagram, WorkflowStep } from './diagram.types';
 import { buildFlow } from './flow';
 import { buildInitialInputs } from './output';
 import { calculateWorkflowStepPosition } from './position';
-import { WorkflowDiagram, WorkflowStep } from './types';
 import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
 import { FlowStep } from '../../flow-steps/types';
 import { groupInputOutputsById } from '../../input-outputs/inputOutputs.memoize';
@@ -18,7 +18,7 @@ const initWorkflowStep = (stepIndex: number): WorkflowStep => ({
     index: stepIndex,
     position: calculateWorkflowStepPosition(stepIndex),
     flows: [],
-    outputsById: {},
+    outputIds: new Set(),
 });
 
 export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDiagram {
@@ -26,8 +26,13 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
         initialInputIds, flows = [], flowSteps = [], inputOutputs = [],
     } = data;
 
+    const outputsById: WorkflowDiagram['outputsById'] = {};
     const initialInputs = buildInitialInputs(initialInputIds);
     const workflowSteps: WorkflowStep[] = [];
+
+    initialInputs.forEach((input) => {
+        outputsById[input.id] = input;
+    });
 
     let height = 0;
 
@@ -66,9 +71,10 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
                 workflowSteps[wfIndex] ||= initWorkflowStep(wfIndex);
                 workflowSteps[wfIndex].flows.push(workflowStepFlow);
 
-                // populate workflow step outputs
+                // populate outputs
                 workflowStepFlow.outputs.forEach((output) => {
-                    workflowSteps[wfIndex].outputsById[output.id] = output;
+                    outputsById[output.id] = output;
+                    workflowSteps[wfIndex].outputIds.add(output.id);
                 });
             });
 
@@ -82,6 +88,7 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
     return {
         initialInputs,
         workflowSteps,
+        outputsById,
         height,
     };
 }

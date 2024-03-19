@@ -1,13 +1,13 @@
 import useFlowStepNodeContext from './flow-step-node/useFlowStepNodeContext';
 import { NodecosmosTheme } from '../../../../themes/type';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { selectSelectedWorkflowObject } from '../../workflow.selectors';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 export default function useWorkflowNodeButtonBg() {
-    const { branchId, id } = useFlowStepNodeContext();
-    const selectedWorkflowObject = useSelector(selectSelectedWorkflowObject);
+    const {
+        branchId, id, isSelected,
+    } = useFlowStepNodeContext();
     const ancestorIds = useSelector(selectNodeAttribute(branchId, id, 'ancestorIds'));
 
     const theme: NodecosmosTheme = useTheme();
@@ -15,8 +15,6 @@ export default function useWorkflowNodeButtonBg() {
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
     const color = backgrounds[(ancestorIds?.length || 0) % backgroundCount];
-
-    const isSelected = selectedWorkflowObject?.id === id;
 
     const backgroundColor = isSelected ? color : theme.palette.background[3];
     const outlineColor = isSelected ? 'transparent' : color;

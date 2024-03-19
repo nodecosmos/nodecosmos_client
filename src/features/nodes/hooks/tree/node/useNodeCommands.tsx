@@ -5,6 +5,7 @@ import useNodeEdit from './commands/useNodeEdit';
 import useNodeRemove from './commands/useNodeRemove';
 import useNodeRestore from './commands/useNodeRestore';
 import useNodeSaver from './commands/useNodeSaver';
+import useNodeUndoDeletion from './commands/useNodeUndoDeletion';
 
 export default function useNodeCommands() {
     const clickNode = useNodeClick();
@@ -20,6 +21,7 @@ export default function useNodeCommands() {
         dropCapture,
     } = useNodeDrag();
     const restoreNode = useNodeRestore();
+    const undoNodeDeletion = useNodeUndoDeletion();
 
     return {
         clickNode,
@@ -34,5 +36,6 @@ export default function useNodeCommands() {
         dragLeave,
         dropCapture,
         restoreNode,
+        undoNodeDeletion,
     };
 }

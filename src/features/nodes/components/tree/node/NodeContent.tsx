@@ -1,6 +1,6 @@
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
-import NodeToolbar from './NodeToolbar';
+import NodeToolbar from './toolbar/NodeToolbar';
 import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import {

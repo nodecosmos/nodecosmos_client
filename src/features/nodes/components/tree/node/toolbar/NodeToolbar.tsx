@@ -1,12 +1,12 @@
 import ConflictToolbar from './NodeConflictToolbar';
-import useBranchContext from '../../../hooks/tree/node/useBranchContext';
-import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
-import { NODE_BUTTON_HEIGHT } from '../../../nodes.constants';
-import { selectNodeAttribute } from '../../../nodes.selectors';
-import LikeButton from '../../LikeButton';
+import useBranchContext from '../../../../hooks/tree/node/useBranchContext';
+import useNodeCommands from '../../../../hooks/tree/node/useNodeCommands';
+import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
+import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
+import { selectNodeAttribute } from '../../../../nodes.selectors';
+import LikeButton from '../../../LikeButton';
 import {
-    faArrowUpRightFromSquare, faPenToSquare, faTrash,
+    faArrowUpRightFromSquare, faPenToSquare, faTrash, faUndo,
 } from '@fortawesome/pro-regular-svg-icons';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,16 +27,37 @@ export default function NodeToolbar() {
         isCreationInProgress,
     } = useNodeContext();
     const {
-        addNode, editNode, removeNode,
+        addNode, editNode, removeNode, undoNodeDeletion,
     } = useNodeCommands();
     const likesCount = useSelector(selectNodeAttribute(treeBranchId, id, 'likesCount'));
-    const { isOriginalDeleted } = useBranchContext();
+    const {
+        isOriginalDeleted, isDeleted, isAncestorDeleted,
+    } = useBranchContext();
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;
     }
 
     if (!isExpanded || !isSelected) return null;
+
+    if (isDeleted) {
+        if (isAncestorDeleted) {
+            return null;
+        }
+
+        return (
+            <div className="NodeToolbar">
+                <Tooltip title="Undo Node Deletion" placement="top">
+                    <ButtonBase
+                        className="Item"
+                        onClick={undoNodeDeletion}
+                        aria-label="Undo Node Deletion">
+                        <FontAwesomeIcon icon={faUndo} />
+                    </ButtonBase>
+                </Tooltip>
+            </div>
+        );
+    }
 
     if (isCreationInProgress) {
         return (

@@ -21,16 +21,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-/* nodecosmos */
 
 export default function WorkflowNodeButton() {
-    const { context: workflowContext, nodeId } = useWorkflowContext();
     const {
-        id, title, position,
+        context: workflowContext, nodeId, deactivateInputsAddition,
+    } = useWorkflowContext();
+    const {
+        id, title, position, flowStepId,
     } = useFlowStepNodeContext();
 
     const { x, y } = position;
-
     const dispatch: NodecosmosDispatch = useDispatch();
     const preventDefault = usePreventDefault();
     const {
@@ -43,8 +43,11 @@ export default function WorkflowNodeButton() {
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
 
     const handleClick = useCallback(() => {
+        deactivateInputsAddition();
+
         dispatch(setSelectedWorkflowDiagramObject({
             id,
+            flowStepId,
             type: 'node',
         }));
 
@@ -56,7 +59,7 @@ export default function WorkflowNodeButton() {
                 id,
             }));
         }
-    }, [dispatch, id, nodeId, workflowContext]);
+    }, [deactivateInputsAddition, dispatch, flowStepId, id, nodeId, workflowContext]);
 
     if (!x) return null;
 

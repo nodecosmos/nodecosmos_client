@@ -1,5 +1,5 @@
-import { groupById } from '../../../../../utils/group';
-import { WorkflowStep } from '../../../diagram/types';
+import { UUID } from '../../../../../types';
+import { WorkflowStep } from '../../../diagram/diagram.types';
 import useDiagramContext from '../useDiagramContext';
 import React, { useContext, useMemo } from 'react';
 
@@ -17,7 +17,7 @@ export function useWorkflowStepContextCreator({
     const contextProviderValue = useMemo(() => ({
         wfStep,
         wfStepIndex,
-        hovered, 
+        hovered,
     }), [hovered, wfStep, wfStepIndex]);
 
     return {
@@ -33,19 +33,19 @@ export default function useWorkflowStepContext() {
 
     const diagram = useDiagramContext();
 
-    let prevStepOutputsById: WorkflowStep['outputsById'];
+    let prevStepOutputIds: WorkflowStep['outputIds'];
 
     if (wfStepIndex > 0) {
         const prevStep = diagram.workflowSteps[wfStepIndex - 1];
-        prevStepOutputsById = prevStep.outputsById;
+        prevStepOutputIds = prevStep.outputIds;
     } else {
-        prevStepOutputsById = groupById(diagram.initialInputs);
+        prevStepOutputIds = new Set<UUID>(diagram.initialInputs.map((input) => input.id));
     }
 
     return {
         wfStep,
         wfStepIndex,
         hovered,
-        prevStepOutputsById,
+        prevStepOutputIds,
     };
 }
