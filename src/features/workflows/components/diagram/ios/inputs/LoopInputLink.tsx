@@ -13,7 +13,8 @@ interface InputProps {
 }
 
 const LOOP_NODE_OFFSET = -30;
-const LOOP_OUTPUT_OFFSET = -30;
+const LOOP_OUTPUT_Y_OFFSET = -30;
+const LOOP_OUTPUT_X_OFFSET = -102.5;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
@@ -36,8 +37,8 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const { x: xEnd, y: yEnd } = nodePosition;
 
     const loopDestinationNodeY = yEnd + LOOP_NODE_OFFSET;
-    const loopOriginY = (prevOutputPosition?.yEnd || 0) + LOOP_OUTPUT_OFFSET || loopDestinationNodeY;
-    const loopOriginNodeX = (outputNodePosition && outputNodePosition.x) || xEnd;
+    const loopOriginY = (prevOutputPosition?.yEnd || 0) + LOOP_OUTPUT_Y_OFFSET || loopDestinationNodeY;
+    const loopOriginNodeX = ((outputNodePosition && outputNodePosition.x) || xEnd) + LOOP_OUTPUT_X_OFFSET;
 
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 

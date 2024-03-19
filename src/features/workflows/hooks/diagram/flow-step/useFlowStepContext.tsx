@@ -27,6 +27,8 @@ export function useFlowStepContextCreator(val: FlowStepContextValue) {
 export default function useFlowStepContext() {
     const { id, workflowStepFlow } = useContext(FlowStepContext);
 
+    const flowStep = useSelector(selectFlowStep(id));
+
     const {
         nodeId,
         workflowId,
@@ -35,7 +37,7 @@ export default function useFlowStepContext() {
         nodeIds,
         inputIdsByNodeId = {},
         outputIdsByNodeId = {},
-    } = useSelector(selectFlowStep(id));
+    } = flowStep || {};
 
     const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(id));
     const {
@@ -51,7 +53,7 @@ export default function useFlowStepContext() {
         nodeIds,
         inputIdsByNodeId,
         outputIdsByNodeId,
-        flowStepPrimaryKey,
+        flowStepPrimaryKey: flowStepPrimaryKey || {},
         stepId,
         flowStepNodes,
         prevFlowStepId,
