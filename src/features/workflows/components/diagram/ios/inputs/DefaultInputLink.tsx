@@ -3,10 +3,8 @@ import { UUID } from '../../../../../../types';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
-import { selectSelectedWorkflowObject } from '../../../../workflow.selectors';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -16,9 +14,7 @@ interface InputProps {
 
 export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
-    const selectedWorkflowObject = useSelector(selectSelectedWorkflowObject);
-    const selectedObjectId = selectedWorkflowObject?.id;
-    const { id: nodeId, position: nodePosition } = useFlowStepNodeContext();
+    const { position: nodePosition, isSelected } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
 
     const {
@@ -26,7 +22,6 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
         defaultInputColor,
     } = theme.palette.workflow;
 
-    const isSelected = selectedObjectId === nodeId;
     const color = isSelected ? selectedInputColor : defaultInputColor;
 
     const { position: prevOutputPosition } = outputsById[nodeOutputId] || {};
@@ -42,7 +37,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     return (
         <g>
             <path
-                className="InputBranch"
+                className="InputLink"
                 stroke={color}
                 fill="transparent"
                 strokeWidth={1}
@@ -54,7 +49,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 }}
             />
             <circle
-                className="InputBranch"
+                className="InputLink"
                 cx={x}
                 cy={y}
                 r={5}

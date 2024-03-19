@@ -18,6 +18,8 @@ import { Position, UUID } from '../../../types';
 export interface Output {
     id: UUID;
     nodeId: UUID | null;
+    // used to calculate loop input link
+    nodePosition: Position | null;
     position: Position;
 }
 

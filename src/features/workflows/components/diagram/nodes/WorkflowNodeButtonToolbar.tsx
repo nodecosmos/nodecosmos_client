@@ -4,25 +4,20 @@ import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
 import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 
 export default function WorkflowNodeButtonToolbar() {
     const { activateInputsAddition } = useWorkflowContext();
-
-    const { id } = useFlowStepNodeContext();
+    const { id, isSelected } = useFlowStepNodeContext();
     const {
         flowStepPrimaryKey, outputIdsByNodeId, inputIdsByNodeId: currentFlowStepInputIds,
     } = useFlowStepContext();
     const { setSelectedInputs } = useWorkflowContext();
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const isSelected = selectedWorkflowDiagramObject?.id === id;
 
     const [outputsModalOpen, openOutputModal, closeOutputModal] = useModalOpen();
 

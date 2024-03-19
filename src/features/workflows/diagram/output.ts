@@ -12,6 +12,7 @@ export function buildInitialInputs(initialInputIds: UUID[]): Output[] {
             id: inputId,
             nodeId: null,
             position: calculateInitialIoPosition(ioIndex),
+            nodePosition: null,
         });
     });
 
@@ -48,6 +49,7 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
                     nodePosition,
                     ioIndex,
                 }),
+                nodePosition,
             };
 
             outputs.push(wfOutput);

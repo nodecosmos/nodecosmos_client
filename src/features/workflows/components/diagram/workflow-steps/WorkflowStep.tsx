@@ -1,12 +1,11 @@
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
-import { NodecosmosTheme } from '../../../../../themes/type';
 import FlowModal from '../../../../flows/components/FlowModal';
 import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
-    Box, Button, Typography, useTheme,
+    Box, Button, Typography,
 } from '@mui/material';
 import React, {
     memo, useCallback, useState,
@@ -15,7 +14,6 @@ import React, {
 function WorkflowStep({ index }: { index: number }) {
     const { height, workflowSteps } = useDiagramContext();
     const wfStep = workflowSteps[index];
-    const theme: NodecosmosTheme = useTheme();
 
     const [hovered, setHovered] = useState(false);
     const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpen();
@@ -30,7 +28,7 @@ function WorkflowStep({ index }: { index: number }) {
     const handleMouseEnter = useCallback((event: React.MouseEvent<SVGGElement, MouseEvent>) => {
         const targetElement = event.target as HTMLElement;
 
-        if (targetElement.classList.contains('InputBranch')) {
+        if (targetElement.classList.contains('InputLink')) {
             event.stopPropagation();
             event.preventDefault();
         } else {
@@ -57,7 +55,7 @@ function WorkflowStep({ index }: { index: number }) {
                     width={WORKFLOW_STEP_WIDTH}
                     fill="transparent"
                     strokeWidth={1}
-                    stroke={theme.palette.borders[1]}
+                    stroke="transparent"
                 />
                 <foreignObject
                     width={WORKFLOW_STEP_WIDTH}

@@ -1,5 +1,6 @@
 import StartStep from './StartStep';
 import WorkflowSteps from './workflow-steps/WorkflowSteps';
+import WorkflowStepCells from './workflow-steps/WorkflowStepsCells';
 import Transformable from '../../../../common/components/Transformable';
 import { NodecosmosDispatch } from '../../../../store';
 import { selectFlowStepsByWorkflowId } from '../../../flow-steps/flowSteps.selectors';
@@ -32,8 +33,8 @@ export default function WorkflowDiagram() {
                     initialInputIds,
                     flows,
                     flowSteps,
-                    inputOutputs, 
-                }, 
+                    inputOutputs,
+                },
             }));
         }
     }, [dispatch, id, initialInputIds, flows, flowSteps, inputOutputs]);
@@ -52,6 +53,7 @@ export default function WorkflowDiagram() {
             heightMargin={-19}
         >
             <DiagramContext.Provider value={contextProviderValue}>
+                <WorkflowStepCells />
                 <StartStep />
                 <WorkflowSteps />
             </DiagramContext.Provider>

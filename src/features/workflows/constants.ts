@@ -4,7 +4,7 @@ export const MARGIN_TOP = NODE_BUTTON_HEIGHT / 2.0 + 0.3; // move children's edg
 export const EDGE_LENGTH = 35; // length of edge (link)
 export const SHADOW_OFFSET = 4; // offset of shadow from edge
 
-export const WORKFLOW_START_MARGIN_TOP = 30;
+export const WORKFLOW_START_MARGIN_TOP = 45;
 export const WORKFLOW_STEP_WIDTH = 380;
 export const WORKFLOW_STEP_HEIGHT = 65;
 
