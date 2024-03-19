@@ -2,6 +2,7 @@ import { WithOptionalId, UUID } from '../../types';
 
 export interface FlowPrimaryKey {
     nodeId: UUID;
+    branchId: UUID;
     workflowId: UUID;
     verticalIndex: number;
     startIndex: number;
@@ -26,6 +27,6 @@ export enum FlowPaneContent {
 }
 
 export interface FlowState {
-    byId: Record<UUID, Flow>
+    byBranchId: Record<UUID, Record<UUID, Flow>>
     flowPaneContent: FlowPaneContent;
 }

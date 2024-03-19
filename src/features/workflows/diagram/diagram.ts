@@ -3,7 +3,7 @@ import { buildFlow } from './flow';
 import { buildInitialInputs } from './output';
 import { calculateWorkflowStepPosition } from './position';
 import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
-import { FlowStep } from '../../flow-steps/types';
+import { FlowStep } from '../../flow-steps/flowSteps.types';
 import { groupInputOutputsById } from '../../input-outputs/inputOutputs.memoize';
 import { WorkflowData } from '../workflow.types';
 

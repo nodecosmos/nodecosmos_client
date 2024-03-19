@@ -6,7 +6,7 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { Strict } from '../../../../../types';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
-import { FlowStepCreationParams } from '../../../../flow-steps/types';
+import { FlowStepCreationParams } from '../../../../flow-steps/flowSteps.types';
 import { FLOW_STEP_SIZE } from '../../../constants';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';

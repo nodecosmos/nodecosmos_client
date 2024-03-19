@@ -2,7 +2,7 @@ import { Output } from './diagram.types';
 import { FlowStepData } from './flow';
 import { calculateInitialIoPosition, calculateIOPosition } from './position';
 import { Position, UUID } from '../../../types';
-import { FlowStep } from '../../flow-steps/types';
+import { FlowStep } from '../../flow-steps/flowSteps.types';
 
 export function buildInitialInputs(initialInputIds: UUID[]): Output[] {
     const outputs: Output[] = [];

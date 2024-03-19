@@ -1,7 +1,7 @@
 import {
     InputOutput,
-    InsertInputOutputPayload, PrimaryKey, UpdateIODescriptionPayload, UpdateIOTitlePayload,
-} from './types';
+    InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIODescriptionPayload, UpdateIOTitlePayload,
+} from './inputOutputs.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -24,47 +24,63 @@ export const createIO = createAsyncThunk<InputOutput, InsertInputOutputPayload, 
     },
 );
 
-export const getIODescription = createAsyncThunk(
+export const getIODescription = createAsyncThunk<
+    Partial<InputOutput> & InputOutputPrimaryKey,
+    InputOutputPrimaryKey,
+    { rejectValue: NodecosmosError }
+>(
     'inputOutputs/getDescription',
-    async (payload: PrimaryKey): Promise<Partial<InputOutput>> => {
+    async (payload: InputOutputPrimaryKey) => {
         const {
-            rootNodeId, nodeId, workflowId, id,
+            rootNodeId, nodeId, branchId, workflowId, id,
         } = payload;
         const response = await nodecosmos.get(
-            `input_outputs/${rootNodeId}/${nodeId}/${workflowId}/${id}/description`,
+            `input_outputs/${rootNodeId}/${nodeId}/${branchId}/${workflowId}/${id}/description`,
         );
 
         return response.data;
     },
 );
 
-export const updateIOTitle = createAsyncThunk(
+export const updateIOTitle = createAsyncThunk<
+    Partial<InputOutput> & InputOutputPrimaryKey,
+    UpdateIOTitlePayload,
+    { rejectValue: NodecosmosError }
+>(
     'inputOutputs/updateTitle',
-    async (payload: UpdateIOTitlePayload): Promise<Partial<InputOutput>> => {
+    async (payload) => {
         const response = await nodecosmos.put('/input_outputs/title', payload);
 
         return response.data;
     },
 );
 
-export const updateIODescription = createAsyncThunk(
+export const updateIODescription = createAsyncThunk<
+    Partial<InputOutput> & InputOutputPrimaryKey,
+    UpdateIODescriptionPayload,
+    { rejectValue: NodecosmosError }
+>(
     'inputOutputs/updateDescription',
-    async (payload: UpdateIODescriptionPayload): Promise<Partial<InputOutput>> => {
+    async (payload: UpdateIODescriptionPayload) => {
         const response = await nodecosmos.put('/input_outputs/description', payload);
 
         return response.data;
     },
 );
 
-export const deleteIO = createAsyncThunk(
+export const deleteIO = createAsyncThunk<
+    Partial<InputOutput> & InputOutputPrimaryKey,
+    InputOutputPrimaryKey,
+    { rejectValue: NodecosmosError }
+>(
     'inputOutputs/delete',
-    async (payload: PrimaryKey): Promise<Partial<InputOutput>> => {
+    async (payload: InputOutputPrimaryKey) => {
         const {
-            rootNodeId, nodeId, workflowId, id,
+            rootNodeId, nodeId, branchId, workflowId, id,
         } = payload;
 
         const response = await nodecosmos.delete(
-            `input_outputs/${rootNodeId}/${nodeId}/${workflowId}/${id}`,
+            `input_outputs/${rootNodeId}/${nodeId}/${branchId}/${workflowId}/${id}`,
         );
 
         return response.data;

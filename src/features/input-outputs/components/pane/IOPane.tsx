@@ -8,8 +8,8 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectSelectedWorkflowObject } from '../../../workflows/workflow.selectors';
 import { WorkflowDiagramObject } from '../../../workflows/workflow.types';
 import { selectIOPaneContent } from '../../inputOutputs.selectors';
+import { IOPaneContent } from '../../inputOutputs.types';
 import { setIOPaneContent } from '../../inputOutputsSlice';
-import { IOPaneContent } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,7 +40,7 @@ export default function IOPane() {
             height={1}
             sx={{
                 overflow: 'hidden',
-                backgroundColor: 'background.5', 
+                backgroundColor: 'background.5',
             }}
             position="relative"
             zIndex={1}

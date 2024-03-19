@@ -10,8 +10,8 @@ import {
     selectFlowAttribute, selectFlowPaneContent, selectFlowPrimaryKey,
 } from '../../flows.selectors';
 import { deleteFlow } from '../../flows.thunks';
+import { FlowPaneContent } from '../../flows.types';
 import { setFlowPaneContent } from '../../flowsSlice';
-import { FlowPaneContent } from '../../types';
 import {
     faPenToSquare, faTrash, faRectangleCode, faCodeCommit, faDisplay,
 } from '@fortawesome/pro-light-svg-icons';

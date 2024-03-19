@@ -3,13 +3,12 @@ import {
 } from './flows.thunks';
 import {
     Flow, FlowPaneContent, FlowState,
-} from './types';
-import { UUID } from '../../types';
+} from './flows.types';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowState = {
-    byId: {},
+    byBranchId: {},
     flowPaneContent: FlowPaneContent.Description,
 };
 
@@ -21,11 +20,10 @@ const flowStepsSlice = createSlice({
             state.flowPaneContent = action.payload;
         },
         updateFlowState(state, action) {
-            const { id } = action.payload;
-
-            state.byId[id] = {
-                ...state.byId[id],
-                ...action.payload, 
+            const { branchId, id } = action.payload;
+            state.byBranchId[branchId][id] = {
+                ...state.byBranchId[branchId][id],
+                ...action.payload,
             };
         },
     },
@@ -33,29 +31,38 @@ const flowStepsSlice = createSlice({
         builder
             .addCase(createFlow.fulfilled, (state, action) => {
                 const flow = action.payload;
-                state.byId[flow.id] = flow;
+                const { branchId } = flow;
+
+                state.byBranchId[branchId][flow.id] = flow;
             })
             .addCase(getFlowDescription.fulfilled, (state, action) => {
                 const flow = action.payload;
-                const { description, descriptionMarkdown } = flow;
+                const {
+                    branchId, id, description, descriptionMarkdown,
+                } = flow;
 
-                state.byId[flow.id as UUID].description = description as string | null;
-                state.byId[flow.id as UUID].descriptionMarkdown = descriptionMarkdown as string | null;
+                state.byBranchId[branchId][id].description = description as string | null;
+                state.byBranchId[branchId][id].descriptionMarkdown = descriptionMarkdown as string | null;
             })
             .addCase(showWorkflow.fulfilled, (state, action) => {
-                const { flows } = action.payload;
+                const { flows, workflow } = action.payload;
+                const { branchId } = workflow;
+
                 flows.forEach((flow: Flow) => {
-                    state.byId[flow.id] = flow;
+                    state.byBranchId[branchId][flow.id] = flow;
                 });
             })
             .addCase(deleteFlow.fulfilled, (state, action) => {
                 const flow = action.payload;
+                const { branchId, id } = flow;
 
-                delete state.byId[flow.id as UUID];
+                delete state.byBranchId[branchId][id];
             })
             .addCase(updateFlowTitle.fulfilled, (state, action) => {
                 const flow = action.payload;
-                state.byId[flow.id as UUID].title = flow.title as string;
+                const { branchId, id } = flow;
+
+                state.byBranchId[branchId][id].title = flow.title as string;
             });
     },
 });

@@ -1,14 +1,15 @@
 import { UUID } from '../../types';
 import { Property } from '../properties/types';
 
-export interface PrimaryKey {
+export interface InputOutputPrimaryKey {
     rootNodeId: UUID;
     nodeId: UUID;
+    branchId: UUID;
     workflowId: UUID;
     id: UUID;
 }
 
-export interface InputOutput extends PrimaryKey {
+export interface InputOutput extends InputOutputPrimaryKey {
     originalId: UUID | null;
     flowStepId: UUID | null;
     title: string;
@@ -23,21 +24,18 @@ export interface InputOutput extends PrimaryKey {
 
 }
 
-export interface InsertInputOutputPayload {
-    rootNodeId: PrimaryKey['rootNodeId'];
-    nodeId: PrimaryKey['nodeId'];
-    workflowId: PrimaryKey['workflowId'];
+export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'id'> {
     flowStepId: InputOutput['flowStepId'];
     originalId?: InputOutput['originalId'];
     title: InputOutput['title'];
 }
 
-export interface UpdateIOTitlePayload extends PrimaryKey {
+export interface UpdateIOTitlePayload extends InputOutputPrimaryKey {
     originalId: InputOutput['originalId'];
     title: InputOutput['title'];
 }
 
-export interface UpdateIODescriptionPayload extends PrimaryKey {
+export interface UpdateIODescriptionPayload extends InputOutputPrimaryKey {
     originalId: InputOutput['originalId'];
     description: InputOutput['description'];
     descriptionMarkdown: InputOutput['descriptionMarkdown'];
@@ -50,6 +48,6 @@ export enum IOPaneContent {
 }
 
 export interface InputOutputSlice {
-    byId: Record<UUID, InputOutput>,
+    byBranchId: Record<UUID, Record<UUID, InputOutput>>,
     IOPaneContent: IOPaneContent,
 }

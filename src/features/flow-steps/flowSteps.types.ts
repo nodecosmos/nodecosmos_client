@@ -2,6 +2,7 @@ import { UUID } from '../../types';
 
 export interface FlowStepPrimaryKey {
     nodeId: UUID;
+    branchId: UUID;
     workflowId: UUID;
     flowId: UUID;
     flowIndex: number;
@@ -32,14 +33,6 @@ export interface FlowStepCreationParams {
 // primary key with optional id + partial of the rest
 export type FlowStepUpdatePayload = FlowStepPrimaryKey & Partial<Omit<FlowStep, keyof FlowStepPrimaryKey>>;
 
-export interface FlowStepsByFlowId {
-    [flowId: string]: FlowStep[];
-}
-
-export interface FlowStepsById {
-    [id: string]: FlowStep;
-}
-
 export interface FlowStepState {
-    byId: FlowStepsById,
+    byBranchId: Record<UUID, Record<UUID, FlowStep>>;
 }

@@ -1,4 +1,4 @@
-import { InputOutput } from './types';
+import { InputOutput } from './inputOutputs.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';

@@ -1,10 +1,8 @@
-import {
-    FlowStep, FlowStepsByFlowId, FlowStepsById, 
-} from './types';
+import { FlowStep } from './flowSteps.types';
 import { UUID } from '../../types';
 import { lruMemoize } from 'reselect';
 
-export const groupFlowStepsByFlowId = lruMemoize((flowSteps: FlowStep[]): FlowStepsByFlowId => {
+export const groupFlowStepsByFlowId = lruMemoize((flowSteps: FlowStep[]): Record<UUID, FlowStep[]> => {
     const flowStepsByFlowId: Record<UUID, FlowStep[]> = {};
 
     flowSteps.reduce((acc: Record<UUID, FlowStep[]>, flowStep: FlowStep) => {
@@ -20,7 +18,7 @@ export const groupFlowStepsByFlowId = lruMemoize((flowSteps: FlowStep[]): FlowSt
     return flowStepsByFlowId;
 });
 
-export const groupFlowStepsById = lruMemoize((flowSteps: FlowStep[]): FlowStepsById => {
+export const groupFlowStepsById = lruMemoize((flowSteps: FlowStep[]): Record<UUID, FlowStep> => {
     const flowStepsById: Record<UUID, FlowStep> = {};
 
     flowSteps.forEach((flowStep) => {

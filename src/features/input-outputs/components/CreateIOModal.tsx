@@ -3,7 +3,7 @@ import FinalFormAutocompleteField from '../../../common/components/final-form/Fi
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import DefaultModal from '../../../common/components/modal/DefaultModal';
 import { UUID } from '../../../types';
-import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/types';
+import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/flowSteps.types';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { selectWorkflowAttribute } from '../../workflows/workflow.selectors';

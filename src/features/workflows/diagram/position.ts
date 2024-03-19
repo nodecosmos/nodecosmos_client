@@ -1,5 +1,5 @@
 import { Position } from '../../../types';
-import { FlowStep } from '../../flow-steps/types';
+import { FlowStep } from '../../flow-steps/flowSteps.types';
 import {
     EDGE_LENGTH,
     MARGIN_LEFT,

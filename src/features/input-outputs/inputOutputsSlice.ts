@@ -3,14 +3,14 @@ import {
 } from './inputOutputs.thunks';
 import {
     InputOutput, InputOutputSlice, IOPaneContent,
-} from './types';
+} from './inputOutputs.types';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: InputOutputSlice = {
-    byId: {},
+    byBranchId: {},
     IOPaneContent: IOPaneContent.Description,
 };
 
@@ -19,20 +19,22 @@ const inputOutputsSlice = createSlice({
     initialState,
     reducers: {
         updateIOState(state, action) {
-            const { id } = action.payload;
-            state.byId[id] = {
-                ...state.byId[id],
-                ...action.payload, 
+            const { id, branchId } = action.payload;
+            state.byBranchId[branchId][id] = {
+                ...state.byBranchId[branchId][id],
+                ...action.payload,
             };
 
-            Object.values(state.byId).forEach((io) => {
-                if (io.originalId === state.byId[id].originalId) {
-                    io.title = state.byId[id].title;
-                    io.unit = state.byId[id].unit;
-                    io.dataType = state.byId[id].dataType;
-                    io.value = state.byId[id].value;
-                    io.description = state.byId[id].description;
-                    io.descriptionMarkdown = state.byId[id].descriptionMarkdown;
+            Object.values(state.byBranchId[branchId]).forEach((io) => {
+                const updatedIo = state.byBranchId[branchId][id];
+
+                if (io.originalId === io.originalId) {
+                    io.title = updatedIo.title;
+                    io.unit = updatedIo.unit;
+                    io.dataType = updatedIo.dataType;
+                    io.value = updatedIo.value;
+                    io.description = updatedIo.description;
+                    io.descriptionMarkdown = updatedIo.descriptionMarkdown;
                 }
             });
         },
@@ -43,18 +45,25 @@ const inputOutputsSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
-                const { inputOutputs } = action.payload;
+                const { inputOutputs, workflow } = action.payload;
+                const { branchId } = workflow;
+                state.byBranchId[branchId] ||= {};
+
                 inputOutputs.forEach((inputOutput: InputOutput) => {
-                    state.byId[inputOutput.id] = inputOutput;
+                    state.byBranchId[branchId][inputOutput.id] = inputOutput;
                 });
             }).addCase(createIO.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                state.byId[inputOutput.id] = inputOutput;
+                const { branchId } = inputOutput;
+                state.byBranchId[branchId] ||= {};
+                state.byBranchId[branchId][inputOutput.id] = inputOutput;
             }).addCase(getIODescription.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { description, descriptionMarkdown } = inputOutput;
+                const {
+                    branchId, description, descriptionMarkdown,
+                } = inputOutput;
 
-                Object.values(state.byId).forEach((io) => {
+                Object.values(state.byBranchId[branchId]).forEach((io) => {
                     if (io.originalId === inputOutput.originalId) {
                         io.description = description as string | null;
                         io.descriptionMarkdown = descriptionMarkdown as string | null;
@@ -62,25 +71,25 @@ const inputOutputsSlice = createSlice({
                 });
             }).addCase(updateIOTitle.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { title } = inputOutput;
+                const { branchId, title } = inputOutput;
 
-                Object.values(state.byId).forEach((io) => {
+                Object.values(state.byBranchId[branchId]).forEach((io) => {
                     if (io.originalId === inputOutput.originalId) {
                         io.title = title as string;
                     }
                 });
             })
             .addCase(deleteIO.fulfilled, (state, action) => {
-                const { id } = action.payload;
-                delete state.byId[id as UUID];
+                const { branchId, id } = action.payload;
+                delete state.byBranchId[branchId][id];
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const { outputIdsByNodeId } = action.payload;
+                const { outputIdsByNodeId, branchId } = action.payload;
 
                 const outputs = outputIdsByNodeId && Object.values(outputIdsByNodeId).flat();
 
                 outputs?.forEach((outputId: UUID) => {
-                    delete state.byId[outputId];
+                    delete state.byBranchId[branchId][outputId];
                 });
             });
     },

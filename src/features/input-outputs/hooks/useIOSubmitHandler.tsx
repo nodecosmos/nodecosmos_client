@@ -8,7 +8,7 @@ import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
 import { CreateIOModalProps } from '../components/CreateIOModal';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { createIO } from '../inputOutputs.thunks';
-import { InputOutput, InsertInputOutputPayload } from '../types';
+import { InputOutput, InsertInputOutputPayload } from '../inputOutputs.types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

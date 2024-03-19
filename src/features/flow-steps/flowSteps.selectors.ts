@@ -1,22 +1,28 @@
-import { FlowStepPrimaryKey } from './types';
+import { FlowStepPrimaryKey } from './flowSteps.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-const selectFlowSteps = (state: RootState) => state.flowSteps.byId;
+const selectFlowStepsByBranchId = (state: RootState) => state.flowSteps.byBranchId;
 
-export const selectFlowStep = (id: UUID) => createSelector(
-    selectFlowSteps,
+const selectFlowStepsByBranch = (branchId: UUID) => createSelector(
+    selectFlowStepsByBranchId,
+    (flowStepsById) => flowStepsById[branchId],
+);
+
+export const selectFlowStep = (branchId: UUID, id: UUID) => createSelector(
+    selectFlowStepsByBranch(branchId),
     (flowStepsById) => flowStepsById[id],
 );
 
-export const selectFlowStepPrimaryKey = (id: UUID) => createSelector(
-    selectFlowStep(id),
+export const selectFlowStepPrimaryKey = (branchId: UUID, id: UUID) => createSelector(
+    selectFlowStep(branchId, id),
     (flowStep): FlowStepPrimaryKey| null => {
         if (!flowStep) return null;
 
         return {
             nodeId: flowStep.nodeId,
+            branchId: flowStep.branchId,
             workflowId: flowStep.workflowId,
             flowId: flowStep.flowId,
             flowIndex: flowStep.flowIndex,
@@ -25,8 +31,8 @@ export const selectFlowStepPrimaryKey = (id: UUID) => createSelector(
     },
 );
 
-export const selectFlowStepsByWorkflowId = (workflowId: UUID) => createSelector(
-    selectFlowSteps,
+export const selectFlowStepsByWorkflowId = (branchId: UUID, workflowId: UUID) => createSelector(
+    selectFlowStepsByBranch(branchId),
     (flowSteps) => Object.values(flowSteps)
         .filter((flowStep) => flowStep.workflowId === workflowId)
         .sort((a, b) => a.flowIndex - b.flowIndex),

@@ -4,8 +4,8 @@ import {
 import { buildOutputs } from './output';
 import { calculateFlowStepNodePosition, calculateFlowStepPosition } from './position';
 import { UUID } from '../../../types';
-import { FlowStep } from '../../flow-steps/types';
-import { InputOutput } from '../../input-outputs/types';
+import { FlowStep } from '../../flow-steps/flowSteps.types';
+import { InputOutput } from '../../input-outputs/inputOutputs.types';
 import { FLOW_BUFFER } from '../constants';
 
 export interface FlowStepData {

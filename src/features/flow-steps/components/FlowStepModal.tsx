@@ -10,7 +10,7 @@ import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowS
 import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
-import { FlowStepCreationParams, FlowStepUpdatePayload } from '../types';
+import { FlowStepCreationParams, FlowStepUpdatePayload } from '../flowSteps.types';
 import { faSave } from '@fortawesome/pro-light-svg-icons';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import {

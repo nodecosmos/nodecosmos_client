@@ -1,11 +1,12 @@
 import { WorkflowDiagram } from './diagram/diagram.types';
 import { UUID, WithOptionalId } from '../../types';
-import { FlowStep } from '../flow-steps/types';
-import { Flow } from '../flows/types';
-import { InputOutput } from '../input-outputs/types';
+import { FlowStep } from '../flow-steps/flowSteps.types';
+import { Flow } from '../flows/flows.types';
+import { InputOutput } from '../input-outputs/inputOutputs.types';
 
-interface WorkflowPrimaryKey {
+export interface WorkflowPrimaryKey {
     nodeId: UUID;
+    branchId: UUID;
     id: UUID;
 }
 
@@ -43,10 +44,9 @@ export interface WorkflowDiagramObject {
 }
 
 export interface WorkflowState {
-    byId: Record<UUID, Workflow>;
-    idByNodeId: Record<UUID, UUID>;
+    byBranchId: Record<UUID, Record<UUID, Workflow>>;
     // diagram
-    workflowDiagramById: Record<UUID, WorkflowDiagram>;
+    workflowDiagramByBranchId: Record<UUID, Record<UUID, WorkflowDiagram>>;
     selectedWorkflowObject: WorkflowDiagramObject | null;
     workflowScale: number;
 }

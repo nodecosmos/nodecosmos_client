@@ -1,16 +1,29 @@
 import {
-    Workflow, WorkflowData, WorkflowUpsertPayload,
+    Workflow, WorkflowData, WorkflowPrimaryKey, WorkflowUpsertPayload,
 } from './workflow.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError, UUID } from '../../types';
-import { InputOutput } from '../input-outputs/types';
+import { NodecosmosError } from '../../types';
+import { FlowStep } from '../flow-steps/flowSteps.types';
+import { Flow } from '../flows/flows.types';
+import { InputOutput } from '../input-outputs/inputOutputs.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const showWorkflow = createAsyncThunk(
+interface ShowWorkflowResponse {
+    workflow: Workflow;
+    flows: Flow[];
+    flowSteps: FlowStep[];
+    inputOutputs: InputOutput[];
+}
+
+export const showWorkflow = createAsyncThunk<
+    ShowWorkflowResponse,
+    Omit<WorkflowPrimaryKey, 'id'>,
+    { rejectValue: NodecosmosError }
+>(
     'workflows/showWorkflow',
-    async (nodeId: UUID): Promise<WorkflowData> => {
-        const response = await nodecosmos.get(`/workflows/${nodeId}`);
+    async (payload): Promise<WorkflowData> => {
+        const response = await nodecosmos.get(`/workflows/${payload.nodeId}/${payload.branchId}/`);
 
         return response.data;
     },
@@ -48,18 +61,26 @@ export const createWorkflow = createAsyncThunk<
     },
 );
 
-export const deleteWorkflow = createAsyncThunk(
+export const deleteWorkflow = createAsyncThunk<
+    Workflow,
+    WorkflowPrimaryKey,
+    { rejectValue: NodecosmosError }
+>(
     'workflows/deleteWorkflow',
-    async (payload: {nodeId: UUID, id: UUID}): Promise<Workflow> => {
-        const response = await nodecosmos.delete(`/workflows/${payload.nodeId}/${payload.id}`);
+    async (payload) => {
+        const response = await nodecosmos.delete(`/workflows/${payload.nodeId}/${payload.branchId}/${payload.id}`);
 
         return response.data;
     },
 );
 
-export const updateWorkflowInitialInputs = createAsyncThunk(
+export const updateWorkflowInitialInputs = createAsyncThunk<
+    Workflow,
+    WorkflowUpsertPayload,
+    { rejectValue: NodecosmosError }
+>(
     'workflows/updateWorkflowInitialInputs',
-    async (payload: WorkflowUpsertPayload): Promise<Workflow> => {
+    async (payload) => {
         const response = await nodecosmos.put('/workflows/initial_input_ids', payload);
 
         return response.data;

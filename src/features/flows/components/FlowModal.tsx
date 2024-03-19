@@ -5,7 +5,7 @@ import { NodecosmosDispatch } from '../../../store';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { selectFlowAttribute } from '../flows.selectors';
 import { createFlow, updateFlowTitle } from '../flows.thunks';
-import { FlowUpsertPayload } from '../types';
+import { FlowUpsertPayload } from '../flows.types';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';

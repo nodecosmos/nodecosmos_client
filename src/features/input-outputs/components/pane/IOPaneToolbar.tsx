@@ -9,8 +9,8 @@ import {
     selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
 } from '../../inputOutputs.selectors';
 import { deleteIO } from '../../inputOutputs.thunks';
+import { IOPaneContent } from '../../inputOutputs.types';
 import { setIOPaneContent } from '../../inputOutputsSlice';
-import { IOPaneContent } from '../../types';
 import {
     faPenToSquare, faTrash, faRectangleCode, faDisplay,
 } from '@fortawesome/pro-regular-svg-icons';
