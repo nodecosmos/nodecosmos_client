@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../../store';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflow.selectors';
 import { WorkflowDiagramObject } from '../../../../workflows/workflow.types';
-import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
+import { selectInputOutput, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { updateIODescription } from '../../../inputOutputs.thunks';
 import { updateIOState } from '../../../inputOutputsSlice';
 import { Box } from '@mui/material';
@@ -30,12 +30,12 @@ const loading = (
 );
 
 export default function IOPaneDescriptionEditor() {
-    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const { branchId, id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
     const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleChangeTimeout = React.useRef<number| null>(null);
-    const { descriptionMarkdown, originalId } = useSelector(selectInputOutputById(id));
-    const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
+    const { descriptionMarkdown, originalId } = useSelector(selectInputOutput(branchId, id));
+    const primaryKey = useSelector(selectInputOutputPrimaryKey(branchId, id));
 
     const handleChange = useCallback((remirrorHelpers: HelpersFromExtensions<MarkdownExtension>) => {
         if (handleChangeTimeout.current) {

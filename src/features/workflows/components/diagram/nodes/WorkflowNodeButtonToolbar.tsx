@@ -1,6 +1,6 @@
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { UUID } from '../../../../../types';
-import CreateIOModal, { associatedObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
+import CreateIOModal, { IoObjectTypes } from '../../../../input-outputs/components/CreateIOModal';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
@@ -71,7 +71,7 @@ export default function WorkflowNodeButtonToolbar() {
             <CreateIOModal
                 open={outputsModalOpen}
                 onClose={closeOutputModal}
-                associatedObject={associatedObjectTypes.flowStep}
+                associatedObject={IoObjectTypes.flowStep}
                 flowStepPrimaryKey={flowStepPrimaryKey}
                 outputNodeId={id}
                 outputIdsByNodeId={outputIdsByNodeId}

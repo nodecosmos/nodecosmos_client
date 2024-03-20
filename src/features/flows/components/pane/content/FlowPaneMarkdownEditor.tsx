@@ -31,12 +31,12 @@ const loading = (
 
 export default function FlowPaneMarkdownEditor() {
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const { id } = selectedWorkflowDiagramObject as WorkflowDiagramObject;
+    const { branchId, id } = selectedWorkflowDiagramObject as WorkflowDiagramObject;
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleChangeTimeout = React.useRef<number | null>(null);
-    const { descriptionMarkdown } = useSelector(selectFlow(id));
-    const flowPrimaryKey = useSelector(selectFlowPrimaryKey(id));
+    const { descriptionMarkdown } = useSelector(selectFlow(branchId, id));
+    const flowPrimaryKey = useSelector(selectFlowPrimaryKey(branchId, id));
 
     const handleChange = useCallback((value: string) => {
         if (handleChangeTimeout.current) {

@@ -6,7 +6,7 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import { selectSelectedWorkflowObject } from '../../../workflows/workflow.selectors';
 import { WorkflowDiagramObject } from '../../../workflows/workflow.types';
 import {
-    selectInputOutputById, selectInputOutputPrimaryKey, selectIOPaneContent,
+    selectInputOutput, selectInputOutputPrimaryKey, selectIOPaneContent,
 } from '../../inputOutputs.selectors';
 import { deleteIO } from '../../inputOutputs.thunks';
 import { IOPaneContent } from '../../inputOutputs.types';
@@ -22,12 +22,12 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function IOPaneToolbar() {
-    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
-    const io = useSelector(selectInputOutputById(id));
+    const { branchId, id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const io = useSelector(selectInputOutput(branchId, id));
     const dispatch: NodecosmosDispatch = useDispatch();
     const ioPaneContent = useSelector(selectIOPaneContent);
 
-    const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
+    const primaryKey = useSelector(selectInputOutputPrimaryKey(branchId, id));
 
     const handleDeleteIO = useCallback(() => {
         dispatch(deleteIO(primaryKey));

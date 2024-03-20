@@ -2,25 +2,27 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
+import useBranchParams from '../../../features/branch/hooks/useBranchParams';
+import CreateWorkflowToolbar from '../../../features/workflows/components/CreateWorkflowToolbar';
 import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
+import { selectOptWorkflowByBranchAndNodeId } from '../../../features/workflows/workflow.selectors';
 import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/type';
-import { UUID } from '../../../types';
 import { Box, useTheme } from '@mui/material';
 import React, {
     useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestWorkflow() {
-    const { id } = useParams();
+    const { currentRootNodeId, branchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
+    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(currentRootNodeId, branchId));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -52,13 +54,16 @@ export default function ContributionRequestWorkflow() {
 
     useEffect(() => {
         if (loading) {
-            dispatch(showWorkflow(id as UUID)).then(() => setLoading(false));
+            dispatch(showWorkflow({
+                nodeId: currentRootNodeId,
+                branchId,
+            })).then(() => setLoading(false));
         }
 
         return () => {
             dispatch(clearSelectedWorkflowDiagramObject());
         };
-    }, [dispatch, id, loading]);
+    }, [branchId, dispatch, loading, currentRootNodeId]);
 
     if (loading) {
         return <Loader />;
@@ -83,7 +88,11 @@ export default function ContributionRequestWorkflow() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    <Workflow nodeId={id as UUID} context={WorkflowDiagramContext.workflowPage} />
+                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootNodeId} branchId={branchId} />}
+                    {workflow && <Workflow
+                        nodeId={currentRootNodeId}
+                        branchId={branchId}
+                        context={WorkflowDiagramContext.workflowPage} />}
                 </Box>
                 <Box
                     onMouseDown={handleResize}

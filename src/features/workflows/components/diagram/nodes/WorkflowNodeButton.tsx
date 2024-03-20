@@ -24,7 +24,7 @@ import { useDispatch } from 'react-redux';
 
 export default function WorkflowNodeButton() {
     const {
-        context: workflowContext, nodeId, deactivateInputsAddition,
+        branchId, context: workflowContext, nodeId, deactivateInputsAddition,
     } = useWorkflowContext();
     const {
         id, title, position, flowStepId,
@@ -46,6 +46,7 @@ export default function WorkflowNodeButton() {
         deactivateInputsAddition();
 
         dispatch(setSelectedWorkflowDiagramObject({
+            branchId,
             id,
             flowStepId,
             type: 'node',
@@ -55,11 +56,11 @@ export default function WorkflowNodeButton() {
             // TODO update tree branch id
             dispatch(select({
                 treeBranchId: nodeId,
-                branchId: id,
+                branchId,
                 id,
             }));
         }
-    }, [deactivateInputsAddition, dispatch, flowStepId, id, nodeId, workflowContext]);
+    }, [deactivateInputsAddition, dispatch, flowStepId, id, nodeId, branchId, workflowContext]);
 
     if (!x) return null;
 

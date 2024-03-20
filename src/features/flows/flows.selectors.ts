@@ -16,6 +16,11 @@ export const selectFlow = (branchId: UUID, flowId: UUID) => createSelector(
     (flows) => flows[flowId],
 );
 
+export const selectOptFlow = (branchId: UUID, flowId: UUID | null) => createSelector(
+    selectFlowByBranchId(branchId),
+    (flows) => flowId && flows[flowId],
+);
+
 export const selectFlowAttribute = <K extends keyof Flow>(branchId: UUID, flowId: UUID, attribute: K) => createSelector(
     selectFlow(branchId, flowId),
     (flow) => (flowId && flow[attribute]) || null,

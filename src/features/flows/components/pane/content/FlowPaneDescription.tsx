@@ -9,10 +9,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function FlowPaneDescription() {
-    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const { branchId, id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
 
-    const description = useSelector(selectFlowAttribute(id, 'description'));
-    const flowPrimaryKey = useSelector(selectFlowPrimaryKey(id));
+    const description = useSelector(selectFlowAttribute(branchId, id, 'description'));
+    const flowPrimaryKey = useSelector(selectFlowPrimaryKey(branchId, id));
 
     const [loading, setLoading] = React.useState(!description);
     const dispatch: NodecosmosDispatch = useDispatch();

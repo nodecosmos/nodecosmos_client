@@ -16,19 +16,20 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function WorkflowDiagram() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        id, initialInputIds, transformableId,
+        branchId, id, initialInputIds, transformableId,
     } = useWorkflowContext();
 
     const wfScale = useSelector(selectWorkflowScale);
 
-    const flows = useSelector(selectFlowsByWorkflowId(id));
-    const flowSteps = useSelector(selectFlowStepsByWorkflowId(id));
-    const inputOutputs = useSelector(selectIOByWorkflowId(id));
+    const flows = useSelector(selectFlowsByWorkflowId(branchId, id));
+    const flowSteps = useSelector(selectFlowStepsByWorkflowId(branchId, id));
+    const inputOutputs = useSelector(selectIOByWorkflowId(branchId, id));
 
     useEffect(() => {
         if (id) {
             dispatch(rebuildWorkflowDiagram({
                 id,
+                branchId,
                 data: {
                     initialInputIds,
                     flows,
@@ -37,7 +38,7 @@ export default function WorkflowDiagram() {
                 },
             }));
         }
-    }, [dispatch, id, initialInputIds, flows, flowSteps, inputOutputs]);
+    }, [dispatch, id, initialInputIds, flows, flowSteps, inputOutputs, branchId]);
 
     const {
         DiagramContext,

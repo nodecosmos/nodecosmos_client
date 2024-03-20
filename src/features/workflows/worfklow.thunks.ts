@@ -22,8 +22,8 @@ export const showWorkflow = createAsyncThunk<
     { rejectValue: NodecosmosError }
 >(
     'workflows/showWorkflow',
-    async (payload): Promise<WorkflowData> => {
-        const response = await nodecosmos.get(`/workflows/${payload.nodeId}/${payload.branchId}/`);
+    async ({ nodeId, branchId }): Promise<WorkflowData> => {
+        const response = await nodecosmos.get(`/workflows/${nodeId}/${branchId}`);
 
         return response.data;
     },
@@ -67,8 +67,10 @@ export const deleteWorkflow = createAsyncThunk<
     { rejectValue: NodecosmosError }
 >(
     'workflows/deleteWorkflow',
-    async (payload) => {
-        const response = await nodecosmos.delete(`/workflows/${payload.nodeId}/${payload.branchId}/${payload.id}`);
+    async ({
+        nodeId, branchId, id,
+    }) => {
+        const response = await nodecosmos.delete(`/workflows/${nodeId}/${branchId}/${id}`);
 
         return response.data;
     },

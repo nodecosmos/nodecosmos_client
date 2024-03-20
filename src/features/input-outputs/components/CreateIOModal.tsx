@@ -17,38 +17,47 @@ import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useSelector } from 'react-redux';
 
-export enum associatedObjectTypes {
-    workflow = 'workflow',
+export enum IoObjectTypes {
+    startStep = 'startStep',
     flowStep = 'flowStep',
 }
 
-interface BaseIOProps {
-    open: boolean;
-    onClose: () => void;
-    associatedObject: associatedObjectTypes;
-}
-
-interface FlowStepProps extends BaseIOProps {
+// Assuming these interfaces are defined somewhere
+interface FlowStepProps {
     flowStepPrimaryKey: FlowStepPrimaryKey;
     outputNodeId: UUID;
     outputIdsByNodeId: FlowStep['outputIdsByNodeId'];
 }
 
-export type CreateIOModalProps = BaseIOProps & FlowStepProps;
+interface StartStepProps {
+    flowStepPrimaryKey?: never;
+    outputNodeId?: never;
+    outputIdsByNodeId?: never;
+}
 
-export default function CreateIOModal(props: BaseIOProps & FlowStepProps) {
+type ConditionalProps = FlowStepProps | StartStepProps;
+
+export type CreateIOModalProps = ConditionalProps & {
+    open: boolean;
+    onClose: () => void;
+    associatedObject: IoObjectTypes;
+};
+
+export default function CreateIOModal(props: CreateIOModalProps) {
     const {
-        open, onClose, associatedObject,
+        open,
+        onClose,
+        associatedObject,
     } = props;
     const { id: workflowId, branchId } = useWorkflowContext();
 
-    const nodeId = useSelector(selectWorkflowAttribute(workflowId, 'nodeId'));
+    const nodeId = useSelector(selectWorkflowAttribute(branchId, workflowId, 'nodeId'));
     const rootNodeId = useSelector(selectNodeAttribute(branchId, nodeId, 'rootId'));
-    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId as UUID));
+    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(branchId, rootNodeId as UUID));
     const allIOTitles = allWorkflowIOs.map((io) => io.title);
     const uniqueIOTitles = [...new Set(allIOTitles)];
 
-    const title = associatedObject === associatedObjectTypes.workflow
+    const title = associatedObject === IoObjectTypes.startStep
         ? 'Create Initial Input' : 'Create Output';
 
     const [autocompleteValue, setAutocompleteValue] = React.useState<string | null>(null);

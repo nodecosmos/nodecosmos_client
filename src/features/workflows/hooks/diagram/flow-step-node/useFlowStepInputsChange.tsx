@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../../store';
 import { UUID } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
-import { selectFlowStep, selectFlowStepPrimaryKey } from '../../../../flow-steps/flowSteps.selectors';
+import { selectOptFlowStep } from '../../../../flow-steps/flowSteps.selectors';
 import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
 import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import { WorkflowDiagramObject, WorkflowDiagramObjectType } from '../../../workflow.types';
@@ -16,10 +16,9 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useFlowStepInputsChange() {
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const {
-        id: nodeId, flowStepId, type,
+        branchId, id: nodeId, flowStepId, type,
     } = selectedWorkflowDiagramObject as WorkflowDiagramObject;
-    const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(flowStepId as UUID));
-    const flowStep = useSelector(selectFlowStep(flowStepId as UUID));
+    const flowStep = useSelector(selectOptFlowStep(branchId, flowStepId));
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback(async (selectedInputs: UUID[]) => {
@@ -27,9 +26,18 @@ export default function useFlowStepInputsChange() {
             throw new Error('Selected object is not a node');
         }
 
-        if (!flowStepPrimaryKey) {
+        if (!flowStep) {
             throw new Error('Flow step primary key not found');
         }
+
+        const flowStepPrimaryKey = {
+            nodeId: flowStep.nodeId,
+            branchId: flowStep.branchId,
+            workflowId: flowStep.workflowId,
+            flowId: flowStep.flowId,
+            flowIndex: flowStep.flowIndex,
+            id: flowStep.id,
+        };
 
         try {
             const inputIdsByNodeId = { ...flowStep.inputIdsByNodeId };
@@ -48,5 +56,5 @@ export default function useFlowStepInputsChange() {
 
             console.error(e);
         }
-    }, [dispatch, flowStep, flowStepPrimaryKey, nodeId, type]);
+    }, [dispatch, flowStep, nodeId, type]);
 }

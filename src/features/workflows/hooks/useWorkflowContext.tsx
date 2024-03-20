@@ -77,7 +77,7 @@ export default function useWorkflowContext() {
         rootNodeId,
         title,
         initialInputIds,
-    } = useSelector(selectWorkflow(id));
+    } = useSelector(selectWorkflow(branchId, id));
 
     const transformableId = `WF_${context}_${id}`;
     const scale = useSelector(selectWorkflowScale);

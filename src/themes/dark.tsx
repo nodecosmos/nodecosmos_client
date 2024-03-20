@@ -141,6 +141,8 @@ const theme: NodecosmosTheme = {
             background: '#272b33',
             selectedInputColor: '#cdd4ff',
             defaultInputColor: '#52565e',
+            selectedLoopInputColor: '#ffb387',
+            defaultLoopInputColor: 'rgba(255,179,135,0.26)',
         },
 
         markdownContent: {

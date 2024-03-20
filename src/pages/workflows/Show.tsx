@@ -2,11 +2,13 @@ import Loader from '../../common/components/Loader';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
+import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
+import CreateWorkflowToolbar from '../../features/workflows/components/CreateWorkflowToolbar';
 import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
-import { selectWorkflowByNodeId } from '../../features/workflows/workflow.selectors';
+import { selectOptWorkflowByBranchAndNodeId } from '../../features/workflows/workflow.selectors';
 import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
@@ -14,16 +16,15 @@ import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 export default function Show() {
-    const { id: nodeId } = useParams();
+    const { currentRootNodeId, branchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectWorkflowByNodeId(nodeId as UUID));
+    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(currentRootNodeId, branchId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const branchNodes = useSelector(selectBranchNodes(nodeId as UUID));
+    const branchNodes = useSelector(selectBranchNodes(currentRootNodeId as UUID));
 
     const id = workflow?.id;
 
@@ -55,7 +56,10 @@ export default function Show() {
 
     useEffect(() => {
         if (!id) {
-            dispatch(showWorkflow(nodeId as UUID)).then(() => setLoading(false));
+            dispatch(showWorkflow({
+                nodeId: currentRootNodeId,
+                branchId,
+            })).then(() => setLoading(false));
         } else {
             setLoading(false);
         }
@@ -63,13 +67,7 @@ export default function Show() {
         return () => {
             dispatch(clearSelectedWorkflowDiagramObject());
         };
-    }, [dispatch, id, nodeId]);
-
-    // useEffect(() => {
-    //     if (!resizeInProgress) {
-    //         leaveResizer();
-    //     }
-    // }, [leaveResizer, resizeInProgress]);
+    }, [branchId, currentRootNodeId, dispatch, id]);
 
     if (loading || !branchNodes) {
         return <Loader />;
@@ -94,7 +92,9 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    <Workflow nodeId={nodeId as UUID} />
+                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootNodeId} branchId={branchId} />}
+                    {workflow && <Workflow nodeId={currentRootNodeId} branchId={branchId} />}
+
                 </Box>
                 <Box
                     component="div"

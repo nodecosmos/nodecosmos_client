@@ -2,18 +2,18 @@ import Loader from '../../../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../../../store';
 import { selectSelectedWorkflowObject } from '../../../../workflows/workflow.selectors';
 import { WorkflowDiagramObject } from '../../../../workflows/workflow.types';
-import { selectInputOutputById, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
+import { selectInputOutput, selectInputOutputPrimaryKey } from '../../../inputOutputs.selectors';
 import { getIODescription } from '../../../inputOutputs.thunks';
 import { Typography, Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function IOPaneDescription() {
-    const { id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
+    const { branchId, id } = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    const { description } = useSelector(selectInputOutputById(id));
-    const primaryKey = useSelector(selectInputOutputPrimaryKey(id));
+    const { description } = useSelector(selectInputOutput(branchId, id));
+    const primaryKey = useSelector(selectInputOutputPrimaryKey(branchId, id));
 
     const [loading, setLoading] = React.useState(!description);
 

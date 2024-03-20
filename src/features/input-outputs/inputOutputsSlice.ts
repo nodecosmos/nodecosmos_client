@@ -55,6 +55,7 @@ const inputOutputsSlice = createSlice({
             }).addCase(createIO.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const { branchId } = inputOutput;
+
                 state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][inputOutput.id] = inputOutput;
             }).addCase(getIODescription.fulfilled, (state, action) => {

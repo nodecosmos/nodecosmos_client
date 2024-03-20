@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function NodePaneWorkflow() {
-    const { id } = useSelector(selectSelected) as PKWithTreeBranch;
+    const { id, treeBranchId } = useSelector(selectSelected) as PKWithTreeBranch;
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
 
@@ -19,7 +19,10 @@ export default function NodePaneWorkflow() {
     useEffect(() => {
         if (!fetched && !loading) {
             setLoading();
-            dispatch(showWorkflow(id)).then(() => {
+            dispatch(showWorkflow({
+                nodeId: id,
+                branchId: treeBranchId,
+            })).then(() => {
                 setFetched();
                 setTimeout(unsetLoading, 250);
             });
@@ -30,7 +33,7 @@ export default function NodePaneWorkflow() {
                 unsetFetched();
             }
         };
-    }, [dispatch, fetched, id, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
+    }, [dispatch, fetched, id, loading, setFetched, setLoading, treeBranchId, unsetFetched, unsetLoading]);
 
     if (!id) return null;
 
@@ -39,6 +42,6 @@ export default function NodePaneWorkflow() {
     }
 
     return (
-        <Workflow nodeId={id} context={WorkflowDiagramContext.treeNodeDetails} />
+        <Workflow nodeId={id} branchId={treeBranchId} context={WorkflowDiagramContext.treeNodeDetails} />
     );
 }

@@ -33,6 +33,7 @@ const flowStepsSlice = createSlice({
                 const flow = action.payload;
                 const { branchId } = flow;
 
+                state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][flow.id] = flow;
             })
             .addCase(getFlowDescription.fulfilled, (state, action) => {
@@ -41,12 +42,14 @@ const flowStepsSlice = createSlice({
                     branchId, id, description, descriptionMarkdown,
                 } = flow;
 
+                state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][id].description = description as string | null;
                 state.byBranchId[branchId][id].descriptionMarkdown = descriptionMarkdown as string | null;
             })
             .addCase(showWorkflow.fulfilled, (state, action) => {
                 const { flows, workflow } = action.payload;
                 const { branchId } = workflow;
+                state.byBranchId[branchId] ||= {};
 
                 flows.forEach((flow: Flow) => {
                     state.byBranchId[branchId][flow.id] = flow;
@@ -60,9 +63,11 @@ const flowStepsSlice = createSlice({
             })
             .addCase(updateFlowTitle.fulfilled, (state, action) => {
                 const flow = action.payload;
-                const { branchId, id } = flow;
+                const {
+                    branchId, id, title,
+                } = flow;
 
-                state.byBranchId[branchId][id].title = flow.title as string;
+                state.byBranchId[branchId][id].title = title as string;
             });
     },
 });

@@ -28,7 +28,7 @@ interface OutputProps {
 
 export default function Output(props: OutputProps) {
     const {
-        context: workflowContext, inputsAdditionActive, selectedInputs, setSelectedInputs,
+        branchId, context: workflowContext, inputsAdditionActive, selectedInputs, setSelectedInputs,
     } = useWorkflowContext();
     const { output } = props;
     const {
@@ -36,7 +36,7 @@ export default function Output(props: OutputProps) {
         nodeId,
         position,
     } = output;
-    const title = useSelector(selectIOAttribute(id, 'title')) as string;
+    const title = useSelector(selectIOAttribute(branchId, id, 'title'));
     const {
         x,
         xEnd,
@@ -66,16 +66,17 @@ export default function Output(props: OutputProps) {
                 selectedInputsArray.push(id);
             }
 
-            handleInputsChange(selectedInputsArray);
+            await handleInputsChange(selectedInputsArray);
         } else if (workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(setSelectedWorkflowDiagramObject({
+                branchId,
                 id,
                 type: WorkflowDiagramObjectType.IO,
             }));
         }
     },
     [
-        dispatch, handleInputsChange, id, inputsAdditionActive, isChecked,
+        dispatch, handleInputsChange, id, branchId, inputsAdditionActive, isChecked,
         selectedInputs, setSelectedInputs, workflowContext,
     ]);
 
@@ -128,7 +129,7 @@ export default function Output(props: OutputProps) {
                                 checked={isChecked} />
                         }
                         <div className="IOButtonText">
-                            {title}
+                            {title as string}
                         </div>
                     </button>
                 </foreignObject>

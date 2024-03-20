@@ -10,6 +10,7 @@ import { FlowStepCreationParams } from '../../../../flow-steps/flowSteps.types';
 import { FLOW_STEP_SIZE } from '../../../constants';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
+import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { WorkflowDiagramObjectType } from '../../../workflow.types';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
@@ -25,6 +26,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
+    const { branchId } = useWorkflowContext();
     const {
         title: flowTitle, id: flowId, flowSelected,
     } = useFlowContext();
@@ -37,10 +39,11 @@ export default function FlowStepToolbar() {
 
     const handleFlowClick = useCallback(() => {
         dispatch(setSelectedWorkflowDiagramObject({
+            branchId,
             id: flowId,
             type: WorkflowDiagramObjectType.Flow,
         }));
-    }, [dispatch, flowId]);
+    }, [dispatch, flowId, branchId]);
 
     const handleFlowStepDeletion = useCallback(() => {
         if (!flowStepPrimaryKey) {
@@ -58,6 +61,7 @@ export default function FlowStepToolbar() {
 
         const insertPayload: Strict<FlowStepCreationParams> = {
             nodeId: flowStepPrimaryKey.nodeId,
+            branchId: flowStepPrimaryKey.branchId,
             workflowId: flowStepPrimaryKey.workflowId,
             flowId: flowStepPrimaryKey.flowId,
             nodeIds: [],

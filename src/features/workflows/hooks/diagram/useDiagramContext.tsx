@@ -23,14 +23,17 @@ export function useDiagramContextCreator({ id }: DiagramContextType) {
 export default function useDiagramContext() {
     const { id } = React.useContext(DiagramContext);
 
-    const { transformableId, scale } = useWorkflowContext();
+    const {
+        branchId, transformableId, scale,
+    } = useWorkflowContext();
 
     const {
         initialInputs,
         workflowSteps,
         outputsById,
         height: diagramHeight,
-    } = useSelector(selectWorkflowDiagram(id));
+    } = useSelector(selectWorkflowDiagram(branchId, id));
+
     const clientHeight = useSelector(
         selectTransformablePositionAttribute(transformableId, 'clientHeight'),
     ) as number;

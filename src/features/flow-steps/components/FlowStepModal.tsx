@@ -27,7 +27,7 @@ interface Props {
 
 export default function FlowStepModal({ open, onClose }: Props) {
     const {
-        id: workflowId, nodeId, branchId,
+        branchId, id: workflowId, nodeId,
     } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
@@ -53,6 +53,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
             if (isNew) {
                 const updatePayload: Strict<FlowStepUpdatePayload> = {
                     nodeId,
+                    branchId,
                     workflowId,
                     flowId,
                     flowIndex,
@@ -63,6 +64,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
             } else {
                 const insertPayload: Strict<FlowStepCreationParams> = {
                     nodeId,
+                    branchId,
                     workflowId,
                     flowId,
                     nodeIds: filteredNodeIds,
@@ -90,7 +92,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
         }
     },
     [
-        flowStepNodeIds, allNodes, id, onClose, nodeId, workflowId, flowId, flowIndex,
+        flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, workflowId, flowId, flowIndex,
         dispatch, prevFlowStepId, nextFlowStepId, handleServerError,
     ],
     );

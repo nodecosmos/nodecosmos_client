@@ -1,14 +1,17 @@
 import useModalOpen from '../../../../common/hooks/useModalOpen';
-import CreateIOModal from '../../../input-outputs/components/CreateIOModal';
+import CreateIOModal, { IoObjectTypes } from '../../../input-outputs/components/CreateIOModal';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, IconButton, Tooltip,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function StartToolbar({ workflowId, startStepHovered }) {
+interface StartToolbarProps {
+    startStepHovered: boolean;
+}
+
+export default function StartToolbar({ startStepHovered }: StartToolbarProps) {
     const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
@@ -41,16 +44,10 @@ export default function StartToolbar({ workflowId, startStepHovered }) {
                 </Box>
             )}
             <CreateIOModal
+                associatedObject={IoObjectTypes.startStep}
                 open={modalOpen}
                 onClose={closeModal}
-                workflowId={workflowId}
-                associatedObject={'workflow'}
             />
         </>
     );
 }
-
-StartToolbar.propTypes = {
-    workflowId: PropTypes.string.isRequired,
-    startStepHovered: PropTypes.bool.isRequired,
-};

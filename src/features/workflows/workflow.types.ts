@@ -39,12 +39,14 @@ export enum WorkflowDiagramObjectType {
 
 export interface WorkflowDiagramObject {
     id: UUID;
+    branchId: UUID;
     flowStepId?: UUID; // used for node selection
     type: WorkflowDiagramObjectType;
 }
 
 export interface WorkflowState {
     byBranchId: Record<UUID, Record<UUID, Workflow>>;
+    idByBranchAndNodeId: Record<UUID, Record<UUID, UUID>>;
     // diagram
     workflowDiagramByBranchId: Record<UUID, Record<UUID, WorkflowDiagram>>;
     selectedWorkflowObject: WorkflowDiagramObject | null;

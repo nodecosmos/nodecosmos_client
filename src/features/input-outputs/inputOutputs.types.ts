@@ -19,8 +19,8 @@ export interface InputOutput extends InputOutputPrimaryKey {
     description: string | null;
     descriptionMarkdown: string | null;
     properties: Property[];
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 
 }
 

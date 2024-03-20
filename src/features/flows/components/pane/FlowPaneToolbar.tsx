@@ -24,12 +24,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function FlowPaneToolbar() {
     const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject) as WorkflowDiagramObject;
-    const { id } = selectedWorkflowDiagramObject;
+    const { branchId, id } = selectedWorkflowDiagramObject;
     const dispatch: NodecosmosDispatch = useDispatch();
     const ioPaneContent = useSelector(selectFlowPaneContent) as FlowPaneContent;
 
-    const title = useSelector(selectFlowAttribute(id, 'title'));
-    const primaryKey = useSelector(selectFlowPrimaryKey(id));
+    const title = useSelector(selectFlowAttribute(branchId, id, 'title'));
+    const primaryKey = useSelector(selectFlowPrimaryKey(branchId, id));
 
     const handleDeleteFlow = useCallback(() => {
         dispatch(deleteFlow(primaryKey));

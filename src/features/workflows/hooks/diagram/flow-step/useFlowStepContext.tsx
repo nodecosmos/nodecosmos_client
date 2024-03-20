@@ -1,6 +1,7 @@
 import { UUID } from '../../../../../types';
 import { selectFlowStep, selectFlowStepPrimaryKey } from '../../../../flow-steps/flowSteps.selectors';
 import { WorkflowStepFlow } from '../../../diagram/diagram.types';
+import useWorkflowContext from '../../useWorkflowContext';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -26,8 +27,9 @@ export function useFlowStepContextCreator(val: FlowStepContextValue) {
 
 export default function useFlowStepContext() {
     const { id, workflowStepFlow } = useContext(FlowStepContext);
+    const { branchId } = useWorkflowContext();
 
-    const flowStep = useSelector(selectFlowStep(id));
+    const flowStep = useSelector(selectFlowStep(branchId, id));
 
     const {
         nodeId,
@@ -39,7 +41,7 @@ export default function useFlowStepContext() {
         outputIdsByNodeId = {},
     } = flowStep || {};
 
-    const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(id));
+    const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(branchId, id));
     const {
         flowStepNodes, prevFlowStepId, nextFlowStepId, stepId,
     } = workflowStepFlow || {};

@@ -11,24 +11,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import * as PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 interface Props {
     open: boolean;
     onClose: () => void;
     nodeId: UUID;
+    branchId: UUID;
 }
 
 export default function CreateWorkflowModal(props: Props) {
     const {
-        open, onClose, nodeId,
+        open, onClose, nodeId, branchId,
     } = props;
 
-    const { id: branchId } = useParams<{ id: string }>();
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const rootNodeId = useSelector(selectNodeAttribute(branchId as UUID, nodeId, 'rootId'));
@@ -40,6 +38,7 @@ export default function CreateWorkflowModal(props: Props) {
 
         const payload = {
             nodeId,
+            branchId,
             rootNodeId,
             ...formValues,
         };
@@ -55,7 +54,7 @@ export default function CreateWorkflowModal(props: Props) {
 
         setTimeout(() => setLoading(false), 500);
         onClose();
-    }, [dispatch, handleServerError, nodeId, onClose, rootNodeId]);
+    }, [branchId, dispatch, handleServerError, nodeId, onClose, rootNodeId]);
 
     return (
         <Dialog
@@ -103,9 +102,3 @@ export default function CreateWorkflowModal(props: Props) {
         </Dialog>
     );
 }
-
-CreateWorkflowModal.propTypes = {
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    nodeId: PropTypes.string.isRequired,
-};

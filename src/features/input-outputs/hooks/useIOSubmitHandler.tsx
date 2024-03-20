@@ -5,33 +5,40 @@ import { setAlert } from '../../app/appSlice';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
-import { CreateIOModalProps } from '../components/CreateIOModal';
+import { CreateIOModalProps, IoObjectTypes } from '../components/CreateIOModal';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { createIO } from '../inputOutputs.thunks';
 import { InputOutput, InsertInputOutputPayload } from '../inputOutputs.types';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useIOSubmitHandler(props: CreateIOModalProps, autocompleteValue: string | null) {
     const {
-        id: workflowId, nodeId, rootNodeId, initialInputIds: currentInitialInputIds,
+        associatedObject,
+        flowStepPrimaryKey,
+        outputNodeId,
+        outputIdsByNodeId,
+    } = props;
+    const {
+        branchId, id: workflowId, nodeId, rootNodeId, initialInputIds: currentInitialInputIds,
     } = useWorkflowContext();
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(rootNodeId));
+    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(branchId, rootNodeId));
     const handleServerError = useHandleServerErrorAlert();
 
-    const onSubmit = async (formValues: { title: string }) => {
+    const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
         const existingIO = autocompleteValue ? allWorkflowIOs.find((io) => io.title === autocompleteValue) : null;
 
         const payload: Strict<InsertInputOutputPayload> = {
             nodeId,
+            branchId,
             workflowId,
             rootNodeId,
             originalId: (autocompleteValue && existingIO?.id) || null,
-            flowStepId: props.flowStepPrimaryKey?.id,
+            flowStepId: flowStepPrimaryKey?.id ?? null,
             ...formValues,
         };
 
@@ -48,25 +55,29 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
         const inputOutput = response.payload as InputOutput;
 
         try {
-            if (props.associatedObject === 'workflow') {
+            if (associatedObject === IoObjectTypes.startStep) {
                 const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
                 await dispatch(updateWorkflowInitialInputs({
                     nodeId,
+                    branchId,
                     id: workflowId,
                     initialInputIds,
                 }));
             }
 
-            if (props.associatedObject === 'flowStep') {
-                const { outputIdsByNodeId, outputNodeId } = props;
+            if (associatedObject === IoObjectTypes.flowStep) {
+                if (!flowStepPrimaryKey || !outputNodeId || !outputIdsByNodeId) {
+                    throw new Error('Flow step props are required');
+                }
+
                 const currentNodeOutputIds = outputIdsByNodeId[outputNodeId] || [];
                 const newOutputIdsByNodeId = { ...outputIdsByNodeId } || {};
 
                 newOutputIdsByNodeId[outputNodeId] = [...currentNodeOutputIds, inputOutput.id];
 
                 await dispatch(updateFlowStepOutputs({
-                    ...props.flowStepPrimaryKey,
+                    ...flowStepPrimaryKey,
                     outputIdsByNodeId: newOutputIdsByNodeId,
                 }));
             }
@@ -83,7 +94,11 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
         setTimeout(() => setLoading(false), 500);
 
         props.onClose();
-    };
+    },
+    [
+        autocompleteValue, allWorkflowIOs, nodeId, branchId, workflowId, rootNodeId, associatedObject,
+        flowStepPrimaryKey, dispatch, props, handleServerError, currentInitialInputIds, outputIdsByNodeId, outputNodeId,
+    ]);
 
     return {
         onSubmit,

@@ -21,12 +21,9 @@ export interface FlowStep extends FlowStepPrimaryKey {
     nextFlowStepId?: UUID;
 }
 
-export interface FlowStepCreationParams {
+export interface FlowStepCreationParams extends Omit<FlowStepPrimaryKey, 'flowIndex' | 'id'> {
     prevFlowStepId?: UUID | null;
     nextFlowStepId?: UUID | null;
-    nodeId: UUID;
-    workflowId: UUID;
-    flowId: UUID;
     nodeIds: UUID[];
 }
 
