@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 export default function Activity() {
-    const { contributionRequestId: id } = useParams();
+    const { branchId: id } = useParams();
     const threadIds = useSelector(selectObjectThreadIds(id as UUID));
 
     return (

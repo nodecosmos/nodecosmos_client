@@ -39,7 +39,13 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const { x: xEnd, y: yEnd } = nodePosition;
 
     const loopDestinationNodeY = yEnd + LOOP_NODE_OFFSET;
-    const loopOriginY = (prevOutputPosition?.yEnd || 0) + LOOP_OUTPUT_Y_OFFSET || loopDestinationNodeY;
+
+    let loopOriginY = (prevOutputPosition?.yEnd || 0) + LOOP_OUTPUT_Y_OFFSET || loopDestinationNodeY;
+
+    if (loopDestinationNodeY > y) {
+        loopOriginY = (prevOutputPosition?.yEnd || 0) - LOOP_OUTPUT_Y_OFFSET;
+    }
+
     // const loopOriginNodeX = ((outputNodePosition && outputNodePosition.x) || xEnd) + LOOP_OUTPUT_X_OFFSET;
 
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
@@ -53,7 +59,8 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 strokeWidth={2}
                 d={`M ${x} ${y} 
                     L${x} ${loopOriginY}
-                    L${xEnd} ${loopOriginY}
+                    L${xEnd - 20} ${loopOriginY}
+                    L${xEnd - 20} ${yEnd}
                     L ${xEnd} ${yEnd}`}
                 style={{
                     opacity: 0,

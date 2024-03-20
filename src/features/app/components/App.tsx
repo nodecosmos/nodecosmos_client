@@ -63,7 +63,7 @@ export default function App() {
                             {/* Contribution Requests */}
                             <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
                             <Route path=":id/contribution_requests">
-                                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                                <Route path=":branchId" element={<ContributionRequestShow />}>
                                     <Route path="" element={<ContributionRequestConversation />}>
                                         <Route path="" element={<MainThread />} />
                                         <Route path="activity" element={<Activity />} />

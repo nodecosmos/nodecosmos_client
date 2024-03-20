@@ -18,7 +18,7 @@ import {
 } from 'react-router-dom';
 
 export default function ContributionRequestConversation() {
-    const { id: nodeId, contributionRequestId: id } = useParams();
+    const { id: nodeId, branchId: id } = useParams();
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
 
     if (!contributionRequest) {

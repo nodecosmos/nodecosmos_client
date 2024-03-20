@@ -12,7 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function useMerge() {
     const {
         id: nodeId,
-        contributionRequestId: id,
+        branchId: id,
     } = useParams();
 
     if (!nodeId) {
@@ -20,7 +20,7 @@ export default function useMerge() {
     }
 
     if (!id) {
-        throw new Error('Missing contributionRequestId');
+        throw new Error('Missing branchId');
     }
 
     const dispatch: NodecosmosDispatch = useDispatch();

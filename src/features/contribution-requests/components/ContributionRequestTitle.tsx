@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestTitle() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { id: nodeId, contributionRequestId: id } = useParams();
+    const { id: nodeId, branchId: id } = useParams();
     const onTitleChange = useCallback((value: string) => {
         dispatch(updateContributionRequestState({
             nodeId,

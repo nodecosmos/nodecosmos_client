@@ -10,7 +10,7 @@ interface UseBranchParams extends BranchParams {
 
 export default function useBranchParams(): UseBranchParams {
     const { id: currentRootNodeId } = useParams<{ id: UUID }>();
-    let { contributionRequestId: branchId } = useParams<{ contributionRequestId: UUID }>();
+    let { branchId: branchId } = useParams<{ branchId: UUID }>();
     const isBranch = !!branchId && currentRootNodeId !== branchId;
 
     if (!branchId) {

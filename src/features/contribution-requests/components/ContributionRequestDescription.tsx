@@ -25,7 +25,7 @@ const {
 
 export default function ContributionRequestDescription() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { id: nodeId, contributionRequestId: id } = useParams();
+    const { id: nodeId, branchId: id } = useParams();
     const [editorOpen, openEditor, closeEditor] = useBooleanStateValue();
     const { description } = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
 

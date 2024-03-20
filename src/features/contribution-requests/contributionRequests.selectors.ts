@@ -16,9 +16,9 @@ export const selectContributionRequests = (
 );
 export const selectContributionRequest = (
     nodeId: UUID,
-    contributionRequestId: UUID,
+    branchId: UUID,
 ) => createSelector(
     selectContributionRequestsByNodeId,
     (contributionRequestsByNodeId) => contributionRequestsByNodeId[nodeId]
-    && contributionRequestsByNodeId[nodeId][contributionRequestId],
+    && contributionRequestsByNodeId[nodeId][branchId],
 );

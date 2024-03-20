@@ -22,7 +22,7 @@ export default function ContributionRequestWorkflow() {
     const { currentRootNodeId, branchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(currentRootNodeId, branchId));
+    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(branchId, currentRootNodeId));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
