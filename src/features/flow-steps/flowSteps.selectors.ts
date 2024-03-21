@@ -38,7 +38,7 @@ export const selectFlowStepPrimaryKey = (branchId: UUID, id: UUID) => createSele
 
 export const selectFlowStepsByWorkflowId = (branchId: UUID, workflowId: UUID) => createSelector(
     selectFlowStepsByBranch(branchId),
-    (flowSteps) => Object.values(flowSteps)
+    (flowSteps) => Object.values(flowSteps || {})
         .filter((flowStep) => flowStep.workflowId === workflowId)
         .sort((a, b) => a.flowIndex - b.flowIndex),
 );

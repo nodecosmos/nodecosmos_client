@@ -34,14 +34,14 @@ export const selectIOAttribute = (branchId: UUID, id: UUID, attribute: keyof Inp
 
 export const selectIOByWorkflowId = (branchId: UUID, workflowId: UUID) => createSelector(
     selectInputOutputsByBranch(branchId),
-    (inputOutputsById) => Object.values(inputOutputsById).filter(
+    (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
         (inputOutput) => inputOutput.workflowId === workflowId,
     ),
 );
 
 export const selectUniqueIOByRootNodeId = (branchId: UUID, rootNodeId: UUID) => createSelector(
     selectInputOutputsByBranch(branchId),
-    (inputOutputsById) => Object.values(inputOutputsById).filter(
+    (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
         (inputOutput) => inputOutput.rootNodeId === rootNodeId,
     ),
 );

@@ -61,6 +61,8 @@ const workflowsSlice = createSlice({
                 const { branchId, id } = workflow;
 
                 workflow.initialInputIds ||= [];
+                workflow.initialInputIds = workflow.initialInputIds
+                    .filter((value, index, array) => array.indexOf(value) === index);
                 state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][id] = workflow;
                 state.idByBranchAndNodeId[branchId] ||= {};

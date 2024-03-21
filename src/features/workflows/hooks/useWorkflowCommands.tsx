@@ -15,10 +15,11 @@ export default function useWorkflowCommands() {
 
     const handleTitleChange = useCallback((title: string) => {
         dispatch(updateWorkflow({
+            branchId,
             id,
             title,
         }));
-    }, [dispatch, id]);
+    }, [branchId, dispatch, id]);
 
     const handleDelete = useCallback(() => {
         dispatch(deleteWorkflow({
