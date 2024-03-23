@@ -132,7 +132,7 @@ export default function FlowStepToolbar() {
                                         <IconButton
                                             className="Item"
                                             aria-label="Delete Flow Step"
-                                            sx={{ color: 'toolbar.blue' }}
+                                            sx={{ color: 'toolbar.default' }}
                                             onClick={handleFlowStepDeletion}
                                         >
                                             <FontAwesomeIcon icon={faTrash} />
@@ -151,11 +151,6 @@ export default function FlowStepToolbar() {
                                                         <FontAwesomeIcon
                                                             icon={faPlay} />
                                                     </IconButton>
-                                                    // <DefaultButton
-                                                    //     endIcon={<FontAwesomeIcon icon={faChevronRight} />}
-                                                    //     onClick={createNextFlowStep}
-                                                    //     title="Add Step"
-                                                    // />
                                                 )
 
                                         }

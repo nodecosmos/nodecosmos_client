@@ -17,13 +17,3 @@ export const groupFlowStepsByFlowId = lruMemoize((flowSteps: FlowStep[]): Record
 
     return flowStepsByFlowId;
 });
-
-export const groupFlowStepsById = lruMemoize((flowSteps: FlowStep[]): Record<UUID, FlowStep> => {
-    const flowStepsById: Record<UUID, FlowStep> = {};
-
-    flowSteps.forEach((flowStep) => {
-        flowStepsById[flowStep.id] = flowStep;
-    });
-
-    return flowStepsById;
-});

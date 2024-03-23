@@ -52,6 +52,7 @@ const flowStepsSlice = createSlice({
                 state.byBranchId[branchId] ||= {};
 
                 flows.forEach((flow: Flow) => {
+                    flow.branchId = branchId;
                     state.byBranchId[branchId][flow.id] = flow;
                 });
             })

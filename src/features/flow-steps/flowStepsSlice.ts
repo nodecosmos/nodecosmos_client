@@ -1,4 +1,3 @@
-import { groupFlowStepsById } from './flowSteps.memoize';
 import {
     createFlowStep,
     deleteFlowStep,
@@ -23,13 +22,13 @@ const flowStepsSlice = createSlice({
             .addCase(showWorkflow.fulfilled, (state, action) => {
                 const { flowSteps, workflow } = action.payload;
                 const { branchId } = workflow;
-                const flowStepsById = groupFlowStepsById(flowSteps);
 
                 state.byBranchId[branchId] ||= {};
-                state.byBranchId[branchId] = {
-                    ...state.byBranchId[branchId],
-                    ...flowStepsById,
-                };
+
+                flowSteps.forEach((flowStep) => {
+                    flowStep.branchId = branchId;
+                    state.byBranchId[branchId][flowStep.id] = flowStep;
+                });
             })
             .addCase(createFlowStep.fulfilled, (state, action) => {
                 const flowStep = action.payload;

@@ -134,7 +134,7 @@ export default function NodeDescriptionMd() {
                         >
                             {currentNodeDescription || (currentNodeId && 'This node has no description yet.') || (
                                 <Box component="span" fontSize={30} width={1} textAlign="center">
-                  ¯\_(ツ)_/¯
+                                    ¯\_(ツ)_/¯
                                 </Box>
                             )}
                         </Typography>
