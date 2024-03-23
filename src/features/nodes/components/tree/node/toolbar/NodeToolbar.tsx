@@ -1,5 +1,5 @@
 import ConflictToolbar from './NodeConflictToolbar';
-import useBranchContext from '../../../../hooks/tree/node/useBranchContext';
+import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
 import useNodeCommands from '../../../../hooks/tree/node/useNodeCommands';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
@@ -32,7 +32,7 @@ export default function NodeToolbar() {
     const likesCount = useSelector(selectNodeAttribute(treeBranchId, id, 'likesCount'));
     const {
         isOriginalDeleted, isDeleted, isAncestorDeleted,
-    } = useBranchContext();
+    } = useNodeBranchContext();
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;

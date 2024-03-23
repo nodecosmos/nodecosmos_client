@@ -82,14 +82,20 @@ export interface Branch {
     deletedFlows: Set<UUID>;
     editedFlowTitles: Set<UUID>;
     editedFlowDescriptions: Set<UUID>;
-    createdIos: Set<UUID>;
-    deletedIos: Set<UUID>;
-    editedIoTitles: Set<UUID>;
-    editedIoDescriptions: Set<UUID>;
+    createdIOs: Set<UUID>;
+    deletedIOs: Set<UUID>;
+    editedIOTitles: Set<UUID>;
+    editedIODescriptions: Set<UUID>;
     createdFlowSteps: Set<UUID>;
     deletedFlowSteps: Set<UUID>;
-    createdFlowStepInputsByNode: Record<UUID, Set<UUID>>;
-    deletedFlowStepInputsByNode: Record<UUID, Set<UUID>>;
+    // FlowStepId, NodeId
+    createdFlowStepNodes: Record<UUID, Set<UUID>>;
+    deletedFlowStepNodes: Record<UUID, Set<UUID>>;
+    // FlowStepId, NodeId, InputId
+    createdFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    deletedFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    createdFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    deletedFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     titleChangeByObject: Record<UUID, TextChange>;
     descriptionChangeByObject: Record<UUID, TextChange>;
     conflict?: Conflict;

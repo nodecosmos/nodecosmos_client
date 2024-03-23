@@ -7,16 +7,14 @@ import useTreeContext from '../useTreeContext';
 export default function useNodeColors() {
     const defaultColors = useNodeDefaultColors();
     const checkboxColors = useNodeCheckboxColors();
-    const contributionRequestColors = useNodeBranchColors();
+    const branchColors = useNodeBranchColors();
 
     const { type: treeType } = useTreeContext();
 
     if (treeType === TreeType.Checkbox) {
         return checkboxColors;
-    }
-
-    if (treeType === TreeType.ContributionRequest) {
-        return contributionRequestColors;
+    } else if (treeType === TreeType.ContributionRequest) {
+        return branchColors;
     }
 
     return defaultColors;

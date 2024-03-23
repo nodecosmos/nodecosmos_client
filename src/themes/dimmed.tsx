@@ -181,10 +181,26 @@ const theme: NodecosmosTheme = {
         },
 
         diff: {
-            addedBg: 'rgba(177, 244, 122, 0.3)',
-            addedFg: '#b1f47a',
-            removedBg: 'rgba(253,82,111,0.3)',
-            removedFg: '#fd526f',
+            added: {
+                bg: '#424d46',
+                fg: '#b1f47a',
+                slBg: '#4a5750',
+            },
+            removed: {
+                bg: '#5e3e4a',
+                fg: '#fd526f',
+                slBg: '#6b4a56',
+            },
+            edited: {
+                bg: '#484d46',
+                fg: '#eef47a',
+                slBg: '#4f5750',
+            },
+            conflict: {
+                bg: '#705d52',
+                fg: '#f4af7a',
+                slBg: '#7c655a',
+            },
         },
 
         text: {

@@ -13,7 +13,7 @@ export interface BranchChanges {
     isTitleEdited: boolean;
 }
 
-export default function useBranchContext(): BranchChanges {
+export default function useNodeBranchContext(): BranchChanges {
     const {
         treeBranchId, id, ancestorIds,
     } = useNodeContext();

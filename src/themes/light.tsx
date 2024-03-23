@@ -176,10 +176,22 @@ const theme: NodecosmosTheme = {
         },
 
         diff: {
-            addedBg: '#8CAC77FF',
-            addedFg: '#9bff4a',
-            removedBg: 'rgba(255,0,0,0.24)',
-            removedFg: '#f53152',
+            added: {
+                bg: 'rgba(177, 244, 122, 0.3)',
+                fg: '#b1f47a',
+            },
+            removed: {
+                bg: 'rgba(253,82,111,0.3)',
+                fg: '#fd526f',
+            },
+            edited: {
+                bg: 'rgba(238,244,122,0.3)',
+                fg: '#eef47a',
+            },
+            conflict: {
+                bg: 'rgba(244,175,122,0.3)',
+                fg: '#f4af7a',
+            },
         },
 
         logo: {

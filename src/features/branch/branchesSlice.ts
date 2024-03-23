@@ -4,6 +4,7 @@ import {
 import {
     Branch, BranchesState, ConflictStatus,
 } from './branches.types';
+import { deepArrayToSet } from '../../utils/object';
 import {
     mergeContributionRequest,
     showContributionRequest,
@@ -19,6 +20,7 @@ function initBranch(state: BranchesState, branch: Branch) {
     const { conflict } = branch;
 
     state.byId[branch.id] = {
+
         id: branch.id,
         title: branch.title,
         description: branch.description,
@@ -42,14 +44,18 @@ function initBranch(state: BranchesState, branch: Branch) {
         deletedFlows: new Set(branch.deletedFlows),
         editedFlowTitles: new Set(branch.editedFlowTitles),
         editedFlowDescriptions: new Set(branch.editedFlowDescriptions),
-        createdIos: new Set(branch.createdIos),
-        deletedIos: new Set(branch.deletedIos),
-        editedIoTitles: new Set(branch.editedIoTitles),
-        editedIoDescriptions: new Set(branch.editedIoDescriptions),
+        createdIOs: new Set(branch.createdIOs),
+        deletedIOs: new Set(branch.deletedIOs),
+        editedIOTitles: new Set(branch.editedIOTitles),
+        editedIODescriptions: new Set(branch.editedIODescriptions),
         createdFlowSteps: new Set(branch.createdFlowSteps),
         deletedFlowSteps: new Set(branch.deletedFlowSteps),
-        createdFlowStepInputsByNode: branch.createdFlowStepInputsByNode,
-        deletedFlowStepInputsByNode: branch.deletedFlowStepInputsByNode,
+        createdFlowStepNodes: deepArrayToSet(branch.createdFlowStepNodes),
+        deletedFlowStepNodes: deepArrayToSet(branch.deletedFlowStepNodes),
+        createdFlowStepInputsByNode: deepArrayToSet(branch.createdFlowStepInputsByNode),
+        deletedFlowStepInputsByNode: deepArrayToSet(branch.deletedFlowStepInputsByNode),
+        createdFlowStepOutputsByNode: deepArrayToSet(branch.createdFlowStepOutputsByNode),
+        deletedFlowStepOutputsByNode: deepArrayToSet(branch.deletedFlowStepOutputsByNode),
         conflict: conflict && {
             status: conflict.status,
             deletedAncestors: new Set(conflict.deletedAncestors),
