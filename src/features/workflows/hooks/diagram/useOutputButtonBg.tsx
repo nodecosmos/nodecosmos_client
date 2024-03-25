@@ -1,3 +1,4 @@
+import useFlowStepContext from './flow-step/useFlowStepContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
@@ -13,11 +14,11 @@ interface Props {
     nodeId: string;
 }
 
-export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
+export default function useOutputButtonBg({ id, nodeId }: Props) {
     const theme: NodecosmosTheme = useTheme();
     const { branchId } = useWorkflowContext();
     const {
-        isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited,
+        isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepDeleted,
     } = useWorkflowBranchContext();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
@@ -31,6 +32,7 @@ export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
     const nestedLevelColor = backgrounds[nestedLevel % backgroundCount];
     const selectedNodeNestedLevel = selectedNodeAncestorIds?.length || 0;
     const selectedNodeNestedLevelColor = backgrounds[selectedNodeNestedLevel % backgroundCount];
+    const { id: flowStepId } = useFlowStepContext();
 
     const isSelected = selectedWorkflowDiagramObject?.id === id;
 
@@ -41,7 +43,10 @@ export default function useWorkflowOutputButtonBg({ id, nodeId }: Props) {
     };
 
     if (isBranch) {
-        if (isIoCreated(id)) {
+        if (isFlowStepDeleted(flowStepId)) {
+            colors = diffColors(isSelected, DiffState.Removed);
+        }
+        else if (isIoCreated(id)) {
             colors = diffColors(isSelected, DiffState.Added);
         } else if (isIoDeleted(id)) {
             colors = diffColors(isSelected, DiffState.Removed);

@@ -14,7 +14,7 @@ import {
 } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
 import useFlowStepInputsChange from '../../../hooks/diagram/flow-step-node/useFlowStepInputsChange';
-import useWorkflowOutputButtonBg from '../../../hooks/diagram/useWorkflowOutputButtonBg';
+import useOutputButtonBg from '../../../hooks/diagram/useOutputButtonBg';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { WorkflowDiagramObjectType } from '../../../workflow.types';
 import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
@@ -85,7 +85,7 @@ export default function Output(props: OutputProps) {
         outlineColor,
         color,
         checkboxColor,
-    } = useWorkflowOutputButtonBg({
+    } = useOutputButtonBg({
         id,
         nodeId: nodeId as UUID,
     });

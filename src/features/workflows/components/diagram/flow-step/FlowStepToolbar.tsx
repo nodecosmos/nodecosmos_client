@@ -7,7 +7,8 @@ import { Strict } from '../../../../../types';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import { FlowStepCreationParams } from '../../../../flow-steps/flowSteps.types';
-import { FLOW_STEP_SIZE } from '../../../constants';
+import { FLOW_STEP_TOOLBAR_HEIGHT } from '../../../constants';
+import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
@@ -33,6 +34,7 @@ export default function FlowStepToolbar() {
     const {
         flowStepPrimaryKey, stepId, nextFlowStepId,
     } = useFlowStepContext();
+    const { backgroundColor, color } = useFlowStepColors();
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
@@ -91,7 +93,13 @@ export default function FlowStepToolbar() {
     const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
-        <Box display="flex" alignItems="center" width={1} height={FLOW_STEP_SIZE}>
+        <Box
+            pl={2}
+            style={{ backgroundColor }}
+            display="flex"
+            alignItems="center"
+            width={1}
+            height={FLOW_STEP_TOOLBAR_HEIGHT}>
             <Typography
                 onClick={handleFlowClick}
                 variant="body1"
@@ -103,6 +111,7 @@ export default function FlowStepToolbar() {
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap', // otherwise safari will break words into multiple lines
+                    color,
                     '&:hover': {
                         cursor: 'pointer',
                         textDecoration: 'underline',

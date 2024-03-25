@@ -8,16 +8,24 @@ import { useSelector } from 'react-redux';
 interface FlowStepContextValue {
     id: UUID,
     workflowStepFlow?: WorkflowStepFlow,
+    x: number,
+    y: number,
+    yEnd: number,
 }
 
 const FlowStepContext = React.createContext({} as FlowStepContextValue);
 
 export function useFlowStepContextCreator(val: FlowStepContextValue) {
-    const { id, workflowStepFlow } = val;
+    const {
+        id, workflowStepFlow, x, y, yEnd,
+    } = val;
     const flowStepContextValue = useMemo(() => ({
         id,
         workflowStepFlow,
-    }), [id, workflowStepFlow]);
+        x,
+        y,
+        yEnd,
+    }), [id, workflowStepFlow, x, y, yEnd]);
 
     return {
         FlowStepContext,
@@ -26,7 +34,9 @@ export function useFlowStepContextCreator(val: FlowStepContextValue) {
 }
 
 export default function useFlowStepContext() {
-    const { id, workflowStepFlow } = useContext(FlowStepContext);
+    const {
+        id, workflowStepFlow, x, y, yEnd,
+    } = useContext(FlowStepContext);
     const { branchId } = useWorkflowContext();
 
     const flowStep = useSelector(selectFlowStep(branchId, id));
@@ -60,5 +70,8 @@ export default function useFlowStepContext() {
         flowStepNodes,
         prevFlowStepId,
         nextFlowStepId,
+        x,
+        y,
+        yEnd,
     };
 }

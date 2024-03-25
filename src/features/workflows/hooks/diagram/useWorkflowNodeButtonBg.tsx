@@ -13,7 +13,9 @@ export default function useWorkflowNodeButtonBg() {
     } = useFlowStepNodeContext();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
-    const { isFlowStepNodeCreated, isFlowStepNodeDeleted } = useWorkflowBranchContext();
+    const {
+        isFlowStepNodeCreated, isFlowStepNodeDeleted, isFlowStepDeleted, 
+    } = useWorkflowBranchContext();
     const ancestorIds = useSelector(selectNodeAttribute(branchId, id, 'ancestorIds'));
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
@@ -29,7 +31,7 @@ export default function useWorkflowNodeButtonBg() {
     if (isBranch) {
         if (isFlowStepNodeCreated(flowStepId, id)) {
             colors = diffColors(isSelected, DiffState.Added);
-        } else if (isFlowStepNodeDeleted(flowStepId, id)) {
+        } else if (isFlowStepNodeDeleted(flowStepId, id) || isFlowStepDeleted(flowStepId)) {
             colors = diffColors(isSelected, DiffState.Removed);
         } else {
             colors = {

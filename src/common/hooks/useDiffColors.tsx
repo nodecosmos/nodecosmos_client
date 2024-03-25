@@ -14,13 +14,13 @@ export default function useDiffColors() {
     const theme: NodecosmosTheme = useTheme();
     const { diff } = theme.palette;
 
-    return useCallback((isSelected: boolean, state: DiffState) => {
+    return useCallback((isSelected: boolean, state: DiffState, extraOp?: number) => {
         return {
-            outlineColor: withOpacity(diff[state].fg, 0.3),
+            outlineColor: withOpacity(diff[state].fg, extraOp ? extraOp / 1.5 : 0.3),
             color: diff[state].fg,
             backgroundColor: isSelected
-                ? diff[state].slBg
-                : diff[state].bg,
+                ? withOpacity(diff[state].bg, extraOp ?? 1)
+                : withOpacity(diff[state].bg, extraOp ?? 1),
         };
     }, [diff]);
 }
