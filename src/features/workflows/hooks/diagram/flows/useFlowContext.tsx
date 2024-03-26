@@ -1,6 +1,6 @@
 import { UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectFlow } from '../../../../flows/flows.selectors';
-import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import useWorkflowContext from '../../useWorkflowContext';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,6 @@ export function useFlowContextCreator(val: FlowContextValue) {
 export default function useFlowContext() {
     const { id } = useContext(FlowContext);
     const { branchId } = useWorkflowContext();
-
     const {
         nodeId,
         workflowId,
@@ -31,9 +30,8 @@ export default function useFlowContext() {
         verticalIndex,
         title,
     } = useSelector(selectFlow(branchId, id));
-
-    const { id: selectedObjectId } = useSelector(selectSelectedWorkflowObject);
-    const flowSelected = id === selectedObjectId;
+    const selectedObject = useSelector(selectSelectedObject);
+    const flowSelected = id === selectedObject?.objectId;
 
     return {
         nodeId,

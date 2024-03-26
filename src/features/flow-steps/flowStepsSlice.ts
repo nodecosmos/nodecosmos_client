@@ -25,8 +25,9 @@ const flowStepsSlice = createSlice({
 
                 state.byBranchId[branchId] ||= {};
 
-                flowSteps.forEach((flowStep) => {
+                flowSteps.forEach((flowStep, index) => {
                     flowStep.branchId = branchId;
+                    flowStep.index = index;
                     state.byBranchId[branchId][flowStep.id] = flowStep;
                 });
             })
@@ -41,6 +42,9 @@ const flowStepsSlice = createSlice({
 
                 if (flowStep.prevFlowStepId) {
                     state.byBranchId[branchId][flowStep.prevFlowStepId].nextFlowStepId = flowStep.id;
+                    flowStep.index = state.byBranchId[branchId][flowStep.prevFlowStepId].index + 1;
+                } else {
+                    flowStep.index = 0;
                 }
 
                 if (flowStep.nextFlowStepId) {

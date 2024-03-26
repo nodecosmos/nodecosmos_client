@@ -177,20 +177,24 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: 'rgba(177, 244, 122, 0.3)',
+                bg: '#424d46',
                 fg: '#b1f47a',
+                slBg: '#4a5750',
             },
             removed: {
-                bg: 'rgba(253,82,111,0.3)',
+                bg: '#5e3e4a',
                 fg: '#fd526f',
+                slBg: '#6b4a56',
             },
             edited: {
-                bg: 'rgba(238,244,122,0.3)',
+                bg: '#484d46',
                 fg: '#eef47a',
+                slBg: '#4f5750',
             },
             conflict: {
-                bg: 'rgba(244,175,122,0.3)',
+                bg: '#705d52',
                 fg: '#f4af7a',
+                slBg: '#7c655a',
             },
         },
 

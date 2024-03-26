@@ -52,12 +52,12 @@ export default (theme: NodecosmosTheme) => ({
                         display: 'inline-block',
                     },
                     '.diff-removed': {
-                        color: theme.palette.diff.removedFg,
-                        backgroundColor: theme.palette.diff.removedBg,
+                        color: theme.palette.diff.removed.fg,
+                        backgroundColor: theme.palette.diff.removed.bg,
                     },
                     '.diff-added': {
-                        color: theme.palette.diff.addedFg,
-                        backgroundColor: theme.palette.diff.addedBg,
+                        color: theme.palette.diff.added.fg,
+                        backgroundColor: theme.palette.diff.added.bg,
                     },
                 },
                 '&.selected': {

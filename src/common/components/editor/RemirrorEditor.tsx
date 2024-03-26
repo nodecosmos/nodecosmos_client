@@ -10,8 +10,8 @@ import { MarkdownExtension } from 'remirror/extensions';
 export interface RemirrorEditorProps {
     markdown: string;
     onChange: (helpers: HelpersFromExtensions<MarkdownExtension>, uint8ArrayState: Uint8Array | null) => void;
-    wsRoomId?: UUID;
     base64?: string | null;
+    wsRoomId?: UUID;
     wsAuthNodeId?: UUID;
     wsAuthNodeBranchId?: UUID;
     isRealTime?: boolean;

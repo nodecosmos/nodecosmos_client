@@ -1,12 +1,10 @@
-import { Workflow, WorkflowDiagramObject } from './workflow.types';
+import { Workflow } from './workflow.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
 export const selectWorkflowsByBranchId = (state: RootState) => state.workflows.byBranchId;
 export const selectIdByBranchAndNodeId = (state: RootState) => state.workflows.idByBranchAndNodeId;
-export const selectRawSelectedWorkflowObject = (state: RootState) =>
-    state.workflows.selectedWorkflowObject || {} as WorkflowDiagramObject;
 export const selectWorkflowDiagramByBranchId = (state: RootState) => state.workflows.workflowDiagramByBranchId;
 
 export const selectBranchWorkflowDiagram = (branchId: UUID) => createSelector(
@@ -22,11 +20,6 @@ export const selectBranchNodeIds = (branchId: UUID) => createSelector(
 export const selectWorkflowIdByNodeId = (branchId: UUID, nodeId: UUID) => createSelector(
     selectBranchNodeIds(branchId),
     (idsByBranchAndNodeId) => idsByBranchAndNodeId[nodeId],
-);
-
-export const selectSelectedWorkflowObject = createSelector(
-    selectRawSelectedWorkflowObject,
-    (selectedWorkflowObject) => selectedWorkflowObject,
 );
 
 /* diagram */

@@ -5,7 +5,7 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload, NodeBranchDiffPayload,
+    PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -178,9 +178,15 @@ export const getDescriptionBase64 = createAsyncThunk<
     },
 );
 
+export interface BranchDiffPayload {
+    currentRootNodeId: UUID;
+    currentBranchId: UUID;
+    id: UUID;
+}
+
 export const getOriginalDescriptionBase64 = createAsyncThunk<
     DescriptionBase64Res,
-    NodeBranchDiffPayload,
+    BranchDiffPayload,
     { rejectValue: NodecosmosError }
 > (
     'nodes/getOriginalDescriptionBase64',

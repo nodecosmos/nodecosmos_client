@@ -1,7 +1,7 @@
 import { Position, UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectNodeAttribute } from '../../../../nodes/nodes.selectors';
 import { FlowStepNode } from '../../../diagram/diagram.types';
-import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
 import useWorkflowContext from '../../useWorkflowContext';
 import useFlowStepContext from '../flow-step/useFlowStepContext';
 import React, { useMemo, useContext } from 'react';
@@ -30,11 +30,12 @@ export function useFlowStepNodeContextCreator(val: FlowStepNodeContextValue) {
 
 export default function useFlowStepNodeContext() {
     const context = useContext(FlowStepNodeContext);
+    const selectedObject = useSelector(selectSelectedObject);
     const { branchId } = useWorkflowContext();
+
     const { id: flowStepId } = useFlowStepContext();
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
-    const isSelected = selectedWorkflowDiagramObject?.id === context.id
-        && selectedWorkflowDiagramObject?.flowStepId === flowStepId;
+    const isSelected = selectedObject?.objectId === context.id
+        && selectedObject.metadata?.flowStepId === flowStepId;
 
     const title = useSelector(selectNodeAttribute(branchId, context.id, 'title'));
     const position = context.flowStepNode?.position || {} as Position;

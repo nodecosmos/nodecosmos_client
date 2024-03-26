@@ -16,3 +16,4 @@ export const selectTransformablePositionAttribute = (
     selectTransformablePositionsById(id),
     (transformablePosition) => transformablePosition && transformablePosition[attribute],
 );
+export const selectSelectedObject = (state: RootState) => state.app.selectedObject;

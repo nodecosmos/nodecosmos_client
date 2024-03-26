@@ -1,9 +1,9 @@
 import useFlowStepContext from './flow-step/useFlowStepContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
+import { selectSelectedObject } from '../../../app/app.selectors';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import { selectSelectedWorkflowObject } from '../../workflow.selectors';
 import useWorkflowBranchContext from '../useWorkflowBranchContext';
 import useWorkflowContext from '../useWorkflowContext';
 import { useTheme } from '@mui/material';
@@ -22,10 +22,10 @@ export default function useOutputButtonBg({ id, nodeId }: Props) {
     } = useWorkflowBranchContext();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
     const ancestorIds = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));
+    const selectedObject = useSelector(selectSelectedObject);
     const selectedNodeAncestorIds
-        = useSelector(selectNodeAttribute(branchId, selectedWorkflowDiagramObject?.id, 'ancestorIds'));
+        = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));
     const nestedLevel = ancestorIds?.length || 0;
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
@@ -34,7 +34,7 @@ export default function useOutputButtonBg({ id, nodeId }: Props) {
     const selectedNodeNestedLevelColor = backgrounds[selectedNodeNestedLevel % backgroundCount];
     const { id: flowStepId } = useFlowStepContext();
 
-    const isSelected = selectedWorkflowDiagramObject?.id === id;
+    const isSelected = selectedObject?.objectId === id;
 
     let colors = {
         backgroundColor: isSelected ? nestedLevelColor : theme.palette.background[4],

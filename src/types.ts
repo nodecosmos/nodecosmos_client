@@ -31,6 +31,14 @@ export enum ProfileType {
     Organization = 'Organization',
 }
 
+export enum ObjectType {
+    Node = 'Node',
+    Workflow = 'Workflow',
+    Flow = 'Flow',
+    FlowStep = 'FlowStep',
+    IO = 'IO',
+}
+
 export type Exact<T, Shape> = T & {
     [K in Exclude<keyof Shape, keyof T>]?: never;
 };

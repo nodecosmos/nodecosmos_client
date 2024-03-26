@@ -101,6 +101,12 @@ export interface Branch {
     conflict?: Conflict;
 }
 
+export interface BranchDiffPayload {
+    currentRootNodeId: UUID;
+    currentBranchId: UUID;
+    objectId: UUID;
+}
+
 export interface BranchesState {
     byId: Record<UUID, Branch>;
 }

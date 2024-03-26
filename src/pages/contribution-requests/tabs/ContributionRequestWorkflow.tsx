@@ -1,15 +1,15 @@
 import Loader from '../../../common/components/Loader';
+import Pane from '../../../common/components/pane/Pane';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
+import { clearPaneContent } from '../../../features/app/appSlice';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import CreateWorkflowToolbar from '../../../features/workflows/components/CreateWorkflowToolbar';
-import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
 import { selectOptWorkflowByBranchAndNodeId } from '../../../features/workflows/workflow.selectors';
-import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/type';
 import { Box, useTheme } from '@mui/material';
@@ -61,7 +61,7 @@ export default function ContributionRequestWorkflow() {
         }
 
         return () => {
-            dispatch(clearSelectedWorkflowDiagramObject());
+            dispatch(clearPaneContent());
         };
     }, [branchId, dispatch, loading, currentRootNodeId]);
 
@@ -118,7 +118,7 @@ export default function ContributionRequestWorkflow() {
                     style={{ borderLeftColor }}
                     sx={{ backgroundColor: 'background.5' }}
                 >
-                    <WorkflowPane />
+                    <Pane />
                 </Box>
             </Box>
         </Box>

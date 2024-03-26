@@ -1,7 +1,9 @@
 import OutputBranch from './OutputBranch';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
-import { UUID } from '../../../../../types';
+import { ObjectType, UUID } from '../../../../../types';
+import { setPaneContent } from '../../../../app/app.thunks';
+import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
 import {
     ANIMATION_DELAY,
@@ -13,11 +15,9 @@ import {
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
 } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
-import useFlowStepInputsChange from '../../../hooks/diagram/flow-step-node/useFlowStepInputsChange';
+import useNodeInputsChange from '../../../hooks/diagram/flow-step-node/useNodeInputsChange';
 import useOutputButtonBg from '../../../hooks/diagram/useOutputButtonBg';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { WorkflowDiagramObjectType } from '../../../workflow.types';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { Checkbox } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,13 +28,18 @@ interface OutputProps {
 
 export default function Output(props: OutputProps) {
     const {
-        branchId, context: workflowContext, inputsAdditionActive, selectedInputs, setSelectedInputs,
+        branchId,
+        context: workflowContext,
+        inputsAdditionActive,
+        selectedInputs,
+        setSelectedInputs,
+        nodeId,
     } = useWorkflowContext();
     const { output } = props;
     const {
         id,
-        nodeId,
         position,
+        nodeId: outputNodeId,
     } = output;
     const title = useSelector(selectIOAttribute(branchId, id, 'title'));
     const {
@@ -42,11 +47,10 @@ export default function Output(props: OutputProps) {
         xEnd,
         y,
     } = position;
-
     const dispatch: NodecosmosDispatch = useDispatch();
     const isChecked = selectedInputs.has(id);
-
-    const handleInputsChange = useFlowStepInputsChange();
+    const { currentRootNodeId } = useBranchParams();
+    const handleInputsChange = useNodeInputsChange();
 
     const handleClick = useCallback(async () => {
         if (inputsAdditionActive) {
@@ -68,16 +72,28 @@ export default function Output(props: OutputProps) {
 
             await handleInputsChange(selectedInputsArray);
         } else if (workflowContext === WorkflowDiagramContext.workflowPage) {
-            dispatch(setSelectedWorkflowDiagramObject({
+            dispatch(setPaneContent({
+                currentBranchId: branchId,
+                currentRootNodeId,
+                objectNodeId: nodeId,
                 branchId,
-                id,
-                type: WorkflowDiagramObjectType.IO,
+                objectId: id,
+                objectType: ObjectType.IO,
             }));
         }
     },
     [
-        dispatch, handleInputsChange, id, branchId, inputsAdditionActive, isChecked,
-        selectedInputs, setSelectedInputs, workflowContext,
+        branchId,
+        currentRootNodeId,
+        dispatch,
+        handleInputsChange,
+        id,
+        inputsAdditionActive,
+        isChecked,
+        nodeId,
+        selectedInputs,
+        setSelectedInputs,
+        workflowContext,
     ]);
 
     const {
@@ -87,7 +103,7 @@ export default function Output(props: OutputProps) {
         checkboxColor,
     } = useOutputButtonBg({
         id,
-        nodeId: nodeId as UUID,
+        nodeId: outputNodeId as UUID,
     });
 
     const preventDefault = usePreventDefault();

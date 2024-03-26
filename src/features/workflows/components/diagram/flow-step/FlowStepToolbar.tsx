@@ -3,7 +3,9 @@ import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateVal
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { NodecosmosDispatch } from '../../../../../store';
-import { Strict } from '../../../../../types';
+import { ObjectType, Strict } from '../../../../../types';
+import { setPaneContent } from '../../../../app/app.thunks';
+import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import { FlowStepCreationParams } from '../../../../flow-steps/flowSteps.types';
@@ -12,8 +14,6 @@ import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColor
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { WorkflowDiagramObjectType } from '../../../workflow.types';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { faPlay } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,23 +29,27 @@ import { useDispatch } from 'react-redux';
 export default function FlowStepToolbar() {
     const { branchId } = useWorkflowContext();
     const {
-        title: flowTitle, id: flowId, flowSelected,
+        title: flowTitle, id: flowId, flowSelected, nodeId,
     } = useFlowContext();
     const {
         flowStepPrimaryKey, stepId, nextFlowStepId,
     } = useFlowStepContext();
     const { backgroundColor, color } = useFlowStepColors();
+    const { currentRootNodeId } = useBranchParams();
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
 
     const handleFlowClick = useCallback(() => {
-        dispatch(setSelectedWorkflowDiagramObject({
+        dispatch(setPaneContent({
+            currentBranchId: branchId,
+            currentRootNodeId,
+            objectNodeId: nodeId,
             branchId,
-            id: flowId,
-            type: WorkflowDiagramObjectType.Flow,
+            objectId: flowId,
+            objectType: ObjectType.Flow,
         }));
-    }, [dispatch, flowId, branchId]);
+    }, [branchId, currentRootNodeId, dispatch, flowId, nodeId]);
 
     const handleFlowStepDeletion = useCallback(() => {
         if (!flowStepPrimaryKey) {

@@ -1,15 +1,15 @@
 import Loader from '../../common/components/Loader';
+import Pane from '../../common/components/pane/Pane';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
+import { clearPaneContent } from '../../features/app/appSlice';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
 import CreateWorkflowToolbar from '../../features/workflows/components/CreateWorkflowToolbar';
-import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
 import { selectOptWorkflowByBranchAndNodeId } from '../../features/workflows/workflow.selectors';
-import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
 import { UUID } from '../../types';
@@ -65,7 +65,7 @@ export default function Show() {
         }
 
         return () => {
-            dispatch(clearSelectedWorkflowDiagramObject());
+            dispatch(clearPaneContent());
         };
     }, [branchId, currentRootNodeId, dispatch, id]);
 
@@ -124,7 +124,7 @@ export default function Show() {
                     zIndex={1}
                     style={{ borderLeftColor }}
                 >
-                    <WorkflowPane />
+                    <Pane />
                 </Box>
             </Box>
         </Box>

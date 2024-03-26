@@ -17,7 +17,7 @@ import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useSelector } from 'react-redux';
 
-export enum IoObjectTypes {
+export enum IoObjectType {
     startStep = 'startStep',
     flowStep = 'flowStep',
 }
@@ -40,7 +40,7 @@ type ConditionalProps = FlowStepProps | StartStepProps;
 export type CreateIOModalProps = ConditionalProps & {
     open: boolean;
     onClose: () => void;
-    associatedObject: IoObjectTypes;
+    associatedObject: IoObjectType;
 };
 
 export default function CreateIOModal(props: CreateIOModalProps) {
@@ -57,7 +57,7 @@ export default function CreateIOModal(props: CreateIOModalProps) {
     const allIOTitles = allWorkflowIOs.map((io) => io.title);
     const uniqueIOTitles = [...new Set(allIOTitles)];
 
-    const title = associatedObject === IoObjectTypes.startStep
+    const title = associatedObject === IoObjectType.startStep
         ? 'Create Initial Input' : 'Create Output';
 
     const [autocompleteValue, setAutocompleteValue] = React.useState<string | null>(null);

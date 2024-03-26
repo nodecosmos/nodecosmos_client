@@ -1,10 +1,9 @@
 import { NodecosmosDispatch } from '../../../../../store';
-import { UUID } from '../../../../../types';
+import { ObjectType, UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
 import { setAlert } from '../../../../app/appSlice';
 import { selectOptFlowStep } from '../../../../flow-steps/flowSteps.selectors';
 import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
-import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
-import { WorkflowDiagramObject, WorkflowDiagramObjectType } from '../../../workflow.types';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,16 +12,28 @@ import { useDispatch, useSelector } from 'react-redux';
  * it uses it to update the inputs of the flow step.
  * Inputs are added to `Workflow
  */
-export default function useFlowStepInputsChange() {
-    const selectedWorkflowDiagramObject = useSelector(selectSelectedWorkflowObject);
+export default function useNodeInputsChange() {
+    const selectedObject = useSelector(selectSelectedObject);
+
+    if (!selectedObject) {
+        throw new Error('Selected object is not found');
+    }
+
     const {
-        branchId, id: nodeId, flowStepId, type,
-    } = selectedWorkflowDiagramObject as WorkflowDiagramObject;
+        branchId, objectNodeId, objectType, metadata,
+    } = selectedObject;
+
+    if (!metadata) {
+        throw new Error('Metadata is not found');
+    }
+
+    const { flowStepId } = metadata;
+
     const flowStep = useSelector(selectOptFlowStep(branchId, flowStepId));
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback(async (selectedInputs: UUID[]) => {
-        if (type !== WorkflowDiagramObjectType.Node) {
+        if (objectType !== ObjectType.Node) {
             throw new Error('Selected object is not a node');
         }
 
@@ -41,7 +52,7 @@ export default function useFlowStepInputsChange() {
 
         try {
             const inputIdsByNodeId = { ...flowStep.inputIdsByNodeId };
-            inputIdsByNodeId[nodeId] = selectedInputs;
+            inputIdsByNodeId[objectNodeId] = selectedInputs;
 
             await dispatch(updateFlowStepInputs({
                 ...flowStepPrimaryKey,
@@ -56,5 +67,5 @@ export default function useFlowStepInputsChange() {
 
             console.error(e);
         }
-    }, [dispatch, flowStep, nodeId, type]);
+    }, [dispatch, flowStep, objectNodeId, objectType]);
 }

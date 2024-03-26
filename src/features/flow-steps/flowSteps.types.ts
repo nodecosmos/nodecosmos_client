@@ -1,5 +1,10 @@
 import { UUID } from '../../types';
 
+// app defined attributes
+interface FlowStepAppAttrs {
+    index: number;
+}
+
 export interface FlowStepPrimaryKey {
     nodeId: UUID;
     branchId: UUID;
@@ -9,7 +14,7 @@ export interface FlowStepPrimaryKey {
     id: UUID;
 }
 
-export interface FlowStep extends FlowStepPrimaryKey {
+export interface FlowStep extends FlowStepPrimaryKey, FlowStepAppAttrs {
     nodeIds: UUID[];
     description: string;
     descriptionMarkdown: string;

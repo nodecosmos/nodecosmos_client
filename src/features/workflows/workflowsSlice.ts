@@ -15,7 +15,6 @@ const initialState: WorkflowState = {
     idByBranchAndNodeId: {},
     // diagram
     workflowDiagramByBranchId: {},
-    selectedWorkflowObject: null,
     workflowScale: getScale(),
 };
 
@@ -23,12 +22,6 @@ const workflowsSlice = createSlice({
     name: 'workflows',
     initialState,
     reducers: {
-        setSelectedWorkflowDiagramObject(state, action) {
-            state.selectedWorkflowObject = action.payload;
-        },
-        clearSelectedWorkflowDiagramObject(state) {
-            state.selectedWorkflowObject = null;
-        },
         setWorkflowScale(state, action) {
             localStorage.setItem('workflowScale', action.payload);
             state.workflowScale = action.payload;
@@ -126,32 +119,19 @@ const workflowsSlice = createSlice({
                 delete state.workflowDiagramByBranchId[branchId][id];
                 state.idByBranchAndNodeId[branchId] ||= {};
                 state.idByBranchAndNodeId[branchId][workflow.nodeId] = id;
-                state.selectedWorkflowObject = null;
+
+                // TODO update app state
             })
-            .addCase(deleteFlow.fulfilled, (state) => {
+            .addCase(deleteFlow.fulfilled, () => {
                 // currently flows are deleted only from the pane
-                state.selectedWorkflowObject = null;
+                // TODO update app state
             })
-            .addCase(deleteFlowStep.fulfilled, (state, action) => {
+            .addCase(deleteFlowStep.fulfilled, (_, action) => {
                 const flowStep = action.payload;
-                const { outputIdsByNodeId, nodeIds } = flowStep;
-
-                // check step
-                if (state.selectedWorkflowObject?.id === flowStep.id) {
-                    state.selectedWorkflowObject = null;
-                }
-
-                // check nodes
-                if (nodeIds?.some((id: UUID) => state.selectedWorkflowObject?.id === id)) {
-                    state.selectedWorkflowObject = null;
-                }
+                const { outputIdsByNodeId } = flowStep;
 
                 // check outputs
                 if (!outputIdsByNodeId) return;
-
-                if (Object.values(outputIdsByNodeId).flat().some((id) => state.selectedWorkflowObject?.id === id)) {
-                    state.selectedWorkflowObject = null;
-                }
             })
             .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
                 const workflow = action.payload;
@@ -164,10 +144,6 @@ const workflowsSlice = createSlice({
                 const workflowId = inputOutput.workflowId as UUID;
                 const branchId = inputOutput.branchId as UUID;
                 const { initialInputIds } = state.byBranchId[branchId][workflowId];
-
-                if (state.selectedWorkflowObject?.id === inputOutput.id) {
-                    state.selectedWorkflowObject = null;
-                }
 
                 if (initialInputIds.includes(inputOutput.id as UUID)) {
                     state.byBranchId[branchId][workflowId].initialInputIds
@@ -183,9 +159,7 @@ const {
 } = workflowsSlice;
 
 export const {
-    setSelectedWorkflowDiagramObject,
     setWorkflowScale,
-    clearSelectedWorkflowDiagramObject,
     updateWorkflow,
     rebuildWorkflowDiagram,
 } = actions;

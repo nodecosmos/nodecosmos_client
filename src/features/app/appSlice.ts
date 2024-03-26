@@ -1,3 +1,4 @@
+import { setPaneContent } from './app.thunks';
 import {
     AppState, Browser, Theme, TransformablePositions,
 } from './app.types';
@@ -44,6 +45,7 @@ const initialState: AppState = {
         y: 0,
     },
     isPaneOpen: true,
+    selectedObject: null,
 };
 
 const appSlice = createSlice({
@@ -72,6 +74,14 @@ const appSlice = createSlice({
         setDescriptionCoordinates(state, action) {
             state.descriptionCoordinates = action.payload;
         },
+        clearPaneContent(state) {
+            state.selectedObject = null;
+        },
+    },
+    extraReducers(builder) {
+        builder.addCase(setPaneContent.fulfilled, (state, action) => {
+            state.selectedObject = action.payload;
+        });
     },
 });
 
@@ -85,6 +95,7 @@ export const {
     setTransformablePositions,
     setAlert,
     setDescriptionCoordinates,
+    clearPaneContent,
 } = actions;
 
 export default reducer;

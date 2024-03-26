@@ -5,7 +5,7 @@ import { setAlert } from '../../app/appSlice';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
-import { CreateIOModalProps, IoObjectTypes } from '../components/CreateIOModal';
+import { CreateIOModalProps, IoObjectType } from '../components/CreateIOModal';
 import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
 import { createIO } from '../inputOutputs.thunks';
 import { InputOutput, InsertInputOutputPayload } from '../inputOutputs.types';
@@ -55,7 +55,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
         const inputOutput = response.payload as InputOutput;
 
         try {
-            if (associatedObject === IoObjectTypes.startStep) {
+            if (associatedObject === IoObjectType.startStep) {
                 const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
                 await dispatch(updateWorkflowInitialInputs({
@@ -66,7 +66,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
                 }));
             }
 
-            if (associatedObject === IoObjectTypes.flowStep) {
+            if (associatedObject === IoObjectType.flowStep) {
                 if (!flowStepPrimaryKey || !outputNodeId || !outputIdsByNodeId) {
                     throw new Error('Flow step props are required');
                 }

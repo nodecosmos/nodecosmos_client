@@ -15,7 +15,7 @@ const initialState: InputOutputSlice = {
 };
 
 const inputOutputsSlice = createSlice({
-    name: 'nodes',
+    name: 'IOs',
     initialState,
     reducers: {
         updateIOState(state, action) {

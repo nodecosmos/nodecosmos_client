@@ -2,6 +2,9 @@ import WorkflowNodeBranch from './WorkflowNodeBranch';
 import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
+import { ObjectType } from '../../../../../types';
+import { setPaneContent } from '../../../../app/app.thunks';
+import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import { select } from '../../../../nodes/actions';
 import {
     ANIMATION_DELAY,
@@ -15,7 +18,6 @@ import {
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';
@@ -41,15 +43,19 @@ export default function WorkflowNodeButton() {
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
+    const { currentRootNodeId } = useBranchParams();
 
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
-        dispatch(setSelectedWorkflowDiagramObject({
+        dispatch(setPaneContent({
+            currentBranchId: branchId,
+            currentRootNodeId,
+            objectNodeId: nodeId,
             branchId,
-            id,
-            flowStepId,
-            type: 'node',
+            objectId: id,
+            objectType: ObjectType.Node,
+            metadata: { flowStepId },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
@@ -60,7 +66,17 @@ export default function WorkflowNodeButton() {
                 id,
             }));
         }
-    }, [deactivateInputsAddition, dispatch, flowStepId, id, nodeId, branchId, workflowContext]);
+    },
+    [
+        branchId,
+        currentRootNodeId,
+        deactivateInputsAddition,
+        dispatch,
+        flowStepId,
+        id,
+        nodeId,
+        workflowContext,
+    ]);
 
     if (!x) return null;
 
