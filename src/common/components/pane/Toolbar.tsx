@@ -19,7 +19,7 @@ export default function PaneToolbar() {
     const isTitleEdited = originalObjectTitle && objectTitle !== originalObjectTitle;
 
     const handleTogglePane = useCallback((paneContent: PaneContent | undefined) => {
-        if (paneContent) {
+        if (paneContent !== undefined) {
             setContent(paneContent);
         }
     }, [setContent]);
@@ -57,7 +57,7 @@ export default function PaneToolbar() {
                     active={content === PaneContent.Description}
                     onClick={handleTogglePane}
                     onClickValue={PaneContent.Description}
-                />\
+                />
             </ToolbarContainer>
 
             <Box

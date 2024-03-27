@@ -6,5 +6,5 @@ export const selectDescriptionsByBranch = (state: RootState) => state.descriptio
 
 export const selectDescription = (branchId: UUID, objectId: UUID) => createSelector(
     selectDescriptionsByBranch,
-    (descriptionsByBranch) => descriptionsByBranch[branchId][objectId],
+    (descriptionsByBranch) => descriptionsByBranch[branchId] && descriptionsByBranch[branchId][objectId],
 );

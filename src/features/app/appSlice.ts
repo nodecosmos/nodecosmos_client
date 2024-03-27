@@ -1,4 +1,4 @@
-import { setPaneContent } from './app.thunks';
+import { selectObject } from './app.thunks';
 import {
     AppState, Browser, Theme, TransformablePositions,
 } from './app.types';
@@ -79,7 +79,7 @@ const appSlice = createSlice({
         },
     },
     extraReducers(builder) {
-        builder.addCase(setPaneContent.fulfilled, (state, action) => {
+        builder.addCase(selectObject.fulfilled, (state, action) => {
             state.selectedObject = action.payload;
         });
     },

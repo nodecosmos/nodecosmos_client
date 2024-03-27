@@ -27,12 +27,13 @@ export default function useDescriptionEdit() {
 
     const {
         html: currentHTML, markdown, base64,
-    } = useSelector(selectDescription(branchId, objectId));
+    } = useSelector(selectDescription(branchId, objectId)) || {};
 
     useEffect(() => {
         if (!fetched && !loading) {
             setLoading();
             dispatch(getDescriptionBase64({
+                nodeId: objectNodeId,
                 branchId,
                 objectId,
             })).then(() => {
@@ -48,7 +49,19 @@ export default function useDescriptionEdit() {
                 unsetFetched();
             }
         };
-    }, [dispatch, fetched, loading, branchId, objectId, setFetched, setLoading, unsetFetched, unsetLoading]);
+    },
+    [
+        branchId,
+        objectNodeId,
+        objectId,
+        fetched,
+        loading,
+        setLoading,
+        unsetFetched,
+        unsetLoading,
+        setFetched,
+        dispatch,
+    ]);
 
     const handleChange = useCallback((
         helpers: HelpersFromExtensions<MarkdownExtension>,

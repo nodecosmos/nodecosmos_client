@@ -4,7 +4,7 @@ import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServ
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, Strict } from '../../../../../types';
-import { setPaneContent } from '../../../../app/app.thunks';
+import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
@@ -41,7 +41,7 @@ export default function FlowStepToolbar() {
     const handleServerError = useHandleServerErrorAlert();
 
     const handleFlowClick = useCallback(() => {
-        dispatch(setPaneContent({
+        dispatch(selectObject({
             currentBranchId: branchId,
             currentRootNodeId,
             objectNodeId: nodeId,

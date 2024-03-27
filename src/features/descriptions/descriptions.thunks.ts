@@ -1,15 +1,17 @@
 import { Description, PrimaryKey } from './descriptions.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError } from '../../types';
+import { NodecosmosError, WithNodeId } from '../../types';
 import { BranchDiffPayload } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const getDescription = createAsyncThunk<Description, PrimaryKey, { rejectValue: NodecosmosError }>(
+export const getDescription = createAsyncThunk<Description, WithNodeId<PrimaryKey>, { rejectValue: NodecosmosError }>(
     'descriptions/getDescription',
-    async ({ branchId, objectId }, { rejectWithValue }) => {
+    async ({
+        branchId, objectId, nodeId,
+    }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.get(`/descriptions/${objectId}/${branchId}`);
+            const response = await nodecosmos.get(`/descriptions/${nodeId}/${objectId}/${branchId}`);
 
             return response.data;
         } catch (error) {
@@ -24,14 +26,16 @@ export const getDescription = createAsyncThunk<Description, PrimaryKey, { reject
 
 export const getDescriptionBase64 = createAsyncThunk<
     Description,
-    PrimaryKey,
+    WithNodeId<PrimaryKey>,
     { rejectValue: NodecosmosError }
 >(
     'descriptions/getDescriptionBase64',
 
-    async ({ branchId, objectId }, { rejectWithValue }) => {
+    async ({
+        branchId, objectId, nodeId,
+    }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.get(`/descriptions/${objectId}/${branchId}/base64`);
+            const response = await nodecosmos.get(`/descriptions/${nodeId}/${objectId}/${branchId}/base64`);
 
             return response.data;
         } catch (error) {
@@ -46,13 +50,13 @@ export const getDescriptionBase64 = createAsyncThunk<
 
 export const getOriginalDescription = createAsyncThunk<
     Omit<Description, 'base64'>,
-    BranchDiffPayload,
+    WithNodeId<BranchDiffPayload>,
     { rejectValue: NodecosmosError }
 > (
     'descriptions/getOriginalDescription',
-    async ({ objectId }, { rejectWithValue }) => {
+    async ({ objectId, nodeId }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.get(`/descriptions/${objectId}/original/base64`);
+            const response = await nodecosmos.get(`/descriptions/${nodeId}/${objectId}/original/base64`);
 
             return response.data;
         } catch (error) {

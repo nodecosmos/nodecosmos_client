@@ -10,6 +10,7 @@ export default function useDescription() {
     const {
         objectId,
         branchId,
+        objectNodeId,
         loading,
         setLoading,
         unsetLoading,
@@ -22,6 +23,7 @@ export default function useDescription() {
         if (!description?.html && !loading && !fetched) {
             setLoading();
             dispatch(getDescription({
+                nodeId: objectNodeId,
                 objectId,
                 branchId,
             })).then(() => {
@@ -39,7 +41,16 @@ export default function useDescription() {
         };
     },
     [
-        description?.html, dispatch, fetched, loading, branchId, objectId,
-        setFetched, setLoading, unsetFetched, unsetLoading,
+        branchId,
+        objectNodeId,
+        objectId,
+        fetched,
+        loading,
+        setLoading,
+        unsetFetched,
+        unsetLoading,
+        dispatch,
+        description?.html,
+        setFetched,
     ]);
 }

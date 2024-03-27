@@ -143,7 +143,7 @@ export default function useExtensions(props: UseExtensionsProps) {
             if (!isRealTime || !wsRoomId || !doc) return null;
 
             const wsProvider = new WebsocketProvider(
-                `${WS_URI}/descriptions/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
+                `${WS_URI}ws/descriptions/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
             );
 
             wsProvider.awareness.setLocalStateField('user', { name: currentUser.username });

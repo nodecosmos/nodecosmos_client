@@ -3,7 +3,7 @@ import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
-import { setPaneContent } from '../../../../app/app.thunks';
+import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import { select } from '../../../../nodes/actions';
 import {
@@ -48,7 +48,7 @@ export default function WorkflowNodeButton() {
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
-        dispatch(setPaneContent({
+        dispatch(selectObject({
             currentBranchId: branchId,
             currentRootNodeId,
             objectNodeId: nodeId,
@@ -59,9 +59,8 @@ export default function WorkflowNodeButton() {
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
-            // TODO update tree branch id
             dispatch(select({
-                treeBranchId: nodeId,
+                treeBranchId: branchId,
                 branchId,
                 id,
             }));

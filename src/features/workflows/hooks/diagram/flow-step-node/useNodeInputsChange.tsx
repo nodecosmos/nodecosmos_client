@@ -4,6 +4,7 @@ import { selectSelectedObject } from '../../../../app/app.selectors';
 import { setAlert } from '../../../../app/appSlice';
 import { selectOptFlowStep } from '../../../../flow-steps/flowSteps.selectors';
 import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
+import useWorkflowContext from '../../useWorkflowContext';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,25 +15,18 @@ import { useDispatch, useSelector } from 'react-redux';
  */
 export default function useNodeInputsChange() {
     const selectedObject = useSelector(selectSelectedObject);
+    const { branchId } = useWorkflowContext();
 
-    if (!selectedObject) {
-        throw new Error('Selected object is not found');
-    }
-
-    const {
-        branchId, objectNodeId, objectType, metadata,
-    } = selectedObject;
-
-    if (!metadata) {
-        throw new Error('Metadata is not found');
-    }
-
-    const { flowStepId } = metadata;
-
-    const flowStep = useSelector(selectOptFlowStep(branchId, flowStepId));
+    const flowStep = useSelector(selectOptFlowStep(branchId, selectedObject?.metadata?.flowStepId));
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback(async (selectedInputs: UUID[]) => {
+        if (!selectedObject) {
+            throw new Error('Selected object is not found');
+        }
+
+        const { objectNodeId, objectType } = selectedObject;
+
         if (objectType !== ObjectType.Node) {
             throw new Error('Selected object is not a node');
         }
@@ -67,5 +61,5 @@ export default function useNodeInputsChange() {
 
             console.error(e);
         }
-    }, [dispatch, flowStep, objectNodeId, objectType]);
+    }, [dispatch, flowStep, selectedObject]);
 }

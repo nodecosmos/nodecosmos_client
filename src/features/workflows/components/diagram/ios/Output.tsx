@@ -2,7 +2,7 @@ import OutputBranch from './OutputBranch';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
-import { setPaneContent } from '../../../../app/app.thunks';
+import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import { selectIOAttribute } from '../../../../input-outputs/inputOutputs.selectors';
 import {
@@ -72,7 +72,7 @@ export default function Output(props: OutputProps) {
 
             await handleInputsChange(selectedInputsArray);
         } else if (workflowContext === WorkflowDiagramContext.workflowPage) {
-            dispatch(setPaneContent({
+            dispatch(selectObject({
                 currentBranchId: branchId,
                 currentRootNodeId,
                 objectNodeId: nodeId,

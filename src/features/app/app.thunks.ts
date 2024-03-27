@@ -4,12 +4,12 @@ import { ObjectType } from '../../types';
 import { BranchDiffPayload } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const setPaneContent = createAsyncThunk<
+export const selectObject = createAsyncThunk<
     SelectedObject,
     Pick<SelectedObject, 'objectId' | 'branchId' | 'objectNodeId' | 'objectType' | 'metadata'> & BranchDiffPayload,
     { state: RootState }
 > (
-    'app/setPaneContent',
+    'app/selectObject',
     async (payload, { getState }) => {
         const state = getState();
         let objectTitle, originalObjectTitle;
@@ -46,10 +46,7 @@ export const setPaneContent = createAsyncThunk<
         return {
             objectTitle,
             originalObjectTitle,
-            objectId: payload.objectId,
-            branchId: payload.branchId,
-            objectNodeId: payload.objectNodeId,
-            objectType: payload.objectType,
+            ...payload,
         };
     },
 );

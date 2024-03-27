@@ -45,6 +45,8 @@ export type Exact<T, Shape> = T & {
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
 
+export type WithNodeId<T> = T & { nodeId: UUID };
+
 export enum ActionTypes {
     CreateNode = 'CREATE_NODE',
     ReadNode = 'READ_NODE',
