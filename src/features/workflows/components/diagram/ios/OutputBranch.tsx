@@ -42,10 +42,7 @@ export default function OutputBranch(props: OutputProps) {
             <path
                 strokeWidth={3}
                 d={`M ${x + 5.5} ${y}
-            C ${x + 5.5} ${y}
-              ${x + 25} ${y + 1}
-              ${xEnd} ${y}
-            L ${xEnd} ${y}`}
+                    L ${xEnd} ${y}`}
                 stroke={theme.palette.workflow.default}
                 fill="transparent"
                 style={{

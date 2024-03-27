@@ -162,22 +162,18 @@ interface Palette {
         added: {
             bg: string;
             fg: string;
-            slBg: string;
         },
         removed: {
             bg: string;
             fg: string;
-            slBg: string;
         },
         edited: {
             bg: string;
             fg: string;
-            slBg: string;
         },
         conflict: {
             bg: string;
             fg: string;
-            slBg: string;
         },
     };
 

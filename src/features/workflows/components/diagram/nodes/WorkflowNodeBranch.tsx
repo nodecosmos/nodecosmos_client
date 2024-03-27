@@ -1,5 +1,9 @@
 import { NodecosmosTheme } from '../../../../../themes/type';
-import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../nodes/nodes.constants';
+import {
+    EDGE_LENGTH,
+    INITIAL_ANIMATION_DURATION,
+    TRANSITION_ANIMATION_DURATION,
+} from '../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import { useTheme } from '@mui/material';
 import React from 'react';
@@ -24,10 +28,7 @@ export default function WorkflowNodeBranch() {
             <path
                 strokeWidth={3}
                 d={`M ${x} ${y}
-                    C ${x} ${y}
-                      ${x + 25} ${y + 1}
-                      ${xEnd} ${y}
-                    L ${xEnd} ${y}`}
+                    L ${xEnd - EDGE_LENGTH} ${y}`}
                 stroke={theme.palette.tree.default}
                 fill="transparent"
                 style={{

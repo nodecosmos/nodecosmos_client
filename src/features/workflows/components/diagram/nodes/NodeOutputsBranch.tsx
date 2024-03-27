@@ -25,6 +25,10 @@ export default function NodeOutputsBranch() {
     const branchX = x + EDGE_LENGTH + MARGIN_LEFT;
     const branchY = y + MARGIN_TOP;
 
+    if (branchY > yEnd) {
+        return null;
+    }
+
     return (
         <path
             stroke={theme.palette.workflow.default}

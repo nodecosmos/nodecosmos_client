@@ -55,7 +55,10 @@ export default function WorkflowNodeButton() {
             branchId,
             objectId: id,
             objectType: ObjectType.Node,
-            metadata: { flowStepId },
+            metadata: {
+                flowStepId,
+                treeBranchId: branchId, 
+            },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {

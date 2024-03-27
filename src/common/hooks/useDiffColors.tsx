@@ -20,7 +20,7 @@ export default function useDiffColors() {
             color: diff[state].fg,
             backgroundColor: isSelected
                 ? withOpacity(diff[state].bg, extraOp ?? 1)
-                : withOpacity(diff[state].bg, extraOp ?? 1),
+                : withOpacity(diff[state].bg, extraOp ?? 0.6),
         };
     }, [diff]);
 }
