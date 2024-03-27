@@ -1,5 +1,7 @@
 import FlowStepToolbar from './FlowStepToolbar';
-import { FLOW_STEP_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
+import {
+    EDGE_LENGTH, FLOW_STEP_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH,
+} from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import FlowStepNode from '../nodes/FlowStepNode';
@@ -19,7 +21,7 @@ export default function FlowStep() {
                 x={x}
                 y={y + FLOW_STEP_TOOLBAR_HEIGHT}
                 width={WORKFLOW_STEP_WIDTH}
-                height={yEnd - y + FLOW_STEP_TOOLBAR_HEIGHT}
+                height={yEnd - y + EDGE_LENGTH}
                 fill={backgroundColor} />
             <foreignObject
                 x={x}

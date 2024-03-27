@@ -41,7 +41,7 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
             && Object.values(flowStep.outputIdsByNodeId).flat().length
     ) || 0;
 
-    const y = prefFlowYEnd + WORKFLOW_STEP_HEIGHT;
+    const y = prefFlowYEnd == 0 ? prefFlowYEnd + WORKFLOW_STEP_HEIGHT : prefFlowYEnd;
     const yEnd = y + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
 
     return {
