@@ -1,7 +1,7 @@
 import {
     LikeCreate, LikePrimaryKey,
     LikesCountResponse,
-} from './types';
+} from './likes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { WithOptTreeBranchId } from '../nodes/nodes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';

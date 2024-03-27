@@ -4,7 +4,7 @@ import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
 export const selectInputOutputsByBranchId = (state: RootState) => state.inputOutputs.byBranchId;
-export const selectIOPaneContent = (state: RootState) => state.inputOutputs.IOPaneContent;
+export const selectIoPaneContent = (state: RootState) => state.inputOutputs.IoPaneContent;
 
 export const selectInputOutputsByBranch = (branchId: UUID) => createSelector(
     selectInputOutputsByBranchId,
@@ -27,19 +27,19 @@ export const selectInputOutputPrimaryKey = (branchId: UUID, id: UUID) => createS
     }),
 );
 
-export const selectIOAttribute = (branchId: UUID, id: UUID, attribute: keyof InputOutput) => createSelector(
+export const selectIoAttribute = (branchId: UUID, id: UUID, attribute: keyof InputOutput) => createSelector(
     selectInputOutput(branchId, id),
     (inputOutput) => inputOutput ? inputOutput[attribute] : null,
 );
 
-export const selectIOByWorkflowId = (branchId: UUID, workflowId: UUID) => createSelector(
+export const selectIoByWorkflowId = (branchId: UUID, workflowId: UUID) => createSelector(
     selectInputOutputsByBranch(branchId),
     (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
         (inputOutput) => inputOutput.workflowId === workflowId,
     ),
 );
 
-export const selectUniqueIOByRootNodeId = (branchId: UUID, rootNodeId: UUID) => createSelector(
+export const selectUniqueIoByRootNodeId = (branchId: UUID, rootNodeId: UUID) => createSelector(
     selectInputOutputsByBranch(branchId),
     (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
         (inputOutput) => inputOutput.rootNodeId === rootNodeId,

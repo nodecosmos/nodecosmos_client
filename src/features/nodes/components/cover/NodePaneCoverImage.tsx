@@ -1,9 +1,9 @@
 import DeleteCoverImageButton from './DeleteCoverImageButton';
+import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { updateState } from '../../actions';
-import { selectSelected, selectSelectedNode } from '../../nodes.selectors';
-import { AppNode, PKWithTreeBranch } from '../../nodes.types';
+import { selectNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -16,10 +16,21 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId, branchId } = useSelector(selectSelected) as PKWithTreeBranch;
+    const {
+        objectId,
+        branchId,
+        metadata,
+    } = usePaneContext();
+
+    const treeBranchId = metadata?.treeBranchId;
+
+    if (!treeBranchId) {
+        throw new Error('`treeBranchId` is required in `metadata`');
+    }
+
     const {
         id, isTmp, coverImageURL,
-    } = useSelector(selectSelectedNode) as AppNode;
+    } = useSelector(selectNode(treeBranchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
     const handleClose = useCallback((responseBody?: { url: string }) => {
@@ -37,58 +48,75 @@ export default function NodePaneCoverImage() {
     return (
         <>
             {coverImageURL && (
-                <Box
-                    sx={{
-                        height: 'auto',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'relative',
-                        '.CoverImage': {
-                            position: 'relative',
-                            '.CoverImageMedia': {
-                                borderRadius: 4,
-                                maxWidth: '100%',
-                                width: 850,
-                                maxHeight: 375,
-                                borderTopLeftRadius: 0,
-                                borderTopRightRadius: 0,
-                            },
-                        },
-                    }}
-                >
+                <>
                     <Box
-                        className="CoverImage"
-                        onMouseOver={displayButton}
-                        onMouseLeave={hideButton}
+                        sx={{
+                            height: 'auto',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'relative',
+                            mx: -4,
+                            my: -1,
+                            '.CoverImage': {
+                                mt: 3,
+                                px: 2,
+                                position: 'relative',
+                                '.CoverImageMedia': {
+                                    borderRadius: 0.75,
+                                    maxWidth: '100%',
+                                    width: 850,
+                                    maxHeight: 375,
+                                },
+                            },
+                        }}
                     >
-                        <DeleteCoverImageButton show={buttonDisplayed} />
                         <CardMedia
-                            className="CoverImageMedia"
+                            className="AmbientImage"
                             component="img"
                             image={coverImageURL}
-                            alt="Cover Image"
-                        />
-                        <Button
-                            component="label"
-                            variant="contained"
-                            startIcon={<FontAwesomeIcon icon={faCamera} />}
-                            onClick={openModal}
+                            alt="Cover Image Ambient"
                             sx={{
-                                opacity: buttonDisplayed ? 0.8 : 0,
-                                transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
                                 position: 'absolute',
-                                backgroundColor: 'background.1',
-                                color: 'text.primary',
-                                bottom: 16,
-                                right: 64,
-                                '&:hover': { backgroundColor: 'background.1' },
+                                width: '100%',
+                                height: 415,
+                                filter: 'blur(50px) opacity(0.4)',
+                                borderBottom: 1,
                             }}
+                        />
+                        <Box
+                            className="CoverImage"
+                            onMouseOver={displayButton}
+                            onMouseLeave={hideButton}
                         >
-                                Upload cover image
-                        </Button>
+                            <DeleteCoverImageButton show={buttonDisplayed} />
+                            <CardMedia
+                                className="CoverImageMedia"
+                                component="img"
+                                image={coverImageURL}
+                                alt="Cover Image"
+                            />
+                            <Button
+                                component="label"
+                                variant="contained"
+                                startIcon={<FontAwesomeIcon icon={faCamera} />}
+                                onClick={openModal}
+                                sx={{
+                                    opacity: buttonDisplayed ? 0.8 : 0,
+                                    transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+                                    position: 'absolute',
+                                    backgroundColor: 'background.1',
+                                    color: 'text.primary',
+                                    bottom: 16,
+                                    right: 16,
+                                    '&:hover': { backgroundColor: 'background.1' },
+                                }}
+                            >
+                               Upload cover image
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
+                </>
             )}
 
             {!coverImageURL && !isTmp && (

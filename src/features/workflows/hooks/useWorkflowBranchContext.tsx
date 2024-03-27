@@ -33,10 +33,10 @@ export default function useWorkflowBranchContext(): WorkflowBranchChanges {
         deletedFlows,
         editedFlowTitles,
         editedFlowDescriptions,
-        createdIOs,
-        deletedIOs,
-        editedIOTitles,
-        editedIODescriptions,
+        createdIos,
+        deletedIos,
+        editedIoTitles,
+        editedIoDescriptions,
         createdFlowSteps,
         deletedFlowSteps,
         createdFlowStepInputsByNode,
@@ -73,10 +73,10 @@ export default function useWorkflowBranchContext(): WorkflowBranchChanges {
     const isFlowStepOutputDeleted = useCallback((flowStepId: UUID, nodeId: UUID, outputId: UUID) => {
         return deletedFlowStepOutputsByNode?.[flowStepId]?.[nodeId]?.has(outputId) ?? false;
     }, [deletedFlowStepOutputsByNode]);
-    const isIoCreated = useCallback((ioId: UUID) => createdIOs.has(ioId), [createdIOs]);
-    const isIoDeleted = useCallback((ioId: UUID) => deletedIOs.has(ioId), [deletedIOs]);
-    const isIoTitleEdited = useCallback((ioId: UUID) => editedIOTitles.has(ioId), [editedIOTitles]);
-    const isIoDescriptionEdited = useCallback((ioId: UUID) => editedIODescriptions.has(ioId), [editedIODescriptions]);
+    const isIoCreated = useCallback((ioId: UUID) => createdIos.has(ioId), [createdIos]);
+    const isIoDeleted = useCallback((ioId: UUID) => deletedIos.has(ioId), [deletedIos]);
+    const isIoTitleEdited = useCallback((ioId: UUID) => editedIoTitles.has(ioId), [editedIoTitles]);
+    const isIoDescriptionEdited = useCallback((ioId: UUID) => editedIoDescriptions.has(ioId), [editedIoDescriptions]);
 
     return {
         isFlowCreated,

@@ -22,7 +22,7 @@ export default function Show() {
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(currentRootNodeId, branchId));
+    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(branchId, currentRootNodeId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
     const branchNodes = useSelector(selectBranchNodes(currentRootNodeId as UUID));
 

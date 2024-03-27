@@ -1,8 +1,8 @@
+import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import { COMMENT_THREAD_WIDGET_CLASS, CommentThreadWidget } from '../../../../common/lib/codemirror/extensions/widgets';
 import { setThreadWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { UUID } from '../../../../types';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext';
 import { selectNodeThreadsByLine } from '../../comments.selectors';
 import CommentThread from '../../components/CommentThread';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
@@ -15,9 +15,9 @@ import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 
 export default function useCommentThreadsWidget(view: EditorView): ReactPortal[] {
-    const { id } = useNodePaneContext();
+    const { objectId } = usePaneContext();
     const { branchId } = useBranchParams();
-    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, id));
+    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, objectId));
     const [portalsById, setDescThreadPortals] = useState<Record<UUID, ReactPortal> | null>();
 
     // const clearWidgets = useCallback(() => {

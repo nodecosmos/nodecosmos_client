@@ -4,13 +4,15 @@ import {
 import {
     Branch, BranchesState, ConflictStatus,
 } from './branches.types';
+import { ObjectType } from '../../types';
 import { deepArrayToSet } from '../../utils/object';
 import {
     mergeContributionRequest,
     showContributionRequest,
 } from '../contribution-requests/contributionRequests.thunks';
+import { saveDescription } from '../descriptions/descriptions.thunks';
 import {
-    create, deleteNode, updateDescription, updateTitle,
+    create, deleteNode, updateTitle,
 } from '../nodes/nodes.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -44,10 +46,10 @@ function initBranch(state: BranchesState, branch: Branch) {
         deletedFlows: new Set(branch.deletedFlows),
         editedFlowTitles: new Set(branch.editedFlowTitles),
         editedFlowDescriptions: new Set(branch.editedFlowDescriptions),
-        createdIOs: new Set(branch.createdIOs),
-        deletedIOs: new Set(branch.deletedIOs),
-        editedIOTitles: new Set(branch.editedIOTitles),
-        editedIODescriptions: new Set(branch.editedIODescriptions),
+        createdIos: new Set(branch.createdIos),
+        deletedIos: new Set(branch.deletedIos),
+        editedIoTitles: new Set(branch.editedIoTitles),
+        editedIoDescriptions: new Set(branch.editedIoDescriptions),
         createdFlowSteps: new Set(branch.createdFlowSteps),
         deletedFlowSteps: new Set(branch.deletedFlowSteps),
         createdFlowStepNodes: deepArrayToSet(branch.createdFlowStepNodes),
@@ -107,14 +109,28 @@ const branchesSlice = createSlice({
                     branch.editedNodeTitles.add(nodeId);
                 }
             })
-            .addCase(updateDescription.fulfilled, (state, action) => {
-                const { id: nodeId } = action.payload;
-                const { treeBranchId } = action.meta.arg;
-                const branch = treeBranchId && state.byId[treeBranchId];
+            .addCase(saveDescription.fulfilled, (state, action) => {
+                const {
+                    branchId, objectId, objectType,
+                } = action.payload;
+                const branch = state.byId[branchId];
 
                 if (branch) {
-                    branch.editedNodeDescriptions ||= new Set();
-                    branch.editedNodeDescriptions.add(nodeId);
+                    switch (objectType) {
+                    case ObjectType.Node: {
+                        branch.editedNodeDescriptions ||= new Set();
+                        branch.editedNodeDescriptions.add(objectId);
+                        break;
+                    }
+                    case ObjectType.Flow:
+                        branch.editedFlowDescriptions ||= new Set();
+                        branch.editedFlowDescriptions.add(objectId);
+                        break;
+                    case ObjectType.Io:
+                        branch.editedIoDescriptions ||= new Set();
+                        branch.editedIoDescriptions.add(objectId);
+                        break;
+                    }
                 }
             })
             .addCase(restoreNode.fulfilled, (state, action) => {

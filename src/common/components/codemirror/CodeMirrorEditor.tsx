@@ -17,7 +17,7 @@ import React, {
 interface CodeMirrorEditorProps {
     diffViewEnabled?: boolean;
     commentsEnabled?: boolean;
-    currentValue?: string;
+    originalValue?: string;
     value: string;
     onChange?: (value: string) => void;
     editable?: boolean;
@@ -26,7 +26,7 @@ interface CodeMirrorEditorProps {
 export default function CodeMirrorEditor({
     diffViewEnabled = false,
     commentsEnabled = false,
-    currentValue = '',
+    originalValue = '',
     value = '',
     onChange,
     editable,
@@ -39,7 +39,7 @@ export default function CodeMirrorEditor({
 
         if (diffViewEnabled) {
             extensions.push(
-                diff(currentValue, value),
+                diff(originalValue, value),
             );
         }
 
@@ -59,7 +59,7 @@ export default function CodeMirrorEditor({
             );
         }
         return extensions;
-    }, [currentValue, commentsEnabled, diffViewEnabled, value]);
+    }, [originalValue, commentsEnabled, diffViewEnabled, value]);
 
     const { setContainer, view } = useCodeMirror({
         container: codeMirrorRef.current,

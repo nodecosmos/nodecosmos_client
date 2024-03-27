@@ -36,7 +36,7 @@ export enum ObjectType {
     Workflow = 'Workflow',
     Flow = 'Flow',
     FlowStep = 'FlowStep',
-    IO = 'IO',
+    Io = 'Io',
 }
 
 export type Exact<T, Shape> = T & {

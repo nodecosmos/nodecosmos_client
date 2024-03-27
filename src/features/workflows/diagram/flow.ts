@@ -11,7 +11,7 @@ import { FLOW_BUFFER } from '../constants';
 export interface FlowStepData {
     flowId: UUID;
     flowSteps: FlowStep[];
-    IOsById: Record<UUID, InputOutput>;
+    IosById: Record<UUID, InputOutput>;
     flowStartIndex: number;
     flowVerticalIndex: number;
     prefFlowYEnd: number;

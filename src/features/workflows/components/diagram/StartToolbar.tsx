@@ -1,5 +1,5 @@
 import useModalOpen from '../../../../common/hooks/useModalOpen';
-import CreateIOModal, { IoObjectType } from '../../../input-outputs/components/CreateIOModal';
+import CreateIoModal, { IoObjectType } from '../../../input-outputs/components/CreateIoModal';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -43,7 +43,7 @@ export default function StartToolbar({ startStepHovered }: StartToolbarProps) {
                     </Tooltip>
                 </Box>
             )}
-            <CreateIOModal
+            <CreateIoModal
                 associatedObject={IoObjectType.startStep}
                 open={modalOpen}
                 onClose={closeModal}

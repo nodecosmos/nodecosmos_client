@@ -1,8 +1,8 @@
 import {
-    createIO, deleteIO, getIODescription, updateIOTitle,
+    createIo, deleteIo, getIoDescription, updateIoTitle,
 } from './inputOutputs.thunks';
 import {
-    InputOutput, InputOutputSlice, IOPaneContent,
+    InputOutput, InputOutputSlice, IoPaneContent,
 } from './inputOutputs.types';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
@@ -11,14 +11,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: InputOutputSlice = {
     byBranchId: {},
-    IOPaneContent: IOPaneContent.Description,
+    IoPaneContent: IoPaneContent.Description,
 };
 
 const inputOutputsSlice = createSlice({
-    name: 'IOs',
+    name: 'Ios',
     initialState,
     reducers: {
-        updateIOState(state, action) {
+        updateIoState(state, action) {
             const { id, branchId } = action.payload;
             state.byBranchId[branchId][id] = {
                 ...state.byBranchId[branchId][id],
@@ -38,8 +38,8 @@ const inputOutputsSlice = createSlice({
                 }
             });
         },
-        setIOPaneContent(state, action) {
-            state.IOPaneContent = action.payload;
+        setIoPaneContent(state, action) {
+            state.IoPaneContent = action.payload;
         },
     },
     extraReducers(builder) {
@@ -52,13 +52,13 @@ const inputOutputsSlice = createSlice({
                 inputOutputs.forEach((inputOutput: InputOutput) => {
                     state.byBranchId[branchId][inputOutput.id] = inputOutput;
                 });
-            }).addCase(createIO.fulfilled, (state, action) => {
+            }).addCase(createIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const { branchId } = inputOutput;
 
                 state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][inputOutput.id] = inputOutput;
-            }).addCase(getIODescription.fulfilled, (state, action) => {
+            }).addCase(getIoDescription.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const {
                     branchId, description, descriptionMarkdown,
@@ -70,7 +70,7 @@ const inputOutputsSlice = createSlice({
                         io.descriptionMarkdown = descriptionMarkdown as string | null;
                     }
                 });
-            }).addCase(updateIOTitle.fulfilled, (state, action) => {
+            }).addCase(updateIoTitle.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const { branchId, title } = inputOutput;
 
@@ -80,7 +80,7 @@ const inputOutputsSlice = createSlice({
                     }
                 });
             })
-            .addCase(deleteIO.fulfilled, (state, action) => {
+            .addCase(deleteIo.fulfilled, (state, action) => {
                 const { branchId, id } = action.payload;
                 delete state.byBranchId[branchId][id];
             })
@@ -102,8 +102,8 @@ const {
 } = inputOutputsSlice;
 
 export const {
-    updateIOState,
-    setIOPaneContent,
+    updateIoState,
+    setIoPaneContent,
 } = actions;
 
 export default reducer;

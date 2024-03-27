@@ -85,12 +85,12 @@ export function calculateFlowStepNodePosition(data: NodePositionData): Position 
     };
 }
 
-export interface IOPositionData {
+export interface IoPositionData {
     nodePosition: Position;
     ioIndex: number;
 }
 
-export function calculateIOPosition(data: IOPositionData): Position {
+export function calculateIoPosition(data: IoPositionData): Position {
     const { ioIndex, nodePosition } = data;
     const { x: nodeX, y: nodeY } = nodePosition;
 

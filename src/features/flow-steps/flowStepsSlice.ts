@@ -7,7 +7,7 @@ import {
 } from './flowSteps.thunks';
 import { FlowStep, FlowStepState } from './flowSteps.types';
 import { UUID } from '../../types';
-import { deleteIO } from '../input-outputs/inputOutputs.thunks';
+import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -81,7 +81,7 @@ const flowStepsSlice = createSlice({
 
                 delete state.byBranchId[branchId][flowStep.id as UUID];
             })
-            .addCase(deleteIO.fulfilled, (state, action) => {
+            .addCase(deleteIo.fulfilled, (state, action) => {
                 const {
                     branchId, flowStepId, id,
                 } = action.payload;

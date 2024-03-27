@@ -1,12 +1,10 @@
 import {
     create,
     deleteNode,
-    getDescription,
-    getDescriptionBase64,
-    getOriginalDescriptionBase64,
     indexNodes,
-    reorder, showBranchNode,
-    showNode, updateDescription,
+    reorder,
+    showBranchNode,
+    showNode,
 } from './nodes.thunks';
 import {
     DragAndDrop, NodePaneContent, NodeState,
@@ -14,11 +12,6 @@ import {
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
 import { deleteFromState, deleteFulfilled } from './reducers/delete';
-import {
-    getDescriptionBase64Fulfilled,
-    getDescriptionFulfilled,
-    getOriginalDescriptionBase64Fulfilled,
-} from './reducers/description';
 import {
     getLikesCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
 } from './reducers/like';
@@ -28,7 +21,6 @@ import select from './reducers/select';
 import showFulfilled from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
-import { mergeContributionRequest } from '../contribution-requests/contributionRequests.thunks';
 import {
     getLikesCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
@@ -78,25 +70,9 @@ const nodesSlice = createSlice({
             .addCase(create.fulfilled, createFulfilled)
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)
-            .addCase(getDescription.fulfilled, getDescriptionFulfilled)
-            .addCase(updateDescription.fulfilled, getDescriptionFulfilled)
-            .addCase(getDescriptionBase64.fulfilled, getDescriptionBase64Fulfilled)
-            .addCase(getOriginalDescriptionBase64.fulfilled, getOriginalDescriptionBase64Fulfilled)
             .addCase(getLikesCount.fulfilled, getLikesCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
-            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
-            .addCase(mergeContributionRequest.fulfilled, (state, action) => {
-                // clear description of each node, so we can fetch the new one
-                const branchId = action.payload.nodeId;
-
-                if (state.byBranchId[branchId]) {
-                    Object.values(state.byBranchId[branchId]).forEach((node) => {
-                        node.description = null;
-                        node.descriptionMarkdown = null;
-                        node.descriptionBase64 = null;
-                    });
-                }
-            });
+            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled);
     },
 });
 

@@ -82,10 +82,10 @@ export interface Branch {
     deletedFlows: Set<UUID>;
     editedFlowTitles: Set<UUID>;
     editedFlowDescriptions: Set<UUID>;
-    createdIOs: Set<UUID>;
-    deletedIOs: Set<UUID>;
-    editedIOTitles: Set<UUID>;
-    editedIODescriptions: Set<UUID>;
+    createdIos: Set<UUID>;
+    deletedIos: Set<UUID>;
+    editedIoTitles: Set<UUID>;
+    editedIoDescriptions: Set<UUID>;
     createdFlowSteps: Set<UUID>;
     deletedFlowSteps: Set<UUID>;
     // FlowStepId, NodeId

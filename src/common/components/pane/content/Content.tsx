@@ -1,6 +1,7 @@
 import PaneDescription from './PaneDescription';
 import PaneDescriptionEditor from './PaneDescriptionEditor';
 import PaneMarkdownEditor from './PaneMarkdownEditor';
+import PaneWorkflow from './PaneWorkflow';
 import { HEADER_HEIGHT } from '../../../../features/app/constants';
 import { PaneContent, usePaneContext } from '../../../hooks/pane/usePaneContext';
 import Toolbar from '../Toolbar';
@@ -11,6 +12,7 @@ const PANE_CONTENTS = {
     [PaneContent.Description]: PaneDescription,
     [PaneContent.Editor]: PaneDescriptionEditor,
     [PaneContent.Markdown]: PaneMarkdownEditor,
+    [PaneContent.Workflow]: PaneWorkflow,
 };
 
 export default function Content() {

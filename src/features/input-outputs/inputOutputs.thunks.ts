@@ -1,13 +1,13 @@
 import {
     InputOutput,
-    InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIODescriptionPayload, UpdateIOTitlePayload,
+    InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIoDescriptionPayload, UpdateIoTitlePayload,
 } from './inputOutputs.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const createIO = createAsyncThunk<InputOutput, InsertInputOutputPayload, { rejectValue: NodecosmosError }>(
+export const createIo = createAsyncThunk<InputOutput, InsertInputOutputPayload, { rejectValue: NodecosmosError }>(
     'inputOutputs/create',
     async (payload: InsertInputOutputPayload, { rejectWithValue }) => {
         try {
@@ -24,7 +24,7 @@ export const createIO = createAsyncThunk<InputOutput, InsertInputOutputPayload, 
     },
 );
 
-export const getIODescription = createAsyncThunk<
+export const getIoDescription = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
     InputOutputPrimaryKey,
     { rejectValue: NodecosmosError }
@@ -42,9 +42,9 @@ export const getIODescription = createAsyncThunk<
     },
 );
 
-export const updateIOTitle = createAsyncThunk<
+export const updateIoTitle = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
-    UpdateIOTitlePayload,
+    UpdateIoTitlePayload,
     { rejectValue: NodecosmosError }
 >(
     'inputOutputs/updateTitle',
@@ -55,20 +55,20 @@ export const updateIOTitle = createAsyncThunk<
     },
 );
 
-export const updateIODescription = createAsyncThunk<
+export const updateIoDescription = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
-    UpdateIODescriptionPayload,
+    UpdateIoDescriptionPayload,
     { rejectValue: NodecosmosError }
 >(
     'inputOutputs/updateDescription',
-    async (payload: UpdateIODescriptionPayload) => {
+    async (payload: UpdateIoDescriptionPayload) => {
         const response = await nodecosmos.put('/input_outputs/description', payload);
 
         return response.data;
     },
 );
 
-export const deleteIO = createAsyncThunk<
+export const deleteIo = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
     InputOutputPrimaryKey,
     { rejectValue: NodecosmosError }

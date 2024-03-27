@@ -1,11 +1,12 @@
 import TogglePaneButton from '../../../features/app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
+import { ObjectType } from '../../../types';
 import { PaneContent, usePaneContext } from '../../hooks/pane/usePaneContext';
 import ToolbarContainer from '../toolbar/ToolbarContainer';
 import ToolbarItem from '../toolbar/ToolbarItem';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
-    faDisplay, faPenToSquare, faRectangleCode,
+    faDisplay, faPenToSquare, faRectangleCode, faCodeCommit,
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
@@ -13,7 +14,7 @@ import React, { useCallback } from 'react';
 
 export default function PaneToolbar() {
     const {
-        objectTitle, originalObjectTitle, setContent, content,
+        objectTitle, originalObjectTitle, setContent, content, objectType,
     } = usePaneContext();
 
     const isTitleEdited = originalObjectTitle && objectTitle !== originalObjectTitle;
@@ -35,7 +36,7 @@ export default function PaneToolbar() {
         >
             <ToolbarContainer>
                 <ToolbarItem
-                    title="Description Markdown (Read Only)"
+                    title="Markdown (Read Only)"
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
                     active={content === PaneContent.Markdown}
@@ -51,13 +52,23 @@ export default function PaneToolbar() {
                     onClickValue={PaneContent.Editor}
                 />
                 <ToolbarItem
-                    title="View Description"
+                    title="Description"
                     icon={faDisplay}
                     color="toolbar.blue"
                     active={content === PaneContent.Description}
                     onClick={handleTogglePane}
                     onClickValue={PaneContent.Description}
                 />
+                {objectType == ObjectType.Node && (
+                    <ToolbarItem
+                        title="Workflow"
+                        icon={faCodeCommit}
+                        color="toolbar.blue"
+                        active={content === PaneContent.Workflow}
+                        onClick={handleTogglePane}
+                        onClickValue={PaneContent.Workflow}
+                    />
+                )}
             </ToolbarContainer>
 
             <Box

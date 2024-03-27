@@ -6,7 +6,7 @@ import { selectBranchLikes } from '../../likes/likes.selectors';
 import {
     getLikesCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
-import { LikeType } from '../../likes/types';
+import { LikeType } from '../../likes/likes.types';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';

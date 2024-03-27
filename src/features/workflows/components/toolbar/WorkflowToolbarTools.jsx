@@ -21,16 +21,16 @@ export default function WorkflowToolbarTools() {
                 '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
             }}
         >
-            <Tooltip title="Edit IO Title" placement="top">
+            <Tooltip title="Edit Io Title" placement="top">
                 <IconButton
                     className="Item"
-                    aria-label="Edit IO Title"
+                    aria-label="Edit Io Title"
                     sx={{ svg: { color: 'toolbar.green' } }}
                 >
                     <FontAwesomeIcon icon={faPenToSquare} />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Delete IO" placement="top">
+            <Tooltip title="Delete Io" placement="top">
                 <IconButton
                     className="Item"
                     aria-label="Delete Flow"

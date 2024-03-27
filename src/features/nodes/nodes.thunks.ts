@@ -5,7 +5,8 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    PKWithTreeBranch, UpdateTitlePayload, UpdateDescriptionPayload,
+    PKWithTreeBranch,
+    UpdateTitlePayload,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -93,106 +94,11 @@ export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { r
     },
 );
 
-export const updateDescription = createAsyncThunk<
-    NodePayload,
-    UpdateDescriptionPayload,
-    { rejectValue: NodecosmosError }
->(
-    'nodes/updateDescription',
-    async (payload, { rejectWithValue }) => {
-        try {
-            const response = await nodecosmos.put('/nodes/description', payload);
-
-            return response.data;
-        } catch (error) {
-            if (isAxiosError(error) && error.response) {
-                return rejectWithValue(error.response.data);
-            }
-
-            console.error(error);
-        }
-    },
-);
-
 export const deleteNode = createAsyncThunk<Node, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
     'nodes/deleteNode',
     async ({ branchId, id }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.delete(`/nodes/${id}/${branchId}`);
-
-            return response.data;
-        } catch (error) {
-            if (isAxiosError(error) && error.response) {
-                return rejectWithValue(error.response.data);
-            }
-
-            console.error(error);
-        }
-    },
-);
-
-export const getDescription = createAsyncThunk<NodePayload, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
-    'nodes/getDescription',
-    async ({ branchId, id }, { rejectWithValue }) => {
-        try {
-            const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description`);
-
-            return response.data;
-        } catch (error) {
-            if (isAxiosError(error) && error.response) {
-                return rejectWithValue(error.response.data);
-            }
-
-            console.error(error);
-        }
-    },
-);
-
-interface DescriptionBase64Res {
-    id: UUID;
-    branchId: UUID;
-    description: string;
-    descriptionBase64: string;
-    descriptionMarkdown: string;
-}
-
-export const getDescriptionBase64 = createAsyncThunk<
-    DescriptionBase64Res,
-    PKWithTreeBranch,
-    { rejectValue: NodecosmosError }
->(
-    'nodes/getDescriptionBase64',
-
-    async ({ branchId, id }, { rejectWithValue }) => {
-        try {
-            const response = await nodecosmos.get(`/nodes/${id}/${branchId}/description_base64`);
-
-            return response.data;
-        } catch (error) {
-            if (isAxiosError(error) && error.response) {
-                return rejectWithValue(error.response.data);
-            }
-
-            console.error(error);
-        }
-    },
-);
-
-export interface BranchDiffPayload {
-    currentRootNodeId: UUID;
-    currentBranchId: UUID;
-    id: UUID;
-}
-
-export const getOriginalDescriptionBase64 = createAsyncThunk<
-    DescriptionBase64Res,
-    BranchDiffPayload,
-    { rejectValue: NodecosmosError }
-> (
-    'nodes/getOriginalDescriptionBase64',
-    async ({ id }, { rejectWithValue }) => {
-        try {
-            const response = await nodecosmos.get(`/nodes/${id}/original/description_base64`);
 
             return response.data;
         } catch (error) {

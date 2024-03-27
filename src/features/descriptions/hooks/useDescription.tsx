@@ -11,6 +11,7 @@ export default function useDescription() {
         objectId,
         branchId,
         objectNodeId,
+        objectType,
         loading,
         setLoading,
         unsetLoading,
@@ -25,6 +26,7 @@ export default function useDescription() {
             dispatch(getDescription({
                 nodeId: objectNodeId,
                 objectId,
+                objectType,
                 branchId,
             })).then(() => {
                 setFetched();
@@ -44,6 +46,7 @@ export default function useDescription() {
         branchId,
         objectNodeId,
         objectId,
+        objectType,
         fetched,
         loading,
         setLoading,

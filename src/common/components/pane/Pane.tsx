@@ -6,7 +6,7 @@ import React from 'react';
 export default function Pane() {
     const { PaneContext, CtxCreatorValue } = usePaneContextCreator();
 
-    if (!CtxCreatorValue.objectId || !CtxCreatorValue.branchId) {
+    if (!CtxCreatorValue.isObjectSelected) {
         return (
             <Box
                 m={3}

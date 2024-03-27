@@ -7,8 +7,8 @@ import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/flowSteps.types';
 import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { selectWorkflowAttribute } from '../../workflows/workflow.selectors';
-import useIOSubmitHandler from '../hooks/useIOSubmitHandler';
-import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
+import useIoSubmitHandler from '../hooks/useIoSubmitHandler';
+import { selectUniqueIoByRootNodeId } from '../inputOutputs.selectors';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';
@@ -37,13 +37,13 @@ interface StartStepProps {
 
 type ConditionalProps = FlowStepProps | StartStepProps;
 
-export type CreateIOModalProps = ConditionalProps & {
+export type CreateIoModalProps = ConditionalProps & {
     open: boolean;
     onClose: () => void;
     associatedObject: IoObjectType;
 };
 
-export default function CreateIOModal(props: CreateIOModalProps) {
+export default function CreateIoModal(props: CreateIoModalProps) {
     const {
         open,
         onClose,
@@ -53,16 +53,16 @@ export default function CreateIOModal(props: CreateIOModalProps) {
 
     const nodeId = useSelector(selectWorkflowAttribute(branchId, workflowId, 'nodeId'));
     const rootNodeId = useSelector(selectNodeAttribute(branchId, nodeId, 'rootId'));
-    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(branchId, rootNodeId as UUID));
-    const allIOTitles = allWorkflowIOs.map((io) => io.title);
-    const uniqueIOTitles = [...new Set(allIOTitles)];
+    const allWorkflowIos = useSelector(selectUniqueIoByRootNodeId(branchId, rootNodeId as UUID));
+    const allIoTitles = allWorkflowIos.map((io) => io.title);
+    const uniqueIoTitles = [...new Set(allIoTitles)];
 
     const title = associatedObject === IoObjectType.startStep
         ? 'Create Initial Input' : 'Create Output';
 
     const [autocompleteValue, setAutocompleteValue] = React.useState<string | null>(null);
 
-    const { onSubmit, loading } = useIOSubmitHandler(props, autocompleteValue);
+    const { onSubmit, loading } = useIoSubmitHandler(props, autocompleteValue);
 
     const renderOption = useCallback((props: React.HTMLAttributes<HTMLLIElement>, option: string) => (
         <li {...props}>
@@ -85,7 +85,7 @@ export default function CreateIOModal(props: CreateIOModalProps) {
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
                             <FinalFormAutocompleteField
                                 freeSolo
-                                options={uniqueIOTitles}
+                                options={uniqueIoTitles}
                                 renderOption={renderOption}
                                 startAdornment={(
                                     <InputAdornment
@@ -100,7 +100,7 @@ export default function CreateIOModal(props: CreateIOModalProps) {
                                     </InputAdornment>
                                 )}
                                 name="title"
-                                placeholder="IO Title"
+                                placeholder="Io Title"
                                 setAutocompleteValue={setAutocompleteValue}
                             />
 

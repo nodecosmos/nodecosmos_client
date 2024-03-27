@@ -16,10 +16,6 @@ export interface Node extends NodePrimaryKey {
     isRoot: boolean;
     title: string;
     ancestorIds: UUID[];
-    description: string | null;
-    shortDescription: string | null;
-    descriptionMarkdown: string | null;
-    descriptionBase64: string | null;
     ownerId?: UUID | null;
     ownerType?: ProfileType | null;
     creatorId?: UUID | null;
@@ -81,14 +77,9 @@ export interface TreeBranch {
 
 export type PKWithTreeBranch = NodePrimaryKey & TreeBranch;
 export type NodePayload = PKWithTreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
-
 export type UpdateTitlePayload = PKWithTreeBranch & Pick<Node, 'title'>;
-export type UpdateDescriptionPayload = PKWithTreeBranch
-    & Pick<Node, 'description' | 'descriptionMarkdown' | 'descriptionBase64' | 'shortDescription'>;
-
 export type TreeNodeKey = TreeBranch & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
-
 export type WithOptTreeBranchId<T> = T & { treeBranchId?: UUID; };
 
 export enum NodePaneContent {

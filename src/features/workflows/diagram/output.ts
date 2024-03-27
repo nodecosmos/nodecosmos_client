@@ -1,6 +1,6 @@
 import { Output } from './diagram.types';
 import { FlowStepData } from './flow';
-import { calculateInitialIoPosition, calculateIOPosition } from './position';
+import { calculateInitialIoPosition, calculateIoPosition } from './position';
 import { Position, UUID } from '../../../types';
 import { FlowStep } from '../../flow-steps/flowSteps.types';
 
@@ -33,7 +33,7 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
         nodeId,
         nodePosition,
     } = data;
-    const { IOsById } = flowStepData;
+    const { IosById } = flowStepData;
 
     const outputs: Output[] = [];
     const outputIdsByNodeId = flowStep?.outputIdsByNodeId || {};
@@ -41,11 +41,11 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
 
     if (nodeOutputs) {
         nodeOutputs.forEach((outputId, ioIndex) => {
-            const io = IOsById[outputId];
+            const io = IosById[outputId];
             const wfOutput = {
                 id: io.id,
                 nodeId,
-                position: calculateIOPosition({
+                position: calculateIoPosition({
                     nodePosition,
                     ioIndex,
                 }),

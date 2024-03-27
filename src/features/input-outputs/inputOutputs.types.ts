@@ -30,18 +30,18 @@ export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'i
     title: InputOutput['title'];
 }
 
-export interface UpdateIOTitlePayload extends InputOutputPrimaryKey {
+export interface UpdateIoTitlePayload extends InputOutputPrimaryKey {
     originalId: InputOutput['originalId'];
     title: InputOutput['title'];
 }
 
-export interface UpdateIODescriptionPayload extends InputOutputPrimaryKey {
+export interface UpdateIoDescriptionPayload extends InputOutputPrimaryKey {
     originalId: InputOutput['originalId'];
     description: InputOutput['description'];
     descriptionMarkdown: InputOutput['descriptionMarkdown'];
 }
 
-export enum IOPaneContent {
+export enum IoPaneContent {
     Markdown = 'markdown',
     Description = 'description',
     Editor = 'editor',
@@ -49,5 +49,5 @@ export enum IOPaneContent {
 
 export interface InputOutputSlice {
     byBranchId: Record<UUID, Record<UUID, InputOutput>>,
-    IOPaneContent: IOPaneContent,
+    IoPaneContent: IoPaneContent,
 }

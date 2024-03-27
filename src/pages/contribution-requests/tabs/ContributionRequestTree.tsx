@@ -1,7 +1,7 @@
+import Pane from '../../../common/components/pane/Pane';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
-import NodePane from '../../../features/nodes/components/pane/NodePane';
 import Tree from '../../../features/nodes/components/tree/Tree';
 import { TreeType } from '../../../features/nodes/nodes.types';
 import { NodecosmosTheme } from '../../../themes/type';
@@ -93,7 +93,7 @@ export default function ContributionRequestTree() {
                     borderLeftColor: resizerHovered
                         ? theme.palette.borders['5'] : theme.palette.borders['3'],
                 }}>
-                <NodePane />
+                <Pane />
             </Box>
         </Box>
     );

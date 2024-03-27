@@ -77,12 +77,12 @@ export default function CodeMirrorContainer({ children }) {
                 zIndex: 2000,
             },
             '.cm-diffAdd': {
-                backgroundColor: 'diff.addedBg',
-                color: 'diff.addedFg',
+                backgroundColor: 'diff.added.bg',
+                color: 'diff.added.fg',
             },
             '.cm-diffRemoved': {
-                backgroundColor: 'diff.removedBg',
-                color: 'diff.removedFg',
+                backgroundColor: 'diff.removed.bg',
+                color: 'diff.removed.fg',
             },
 
             '.cm-diffRemoved:empty': {

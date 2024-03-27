@@ -1,16 +1,15 @@
+import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError } from '../../../../types';
 import { updateState } from '../../actions';
-import { selectSelected } from '../../nodes.selectors';
 import { deleteNodeImage } from '../../nodes.thunks';
-import { PKWithTreeBranch } from '../../nodes.types';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 interface DeleteCoverImageButtonProps {
     show: boolean;
@@ -19,14 +18,22 @@ interface DeleteCoverImageButtonProps {
 export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        treeBranchId, branchId, id,
-    } = useSelector(selectSelected) as PKWithTreeBranch;
+        objectId,
+        branchId,
+        metadata,
+    } = usePaneContext();
+    const treeBranchId = metadata?.treeBranchId;
+
+    if (!treeBranchId) {
+        throw new Error('`treeBranchId` is required in `metadata`');
+    }
+
     const handleServerError = useHandleServerErrorAlert();
 
     const handleDeleteCoverImage = useCallback(() => {
         dispatch(deleteNodeImage({
             branchId,
-            id,
+            id: objectId,
         })).then((response) => {
             if (response.meta.requestStatus === 'rejected') {
                 const error: NodecosmosError = response.payload as NodecosmosError;
@@ -37,11 +44,11 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
             }
             dispatch(updateState({
                 treeBranchId,
-                id,
+                id: objectId,
                 coverImageURL: null,
             }));
         });
-    }, [branchId, dispatch, handleServerError, id, treeBranchId]);
+    }, [branchId, dispatch, handleServerError, objectId, treeBranchId]);
 
     return (
         <Tooltip title="Delete Cover Image">
@@ -58,7 +65,7 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
                     position: 'absolute',
                     borderRadius: '50%',
                     top: 16,
-                    right: 64,
+                    right: 16,
                     width: 30,
                     height: 30,
                     p: 0,

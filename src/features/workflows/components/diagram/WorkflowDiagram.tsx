@@ -5,7 +5,7 @@ import Transformable from '../../../../common/components/Transformable';
 import { NodecosmosDispatch } from '../../../../store';
 import { selectFlowStepsByWorkflowId } from '../../../flow-steps/flowSteps.selectors';
 import { selectFlowsByWorkflowId } from '../../../flows/flows.selectors';
-import { selectIOByWorkflowId } from '../../../input-outputs/inputOutputs.selectors';
+import { selectIoByWorkflowId } from '../../../input-outputs/inputOutputs.selectors';
 import { useDiagramContextCreator } from '../../hooks/diagram/useDiagramContext';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { selectWorkflowScale } from '../../workflow.selectors';
@@ -23,7 +23,7 @@ export default function WorkflowDiagram() {
 
     const flows = useSelector(selectFlowsByWorkflowId(branchId, id));
     const flowSteps = useSelector(selectFlowStepsByWorkflowId(branchId, id));
-    const inputOutputs = useSelector(selectIOByWorkflowId(branchId, id));
+    const inputOutputs = useSelector(selectIoByWorkflowId(branchId, id));
 
     useEffect(() => {
         if (id) {

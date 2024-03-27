@@ -1,13 +1,18 @@
-import { UUID } from '../../types';
+import { ObjectType, UUID } from '../../types';
 
 export interface PrimaryKey {
     objectId: UUID;
     branchId: UUID;
 }
 
+export interface QueryKey extends PrimaryKey {
+    nodeId: UUID;
+    objectType: ObjectType;
+}
+
 export interface Description extends PrimaryKey {
     nodeId: UUID;
-    objectType: string;
+    objectType: ObjectType;
     html: string;
     markdown: string;
     base64: string | null;

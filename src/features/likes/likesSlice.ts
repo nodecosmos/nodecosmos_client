@@ -1,7 +1,7 @@
 import {
     getUserLikes, likeObject, unlikeObject,
 } from './likes.thunks';
-import { LikeState } from './types';
+import { LikeState } from './likes.types';
 import { UUID } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 

@@ -24,7 +24,7 @@ export default function PaneMarkdownEditor() {
                 <CodeMirrorEditor
                     diffViewEnabled={diffViewEnabled}
                     commentsEnabled={true}
-                    currentValue={originalMarkdown || ''}
+                    originalValue={originalMarkdown || ''}
                     value={branchMarkdown || ''}
                     editable={false}
                 />

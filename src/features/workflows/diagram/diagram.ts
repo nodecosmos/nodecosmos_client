@@ -42,7 +42,7 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
     } else {
         // build workflow steps from flows
         const flowStepsByFlowId = groupFlowStepsByFlowId(flowSteps);
-        const IOsById = groupInputOutputsById(inputOutputs);
+        const IosById = groupInputOutputsById(inputOutputs);
 
         let prefFlowYEnd = 0;
 
@@ -59,7 +59,7 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
             const { workflowStepFlows, flowYEnd } = buildFlow({
                 flowId: flow.id,
                 flowSteps,
-                IOsById,
+                IosById,
                 flowStartIndex,
                 flowVerticalIndex: verticalIndex,
                 prefFlowYEnd,

@@ -1,9 +1,9 @@
+import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import { CommentGutterMarker } from '../../../../common/lib/codemirror/extensions/gutter';
 import { CommentWidget } from '../../../../common/lib/codemirror/extensions/widgets';
 import { removeInsertCommentWidget, setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { hoveredLineField, selectedLineField } from '../../../../common/lib/codemirror/stateFields';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext';
 import {
     ObjectType, ThreadType, ThreadInsertPayload,
 } from '../../comments.types';
@@ -17,7 +17,7 @@ import React, {
 import { createPortal } from 'react-dom';
 
 export default function useCommentInsertWidget(view: EditorView) {
-    const { id } = useNodePaneContext();
+    const { objectId } = usePaneContext();
     const { currentRootNodeId, branchId } = useBranchParams();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
@@ -62,7 +62,7 @@ export default function useCommentInsertWidget(view: EditorView) {
                 objectType: ObjectType.ContributionRequest,
                 objectNodeId: currentRootNodeId,
                 threadType: ThreadType.ContributionRequestNodeDescription,
-                threadNodeId: id,
+                threadNodeId: objectId,
                 lineNumber,
                 lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
             };
@@ -81,7 +81,7 @@ export default function useCommentInsertWidget(view: EditorView) {
 
             setCreateDescriptionPortals(portals => portals ? [...portals, portal] : [portal]);
         }
-    }, [branchId, closeInsertComment, currentRootNodeId, id, view]);
+    }, [branchId, closeInsertComment, currentRootNodeId, objectId, view]);
 
     useEffect(() => {
         CommentGutterMarker.prototype.addComment = function() {

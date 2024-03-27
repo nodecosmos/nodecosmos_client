@@ -5,14 +5,14 @@ import { setAlert } from '../../app/appSlice';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
-import { CreateIOModalProps, IoObjectType } from '../components/CreateIOModal';
-import { selectUniqueIOByRootNodeId } from '../inputOutputs.selectors';
-import { createIO } from '../inputOutputs.thunks';
+import { CreateIoModalProps, IoObjectType } from '../components/CreateIoModal';
+import { selectUniqueIoByRootNodeId } from '../inputOutputs.selectors';
+import { createIo } from '../inputOutputs.thunks';
 import { InputOutput, InsertInputOutputPayload } from '../inputOutputs.types';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function useIOSubmitHandler(props: CreateIOModalProps, autocompleteValue: string | null) {
+export default function useIoSubmitHandler(props: CreateIoModalProps, autocompleteValue: string | null) {
     const {
         associatedObject,
         flowStepPrimaryKey,
@@ -25,24 +25,24 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const allWorkflowIOs = useSelector(selectUniqueIOByRootNodeId(branchId, rootNodeId));
+    const allWorkflowIos = useSelector(selectUniqueIoByRootNodeId(branchId, rootNodeId));
     const handleServerError = useHandleServerErrorAlert();
 
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
-        const existingIO = autocompleteValue ? allWorkflowIOs.find((io) => io.title === autocompleteValue) : null;
+        const existingIo = autocompleteValue ? allWorkflowIos.find((io) => io.title === autocompleteValue) : null;
 
         const payload: Strict<InsertInputOutputPayload> = {
             nodeId,
             branchId,
             workflowId,
             rootNodeId,
-            originalId: (autocompleteValue && existingIO?.id) || null,
+            originalId: (autocompleteValue && existingIo?.id) || null,
             flowStepId: flowStepPrimaryKey?.id ?? null,
             ...formValues,
         };
 
-        const response = await dispatch(createIO(payload));
+        const response = await dispatch(createIo(payload));
 
         if (response.meta.requestStatus === 'rejected') {
             const error: NodecosmosError = response.payload as NodecosmosError;
@@ -96,7 +96,7 @@ export default function useIOSubmitHandler(props: CreateIOModalProps, autocomple
         props.onClose();
     },
     [
-        autocompleteValue, allWorkflowIOs, nodeId, branchId, workflowId, rootNodeId, associatedObject,
+        autocompleteValue, allWorkflowIos, nodeId, branchId, workflowId, rootNodeId, associatedObject,
         flowStepPrimaryKey, dispatch, props, handleServerError, currentInitialInputIds, outputIdsByNodeId, outputNodeId,
     ]);
 

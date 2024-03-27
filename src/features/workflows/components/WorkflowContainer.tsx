@@ -57,8 +57,8 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                     cursor: 'pointer',
                     overflow: 'hidden',
                     // boxShadow: 'buttons.1',
-                    '.IOButtonText, .MuiCheckbox-root': { transform: 'skewX(30deg)' },
-                    '.IOButtonText': {
+                    '.IoButtonText, .MuiCheckbox-root': { transform: 'skewX(30deg)' },
+                    '.IoButtonText': {
                         mx: 1,
                         p: 0,
                         letterSpacing: '0.02857em',

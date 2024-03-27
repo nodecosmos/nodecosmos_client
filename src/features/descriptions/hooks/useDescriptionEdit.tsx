@@ -36,6 +36,7 @@ export default function useDescriptionEdit() {
                 nodeId: objectNodeId,
                 branchId,
                 objectId,
+                objectType,
             })).then(() => {
                 setFetched();
                 unsetLoading();
@@ -54,6 +55,7 @@ export default function useDescriptionEdit() {
         branchId,
         objectNodeId,
         objectId,
+        objectType,
         fetched,
         loading,
         setLoading,

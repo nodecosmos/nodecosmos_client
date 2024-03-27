@@ -1,7 +1,7 @@
+import Pane from '../../common/components/pane/Pane';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
-import NodePane from '../../features/nodes/components/pane/NodePane';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
@@ -104,7 +104,7 @@ export default function Show() {
                 borderLeft={1}
                 style={{ borderLeftColor: resizerHovered ? theme.palette.borders['4'] : theme.palette.borders['2'] }}
             >
-                <NodePane />
+                <Pane />
             </Box>
         </Box>
     );

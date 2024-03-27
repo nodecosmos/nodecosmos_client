@@ -37,8 +37,8 @@ export default function useDescriptionMarkdown() {
     case ObjectType.Flow:
         isDescriptionEdited = branch?.editedFlowDescriptions?.has(objectId);
         break;
-    case ObjectType.IO:
-        isDescriptionEdited = branch?.editedIODescriptions?.has(objectId);
+    case ObjectType.Io:
+        isDescriptionEdited = branch?.editedIoDescriptions?.has(objectId);
         break;
     default:
         isDescriptionEdited = false;
@@ -52,14 +52,16 @@ export default function useDescriptionMarkdown() {
             nodeId: objectNodeId,
             branchId,
             objectId,
+            objectType,
         }));
-    }, [dispatch, objectNodeId, branchId, objectId]);
+    }, [dispatch, objectNodeId, branchId, objectId, objectType]);
 
     const getOriginalDescriptionCb = useCallback(() => {
         return dispatch(getOriginalDescription({
             nodeId: objectNodeId,
             currentRootNodeId,
             currentBranchId: branchId,
+            branchId,
             objectId,
         }));
     }, [branchId, currentRootNodeId, dispatch, objectId, objectNodeId]);

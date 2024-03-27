@@ -7,7 +7,7 @@ import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { deleteFlow } from '../flows/flows.thunks';
-import { deleteIO } from '../input-outputs/inputOutputs.thunks';
+import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: WorkflowState = {
@@ -139,7 +139,7 @@ const workflowsSlice = createSlice({
 
                 state.byBranchId[workflow.branchId][workflow.id].initialInputIds = initialInputIds;
             })
-            .addCase(deleteIO.fulfilled, (state, action) => {
+            .addCase(deleteIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const workflowId = inputOutput.workflowId as UUID;
                 const branchId = inputOutput.branchId as UUID;

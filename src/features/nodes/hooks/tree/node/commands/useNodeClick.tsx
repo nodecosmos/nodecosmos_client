@@ -1,4 +1,6 @@
 import { NodecosmosDispatch } from '../../../../../../store';
+import { ObjectType } from '../../../../../../types';
+import { selectObject } from '../../../../../app/app.thunks';
 import { select } from '../../../../actions';
 import useTreeCommands from '../../useTreeCommands';
 import useTreeContext from '../../useTreeContext';
@@ -52,6 +54,15 @@ export default function useNodeClick() {
                 treeBranchId,
                 branchId,
                 id,
+            }));
+            dispatch(selectObject({
+                currentBranchId: treeBranchId,
+                currentRootNodeId: treeBranchId,
+                objectNodeId: id,
+                branchId,
+                objectId: id,
+                objectType: ObjectType.Node,
+                metadata: { treeBranchId },
             }));
         }
     }, [
