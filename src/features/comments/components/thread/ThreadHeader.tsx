@@ -28,7 +28,7 @@ export default function ThreadHeader() {
         commentAction = <span>commented removed node <em>{nodeTitle}</em></span>;
         break;
     case ThreadType.ContributionRequestNodeDescription:
-        commentAction = <span>commented line of node <em>{nodeTitle}</em></span>;
+        commentAction = <span>commented line <em>{nodeTitle}</em></span>;
         break;
     default:
         commentAction = 'commented';

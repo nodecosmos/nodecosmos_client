@@ -144,7 +144,7 @@ export default function Output(props: OutputProps) {
                                 value={id}
                                 checked={isChecked} />
                         }
-                        <div className="IOButtonText">
+                        <div className="IoButtonText">
                             {title as string}
                         </div>
                     </button>

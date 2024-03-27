@@ -37,11 +37,14 @@ const descriptionsSlice = createSlice({
                 };
             })
             .addCase(saveDescription.fulfilled, (state, action) => {
-                const { branchId, objectId } = action.payload;
+                const {
+                    branchId, objectId, html, markdown,
+                } = action.payload;
 
                 state.byBranchId[branchId] ||= {};
-
-                state.byBranchId[branchId][objectId] = action.payload;
+                state.byBranchId[branchId][objectId] ||= action.payload;
+                state.byBranchId[branchId][objectId].html = html;
+                state.byBranchId[branchId][objectId].markdown = markdown;
             });
     },
 });

@@ -14,7 +14,7 @@ export default function diffExtension(originalText: string, newText: string): Di
     const dmp = new diff_match_patch();
     const diffs = dmp.diff_main(originalText, newText);
 
-    dmp.diff_cleanupSemanticLossless(diffs);
+    dmp.diff_cleanupSemantic(diffs);
 
     const createDiffDecorations = (diffs: Diff[]): RangeSet<Decoration> => {
         const builder = new RangeSetBuilder<Decoration>();
@@ -59,7 +59,7 @@ export default function diffExtension(originalText: string, newText: string): Di
             const dmp = new diff_match_patch();
 
             const diffs = dmp.diff_main(originalText, newText);
-            dmp.diff_cleanupSemanticLossless(diffs);
+            dmp.diff_cleanupSemantic(diffs);
             this.decorations = createDiffDecorations(diffs);
         }
 
@@ -67,7 +67,7 @@ export default function diffExtension(originalText: string, newText: string): Di
             if (update.docChanged) {
                 const dmp = new diff_match_patch();
                 const diffs = dmp.diff_main(update.state.doc.toString(), newText);
-                dmp.diff_cleanupSemanticLossless(diffs);
+                dmp.diff_cleanupSemantic(diffs);
                 this.decorations = createDiffDecorations(diffs);
             }
         }
