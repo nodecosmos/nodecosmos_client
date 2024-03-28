@@ -22,7 +22,6 @@ function initBranch(state: BranchesState, branch: Branch) {
     const { conflict } = branch;
 
     state.byId[branch.id] = {
-
         id: branch.id,
         title: branch.title,
         description: branch.description,
@@ -31,25 +30,24 @@ function initBranch(state: BranchesState, branch: Branch) {
         status: branch.status,
         editorIds: branch.editorIds,
         isContributionRequest: branch.isContributionRequest,
-        titleChangeByObject: branch.titleChangeByObject,
-        descriptionChangeByObject: branch.descriptionChangeByObject || {},
         createdNodes: new Set(branch.createdNodes),
         deletedNodes: new Set(branch.deletedNodes),
         restoredNodes: new Set(branch.restoredNodes),
-        editedNodeTitles: new Set(branch.editedNodeTitles),
-        editedNodeDescriptions: new Set(branch.editedNodeDescriptions),
+        editedTitleNodes: new Set(branch.editedTitleNodes),
+        editedDescriptionNodes: new Set(branch.editedDescriptionNodes),
+        editedWorkflowNodes: new Set(branch.editedWorkflowNodes),
+        createdWorkflowInitialInputs: new Set(branch.createdWorkflowInitialInputs),
+        deletedWorkflowInitialInputs: new Set(branch.deletedWorkflowInitialInputs),
         reorderedNodes: branch.reorderedNodes || [],
-        createdWorkflows: new Set(branch.createdWorkflows),
-        deletedWorkflows: new Set(branch.deletedWorkflows),
         editedWorkflowTitles: new Set(branch.editedWorkflowTitles),
         createdFlows: new Set(branch.createdFlows),
         deletedFlows: new Set(branch.deletedFlows),
-        editedFlowTitles: new Set(branch.editedFlowTitles),
-        editedFlowDescriptions: new Set(branch.editedFlowDescriptions),
+        editedTitleFlows: new Set(branch.editedTitleFlows),
+        editedDescriptionFlows: new Set(branch.editedDescriptionFlows),
         createdIos: new Set(branch.createdIos),
         deletedIos: new Set(branch.deletedIos),
-        editedIoTitles: new Set(branch.editedIoTitles),
-        editedIoDescriptions: new Set(branch.editedIoDescriptions),
+        editedTitleIos: new Set(branch.editedTitleIos),
+        editedDescriptionIos: new Set(branch.editedDescriptionIos),
         createdFlowSteps: new Set(branch.createdFlowSteps),
         deletedFlowSteps: new Set(branch.deletedFlowSteps),
         createdFlowStepNodes: deepArrayToSet(branch.createdFlowStepNodes),
@@ -58,6 +56,9 @@ function initBranch(state: BranchesState, branch: Branch) {
         deletedFlowStepInputsByNode: deepArrayToSet(branch.deletedFlowStepInputsByNode),
         createdFlowStepOutputsByNode: deepArrayToSet(branch.createdFlowStepOutputsByNode),
         deletedFlowStepOutputsByNode: deepArrayToSet(branch.deletedFlowStepOutputsByNode),
+        editedDescriptionFlowSteps: new Set(branch.editedDescriptionFlowSteps),
+        descriptionChangeByObject: branch.descriptionChangeByObject || {},
+        titleChangeByObject: branch.titleChangeByObject,
         conflict: conflict && {
             status: conflict.status,
             deletedAncestors: new Set(conflict.deletedAncestors),
@@ -105,8 +106,8 @@ const branchesSlice = createSlice({
                 const branch = treeBranchId && state.byId[treeBranchId];
 
                 if (branch) {
-                    branch.editedNodeTitles ||= new Set();
-                    branch.editedNodeTitles.add(nodeId);
+                    branch.editedTitleNodes ||= new Set();
+                    branch.editedTitleNodes.add(nodeId);
                 }
             })
             .addCase(saveDescription.fulfilled, (state, action) => {
@@ -118,17 +119,17 @@ const branchesSlice = createSlice({
                 if (branch) {
                     switch (objectType) {
                     case ObjectType.Node: {
-                        branch.editedNodeDescriptions ||= new Set();
-                        branch.editedNodeDescriptions.add(objectId);
+                        branch.editedDescriptionNodes ||= new Set();
+                        branch.editedDescriptionNodes.add(objectId);
                         break;
                     }
                     case ObjectType.Flow:
-                        branch.editedFlowDescriptions ||= new Set();
-                        branch.editedFlowDescriptions.add(objectId);
+                        branch.editedDescriptionFlows ||= new Set();
+                        branch.editedDescriptionFlows.add(objectId);
                         break;
                     case ObjectType.Io:
-                        branch.editedIoDescriptions ||= new Set();
-                        branch.editedIoDescriptions.add(objectId);
+                        branch.editedDescriptionIos ||= new Set();
+                        branch.editedDescriptionIos.add(objectId);
                         break;
                     }
                 }

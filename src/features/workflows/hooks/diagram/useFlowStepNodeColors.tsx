@@ -7,7 +7,7 @@ import useWorkflowBranchContext from '../useWorkflowBranchContext';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-export default function useWorkflowNodeButtonBg() {
+export default function useFlowStepNodeColors() {
     const {
         branchId, id, isSelected, flowStepId,
     } = useFlowStepNodeContext();
@@ -28,14 +28,15 @@ export default function useWorkflowNodeButtonBg() {
         color: isSelected ? theme.palette.tree.selectedText : nestedTreeColor,
     };
 
-    if (isBranch) {
-        if (isFlowStepCreated(flowStepId)) {
-            colors = diffColors(isSelected, DiffState.Added);
+    if (isBranch && !isFlowStepCreated(flowStepId)) {
+        if (isFlowStepDeleted(flowStepId)) {
+            colors = diffColors(isSelected, DiffState.Removed);
         } else if (isFlowStepNodeCreated(flowStepId, id)) {
             colors = diffColors(isSelected, DiffState.Added);
-        } else if (isFlowStepNodeDeleted(flowStepId, id) || isFlowStepDeleted(flowStepId)) {
+        } else if (isFlowStepNodeDeleted(flowStepId, id)) {
             colors = diffColors(isSelected, DiffState.Removed);
-        } else {
+        }
+        else {
             colors = {
                 backgroundColor: isSelected ? nestedTreeColor : theme.palette.tree.default,
                 outlineColor: theme.palette.tree.defaultBorder,

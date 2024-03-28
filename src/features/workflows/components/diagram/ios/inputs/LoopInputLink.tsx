@@ -3,7 +3,7 @@ import { UUID } from '../../../../../../types';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
-import useWorkflowNodeButtonBg from '../../../../hooks/diagram/useWorkflowNodeButtonBg';
+import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
 import { useTheme } from '@mui/material';
 import React from 'react';
 
@@ -26,7 +26,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
         defaultLoopInputColor,
     } = theme.palette.workflow;
 
-    const { backgroundColor } = useWorkflowNodeButtonBg();
+    const { backgroundColor } = useFlowStepNodeColors();
 
     const color = isSelected ? backgroundColor : defaultLoopInputColor;
 

@@ -23,8 +23,8 @@ export default function useNodeBranchContext(): BranchChanges {
         deletedNodes,
         createdNodes,
         reorderedNodes,
-        editedNodeDescriptions,
-        editedNodeTitles,
+        editedDescriptionNodes,
+        editedTitleNodes,
     } = branch ?? {};
     const {
         deletedAncestors: deletedAncestorConflict,
@@ -47,8 +47,8 @@ export default function useNodeBranchContext(): BranchChanges {
             isAncestorDeleted: isAncestorDeleted ?? false,
             isReordered: reorderedNodes?.some((reorder) => reorder.id === id) ?? false,
             isOriginalDeleted: (deletedAncestorConflict?.has(id) || deletedEditedNodes?.has(id)) ?? false,
-            isDescriptionEdited: editedNodeDescriptions?.has(id) ?? false,
-            isTitleEdited: editedNodeTitles?.has(id) ?? false,
+            isDescriptionEdited: editedDescriptionNodes?.has(id) ?? false,
+            isTitleEdited: editedTitleNodes?.has(id) ?? false,
         };
     }, [
         ancestorIds,
@@ -56,9 +56,9 @@ export default function useNodeBranchContext(): BranchChanges {
         deletedAncestorConflict,
         deletedEditedNodes,
         deletedNodes,
-        editedNodeDescriptions,
+        editedDescriptionNodes,
         id,
         reorderedNodes,
-        editedNodeTitles,
+        editedTitleNodes,
     ]);
 }

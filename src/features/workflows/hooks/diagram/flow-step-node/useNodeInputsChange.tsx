@@ -25,7 +25,7 @@ export default function useNodeInputsChange() {
             throw new Error('Selected object is not found');
         }
 
-        const { objectNodeId, objectType } = selectedObject;
+        const { objectId, objectType } = selectedObject;
 
         if (objectType !== ObjectType.Node) {
             throw new Error('Selected object is not a node');
@@ -37,7 +37,7 @@ export default function useNodeInputsChange() {
 
         const flowStepPrimaryKey = {
             nodeId: flowStep.nodeId,
-            branchId: flowStep.branchId,
+            branchId,
             workflowId: flowStep.workflowId,
             flowId: flowStep.flowId,
             flowIndex: flowStep.flowIndex,
@@ -46,7 +46,7 @@ export default function useNodeInputsChange() {
 
         try {
             const inputIdsByNodeId = { ...flowStep.inputIdsByNodeId };
-            inputIdsByNodeId[objectNodeId] = selectedInputs;
+            inputIdsByNodeId[objectId] = selectedInputs;
 
             await dispatch(updateFlowStepInputs({
                 ...flowStepPrimaryKey,
@@ -61,5 +61,5 @@ export default function useNodeInputsChange() {
 
             console.error(e);
         }
-    }, [dispatch, flowStep, selectedObject]);
+    }, [branchId, dispatch, flowStep, selectedObject]);
 }

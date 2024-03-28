@@ -16,7 +16,7 @@ import {
     MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
 } from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
+import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -39,7 +39,7 @@ export default function WorkflowNodeButton() {
         backgroundColor,
         outlineColor,
         color,
-    } = useWorkflowNodeButtonBg();
+    } = useFlowStepNodeColors();
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
@@ -57,7 +57,7 @@ export default function WorkflowNodeButton() {
             objectType: ObjectType.Node,
             metadata: {
                 flowStepId,
-                treeBranchId: branchId, 
+                treeBranchId: branchId,
             },
         }));
 

@@ -72,20 +72,21 @@ export interface Branch {
     createdNodes: Set<UUID>;
     restoredNodes: Set<UUID>;
     deletedNodes: Set<UUID>;
-    editedNodeTitles: Set<UUID>;
-    editedNodeDescriptions: Set<UUID>;
+    editedTitleNodes: Set<UUID>;
+    editedDescriptionNodes: Set<UUID>;
+    editedWorkflowNodes: Set<UUID>;
+    createdWorkflowInitialInputs: Set<UUID>;
+    deletedWorkflowInitialInputs: Set<UUID>;
     reorderedNodes: BranchReorderData[];
-    createdWorkflows: Set<UUID>;
-    deletedWorkflows: Set<UUID>;
     editedWorkflowTitles: Set<UUID>;
     createdFlows: Set<UUID>;
     deletedFlows: Set<UUID>;
-    editedFlowTitles: Set<UUID>;
-    editedFlowDescriptions: Set<UUID>;
+    editedTitleFlows: Set<UUID>;
+    editedDescriptionFlows: Set<UUID>;
     createdIos: Set<UUID>;
     deletedIos: Set<UUID>;
-    editedIoTitles: Set<UUID>;
-    editedIoDescriptions: Set<UUID>;
+    editedTitleIos: Set<UUID>;
+    editedDescriptionIos: Set<UUID>;
     createdFlowSteps: Set<UUID>;
     deletedFlowSteps: Set<UUID>;
     // FlowStepId, NodeId
@@ -96,6 +97,7 @@ export interface Branch {
     deletedFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     createdFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     deletedFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    editedDescriptionFlowSteps: Set<UUID>;
     titleChangeByObject: Record<UUID, TextChange>;
     descriptionChangeByObject: Record<UUID, TextChange>;
     conflict?: Conflict;

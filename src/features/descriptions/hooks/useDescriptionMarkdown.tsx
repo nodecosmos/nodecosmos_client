@@ -32,13 +32,13 @@ export default function useDescriptionMarkdown() {
 
     switch (objectType) {
     case ObjectType.Node:
-        isDescriptionEdited = branch?.editedNodeDescriptions?.has(objectId);
+        isDescriptionEdited = branch?.editedDescriptionNodes?.has(objectId);
         break;
     case ObjectType.Flow:
-        isDescriptionEdited = branch?.editedFlowDescriptions?.has(objectId);
+        isDescriptionEdited = branch?.editedDescriptionFlows?.has(objectId);
         break;
     case ObjectType.Io:
-        isDescriptionEdited = branch?.editedIoDescriptions?.has(objectId);
+        isDescriptionEdited = branch?.editedDescriptionIos?.has(objectId);
         break;
     default:
         isDescriptionEdited = false;
@@ -82,7 +82,7 @@ export default function useDescriptionMarkdown() {
     }, [mergedDescriptionChange, markdown, isMerged, originalDescription?.markdown]);
 
     const loadMarkdown = useCallback(() => {
-        if (isBranch && !isMerged && branch?.editedNodeDescriptions?.has(objectId)) {
+        if (isBranch && !isMerged && branch?.editedDescriptionNodes?.has(objectId)) {
             setLoading();
             return getBranchDescription().then(getOriginalDescriptionCb);
         } else if (!branchMarkdown && !fetched) {
@@ -92,7 +92,7 @@ export default function useDescriptionMarkdown() {
 
         return Promise.resolve();
     }, [
-        branch?.editedNodeDescriptions,
+        branch?.editedDescriptionNodes,
         branchMarkdown,
         getBranchDescription,
         getOriginalDescriptionCb,

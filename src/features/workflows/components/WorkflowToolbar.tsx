@@ -1,17 +1,12 @@
 import CloseFlowStepInputsButton from './tools/CloseFlowStepInputsButton';
 import WorkflowZoomTools from './tools/WorkflowZoomTools';
 import EditTitleField from '../../../common/components/EditTItleField';
-import ToolsContainer from '../../../common/components/tools/ToolsContainer';
 import { selectIsPaneOpen } from '../../app/app.selectors';
 import TogglePaneButton from '../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../app/constants';
 import useWorkflowCommands from '../hooks/useWorkflowCommands';
 import useWorkflowContext from '../hooks/useWorkflowContext';
-import { faTrash } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Box, IconButton, Tooltip,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -19,7 +14,7 @@ export default function WorkflowToolbar() {
     const {
         branchId, nodeId, id, title,
     } = useWorkflowContext();
-    const { handleTitleChange, deleteWorkflow } = useWorkflowCommands();
+    const { handleTitleChange } = useWorkflowCommands();
     const isPaneOpen = useSelector(selectIsPaneOpen);
 
     return (
@@ -53,19 +48,6 @@ export default function WorkflowToolbar() {
                     variant="body2"
                     onChange={handleTitleChange}
                 />
-                <ToolsContainer>
-                    <Tooltip title="Delete Workflow" placement="top">
-                        <IconButton
-                            className="Item"
-                            onClick={deleteWorkflow}
-                            aria-label="Delete Workflow"
-                            sx={{ color: 'toolbar.default' }}
-                            size="small"
-                        >
-                            <FontAwesomeIcon icon={faTrash} />
-                        </IconButton>
-                    </Tooltip>
-                </ToolsContainer>
             </Box>
 
             <WorkflowZoomTools />

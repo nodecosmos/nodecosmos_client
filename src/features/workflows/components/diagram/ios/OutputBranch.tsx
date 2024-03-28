@@ -2,7 +2,9 @@ import { NodecosmosTheme } from '../../../../../themes/type';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../../nodes/nodes.constants';
-import { OUTPUT_VERTICAL_EDGE_LENGTH } from '../../../constants';
+import {
+    EDGE_LENGTH, OUTPUT_BUTTON_WIDTH, OUTPUT_VERTICAL_EDGE_LENGTH,
+} from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
 import { useTheme } from '@mui/material';
 import React from 'react';
@@ -25,9 +27,22 @@ export default function OutputBranch(props: OutputProps) {
     const animationDelay = ANIMATION_DELAY;
 
     const xEnd = x + OUTPUT_VERTICAL_EDGE_LENGTH;
+    const existingX = x + EDGE_LENGTH + OUTPUT_BUTTON_WIDTH - 1;
 
     return (
         <g>
+            <path
+                strokeWidth={3}
+                d={`M ${x} ${y}
+                    L ${x + EDGE_LENGTH} ${y}`}
+                stroke={theme.palette.workflow.default}
+                fill="transparent"
+                style={{
+                    opacity: 0,
+                    animation: `appear ${initialAnimationDuration}ms ${animationDelay}ms forwards`,
+                    transition: `d ${transitionAnimationDuration}ms`,
+                }}
+            />
             <circle
                 cx={x + 0.5}
                 cy={y - 0.5}
@@ -41,8 +56,8 @@ export default function OutputBranch(props: OutputProps) {
             />
             <path
                 strokeWidth={3}
-                d={`M ${x + 5.5} ${y}
-                    L ${xEnd} ${y}`}
+                d={`M ${existingX} ${y}
+                    L ${existingX + EDGE_LENGTH} ${y}`}
                 stroke={theme.palette.workflow.default}
                 fill="transparent"
                 style={{

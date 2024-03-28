@@ -14,11 +14,11 @@ interface Props {
     nodeId: string;
 }
 
-export default function useOutputButtonBg({ id, nodeId }: Props) {
+export default function useOutputColors({ id, nodeId }: Props) {
     const theme: NodecosmosTheme = useTheme();
     const { branchId } = useWorkflowContext();
     const {
-        isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepDeleted,
+        isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepCreated, isFlowStepDeleted,
     } = useWorkflowBranchContext();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
@@ -42,7 +42,7 @@ export default function useOutputButtonBg({ id, nodeId }: Props) {
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
     };
 
-    if (isBranch) {
+    if (isBranch && !isFlowStepCreated(flowStepId)) {
         if (isFlowStepDeleted(flowStepId)) {
             colors = diffColors(isSelected, DiffState.Removed);
         }

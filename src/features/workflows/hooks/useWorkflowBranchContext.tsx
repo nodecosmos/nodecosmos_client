@@ -31,12 +31,12 @@ export default function useWorkflowBranchContext(): WorkflowBranchChanges {
     const {
         createdFlows,
         deletedFlows,
-        editedFlowTitles,
-        editedFlowDescriptions,
+        editedTitleFlows,
+        editedDescriptionFlows,
         createdIos,
         deletedIos,
-        editedIoTitles,
-        editedIoDescriptions,
+        editedTitleIos,
+        editedDescriptionIos,
         createdFlowSteps,
         deletedFlowSteps,
         createdFlowStepInputsByNode,
@@ -49,9 +49,9 @@ export default function useWorkflowBranchContext(): WorkflowBranchChanges {
 
     const isFlowCreated = useCallback((flowId: UUID) => createdFlows.has(flowId), [createdFlows]);
     const isFlowDeleted = useCallback((flowId: UUID) => deletedFlows.has(flowId), [deletedFlows]);
-    const isFlowTitleEdited = useCallback((flowId: UUID) => editedFlowTitles.has(flowId), [editedFlowTitles]);
+    const isFlowTitleEdited = useCallback((flowId: UUID) => editedTitleFlows.has(flowId), [editedTitleFlows]);
     const isFlowDescriptionEdited = useCallback(
-        (flowId: UUID) => editedFlowDescriptions.has(flowId), [editedFlowDescriptions],
+        (flowId: UUID) => editedDescriptionFlows.has(flowId), [editedDescriptionFlows],
     );
     const isFlowStepCreated = useCallback((flowStepId: UUID) => createdFlowSteps.has(flowStepId), [createdFlowSteps]);
     const isFlowStepDeleted = useCallback((flowStepId: UUID) => deletedFlowSteps.has(flowStepId), [deletedFlowSteps]);
@@ -75,8 +75,8 @@ export default function useWorkflowBranchContext(): WorkflowBranchChanges {
     }, [deletedFlowStepOutputsByNode]);
     const isIoCreated = useCallback((ioId: UUID) => createdIos.has(ioId), [createdIos]);
     const isIoDeleted = useCallback((ioId: UUID) => deletedIos.has(ioId), [deletedIos]);
-    const isIoTitleEdited = useCallback((ioId: UUID) => editedIoTitles.has(ioId), [editedIoTitles]);
-    const isIoDescriptionEdited = useCallback((ioId: UUID) => editedIoDescriptions.has(ioId), [editedIoDescriptions]);
+    const isIoTitleEdited = useCallback((ioId: UUID) => editedTitleIos.has(ioId), [editedTitleIos]);
+    const isIoDescriptionEdited = useCallback((ioId: UUID) => editedDescriptionIos.has(ioId), [editedDescriptionIos]);
 
     return {
         isFlowCreated,

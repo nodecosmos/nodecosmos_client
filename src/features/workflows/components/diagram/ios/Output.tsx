@@ -16,7 +16,7 @@ import {
 } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
 import useNodeInputsChange from '../../../hooks/diagram/flow-step-node/useNodeInputsChange';
-import useOutputButtonBg from '../../../hooks/diagram/useOutputButtonBg';
+import useOutputColors from '../../../hooks/diagram/useOutputColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { Checkbox } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -101,7 +101,7 @@ export default function Output(props: OutputProps) {
         outlineColor,
         color,
         checkboxColor,
-    } = useOutputButtonBg({
+    } = useOutputColors({
         id,
         nodeId: outputNodeId as UUID,
     });

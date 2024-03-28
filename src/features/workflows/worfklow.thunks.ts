@@ -61,21 +61,6 @@ export const createWorkflow = createAsyncThunk<
     },
 );
 
-export const deleteWorkflow = createAsyncThunk<
-    Workflow,
-    WorkflowPrimaryKey,
-    { rejectValue: NodecosmosError }
->(
-    'workflows/deleteWorkflow',
-    async ({
-        nodeId, branchId, id,
-    }) => {
-        const response = await nodecosmos.delete(`/workflows/${nodeId}/${branchId}/${id}`);
-
-        return response.data;
-    },
-);
-
 export const updateWorkflowInitialInputs = createAsyncThunk<
     Workflow,
     WorkflowUpsertPayload,

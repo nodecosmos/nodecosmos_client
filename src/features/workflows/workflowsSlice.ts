@@ -1,6 +1,6 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
 import {
-    createWorkflow, deleteWorkflow, showWorkflow, updateWorkflowInitialInputs,
+    createWorkflow, showWorkflow, updateWorkflowInitialInputs,
 } from './worfklow.thunks';
 import { WorkflowState } from './workflow.types';
 import { getScale } from './workflow.utils';
@@ -110,17 +110,6 @@ const workflowsSlice = createSlice({
                             initialInputIds: workflow.initialInputIds,
                         });
                 }
-            })
-            .addCase(deleteWorkflow.fulfilled, (state, action) => {
-                const workflow = action.payload;
-                const { id, branchId } = workflow;
-
-                delete state.byBranchId[branchId][id];
-                delete state.workflowDiagramByBranchId[branchId][id];
-                state.idByBranchAndNodeId[branchId] ||= {};
-                state.idByBranchAndNodeId[branchId][workflow.nodeId] = id;
-
-                // TODO update app state
             })
             .addCase(deleteFlow.fulfilled, () => {
                 // currently flows are deleted only from the pane

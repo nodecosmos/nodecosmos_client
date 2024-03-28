@@ -24,6 +24,7 @@ export interface FlowStepPositionData {
     flowStartIndex: number;
     stepIndex: number;
     prefFlowYEnd: number;
+    currentFlowYEnd?: number;
 }
 
 export function calculateFlowStepPosition(data: FlowStepPositionData): Position {
@@ -32,6 +33,7 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
         flowStartIndex,
         stepIndex,
         prefFlowYEnd,
+        currentFlowYEnd,
     } = data;
 
     const nodeLength = (flowStep && flowStep?.nodeIds?.length) || 0;
@@ -42,7 +44,10 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
     ) || 0;
 
     const y = prefFlowYEnd == 0 ? prefFlowYEnd + WORKFLOW_STEP_HEIGHT : prefFlowYEnd;
-    const yEnd = y + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
+    let yEnd = y + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
+    if (currentFlowYEnd && (currentFlowYEnd > yEnd)) {
+        yEnd = currentFlowYEnd;
+    }
 
     return {
         x: WORKFLOW_STEP_WIDTH * (flowStartIndex + stepIndex + 1),

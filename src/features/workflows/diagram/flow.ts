@@ -59,6 +59,7 @@ export function buildFlow(data: FlowStepData): FlowRes {
                 flowStartIndex,
                 stepIndex,
                 prefFlowYEnd,
+                currentFlowYEnd: flowYEnd,
             });
 
             flowYEnd = Math.max(flowStepPosition.yEnd, flowYEnd);
