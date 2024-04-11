@@ -1,6 +1,6 @@
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import FlowModal from '../../../../flows/components/FlowModal';
-import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
+import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
@@ -59,7 +59,7 @@ function WorkflowStep({ index }: { index: number }) {
                 />
                 <foreignObject
                     width={WORKFLOW_STEP_WIDTH}
-                    height={WORKFLOW_STEP_HEIGHT}
+                    height={FLOW_TOOLBAR_HEIGHT}
                     x={x}
                     y="0"
                 >

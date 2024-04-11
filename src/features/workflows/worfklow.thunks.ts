@@ -18,7 +18,7 @@ interface ShowWorkflowResponse {
 
 export const showWorkflow = createAsyncThunk<
     ShowWorkflowResponse,
-    Omit<WorkflowPrimaryKey, 'id'>,
+    WorkflowPrimaryKey,
     { rejectValue: NodecosmosError }
 >(
     'workflows/showWorkflow',

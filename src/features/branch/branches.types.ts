@@ -12,7 +12,7 @@ export interface Conflict {
 }
 
 export interface BranchParams {
-    currentRootNodeId: UUID; // corresponds to the id of the current node
+    currentRootId: UUID; // corresponds to the id of the current node
     branchId: UUID; // either id of the current node or id of the contribution request, depending on the context
 }
 
@@ -75,8 +75,10 @@ export interface Branch {
     editedTitleNodes: Set<UUID>;
     editedDescriptionNodes: Set<UUID>;
     editedWorkflowNodes: Set<UUID>;
-    createdWorkflowInitialInputs: Set<UUID>;
-    deletedWorkflowInitialInputs: Set<UUID>;
+    // NodeId, InputId
+    createdWorkflowInitialInputs: Record<UUID, Set<UUID>>;
+    // NodeId, InputId
+    deletedWorkflowInitialInputs: Record<UUID, Set<UUID>>;
     reorderedNodes: BranchReorderData[];
     editedWorkflowTitles: Set<UUID>;
     createdFlows: Set<UUID>;
@@ -104,7 +106,7 @@ export interface Branch {
 }
 
 export interface BranchDiffPayload {
-    currentRootNodeId: UUID;
+    currentRootId: UUID;
     currentBranchId: UUID;
     objectId: UUID;
 }

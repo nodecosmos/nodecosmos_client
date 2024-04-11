@@ -16,29 +16,29 @@ export const selectObject = createAsyncThunk<
 
         switch (payload.objectType) {
         case ObjectType.Node:
-            objectTitle = state.nodes.byBranchId[payload.currentRootNodeId]?.[payload.objectId]?.title;
+            objectTitle = state.nodes.byBranchId[payload.currentRootId]?.[payload.objectId]?.title;
             originalObjectTitle = state.nodes.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
             break;
 
         case ObjectType.Workflow:
-            objectTitle = state.workflows.byBranchId[payload.currentRootNodeId]?.[payload.objectId]?.title;
+            objectTitle = state.workflows.byBranchId[payload.currentRootId]?.[payload.objectId]?.title;
             originalObjectTitle = state.workflows.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
             break;
 
         case ObjectType.Flow:
-            objectTitle = state.flows.byBranchId[payload.currentRootNodeId]?.[payload.objectId]?.title;
+            objectTitle = state.flows.byBranchId[payload.currentRootId]?.[payload.objectId]?.title;
             originalObjectTitle = state.flows.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
             break;
 
         case ObjectType.FlowStep:
-            objectTitle = state.flowSteps.byBranchId[payload.currentRootNodeId]?.[payload.objectId].index
+            objectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].index
                 .toString();
-            originalObjectTitle = state.flowSteps.byBranchId[payload.currentRootNodeId]?.[payload.objectId].index
+            originalObjectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].index
                 .toString();
             break;
 
         case ObjectType.Io:
-            objectTitle = state.inputOutputs.byBranchId[payload.currentRootNodeId]?.[payload.objectId]?.title;
+            objectTitle = state.inputOutputs.byBranchId[payload.currentRootId]?.[payload.objectId]?.title;
             originalObjectTitle = state.inputOutputs.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
             break;
 

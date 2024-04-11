@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 export default function WorkflowToolbar() {
     const {
-        branchId, nodeId, id, title,
+        branchId, nodeId, title,
     } = useWorkflowContext();
     const { handleTitleChange } = useWorkflowCommands();
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -41,7 +41,6 @@ export default function WorkflowToolbar() {
                     reqData={{
                         nodeId,
                         branchId,
-                        id,
                     }}
                     color="text.secondary"
                     pr={1}

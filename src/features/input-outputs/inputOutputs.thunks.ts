@@ -1,6 +1,6 @@
 import {
     InputOutput,
-    InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIoDescriptionPayload, UpdateIoTitlePayload,
+    InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIoTitlePayload,
 } from './inputOutputs.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError } from '../../types';
@@ -24,24 +24,6 @@ export const createIo = createAsyncThunk<InputOutput, InsertInputOutputPayload, 
     },
 );
 
-export const getIoDescription = createAsyncThunk<
-    Partial<InputOutput> & InputOutputPrimaryKey,
-    InputOutputPrimaryKey,
-    { rejectValue: NodecosmosError }
->(
-    'inputOutputs/getDescription',
-    async (payload: InputOutputPrimaryKey) => {
-        const {
-            rootNodeId, nodeId, branchId, workflowId, id,
-        } = payload;
-        const response = await nodecosmos.get(
-            `input_outputs/${rootNodeId}/${nodeId}/${branchId}/${workflowId}/${id}/description`,
-        );
-
-        return response.data;
-    },
-);
-
 export const updateIoTitle = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
     UpdateIoTitlePayload,
@@ -55,19 +37,6 @@ export const updateIoTitle = createAsyncThunk<
     },
 );
 
-export const updateIoDescription = createAsyncThunk<
-    Partial<InputOutput> & InputOutputPrimaryKey,
-    UpdateIoDescriptionPayload,
-    { rejectValue: NodecosmosError }
->(
-    'inputOutputs/updateDescription',
-    async (payload: UpdateIoDescriptionPayload) => {
-        const response = await nodecosmos.put('/input_outputs/description', payload);
-
-        return response.data;
-    },
-);
-
 export const deleteIo = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
     InputOutputPrimaryKey,
@@ -76,11 +45,11 @@ export const deleteIo = createAsyncThunk<
     'inputOutputs/delete',
     async (payload: InputOutputPrimaryKey) => {
         const {
-            rootNodeId, nodeId, branchId, workflowId, id,
+            rootId, nodeId, branchId, id,
         } = payload;
 
         const response = await nodecosmos.delete(
-            `input_outputs/${rootNodeId}/${nodeId}/${branchId}/${workflowId}/${id}`,
+            `input_outputs/${rootId}/${nodeId}/${branchId}/${id}`,
         );
 
         return response.data;

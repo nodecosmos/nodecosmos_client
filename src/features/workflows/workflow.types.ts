@@ -7,12 +7,11 @@ import { InputOutput } from '../input-outputs/inputOutputs.types';
 export interface WorkflowPrimaryKey {
     nodeId: UUID;
     branchId: UUID;
-    id: UUID;
 }
 
 export interface Workflow extends WorkflowPrimaryKey {
     // other fields
-    rootNodeId: UUID;
+    rootId: UUID;
     title: string;
     description: string;
     descriptionMarkdown: string;
@@ -31,8 +30,8 @@ export interface WorkflowData {
 }
 
 export interface WorkflowState {
+    // BranchId, NodeId
     byBranchId: Record<UUID, Record<UUID, Workflow>>;
-    idByBranchAndNodeId: Record<UUID, Record<UUID, UUID>>;
     // diagram
     workflowDiagramByBranchId: Record<UUID, Record<UUID, WorkflowDiagram>>;
     workflowScale: number;

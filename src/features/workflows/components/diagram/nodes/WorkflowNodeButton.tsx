@@ -43,14 +43,14 @@ export default function WorkflowNodeButton() {
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-    const { currentRootNodeId } = useBranchParams();
+    const { currentRootId } = useBranchParams();
 
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
         dispatch(selectObject({
             currentBranchId: branchId,
-            currentRootNodeId,
+            currentRootId,
             objectNodeId: nodeId,
             branchId,
             objectId: id,
@@ -71,7 +71,7 @@ export default function WorkflowNodeButton() {
     },
     [
         branchId,
-        currentRootNodeId,
+        currentRootId,
         deactivateInputsAddition,
         dispatch,
         flowStepId,

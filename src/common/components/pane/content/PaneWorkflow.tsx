@@ -2,7 +2,7 @@ import CreateWorkflowToolbar from '../../../../features/workflows/components/Cre
 import Workflow from '../../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../../features/workflows/constants';
 import { showWorkflow } from '../../../../features/workflows/worfklow.thunks';
-import { selectOptWorkflowByBranchAndNodeId } from '../../../../features/workflows/workflow.selectors';
+import { selectOptWorkflow } from '../../../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType } from '../../../../types';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
@@ -22,10 +22,10 @@ export default function PaneWorkflow() {
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(branchId, objectId));
+    const workflow = useSelector(selectOptWorkflow(branchId, objectId));
 
     useEffect(() => {
-        if (!fetched && !loading && !workflow?.id) {
+        if (!fetched && !loading && !workflow?.nodeId) {
             setLoading();
             dispatch(showWorkflow({
                 nodeId: objectId,
@@ -52,7 +52,7 @@ export default function PaneWorkflow() {
         setLoading,
         unsetFetched,
         unsetLoading,
-        workflow?.id,
+        workflow?.nodeId,
     ]);
 
     if (!objectId) return null;

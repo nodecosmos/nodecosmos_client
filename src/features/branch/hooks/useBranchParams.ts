@@ -9,12 +9,12 @@ interface UseBranchParams extends BranchParams {
 }
 
 export default function useBranchParams(): UseBranchParams {
-    const { id: currentRootNodeId } = useParams<{ id: UUID }>();
+    const { id: currentRootId } = useParams<{ id: UUID }>();
     let { branchId: branchId } = useParams<{ branchId: UUID }>();
-    const isBranch = !!branchId && currentRootNodeId !== branchId;
+    const isBranch = !!branchId && currentRootId !== branchId;
 
     if (!branchId) {
-        branchId = currentRootNodeId as UUID;
+        branchId = currentRootId as UUID;
     }
 
     const branchedId = useCallback((id: UUID) => {
@@ -27,7 +27,7 @@ export default function useBranchParams(): UseBranchParams {
 
     return {
         isBranch,
-        currentRootNodeId: currentRootNodeId as UUID,
+        currentRootId: currentRootId as UUID,
         branchId,
         branchedId,
     };

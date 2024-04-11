@@ -25,7 +25,6 @@ export default function useFlowContext() {
     const { branchId } = useWorkflowContext();
     const {
         nodeId,
-        workflowId,
         startIndex,
         verticalIndex,
         title,
@@ -35,7 +34,6 @@ export default function useFlowContext() {
 
     return {
         nodeId,
-        workflowId,
         startIndex,
         verticalIndex,
         id,

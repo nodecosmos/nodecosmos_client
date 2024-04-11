@@ -16,7 +16,7 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function useNodeSaver() {
+export default function useNodeSave() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { type: treeType } = useTreeContext();
     const {

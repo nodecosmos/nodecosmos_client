@@ -13,9 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
  * it uses it to update the inputs of the flow step.
  * Inputs are added to `Workflow
  */
-export default function useNodeInputsChange() {
+export default function useInputsChange() {
     const selectedObject = useSelector(selectSelectedObject);
-    const { branchId } = useWorkflowContext();
+    const { branchId, rootId } = useWorkflowContext();
 
     const flowStep = useSelector(selectOptFlowStep(branchId, selectedObject?.metadata?.flowStepId));
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -38,7 +38,6 @@ export default function useNodeInputsChange() {
         const flowStepPrimaryKey = {
             nodeId: flowStep.nodeId,
             branchId,
-            workflowId: flowStep.workflowId,
             flowId: flowStep.flowId,
             flowIndex: flowStep.flowIndex,
             id: flowStep.id,
@@ -50,6 +49,7 @@ export default function useNodeInputsChange() {
 
             await dispatch(updateFlowStepInputs({
                 ...flowStepPrimaryKey,
+                rootId,
                 inputIdsByNodeId,
             }));
         } catch (e) {
@@ -61,5 +61,5 @@ export default function useNodeInputsChange() {
 
             console.error(e);
         }
-    }, [branchId, dispatch, flowStep, selectedObject]);
+    }, [branchId, dispatch, flowStep, rootId, selectedObject]);
 }

@@ -3,7 +3,9 @@ import {
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
 } from './flowSteps.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError, Strict } from '../../types';
+import {
+    NodecosmosError, Strict, WithRootId,
+} from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createFlowStep = createAsyncThunk(
@@ -47,7 +49,7 @@ export const updateFlowStepInputs = createAsyncThunk<
     { rejectValue: NodecosmosError }
 >(
     'flow_steps/updateFlowStepInputs',
-    async (payload: FlowStepUpdatePayload) => {
+    async (payload) => {
         const response = await nodecosmos.put('/flow_steps/inputs', payload);
 
         return response.data;
@@ -56,17 +58,17 @@ export const updateFlowStepInputs = createAsyncThunk<
 
 export const deleteFlowStep = createAsyncThunk<
     Partial<FlowStep> & FlowStepPrimaryKey,
-    FlowStepPrimaryKey,
+    WithRootId<FlowStepPrimaryKey>,
     { rejectValue: NodecosmosError }
 >(
     'flow_steps/deleteFlowStep',
     async (payload) => {
         const {
-            nodeId, branchId, workflowId, flowId, flowIndex, id,
+            rootId, nodeId, branchId, flowId, flowIndex, id,
         } = payload;
 
         const response = await nodecosmos.delete(
-            `/flow_steps/${nodeId}/${branchId}/${workflowId}/${flowId}/${flowIndex}/${id}`,
+            `/flow_steps/${rootId}/${nodeId}/${branchId}/${flowId}/${flowIndex}/${id}`,
         );
 
         return response.data;

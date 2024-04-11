@@ -9,7 +9,7 @@ import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
 import { FlowStepCreationParams } from '../../../../flow-steps/flowSteps.types';
-import { FLOW_STEP_TOOLBAR_HEIGHT } from '../../../constants';
+import { FLOW_TOOLBAR_HEIGHT } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
@@ -27,7 +27,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
-    const { branchId } = useWorkflowContext();
+    const { branchId, rootId } = useWorkflowContext();
     const {
         title: flowTitle, id: flowId, flowSelected, nodeId,
     } = useFlowContext();
@@ -35,7 +35,7 @@ export default function FlowStepToolbar() {
         flowStepPrimaryKey, stepId, nextFlowStepId,
     } = useFlowStepContext();
     const { backgroundColor, color } = useFlowStepColors();
-    const { currentRootNodeId } = useBranchParams();
+    const { currentRootId } = useBranchParams();
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
@@ -43,20 +43,23 @@ export default function FlowStepToolbar() {
     const handleFlowClick = useCallback(() => {
         dispatch(selectObject({
             currentBranchId: branchId,
-            currentRootNodeId,
+            currentRootId,
             objectNodeId: nodeId,
             branchId,
             objectId: flowId,
             objectType: ObjectType.Flow,
         }));
-    }, [branchId, currentRootNodeId, dispatch, flowId, nodeId]);
+    }, [branchId, currentRootId, dispatch, flowId, nodeId]);
 
     const handleFlowStepDeletion = useCallback(() => {
         if (!flowStepPrimaryKey) {
             throw new Error('Flow Step Primary Key is not defined');
         }
-        dispatch(deleteFlowStep(flowStepPrimaryKey));
-    }, [dispatch, flowStepPrimaryKey]);
+        dispatch(deleteFlowStep({
+            ...flowStepPrimaryKey,
+            rootId,
+        }));
+    }, [dispatch, flowStepPrimaryKey, rootId]);
 
     const [createLoading, setCreateIsLoading, setCreateIsNotLoading] = useBooleanStateValue();
 
@@ -68,8 +71,8 @@ export default function FlowStepToolbar() {
         const insertPayload: Strict<FlowStepCreationParams> = {
             nodeId: flowStepPrimaryKey.nodeId,
             branchId: flowStepPrimaryKey.branchId,
-            workflowId: flowStepPrimaryKey.workflowId,
             flowId: flowStepPrimaryKey.flowId,
+            rootId,
             nodeIds: [],
             prevFlowStepId: stepId,
             nextFlowStepId,
@@ -90,8 +93,8 @@ export default function FlowStepToolbar() {
         }
     },
     [
-        flowStepPrimaryKey, stepId, nextFlowStepId, dispatch, handleServerError,
-        setCreateIsLoading, setCreateIsNotLoading,
+        flowStepPrimaryKey, stepId, nextFlowStepId, rootId,
+        dispatch, handleServerError, setCreateIsLoading, setCreateIsNotLoading,
     ]);
 
     const [modalOpen, openModal, closeModal] = useModalOpen();
@@ -103,7 +106,7 @@ export default function FlowStepToolbar() {
             display="flex"
             alignItems="center"
             width={1}
-            height={FLOW_STEP_TOOLBAR_HEIGHT}>
+            height={FLOW_TOOLBAR_HEIGHT}>
             <Typography
                 onClick={handleFlowClick}
                 variant="body1"

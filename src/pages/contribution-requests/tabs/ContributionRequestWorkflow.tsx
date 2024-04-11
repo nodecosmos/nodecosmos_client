@@ -9,7 +9,7 @@ import CreateWorkflowToolbar from '../../../features/workflows/components/Create
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
-import { selectOptWorkflowByBranchAndNodeId } from '../../../features/workflows/workflow.selectors';
+import { selectOptWorkflow } from '../../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/type';
 import { Box, useTheme } from '@mui/material';
@@ -19,10 +19,10 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContributionRequestWorkflow() {
-    const { currentRootNodeId, branchId } = useBranchParams();
+    const { currentRootId, branchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(branchId, currentRootNodeId));
+    const workflow = useSelector(selectOptWorkflow(branchId, currentRootId));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -55,7 +55,7 @@ export default function ContributionRequestWorkflow() {
     useEffect(() => {
         if (loading) {
             dispatch(showWorkflow({
-                nodeId: currentRootNodeId,
+                nodeId: currentRootId,
                 branchId,
             })).then(() => setLoading(false));
         }
@@ -63,7 +63,7 @@ export default function ContributionRequestWorkflow() {
         return () => {
             dispatch(clearPaneContent());
         };
-    }, [branchId, dispatch, loading, currentRootNodeId]);
+    }, [branchId, dispatch, loading, currentRootId]);
 
     if (loading) {
         return <Loader />;
@@ -88,9 +88,9 @@ export default function ContributionRequestWorkflow() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootNodeId} branchId={branchId} />}
+                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootId} branchId={branchId} />}
                     {workflow && <Workflow
-                        nodeId={currentRootNodeId}
+                        nodeId={currentRootId}
                         branchId={branchId}
                         context={WorkflowDiagramContext.workflowPage} />}
                 </Box>

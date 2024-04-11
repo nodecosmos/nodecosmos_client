@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function useDescriptionMarkdown() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { isBranch, currentRootNodeId } = useBranchParams();
+    const { isBranch, currentRootId } = useBranchParams();
     const {
         branchId,
         objectId,
@@ -26,7 +26,7 @@ export default function useDescriptionMarkdown() {
     } = usePaneContext();
     const branch = useSelector(selectBranch(branchId));
     const { markdown } = useSelector(selectDescription(branchId, objectId)) || {};
-    const originalDescription = useSelector(selectDescription(currentRootNodeId, objectId));
+    const originalDescription = useSelector(selectDescription(currentRootId, objectId));
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     let isDescriptionEdited;
 
@@ -59,12 +59,12 @@ export default function useDescriptionMarkdown() {
     const getOriginalDescriptionCb = useCallback(() => {
         return dispatch(getOriginalDescription({
             nodeId: objectNodeId,
-            currentRootNodeId,
+            currentRootId,
             currentBranchId: branchId,
             branchId,
             objectId,
         }));
-    }, [branchId, currentRootNodeId, dispatch, objectId, objectNodeId]);
+    }, [branchId, currentRootId, dispatch, objectId, objectNodeId]);
 
     const { originalMarkdown, branchMarkdown } = useMemo(() => {
         // if the branch is merged and the description has been changed,

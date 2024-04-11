@@ -6,7 +6,7 @@ import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
 import { CreateIoModalProps, IoObjectType } from '../components/CreateIoModal';
-import { selectUniqueIoByRootNodeId } from '../inputOutputs.selectors';
+import { selectUniqueIoByrootId } from '../inputOutputs.selectors';
 import { createIo } from '../inputOutputs.thunks';
 import { InputOutput, InsertInputOutputPayload } from '../inputOutputs.types';
 import React, { useCallback } from 'react';
@@ -20,12 +20,12 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         outputIdsByNodeId,
     } = props;
     const {
-        branchId, id: workflowId, nodeId, rootNodeId, initialInputIds: currentInitialInputIds,
+        branchId, nodeId, rootId, initialInputIds: currentInitialInputIds,
     } = useWorkflowContext();
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const allWorkflowIos = useSelector(selectUniqueIoByRootNodeId(branchId, rootNodeId));
+    const allWorkflowIos = useSelector(selectUniqueIoByrootId(branchId, rootId));
     const handleServerError = useHandleServerErrorAlert();
 
     const onSubmit = useCallback(async (formValues: { title: string }) => {
@@ -35,9 +35,9 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         const payload: Strict<InsertInputOutputPayload> = {
             nodeId,
             branchId,
-            workflowId,
-            rootNodeId,
+            rootId,
             originalId: (autocompleteValue && existingIo?.id) || null,
+            flowId: flowStepPrimaryKey?.flowId ?? null,
             flowStepId: flowStepPrimaryKey?.id ?? null,
             ...formValues,
         };
@@ -61,7 +61,6 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
                 await dispatch(updateWorkflowInitialInputs({
                     nodeId,
                     branchId,
-                    id: workflowId,
                     initialInputIds,
                 }));
             }
@@ -78,6 +77,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
 
                 await dispatch(updateFlowStepOutputs({
                     ...flowStepPrimaryKey,
+                    rootId,
                     outputIdsByNodeId: newOutputIdsByNodeId,
                 }));
             }
@@ -96,7 +96,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         props.onClose();
     },
     [
-        autocompleteValue, allWorkflowIos, nodeId, branchId, workflowId, rootNodeId, associatedObject,
+        autocompleteValue, allWorkflowIos, nodeId, branchId, rootId, associatedObject,
         flowStepPrimaryKey, dispatch, props, handleServerError, currentInitialInputIds, outputIdsByNodeId, outputNodeId,
     ]);
 

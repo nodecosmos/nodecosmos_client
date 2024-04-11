@@ -12,7 +12,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: WorkflowState = {
     byBranchId: {},
-    idByBranchAndNodeId: {},
     // diagram
     workflowDiagramByBranchId: {},
     workflowScale: getScale(),
@@ -27,22 +26,22 @@ const workflowsSlice = createSlice({
             state.workflowScale = action.payload;
         },
         updateWorkflow(state, action) {
-            const workflow = state.byBranchId[action.payload.branchId][action.payload.id];
+            const workflow = state.byBranchId[action.payload.branchId][action.payload.nodeId];
 
-            state.byBranchId[action.payload.branchId][action.payload.id] = {
+            state.byBranchId[action.payload.branchId][action.payload.nodeId] = {
                 ...workflow,
                 ...action.payload,
             };
         },
         rebuildWorkflowDiagram(
             state,
-            action: PayloadAction<{ id: UUID, branchId: UUID, data: BuildWorkflowDiagramData }>,
+            action: PayloadAction<{ nodeId: UUID, branchId: UUID, data: BuildWorkflowDiagramData }>,
         ) {
             const {
-                id, branchId, data,
+                nodeId, branchId, data,
             } = action.payload;
 
-            state.workflowDiagramByBranchId[branchId][id] = buildWorkflowDiagram(data);
+            state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram(data);
         },
     },
     extraReducers(builder) {
@@ -51,15 +50,13 @@ const workflowsSlice = createSlice({
                 const {
                     workflow, flows, flowSteps, inputOutputs,
                 } = action.payload;
-                const { branchId, id } = workflow;
+                const { branchId, nodeId } = workflow;
 
                 workflow.initialInputIds ||= [];
                 workflow.initialInputIds = workflow.initialInputIds
                     .filter((value, index, array) => array.indexOf(value) === index);
                 state.byBranchId[branchId] ||= {};
-                state.byBranchId[branchId][id] = workflow;
-                state.idByBranchAndNodeId[branchId] ||= {};
-                state.idByBranchAndNodeId[branchId][workflow.nodeId] = id;
+                state.byBranchId[branchId][nodeId] = workflow;
 
                 const data = {
                     initialInputIds: workflow.initialInputIds,
@@ -68,20 +65,18 @@ const workflowsSlice = createSlice({
                     inputOutputs,
                 };
                 state.workflowDiagramByBranchId[branchId] ||= {};
-                state.workflowDiagramByBranchId[branchId][id] = buildWorkflowDiagram(data);
+                state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram(data);
             })
             .addCase(createWorkflow.fulfilled, (state, action) => {
                 const { workflow } = action.payload;
-                const { id, branchId } = workflow;
+                const { nodeId, branchId } = workflow;
 
                 workflow.initialInputIds ||= [];
                 state.byBranchId[branchId] ||= {};
-                state.byBranchId[branchId][id] = workflow;
-                state.idByBranchAndNodeId[branchId] ||= {};
-                state.idByBranchAndNodeId[branchId][workflow.nodeId] = id;
+                state.byBranchId[branchId][nodeId] = workflow;
 
                 state.workflowDiagramByBranchId[branchId] ||= {};
-                state.workflowDiagramByBranchId[branchId][id] = buildWorkflowDiagram({
+                state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram({
                     flows: [],
                     flowSteps: [],
                     inputOutputs: [],
@@ -93,16 +88,14 @@ const workflowsSlice = createSlice({
 
                 // existing workflow is returned
                 if (workflow) {
-                    const { id, branchId } = workflow;
+                    const { nodeId, branchId } = workflow;
 
                     workflow.initialInputIds ||= [];
                     state.byBranchId[branchId] ||= {};
-                    state.byBranchId[branchId][id] = workflow;
-                    state.idByBranchAndNodeId[branchId] ||= {};
-                    state.idByBranchAndNodeId[branchId][workflow.nodeId] = id;
+                    state.byBranchId[branchId][nodeId] = workflow;
 
                     state.workflowDiagramByBranchId[branchId] ||= {};
-                    state.workflowDiagramByBranchId[branchId][id]
+                    state.workflowDiagramByBranchId[branchId][nodeId]
                         = buildWorkflowDiagram({
                             flows: [],
                             flowSteps: [],
@@ -126,17 +119,16 @@ const workflowsSlice = createSlice({
                 const workflow = action.payload;
                 const { initialInputIds } = workflow;
 
-                state.byBranchId[workflow.branchId][workflow.id].initialInputIds = initialInputIds;
+                state.byBranchId[workflow.branchId][workflow.nodeId].initialInputIds = initialInputIds;
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const workflowId = inputOutput.workflowId as UUID;
-                const branchId = inputOutput.branchId as UUID;
-                const { initialInputIds } = state.byBranchId[branchId][workflowId];
+                const { branchId, nodeId } = inputOutput;
+                const { initialInputIds } = state.byBranchId[branchId][nodeId];
 
-                if (initialInputIds.includes(inputOutput.id as UUID)) {
-                    state.byBranchId[branchId][workflowId].initialInputIds
-                        = initialInputIds.filter((id) => id !== inputOutput.id);
+                if (initialInputIds.includes(inputOutput.nodeId as UUID)) {
+                    state.byBranchId[branchId][nodeId].initialInputIds
+                        = initialInputIds.filter((nodeId) => nodeId !== inputOutput.nodeId);
                 }
             });
     },

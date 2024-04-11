@@ -6,7 +6,6 @@ import { calculateFlowStepNodePosition, calculateFlowStepPosition } from './posi
 import { UUID } from '../../../types';
 import { FlowStep } from '../../flow-steps/flowSteps.types';
 import { InputOutput } from '../../input-outputs/inputOutputs.types';
-import { FLOW_BUFFER } from '../constants';
 
 export interface FlowStepData {
     flowId: UUID;
@@ -36,22 +35,27 @@ export function buildFlow(data: FlowStepData): FlowRes {
 
     if (flowSteps.length === 0) {
         // append one empty flow step
+
+        const empty = calculateFlowStepPosition({
+            flowStep: null,
+            flowStartIndex,
+            stepIndex: 0,
+            prefFlowYEnd,
+        });
+
         workflowStepFlows.push({
             id: flowId,
             stepId: null,
             startIndex: flowStartIndex,
             verticalIndex: flowVerticalIndex,
-            position: calculateFlowStepPosition({
-                flowStep: null,
-                flowStartIndex,
-                stepIndex: 0,
-                prefFlowYEnd,
-            }),
+            position: empty,
             flowStepNodes: [],
             outputs: [],
             prevFlowStepId: null,
             nextFlowStepId: null,
         });
+
+        flowYEnd = Math.max(empty.yEnd, flowYEnd);
     } else {
         flowSteps.forEach((flowStep, stepIndex) => {
             const flowStepPosition = calculateFlowStepPosition({
@@ -117,6 +121,6 @@ export function buildFlow(data: FlowStepData): FlowRes {
 
     return {
         workflowStepFlows,
-        flowYEnd: flowYEnd + FLOW_BUFFER,
+        flowYEnd,
     };
 }

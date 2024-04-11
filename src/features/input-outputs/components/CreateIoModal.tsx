@@ -4,11 +4,9 @@ import CloseModalButton from '../../../common/components/modal/CloseModalButton'
 import DefaultModal from '../../../common/components/modal/DefaultModal';
 import { UUID } from '../../../types';
 import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/flowSteps.types';
-import { selectNodeAttribute } from '../../nodes/nodes.selectors';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
-import { selectWorkflowAttribute } from '../../workflows/workflow.selectors';
 import useIoSubmitHandler from '../hooks/useIoSubmitHandler';
-import { selectUniqueIoByRootNodeId } from '../inputOutputs.selectors';
+import { selectUniqueIoByrootId } from '../inputOutputs.selectors';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';
@@ -49,11 +47,8 @@ export default function CreateIoModal(props: CreateIoModalProps) {
         onClose,
         associatedObject,
     } = props;
-    const { id: workflowId, branchId } = useWorkflowContext();
-
-    const nodeId = useSelector(selectWorkflowAttribute(branchId, workflowId, 'nodeId'));
-    const rootNodeId = useSelector(selectNodeAttribute(branchId, nodeId, 'rootId'));
-    const allWorkflowIos = useSelector(selectUniqueIoByRootNodeId(branchId, rootNodeId as UUID));
+    const { rootId, branchId } = useWorkflowContext();
+    const allWorkflowIos = useSelector(selectUniqueIoByrootId(branchId, rootId as UUID));
     const allIoTitles = allWorkflowIos.map((io) => io.title);
     const uniqueIoTitles = [...new Set(allIoTitles)];
 
@@ -100,7 +95,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                                     </InputAdornment>
                                 )}
                                 name="title"
-                                placeholder="Io Title"
+                                placeholder="IO Title"
                                 setAutocompleteValue={setAutocompleteValue}
                             />
 

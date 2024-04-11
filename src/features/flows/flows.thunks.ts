@@ -18,24 +18,6 @@ export const createFlow = createAsyncThunk<
     },
 );
 
-export const getFlowDescription = createAsyncThunk<
-    Partial<Flow> & FlowPrimaryKey,
-    FlowPrimaryKey,
-    { rejectValue: NodecosmosError }
->(
-    'flows/getDescription',
-    async (payload) => {
-        const {
-            nodeId, branchId, workflowId, verticalIndex, startIndex, id,
-        } = payload;
-        const response = await nodecosmos.get(
-            `flows/${nodeId}/${branchId}/${workflowId}/${verticalIndex}/${startIndex}/${id}/description`,
-        );
-
-        return response.data;
-    },
-);
-
 export const updateFlowTitle = createAsyncThunk<
     Partial<Flow> & FlowPrimaryKey,
     FlowUpsertPayload,
@@ -49,19 +31,6 @@ export const updateFlowTitle = createAsyncThunk<
     },
 );
 
-export const updateFlowDescription = createAsyncThunk<
-    Partial<Flow> & FlowPrimaryKey,
-    FlowUpsertPayload,
-    { rejectValue: NodecosmosError }
->(
-    'flows/updateFlowDescription',
-    async (payload) => {
-        const response = await nodecosmos.put('/flows/description', payload);
-
-        return response.data;
-    },
-);
-
 export const deleteFlow = createAsyncThunk<
     Partial<Flow> & FlowPrimaryKey,
     FlowPrimaryKey,
@@ -70,11 +39,11 @@ export const deleteFlow = createAsyncThunk<
     'flows/deleteFlow',
     async (payload) => {
         const {
-            nodeId, branchId, workflowId, verticalIndex, startIndex, id,
+            nodeId, branchId, verticalIndex, startIndex, id,
         } = payload;
 
         const response = await nodecosmos.delete(
-            `/flows/${nodeId}/${branchId}/${workflowId}/${verticalIndex}/${startIndex}/${id}`,
+            `/flows/${nodeId}/${branchId}/${verticalIndex}/${startIndex}/${id}`,
         );
 
         return response.data;

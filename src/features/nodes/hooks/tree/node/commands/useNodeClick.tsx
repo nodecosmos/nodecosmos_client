@@ -57,7 +57,7 @@ export default function useNodeClick() {
             }));
             dispatch(selectObject({
                 currentBranchId: treeBranchId,
-                currentRootNodeId: treeBranchId,
+                currentRootId: treeBranchId,
                 objectNodeId: id,
                 branchId,
                 objectId: id,

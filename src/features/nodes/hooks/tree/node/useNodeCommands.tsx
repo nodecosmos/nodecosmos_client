@@ -4,7 +4,7 @@ import useNodeDrag from './commands/useNodeDrag';
 import useNodeEdit from './commands/useNodeEdit';
 import useNodeRemove from './commands/useNodeRemove';
 import useNodeRestore from './commands/useNodeRestore';
-import useNodeSaver from './commands/useNodeSaver';
+import useNodeSave from './commands/useNodeSave';
 import useNodeUndoDeletion from './commands/useNodeUndoDeletion';
 
 export default function useNodeCommands() {
@@ -12,7 +12,7 @@ export default function useNodeCommands() {
     const editNode = useNodeEdit();
     const addNode = useNodeAdd();
     const removeNode = useNodeRemove();
-    const { saveNode, blurNode } = useNodeSaver();
+    const { saveNode, blurNode } = useNodeSave();
     const {
         startDrag,
         stopDrag,

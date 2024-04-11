@@ -43,7 +43,6 @@ export default function useFlowStepContext() {
 
     const {
         nodeId,
-        workflowId,
         flowId,
         flowIndex,
         nodeIds,
@@ -58,7 +57,6 @@ export default function useFlowStepContext() {
 
     return {
         nodeId,
-        workflowId,
         flowId,
         flowIndex,
         id,

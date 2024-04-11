@@ -12,7 +12,7 @@ import React, { memo } from 'react';
 
 export interface TreeProps {
     treeBranchId: UUID;
-    rootNodeId: UUID;
+    rootId: UUID;
     type?: TreeType;
     onChange?: (ids: UUID[]) => void;
     value?: UUID[] | null;
@@ -20,11 +20,11 @@ export interface TreeProps {
 
 function Tree(props: TreeProps) {
     const {
-        treeBranchId, rootNodeId, type = TreeType.Default, onChange, value = null,
+        treeBranchId, rootId, type = TreeType.Default, onChange, value = null,
     } = props;
     const { TreeContext, ctxValue } = useTreeContextCreator({
         treeBranchId,
-        rootNodeId,
+        rootId,
         type,
         onChange,
         value,

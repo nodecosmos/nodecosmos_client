@@ -6,7 +6,7 @@ import {
     OUTPUT_EDGE_LENGTH,
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_START_MARGIN_TOP,
-    WORKFLOW_STEP_HEIGHT,
+    FLOW_TOOLBAR_HEIGHT,
     OUTPUT_BUTTON_SKEWED_WIDTH,
 } from '../constants';
 
@@ -43,10 +43,13 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
             && Object.values(flowStep.outputIdsByNodeId).flat().length
     ) || 0;
 
-    const y = prefFlowYEnd == 0 ? prefFlowYEnd + WORKFLOW_STEP_HEIGHT : prefFlowYEnd;
-    let yEnd = y + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
+    const y = prefFlowYEnd == 0 ? prefFlowYEnd + FLOW_TOOLBAR_HEIGHT : prefFlowYEnd;
+    let yEnd = y + FLOW_TOOLBAR_HEIGHT + (nodeLength * OUTPUT_EDGE_LENGTH) + (outputsLength * OUTPUT_EDGE_LENGTH);
     if (currentFlowYEnd && (currentFlowYEnd > yEnd)) {
         yEnd = currentFlowYEnd;
+    }
+    if (nodeLength > 0) {
+        yEnd += FLOW_TOOLBAR_HEIGHT;
     }
 
     return {

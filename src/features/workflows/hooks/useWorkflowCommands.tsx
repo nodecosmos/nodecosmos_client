@@ -8,16 +8,16 @@ export default function useWorkflowCommands() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         branchId,
-        id,
+        nodeId,
     } = useWorkflowContext();
 
     const handleTitleChange = useCallback((title: string) => {
         dispatch(updateWorkflow({
             branchId,
-            id,
+            nodeId,
             title,
         }));
-    }, [branchId, dispatch, id]);
+    }, [branchId, dispatch, nodeId]);
 
     return { handleTitleChange };
 }

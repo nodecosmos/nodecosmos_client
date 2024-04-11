@@ -100,12 +100,6 @@ const flowStepsSlice = createSlice({
     },
 });
 
-const {
-    actions,
-    reducer,
-} = flowStepsSlice;
-
-// eslint-disable-next-line no-empty-pattern
-export const {} = actions;
+const { reducer } = flowStepsSlice;
 
 export default reducer;

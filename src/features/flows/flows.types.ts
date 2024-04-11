@@ -3,7 +3,6 @@ import { WithOptionalId, UUID } from '../../types';
 export interface FlowPrimaryKey {
     nodeId: UUID;
     branchId: UUID;
-    workflowId: UUID;
     verticalIndex: number;
     startIndex: number;
     id: UUID;

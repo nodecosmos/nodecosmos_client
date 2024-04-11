@@ -15,7 +15,7 @@ import {
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
 } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
-import useNodeInputsChange from '../../../hooks/diagram/flow-step-node/useNodeInputsChange';
+import useInputsChange from '../../../hooks/diagram/flow-step-node/useInputsChange';
 import useOutputColors from '../../../hooks/diagram/useOutputColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { Checkbox } from '@mui/material';
@@ -49,8 +49,8 @@ export default function Output(props: OutputProps) {
     } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const isChecked = selectedInputs.has(id);
-    const { currentRootNodeId } = useBranchParams();
-    const handleInputsChange = useNodeInputsChange();
+    const { currentRootId } = useBranchParams();
+    const handleInputsChange = useInputsChange();
 
     const handleClick = useCallback(async () => {
         if (inputsAdditionActive) {
@@ -74,7 +74,7 @@ export default function Output(props: OutputProps) {
         } else if (workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(selectObject({
                 currentBranchId: branchId,
-                currentRootNodeId,
+                currentRootId,
                 objectNodeId: nodeId,
                 branchId,
                 objectId: id,
@@ -84,7 +84,7 @@ export default function Output(props: OutputProps) {
     },
     [
         branchId,
-        currentRootNodeId,
+        currentRootId,
         dispatch,
         handleInputsChange,
         id,

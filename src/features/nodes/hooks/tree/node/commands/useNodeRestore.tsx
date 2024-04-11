@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 export default function useNodeRestore() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id, treeBranchId } = useNodeContext();
-    const { currentRootNodeId } = useBranchParams();
+    const { currentRootId } = useBranchParams();
     const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async () => {
@@ -29,8 +29,8 @@ export default function useNodeRestore() {
         }
 
         dispatch(checkDeletedAncestorConflict({
-            currentRootNodeId,
+            currentRootId,
             branchId: treeBranchId,
         }));
-    }, [dispatch, handleServerError, id, currentRootNodeId, treeBranchId]);
+    }, [dispatch, handleServerError, id, currentRootId, treeBranchId]);
 }

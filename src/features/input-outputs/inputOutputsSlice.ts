@@ -1,5 +1,5 @@
 import {
-    createIo, deleteIo, getIoDescription, updateIoTitle,
+    createIo, deleteIo, updateIoTitle,
 } from './inputOutputs.thunks';
 import {
     InputOutput, InputOutputSlice, IoPaneContent,
@@ -17,31 +17,7 @@ const initialState: InputOutputSlice = {
 const inputOutputsSlice = createSlice({
     name: 'Ios',
     initialState,
-    reducers: {
-        updateIoState(state, action) {
-            const { id, branchId } = action.payload;
-            state.byBranchId[branchId][id] = {
-                ...state.byBranchId[branchId][id],
-                ...action.payload,
-            };
-
-            Object.values(state.byBranchId[branchId]).forEach((io) => {
-                const updatedIo = state.byBranchId[branchId][id];
-
-                if (io.originalId === io.originalId) {
-                    io.title = updatedIo.title;
-                    io.unit = updatedIo.unit;
-                    io.dataType = updatedIo.dataType;
-                    io.value = updatedIo.value;
-                    io.description = updatedIo.description;
-                    io.descriptionMarkdown = updatedIo.descriptionMarkdown;
-                }
-            });
-        },
-        setIoPaneContent(state, action) {
-            state.IoPaneContent = action.payload;
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
@@ -58,18 +34,6 @@ const inputOutputsSlice = createSlice({
 
                 state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][inputOutput.id] = inputOutput;
-            }).addCase(getIoDescription.fulfilled, (state, action) => {
-                const inputOutput = action.payload;
-                const {
-                    branchId, description, descriptionMarkdown,
-                } = inputOutput;
-
-                Object.values(state.byBranchId[branchId]).forEach((io) => {
-                    if (io.originalId === inputOutput.originalId) {
-                        io.description = description as string | null;
-                        io.descriptionMarkdown = descriptionMarkdown as string | null;
-                    }
-                });
             }).addCase(updateIoTitle.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const { branchId, title } = inputOutput;
@@ -96,14 +60,6 @@ const inputOutputsSlice = createSlice({
     },
 });
 
-const {
-    actions,
-    reducer,
-} = inputOutputsSlice;
-
-export const {
-    updateIoState,
-    setIoPaneContent,
-} = actions;
+const { reducer } = inputOutputsSlice;
 
 export default reducer;

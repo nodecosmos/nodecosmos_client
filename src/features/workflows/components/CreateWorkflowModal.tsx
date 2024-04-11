@@ -29,17 +29,17 @@ export default function CreateWorkflowModal(props: Props) {
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const rootNodeId = useSelector(selectNodeAttribute(branchId as UUID, nodeId, 'rootId'));
+    const rootId = useSelector(selectNodeAttribute(branchId as UUID, nodeId, 'rootId'));
     const handleServerError = useHandleServerErrorAlert();
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
 
-        if (!rootNodeId) throw new Error('Root node id is not defined');
+        if (!rootId) throw new Error('Root node id is not defined');
 
         const payload = {
             nodeId,
             branchId,
-            rootNodeId,
+            rootId,
             ...formValues,
         };
 
@@ -54,7 +54,7 @@ export default function CreateWorkflowModal(props: Props) {
 
         setTimeout(() => setLoading(false), 500);
         onClose();
-    }, [branchId, dispatch, handleServerError, nodeId, onClose, rootNodeId]);
+    }, [branchId, dispatch, handleServerError, nodeId, onClose, rootId]);
 
     return (
         <Dialog

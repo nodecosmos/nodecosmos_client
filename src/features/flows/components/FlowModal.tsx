@@ -27,9 +27,7 @@ export default function FlowModal(props: Props) {
     const {
         open, onClose, id = null, startIndex = 0, verticalIndex = 0,
     } = props;
-    const {
-        branchId, id: workflowId, nodeId,
-    } = useWorkflowContext();
+    const { branchId, nodeId } = useWorkflowContext();
 
     const [loading, setLoading] = React.useState(false);
     const currentFlow = useSelector(selectOptFlow(branchId, id));
@@ -44,7 +42,6 @@ export default function FlowModal(props: Props) {
             nodeId,
             branchId,
             startIndex,
-            workflowId,
             verticalIndex,
             ...formValues,
         };
@@ -58,7 +55,7 @@ export default function FlowModal(props: Props) {
 
         setTimeout(() => setLoading(false), 500);
         onClose();
-    }, [branchId, dispatch, id, isNew, nodeId, onClose, startIndex, verticalIndex, workflowId]);
+    }, [branchId, dispatch, id, isNew, nodeId, onClose, startIndex, verticalIndex]);
 
     const dialogTitle = isNew ? 'Add Flow' : 'Edit Flow';
 

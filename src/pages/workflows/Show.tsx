@@ -9,7 +9,7 @@ import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
 import CreateWorkflowToolbar from '../../features/workflows/components/CreateWorkflowToolbar';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
-import { selectOptWorkflowByBranchAndNodeId } from '../../features/workflows/workflow.selectors';
+import { selectOptWorkflow } from '../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
 import { UUID } from '../../types';
@@ -18,17 +18,17 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Show() {
-    const { currentRootNodeId, branchId } = useBranchParams();
+    const { currentRootId, branchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflowByBranchAndNodeId(branchId, currentRootNodeId));
+    const workflow = useSelector(selectOptWorkflow(branchId, currentRootId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const branchNodes = useSelector(selectBranchNodes(currentRootNodeId as UUID));
+    const branchNodes = useSelector(selectBranchNodes(currentRootId as UUID));
 
-    const id = workflow?.id;
+    const workflowNodeId = workflow?.nodeId;
 
-    const [loading, setLoading] = React.useState(!id);
+    const [loading, setLoading] = React.useState(!workflowNodeId);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
@@ -55,9 +55,9 @@ export default function Show() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (!id) {
+        if (!workflowNodeId) {
             dispatch(showWorkflow({
-                nodeId: currentRootNodeId,
+                nodeId: currentRootId,
                 branchId,
             })).then(() => setLoading(false));
         } else {
@@ -67,7 +67,7 @@ export default function Show() {
         return () => {
             dispatch(clearPaneContent());
         };
-    }, [branchId, currentRootNodeId, dispatch, id]);
+    }, [branchId, currentRootId, dispatch, workflowNodeId]);
 
     if (loading || !branchNodes) {
         return <Loader />;
@@ -92,8 +92,8 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootNodeId} branchId={branchId} />}
-                    {workflow && <Workflow nodeId={currentRootNodeId} branchId={branchId} />}
+                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootId} branchId={branchId} />}
+                    {workflow && <Workflow nodeId={currentRootId} branchId={branchId} />}
 
                 </Box>
                 <Box
@@ -121,7 +121,7 @@ export default function Show() {
                     overflow="hidden"
                     boxShadow="left.2"
                     borderLeft={1}
-                    zIndex={1}
+                    zIndex={1000}
                     style={{ borderLeftColor }}
                 >
                     <Pane />

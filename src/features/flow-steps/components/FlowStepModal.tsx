@@ -27,7 +27,7 @@ interface Props {
 
 export default function FlowStepModal({ open, onClose }: Props) {
     const {
-        branchId, id: workflowId, nodeId,
+        branchId, nodeId, rootId,
     } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
@@ -54,8 +54,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
                 const updatePayload: Strict<FlowStepUpdatePayload> = {
                     nodeId,
                     branchId,
-                    workflowId,
                     flowId,
+                    rootId,
                     flowIndex,
                     id,
                     nodeIds: filteredNodeIds,
@@ -65,8 +65,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
                 const insertPayload: Strict<FlowStepCreationParams> = {
                     nodeId,
                     branchId,
-                    workflowId,
                     flowId,
+                    rootId,
                     nodeIds: filteredNodeIds,
                     prevFlowStepId,
                     nextFlowStepId,
@@ -92,8 +92,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
         }
     },
     [
-        flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, workflowId, flowId, flowIndex,
-        dispatch, prevFlowStepId, nextFlowStepId, handleServerError,
+        flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, flowId, flowIndex,
+        rootId, dispatch, prevFlowStepId, nextFlowStepId, handleServerError,
     ],
     );
 
@@ -149,7 +149,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                             borderColor: 'borders.4',
                         }}>
                         <Tree
-                            rootNodeId={nodeId}
+                            rootId={nodeId}
                             treeBranchId={nodeId}
                             type={TreeType.Checkbox}
                             onChange={setFlowStepNodeIds}

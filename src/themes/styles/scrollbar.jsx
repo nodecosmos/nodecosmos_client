@@ -9,8 +9,8 @@ export default (theme) => ({
     },
     '::-webkit-scrollbar-thumb': {
         minHeight: 42,
-        backgroundColor: theme.palette.background[8],
+        backgroundColor: theme.palette.background[5],
     },
-    '::-webkit-scrollbar-track': { backgroundColor: theme.palette.background[2] },
+    '::-webkit-scrollbar-track': { backgroundColor: theme.palette.background[1] },
     '::-webkit-scrollbar-corner': { backgroundColor: theme.palette.background[2] },
 });

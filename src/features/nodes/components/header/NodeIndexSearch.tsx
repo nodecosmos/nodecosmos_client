@@ -1,6 +1,5 @@
 import { NodecosmosDispatch } from '../../../../store';
 import { indexNodes } from '../../nodes.thunks';
-import { IndexNodesPayload } from '../../nodes.types';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField } from '@mui/material';
@@ -17,7 +16,10 @@ export default function NodeIndexSearch() {
     const execSearch = useCallback((value: string) => {
         if (dispatchTimeout.current) clearTimeout(dispatchTimeout.current);
 
-        const payload: IndexNodesPayload = { q: value };
+        let payload = null;
+        if (value) {
+            payload = { q: value };
+        }
 
         dispatch(indexNodes(payload));
     }, [dispatch]);

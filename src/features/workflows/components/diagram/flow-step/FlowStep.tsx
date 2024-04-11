@@ -1,7 +1,5 @@
 import FlowStepToolbar from './FlowStepToolbar';
-import {
-    EDGE_LENGTH, FLOW_STEP_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH,
-} from '../../../constants';
+import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import FlowStepNode from '../nodes/FlowStepNode';
@@ -13,21 +11,20 @@ export default function FlowStep() {
         flowStepNodes, x, y, yEnd,
     } = useFlowStepContext();
     const { backgroundColor, outlineColor } = useFlowStepColors();
-    if (!flowStepNodes) return null;
 
     return (
         <g>
             <rect
                 x={x}
-                y={y + FLOW_STEP_TOOLBAR_HEIGHT}
+                y={y + FLOW_TOOLBAR_HEIGHT}
                 width={WORKFLOW_STEP_WIDTH}
-                height={yEnd - y + EDGE_LENGTH}
+                height={yEnd - y}
                 fill={backgroundColor} />
             <foreignObject
                 x={x}
                 y={y}
                 width={WORKFLOW_STEP_WIDTH + 1}
-                height={FLOW_STEP_TOOLBAR_HEIGHT}
+                height={FLOW_TOOLBAR_HEIGHT}
             >
                 <Box
                     display="flex"
@@ -46,7 +43,7 @@ export default function FlowStep() {
             </foreignObject>
             <g>
                 {
-                    flowStepNodes.map((flowStepNode) => (
+                    flowStepNodes && flowStepNodes.map((flowStepNode) => (
                         <FlowStepNode key={flowStepNode.id} flowStepNode={flowStepNode} />
                     ))
                 }

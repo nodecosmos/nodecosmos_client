@@ -8,13 +8,13 @@ interface FlowStepAppAttrs {
 export interface FlowStepPrimaryKey {
     nodeId: UUID;
     branchId: UUID;
-    workflowId: UUID;
     flowId: UUID;
     flowIndex: number;
     id: UUID;
 }
 
 export interface FlowStep extends FlowStepPrimaryKey, FlowStepAppAttrs {
+    rootId: UUID;
     nodeIds: UUID[];
     description: string;
     descriptionMarkdown: string;
@@ -29,11 +29,15 @@ export interface FlowStep extends FlowStepPrimaryKey, FlowStepAppAttrs {
 export interface FlowStepCreationParams extends Omit<FlowStepPrimaryKey, 'flowIndex' | 'id'> {
     prevFlowStepId?: UUID | null;
     nextFlowStepId?: UUID | null;
+    rootId: UUID;
     nodeIds: UUID[];
 }
 
-// primary key with optional id + partial of the rest
-export type FlowStepUpdatePayload = FlowStepPrimaryKey & Partial<Omit<FlowStep, keyof FlowStepPrimaryKey>>;
+type FsWithoutPk = Partial<Omit<FlowStep, keyof FlowStepPrimaryKey>>;
+
+export interface FlowStepUpdatePayload extends FlowStepPrimaryKey, FsWithoutPk {
+    rootId: UUID;
+}
 
 export interface FlowStepState {
     byBranchId: Record<UUID, Record<UUID, FlowStep>>;

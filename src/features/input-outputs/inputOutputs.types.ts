@@ -2,15 +2,15 @@ import { UUID } from '../../types';
 import { Property } from '../properties/types';
 
 export interface InputOutputPrimaryKey {
-    rootNodeId: UUID;
+    rootId: UUID;
     nodeId: UUID;
     branchId: UUID;
-    workflowId: UUID;
     id: UUID;
 }
 
 export interface InputOutput extends InputOutputPrimaryKey {
     originalId: UUID | null;
+    flowId: UUID | null;
     flowStepId: UUID | null;
     title: string;
     unit: string | null;
@@ -26,6 +26,7 @@ export interface InputOutput extends InputOutputPrimaryKey {
 
 export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'id'> {
     flowStepId: InputOutput['flowStepId'];
+    flowId: InputOutput['flowId'];
     originalId?: InputOutput['originalId'];
     title: InputOutput['title'];
 }
@@ -33,12 +34,6 @@ export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'i
 export interface UpdateIoTitlePayload extends InputOutputPrimaryKey {
     originalId: InputOutput['originalId'];
     title: InputOutput['title'];
-}
-
-export interface UpdateIoDescriptionPayload extends InputOutputPrimaryKey {
-    originalId: InputOutput['originalId'];
-    description: InputOutput['description'];
-    descriptionMarkdown: InputOutput['descriptionMarkdown'];
 }
 
 export enum IoPaneContent {

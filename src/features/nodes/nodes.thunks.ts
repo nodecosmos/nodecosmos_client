@@ -13,7 +13,7 @@ import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const indexNodes = createAsyncThunk<IndexNode[], IndexNodesPayload, { rejectValue: NodecosmosError }>(
+export const indexNodes = createAsyncThunk<IndexNode[], IndexNodesPayload | null, { rejectValue: NodecosmosError }>(
     'nodes/indexNodes',
     async (payload) => {
         const response = await nodecosmos.get('/nodes', { params: payload });
