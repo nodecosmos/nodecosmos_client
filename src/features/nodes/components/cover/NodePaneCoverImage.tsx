@@ -29,7 +29,7 @@ export default function NodePaneCoverImage() {
     }
 
     const {
-        id, isTmp, coverImageURL,
+        id, isTmp, coverImageUrl,
     } = useSelector(selectNode(treeBranchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
@@ -40,14 +40,14 @@ export default function NodePaneCoverImage() {
             dispatch(updateState({
                 treeBranchId,
                 id,
-                coverImageURL: responseBody.url,
+                coverImageUrl: responseBody.url,
             }));
         }
     }, [closeModal, treeBranchId, dispatch, id]);
 
     return (
         <>
-            {coverImageURL && (
+            {coverImageUrl && (
                 <>
                     <Box
                         sx={{
@@ -74,7 +74,7 @@ export default function NodePaneCoverImage() {
                         <CardMedia
                             className="AmbientImage"
                             component="img"
-                            image={coverImageURL}
+                            image={coverImageUrl}
                             alt="Cover Image Ambient"
                             sx={{
                                 position: 'absolute',
@@ -93,7 +93,7 @@ export default function NodePaneCoverImage() {
                             <CardMedia
                                 className="CoverImageMedia"
                                 component="img"
-                                image={coverImageURL}
+                                image={coverImageUrl}
                                 alt="Cover Image"
                             />
                             <Button
@@ -119,7 +119,7 @@ export default function NodePaneCoverImage() {
                 </>
             )}
 
-            {!coverImageURL && !isTmp && (
+            {!coverImageUrl && !isTmp && (
                 <Box
                     component="div"
                     sx={{

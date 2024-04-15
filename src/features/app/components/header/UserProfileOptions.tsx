@@ -38,7 +38,7 @@ export default function UserProfileOptions() {
     return (
         <>
             <NcAvatar
-                src={currentUser.profileImageURL}
+                src={currentUser.profileImageUrl}
                 name={currentUser.username}
                 onClick={handleClick}
                 width={30}

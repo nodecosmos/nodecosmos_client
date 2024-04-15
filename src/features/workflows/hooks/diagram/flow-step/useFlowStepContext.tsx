@@ -52,7 +52,7 @@ export default function useFlowStepContext() {
 
     const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(branchId, id));
     const {
-        flowStepNodes, prevFlowStepId, nextFlowStepId, stepId,
+        flowStepNodes, prevFlowIndex, nextFlowIndex, stepId,
     } = workflowStepFlow || {};
 
     return {
@@ -66,8 +66,8 @@ export default function useFlowStepContext() {
         flowStepPrimaryKey,
         stepId,
         flowStepNodes,
-        prevFlowStepId,
-        nextFlowStepId,
+        prevFlowIndex,
+        nextFlowIndex,
         x,
         y,
         yEnd,

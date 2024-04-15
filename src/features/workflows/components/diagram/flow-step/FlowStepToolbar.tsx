@@ -3,7 +3,9 @@ import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateVal
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { NodecosmosDispatch } from '../../../../../store';
-import { ObjectType, Strict } from '../../../../../types';
+import {
+    NodecosmosError, ObjectType, Strict,
+} from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
@@ -32,7 +34,7 @@ export default function FlowStepToolbar() {
         title: flowTitle, id: flowId, flowSelected, nodeId,
     } = useFlowContext();
     const {
-        flowStepPrimaryKey, stepId, nextFlowStepId,
+        flowStepPrimaryKey, stepId, flowIndex, nextFlowIndex,
     } = useFlowStepContext();
     const { backgroundColor, color } = useFlowStepColors();
     const { currentRootId } = useBranchParams();
@@ -68,33 +70,43 @@ export default function FlowStepToolbar() {
             throw new Error('Flow Step Primary Key is not defined');
         }
 
+        let newFlowIndex;
+
+        if (nextFlowIndex) {
+            newFlowIndex = (flowIndex + nextFlowIndex) / 2;
+        } else {
+            newFlowIndex = flowIndex + 1;
+        }
+
         const insertPayload: Strict<FlowStepCreationParams> = {
             nodeId: flowStepPrimaryKey.nodeId,
             branchId: flowStepPrimaryKey.branchId,
             flowId: flowStepPrimaryKey.flowId,
+            flowIndex: newFlowIndex,
             rootId,
             nodeIds: [],
-            prevFlowStepId: stepId,
-            nextFlowStepId,
         };
 
         try {
             setCreateIsLoading();
             const response = await dispatch(createFlowStep(insertPayload));
 
-            if (createFlowStep.rejected.match(response)) {
-                handleServerError(response.error);
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+
+                handleServerError(error);
+                console.error(error);
+
+                return;
             }
-            setCreateIsNotLoading();
         } catch (error: unknown) {
             console.error(error);
         } finally {
             setCreateIsNotLoading();
         }
-    },
-    [
-        flowStepPrimaryKey, stepId, nextFlowStepId, rootId,
-        dispatch, handleServerError, setCreateIsLoading, setCreateIsNotLoading,
+    }, [
+        dispatch, flowIndex, flowStepPrimaryKey, handleServerError, nextFlowIndex,
+        rootId, setCreateIsLoading, setCreateIsNotLoading,
     ]);
 
     const [modalOpen, openModal, closeModal] = useModalOpen();

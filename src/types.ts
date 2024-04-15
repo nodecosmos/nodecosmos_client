@@ -23,7 +23,7 @@ export interface Profile {
     profileType: string;
     name: string;
     username: string | null;
-    profileImageURL: string | null;
+    profileImageUrl: string | null;
 }
 
 export enum ProfileType {

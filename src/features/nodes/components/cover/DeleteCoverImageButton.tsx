@@ -45,7 +45,7 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
             dispatch(updateState({
                 treeBranchId,
                 id: objectId,
-                coverImageURL: null,
+                coverImageUrl: null,
             }));
         });
     }, [branchId, dispatch, handleServerError, objectId, treeBranchId]);

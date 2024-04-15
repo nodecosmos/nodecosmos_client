@@ -28,7 +28,7 @@ export default function useNodeSave() {
         rootId,
         persistedId,
     } = useNodeContext();
-    const order = useSelector(selectNodeAttribute(treeBranchId, id, 'order'));
+    const orderIndex = useSelector(selectNodeAttribute(treeBranchId, id, 'orderIndex'));
     const handleServerError = useHandleServerErrorAlert();
     const saveInProgress = useSelector(selectSaveInProgress);
     const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
@@ -91,7 +91,7 @@ export default function useNodeSave() {
                     isRoot: false,
                     isPublic: true,
                     title,
-                    order: order as number,
+                    orderIndex: orderIndex as number,
                     tmpId: id,
                 };
 
@@ -109,7 +109,7 @@ export default function useNodeSave() {
     },
     [
         treeBranchId, branchId, dispatch, handleServerError, id, saveInProgress,
-        order, parentId, persistedId, rootId, treeType, isTmp,
+        orderIndex, parentId, persistedId, rootId, treeType, isTmp,
     ]);
 
     const processQueue = useCallback(async () => {

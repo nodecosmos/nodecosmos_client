@@ -52,8 +52,8 @@ export default function showFulfilled(
             createdAt: null,
             updatedAt: null,
             creatorId: null,
-            coverImageURL: null,
-            coverImageKey: null,
+            coverImageUrl: null,
+            coverImageFilename: null,
             owner,
             childIds: [],
         };

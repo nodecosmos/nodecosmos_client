@@ -44,12 +44,9 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
     ) || 0;
 
     const y = prefFlowYEnd == 0 ? prefFlowYEnd + FLOW_TOOLBAR_HEIGHT : prefFlowYEnd;
-    let yEnd = y + FLOW_TOOLBAR_HEIGHT + (nodeLength * OUTPUT_EDGE_LENGTH) + (outputsLength * OUTPUT_EDGE_LENGTH);
+    let yEnd = y + OUTPUT_EDGE_LENGTH + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
     if (currentFlowYEnd && (currentFlowYEnd > yEnd)) {
         yEnd = currentFlowYEnd;
-    }
-    if (nodeLength > 0) {
-        yEnd += FLOW_TOOLBAR_HEIGHT;
     }
 
     return {

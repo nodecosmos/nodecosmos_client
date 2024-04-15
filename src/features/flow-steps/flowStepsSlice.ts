@@ -40,17 +40,6 @@ const flowStepsSlice = createSlice({
 
                 state.byBranchId[branchId] ||= {};
 
-                if (flowStep.prevFlowStepId) {
-                    state.byBranchId[branchId][flowStep.prevFlowStepId].nextFlowStepId = flowStep.id;
-                    flowStep.index = state.byBranchId[branchId][flowStep.prevFlowStepId].index + 1;
-                } else {
-                    flowStep.index = 0;
-                }
-
-                if (flowStep.nextFlowStepId) {
-                    state.byBranchId[branchId][flowStep.nextFlowStepId].prevFlowStepId = flowStep.id;
-                }
-
                 state.byBranchId[branchId][flowStep.id] = flowStep;
             })
             .addCase(updateFlowStepNodes.fulfilled, (state, action) => {

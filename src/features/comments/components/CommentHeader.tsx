@@ -28,7 +28,7 @@ export default function CommentHeader() {
                             width={35}
                             height={35}
                             name={author.name}
-                            src={author.profileImageURL} />
+                            src={author.profileImageUrl} />
                     </Link>
                     <Link component={RouterLink} to={`/${author.username}`}>
                         <Typography variant="body2" color="text.primary" ml={1} fontWeight="bold">

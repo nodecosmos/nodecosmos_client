@@ -61,7 +61,7 @@ export default function ContributionRequestsList({ nodeId }: Props) {
                     width={25}
                     height={25}
                     name={value.name}
-                    src={value.profileImageURL} />;
+                    src={value.profileImageUrl} />;
             },
         },
         {

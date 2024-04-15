@@ -16,7 +16,7 @@ export interface User {
     password: string;
     bio: string;
     profileImageFilename: string;
-    profileImageURL: string;
+    profileImageUrl: string;
     isConfirmed: boolean;
     isBlocked: boolean;
     address: Address;

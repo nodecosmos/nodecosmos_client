@@ -9,6 +9,10 @@ export interface Conflict {
     status: ConflictStatus;
     deletedAncestors: Set<UUID> | null;
     deletedEditedNodes: Set<UUID> | null;
+    deletedEditedFlows: Set<UUID> | null;
+    deletedEditedFlowSteps: Set<UUID> | null;
+    deletedEditedIos: Set<UUID> | null;
+    conflictingIndexesByFlow: Record<UUID, Set<UUID>>;
 }
 
 export interface BranchParams {
@@ -30,28 +34,6 @@ export enum BranchStatus {
     Closed = 'CLOSED',
 }
 
-/**
- * #[derive(Serialize, Deserialize, Default, PartialEq)]
- * #[charybdis_udt_model(type_name = BranchReorderData)]
- * pub struct BranchReorderData {
- *     pub id: Uuid,
- *     #[serde(rename = "newParentId")]
- *     pub new_parent_id: Uuid,
- *
- *     #[serde(rename = "newOrderIndex")]
- *     pub new_upper_sibling_id: Option<Uuid>,
- *
- *     #[serde(rename = "newLowerSiblingId")]
- *     pub new_lower_sibling_id: Option<Uuid>,
- *
- *     #[serde(rename = "oldParentId")]
- *     pub old_parent_id: Uuid,
- *
- *     #[serde(rename = "oldOrderIndex")]
- *     pub old_order_index: Double,
- * }
- */
-
 interface BranchReorderData {
     id: UUID;
     newParentId: UUID;
@@ -67,42 +49,42 @@ export interface Branch {
     status: BranchStatus;
     ownerId: UUID;
     owner: Profile;
-    editorIds?: UUID[];
+    editorIds: Set<UUID>;
+    isPublic: boolean;
     isContributionRequest: boolean;
     createdNodes: Set<UUID>;
     restoredNodes: Set<UUID>;
     deletedNodes: Set<UUID>;
     editedTitleNodes: Set<UUID>;
     editedDescriptionNodes: Set<UUID>;
-    editedWorkflowNodes: Set<UUID>;
-    // NodeId, InputId
-    createdWorkflowInitialInputs: Record<UUID, Set<UUID>>;
-    // NodeId, InputId
-    deletedWorkflowInitialInputs: Record<UUID, Set<UUID>>;
     reorderedNodes: BranchReorderData[];
-    editedWorkflowTitles: Set<UUID>;
+    editedWorkflowNodes: Set<UUID>;
+    createdWorkflowInitialInputs: Record<UUID, UUID[]>;
+    deletedWorkflowInitialInputs: Record<UUID, UUID[]>;
     createdFlows: Set<UUID>;
     deletedFlows: Set<UUID>;
+    restoredFlows: Set<UUID>;
     editedTitleFlows: Set<UUID>;
     editedDescriptionFlows: Set<UUID>;
-    createdIos: Set<UUID>;
-    deletedIos: Set<UUID>;
-    editedTitleIos: Set<UUID>;
-    editedDescriptionIos: Set<UUID>;
     createdFlowSteps: Set<UUID>;
     deletedFlowSteps: Set<UUID>;
-    // FlowStepId, NodeId
+    restoredFlowSteps: Set<UUID>;
+    keptFlowSteps: Set<UUID>;
+    editedDescriptionFlowSteps: Set<UUID>;
     createdFlowStepNodes: Record<UUID, Set<UUID>>;
     deletedFlowStepNodes: Record<UUID, Set<UUID>>;
-    // FlowStepId, NodeId, InputId
     createdFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     deletedFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     createdFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     deletedFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
-    editedDescriptionFlowSteps: Set<UUID>;
-    titleChangeByObject: Record<UUID, TextChange>;
+    createdIos: Set<UUID>;
+    deletedIos: Set<UUID>;
+    restoredIos: Set<UUID>;
+    editedTitleIos: Set<UUID>;
+    editedDescriptionIos: Set<UUID>;
+    conflict: Conflict;
     descriptionChangeByObject: Record<UUID, TextChange>;
-    conflict?: Conflict;
+    titleChangeByObject: Record<UUID, TextChange>;
 }
 
 export interface BranchDiffPayload {

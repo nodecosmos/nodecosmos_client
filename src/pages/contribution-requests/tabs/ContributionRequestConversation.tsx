@@ -41,7 +41,7 @@ export default function ContributionRequestConversation() {
                             width={35}
                             height={35}
                             name={owner.name}
-                            src={owner.profileImageURL} />
+                            src={owner.profileImageUrl} />
                     </Link>
                     <Link component={RouterLink} to={`/${owner.username}`} display="flex" alignItems="center">
                         <Typography variant="body2" color="text.secondary" ml={1} fontWeight="bold">

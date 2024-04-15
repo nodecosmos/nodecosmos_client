@@ -11,7 +11,7 @@ export interface NodePrimaryKey {
 export interface Node extends NodePrimaryKey {
     rootId: UUID;
     parentId: UUID;
-    order: number;
+    orderIndex: number;
     isPublic: boolean;
     isRoot: boolean;
     title: string;
@@ -22,8 +22,8 @@ export interface Node extends NodePrimaryKey {
     editorIds?: UUID[] | null;
     owner?: Profile | null;
     likesCount?: number;
-    coverImageURL?: string | null;
-    coverImageKey?: string | null;
+    coverImageUrl?: string | null;
+    coverImageFilename?: string | null;
     createdAt?: Date | null;
     updatedAt?: Date | null;
 }
@@ -31,7 +31,7 @@ export interface NodeDescendant extends NodePrimaryKey {
     rootId: UUID;
     branchId: UUID;
     nodeId: UUID;
-    order: number;
+    orderIndex: number;
     id: UUID;
     parentId: UUID;
     title: string;
@@ -61,7 +61,7 @@ export interface IndexNode {
     title: string;
     likesCount: number;
     owner: Profile;
-    coverImageURL: string | null;
+    coverImageUrl: string | null;
     createdAt: string;
     updatedAt: string;
 }

@@ -51,8 +51,8 @@ export function buildFlow(data: FlowStepData): FlowRes {
             position: empty,
             flowStepNodes: [],
             outputs: [],
-            prevFlowStepId: null,
-            nextFlowStepId: null,
+            prevFlowIndex: null,
+            nextFlowIndex: null,
         });
 
         flowYEnd = Math.max(empty.yEnd, flowYEnd);
@@ -102,8 +102,8 @@ export function buildFlow(data: FlowStepData): FlowRes {
                 return node;
             });
 
-            const prevFlowStepId = flowSteps[stepIndex - 1]?.id;
-            const nextFlowStepId = flowSteps[stepIndex + 1]?.id;
+            const prevFlowIndex = flowSteps[stepIndex - 1]?.flowIndex || null;
+            const nextFlowIndex = flowSteps[stepIndex + 1]?.flowIndex || null;
 
             workflowStepFlows.push({
                 id: flowStep.flowId,
@@ -113,8 +113,8 @@ export function buildFlow(data: FlowStepData): FlowRes {
                 position: flowStepPosition,
                 flowStepNodes,
                 outputs: flowOutputs,
-                prevFlowStepId,
-                nextFlowStepId,
+                prevFlowIndex,
+                nextFlowIndex,
             });
         });
     }

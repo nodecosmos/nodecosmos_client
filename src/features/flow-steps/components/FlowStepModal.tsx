@@ -31,7 +31,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
     } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
-        id, nodeIds, prevFlowStepId, nextFlowStepId, flowIndex,
+        id, nodeIds, flowIndex,
     } = useFlowStepContext();
 
     const [loading, setLoading] = React.useState(false);
@@ -67,9 +67,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
                     branchId,
                     flowId,
                     rootId,
+                    flowIndex,
                     nodeIds: filteredNodeIds,
-                    prevFlowStepId,
-                    nextFlowStepId,
                 };
 
                 response = await dispatch(createFlowStep(insertPayload));
@@ -93,7 +92,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
     },
     [
         flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, flowId, flowIndex,
-        rootId, dispatch, prevFlowStepId, nextFlowStepId, handleServerError,
+        rootId, dispatch, handleServerError,
     ],
     );
 

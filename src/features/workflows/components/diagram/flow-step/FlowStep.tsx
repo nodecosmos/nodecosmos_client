@@ -16,7 +16,7 @@ export default function FlowStep() {
         <g>
             <rect
                 x={x}
-                y={y + FLOW_TOOLBAR_HEIGHT}
+                y={y}
                 width={WORKFLOW_STEP_WIDTH}
                 height={yEnd - y}
                 fill={backgroundColor} />

@@ -4,7 +4,6 @@ import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { showNode } from '../../nodes/nodes.thunks';
 import { showWorkflow } from '../../workflows/worfklow.thunks';
-import { CRPrimaryKey } from '../contributionRequest.types';
 import { mergeContributionRequest } from '../contributionRequests.thunks';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -32,8 +31,8 @@ export default function useMerge() {
         try {
             const response = await dispatch(mergeContributionRequest({
                 nodeId,
-                id,
-            } as CRPrimaryKey));
+                id, 
+            }));
 
             if (response.meta.requestStatus === 'rejected') {
                 const error: NodecosmosError = response.payload as NodecosmosError;

@@ -3,17 +3,27 @@ import {
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
 } from './flowSteps.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import {
-    NodecosmosError, Strict, WithRootId,
-} from '../../types';
+import { NodecosmosError, WithRootId } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isAxiosError } from 'axios';
 
-export const createFlowStep = createAsyncThunk(
+export const createFlowStep = createAsyncThunk<
+    FlowStep,
+    FlowStepCreationParams,
+    { rejectValue: NodecosmosError }
+>(
     'flow_steps/createFlowStep',
-    async (payload: Strict<FlowStepCreationParams>): Promise<FlowStep> => {
-        const response = await nodecosmos.post('/flow_steps', payload);
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/flow_steps', payload);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
 
-        return response.data;
+            console.error(error);
+        }
     },
 );
 

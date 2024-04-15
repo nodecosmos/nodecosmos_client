@@ -52,7 +52,7 @@ export interface NodeCreationApiPayload {
     title: string;
     isPublic: boolean;
     isRoot: boolean;
-    order: number;
+    orderIndex: number;
 }
 
 export interface NodeCreationPayload extends NodeCreationApiPayload {

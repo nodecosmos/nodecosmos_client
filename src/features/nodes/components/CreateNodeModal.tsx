@@ -30,7 +30,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             isPublic: true,
             isRoot: true,
             ...formValues,
-            order: 0,
+            orderIndex: 0,
         };
 
         dispatch(create(payload)).then((response) => {

@@ -22,13 +22,9 @@ export interface FlowStep extends FlowStepPrimaryKey, FlowStepAppAttrs {
     outputIdsByNodeId: Record<UUID, UUID[]>;
     createdAt: Date;
     updatedAt: Date;
-    prevFlowStepId?: UUID;
-    nextFlowStepId?: UUID;
 }
 
-export interface FlowStepCreationParams extends Omit<FlowStepPrimaryKey, 'flowIndex' | 'id'> {
-    prevFlowStepId?: UUID | null;
-    nextFlowStepId?: UUID | null;
+export interface FlowStepCreationParams extends Omit<FlowStepPrimaryKey, 'id'> {
     rootId: UUID;
     nodeIds: UUID[];
 }
