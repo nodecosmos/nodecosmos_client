@@ -4,7 +4,7 @@ import { NodecosmosTheme } from '../../../../themes/type';
 import { selectSelectedObject } from '../../../app/app.selectors';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import useWorkflowBranchContext from '../useWorkflowBranchContext';
+import useWorkflowBranch from '../useWorkflowBranch';
 import useWorkflowContext from '../useWorkflowContext';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ export default function useOutputColors({ id, nodeId }: Props) {
     const { branchId } = useWorkflowContext();
     const {
         isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepCreated, isFlowStepDeleted,
-    } = useWorkflowBranchContext();
+    } = useWorkflowBranch();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
     const ancestorIds = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));

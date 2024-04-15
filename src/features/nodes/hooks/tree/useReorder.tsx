@@ -2,7 +2,7 @@ import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerE
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError, UUID } from '../../../../types';
 import { setAlert } from '../../../app/appSlice';
-import { checkDeletedAncestorConflict } from '../../../branch/branches.thunks';
+import { reloadBranch } from '../../../branch/branches.thunks';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { setDragAndDrop } from '../../actions';
 import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
@@ -19,7 +19,7 @@ export interface NodeDropCaptureParams {
 
 export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
-    const { currentRootId } = useBranchParams();
+    const { isBranch } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         id,
@@ -72,16 +72,14 @@ export default function useReorder() {
             return;
         }
 
-        dispatch(checkDeletedAncestorConflict({
-            currentRootId: currentRootId as UUID,
-            branchId: treeBranchId,
-        }));
+        if (isBranch) {
+            dispatch(reloadBranch(treeBranchId));
+        }
 
         dispatch(setDragAndDrop(null));
         setReorderInProgress(false);
     },
     [
-        branchId, childIdsByParentId, dispatch, handleServerError, id,
-        currentRootId, reorderInProgress, treeBranchId,
+        reorderInProgress, childIdsByParentId, dispatch, treeBranchId, id, branchId, isBranch, handleServerError,
     ]);
 }

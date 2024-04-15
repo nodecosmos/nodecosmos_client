@@ -1,8 +1,7 @@
 import useHandleServerErrorAlert from '../../../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../../../store';
 import { NodecosmosError } from '../../../../../../types';
-import { checkDeletedAncestorConflict, restoreNode } from '../../../../../branch/branches.thunks';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import { restoreNode } from '../../../../../branch/branches.thunks';
 import useNodeContext from '../useNodeContext';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -11,13 +10,12 @@ import { useDispatch } from 'react-redux';
 export default function useNodeRestore() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id, treeBranchId } = useNodeContext();
-    const { currentRootId } = useBranchParams();
     const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async () => {
         const response = await dispatch(restoreNode({
             branchId: treeBranchId,
-            nodeId: id,
+            objectId: id,
         }));
 
         if (response.meta.requestStatus === 'rejected') {
@@ -27,10 +25,5 @@ export default function useNodeRestore() {
 
             return;
         }
-
-        dispatch(checkDeletedAncestorConflict({
-            currentRootId,
-            branchId: treeBranchId,
-        }));
-    }, [dispatch, handleServerError, id, currentRootId, treeBranchId]);
+    }, [dispatch, handleServerError, id, treeBranchId]);
 }

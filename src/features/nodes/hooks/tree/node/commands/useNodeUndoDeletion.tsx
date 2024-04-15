@@ -16,7 +16,7 @@ export default function useNodeUndoDeletion() {
     return useCallback(async () => {
         const response = await dispatch(undoDeleteNode({
             branchId,
-            nodeId: id,
+            objectId: id,
         }));
 
         if (response.meta.requestStatus === 'rejected') {

@@ -56,7 +56,7 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
 
             const flowSteps: FlowStep[] = flowStepsByFlowId[flow.id] || [];
 
-            const { workflowStepFlows, flowYEnd } = buildFlow({
+            const { workflowStepFlows, currentFlowYEnd } = buildFlow({
                 flowId: flow.id,
                 flowSteps,
                 IosById,
@@ -76,9 +76,12 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
                     outputsById[output.id] = output;
                     workflowSteps[wfIndex].outputIds.add(output.id);
                 });
+
+                // update yEnd of each flow step to highest yEnd within the flow
+                workflowStepFlow.position.yEnd = currentFlowYEnd;
             });
 
-            prefFlowYEnd = flowYEnd;
+            prefFlowYEnd = currentFlowYEnd;
         });
 
         height = prefFlowYEnd;

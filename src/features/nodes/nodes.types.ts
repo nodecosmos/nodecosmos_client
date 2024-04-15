@@ -21,7 +21,6 @@ export interface Node extends NodePrimaryKey {
     creatorId?: UUID | null;
     editorIds?: UUID[] | null;
     owner?: Profile | null;
-    likesCount?: number;
     coverImageUrl?: string | null;
     coverImageFilename?: string | null;
     createdAt?: Date | null;
@@ -47,6 +46,7 @@ export interface NodeTreeAttributes {
 
 export interface AppNode extends Node, NodeTreeAttributes {
     persistedId: UUID | null;
+    likesCount?: number;
     isTmp: boolean;
     tmpId?: UUID;
     isSelected: boolean;

@@ -7,6 +7,7 @@ import {
     NodecosmosError, ObjectType, Strict,
 } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
+import { keepFlowStep } from '../../../../branch/branches.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
@@ -15,12 +16,15 @@ import { FLOW_TOOLBAR_HEIGHT } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
+import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { faDiagramProject, faTrash } from '@fortawesome/pro-light-svg-icons';
-import { faPlay } from '@fortawesome/pro-solid-svg-icons';
+import { faTrashXmark } from '@fortawesome/pro-light-svg-icons';
+import {
+    faEllipsisVertical, faPlay, faSave,
+} from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box,
+    Box, Chip,
     IconButton,
     Tooltip, Typography,
 } from '@mui/material';
@@ -30,6 +34,7 @@ import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
     const { branchId, rootId } = useWorkflowContext();
+    const { isFlowStepInConflict } = useWorkflowBranch();
     const {
         title: flowTitle, id: flowId, flowSelected, nodeId,
     } = useFlowContext();
@@ -109,7 +114,20 @@ export default function FlowStepToolbar() {
         rootId, setCreateIsLoading, setCreateIsNotLoading,
     ]);
 
+    const keepFlowStepCb = useCallback(() => {
+        if (!flowStepPrimaryKey) {
+            throw new Error('Flow Step Primary Key is not defined');
+        }
+
+        dispatch(keepFlowStep({
+            branchId: flowStepPrimaryKey.branchId,
+            objectId: flowStepPrimaryKey.id,
+        }));
+    }, [dispatch, flowStepPrimaryKey]);
+
     const [modalOpen, openModal, closeModal] = useModalOpen();
+
+    const isInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
 
     return (
         <Box
@@ -147,23 +165,50 @@ export default function FlowStepToolbar() {
                             <IconButton
                                 className="Item"
                                 aria-label="Add Node"
-                                sx={{ color: 'toolbar.lightRed' }}
+                                sx={{
+                                    color: 'toolbar.default',
+                                    borderRadius: '50%',
+                                }}
                                 onClick={openModal}
                             >
-                                <FontAwesomeIcon icon={faDiagramProject} />
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
                             </IconButton>
                         </Tooltip>
                         {
                             stepId && (
-                                <Box display="flex" justifyContent="space-between" width="100%" pr={1}>
+                                <Box display="flex" justifyContent="end" width="100%" pr={1}>
+                                    {isInConflict
+                                        && (
+                                            <div>
+                                                <Tooltip
+                                                    title="FlowStep with same index already exists.
+                                                           You can choose to delete it from CR or keep it."
+                                                    placement="top">
+                                                    <Chip
+                                                        className="ToolbarChip"
+                                                        size="small"
+                                                        label="Conflict"
+                                                    />
+                                                </Tooltip>
+                                                <IconButton
+                                                    className="Item"
+                                                    aria-label="Keep Flow Step"
+                                                    sx={{ color: 'toolbar.lightRed' }}
+                                                    onClick={keepFlowStepCb}
+                                                >
+                                                    <FontAwesomeIcon icon={faSave} />
+                                                </IconButton>
+                                            </div>
+                                        )
+                                    }
                                     <Tooltip title="Delete Flow Step" placement="top">
                                         <IconButton
                                             className="Item"
                                             aria-label="Delete Flow Step"
-                                            sx={{ color: 'toolbar.default' }}
+                                            sx={{ color: 'toolbar.red' }}
                                             onClick={handleFlowStepDeletion}
                                         >
-                                            <FontAwesomeIcon icon={faTrash} />
+                                            <FontAwesomeIcon icon={faTrashXmark} />
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title="Add Next Flow Step" placement="top">

@@ -1,7 +1,5 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
-import {
-    createWorkflow, showWorkflow, updateWorkflowInitialInputs,
-} from './worfklow.thunks';
+import { showWorkflow, updateWorkflowInitialInputs } from './worfklow.thunks';
 import { WorkflowState } from './workflow.types';
 import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
@@ -66,43 +64,6 @@ const workflowsSlice = createSlice({
                 };
                 state.workflowDiagramByBranchId[branchId] ||= {};
                 state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram(data);
-            })
-            .addCase(createWorkflow.fulfilled, (state, action) => {
-                const { workflow } = action.payload;
-                const { nodeId, branchId } = workflow;
-
-                workflow.initialInputIds ||= [];
-                state.byBranchId[branchId] ||= {};
-                state.byBranchId[branchId][nodeId] = workflow;
-
-                state.workflowDiagramByBranchId[branchId] ||= {};
-                state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram({
-                    flows: [],
-                    flowSteps: [],
-                    inputOutputs: [],
-                    initialInputIds: workflow.initialInputIds,
-                });
-            })
-            .addCase(createWorkflow.rejected, (state, action) => {
-                const workflow = action?.payload?.workflow;
-
-                // existing workflow is returned
-                if (workflow) {
-                    const { nodeId, branchId } = workflow;
-
-                    workflow.initialInputIds ||= [];
-                    state.byBranchId[branchId] ||= {};
-                    state.byBranchId[branchId][nodeId] = workflow;
-
-                    state.workflowDiagramByBranchId[branchId] ||= {};
-                    state.workflowDiagramByBranchId[branchId][nodeId]
-                        = buildWorkflowDiagram({
-                            flows: [],
-                            flowSteps: [],
-                            inputOutputs: [],
-                            initialInputIds: workflow.initialInputIds,
-                        });
-                }
             })
             .addCase(deleteFlow.fulfilled, () => {
                 // currently flows are deleted only from the pane

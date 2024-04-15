@@ -1,4 +1,3 @@
-import CreateWorkflowToolbar from '../../../../features/workflows/components/CreateWorkflowToolbar';
 import Workflow from '../../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../../features/workflows/constants';
 import { showWorkflow } from '../../../../features/workflows/worfklow.thunks';
@@ -63,7 +62,6 @@ export default function PaneWorkflow() {
 
     return (
         <>
-            {!workflow && <CreateWorkflowToolbar nodeId={objectId} branchId={branchId} />}
             {workflow && <Workflow
                 nodeId={objectId}
                 branchId={branchId}

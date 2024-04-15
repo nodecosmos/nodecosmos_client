@@ -1,9 +1,15 @@
 import {
-    checkDeletedAncestorConflict, restoreNode, undoDeleteNode,
+    keepFlowStep,
+    reloadBranch,
+    restoreFlow,
+    restoreFlowStep,
+    restoreIo,
+    restoreNode,
+    undoDeleteFlow,
+    undoDeleteFlowStep, undoDeleteIo,
+    undoDeleteNode,
 } from './branches.thunks';
-import {
-    Branch, BranchesState, ConflictStatus,
-} from './branches.types';
+import { Branch, BranchesState } from './branches.types';
 import { ObjectType } from '../../types';
 import { deepArrayToSet } from '../../utils/object';
 import {
@@ -70,7 +76,7 @@ function initBranch(state: BranchesState, branch: Branch) {
             deletedEditedFlows: new Set(conflict.deletedEditedFlows),
             deletedEditedFlowSteps: new Set(conflict.deletedEditedFlowSteps),
             deletedEditedIos: new Set(conflict.deletedEditedIos),
-            conflictingIndexesByFlow: conflict.conflictingIndexesByFlow || {},
+            conflictingFlowSteps: new Set(conflict.conflictingFlowSteps),
         },
     };
 }
@@ -142,44 +148,16 @@ const branchesSlice = createSlice({
                     }
                 }
             })
-            .addCase(restoreNode.fulfilled, (state, action) => {
-                const branch = action.payload;
-
-                initBranch(state, branch);
-            })
-            .addCase(undoDeleteNode.fulfilled, (state, action) => {
-                const branch = action.payload;
-
-                initBranch(state, branch);
-            })
-            .addCase(checkDeletedAncestorConflict.fulfilled, (state, action) => {
-                const { branchId } = action.meta.arg;
-                const deletedAncestors = action.payload;
-                const branch = state.byId[branchId];
-                const hasNewConflicts = !!deletedAncestors?.size;
-
-                if (!branch) {
-                    return;
-                }
-
-                if (branch.conflict && hasNewConflicts) {
-                    branch.conflict.status = ConflictStatus.Pending;
-                    branch.conflict.deletedAncestors = deletedAncestors;
-                } else if (!branch.conflict && hasNewConflicts) {
-                    branch.conflict = {
-                        status: ConflictStatus.Pending,
-                        deletedAncestors,
-                        deletedEditedNodes: new Set(),
-                        deletedEditedFlows: new Set(),
-                        deletedEditedFlowSteps: new Set(),
-                        deletedEditedIos: new Set(),
-                        conflictingIndexesByFlow: {},
-                    };
-                } else if (branch.conflict && !hasNewConflicts) {
-                    branch.conflict.status = ConflictStatus.Resolved;
-                    branch.conflict.deletedAncestors = null;
-                }
-            })
+            .addCase(restoreNode.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(undoDeleteNode.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(restoreFlow.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(undoDeleteFlow.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(restoreFlowStep.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(undoDeleteFlowStep.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(keepFlowStep.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(reloadBranch.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(restoreIo.fulfilled, (state, action) => initBranch(state, action.payload))
+            .addCase(undoDeleteIo.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(mergeContributionRequest.rejected, (state, action) => {
                 const branch = action.payload?.branch;
 

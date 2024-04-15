@@ -12,7 +12,7 @@ export interface Conflict {
     deletedEditedFlows: Set<UUID> | null;
     deletedEditedFlowSteps: Set<UUID> | null;
     deletedEditedIos: Set<UUID> | null;
-    conflictingIndexesByFlow: Record<UUID, Set<UUID>>;
+    conflictingFlowSteps: Set<UUID>;
 }
 
 export interface BranchParams {

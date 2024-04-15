@@ -30,7 +30,7 @@ export default function ContributionRequestConversation() {
     return (
         <Box height={1} overflow="auto" my={2} pb={8}>
             <Container
-                maxWidth="md">
+                maxWidth="lg">
                 <Box
                     display="flex"
                     alignItems="center"

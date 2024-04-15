@@ -55,7 +55,6 @@ export enum ActionTypes {
     DeleteNode = 'DELETE_NODE',
     ReorderNode = 'REORDER_NODE',
     Merge = 'MERGE',
-    CreateWorkflow = 'CREATE_WORKFLOW',
     ReadWorkflow = 'READ_WORKFLOW',
     UpdateWorkflow = 'UPDATE_WORKFLOW',
     DeleteWorkflow = 'DELETE_WORKFLOW',

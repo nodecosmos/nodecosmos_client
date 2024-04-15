@@ -18,7 +18,7 @@ export default function ToolsContainer({ children }: ToolsContainerProps) {
                     width: 31,
                     height: 1,
                     mx: 0.1,
-                    borderRadius: 1,
+                    borderRadius: '50%',
                     '&:hover': { backgroundColor: 'toolbar.hover' },
                 },
                 '.svg-inline--fa, .MuiSvgIcon-root': {

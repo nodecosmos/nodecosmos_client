@@ -5,7 +5,6 @@ import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import { clearPaneContent } from '../../../features/app/appSlice';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
-import CreateWorkflowToolbar from '../../../features/workflows/components/CreateWorkflowToolbar';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
@@ -88,7 +87,6 @@ export default function ContributionRequestWorkflow() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootId} branchId={branchId} />}
                     {workflow && <Workflow
                         nodeId={currentRootId}
                         branchId={branchId}

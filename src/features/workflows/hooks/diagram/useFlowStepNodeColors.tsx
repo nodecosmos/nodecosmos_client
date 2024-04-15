@@ -3,7 +3,7 @@ import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors
 import { NodecosmosTheme } from '../../../../themes/type';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
-import useWorkflowBranchContext from '../useWorkflowBranchContext';
+import useWorkflowBranch from '../useWorkflowBranch';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ export default function useFlowStepNodeColors() {
     const diffColors = useDiffColors();
     const {
         isFlowStepNodeCreated, isFlowStepNodeDeleted, isFlowStepDeleted, isFlowStepCreated,
-    } = useWorkflowBranchContext();
+    } = useWorkflowBranch();
     const ancestorIds = useSelector(selectNodeAttribute(branchId, id, 'ancestorIds'));
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;

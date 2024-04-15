@@ -6,7 +6,6 @@ import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import { clearPaneContent } from '../../features/app/appSlice';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
-import CreateWorkflowToolbar from '../../features/workflows/components/CreateWorkflowToolbar';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
 import { selectOptWorkflow } from '../../features/workflows/workflow.selectors';
@@ -92,7 +91,6 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {!workflow && <CreateWorkflowToolbar nodeId={currentRootId} branchId={branchId} />}
                     {workflow && <Workflow nodeId={currentRootId} branchId={branchId} />}
 
                 </Box>
