@@ -88,6 +88,7 @@ export default function useDescriptionEdit() {
         }
 
         handleChangeTimeout.current = setTimeout(() => {
+            handleChangeTimeout.current = null;
             const markdown = helpers.getMarkdown();
 
             dispatch(saveDescription({
@@ -99,8 +100,6 @@ export default function useDescriptionEdit() {
                 markdown,
                 base64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
             }));
-
-            handleChangeTimeout.current = null;
         }, 1000);
     }, [currentHTML, dispatch, branchId, objectId, objectNodeId, objectType]);
 
