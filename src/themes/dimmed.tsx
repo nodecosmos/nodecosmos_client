@@ -111,7 +111,7 @@ const theme: NodecosmosTheme = {
             pink: '#a868aa',
             purple: '#9377e2',
             yellow: '#f5f58e',
-            orange: '#edb96d',
+            orange: '#b08369',
             hover: 'rgba(63,78,89,0.53)',
             active: 'rgba(63,78,89,0.53)',
             default: '#758593',
@@ -144,6 +144,7 @@ const theme: NodecosmosTheme = {
             defaultInputColor: '#52565e',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',
+            selectedBg: 'rgba(70,101,121,0.03)',
         },
 
         markdownContent: {

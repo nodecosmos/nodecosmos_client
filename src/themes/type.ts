@@ -129,6 +129,7 @@ interface Palette {
         defaultInputColor: string;
         selectedLoopInputColor: string;
         defaultLoopInputColor: string;
+        selectedBg: string;
     };
     markdownContent: {
         canvas: string;

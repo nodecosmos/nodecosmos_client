@@ -6,6 +6,7 @@ export const SHADOW_OFFSET = 4; // offset of shadow from edge
 
 export const WORKFLOW_STEP_WIDTH = 380;
 export const WORKFLOW_BUTTON_HEIGHT = 34;
+export const WORKFLOW_BUTTON_WIDTH = 250;
 
 export const FLOW_TOOLBAR_HEIGHT = 65;
 export const WORKFLOW_START_MARGIN_TOP = FLOW_TOOLBAR_HEIGHT / 2.0;

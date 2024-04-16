@@ -14,13 +14,16 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
     } = action.payload;
     const node = state.byBranchId[treeBranchId][id];
     const parentAncestors = node.ancestorIds || [];
+    const lastChildIndex = state.childIds[treeBranchId][id].length - 1;
+    const lastChildId = state.childIds[treeBranchId][id][lastChildIndex];
+    const lastChild = state.byBranchId[treeBranchId][lastChildId];
 
     state.byBranchId[treeBranchId][tmpId] = {
         id: tmpId,
         branchId: tmpId,
         rootId: node.rootId,
         parentId: id,
-        orderIndex: state.childIds[treeBranchId][id].length + 1,
+        orderIndex: lastChild?.orderIndex ? lastChild.orderIndex + 1 : 0,
         isPublic: node.isPublic,
         isRoot: false,
         title: '',

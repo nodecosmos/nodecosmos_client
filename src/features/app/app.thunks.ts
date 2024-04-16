@@ -31,9 +31,9 @@ export const selectObject = createAsyncThunk<
             break;
 
         case ObjectType.FlowStep:
-            objectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].index
+            objectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].flowIndex
                 .toString();
-            originalObjectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].index
+            originalObjectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].flowIndex
                 .toString();
             break;
 

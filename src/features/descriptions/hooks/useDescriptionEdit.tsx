@@ -49,6 +49,12 @@ export default function useDescriptionEdit() {
             if (!loading && fetched) {
                 unsetFetched();
             }
+
+            if (handleChangeTimeout.current) {
+                alert('Changes might not be saved.'
+                    + ' Please wait for the changes to be saved before navigating away.');
+                handleChangeTimeout.current = null;
+            }
         };
     },
     [
@@ -71,16 +77,17 @@ export default function useDescriptionEdit() {
     ) => {
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
+            handleChangeTimeout.current = null;
+        }
+
+        const descriptionHtml = helpers.getHTML();
+        const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
+
+        if (isEmptySame || (descriptionHtml === currentHTML)) {
+            return;
         }
 
         handleChangeTimeout.current = setTimeout(() => {
-            const descriptionHtml = helpers.getHTML();
-            const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
-
-            if (isEmptySame || (descriptionHtml === currentHTML)) {
-                return;
-            }
-
             const markdown = helpers.getMarkdown();
 
             dispatch(saveDescription({
@@ -92,7 +99,9 @@ export default function useDescriptionEdit() {
                 markdown,
                 base64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
             }));
-        }, 500);
+
+            handleChangeTimeout.current = null;
+        }, 1000);
     }, [currentHTML, dispatch, branchId, objectId, objectNodeId, objectType]);
 
     return {

@@ -12,7 +12,7 @@ import {
 } from '../../../../nodes/nodes.constants';
 import {
     MARGIN_TOP,
-    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
+    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN, WorkflowDiagramContext,
 } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
 import useInputsChange from '../../../hooks/diagram/flow-step-node/useInputsChange';
@@ -120,7 +120,7 @@ export default function Output(props: OutputProps) {
             >
 
                 <foreignObject
-                    width="700"
+                    width={OUTPUT_BUTTON_SKEWED_WIDTH}
                     height={NODE_BUTTON_HEIGHT + 3}
                     x={x + OUTPUT_BUTTON_X_MARGIN}
                     y={y - MARGIN_TOP}

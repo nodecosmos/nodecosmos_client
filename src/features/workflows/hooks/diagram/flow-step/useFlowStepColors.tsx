@@ -13,10 +13,10 @@ export default function useFlowStepColors() {
     } = useWorkflowBranch();
     const diffColors = useDiffColors();
 
-    const { id } = useFlowStepContext();
+    const { id, isSelected } = useFlowStepContext();
 
     let colors = {
-        backgroundColor: 'transparent',
+        backgroundColor: isSelected ? theme.palette.workflow.selectedBg : 'transparent',
         outlineColor: theme.palette.borders[1],
         color: theme.palette.tree.defaultText,
     };

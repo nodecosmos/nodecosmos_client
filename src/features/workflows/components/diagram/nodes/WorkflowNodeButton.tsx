@@ -13,7 +13,7 @@ import {
 } from '../../../../nodes/nodes.constants';
 import {
     EDGE_LENGTH,
-    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
+    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH, WorkflowDiagramContext,
 } from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
@@ -90,7 +90,7 @@ export default function WorkflowNodeButton() {
         >
             <WorkflowNodeBranch />
             <foreignObject
-                width="700"
+                width={WORKFLOW_BUTTON_WIDTH}
                 height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
                 x={x + EDGE_LENGTH}
                 y={y - MARGIN_TOP}

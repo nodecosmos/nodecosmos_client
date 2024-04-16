@@ -1,17 +1,11 @@
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
-import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import { NodecosmosDispatch } from '../../../../../store';
-import {
-    NodecosmosError, ObjectType, Strict,
-} from '../../../../../types';
+import { ObjectType } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
-import { keepFlowStep } from '../../../../branch/branches.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
-import { createFlowStep, deleteFlowStep } from '../../../../flow-steps/flowSteps.thunks';
-import { FlowStepCreationParams } from '../../../../flow-steps/flowSteps.types';
+import useFlowStepActions from '../../../../flow-steps/hooks/useFlowStepActions';
 import { FLOW_TOOLBAR_HEIGHT } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
@@ -33,19 +27,16 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepToolbar() {
-    const { branchId, rootId } = useWorkflowContext();
+    const { branchId } = useWorkflowContext();
     const { isFlowStepInConflict } = useWorkflowBranch();
     const {
         title: flowTitle, id: flowId, flowSelected, nodeId,
     } = useFlowContext();
-    const {
-        flowStepPrimaryKey, stepId, flowIndex, nextFlowIndex,
-    } = useFlowStepContext();
+    const { flowStepPrimaryKey, isSelected: isFlowStepSelected } = useFlowStepContext();
     const { backgroundColor, color } = useFlowStepColors();
     const { currentRootId } = useBranchParams();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const handleServerError = useHandleServerErrorAlert();
 
     const handleFlowClick = useCallback(() => {
         dispatch(selectObject({
@@ -58,74 +49,11 @@ export default function FlowStepToolbar() {
         }));
     }, [branchId, currentRootId, dispatch, flowId, nodeId]);
 
-    const handleFlowStepDeletion = useCallback(() => {
-        if (!flowStepPrimaryKey) {
-            throw new Error('Flow Step Primary Key is not defined');
-        }
-        dispatch(deleteFlowStep({
-            ...flowStepPrimaryKey,
-            rootId,
-        }));
-    }, [dispatch, flowStepPrimaryKey, rootId]);
-
-    const [createLoading, setCreateIsLoading, setCreateIsNotLoading] = useBooleanStateValue();
-
-    const createNextFlowStep = useCallback(async () => {
-        if (!flowStepPrimaryKey) {
-            throw new Error('Flow Step Primary Key is not defined');
-        }
-
-        let newFlowIndex;
-
-        if (nextFlowIndex) {
-            newFlowIndex = (flowIndex + nextFlowIndex) / 2;
-        } else {
-            newFlowIndex = flowIndex + 1;
-        }
-
-        const insertPayload: Strict<FlowStepCreationParams> = {
-            nodeId: flowStepPrimaryKey.nodeId,
-            branchId: flowStepPrimaryKey.branchId,
-            flowId: flowStepPrimaryKey.flowId,
-            flowIndex: newFlowIndex,
-            rootId,
-            nodeIds: [],
-        };
-
-        try {
-            setCreateIsLoading();
-            const response = await dispatch(createFlowStep(insertPayload));
-
-            if (response.meta.requestStatus === 'rejected') {
-                const error: NodecosmosError = response.payload as NodecosmosError;
-
-                handleServerError(error);
-                console.error(error);
-
-                return;
-            }
-        } catch (error: unknown) {
-            console.error(error);
-        } finally {
-            setCreateIsNotLoading();
-        }
-    }, [
-        dispatch, flowIndex, flowStepPrimaryKey, handleServerError, nextFlowIndex,
-        rootId, setCreateIsLoading, setCreateIsNotLoading,
-    ]);
-
-    const keepFlowStepCb = useCallback(() => {
-        if (!flowStepPrimaryKey) {
-            throw new Error('Flow Step Primary Key is not defined');
-        }
-
-        dispatch(keepFlowStep({
-            branchId: flowStepPrimaryKey.branchId,
-            objectId: flowStepPrimaryKey.id,
-        }));
-    }, [dispatch, flowStepPrimaryKey]);
-
     const [modalOpen, openModal, closeModal] = useModalOpen();
+
+    const {
+        createLoading, createNextFlowStep, keepFlowStep, deleteFlowStep,
+    } = useFlowStepActions();
 
     const isInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
 
@@ -158,9 +86,9 @@ export default function FlowStepToolbar() {
             >
                 {flowTitle}
             </Typography>
-            {
-                flowSelected && (
-                    <ToolsContainer>
+            <ToolsContainer>
+                {
+                    (flowSelected || isFlowStepSelected) && (
                         <Tooltip title="Flow Step Nodes" placement="top">
                             <IconButton
                                 className="Item"
@@ -174,66 +102,66 @@ export default function FlowStepToolbar() {
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </IconButton>
                         </Tooltip>
-                        {
-                            stepId && (
-                                <Box display="flex" justifyContent="end" width="100%" pr={1}>
-                                    {isInConflict
-                                        && (
-                                            <div>
-                                                <Tooltip
-                                                    title="FlowStep with same index already exists.
+                    )
+                }
+                {
+                    (flowSelected || isFlowStepSelected) && (
+                        <Box display="flex" justifyContent="end" width="100%" pr={1}>
+                            {isInConflict
+                                && (
+                                    <div>
+                                        <Tooltip
+                                            title="FlowStep with same index already exists.
                                                            You can choose to delete it from CR or keep it."
-                                                    placement="top">
-                                                    <Chip
-                                                        className="ToolbarChip"
-                                                        size="small"
-                                                        label="Conflict"
-                                                    />
-                                                </Tooltip>
-                                                <IconButton
-                                                    className="Item"
-                                                    aria-label="Keep Flow Step"
-                                                    sx={{ color: 'toolbar.lightRed' }}
-                                                    onClick={keepFlowStepCb}
-                                                >
-                                                    <FontAwesomeIcon icon={faSave} />
-                                                </IconButton>
-                                            </div>
-                                        )
-                                    }
-                                    <Tooltip title="Delete Flow Step" placement="top">
+                                            placement="top">
+                                            <Chip
+                                                className="ToolbarChip"
+                                                size="small"
+                                                label="Conflict"
+                                            />
+                                        </Tooltip>
                                         <IconButton
                                             className="Item"
-                                            aria-label="Delete Flow Step"
-                                            sx={{ color: 'toolbar.red' }}
-                                            onClick={handleFlowStepDeletion}
+                                            aria-label="Keep Flow Step"
+                                            sx={{ color: 'toolbar.lightRed' }}
+                                            onClick={keepFlowStep}
                                         >
-                                            <FontAwesomeIcon icon={faTrashXmark} />
+                                            <FontAwesomeIcon icon={faSave} />
                                         </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title="Add Next Flow Step" placement="top">
-                                        {
-                                            createLoading
-                                                ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
-                                                : (
-                                                    <IconButton
-                                                        className="Item"
-                                                        aria-label="Add Next Flow Step"
-                                                        sx={{ color: 'toolbar.green' }}
-                                                        onClick={createNextFlowStep}>
-                                                        <FontAwesomeIcon
-                                                            icon={faPlay} />
-                                                    </IconButton>
-                                                )
+                                    </div>
+                                )
+                            }
+                            <Tooltip title="Delete Flow Step" placement="top">
+                                <IconButton
+                                    className="Item"
+                                    aria-label="Delete Flow Step"
+                                    sx={{ color: 'toolbar.red' }}
+                                    onClick={deleteFlowStep}
+                                >
+                                    <FontAwesomeIcon icon={faTrashXmark} />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Add Next Flow Step" placement="top">
+                                {
+                                    createLoading
+                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        : (
+                                            <IconButton
+                                                className="Item"
+                                                aria-label="Add Next Flow Step"
+                                                sx={{ color: 'toolbar.green' }}
+                                                onClick={createNextFlowStep}>
+                                                <FontAwesomeIcon
+                                                    icon={faPlay} />
+                                            </IconButton>
+                                        )
 
-                                        }
-                                    </Tooltip>
-                                </Box>
-                            )
-                        }
-                    </ToolsContainer>
-                )
-            }
+                                }
+                            </Tooltip>
+                        </Box>
+                    )
+                }
+            </ToolsContainer>
             <FlowStepModal open={modalOpen} onClose={closeModal} />
         </Box>
     );

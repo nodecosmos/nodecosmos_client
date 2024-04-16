@@ -1,4 +1,5 @@
 import { UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectFlowStep, selectFlowStepPrimaryKey } from '../../../../flow-steps/flowSteps.selectors';
 import { WorkflowStepFlow } from '../../../diagram/diagram.types';
 import useWorkflowContext from '../../useWorkflowContext';
@@ -54,6 +55,8 @@ export default function useFlowStepContext() {
     const {
         flowStepNodes, prevFlowIndex, nextFlowIndex, stepId,
     } = workflowStepFlow || {};
+    const selectedObject = useSelector(selectSelectedObject);
+    const isSelected = id === selectedObject?.objectId;
 
     return {
         nodeId,
@@ -71,5 +74,6 @@ export default function useFlowStepContext() {
         x,
         y,
         yEnd,
+        isSelected,
     };
 }

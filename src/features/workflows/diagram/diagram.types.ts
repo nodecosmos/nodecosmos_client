@@ -14,6 +14,7 @@
  */
 
 import { Position, UUID } from '../../../types';
+import Decimal from 'decimal.js';
 
 export interface Output {
     id: UUID;
@@ -39,8 +40,8 @@ export interface WorkflowStepFlow {
     position: Position;
     flowStepNodes: FlowStepNode[];
     outputs: Output[]; // combined outputs from all nodes
-    prevFlowIndex: number | null;
-    nextFlowIndex: number | null;
+    prevFlowIndex: Decimal | null;
+    nextFlowIndex: Decimal | null;
 }
 
 export interface WorkflowStep {

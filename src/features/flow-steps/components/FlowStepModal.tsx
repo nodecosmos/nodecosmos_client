@@ -79,6 +79,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
 
             if (createFlowStep.rejected.match(response) || updateFlowStepNodes.rejected.match(response)) {
                 handleServerError(response.error);
+
+                return;
             }
         } catch (error) {
             dispatch(setAlert({

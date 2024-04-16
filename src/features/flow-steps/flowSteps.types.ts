@@ -1,4 +1,5 @@
 import { UUID } from '../../types';
+import Decimal from 'decimal.js';
 
 // app defined attributes
 interface FlowStepAppAttrs {
@@ -9,7 +10,7 @@ export interface FlowStepPrimaryKey {
     nodeId: UUID;
     branchId: UUID;
     flowId: UUID;
-    flowIndex: number;
+    flowIndex: Decimal;
     id: UUID;
 }
 

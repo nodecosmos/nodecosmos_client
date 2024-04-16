@@ -11,12 +11,13 @@ export default (theme: NodecosmosTheme) => ({
                     color: theme.palette.background[8],
                 },
             },
-            overlay: { backgroundColor: theme.palette.background[3] },
             columnHeaders: {
                 borderRadius: 0,
                 backgroundColor: theme.palette.background[6],
             },
-            columnHeader: { '&:focus': { outline: 'none' } },
+            columnHeader: {
+                backgroundColor: theme.palette.background[6],
+                '&:focus': { outline: 'none' } },
             columnHeaderTitle: {
                 WebkitTapHighlightColor: 'transparent',
                 WebkitTouchCallout: 'none',
@@ -30,10 +31,17 @@ export default (theme: NodecosmosTheme) => ({
                 color: theme.palette.text.secondary,
                 '&:hover': { backgroundColor: theme.palette.background[5] },
             },
-            cell: { '&:focus': { outline: 'none' } },
+            cell: {
+                display: 'flex',
+                alignItems: 'center',
+                border: 'none',
+                '&:focus': { outline: 'none' },
+            },
             withBorderColor: { borderColor: 'transparent' },
             columnSeparator: { color: theme.palette.borders[2] },
             footerContainer: { backgroundColor: theme.palette.background[6] },
+            overlay: { backgroundColor: theme.palette.background[6] },
+            'topContainer::after': { backgroundColor: 'none' },
         },
     },
 });

@@ -10,6 +10,7 @@ import { UUID } from '../../types';
 import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
+import Decimal from 'decimal.js';
 
 const initialState: FlowStepState = { byBranchId: {} };
 
@@ -25,9 +26,9 @@ const flowStepsSlice = createSlice({
 
                 state.byBranchId[branchId] ||= {};
 
-                flowSteps.forEach((flowStep, index) => {
+                flowSteps.forEach((flowStep) => {
                     flowStep.branchId = branchId;
-                    flowStep.index = index;
+                    flowStep.flowIndex = new Decimal(flowStep.flowIndex);
                     state.byBranchId[branchId][flowStep.id] = flowStep;
                 });
             })
@@ -37,9 +38,9 @@ const flowStepsSlice = createSlice({
 
                 flowStep.inputIdsByNodeId ||= {};
                 flowStep.outputIdsByNodeId ||= {};
+                flowStep.flowIndex = new Decimal(flowStep.flowIndex);
 
                 state.byBranchId[branchId] ||= {};
-
                 state.byBranchId[branchId][flowStep.id] = flowStep;
             })
             .addCase(updateFlowStepNodes.fulfilled, (state, action) => {
