@@ -17,7 +17,7 @@ export default function PaneToolbar() {
         objectTitle, originalObjectTitle, setContent, content, objectType,
     } = usePaneContext();
 
-    const isTitleEdited = originalObjectTitle && objectTitle !== originalObjectTitle;
+    const isTitleEdited = objectTitle && objectTitle !== originalObjectTitle;
 
     const handleTogglePane = useCallback((paneContent: PaneContent | undefined) => {
         if (paneContent !== undefined) {

@@ -31,15 +31,15 @@ export const selectObject = createAsyncThunk<
             break;
 
         case ObjectType.FlowStep:
-            objectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].flowIndex
-                .toString();
             originalObjectTitle = state.flowSteps.byBranchId[payload.currentRootId]?.[payload.objectId].flowIndex
+                .toString();
+            objectTitle = state.flowSteps.byBranchId[payload.currentBranchId]?.[payload.objectId].flowIndex
                 .toString();
             break;
 
         case ObjectType.Io:
-            objectTitle = state.inputOutputs.byBranchId[payload.currentRootId]?.[payload.objectId]?.title;
-            originalObjectTitle = state.inputOutputs.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
+            originalObjectTitle = state.inputOutputs.byBranchId[payload.currentRootId]?.[payload.objectId]?.title;
+            objectTitle = state.inputOutputs.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
             break;
 
         default:
