@@ -1,0 +1,71 @@
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
+import { Position, UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
+import { selectInputOutput } from '../../../../input-outputs/inputOutputs.selectors';
+import useWorkflowContext from '../../useWorkflowContext';
+import React, { useMemo, useContext } from 'react';
+import { useSelector } from 'react-redux';
+
+interface IoContextProviderProps {
+    id: UUID
+    fsNodeId: UUID
+    position: Position
+}
+export const IoContext = React.createContext({} as IoContextValue);
+
+export function useIoContextCreator({
+    id, fsNodeId, position,
+}: IoContextProviderProps) {
+    const value = useMemo(() => ({
+        id,
+        fsNodeId,
+        ...position,
+    }), [id, fsNodeId, position]);
+    const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateValue(false);
+
+    return {
+        IoContext,
+        ioContextValue: {
+            ...value,
+            titleEditOpen,
+            openTitleEdit,
+            closeTitleEdit,
+        },
+    };
+}
+
+interface IoContextValue extends Position{
+    id: UUID
+    fsNodeId: UUID
+    titleEditOpen: boolean
+    openTitleEdit: () => void
+    closeTitleEdit: () => void
+}
+
+export default function useIoContext() {
+    const {
+        id, titleEditOpen, fsNodeId, ...position
+    } = useContext(IoContext);
+
+    if (!id) {
+        throw new Error('useIoContext must be used within IoContext');
+    }
+
+    const { branchId } = useWorkflowContext();
+    const {
+        rootId, title, mainId, 
+    } = useSelector(selectInputOutput(branchId, id));
+    const selectedObject = useSelector(selectSelectedObject);
+    const isSelected = id === selectedObject?.objectId;
+
+    return {
+        id,
+        rootId,
+        mainId,
+        title,
+        isSelected,
+        titleEditOpen,
+        fsNodeId,
+        ...position,
+    };
+}

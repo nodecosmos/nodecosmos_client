@@ -2,6 +2,8 @@ import { selectObject } from './app.thunks';
 import {
     AppState, Browser, Theme, TransformablePositions,
 } from './app.types';
+import { deleteFlow } from '../flows/flows.thunks';
+import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 function fnBrowserDetect() {
@@ -81,6 +83,10 @@ const appSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(selectObject.fulfilled, (state, action) => {
             state.selectedObject = action.payload;
+        }).addCase(deleteFlow.fulfilled, (state) => {
+            state.selectedObject = null;
+        }).addCase(deleteIo.fulfilled, (state) => {
+            state.selectedObject = null;
         });
     },
 });

@@ -2,7 +2,7 @@ import { NodecosmosDispatch } from '../../../../../../store';
 import { ObjectType } from '../../../../../../types';
 import { selectObject } from '../../../../../app/app.thunks';
 import { select } from '../../../../nodes.actions';
-import useTreeCommands from '../../useTreeCommands';
+import useTreeActions from '../../useTreeActions';
 import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
 import { MouseEvent, useCallback } from 'react';
@@ -20,7 +20,7 @@ export default function useNodeClick() {
     const { type: treeType } = useTreeContext();
     const {
         addId, deleteId, isChecked, expandNode, collapseNode,
-    } = useTreeCommands();
+    } = useTreeActions();
     const dispatch: NodecosmosDispatch = useDispatch();
 
     //------------------------------------------------------------------------------------------------------------------

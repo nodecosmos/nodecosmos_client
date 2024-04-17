@@ -2,6 +2,7 @@ import { FlowStepPrimaryKey } from './flowSteps.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
+import Decimal from 'decimal.js';
 
 const selectFlowStepsByBranchId = (state: RootState) => state.flowSteps.byBranchId;
 
@@ -38,5 +39,6 @@ export const selectFlowStepPrimaryKey = (branchId: UUID, id: UUID) => createSele
 export const selectFlowStepsByNodeId = (branchId: UUID, nodeId: UUID) => createSelector(
     selectFlowStepsByBranch(branchId),
     (flowSteps) => Object.values(flowSteps || {})
+        .sort((a, b) => new Decimal(a.flowIndex).cmp(b.flowIndex))
         .filter((flowStep) => flowStep.nodeId === nodeId),
 );

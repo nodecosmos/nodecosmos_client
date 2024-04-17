@@ -53,7 +53,7 @@ export const deleteIo = createAsyncThunk<
         } = payload;
 
         const response = await nodecosmos.delete(
-            `input_outputs/${rootId}/${nodeId}/${branchId}/${id}`,
+            `/input_outputs/${rootId}/${nodeId}/${branchId}/${id}`,
         );
 
         return response.data;

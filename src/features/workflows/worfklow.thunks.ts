@@ -40,3 +40,16 @@ export const updateWorkflowInitialInputs = createAsyncThunk<
         return response.data;
     },
 );
+
+export const updateWorkflowTitle = createAsyncThunk<
+    Workflow,
+    WorkflowUpsertPayload,
+    { rejectValue: NodecosmosError }
+>(
+    'workflows/title',
+    async (payload) => {
+        const response = await nodecosmos.put('/workflows/title', payload);
+
+        return response.data;
+    },
+);

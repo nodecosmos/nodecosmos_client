@@ -4,17 +4,15 @@ import EditTitleField from '../../../common/components/EditTItleField';
 import { selectIsPaneOpen } from '../../app/app.selectors';
 import TogglePaneButton from '../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../app/constants';
-import useWorkflowCommands from '../hooks/useWorkflowCommands';
+import useWorkflowActions from '../hooks/useWorkflowActions';
 import useWorkflowContext from '../hooks/useWorkflowContext';
 import { Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function WorkflowToolbar() {
-    const {
-        branchId, nodeId, title,
-    } = useWorkflowContext();
-    const { handleTitleChange } = useWorkflowCommands();
+    const { title } = useWorkflowContext();
+    const { handleTitleChange } = useWorkflowActions();
     const isPaneOpen = useSelector(selectIsPaneOpen);
 
     return (
@@ -37,11 +35,6 @@ export default function WorkflowToolbar() {
             >
                 <EditTitleField
                     title={title}
-                    endpoint="/workflows/title"
-                    reqData={{
-                        nodeId,
-                        branchId,
-                    }}
                     color="text.secondary"
                     pr={1}
                     variant="body2"

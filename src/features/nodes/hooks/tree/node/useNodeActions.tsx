@@ -1,13 +1,13 @@
-import useNodeAdd from './commands/useNodeAdd';
-import useNodeClick from './commands/useNodeClick';
-import useNodeDrag from './commands/useNodeDrag';
-import useNodeEdit from './commands/useNodeEdit';
-import useNodeRemove from './commands/useNodeRemove';
-import useNodeRestore from './commands/useNodeRestore';
-import useNodeSave from './commands/useNodeSave';
-import useNodeUndoDeletion from './commands/useNodeUndoDeletion';
+import useNodeAdd from './actions/useNodeAdd';
+import useNodeClick from './actions/useNodeClick';
+import useNodeDrag from './actions/useNodeDrag';
+import useNodeEdit from './actions/useNodeEdit';
+import useNodeRemove from './actions/useNodeRemove';
+import useNodeRestore from './actions/useNodeRestore';
+import useNodeSave from './actions/useNodeSave';
+import useNodeUndoDeletion from './actions/useNodeUndoDeletion';
 
-export default function useNodeCommands() {
+export default function useNodeActions() {
     const clickNode = useNodeClick();
     const editNode = useNodeEdit();
     const addNode = useNodeAdd();

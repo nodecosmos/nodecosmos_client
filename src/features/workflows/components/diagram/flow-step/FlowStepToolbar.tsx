@@ -1,18 +1,17 @@
+import FlowTitle from './toolbar/FlowTitle';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
-import { NodecosmosDispatch } from '../../../../../store';
-import { ObjectType } from '../../../../../types';
-import { selectObject } from '../../../../app/app.thunks';
-import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import useFlowStepActions from '../../../../flow-steps/hooks/useFlowStepActions';
+import useFlowActions from '../../../../flows/hooks/useFlowActions';
 import { FLOW_TOOLBAR_HEIGHT } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
-import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { faTrashXmark } from '@fortawesome/pro-light-svg-icons';
+import {
+    faTrashXmark, faTrash, faPenToSquare,
+} from '@fortawesome/pro-light-svg-icons';
 import {
     faEllipsisVertical, faPlay, faSave,
 } from '@fortawesome/pro-solid-svg-icons';
@@ -20,42 +19,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Chip,
     IconButton,
-    Tooltip, Typography,
+    Tooltip,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
 export default function FlowStepToolbar() {
-    const { branchId } = useWorkflowContext();
     const { isFlowStepInConflict } = useWorkflowBranch();
-    const {
-        title: flowTitle, id: flowId, flowSelected, nodeId,
-    } = useFlowContext();
+    const { flowSelected } = useFlowContext();
     const { flowStepPrimaryKey, isSelected: isFlowStepSelected } = useFlowStepContext();
-    const { backgroundColor, color } = useFlowStepColors();
-    const { currentBranchId } = useBranchParams();
-
-    const dispatch: NodecosmosDispatch = useDispatch();
-
-    const handleFlowClick = useCallback(() => {
-        dispatch(selectObject({
-            currentOriginalBranchId: branchId,
-            currentBranchId,
-            objectNodeId: nodeId,
-            branchId,
-            objectId: flowId,
-            objectType: ObjectType.Flow,
-        }));
-    }, [branchId, currentBranchId, dispatch, flowId, nodeId]);
+    const { backgroundColor } = useFlowStepColors();
 
     const [modalOpen, openModal, closeModal] = useModalOpen();
+
+    const { openTitleEdit } = useFlowActions();
 
     const {
         createLoading, createNextFlowStep, keepFlowStep, deleteFlowStep,
     } = useFlowStepActions();
 
     const isInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
+
+    const { deleteFlowCb } = useFlowActions();
 
     return (
         <Box
@@ -65,43 +50,45 @@ export default function FlowStepToolbar() {
             alignItems="center"
             width={1}
             height={FLOW_TOOLBAR_HEIGHT}>
-            <Typography
-                onClick={handleFlowClick}
-                variant="body1"
-                fontWeight={600}
-                color="text.tertiary"
-                sx={{
-                    minWidth: 'fit-content(14px)',
-                    maxWidth: 220,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap', // otherwise safari will break words into multiple lines
-                    color,
-                    '&:hover': {
-                        cursor: 'pointer',
-                        textDecoration: 'underline',
-                        color: 'text.link',
-                    },
-                }}
-            >
-                {flowTitle}
-            </Typography>
+            <FlowTitle />
             <ToolsContainer>
                 {
                     (flowSelected || isFlowStepSelected) && (
-                        <Tooltip title="Flow Step Nodes" placement="top">
-                            <IconButton
-                                className="Item"
-                                aria-label="Add Node"
-                                sx={{
-                                    color: 'toolbar.default',
-                                    borderRadius: '50%',
-                                }}
-                                onClick={openModal}
-                            >
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </IconButton>
-                        </Tooltip>
+                        <Box display="flex" width="100%">
+                            <Tooltip title="Edit Flow Title" placement="top">
+                                <IconButton
+                                    className="Item"
+                                    aria-label="Edit Flow Title"
+                                    sx={{ color: 'toolbar.default' }}
+                                    onClick={openTitleEdit}
+                                >
+                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Delete Flow" placement="top">
+                                <IconButton
+                                    className="Item"
+                                    aria-label="Delete Flow"
+                                    sx={{ color: 'toolbar.default' }}
+                                    onClick={deleteFlowCb}
+                                >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Flow Step Nodes" placement="top">
+                                <IconButton
+                                    className="Item"
+                                    aria-label="Add Node"
+                                    sx={{
+                                        color: 'toolbar.default',
+                                        borderRadius: '50%',
+                                    }}
+                                    onClick={openModal}
+                                >
+                                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
                     )
                 }
                 {

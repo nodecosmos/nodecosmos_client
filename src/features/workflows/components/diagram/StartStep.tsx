@@ -1,3 +1,4 @@
+// import Output from './ios/Output';
 import Output from './ios/Output';
 import StartToolbar from './StartToolbar';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
@@ -13,6 +14,7 @@ import {
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_BUTTON_HEIGHT,
 } from '../../constants';
+// import { Output as OutputType } from '../../diagram/diagram.types';
 import { Output as OutputType } from '../../diagram/diagram.types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';

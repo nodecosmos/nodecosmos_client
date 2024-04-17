@@ -1,6 +1,6 @@
 import ConflictToolbar from './NodeConflictToolbar';
+import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
-import useNodeCommands from '../../../../hooks/tree/node/useNodeCommands';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNodeAttribute } from '../../../../nodes.selectors';
@@ -28,7 +28,7 @@ export default function NodeToolbar() {
     } = useNodeContext();
     const {
         addNode, editNode, removeNode, undoNodeDeletion,
-    } = useNodeCommands();
+    } = useNodeActions();
     const likesCount = useSelector(selectNodeAttribute(currentBranchId, id, 'likesCount'));
     const {
         isOriginalDeleted, isDeleted, isAncestorDeleted,

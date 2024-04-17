@@ -13,7 +13,6 @@ import { useDispatch } from 'react-redux';
 
 export default function useFlowStepActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
-
     const { rootId } = useWorkflowContext();
 
     const {
@@ -38,6 +37,8 @@ export default function useFlowStepActions() {
             throw new Error('Flow Step Primary Key is not defined');
         }
 
+        setCreateIsLoading();
+
         let newFlowIndex;
 
         if (flowIndex && nextFlowIndex) {
@@ -47,8 +48,6 @@ export default function useFlowStepActions() {
         } else {
             newFlowIndex = new Decimal(0);
         }
-
-        console.log(newFlowIndex.toString());
 
         const insertPayload: Strict<FlowStepCreationParams> = {
             nodeId: flowStepPrimaryKey.nodeId,
@@ -60,7 +59,6 @@ export default function useFlowStepActions() {
         };
 
         try {
-            setCreateIsLoading();
             const response = await dispatch(createFlowStep(insertPayload));
 
             if (response.meta.requestStatus === 'rejected') {

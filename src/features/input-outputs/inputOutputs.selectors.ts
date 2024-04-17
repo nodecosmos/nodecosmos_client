@@ -2,7 +2,7 @@ import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectInputOutputsByBranchId = (state: RootState) => state.inputOutputs.byBranchId;
+const selectInputOutputsByBranchId = (state: RootState) => state.inputOutputs.byBranchId;
 
 export const selectInputOutputsByBranch = (branchId: UUID) => createSelector(
     selectInputOutputsByBranchId,

@@ -1,7 +1,7 @@
 import useFlowStepContext from './flow-step/useFlowStepContext';
+import useIoContext from './io/useIoContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
-import { selectSelectedObject } from '../../../app/app.selectors';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
@@ -9,23 +9,20 @@ import useWorkflowContext from '../useWorkflowContext';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-interface Props {
-    id: string;
-    nodeId: string;
-}
-
-export default function useOutputColors({ id, nodeId }: Props) {
+export default function useOutputColors() {
     const theme: NodecosmosTheme = useTheme();
+    const {
+        id, isSelected, fsNodeId,
+    } = useIoContext();
     const { branchId } = useWorkflowContext();
     const {
         isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepCreated, isFlowStepDeleted,
     } = useWorkflowBranch();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
-    const ancestorIds = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));
-    const selectedObject = useSelector(selectSelectedObject);
+    const ancestorIds = useSelector(selectNodeAttribute(branchId, fsNodeId, 'ancestorIds'));
     const selectedNodeAncestorIds
-        = useSelector(selectNodeAttribute(branchId, nodeId, 'ancestorIds'));
+        = useSelector(selectNodeAttribute(branchId, fsNodeId, 'ancestorIds'));
     const nestedLevel = ancestorIds?.length || 0;
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
@@ -33,8 +30,6 @@ export default function useOutputColors({ id, nodeId }: Props) {
     const selectedNodeNestedLevel = selectedNodeAncestorIds?.length || 0;
     const selectedNodeNestedLevelColor = backgrounds[selectedNodeNestedLevel % backgroundCount];
     const { id: flowStepId } = useFlowStepContext();
-
-    const isSelected = selectedObject?.objectId === id;
 
     let colors = {
         backgroundColor: isSelected ? nestedLevelColor : theme.palette.background[4],

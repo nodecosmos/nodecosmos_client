@@ -1,5 +1,7 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
-import { showWorkflow, updateWorkflowInitialInputs } from './worfklow.thunks';
+import {
+    showWorkflow, updateWorkflowInitialInputs, updateWorkflowTitle,
+} from './worfklow.thunks';
 import { WorkflowState } from './workflow.types';
 import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
@@ -70,6 +72,12 @@ const workflowsSlice = createSlice({
                 state.workflowDiagramByBranchId[branchId] ||= {};
                 state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram(data);
             })
+            .addCase(updateWorkflowTitle.fulfilled, (state, action) => {
+                const workflow = action.payload;
+                const { branchId, nodeId } = workflow;
+
+                state.byBranchId[branchId][nodeId].title = workflow.title;
+            })
             .addCase(deleteFlow.fulfilled, () => {
                 // currently flows are deleted only from the pane
                 // TODO update app state
@@ -89,12 +97,13 @@ const workflowsSlice = createSlice({
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { branchId, nodeId } = inputOutput;
-                const { initialInputIds } = state.byBranchId[branchId][nodeId];
+                const { nodeId, id } = inputOutput;
+                const { currentBranchId } = action.meta.arg;
+                const { initialInputIds } = state.byBranchId[currentBranchId][nodeId];
 
-                if (initialInputIds.includes(inputOutput.nodeId as UUID)) {
-                    state.byBranchId[branchId][nodeId].initialInputIds
-                        = initialInputIds.filter((nodeId) => nodeId !== inputOutput.nodeId);
+                if (initialInputIds.includes(id as UUID)) {
+                    state.byBranchId[currentBranchId][nodeId].initialInputIds
+                        = initialInputIds.filter((iid) => iid !== id);
                 }
             });
     },

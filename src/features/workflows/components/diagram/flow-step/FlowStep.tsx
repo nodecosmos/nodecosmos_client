@@ -5,6 +5,7 @@ import { NodecosmosTheme } from '../../../../../themes/type';
 import { ObjectType } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import { TRANSITION_ANIMATION_DURATION } from '../../../../home-tree/constants';
 import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
@@ -57,8 +58,6 @@ export default function FlowStep() {
             }
         }
 
-        console.log(event.target.classList);
-
         unhover();
 
         dispatch(selectObject({
@@ -86,6 +85,7 @@ export default function FlowStep() {
                 fill={backgroundColor}
                 strokeWidth={isSelected ? 2 : 1}
                 stroke={hovered || isSelected ? theme.palette.toolbar.default : 'transparent'}
+                style={{ transition: `height ${TRANSITION_ANIMATION_DURATION}ms` }}
             />
             <foreignObject
                 x={x}

@@ -3,7 +3,7 @@ import { UUID } from '../../../../types';
 import { calculatePositions } from '../../utils/position';
 import { ChangeEvent, useCallback } from 'react';
 
-export default function useTreeCommands() {
+export default function useTreeActions() {
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
     } = useTreeContext();

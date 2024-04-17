@@ -3,8 +3,8 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import useNodeActions from '../../../hooks/tree/node/useNodeActions';
 import useNodeColors from '../../../hooks/tree/node/useNodeColors';
-import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import { selectNodeAttribute } from '../../../nodes.selectors';
 import { useTheme } from '@mui/material';
@@ -32,7 +32,7 @@ function NodeButton() {
         dragOver,
         dragLeave,
         dropCapture,
-    } = useNodeCommands();
+    } = useNodeActions();
     const { currentBranchId } = useBranchParams();
     const oldTitle = useSelector(selectNodeAttribute(currentBranchId, id, 'title'));
     const isTitleEdited = oldTitle && title !== oldTitle;

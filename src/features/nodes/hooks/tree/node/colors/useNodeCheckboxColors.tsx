@@ -1,5 +1,5 @@
 import { NodecosmosTheme } from '../../../../../../themes/type';
-import useTreeCommands from '../../useTreeCommands';
+import useTreeActions from '../../useTreeActions';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 
@@ -9,7 +9,7 @@ export default function useNodeCheckboxColors() {
     } = useNodeContext();
     const theme: NodecosmosTheme = useTheme();
 
-    const commands = useTreeCommands();
+    const commands = useTreeActions();
 
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
