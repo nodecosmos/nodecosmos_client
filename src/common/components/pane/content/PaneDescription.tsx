@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 export default function PaneDescription() {
     const {
-        objectId,
+        mainObjectId: objectId,
         branchId,
         objectType,
     } = usePaneContext();

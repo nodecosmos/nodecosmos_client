@@ -6,7 +6,7 @@ import { UUID } from '../../../types';
 import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/flowSteps.types';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import useIoSubmitHandler from '../hooks/useIoSubmitHandler';
-import { selectUniqueIoByrootId } from '../inputOutputs.selectors';
+import { selectUniqueIoByRootId } from '../inputOutputs.selectors';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';
@@ -48,7 +48,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
         associatedObject,
     } = props;
     const { rootId, branchId } = useWorkflowContext();
-    const allWorkflowIos = useSelector(selectUniqueIoByrootId(branchId, rootId as UUID));
+    const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId as UUID));
     const allIoTitles = allWorkflowIos.map((io) => io.title);
     const uniqueIoTitles = [...new Set(allIoTitles)];
 

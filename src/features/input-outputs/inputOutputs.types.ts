@@ -14,7 +14,7 @@ export interface InputOutputPrimaryKey {
  *  While others use node_id -> branch_id relationship, InputOutputs use root_id -> branch_id.
  */
 export interface InputOutput extends InputOutputPrimaryKey {
-    mainId: UUID | null;
+    mainId: UUID;
     flowId: UUID | null;
     flowStepId: UUID | null;
     title: string;

@@ -15,7 +15,7 @@ export default function useDescriptionEdit() {
     const {
         branchId,
         objectNodeId,
-        objectId,
+        mainObjectId: objectId,
         objectType,
         loading,
         setLoading,
@@ -86,6 +86,8 @@ export default function useDescriptionEdit() {
         if (isEmptySame || (descriptionHtml === currentHTML)) {
             return;
         }
+
+        console.log(helpers.getHTML(), '\n\n\n\n', currentHTML);
 
         handleChangeTimeout.current = setTimeout(() => {
             handleChangeTimeout.current = null;

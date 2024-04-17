@@ -19,7 +19,7 @@ export default function useDescriptionMarkdown() {
     } = useBranchParams();
     const {
         branchId,
-        objectId,
+        mainObjectId: objectId,
         objectType,
         loading,
         objectNodeId,

@@ -7,7 +7,7 @@ import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
 import { CreateIoModalProps, IoObjectType } from '../components/CreateIoModal';
-import { selectUniqueIoByrootId } from '../inputOutputs.selectors';
+import { selectUniqueIoByRootId } from '../inputOutputs.selectors';
 import { createIo } from '../inputOutputs.thunks';
 import { InputOutput } from '../inputOutputs.types';
 import React, { useCallback } from 'react';
@@ -27,7 +27,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const allWorkflowIos = useSelector(selectUniqueIoByrootId(branchId, rootId));
+    const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId));
     const handleServerError = useHandleServerErrorAlert();
 
     const onSubmit = useCallback(async (formValues: { title: string }) => {

@@ -1,4 +1,3 @@
-import { InputOutput } from './inputOutputs.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
@@ -15,11 +14,6 @@ export const selectInputOutput = (branchId: UUID, id: UUID) => createSelector(
     (inputOutputsById) => inputOutputsById[id],
 );
 
-export const selectIoAttribute = (branchId: UUID, id: UUID, attribute: keyof InputOutput) => createSelector(
-    selectInputOutput(branchId, id),
-    (inputOutput) => inputOutput ? inputOutput[attribute] : null,
-);
-
 export const selectIoByNodeId = (branchId: UUID, nodeId: UUID) => createSelector(
     selectInputOutputsByBranch(branchId),
     (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
@@ -27,7 +21,7 @@ export const selectIoByNodeId = (branchId: UUID, nodeId: UUID) => createSelector
     ),
 );
 
-export const selectUniqueIoByrootId = (branchId: UUID, rootId: UUID) => createSelector(
+export const selectUniqueIoByRootId = (branchId: UUID, rootId: UUID) => createSelector(
     selectInputOutputsByBranch(branchId),
     (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
         (inputOutput) => inputOutput.rootId === rootId,

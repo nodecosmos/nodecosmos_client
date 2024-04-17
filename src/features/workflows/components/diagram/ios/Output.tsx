@@ -4,7 +4,7 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
-import { selectIoAttribute } from '../../../../input-outputs/inputOutputs.selectors';
+import { selectInputOutput } from '../../../../input-outputs/inputOutputs.selectors';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -41,7 +41,7 @@ export default function Output(props: OutputProps) {
         position,
         nodeId: outputNodeId,
     } = output;
-    const title = useSelector(selectIoAttribute(branchId, id, 'title'));
+    const { title, mainId } = useSelector(selectInputOutput(branchId, id));
     const {
         x,
         xEnd,
@@ -79,6 +79,7 @@ export default function Output(props: OutputProps) {
                 branchId,
                 objectId: id,
                 objectType: ObjectType.Io,
+                metadata: { mainObjectId: mainId },
             }));
         }
     },
@@ -88,6 +89,7 @@ export default function Output(props: OutputProps) {
         dispatch,
         handleInputsChange,
         id,
+        mainId,
         inputsAdditionActive,
         isChecked,
         nodeId,

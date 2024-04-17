@@ -1,5 +1,6 @@
 import { selectSelectedObject } from '../../../features/app/app.selectors';
 import { SelectedObject } from '../../../features/app/app.types';
+import { ObjectType, UUID } from '../../../types';
 import useBooleanStateValue from '../useBooleanStateValue';
 import {
     createContext, useCallback, useContext, useState,
@@ -48,8 +49,11 @@ export function usePaneContextCreator() {
 }
 
 type CtxValue = Omit<CtxCreatorValue, 'objectId' | 'branchId' | 'objectNodeId' | 'objectType'> & SelectedObject;
+interface PaneCtxValue extends CtxValue {
+    mainObjectId: UUID;
+}
 
-export function usePaneContext(): CtxValue {
+export function usePaneContext(): PaneCtxValue {
     const {
         loading,
         setLoading,
@@ -73,6 +77,17 @@ export function usePaneContext(): CtxValue {
         metadata,
     } = selectedObject;
 
+    let mainObjectId = objectId;
+
+    // For IO, we need to use mainObjectId
+    if (objectType === ObjectType.Io) {
+        if (!metadata || !metadata.mainObjectId) {
+            throw new Error('Io object must have mainObjectId in metadata');
+        }
+
+        mainObjectId = metadata.mainObjectId;
+    }
+
     return {
         loading,
         setLoading,
@@ -81,6 +96,7 @@ export function usePaneContext(): CtxValue {
         setContent,
         // selectedObject
         objectId,
+        mainObjectId,
         branchId,
         objectNodeId,
         objectType,

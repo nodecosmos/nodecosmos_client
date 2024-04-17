@@ -70,7 +70,10 @@ export type RemirrorExtensions = BlockquoteExtension
     | YjsExtension
 
 const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
-    [EnabledExtensions.Link]: () => new LinkExtension({ defaultTarget: '_blank' }),
+    [EnabledExtensions.Link]: () => new LinkExtension({
+        defaultTarget: '_blank',
+        autoLink: false,
+    }),
     [EnabledExtensions.Placeholder]: () => new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
     [EnabledExtensions.Bold]: () => new BoldExtension({}),
     [EnabledExtensions.Strike]: () => new StrikeExtension(),
@@ -90,7 +93,10 @@ const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
     [EnabledExtensions.Image]: () => new ImageExtension({}),
     [EnabledExtensions.HardBreak]: () => new HardBreakExtension(),
     [EnabledExtensions.TaskList]: () => new TaskListExtension(),
-    [EnabledExtensions.File]: () => new LinkExtension({ defaultTarget: '_blank' }),
+    [EnabledExtensions.File]: () => new LinkExtension({
+        defaultTarget: '_blank',
+        autoLink: false, 
+    }),
 };
 
 interface UseExtensionsProps {

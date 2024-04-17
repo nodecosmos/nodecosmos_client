@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function useDescription() {
     const {
-        objectId,
+        mainObjectId: objectId,
         branchId,
         objectNodeId,
         objectType,

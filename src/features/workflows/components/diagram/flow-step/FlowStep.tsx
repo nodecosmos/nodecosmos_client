@@ -48,13 +48,16 @@ export default function FlowStep() {
             ) return;
 
             // html elements that are rendered within modals
-            if (event.target instanceof HTMLLIElement) {
+            if (event.target instanceof HTMLElement) {
                 if (
                     event.target.classList.contains('MuiDialogContent-root')
                     || event.target.classList.contains('MuiDialog-container')
+                    || event.target.classList.contains('MuiInputBase-root')
                 ) return;
             }
         }
+
+        console.log(event.target.classList);
 
         unhover();
 
