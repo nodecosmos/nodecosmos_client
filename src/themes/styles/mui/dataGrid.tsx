@@ -11,6 +11,10 @@ export default (theme: NodecosmosTheme) => ({
                     color: theme.palette.background[8],
                 },
             },
+            virtualScroller: {
+                borderTopLeftRadius: '0!important',
+                borderTopRightRadius: '0!important',
+            },
             columnHeaders: {
                 borderRadius: 0,
                 backgroundColor: theme.palette.background[6],
@@ -40,7 +44,7 @@ export default (theme: NodecosmosTheme) => ({
             withBorderColor: { borderColor: 'transparent' },
             columnSeparator: { color: theme.palette.borders[2] },
             footerContainer: { backgroundColor: theme.palette.background[6] },
-            overlay: { backgroundColor: theme.palette.background[6] },
+            overlay: { backgroundColor: theme.palette.background[2] },
             'topContainer::after': { backgroundColor: 'none' },
         },
     },

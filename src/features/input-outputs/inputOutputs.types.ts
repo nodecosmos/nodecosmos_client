@@ -8,8 +8,13 @@ export interface InputOutputPrimaryKey {
     id: UUID;
 }
 
+/**
+ * @description
+ *  InputOutputs are branched differently than other objects in the system.
+ *  While others use node_id -> branch_id relationship, InputOutputs use root_id -> branch_id.
+ */
 export interface InputOutput extends InputOutputPrimaryKey {
-    originalId: UUID | null;
+    mainId: UUID | null;
     flowId: UUID | null;
     flowStepId: UUID | null;
     title: string;
@@ -21,18 +26,17 @@ export interface InputOutput extends InputOutputPrimaryKey {
     properties: Property[];
     createdAt: string;
     updatedAt: string;
-
 }
 
 export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'id'> {
     flowStepId: InputOutput['flowStepId'];
     flowId: InputOutput['flowId'];
-    originalId?: InputOutput['originalId'];
+    mainId?: InputOutput['mainId'];
     title: InputOutput['title'];
 }
 
 export interface UpdateIoTitlePayload extends InputOutputPrimaryKey {
-    originalId: InputOutput['originalId'];
+    mainId: InputOutput['mainId'];
     title: InputOutput['title'];
 }
 

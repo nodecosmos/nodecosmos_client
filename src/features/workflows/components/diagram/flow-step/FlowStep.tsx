@@ -41,8 +41,10 @@ export default function FlowStep() {
                 || event.target instanceof HTMLSpanElement
                 || event.target instanceof HTMLFieldSetElement
                 || event.target instanceof SVGElement
-                || event.target.classList.contains('MuiDialogContent-root')
-                || event.target.classList.contains('MuiDialog-container')
+                || (event.target instanceof HTMLLIElement && (
+                    event.target.classList.contains('MuiDialogContent-root')
+                    || event.target.classList.contains('MuiDialog-container'))
+                )
             )
         ) return;
 

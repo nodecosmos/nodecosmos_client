@@ -5,7 +5,7 @@ import useTreeVirtualizer from '../../hooks/tree/useTreeVirtualizer';
 import React from 'react';
 
 export default function TreeNodes() {
-    const { treeBranchId } = useTreeContext();
+    const { currentBranchId } = useTreeContext();
     const visibleNodes = useTreeVirtualizer();
 
     if (!visibleNodes || visibleNodes.length === 0) return null;
@@ -16,7 +16,7 @@ export default function TreeNodes() {
                 {visibleNodes.map(([id, isAlreadyMounted]) => (
                     <Node
                         key={id}
-                        treeBranchId={treeBranchId}
+                        currentBranchId={currentBranchId}
                         id={id}
                         isAlreadyMounted={isAlreadyMounted}
                     />

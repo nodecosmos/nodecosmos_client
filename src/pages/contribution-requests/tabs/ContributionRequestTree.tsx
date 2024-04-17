@@ -62,7 +62,7 @@ export default function ContributionRequestTree() {
                 display="flex"
             >
                 <Tree
-                    treeBranchId={branchId}
+                    currentBranchId={branchId}
                     rootId={currentRootId}
                     type={TreeType.ContributionRequest} />
                 <Box

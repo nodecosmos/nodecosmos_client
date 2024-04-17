@@ -3,13 +3,17 @@ import {
     InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIoTitlePayload,
 } from './inputOutputs.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError } from '../../types';
+import { NodecosmosError, WithCurrentBranchId } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const createIo = createAsyncThunk<InputOutput, InsertInputOutputPayload, { rejectValue: NodecosmosError }>(
+export const createIo = createAsyncThunk<
+    InputOutput,
+    WithCurrentBranchId<InsertInputOutputPayload>,
+    { rejectValue: NodecosmosError }
+>(
     'inputOutputs/create',
-    async (payload: InsertInputOutputPayload, { rejectWithValue }) => {
+    async (payload, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.post('/input_outputs', payload);
 
@@ -26,7 +30,7 @@ export const createIo = createAsyncThunk<InputOutput, InsertInputOutputPayload, 
 
 export const updateIoTitle = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
-    UpdateIoTitlePayload,
+    WithCurrentBranchId<UpdateIoTitlePayload>,
     { rejectValue: NodecosmosError }
 >(
     'inputOutputs/updateTitle',
@@ -39,7 +43,7 @@ export const updateIoTitle = createAsyncThunk<
 
 export const deleteIo = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
-    InputOutputPrimaryKey,
+    WithCurrentBranchId<InputOutputPrimaryKey>,
     { rejectValue: NodecosmosError }
 >(
     'inputOutputs/delete',

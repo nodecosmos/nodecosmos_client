@@ -5,13 +5,13 @@ export default function select(state: NodeState, action: PayloadAction<PKWithTre
     const current = state.selected;
 
     if (current) {
-        state.byBranchId[current.treeBranchId][current.id].isSelected = false;
+        state.byBranchId[current.currentBranchId][current.id].isSelected = false;
     }
 
     state.selected = action.payload;
 
     if (action.payload) {
-        const { treeBranchId, id } = action.payload;
-        state.byBranchId[treeBranchId][id].isSelected = true;
+        const { currentBranchId, id } = action.payload;
+        state.byBranchId[currentBranchId][id].isSelected = true;
     }
 }

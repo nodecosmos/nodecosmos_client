@@ -15,10 +15,10 @@ export interface BranchChanges {
 
 export default function useNodeBranchContext(): BranchChanges {
     const {
-        treeBranchId, id, ancestorIds,
+        currentBranchId, id, ancestorIds,
     } = useNodeContext();
-    const branch = useSelector(selectBranch(treeBranchId));
-    const conflict = useSelector(selectConflict(treeBranchId));
+    const branch = useSelector(selectBranch(currentBranchId));
+    const conflict = useSelector(selectConflict(currentBranchId));
     const {
         deletedNodes,
         createdNodes,

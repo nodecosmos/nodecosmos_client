@@ -5,35 +5,35 @@ import {
 import { NodeState } from '../nodes.types';
 
 export function getLikesCountFulfilled(state: NodeState, action: ReturnType<typeof getLikesCount.fulfilled>) {
-    const { treeBranchId } = action.meta.arg;
+    const { currentBranchId } = action.meta.arg;
 
     const { id, likesCount } = action.payload;
 
-    if (treeBranchId) {
-        state.byBranchId[treeBranchId][id].likesCount = likesCount;
+    if (currentBranchId) {
+        state.byBranchId[currentBranchId][id].likesCount = likesCount;
     }
 }
 
 export function likeObjectFulfilled(state: NodeState, action: ReturnType<typeof likeObject.fulfilled>) {
-    const { treeBranchId } = action.meta.arg;
+    const { currentBranchId } = action.meta.arg;
 
     const { id, branchId } = action.payload;
 
-    handleLike(state, id, branchId, 1, treeBranchId);
+    handleLike(state, id, branchId, 1, currentBranchId);
 }
 
 export function unlikeObjectFulfilled(state: NodeState, action: ReturnType<typeof unlikeObject.fulfilled>) {
-    const { treeBranchId } = action.meta.arg;
+    const { currentBranchId } = action.meta.arg;
 
     const { id, branchId } = action.payload;
 
-    handleLike(state, id, branchId, -1, treeBranchId);
+    handleLike(state, id, branchId, -1, currentBranchId);
 }
 
-function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number, treeBranchId?: UUID) {
-    if (treeBranchId) {
-        const likesCount = state.byBranchId[treeBranchId][id].likesCount || 0;
-        state.byBranchId[treeBranchId][id].likesCount = likesCount + increment;
+function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number, currentBranchId?: UUID) {
+    if (currentBranchId) {
+        const likesCount = state.byBranchId[currentBranchId][id].likesCount || 0;
+        state.byBranchId[currentBranchId][id].likesCount = likesCount + increment;
     }
 
     if (id === branchId && state.indexNodesById[id]) {

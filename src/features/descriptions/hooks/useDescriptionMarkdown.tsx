@@ -40,6 +40,9 @@ export default function useDescriptionMarkdown() {
     case ObjectType.Io:
         isDescriptionEdited = branch?.editedDescriptionIos?.has(objectId);
         break;
+    case ObjectType.FlowStep:
+        isDescriptionEdited = branch?.editedDescriptionFlowSteps?.has(objectId);
+        break;
     default:
         isDescriptionEdited = false;
     }
@@ -82,7 +85,7 @@ export default function useDescriptionMarkdown() {
     }, [mergedDescriptionChange, markdown, isMerged, originalDescription?.markdown]);
 
     const loadMarkdown = useCallback(() => {
-        if (isBranch && !isMerged && branch?.editedDescriptionNodes?.has(objectId)) {
+        if (isBranch && !isMerged && isDescriptionEdited) {
             setLoading();
             return getBranchDescription().then(getOriginalDescriptionCb);
         } else if (!branchMarkdown && !fetched) {
@@ -92,11 +95,10 @@ export default function useDescriptionMarkdown() {
 
         return Promise.resolve();
     }, [
-        branch?.editedDescriptionNodes,
+        isDescriptionEdited,
         branchMarkdown,
         getBranchDescription,
         getOriginalDescriptionCb,
-        objectId,
         isBranch,
         isMerged,
         fetched,

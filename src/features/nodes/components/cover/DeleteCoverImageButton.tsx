@@ -22,10 +22,10 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
         branchId,
         metadata,
     } = usePaneContext();
-    const treeBranchId = metadata?.treeBranchId;
+    const currentBranchId = metadata?.currentBranchId;
 
-    if (!treeBranchId) {
-        throw new Error('`treeBranchId` is required in `metadata`');
+    if (!currentBranchId) {
+        throw new Error('`currentBranchId` is required in `metadata`');
     }
 
     const handleServerError = useHandleServerErrorAlert();
@@ -43,12 +43,12 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
                 return;
             }
             dispatch(updateState({
-                treeBranchId,
+                currentBranchId,
                 id: objectId,
                 coverImageUrl: null,
             }));
         });
-    }, [branchId, dispatch, handleServerError, objectId, treeBranchId]);
+    }, [branchId, dispatch, handleServerError, objectId, currentBranchId]);
 
     return (
         <Tooltip title="Delete Cover Image">

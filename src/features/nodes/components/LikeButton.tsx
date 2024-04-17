@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
     id: UUID;
-    treeBranchId?: UUID;
+    currentBranchId?: UUID;
     branchId?: UUID;
     likesCount?: number | null;
     fontSize?: number;
@@ -25,7 +25,7 @@ interface LikeButtonProps {
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, branchId = id, fontSize, likesCount, treeBranchId,
+        id, branchId = id, fontSize, likesCount, currentBranchId,
     } = props;
     const likes = useSelector(selectBranchLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -38,10 +38,10 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(getLikesCount({
                 objectId: id,
                 branchId,
-                treeBranchId,
+                currentBranchId,
             }));
         }
-    }, [branchId, dispatch, id, likesCount, treeBranchId]);
+    }, [branchId, dispatch, id, likesCount, currentBranchId]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
@@ -55,13 +55,13 @@ export default function LikeButton(props: LikeButtonProps) {
 
         if (likedByCurrentUser) {
             dispatch(unlikeObject({
-                treeBranchId,
+                currentBranchId,
                 objectId: id,
                 branchId,
             }));
         } else {
             dispatch(likeObject({
-                treeBranchId,
+                currentBranchId,
                 objectId: id,
                 branchId,
                 objectType: LikeType.Node,
@@ -70,7 +70,7 @@ export default function LikeButton(props: LikeButtonProps) {
 
         requestAnimationFrame(() => setShouldBeat(true));
         setTimeout(() => setShouldBeat(false), 1000);
-    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, treeBranchId]);
+    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, currentBranchId]);
 
     return (
         <div className={`Like ${likedByCurrentUser && 'liked'}`}>

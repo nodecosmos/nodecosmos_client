@@ -54,7 +54,7 @@ export interface SelectedObject {
     originalObjectTitle: string;
     metadata?: {
         flowStepId?: UUID;
-        treeBranchId?: UUID;
+        currentBranchId?: UUID;
     };
 }
 

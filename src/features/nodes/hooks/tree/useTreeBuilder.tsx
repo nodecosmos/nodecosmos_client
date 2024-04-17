@@ -27,18 +27,18 @@ export interface Tree {
 
 type Props = {
     treeRootId: UUID;
-    treeBranchId: UUID;
+    currentBranchId: UUID;
     type: TreeType;
 };
 
 export default function useTreeBuilder(props: Props): Tree {
     const {
         treeRootId,
-        treeBranchId,
+        currentBranchId,
         type,
     } = props;
-    const ancestorIds = useSelector(selectNodeAttribute(treeBranchId, treeRootId, 'ancestorIds'));
-    const branchChildIds = useSelector(selectBranchChildIds(treeBranchId));
+    const ancestorIds = useSelector(selectNodeAttribute(currentBranchId, treeRootId, 'ancestorIds'));
+    const branchChildIds = useSelector(selectBranchChildIds(currentBranchId));
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
         orderedTreeNodeIds: [] as NodeId[],

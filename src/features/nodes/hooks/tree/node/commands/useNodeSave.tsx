@@ -21,14 +21,14 @@ export default function useNodeSave() {
     const { type: treeType } = useTreeContext();
     const {
         isTmp,
-        treeBranchId,
+        currentBranchId,
         branchId,
         id,
         parentId,
         rootId,
         persistedId,
     } = useNodeContext();
-    const orderIndex = useSelector(selectNodeAttribute(treeBranchId, id, 'orderIndex'));
+    const orderIndex = useSelector(selectNodeAttribute(currentBranchId, id, 'orderIndex'));
     const handleServerError = useHandleServerErrorAlert();
     const saveInProgress = useSelector(selectSaveInProgress);
     const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
@@ -42,7 +42,7 @@ export default function useNodeSave() {
 
         // Update title of tmp node within redux store
         dispatch(updateState({
-            treeBranchId,
+            currentBranchId,
             id,
             title,
             isCreationInProgress: isTmp,
@@ -51,7 +51,7 @@ export default function useNodeSave() {
         // Change title of persisted node if tmp node is not replaced yet
         if (isTmp && persistedId) {
             dispatch(updateState({
-                treeBranchId,
+                currentBranchId,
                 id: persistedId,
                 title,
             }));
@@ -71,7 +71,7 @@ export default function useNodeSave() {
             if (persistedId) {
                 // Update persisted node
                 response = await dispatch(updateTitle({
-                    treeBranchId,
+                    currentBranchId,
                     branchId,
                     id: persistedId,
                     title,
@@ -80,11 +80,11 @@ export default function useNodeSave() {
                 // Create new node
                 let creationBranchId;
                 if (treeType === TreeType.ContributionRequest) {
-                    creationBranchId = treeBranchId;
+                    creationBranchId = currentBranchId;
                 }
 
                 const data = {
-                    treeBranchId,
+                    currentBranchId,
                     branchId: creationBranchId,
                     rootId,
                     parentId,
@@ -108,7 +108,7 @@ export default function useNodeSave() {
         }, SAVE_NODE_TIMEOUT);
     },
     [
-        treeBranchId, branchId, dispatch, handleServerError, id, saveInProgress,
+        currentBranchId, branchId, dispatch, handleServerError, id, saveInProgress,
         orderIndex, parentId, persistedId, rootId, treeType, isTmp,
     ]);
 
@@ -132,22 +132,22 @@ export default function useNodeSave() {
     //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {
         dispatch(updateState({
-            treeBranchId,
+            currentBranchId,
             id,
             isEditing: false,
         }));
         setShouldReplaceTmpNode(true);
-    }, [dispatch, id, treeBranchId]);
+    }, [dispatch, id, currentBranchId]);
 
     useEffect(() => {
         if (shouldReplaceTmpNode && isTmp && persistedId) {
             // Replace tmp node with persisted node within redux store
             dispatch(replaceTmpNodeWithPersisted({
-                treeBranchId,
+                currentBranchId,
                 tmpId: id,
             }));
         }
-    }, [dispatch, id, isTmp, persistedId, shouldReplaceTmpNode, treeBranchId]);
+    }, [dispatch, id, isTmp, persistedId, shouldReplaceTmpNode, currentBranchId]);
 
     useEffect(() => {
         return () => {

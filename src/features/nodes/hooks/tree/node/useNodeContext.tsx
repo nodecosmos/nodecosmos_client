@@ -1,7 +1,6 @@
 import { UUID } from '../../../../../types';
 import { NodeProps } from '../../../components/tree/node/Node';
 import { selectNode } from '../../../nodes.selectors';
-import { TreeType } from '../../../nodes.types';
 import useTreeContext from '../useTreeContext';
 import { createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,13 +16,13 @@ export function useNodeContextCreator(contextProviderValue: NodeProps) {
 
 export default function useNodeContext() {
     const {
-        treeBranchId, id, isAlreadyMounted,
+        currentBranchId, id, isAlreadyMounted,
     } = useContext(NodeContext);
-    const { type, treeNodes } = useTreeContext();
+    const { treeNodes } = useTreeContext();
 
     // tree node attributes
     const {
-        branchId: currentBranchId,
+        branchId,
         rootId,
         parentId,
         persistedId,
@@ -36,7 +35,7 @@ export default function useNodeContext() {
         isEditing,
         isDragOver,
         isCreationInProgress,
-    } = useSelector(selectNode(treeBranchId, id as UUID));
+    } = useSelector(selectNode(currentBranchId, id as UUID));
 
     const {
         treeRootId,
@@ -50,14 +49,8 @@ export default function useNodeContext() {
         yEnd,
     } = treeNodes[id] || {};
 
-    // if the node is a contribution request, we need to use the tree branch id
-    let branchId = currentBranchId;
-    if (type === TreeType.ContributionRequest) {
-        branchId = treeBranchId;
-    }
-
     return {
-        treeBranchId,
+        currentBranchId,
         treeRootId,
         branchId,
         id,

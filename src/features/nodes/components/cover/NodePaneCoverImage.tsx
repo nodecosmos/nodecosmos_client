@@ -22,15 +22,15 @@ export default function NodePaneCoverImage() {
         metadata,
     } = usePaneContext();
 
-    const treeBranchId = metadata?.treeBranchId;
+    const currentBranchId = metadata?.currentBranchId;
 
-    if (!treeBranchId) {
-        throw new Error('`treeBranchId` is required in `metadata`');
+    if (!currentBranchId) {
+        throw new Error('`currentBranchId` is required in `metadata`');
     }
 
     const {
         id, isTmp, coverImageUrl,
-    } = useSelector(selectNode(treeBranchId, objectId));
+    } = useSelector(selectNode(currentBranchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
     const handleClose = useCallback((responseBody?: { url: string }) => {
@@ -38,12 +38,12 @@ export default function NodePaneCoverImage() {
 
         if (responseBody?.url) {
             dispatch(updateState({
-                treeBranchId,
+                currentBranchId,
                 id,
                 coverImageUrl: responseBody.url,
             }));
         }
-    }, [closeModal, treeBranchId, dispatch, id]);
+    }, [closeModal, currentBranchId, dispatch, id]);
 
     return (
         <>

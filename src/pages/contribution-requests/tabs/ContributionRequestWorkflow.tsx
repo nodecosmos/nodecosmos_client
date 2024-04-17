@@ -22,6 +22,7 @@ export default function ContributionRequestWorkflow() {
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
     const workflow = useSelector(selectOptWorkflow(branchId, currentRootId));
+    const originalWorkflow = useSelector(selectOptWorkflow(currentRootId, currentRootId));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -53,6 +54,12 @@ export default function ContributionRequestWorkflow() {
 
     useEffect(() => {
         if (loading) {
+            if (!originalWorkflow?.nodeId) {
+                dispatch(showWorkflow({
+                    nodeId: currentRootId,
+                    branchId: currentRootId,
+                }));
+            }
             dispatch(showWorkflow({
                 nodeId: currentRootId,
                 branchId,
@@ -62,7 +69,7 @@ export default function ContributionRequestWorkflow() {
         return () => {
             dispatch(clearPaneContent());
         };
-    }, [branchId, dispatch, loading, currentRootId]);
+    }, [branchId, dispatch, loading, currentRootId, originalWorkflow?.nodeId]);
 
     if (loading) {
         return <Loader />;

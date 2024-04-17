@@ -16,28 +16,28 @@ import { useDispatch } from 'react-redux';
 
 export default function TreeToolbar() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId } = useTreeContext();
+    const { currentBranchId } = useTreeContext();
     const searchVal = useRef<string>('');
 
     const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(search({
-            treeBranchId,
+            currentBranchId,
             value: event.target.value,
         }));
 
         searchVal.current = event.target.value;
-    }, [dispatch, treeBranchId]);
+    }, [dispatch, currentBranchId]);
 
     useEffect(() => {
         return () => {
             if (searchVal.current) {
                 dispatch(search({
-                    treeBranchId,
+                    currentBranchId,
                     value: '',
                 }));
             }
         };
-    }, [dispatch, treeBranchId]);
+    }, [dispatch, currentBranchId]);
 
     const [handleChange, inProgress] = useDebounce<ChangeEvent<HTMLInputElement>>(handleSearch, 100);
 

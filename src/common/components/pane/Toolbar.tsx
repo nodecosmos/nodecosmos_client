@@ -1,13 +1,13 @@
 import TogglePaneButton from '../../../features/app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../../features/app/constants';
-import { ObjectType } from '../../../types';
+import { OBJECT_TYPE_NAMES, ObjectType } from '../../../types';
 import { PaneContent, usePaneContext } from '../../hooks/pane/usePaneContext';
 import ToolbarContainer from '../toolbar/ToolbarContainer';
 import ToolbarItem from '../toolbar/ToolbarItem';
-import { faHashtag } from '@fortawesome/pro-light-svg-icons';
 import {
     faDisplay, faPenToSquare, faRectangleCode, faCodeCommit,
 } from '@fortawesome/pro-regular-svg-icons';
+import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -77,17 +77,34 @@ export default function PaneToolbar() {
                 justifyContent="center"
                 sx={{ svg: { color: 'background.list.defaultColor' } }}
             >
-                {originalObjectTitle && <FontAwesomeIcon icon={faHashtag} />}
+                <Typography
+                    variant="body2"
+                    color="text.tertiary"
+                    fontWeight="bold"
+                    borderRadius={1}
+                >
+                    {OBJECT_TYPE_NAMES[objectType]}
+                </Typography>
+                <Box
+                    mx={1}
+                    fontSize={14}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center">
+                    <FontAwesomeIcon icon={faAngleRight} />
+                </Box>
                 <Typography
                     align="center"
-                    variant="body1"
-                    color="text.secondary"
-                    ml={1}
+                    variant="body2"
+                    fontWeight="bold"
+                    color="text.link"
+                    p={0.5}
+                    px={2}
                     sx={{
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
-                        span: { p: 1 },
+                        backgroundColor: isTitleEdited ? 'none' : 'toolbar.active',
                         '.diff-removed': {
                             backgroundColor: 'diff.removedBg',
                             color: 'diff.removedFg',

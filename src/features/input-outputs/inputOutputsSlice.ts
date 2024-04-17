@@ -30,23 +30,25 @@ const inputOutputsSlice = createSlice({
                 });
             }).addCase(createIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { branchId } = inputOutput;
+                const { currentBranchId } = action.meta.arg;
 
-                state.byBranchId[branchId] ||= {};
-                state.byBranchId[branchId][inputOutput.id] = inputOutput;
+                state.byBranchId[currentBranchId] ||= {};
+                state.byBranchId[currentBranchId][inputOutput.id] = inputOutput;
             }).addCase(updateIoTitle.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { branchId, title } = inputOutput;
+                const { currentBranchId } = action.meta.arg;
+                const { title } = inputOutput;
 
-                Object.values(state.byBranchId[branchId]).forEach((io) => {
-                    if (io.originalId === inputOutput.originalId) {
+                Object.values(state.byBranchId[currentBranchId]).forEach((io) => {
+                    if (io.mainId === inputOutput.mainId) {
                         io.title = title as string;
                     }
                 });
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
-                const { branchId, id } = action.payload;
-                delete state.byBranchId[branchId][id];
+                const { id } = action.payload;
+                const { currentBranchId } = action.meta.arg;
+                delete state.byBranchId[currentBranchId][id];
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
                 const { outputIdsByNodeId, branchId } = action.payload;

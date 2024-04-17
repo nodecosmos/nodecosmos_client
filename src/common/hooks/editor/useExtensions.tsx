@@ -72,10 +72,10 @@ export type RemirrorExtensions = BlockquoteExtension
 const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
     [EnabledExtensions.Link]: () => new LinkExtension({ defaultTarget: '_blank' }),
     [EnabledExtensions.Placeholder]: () => new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
-    [EnabledExtensions.Bold]: () => new BoldExtension(),
+    [EnabledExtensions.Bold]: () => new BoldExtension({}),
     [EnabledExtensions.Strike]: () => new StrikeExtension(),
     [EnabledExtensions.Italic]: () => new ItalicExtension(),
-    [EnabledExtensions.Heading]: () => new HeadingExtension(),
+    [EnabledExtensions.Heading]: () => new HeadingExtension({}),
     [EnabledExtensions.Blockquote]: () => new BlockquoteExtension(),
     [EnabledExtensions.BulletList]: () => new BulletListExtension({ enableSpine: true }),
     [EnabledExtensions.OrderedList]: () => new OrderedListExtension(),
@@ -83,14 +83,14 @@ const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
         priority: ExtensionPriority.High,
         enableCollapsible: true,
     }),
-    [EnabledExtensions.TrailingNode]: () => new TrailingNodeExtension(),
-    [EnabledExtensions.Markdown]: () => new MarkdownExtension(),
-    [EnabledExtensions.Code]: () => new CodeExtension(),
-    [EnabledExtensions.CodeBlock]: () => new CodeBlockExtension(),
-    [EnabledExtensions.Image]: () => new ImageExtension(),
+    [EnabledExtensions.TrailingNode]: () => new TrailingNodeExtension({}),
+    [EnabledExtensions.Markdown]: () => new MarkdownExtension({}),
+    [EnabledExtensions.Code]: () => new CodeExtension({}),
+    [EnabledExtensions.CodeBlock]: () => new CodeBlockExtension({}),
+    [EnabledExtensions.Image]: () => new ImageExtension({}),
     [EnabledExtensions.HardBreak]: () => new HardBreakExtension(),
     [EnabledExtensions.TaskList]: () => new TaskListExtension(),
-    [EnabledExtensions.File]: () => new LinkExtension(),
+    [EnabledExtensions.File]: () => new LinkExtension({ defaultTarget: '_blank' }),
 };
 
 interface UseExtensionsProps {

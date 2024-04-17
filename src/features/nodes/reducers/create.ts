@@ -3,11 +3,11 @@ import { NodeState } from '../nodes.types';
 
 export default function createFulfilled(state: NodeState, action: ReturnType<typeof create.fulfilled>) {
     const { id, branchId } = action.payload;
-    const { tmpId, treeBranchId } = action.meta.arg;
+    const { tmpId, currentBranchId } = action.meta.arg;
 
-    if (tmpId && treeBranchId) {
-        const tmpNode = state.byBranchId[treeBranchId][tmpId];
-        state.byBranchId[treeBranchId][id] = {
+    if (tmpId && currentBranchId) {
+        const tmpNode = state.byBranchId[currentBranchId][tmpId];
+        state.byBranchId[currentBranchId][id] = {
             ...tmpNode,
             ...action.payload,
             persistedId: id,
@@ -16,8 +16,8 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             isEditing: false,
         };
         // update node state
-        state.titles[treeBranchId][id] = tmpNode.title;
-        state.childIds[treeBranchId][id] = [];
+        state.titles[currentBranchId][id] = tmpNode.title;
+        state.childIds[currentBranchId][id] = [];
 
         tmpNode.persistedId = id;
         tmpNode.branchId = branchId;

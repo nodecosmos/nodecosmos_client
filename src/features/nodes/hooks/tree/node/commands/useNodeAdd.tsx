@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useNodeAdd() {
     const {
         id,
-        treeBranchId,
+        currentBranchId,
         isTmp,
         title,
     } = useNodeContext();
@@ -23,11 +23,11 @@ export default function useNodeAdd() {
 
         dispatch(setAlert({ isOpen: false }));
         dispatch(buildTmpNode({
-            treeBranchId,
+            currentBranchId,
             tmpId,
             id,
         }));
-    }, [dispatch, id, treeBranchId]);
+    }, [dispatch, id, currentBranchId]);
 
     const addNode = useCallback(async () => {
         if (shouldAddNode) return;
@@ -35,7 +35,7 @@ export default function useNodeAdd() {
         if (saveInProgress) {
             setShouldAddNode(true);
             dispatch(updateState({
-                treeBranchId,
+                currentBranchId,
                 id,
                 isCreationInProgress: true,
             }));
@@ -59,19 +59,19 @@ export default function useNodeAdd() {
         } else {
             initTempChildNode();
         }
-    }, [shouldAddNode, saveInProgress, isTmp, dispatch, treeBranchId, id, title, initTempChildNode]);
+    }, [shouldAddNode, saveInProgress, isTmp, dispatch, currentBranchId, id, title, initTempChildNode]);
 
     useEffect(() => {
         if (shouldAddNode && !saveInProgress) {
             initTempChildNode();
             setShouldAddNode(false);
             dispatch(updateState({
-                treeBranchId,
+                currentBranchId,
                 id,
                 isCreationInProgress: false,
             }));
         }
-    }, [dispatch, id, initTempChildNode, saveInProgress, shouldAddNode, treeBranchId]);
+    }, [dispatch, id, initTempChildNode, saveInProgress, shouldAddNode, currentBranchId]);
 
     return addNode;
 }

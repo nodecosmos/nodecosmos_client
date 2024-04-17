@@ -11,10 +11,10 @@ type VirtualizedNode = [NodeId, isAlreadyMounted];
 
 export default function useTreeVirtualizer(): VirtualizedNode[] {
     const {
-        treeBranchId, orderedTreeNodeIds, treeNodes,
+        currentBranchId, orderedTreeNodeIds, treeNodes,
     } = useTreeContext();
     const justCreatedNodeId = useSelector(selectJustCreatedNodeId);
-    const transformablePositions = useSelector(selectTransformablePositionsById(treeBranchId));
+    const transformablePositions = useSelector(selectTransformablePositionsById(currentBranchId));
     const prevIsMounted = useRef<Set<NodeId>>(new Set());
 
     return useMemo(() => {

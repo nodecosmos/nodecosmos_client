@@ -24,12 +24,12 @@ export default function useReorder() {
     const {
         id,
         branchId,
-        treeBranchId,
+        currentBranchId,
     } = dragAndDrop || {};
 
     const [reorderInProgress, setReorderInProgress] = useState(false);
     const handleServerError = useHandleServerErrorAlert();
-    const childIdsByParentId = useSelector(selectBranchChildIds(treeBranchId));
+    const childIdsByParentId = useSelector(selectBranchChildIds(currentBranchId));
 
     return useCallback(async (params: NodeDropCaptureParams) => {
         const {
@@ -54,7 +54,7 @@ export default function useReorder() {
         }
 
         const response = await dispatch(reorder({
-            treeBranchId,
+            currentBranchId,
             id,
             branchId,
             newParentId,
@@ -73,13 +73,13 @@ export default function useReorder() {
         }
 
         if (isBranch) {
-            dispatch(reloadBranch(treeBranchId));
+            dispatch(reloadBranch(currentBranchId));
         }
 
         dispatch(setDragAndDrop(null));
         setReorderInProgress(false);
     },
     [
-        reorderInProgress, childIdsByParentId, dispatch, treeBranchId, id, branchId, isBranch, handleServerError,
+        reorderInProgress, childIdsByParentId, dispatch, currentBranchId, id, branchId, isBranch, handleServerError,
     ]);
 }

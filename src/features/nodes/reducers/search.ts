@@ -3,34 +3,34 @@ import { NodeId, NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export interface SearchNodePayload {
-    treeBranchId: UUID;
+    currentBranchId: UUID;
     value: string;
 }
 
 export default function search(state: NodeState, action: PayloadAction<SearchNodePayload>) {
-    const { treeBranchId, value } = action.payload;
+    const { currentBranchId, value } = action.payload;
 
     if (value) {
         // search by title
         const branchChildIds: Record<NodeId, UUID[]> = {};
         const childIdsByParent: Record<NodeId, Set<UUID>> = {};
 
-        for (const nodeId in state.byBranchId[treeBranchId]) {
-            const node = state.byBranchId[treeBranchId][nodeId];
+        for (const nodeId in state.byBranchId[currentBranchId]) {
+            const node = state.byBranchId[currentBranchId][nodeId];
 
             if (!node.isTmp && node.title.toLowerCase().includes(value.toLowerCase())) {
                 branchChildIds[nodeId] ||= [];
                 let currentNodeId = nodeId;
-                let { parentId } = state.byBranchId[treeBranchId][nodeId];
+                let { parentId } = state.byBranchId[currentBranchId][nodeId];
 
                 while (parentId) {
-                    const parent = state.byBranchId[treeBranchId][parentId];
+                    const parent = state.byBranchId[currentBranchId][parentId];
                     if (parent) {
                         childIdsByParent[parentId] ||= new Set();
                         childIdsByParent[parentId].add(currentNodeId);
 
                         currentNodeId = parentId;
-                        parentId = state.byBranchId[treeBranchId][parentId].parentId;
+                        parentId = state.byBranchId[currentBranchId][parentId].parentId;
                     } else {
                         break;
                     }
@@ -46,10 +46,10 @@ export default function search(state: NodeState, action: PayloadAction<SearchNod
             }
         }
 
-        state.childIds[treeBranchId] = branchChildIds;
+        state.childIds[currentBranchId] = branchChildIds;
     } else {
-        for (const nodeId in state.byBranchId[treeBranchId]) {
-            state.childIds[treeBranchId][nodeId] = state.byBranchId[treeBranchId][nodeId].childIds;
+        for (const nodeId in state.byBranchId[currentBranchId]) {
+            state.childIds[currentBranchId][nodeId] = state.byBranchId[currentBranchId][nodeId].childIds;
         }
     }
 }

@@ -39,14 +39,27 @@ export enum ObjectType {
     Io = 'Io',
 }
 
+export const OBJECT_TYPE_NAMES = {
+    Node: 'Node',
+    Workflow: 'Workflow',
+    Flow: 'Flow',
+    FlowStep: 'Flow Step',
+    Io: 'Input/Output',
+};
+
 export type Exact<T, Shape> = T & {
     [K in Exclude<keyof Shape, keyof T>]?: never;
 };
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
 
-export type WithNodeId<T> = T & { nodeId: UUID };
+// currentBranchId refers to current tree
+export interface CurrentBranchId {
+    currentBranchId: UUID;
+}
+
 export type WithRootId<T> = T & { rootId: UUID };
+export type WithCurrentBranchId<T> = T & CurrentBranchId;
 
 export enum ActionTypes {
     CreateNode = 'CREATE_NODE',

@@ -57,13 +57,13 @@ export default function WorkflowNodeButton() {
             objectType: ObjectType.Node,
             metadata: {
                 flowStepId,
-                treeBranchId: branchId,
+                currentBranchId: branchId,
             },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(select({
-                treeBranchId: branchId,
+                currentBranchId: branchId,
                 branchId,
                 id,
             }));

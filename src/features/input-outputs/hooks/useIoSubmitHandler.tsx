@@ -1,14 +1,15 @@
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError, Strict } from '../../../types';
+import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import useBranchParams from '../../branch/hooks/useBranchParams';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
 import { CreateIoModalProps, IoObjectType } from '../components/CreateIoModal';
 import { selectUniqueIoByrootId } from '../inputOutputs.selectors';
 import { createIo } from '../inputOutputs.thunks';
-import { InputOutput, InsertInputOutputPayload } from '../inputOutputs.types';
+import { InputOutput } from '../inputOutputs.types';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -22,6 +23,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
     const {
         branchId, nodeId, rootId, initialInputIds: currentInitialInputIds,
     } = useWorkflowContext();
+    const { isBranch } = useBranchParams();
 
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -32,11 +34,12 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         setLoading(true);
         const existingIo = autocompleteValue ? allWorkflowIos.find((io) => io.title === autocompleteValue) : null;
 
-        const payload: Strict<InsertInputOutputPayload> = {
+        const payload = {
             nodeId,
-            branchId,
+            branchId: isBranch ? branchId : rootId,
+            currentBranchId: branchId,
             rootId,
-            originalId: (autocompleteValue && existingIo?.id) || null,
+            mainId: (autocompleteValue && existingIo?.id) || null,
             flowId: flowStepPrimaryKey?.flowId ?? null,
             flowStepId: flowStepPrimaryKey?.id ?? null,
             ...formValues,
@@ -96,7 +99,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         props.onClose();
     },
     [
-        autocompleteValue, allWorkflowIos, nodeId, branchId, rootId, associatedObject,
+        autocompleteValue, allWorkflowIos, nodeId, isBranch, branchId, rootId, associatedObject,
         flowStepPrimaryKey, dispatch, props, handleServerError, currentInitialInputIds, outputIdsByNodeId, outputNodeId,
     ]);
 

@@ -5,8 +5,7 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    PKWithTreeBranch,
-    UpdateTitlePayload,
+    UpdateTitlePayload, PKWithCurrentBranch,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -56,7 +55,7 @@ export interface NodeCreationApiPayload {
 }
 
 export interface NodeCreationPayload extends NodeCreationApiPayload {
-    treeBranchId?: UUID;
+    currentBranchId?: UUID;
     tmpId?: UUID;
 }
 
@@ -94,7 +93,7 @@ export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { r
     },
 );
 
-export const deleteNode = createAsyncThunk<Node, PKWithTreeBranch, { rejectValue: NodecosmosError }>(
+export const deleteNode = createAsyncThunk<Node, PKWithCurrentBranch, { rejectValue: NodecosmosError }>(
     'nodes/deleteNode',
     async ({ branchId, id }, { rejectWithValue }) => {
         try {
@@ -114,7 +113,7 @@ export const deleteNode = createAsyncThunk<Node, PKWithTreeBranch, { rejectValue
 export interface ReorderPayload {
     id: UUID;
     branchId: UUID;
-    treeBranchId: UUID;
+    currentBranchId: UUID;
     newParentId: UUID;
     newUpperSiblingId?: UUID;
     newLowerSiblingId?: UUID;
