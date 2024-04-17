@@ -1,9 +1,9 @@
 import { UUID } from '../../../types';
 import { deleteNode } from '../nodes.thunks';
-import { NodeState, PKWithTreeBranch } from '../nodes.types';
+import { NodeState, PKWithCurrentBranch } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export function deleteFromState(state: NodeState, action: PayloadAction<PKWithTreeBranch>) {
+export function deleteFromState(state: NodeState, action: PayloadAction<PKWithCurrentBranch>) {
     const { currentBranchId, id } = action.payload;
 
     deleteNodeFromState(state, currentBranchId, id);

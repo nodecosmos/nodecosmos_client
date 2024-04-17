@@ -2,8 +2,8 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import { showNode } from '../../nodes/nodes.thunks';
-import { showWorkflow } from '../../workflows/worfklow.thunks';
+import { clearBranchData } from '../../nodes/nodes.actions';
+import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
 import { mergeContributionRequest } from '../contributionRequests.thunks';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -31,7 +31,7 @@ export default function useMerge() {
         try {
             const response = await dispatch(mergeContributionRequest({
                 nodeId,
-                id, 
+                id,
             }));
 
             if (response.meta.requestStatus === 'rejected') {
@@ -43,17 +43,14 @@ export default function useMerge() {
                 return;
             }
 
-            await dispatch(showNode(nodeId));
-            await dispatch(showWorkflow({
-                nodeId,
-                branchId: nodeId,
-            }));
+            dispatch(clearBranchData(nodeId));
+            dispatch(clearWorkflowBranchData(nodeId));
             navigate(`/nodes/${nodeId}`);
             setTimeout(() => dispatch(setAlert({
                 isOpen: true,
                 severity: 'success',
                 message: 'Contribution request merged successfully!',
-            })));
+            })), 500);
         }
         catch (error) {
             console.error(error);

@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../../../store';
 import { reloadBranch } from '../../../../../branch/branches.thunks';
 import useBranchParams from '../../../../../branch/hooks/useBranchParams';
-import { deleteFromState } from '../../../../actions';
+import { deleteFromState } from '../../../../nodes.actions';
 import { deleteNode } from '../../../../nodes.thunks';
 import useNodeContext from '../useNodeContext';
 import { useCallback } from 'react';

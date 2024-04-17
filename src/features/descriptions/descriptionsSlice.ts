@@ -27,11 +27,11 @@ const descriptionsSlice = createSlice({
                 state.byBranchId[branchId][objectId] = action.payload;
             })
             .addCase(getOriginalDescription.fulfilled, (state, action) => {
-                const { currentRootId } = action.meta.arg;
+                const { currentBranchId } = action.meta.arg;
                 const { objectId } = action.payload;
 
-                state.byBranchId[currentRootId] ||= {};
-                state.byBranchId[currentRootId][objectId] = {
+                state.byBranchId[currentBranchId] ||= {};
+                state.byBranchId[currentBranchId][objectId] = {
                     ...action.payload,
                     base64: null,
                 };

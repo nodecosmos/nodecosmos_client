@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 
 export default function FlowStep() {
     const { branchId } = useWorkflowContext();
-    const { currentRootId } = useBranchParams();
+    const { currentBranchId } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         flowStepNodes, x, y, yEnd, nodeId, id, isSelected,
@@ -24,14 +24,18 @@ export default function FlowStep() {
     const theme: NodecosmosTheme = useTheme();
     const [hovered, hover, unhover] = useBooleanStateValue();
     const { backgroundColor, outlineColor } = useFlowStepColors();
+    const { inputsAdditionActive } = useWorkflowContext();
 
     const handleFlowStepClick = useCallback((event: React.MouseEvent<SVGGElement | HTMLElement>) => {
-        if (
-            !(event.target instanceof SVGRectElement)
-            && (
-                // we want to click as much as possible but that means
-                // we need to exclude elements that are clickable within the flow step rect, but also within
-                // modals that are rendered within the flow step
+        if (inputsAdditionActive) return;
+
+        const isRect = event.target instanceof SVGRectElement;
+        /**
+         * @description We want to have clickable area as big as Flow Step, but we need to exclude elements
+         * that are clickable within Flow Step, and modals that are rendered within Flow Step.
+         */
+        if (!isRect) {
+            if (
                 event.target instanceof HTMLButtonElement
                 || event.target instanceof HTMLInputElement
                 || event.target instanceof HTMLParagraphElement
@@ -41,24 +45,28 @@ export default function FlowStep() {
                 || event.target instanceof HTMLSpanElement
                 || event.target instanceof HTMLFieldSetElement
                 || event.target instanceof SVGElement
-                || (event.target instanceof HTMLLIElement && (
+            ) return;
+
+            // html elements that are rendered within modals
+            if (event.target instanceof HTMLLIElement) {
+                if (
                     event.target.classList.contains('MuiDialogContent-root')
-                    || event.target.classList.contains('MuiDialog-container'))
-                )
-            )
-        ) return;
+                    || event.target.classList.contains('MuiDialog-container')
+                ) return;
+            }
+        }
 
         unhover();
 
         dispatch(selectObject({
-            currentBranchId: branchId,
-            currentRootId,
+            currentOriginalBranchId: branchId,
+            currentBranchId,
             objectNodeId: nodeId,
             branchId,
             objectId: id,
             objectType: ObjectType.FlowStep,
         }));
-    }, [branchId, currentRootId, dispatch, id, nodeId, unhover]);
+    }, [inputsAdditionActive, branchId, currentBranchId, dispatch, id, nodeId, unhover]);
 
     return (
         <g

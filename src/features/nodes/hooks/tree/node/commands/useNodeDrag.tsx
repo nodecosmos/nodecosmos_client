@@ -1,6 +1,6 @@
 import { NodecosmosDispatch } from '../../../../../../store';
 import { UUID } from '../../../../../../types';
-import { setDragAndDrop, updateState } from '../../../../actions';
+import { setDragAndDrop, updateState } from '../../../../nodes.actions';
 import { selectDragAndDrop, selectSaveInProgress } from '../../../../nodes.selectors';
 import useReorder from '../../useReorder';
 import useNodeContext from '../useNodeContext';

@@ -18,11 +18,11 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContributionRequestWorkflow() {
-    const { currentRootId, branchId } = useBranchParams();
+    const { currentBranchId, currentOriginalBranchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(branchId, currentRootId));
-    const originalWorkflow = useSelector(selectOptWorkflow(currentRootId, currentRootId));
+    const workflow = useSelector(selectOptWorkflow(currentBranchId, currentOriginalBranchId));
+    const originalWorkflow = useSelector(selectOptWorkflow(currentOriginalBranchId, currentOriginalBranchId));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -56,20 +56,20 @@ export default function ContributionRequestWorkflow() {
         if (loading) {
             if (!originalWorkflow?.nodeId) {
                 dispatch(showWorkflow({
-                    nodeId: currentRootId,
-                    branchId: currentRootId,
+                    nodeId: currentOriginalBranchId,
+                    branchId: currentBranchId,
                 }));
             }
             dispatch(showWorkflow({
-                nodeId: currentRootId,
-                branchId,
+                nodeId: currentOriginalBranchId,
+                branchId: currentBranchId,
             })).then(() => setLoading(false));
         }
 
         return () => {
             dispatch(clearPaneContent());
         };
-    }, [branchId, dispatch, loading, currentRootId, originalWorkflow?.nodeId]);
+    }, [currentOriginalBranchId, dispatch, loading, currentBranchId, originalWorkflow?.nodeId]);
 
     if (loading) {
         return <Loader />;
@@ -95,8 +95,8 @@ export default function ContributionRequestWorkflow() {
                     overflow="hidden"
                 >
                     {workflow && <Workflow
-                        nodeId={currentRootId}
-                        branchId={branchId}
+                        nodeId={currentOriginalBranchId}
+                        branchId={currentBranchId}
                         context={WorkflowDiagramContext.workflowPage} />}
                 </Box>
                 <Box

@@ -4,7 +4,7 @@ import { NodecosmosError, UUID } from '../../../../types';
 import { setAlert } from '../../../app/appSlice';
 import { reloadBranch } from '../../../branch/branches.thunks';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { setDragAndDrop } from '../../actions';
+import { setDragAndDrop } from '../../nodes.actions';
 import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
 import { reorder } from '../../nodes.thunks';
 import { DragAndDrop } from '../../nodes.types';

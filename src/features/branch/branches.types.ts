@@ -16,8 +16,8 @@ export interface Conflict {
 }
 
 export interface BranchParams {
-    currentRootId: UUID; // corresponds to the id of the current node
-    branchId: UUID; // either id of the current node or id of the contribution request, depending on the context
+    currentOriginalBranchId: UUID; // corresponds to the id of the current node
+    currentBranchId: UUID; // either id of the current node or id of the contribution request, depending on the context
 }
 
 // TextChange is used to store the old and new values of a text field at time of merge
@@ -88,7 +88,7 @@ export interface Branch {
 }
 
 export interface BranchDiffPayload {
-    currentRootId: UUID;
+    currentOriginalBranchId: UUID;
     currentBranchId: UUID;
     objectId: UUID;
 }

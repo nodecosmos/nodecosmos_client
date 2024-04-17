@@ -2,7 +2,7 @@ import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError } from '../../../../types';
-import { updateState } from '../../actions';
+import { updateState } from '../../nodes.actions';
 import { deleteNodeImage } from '../../nodes.thunks';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

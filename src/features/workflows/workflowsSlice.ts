@@ -41,6 +41,11 @@ const workflowsSlice = createSlice({
 
             state.workflowDiagramByBranchId[branchId][nodeId] = buildWorkflowDiagram(data);
         },
+        clearWorkflowBranchData: (state, action: PayloadAction<UUID>) => {
+            const branchId = action.payload;
+            delete state.byBranchId[branchId];
+            delete state.workflowDiagramByBranchId[branchId];
+        },
     },
     extraReducers(builder) {
         builder
@@ -101,6 +106,7 @@ const {
 } = workflowsSlice;
 
 export const {
+    clearWorkflowBranchData,
     setWorkflowScale,
     updateWorkflow,
     rebuildWorkflowDiagram,

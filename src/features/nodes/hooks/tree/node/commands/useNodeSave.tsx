@@ -4,7 +4,7 @@ import { NodecosmosError } from '../../../../../../types';
 import {
     clearJustCreatedNode,
     replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
-} from '../../../../actions';
+} from '../../../../nodes.actions';
 import { SAVE_NODE_TIMEOUT } from '../../../../nodes.constants';
 import { selectNodeAttribute, selectSaveInProgress } from '../../../../nodes.selectors';
 import { create, updateTitle } from '../../../../nodes.thunks';

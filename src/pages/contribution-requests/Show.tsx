@@ -7,34 +7,34 @@ import CRShowToolbar from '../../features/contribution-requests/components/Contr
 import { selectContributionRequest } from '../../features/contribution-requests/contributionRequests.selectors';
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
 import { setCurrentContributionRequest } from '../../features/contribution-requests/contributionRequestsSlice';
-import { select } from '../../features/nodes/actions';
+import { select } from '../../features/nodes/nodes.actions';
 import { showBranchNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
-import { NodecosmosError, UUID } from '../../types';
+import { NodecosmosError } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 export default function Show() {
-    const { currentRootId, branchId } = useBranchParams();
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    const cr = useSelector(selectContributionRequest(currentRootId, branchId));
+    const cr = useSelector(selectContributionRequest(currentOriginalBranchId, currentBranchId));
     const [isNodeFetched, setIsNodeFetched] = React.useState(false);
 
     useEffect(() => {
         dispatch(setHeaderContent('ContributionRequestShowHeader'));
         dispatch(showContributionRequest({
-            nodeId: currentRootId,
-            id: branchId,
-        })).then(() => dispatch(indexComments(branchId)));
+            nodeId: currentOriginalBranchId,
+            id: currentBranchId,
+        })).then(() => dispatch(indexComments(currentBranchId)));
 
         return () => {
             dispatch(setHeaderContent(''));
             dispatch(setCurrentContributionRequest(null));
         };
-    }, [branchId, dispatch, currentRootId]);
+    }, [currentOriginalBranchId, dispatch, currentBranchId]);
 
     useEffect(() => {
         if (cr) {
@@ -52,8 +52,8 @@ export default function Show() {
         }
 
         dispatch(showBranchNode({
-            branchId: branchId as UUID,
-            id: currentRootId,
+            branchId: currentBranchId,
+            id: currentOriginalBranchId,
         })).then((response) => {
             setIsNodeFetched(true);
 
@@ -64,7 +64,7 @@ export default function Show() {
                 return;
             }
         });
-    }, [branchId, dispatch, isNodeFetched, currentRootId]);
+    }, [currentOriginalBranchId, dispatch, isNodeFetched, currentBranchId]);
 
     if (!isNodeFetched) {
         return <Loader />;

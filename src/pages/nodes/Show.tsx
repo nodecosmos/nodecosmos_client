@@ -1,12 +1,13 @@
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import useNodeSSE from '../../features/nodes/hooks/useNodeSSE';
+import { selectOptNode } from '../../features/nodes/nodes.selectors';
 import { showNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
 import { UUID } from '../../types';
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Outlet, useNavigate, useParams,
 } from 'react-router-dom';
@@ -21,7 +22,8 @@ export default function NodeShow() {
         navigate('/404');
     }
 
-    const [isNodeFetched, setIsNodeFetched] = React.useState(false);
+    const optNode = useSelector(selectOptNode(id as UUID, id as UUID));
+    const isNodeFetched = !!optNode;
 
     useNodeSSE(id as UUID, isNodeFetched);
 
@@ -35,8 +37,6 @@ export default function NodeShow() {
         }
 
         dispatch(showNode(id)).then((response) => {
-            setIsNodeFetched(true);
-
             if (response.meta.requestStatus === 'rejected') {
                 navigate('/404');
                 console.error(response);

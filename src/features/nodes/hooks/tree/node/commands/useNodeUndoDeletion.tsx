@@ -10,12 +10,12 @@ import { useDispatch } from 'react-redux';
 export default function useNodeUndoDeletion() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id } = useNodeContext();
-    const { branchId } = useBranchParams();
+    const { currentBranchId } = useBranchParams();
     const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async () => {
         const response = await dispatch(undoDeleteNode({
-            branchId,
+            branchId: currentBranchId,
             objectId: id,
         }));
 
@@ -26,5 +26,5 @@ export default function useNodeUndoDeletion() {
 
             return;
         }
-    }, [branchId, dispatch, handleServerError, id]);
+    }, [currentBranchId, dispatch, handleServerError, id]);
 }

@@ -12,8 +12,8 @@ export const reloadBranch = createAsyncThunk<Branch, UUID, { rejectValue: Nodeco
         const state = getState();
         const branch = state.branches.byId[branchId];
 
-        // we only check for conflicts if the branch is not already in conflict
-        if (branch.conflict) {
+        // we only check for conflicts if the branch is already in conflict
+        if (!branch.conflict) {
             return branch;
         }
 

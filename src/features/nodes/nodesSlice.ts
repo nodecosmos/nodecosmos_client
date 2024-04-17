@@ -21,6 +21,7 @@ import select from './reducers/select';
 import showFulfilled from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
+import { UUID } from '../../types';
 import {
     getLikesCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
@@ -60,6 +61,14 @@ const nodesSlice = createSlice({
         },
         clearJustCreatedNode: (state: NodeState) => {
             state.justCreatedNodeId = null;
+        },
+        clearBranchData: (state: NodeState, action: PayloadAction<UUID>) => {
+            const branchId = action.payload;
+
+            delete state.byBranchId[branchId];
+            delete state.childIds[branchId];
+            delete state.positions[branchId];
+            delete state.titles[branchId];
         },
     },
     extraReducers(builder) {

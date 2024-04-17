@@ -9,7 +9,7 @@ import { Box, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 
 export default function ContributionRequestTree() {
-    const { currentRootId, branchId } = useBranchParams();
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
@@ -62,8 +62,8 @@ export default function ContributionRequestTree() {
                 display="flex"
             >
                 <Tree
-                    currentBranchId={branchId}
-                    rootId={currentRootId}
+                    currentBranchId={currentBranchId}
+                    rootId={currentOriginalBranchId}
                     type={TreeType.ContributionRequest} />
                 <Box
                     component="span"

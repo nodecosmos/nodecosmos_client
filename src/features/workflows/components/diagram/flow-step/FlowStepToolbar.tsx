@@ -34,20 +34,20 @@ export default function FlowStepToolbar() {
     } = useFlowContext();
     const { flowStepPrimaryKey, isSelected: isFlowStepSelected } = useFlowStepContext();
     const { backgroundColor, color } = useFlowStepColors();
-    const { currentRootId } = useBranchParams();
+    const { currentBranchId } = useBranchParams();
 
     const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleFlowClick = useCallback(() => {
         dispatch(selectObject({
-            currentBranchId: branchId,
-            currentRootId,
+            currentOriginalBranchId: branchId,
+            currentBranchId,
             objectNodeId: nodeId,
             branchId,
             objectId: flowId,
             objectType: ObjectType.Flow,
         }));
-    }, [branchId, currentRootId, dispatch, flowId, nodeId]);
+    }, [branchId, currentBranchId, dispatch, flowId, nodeId]);
 
     const [modalOpen, openModal, closeModal] = useModalOpen();
 

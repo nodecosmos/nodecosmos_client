@@ -60,6 +60,7 @@ export interface CurrentBranchId {
 
 export type WithRootId<T> = T & { rootId: UUID };
 export type WithCurrentBranchId<T> = T & CurrentBranchId;
+export type WithOptCurrentBranchId<T> = T & { currentBranchId?: UUID };
 
 export enum ActionTypes {
     CreateNode = 'CREATE_NODE',

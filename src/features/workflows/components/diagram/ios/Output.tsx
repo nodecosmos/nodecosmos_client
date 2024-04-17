@@ -49,7 +49,7 @@ export default function Output(props: OutputProps) {
     } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const isChecked = selectedInputs.has(id);
-    const { currentRootId } = useBranchParams();
+    const { currentBranchId } = useBranchParams();
     const handleInputsChange = useInputsChange();
 
     const handleClick = useCallback(async () => {
@@ -73,8 +73,8 @@ export default function Output(props: OutputProps) {
             await handleInputsChange(selectedInputsArray);
         } else if (workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(selectObject({
-                currentBranchId: branchId,
-                currentRootId,
+                currentOriginalBranchId: branchId,
+                currentBranchId,
                 objectNodeId: nodeId,
                 branchId,
                 objectId: id,
@@ -84,7 +84,7 @@ export default function Output(props: OutputProps) {
     },
     [
         branchId,
-        currentRootId,
+        currentBranchId,
         dispatch,
         handleInputsChange,
         id,

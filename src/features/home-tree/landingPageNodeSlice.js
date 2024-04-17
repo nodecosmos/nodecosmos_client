@@ -40,7 +40,7 @@ const nodeSlice = createSlice({
             if (state[id]) {
                 state[id] = {
                     ...state[id],
-                    ...action.payload, 
+                    ...action.payload,
                 };
             }
         },
@@ -62,9 +62,8 @@ const nodeSlice = createSlice({
             if (!parentId || parentId === NEW_NODE_ID) return;
 
             const parent = state[parentId];
-            const randomId = (Math.random() + 1).toString(36)
+            const id = (Math.random() + 1).toString(36)
                 .substring(7);
-            const id = randomId;
 
             const nodeAncestorIdObjects = action.payload.ancestor_ids || parent.ancestor_ids.length
                 ? [{ $oid: parentId }, ...parent.ancestor_ids] : [{ $oid: parentId }];

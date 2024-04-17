@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../../../store';
 import { ObjectType } from '../../../../../../types';
 import { selectObject } from '../../../../../app/app.thunks';
-import { select } from '../../../../actions';
+import { select } from '../../../../nodes.actions';
 import useTreeCommands from '../../useTreeCommands';
 import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
@@ -56,8 +56,8 @@ export default function useNodeClick() {
                 id,
             }));
             dispatch(selectObject({
+                currentOriginalBranchId: branchId,
                 currentBranchId,
-                currentRootId: currentBranchId,
                 objectNodeId: id,
                 branchId,
                 objectId: id,

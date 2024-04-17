@@ -5,7 +5,7 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
-import { select } from '../../../../nodes/actions';
+import { select } from '../../../../nodes/nodes.actions';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -43,14 +43,14 @@ export default function WorkflowNodeButton() {
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-    const { currentRootId } = useBranchParams();
+    const { currentBranchId } = useBranchParams();
 
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
         dispatch(selectObject({
-            currentBranchId: branchId,
-            currentRootId,
+            currentOriginalBranchId: branchId,
+            currentBranchId,
             objectNodeId: nodeId,
             branchId,
             objectId: id,
@@ -71,7 +71,7 @@ export default function WorkflowNodeButton() {
     },
     [
         branchId,
-        currentRootId,
+        currentBranchId,
         deactivateInputsAddition,
         dispatch,
         flowStepId,

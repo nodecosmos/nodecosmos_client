@@ -1,4 +1,4 @@
-import { updateState } from '../../../../actions';
+import { updateState } from '../../../../nodes.actions';
 import useNodeContext from '../useNodeContext';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';

@@ -106,7 +106,7 @@ export default function UploadFileModal(props: UploadFileModalProps) {
                     endpoint: url,
                 });
 
-                uppy.upload();
+                return uppy.upload();
             }).catch((error) => {
                 console.error(error);
                 dispatch(setAlert({
@@ -139,7 +139,7 @@ export default function UploadFileModal(props: UploadFileModalProps) {
                 <UploadDashboardContainer>
                     <Dashboard
                         uppy={uppy}
-                        autoOpenFileEditor
+                        autoOpen="metaEditor"
                         theme="dark"
                         plugins={['ImageEditor']}
                         showLinkToFileUploadResult={false}

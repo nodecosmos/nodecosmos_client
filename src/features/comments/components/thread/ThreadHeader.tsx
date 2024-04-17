@@ -15,8 +15,8 @@ export default function ThreadHeader() {
     const {
         author, createdAt, threadType, threadNodeId,
     } = useThreadContext();
-    const { branchId } = useBranchParams();
-    const node = useSelector(selectOptNode(branchId, threadNodeId));
+    const { currentBranchId } = useBranchParams();
+    const node = useSelector(selectOptNode(currentBranchId, threadNodeId));
     const nodeTitle = node ? node.title : '';
 
     let commentAction;

@@ -33,8 +33,8 @@ function NodeButton() {
         dragLeave,
         dropCapture,
     } = useNodeCommands();
-    const { currentRootId } = useBranchParams();
-    const oldTitle = useSelector(selectNodeAttribute(currentRootId, id, 'title'));
+    const { currentBranchId } = useBranchParams();
+    const oldTitle = useSelector(selectNodeAttribute(currentBranchId, id, 'title'));
     const isTitleEdited = oldTitle && title !== oldTitle;
 
     const preventDefault = usePreventDefault();
