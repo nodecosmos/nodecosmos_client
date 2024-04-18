@@ -45,6 +45,7 @@ export default function useNodeClick() {
         }
 
         if (isEditing) return;
+
         if (isExpanded && isSelected) {
             collapseNode(id);
             dispatch(select(null));

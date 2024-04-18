@@ -1,14 +1,18 @@
 import EditTitleField from '../../../../../../common/components/EditTItleField';
 import useFlowActions from '../../../../../flows/hooks/useFlowActions';
 import useFlowContext from '../../../../hooks/diagram/flows/useFlowContext';
+import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { Typography } from '@mui/material';
 import React from 'react';
 
 export default function FlowTitle() {
-    const { title, titleEditOpen } = useFlowContext();
-
+    const {
+        id, title, titleEditOpen,
+    } = useFlowContext();
+    const { isFlowDeletedConflict } = useWorkflowBranch();
     const { handleFlowClick, handleTitleChange } = useFlowActions();
     const { closeTitleEdit } = useFlowActions();
+    const isFlowDelConflict = isFlowDeletedConflict(id);
 
     if (titleEditOpen) {
         return <EditTitleField
@@ -34,7 +38,7 @@ export default function FlowTitle() {
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap', // otherwise safari will break words into multiple lines
-                color: 'text.primary',
+                color: isFlowDelConflict ? 'toolbar.lightRed' : 'text.primary',
                 '&:hover': {
                     cursor: 'pointer',
                     textDecoration: 'underline',

@@ -22,6 +22,7 @@ export interface WorkflowBranchChanges {
     isIoDeleted(ioId: UUID): boolean;
     isIoTitleEdited(ioId: UUID): boolean;
     isIoDescriptionEdited(ioId: UUID): boolean;
+    isFlowDeletedConflict(flowId: UUID): boolean;
 }
 
 export default function useWorkflowBranch(): WorkflowBranchChanges {
@@ -95,6 +96,10 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
 
     const isIoDescriptionEdited = useCallback((ioId: UUID) => editedDescriptionIos.has(ioId), [editedDescriptionIos]);
 
+    const isFlowDeletedConflict = useCallback((flowId: UUID) => {
+        return conflict?.deletedEditedFlows?.has(flowId) ?? false;
+    }, [conflict]);
+
     const isFlowStepInConflict = useCallback((flowStepId: UUID) => {
         return conflict?.conflictingFlowSteps.has(flowStepId) ?? false;
     }, [conflict]);
@@ -117,5 +122,6 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
         isFlowStepOutputCreated,
         isFlowStepOutputDeleted,
         isFlowStepInConflict,
+        isFlowDeletedConflict,
     };
 }

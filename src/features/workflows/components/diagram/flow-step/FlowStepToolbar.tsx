@@ -5,13 +5,14 @@ import FlowStepModal from '../../../../flow-steps/components/FlowStepModal';
 import useFlowStepActions from '../../../../flow-steps/hooks/useFlowStepActions';
 import useFlowActions from '../../../../flows/hooks/useFlowActions';
 import { FLOW_TOOLBAR_HEIGHT } from '../../../constants';
-import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import useFlowColors from '../../../hooks/diagram/flows/useFlowColors';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
 import {
     faTrashXmark, faTrash, faPenToSquare,
 } from '@fortawesome/pro-light-svg-icons';
+import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
 import {
     faEllipsisVertical, faPlay, faSave,
 } from '@fortawesome/pro-solid-svg-icons';
@@ -25,36 +26,66 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 
 export default function FlowStepToolbar() {
-    const { isFlowStepInConflict } = useWorkflowBranch();
-    const { flowSelected } = useFlowContext();
+    const { isFlowDeletedConflict, isFlowStepInConflict } = useWorkflowBranch();
+    const { flowSelected, id: flowId } = useFlowContext();
     const { flowStepPrimaryKey, isSelected: isFlowStepSelected } = useFlowStepContext();
-    const { backgroundColor } = useFlowStepColors();
-
     const [modalOpen, openModal, closeModal] = useModalOpen();
-
-    const { openTitleEdit } = useFlowActions();
-
+    const { openTitleEdit, restoreFlow } = useFlowActions();
     const {
         createLoading, createNextFlowStep, keepFlowStep, deleteFlowStep,
     } = useFlowStepActions();
-
-    const isInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
-
+    const { backgroundColor: flowBg, outlineColor: flowBorder } = useFlowColors();
+    const isFlowDelConflict = isFlowDeletedConflict(flowId);
+    const isFsInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
     const { deleteFlowCb } = useFlowActions();
 
     return (
         <Box
             pl={2}
-            style={{ backgroundColor }}
             display="flex"
             alignItems="center"
             width={1}
-            height={FLOW_TOOLBAR_HEIGHT}>
+            height={FLOW_TOOLBAR_HEIGHT}
+            style={{
+                backgroundColor: flowBg,
+                borderColor: flowBorder,
+                border: 1,
+            }}>
             <FlowTitle />
             <ToolsContainer>
                 {
                     (flowSelected || isFlowStepSelected) && (
-                        <Box display="flex" width="100%">
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            width="100%"
+                        >
+                            {isFlowDelConflict
+                                && (
+                                    <>
+                                        <Tooltip
+                                            title="Flow deleted from original branch."
+                                            placement="top">
+                                            <Chip
+                                                className="ToolbarChip"
+                                                size="small"
+                                                label="Conflict"
+                                                sx={{ color: 'toolbar.red' }}
+                                            />
+                                        </Tooltip>
+                                        <Tooltip title="Restore Flow." placement="top">
+                                            <IconButton
+                                                className="Item"
+                                                aria-label="Restore Flow"
+                                                sx={{ color: 'toolbar.lightRed' }}
+                                                onClick={restoreFlow}
+                                            >
+                                                <FontAwesomeIcon icon={faRotateLeft} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </>
+                                )
+                            }
                             <Tooltip title="Edit Flow Title" placement="top">
                                 <IconButton
                                     className="Item"
@@ -93,10 +124,10 @@ export default function FlowStepToolbar() {
                 }
                 {
                     (flowSelected || isFlowStepSelected) && (
-                        <Box display="flex" justifyContent="end" width="100%" pr={1}>
-                            {isInConflict
+                        <Box display="flex" alignItems="center" justifyContent="end" width="100%" pr={1}>
+                            {isFsInConflict
                                 && (
-                                    <div>
+                                    <>
                                         <Tooltip
                                             title="FlowStep with same index already exists.
                                                            You can choose to delete it from CR or keep it."
@@ -115,7 +146,7 @@ export default function FlowStepToolbar() {
                                         >
                                             <FontAwesomeIcon icon={faSave} />
                                         </IconButton>
-                                    </div>
+                                    </>
                                 )
                             }
                             <Tooltip title="Delete Flow Step" placement="top">
