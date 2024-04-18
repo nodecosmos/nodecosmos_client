@@ -18,7 +18,7 @@ export default function useFlowColors() {
 
     if (isBranch) {
         if (isFlowDeletedConflict(id)) {
-            colors = diffColors(true, DiffState.Conflict, 0.4);
+            colors = diffColors(true, DiffState.Conflict, 0.1);
         }
     }
 
