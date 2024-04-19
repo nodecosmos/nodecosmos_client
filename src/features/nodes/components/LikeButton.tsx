@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
     id: UUID;
+    objectType: LikeType;
     currentBranchId?: UUID;
     branchId?: UUID;
     likesCount?: number | null;
@@ -25,7 +26,7 @@ interface LikeButtonProps {
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, branchId = id, fontSize, likesCount, currentBranchId,
+        id, objectType, branchId = id, fontSize, likesCount, currentBranchId,
     } = props;
     const likes = useSelector(selectBranchLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -39,9 +40,10 @@ export default function LikeButton(props: LikeButtonProps) {
                 objectId: id,
                 branchId,
                 currentBranchId,
+                objectType,
             }));
         }
-    }, [branchId, dispatch, id, likesCount, currentBranchId]);
+    }, [branchId, dispatch, id, likesCount, currentBranchId, objectType]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {

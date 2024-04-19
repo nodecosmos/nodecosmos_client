@@ -1,4 +1,4 @@
-import FlowStepToolbar from './FlowStepToolbar';
+import FlowToolbar from './FlowToolbar';
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../../store';
 import { NodecosmosTheme } from '../../../../../themes/type';
@@ -104,7 +104,7 @@ export default function FlowStep() {
                     zIndex={1}
                     position="relative"
                 >
-                    <FlowStepToolbar />
+                    <FlowToolbar />
                 </Box>
             </foreignObject>
             <g>

@@ -2,7 +2,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError, Strict } from '../../../types';
-import { keepFlowStep } from '../../branch/branches.thunks';
+import { keepFlowStep, restoreFlowStep } from '../../branch/branches.thunks';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { createFlowStep, deleteFlowStep } from '../flowSteps.thunks';
@@ -90,10 +90,22 @@ export default function useFlowStepActions() {
         }));
     }, [dispatch, flowStepPrimaryKey]);
 
+    const restoreFlowStepCb = useCallback(() => {
+        if (!flowStepPrimaryKey) {
+            throw new Error('Flow Step Primary Key is not defined');
+        }
+
+        dispatch(restoreFlowStep({
+            branchId: flowStepPrimaryKey.branchId,
+            objectId: flowStepPrimaryKey.id,
+        }));
+    }, [dispatch, flowStepPrimaryKey]);
+
     return {
         createLoading,
         createNextFlowStep,
         deleteFlowStep: deleteFlowStepCb,
         keepFlowStep: keepFlowStepCb,
+        restoreFlowStep: restoreFlowStepCb,
     };
 }

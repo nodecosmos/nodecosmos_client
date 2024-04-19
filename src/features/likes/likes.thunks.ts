@@ -1,6 +1,6 @@
 import {
     Like, LikePrimaryKey,
-    LikesCountResponse,
+    LikesCountResponse, LikeType,
 } from './likes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { WithOptCurrentBranchId } from '../../types';
@@ -20,11 +20,11 @@ export const getUserLikes = createAsyncThunk<
 
 export const getLikesCount = createAsyncThunk<
     LikesCountResponse,
-    WithOptCurrentBranchId<LikePrimaryKey>
+    WithOptCurrentBranchId<LikePrimaryKey & {objectType: LikeType}>
 >(
     'nodes/getLikesCount',
     async ({ objectId, branchId }: WithOptCurrentBranchId<LikePrimaryKey>): Promise<LikesCountResponse> => {
-        const response = await nodecosmos.get(`/likes/${objectId}/${branchId}`);
+        const response = await nodecosmos.get(`/likes/${objectId}/${branchId}/objectType`);
 
         return response.data;
     },

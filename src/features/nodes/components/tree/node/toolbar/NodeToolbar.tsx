@@ -1,4 +1,5 @@
 import ConflictToolbar from './NodeConflictToolbar';
+import { LikeType } from '../../../../../likes/likes.types';
 import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
@@ -89,6 +90,7 @@ export default function NodeToolbar() {
             </Tooltip>
             <LikeButton
                 id={id}
+                objectType={LikeType.Node}
                 branchId={branchId}
                 currentBranchId={currentBranchId}
                 likesCount={likesCount} />

@@ -9,7 +9,7 @@ export default function useFlowStepColors() {
     const theme: NodecosmosTheme = useTheme();
     const { isBranch } = useBranchParams();
     const {
-        isFlowStepCreated, isFlowStepDeleted, isFlowStepInConflict,
+        isFlowStepCreated, isFlowStepDeleted, isFlowStepInConflict, isFlowStepDeletedConflict,
     } = useWorkflowBranch();
     const diffColors = useDiffColors();
 
@@ -22,7 +22,7 @@ export default function useFlowStepColors() {
     };
 
     if (isBranch) {
-        if (isFlowStepInConflict(id)) {
+        if (isFlowStepInConflict(id) || isFlowStepDeletedConflict(id)) {
             colors = diffColors(true, DiffState.Conflict, 0.2);
         } else if (isFlowStepCreated(id)) {
             colors = diffColors(true, DiffState.Added, 0.2);

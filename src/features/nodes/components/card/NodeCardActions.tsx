@@ -1,3 +1,4 @@
+import { LikeType } from '../../../likes/likes.types';
 import { IndexNode } from '../../nodes.types';
 import LikeButton from '../LikeButton';
 import {
@@ -18,7 +19,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 gap: 1,
             }}
         >
-            <LikeButton id={node.id} fontSize={16} likesCount={node.likesCount} />
+            <LikeButton objectType={LikeType.Node} id={node.id} fontSize={16} likesCount={node.likesCount} />
             <Tooltip title="Nodes">
                 <Box
                     display="flex"

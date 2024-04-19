@@ -17,12 +17,14 @@ export interface WorkflowBranchChanges {
     isFlowStepInputDeleted(flowStepId: UUID, nodeId: UUID, inputId: UUID): boolean;
     isFlowStepOutputCreated(flowStepId: UUID, nodeId: UUID, outputId: UUID): boolean;
     isFlowStepOutputDeleted(flowStepId: UUID, nodeId: UUID, outputId: UUID): boolean;
-    isFlowStepInConflict(flowStepId: UUID): boolean;
     isIoCreated(ioId: UUID): boolean;
     isIoDeleted(ioId: UUID): boolean;
     isIoTitleEdited(ioId: UUID): boolean;
     isIoDescriptionEdited(ioId: UUID): boolean;
+    // conflicts
     isFlowDeletedConflict(flowId: UUID): boolean;
+    isFlowStepInConflict(flowStepId: UUID): boolean;
+    isFlowStepDeletedConflict(flowStepId: UUID): boolean;
 }
 
 export default function useWorkflowBranch(): WorkflowBranchChanges {
@@ -100,6 +102,11 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
         return conflict?.deletedEditedFlows?.has(flowId) ?? false;
     }, [conflict]);
 
+    const isFlowStepDeletedConflict = useCallback((flowStepId: UUID) => {
+        return conflict?.deletedEditedFlowSteps?.has(flowStepId) ?? false;
+    }, [conflict]);
+
+    // original flow step with same index exist
     const isFlowStepInConflict = useCallback((flowStepId: UUID) => {
         return conflict?.conflictingFlowSteps.has(flowStepId) ?? false;
     }, [conflict]);
@@ -121,7 +128,8 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
         isFlowStepInputDeleted,
         isFlowStepOutputCreated,
         isFlowStepOutputDeleted,
-        isFlowStepInConflict,
         isFlowDeletedConflict,
+        isFlowStepInConflict,
+        isFlowStepDeletedConflict,
     };
 }
