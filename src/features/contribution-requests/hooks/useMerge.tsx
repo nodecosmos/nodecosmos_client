@@ -50,7 +50,7 @@ export default function useMerge() {
                 isOpen: true,
                 severity: 'success',
                 message: 'Contribution request merged successfully!',
-            })), 500);
+            })), 250);
         }
         catch (error) {
             console.error(error);

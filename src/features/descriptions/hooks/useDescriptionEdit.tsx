@@ -87,8 +87,6 @@ export default function useDescriptionEdit() {
             return;
         }
 
-        console.log(helpers.getHTML(), '\n\n\n\n', currentHTML);
-
         handleChangeTimeout.current = setTimeout(() => {
             handleChangeTimeout.current = null;
             const markdown = helpers.getMarkdown();

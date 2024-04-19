@@ -20,8 +20,17 @@ export default function FlowStepInnerToolbar() {
     const isFsInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
     const isFsDeletedConflict = flowStepPrimaryKey?.id && isFlowStepDeletedConflict(flowStepPrimaryKey.id);
 
+    if (!flowStepPrimaryKey?.id) {
+        return null;
+    }
+
     return (
-        <Box display="flex" alignItems="center" justifyContent="end" width="100%" pr={1}>
+        <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="end"
+            width="100%"
+        >
             {isFsInConflict
                 && (
                     <>
