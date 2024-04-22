@@ -46,18 +46,26 @@ const inputOutputsSlice = createSlice({
                 });
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
-                const { id } = action.payload;
+                const io = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
+                const { id } = io;
                 const { currentBranchId } = action.meta.arg;
-                delete state.byBranchId[currentBranchId][id];
+
+                if (deleteFromState) {
+                    delete state.byBranchId[currentBranchId][id];
+                }
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const { outputIdsByNodeId, branchId } = action.payload;
+                const { deleteFromState } = action.payload.metadata;
+                const { outputIdsByNodeId, branchId } = action.payload.data;
 
                 const outputs = outputIdsByNodeId && Object.values(outputIdsByNodeId).flat();
 
-                outputs?.forEach((outputId: UUID) => {
-                    delete state.byBranchId[branchId][outputId];
-                });
+                if (deleteFromState) {
+                    outputs?.forEach((outputId: UUID) => {
+                        delete state.byBranchId[branchId][outputId];
+                    });
+                }
             });
     },
 });

@@ -9,6 +9,7 @@ export type WithOptionalId<T> = Omit<T, 'id'> & OptionalId;
 export type NodecosmosError = {
     status?: HttpStatusCode;
     message?: string;
+    viewMessage?: boolean;
 };
 
 export interface Position {

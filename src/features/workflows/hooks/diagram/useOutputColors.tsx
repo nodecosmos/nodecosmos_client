@@ -37,11 +37,11 @@ export default function useOutputColors() {
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
     };
 
-    if (isBranch && !isFlowStepCreated(flowStepId)) {
+    if (isBranch) {
         if (isFlowStepDeleted(flowStepId)) {
             colors = diffColors(isSelected, DiffState.Removed);
         }
-        else if (isIoCreated(id)) {
+        else if (isIoCreated(id) || isFlowStepCreated(flowStepId)) {
             colors = diffColors(isSelected, DiffState.Added);
         } else if (isIoDeleted(id)) {
             colors = diffColors(isSelected, DiffState.Removed);

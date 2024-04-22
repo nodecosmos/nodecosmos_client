@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType } from '../../../types';
 import { selectObject } from '../../app/app.thunks';
-import { restoreFlow } from '../../branch/branches.thunks';
+import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
 import useBranchParams from '../../branch/hooks/useBranchParams';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
@@ -60,6 +60,13 @@ export default function useFlowActions() {
         }));
     }, [dispatch, branchId, flowId]);
 
+    const undoDeleteFlowCb = useCallback(() => {
+        dispatch(undoDeleteFlow({
+            branchId,
+            objectId: flowId,
+        }));
+    }, [dispatch, branchId, flowId]);
+
     return {
         handleFlowClick,
         deleteFlowCb,
@@ -67,5 +74,6 @@ export default function useFlowActions() {
         openTitleEdit,
         closeTitleEdit,
         restoreFlow: restoreFlowCb,
+        undoDeleteFlow: undoDeleteFlowCb,
     };
 }

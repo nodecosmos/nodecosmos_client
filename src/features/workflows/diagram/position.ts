@@ -22,7 +22,8 @@ export function calculateWorkflowStepPosition(index: number): Position {
 export interface FlowStepPositionData {
     flowStep: FlowStep | null;
     flowStartIndex: number;
-    stepIndex: number;
+    /// don't confuse with stepIndex, workflowStepIndex is index of step within complete workflow
+    workflowStepIndex: number;
     prefFlowYEnd: number;
     currentFlowYEnd?: number;
 }
@@ -31,9 +32,9 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
     const {
         flowStep,
         flowStartIndex,
-        stepIndex,
         prefFlowYEnd,
         currentFlowYEnd,
+        workflowStepIndex,
     } = data;
 
     const nodeLength = (flowStep && flowStep?.nodeIds?.length) || 0;
@@ -43,14 +44,20 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
             && Object.values(flowStep.outputIdsByNodeId).flat().length
     ) || 0;
 
-    const y = (prefFlowYEnd == 0 ? prefFlowYEnd + FLOW_TOOLBAR_HEIGHT : prefFlowYEnd) + BORDER_WIDTH;
-    let yEnd = y + OUTPUT_EDGE_LENGTH + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
+    const prevFlowYEndCalc = prefFlowYEnd == 0 ? prefFlowYEnd + FLOW_TOOLBAR_HEIGHT : prefFlowYEnd;
+    const y = prevFlowYEndCalc + BORDER_WIDTH; // border width margin
+    let yEnd
+        = y + OUTPUT_EDGE_LENGTH
+        + nodeLength * OUTPUT_EDGE_LENGTH
+        + outputsLength * OUTPUT_EDGE_LENGTH;
+
     if (currentFlowYEnd && (currentFlowYEnd > yEnd)) {
         yEnd = currentFlowYEnd;
     }
 
     return {
-        x: WORKFLOW_STEP_WIDTH * (flowStartIndex + stepIndex + 1) + stepIndex * BORDER_WIDTH,
+        x: WORKFLOW_STEP_WIDTH * (workflowStepIndex + 1) // width of step
+            + workflowStepIndex * BORDER_WIDTH, // border width margin
         xEnd: WORKFLOW_STEP_WIDTH * (flowStartIndex + 1) + WORKFLOW_STEP_WIDTH,
         y,
         yEnd,

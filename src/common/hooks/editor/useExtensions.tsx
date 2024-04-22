@@ -140,8 +140,6 @@ export default function useExtensions(props: UseExtensionsProps) {
     const doc = useMemo(() => {
         if (!isRealTime) return null;
 
-        console.log('hit create doc');
-
         const ydoc = new Y.Doc();
 
         if (base64) {
@@ -155,8 +153,6 @@ export default function useExtensions(props: UseExtensionsProps) {
     const provider = useMemo(
         () => {
             if (!isRealTime || !wsRoomId || !doc) return null;
-
-            console.log('hit create provider');
 
             const wsProvider = new WebsocketProvider(
                 `${WS_URI}ws/descriptions/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
@@ -172,8 +168,6 @@ export default function useExtensions(props: UseExtensionsProps) {
     useEffect(() => {
         if (isRealTime) {
             if (!provider) return undefined;
-
-            console.log('hit getProvider');
 
             const getProvider = () => provider;
             const yjsExtension = new YjsExtension({ getProvider });

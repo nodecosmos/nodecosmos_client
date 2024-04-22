@@ -28,7 +28,7 @@ export default function OutputToolbar() {
             y={y - 50}
             style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
         >
-            <ToolsContainer justifyContent="end" ml={0}>
+            <ToolsContainer justifyContent="end">
                 <Tooltip title="Edit IO Title" placement="top">
                     <IconButton
                         className="Item"

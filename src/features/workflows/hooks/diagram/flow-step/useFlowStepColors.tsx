@@ -9,11 +9,14 @@ export default function useFlowStepColors() {
     const theme: NodecosmosTheme = useTheme();
     const { isBranch } = useBranchParams();
     const {
-        isFlowStepCreated, isFlowStepDeleted, isFlowStepInConflict, isFlowStepDeletedConflict,
+        isFlowStepCreated, isFlowStepDeleted, isFlowStepInConflict, isFlowStepDeletedConflict, isFlowDeleted,
     } = useWorkflowBranch();
+
     const diffColors = useDiffColors();
 
-    const { id, isSelected } = useFlowStepContext();
+    const {
+        id, flowId, isSelected,
+    } = useFlowStepContext();
 
     let colors = {
         backgroundColor: isSelected ? theme.palette.workflow.selectedBg : 'transparent',
@@ -24,10 +27,10 @@ export default function useFlowStepColors() {
     if (isBranch) {
         if (isFlowStepInConflict(id) || isFlowStepDeletedConflict(id)) {
             colors = diffColors(true, DiffState.Conflict, 0.1);
+        } else if (isFlowDeleted(flowId) || isFlowStepDeleted(id)) {
+            colors = diffColors(true, DiffState.Removed, 0.5);
         } else if (isFlowStepCreated(id)) {
             colors = diffColors(true, DiffState.Added, 0.5);
-        } else if (isFlowStepDeleted(id)) {
-            colors = diffColors(true, DiffState.Removed, 0.5);
         }
     }
 

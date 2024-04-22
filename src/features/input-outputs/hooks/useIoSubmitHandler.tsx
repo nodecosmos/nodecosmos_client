@@ -39,7 +39,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
             branchId: isBranch ? branchId : rootId,
             currentBranchId: branchId,
             rootId,
-            mainId: (autocompleteValue && existingIo?.id) || null,
+            mainId: (autocompleteValue && existingIo?.id) || nodeId,
             flowId: flowStepPrimaryKey?.flowId ?? null,
             flowStepId: flowStepPrimaryKey?.id ?? null,
             ...formValues,

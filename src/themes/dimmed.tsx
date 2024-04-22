@@ -137,14 +137,14 @@ const theme: NodecosmosTheme = {
         },
 
         workflow: {
-            default: '#43464d',
+            default: '#4e535e',
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#cdd4ff',
             defaultInputColor: '#52565e',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',
-            selectedBg: 'rgba(70,101,121,0.03)',
+            selectedBg: '#3a3e47',
         },
 
         markdownContent: {

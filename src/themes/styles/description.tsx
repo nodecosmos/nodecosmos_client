@@ -52,7 +52,7 @@ export default (theme: NodecosmosTheme) => ({
             fontWeight: 'bold',
         },
         p: {
-            fontWeight: 500,
+            fontWeight: 400,
             wordWrap: 'break-word',
             '&:empty': { height: 32 },
         },

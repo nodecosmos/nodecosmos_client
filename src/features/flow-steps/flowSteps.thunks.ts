@@ -3,7 +3,9 @@ import {
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
 } from './flowSteps.types';
 import nodecosmos from '../../api/nodecosmos-server';
+import { RootState } from '../../store';
 import { NodecosmosError, WithRootId } from '../../types';
+import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -67,15 +69,47 @@ export const updateFlowStepInputs = createAsyncThunk<
 );
 
 export const deleteFlowStep = createAsyncThunk<
-    Partial<FlowStep> & FlowStepPrimaryKey,
+    WithBranchMetadata<Partial<FlowStep> & FlowStepPrimaryKey>,
     WithRootId<FlowStepPrimaryKey>,
-    { rejectValue: NodecosmosError }
+    { state: RootState, rejectValue: NodecosmosError }
 >(
-    'flow_steps/deleteFlowStep',
-    async (payload) => {
-        // we use post as stepIndex is double that can't be passed in url
-        const response = await nodecosmos.post('/flow_steps/delete', payload);
+    'flowSteps/deleteFlowStep',
+    async (payload, { rejectWithValue, getState }) => {
+        try {
+            const {
+                branchId, id, nodeId, 
+            } = payload;
+            // we use post as stepIndex is double that can't be passed in url
+            const response = await nodecosmos.post('/flow_steps/delete', payload);
 
-        return response.data;
+            const metadata: BranchMetadata = {};
+
+            if (branchId !== nodeId) {
+                const state = getState();
+
+                const branch = state.branches.byId[branchId];
+
+                metadata.deleteFromState = branch.createdFlowSteps.has(id) || branch.restoredFlowSteps.has(id);
+            } else {
+                metadata.deleteFromState = true;
+            }
+
+            return {
+                data: response.data,
+                metadata,
+            };
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the flow step.',
+                viewMessage: true,
+            });
+        }
     },
 );

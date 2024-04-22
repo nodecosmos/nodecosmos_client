@@ -3,7 +3,9 @@ import {
     InsertInputOutputPayload, InputOutputPrimaryKey, UpdateIoTitlePayload,
 } from './inputOutputs.types';
 import nodecosmos from '../../api/nodecosmos-server';
+import { RootState } from '../../store';
 import { NodecosmosError, WithCurrentBranchId } from '../../types';
+import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -42,20 +44,50 @@ export const updateIoTitle = createAsyncThunk<
 );
 
 export const deleteIo = createAsyncThunk<
-    Partial<InputOutput> & InputOutputPrimaryKey,
+    WithBranchMetadata<Partial<InputOutput> & InputOutputPrimaryKey>,
     WithCurrentBranchId<InputOutputPrimaryKey>,
-    { rejectValue: NodecosmosError }
+    { state: RootState, rejectValue: NodecosmosError }
 >(
     'inputOutputs/delete',
-    async (payload: InputOutputPrimaryKey) => {
-        const {
-            rootId, nodeId, branchId, id,
-        } = payload;
+    async (payload, { rejectWithValue, getState }) => {
+        try {
+            const {
+                rootId, nodeId, branchId, id,
+            } = payload;
 
-        const response = await nodecosmos.delete(
-            `/input_outputs/${rootId}/${nodeId}/${branchId}/${id}`,
-        );
+            const response = await nodecosmos.delete(
+                `/input_outputs/${rootId}/${nodeId}/${branchId}/${id}`,
+            );
 
-        return response.data;
+            const metadata: BranchMetadata = {};
+
+            if (branchId !== rootId) {
+                const state = getState();
+
+                const branch = state.branches.byId[branchId];
+
+                metadata.deleteFromState = branch.createdIos.has(id) || branch.restoredIos.has(id);
+            } else {
+                metadata.deleteFromState = true;
+            }
+
+            return {
+                data: response.data,
+                metadata,
+            };
+        }
+        catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the flow step.',
+                viewMessage: true,
+            });
+        }
     },
 );

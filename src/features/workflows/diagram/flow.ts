@@ -41,6 +41,7 @@ export function buildFlow(data: FlowStepData): FlowRes {
             flowStartIndex,
             stepIndex: 0,
             prefFlowYEnd,
+            workflowStepIndex: flowStartIndex,
         });
 
         workflowStepFlows.push({
@@ -64,6 +65,7 @@ export function buildFlow(data: FlowStepData): FlowRes {
                 stepIndex,
                 prefFlowYEnd,
                 currentFlowYEnd,
+                workflowStepIndex: flowStartIndex + stepIndex,
             });
 
             currentFlowYEnd = Math.max(flowStepPosition.yEnd, currentFlowYEnd);

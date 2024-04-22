@@ -2,29 +2,29 @@ import FlowInnerToolbar from './toolbar/FlowInnerToolbar';
 import FlowStepInnerToolbar from './toolbar/FlowStepInnerToolbar';
 import FlowTitle from './toolbar/FlowTitle';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
-import { FLOW_TOOLBAR_HEIGHT } from '../../../constants';
 import useFlowColors from '../../../hooks/diagram/flows/useFlowColors';
 import { Box } from '@mui/material';
 import React from 'react';
 
 // Flow and FlowStep toolbar
-export default function FlowToolbar() {
+export default function Toolbar() {
     const { backgroundColor: flowBg, outlineColor: flowBorder } = useFlowColors();
 
     return (
         <Box
             pl={2}
+            pr={1}
+            height={1}
             display="flex"
             alignItems="center"
-            width={1}
-            height={FLOW_TOOLBAR_HEIGHT}
             style={{
                 backgroundColor: flowBg,
-                borderColor: flowBorder,
-                border: 1,
+                outline: `solid ${flowBorder}`,
+                outlineWidth: 1,
+                outlineOffset: -1,
             }}>
             <FlowTitle />
-            <ToolsContainer>
+            <ToolsContainer ml={1}>
                 <FlowInnerToolbar />
                 <FlowStepInnerToolbar />
             </ToolsContainer>

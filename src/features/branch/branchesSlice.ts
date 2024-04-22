@@ -17,6 +17,9 @@ import {
     showContributionRequest,
 } from '../contribution-requests/contributionRequests.thunks';
 import { saveDescription } from '../descriptions/descriptions.thunks';
+import { createFlowStep, deleteFlowStep } from '../flow-steps/flowSteps.thunks';
+import { createFlow, deleteFlow } from '../flows/flows.thunks';
+import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import {
     create, deleteNode, updateTitle,
 } from '../nodes/nodes.thunks';
@@ -151,6 +154,60 @@ const branchesSlice = createSlice({
                         branch.editedDescriptionIos.add(objectId);
                         break;
                     }
+                }
+            })
+            .addCase(createFlow.fulfilled, (state, action) => {
+                const { id: flowId, branchId } = action.payload;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.createdFlows ||= new Set();
+                    branch.createdFlows.add(flowId);
+                }
+            })
+            .addCase(deleteFlow.fulfilled, (state, action) => {
+                const { id: flowId, branchId } = action.payload.data;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.deletedFlows ||= new Set();
+                    branch.deletedFlows.add(flowId);
+                }
+            })
+            .addCase(createFlowStep.fulfilled, (state, action) => {
+                const { id: flowStepId, branchId } = action.payload;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.createdFlowSteps ||= new Set();
+                    branch.createdFlowSteps.add(flowStepId);
+                }
+            })
+            .addCase(deleteFlowStep.fulfilled, (state, action) => {
+                const { id: flowStepId, branchId } = action.payload.data;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.deletedFlowSteps ||= new Set();
+                    branch.deletedFlowSteps.add(flowStepId);
+                }
+            })
+            .addCase(createIo.fulfilled, (state, action) => {
+                const { id: ioId, branchId } = action.payload;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.createdIos ||= new Set();
+                    branch.createdIos.add(ioId);
+                }
+            })
+            .addCase(deleteIo.fulfilled, (state, action) => {
+                const { id: ioId, branchId } = action.payload.data;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.deletedIos ||= new Set();
+                    branch.deletedIos.add(ioId);
                 }
             })
             .addCase(restoreNode.fulfilled, (state, action) => initBranch(state, action.payload))

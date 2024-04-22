@@ -40,7 +40,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             setLoading(false);
         }).catch((error) => {
             setLoading(false);
-            console.log(error);
+            console.error(error);
         });
     }, [dispatch, navigate]);
 

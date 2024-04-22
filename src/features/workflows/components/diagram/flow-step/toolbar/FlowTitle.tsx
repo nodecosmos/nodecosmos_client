@@ -28,6 +28,7 @@ export default function FlowTitle() {
 
     return (
         <Typography
+            className="FlowToolbarClick"
             onClick={handleFlowClick}
             variant="body1"
             fontWeight={600}

@@ -38,9 +38,12 @@ const flowStepsSlice = createSlice({
             })
             .addCase(deleteFlow.fulfilled, (state, action) => {
                 const flow = action.payload;
-                const { branchId, id } = flow;
+                const { branchId, id } = flow.data;
+                const { deleteFromState } = flow.metadata;
 
-                delete state.byBranchId[branchId][id];
+                if (deleteFromState) {
+                    delete state.byBranchId[branchId][id];
+                }
             })
             .addCase(updateFlowTitle.fulfilled, (state, action) => {
                 const flow = action.payload;

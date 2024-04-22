@@ -74,6 +74,12 @@ export const create = createAsyncThunk<Node, NodeCreationPayload, { rejectValue:
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while creating the node.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -91,6 +97,12 @@ export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { r
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while updating the node title.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -108,6 +120,7 @@ export const deleteNode = createAsyncThunk<
 
             if (branchId !== id) {
                 const state = getState();
+
                 const branch = state.branches.byId[branchId];
 
                 metadata.deleteFromState = branch.createdNodes.has(id) || branch.restoredNodes.has(id);
@@ -124,7 +137,11 @@ export const deleteNode = createAsyncThunk<
                 return rejectWithValue(error.response.data);
             }
 
-            console.error(error);
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the node.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -152,6 +169,12 @@ export const reorder = createAsyncThunk<null, ReorderPayload, { rejectValue: Nod
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while reordering the node.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -169,6 +192,12 @@ export const deleteNodeImage = createAsyncThunk<null, NodePrimaryKey, { rejectVa
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the node image.',
+                viewMessage: true,
+            });
         }
     },
 );

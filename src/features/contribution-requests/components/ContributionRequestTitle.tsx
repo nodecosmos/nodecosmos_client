@@ -4,7 +4,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { withOpacity } from '../../../utils/colors';
 import { selectContributionRequest } from '../contributionRequests.selectors';
-import { updateContributionRequestState } from '../contributionRequestsSlice';
+import { updateContributionRequestTitle } from '../contributionRequests.thunks';
 import { useStatus } from '../hooks/useStatus';
 import { Box, Chip } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -14,13 +14,19 @@ import { useParams } from 'react-router-dom';
 export default function ContributionRequestTitle() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id: nodeId, branchId: id } = useParams();
-    const onTitleChange = useCallback((value: string) => {
-        dispatch(updateContributionRequestState({
+
+    if (!nodeId || !id) {
+        throw new Error('Missing required params');
+    }
+
+    const handleTitleChange = useCallback(async (title: string) => {
+        await dispatch(updateContributionRequestTitle({
             nodeId,
             id,
-            title: value,
+            title,
         }));
     }, [dispatch, id, nodeId]);
+
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
     const { color: statusColor, label: statusLabel } = useStatus(contributionRequest.status);
 
@@ -38,6 +44,7 @@ export default function ContributionRequestTitle() {
             borderColor="transparent"
             sx={{
                 p: 0,
+                pb: 2,
                 transition: 'border-color 0.2s',
                 '&:hover': { borderColor: 'borders.5' },
                 '&:focus-within': {
@@ -68,17 +75,11 @@ export default function ContributionRequestTitle() {
                     inputFontSize="2rem"
                     variant="h2"
                     title={title}
-                    endpoint="/contribution_requests/title"
-                    reqData={{
-                        nodeId,
-                        id,
-                    }}
                     color="text.secondary"
-                    onChange={onTitleChange}
+                    onChange={handleTitleChange}
                     maxWidth="100%"
-                    inputHeight="auto"
+                    inputHeight={32}
                     inputBorder="transparent!important"
-                    inputP={0}
                 />
             </Box>
         </Box>

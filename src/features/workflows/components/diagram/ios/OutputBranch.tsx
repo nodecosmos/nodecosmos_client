@@ -25,10 +25,8 @@ export default function OutputBranch(props: OutputProps) {
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
     const animationDelay = ANIMATION_DELAY;
-
     const xEnd = x + OUTPUT_VERTICAL_EDGE_LENGTH;
     const existingX = x + EDGE_LENGTH + OUTPUT_BUTTON_WIDTH - 1;
-
     return (
         <g>
             <path

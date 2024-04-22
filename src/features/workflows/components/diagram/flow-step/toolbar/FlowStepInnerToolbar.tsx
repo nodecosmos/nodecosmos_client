@@ -17,10 +17,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 
 export default function FlowStepInnerToolbar() {
-    const { isFlowStepInConflict, isFlowStepDeletedConflict } = useWorkflowBranch();
+    const {
+        isFlowDeleted, isFlowStepDeleted, isFlowStepInConflict, isFlowStepDeletedConflict,
+    } = useWorkflowBranch();
     const { flowStepPrimaryKey } = useFlowStepContext();
     const {
-        createLoading, createNextFlowStep, keepFlowStep, deleteFlowStep, restoreFlowStep,
+        createLoading, createNextFlowStep, keepFlowStep, deleteFlowStep, restoreFlowStep, undoDeleteFlowStep,
     } = useFlowStepActions();
     const isFsInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
     const isFsDeletedConflict = flowStepPrimaryKey?.id && isFlowStepDeletedConflict(flowStepPrimaryKey.id);
@@ -29,6 +31,10 @@ export default function FlowStepInnerToolbar() {
     const [modalOpen, openModal, closeModal] = useModalOpen();
 
     if (!flowStepPrimaryKey?.id || (!isSelected && !isFlowStepSelected)) {
+        return null;
+    }
+
+    if (isFlowDeleted(flowStepPrimaryKey.flowId)) {
         return null;
     }
 
@@ -90,32 +96,50 @@ export default function FlowStepInnerToolbar() {
                 )
             }
             {
-                isFlowStepSelected && (
-                    <Tooltip title="Flow Step Nodes" placement="top">
-                        <IconButton
-                            className="Item"
-                            aria-label="Add Node"
-                            sx={{
-                                color: 'toolbar.default',
-                                borderRadius: '50%',
-                            }}
-                            onClick={openModal}
-                        >
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </IconButton>
-                    </Tooltip>
+                !isFlowStepDeleted(flowStepPrimaryKey.id) && (
+                    <>
+                        <Tooltip title="Flow Step Nodes" placement="top">
+                            <IconButton
+                                className="Item"
+                                aria-label="Add Node"
+                                sx={{
+                                    color: 'toolbar.default',
+                                    borderRadius: '50%',
+                                }}
+                                onClick={openModal}
+                            >
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Delete Flow Step" placement="top">
+                            <IconButton
+                                className="Item"
+                                aria-label="Delete Flow Step"
+                                sx={{ color: 'toolbar.red' }}
+                                onClick={deleteFlowStep}
+                            >
+                                <FontAwesomeIcon icon={faTrashXmark} />
+                            </IconButton>
+                        </Tooltip>
+                    </>
                 )
             }
-            <Tooltip title="Delete Flow Step" placement="top">
-                <IconButton
-                    className="Item"
-                    aria-label="Delete Flow Step"
-                    sx={{ color: 'toolbar.red' }}
-                    onClick={deleteFlowStep}
-                >
-                    <FontAwesomeIcon icon={faTrashXmark} />
-                </IconButton>
-            </Tooltip>
+            {
+                isFlowStepDeleted(flowStepPrimaryKey.id) && (
+                    <Box display="flex" alignItems="center">
+                        <Tooltip title="Undo Delete" placement="top">
+                            <IconButton
+                                className="Item"
+                                aria-label="Undo Delete"
+                                sx={{ color: 'toolbar.purple' }}
+                                onClick={undoDeleteFlowStep}
+                            >
+                                <FontAwesomeIcon icon={faRotateLeft} />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                )
+            }
             <Tooltip title="Add Next Flow Step" placement="top">
                 {
                     createLoading

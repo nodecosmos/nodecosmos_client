@@ -14,18 +14,20 @@ import {
 import React from 'react';
 
 export default function FlowInnerToolbar() {
-    const { isFlowDeletedConflict } = useWorkflowBranch();
+    const { isFlowDeleted, isFlowDeletedConflict } = useWorkflowBranch();
     const { isSelected, id: flowId } = useFlowContext();
-    const { isSelected: isFlowStepSelected, isCreated } = useFlowStepContext();
+    const { isSelected: isFlowStepSelected, isCreated: isFlowStepCreated } = useFlowStepContext();
     const [modalOpen, openModal, closeModal] = useModalOpen();
-    const { openTitleEdit, restoreFlow } = useFlowActions();
+    const {
+        openTitleEdit, restoreFlow, undoDeleteFlow, 
+    } = useFlowActions();
     const isFlowDelConflict = isFlowDeletedConflict(flowId);
     const { deleteFlowCb } = useFlowActions();
 
     return (
         <>
             {
-                (isSelected || (!isCreated && isFlowStepSelected)) && (
+                (isSelected || (!isFlowStepCreated && isFlowStepSelected)) && (
                     <Box
                         display="flex"
                         alignItems="center"
@@ -57,39 +59,69 @@ export default function FlowInnerToolbar() {
                                 </>
                             )
                         }
-                        <Tooltip title="Edit Flow Title" placement="top">
-                            <IconButton
-                                className="Item"
-                                aria-label="Edit Flow Title"
-                                sx={{ color: 'toolbar.default' }}
-                                onClick={openTitleEdit}
-                            >
-                                <FontAwesomeIcon icon={faPenToSquare} />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Delete Complete Flow" placement="top">
-                            <IconButton
-                                className="Item"
-                                aria-label="Delete Flow"
-                                sx={{ color: 'toolbar.default' }}
-                                onClick={deleteFlowCb}
-                            >
-                                <FontAwesomeIcon icon={faTrash} />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Flow Step Nodes" placement="top">
-                            <IconButton
-                                className="Item"
-                                aria-label="Add Node"
-                                sx={{
-                                    color: 'toolbar.default',
-                                    borderRadius: '50%',
-                                }}
-                                onClick={openModal}
-                            >
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </IconButton>
-                        </Tooltip>
+                        <Box width={1} display="flex" alignItems="center" justifyContent="space-between">
+                            {
+                                !isFlowDeleted(flowId) && (
+                                    <Box display="flex" alignItems="center">
+                                        <Tooltip title="Edit Flow Title" placement="top">
+                                            <IconButton
+                                                className="Item"
+                                                aria-label="Edit Flow Title"
+                                                sx={{ color: 'toolbar.default' }}
+                                                onClick={openTitleEdit}
+                                            >
+                                                <FontAwesomeIcon icon={faPenToSquare} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Delete Complete Flow" placement="top">
+                                            <IconButton
+                                                className="Item"
+                                                aria-label="Delete Flow"
+                                                sx={{ color: 'toolbar.default' }}
+                                                onClick={deleteFlowCb}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )
+                            }
+                            {
+                                isFlowDeleted(flowId) && (
+                                    <Box display="flex" alignItems="center">
+                                        <Tooltip title="Undo Delete" placement="top">
+                                            <IconButton
+                                                className="Item"
+                                                aria-label="Undo Delete"
+                                                sx={{ color: 'toolbar.purple' }}
+                                                onClick={undoDeleteFlow}
+                                            >
+                                                <FontAwesomeIcon icon={faRotateLeft} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )
+                            }
+                            {!isFlowStepCreated
+                                && (
+                                    <div>
+                                        <Tooltip title="Flow Step Nodes" placement="top">
+                                            <IconButton
+                                                className="Item"
+                                                aria-label="Add Node"
+                                                sx={{
+                                                    color: 'toolbar.default',
+                                                    borderRadius: '50%',
+                                                }}
+                                                onClick={openModal}
+                                            >
+                                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </div>
+                                )
+                            }
+                        </Box>
                     </Box>
                 )
             }

@@ -66,13 +66,17 @@ const flowStepsSlice = createSlice({
                     = flowStep.inputIdsByNodeId as FlowStep['inputIdsByNodeId'];
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const flowStep = action.payload;
+                const flowStep = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
                 const { branchId } = flowStep;
 
-                delete state.byBranchId[branchId][flowStep.id as UUID];
+                if (deleteFromState) {
+                    delete state.byBranchId[branchId][flowStep.id];
+                }
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
-                const { flowStepId, id } = action.payload;
+                const { flowStepId, id } = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
                 const { currentBranchId } = action.meta.arg;
 
                 if (!flowStepId) return;
@@ -80,10 +84,12 @@ const flowStepsSlice = createSlice({
                 // remove from outputs of current step
                 const outputIdsByNodeId = state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId;
 
-                Object.keys(outputIdsByNodeId).forEach((nodeId) => {
-                    state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId[nodeId] = outputIdsByNodeId[nodeId]
-                        .filter((outputId) => outputId !== id);
-                });
+                if (deleteFromState) {
+                    Object.keys(outputIdsByNodeId).forEach((nodeId) => {
+                        state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId[nodeId]
+                            = outputIdsByNodeId[nodeId].filter((outputId) => outputId !== id);
+                    });
+                }
             });
     },
 });

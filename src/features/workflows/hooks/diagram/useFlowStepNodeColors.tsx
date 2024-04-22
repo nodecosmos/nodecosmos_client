@@ -28,13 +28,11 @@ export default function useFlowStepNodeColors() {
         color: isSelected ? theme.palette.tree.selectedText : nestedTreeColor,
     };
 
-    if (isBranch && !isFlowStepCreated(flowStepId)) {
-        if (isFlowStepDeleted(flowStepId)) {
+    if (isBranch) {
+        if (isFlowStepDeleted(flowStepId) || isFlowStepNodeDeleted(flowStepId, id)) {
             colors = diffColors(isSelected, DiffState.Removed);
-        } else if (isFlowStepNodeCreated(flowStepId, id)) {
+        } else if (isFlowStepNodeCreated(flowStepId, id) || isFlowStepCreated(flowStepId)) {
             colors = diffColors(isSelected, DiffState.Added);
-        } else if (isFlowStepNodeDeleted(flowStepId, id)) {
-            colors = diffColors(isSelected, DiffState.Removed);
         }
         else {
             colors = {

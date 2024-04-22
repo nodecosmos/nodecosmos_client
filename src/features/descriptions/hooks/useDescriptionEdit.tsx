@@ -11,6 +11,8 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
+const EMPTY_PARAGRAPH = '<p></p>';
+
 export default function useDescriptionEdit() {
     const {
         rootId,
@@ -25,8 +27,10 @@ export default function useDescriptionEdit() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleChangeTimeout = React.useRef<number| null>(null);
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
-    const { markdown, base64 } = useSelector(selectDescription(branchId, objectId)) || {};
     const handleServerError = useHandleServerErrorAlert();
+    const {
+        html: currentHTML, markdown, base64,
+    } = useSelector(selectDescription(branchId, objectId)) || {};
 
     useEffect(() => {
         if (!fetched && !loading) {
@@ -72,20 +76,29 @@ export default function useDescriptionEdit() {
 
     const handleChange = useCallback((
         helpers: HelpersFromExtensions<MarkdownExtension>,
-        uint8ArrayState: Uint8Array,
+        uint8ArrayState: Uint8Array | null,
     ) => {
+        if (uint8ArrayState === null) {
+            throw new Error('uint8ArrayState is null');
+        }
+
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
             handleChangeTimeout.current = null;
         }
 
         handleChangeTimeout.current = setTimeout(async () => {
-            const descriptionHtml = helpers.getHTML();
-
             handleChangeTimeout.current = null;
-            const markdown = helpers.getMarkdown();
 
-            console.log('rootId', rootId);
+            const markdown = helpers.getMarkdown();
+            const descriptionHtml = helpers.getHTML();
+            const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
+
+            if (isEmptySame || (descriptionHtml === currentHTML)) {
+                return;
+            }
+
+            console.log('Saving description', descriptionHtml);
 
             const response = await dispatch(saveDescription({
                 branchId,
@@ -104,7 +117,7 @@ export default function useDescriptionEdit() {
                 console.error(error);
             }
         }, 1000);
-    }, [dispatch, branchId, objectId, rootId, objectNodeId, objectType, handleServerError]);
+    }, [currentHTML, dispatch, branchId, objectId, rootId, objectNodeId, objectType, handleServerError]);
 
     return {
         objectId,

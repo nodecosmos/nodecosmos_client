@@ -24,7 +24,6 @@ export default function RemirrorEditorWrapper() {
             let encoded = null;
 
             if (doc && isRealTime) {
-                console.log('doc', doc);
                 encoded = Y.encodeStateAsUpdateV2(doc);
             }
 

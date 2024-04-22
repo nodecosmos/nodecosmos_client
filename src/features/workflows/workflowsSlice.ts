@@ -5,8 +5,6 @@ import {
 import { WorkflowState } from './workflow.types';
 import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
-import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
-import { deleteFlow } from '../flows/flows.thunks';
 import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -79,17 +77,6 @@ const workflowsSlice = createSlice({
 
                 state.byBranchId[branchId][nodeId].title = workflow.title;
             })
-            .addCase(deleteFlow.fulfilled, () => {
-                // currently flows are deleted only from the pane
-                // TODO update app state
-            })
-            .addCase(deleteFlowStep.fulfilled, (_, action) => {
-                const flowStep = action.payload;
-                const { outputIdsByNodeId } = flowStep;
-
-                // check outputs
-                if (!outputIdsByNodeId) return;
-            })
             .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
                 const workflow = action.payload;
                 const { initialInputIds } = workflow;
@@ -98,7 +85,7 @@ const workflowsSlice = createSlice({
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { nodeId, id } = inputOutput;
+                const { nodeId, id } = inputOutput.data;
                 const { currentBranchId } = action.meta.arg;
                 const { initialInputIds } = state.byBranchId[currentBranchId][nodeId];
 
