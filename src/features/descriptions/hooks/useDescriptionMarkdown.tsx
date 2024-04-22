@@ -55,11 +55,11 @@ export default function useDescriptionMarkdown() {
     const getBranchDescription = useCallback(() => {
         return dispatch(getDescription({
             nodeId: objectNodeId,
-            branchId: currentBranchId,
+            branchId,
             objectId,
             objectType,
         }));
-    }, [dispatch, objectNodeId, currentBranchId, objectId, objectType]);
+    }, [dispatch, objectNodeId, branchId, objectId, objectType]);
 
     const getOriginalDescriptionCb = useCallback(() => {
         return dispatch(getOriginalDescription({

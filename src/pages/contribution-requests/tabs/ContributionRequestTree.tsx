@@ -1,16 +1,19 @@
 import Pane from '../../../common/components/pane/Pane';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
+import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Tree from '../../../features/nodes/components/tree/Tree';
 import { TreeType } from '../../../features/nodes/nodes.types';
 import { NodecosmosTheme } from '../../../themes/type';
 import { Box, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function ContributionRequestTree() {
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
+    const { rootId } = useSelector(selectBranch(currentBranchId));
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
     const paneARef = React.useRef(null);
@@ -93,7 +96,7 @@ export default function ContributionRequestTree() {
                     borderLeftColor: resizerHovered
                         ? theme.palette.borders['5'] : theme.palette.borders['3'],
                 }}>
-                <Pane />
+                <Pane rootId={rootId} />
             </Box>
         </Box>
     );

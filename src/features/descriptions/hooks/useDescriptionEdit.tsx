@@ -1,6 +1,8 @@
 import { usePaneContext } from '../../../common/hooks/pane/usePaneContext';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
+import { NodecosmosError } from '../../../types';
 import { uint8ArrayToBase64 } from '../../../utils/serializer';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescriptionBase64, saveDescription } from '../descriptions.thunks';
@@ -9,10 +11,9 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
-const EMPTY_PARAGRAPH = '<p></p>';
-
 export default function useDescriptionEdit() {
     const {
+        rootId,
         branchId,
         objectNodeId,
         mainObjectId: objectId,
@@ -24,10 +25,8 @@ export default function useDescriptionEdit() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleChangeTimeout = React.useRef<number| null>(null);
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
-
-    const {
-        html: currentHTML, markdown, base64,
-    } = useSelector(selectDescription(branchId, objectId)) || {};
+    const { markdown, base64 } = useSelector(selectDescription(branchId, objectId)) || {};
+    const handleServerError = useHandleServerErrorAlert();
 
     useEffect(() => {
         if (!fetched && !loading) {
@@ -73,35 +72,39 @@ export default function useDescriptionEdit() {
 
     const handleChange = useCallback((
         helpers: HelpersFromExtensions<MarkdownExtension>,
-        uint8ArrayState: Uint8Array | null,
+        uint8ArrayState: Uint8Array,
     ) => {
         if (handleChangeTimeout.current) {
             clearTimeout(handleChangeTimeout.current);
             handleChangeTimeout.current = null;
         }
 
-        const descriptionHtml = helpers.getHTML();
-        const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
+        handleChangeTimeout.current = setTimeout(async () => {
+            const descriptionHtml = helpers.getHTML();
 
-        if (isEmptySame || (descriptionHtml === currentHTML)) {
-            return;
-        }
-
-        handleChangeTimeout.current = setTimeout(() => {
             handleChangeTimeout.current = null;
             const markdown = helpers.getMarkdown();
 
-            dispatch(saveDescription({
+            console.log('rootId', rootId);
+
+            const response = await dispatch(saveDescription({
                 branchId,
                 objectId,
+                rootId,
                 nodeId: objectNodeId,
                 objectType,
                 html: descriptionHtml as string,
                 markdown,
-                base64: uint8ArrayState ? uint8ArrayToBase64(uint8ArrayState) : null,
+                base64: uint8ArrayToBase64(uint8ArrayState),
             }));
+
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+                handleServerError(error);
+                console.error(error);
+            }
         }, 1000);
-    }, [currentHTML, dispatch, branchId, objectId, objectNodeId, objectType]);
+    }, [dispatch, branchId, objectId, rootId, objectNodeId, objectType, handleServerError]);
 
     return {
         objectId,

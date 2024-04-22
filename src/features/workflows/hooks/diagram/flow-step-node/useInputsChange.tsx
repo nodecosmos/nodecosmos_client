@@ -39,7 +39,7 @@ export default function useInputsChange() {
             nodeId: flowStep.nodeId,
             branchId,
             flowId: flowStep.flowId,
-            flowIndex: flowStep.flowIndex,
+            stepIndex: flowStep.stepIndex,
             id: flowStep.id,
         };
 

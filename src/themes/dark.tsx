@@ -27,7 +27,7 @@ const theme: NodecosmosTheme = {
 
         header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
         buttons: {
-            1: '3px 3px 0px #23272e',
+            1: '3px 3px 0px transparent',
             2: 0,
             3: 0,
         },
@@ -67,20 +67,20 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#2f343d',
-            2: '#2f343d',
-            3: '#464b59',
+            1: '#282c34',
+            2: '#282c34',
+            3: '#282c34',
             4: '#464b59',
             5: '#636a80',
         },
 
         background: {
             1: '#1c1e22',
-            2: '#26292f',
-            3: '#24282e',
-            4: '#272b31',
-            5: '#282c33',
-            6: '#2c3038',
+            2: '#141519',
+            3: '#141519',
+            4: '#141519',
+            5: '#191b20',
+            6: '#202128',
             7: '#30343d',
             8: '#4d4e55',
 
@@ -118,14 +118,14 @@ const theme: NodecosmosTheme = {
         },
 
         tree: {
-            default: '#393d46',
+            default: '#262830',
             backgrounds: [
                 '#fd526f',
-                '#a38dff',
-                '#65a9ff',
-                '#b1f47a',
-                '#f7f955',
-                '#edb96d',
+                '#a190e1',
+                '#698ed8',
+                '#a8d490',
+                '#d4d290',
+                '#daa975',
             ],
             defaultText: '#ffffff',
             selectedText: 'rgba(0, 0, 0, 0.9)',
@@ -147,7 +147,7 @@ const theme: NodecosmosTheme = {
         },
 
         markdownContent: {
-            canvas: '#3a3e52',
+            canvas: '#282a36',
             background: 'transparent',
         },
 
@@ -177,20 +177,20 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: '#424d46',
+                bg: '#273e37',
                 fg: '#b1f47a',
             },
             removed: {
-                bg: '#5e3e4a',
+                bg: '#3f2d32',
                 fg: '#fd526f',
             },
             edited: {
-                bg: '#484d46',
+                bg: '#383e27',
                 fg: '#eef47a',
             },
             conflict: {
-                bg: '#705d52',
-                fg: '#f4af7a',
+                bg: '#3f322d',
+                fg: '#fd9152',
             },
         },
 
@@ -200,8 +200,8 @@ const theme: NodecosmosTheme = {
         },
 
         text: {
-            primary: '#edede8',
-            secondary: '#c1c5d5',
+            primary: '#e3e3e3',
+            secondary: '#e3e3e3',
             tertiary: '#747982',
             disabled: '#5c616b',
             contrast: '#fff',

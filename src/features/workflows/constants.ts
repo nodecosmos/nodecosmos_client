@@ -10,6 +10,7 @@ export const WORKFLOW_BUTTON_WIDTH = 250;
 
 export const FLOW_TOOLBAR_HEIGHT = 65;
 export const WORKFLOW_START_MARGIN_TOP = FLOW_TOOLBAR_HEIGHT / 2.0;
+export const BORDER_WIDTH = 1;
 
 export const OUTPUT_EDGE_LENGTH = 65;
 export const OUTPUT_VERTICAL_EDGE_LENGTH = 220;

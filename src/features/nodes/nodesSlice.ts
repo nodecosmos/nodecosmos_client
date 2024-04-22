@@ -62,7 +62,7 @@ const nodesSlice = createSlice({
         clearJustCreatedNode: (state: NodeState) => {
             state.justCreatedNodeId = null;
         },
-        clearBranchData: (state: NodeState, action: PayloadAction<UUID>) => {
+        clearNodeBranchData: (state: NodeState, action: PayloadAction<UUID>) => {
             const branchId = action.payload;
 
             delete state.byBranchId[branchId];

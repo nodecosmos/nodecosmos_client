@@ -40,8 +40,8 @@ export interface WorkflowStepFlow {
     position: Position;
     flowStepNodes: FlowStepNode[];
     outputs: Output[]; // combined outputs from all nodes
-    prevFlowIndex: Decimal | null;
-    nextFlowIndex: Decimal | null;
+    prevStepIndex: Decimal | null;
+    nextStepIndex: Decimal | null;
 }
 
 export interface WorkflowStep {

@@ -9,6 +9,7 @@ import { TRANSITION_ANIMATION_DURATION } from '../../../../home-tree/constants';
 import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useFlowStepColors from '../../../hooks/diagram/flow-step/useFlowStepColors';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
+import useFlowColors from '../../../hooks/diagram/flows/useFlowColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import FlowStepNode from '../nodes/FlowStepNode';
 import { Box, useTheme } from '@mui/material';
@@ -24,6 +25,7 @@ export default function FlowStep() {
     } = useFlowStepContext();
     const theme: NodecosmosTheme = useTheme();
     const [hovered, hover, unhover] = useBooleanStateValue();
+    const { backgroundColor: flowBg, outlineColor: flowOutlineColor } = useFlowColors();
     const { backgroundColor, outlineColor } = useFlowStepColors();
     const { inputsAdditionActive } = useWorkflowContext();
 
@@ -77,32 +79,35 @@ export default function FlowStep() {
             onMouseEnter={hover}
             onMouseLeave={unhover}
         >
+            {/*Flow Step Rect*/}
             <rect
-                x={x + 1}
-                y={y + 1}
-                width={WORKFLOW_STEP_WIDTH - 1}
+                x={x}
+                y={y}
+                width={WORKFLOW_STEP_WIDTH}
                 height={yEnd - y}
                 fill={backgroundColor}
-                strokeWidth={isSelected ? 2 : 1}
-                stroke={hovered || isSelected ? theme.palette.toolbar.default : 'transparent'}
+                strokeWidth={1}
+                stroke={hovered || isSelected ? theme.palette.toolbar.default : outlineColor}
                 style={{ transition: `height ${TRANSITION_ANIMATION_DURATION}ms` }}
             />
+            {/*Flow Step Toolbar*/}
             <foreignObject
                 x={x}
                 y={y}
-                width={WORKFLOW_STEP_WIDTH + 1}
+                width={WORKFLOW_STEP_WIDTH}
                 height={FLOW_TOOLBAR_HEIGHT}
             >
                 <Box
+                    mx="1px"
                     display="flex"
                     alignItems="center"
-                    height="calc(100% - 0px)"
-                    borderTop={1}
-                    borderBottom={1}
-                    borderColor={outlineColor}
+                    height={1}
+                    borderBottom={yEnd == y + FLOW_TOOLBAR_HEIGHT ? 0 : 1} // remove border conflict
+                    borderColor={flowOutlineColor}
                     color="text.tertiary"
                     zIndex={1}
                     position="relative"
+                    sx={{ backgroundColor: flowBg }}
                 >
                     <FlowToolbar />
                 </Box>

@@ -10,19 +10,18 @@ export function deleteFromState(state: NodeState, action: PayloadAction<PKWithCu
 }
 
 export function deleteFulfilled(state: NodeState, action: ReturnType<typeof deleteNode.fulfilled>) {
-    const { id } = action.payload;
+    const { data, metadata } = action.payload;
+    const { id } = data;
     const { currentBranchId } = action.meta.arg;
 
-    deleteNodeFromState(state, currentBranchId, id);
+    if (metadata.deleteFromState) {
+        deleteNodeFromState(state, currentBranchId, id);
+    }
 }
 
 function deleteNodeFromState(state: NodeState, currentBranchId: UUID, id: UUID) {
     const node = state.byBranchId[currentBranchId][id];
     const parent = state.byBranchId[currentBranchId][node.parentId];
-
-    if (node.branchId !== node.id) {
-        return;
-    }
 
     // remove from parent
     if (parent) {

@@ -28,7 +28,7 @@ const flowStepsSlice = createSlice({
 
                 flowSteps.forEach((flowStep) => {
                     flowStep.branchId = branchId;
-                    flowStep.flowIndex = new Decimal(flowStep.flowIndex);
+                    flowStep.stepIndex = new Decimal(flowStep.stepIndex);
                     state.byBranchId[branchId][flowStep.id] = flowStep;
                 });
             })
@@ -38,7 +38,7 @@ const flowStepsSlice = createSlice({
 
                 flowStep.inputIdsByNodeId ||= {};
                 flowStep.outputIdsByNodeId ||= {};
-                flowStep.flowIndex = new Decimal(flowStep.flowIndex);
+                flowStep.stepIndex = new Decimal(flowStep.stepIndex);
 
                 state.byBranchId[branchId] ||= {};
                 state.byBranchId[branchId][flowStep.id] = flowStep;

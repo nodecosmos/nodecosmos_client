@@ -16,7 +16,7 @@ export default function useFlowStepActions() {
     const { rootId } = useWorkflowContext();
 
     const {
-        flowStepPrimaryKey, flowIndex, nextFlowIndex,
+        flowStepPrimaryKey, stepIndex, nextStepIndex,
     } = useFlowStepContext();
     const handleServerError = useHandleServerErrorAlert();
 
@@ -39,21 +39,21 @@ export default function useFlowStepActions() {
 
         setCreateIsLoading();
 
-        let newFlowIndex;
+        let newstepIndex;
 
-        if (flowIndex && nextFlowIndex) {
-            newFlowIndex = Decimal.div(Decimal.add(flowIndex, nextFlowIndex), 2);
-        } else if (flowIndex) {
-            newFlowIndex = Decimal.add(flowIndex, 1);
+        if (stepIndex && nextStepIndex) {
+            newstepIndex = Decimal.div(Decimal.add(stepIndex, nextStepIndex), 2);
+        } else if (stepIndex) {
+            newstepIndex = Decimal.add(stepIndex, 1);
         } else {
-            newFlowIndex = new Decimal(0);
+            newstepIndex = new Decimal(0);
         }
 
         const insertPayload: Strict<FlowStepCreationParams> = {
             nodeId: flowStepPrimaryKey.nodeId,
             branchId: flowStepPrimaryKey.branchId,
             flowId: flowStepPrimaryKey.flowId,
-            flowIndex: newFlowIndex,
+            stepIndex: newstepIndex,
             rootId,
             nodeIds: [],
         };
@@ -75,7 +75,7 @@ export default function useFlowStepActions() {
             setCreateIsNotLoading();
         }
     }, [
-        dispatch, flowIndex, flowStepPrimaryKey, handleServerError, nextFlowIndex,
+        dispatch, stepIndex, flowStepPrimaryKey, handleServerError, nextStepIndex,
         rootId, setCreateIsLoading, setCreateIsNotLoading,
     ]);
 

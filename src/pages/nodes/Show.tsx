@@ -46,6 +46,10 @@ export default function NodeShow() {
         });
     }, [dispatch, navigate, id, isNodeFetched]);
 
+    if (!isNodeFetched) {
+        return null;
+    }
+
     return (
         <Box height={1} display="flex">
             <Box

@@ -1,10 +1,15 @@
 import Content from './content/Content';
+import { UUID } from '../../../types';
 import { usePaneContextCreator } from '../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
-export default function Pane() {
-    const { PaneContext, CtxCreatorValue } = usePaneContextCreator();
+interface Props {
+    rootId: UUID;
+}
+
+export default function Pane({ rootId }: Props) {
+    const { PaneContext, CtxCreatorValue } = usePaneContextCreator(rootId);
 
     if (!CtxCreatorValue.isObjectSelected) {
         return (

@@ -15,8 +15,8 @@ import React from 'react';
 
 export default function FlowInnerToolbar() {
     const { isFlowDeletedConflict } = useWorkflowBranch();
-    const { flowSelected, id: flowId } = useFlowContext();
-    const { isSelected: isFlowStepSelected } = useFlowStepContext();
+    const { isSelected, id: flowId } = useFlowContext();
+    const { isSelected: isFlowStepSelected, isCreated } = useFlowStepContext();
     const [modalOpen, openModal, closeModal] = useModalOpen();
     const { openTitleEdit, restoreFlow } = useFlowActions();
     const isFlowDelConflict = isFlowDeletedConflict(flowId);
@@ -25,7 +25,7 @@ export default function FlowInnerToolbar() {
     return (
         <>
             {
-                (flowSelected || isFlowStepSelected) && (
+                (isSelected || (!isCreated && isFlowStepSelected)) && (
                     <Box
                         display="flex"
                         alignItems="center"
@@ -67,7 +67,7 @@ export default function FlowInnerToolbar() {
                                 <FontAwesomeIcon icon={faPenToSquare} />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Delete Flow" placement="top">
+                        <Tooltip title="Delete Complete Flow" placement="top">
                             <IconButton
                                 className="Item"
                                 aria-label="Delete Flow"

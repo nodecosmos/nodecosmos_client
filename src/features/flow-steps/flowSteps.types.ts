@@ -10,7 +10,7 @@ export interface FlowStepPrimaryKey {
     nodeId: UUID;
     branchId: UUID;
     flowId: UUID;
-    flowIndex: Decimal;
+    stepIndex: Decimal;
     id: UUID;
 }
 

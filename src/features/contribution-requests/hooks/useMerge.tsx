@@ -2,7 +2,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import { clearBranchData } from '../../nodes/nodes.actions';
+import { clearNodeBranchData } from '../../nodes/nodes.actions';
 import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
 import { mergeContributionRequest } from '../contributionRequests.thunks';
 import { useCallback } from 'react';
@@ -43,7 +43,7 @@ export default function useMerge() {
                 return;
             }
 
-            dispatch(clearBranchData(nodeId));
+            dispatch(clearNodeBranchData(nodeId));
             dispatch(clearWorkflowBranchData(nodeId));
             navigate(`/nodes/${nodeId}`);
             setTimeout(() => dispatch(setAlert({

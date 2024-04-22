@@ -15,6 +15,7 @@ export enum PaneContent {
 }
 
 interface CtxCreatorValue {
+    rootId: UUID;
     loading: boolean;
     setLoading: () => void;
     unsetLoading: () => void;
@@ -26,7 +27,7 @@ interface CtxCreatorValue {
 
 const PaneContext = createContext<CtxCreatorValue>({} as CtxCreatorValue);
 
-export function usePaneContextCreator() {
+export function usePaneContextCreator(rootId: UUID) {
     const [loading, setLoading, _unsetLoading] = useBooleanStateValue();
     const [content, setContent] = useState<PaneContent>(PaneContent.Description);
     const selectedObject = useSelector(selectSelectedObject);
@@ -38,6 +39,7 @@ export function usePaneContextCreator() {
     return {
         PaneContext,
         CtxCreatorValue: {
+            rootId,
             loading,
             setLoading,
             unsetLoading,
@@ -55,6 +57,7 @@ interface PaneCtxValue extends CtxValue {
 
 export function usePaneContext(): PaneCtxValue {
     const {
+        rootId,
         loading,
         setLoading,
         unsetLoading,
@@ -89,6 +92,7 @@ export function usePaneContext(): PaneCtxValue {
     }
 
     return {
+        rootId,
         loading,
         setLoading,
         unsetLoading,

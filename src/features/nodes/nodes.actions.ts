@@ -1,7 +1,7 @@
 import { actions } from './nodesSlice';
 
 export const {
-    clearBranchData,
+    clearNodeBranchData,
     buildTmpNode,
     replaceTmpNodeWithPersisted,
     updateState,

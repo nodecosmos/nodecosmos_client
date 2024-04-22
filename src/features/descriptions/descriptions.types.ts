@@ -11,6 +11,7 @@ export interface QueryKey extends PrimaryKey {
 }
 
 export interface Description extends PrimaryKey {
+    rootId: UUID;
     nodeId: UUID;
     objectType: ObjectType;
     html: string;

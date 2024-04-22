@@ -31,7 +31,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
     } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
-        id, nodeIds, flowIndex,
+        id, nodeIds, stepIndex,
     } = useFlowStepContext();
 
     const [loading, setLoading] = React.useState(false);
@@ -56,7 +56,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                     branchId,
                     flowId,
                     rootId,
-                    flowIndex,
+                    stepIndex,
                     id,
                     nodeIds: filteredNodeIds,
                 };
@@ -67,7 +67,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                     branchId,
                     flowId,
                     rootId,
-                    flowIndex,
+                    stepIndex,
                     nodeIds: filteredNodeIds,
                 };
 
@@ -93,7 +93,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
         }
     },
     [
-        flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, flowId, flowIndex,
+        flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, flowId, stepIndex,
         rootId, dispatch, handleServerError,
     ],
     );

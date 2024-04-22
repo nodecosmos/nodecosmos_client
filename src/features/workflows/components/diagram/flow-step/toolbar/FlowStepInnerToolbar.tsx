@@ -1,9 +1,14 @@
+import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import FlowStepModal from '../../../../../flow-steps/components/FlowStepModal';
 import useFlowStepActions from '../../../../../flow-steps/hooks/useFlowStepActions';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
+import useFlowContext from '../../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { faTrashXmark } from '@fortawesome/pro-light-svg-icons';
 import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
-import { faPlay, faSave } from '@fortawesome/pro-solid-svg-icons';
+import {
+    faEllipsisVertical, faPlay, faSave,
+} from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Chip, IconButton, Tooltip,
@@ -19,8 +24,11 @@ export default function FlowStepInnerToolbar() {
     } = useFlowStepActions();
     const isFsInConflict = flowStepPrimaryKey?.id && isFlowStepInConflict(flowStepPrimaryKey.id);
     const isFsDeletedConflict = flowStepPrimaryKey?.id && isFlowStepDeletedConflict(flowStepPrimaryKey.id);
+    const { isSelected } = useFlowContext();
+    const { isSelected: isFlowStepSelected } = useFlowStepContext();
+    const [modalOpen, openModal, closeModal] = useModalOpen();
 
-    if (!flowStepPrimaryKey?.id) {
+    if (!flowStepPrimaryKey?.id || (!isSelected && !isFlowStepSelected)) {
         return null;
     }
 
@@ -81,6 +89,23 @@ export default function FlowStepInnerToolbar() {
                     </>
                 )
             }
+            {
+                isFlowStepSelected && (
+                    <Tooltip title="Flow Step Nodes" placement="top">
+                        <IconButton
+                            className="Item"
+                            aria-label="Add Node"
+                            sx={{
+                                color: 'toolbar.default',
+                                borderRadius: '50%',
+                            }}
+                            onClick={openModal}
+                        >
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </IconButton>
+                    </Tooltip>
+                )
+            }
             <Tooltip title="Delete Flow Step" placement="top">
                 <IconButton
                     className="Item"
@@ -108,6 +133,7 @@ export default function FlowStepInnerToolbar() {
 
                 }
             </Tooltip>
+            <FlowStepModal open={modalOpen} onClose={closeModal} />
         </Box>
     );
 }

@@ -45,6 +45,7 @@ const workflowsSlice = createSlice({
         },
         clearWorkflowBranchData: (state, action: PayloadAction<UUID>) => {
             const branchId = action.payload;
+
             delete state.byBranchId[branchId];
             delete state.workflowDiagramByBranchId[branchId];
         },

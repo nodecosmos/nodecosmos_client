@@ -75,7 +75,12 @@ export default function ContributionRequestWorkflow() {
         return <Loader />;
     }
 
+    if (!workflow) {
+        throw new Error('originalWorkflow is not defined');
+    }
+
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
+    const { rootId } = workflow;
 
     return (
         <Box
@@ -123,7 +128,7 @@ export default function ContributionRequestWorkflow() {
                     style={{ borderLeftColor }}
                     sx={{ backgroundColor: 'background.5' }}
                 >
-                    <Pane />
+                    <Pane rootId={rootId} />
                 </Box>
             </Box>
         </Box>

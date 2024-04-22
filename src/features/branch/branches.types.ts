@@ -15,6 +15,20 @@ export interface Conflict {
     conflictingFlowSteps: Set<UUID>;
 }
 
+export interface BranchMetadata {
+    /**
+     * @description
+     * We delete from state if object is original record or if it's created in the current branch.
+     * Otherwise, we keep it in state for diffing purposes.
+     */
+    deleteFromState?: boolean;
+}
+
+export type WithBranchMetadata<T> = {
+    data: T,
+    metadata: BranchMetadata
+};
+
 export interface BranchParams {
     currentOriginalBranchId: UUID; // corresponds to the id of the current node
     currentBranchId: UUID; // either id of the current node or id of the contribution request, depending on the context
@@ -44,6 +58,7 @@ interface BranchReorderData {
 
 export interface Branch {
     id: UUID;
+    rootId: UUID;
     title: string;
     description: string;
     status: BranchStatus;

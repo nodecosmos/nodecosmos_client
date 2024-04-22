@@ -27,6 +27,7 @@
     "@mui/x-data-grid": "^7.2.0",
     "@reduxjs/toolkit": "^2.2.3",
     "@remirror/core": "^2.0.19",
+    "@remirror/extension-count": "^2.0.13",
     "@remirror/pm": "^2.0.8",
     "@remirror/preset-wysiwyg": "^2.0.19",
     "@remirror/react": "^2.0.35",

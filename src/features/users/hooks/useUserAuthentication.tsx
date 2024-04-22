@@ -49,7 +49,14 @@ export default function useUserAuthentication() {
             return error.message; // maps error object to final-form submitError
         }
 
-        navigate(-1);
+        dispatch(setAlert({
+            isOpen: true,
+            severity: 'success',
+            message: 'Your account has been created. Please log in.',
+            duration: 5000,
+        }));
+
+        navigate('/auth/login');
     }, [dispatch, navigate]);
 
     return {

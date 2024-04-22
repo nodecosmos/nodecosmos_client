@@ -68,7 +68,6 @@ export default function TreeToolbar() {
                 }}
                 InputProps={{
                     name: 'customSearch',
-                    type: 'search',
                     autoComplete: 'off',
                     startAdornment: (
                         <InputAdornment position="start" sx={{ mr: 2 }}>

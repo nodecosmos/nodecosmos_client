@@ -43,22 +43,23 @@ export default function useFlowStepContext() {
     const {
         nodeId,
         flowId,
-        flowIndex,
+        stepIndex,
         nodeIds,
         inputIdsByNodeId = {},
         outputIdsByNodeId = {},
     } = flowStep || {};
     const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(branchId, id));
     const {
-        flowStepNodes, prevFlowIndex, nextFlowIndex, stepId,
+        flowStepNodes, prevStepIndex, nextStepIndex, stepId,
     } = workflowStepFlow || {};
     const selectedObject = useSelector(selectSelectedObject);
     const isSelected = id === selectedObject?.objectId;
+    const isCreated = !!flowStepPrimaryKey?.id;
 
     return {
         nodeId,
         flowId,
-        flowIndex,
+        stepIndex,
         id,
         nodeIds,
         inputIdsByNodeId,
@@ -66,11 +67,12 @@ export default function useFlowStepContext() {
         flowStepPrimaryKey,
         stepId,
         flowStepNodes,
-        prevFlowIndex,
-        nextFlowIndex,
+        prevStepIndex,
+        nextStepIndex,
         x,
         y,
         yEnd,
         isSelected,
+        isCreated,
     };
 }

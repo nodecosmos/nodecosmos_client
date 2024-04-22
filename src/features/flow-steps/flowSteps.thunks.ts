@@ -73,7 +73,7 @@ export const deleteFlowStep = createAsyncThunk<
 >(
     'flow_steps/deleteFlowStep',
     async (payload) => {
-        // we use post as flowIndex is double that can't be passed in url
+        // we use post as stepIndex is double that can't be passed in url
         const response = await nodecosmos.post('/flow_steps/delete', payload);
 
         return response.data;

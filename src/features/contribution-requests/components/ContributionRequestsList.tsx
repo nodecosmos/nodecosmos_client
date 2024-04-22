@@ -58,6 +58,7 @@ export default function ContributionRequestsList({ nodeId }: Props) {
                 return <NcAvatar
                     width={25}
                     height={25}
+                    fontSize={14}
                     name={value.name}
                     src={value.profileImageUrl} />;
             },

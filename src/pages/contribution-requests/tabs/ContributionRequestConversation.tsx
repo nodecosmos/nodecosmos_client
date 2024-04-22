@@ -1,3 +1,4 @@
+import Alert from '../../../common/components/Alert';
 import NcAvatar from '../../../common/components/NcAvatar';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
@@ -28,9 +29,14 @@ export default function ContributionRequestConversation() {
     const { owner, createdAt } = contributionRequest;
 
     return (
-        <Box height={1} overflow="auto" my={2} pb={8}>
+        <Box height={1} overflow="auto" width={1} my={2} pb={8}>
             <Container
-                maxWidth="lg">
+                maxWidth="lg"
+                sx={{
+                    overflow: 'hidden',
+                    position: 'relative',
+                }}>
+                <Alert position="sticky" />
                 <Box
                     display="flex"
                     alignItems="center"

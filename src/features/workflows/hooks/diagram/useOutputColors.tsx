@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 export default function useOutputColors() {
     const theme: NodecosmosTheme = useTheme();
     const {
-        id, isSelected, fsNodeId,
+        id, mainId, isSelected, fsNodeId,
     } = useIoContext();
     const { branchId } = useWorkflowContext();
     const {
@@ -45,7 +45,7 @@ export default function useOutputColors() {
             colors = diffColors(isSelected, DiffState.Added);
         } else if (isIoDeleted(id)) {
             colors = diffColors(isSelected, DiffState.Removed);
-        } else if (isIoTitleEdited(id) || isIoDescriptionEdited(id)) {
+        } else if (isIoTitleEdited(id) || isIoDescriptionEdited(mainId)) {
             colors = diffColors(isSelected, DiffState.Edited);
         }
     }

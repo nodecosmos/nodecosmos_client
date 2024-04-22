@@ -72,6 +72,12 @@ export default function Show() {
         return <Loader />;
     }
 
+    if (!workflow) {
+        throw new Error('Workflow not found');
+    }
+
+    const { rootId } = workflow;
+
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
 
     return (
@@ -121,7 +127,7 @@ export default function Show() {
                     zIndex={1000}
                     style={{ borderLeftColor }}
                 >
-                    <Pane />
+                    <Pane rootId={rootId} />
                 </Box>
             </Box>
         </Box>

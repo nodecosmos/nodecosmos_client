@@ -28,6 +28,7 @@ function initBranch(state: BranchesState, branch: Branch) {
     const { conflict } = branch;
 
     state.byId[branch.id] = {
+        rootId: branch.rootId,
         id: branch.id,
         title: branch.title,
         description: branch.description,
@@ -105,7 +106,7 @@ const branchesSlice = createSlice({
                 }
             })
             .addCase(deleteNode.fulfilled, (state, action) => {
-                const { id: nodeId } = action.payload;
+                const { id: nodeId } = action.payload.data;
                 const { currentBranchId } = action.meta.arg;
                 const branch = currentBranchId && state.byId[currentBranchId];
 
@@ -140,6 +141,10 @@ const branchesSlice = createSlice({
                     case ObjectType.Flow:
                         branch.editedDescriptionFlows ||= new Set();
                         branch.editedDescriptionFlows.add(objectId);
+                        break;
+                    case ObjectType.FlowStep:
+                        branch.editedDescriptionFlowSteps ||= new Set();
+                        branch.editedDescriptionFlowSteps.add(objectId);
                         break;
                     case ObjectType.Io:
                         branch.editedDescriptionIos ||= new Set();

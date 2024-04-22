@@ -30,7 +30,7 @@ export const selectFlowStepPrimaryKey = (branchId: UUID, id: UUID) => createSele
             nodeId: flowStep.nodeId,
             branchId: flowStep.branchId,
             flowId: flowStep.flowId,
-            flowIndex: flowStep.flowIndex,
+            stepIndex: flowStep.stepIndex,
             id: flowStep.id,
         };
     },
@@ -39,6 +39,6 @@ export const selectFlowStepPrimaryKey = (branchId: UUID, id: UUID) => createSele
 export const selectFlowStepsByNodeId = (branchId: UUID, nodeId: UUID) => createSelector(
     selectFlowStepsByBranch(branchId),
     (flowSteps) => Object.values(flowSteps || {})
-        .sort((a, b) => new Decimal(a.flowIndex).cmp(b.flowIndex))
+        .sort((a, b) => new Decimal(a.stepIndex).cmp(b.stepIndex))
         .filter((flowStep) => flowStep.nodeId === nodeId),
 );

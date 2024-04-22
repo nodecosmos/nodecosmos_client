@@ -40,7 +40,7 @@ export default function useFlowContext() {
         title,
     } = useSelector(selectFlow(branchId, id));
     const selectedObject = useSelector(selectSelectedObject);
-    const flowSelected = id === selectedObject?.objectId;
+    const isSelected = id === selectedObject?.objectId;
 
     return {
         nodeId,
@@ -48,7 +48,7 @@ export default function useFlowContext() {
         verticalIndex,
         id,
         title,
-        flowSelected,
+        isSelected,
         titleEditOpen,
     };
 }

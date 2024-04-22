@@ -35,10 +35,10 @@ export const selectObject = createAsyncThunk<
                 break;
 
             case ObjectType.FlowStep:
-                originalObjectTitle = state.flowSteps.byBranchId[payload.currentBranchId]?.[payload.objectId]?.flowIndex
+                originalObjectTitle = state.flowSteps.byBranchId[payload.currentBranchId]?.[payload.objectId]?.stepIndex
                     .toString();
                 objectTitle
-                    = state.flowSteps.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.flowIndex
+                    = state.flowSteps.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.stepIndex
                         .toString();
                 break;
 

@@ -8,7 +8,9 @@ import {
     UpdateTitlePayload, PKWithCurrentBranch,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
+import { RootState } from '../../store';
 import { NodecosmosError, UUID } from '../../types';
+import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -93,13 +95,30 @@ export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { r
     },
 );
 
-export const deleteNode = createAsyncThunk<Node, PKWithCurrentBranch, { rejectValue: NodecosmosError }>(
+export const deleteNode = createAsyncThunk<
+    WithBranchMetadata<Node>,
+    PKWithCurrentBranch,
+    { state: RootState, rejectValue: NodecosmosError }
+>(
     'nodes/deleteNode',
-    async ({ branchId, id }, { rejectWithValue }) => {
+    async ({ branchId, id }, { rejectWithValue, getState }) => {
         try {
             const response = await nodecosmos.delete(`/nodes/${id}/${branchId}`);
+            const metadata: BranchMetadata = {};
 
-            return response.data;
+            if (branchId !== id) {
+                const state = getState();
+                const branch = state.branches.byId[branchId];
+
+                metadata.deleteFromState = branch.createdNodes.has(id) || branch.restoredNodes.has(id);
+            } else {
+                metadata.deleteFromState = true;
+            }
+
+            return {
+                data: response.data,
+                metadata,
+            };
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 return rejectWithValue(error.response.data);
