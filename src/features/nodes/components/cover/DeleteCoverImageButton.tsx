@@ -1,7 +1,7 @@
-import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError } from '../../../../types';
+import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import { updateState } from '../../nodes.actions';
 import { deleteNodeImage } from '../../nodes.thunks';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';

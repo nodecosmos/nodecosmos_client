@@ -1,7 +1,7 @@
 import DeleteCoverImageButton from './DeleteCoverImageButton';
-import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
+import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import { updateState } from '../../nodes.actions';
 import { selectNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';

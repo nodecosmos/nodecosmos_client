@@ -1,9 +1,9 @@
 import Loader from '../../../common/components/Loader';
-import Pane from '../../../common/components/pane/Pane';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import { clearPaneContent } from '../../../features/app/appSlice';
+import Pane from '../../../features/app/components/pane/Pane';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';

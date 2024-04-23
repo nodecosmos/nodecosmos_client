@@ -1,9 +1,9 @@
-import { usePaneContext } from '../../../common/hooks/pane/usePaneContext';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { uint8ArrayToBase64 } from '../../../utils/serializer';
+import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescriptionBase64, saveDescription } from '../descriptions.thunks';
 import { HelpersFromExtensions } from '@remirror/core';

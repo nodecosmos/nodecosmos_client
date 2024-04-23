@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function CodeMirrorContainer({ children }) {
+export default function MarkdownContainer({ children }: { children: React.ReactNode }) {
     return (
         <Box sx={{
             height: 1,
@@ -79,6 +79,10 @@ export default function CodeMirrorContainer({ children }) {
             '.cm-diffAdd': {
                 backgroundColor: 'diff.added.bg',
                 color: 'diff.added.fg',
+                span: {
+                    backgroundColor: 'diff.added.bg',
+                    color: 'diff.added.fg',
+                },
             },
             '.cm-diffRemoved': {
                 backgroundColor: 'diff.removed.bg',
@@ -97,4 +101,4 @@ export default function CodeMirrorContainer({ children }) {
     );
 }
 
-CodeMirrorContainer.propTypes = { children: PropTypes.node.isRequired };
+MarkdownContainer.propTypes = { children: PropTypes.node.isRequired };

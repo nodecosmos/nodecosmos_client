@@ -55,12 +55,6 @@ export default function useFlowStepActions(props?: Props) {
             throw new Error('Unhover callback is not provided');
         }
 
-        if (!flowStepPrimaryKey || isFlowDeleted(flowStepPrimaryKey.flowId)) {
-            handleFlowClick();
-
-            return;
-        }
-
         const isRect = event.target instanceof SVGRectElement;
         /**
          * @description We want to have clickable area as big as Flow Step, but we need to exclude elements
@@ -90,6 +84,12 @@ export default function useFlowStepActions(props?: Props) {
 
                 ) return;
             }
+        }
+
+        if (!flowStepPrimaryKey || isFlowDeleted(flowStepPrimaryKey.flowId)) {
+            handleFlowClick();
+
+            return;
         }
 
         props.unhover();

@@ -1,8 +1,8 @@
-import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import { CommentGutterMarker } from '../../../../common/lib/codemirror/extensions/gutter';
 import { CommentWidget } from '../../../../common/lib/codemirror/extensions/widgets';
 import { removeInsertCommentWidget, setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { hoveredLineField, selectedLineField } from '../../../../common/lib/codemirror/stateFields';
+import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import {
     ObjectType, ThreadType, ThreadInsertPayload,

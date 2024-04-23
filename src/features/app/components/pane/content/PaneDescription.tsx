@@ -1,7 +1,7 @@
-import { selectDescription } from '../../../../features/descriptions/descriptions.selectors';
-import useDescription from '../../../../features/descriptions/hooks/useDescription';
-import NodePaneCoverImage from '../../../../features/nodes/components/cover/NodePaneCoverImage';
-import { ObjectType } from '../../../../types';
+import { ObjectType } from '../../../../../types';
+import { selectDescription } from '../../../../descriptions/descriptions.selectors';
+import useDescription from '../../../../descriptions/hooks/useDescription';
+import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box } from '@mui/material';
 import React from 'react';

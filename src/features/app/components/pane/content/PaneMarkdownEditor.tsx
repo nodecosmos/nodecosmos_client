@@ -1,11 +1,11 @@
-import useDescriptionMarkdown from '../../../../features/descriptions/hooks/useDescriptionMarkdown';
+import Loader from '../../../../../common/components/Loader';
+import useDescriptionMarkdown from '../../../../descriptions/hooks/useDescriptionMarkdown';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
-import Loader from '../../Loader';
 import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 /* nodecosmos */
 
-const CodeMirrorEditor = React.lazy(() => import('../../../../common/components/codemirror/CodeMirrorEditor'));
+const CodeMirrorEditor = React.lazy(() => import('../../../../../common/components/markdown/MarkdownEditor'));
 
 export default function PaneMarkdownEditor() {
     const { loading } = usePaneContext();

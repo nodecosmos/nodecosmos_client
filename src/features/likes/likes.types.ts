@@ -15,10 +15,10 @@ export enum LikeType {
     Node = 'Node',
 }
 
-export interface LikesCountResponse {
+export interface likeCountResponse {
     id: UUID;
     branchId: UUID;
-    likesCount: number;
+    likeCount: number;
 }
 
 export interface LikeState {

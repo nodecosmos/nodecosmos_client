@@ -1,7 +1,7 @@
-import { usePaneContext } from '../../../common/hooks/pane/usePaneContext';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType } from '../../../types';
+import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectBranch } from '../../branch/branches.selectors';
 import { BranchStatus } from '../../branch/branches.types';
 import useBranchParams from '../../branch/hooks/useBranchParams';

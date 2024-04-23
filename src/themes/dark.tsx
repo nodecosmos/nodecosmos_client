@@ -67,8 +67,8 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#282c34',
-            2: '#282c34',
+            1: '#1f2228',
+            2: '#1f2228',
             3: '#282c34',
             4: '#464b59',
             5: '#636a80',
@@ -81,7 +81,7 @@ const theme: NodecosmosTheme = {
             4: '#141519',
             5: '#191b20',
             6: '#202128',
-            7: '#30343d',
+            7: '#222430',
             8: '#4d4e55',
 
             labels: {
@@ -113,7 +113,7 @@ const theme: NodecosmosTheme = {
             orange: '#edb96d',
             hover: 'rgba(57,71,81,0.53)',
             active: 'rgba(57,71,81,0.53)',
-            default: '#6a7983',
+            default: '#4e5a62',
             breadcrumbs: '#6a7983',
         },
 
@@ -123,8 +123,8 @@ const theme: NodecosmosTheme = {
                 '#fd526f',
                 '#a190e1',
                 '#698ed8',
-                '#a8d490',
-                '#d4d290',
+                '#86b45c',
+                '#a4a255',
                 '#daa975',
             ],
             defaultText: '#ffffff',
@@ -136,7 +136,7 @@ const theme: NodecosmosTheme = {
         },
 
         workflow: {
-            default: '#373d46',
+            default: '#292d34',
             input: '#afbcef',
             background: '#272b33',
             selectedInputColor: '#cdd4ff',
@@ -177,11 +177,11 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: '#273e37',
-                fg: '#b1f47a',
+                bg: '#1a2a1d',
+                fg: '#9bf47a',
             },
             removed: {
-                bg: '#3f2d32',
+                bg: '#2a1a1f',
                 fg: '#fd526f',
             },
             edited: {

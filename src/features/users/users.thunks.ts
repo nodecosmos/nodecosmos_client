@@ -3,7 +3,7 @@ import {
 } from './users.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosDispatch, RootState } from '../../store';
-import { NodecosmosError } from '../../types';
+import { HttpErrorCodes, NodecosmosError } from '../../types';
 import { SYNC_UP_INTERVAL } from '../app/constants';
 import { getUserLikes } from '../likes/likes.thunks';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -61,7 +61,10 @@ export const syncUpCurrentUser = createAsyncThunk<
         const likes = state.likes.byBranchId;
 
         if (!currentUser) {
-            return rejectWithValue({ message: 'No current user' });
+            return rejectWithValue({
+                status: HttpErrorCodes.Unauthorized,
+                message: 'No current user',
+            });
         }
 
         if ((Date.now() - currentUser.lastSyncUpAt.getTime()) < SYNC_UP_INTERVAL) {
@@ -82,6 +85,11 @@ export const syncUpCurrentUser = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while syncing up the current user',
+            });
         }
     },
 );

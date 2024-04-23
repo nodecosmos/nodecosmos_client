@@ -52,6 +52,7 @@ export interface SelectedObject {
     objectType: ObjectType;
     objectTitle: string;
     originalObjectTitle: string;
+    isPaneObj: boolean;
     metadata?: {
         flowStepId?: UUID;
         currentBranchId?: UUID;

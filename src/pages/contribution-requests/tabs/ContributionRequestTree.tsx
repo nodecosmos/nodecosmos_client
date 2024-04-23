@@ -1,6 +1,6 @@
-import Pane from '../../../common/components/pane/Pane';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
+import Pane from '../../../features/app/components/pane/Pane';
 import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Tree from '../../../features/nodes/components/tree/Tree';

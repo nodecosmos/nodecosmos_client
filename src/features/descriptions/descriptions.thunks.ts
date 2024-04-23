@@ -22,6 +22,12 @@ export const getDescription = createAsyncThunk<Description, QueryKey, { rejectVa
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while fetching the description.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -48,6 +54,12 @@ export const getDescriptionBase64 = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while fetching the description.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -71,6 +83,12 @@ export const getOriginalDescription = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while fetching the original description.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -92,6 +110,12 @@ export const saveDescription = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while saving the description.',
+                viewMessage: true,
+            });
         }
     },
 );

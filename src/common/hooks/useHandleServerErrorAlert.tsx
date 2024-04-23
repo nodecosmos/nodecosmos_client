@@ -1,6 +1,6 @@
 import { setAlert } from '../../features/app/appSlice';
 import { NodecosmosDispatch } from '../../store';
-import { NodecosmosError } from '../../types';
+import { HttpErrorCodes, NodecosmosError } from '../../types';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -12,25 +12,25 @@ export default function useHandleServerErrorAlert() {
         let message;
 
         switch (error.status) {
-        case 400:
+        case HttpErrorCodes.BadRequest:
             message = 'Bad request!';
             break;
-        case 401:
+        case HttpErrorCodes.Unauthorized:
             message = 'Unauthorized!';
             break;
-        case 403:
+        case HttpErrorCodes.Forbidden:
             message = 'Forbidden!';
             break;
-        case 404:
+        case HttpErrorCodes.NotFound:
             message = 'Resource not found!';
             break;
-        case 409:
+        case HttpErrorCodes.Conflict:
             message = `Conflict: ${error.message}`;
             break;
-        case 412:
+        case HttpErrorCodes.PreconditionFailed:
             message = `Precondition Failed: ${error.message}`;
             break;
-        case 423:
+        case HttpErrorCodes.ResourceLocked:
             message = `Resource Locked: ${error.message}`;
             break;
         default:

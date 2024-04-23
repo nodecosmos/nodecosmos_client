@@ -1,4 +1,4 @@
-import CodeMirrorContainer from './CodeMirrorContainer';
+import MarkdownContainer from './MarkdownContainer';
 import DescriptionComments from '../../../features/comments/components/DescriptionComments';
 import useCodeMirrorTheme from '../../hooks/codemirror/useCodeMirrorTheme';
 import diff from '../../lib/codemirror/extensions/diff';
@@ -23,7 +23,7 @@ interface CodeMirrorEditorProps {
     editable?: boolean;
 }
 
-export default function CodeMirrorEditor({
+export default function MarkdownEditor({
     diffViewEnabled = false,
     commentsEnabled = false,
     originalValue = '',
@@ -78,9 +78,9 @@ export default function CodeMirrorEditor({
 
     return (
         <div>
-            <CodeMirrorContainer>
+            <MarkdownContainer>
                 <div ref={codeMirrorRef} />
-            </CodeMirrorContainer>
+            </MarkdownContainer>
             {
                 commentsEnabled && view && <DescriptionComments view={view} />
             }

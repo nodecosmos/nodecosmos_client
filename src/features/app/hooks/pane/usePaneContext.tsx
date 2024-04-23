@@ -1,7 +1,7 @@
-import { selectSelectedObject } from '../../../features/app/app.selectors';
-import { SelectedObject } from '../../../features/app/app.types';
-import { ObjectType, UUID } from '../../../types';
-import useBooleanStateValue from '../useBooleanStateValue';
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import { ObjectType, UUID } from '../../../../types';
+import { selectSelectedObject } from '../../app.selectors';
+import { SelectedObject } from '../../app.types';
 import {
     createContext, useCallback, useContext, useState,
 } from 'react';

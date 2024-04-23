@@ -1,12 +1,12 @@
-import Workflow from '../../../../features/workflows/components/Workflow';
-import { WorkflowDiagramContext } from '../../../../features/workflows/constants';
-import { showWorkflow } from '../../../../features/workflows/worfklow.thunks';
-import { selectOptWorkflow } from '../../../../features/workflows/workflow.selectors';
-import { NodecosmosDispatch } from '../../../../store';
-import { ObjectType } from '../../../../types';
+import Loader from '../../../../../common/components/Loader';
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../../../store';
+import { ObjectType } from '../../../../../types';
+import Workflow from '../../../../workflows/components/Workflow';
+import { WorkflowDiagramContext } from '../../../../workflows/constants';
+import { showWorkflow } from '../../../../workflows/worfklow.thunks';
+import { selectOptWorkflow } from '../../../../workflows/workflow.selectors';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
-import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
-import Loader from '../../Loader';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

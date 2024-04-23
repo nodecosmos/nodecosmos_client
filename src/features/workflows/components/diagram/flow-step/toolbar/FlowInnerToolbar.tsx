@@ -19,7 +19,7 @@ export default function FlowInnerToolbar() {
     const { isSelected: isFlowStepSelected, isCreated: isFlowStepCreated } = useFlowStepContext();
     const [modalOpen, openModal, closeModal] = useModalOpen();
     const {
-        openTitleEdit, restoreFlow, undoDeleteFlow, 
+        openTitleEdit, restoreFlow, undoDeleteFlow,
     } = useFlowActions();
     const isFlowDelConflict = isFlowDeletedConflict(flowId);
     const { deleteFlowCb } = useFlowActions();
@@ -88,18 +88,16 @@ export default function FlowInnerToolbar() {
                             }
                             {
                                 isFlowDeleted(flowId) && (
-                                    <Box display="flex" alignItems="center">
-                                        <Tooltip title="Undo Delete" placement="top">
-                                            <IconButton
-                                                className="Item"
-                                                aria-label="Undo Delete"
-                                                sx={{ color: 'toolbar.purple' }}
-                                                onClick={undoDeleteFlow}
-                                            >
-                                                <FontAwesomeIcon icon={faRotateLeft} />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </Box>
+                                    <Tooltip title="Undo Delete" placement="top">
+                                        <IconButton
+                                            className="Item"
+                                            aria-label="Undo Delete"
+                                            sx={{ color: 'toolbar.purple' }}
+                                            onClick={undoDeleteFlow}
+                                        >
+                                            <FontAwesomeIcon icon={faRotateLeft} />
+                                        </IconButton>
+                                    </Tooltip>
                                 )
                             }
                             {!isFlowStepCreated

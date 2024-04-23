@@ -45,7 +45,7 @@ export default function OutputBranch(props: OutputProps) {
                 cx={x + 0.5}
                 cy={y - 0.5}
                 r={5}
-                fill={theme.palette.workflow.defaultInputColor}
+                fill={theme.palette.workflow.default}
                 style={{
                     opacity: 0,
                     animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${animationDelay}ms forwards`,

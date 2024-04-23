@@ -41,11 +41,18 @@ const descriptionsSlice = createSlice({
                     objectId, branchId, rootId, nodeId, objectType, html, markdown,
                 } = action.payload;
 
-                // DO NOT reassign base64 here as it will break description save flow
                 state.byBranchId[branchId] ||= {};
-                state.byBranchId[branchId][objectId].rootId = rootId;
-                state.byBranchId[branchId][objectId].nodeId = nodeId;
-                state.byBranchId[branchId][objectId].objectType = objectType;
+                state.byBranchId[branchId][objectId] ||= {
+                    objectId,
+                    branchId,
+                    rootId,
+                    nodeId,
+                    objectType,
+                    html,
+                    markdown,
+                    base64: '',
+                };
+                // DO NOT reassign base64 here as it will break description save flow
                 state.byBranchId[branchId][objectId].html = html;
                 state.byBranchId[branchId][objectId].markdown = markdown;
             });

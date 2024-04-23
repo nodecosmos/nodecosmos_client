@@ -1,5 +1,5 @@
 import Content from './content/Content';
-import { UUID } from '../../../types';
+import { UUID } from '../../../../types';
 import { usePaneContextCreator } from '../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
 import React from 'react';

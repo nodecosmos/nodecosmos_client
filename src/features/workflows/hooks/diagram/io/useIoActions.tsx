@@ -2,6 +2,7 @@ import useIoContext, { IoContext } from './useIoContext';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
+import { undoDeleteIo } from '../../../../branch/branches.thunks';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import { deleteIo, updateIoTitle } from '../../../../input-outputs/inputOutputs.thunks';
 import { WorkflowDiagramContext } from '../../../constants';
@@ -99,11 +100,19 @@ export default function useIoActions() {
         }));
     }, [branchId, currentBranchId, dispatch, id, mainId, nodeId, rootId]);
 
+    const undoDeleteIoCb = useCallback(() => {
+        dispatch(undoDeleteIo({
+            branchId,
+            objectId: id,
+        }));
+    }, [dispatch, branchId, id]);
+
     return {
         handleIoClick,
         deleteIoCb,
         handleTitleChange,
         openTitleEdit,
         closeTitleEdit,
+        undoDeleteIo: undoDeleteIoCb,
     };
 }

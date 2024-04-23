@@ -36,7 +36,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         ownerId: node.ownerId,
         ownerType: node.ownerType,
         creatorId: node.creatorId,
-        likesCount: 0,
+        likeCount: 0,
         coverImageUrl: null,
         coverImageFilename: null,
         createdAt: new Date(),

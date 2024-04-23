@@ -4,7 +4,7 @@ import abbreviateNumber from '../../../utils/abbreviateNumber';
 import { setAlert } from '../../app/appSlice';
 import { selectBranchLikes } from '../../likes/likes.selectors';
 import {
-    getLikesCount, likeObject, unlikeObject,
+    getlikeCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
 import { LikeType } from '../../likes/likes.types';
 import { selectCurrentUser } from '../../users/users.selectors';
@@ -20,13 +20,13 @@ interface LikeButtonProps {
     objectType: LikeType;
     currentBranchId?: UUID;
     branchId?: UUID;
-    likesCount?: number | null;
+    likeCount?: number | null;
     fontSize?: number;
 }
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, objectType, branchId = id, fontSize, likesCount, currentBranchId,
+        id, objectType, branchId = id, fontSize, likeCount, currentBranchId,
     } = props;
     const likes = useSelector(selectBranchLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -35,15 +35,15 @@ export default function LikeButton(props: LikeButtonProps) {
     const currentUser = useSelector(selectCurrentUser);
 
     useEffect(() => {
-        if (id && likesCount === undefined) {
-            dispatch(getLikesCount({
+        if (id && likeCount === undefined) {
+            dispatch(getlikeCount({
                 objectId: id,
                 branchId,
                 currentBranchId,
                 objectType,
             }));
         }
-    }, [branchId, dispatch, id, likesCount, currentBranchId, objectType]);
+    }, [branchId, dispatch, id, likeCount, currentBranchId, objectType]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
@@ -87,7 +87,7 @@ export default function LikeButton(props: LikeButtonProps) {
                 inputProps={{ 'aria-label': 'Like' }}
             />
             <Typography variant="caption">
-                {abbreviateNumber(likesCount || 0)}
+                {abbreviateNumber(likeCount || 0)}
             </Typography>
         </div>
     );

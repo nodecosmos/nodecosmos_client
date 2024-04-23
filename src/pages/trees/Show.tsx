@@ -1,7 +1,7 @@
-import Pane from '../../common/components/pane/Pane';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
+import Pane from '../../features/app/components/pane/Pane';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';

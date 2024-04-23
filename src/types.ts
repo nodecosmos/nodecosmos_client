@@ -1,13 +1,23 @@
 import { Comment } from './features/comments/comments.types';
 import { Node } from './features/nodes/nodes.types';
-import { HttpStatusCode } from 'axios';
 
 export type UUID = string;
 export type OptionalId = { id?: UUID };
 export type WithOptionalId<T> = Omit<T, 'id'> & OptionalId;
 
+export enum HttpErrorCodes {
+    BadRequest = 400,
+    Unauthorized = 401,
+    Forbidden = 403,
+    NotFound = 404,
+    Conflict = 409,
+    PreconditionFailed = 412,
+    ResourceLocked = 423,
+    InternalServerError = 500,
+}
+
 export type NodecosmosError = {
-    status?: HttpStatusCode;
+    status: HttpErrorCodes;
     message?: string;
     viewMessage?: boolean;
 };

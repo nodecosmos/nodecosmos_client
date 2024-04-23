@@ -46,7 +46,7 @@ export interface NodeTreeAttributes {
 
 export interface AppNode extends Node, NodeTreeAttributes {
     persistedId: UUID | null;
-    likesCount?: number;
+    likeCount?: number;
     isTmp: boolean;
     tmpId?: UUID;
     isSelected: boolean;
@@ -59,7 +59,7 @@ export interface IndexNode {
     isPublic: boolean;
     shortDescription: string | null;
     title: string;
-    likesCount: number;
+    likeCount: number;
     owner: Profile;
     coverImageUrl: string | null;
     createdAt: string;

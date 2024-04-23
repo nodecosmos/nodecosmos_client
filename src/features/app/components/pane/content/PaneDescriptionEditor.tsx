@@ -1,11 +1,11 @@
-import useDescriptionEdit from '../../../../features/descriptions/hooks/useDescriptionEdit';
+import Loader from '../../../../../common/components/Loader';
+import useDescriptionEdit from '../../../../descriptions/hooks/useDescriptionEdit';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
-import Loader from '../../Loader';
 import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 
 const RemirrorEditor = React.lazy(
-    () => import('../../editor/RemirrorEditor'),
+    () => import('../../../../../common/components/editor/RemirrorEditor'),
 );
 
 export default function PaneDescriptionEditor() {

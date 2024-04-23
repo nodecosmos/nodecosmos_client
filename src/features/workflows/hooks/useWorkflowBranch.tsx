@@ -52,19 +52,19 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
         conflict,
     } = branch ?? {};
 
-    const isFlowCreated = useCallback((flowId: UUID) => createdFlows.has(flowId), [createdFlows]);
+    const isFlowCreated = useCallback((flowId: UUID) => createdFlows?.has(flowId), [createdFlows]);
 
-    const isFlowDeleted = useCallback((flowId: UUID) => deletedFlows.has(flowId), [deletedFlows]);
+    const isFlowDeleted = useCallback((flowId: UUID) => deletedFlows?.has(flowId), [deletedFlows]);
 
-    const isFlowTitleEdited = useCallback((flowId: UUID) => editedTitleFlows.has(flowId), [editedTitleFlows]);
+    const isFlowTitleEdited = useCallback((flowId: UUID) => editedTitleFlows?.has(flowId), [editedTitleFlows]);
 
     const isFlowDescriptionEdited = useCallback(
-        (flowId: UUID) => editedDescriptionFlows.has(flowId), [editedDescriptionFlows],
+        (flowId: UUID) => editedDescriptionFlows?.has(flowId), [editedDescriptionFlows],
     );
 
-    const isFlowStepCreated = useCallback((flowStepId: UUID) => createdFlowSteps.has(flowStepId), [createdFlowSteps]);
+    const isFlowStepCreated = useCallback((flowStepId: UUID) => createdFlowSteps?.has(flowStepId), [createdFlowSteps]);
 
-    const isFlowStepDeleted = useCallback((flowStepId: UUID) => deletedFlowSteps.has(flowStepId), [deletedFlowSteps]);
+    const isFlowStepDeleted = useCallback((flowStepId: UUID) => deletedFlowSteps?.has(flowStepId), [deletedFlowSteps]);
 
     const isFlowStepNodeCreated = useCallback((flowStepId: UUID, nodeId: UUID) => {
         return createdFlowStepNodes?.[flowStepId]?.has(nodeId) ?? false;
@@ -90,13 +90,13 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
         return deletedFlowStepOutputsByNode?.[flowStepId]?.[nodeId]?.has(outputId) ?? false;
     }, [deletedFlowStepOutputsByNode]);
 
-    const isIoCreated = useCallback((ioId: UUID) => createdIos.has(ioId), [createdIos]);
+    const isIoCreated = useCallback((ioId: UUID) => createdIos?.has(ioId), [createdIos]);
 
-    const isIoDeleted = useCallback((ioId: UUID) => deletedIos.has(ioId), [deletedIos]);
+    const isIoDeleted = useCallback((ioId: UUID) => deletedIos?.has(ioId), [deletedIos]);
 
-    const isIoTitleEdited = useCallback((ioId: UUID) => editedTitleIos.has(ioId), [editedTitleIos]);
+    const isIoTitleEdited = useCallback((ioId: UUID) => editedTitleIos?.has(ioId), [editedTitleIos]);
 
-    const isIoDescriptionEdited = useCallback((ioId: UUID) => editedDescriptionIos.has(ioId), [editedDescriptionIos]);
+    const isIoDescriptionEdited = useCallback((ioId: UUID) => editedDescriptionIos?.has(ioId), [editedDescriptionIos]);
 
     const isFlowDeletedConflict = useCallback((flowId: UUID) => {
         return conflict?.deletedEditedFlows?.has(flowId) ?? false;
@@ -108,7 +108,7 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
 
     // original flow step with same index exist
     const isFlowStepInConflict = useCallback((flowStepId: UUID) => {
-        return conflict?.conflictingFlowSteps.has(flowStepId) ?? false;
+        return conflict?.conflictingFlowSteps?.has(flowStepId) ?? false;
     }, [conflict]);
 
     return {

@@ -1,7 +1,7 @@
-import { usePaneContext } from '../../../../common/hooks/pane/usePaneContext';
 import { COMMENT_THREAD_WIDGET_CLASS, CommentThreadWidget } from '../../../../common/lib/codemirror/extensions/widgets';
 import { setThreadWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { UUID } from '../../../../types';
+import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { selectNodeThreadsByLine } from '../../comments.selectors';
 import CommentThread from '../../components/CommentThread';

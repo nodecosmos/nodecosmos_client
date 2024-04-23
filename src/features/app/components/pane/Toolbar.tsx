@@ -1,9 +1,9 @@
-import TogglePaneButton from '../../../features/app/components/TogglePaneButton';
-import { HEADER_HEIGHT } from '../../../features/app/constants';
-import { OBJECT_TYPE_NAMES, ObjectType } from '../../../types';
+import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
+import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
+import { HEADER_HEIGHT } from '../../constants';
 import { PaneContent, usePaneContext } from '../../hooks/pane/usePaneContext';
-import ToolbarContainer from '../toolbar/ToolbarContainer';
-import ToolbarItem from '../toolbar/ToolbarItem';
+import TogglePaneButton from '../TogglePaneButton';
 import {
     faDisplay, faPenToSquare, faRectangleCode, faCodeCommit,
 } from '@fortawesome/pro-regular-svg-icons';

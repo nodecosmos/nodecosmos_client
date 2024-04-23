@@ -26,12 +26,12 @@ import { useDispatch } from 'react-redux';
 
 export default function WorkflowNodeButton() {
     const {
-        branchId, context: workflowContext, nodeId, deactivateInputsAddition,
+        branchId, context: workflowContext, deactivateInputsAddition,
     } = useWorkflowContext();
     const {
         id, title, position, flowStepId,
     } = useFlowStepNodeContext();
-
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
     const { x, y } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const preventDefault = usePreventDefault();
@@ -43,17 +43,16 @@ export default function WorkflowNodeButton() {
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-    const { currentBranchId } = useBranchParams();
 
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
         dispatch(selectObject({
-            currentOriginalBranchId: branchId,
+            currentOriginalBranchId,
             currentBranchId,
-            objectNodeId: nodeId,
-            branchId,
+            objectNodeId: id,
             objectId: id,
+            branchId,
             objectType: ObjectType.Node,
             metadata: {
                 flowStepId,
@@ -71,12 +70,12 @@ export default function WorkflowNodeButton() {
     },
     [
         branchId,
+        currentOriginalBranchId,
         currentBranchId,
         deactivateInputsAddition,
         dispatch,
         flowStepId,
         id,
-        nodeId,
         workflowContext,
     ]);
 

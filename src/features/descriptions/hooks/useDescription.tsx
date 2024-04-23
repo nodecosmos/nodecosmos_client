@@ -1,6 +1,6 @@
-import { usePaneContext } from '../../../common/hooks/pane/usePaneContext';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
+import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescription } from '../descriptions.thunks';
 import { useEffect } from 'react';

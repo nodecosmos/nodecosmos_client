@@ -2,7 +2,7 @@ import PaneDescription from './PaneDescription';
 import PaneDescriptionEditor from './PaneDescriptionEditor';
 import PaneMarkdownEditor from './PaneMarkdownEditor';
 import PaneWorkflow from './PaneWorkflow';
-import { HEADER_HEIGHT } from '../../../../features/app/constants';
+import { HEADER_HEIGHT } from '../../../constants';
 import { PaneContent, usePaneContext } from '../../../hooks/pane/usePaneContext';
 import Toolbar from '../Toolbar';
 import { Box } from '@mui/material';

@@ -6,7 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const selectObject = createAsyncThunk<
     SelectedObject,
-    Pick<SelectedObject, 'objectId' | 'branchId' | 'objectNodeId' | 'objectType' | 'metadata'> & BranchDiffPayload,
+    Omit<SelectedObject, 'objectTitle' | 'originalObjectTitle'> & BranchDiffPayload,
     { state: RootState }
 > (
     'app/selectObject',
