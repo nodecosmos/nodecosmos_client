@@ -52,10 +52,9 @@ export interface SelectedObject {
     objectType: ObjectType;
     objectTitle: string;
     originalObjectTitle: string;
-    isPaneObj: boolean;
+    insidePane?: boolean;
     metadata?: {
         flowStepId?: UUID;
-        currentBranchId?: UUID;
         mainObjectId?: UUID;
     };
 }

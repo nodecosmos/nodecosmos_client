@@ -59,7 +59,9 @@ export default function App() {
                             <Route path="signup" element={<SignupForm />} />
                         </Route>
                         <Route path="/nodes" element={<NodeShow />}>
-                            <Route path=":id" element={<TreeShow />} />
+                            <Route path=":id" element={<TreeShow />}>
+                                <Route path=":branchId" element={<NodeShow />} />
+                            </Route>
                             <Route path=":id/workflow" element={<WorkflowShow />} />
                             {/* Contribution Requests */}
                             <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />

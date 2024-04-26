@@ -10,7 +10,7 @@ import React from 'react';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export default function WorkflowNodeBranch() {
+export default function FlowStepNodeBranch() {
     const theme: NodecosmosTheme = useTheme();
     const { position } = useFlowStepNodeContext();
 

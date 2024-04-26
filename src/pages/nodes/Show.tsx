@@ -15,7 +15,6 @@ import {
 export default function NodeShow() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
-
     const { id } = useParams();
 
     if (!id) {
@@ -44,6 +43,11 @@ export default function NodeShow() {
                 return;
             }
         });
+
+        return () => {
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+
+        };
     }, [dispatch, navigate, id, isNodeFetched]);
 
     if (!isNodeFetched) {

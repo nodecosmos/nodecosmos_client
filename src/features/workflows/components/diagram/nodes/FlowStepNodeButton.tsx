@@ -1,5 +1,5 @@
-import WorkflowNodeBranch from './WorkflowNodeBranch';
-import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
+import FlowStepNodeBranch from './FlowStepNodeBranch';
+import FlowStepNodeButtonToolbar from './FlowStepNodeButtonToolbar';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
@@ -24,7 +24,7 @@ import { ButtonBase } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-export default function WorkflowNodeButton() {
+export default function FlowStepNodeButton() {
     const {
         branchId, context: workflowContext, deactivateInputsAddition,
     } = useWorkflowContext();
@@ -40,7 +40,6 @@ export default function WorkflowNodeButton() {
         outlineColor,
         color,
     } = useFlowStepNodeColors();
-
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
 
@@ -54,10 +53,7 @@ export default function WorkflowNodeButton() {
             objectId: id,
             branchId,
             objectType: ObjectType.Node,
-            metadata: {
-                flowStepId,
-                currentBranchId: branchId,
-            },
+            metadata: { flowStepId },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
@@ -87,7 +83,7 @@ export default function WorkflowNodeButton() {
             animation: `workflow-node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
         }}
         >
-            <WorkflowNodeBranch />
+            <FlowStepNodeBranch />
             <foreignObject
                 width={WORKFLOW_BUTTON_WIDTH}
                 height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
@@ -114,7 +110,7 @@ export default function WorkflowNodeButton() {
                             {title}
                         </div>
                     </ButtonBase>
-                    <WorkflowNodeButtonToolbar />
+                    <FlowStepNodeButtonToolbar />
                 </div>
             </foreignObject>
         </g>

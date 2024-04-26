@@ -1,5 +1,5 @@
+import FlowStepNodeButton from './FlowStepNodeButton';
 import NodeOutputsBranch from './NodeOutputsBranch';
-import WorkflowNodeButton from './WorkflowNodeButton';
 import { FlowStepNode as FlowStepNodeType, Output as OutputType } from '../../../diagram/diagram.types';
 import { useFlowStepNodeContextCreator } from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import Inputs from '../ios/Inputs';
@@ -23,7 +23,7 @@ export default function FlowStepNode({ flowStepNode }: Props) {
         <FlowStepNodeContext.Provider value={flowStepContextValue}>
             <NodeOutputsBranch />
             <Inputs />
-            <WorkflowNodeButton />
+            <FlowStepNodeButton />
             {
                 flowStepNode.outputs.map((output: OutputType) => (
                     <Output key={output.id} output={output} />

@@ -13,7 +13,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 /// TODO: we need to pass pros from RemirrorEditor
 export default function Image() {
     const [imageDialogOpen, openImageDialog, closeImageDialog] = useBooleanStateValue();
-    const { persistedId } = useSelector(selectSelectedNode);
+    const { id, branchId } = useSelector(selectSelectedNode);
     const commands = useCommands<RemirrorExtensions>();
 
     const handleImageDialogClose = useCallback((responseBody?: { url: string }) => {
@@ -34,7 +34,7 @@ export default function Image() {
             {imageDialogOpen && (
                 <Suspense>
                     <UppyUploadImageModal
-                        endpointPath={`attachments/${persistedId}/${persistedId}/upload_image`}
+                        endpointPath={`attachments/${id}/${branchId}/${id}/upload_image`}
                         open={imageDialogOpen}
                         onClose={handleImageDialogClose}
                     />

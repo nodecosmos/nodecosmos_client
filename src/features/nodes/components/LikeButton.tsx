@@ -4,7 +4,7 @@ import abbreviateNumber from '../../../utils/abbreviateNumber';
 import { setAlert } from '../../app/appSlice';
 import { selectBranchLikes } from '../../likes/likes.selectors';
 import {
-    getlikeCount, likeObject, unlikeObject,
+    getLikeCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
 import { LikeType } from '../../likes/likes.types';
 import { selectCurrentUser } from '../../users/users.selectors';
@@ -36,7 +36,7 @@ export default function LikeButton(props: LikeButtonProps) {
 
     useEffect(() => {
         if (id && likeCount === undefined) {
-            dispatch(getlikeCount({
+            dispatch(getLikeCount({
                 objectId: id,
                 branchId,
                 currentBranchId,

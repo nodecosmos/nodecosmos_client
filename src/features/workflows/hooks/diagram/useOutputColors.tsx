@@ -32,7 +32,7 @@ export default function useOutputColors() {
     const { id: flowStepId } = useFlowStepContext();
 
     let colors = {
-        backgroundColor: isSelected ? nestedLevelColor : theme.palette.background[4],
+        backgroundColor: isSelected ? nestedLevelColor : theme.palette.background[6],
         outlineColor: isSelected ? nestedLevelColor : theme.palette.workflow.defaultInputColor,
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
     };

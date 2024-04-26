@@ -2,6 +2,7 @@ import DeleteCoverImageButton from './DeleteCoverImageButton';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { updateState } from '../../nodes.actions';
 import { selectNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
@@ -19,10 +20,8 @@ export default function NodePaneCoverImage() {
     const {
         objectId,
         branchId,
-        metadata,
     } = usePaneContext();
-
-    const currentBranchId = metadata?.currentBranchId;
+    const { currentBranchId } = useBranchParams();
 
     if (!currentBranchId) {
         throw new Error('`currentBranchId` is required in `metadata`');

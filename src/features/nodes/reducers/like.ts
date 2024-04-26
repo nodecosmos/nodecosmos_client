@@ -1,10 +1,10 @@
 import { UUID } from '../../../types';
 import {
-    getlikeCount, likeObject, unlikeObject,
+    getLikeCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
 import { NodeState } from '../nodes.types';
 
-export function getlikeCountFulfilled(state: NodeState, action: ReturnType<typeof getlikeCount.fulfilled>) {
+export function getLikeCountFulfilled(state: NodeState, action: ReturnType<typeof getLikeCount.fulfilled>) {
     const { currentBranchId } = action.meta.arg;
 
     const { id, likeCount } = action.payload;

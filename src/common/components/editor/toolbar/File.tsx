@@ -1,5 +1,4 @@
 import { selectSelectedNode } from '../../../../features/nodes/nodes.selectors';
-import { UUID } from '../../../../types';
 import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import UppyUploadFileModal from '../../upload/UploadFileModal';
@@ -12,13 +11,14 @@ import { useSelector } from 'react-redux';
 
 /// TODO: we need to pass pros from RemirrorEditor
 export default function File() {
-    const { persistedId } = useSelector(selectSelectedNode);
+    const { id, branchId } = useSelector(selectSelectedNode);
     const commands = useCommands<RemirrorExtensions>();
     const [fileDialogOpen, openFileDialog, closeFileDialog] = useBooleanStateValue();
     const fileUploadParams = useMemo(() => ({
-        nodeId: persistedId as UUID,
-        objectId: persistedId as UUID,
-    }), [persistedId]);
+        nodeId: id,
+        branchId,
+        objectId: id,
+    }), [branchId, id]);
 
     const handleFileDialogClose = useCallback((attachment?: { url: string; filename: string }) => {
         if (attachment) {

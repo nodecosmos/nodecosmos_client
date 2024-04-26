@@ -52,12 +52,6 @@ export default function useDescriptionEdit() {
             if (!loading && fetched) {
                 unsetFetched();
             }
-
-            if (handleChangeTimeout.current) {
-                alert('Changes might not be saved.'
-                    + ' Please wait for the changes to be saved before navigating away.');
-                handleChangeTimeout.current = null;
-            }
         };
     },
     [

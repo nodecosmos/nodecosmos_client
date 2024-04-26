@@ -67,18 +67,18 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#1f2228',
-            2: '#1f2228',
+            1: '#2a2d35',
+            2: '#24272e',
             3: '#282c34',
             4: '#464b59',
             5: '#636a80',
         },
 
         background: {
-            1: '#1c1e22',
-            2: '#141519',
-            3: '#141519',
-            4: '#141519',
+            1: '#14161a',
+            2: '#1c1e22',
+            3: '#202128',
+            4: '#202128',
             5: '#191b20',
             6: '#202128',
             7: '#222430',
@@ -98,7 +98,7 @@ const theme: NodecosmosTheme = {
                 activeColor: '#c2cad6',
             },
 
-            paper: '#24272e',
+            paper: '#191b20',
             backdrop: 'rgba(88, 99, 111, 0.4)',
         },
 
@@ -118,7 +118,7 @@ const theme: NodecosmosTheme = {
         },
 
         tree: {
-            default: '#262830',
+            default: '#272a31',
             backgrounds: [
                 '#fd526f',
                 '#a190e1',

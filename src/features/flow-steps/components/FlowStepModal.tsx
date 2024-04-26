@@ -1,7 +1,9 @@
 import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { Strict, UUID } from '../../../types';
+import {
+    NodecosmosError, Strict, UUID,
+} from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import Tree from '../../nodes/components/tree/Tree';
 import { selectBranchNodes } from '../../nodes/nodes.selectors';
@@ -78,7 +80,9 @@ export default function FlowStepModal({ open, onClose }: Props) {
             onClose();
 
             if (createFlowStep.rejected.match(response) || updateFlowStepNodes.rejected.match(response)) {
-                handleServerError(response.error);
+                const error = response.payload as NodecosmosError;
+
+                handleServerError(error);
 
                 return;
             }

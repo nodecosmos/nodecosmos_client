@@ -13,7 +13,7 @@ import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
 import { deleteFromState, deleteFulfilled } from './reducers/delete';
 import {
-    getlikeCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
+    getLikeCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
 } from './reducers/like';
 import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
@@ -23,7 +23,7 @@ import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
 import { UUID } from '../../types';
 import {
-    getlikeCount, likeObject, unlikeObject,
+    getLikeCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -79,7 +79,7 @@ const nodesSlice = createSlice({
             .addCase(create.fulfilled, createFulfilled)
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)
-            .addCase(getlikeCount.fulfilled, getlikeCountFulfilled)
+            .addCase(getLikeCount.fulfilled, getLikeCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
             .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled);
     },

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React, { useCallback } from 'react';
 
-export default function WorkflowNodeButtonToolbar() {
+export default function FlowStepNodeButtonToolbar() {
     const { activateInputsAddition } = useWorkflowContext();
     const { id, isSelected } = useFlowStepNodeContext();
     const {

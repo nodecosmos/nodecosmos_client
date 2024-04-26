@@ -18,13 +18,16 @@ export const getUserLikes = createAsyncThunk<
     },
 );
 
-export const getlikeCount = createAsyncThunk<
+export const getLikeCount = createAsyncThunk<
     likeCountResponse,
     WithOptCurrentBranchId<LikePrimaryKey & {objectType: LikeType}>
 >(
-    'nodes/getlikeCount',
-    async ({ objectId, branchId }: WithOptCurrentBranchId<LikePrimaryKey>): Promise<likeCountResponse> => {
-        const response = await nodecosmos.get(`/likes/${objectId}/${branchId}/objectType`);
+    'nodes/getLikeCount',
+    async (payload): Promise<likeCountResponse> => {
+        const {
+            objectId, branchId, objectType,
+        } = payload;
+        const response = await nodecosmos.get(`/likes/${objectId}/${branchId}/${objectType}`);
 
         return response.data;
     },
