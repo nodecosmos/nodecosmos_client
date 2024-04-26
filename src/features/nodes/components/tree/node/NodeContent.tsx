@@ -1,7 +1,7 @@
 import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import NodeToolbar from './toolbar/NodeToolbar';
-import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
+import useNodeActions from '../../../hooks/tree/node/useNodeActions';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import {
     ANIMATION_DELAY,
@@ -24,7 +24,7 @@ export default function NodeContent() {
     // so command chain is broken
     const {
         clickNode, blurNode, saveNode,
-    } = useNodeCommands();
+    } = useNodeActions();
 
     if (!xEnd) return null;
 

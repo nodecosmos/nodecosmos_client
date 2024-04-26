@@ -1,6 +1,7 @@
 import ConflictToolbar from './NodeConflictToolbar';
-import useBranchContext from '../../../../hooks/tree/node/useBranchContext';
-import useNodeCommands from '../../../../hooks/tree/node/useNodeCommands';
+import { LikeType } from '../../../../../likes/likes.types';
+import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
+import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNodeAttribute } from '../../../../nodes.selectors';
@@ -21,18 +22,18 @@ export default function NodeToolbar() {
     const {
         isExpanded,
         isSelected,
-        treeBranchId,
+        currentBranchId,
         branchId,
         id,
         isCreationInProgress,
     } = useNodeContext();
     const {
         addNode, editNode, removeNode, undoNodeDeletion,
-    } = useNodeCommands();
-    const likesCount = useSelector(selectNodeAttribute(treeBranchId, id, 'likesCount'));
+    } = useNodeActions();
+    const likeCount = useSelector(selectNodeAttribute(currentBranchId, id, 'likeCount'));
     const {
         isOriginalDeleted, isDeleted, isAncestorDeleted,
-    } = useBranchContext();
+    } = useNodeBranchContext();
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;
@@ -89,9 +90,10 @@ export default function NodeToolbar() {
             </Tooltip>
             <LikeButton
                 id={id}
+                objectType={LikeType.Node}
                 branchId={branchId}
-                treeBranchId={treeBranchId}
-                likesCount={likesCount} />
+                currentBranchId={currentBranchId}
+                likeCount={likeCount} />
 
             <Tooltip title="Open Node In New Tab" placement="top">
                 <ButtonBase

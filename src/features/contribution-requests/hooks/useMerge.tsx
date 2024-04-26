@@ -2,8 +2,8 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import { showNode } from '../../nodes/nodes.thunks';
-import { CRPrimaryKey } from '../contributionRequest.types';
+import { clearNodeBranchData } from '../../nodes/nodes.actions';
+import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
 import { mergeContributionRequest } from '../contributionRequests.thunks';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function useMerge() {
     const {
         id: nodeId,
-        contributionRequestId: id,
+        branchId: id,
     } = useParams();
 
     if (!nodeId) {
@@ -20,7 +20,7 @@ export default function useMerge() {
     }
 
     if (!id) {
-        throw new Error('Missing contributionRequestId');
+        throw new Error('Missing branchId');
     }
 
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -28,26 +28,32 @@ export default function useMerge() {
     const navigate = useNavigate();
 
     return useCallback(async () => {
-        const response = await dispatch(mergeContributionRequest({
-            nodeId,
-            id,
-        } as CRPrimaryKey));
+        try {
+            const response = await dispatch(mergeContributionRequest({
+                nodeId,
+                id,
+            }));
 
-        if (response.meta.requestStatus === 'rejected') {
-            const error: NodecosmosError = response.payload as NodecosmosError;
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
 
-            handleServerError(error);
-            console.error(error);
+                handleServerError(error);
+                console.error(error);
 
-            return;
+                return;
+            }
+
+            dispatch(clearNodeBranchData(nodeId));
+            dispatch(clearWorkflowBranchData(nodeId));
+            navigate(`/nodes/${nodeId}`);
+            setTimeout(() => dispatch(setAlert({
+                isOpen: true,
+                severity: 'success',
+                message: 'Contribution request merged successfully!',
+            })), 250);
         }
-
-        await dispatch(showNode(nodeId));
-        navigate(`/nodes/${nodeId}`);
-        setTimeout(() => dispatch(setAlert({
-            isOpen: true,
-            severity: 'success',
-            message: 'Contribution request merged successfully!',
-        })));
+        catch (error) {
+            console.error(error);
+        }
     }, [dispatch, handleServerError, id, navigate, nodeId]);
 }

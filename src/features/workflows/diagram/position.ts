@@ -1,18 +1,18 @@
 import { Position } from '../../../types';
-import { FlowStep } from '../../flow-steps/types';
+import { FlowStep } from '../../flow-steps/flowSteps.types';
 import {
     EDGE_LENGTH,
     MARGIN_LEFT,
     OUTPUT_EDGE_LENGTH,
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_START_MARGIN_TOP,
-    WORKFLOW_STEP_HEIGHT,
-    OUTPUT_BUTTON_SKEWED_WIDTH,
+    FLOW_TOOLBAR_HEIGHT,
+    OUTPUT_BUTTON_SKEWED_WIDTH, BORDER_WIDTH,
 } from '../constants';
 
 export function calculateWorkflowStepPosition(index: number): Position {
     return {
-        x: WORKFLOW_STEP_WIDTH * (index + 1),
+        x: WORKFLOW_STEP_WIDTH * (index + 1) + index * BORDER_WIDTH,
         xEnd: WORKFLOW_STEP_WIDTH * (index + 1) + WORKFLOW_STEP_WIDTH,
         y: 0,
         yEnd: 0,
@@ -22,16 +22,19 @@ export function calculateWorkflowStepPosition(index: number): Position {
 export interface FlowStepPositionData {
     flowStep: FlowStep | null;
     flowStartIndex: number;
-    stepIndex: number;
+    /// don't confuse with stepIndex, workflowStepIndex is index of step within complete workflow
+    workflowStepIndex: number;
     prefFlowYEnd: number;
+    currentFlowYEnd?: number;
 }
 
 export function calculateFlowStepPosition(data: FlowStepPositionData): Position {
     const {
         flowStep,
         flowStartIndex,
-        stepIndex,
         prefFlowYEnd,
+        currentFlowYEnd,
+        workflowStepIndex,
     } = data;
 
     const nodeLength = (flowStep && flowStep?.nodeIds?.length) || 0;
@@ -41,11 +44,20 @@ export function calculateFlowStepPosition(data: FlowStepPositionData): Position 
             && Object.values(flowStep.outputIdsByNodeId).flat().length
     ) || 0;
 
-    const y = prefFlowYEnd + WORKFLOW_STEP_HEIGHT;
-    const yEnd = y + nodeLength * OUTPUT_EDGE_LENGTH + outputsLength * OUTPUT_EDGE_LENGTH;
+    const prevFlowYEndCalc = prefFlowYEnd == 0 ? prefFlowYEnd + FLOW_TOOLBAR_HEIGHT : prefFlowYEnd;
+    const y = prevFlowYEndCalc + BORDER_WIDTH; // border width margin
+    let yEnd
+        = y + OUTPUT_EDGE_LENGTH
+        + nodeLength * OUTPUT_EDGE_LENGTH
+        + outputsLength * OUTPUT_EDGE_LENGTH;
+
+    if (currentFlowYEnd && (currentFlowYEnd > yEnd)) {
+        yEnd = currentFlowYEnd;
+    }
 
     return {
-        x: WORKFLOW_STEP_WIDTH * (flowStartIndex + stepIndex + 1),
+        x: WORKFLOW_STEP_WIDTH * (workflowStepIndex + 1) // width of step
+            + workflowStepIndex * BORDER_WIDTH, // border width margin
         xEnd: WORKFLOW_STEP_WIDTH * (flowStartIndex + 1) + WORKFLOW_STEP_WIDTH,
         y,
         yEnd,
@@ -85,12 +97,12 @@ export function calculateFlowStepNodePosition(data: NodePositionData): Position 
     };
 }
 
-export interface IOPositionData {
+export interface IoPositionData {
     nodePosition: Position;
     ioIndex: number;
 }
 
-export function calculateIOPosition(data: IOPositionData): Position {
+export function calculateIoPosition(data: IoPositionData): Position {
     const { ioIndex, nodePosition } = data;
     const { x: nodeX, y: nodeY } = nodePosition;
 

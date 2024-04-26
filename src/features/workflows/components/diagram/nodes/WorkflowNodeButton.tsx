@@ -2,7 +2,10 @@ import WorkflowNodeBranch from './WorkflowNodeBranch';
 import WorkflowNodeButtonToolbar from './WorkflowNodeButtonToolbar';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
-import { select } from '../../../../nodes/actions';
+import { ObjectType } from '../../../../../types';
+import { selectObject } from '../../../../app/app.thunks';
+import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import { select } from '../../../../nodes/nodes.actions';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
@@ -10,12 +13,11 @@ import {
 } from '../../../../nodes/nodes.constants';
 import {
     EDGE_LENGTH,
-    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WorkflowDiagramContext,
+    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH, WorkflowDiagramContext,
 } from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
-import useWorkflowNodeButtonBg from '../../../hooks/diagram/useWorkflowNodeButtonBg';
+import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
-import { setSelectedWorkflowDiagramObject } from '../../../workflowsSlice';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';
@@ -24,12 +26,12 @@ import { useDispatch } from 'react-redux';
 
 export default function WorkflowNodeButton() {
     const {
-        context: workflowContext, nodeId, deactivateInputsAddition,
+        branchId, context: workflowContext, deactivateInputsAddition,
     } = useWorkflowContext();
     const {
         id, title, position, flowStepId,
     } = useFlowStepNodeContext();
-
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
     const { x, y } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const preventDefault = usePreventDefault();
@@ -37,7 +39,7 @@ export default function WorkflowNodeButton() {
         backgroundColor,
         outlineColor,
         color,
-    } = useWorkflowNodeButtonBg();
+    } = useFlowStepNodeColors();
 
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
@@ -45,21 +47,37 @@ export default function WorkflowNodeButton() {
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
-        dispatch(setSelectedWorkflowDiagramObject({
-            id,
-            flowStepId,
-            type: 'node',
+        dispatch(selectObject({
+            currentOriginalBranchId,
+            currentBranchId,
+            objectNodeId: id,
+            objectId: id,
+            branchId,
+            objectType: ObjectType.Node,
+            metadata: {
+                flowStepId,
+                currentBranchId: branchId,
+            },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
-            // TODO update tree branch id
             dispatch(select({
-                treeBranchId: nodeId,
-                branchId: id,
+                currentBranchId: branchId,
+                branchId,
                 id,
             }));
         }
-    }, [deactivateInputsAddition, dispatch, flowStepId, id, nodeId, workflowContext]);
+    },
+    [
+        branchId,
+        currentOriginalBranchId,
+        currentBranchId,
+        deactivateInputsAddition,
+        dispatch,
+        flowStepId,
+        id,
+        workflowContext,
+    ]);
 
     if (!x) return null;
 
@@ -71,7 +89,7 @@ export default function WorkflowNodeButton() {
         >
             <WorkflowNodeBranch />
             <foreignObject
-                width="700"
+                width={WORKFLOW_BUTTON_WIDTH}
                 height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
                 x={x + EDGE_LENGTH}
                 y={y - MARGIN_TOP}

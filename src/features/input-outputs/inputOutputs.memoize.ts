@@ -1,4 +1,4 @@
-import { InputOutput } from './types';
+import { InputOutput } from './inputOutputs.types';
 import { UUID } from '../../types';
 import { lruMemoize } from 'reselect';
 

@@ -3,7 +3,7 @@ import { buildFlow } from './flow';
 import { buildInitialInputs } from './output';
 import { calculateWorkflowStepPosition } from './position';
 import { groupFlowStepsByFlowId } from '../../flow-steps/flowSteps.memoize';
-import { FlowStep } from '../../flow-steps/types';
+import { FlowStep } from '../../flow-steps/flowSteps.types';
 import { groupInputOutputsById } from '../../input-outputs/inputOutputs.memoize';
 import { WorkflowData } from '../workflow.types';
 
@@ -42,7 +42,7 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
     } else {
         // build workflow steps from flows
         const flowStepsByFlowId = groupFlowStepsByFlowId(flowSteps);
-        const IOsById = groupInputOutputsById(inputOutputs);
+        const IosById = groupInputOutputsById(inputOutputs);
 
         let prefFlowYEnd = 0;
 
@@ -56,10 +56,10 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
 
             const flowSteps: FlowStep[] = flowStepsByFlowId[flow.id] || [];
 
-            const { workflowStepFlows, flowYEnd } = buildFlow({
+            const { workflowStepFlows, currentFlowYEnd } = buildFlow({
                 flowId: flow.id,
                 flowSteps,
-                IOsById,
+                IosById,
                 flowStartIndex,
                 flowVerticalIndex: verticalIndex,
                 prefFlowYEnd,
@@ -76,9 +76,12 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
                     outputsById[output.id] = output;
                     workflowSteps[wfIndex].outputIds.add(output.id);
                 });
+
+                // update yEnd of each flow step to highest yEnd within the flow
+                workflowStepFlow.position.yEnd = currentFlowYEnd;
             });
 
-            prefFlowYEnd = flowYEnd;
+            prefFlowYEnd = currentFlowYEnd;
         });
 
         height = prefFlowYEnd;

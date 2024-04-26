@@ -1,6 +1,6 @@
 import useNodeColors from '../../../hooks/tree/node/useNodeColors';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
-import useTreeCommands from '../../../hooks/tree/useTreeCommands';
+import useTreeActions from '../../../hooks/tree/useTreeActions';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { TreeType } from '../../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
@@ -12,7 +12,7 @@ export default function NodeSymbol() {
     const { id } = useNodeContext();
     const { outlineColor } = useNodeColors();
     const { type: treeType } = useTreeContext();
-    const { handleCheckboxChange, isChecked } = useTreeCommands();
+    const { handleCheckboxChange, isChecked } = useTreeActions();
 
     if (treeType !== TreeType.Checkbox) {
         return (

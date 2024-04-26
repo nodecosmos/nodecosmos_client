@@ -1,11 +1,9 @@
 import TreeBreadcrumbItem from './TreeBreadcrumbItem';
 import { NodecosmosDispatch } from '../../../../store';
 import { UUID } from '../../../../types';
-import { select } from '../../actions';
-import {
-    selectBranchTitles, selectSelected, selectSelectedNode,
-} from '../../nodes.selectors';
-import { PKWithTreeBranch } from '../../nodes.types';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
+import { select } from '../../nodes.actions';
+import { selectBranchTitles, selectSelectedNode } from '../../nodes.selectors';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Breadcrumbs } from '@mui/material';
@@ -14,9 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function TreeBreadcrumbs() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId, branchId } = useSelector(selectSelected) as PKWithTreeBranch;
+    const { isBranch, currentBranchId } = useBranchParams();
     const selectedNode = useSelector(selectSelectedNode);
-    const nodeTitlesById = useSelector(selectBranchTitles(treeBranchId));
+    const nodeTitlesById = useSelector(selectBranchTitles(currentBranchId));
     const items: { id: UUID; title?: string; }[] = [];
 
     if (selectedNode && selectedNode.ancestorIds) {
@@ -43,12 +41,14 @@ export default function TreeBreadcrumbs() {
     }
 
     const handleClick = useCallback((id: UUID) => {
+        const branchId = isBranch ? currentBranchId : id;
+
         dispatch(select({
-            treeBranchId: treeBranchId as UUID,
+            currentBranchId,
             branchId: branchId as UUID,
             id,
         }));
-    }, [branchId, dispatch, treeBranchId]);
+    }, [isBranch, dispatch, currentBranchId]);
 
     return (
         <Breadcrumbs

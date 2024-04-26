@@ -22,6 +22,7 @@ export default function RemirrorEditorWrapper() {
     const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
         if (remirrorProps.tr && remirrorProps.tr.docChanged) {
             let encoded = null;
+
             if (doc && isRealTime) {
                 encoded = Y.encodeStateAsUpdateV2(doc);
             }

@@ -1,35 +1,27 @@
-import { Flow, FlowPrimaryKey } from './types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectFlowPaneContent = (state: RootState) => state.flows.flowPaneContent;
-const selectFlowById = (state: RootState) => state.flows.byId;
+const selectFlowByBranch = (state: RootState) => state.flows.byBranchId;
 
-export const selectFlow = (flowId?: UUID | null) => createSelector(
-    selectFlowById,
-    (flows) => (flowId && flows[flowId]) || {} as Flow,
+export const selectFlowByBranchId = (branchId: UUID) => createSelector(
+    selectFlowByBranch,
+    (flows) => flows[branchId] || {},
 );
 
-export const selectFlowAttribute = <K extends keyof Flow>(flowId: UUID | null, attribute: K) => createSelector(
-    selectFlow(flowId),
-    (flow) => (flowId && flow[attribute]) || null,
+export const selectFlow = (branchId: UUID, flowId: UUID) => createSelector(
+    selectFlowByBranchId(branchId),
+    (flows) => flows[flowId],
 );
 
-export const selectFlowsByWorkflowId = (workflowId: UUID | null) => createSelector(
-    selectFlowById,
+export const selectOptFlow = (branchId: UUID, flowId: UUID | null) => createSelector(
+    selectFlowByBranchId(branchId),
+    (flows) => flowId && flows[flowId],
+);
+
+export const selectFlowsByNodeId = (branchId: UUID, nodeId: UUID | null) => createSelector(
+    selectFlowByBranchId(branchId),
     (flows) => Object.values(flows).filter(
-        (flow) => flow.workflowId === workflowId,
+        (flow) => flow.nodeId === nodeId,
     ),
-);
-
-export const selectFlowPrimaryKey = (flowId: UUID) => createSelector(
-    selectFlow(flowId),
-    (flow): FlowPrimaryKey => ({
-        nodeId: flow.nodeId,
-        workflowId: flow.workflowId,
-        startIndex: flow.startIndex,
-        verticalIndex: flow.verticalIndex,
-        id: flow.id,
-    }),
 );

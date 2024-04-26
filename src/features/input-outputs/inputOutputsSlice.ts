@@ -1,99 +1,75 @@
 import {
-    createIO, deleteIO, getIODescription, updateIOTitle,
+    createIo, deleteIo, updateIoTitle,
 } from './inputOutputs.thunks';
 import {
-    InputOutput, InputOutputSlice, IOPaneContent,
-} from './types';
+    InputOutput, InputOutputSlice, IoPaneContent,
+} from './inputOutputs.types';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: InputOutputSlice = {
-    byId: {},
-    IOPaneContent: IOPaneContent.Description,
+    byBranchId: {},
+    IoPaneContent: IoPaneContent.Description,
 };
 
 const inputOutputsSlice = createSlice({
-    name: 'nodes',
+    name: 'Ios',
     initialState,
-    reducers: {
-        updateIOState(state, action) {
-            const { id } = action.payload;
-            state.byId[id] = {
-                ...state.byId[id],
-                ...action.payload, 
-            };
-
-            Object.values(state.byId).forEach((io) => {
-                if (io.originalId === state.byId[id].originalId) {
-                    io.title = state.byId[id].title;
-                    io.unit = state.byId[id].unit;
-                    io.dataType = state.byId[id].dataType;
-                    io.value = state.byId[id].value;
-                    io.description = state.byId[id].description;
-                    io.descriptionMarkdown = state.byId[id].descriptionMarkdown;
-                }
-            });
-        },
-        setIOPaneContent(state, action) {
-            state.IOPaneContent = action.payload;
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
-                const { inputOutputs } = action.payload;
-                inputOutputs.forEach((inputOutput: InputOutput) => {
-                    state.byId[inputOutput.id] = inputOutput;
-                });
-            }).addCase(createIO.fulfilled, (state, action) => {
-                const inputOutput = action.payload;
-                state.byId[inputOutput.id] = inputOutput;
-            }).addCase(getIODescription.fulfilled, (state, action) => {
-                const inputOutput = action.payload;
-                const { description, descriptionMarkdown } = inputOutput;
+                const { inputOutputs, workflow } = action.payload;
+                const { branchId } = workflow;
+                state.byBranchId[branchId] ||= {};
 
-                Object.values(state.byId).forEach((io) => {
-                    if (io.originalId === inputOutput.originalId) {
-                        io.description = description as string | null;
-                        io.descriptionMarkdown = descriptionMarkdown as string | null;
-                    }
+                inputOutputs.forEach((inputOutput: InputOutput) => {
+                    state.byBranchId[branchId][inputOutput.id] = inputOutput;
                 });
-            }).addCase(updateIOTitle.fulfilled, (state, action) => {
+            }).addCase(createIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
+                const { currentBranchId } = action.meta.arg;
+
+                state.byBranchId[currentBranchId] ||= {};
+                state.byBranchId[currentBranchId][inputOutput.id] = inputOutput;
+            }).addCase(updateIoTitle.fulfilled, (state, action) => {
+                const inputOutput = action.payload;
+                const { currentBranchId } = action.meta.arg;
                 const { title } = inputOutput;
 
-                Object.values(state.byId).forEach((io) => {
-                    if (io.originalId === inputOutput.originalId) {
+                Object.values(state.byBranchId[currentBranchId]).forEach((io) => {
+                    if (io.mainId === inputOutput.mainId) {
                         io.title = title as string;
                     }
                 });
             })
-            .addCase(deleteIO.fulfilled, (state, action) => {
-                const { id } = action.payload;
-                delete state.byId[id as UUID];
+            .addCase(deleteIo.fulfilled, (state, action) => {
+                const io = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
+                const { id } = io;
+                const { currentBranchId } = action.meta.arg;
+
+                if (deleteFromState) {
+                    delete state.byBranchId[currentBranchId][id];
+                }
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const { outputIdsByNodeId } = action.payload;
+                const { deleteFromState } = action.payload.metadata;
+                const { outputIdsByNodeId, branchId } = action.payload.data;
 
                 const outputs = outputIdsByNodeId && Object.values(outputIdsByNodeId).flat();
 
-                outputs?.forEach((outputId: UUID) => {
-                    delete state.byId[outputId];
-                });
+                if (deleteFromState) {
+                    outputs?.forEach((outputId: UUID) => {
+                        delete state.byBranchId[branchId][outputId];
+                    });
+                }
             });
     },
 });
 
-const {
-    actions,
-    reducer,
-} = inputOutputsSlice;
-
-export const {
-    updateIOState,
-    setIOPaneContent,
-} = actions;
+const { reducer } = inputOutputsSlice;
 
 export default reducer;

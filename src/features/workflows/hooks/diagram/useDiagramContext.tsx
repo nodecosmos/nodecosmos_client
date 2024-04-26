@@ -6,13 +6,13 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 type DiagramContextType = {
-    id: UUID;
+    nodeId: UUID;
 };
 
 const DiagramContext = React.createContext<DiagramContextType>({} as DiagramContextType);
 
-export function useDiagramContextCreator({ id }: DiagramContextType) {
-    const contextProviderValue = useMemo(() => ({ id }), [id]);
+export function useDiagramContextCreator({ nodeId }: DiagramContextType) {
+    const contextProviderValue = useMemo(() => ({ nodeId }), [nodeId]);
 
     return {
         DiagramContext,
@@ -21,16 +21,19 @@ export function useDiagramContextCreator({ id }: DiagramContextType) {
 }
 
 export default function useDiagramContext() {
-    const { id } = React.useContext(DiagramContext);
+    const { nodeId } = React.useContext(DiagramContext);
 
-    const { transformableId, scale } = useWorkflowContext();
+    const {
+        branchId, transformableId, scale,
+    } = useWorkflowContext();
 
     const {
         initialInputs,
         workflowSteps,
         outputsById,
         height: diagramHeight,
-    } = useSelector(selectWorkflowDiagram(id));
+    } = useSelector(selectWorkflowDiagram(branchId, nodeId));
+
     const clientHeight = useSelector(
         selectTransformablePositionAttribute(transformableId, 'clientHeight'),
     ) as number;

@@ -44,7 +44,6 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             },
             field: 'status',
             flex: 0,
-            type: 'string',
             renderCell: (params: GridRenderCellParams<ContributionRequest, ContributionRequestStatus>) => {
                 return <ContributionRequestStatusIcon status={params.value as ContributionRequestStatus} />;
             },
@@ -53,15 +52,15 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             headerName: 'Author',
             field: 'owner',
             flex: 0,
-            type: 'object',
             renderCell: (params: GridRenderCellParams<ContributionRequest, Profile>) => {
                 const value = params.value as Profile;
 
                 return <NcAvatar
                     width={25}
                     height={25}
+                    fontSize={14}
                     name={value.name}
-                    src={value.profileImageURL} />;
+                    src={value.profileImageUrl} />;
             },
         },
         {
@@ -77,8 +76,8 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             flex: 1,
             headerName: 'Date',
             type: 'dateTime',
-            valueGetter: (params: GridRenderCellParams<ContributionRequest, string>) => {
-                return new Date(params.value as string);
+            valueGetter: (params: string) => {
+                return new Date(params);
             },
         },
         {

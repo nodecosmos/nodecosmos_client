@@ -1,4 +1,3 @@
-import useHandleServerErrorAlert from '../../common/hooks/useHandleServerErrorAlert';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import Profile from '../../features/users/components/profile/Profile';
 import useUsername from '../../features/users/hooks/useUsername';
@@ -15,7 +14,6 @@ export default function Show() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const username = useUsername();
     const user = useSelector(selectUser(username));
-    const handleServerErrors = useHandleServerErrorAlert();
     const navigate = useNavigate();
 
     const showUser = useCallback(async () => {
@@ -24,7 +22,6 @@ export default function Show() {
 
             if (response.meta.requestStatus === 'rejected') {
                 const error: NodecosmosError = response.payload as NodecosmosError;
-                handleServerErrors(error);
 
                 if (error.status === 404) {
                     navigate('/404');
@@ -32,7 +29,7 @@ export default function Show() {
                 console.error(response);
             }
         }
-    }, [dispatch, handleServerErrors, navigate, user, username]);
+    }, [dispatch, navigate, user, username]);
 
     useEffect(() => { showUser(); }, [showUser]);
 

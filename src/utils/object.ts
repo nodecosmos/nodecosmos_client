@@ -12,3 +12,21 @@ export function updatePropertiesOf<
         }
     });
 }
+
+/**
+ * @description Converts all arrays in the object to sets.
+ * @param obj
+ */
+export function deepArrayToSet<T>(obj: T): T {
+    if (Array.isArray(obj)) {
+        return new Set(obj) as unknown as T;
+    }
+
+    if (typeof obj === 'object') {
+        for (const key in obj) {
+            obj[key] = deepArrayToSet(obj[key]);
+        }
+    }
+
+    return obj;
+}

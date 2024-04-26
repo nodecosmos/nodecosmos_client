@@ -4,9 +4,9 @@ import abbreviateNumber from '../../../utils/abbreviateNumber';
 import { setAlert } from '../../app/appSlice';
 import { selectBranchLikes } from '../../likes/likes.selectors';
 import {
-    getLikesCount, likeObject, unlikeObject,
+    getlikeCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
-import { LikeType } from '../../likes/types';
+import { LikeType } from '../../likes/likes.types';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
@@ -17,15 +17,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
     id: UUID;
-    treeBranchId?: UUID;
+    objectType: LikeType;
+    currentBranchId?: UUID;
     branchId?: UUID;
-    likesCount?: number | null;
+    likeCount?: number | null;
     fontSize?: number;
 }
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, branchId = id, fontSize, likesCount, treeBranchId,
+        id, objectType, branchId = id, fontSize, likeCount, currentBranchId,
     } = props;
     const likes = useSelector(selectBranchLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -34,14 +35,15 @@ export default function LikeButton(props: LikeButtonProps) {
     const currentUser = useSelector(selectCurrentUser);
 
     useEffect(() => {
-        if (id && likesCount === undefined) {
-            dispatch(getLikesCount({
+        if (id && likeCount === undefined) {
+            dispatch(getlikeCount({
                 objectId: id,
                 branchId,
-                treeBranchId,
+                currentBranchId,
+                objectType,
             }));
         }
-    }, [branchId, dispatch, id, likesCount, treeBranchId]);
+    }, [branchId, dispatch, id, likeCount, currentBranchId, objectType]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
@@ -55,13 +57,13 @@ export default function LikeButton(props: LikeButtonProps) {
 
         if (likedByCurrentUser) {
             dispatch(unlikeObject({
-                treeBranchId,
+                currentBranchId,
                 objectId: id,
                 branchId,
             }));
         } else {
             dispatch(likeObject({
-                treeBranchId,
+                currentBranchId,
                 objectId: id,
                 branchId,
                 objectType: LikeType.Node,
@@ -70,7 +72,7 @@ export default function LikeButton(props: LikeButtonProps) {
 
         requestAnimationFrame(() => setShouldBeat(true));
         setTimeout(() => setShouldBeat(false), 1000);
-    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, treeBranchId]);
+    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, currentBranchId]);
 
     return (
         <div className={`Like ${likedByCurrentUser && 'liked'}`}>
@@ -85,7 +87,7 @@ export default function LikeButton(props: LikeButtonProps) {
                 inputProps={{ 'aria-label': 'Like' }}
             />
             <Typography variant="caption">
-                {abbreviateNumber(likesCount || 0)}
+                {abbreviateNumber(likeCount || 0)}
             </Typography>
         </div>
     );

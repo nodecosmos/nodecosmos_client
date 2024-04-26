@@ -2,25 +2,27 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
-import WorkflowPane from '../../../features/workflows/components/pane/WorkflowPane';
+import { clearPaneContent } from '../../../features/app/appSlice';
+import Pane from '../../../features/app/components/pane/Pane';
+import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
-import { clearSelectedWorkflowDiagramObject } from '../../../features/workflows/workflowsSlice';
+import { selectOptWorkflow } from '../../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/type';
-import { UUID } from '../../../types';
 import { Box, useTheme } from '@mui/material';
 import React, {
     useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestWorkflow() {
-    const { id } = useParams();
+    const { currentBranchId, currentOriginalBranchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
+    const workflow = useSelector(selectOptWorkflow(currentBranchId, currentOriginalBranchId));
+    const originalWorkflow = useSelector(selectOptWorkflow(currentOriginalBranchId, currentOriginalBranchId));
 
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -52,19 +54,33 @@ export default function ContributionRequestWorkflow() {
 
     useEffect(() => {
         if (loading) {
-            dispatch(showWorkflow(id as UUID)).then(() => setLoading(false));
+            if (!originalWorkflow?.nodeId) {
+                dispatch(showWorkflow({
+                    nodeId: currentOriginalBranchId,
+                    branchId: currentBranchId,
+                }));
+            }
+            dispatch(showWorkflow({
+                nodeId: currentOriginalBranchId,
+                branchId: currentBranchId,
+            })).then(() => setLoading(false));
         }
 
         return () => {
-            dispatch(clearSelectedWorkflowDiagramObject());
+            dispatch(clearPaneContent());
         };
-    }, [dispatch, id, loading]);
+    }, [currentOriginalBranchId, dispatch, loading, currentBranchId, originalWorkflow?.nodeId]);
 
     if (loading) {
         return <Loader />;
     }
 
+    if (!workflow) {
+        throw new Error('originalWorkflow is not defined');
+    }
+
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
+    const { rootId } = workflow;
 
     return (
         <Box
@@ -83,7 +99,10 @@ export default function ContributionRequestWorkflow() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    <Workflow nodeId={id as UUID} context={WorkflowDiagramContext.workflowPage} />
+                    {workflow && <Workflow
+                        nodeId={currentOriginalBranchId}
+                        branchId={currentBranchId}
+                        context={WorkflowDiagramContext.workflowPage} />}
                 </Box>
                 <Box
                     onMouseDown={handleResize}
@@ -109,7 +128,7 @@ export default function ContributionRequestWorkflow() {
                     style={{ borderLeftColor }}
                     sx={{ backgroundColor: 'background.5' }}
                 >
-                    <WorkflowPane />
+                    <Pane rootId={rootId} />
                 </Box>
             </Box>
         </Box>

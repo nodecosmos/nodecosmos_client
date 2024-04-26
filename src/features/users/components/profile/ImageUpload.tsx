@@ -27,7 +27,7 @@ export default function ImageUpload(props: UploadButtonProps) {
         if (responseBody?.url) {
             dispatch(updateUserState({
                 username,
-                profileImageURL: responseBody.url,
+                profileImageUrl: responseBody.url,
             }));
         }
 

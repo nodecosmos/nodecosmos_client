@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestMainThreadComments() {
-    const { contributionRequestId: id } = useParams();
+    const { branchId: id } = useParams();
     const mainThreadCommentIds = useSelector(selectThreadCommentIds(id as UUID));
     const commentCount = mainThreadCommentIds?.length;
 

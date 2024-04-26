@@ -3,9 +3,9 @@ import WorkflowSteps from './workflow-steps/WorkflowSteps';
 import WorkflowStepCells from './workflow-steps/WorkflowStepsCells';
 import Transformable from '../../../../common/components/Transformable';
 import { NodecosmosDispatch } from '../../../../store';
-import { selectFlowStepsByWorkflowId } from '../../../flow-steps/flowSteps.selectors';
-import { selectFlowsByWorkflowId } from '../../../flows/flows.selectors';
-import { selectIOByWorkflowId } from '../../../input-outputs/inputOutputs.selectors';
+import { selectFlowStepsByNodeId } from '../../../flow-steps/flowSteps.selectors';
+import { selectFlowsByNodeId } from '../../../flows/flows.selectors';
+import { selectIoByNodeId } from '../../../input-outputs/inputOutputs.selectors';
 import { useDiagramContextCreator } from '../../hooks/diagram/useDiagramContext';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { selectWorkflowScale } from '../../workflow.selectors';
@@ -16,19 +16,20 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function WorkflowDiagram() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        id, initialInputIds, transformableId,
+        branchId, nodeId, initialInputIds, transformableId,
     } = useWorkflowContext();
 
     const wfScale = useSelector(selectWorkflowScale);
 
-    const flows = useSelector(selectFlowsByWorkflowId(id));
-    const flowSteps = useSelector(selectFlowStepsByWorkflowId(id));
-    const inputOutputs = useSelector(selectIOByWorkflowId(id));
+    const flows = useSelector(selectFlowsByNodeId(branchId, nodeId));
+    const flowSteps = useSelector(selectFlowStepsByNodeId(branchId, nodeId));
+    const inputOutputs = useSelector(selectIoByNodeId(branchId, nodeId));
 
     useEffect(() => {
-        if (id) {
+        if (nodeId) {
             dispatch(rebuildWorkflowDiagram({
-                id,
+                nodeId,
+                branchId,
                 data: {
                     initialInputIds,
                     flows,
@@ -37,14 +38,14 @@ export default function WorkflowDiagram() {
                 },
             }));
         }
-    }, [dispatch, id, initialInputIds, flows, flowSteps, inputOutputs]);
+    }, [dispatch, nodeId, initialInputIds, flows, flowSteps, inputOutputs, branchId]);
 
     const {
         DiagramContext,
         contextProviderValue,
-    } = useDiagramContextCreator({ id });
+    } = useDiagramContextCreator({ nodeId });
 
-    if (!id) return null;
+    if (!nodeId) return null;
 
     return (
         <Transformable

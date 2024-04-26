@@ -43,8 +43,8 @@ const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
 
 export function useTreeContextCreator(props: TreeProps) {
     const {
-        rootNodeId,
-        treeBranchId,
+        rootId,
+        currentBranchId,
         type = TreeType.Default,
         onChange,
         value,
@@ -58,8 +58,8 @@ export function useTreeContextCreator(props: TreeProps) {
         setTreeNodes,
         buildTree,
     } = useTreeBuilder({
-        treeRootId: rootNodeId,
-        treeBranchId,
+        treeRootId: rootId,
+        currentBranchId,
         type,
     });
 
@@ -69,8 +69,8 @@ export function useTreeContextCreator(props: TreeProps) {
 
     const ctxValue = useMemo(
         () => ({
-            treeBranchId,
-            rootNodeId,
+            currentBranchId,
+            rootId,
             type,
             selectedNodeIds,
             treeNodes,
@@ -79,7 +79,7 @@ export function useTreeContextCreator(props: TreeProps) {
             setTreeNodes,
         }),
         [
-            orderedTreeNodeIds, rootNodeId, selectedNodeIds, treeBranchId, treeNodes, type,
+            orderedTreeNodeIds, rootId, selectedNodeIds, currentBranchId, treeNodes, type,
             onChange, setTreeNodes,
         ],
     );

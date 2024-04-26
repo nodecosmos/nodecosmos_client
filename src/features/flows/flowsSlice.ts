@@ -1,73 +1,61 @@
 import {
-    createFlow, deleteFlow, getFlowDescription, updateFlowTitle,
+    createFlow, deleteFlow, updateFlowTitle,
 } from './flows.thunks';
 import {
     Flow, FlowPaneContent, FlowState,
-} from './types';
-import { UUID } from '../../types';
+} from './flows.types';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowState = {
-    byId: {},
+    byBranchId: {},
     flowPaneContent: FlowPaneContent.Description,
 };
 
 const flowStepsSlice = createSlice({
     name: 'flows',
     initialState,
-    reducers: {
-        setFlowPaneContent(state, action) {
-            state.flowPaneContent = action.payload;
-        },
-        updateFlowState(state, action) {
-            const { id } = action.payload;
-
-            state.byId[id] = {
-                ...state.byId[id],
-                ...action.payload, 
-            };
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
             .addCase(createFlow.fulfilled, (state, action) => {
                 const flow = action.payload;
-                state.byId[flow.id] = flow;
-            })
-            .addCase(getFlowDescription.fulfilled, (state, action) => {
-                const flow = action.payload;
-                const { description, descriptionMarkdown } = flow;
+                const { branchId } = flow;
 
-                state.byId[flow.id as UUID].description = description as string | null;
-                state.byId[flow.id as UUID].descriptionMarkdown = descriptionMarkdown as string | null;
+                state.byBranchId[branchId] ||= {};
+                state.byBranchId[branchId][flow.id] = flow;
             })
             .addCase(showWorkflow.fulfilled, (state, action) => {
-                const { flows } = action.payload;
+                const { flows, workflow } = action.payload;
+                const { branchId } = workflow;
+                state.byBranchId[branchId] ||= {};
+
                 flows.forEach((flow: Flow) => {
-                    state.byId[flow.id] = flow;
+                    flow.branchId = branchId;
+
+                    state.byBranchId[branchId][flow.id] = flow;
                 });
             })
             .addCase(deleteFlow.fulfilled, (state, action) => {
                 const flow = action.payload;
+                const { branchId, id } = flow.data;
+                const { deleteFromState } = flow.metadata;
 
-                delete state.byId[flow.id as UUID];
+                if (deleteFromState) {
+                    delete state.byBranchId[branchId][id];
+                }
             })
             .addCase(updateFlowTitle.fulfilled, (state, action) => {
                 const flow = action.payload;
-                state.byId[flow.id as UUID].title = flow.title as string;
+                const {
+                    branchId, id, title,
+                } = flow;
+
+                state.byBranchId[branchId][id].title = title as string;
             });
     },
 });
 
-const {
-    actions,
-    reducer,
-} = flowStepsSlice;
-
-export const {
-    setFlowPaneContent,
-    updateFlowState,
-} = actions;
+const { reducer } = flowStepsSlice;
 
 export default reducer;

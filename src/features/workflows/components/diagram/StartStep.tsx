@@ -1,3 +1,4 @@
+// import Output from './ios/Output';
 import Output from './ios/Output';
 import StartToolbar from './StartToolbar';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
@@ -13,19 +14,16 @@ import {
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_BUTTON_HEIGHT,
 } from '../../constants';
+// import { Output as OutputType } from '../../diagram/diagram.types';
 import { Output as OutputType } from '../../diagram/diagram.types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
-import useWorkflowContext from '../../hooks/useWorkflowContext';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme } from '@mui/material';
 import React from 'react';
-// import PropTypes from 'prop-types';
-/* nodecosmos */
 
 export default function StartStep() {
     const theme: NodecosmosTheme = useTheme();
-    const { id: workflowId } = useWorkflowContext();
     const diagram = useDiagramContext();
 
     const inputsLength = diagram.initialInputs.length || 0;
@@ -97,11 +95,11 @@ export default function StartStep() {
                     >
                         <FontAwesomeIcon icon={faPlay} />
                         <div className="NodeButtonText">
-              Start
+                            Start
                         </div>
                     </button>
 
-                    <StartToolbar startStepHovered={hovered} workflowId={workflowId} />
+                    <StartToolbar startStepHovered={hovered} />
                 </div>
             </foreignObject>
             {

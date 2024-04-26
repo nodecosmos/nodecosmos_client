@@ -3,9 +3,9 @@ import FinalFormInputField from '../../../common/components/final-form/FinalForm
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
-import { selectFlowAttribute } from '../flows.selectors';
+import { selectOptFlow } from '../flows.selectors';
 import { createFlow, updateFlowTitle } from '../flows.thunks';
-import { FlowUpsertPayload } from '../types';
+import { FlowUpsertPayload } from '../flows.types';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, DialogContent } from '@mui/material';
@@ -27,11 +27,11 @@ export default function FlowModal(props: Props) {
     const {
         open, onClose, id = null, startIndex = 0, verticalIndex = 0,
     } = props;
-    const { id: workflowId, nodeId } = useWorkflowContext();
+    const { branchId, nodeId } = useWorkflowContext();
 
     const [loading, setLoading] = React.useState(false);
-    const title = useSelector(selectFlowAttribute(id, 'title'));
-
+    const currentFlow = useSelector(selectOptFlow(branchId, id));
+    const title = currentFlow ? currentFlow.title : '';
     const dispatch: NodecosmosDispatch = useDispatch();
     const isNew = !id;
 
@@ -40,8 +40,8 @@ export default function FlowModal(props: Props) {
 
         const payload: FlowUpsertPayload = {
             nodeId,
+            branchId,
             startIndex,
-            workflowId,
             verticalIndex,
             ...formValues,
         };
@@ -55,7 +55,7 @@ export default function FlowModal(props: Props) {
 
         setTimeout(() => setLoading(false), 500);
         onClose();
-    }, [dispatch, id, isNew, nodeId, onClose, startIndex, verticalIndex, workflowId]);
+    }, [branchId, dispatch, id, isNew, nodeId, onClose, startIndex, verticalIndex]);
 
     const dialogTitle = isNew ? 'Add Flow' : 'Edit Flow';
 

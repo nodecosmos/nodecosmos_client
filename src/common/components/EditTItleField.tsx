@@ -2,22 +2,21 @@ import EditTitleFieldInput from './EditTitleFieldInput';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { Typography } from '@mui/material';
 import { Variant } from '@mui/material/styles/createTypography';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 interface EditTitleFieldProps {
     title: string;
     color?: string;
     pr?: number;
     variant?: Variant;
-    endpoint: string;
-    onChange?: (value: string) => void;
-    reqData?: object;
+    onChange: (value: string) => void;
+    onClose?: () => void;
     maxWidth?: number | string;
     inputHeight?: number | string;
     inputFontSize?: number | string;
     inputFontWeight?: number | string;
     inputBorder?: string;
-    inputP?: number;
+    defaultEditing?: boolean;
 }
 
 export default function EditTitleField(props: EditTitleFieldProps) {
@@ -26,32 +25,35 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         color = 'text.secondary',
         pr = 0,
         variant = 'body2',
-        endpoint,
         onChange,
-        reqData,
+        onClose,
         maxWidth = '350px',
         inputHeight = 32,
         inputFontSize = 'inherit',
         inputFontWeight = 'inherit',
         inputBorder = 'borders.4',
-        inputP = 1,
+        defaultEditing = false,
     } = props;
-    const [editing, setEditing, unsetEditing] = useBooleanStateValue();
+    const [editing, setEditing, unsetEditing] = useBooleanStateValue(defaultEditing);
+
+    const handleEditClose = useCallback(() => {
+        if (onClose) {
+            onClose();
+        }
+        unsetEditing();
+    }, [onClose, unsetEditing]);
 
     if (editing) {
         return (
             <EditTitleFieldInput
                 title={title}
                 onChange={onChange}
-                onClose={unsetEditing}
-                endpoint={endpoint}
-                reqData={reqData}
+                onClose={handleEditClose}
                 maxWidth={maxWidth}
                 inputHeight={inputHeight}
                 inputFontSize={inputFontSize}
                 inputFontWeight={inputFontWeight}
                 inputBorder={inputBorder}
-                inputP={inputP}
             />
         );
     }

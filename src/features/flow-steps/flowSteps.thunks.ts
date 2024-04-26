@@ -1,56 +1,115 @@
 import {
     FlowStep,
     FlowStepCreationParams, FlowStepPrimaryKey, FlowStepUpdatePayload,
-} from './types';
+} from './flowSteps.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { Strict } from '../../types';
+import { RootState } from '../../store';
+import { NodecosmosError, WithRootId } from '../../types';
+import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isAxiosError } from 'axios';
 
-export const createFlowStep = createAsyncThunk(
+export const createFlowStep = createAsyncThunk<
+    FlowStep,
+    FlowStepCreationParams,
+    { rejectValue: NodecosmosError }
+>(
     'flow_steps/createFlowStep',
-    async (payload: Strict<FlowStepCreationParams>): Promise<FlowStep> => {
-        const response = await nodecosmos.post('/flow_steps', payload);
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/flow_steps', payload);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
 
-        return response.data;
+            console.error(error);
+        }
     },
 );
 
-export const updateFlowStepNodes = createAsyncThunk(
+export const updateFlowStepNodes = createAsyncThunk<
+    Partial<FlowStep> & FlowStepPrimaryKey,
+    FlowStepUpdatePayload,
+    { rejectValue: NodecosmosError }
+>(
     'flow_steps/updateFlowStepNodes',
-    async (payload: Strict<FlowStepUpdatePayload>): Promise<Partial<FlowStep>> => {
+    async (payload) => {
         const response = await nodecosmos.put('/flow_steps/nodes', payload);
 
         return response.data;
     },
 );
 
-export const updateFlowStepOutputs = createAsyncThunk(
+export const updateFlowStepOutputs = createAsyncThunk<
+    Partial<FlowStep> & FlowStepPrimaryKey,
+    FlowStepUpdatePayload,
+    { rejectValue: NodecosmosError }
+>(
     'flow_steps/updateFlowStepOutputs',
-    async (payload: FlowStepUpdatePayload): Promise<Partial<FlowStep>> => {
+    async (payload) => {
         const response = await nodecosmos.put('/flow_steps/outputs', payload);
 
         return response.data;
     },
 );
 
-export const updateFlowStepInputs = createAsyncThunk(
+export const updateFlowStepInputs = createAsyncThunk<
+    Partial<FlowStep> & FlowStepPrimaryKey,
+    FlowStepUpdatePayload,
+    { rejectValue: NodecosmosError }
+>(
     'flow_steps/updateFlowStepInputs',
-    async (payload: FlowStepUpdatePayload): Promise<Partial<FlowStep>> => {
+    async (payload) => {
         const response = await nodecosmos.put('/flow_steps/inputs', payload);
 
         return response.data;
     },
 );
 
-export const deleteFlowStep = createAsyncThunk(
-    'flow_steps/deleteFlowStep',
-    async (payload: FlowStepPrimaryKey): Promise<Partial<FlowStep>> => {
-        const {
-            nodeId, workflowId, flowId, flowIndex, id,
-        } = payload;
+export const deleteFlowStep = createAsyncThunk<
+    WithBranchMetadata<Partial<FlowStep> & FlowStepPrimaryKey>,
+    WithRootId<FlowStepPrimaryKey>,
+    { state: RootState, rejectValue: NodecosmosError }
+>(
+    'flowSteps/deleteFlowStep',
+    async (payload, { rejectWithValue, getState }) => {
+        try {
+            const {
+                branchId, id, nodeId, 
+            } = payload;
+            // we use post as stepIndex is double that can't be passed in url
+            const response = await nodecosmos.post('/flow_steps/delete', payload);
 
-        const response = await nodecosmos.delete(`/flow_steps/${nodeId}/${workflowId}/${flowId}/${flowIndex}/${id}`);
+            const metadata: BranchMetadata = {};
 
-        return response.data;
+            if (branchId !== nodeId) {
+                const state = getState();
+
+                const branch = state.branches.byId[branchId];
+
+                metadata.deleteFromState = branch.createdFlowSteps.has(id) || branch.restoredFlowSteps.has(id);
+            } else {
+                metadata.deleteFromState = true;
+            }
+
+            return {
+                data: response.data,
+                metadata,
+            };
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the flow step.',
+                viewMessage: true,
+            });
+        }
     },
 );

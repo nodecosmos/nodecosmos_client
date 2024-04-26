@@ -2,9 +2,9 @@ import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerE
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError, UUID } from '../../../../types';
 import { setAlert } from '../../../app/appSlice';
-import { checkDeletedAncestorConflict } from '../../../branch/branches.thunks';
+import { reloadBranch } from '../../../branch/branches.thunks';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { setDragAndDrop } from '../../actions';
+import { setDragAndDrop } from '../../nodes.actions';
 import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
 import { reorder } from '../../nodes.thunks';
 import { DragAndDrop } from '../../nodes.types';
@@ -19,17 +19,17 @@ export interface NodeDropCaptureParams {
 
 export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
-    const { currentRootNodeId } = useBranchParams();
+    const { isBranch } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         id,
         branchId,
-        treeBranchId,
+        currentBranchId,
     } = dragAndDrop || {};
 
     const [reorderInProgress, setReorderInProgress] = useState(false);
     const handleServerError = useHandleServerErrorAlert();
-    const childIdsByParentId = useSelector(selectBranchChildIds(treeBranchId));
+    const childIdsByParentId = useSelector(selectBranchChildIds(currentBranchId));
 
     return useCallback(async (params: NodeDropCaptureParams) => {
         const {
@@ -54,7 +54,7 @@ export default function useReorder() {
         }
 
         const response = await dispatch(reorder({
-            treeBranchId,
+            currentBranchId,
             id,
             branchId,
             newParentId,
@@ -72,16 +72,14 @@ export default function useReorder() {
             return;
         }
 
-        dispatch(checkDeletedAncestorConflict({
-            currentRootNodeId: currentRootNodeId as UUID,
-            branchId: treeBranchId,
-        }));
+        if (isBranch) {
+            dispatch(reloadBranch(currentBranchId));
+        }
 
         dispatch(setDragAndDrop(null));
         setReorderInProgress(false);
     },
     [
-        branchId, childIdsByParentId, dispatch, handleServerError, id,
-        currentRootNodeId, reorderInProgress, treeBranchId,
+        reorderInProgress, childIdsByParentId, dispatch, currentBranchId, id, branchId, isBranch, handleServerError,
     ]);
 }

@@ -27,18 +27,18 @@ export interface Tree {
 
 type Props = {
     treeRootId: UUID;
-    treeBranchId: UUID;
+    currentBranchId: UUID;
     type: TreeType;
 };
 
 export default function useTreeBuilder(props: Props): Tree {
     const {
         treeRootId,
-        treeBranchId,
+        currentBranchId,
         type,
     } = props;
-    const ancestorIds = useSelector(selectNodeAttribute(treeBranchId, treeRootId, 'ancestorIds'));
-    const branchChildIds = useSelector(selectBranchChildIds(treeBranchId));
+    const ancestorIds = useSelector(selectNodeAttribute(currentBranchId, treeRootId, 'ancestorIds'));
+    const branchChildIds = useSelector(selectBranchChildIds(currentBranchId));
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
         orderedTreeNodeIds: [] as NodeId[],
@@ -71,8 +71,7 @@ export default function useTreeBuilder(props: Props): Tree {
             } = queue.pop() as QueueItem;
             const isTreeRoot = treeRootId === currentId;
             const isCheckbox = type === TreeType.Checkbox;
-            const isContributionRequest = type === TreeType.ContributionRequest;
-            const isExpanded = isCheckbox || isContributionRequest
+            const isExpanded = isCheckbox
                 || isTreeRoot
                 || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false);
             orderedTreeNodeIds.push(currentId);

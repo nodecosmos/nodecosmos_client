@@ -2,8 +2,8 @@ import { CommentGutterMarker } from '../../../../common/lib/codemirror/extension
 import { CommentWidget } from '../../../../common/lib/codemirror/extensions/widgets';
 import { removeInsertCommentWidget, setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { hoveredLineField, selectedLineField } from '../../../../common/lib/codemirror/stateFields';
+import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { useNodePaneContext } from '../../../nodes/hooks/pane/useNodePaneContext';
 import {
     ObjectType, ThreadType, ThreadInsertPayload,
 } from '../../comments.types';
@@ -17,8 +17,8 @@ import React, {
 import { createPortal } from 'react-dom';
 
 export default function useCommentInsertWidget(view: EditorView) {
-    const { id } = useNodePaneContext();
-    const { currentRootNodeId, branchId } = useBranchParams();
+    const { objectId } = usePaneContext();
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
@@ -58,11 +58,11 @@ export default function useCommentInsertWidget(view: EditorView) {
             });
 
             const threadPayload: ThreadInsertPayload = {
-                objectId: branchId,
+                objectId: currentBranchId,
                 objectType: ObjectType.ContributionRequest,
-                objectNodeId: currentRootNodeId,
+                objectNodeId: currentOriginalBranchId,
                 threadType: ThreadType.ContributionRequestNodeDescription,
-                threadNodeId: id,
+                threadNodeId: objectId,
                 lineNumber,
                 lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
             };
@@ -81,7 +81,7 @@ export default function useCommentInsertWidget(view: EditorView) {
 
             setCreateDescriptionPortals(portals => portals ? [...portals, portal] : [portal]);
         }
-    }, [branchId, closeInsertComment, currentRootNodeId, id, view]);
+    }, [closeInsertComment, currentBranchId, currentOriginalBranchId, objectId, view]);
 
     useEffect(() => {
         CommentGutterMarker.prototype.addComment = function() {

@@ -3,7 +3,7 @@ import {
     useEffect, useRef, useState,
 } from 'react';
 
-type Callback<T> = (value: T) => void;
+type Callback<T> = (value: T) => Promise<void> | void;
 
 export default function useDebounce<T>(callback: Callback<T>, timeout = 500): [Callback<T>, boolean] {
     const timeoutRef = useRef<number| null>(null);
@@ -13,8 +13,8 @@ export default function useDebounce<T>(callback: Callback<T>, timeout = 500): [C
         setInProgress(true);
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-            callback(value);
+        timeoutRef.current = setTimeout(async () => {
+            await callback(value);
             setInProgress(false);
         }, timeout);
     }, [callback, timeout]);

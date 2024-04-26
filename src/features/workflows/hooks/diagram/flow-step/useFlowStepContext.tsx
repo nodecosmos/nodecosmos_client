@@ -1,22 +1,32 @@
 import { UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectFlowStep, selectFlowStepPrimaryKey } from '../../../../flow-steps/flowSteps.selectors';
 import { WorkflowStepFlow } from '../../../diagram/diagram.types';
+import useWorkflowContext from '../../useWorkflowContext';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 interface FlowStepContextValue {
     id: UUID,
     workflowStepFlow?: WorkflowStepFlow,
+    x: number,
+    y: number,
+    yEnd: number,
 }
 
 const FlowStepContext = React.createContext({} as FlowStepContextValue);
 
 export function useFlowStepContextCreator(val: FlowStepContextValue) {
-    const { id, workflowStepFlow } = val;
+    const {
+        id, workflowStepFlow, x, y, yEnd,
+    } = val;
     const flowStepContextValue = useMemo(() => ({
         id,
         workflowStepFlow,
-    }), [id, workflowStepFlow]);
+        x,
+        y,
+        yEnd,
+    }), [id, workflowStepFlow, x, y, yEnd]);
 
     return {
         FlowStepContext,
@@ -25,30 +35,31 @@ export function useFlowStepContextCreator(val: FlowStepContextValue) {
 }
 
 export default function useFlowStepContext() {
-    const { id, workflowStepFlow } = useContext(FlowStepContext);
-
-    const flowStep = useSelector(selectFlowStep(id));
-
+    const {
+        id, workflowStepFlow, x, y, yEnd,
+    } = useContext(FlowStepContext);
+    const { branchId } = useWorkflowContext();
+    const flowStep = useSelector(selectFlowStep(branchId, id));
     const {
         nodeId,
-        workflowId,
         flowId,
-        flowIndex,
+        stepIndex,
         nodeIds,
         inputIdsByNodeId = {},
         outputIdsByNodeId = {},
     } = flowStep || {};
-
-    const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(id));
+    const flowStepPrimaryKey = useSelector(selectFlowStepPrimaryKey(branchId, id));
     const {
-        flowStepNodes, prevFlowStepId, nextFlowStepId, stepId,
+        flowStepNodes, prevStepIndex, nextStepIndex, stepId,
     } = workflowStepFlow || {};
+    const selectedObject = useSelector(selectSelectedObject);
+    const isSelected = id === selectedObject?.objectId;
+    const isCreated = !!flowStepPrimaryKey?.id;
 
     return {
         nodeId,
-        workflowId,
         flowId,
-        flowIndex,
+        stepIndex,
         id,
         nodeIds,
         inputIdsByNodeId,
@@ -56,7 +67,12 @@ export default function useFlowStepContext() {
         flowStepPrimaryKey,
         stepId,
         flowStepNodes,
-        prevFlowStepId,
-        nextFlowStepId,
+        prevStepIndex,
+        nextStepIndex,
+        x,
+        y,
+        yEnd,
+        isSelected,
+        isCreated,
     };
 }

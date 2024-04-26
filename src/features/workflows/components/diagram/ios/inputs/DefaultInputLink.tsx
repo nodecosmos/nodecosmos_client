@@ -16,7 +16,6 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const { position: nodePosition, isSelected } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
-
     const {
         selectedInputColor,
         defaultInputColor,

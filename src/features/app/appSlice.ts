@@ -1,6 +1,9 @@
+import { selectObject } from './app.thunks';
 import {
     AppState, Browser, Theme, TransformablePositions,
 } from './app.types';
+import { deleteFlow } from '../flows/flows.thunks';
+import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 function fnBrowserDetect() {
@@ -44,6 +47,7 @@ const initialState: AppState = {
         y: 0,
     },
     isPaneOpen: true,
+    selectedObject: null,
 };
 
 const appSlice = createSlice({
@@ -72,6 +76,18 @@ const appSlice = createSlice({
         setDescriptionCoordinates(state, action) {
             state.descriptionCoordinates = action.payload;
         },
+        clearPaneContent(state) {
+            state.selectedObject = null;
+        },
+    },
+    extraReducers(builder) {
+        builder.addCase(selectObject.fulfilled, (state, action) => {
+            state.selectedObject = action.payload;
+        }).addCase(deleteFlow.fulfilled, (state) => {
+            state.selectedObject = null;
+        }).addCase(deleteIo.fulfilled, (state) => {
+            state.selectedObject = null;
+        });
     },
 });
 
@@ -85,6 +101,7 @@ export const {
     setTransformablePositions,
     setAlert,
     setDescriptionCoordinates,
+    clearPaneContent,
 } = actions;
 
 export default reducer;

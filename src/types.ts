@@ -1,14 +1,25 @@
 import { Comment } from './features/comments/comments.types';
 import { Node } from './features/nodes/nodes.types';
-import { HttpStatusCode } from 'axios';
 
 export type UUID = string;
 export type OptionalId = { id?: UUID };
 export type WithOptionalId<T> = Omit<T, 'id'> & OptionalId;
 
+export enum HttpErrorCodes {
+    BadRequest = 400,
+    Unauthorized = 401,
+    Forbidden = 403,
+    NotFound = 404,
+    Conflict = 409,
+    PreconditionFailed = 412,
+    ResourceLocked = 423,
+    InternalServerError = 500,
+}
+
 export type NodecosmosError = {
-    status?: HttpStatusCode;
+    status: HttpErrorCodes;
     message?: string;
+    viewMessage?: boolean;
 };
 
 export interface Position {
@@ -23,7 +34,7 @@ export interface Profile {
     profileType: string;
     name: string;
     username: string | null;
-    profileImageURL: string | null;
+    profileImageUrl: string | null;
 }
 
 export enum ProfileType {
@@ -31,11 +42,36 @@ export enum ProfileType {
     Organization = 'Organization',
 }
 
+export enum ObjectType {
+    Node = 'Node',
+    Workflow = 'Workflow',
+    Flow = 'Flow',
+    FlowStep = 'FlowStep',
+    Io = 'Io',
+}
+
+export const OBJECT_TYPE_NAMES = {
+    Node: 'Node',
+    Workflow: 'Workflow',
+    Flow: 'Flow',
+    FlowStep: 'Flow Step',
+    Io: 'Input/Output',
+};
+
 export type Exact<T, Shape> = T & {
     [K in Exclude<keyof Shape, keyof T>]?: never;
 };
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
+
+// currentBranchId refers to current tree
+export interface CurrentBranchId {
+    currentBranchId: UUID;
+}
+
+export type WithRootId<T> = T & { rootId: UUID };
+export type WithCurrentBranchId<T> = T & CurrentBranchId;
+export type WithOptCurrentBranchId<T> = T & { currentBranchId?: UUID };
 
 export enum ActionTypes {
     CreateNode = 'CREATE_NODE',
@@ -44,7 +80,6 @@ export enum ActionTypes {
     DeleteNode = 'DELETE_NODE',
     ReorderNode = 'REORDER_NODE',
     Merge = 'MERGE',
-    CreateWorkflow = 'CREATE_WORKFLOW',
     ReadWorkflow = 'READ_WORKFLOW',
     UpdateWorkflow = 'UPDATE_WORKFLOW',
     DeleteWorkflow = 'DELETE_WORKFLOW',

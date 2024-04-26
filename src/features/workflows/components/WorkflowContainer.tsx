@@ -1,4 +1,6 @@
-import { WORKFLOW_BUTTON_HEIGHT, OUTPUT_BUTTON_WIDTH } from '../constants';
+import {
+    WORKFLOW_BUTTON_HEIGHT, OUTPUT_BUTTON_WIDTH, WORKFLOW_BUTTON_WIDTH, 
+} from '../constants';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -21,7 +23,7 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                         py: 0,
                         px: 2,
                         border: 'none',
-                        maxWidth: 250,
+                        maxWidth: WORKFLOW_BUTTON_WIDTH,
                         backgroundColor: 'tree.default',
                         height: WORKFLOW_BUTTON_HEIGHT,
                         color: 'text.primary',
@@ -57,8 +59,8 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                     cursor: 'pointer',
                     overflow: 'hidden',
                     // boxShadow: 'buttons.1',
-                    '.IOButtonText, .MuiCheckbox-root': { transform: 'skewX(30deg)' },
-                    '.IOButtonText': {
+                    '.IoButtonText, .MuiCheckbox-root': { transform: 'skewX(30deg)' },
+                    '.IoButtonText': {
                         mx: 1,
                         p: 0,
                         letterSpacing: '0.02857em',

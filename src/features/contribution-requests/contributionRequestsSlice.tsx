@@ -1,7 +1,11 @@
 import { ContributionRequestsState } from './contributionRequest.types';
 import {
     indexContributionRequests,
-    showContributionRequest, createContributionRequest, deleteContributionRequest, updateContributionRequestDescription,
+    showContributionRequest,
+    createContributionRequest,
+    deleteContributionRequest,
+    updateContributionRequestDescription,
+    updateContributionRequestTitle,
 } from './contributionRequests.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -54,6 +58,13 @@ const contributionRequestsSlice = createSlice({
 
                 state.byNodeId[nodeId] ||= {};
                 state.byNodeId[nodeId][contributionRequest.id] = contributionRequest;
+            })
+            .addCase(updateContributionRequestTitle.fulfilled, (state, action) => {
+                const {
+                    nodeId, id, title,
+                } = action.payload;
+
+                state.byNodeId[nodeId][id].title = title;
             })
             .addCase(updateContributionRequestDescription.fulfilled, (state, action) => {
                 const {

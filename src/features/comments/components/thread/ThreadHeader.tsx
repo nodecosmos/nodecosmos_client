@@ -15,8 +15,8 @@ export default function ThreadHeader() {
     const {
         author, createdAt, threadType, threadNodeId,
     } = useThreadContext();
-    const { branchId } = useBranchParams();
-    const node = useSelector(selectOptNode(branchId, threadNodeId));
+    const { currentBranchId } = useBranchParams();
+    const node = useSelector(selectOptNode(currentBranchId, threadNodeId));
     const nodeTitle = node ? node.title : '';
 
     let commentAction;
@@ -28,7 +28,7 @@ export default function ThreadHeader() {
         commentAction = <span>commented removed node <em>{nodeTitle}</em></span>;
         break;
     case ThreadType.ContributionRequestNodeDescription:
-        commentAction = <span>commented line of node <em>{nodeTitle}</em></span>;
+        commentAction = <span>commented line <em>{nodeTitle}</em></span>;
         break;
     default:
         commentAction = 'commented';

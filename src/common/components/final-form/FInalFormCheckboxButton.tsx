@@ -43,7 +43,7 @@ export default function FinalFormCheckboxButton(props: Props) {
                         checked={input.checked}
                         onChange={input.onChange}
                     />
-                    <div className="IOButtonText">
+                    <div className="IoButtonText">
                         {label}
                     </div>
                 </button>

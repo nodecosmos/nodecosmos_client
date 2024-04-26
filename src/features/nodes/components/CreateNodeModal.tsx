@@ -30,7 +30,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             isPublic: true,
             isRoot: true,
             ...formValues,
-            order: 0,
+            orderIndex: 0,
         };
 
         dispatch(create(payload)).then((response) => {
@@ -40,7 +40,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             setLoading(false);
         }).catch((error) => {
             setLoading(false);
-            console.log(error);
+            console.error(error);
         });
     }, [dispatch, navigate]);
 

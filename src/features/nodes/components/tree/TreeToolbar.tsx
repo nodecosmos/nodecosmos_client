@@ -2,8 +2,8 @@ import Loader from '../../../../common/components/Loader';
 import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
-import { search } from '../../actions';
 import useTreeContext from '../../hooks/tree/useTreeContext';
+import { search } from '../../nodes.actions';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -16,28 +16,28 @@ import { useDispatch } from 'react-redux';
 
 export default function TreeToolbar() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { treeBranchId } = useTreeContext();
+    const { currentBranchId } = useTreeContext();
     const searchVal = useRef<string>('');
 
     const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(search({
-            treeBranchId,
+            currentBranchId,
             value: event.target.value,
         }));
 
         searchVal.current = event.target.value;
-    }, [dispatch, treeBranchId]);
+    }, [dispatch, currentBranchId]);
 
     useEffect(() => {
         return () => {
             if (searchVal.current) {
                 dispatch(search({
-                    treeBranchId,
+                    currentBranchId,
                     value: '',
                 }));
             }
         };
-    }, [dispatch, treeBranchId]);
+    }, [dispatch, currentBranchId]);
 
     const [handleChange, inProgress] = useDebounce<ChangeEvent<HTMLInputElement>>(handleSearch, 100);
 
@@ -68,7 +68,6 @@ export default function TreeToolbar() {
                 }}
                 InputProps={{
                     name: 'customSearch',
-                    type: 'search',
                     autoComplete: 'off',
                     startAdornment: (
                         <InputAdornment position="start" sx={{ mr: 2 }}>

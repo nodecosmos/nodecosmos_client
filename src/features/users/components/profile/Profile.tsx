@@ -42,7 +42,7 @@ export default function Profile() {
                         width={200}
                         height={200}
                         fontSize={69}
-                        src={user.profileImageURL}
+                        src={user.profileImageUrl}
                         name={user.username} />
                 </Box>
                 <Box display="flex" alignItems="center" flexDirection="column" width={1}>

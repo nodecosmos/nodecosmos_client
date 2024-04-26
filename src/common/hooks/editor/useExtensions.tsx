@@ -2,6 +2,7 @@ import { WS_URI } from '../../../api/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/users/users.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
+import { CountExtension } from '@remirror/extension-count';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ExtensionPriority } from 'remirror';
@@ -30,24 +31,25 @@ import * as Y from 'yjs';
 
 // sort alphabetically
 export enum EnabledExtensions {
-    Blockquote = 'blockquote',
-    Bold = 'bold',
-    BulletList = 'bulletList',
-    Code = 'code',
-    CodeBlock = 'codeBlock',
-    File = 'file',
-    HardBreak = 'hardBreak',
-    Heading = 'heading',
-    Image = 'image',
-    Italic = 'italic',
-    Link = 'link',
-    ListItem = 'listItem',
-    Markdown = 'markdown',
-    OrderedList = 'orderedList',
-    Placeholder = 'placeholder',
-    Strike = 'strike',
-    TaskList = 'taskList',
-    TrailingNode = 'trailingNode',
+    Blockquote,
+    Bold,
+    BulletList,
+    Code,
+    CodeBlock,
+    File,
+    HardBreak,
+    Heading,
+    Image,
+    Italic,
+    Link,
+    ListItem,
+    Markdown,
+    OrderedList,
+    Placeholder,
+    Strike,
+    TaskList,
+    TrailingNode,
+    CountExtension,
 }
 
 export type RemirrorExtensions = BlockquoteExtension
@@ -68,14 +70,18 @@ export type RemirrorExtensions = BlockquoteExtension
     | TaskListExtension
     | TrailingNodeExtension
     | YjsExtension
+    | CountExtension;
 
 const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
-    [EnabledExtensions.Link]: () => new LinkExtension({ defaultTarget: '_blank' }),
+    [EnabledExtensions.Link]: () => new LinkExtension({
+        defaultTarget: '_blank',
+        autoLink: false,
+    }),
     [EnabledExtensions.Placeholder]: () => new PlaceholderExtension({ placeholder: 'Enter your description here...' }),
-    [EnabledExtensions.Bold]: () => new BoldExtension(),
+    [EnabledExtensions.Bold]: () => new BoldExtension({}),
     [EnabledExtensions.Strike]: () => new StrikeExtension(),
     [EnabledExtensions.Italic]: () => new ItalicExtension(),
-    [EnabledExtensions.Heading]: () => new HeadingExtension(),
+    [EnabledExtensions.Heading]: () => new HeadingExtension({}),
     [EnabledExtensions.Blockquote]: () => new BlockquoteExtension(),
     [EnabledExtensions.BulletList]: () => new BulletListExtension({ enableSpine: true }),
     [EnabledExtensions.OrderedList]: () => new OrderedListExtension(),
@@ -83,14 +89,18 @@ const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
         priority: ExtensionPriority.High,
         enableCollapsible: true,
     }),
-    [EnabledExtensions.TrailingNode]: () => new TrailingNodeExtension(),
-    [EnabledExtensions.Markdown]: () => new MarkdownExtension(),
-    [EnabledExtensions.Code]: () => new CodeExtension(),
-    [EnabledExtensions.CodeBlock]: () => new CodeBlockExtension(),
-    [EnabledExtensions.Image]: () => new ImageExtension(),
+    [EnabledExtensions.TrailingNode]: () => new TrailingNodeExtension({}),
+    [EnabledExtensions.Markdown]: () => new MarkdownExtension({}),
+    [EnabledExtensions.Code]: () => new CodeExtension({}),
+    [EnabledExtensions.CodeBlock]: () => new CodeBlockExtension({}),
+    [EnabledExtensions.Image]: () => new ImageExtension({}),
     [EnabledExtensions.HardBreak]: () => new HardBreakExtension(),
     [EnabledExtensions.TaskList]: () => new TaskListExtension(),
-    [EnabledExtensions.File]: () => new LinkExtension(),
+    [EnabledExtensions.File]: () => new LinkExtension({
+        defaultTarget: '_blank',
+        autoLink: false,
+    }),
+    [EnabledExtensions.CountExtension]: () => new CountExtension({ maximum: 64000 }),
 };
 
 interface UseExtensionsProps {
@@ -114,10 +124,10 @@ export default function useExtensions(props: UseExtensionsProps) {
 
     const baseExtensions = useMemo(() => {
         if (enabledExtensions) {
-            return enabledExtensions.map(extension => extensionMap[extension]()).filter(Boolean);
+            return enabledExtensions.map(extension => extensionMap[extension]());
         } else {
             // Return all extensions if none are specifically enabled
-            return Object.values(extensionMap).map(extension => extension()).filter(Boolean);
+            return Object.values(extensionMap).map(extension => extension());
         }
     }, [enabledExtensions]);
     const [initExtensions, setExtensions] = React.useState<RemirrorExtensions[]>([]);
@@ -129,12 +139,14 @@ export default function useExtensions(props: UseExtensionsProps) {
 
     const doc = useMemo(() => {
         if (!isRealTime) return null;
+
         const ydoc = new Y.Doc();
 
         if (base64) {
             const uint8Array = base64ToUint8Array(base64);
             base64 && Y.applyUpdateV2(ydoc, uint8Array);
         }
+
         return ydoc;
     }, [base64, isRealTime]);
 
@@ -143,7 +155,7 @@ export default function useExtensions(props: UseExtensionsProps) {
             if (!isRealTime || !wsRoomId || !doc) return null;
 
             const wsProvider = new WebsocketProvider(
-                `${WS_URI}ws/description/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
+                `${WS_URI}ws/descriptions/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
             );
 
             wsProvider.awareness.setLocalStateField('user', { name: currentUser.username });

@@ -16,7 +16,7 @@ const theme: NodecosmosTheme = {
 
         left: {
             1: '-1px 0px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
-            2: '-3px 0px 3px -1px rgba(0,0,0,0.03),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+            2: '-3px 0px 3px -1px #2e3137,0px 2px 2px 0px #2e3137,0px 1px 5px 0px #2e3137',
         },
 
         right: {
@@ -111,7 +111,7 @@ const theme: NodecosmosTheme = {
             pink: '#a868aa',
             purple: '#9377e2',
             yellow: '#f5f58e',
-            orange: '#edb96d',
+            orange: '#b08369',
             hover: 'rgba(63,78,89,0.53)',
             active: 'rgba(63,78,89,0.53)',
             default: '#758593',
@@ -137,13 +137,14 @@ const theme: NodecosmosTheme = {
         },
 
         workflow: {
-            default: '#43464d',
+            default: '#4e535e',
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#cdd4ff',
             defaultInputColor: '#52565e',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',
+            selectedBg: '#3a3e47',
         },
 
         markdownContent: {
@@ -181,10 +182,22 @@ const theme: NodecosmosTheme = {
         },
 
         diff: {
-            addedBg: 'rgba(177, 244, 122, 0.3)',
-            addedFg: '#b1f47a',
-            removedBg: 'rgba(253,82,111,0.3)',
-            removedFg: '#fd526f',
+            added: {
+                bg: '#424d46',
+                fg: '#b1f47a',
+            },
+            removed: {
+                bg: '#5e3e4a',
+                fg: '#fd526f',
+            },
+            edited: {
+                bg: '#484d46',
+                fg: '#eef47a',
+            },
+            conflict: {
+                bg: '#705d52',
+                fg: '#f4af7a',
+            },
         },
 
         text: {

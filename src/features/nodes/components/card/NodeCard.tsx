@@ -30,7 +30,7 @@ export default function NodeCard({ id }: {id: UUID}) {
                 <NodeCardHeader node={node} />
                 <CardContent sx={{
                     px: 3,
-                    pt: node.coverImageURL ? 3 : 0,
+                    pt: node.coverImageUrl ? 3 : 0,
                     pb: 0,
                 }}>
                     <Link

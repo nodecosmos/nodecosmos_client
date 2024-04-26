@@ -1,17 +1,17 @@
 import { WorkflowDiagram } from './diagram/diagram.types';
 import { UUID, WithOptionalId } from '../../types';
-import { FlowStep } from '../flow-steps/types';
-import { Flow } from '../flows/types';
-import { InputOutput } from '../input-outputs/types';
+import { FlowStep } from '../flow-steps/flowSteps.types';
+import { Flow } from '../flows/flows.types';
+import { InputOutput } from '../input-outputs/inputOutputs.types';
 
-interface WorkflowPrimaryKey {
+export interface WorkflowPrimaryKey {
     nodeId: UUID;
-    id: UUID;
+    branchId: UUID;
 }
 
 export interface Workflow extends WorkflowPrimaryKey {
     // other fields
-    rootNodeId: UUID;
+    rootId: UUID;
     title: string;
     description: string;
     descriptionMarkdown: string;
@@ -29,24 +29,10 @@ export interface WorkflowData {
     inputOutputs: InputOutput[]
 }
 
-export enum WorkflowDiagramObjectType {
-    Flow = 'flow',
-    FlowStep = 'flowStep',
-    Node = 'node',
-    IO = 'io',
-}
-
-export interface WorkflowDiagramObject {
-    id: UUID;
-    flowStepId?: UUID; // used for node selection
-    type: WorkflowDiagramObjectType;
-}
-
 export interface WorkflowState {
-    byId: Record<UUID, Workflow>;
-    idByNodeId: Record<UUID, UUID>;
+    // BranchId, NodeId
+    byBranchId: Record<UUID, Record<UUID, Workflow>>;
     // diagram
-    workflowDiagramById: Record<UUID, WorkflowDiagram>;
-    selectedWorkflowObject: WorkflowDiagramObject | null;
+    workflowDiagramByBranchId: Record<UUID, Record<UUID, WorkflowDiagram>>;
     workflowScale: number;
 }

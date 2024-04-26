@@ -1,4 +1,4 @@
-import useNodeCommands from '../../../../hooks/tree/node/useNodeCommands';
+import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { faRotateLeft, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import {
 import React from 'react';
 
 export default function ConflictToolbar() {
-    const { removeNode, restoreNode } = useNodeCommands();
+    const { removeNode, restoreNode } = useNodeActions();
     const {
         isExpanded,
         isSelected,

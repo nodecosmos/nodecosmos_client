@@ -1,33 +1,44 @@
-import { FlowStepPrimaryKey } from './types';
+import { FlowStepPrimaryKey } from './flowSteps.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
+import Decimal from 'decimal.js';
 
-const selectFlowSteps = (state: RootState) => state.flowSteps.byId;
+const selectFlowStepsByBranchId = (state: RootState) => state.flowSteps.byBranchId;
 
-export const selectFlowStep = (id: UUID) => createSelector(
-    selectFlowSteps,
+const selectFlowStepsByBranch = (branchId: UUID) => createSelector(
+    selectFlowStepsByBranchId,
+    (flowStepsById) => flowStepsById[branchId],
+);
+
+export const selectFlowStep = (branchId: UUID, id: UUID) => createSelector(
+    selectFlowStepsByBranch(branchId),
     (flowStepsById) => flowStepsById[id],
 );
 
-export const selectFlowStepPrimaryKey = (id: UUID) => createSelector(
-    selectFlowStep(id),
+export const selectOptFlowStep = (branchId: UUID, id?: UUID) => createSelector(
+    selectFlowStepsByBranch(branchId),
+    (flowStepsById) => id ? flowStepsById[id] : null,
+);
+
+export const selectFlowStepPrimaryKey = (branchId: UUID, id: UUID) => createSelector(
+    selectFlowStep(branchId, id),
     (flowStep): FlowStepPrimaryKey| null => {
         if (!flowStep) return null;
 
         return {
             nodeId: flowStep.nodeId,
-            workflowId: flowStep.workflowId,
+            branchId: flowStep.branchId,
             flowId: flowStep.flowId,
-            flowIndex: flowStep.flowIndex,
+            stepIndex: flowStep.stepIndex,
             id: flowStep.id,
         };
     },
 );
 
-export const selectFlowStepsByWorkflowId = (workflowId: UUID) => createSelector(
-    selectFlowSteps,
-    (flowSteps) => Object.values(flowSteps)
-        .filter((flowStep) => flowStep.workflowId === workflowId)
-        .sort((a, b) => a.flowIndex - b.flowIndex),
+export const selectFlowStepsByNodeId = (branchId: UUID, nodeId: UUID) => createSelector(
+    selectFlowStepsByBranch(branchId),
+    (flowSteps) => Object.values(flowSteps || {})
+        .sort((a, b) => new Decimal(a.stepIndex).cmp(b.stepIndex))
+        .filter((flowStep) => flowStep.nodeId === nodeId),
 );

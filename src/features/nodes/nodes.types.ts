@@ -1,5 +1,5 @@
 import {
-    Profile, ProfileType, Position, UUID,
+    Profile, ProfileType, Position, UUID, CurrentBranchId,
 } from '../../types';
 
 // for main nodes branch id is equal to branch id
@@ -11,23 +11,18 @@ export interface NodePrimaryKey {
 export interface Node extends NodePrimaryKey {
     rootId: UUID;
     parentId: UUID;
-    order: number;
+    orderIndex: number;
     isPublic: boolean;
     isRoot: boolean;
     title: string;
     ancestorIds: UUID[];
-    description: string | null;
-    shortDescription: string | null;
-    descriptionMarkdown: string | null;
-    descriptionBase64: string | null;
     ownerId?: UUID | null;
     ownerType?: ProfileType | null;
     creatorId?: UUID | null;
     editorIds?: UUID[] | null;
     owner?: Profile | null;
-    likesCount?: number;
-    coverImageURL?: string | null;
-    coverImageKey?: string | null;
+    coverImageUrl?: string | null;
+    coverImageFilename?: string | null;
     createdAt?: Date | null;
     updatedAt?: Date | null;
 }
@@ -35,7 +30,7 @@ export interface NodeDescendant extends NodePrimaryKey {
     rootId: UUID;
     branchId: UUID;
     nodeId: UUID;
-    order: number;
+    orderIndex: number;
     id: UUID;
     parentId: UUID;
     title: string;
@@ -51,6 +46,7 @@ export interface NodeTreeAttributes {
 
 export interface AppNode extends Node, NodeTreeAttributes {
     persistedId: UUID | null;
+    likeCount?: number;
     isTmp: boolean;
     tmpId?: UUID;
     isSelected: boolean;
@@ -63,9 +59,9 @@ export interface IndexNode {
     isPublic: boolean;
     shortDescription: string | null;
     title: string;
-    likesCount: number;
+    likeCount: number;
     owner: Profile;
-    coverImageURL: string | null;
+    coverImageUrl: string | null;
     createdAt: string;
     updatedAt: string;
 }
@@ -75,27 +71,11 @@ export interface IndexNodesPayload {
     page?: number;
 }
 
-export interface TreeBranch {
-    treeBranchId: UUID;
-}
-
-export type PKWithTreeBranch = NodePrimaryKey & TreeBranch;
-export type NodePayload = PKWithTreeBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
-
-export interface NodeBranchDiffPayload extends Partial<Omit<Node, keyof NodePrimaryKey>> {
-    currentRootNodeId: UUID;
-    currentBranchId: UUID;
-    id: UUID;
-}
-
-export type UpdateTitlePayload = PKWithTreeBranch & Pick<Node, 'title'>;
-export type UpdateDescriptionPayload = PKWithTreeBranch
-    & Pick<Node, 'description' | 'descriptionMarkdown' | 'descriptionBase64' | 'shortDescription'>;
-
-export type TreeNodeKey = TreeBranch & Omit<NodePrimaryKey, 'branchId'>
+export type PKWithCurrentBranch = NodePrimaryKey & CurrentBranchId;
+export type NodePayload = PKWithCurrentBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
+export type UpdateTitlePayload = PKWithCurrentBranch & Pick<Node, 'title'>;
+export type TreeNodeKey = CurrentBranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
-
-export type WithOptTreeBranchId<T> = T & { treeBranchId?: UUID; };
 
 export enum NodePaneContent {
     Markdown = 'markdown',
@@ -109,7 +89,7 @@ export type NodeId = UUID;
 
 export interface DragAndDrop {
     id: NodeId;
-    treeBranchId: BranchId;
+    currentBranchId: BranchId;
     branchId: BranchId;
     parentId: NodeId;
     siblingIndex: number;
@@ -120,7 +100,7 @@ export interface NodeState {
     childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
     positions: Record<BranchId, Record<NodeId, Position>>;
     titles: Record<BranchId, Record<NodeId, string>>;
-    selected: PKWithTreeBranch | null;
+    selected: PKWithCurrentBranch | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<NodeId, IndexNode>;
     saveInProgress: boolean;

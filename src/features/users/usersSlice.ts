@@ -5,6 +5,7 @@ import {
 import {
     CurrentUser, UpdateUserStatePayload, UserState,
 } from './users.types';
+import { HttpErrorCodes } from '../../types';
 import { updatePropertiesOf } from '../../utils/object';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -71,9 +72,12 @@ const usersSlice = createSlice({
                     localStorage.removeItem('currentUser');
                 }
             })
-            .addCase(syncUpCurrentUser.rejected, (state) => {
-                state.currentUser = null;
-                localStorage.removeItem('currentUser');
+            .addCase(syncUpCurrentUser.rejected, (state, action) => {
+                if (action.payload?.status === HttpErrorCodes.Unauthorized) {
+                    state.isAuthenticated = false;
+                    state.currentUser = null;
+                    localStorage.removeItem('currentUser');
+                }
             })
             .addCase(showUserByUsername.fulfilled, (state, action) => {
                 const user = action.payload;

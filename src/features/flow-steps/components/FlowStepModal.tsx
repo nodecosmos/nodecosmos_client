@@ -10,7 +10,7 @@ import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowS
 import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { createFlowStep, updateFlowStepNodes } from '../flowSteps.thunks';
-import { FlowStepCreationParams, FlowStepUpdatePayload } from '../types';
+import { FlowStepCreationParams, FlowStepUpdatePayload } from '../flowSteps.types';
 import { faSave } from '@fortawesome/pro-light-svg-icons';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import {
@@ -27,11 +27,11 @@ interface Props {
 
 export default function FlowStepModal({ open, onClose }: Props) {
     const {
-        id: workflowId, nodeId, branchId,
+        branchId, nodeId, rootId,
     } = useWorkflowContext();
     const { id: flowId } = useFlowContext();
     const {
-        id, nodeIds, prevFlowStepId, nextFlowStepId, flowIndex,
+        id, nodeIds, stepIndex,
     } = useFlowStepContext();
 
     const [loading, setLoading] = React.useState(false);
@@ -53,9 +53,10 @@ export default function FlowStepModal({ open, onClose }: Props) {
             if (isNew) {
                 const updatePayload: Strict<FlowStepUpdatePayload> = {
                     nodeId,
-                    workflowId,
+                    branchId,
                     flowId,
-                    flowIndex,
+                    rootId,
+                    stepIndex,
                     id,
                     nodeIds: filteredNodeIds,
                 };
@@ -63,11 +64,11 @@ export default function FlowStepModal({ open, onClose }: Props) {
             } else {
                 const insertPayload: Strict<FlowStepCreationParams> = {
                     nodeId,
-                    workflowId,
+                    branchId,
                     flowId,
+                    rootId,
+                    stepIndex,
                     nodeIds: filteredNodeIds,
-                    prevFlowStepId,
-                    nextFlowStepId,
                 };
 
                 response = await dispatch(createFlowStep(insertPayload));
@@ -78,6 +79,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
 
             if (createFlowStep.rejected.match(response) || updateFlowStepNodes.rejected.match(response)) {
                 handleServerError(response.error);
+
+                return;
             }
         } catch (error) {
             dispatch(setAlert({
@@ -90,8 +93,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
         }
     },
     [
-        flowStepNodeIds, allNodes, id, onClose, nodeId, workflowId, flowId, flowIndex,
-        dispatch, prevFlowStepId, nextFlowStepId, handleServerError,
+        flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, flowId, stepIndex,
+        rootId, dispatch, handleServerError,
     ],
     );
 
@@ -147,8 +150,8 @@ export default function FlowStepModal({ open, onClose }: Props) {
                             borderColor: 'borders.4',
                         }}>
                         <Tree
-                            rootNodeId={nodeId}
-                            treeBranchId={nodeId}
+                            rootId={nodeId}
+                            currentBranchId={nodeId}
                             type={TreeType.Checkbox}
                             onChange={setFlowStepNodeIds}
                             value={flowStepNodeIds}

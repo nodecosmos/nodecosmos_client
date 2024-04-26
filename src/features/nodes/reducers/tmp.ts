@@ -4,36 +4,41 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 // redux action
 export interface BuildTmpNodeAction extends TreeNodeKey {
-    treeBranchId: UUID;
+    currentBranchId: UUID;
     tmpId: UUID;
 }
 
 export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNodeAction>) {
     const {
-        treeBranchId, tmpId, id,
+        currentBranchId, tmpId, id,
     } = action.payload;
-    const node = state.byBranchId[treeBranchId][id];
+    const node = state.byBranchId[currentBranchId][id];
     const parentAncestors = node.ancestorIds || [];
+    const lastChildIndex = state.childIds[currentBranchId][id].length - 1;
+    const lastChildId = state.childIds[currentBranchId][id][lastChildIndex];
+    const lastChild = state.byBranchId[currentBranchId][lastChildId];
 
-    state.byBranchId[treeBranchId][tmpId] = {
+    let orderIndex = 0;
+
+    if (lastChild) {
+        orderIndex = lastChild.orderIndex + 1;
+    }
+
+    state.byBranchId[currentBranchId][tmpId] = {
         id: tmpId,
         branchId: tmpId,
         rootId: node.rootId,
         parentId: id,
-        order: state.childIds[treeBranchId][id].length + 1,
+        orderIndex,
         isPublic: node.isPublic,
         isRoot: false,
         title: '',
-        description: null,
-        shortDescription: null,
-        descriptionMarkdown: null,
-        descriptionBase64: null,
         ownerId: node.ownerId,
         ownerType: node.ownerType,
         creatorId: node.creatorId,
-        likesCount: 0,
-        coverImageURL: null,
-        coverImageKey: null,
+        likeCount: 0,
+        coverImageUrl: null,
+        coverImageFilename: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         editorIds: [],
@@ -47,49 +52,49 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         treeRootId: node.treeRootId,
     };
 
-    state.childIds[treeBranchId][id].push(tmpId);
-    state.childIds[treeBranchId][tmpId] = [];
-    state.byBranchId[treeBranchId][id].childIds.push(tmpId);
+    state.childIds[currentBranchId][id].push(tmpId);
+    state.childIds[currentBranchId][tmpId] = [];
+    state.byBranchId[currentBranchId][id].childIds.push(tmpId);
 }
 
 interface ReplaceProps {
-    treeBranchId: UUID;
+    currentBranchId: UUID;
     tmpId: UUID;
 }
 
 export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAction<ReplaceProps>) {
-    const { tmpId, treeBranchId } = action.payload;
+    const { tmpId, currentBranchId } = action.payload;
 
-    if (tmpId && treeBranchId) {
-        const tmpNode = state.byBranchId[treeBranchId][tmpId];
+    if (tmpId && currentBranchId) {
+        const tmpNode = state.byBranchId[currentBranchId][tmpId];
         const persistedId = tmpNode.persistedId as UUID;
-        const newNode = state.byBranchId[treeBranchId][persistedId];
+        const newNode = state.byBranchId[currentBranchId][persistedId];
         const parentId = tmpNode.parentId;
-        const parentChildIds = state.childIds[treeBranchId][parentId];
+        const parentChildIds = state.childIds[currentBranchId][parentId];
         const siblingIndex = parentChildIds.indexOf(tmpId);
 
         parentChildIds.splice(siblingIndex, 1, persistedId);
-        state.byBranchId[treeBranchId][parentId].childIds = parentChildIds;
+        state.byBranchId[currentBranchId][parentId].childIds = parentChildIds;
 
         if (tmpNode.isSelected) {
             newNode.isSelected = true;
             newNode.isCreationInProgress = false;
             state.selected = {
-                treeBranchId,
+                currentBranchId,
                 branchId: newNode.branchId,
                 id: persistedId,
             };
         }
 
         // update node state
-        state.byBranchId[treeBranchId][persistedId] = newNode;
-        state.titles[treeBranchId][persistedId] = newNode.title;
-        state.childIds[treeBranchId][persistedId] = [];
+        state.byBranchId[currentBranchId][persistedId] = newNode;
+        state.titles[currentBranchId][persistedId] = newNode.title;
+        state.childIds[currentBranchId][persistedId] = [];
 
         state.justCreatedNodeId = persistedId;
 
-        // delete state.childIds[treeBranchId][tmpNode.id];
-        // delete state.titles[treeBranchId][tmpNode.id];
-        // delete state.byBranchId[treeBranchId][tmpNode.id];
+        // delete state.childIds[currentBranchId][tmpNode.id];
+        // delete state.titles[currentBranchId][tmpNode.id];
+        // delete state.byBranchId[currentBranchId][tmpNode.id];
     }
 }

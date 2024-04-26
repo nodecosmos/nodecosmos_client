@@ -9,7 +9,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export default function NodeCardHeader({ node }: {node: IndexNode}) {
     return (
-        <Box className={node.coverImageURL ? 'CoverHeader' : ''}>
+        <Box className={node.coverImageUrl ? 'CoverHeader' : ''}>
             <CardHeader
                 sx={{
                     p: 3,
@@ -20,7 +20,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                 avatar={(
                     <Box display="flex" alignItems="center" zIndex={1} position="relative">
                         <Link component={RouterLink} to={`/${node.owner.username}`}>
-                            <NcAvatar name={node.owner.name} src={node.owner.profileImageURL} />
+                            <NcAvatar name={node.owner.name} src={node.owner.profileImageUrl} />
                         </Link>
                         <Link component={RouterLink} to={`/${node.owner.username}`}>
                             <Typography variant="h6" color="text.primary" ml={1} fontWeight="bold">
@@ -53,12 +53,12 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                     </Box>
                 )}
             />
-            {node.coverImageURL && (
+            {node.coverImageUrl && (
                 <>
                     <CardMedia
                         className="AmbientImage"
                         component="img"
-                        image={node.coverImageURL}
+                        image={node.coverImageUrl}
                         alt="Cover Image Ambient"
                     />
                     <Link
@@ -68,7 +68,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                         <CardMedia
                             className="CoverImage"
                             component="img"
-                            image={node.coverImageURL}
+                            image={node.coverImageUrl}
                             alt="Cover Image"
                         />
                     </Link>

@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 export default function ContributionRequestMergeButton() {
     const {
         id: nodeId,
-        contributionRequestId: id,
+        branchId: id,
     } = useParams();
 
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));

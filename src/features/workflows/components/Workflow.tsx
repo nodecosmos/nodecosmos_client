@@ -2,29 +2,26 @@ import WorkflowDiagram from './diagram/WorkflowDiagram';
 import WorkflowContainer from './WorkflowContainer';
 import WorkflowToolbar from './WorkflowToolbar';
 import Alert from '../../../common/components/Alert';
+import { UUID } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
 import { WorkflowDiagramContext } from '../constants';
 import { useWorkflowContextCreator } from '../hooks/useWorkflowContext';
-import { selectWorkflowByNodeId } from '../workflow.selectors';
 import { Box } from '@mui/material';
 import React, { memo } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 interface DefaultProps {
     context: WorkflowDiagramContext;
 }
 
 interface Props extends Partial<DefaultProps> {
-    nodeId: string;
+    nodeId: UUID;
+    branchId: UUID;
     context?: WorkflowDiagramContext;
 }
 
-const Workflow: React.FC<Props> = ({ nodeId, context = WorkflowDiagramContext.workflowPage }) => {
-    const workflow = useSelector(selectWorkflowByNodeId(nodeId));
-    const id = workflow?.id;
-    const { id: branchId } = useParams() as { id: string };
-
+const Workflow: React.FC<Props> = ({
+    nodeId, branchId, context = WorkflowDiagramContext.workflowPage,
+}) => {
     const {
         WorkflowContext,
         contextProviderValue,
@@ -32,7 +29,6 @@ const Workflow: React.FC<Props> = ({ nodeId, context = WorkflowDiagramContext.wo
         context,
         branchId,
         nodeId,
-        id,
     });
 
     return (

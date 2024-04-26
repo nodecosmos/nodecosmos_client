@@ -1,21 +1,20 @@
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import useModalOpen from '../../../../../common/hooks/useModalOpen';
 import FlowModal from '../../../../flows/components/FlowModal';
-import { WORKFLOW_STEP_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
+import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
     Box, Button, Typography,
 } from '@mui/material';
-import React, {
-    memo, useCallback, useState,
-} from 'react';
+import React, { memo, useCallback } from 'react';
 
 function WorkflowStep({ index }: { index: number }) {
     const { height, workflowSteps } = useDiagramContext();
     const wfStep = workflowSteps[index];
 
-    const [hovered, setHovered] = useState(false);
+    const [hovered, hover, unhover] = useBooleanStateValue();
     const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpen();
 
     const { x } = wfStep.position;
@@ -32,13 +31,9 @@ function WorkflowStep({ index }: { index: number }) {
             event.stopPropagation();
             event.preventDefault();
         } else {
-            setHovered(true);
+            hover();
         }
-    }, []);
-
-    const handleMouseLeave = useCallback(() => {
-        setHovered(false);
-    }, []);
+    }, [hover]);
 
     if (!x || !wfStep || !height) return null;
 
@@ -46,7 +41,7 @@ function WorkflowStep({ index }: { index: number }) {
         <WorkflowStepContext.Provider value={contextProviderValue}>
             <g
                 onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}>
+                onMouseLeave={unhover}>
 
                 <rect
                     x={x}
@@ -59,7 +54,7 @@ function WorkflowStep({ index }: { index: number }) {
                 />
                 <foreignObject
                     width={WORKFLOW_STEP_WIDTH}
-                    height={WORKFLOW_STEP_HEIGHT}
+                    height={FLOW_TOOLBAR_HEIGHT}
                     x={x}
                     y="0"
                 >

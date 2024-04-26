@@ -2,6 +2,7 @@ import appSlice from './features/app/appSlice';
 import branchesSlice from './features/branch/branchesSlice';
 import commentsSlice from './features/comments/commentsSlice';
 import contributionRequestSlice from './features/contribution-requests/contributionRequestsSlice';
+import descriptionsSlice from './features/descriptions/descriptionsSlice';
 import flowStepsSlice from './features/flow-steps/flowStepsSlice';
 import flowsSlice from './features/flows/flowsSlice';
 import homeSlice from './features/home/homeSlice';
@@ -27,4 +28,5 @@ export default combineReducers({
     branches: branchesSlice,
     users: usersSlice,
     comments: commentsSlice,
+    descriptions: descriptionsSlice,
 });

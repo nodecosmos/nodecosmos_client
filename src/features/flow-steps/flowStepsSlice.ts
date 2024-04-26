@@ -1,14 +1,18 @@
-import { groupFlowStepsById } from './flowSteps.memoize';
 import {
-    createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes, updateFlowStepOutputs,
+    createFlowStep,
+    deleteFlowStep,
+    updateFlowStepInputs,
+    updateFlowStepNodes,
+    updateFlowStepOutputs,
 } from './flowSteps.thunks';
-import { FlowStep, FlowStepState } from './types';
+import { FlowStep, FlowStepState } from './flowSteps.types';
 import { UUID } from '../../types';
-import { deleteIO } from '../input-outputs/inputOutputs.thunks';
+import { deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
+import Decimal from 'decimal.js';
 
-const initialState: FlowStepState = { byId: {} };
+const initialState: FlowStepState = { byBranchId: {} };
 
 const flowStepsSlice = createSlice({
     name: 'flowSteps',
@@ -17,75 +21,79 @@ const flowStepsSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
-                const { flowSteps } = action.payload;
-                const flowStepsById = groupFlowStepsById(flowSteps);
+                const { flowSteps, workflow } = action.payload;
+                const { branchId } = workflow;
 
-                state.byId = {
-                    ...state.byId,
-                    ...flowStepsById, 
-                };
+                state.byBranchId[branchId] ||= {};
+
+                flowSteps.forEach((flowStep) => {
+                    flowStep.branchId = branchId;
+                    flowStep.stepIndex = new Decimal(flowStep.stepIndex);
+                    state.byBranchId[branchId][flowStep.id] = flowStep;
+                });
             })
             .addCase(createFlowStep.fulfilled, (state, action) => {
                 const flowStep = action.payload;
+                const { branchId } = flowStep;
 
                 flowStep.inputIdsByNodeId ||= {};
                 flowStep.outputIdsByNodeId ||= {};
+                flowStep.stepIndex = new Decimal(flowStep.stepIndex);
 
-                state.byId[flowStep.id] = flowStep;
-
-                if (flowStep.prevFlowStepId) {
-                    state.byId[flowStep.prevFlowStepId].nextFlowStepId = flowStep.id;
-                }
-
-                if (flowStep.nextFlowStepId) {
-                    state.byId[flowStep.nextFlowStepId].prevFlowStepId = flowStep.id;
-                }
+                state.byBranchId[branchId] ||= {};
+                state.byBranchId[branchId][flowStep.id] = flowStep;
             })
             .addCase(updateFlowStepNodes.fulfilled, (state, action) => {
                 const flowStep = action.payload;
+                const {
+                    branchId, id, nodeIds,
+                } = flowStep;
 
-                state.byId[flowStep.id as UUID].nodeIds = flowStep.nodeIds as UUID[];
+                state.byBranchId[branchId][id].nodeIds = nodeIds || [];
             })
             .addCase(updateFlowStepOutputs.fulfilled, (state, action) => {
                 const flowStep = action.payload;
+                const { branchId } = flowStep;
 
-                state.byId[flowStep.id as UUID].outputIdsByNodeId
+                state.byBranchId[branchId][flowStep.id as UUID].outputIdsByNodeId
                     = flowStep.outputIdsByNodeId as FlowStep['outputIdsByNodeId'];
             })
             .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
                 const flowStep = action.payload;
+                const { branchId } = flowStep;
 
-                state.byId[flowStep.id as UUID].inputIdsByNodeId
+                state.byBranchId[branchId][flowStep.id as UUID].inputIdsByNodeId
                     = flowStep.inputIdsByNodeId as FlowStep['inputIdsByNodeId'];
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const flowStep = action.payload;
+                const flowStep = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
+                const { branchId } = flowStep;
 
-                delete state.byId[flowStep.id as UUID];
+                if (deleteFromState) {
+                    delete state.byBranchId[branchId][flowStep.id];
+                }
             })
-            .addCase(deleteIO.fulfilled, (state, action) => {
-                const { flowStepId, id } = action.payload;
+            .addCase(deleteIo.fulfilled, (state, action) => {
+                const { flowStepId, id } = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
+                const { currentBranchId } = action.meta.arg;
 
                 if (!flowStepId) return;
 
                 // remove from outputs of current step
-                const flowStep = state.byId[flowStepId];
-                const { outputIdsByNodeId } = flowStep;
+                const outputIdsByNodeId = state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId;
 
-                Object.keys(outputIdsByNodeId).forEach((nodeId) => {
-                    state.byId[flowStepId].outputIdsByNodeId[nodeId] = outputIdsByNodeId[nodeId]
-                        .filter((outputId) => outputId !== id);
-                });
+                if (deleteFromState) {
+                    Object.keys(outputIdsByNodeId).forEach((nodeId) => {
+                        state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId[nodeId]
+                            = outputIdsByNodeId[nodeId].filter((outputId) => outputId !== id);
+                    });
+                }
             });
     },
 });
 
-const {
-    actions,
-    reducer,
-} = flowStepsSlice;
-
-// eslint-disable-next-line no-empty-pattern
-export const {} = actions;
+const { reducer } = flowStepsSlice;
 
 export default reducer;

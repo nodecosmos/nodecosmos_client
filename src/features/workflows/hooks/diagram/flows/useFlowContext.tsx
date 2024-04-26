@@ -1,46 +1,54 @@
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../../../types';
+import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectFlow } from '../../../../flows/flows.selectors';
-import { selectSelectedWorkflowObject } from '../../../workflow.selectors';
+import useWorkflowContext from '../../useWorkflowContext';
 import React, { useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 interface FlowContextValue {
     id: UUID
+    titleEditOpen: boolean
+    openTitleEdit: () => void
+    closeTitleEdit: () => void
 }
 
-const FlowContext = React.createContext({} as FlowContextValue);
+export const FlowContext = React.createContext({} as FlowContextValue);
 
-export function useFlowContextCreator(val: FlowContextValue) {
-    const flowContextValue = useMemo(() => ({ id: val.id }), [val.id]);
+export function useFlowContextCreator({ id }: { id: UUID }) {
+    const value = useMemo(() => ({ id }), [id]);
+    const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateValue(false);
 
     return {
         FlowContext,
-        flowContextValue,
+        flowContextValue: {
+            ...value,
+            titleEditOpen,
+            openTitleEdit,
+            closeTitleEdit,
+        },
     };
 }
 
 export default function useFlowContext() {
-    const context = useContext(FlowContext);
-
+    const { id, titleEditOpen } = useContext(FlowContext);
+    const { branchId } = useWorkflowContext();
     const {
         nodeId,
-        workflowId,
         startIndex,
         verticalIndex,
-        id,
         title,
-    } = useSelector(selectFlow(context.id));
-
-    const { id: selectedObjectId } = useSelector(selectSelectedWorkflowObject);
-    const flowSelected = id === selectedObjectId;
+    } = useSelector(selectFlow(branchId, id));
+    const selectedObject = useSelector(selectSelectedObject);
+    const isSelected = id === selectedObject?.objectId;
 
     return {
         nodeId,
-        workflowId,
         startIndex,
         verticalIndex,
         id,
         title,
-        flowSelected,
+        isSelected,
+        titleEditOpen,
     };
 }

@@ -38,6 +38,12 @@ export const showContributionRequest = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while fetching the contribution request.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -58,6 +64,12 @@ export const createContributionRequest = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while creating the contribution request.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -78,6 +90,12 @@ export const updateContributionRequestTitle = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while updating the contribution request title.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -98,6 +116,12 @@ export const updateContributionRequestDescription = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while updating the contribution request description.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -118,6 +142,12 @@ export const deleteContributionRequest = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the contribution request.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -141,7 +171,11 @@ export const mergeContributionRequest = createAsyncThunk<
                 return rejectWithValue(error.response.data);
             }
 
-            console.error(error);
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while merging the contribution request.',
+                viewMessage: true,
+            });
         }
     },
 );

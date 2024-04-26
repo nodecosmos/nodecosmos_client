@@ -1,41 +1,38 @@
-import { Workflow, WorkflowDiagramObject } from './workflow.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectWorkflowsById = (state: RootState) => state.workflows.byId;
-export const selectWorkflowIdByNodeId = (state: RootState) => state.workflows.idByNodeId;
-export const selectRawSelectedWorkflowObject = (state: RootState) =>
-    state.workflows.selectedWorkflowObject || {} as WorkflowDiagramObject;
+export const selectWorkflowsByBranchId = (state: RootState) => state.workflows.byBranchId;
+export const selectWorkflowDiagramByBranchId = (state: RootState) => state.workflows.workflowDiagramByBranchId;
 
-export const selectSelectedWorkflowObject = createSelector(
-    selectRawSelectedWorkflowObject,
-    (selectedWorkflowObject) => selectedWorkflowObject,
+export const selectBranchWorkflowDiagram = (branchId: UUID) => createSelector(
+    selectWorkflowDiagramByBranchId,
+    (workflowDiagramByBranchId) => workflowDiagramByBranchId[branchId],
 );
 
 /* diagram */
-export const selectWorkflowDiagramById = (state: RootState) => state.workflows.workflowDiagramById;
 export const selectWorkflowScale = (state: RootState) => state.workflows.workflowScale;
 
-export const selectWorkflowByNodeId = (nodeId: UUID) => createSelector([
-    selectWorkflowIdByNodeId,
-    selectWorkflowsById,
-], (workflowIdsByNodeId, workflowsById) => {
-    const id = workflowIdsByNodeId[nodeId];
-    return workflowsById[id];
-});
+export const selectWorkflowByBranchId = (branchId: UUID) => createSelector([
+    selectWorkflowsByBranchId,
+], (workflowsByBranchId) => workflowsByBranchId[branchId]);
 
-export const selectWorkflowDiagram = (workflowId: UUID) => createSelector(
-    selectWorkflowDiagramById,
-    (workflowDiagramById) => workflowDiagramById[workflowId],
+export const selectWorkflow = (branchId: UUID, nodeId: UUID) => createSelector(
+    selectWorkflowByBranchId(branchId),
+    (workflowsByBranchId) => workflowsByBranchId[nodeId],
 );
 
-export const selectWorkflow = (workflowId: UUID) => createSelector(
-    selectWorkflowsById,
-    (workflowsById) => workflowsById[workflowId] || {},
+export const selectWorkflowDiagram = (branchId: UUID, nodeId: UUID) => createSelector(
+    selectBranchWorkflowDiagram(branchId),
+    (branchWorkflowDiagrams) => branchWorkflowDiagrams[nodeId],
 );
 
-export const selectWorkflowAttribute = <K extends keyof Workflow>(workflowId: UUID, attribute: K) => createSelector(
-    selectWorkflow(workflowId),
-    (workflow) => workflow && workflow[attribute],
+export const selectOptWorkflow = (branchId: UUID, nodeId: UUID) => createSelector(
+    selectWorkflowByBranchId(branchId),
+    (workflowsByBranchId) => {
+        if (workflowsByBranchId) {
+            return workflowsByBranchId[nodeId];
+        }
+        return null;
+    },
 );

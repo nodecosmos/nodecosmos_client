@@ -1,4 +1,4 @@
-import { UUID } from '../../types';
+import { ObjectType, UUID } from '../../types';
 
 export enum HeaderContent {
     NodeIndexHeader = 'NodeIndexHeader',
@@ -45,6 +45,21 @@ export interface TransformablePositions {
     scrollLeft: number;
 }
 
+export interface SelectedObject {
+    objectId: UUID;
+    branchId: UUID;
+    objectNodeId: UUID;
+    objectType: ObjectType;
+    objectTitle: string;
+    originalObjectTitle: string;
+    isPaneObj: boolean;
+    metadata?: {
+        flowStepId?: UUID;
+        currentBranchId?: UUID;
+        mainObjectId?: UUID;
+    };
+}
+
 export interface AppState {
     headerContent?: HeaderContent;
     theme: Theme;
@@ -54,4 +69,5 @@ export interface AppState {
     alert: Alert;
     descriptionCoordinates: DescriptionCoordinates;
     isPaneOpen: boolean;
+    selectedObject: SelectedObject | null;
 }

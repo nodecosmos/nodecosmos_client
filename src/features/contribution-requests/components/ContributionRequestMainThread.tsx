@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestMainThread() {
-    const { id: nodeId, contributionRequestId: id } = useParams();
+    const { id: nodeId, branchId: id } = useParams();
     const mainThread = useSelector(mainCrThread(id as UUID));
     const mainThreadCommentEditor = React.useMemo(() => {
         if (mainThread) {

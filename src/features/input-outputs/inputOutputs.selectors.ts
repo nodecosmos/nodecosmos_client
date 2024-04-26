@@ -1,41 +1,29 @@
-import { InputOutput } from './types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectInputOutputsById = (state: RootState) => state.inputOutputs.byId;
-export const selectIOPaneContent = (state: RootState) => state.inputOutputs.IOPaneContent;
+const selectInputOutputsByBranchId = (state: RootState) => state.inputOutputs.byBranchId;
 
-export const selectInputOutputById = (id: UUID) => createSelector(
-    selectInputOutputsById,
+export const selectInputOutputsByBranch = (branchId: UUID) => createSelector(
+    selectInputOutputsByBranchId,
+    (inputOutputsById) => inputOutputsById[branchId],
+);
+
+export const selectInputOutput = (branchId: UUID, id: UUID) => createSelector(
+    selectInputOutputsByBranch(branchId),
     (inputOutputsById) => inputOutputsById[id],
 );
 
-export const selectInputOutputPrimaryKey = (id: UUID) => createSelector(
-    selectInputOutputById(id),
-    (io) => ({
-        rootNodeId: io.rootNodeId,
-        nodeId: io.nodeId,
-        workflowId: io.workflowId,
-        id: io.id,
-    }),
-);
-
-export const selectIOAttribute = (id: UUID, attribute: keyof InputOutput) => createSelector(
-    selectInputOutputById(id),
-    (inputOutput) => inputOutput ? inputOutput[attribute] : null,
-);
-
-export const selectIOByWorkflowId = (workflowId: UUID) => createSelector(
-    selectInputOutputsById,
-    (inputOutputsById) => Object.values(inputOutputsById).filter(
-        (inputOutput) => inputOutput.workflowId === workflowId,
+export const selectIoByNodeId = (branchId: UUID, nodeId: UUID) => createSelector(
+    selectInputOutputsByBranch(branchId),
+    (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
+        (inputOutput) => inputOutput.nodeId === nodeId,
     ),
 );
 
-export const selectUniqueIOByRootNodeId = (rootNodeId: UUID) => createSelector(
-    selectInputOutputsById,
-    (inputOutputsById) => Object.values(inputOutputsById).filter(
-        (inputOutput) => inputOutput.rootNodeId === rootNodeId,
+export const selectUniqueIoByRootId = (branchId: UUID, rootId: UUID) => createSelector(
+    selectInputOutputsByBranch(branchId),
+    (inputOutputsById) => Object.values(inputOutputsById || {}).filter(
+        (inputOutput) => inputOutput.rootId === rootId,
     ),
 );

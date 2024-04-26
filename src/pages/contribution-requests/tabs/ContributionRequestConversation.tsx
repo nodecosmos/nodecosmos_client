@@ -1,3 +1,4 @@
+import Alert from '../../../common/components/Alert';
 import NcAvatar from '../../../common/components/NcAvatar';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
@@ -18,7 +19,7 @@ import {
 } from 'react-router-dom';
 
 export default function ContributionRequestConversation() {
-    const { id: nodeId, contributionRequestId: id } = useParams();
+    const { id: nodeId, branchId: id } = useParams();
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
 
     if (!contributionRequest) {
@@ -28,9 +29,14 @@ export default function ContributionRequestConversation() {
     const { owner, createdAt } = contributionRequest;
 
     return (
-        <Box height={1} overflow="auto" my={2} pb={8}>
+        <Box height={1} overflow="auto" width={1} my={2} pb={8}>
             <Container
-                maxWidth="md">
+                maxWidth="lg"
+                sx={{
+                    overflow: 'hidden',
+                    position: 'relative',
+                }}>
+                <Alert position="sticky" />
                 <Box
                     display="flex"
                     alignItems="center"
@@ -41,7 +47,7 @@ export default function ContributionRequestConversation() {
                             width={35}
                             height={35}
                             name={owner.name}
-                            src={owner.profileImageURL} />
+                            src={owner.profileImageUrl} />
                     </Link>
                     <Link component={RouterLink} to={`/${owner.username}`} display="flex" alignItems="center">
                         <Typography variant="body2" color="text.secondary" ml={1} fontWeight="bold">

@@ -1,14 +1,15 @@
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
-import NodePane from '../../features/nodes/components/pane/NodePane';
+import Pane from '../../features/app/components/pane/Pane';
 import Tree from '../../features/nodes/components/tree/Tree';
+import { selectNode } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
 import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 export default function Show() {
@@ -60,6 +61,13 @@ export default function Show() {
         }
     }, [resizeInProgress, leaveResizer]);
 
+    if (!id) {
+        throw new Error('No id provided');
+    }
+
+    // this is not root id of the current tree, but root_id of complete project
+    const { rootId: nodeRootId } = useSelector(selectNode(id, id));
+
     return (
         <Box
             display={{
@@ -77,7 +85,7 @@ export default function Show() {
                 height={1}
                 display="flex"
             >
-                <Tree treeBranchId={id as UUID} rootNodeId={id as UUID} />
+                <Tree currentBranchId={id} rootId={id} />
                 <Box
                     component="span"
                     onMouseDown={handleResize}
@@ -104,7 +112,7 @@ export default function Show() {
                 borderLeft={1}
                 style={{ borderLeftColor: resizerHovered ? theme.palette.borders['4'] : theme.palette.borders['2'] }}
             >
-                <NodePane />
+                <Pane rootId={nodeRootId} />
             </Box>
         </Box>
     );

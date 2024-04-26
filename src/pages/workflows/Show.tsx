@@ -2,32 +2,32 @@ import Loader from '../../common/components/Loader';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
+import { clearPaneContent } from '../../features/app/appSlice';
+import Pane from '../../features/app/components/pane/Pane';
+import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
-import WorkflowPane from '../../features/workflows/components/pane/WorkflowPane';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
-import { selectWorkflowByNodeId } from '../../features/workflows/workflow.selectors';
-import { clearSelectedWorkflowDiagramObject } from '../../features/workflows/workflowsSlice';
+import { selectOptWorkflow } from '../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
 import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 export default function Show() {
-    const { id: nodeId } = useParams();
+    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectWorkflowByNodeId(nodeId as UUID));
+    const workflow = useSelector(selectOptWorkflow(currentBranchId, currentOriginalBranchId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const branchNodes = useSelector(selectBranchNodes(nodeId as UUID));
+    const branchNodes = useSelector(selectBranchNodes(currentBranchId as UUID));
 
-    const id = workflow?.id;
+    const workflowNodeId = workflow?.nodeId;
 
-    const [loading, setLoading] = React.useState(!id);
+    const [loading, setLoading] = React.useState(!workflowNodeId);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
@@ -54,26 +54,29 @@ export default function Show() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (!id) {
-            dispatch(showWorkflow(nodeId as UUID)).then(() => setLoading(false));
+        if (!workflowNodeId) {
+            dispatch(showWorkflow({
+                nodeId: currentOriginalBranchId,
+                branchId: currentBranchId,
+            })).then(() => setLoading(false));
         } else {
             setLoading(false);
         }
 
         return () => {
-            dispatch(clearSelectedWorkflowDiagramObject());
+            dispatch(clearPaneContent());
         };
-    }, [dispatch, id, nodeId]);
-
-    // useEffect(() => {
-    //     if (!resizeInProgress) {
-    //         leaveResizer();
-    //     }
-    // }, [leaveResizer, resizeInProgress]);
+    }, [currentOriginalBranchId, currentBranchId, dispatch, workflowNodeId]);
 
     if (loading || !branchNodes) {
         return <Loader />;
     }
+
+    if (!workflow) {
+        throw new Error('Workflow not found');
+    }
+
+    const { rootId } = workflow;
 
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
 
@@ -94,7 +97,7 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    <Workflow nodeId={nodeId as UUID} />
+                    {workflow && <Workflow nodeId={currentOriginalBranchId} branchId={currentBranchId} />}
                 </Box>
                 <Box
                     component="div"
@@ -121,10 +124,10 @@ export default function Show() {
                     overflow="hidden"
                     boxShadow="left.2"
                     borderLeft={1}
-                    zIndex={1}
+                    zIndex={1000}
                     style={{ borderLeftColor }}
                 >
-                    <WorkflowPane />
+                    <Pane rootId={rootId} />
                 </Box>
             </Box>
         </Box>

@@ -68,7 +68,7 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#eeeeee',
+            1: '#e8e8e8',
             2: '#eeeeee',
             3: '#ecebf1',
             4: '#c8c8c8',
@@ -77,13 +77,13 @@ const theme: NodecosmosTheme = {
 
         background: {
             1: '#ffffff', // f8f9fa
-            2: '#fdfcfd', // f0f0ef ededed
+            2: '#f8f8fd', // f0f0ef ededed
             3: '#f8f9fa',
             4: '#ffffff',
-            5: '#fcfbfe',
-            6: '#f7f3ff',
-            7: 'rgba(238,238,245,0.42)',
-            8: '#eeedf0',
+            5: '#f8fafd',
+            6: '#ebf1f9',
+            7: '#ebf1f9',
+            8: '#ebf1f9',
 
             labels: {
                 orange: '#f5a623',
@@ -96,7 +96,7 @@ const theme: NodecosmosTheme = {
 
             list: {
                 defaultColor: '#525264',
-                activeColor: '#3ba0ff',
+                activeColor: '#5872d2',
             },
 
             paper: '#fcfbfe',
@@ -114,20 +114,20 @@ const theme: NodecosmosTheme = {
             orange: '#dd9432',
             hover: '#eff2fb',
             active: '#eff2fb',
-            default: '#68757d',
+            default: '#767276',
             breadcrumbs: '#4a5568',
         },
 
         tree: {
-            default: '#f0edf5',
+            default: '#e4e4ec',
             defaultBorder: '#e0e0f0',
             backgrounds: [
-                '#ff5866',
-                '#bb8aff',
+                '#e14d58',
+                '#b74de1',
                 '#4193ff',
-                '#87c849',
-                '#e0c534',
-                '#f5a638',
+                '#4db761',
+                '#9dab1d',
+                '#de9255',
             ],
             hashtag: '#aaaac4',
             defaultText: '#21212c',
@@ -142,6 +142,9 @@ const theme: NodecosmosTheme = {
             background: '#2d3139',
             selectedInputColor: '#80a4ff',
             defaultInputColor: '#e0e0f0',
+            selectedLoopInputColor: '#ffb387',
+            defaultLoopInputColor: 'rgba(255,179,135,0.26)',
+            selectedBg: 'rgba(89,137,172,0.03)',
         },
 
         markdownContent: {
@@ -174,10 +177,22 @@ const theme: NodecosmosTheme = {
         },
 
         diff: {
-            addedBg: '#8CAC77FF',
-            addedFg: '#9bff4a',
-            removedBg: 'rgba(255,0,0,0.24)',
-            removedFg: '#f53152',
+            added: {
+                bg: '#424d46',
+                fg: '#b1f47a',
+            },
+            removed: {
+                bg: '#5e3e4a',
+                fg: '#fd526f',
+            },
+            edited: {
+                bg: '#484d46',
+                fg: '#eef47a',
+            },
+            conflict: {
+                bg: '#705d52',
+                fg: '#f4af7a',
+            },
         },
 
         logo: {

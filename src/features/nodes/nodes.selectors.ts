@@ -7,11 +7,9 @@ export const selectNodesByBranchId = (state: RootState) => state.nodes.byBranchI
 export const selectIndexNodesById = (state: RootState) => state.nodes.indexNodesById;
 export const selectSelected = (state: RootState) => state.nodes.selected;
 export const selectTitles = (state: RootState) => state.nodes.titles;
-export const selectNodePaneContent = (state: RootState) => state.nodes.nodePaneContent;
 export const selectDragAndDrop = (state: RootState) => state.nodes.dragAndDrop;
 export const selectChildIds = (state: RootState) => state.nodes.childIds;
 export const selectSaveInProgress = (state: RootState) => state.nodes.saveInProgress;
-export const selectPositions = (state: RootState) => state.nodes.positions;
 export const selectJustCreatedNodeId = (state: RootState) => state.nodes.justCreatedNodeId;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
@@ -29,13 +27,11 @@ export const selectNode = (branchId: UUID, nodeId: UUID) => createSelector(
 export const selectOptNode = (branchId: UUID, nodeId?: UUID) => createSelector(
     selectBranchNodes(branchId),
     (branchNodes) => {
-        return nodeId && branchNodes && branchNodes[nodeId];
+        if (nodeId && branchNodes) {
+            return branchNodes[nodeId];
+        }
+        return null;
     },
-);
-
-export const selectBranchPositions = (branchId: UUID) => createSelector(
-    selectPositions,
-    (positions) => positions[branchId],
 );
 
 export const selectIndexedNode = (nodeId: UUID) => createSelector(
@@ -50,8 +46,8 @@ export const selectSelectedNode = createSelector(
         if (!selected) {
             return {} as AppNode;
         }
-        const { treeBranchId, id } = selected;
-        return nodesByBranchId[treeBranchId]?.[id] || {} as AppNode;
+        const { currentBranchId, id } = selected;
+        return nodesByBranchId[currentBranchId]?.[id] || {} as AppNode;
     },
 );
 

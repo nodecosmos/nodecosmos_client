@@ -1,4 +1,5 @@
 import Header from './header/Header';
+import NotFound from '../../../common/components/404';
 import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
 import ContributionRequestShow from '../../../pages/contribution-requests/Show';
 import ContributionRequestCommits from '../../../pages/contribution-requests/tabs/ContributionRequestCommits';
@@ -63,7 +64,7 @@ export default function App() {
                             {/* Contribution Requests */}
                             <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
                             <Route path=":id/contribution_requests">
-                                <Route path=":contributionRequestId" element={<ContributionRequestShow />}>
+                                <Route path=":branchId" element={<ContributionRequestShow />}>
                                     <Route path="" element={<ContributionRequestConversation />}>
                                         <Route path="" element={<MainThread />} />
                                         <Route path="activity" element={<Activity />} />
@@ -77,6 +78,7 @@ export default function App() {
                             <Route path=":id/tasks_board" element={<div />} />
                             <Route path=":id/settings" element={<div />} />
                         </Route>
+                        <Route path="404" element={<NotFound />} />
                         <Route path=":username" element={<UserShow />} />
                     </Routes>
                 </Box>

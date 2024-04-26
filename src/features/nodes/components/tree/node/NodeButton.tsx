@@ -3,12 +3,10 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
 import { NodecosmosTheme } from '../../../../../themes/type';
 import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import useNodeActions from '../../../hooks/tree/node/useNodeActions';
 import useNodeColors from '../../../hooks/tree/node/useNodeColors';
-import useNodeCommands from '../../../hooks/tree/node/useNodeCommands';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import { selectNodeAttribute } from '../../../nodes.selectors';
-import { faArrowRightLong } from '@fortawesome/pro-thin-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -34,9 +32,9 @@ function NodeButton() {
         dragOver,
         dragLeave,
         dropCapture,
-    } = useNodeCommands();
-    const { currentRootNodeId } = useBranchParams();
-    const oldTitle = useSelector(selectNodeAttribute(currentRootNodeId, id, 'title'));
+    } = useNodeActions();
+    const { currentBranchId } = useBranchParams();
+    const oldTitle = useSelector(selectNodeAttribute(currentBranchId, id, 'title'));
     const isTitleEdited = oldTitle && title !== oldTitle;
 
     const preventDefault = usePreventDefault();
@@ -66,7 +64,6 @@ function NodeButton() {
 
             <div className="NodeButtonText">
                 {isTitleEdited && <span className="diff-removed">{oldTitle}</span>}
-                {isTitleEdited && <FontAwesomeIcon className="fa-arrow" icon={faArrowRightLong} size="xs" />}
                 <span className={isTitleEdited ? 'diff-added' : undefined}>{title}</span>
             </div>
         </button>

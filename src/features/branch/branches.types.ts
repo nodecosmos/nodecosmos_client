@@ -9,11 +9,29 @@ export interface Conflict {
     status: ConflictStatus;
     deletedAncestors: Set<UUID> | null;
     deletedEditedNodes: Set<UUID> | null;
+    deletedEditedFlows: Set<UUID> | null;
+    deletedEditedFlowSteps: Set<UUID> | null;
+    deletedEditedIos: Set<UUID> | null;
+    conflictingFlowSteps: Set<UUID>;
 }
 
+export interface BranchMetadata {
+    /**
+     * @description
+     * We delete from state if object is original record or if it's created in the current branch.
+     * Otherwise, we keep it in state for diffing purposes.
+     */
+    deleteFromState?: boolean;
+}
+
+export type WithBranchMetadata<T> = {
+    data: T,
+    metadata: BranchMetadata
+};
+
 export interface BranchParams {
-    currentRootNodeId: UUID; // corresponds to the id of the current node
-    branchId: UUID; // either id of the current node or id of the contribution request, depending on the context
+    currentOriginalBranchId: UUID; // corresponds to the id of the current node
+    currentBranchId: UUID; // either id of the current node or id of the contribution request, depending on the context
 }
 
 // TextChange is used to store the old and new values of a text field at time of merge
@@ -30,28 +48,6 @@ export enum BranchStatus {
     Closed = 'CLOSED',
 }
 
-/**
- * #[derive(Serialize, Deserialize, Default, PartialEq)]
- * #[charybdis_udt_model(type_name = BranchReorderData)]
- * pub struct BranchReorderData {
- *     pub id: Uuid,
- *     #[serde(rename = "newParentId")]
- *     pub new_parent_id: Uuid,
- *
- *     #[serde(rename = "newOrderIndex")]
- *     pub new_upper_sibling_id: Option<Uuid>,
- *
- *     #[serde(rename = "newLowerSiblingId")]
- *     pub new_lower_sibling_id: Option<Uuid>,
- *
- *     #[serde(rename = "oldParentId")]
- *     pub old_parent_id: Uuid,
- *
- *     #[serde(rename = "oldOrderIndex")]
- *     pub old_order_index: Double,
- * }
- */
-
 interface BranchReorderData {
     id: UUID;
     newParentId: UUID;
@@ -62,37 +58,54 @@ interface BranchReorderData {
 
 export interface Branch {
     id: UUID;
+    rootId: UUID;
     title: string;
     description: string;
     status: BranchStatus;
     ownerId: UUID;
     owner: Profile;
-    editorIds?: UUID[];
+    editorIds: Set<UUID>;
+    isPublic: boolean;
     isContributionRequest: boolean;
     createdNodes: Set<UUID>;
     restoredNodes: Set<UUID>;
     deletedNodes: Set<UUID>;
-    editedNodeTitles: Set<UUID>;
-    editedNodeDescriptions: Set<UUID>;
+    editedTitleNodes: Set<UUID>;
+    editedDescriptionNodes: Set<UUID>;
     reorderedNodes: BranchReorderData[];
-    createdWorkflows: Set<UUID>;
-    deletedWorkflows: Set<UUID>;
-    editedWorkflowTitles: Set<UUID>;
+    editedWorkflowNodes: Set<UUID>;
+    createdWorkflowInitialInputs: Record<UUID, UUID[]>;
+    deletedWorkflowInitialInputs: Record<UUID, UUID[]>;
     createdFlows: Set<UUID>;
     deletedFlows: Set<UUID>;
-    editedFlowTitles: Set<UUID>;
-    editedFlowDescriptions: Set<UUID>;
-    createdIos: Set<UUID>;
-    deletedIos: Set<UUID>;
-    editedIoTitles: Set<UUID>;
-    editedIoDescriptions: Set<UUID>;
+    restoredFlows: Set<UUID>;
+    editedTitleFlows: Set<UUID>;
+    editedDescriptionFlows: Set<UUID>;
     createdFlowSteps: Set<UUID>;
     deletedFlowSteps: Set<UUID>;
-    createdFlowStepInputsByNode: Record<UUID, Set<UUID>>;
-    deletedFlowStepInputsByNode: Record<UUID, Set<UUID>>;
-    titleChangeByObject: Record<UUID, TextChange>;
+    restoredFlowSteps: Set<UUID>;
+    keptFlowSteps: Set<UUID>;
+    editedDescriptionFlowSteps: Set<UUID>;
+    createdFlowStepNodes: Record<UUID, Set<UUID>>;
+    deletedFlowStepNodes: Record<UUID, Set<UUID>>;
+    createdFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    deletedFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    createdFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    deletedFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
+    createdIos: Set<UUID>;
+    deletedIos: Set<UUID>;
+    restoredIos: Set<UUID>;
+    editedTitleIos: Set<UUID>;
+    editedDescriptionIos: Set<UUID>;
+    conflict: Conflict;
     descriptionChangeByObject: Record<UUID, TextChange>;
-    conflict?: Conflict;
+    titleChangeByObject: Record<UUID, TextChange>;
+}
+
+export interface BranchDiffPayload {
+    currentOriginalBranchId: UUID;
+    currentBranchId: UUID;
+    objectId: UUID;
 }
 
 export interface BranchesState {

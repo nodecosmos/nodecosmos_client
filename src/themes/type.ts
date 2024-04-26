@@ -129,6 +129,7 @@ interface Palette {
         defaultInputColor: string;
         selectedLoopInputColor: string;
         defaultLoopInputColor: string;
+        selectedBg: string;
     };
     markdownContent: {
         canvas: string;
@@ -159,10 +160,22 @@ interface Palette {
     };
 
     diff: {
-        addedBg: string;
-        addedFg: string;
-        removedBg: string;
-        removedFg: string;
+        added: {
+            bg: string;
+            fg: string;
+        },
+        removed: {
+            bg: string;
+            fg: string;
+        },
+        edited: {
+            bg: string;
+            fg: string;
+        },
+        conflict: {
+            bg: string;
+            fg: string;
+        },
     };
 
     logo: {

@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 interface WorkflowContextType {
     context: WorkflowDiagramContext;
-    id: UUID;
     nodeId: UUID;
     branchId: UUID;
     inputsAdditionActive: boolean;
@@ -19,10 +18,10 @@ interface WorkflowContextType {
 
 const WorkflowContext = React.createContext<WorkflowContextType>({} as WorkflowContextType);
 
-type WorkflowContextProviderProps = Pick<WorkflowContextType, 'context' | 'id' | 'nodeId' | 'branchId'>;
+type WorkflowContextProviderProps = Pick<WorkflowContextType, 'context' | 'nodeId' | 'branchId'>;
 
 export function useWorkflowContextCreator({
-    context, id, nodeId, branchId,
+    context, nodeId, branchId,
 }: WorkflowContextProviderProps) {
     const [inputsAdditionActive, activateInputsAddition, deactivateInputsAddition] = useBooleanStateValue();
     const [selectedInputs, setSelectedInputs] = React.useState<Set<UUID>>(new Set<UUID>());
@@ -35,7 +34,6 @@ export function useWorkflowContextCreator({
 
     const contextProviderValue = useMemo(() => ({
         context,
-        id,
         nodeId,
         branchId,
         inputsAdditionActive,
@@ -45,7 +43,7 @@ export function useWorkflowContextCreator({
         setSelectedInputs,
     }),
     [
-        context, id, nodeId, branchId,
+        context, nodeId, branchId,
         inputsAdditionActive, activateInputsAddition, deactivateInputsAddition,
         selectedInputs,
     ]);
@@ -59,7 +57,6 @@ export function useWorkflowContextCreator({
 export default function useWorkflowContext() {
     const {
         context,
-        id,
         nodeId,
         branchId,
         inputsAdditionActive,
@@ -74,20 +71,19 @@ export default function useWorkflowContext() {
     }
 
     const {
-        rootNodeId,
+        rootId,
         title,
         initialInputIds,
-    } = useSelector(selectWorkflow(id));
+    } = useSelector(selectWorkflow(branchId, nodeId));
 
-    const transformableId = `WF_${context}_${id}`;
+    const transformableId = `WF_${context}_${nodeId}`;
     const scale = useSelector(selectWorkflowScale);
 
     return {
         context,
-        id,
         nodeId,
         branchId,
-        rootNodeId,
+        rootId,
         title,
         initialInputIds,
         transformableId,

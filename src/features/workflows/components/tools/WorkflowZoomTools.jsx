@@ -31,7 +31,7 @@ export default function WorkflowZoomTools() {
 
     return (
         <Box flex={1}>
-            <ToolsContainer>
+            <ToolsContainer ml={1}>
                 <Tooltip title="Zoom in" placement="top">
                     <IconButton
                         className="Item"

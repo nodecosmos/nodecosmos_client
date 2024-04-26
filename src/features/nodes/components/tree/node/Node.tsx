@@ -5,18 +5,18 @@ import { useNodeContextCreator } from '../../../hooks/tree/node/useNodeContext';
 import React from 'react';
 
 export interface NodeProps {
-    treeBranchId: string;
+    currentBranchId: string;
     id: string;
     isAlreadyMounted: boolean;
 }
 
 function Node(props: NodeProps) {
     const {
-        treeBranchId, id, isAlreadyMounted,
+        currentBranchId, id, isAlreadyMounted,
     } = props;
 
     const { NodeContext, contextProviderValue } = useNodeContextCreator({
-        treeBranchId,
+        currentBranchId,
         id,
         isAlreadyMounted,
     });

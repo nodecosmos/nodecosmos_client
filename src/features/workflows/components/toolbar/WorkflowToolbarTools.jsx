@@ -30,7 +30,7 @@ export default function WorkflowToolbarTools() {
                     <FontAwesomeIcon icon={faPenToSquare} />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Delete IO" placement="top">
+            <Tooltip title="Delete Io" placement="top">
                 <IconButton
                     className="Item"
                     aria-label="Delete Flow"

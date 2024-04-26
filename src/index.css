@@ -121,3 +121,8 @@ button {
     background: none;
     cursor: pointer;
 }
+
+/* variables */
+.MuiDataGrid-main {
+    --DataGrid-rowBorderColor: 'none';
+}
