@@ -17,13 +17,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Show() {
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(currentBranchId, currentOriginalBranchId));
+    const workflow = useSelector(selectOptWorkflow(branchId, originalId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const branchNodes = useSelector(selectBranchNodes(currentBranchId as UUID));
+    const branchNodes = useSelector(selectBranchNodes(branchId as UUID));
 
     const workflowNodeId = workflow?.nodeId;
 
@@ -56,8 +56,8 @@ export default function Show() {
     useEffect(() => {
         if (!workflowNodeId) {
             dispatch(showWorkflow({
-                nodeId: currentOriginalBranchId,
-                branchId: currentBranchId,
+                nodeId: originalId,
+                branchId,
             })).then(() => setLoading(false));
         } else {
             setLoading(false);
@@ -66,7 +66,7 @@ export default function Show() {
         return () => {
             dispatch(clearPaneContent());
         };
-    }, [currentOriginalBranchId, currentBranchId, dispatch, workflowNodeId]);
+    }, [originalId, branchId, dispatch, workflowNodeId]);
 
     if (loading || !branchNodes) {
         return <Loader />;
@@ -97,7 +97,7 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {workflow && <Workflow nodeId={currentOriginalBranchId} branchId={currentBranchId} />}
+                    {workflow && <Workflow nodeId={originalId} branchId={branchId} />}
                 </Box>
                 <Box
                     component="div"

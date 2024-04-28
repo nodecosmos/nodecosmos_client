@@ -64,14 +64,14 @@ export type Exact<T, Shape> = T & {
 
 export type Strict<MyType> = MyType & Exact<MyType, MyType>;
 
-// currentBranchId refers to current tree
-export interface CurrentBranchId {
-    currentBranchId: UUID;
+// branchId refers to current tree
+export interface BranchId {
+    branchId: UUID;
 }
 
 export type WithRootId<T> = T & { rootId: UUID };
-export type WithCurrentBranchId<T> = T & CurrentBranchId;
-export type WithOptCurrentBranchId<T> = T & { currentBranchId?: UUID };
+export type WithBranchId<T> = T & BranchId;
+export type WithMaybeBranchId<T> = T & { branchId?: UUID };
 
 export enum ActionTypes {
     CreateNode = 'CREATE_NODE',

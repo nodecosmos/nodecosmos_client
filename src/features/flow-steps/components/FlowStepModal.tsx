@@ -155,7 +155,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                         }}>
                         <Tree
                             rootId={nodeId}
-                            currentBranchId={nodeId}
+                            branchId={nodeId}
                             type={TreeType.Checkbox}
                             onChange={setFlowStepNodeIds}
                             value={flowStepNodeIds}

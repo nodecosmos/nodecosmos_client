@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 
 export default function ContributionRequestTree() {
     const theme: NodecosmosTheme = useTheme();
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
-    const { rootId } = useSelector(selectBranch(currentBranchId));
+    const { originalId, branchId } = useBranchParams();
+    const { rootId } = useSelector(selectBranch(branchId));
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
     const paneARef = React.useRef(null);
@@ -65,8 +65,8 @@ export default function ContributionRequestTree() {
                 display="flex"
             >
                 <Tree
-                    currentBranchId={currentBranchId}
-                    rootId={currentOriginalBranchId}
+                    branchId={branchId}
+                    rootId={originalId}
                     type={TreeType.ContributionRequest} />
                 <Box
                     component="span"

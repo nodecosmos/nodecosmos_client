@@ -77,16 +77,16 @@ const flowStepsSlice = createSlice({
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const { flowStepId, id } = action.payload.data;
                 const { deleteFromState } = action.payload.metadata;
-                const { currentBranchId } = action.meta.arg;
+                const { branchId } = action.meta.arg;
 
                 if (!flowStepId) return;
 
                 // remove from outputs of current step
-                const outputIdsByNodeId = state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId;
+                const outputIdsByNodeId = state.byBranchId[branchId][flowStepId].outputIdsByNodeId;
 
                 if (deleteFromState) {
                     Object.keys(outputIdsByNodeId).forEach((nodeId) => {
-                        state.byBranchId[currentBranchId][flowStepId].outputIdsByNodeId[nodeId]
+                        state.byBranchId[branchId][flowStepId].outputIdsByNodeId[nodeId]
                             = outputIdsByNodeId[nodeId].filter((outputId) => outputId !== id);
                     });
                 }

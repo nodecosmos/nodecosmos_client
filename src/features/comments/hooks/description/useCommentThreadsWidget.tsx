@@ -16,8 +16,8 @@ import { useSelector } from 'react-redux';
 
 export default function useCommentThreadsWidget(view: EditorView): ReactPortal[] {
     const { objectId } = usePaneContext();
-    const { currentBranchId } = useBranchParams();
-    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(currentBranchId, objectId));
+    const { branchId } = useBranchParams();
+    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, objectId));
     const [portalsById, setDescThreadPortals] = useState<Record<UUID, ReactPortal> | null>();
 
     // const clearWidgets = useCallback(() => {

@@ -17,35 +17,35 @@ export const selectObject = createAsyncThunk<
 
             switch (payload.objectType) {
             case ObjectType.Node:
-                objectTitle = state.nodes.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
+                objectTitle = state.nodes.byBranchId[payload.branchId]?.[payload.objectId]?.title;
                 originalObjectTitle
-                    = state.nodes.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.title;
+                    = state.nodes.byBranchId[payload.originalId]?.[payload.objectId]?.title;
                 break;
 
             case ObjectType.Workflow:
-                objectTitle = state.workflows.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
+                objectTitle = state.workflows.byBranchId[payload.branchId]?.[payload.objectId]?.title;
                 originalObjectTitle
-                    = state.workflows.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.title;
+                    = state.workflows.byBranchId[payload.originalId]?.[payload.objectId]?.title;
                 break;
 
             case ObjectType.Flow:
-                objectTitle = state.flows.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
+                objectTitle = state.flows.byBranchId[payload.branchId]?.[payload.objectId]?.title;
                 originalObjectTitle
-                    = state.flows.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.title;
+                    = state.flows.byBranchId[payload.originalId]?.[payload.objectId]?.title;
                 break;
 
             case ObjectType.FlowStep:
-                originalObjectTitle = state.flowSteps.byBranchId[payload.currentBranchId]?.[payload.objectId]?.stepIndex
+                originalObjectTitle = state.flowSteps.byBranchId[payload.branchId]?.[payload.objectId]?.stepIndex
                     .toString();
                 objectTitle
-                    = state.flowSteps.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.stepIndex
+                    = state.flowSteps.byBranchId[payload.originalId]?.[payload.objectId]?.stepIndex
                         .toString();
                 break;
 
             case ObjectType.Io:
-                originalObjectTitle = state.inputOutputs.byBranchId[payload.currentBranchId]?.[payload.objectId]?.title;
+                originalObjectTitle = state.inputOutputs.byBranchId[payload.branchId]?.[payload.objectId]?.title;
                 objectTitle
-                    = state.inputOutputs.byBranchId[payload.currentOriginalBranchId]?.[payload.objectId]?.title;
+                    = state.inputOutputs.byBranchId[payload.originalId]?.[payload.objectId]?.title;
                 break;
 
             default:

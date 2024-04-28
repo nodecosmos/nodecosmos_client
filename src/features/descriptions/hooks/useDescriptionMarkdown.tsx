@@ -15,10 +15,9 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useDescriptionMarkdown() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        isBranch, currentOriginalBranchId, currentBranchId,
+        isBranch, originalId, branchId,
     } = useBranchParams();
     const {
-        branchId,
         mainObjectId: objectId,
         objectType,
         loading,
@@ -26,9 +25,9 @@ export default function useDescriptionMarkdown() {
         setLoading,
         unsetLoading,
     } = usePaneContext();
-    const branch = useSelector(selectBranch(currentBranchId));
-    const { markdown } = useSelector(selectDescription(currentBranchId, objectId)) || {};
-    const originalDescription = useSelector(selectDescription(currentOriginalBranchId, objectId));
+    const branch = useSelector(selectBranch(branchId));
+    const { markdown } = useSelector(selectDescription(branchId, objectId)) || {};
+    const originalDescription = useSelector(selectDescription(originalId, objectId));
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     let isDescriptionEdited;
 
@@ -64,12 +63,11 @@ export default function useDescriptionMarkdown() {
     const getOriginalDescriptionCb = useCallback(() => {
         return dispatch(getOriginalDescription({
             nodeId: objectNodeId,
-            currentOriginalBranchId,
-            currentBranchId,
+            originalId,
             branchId,
             objectId,
         }));
-    }, [branchId, currentOriginalBranchId, currentBranchId, dispatch, objectId, objectNodeId]);
+    }, [branchId, originalId, dispatch, objectId, objectNodeId]);
 
     const { originalMarkdown, branchMarkdown } = useMemo(() => {
         // if the branch is merged and the description has been changed,

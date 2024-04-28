@@ -4,31 +4,31 @@ import { NodeState, PKWithCurrentBranch } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export function deleteFromState(state: NodeState, action: PayloadAction<PKWithCurrentBranch>) {
-    const { currentBranchId, id } = action.payload;
+    const { branchId, id } = action.payload;
 
-    deleteNodeFromState(state, currentBranchId, id);
+    deleteNodeFromState(state, branchId, id);
 }
 
 export function deleteFulfilled(state: NodeState, action: ReturnType<typeof deleteNode.fulfilled>) {
     const { data, metadata } = action.payload;
     const { id } = data;
-    const { currentBranchId } = action.meta.arg;
+    const { branchId } = data;
 
     if (metadata.deleteFromState) {
-        deleteNodeFromState(state, currentBranchId, id);
+        deleteNodeFromState(state, branchId, id);
     }
 }
 
-function deleteNodeFromState(state: NodeState, currentBranchId: UUID, id: UUID) {
-    const node = state.byBranchId[currentBranchId][id];
-    const parent = state.byBranchId[currentBranchId][node.parentId];
+function deleteNodeFromState(state: NodeState, branchId: UUID, id: UUID) {
+    const node = state.byBranchId[branchId][id];
+    const parent = state.byBranchId[branchId][node.parentId];
 
     // remove from parent
     if (parent) {
         const childIds = parent.childIds.filter((childId) => childId !== id);
 
         parent.childIds = childIds;
-        state.childIds[currentBranchId][node.parentId] = childIds;
+        state.childIds[branchId][node.parentId] = childIds;
     }
 
     if (state.selected?.id === id) {
@@ -36,8 +36,8 @@ function deleteNodeFromState(state: NodeState, currentBranchId: UUID, id: UUID) 
     }
 
     // remove from state
-    delete state.childIds[currentBranchId][id];
-    delete state.titles[currentBranchId][id];
+    delete state.childIds[branchId][id];
+    delete state.titles[branchId][id];
     delete state.indexNodesById[id];
-    // delete state.byBranchId[currentBranchId][id];
+    // delete state.byBranchId[branchId][id];
 }

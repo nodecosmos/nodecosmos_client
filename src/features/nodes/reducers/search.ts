@@ -1,36 +1,36 @@
 import { UUID } from '../../../types';
-import { NodeId, NodeState } from '../nodes.types';
+import { NodeState } from '../nodes.types';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export interface SearchNodePayload {
-    currentBranchId: UUID;
+    branchId: UUID;
     value: string;
 }
 
 export default function search(state: NodeState, action: PayloadAction<SearchNodePayload>) {
-    const { currentBranchId, value } = action.payload;
+    const { branchId, value } = action.payload;
 
     if (value) {
         // search by title
-        const branchChildIds: Record<NodeId, UUID[]> = {};
-        const childIdsByParent: Record<NodeId, Set<UUID>> = {};
+        const branchChildIds: Record<UUID, UUID[]> = {};
+        const childIdsByParent: Record<UUID, Set<UUID>> = {};
 
-        for (const nodeId in state.byBranchId[currentBranchId]) {
-            const node = state.byBranchId[currentBranchId][nodeId];
+        for (const nodeId in state.byBranchId[branchId]) {
+            const node = state.byBranchId[branchId][nodeId];
 
             if (!node.isTmp && node.title.toLowerCase().includes(value.toLowerCase())) {
                 branchChildIds[nodeId] ||= [];
                 let currentNodeId = nodeId;
-                let { parentId } = state.byBranchId[currentBranchId][nodeId];
+                let { parentId } = state.byBranchId[branchId][nodeId];
 
                 while (parentId) {
-                    const parent = state.byBranchId[currentBranchId][parentId];
+                    const parent = state.byBranchId[branchId][parentId];
                     if (parent) {
                         childIdsByParent[parentId] ||= new Set();
                         childIdsByParent[parentId].add(currentNodeId);
 
                         currentNodeId = parentId;
-                        parentId = state.byBranchId[currentBranchId][parentId].parentId;
+                        parentId = state.byBranchId[branchId][parentId].parentId;
                     } else {
                         break;
                     }
@@ -46,10 +46,10 @@ export default function search(state: NodeState, action: PayloadAction<SearchNod
             }
         }
 
-        state.childIds[currentBranchId] = branchChildIds;
+        state.childIds[branchId] = branchChildIds;
     } else {
-        for (const nodeId in state.byBranchId[currentBranchId]) {
-            state.childIds[currentBranchId][nodeId] = state.byBranchId[currentBranchId][nodeId].childIds;
+        for (const nodeId in state.byBranchId[branchId]) {
+            state.childIds[branchId][nodeId] = state.byBranchId[branchId][nodeId].childIds;
         }
     }
 }

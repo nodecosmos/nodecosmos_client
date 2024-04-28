@@ -5,7 +5,8 @@ import {
     NodeDescendant,
     Node,
     IndexNode,
-    UpdateTitlePayload, PKWithCurrentBranch,
+    UpdateTitlePayload,
+    PKWithCurrentBranch,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
@@ -28,19 +29,21 @@ interface ShowNodeResponse {
     descendants: NodeDescendant[];
 }
 
-export const showNode = createAsyncThunk<ShowNodeResponse, UUID, { rejectValue: NodecosmosError }>(
+// shows original node with original descendants
+export const showNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/showNode',
-    async (id): Promise<{node: Node, descendants: NodeDescendant[]}> => {
-        const response = await nodecosmos.get(`/nodes/${id}`);
+    async ({ branchId, id }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
+        const response = await nodecosmos.get(`/nodes/${branchId}/${id}/original`);
 
         return response.data;
     },
 );
 
+// shows branch node + branch descendants + original descendants
 export const showBranchNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rejectValue: NodecosmosError }>(
     'nodes/showBranchNode',
     async ({ branchId, id }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
-        const response = await nodecosmos.get(`/nodes/${id}/${branchId}`);
+        const response = await nodecosmos.get(`/nodes/${branchId}/${id}/branch`);
 
         return response.data;
     },
@@ -57,7 +60,7 @@ export interface NodeCreationApiPayload {
 }
 
 export interface NodeCreationPayload extends NodeCreationApiPayload {
-    currentBranchId?: UUID;
+    branchId?: UUID;
     tmpId?: UUID;
 }
 
@@ -147,9 +150,9 @@ export const deleteNode = createAsyncThunk<
 );
 
 export interface ReorderPayload {
-    id: UUID;
+    originalId: UUID;
     branchId: UUID;
-    currentBranchId: UUID;
+    id: UUID;
     newParentId: UUID;
     newUpperSiblingId?: UUID;
     newLowerSiblingId?: UUID;

@@ -22,7 +22,6 @@ export default function NodeToolbar() {
     const {
         isExpanded,
         isSelected,
-        currentBranchId,
         branchId,
         id,
         isCreationInProgress,
@@ -30,7 +29,7 @@ export default function NodeToolbar() {
     const {
         addNode, editNode, removeNode, undoNodeDeletion,
     } = useNodeActions();
-    const likeCount = useSelector(selectNodeAttribute(currentBranchId, id, 'likeCount'));
+    const likeCount = useSelector(selectNodeAttribute(branchId, id, 'likeCount'));
     const {
         isOriginalDeleted, isDeleted, isAncestorDeleted,
     } = useNodeBranchContext();
@@ -92,7 +91,6 @@ export default function NodeToolbar() {
                 id={id}
                 objectType={LikeType.Node}
                 branchId={branchId}
-                currentBranchId={currentBranchId}
                 likeCount={likeCount} />
 
             <Tooltip title="Open Node In New Tab" placement="top">

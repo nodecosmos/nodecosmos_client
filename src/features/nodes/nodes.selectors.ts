@@ -46,8 +46,8 @@ export const selectSelectedNode = createSelector(
         if (!selected) {
             return {} as AppNode;
         }
-        const { currentBranchId, id } = selected;
-        return nodesByBranchId[currentBranchId]?.[id] || {} as AppNode;
+        const { branchId, id } = selected;
+        return nodesByBranchId[branchId]?.[id] || {} as AppNode;
     },
 );
 

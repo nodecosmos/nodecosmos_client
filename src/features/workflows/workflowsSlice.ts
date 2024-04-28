@@ -86,11 +86,11 @@ const workflowsSlice = createSlice({
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const { nodeId, id } = inputOutput.data;
-                const { currentBranchId } = action.meta.arg;
-                const { initialInputIds } = state.byBranchId[currentBranchId][nodeId];
+                const { branchId } = action.meta.arg;
+                const { initialInputIds } = state.byBranchId[branchId][nodeId];
 
                 if (initialInputIds.includes(id as UUID)) {
-                    state.byBranchId[currentBranchId][nodeId].initialInputIds
+                    state.byBranchId[branchId][nodeId].initialInputIds
                         = initialInputIds.filter((iid) => iid !== id);
                 }
             });

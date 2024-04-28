@@ -2,13 +2,12 @@ import {
     BaseCR, ContributionRequest, CreateCRPayload, CRPrimaryKey, UpdateDescriptionCRPayload, UpdateTitleCRPayload,
 } from './contributionRequest.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError } from '../../types';
+import { NodecosmosError, UUID } from '../../types';
 import { Branch } from '../branch/branches.types';
-import { NodeId } from '../nodes/nodes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const indexContributionRequests = createAsyncThunk<BaseCR[], NodeId, { rejectValue: NodecosmosError }>(
+export const indexContributionRequests = createAsyncThunk<BaseCR[], UUID, { rejectValue: NodecosmosError }>(
     'contributionRequests/indexContributionRequests',
     async (nodeId) => {
         const response = await nodecosmos.get(`/contribution_requests/${nodeId}`);

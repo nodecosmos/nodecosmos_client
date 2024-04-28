@@ -17,19 +17,16 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const {
-        objectId,
-        branchId,
-    } = usePaneContext();
-    const { currentBranchId } = useBranchParams();
+    const { objectId } = usePaneContext();
+    const { branchId } = useBranchParams();
 
-    if (!currentBranchId) {
-        throw new Error('`currentBranchId` is required in `metadata`');
+    if (!branchId) {
+        throw new Error('`branchId` is required in `metadata`');
     }
 
     const {
         id, isTmp, coverImageUrl,
-    } = useSelector(selectNode(currentBranchId, objectId));
+    } = useSelector(selectNode(branchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
     const handleClose = useCallback((responseBody?: { url: string }) => {
@@ -37,12 +34,12 @@ export default function NodePaneCoverImage() {
 
         if (responseBody?.url) {
             dispatch(updateState({
-                currentBranchId,
+                branchId,
                 id,
                 coverImageUrl: responseBody.url,
             }));
         }
-    }, [closeModal, currentBranchId, dispatch, id]);
+    }, [closeModal, branchId, dispatch, id]);
 
     return (
         <>

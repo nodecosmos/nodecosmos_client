@@ -12,9 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function TreeBreadcrumbs() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { isBranch, currentBranchId } = useBranchParams();
+    const { branchId } = useBranchParams();
     const selectedNode = useSelector(selectSelectedNode);
-    const nodeTitlesById = useSelector(selectBranchTitles(currentBranchId));
+    const nodeTitlesById = useSelector(selectBranchTitles(branchId));
     const items: { id: UUID; title?: string; }[] = [];
 
     if (selectedNode && selectedNode.ancestorIds) {
@@ -41,14 +41,11 @@ export default function TreeBreadcrumbs() {
     }
 
     const handleClick = useCallback((id: UUID) => {
-        const branchId = isBranch ? currentBranchId : id;
-
         dispatch(select({
-            currentBranchId,
-            branchId: branchId as UUID,
+            branchId,
             id,
         }));
-    }, [isBranch, dispatch, currentBranchId]);
+    }, [dispatch, branchId]);
 
     return (
         <Breadcrumbs

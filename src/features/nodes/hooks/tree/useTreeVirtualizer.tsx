@@ -1,25 +1,25 @@
 import useTreeContext from './useTreeContext';
+import { UUID } from '../../../../types';
 import { isYInViewport } from '../../../../utils/position';
 import { selectTransformablePositionsById } from '../../../app/app.selectors';
 import { selectJustCreatedNodeId } from '../../nodes.selectors';
-import { NodeId } from '../../nodes.types';
 import { useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 type isAlreadyMounted = boolean;
-type VirtualizedNode = [NodeId, isAlreadyMounted];
+type VirtualizedNode = [UUID, isAlreadyMounted];
 
 export default function useTreeVirtualizer(): VirtualizedNode[] {
     const {
-        currentBranchId, orderedTreeNodeIds, treeNodes,
+        branchId, orderedTreeNodeIds, treeNodes,
     } = useTreeContext();
     const justCreatedNodeId = useSelector(selectJustCreatedNodeId);
-    const transformablePositions = useSelector(selectTransformablePositionsById(currentBranchId));
-    const prevIsMounted = useRef<Set<NodeId>>(new Set());
+    const transformablePositions = useSelector(selectTransformablePositionsById(branchId));
+    const prevIsMounted = useRef<Set<UUID>>(new Set());
 
     return useMemo(() => {
         const visibleNodes: VirtualizedNode[] = [];
-        const alreadyRendered = new Set<NodeId>();
+        const alreadyRendered = new Set<UUID>();
 
         if (!orderedTreeNodeIds) return [];
 

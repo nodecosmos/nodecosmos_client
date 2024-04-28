@@ -4,17 +4,15 @@ import { selectObject } from '../../app/app.thunks';
 import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
 import useBranchParams from '../../branch/hooks/useBranchParams';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
-import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { deleteFlow, updateFlowTitle } from '../flows.thunks';
 import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useFlowActions() {
-    const { branchId } = useWorkflowContext();
     const {
         id: flowId, nodeId, startIndex, verticalIndex,
     } = useFlowContext();
-    const { currentBranchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
     const {
         openTitleEdit,
         closeTitleEdit,
@@ -23,14 +21,13 @@ export default function useFlowActions() {
 
     const handleFlowClick = useCallback(() => {
         dispatch(selectObject({
-            currentOriginalBranchId: branchId,
-            currentBranchId,
-            objectNodeId: nodeId,
+            originalId,
             branchId,
+            objectNodeId: nodeId,
             objectId: flowId,
             objectType: ObjectType.Flow,
         }));
-    }, [branchId, currentBranchId, dispatch, flowId, nodeId]);
+    }, [branchId, dispatch, flowId, nodeId, originalId]);
 
     const deleteFlowCb = useCallback(() => {
         dispatch(deleteFlow({

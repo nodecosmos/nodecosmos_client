@@ -39,7 +39,6 @@ export function buildFlow(data: FlowStepData): FlowRes {
         const empty = calculateFlowStepPosition({
             flowStep: null,
             flowStartIndex,
-            stepIndex: 0,
             prefFlowYEnd,
             workflowStepIndex: flowStartIndex,
         });
@@ -62,7 +61,6 @@ export function buildFlow(data: FlowStepData): FlowRes {
             const flowStepPosition = calculateFlowStepPosition({
                 flowStep,
                 flowStartIndex,
-                stepIndex,
                 prefFlowYEnd,
                 currentFlowYEnd,
                 workflowStepIndex: flowStartIndex + stepIndex,

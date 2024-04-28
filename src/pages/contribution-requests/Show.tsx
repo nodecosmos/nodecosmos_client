@@ -17,24 +17,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 export default function Show() {
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    const cr = useSelector(selectContributionRequest(currentOriginalBranchId, currentBranchId));
+    const cr = useSelector(selectContributionRequest(originalId, branchId));
     const [isNodeFetched, setIsNodeFetched] = React.useState(false);
 
     useEffect(() => {
         dispatch(setHeaderContent('ContributionRequestShowHeader'));
         dispatch(showContributionRequest({
-            nodeId: currentOriginalBranchId,
-            id: currentBranchId,
-        })).then(() => dispatch(indexComments(currentBranchId)));
+            nodeId: originalId,
+            id: branchId,
+        })).then(() => dispatch(indexComments(branchId)));
 
         return () => {
             dispatch(setHeaderContent(''));
             dispatch(setCurrentContributionRequest(null));
         };
-    }, [currentOriginalBranchId, dispatch, currentBranchId]);
+    }, [originalId, dispatch, branchId]);
 
     useEffect(() => {
         if (cr) {
@@ -52,8 +52,8 @@ export default function Show() {
         }
 
         dispatch(showBranchNode({
-            branchId: currentBranchId,
-            id: currentOriginalBranchId,
+            branchId,
+            id: originalId,
         })).then((response) => {
             setIsNodeFetched(true);
 
@@ -64,7 +64,7 @@ export default function Show() {
                 return;
             }
         });
-    }, [currentOriginalBranchId, dispatch, isNodeFetched, currentBranchId]);
+    }, [originalId, dispatch, isNodeFetched, branchId]);
 
     if (!isNodeFetched) {
         return <Loader />;

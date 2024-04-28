@@ -4,16 +4,16 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useNodeEdit() {
-    const { currentBranchId, id } = useNodeContext();
+    const { branchId, id } = useNodeContext();
     const dispatch = useDispatch();
 
     return useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
 
         dispatch(updateState({
-            currentBranchId,
+            branchId,
             id,
             isEditing: true,
         }));
-    }, [dispatch, id, currentBranchId]);
+    }, [dispatch, id, branchId]);
 }

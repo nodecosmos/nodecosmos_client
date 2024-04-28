@@ -4,19 +4,19 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 // redux action
 export interface BuildTmpNodeAction extends TreeNodeKey {
-    currentBranchId: UUID;
+    branchId: UUID;
     tmpId: UUID;
 }
 
 export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNodeAction>) {
     const {
-        currentBranchId, tmpId, id,
+        branchId, tmpId, id,
     } = action.payload;
-    const node = state.byBranchId[currentBranchId][id];
+    const node = state.byBranchId[branchId][id];
     const parentAncestors = node.ancestorIds || [];
-    const lastChildIndex = state.childIds[currentBranchId][id].length - 1;
-    const lastChildId = state.childIds[currentBranchId][id][lastChildIndex];
-    const lastChild = state.byBranchId[currentBranchId][lastChildId];
+    const lastChildIndex = state.childIds[branchId][id].length - 1;
+    const lastChildId = state.childIds[branchId][id][lastChildIndex];
+    const lastChild = state.byBranchId[branchId][lastChildId];
 
     let orderIndex = 0;
 
@@ -24,7 +24,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         orderIndex = lastChild.orderIndex + 1;
     }
 
-    state.byBranchId[currentBranchId][tmpId] = {
+    state.byBranchId[branchId][tmpId] = {
         id: tmpId,
         branchId: tmpId,
         rootId: node.rootId,
@@ -52,49 +52,48 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         treeRootId: node.treeRootId,
     };
 
-    state.childIds[currentBranchId][id].push(tmpId);
-    state.childIds[currentBranchId][tmpId] = [];
-    state.byBranchId[currentBranchId][id].childIds.push(tmpId);
+    state.childIds[branchId][id].push(tmpId);
+    state.childIds[branchId][tmpId] = [];
+    state.byBranchId[branchId][id].childIds.push(tmpId);
 }
 
 interface ReplaceProps {
-    currentBranchId: UUID;
+    branchId: UUID;
     tmpId: UUID;
 }
 
 export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAction<ReplaceProps>) {
-    const { tmpId, currentBranchId } = action.payload;
+    const { tmpId, branchId } = action.payload;
 
-    if (tmpId && currentBranchId) {
-        const tmpNode = state.byBranchId[currentBranchId][tmpId];
+    if (tmpId && branchId) {
+        const tmpNode = state.byBranchId[branchId][tmpId];
         const persistedId = tmpNode.persistedId as UUID;
-        const newNode = state.byBranchId[currentBranchId][persistedId];
+        const newNode = state.byBranchId[branchId][persistedId];
         const parentId = tmpNode.parentId;
-        const parentChildIds = state.childIds[currentBranchId][parentId];
+        const parentChildIds = state.childIds[branchId][parentId];
         const siblingIndex = parentChildIds.indexOf(tmpId);
 
         parentChildIds.splice(siblingIndex, 1, persistedId);
-        state.byBranchId[currentBranchId][parentId].childIds = parentChildIds;
+        state.byBranchId[branchId][parentId].childIds = parentChildIds;
 
         if (tmpNode.isSelected) {
             newNode.isSelected = true;
             newNode.isCreationInProgress = false;
             state.selected = {
-                currentBranchId,
-                branchId: newNode.branchId,
+                branchId,
                 id: persistedId,
             };
         }
 
         // update node state
-        state.byBranchId[currentBranchId][persistedId] = newNode;
-        state.titles[currentBranchId][persistedId] = newNode.title;
-        state.childIds[currentBranchId][persistedId] = [];
+        state.byBranchId[branchId][persistedId] = newNode;
+        state.titles[branchId][persistedId] = newNode.title;
+        state.childIds[branchId][persistedId] = [];
 
         state.justCreatedNodeId = persistedId;
 
-        // delete state.childIds[currentBranchId][tmpNode.id];
-        // delete state.titles[currentBranchId][tmpNode.id];
-        // delete state.byBranchId[currentBranchId][tmpNode.id];
+        // delete state.childIds[branchId][tmpNode.id];
+        // delete state.titles[branchId][tmpNode.id];
+        // delete state.byBranchId[branchId][tmpNode.id];
     }
 }

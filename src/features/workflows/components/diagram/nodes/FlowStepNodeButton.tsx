@@ -25,13 +25,11 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepNodeButton() {
-    const {
-        branchId, context: workflowContext, deactivateInputsAddition,
-    } = useWorkflowContext();
+    const { context: workflowContext, deactivateInputsAddition } = useWorkflowContext();
     const {
         id, title, position, flowStepId,
     } = useFlowStepNodeContext();
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
     const { x, y } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const preventDefault = usePreventDefault();
@@ -47,18 +45,16 @@ export default function FlowStepNodeButton() {
         deactivateInputsAddition();
 
         dispatch(selectObject({
-            currentOriginalBranchId,
-            currentBranchId,
+            originalId,
+            branchId,
             objectNodeId: id,
             objectId: id,
-            branchId,
             objectType: ObjectType.Node,
             metadata: { flowStepId },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(select({
-                currentBranchId: branchId,
                 branchId,
                 id,
             }));
@@ -66,8 +62,7 @@ export default function FlowStepNodeButton() {
     },
     [
         branchId,
-        currentOriginalBranchId,
-        currentBranchId,
+        originalId,
         deactivateInputsAddition,
         dispatch,
         flowStepId,

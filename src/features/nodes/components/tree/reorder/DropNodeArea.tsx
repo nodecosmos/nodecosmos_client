@@ -21,11 +21,11 @@ function DropNodeArea(props: DropNodeAreaProps) {
         parentId: dragAndDropParentId,
         siblingIndex: dragAndDropSiblingIndex,
     } = dragAndDrop;
-    const { currentBranchId, treeNodes } = useTreeContext();
+    const { branchId, treeNodes } = useTreeContext();
     const {
         parentId,
         isTmp,
-    } = useSelector(selectNode(currentBranchId, id));
+    } = useSelector(selectNode(branchId, id));
     const {
         upperSiblingId,
         siblingIndex,

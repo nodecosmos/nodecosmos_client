@@ -1,4 +1,5 @@
 import { UUID } from '../../../../../types';
+import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import { NodeProps } from '../../../components/tree/node/Node';
 import { selectNode } from '../../../nodes.selectors';
 import useTreeContext from '../useTreeContext';
@@ -15,14 +16,12 @@ export function useNodeContextCreator(contextProviderValue: NodeProps) {
 }
 
 export default function useNodeContext() {
-    const {
-        currentBranchId, id, isAlreadyMounted,
-    } = useContext(NodeContext);
+    const { id, isAlreadyMounted } = useContext(NodeContext);
     const { treeNodes } = useTreeContext();
+    const { branchId } = useBranchParams();
 
     // tree node attributes
     const {
-        branchId,
         rootId,
         parentId,
         persistedId,
@@ -35,7 +34,7 @@ export default function useNodeContext() {
         isEditing,
         isDragOver,
         isCreationInProgress,
-    } = useSelector(selectNode(currentBranchId, id as UUID));
+    } = useSelector(selectNode(branchId, id as UUID));
 
     const {
         treeRootId,
@@ -50,7 +49,6 @@ export default function useNodeContext() {
     } = treeNodes[id] || {};
 
     return {
-        currentBranchId,
         treeRootId,
         branchId,
         id,

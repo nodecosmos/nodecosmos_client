@@ -9,12 +9,12 @@ import { useDispatch } from 'react-redux';
 // Restores a node on a branch.
 export default function useNodeRestore() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { id, currentBranchId } = useNodeContext();
+    const { id, branchId } = useNodeContext();
     const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async () => {
         const response = await dispatch(restoreNode({
-            branchId: currentBranchId,
+            branchId,
             objectId: id,
         }));
 
@@ -25,5 +25,5 @@ export default function useNodeRestore() {
 
             return;
         }
-    }, [dispatch, handleServerError, id, currentBranchId]);
+    }, [dispatch, handleServerError, id, branchId]);
 }

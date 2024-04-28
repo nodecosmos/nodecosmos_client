@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useNodeDrag() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        currentBranchId,
         branchId,
         parentId,
         siblingIndex,
@@ -38,13 +37,12 @@ export default function useNodeDrag() {
         event.dataTransfer?.setDragImage(img, 5, -10);
 
         dispatch(setDragAndDrop({
-            currentBranchId,
-            id,
             branchId,
+            id,
             parentId,
             siblingIndex,
         }));
-    }, [branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex, currentBranchId]);
+    }, [branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
@@ -53,22 +51,22 @@ export default function useNodeDrag() {
         if (isDragOver || id === dragAndDropNodeId || ancestorIds?.includes(dragAndDropNodeId as UUID)) return;
 
         dispatch(updateState({
-            currentBranchId,
+            branchId,
             id,
             isDragOver: true,
         }));
-    }, [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, currentBranchId]);
+    }, [ancestorIds, dispatch, dragAndDropNodeId, id, isDragOver, branchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
         if (!isDragOver) return;
 
         dispatch(updateState({
-            currentBranchId,
+            branchId,
             id,
             isDragOver: false,
         }));
-    }, [dispatch, id, isDragOver, currentBranchId]);
+    }, [dispatch, id, isDragOver, branchId]);
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {

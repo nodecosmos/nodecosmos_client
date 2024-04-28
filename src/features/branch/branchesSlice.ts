@@ -100,8 +100,8 @@ const branchesSlice = createSlice({
             })
             .addCase(create.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload;
-                const { currentBranchId } = action.meta.arg;
-                const branch = currentBranchId && state.byId[currentBranchId];
+                const { branchId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
 
                 if (branch) {
                     branch.createdNodes ||= new Set();
@@ -110,8 +110,8 @@ const branchesSlice = createSlice({
             })
             .addCase(deleteNode.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload.data;
-                const { currentBranchId } = action.meta.arg;
-                const branch = currentBranchId && state.byId[currentBranchId];
+                const { branchId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
 
                 if (branch) {
                     branch.deletedNodes ||= new Set();
@@ -120,8 +120,8 @@ const branchesSlice = createSlice({
             })
             .addCase(updateTitle.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload;
-                const { currentBranchId } = action.meta.arg;
-                const branch = currentBranchId && state.byId[currentBranchId];
+                const { branchId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
 
                 if (branch) {
                     branch.editedTitleNodes ||= new Set();

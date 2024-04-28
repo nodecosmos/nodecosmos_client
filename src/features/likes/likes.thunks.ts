@@ -3,7 +3,7 @@ import {
     likeCountResponse, LikeType,
 } from './likes.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { WithOptCurrentBranchId } from '../../types';
+import { WithMaybeBranchId } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getUserLikes = createAsyncThunk<
@@ -20,7 +20,7 @@ export const getUserLikes = createAsyncThunk<
 
 export const getLikeCount = createAsyncThunk<
     likeCountResponse,
-    WithOptCurrentBranchId<LikePrimaryKey & {objectType: LikeType}>
+    WithMaybeBranchId<LikePrimaryKey & {objectType: LikeType}>
 >(
     'nodes/getLikeCount',
     async (payload): Promise<likeCountResponse> => {
@@ -35,7 +35,7 @@ export const getLikeCount = createAsyncThunk<
 
 export const likeObject = createAsyncThunk<
     likeCountResponse,
-    WithOptCurrentBranchId<Omit<Like, 'createdAt' | 'updatedAt'>>
+    WithMaybeBranchId<Omit<Like, 'createdAt' | 'updatedAt'>>
 >(
     'nodes/likeObject',
     async (payload) => {
@@ -47,7 +47,7 @@ export const likeObject = createAsyncThunk<
 
 export const unlikeObject = createAsyncThunk<
     likeCountResponse,
-    WithOptCurrentBranchId<LikePrimaryKey>
+    WithMaybeBranchId<LikePrimaryKey>
 >(
     'nodes/unlikeObject',
     async ({ objectId, branchId }) => {

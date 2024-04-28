@@ -1,4 +1,5 @@
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
+import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
 import useNodeSSE from '../../features/nodes/hooks/useNodeSSE';
 import { selectOptNode } from '../../features/nodes/nodes.selectors';
@@ -16,6 +17,7 @@ export default function NodeShow() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
+    const { branchId } = useBranchParams();
 
     if (!id) {
         navigate('/404');
@@ -35,7 +37,10 @@ export default function NodeShow() {
             throw new Error('Node ID is not defined');
         }
 
-        dispatch(showNode(id)).then((response) => {
+        dispatch(showNode({
+            branchId,
+            id,
+        })).then((response) => {
             if (response.meta.requestStatus === 'rejected') {
                 navigate('/404');
                 console.error(response);
@@ -48,7 +53,7 @@ export default function NodeShow() {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
 
         };
-    }, [dispatch, navigate, id, isNodeFetched]);
+    }, [dispatch, navigate, id, isNodeFetched, branchId]);
 
     if (!isNodeFetched) {
         return null;
