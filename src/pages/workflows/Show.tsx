@@ -5,27 +5,27 @@ import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import { clearSelectedObject } from '../../features/app/appSlice';
 import Pane from '../../features/app/components/pane/Pane';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
-import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
+import { selectOptNode } from '../../features/nodes/nodes.selectors';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
 import { selectOptWorkflow } from '../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
-import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Show() {
     const {
-        originalId, branchId, nodeId, 
+        originalId, branchId, nodeId,
     } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
     const workflow = useSelector(selectOptWorkflow(branchId, nodeId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const branchNodes = useSelector(selectBranchNodes(branchId as UUID));
+    const node = useSelector(selectOptNode(branchId, nodeId));
+    const rootId = node?.rootId;
 
     const workflowNodeId = workflow?.nodeId;
 
@@ -56,9 +56,9 @@ export default function Show() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (!workflowNodeId) {
+        if (!workflowNodeId && rootId) {
             dispatch(showWorkflow({
-                originalId,
+                rootId,
                 nodeId,
                 branchId,
             })).then(() => setLoading(false));
@@ -69,17 +69,15 @@ export default function Show() {
         return () => {
             dispatch(clearSelectedObject());
         };
-    }, [originalId, branchId, dispatch, workflowNodeId, nodeId]);
+    }, [originalId, branchId, dispatch, workflowNodeId, nodeId, rootId]);
 
-    if (loading || !branchNodes) {
+    if (loading || !rootId) {
         return <Loader />;
     }
 
     if (!workflow) {
         throw new Error('Workflow not found');
     }
-
-    const { rootId } = workflow;
 
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
 
