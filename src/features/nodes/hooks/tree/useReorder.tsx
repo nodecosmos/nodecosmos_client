@@ -21,7 +21,7 @@ export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
     const { branchId, isBranch } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { id } = dragAndDrop || {};
+    const { rootId, id } = dragAndDrop || {};
 
     const [reorderInProgress, setReorderInProgress] = useState(false);
     const handleServerError = useHandleServerErrorAlert();
@@ -50,6 +50,7 @@ export default function useReorder() {
         }
 
         const response = await dispatch(reorder({
+            rootId,
             branchId,
             id,
             newParentId,
@@ -75,6 +76,6 @@ export default function useReorder() {
         setReorderInProgress(false);
     },
     [
-        dispatch, reorderInProgress, childIdsByParentId, branchId, id, isBranch, handleServerError,
+        dispatch, reorderInProgress, childIdsByParentId, rootId, branchId, id, isBranch, handleServerError,
     ]);
 }

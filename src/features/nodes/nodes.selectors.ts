@@ -17,11 +17,6 @@ export const selectBranchNodes = (branchId: UUID) => createSelector(
     (nodesByBranchId) => nodesByBranchId[branchId],
 );
 
-export const hasBranchNodes = (branchId: UUID) => createSelector(
-    selectBranchNodes(branchId),
-    (branchNodes) => !!branchNodes,
-);
-
 export const selectNode = (branchId: UUID, nodeId: UUID) => createSelector(
     selectBranchNodes(branchId),
     (branchNodes) => {

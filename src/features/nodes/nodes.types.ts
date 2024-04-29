@@ -87,6 +87,7 @@ export interface DragAndDrop {
     id: UUID;
     branchId: UUID;
     parentId: UUID;
+    rootId: UUID;
     siblingIndex: number;
 }
 

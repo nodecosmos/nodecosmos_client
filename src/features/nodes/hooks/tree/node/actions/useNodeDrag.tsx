@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useNodeDrag() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
+        rootId,
         branchId,
         parentId,
         siblingIndex,
@@ -37,12 +38,13 @@ export default function useNodeDrag() {
         event.dataTransfer?.setDragImage(img, 5, -10);
 
         dispatch(setDragAndDrop({
+            rootId,
             branchId,
             id,
             parentId,
             siblingIndex,
         }));
-    }, [branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex]);
+    }, [rootId, branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
