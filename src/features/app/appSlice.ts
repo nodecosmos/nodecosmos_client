@@ -76,7 +76,7 @@ const appSlice = createSlice({
         setDescriptionCoordinates(state, action) {
             state.descriptionCoordinates = action.payload;
         },
-        clearPaneContent(state) {
+        clearSelectedObject(state) {
             state.selectedObject = null;
         },
     },
@@ -101,7 +101,7 @@ export const {
     setTransformablePositions,
     setAlert,
     setDescriptionCoordinates,
-    clearPaneContent,
+    clearSelectedObject,
 } = actions;
 
 export default reducer;

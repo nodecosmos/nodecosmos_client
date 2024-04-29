@@ -12,7 +12,7 @@ export default function useNodeRemove() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isBranch } = useBranchParams();
     const {
-        treeRootId, branchId, id, isTmp,
+        treeRootId, branchId, id, rootId, isTmp,
     } = useNodeContext();
     const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ export default function useNodeRemove() {
             }));
         } else {
             dispatch(deleteNode({
+                rootId,
                 branchId,
                 id,
             }));
@@ -33,5 +34,5 @@ export default function useNodeRemove() {
             }
         }
         if (treeRootId === id) navigate('/nodes');
-    }, [branchId, dispatch, id, isBranch, isTmp, navigate, treeRootId]);
+    }, [branchId, dispatch, id, rootId, isBranch, isTmp, navigate, treeRootId]);
 }

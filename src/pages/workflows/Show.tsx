@@ -2,7 +2,7 @@ import Loader from '../../common/components/Loader';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
-import { clearPaneContent } from '../../features/app/appSlice';
+import { clearSelectedObject } from '../../features/app/appSlice';
 import Pane from '../../features/app/components/pane/Pane';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import { selectBranchNodes } from '../../features/nodes/nodes.selectors';
@@ -17,11 +17,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Show() {
-    const { originalId, branchId } = useBranchParams();
+    const {
+        originalId, branchId, nodeId, 
+    } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(branchId, originalId));
+    const workflow = useSelector(selectOptWorkflow(branchId, nodeId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
     const branchNodes = useSelector(selectBranchNodes(branchId as UUID));
 
@@ -56,7 +58,8 @@ export default function Show() {
     useEffect(() => {
         if (!workflowNodeId) {
             dispatch(showWorkflow({
-                nodeId: originalId,
+                originalId,
+                nodeId,
                 branchId,
             })).then(() => setLoading(false));
         } else {
@@ -64,9 +67,9 @@ export default function Show() {
         }
 
         return () => {
-            dispatch(clearPaneContent());
+            dispatch(clearSelectedObject());
         };
-    }, [originalId, branchId, dispatch, workflowNodeId]);
+    }, [originalId, branchId, dispatch, workflowNodeId, nodeId]);
 
     if (loading || !branchNodes) {
         return <Loader />;
@@ -97,7 +100,7 @@ export default function Show() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {workflow && <Workflow nodeId={originalId} branchId={branchId} />}
+                    {workflow && <Workflow nodeId={nodeId} branchId={branchId} />}
                 </Box>
                 <Box
                     component="div"

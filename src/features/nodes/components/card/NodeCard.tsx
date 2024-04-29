@@ -41,7 +41,7 @@ export default function NodeCard({ id }: {id: UUID}) {
                             },
                         }}
                         component={RouterLink}
-                        to={`/nodes/${node.id}`}
+                        to={`/nodes/${node.rootId}/${node.id}`}
                     >
                         <Typography
                             variant="h5"

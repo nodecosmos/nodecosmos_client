@@ -61,11 +61,10 @@ export const deleteIo = createAsyncThunk<
 
             const metadata: BranchMetadata = {};
 
-            if (branchId !== rootId) {
-                const state = getState();
+            const state = getState();
+            const branch = state.branches.byId[branchId];
 
-                const branch = state.branches.byId[branchId];
-
+            if (branch) {
                 metadata.deleteFromState = branch.createdIos.has(id) || branch.restoredIos.has(id);
             } else {
                 metadata.deleteFromState = true;

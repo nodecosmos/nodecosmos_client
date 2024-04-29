@@ -67,6 +67,7 @@ export default function useNodeSave() {
             if (persistedId) {
                 // Update persisted node
                 response = await dispatch(updateTitle({
+                    rootId,
                     branchId,
                     id: persistedId,
                     title,

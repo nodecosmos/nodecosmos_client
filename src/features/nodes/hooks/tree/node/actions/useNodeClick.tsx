@@ -65,6 +65,6 @@ export default function useNodeClick() {
         }
     }, [
         branchId, collapseNode, dispatch, expandNode, handleCheckboxChange, id,
-        isEditing, isExpanded, isSelected, branchId, treeType,
+        isEditing, isExpanded, isSelected, treeType, originalId,
     ]);
 }

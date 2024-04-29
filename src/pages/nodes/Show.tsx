@@ -1,3 +1,4 @@
+import { clearSelectedObject } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
@@ -23,7 +24,7 @@ export default function NodeShow() {
         navigate('/404');
     }
 
-    const optNode = useSelector(selectOptNode(id as UUID, id as UUID));
+    const optNode = useSelector(selectOptNode(branchId as UUID, id as UUID));
     const isNodeFetched = !!optNode;
 
     useNodeSSE(id as UUID, isNodeFetched);
@@ -50,8 +51,7 @@ export default function NodeShow() {
         });
 
         return () => {
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-
+            dispatch(clearSelectedObject());
         };
     }, [dispatch, navigate, id, isNodeFetched, branchId]);
 

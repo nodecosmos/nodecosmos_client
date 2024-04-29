@@ -8,11 +8,11 @@ import { isAxiosError } from 'axios';
 export const getDescription = createAsyncThunk<Description, QueryKey, { rejectValue: NodecosmosError }>(
     'descriptions/getDescription',
     async ({
-        branchId, objectId, nodeId, objectType,
+        branchId, objectId, nodeId, objectType, rootId,
     }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.get(
-                `/descriptions/${nodeId}/${objectId}/${objectType}/${branchId}`,
+                `/descriptions/${branchId}/${objectId}/${rootId}/${objectType}/${nodeId}/base`,
             );
 
             return response.data;
@@ -40,11 +40,11 @@ export const getDescriptionBase64 = createAsyncThunk<
     'descriptions/getDescriptionBase64',
 
     async ({
-        branchId, objectId, nodeId, objectType,
+        branchId, objectId, nodeId, objectType, rootId,
     }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.get(
-                `/descriptions/${nodeId}/${objectId}/${objectType}/${branchId}/base64`,
+                `/descriptions/${branchId}/${objectId}/${rootId}/${objectType}/${nodeId}/base64`,
             );
 
             return response.data;
@@ -66,14 +66,16 @@ export const getDescriptionBase64 = createAsyncThunk<
 
 export const getOriginalDescription = createAsyncThunk<
     Omit<Description, 'base64'>,
-    Omit<QueryKey, 'objectType'> & BranchDiffPayload,
+    QueryKey & BranchDiffPayload,
     { rejectValue: NodecosmosError }
 > (
     'descriptions/getOriginalDescription',
-    async ({ objectId, nodeId }, { rejectWithValue }) => {
+    async ({
+        branchId, objectId, nodeId, objectType, rootId,
+    }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.get(
-                `/descriptions/${nodeId}/${objectId}`,
+                `/descriptions/${branchId}/${objectId}/${rootId}/${objectType}/${nodeId}/original_base64`,
             );
 
             return response.data;

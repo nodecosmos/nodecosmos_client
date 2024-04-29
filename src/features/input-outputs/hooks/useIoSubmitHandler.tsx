@@ -60,6 +60,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
                 const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
                 await dispatch(updateWorkflowInitialInputs({
+                    rootId,
                     nodeId,
                     branchId,
                     initialInputIds,

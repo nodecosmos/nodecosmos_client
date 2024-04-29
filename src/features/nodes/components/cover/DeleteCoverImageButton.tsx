@@ -18,7 +18,7 @@ interface DeleteCoverImageButtonProps {
 
 export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { objectId } = usePaneContext();
+    const { rootId, objectId } = usePaneContext();
     const { branchId } = useBranchParams();
 
     if (!branchId) {
@@ -31,6 +31,7 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
         dispatch(deleteNodeImage({
             branchId,
             id: objectId,
+            rootId,
         })).then((response) => {
             if (response.meta.requestStatus === 'rejected') {
                 const error: NodecosmosError = response.payload as NodecosmosError;
@@ -45,7 +46,7 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
                 coverImageUrl: null,
             }));
         });
-    }, [branchId, dispatch, handleServerError, objectId]);
+    }, [rootId, branchId, dispatch, handleServerError, objectId]);
 
     return (
         <Tooltip title="Delete Cover Image">

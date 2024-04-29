@@ -1,6 +1,7 @@
 import UploadDashboardContainer from './UploadDashboardContainer';
 import nodecosmos from '../../../api/nodecosmos-server';
 import { setAlert } from '../../../features/app/appSlice';
+import { UUID } from '../../../types';
 import CloseModalButton from '../modal/CloseModalButton';
 import {
     Dialog, DialogContent, DialogTitle,
@@ -18,7 +19,7 @@ import { useDispatch } from 'react-redux';
 interface UploadFileModalProps {
     open: boolean;
     onClose: (attachment?: { url: string; filename: string }) => void;
-    params: { nodeId: string; objectId: string };
+    params: { nodeId: UUID; objectId: UUID; rootId: UUID };
 }
 
 interface ResponseData {

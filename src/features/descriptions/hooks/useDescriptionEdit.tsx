@@ -36,6 +36,7 @@ export default function useDescriptionEdit() {
         if (!fetched && !loading) {
             setLoading();
             dispatch(getDescriptionBase64({
+                rootId,
                 nodeId: objectNodeId,
                 branchId,
                 objectId,
@@ -55,6 +56,7 @@ export default function useDescriptionEdit() {
         };
     },
     [
+        rootId,
         branchId,
         objectNodeId,
         objectId,

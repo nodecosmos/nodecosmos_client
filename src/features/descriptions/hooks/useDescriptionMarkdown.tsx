@@ -18,6 +18,7 @@ export default function useDescriptionMarkdown() {
         isBranch, originalId, branchId,
     } = useBranchParams();
     const {
+        rootId,
         mainObjectId: objectId,
         objectType,
         loading,
@@ -53,21 +54,24 @@ export default function useDescriptionMarkdown() {
 
     const getBranchDescription = useCallback(() => {
         return dispatch(getDescription({
+            rootId,
             nodeId: objectNodeId,
             branchId,
             objectId,
             objectType,
         }));
-    }, [dispatch, objectNodeId, branchId, objectId, objectType]);
+    }, [dispatch, rootId, objectNodeId, branchId, objectId, objectType]);
 
     const getOriginalDescriptionCb = useCallback(() => {
         return dispatch(getOriginalDescription({
+            rootId,
             nodeId: objectNodeId,
             originalId,
             branchId,
             objectId,
+            objectType,
         }));
-    }, [branchId, originalId, dispatch, objectId, objectNodeId]);
+    }, [dispatch, rootId, objectNodeId, originalId, branchId, objectId, objectType]);
 
     const { originalMarkdown, branchMarkdown } = useMemo(() => {
         // if the branch is merged and the description has been changed,

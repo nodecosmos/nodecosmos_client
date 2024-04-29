@@ -17,7 +17,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { objectId } = usePaneContext();
+    const { rootId, objectId } = usePaneContext();
     const { branchId } = useBranchParams();
 
     if (!branchId) {
@@ -144,7 +144,7 @@ export default function NodePaneCoverImage() {
                     <UppyUploadImageModal
                         open={modalOpen}
                         onClose={handleClose}
-                        endpointPath={`nodes/${id}/${branchId}/upload_cover_image`}
+                        endpointPath={`nodes/${branchId}/${id}/${rootId}/upload_cover_image`}
                     />
                 </Suspense>
             )}

@@ -96,7 +96,7 @@ export default function NodeToolbar() {
             <Tooltip title="Open Node In New Tab" placement="top">
                 <ButtonBase
                     target="_blank"
-                    href={`/nodes/${id}`}
+                    href={`/nodes/${branchId}/${id}`}
                     className="Item"
                     aria-label="Open Node in New Tab"
                 >

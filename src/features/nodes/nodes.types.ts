@@ -1,5 +1,5 @@
 import {
-    Profile, ProfileType, Position, UUID, BranchId,
+    Profile, ProfileType, Position, UUID, BranchId, RootId,
 } from '../../types';
 
 export interface NodePrimaryKey {
@@ -55,6 +55,7 @@ export interface AppNode extends Node, NodeTreeAttributes {
 export interface IndexNode {
     id: UUID;
     branchId: UUID;
+    rootId: UUID;
     isRoot: boolean;
     isPublic: boolean;
     shortDescription: string | null;
@@ -71,9 +72,8 @@ export interface IndexNodesPayload {
     page?: number;
 }
 
-export type PKWithCurrentBranch = NodePrimaryKey & BranchId;
-export type NodePayload = PKWithCurrentBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
-export type UpdateTitlePayload = PKWithCurrentBranch & Pick<Node, 'title'>;
+export type NodePayload = Partial<Omit<Node, keyof NodePrimaryKey>>;
+export type UpdateTitlePayload = Pick<Node, 'title'> & RootId;
 export type TreeNodeKey = BranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
@@ -97,7 +97,7 @@ export interface NodeState {
     childIds: Record<UUID, Record<UUID, UUID[]>>;
     positions: Record<UUID, Record<UUID, Position>>;
     titles: Record<UUID, Record<UUID, string>>;
-    selected: PKWithCurrentBranch | null;
+    selected: NodePrimaryKey | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<UUID, IndexNode>;
     saveInProgress: boolean;

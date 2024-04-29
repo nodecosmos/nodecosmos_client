@@ -4,7 +4,7 @@ import CloseModalButton from '../../../common/components/modal/CloseModalButton'
 import { NodecosmosDispatch } from '../../../store';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { selectOptFlow } from '../flows.selectors';
-import { createFlow, updateFlowTitle } from '../flows.thunks';
+import { createFlow } from '../flows.thunks';
 import { FlowUpsertPayload } from '../flows.types';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,18 +27,18 @@ export default function FlowModal(props: Props) {
     const {
         open, onClose, id = null, startIndex = 0, verticalIndex = 0,
     } = props;
-    const { branchId, nodeId } = useWorkflowContext();
-
+    const {
+        rootId, branchId, nodeId,
+    } = useWorkflowContext();
     const [loading, setLoading] = React.useState(false);
     const currentFlow = useSelector(selectOptFlow(branchId, id));
     const title = currentFlow ? currentFlow.title : '';
     const dispatch: NodecosmosDispatch = useDispatch();
-    const isNew = !id;
-
     const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);
 
         const payload: FlowUpsertPayload = {
+            rootId,
             nodeId,
             branchId,
             startIndex,
@@ -46,18 +46,11 @@ export default function FlowModal(props: Props) {
             ...formValues,
         };
 
-        if (isNew) {
-            await dispatch(createFlow(payload));
-        } else {
-            payload.id = id;
-            await dispatch(updateFlowTitle(payload));
-        }
+        await dispatch(createFlow(payload));
 
         setTimeout(() => setLoading(false), 500);
         onClose();
-    }, [branchId, dispatch, id, isNew, nodeId, onClose, startIndex, verticalIndex]);
-
-    const dialogTitle = isNew ? 'Add Flow' : 'Edit Flow';
+    }, [branchId, dispatch, nodeId, onClose, rootId, startIndex, verticalIndex]);
 
     return (
         <Dialog
@@ -68,7 +61,7 @@ export default function FlowModal(props: Props) {
             PaperProps={{ elevation: 8 }}
         >
             <DialogTitle>
-                {dialogTitle}
+                Add Flow
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>

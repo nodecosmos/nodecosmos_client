@@ -1,12 +1,13 @@
 import { ObjectType, UUID } from '../../types';
 
 export interface PrimaryKey {
-    objectId: UUID;
     branchId: UUID;
+    objectId: UUID;
 }
 
 export interface QueryKey extends PrimaryKey {
     nodeId: UUID;
+    rootId: UUID;
     objectType: ObjectType;
 }
 

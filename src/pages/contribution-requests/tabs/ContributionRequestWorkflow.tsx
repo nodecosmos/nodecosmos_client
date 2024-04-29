@@ -2,7 +2,7 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
-import { clearPaneContent } from '../../../features/app/appSlice';
+import { clearSelectedObject } from '../../../features/app/appSlice';
 import Pane from '../../../features/app/components/pane/Pane';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Workflow from '../../../features/workflows/components/Workflow';
@@ -18,21 +18,19 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContributionRequestWorkflow() {
-    const { branchId, originalId } = useBranchParams();
+    const {
+        originalId, branchId, nodeId,
+    } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(branchId, originalId));
-    const originalWorkflow = useSelector(selectOptWorkflow(originalId, originalId));
-
+    const workflow = useSelector(selectOptWorkflow(branchId, nodeId));
+    const originalWorkflow = useSelector(selectOptWorkflow(branchId, nodeId));
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
-
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
     const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
-
     const workflowRef = useRef(null);
     const workflowDetailsRef = useRef(null);
-
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
 
     const {
@@ -56,20 +54,22 @@ export default function ContributionRequestWorkflow() {
         if (loading) {
             if (!originalWorkflow?.nodeId) {
                 dispatch(showWorkflow({
-                    nodeId: originalId,
-                    branchId,
+                    originalId,
+                    nodeId,
+                    branchId: originalId,
                 }));
             }
             dispatch(showWorkflow({
-                nodeId: originalId,
+                originalId,
+                nodeId,
                 branchId,
             })).then(() => setLoading(false));
         }
 
         return () => {
-            dispatch(clearPaneContent());
+            dispatch(clearSelectedObject());
         };
-    }, [originalId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
+    }, [originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
 
     if (loading) {
         return <Loader />;
@@ -100,7 +100,7 @@ export default function ContributionRequestWorkflow() {
                     overflow="hidden"
                 >
                     {workflow && <Workflow
-                        nodeId={originalId}
+                        nodeId={nodeId}
                         branchId={branchId}
                         context={WorkflowDiagramContext.workflowPage} />}
                 </Box>

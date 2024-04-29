@@ -3,7 +3,7 @@ import {
 } from './flows.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
-import { NodecosmosError } from '../../types';
+import { NodecosmosError, RootId } from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
@@ -36,27 +36,26 @@ export const updateFlowTitle = createAsyncThunk<
 
 export const deleteFlow = createAsyncThunk<
     WithBranchMetadata<Partial<Flow> & FlowPrimaryKey>,
-    FlowPrimaryKey,
+    FlowPrimaryKey & RootId,
     { state: RootState, rejectValue: NodecosmosError }
 >(
     'flows/deleteFlow',
     async (payload, { rejectWithValue, getState }) => {
         try {
             const {
-                nodeId, branchId, verticalIndex, startIndex, id,
+                nodeId, branchId, verticalIndex, startIndex, id, rootId,
             } = payload;
 
             const response = await nodecosmos.delete(
-                `/flows/${nodeId}/${branchId}/${verticalIndex}/${startIndex}/${id}`,
+                `/flows/${branchId}/${nodeId}/${rootId}/${verticalIndex}/${startIndex}/${id}`,
             );
 
             const metadata: BranchMetadata = {};
 
-            if (branchId !== nodeId) {
-                const state = getState();
+            const state = getState();
+            const branch = state.branches.byId[branchId];
 
-                const branch = state.branches.byId[branchId];
-
+            if (branch) {
                 metadata.deleteFromState = branch.createdFlows.has(id) || branch.restoredFlows.has(id);
             } else {
                 metadata.deleteFromState = true;

@@ -8,9 +8,8 @@ export default function showFulfilled(
 ) {
     const { node, descendants } = action.payload;
     const {
-        branchId: branchId, id, isPublic, owner,
+        branchId, id, isPublic, owner,
     } = node;
-    const isMainBranch = branchId === id;
 
     const stateNode = state.byBranchId[branchId]?.[id] || {};
 
@@ -39,7 +38,7 @@ export default function showFulfilled(
         state.byBranchId[branchId][descendant.id] = {
             ...descendant,
             treeRootId: id,
-            branchId: isMainBranch ? descendant.id : branchId,
+            branchId,
             isTmp: false,
             isPublic,
             isRoot: false,

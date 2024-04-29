@@ -108,6 +108,7 @@ interface UseExtensionsProps {
     base64?: string | null;
     wsAuthNodeId?: UUID;
     wsAuthNodeBranchId?: UUID;
+    wsAuthRootId?: UUID;
     wsRoomId?: UUID;
     enabledExtensions?: EnabledExtensions[];
 }
@@ -118,6 +119,7 @@ export default function useExtensions(props: UseExtensionsProps) {
         base64,
         wsAuthNodeId,
         wsAuthNodeBranchId,
+        wsAuthRootId,
         wsRoomId,
         enabledExtensions,
     } = props;
@@ -155,14 +157,14 @@ export default function useExtensions(props: UseExtensionsProps) {
             if (!isRealTime || !wsRoomId || !doc) return null;
 
             const wsProvider = new WebsocketProvider(
-                `${WS_URI}ws/descriptions/${wsAuthNodeId}/${wsAuthNodeBranchId}`, wsRoomId, doc,
+                `${WS_URI}ws/descriptions/${wsAuthNodeBranchId}/${wsAuthNodeId}/${wsAuthRootId}`, wsRoomId, doc,
             );
 
             wsProvider.awareness.setLocalStateField('user', { name: currentUser.username });
 
             return wsProvider;
         },
-        [currentUser.username, doc, isRealTime, wsAuthNodeBranchId, wsAuthNodeId, wsRoomId],
+        [currentUser.username, doc, isRealTime, wsAuthNodeBranchId, wsAuthNodeId, wsAuthRootId, wsRoomId],
     );
 
     useEffect(() => {

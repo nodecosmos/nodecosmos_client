@@ -49,7 +49,6 @@ export default function App() {
                 <Header />
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>
-                        <Route path="/nodes" element={(<NodesIndex />)} />
                         <Route
                             path="/auth"
                             element={isAuthenticated
@@ -58,6 +57,9 @@ export default function App() {
                             <Route path="login" element={<LoginForm />} />
                             <Route path="signup" element={<SignupForm />} />
                         </Route>
+                        <Route path="404" element={<NotFound />} />
+                        <Route path=":username" element={<UserShow />} />
+                        <Route path="/nodes" element={(<NodesIndex />)} />
                         <Route path="/nodes" element={<NodeShow />}>
                             <Route path=":originalId/:id" element={<TreeShow />} />
 
@@ -90,8 +92,6 @@ export default function App() {
                             </Route>
 
                         </Route>
-                        <Route path="404" element={<NotFound />} />
-                        <Route path=":username" element={<UserShow />} />
                     </Routes>
                 </Box>
 

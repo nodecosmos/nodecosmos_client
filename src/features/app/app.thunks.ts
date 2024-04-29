@@ -37,9 +37,7 @@ export const selectObject = createAsyncThunk<
             case ObjectType.FlowStep:
                 originalObjectTitle = state.flowSteps.byBranchId[payload.branchId]?.[payload.objectId]?.stepIndex
                     .toString();
-                objectTitle
-                    = state.flowSteps.byBranchId[payload.originalId]?.[payload.objectId]?.stepIndex
-                        .toString();
+                objectTitle = originalObjectTitle; // flow steps don't have titles
                 break;
 
             case ObjectType.Io:

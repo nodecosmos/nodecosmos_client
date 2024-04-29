@@ -1,6 +1,6 @@
 import SidebarListItem from './SidebarListItem';
 import { NodecosmosTheme } from '../../../../themes/type';
-import { UUID } from '../../../../types';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
 import {
     faChartSimple as faChartSimpleSolid,
     faCodeCommit as faCodeCommitSolid,
@@ -25,13 +25,12 @@ import {
     List, Box, useTheme,
 } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 export default function Sidebar() {
-    const { rootId, id } = useParams();
+    const { branchId, nodeId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
-    const toPath = rootId ? `${rootId}/${id}` : id as UUID;
+    const toPath = `${branchId}/${nodeId}`;
 
     return (
         <Box

@@ -4,11 +4,13 @@ import { selectObject } from '../../app/app.thunks';
 import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
 import useBranchParams from '../../branch/hooks/useBranchParams';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
+import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { deleteFlow, updateFlowTitle } from '../flows.thunks';
 import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useFlowActions() {
+    const { rootId } = useWorkflowContext();
     const {
         id: flowId, nodeId, startIndex, verticalIndex,
     } = useFlowContext();
@@ -31,16 +33,18 @@ export default function useFlowActions() {
 
     const deleteFlowCb = useCallback(() => {
         dispatch(deleteFlow({
+            rootId,
             nodeId,
             branchId,
             startIndex,
             verticalIndex,
             id: flowId,
         }));
-    }, [branchId, dispatch, flowId, nodeId, startIndex, verticalIndex]);
+    }, [rootId, branchId, dispatch, flowId, nodeId, startIndex, verticalIndex]);
 
     const handleTitleChange = useCallback(async (newTitle: string) => {
         await dispatch(updateFlowTitle({
+            rootId,
             nodeId,
             branchId,
             startIndex,
@@ -48,7 +52,7 @@ export default function useFlowActions() {
             id: flowId,
             title: newTitle,
         }));
-    }, [branchId, dispatch, flowId, nodeId, startIndex, verticalIndex]);
+    }, [rootId, branchId, dispatch, flowId, nodeId, startIndex, verticalIndex]);
 
     const restoreFlowCb = useCallback(() => {
         dispatch(restoreFlow({

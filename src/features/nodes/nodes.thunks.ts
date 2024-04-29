@@ -6,11 +6,12 @@ import {
     Node,
     IndexNode,
     UpdateTitlePayload,
-    PKWithCurrentBranch,
 } from './nodes.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
-import { NodecosmosError, UUID } from '../../types';
+import {
+    NodecosmosError, RootId, UUID, WithRootId,
+} from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
@@ -112,20 +113,20 @@ export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { r
 
 export const deleteNode = createAsyncThunk<
     WithBranchMetadata<Node>,
-    PKWithCurrentBranch,
+    NodePrimaryKey & RootId,
     { state: RootState, rejectValue: NodecosmosError }
 >(
     'nodes/deleteNode',
-    async ({ branchId, id }, { rejectWithValue, getState }) => {
+    async ({
+        branchId, id, rootId,
+    }, { rejectWithValue, getState }) => {
         try {
-            const response = await nodecosmos.delete(`/nodes/${id}/${branchId}`);
+            const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/${rootId}`);
             const metadata: BranchMetadata = {};
+            const state = getState();
+            const branch = state.branches.byId[branchId];
 
-            if (branchId !== id) {
-                const state = getState();
-
-                const branch = state.branches.byId[branchId];
-
+            if (branch) {
                 metadata.deleteFromState = branch.createdNodes.has(id) || branch.restoredNodes.has(id);
             } else {
                 metadata.deleteFromState = true;
@@ -150,7 +151,7 @@ export const deleteNode = createAsyncThunk<
 );
 
 export interface ReorderPayload {
-    originalId: UUID;
+    rootId: UUID;
     branchId: UUID;
     id: UUID;
     newParentId: UUID;
@@ -182,11 +183,13 @@ export const reorder = createAsyncThunk<null, ReorderPayload, { rejectValue: Nod
     },
 );
 
-export const deleteNodeImage = createAsyncThunk<null, NodePrimaryKey, { rejectValue: NodecosmosError }>(
+export const deleteNodeImage = createAsyncThunk<null, WithRootId<NodePrimaryKey>, { rejectValue: NodecosmosError }>(
     'nodes/deleteNodeImage',
-    async ({ branchId, id }, { rejectWithValue }) => {
+    async ({
+        branchId, id, rootId,
+    }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/delete_cover_image`);
+            const response = await nodecosmos.delete(`/nodes/${branchId}/${id}/${rootId}/delete_cover_image`);
 
             return response.data;
         } catch (error) {
