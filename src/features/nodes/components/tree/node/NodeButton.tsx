@@ -33,10 +33,9 @@ function NodeButton() {
         dragLeave,
         dropCapture,
     } = useNodeActions();
-    const { branchId } = useBranchParams();
-    const oldTitle = useSelector(selectNodeAttribute(branchId, id, 'title'));
+    const { originalId } = useBranchParams();
+    const oldTitle = useSelector(selectNodeAttribute(originalId, id, 'title'));
     const isTitleEdited = oldTitle && title !== oldTitle;
-
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
 

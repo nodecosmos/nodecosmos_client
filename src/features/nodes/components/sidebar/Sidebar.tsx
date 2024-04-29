@@ -27,10 +27,10 @@ import {
 import React from 'react';
 
 export default function Sidebar() {
-    const { branchId, nodeId } = useBranchParams();
+    const { originalId, nodeId } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
-    const toPath = `${branchId}/${nodeId}`;
+    const toPath = `${originalId}/${nodeId}`;
 
     return (
         <Box

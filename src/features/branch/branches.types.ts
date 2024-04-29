@@ -73,7 +73,7 @@ export interface Branch {
     editedTitleNodes: Set<UUID>;
     editedDescriptionNodes: Set<UUID>;
     reorderedNodes: BranchReorderData[];
-    editedWorkflowNodes: Set<UUID>;
+    editedNodes: Set<UUID>;
     createdWorkflowInitialInputs: Record<UUID, UUID[]>;
     deletedWorkflowInitialInputs: Record<UUID, UUID[]>;
     createdFlows: Set<UUID>;

@@ -106,13 +106,14 @@ export default function PaneToolbar() {
                         textOverflow: 'ellipsis',
                         backgroundColor: isTitleEdited ? 'none' : 'toolbar.active',
                         '.diff-removed': {
-                            backgroundColor: 'diff.removedBg',
-                            color: 'diff.removedFg',
+                            backgroundColor: 'diff.removed.bg',
+                            color: 'diff.removed.fg',
                             fontWeight: 'bold',
                         },
                         '.diff-added': {
-                            backgroundColor: 'diff.addedBg',
-                            color: 'diff.addedFg',
+                            ml: 2,
+                            backgroundColor: 'diff.added.bg',
+                            color: 'diff.added.fg',
                             fontWeight: 'bold',
                         },
                     }}

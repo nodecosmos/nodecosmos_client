@@ -183,12 +183,12 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: '#424d46',
-                fg: '#b1f47a',
+                bg: '#2c4c3c',
+                fg: '#0aff83',
             },
             removed: {
-                bg: '#5e3e4a',
-                fg: '#fd526f',
+                bg: '#5c303f',
+                fg: '#ff6682',
             },
             edited: {
                 bg: '#484d46',

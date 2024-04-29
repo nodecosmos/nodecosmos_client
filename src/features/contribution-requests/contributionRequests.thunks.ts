@@ -2,7 +2,9 @@ import {
     BaseCR, ContributionRequest, CreateCRPayload, CRPrimaryKey, UpdateDescriptionCRPayload, UpdateTitleCRPayload,
 } from './contributionRequest.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError, UUID } from '../../types';
+import {
+    NodecosmosError, UUID, WithRootId,
+} from '../../types';
 import { Branch } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
@@ -22,13 +24,15 @@ interface ShowResponse {
 
 export const showContributionRequest = createAsyncThunk<
     ShowResponse,
-    CRPrimaryKey,
+    WithRootId<CRPrimaryKey>,
     { rejectValue: NodecosmosError }
 >(
     'contributionRequests/showContributionRequest',
-    async ({ nodeId, id }, { rejectWithValue }) => {
+    async ({
+        nodeId, rootId, id, 
+    }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.get(`/contribution_requests/${nodeId}/${id}`);
+            const response = await nodecosmos.get(`/contribution_requests/${nodeId}/${rootId}/${id}`);
 
             return response.data;
         } catch (error) {
@@ -127,7 +131,7 @@ export const updateContributionRequestDescription = createAsyncThunk<
 
 export const deleteContributionRequest = createAsyncThunk<
     ContributionRequest,
-    CRPrimaryKey,
+    WithRootId<CRPrimaryKey>,
     { rejectValue: NodecosmosError }
 >(
     'contributionRequests/deleteContributionRequest',
@@ -157,7 +161,7 @@ interface MergeRejectValue extends NodecosmosError {
 
 export const mergeContributionRequest = createAsyncThunk<
     ContributionRequest,
-    CRPrimaryKey,
+    WithRootId<CRPrimaryKey>,
     { rejectValue: MergeRejectValue }
 >(
     'contributionRequests/mergeContributionRequest',

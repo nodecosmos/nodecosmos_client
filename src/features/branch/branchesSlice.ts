@@ -46,7 +46,7 @@ function initBranch(state: BranchesState, branch: Branch) {
         restoredNodes: new Set(branch.restoredNodes),
         editedTitleNodes: new Set(branch.editedTitleNodes),
         editedDescriptionNodes: new Set(branch.editedDescriptionNodes),
-        editedWorkflowNodes: new Set(branch.editedWorkflowNodes),
+        editedNodes: new Set(branch.editedNodes),
         createdWorkflowInitialInputs: deepArrayToSet(branch.createdWorkflowInitialInputs),
         deletedWorkflowInitialInputs: deepArrayToSet(branch.deletedWorkflowInitialInputs),
         reorderedNodes: branch.reorderedNodes || [],

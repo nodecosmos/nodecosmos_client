@@ -12,8 +12,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function PaneWorkflow() {
-    const { objectId, objectType } = usePaneContext();
-    const { originalId, branchId } = useBranchParams();
+    const {
+        rootId, objectId, objectType, 
+    } = usePaneContext();
+    const { branchId } = useBranchParams();
     if (objectType !== ObjectType.Node) {
         throw new Error('PaneWorkflow is only supported for nodes');
     }
@@ -27,7 +29,7 @@ export default function PaneWorkflow() {
         if (!fetched && !loading && !workflow?.nodeId) {
             setLoading();
             dispatch(showWorkflow({
-                originalId,
+                rootId,
                 nodeId: objectId,
                 branchId,
             })).then(() => {
@@ -43,7 +45,7 @@ export default function PaneWorkflow() {
         };
     },
     [
-        originalId,
+        rootId,
         branchId,
         dispatch,
         fetched,

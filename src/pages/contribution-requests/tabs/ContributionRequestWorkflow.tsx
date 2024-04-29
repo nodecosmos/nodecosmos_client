@@ -5,6 +5,7 @@ import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import { clearSelectedObject } from '../../../features/app/appSlice';
 import Pane from '../../../features/app/components/pane/Pane';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
+import { selectOptNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
@@ -32,6 +33,8 @@ export default function ContributionRequestWorkflow() {
     const workflowRef = useRef(null);
     const workflowDetailsRef = useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
+    const node = useSelector(selectOptNode(branchId, nodeId));
+    const rootId = node?.rootId;
 
     const {
         paneAWidth,
@@ -51,16 +54,16 @@ export default function ContributionRequestWorkflow() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (loading) {
+        if (loading && rootId) {
             if (!originalWorkflow?.nodeId) {
                 dispatch(showWorkflow({
-                    originalId,
+                    rootId,
                     nodeId,
                     branchId: originalId,
                 }));
             }
             dispatch(showWorkflow({
-                originalId,
+                rootId,
                 nodeId,
                 branchId,
             })).then(() => setLoading(false));
@@ -69,18 +72,17 @@ export default function ContributionRequestWorkflow() {
         return () => {
             dispatch(clearSelectedObject());
         };
-    }, [originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
+    }, [rootId, originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
 
     if (loading) {
         return <Loader />;
     }
 
-    if (!workflow) {
+    if (!workflow || !rootId) {
         throw new Error('originalWorkflow is not defined');
     }
 
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
-    const { rootId } = workflow;
 
     return (
         <Box

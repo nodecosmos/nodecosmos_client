@@ -72,7 +72,6 @@ export default function FlowStepModal({ open, onClose }: Props) {
                     stepIndex,
                     nodeIds: filteredNodeIds,
                 };
-
                 response = await dispatch(createFlowStep(insertPayload));
             }
 
@@ -99,8 +98,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
     [
         flowStepNodeIds, allNodes, id, onClose, nodeId, branchId, flowId, stepIndex,
         rootId, dispatch, handleServerError,
-    ],
-    );
+    ]);
 
     return (
         <Dialog
@@ -155,7 +153,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                         }}>
                         <Tree
                             rootId={nodeId}
-                            branchId={nodeId}
+                            branchId={branchId}
                             type={TreeType.Checkbox}
                             onChange={setFlowStepNodeIds}
                             value={flowStepNodeIds}

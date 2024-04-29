@@ -14,6 +14,7 @@ export interface CRPrimaryKey {
 }
 
 export interface ContributionRequest extends CRPrimaryKey {
+    rootId: UUID;
     title: string;
     status: ContributionRequestStatus;
     description?: string;

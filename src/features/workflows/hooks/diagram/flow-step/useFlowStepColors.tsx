@@ -30,7 +30,7 @@ export default function useFlowStepColors() {
         } else if (isFlowDeleted(flowId) || isFlowStepDeleted(id)) {
             colors = diffColors(true, DiffState.Removed, 0.5);
         } else if (isFlowStepCreated(id)) {
-            colors = diffColors(true, DiffState.Added, 0.5);
+            colors = diffColors(true, DiffState.Added, 0.3);
         }
     }
 

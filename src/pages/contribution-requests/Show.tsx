@@ -8,6 +8,7 @@ import { selectContributionRequest } from '../../features/contribution-requests/
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
 import { setCurrentContributionRequest } from '../../features/contribution-requests/contributionRequestsSlice';
 import { select } from '../../features/nodes/nodes.actions';
+import { selectOptNode } from '../../features/nodes/nodes.selectors';
 import { showBranchNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosError } from '../../types';
@@ -22,10 +23,15 @@ export default function Show() {
 
     const cr = useSelector(selectContributionRequest(nodeId, branchId));
     const [isNodeFetched, setIsNodeFetched] = React.useState(false);
+    const node = useSelector(selectOptNode(branchId, nodeId));
+    const rootId = node?.rootId;
 
     useEffect(() => {
+        if (!rootId) return;
+
         dispatch(setHeaderContent('ContributionRequestShowHeader'));
         dispatch(showContributionRequest({
+            rootId,
             nodeId,
             id: branchId,
         })).then(() => dispatch(indexComments(branchId)));
@@ -34,7 +40,7 @@ export default function Show() {
             dispatch(setHeaderContent(''));
             dispatch(setCurrentContributionRequest(null));
         };
-    }, [dispatch, branchId, nodeId]);
+    }, [dispatch, branchId, nodeId, rootId]);
 
     useEffect(() => {
         if (cr) {

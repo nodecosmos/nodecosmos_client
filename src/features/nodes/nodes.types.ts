@@ -72,8 +72,7 @@ export interface IndexNodesPayload {
     page?: number;
 }
 
-export type NodePayload = Partial<Omit<Node, keyof NodePrimaryKey>>;
-export type UpdateTitlePayload = Pick<Node, 'title'> & RootId;
+export type UpdateTitlePayload = Pick<Node, 'title'> & NodePrimaryKey & RootId;
 export type TreeNodeKey = BranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 

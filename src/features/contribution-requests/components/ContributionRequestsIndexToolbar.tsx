@@ -10,9 +10,10 @@ import React from 'react';
 
 interface Props {
     nodeId: UUID;
+    rootId: UUID;
 }
 
-export default function ContributionRequestsIndexToolbar({ nodeId }: Props) {
+export default function ContributionRequestsIndexToolbar({ nodeId, rootId }: Props) {
     const [modalOpen, openModal, closeModal] = useModalOpen();
 
     return (
@@ -38,6 +39,7 @@ export default function ContributionRequestsIndexToolbar({ nodeId }: Props) {
                 <ContributionRequestSearchInput />
             </Box>
             <CreateContributionRequestModal
+                rootId={rootId}
                 nodeId={nodeId}
                 open={modalOpen}
                 onClose={closeModal}

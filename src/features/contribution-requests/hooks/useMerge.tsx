@@ -1,12 +1,14 @@
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError } from '../../../types';
+import { NodecosmosError, UUID } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import useBranchParams from '../../branch/hooks/useBranchParams';
 import { clearNodeBranchData } from '../../nodes/nodes.actions';
 import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
+import { selectContributionRequest } from '../contributionRequests.selectors';
 import { mergeContributionRequest } from '../contributionRequests.thunks';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function useMerge() {
@@ -14,6 +16,9 @@ export default function useMerge() {
         id: nodeId,
         branchId: id,
     } = useParams();
+    const { originalId } = useBranchParams();
+
+    const { rootId } = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
 
     if (!nodeId) {
         throw new Error('Missing nodeId');
@@ -30,6 +35,7 @@ export default function useMerge() {
     return useCallback(async () => {
         try {
             const response = await dispatch(mergeContributionRequest({
+                rootId,
                 nodeId,
                 id,
             }));
@@ -45,7 +51,7 @@ export default function useMerge() {
 
             dispatch(clearNodeBranchData(nodeId));
             dispatch(clearWorkflowBranchData(nodeId));
-            navigate(`/nodes/${nodeId}`);
+            navigate(`/nodes/${originalId}/${nodeId}`);
             setTimeout(() => dispatch(setAlert({
                 isOpen: true,
                 severity: 'success',
@@ -55,5 +61,5 @@ export default function useMerge() {
         catch (error) {
             console.error(error);
         }
-    }, [dispatch, handleServerError, id, navigate, nodeId]);
+    }, [originalId, dispatch, handleServerError, id, navigate, nodeId, rootId]);
 }

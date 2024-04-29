@@ -1,6 +1,5 @@
 import {
     IndexNodesPayload,
-    NodePayload,
     NodePrimaryKey,
     NodeDescendant,
     Node,
@@ -88,7 +87,7 @@ export const create = createAsyncThunk<Node, NodeCreationPayload, { rejectValue:
     },
 );
 
-export const updateTitle = createAsyncThunk<NodePayload, UpdateTitlePayload, { rejectValue: NodecosmosError }>(
+export const updateTitle = createAsyncThunk<UpdateTitlePayload, UpdateTitlePayload, { rejectValue: NodecosmosError }>(
     'nodes/updateTitle',
     async (payload, { rejectWithValue }) => {
         try {
