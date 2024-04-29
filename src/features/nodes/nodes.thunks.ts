@@ -120,7 +120,7 @@ export const deleteNode = createAsyncThunk<
         branchId, id, rootId,
     }, { rejectWithValue, getState }) => {
         try {
-            const response = await nodecosmos.delete(`/nodes/${id}/${branchId}/${rootId}`);
+            const response = await nodecosmos.delete(`/nodes/${branchId}/${id}/${rootId}`);
             const metadata: BranchMetadata = {};
             const state = getState();
             const branch = state.branches.byId[branchId];

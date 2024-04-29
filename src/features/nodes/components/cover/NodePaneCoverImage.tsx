@@ -4,7 +4,7 @@ import { NodecosmosDispatch } from '../../../../store';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { updateState } from '../../nodes.actions';
-import { selectNode } from '../../nodes.selectors';
+import { selectOptNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -24,9 +24,7 @@ export default function NodePaneCoverImage() {
         throw new Error('`branchId` is required in `metadata`');
     }
 
-    const {
-        id, isTmp, coverImageUrl,
-    } = useSelector(selectNode(branchId, objectId));
+    const node = useSelector(selectOptNode(branchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
     const handleClose = useCallback((responseBody?: { url: string }) => {
@@ -35,11 +33,19 @@ export default function NodePaneCoverImage() {
         if (responseBody?.url) {
             dispatch(updateState({
                 branchId,
-                id,
+                id: objectId,
                 coverImageUrl: responseBody.url,
             }));
         }
-    }, [closeModal, branchId, dispatch, id]);
+    }, [closeModal, branchId, dispatch, objectId]);
+
+    if (!node) {
+        return null;
+    }
+
+    const {
+        id, isTmp, coverImageUrl,
+    } = node;
 
     return (
         <>

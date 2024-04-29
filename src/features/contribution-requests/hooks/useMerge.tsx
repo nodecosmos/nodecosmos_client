@@ -1,6 +1,6 @@
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError, UUID } from '../../../types';
+import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import useBranchParams from '../../branch/hooks/useBranchParams';
 import { clearNodeBranchData } from '../../nodes/nodes.actions';
@@ -18,8 +18,6 @@ export default function useMerge() {
     } = useParams();
     const { originalId } = useBranchParams();
 
-    const { rootId } = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
-
     if (!nodeId) {
         throw new Error('Missing nodeId');
     }
@@ -28,11 +26,17 @@ export default function useMerge() {
         throw new Error('Missing branchId');
     }
 
+    const cr = useSelector(selectContributionRequest(nodeId, id));
+    const rootId = cr?.rootId;
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
     const navigate = useNavigate();
 
     return useCallback(async () => {
+        if (!rootId) {
+            throw new Error('Missing rootId');
+        }
+
         try {
             const response = await dispatch(mergeContributionRequest({
                 rootId,

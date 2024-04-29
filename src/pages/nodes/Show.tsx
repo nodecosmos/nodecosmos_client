@@ -1,4 +1,3 @@
-import { clearSelectedObject } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
@@ -18,13 +17,13 @@ export default function NodeShow() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { branchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
 
     if (!id) {
         navigate('/404');
     }
 
-    const optNode = useSelector(selectOptNode(branchId as UUID, id as UUID));
+    const optNode = useSelector(selectOptNode(originalId as UUID, id as UUID));
     const isNodeFetched = !!optNode;
 
     useNodeSSE(id as UUID, isNodeFetched);
@@ -39,7 +38,7 @@ export default function NodeShow() {
         }
 
         dispatch(showNode({
-            branchId,
+            branchId: originalId,
             id,
         })).then((response) => {
             if (response.meta.requestStatus === 'rejected') {
@@ -49,11 +48,7 @@ export default function NodeShow() {
                 return;
             }
         });
-
-        return () => {
-            dispatch(clearSelectedObject());
-        };
-    }, [dispatch, navigate, id, isNodeFetched, branchId]);
+    }, [originalId, dispatch, navigate, id, isNodeFetched, branchId]);
 
     if (!isNodeFetched) {
         return null;

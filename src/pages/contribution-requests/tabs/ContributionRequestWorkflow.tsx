@@ -2,7 +2,6 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
-import { clearSelectedObject } from '../../../features/app/appSlice';
 import Pane from '../../../features/app/components/pane/Pane';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import { selectOptNode } from '../../../features/nodes/nodes.selectors';
@@ -68,10 +67,6 @@ export default function ContributionRequestWorkflow() {
                 branchId,
             })).then(() => setLoading(false));
         }
-
-        return () => {
-            dispatch(clearSelectedObject());
-        };
     }, [rootId, originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
 
     if (loading) {

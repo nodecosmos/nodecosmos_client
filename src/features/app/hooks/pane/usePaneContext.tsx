@@ -1,11 +1,13 @@
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
 import { selectSelectedObject } from '../../app.selectors';
 import { SelectedObject } from '../../app.types';
+import { clearSelectedObject } from '../../appSlice';
 import {
-    createContext, useCallback, useContext, useState,
+    createContext, useCallback, useContext, useEffect, useState,
 } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export enum PaneContent {
     Description,
@@ -28,6 +30,7 @@ interface CtxCreatorValue {
 const PaneContext = createContext<CtxCreatorValue>({} as CtxCreatorValue);
 
 export function usePaneContextCreator(rootId: UUID) {
+    const dispatch: NodecosmosDispatch = useDispatch();
     const [loading, setLoading, _unsetLoading] = useBooleanStateValue();
     const [content, setContent] = useState<PaneContent>(PaneContent.Description);
     const selectedObject = useSelector(selectSelectedObject);
@@ -35,6 +38,10 @@ export function usePaneContextCreator(rootId: UUID) {
     const unsetLoading = useCallback(() => {
         setTimeout(_unsetLoading, 200);
     }, [_unsetLoading]);
+
+    useEffect(() => {
+        dispatch(clearSelectedObject());
+    }, [dispatch]);
 
     return {
         PaneContext,

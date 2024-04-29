@@ -2,7 +2,6 @@ import Loader from '../../common/components/Loader';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
-import { clearSelectedObject } from '../../features/app/appSlice';
 import Pane from '../../features/app/components/pane/Pane';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import { selectOptNode } from '../../features/nodes/nodes.selectors';
@@ -65,10 +64,6 @@ export default function Show() {
         } else {
             setLoading(false);
         }
-
-        return () => {
-            dispatch(clearSelectedObject());
-        };
     }, [originalId, branchId, dispatch, workflowNodeId, nodeId, rootId]);
 
     if (loading || !rootId) {
