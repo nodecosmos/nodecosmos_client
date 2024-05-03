@@ -1,4 +1,6 @@
-import { WithOptionalId, UUID } from '../../types';
+import {
+    WithOptionalId, UUID, RootId, 
+} from '../../types';
 
 export interface FlowPrimaryKey {
     nodeId: UUID;

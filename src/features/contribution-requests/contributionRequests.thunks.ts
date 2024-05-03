@@ -29,7 +29,7 @@ export const showContributionRequest = createAsyncThunk<
 >(
     'contributionRequests/showContributionRequest',
     async ({
-        nodeId, rootId, id, 
+        nodeId, rootId, id,
     }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.get(`/contribution_requests/${nodeId}/${rootId}/${id}`);
@@ -135,9 +135,11 @@ export const deleteContributionRequest = createAsyncThunk<
     { rejectValue: NodecosmosError }
 >(
     'contributionRequests/deleteContributionRequest',
-    async ({ nodeId, id }, { rejectWithValue }) => {
+    async ({
+        nodeId, rootId, id, 
+    }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.delete(`/contribution_requests/${nodeId}/${id}`);
+            const response = await nodecosmos.delete(`/contribution_requests/${nodeId}/${rootId}/${id}`);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

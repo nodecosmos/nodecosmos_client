@@ -42,6 +42,15 @@ export default function App() {
         dispatch(syncUpCurrentUser());
     }, [dispatch]);
 
+    useEffect(() => {
+        navigator.serviceWorker.register('/workers/sse.ts', { type: 'module' })
+            .then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, err => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    }, []);
+
     return (
         <ThemeProvider theme={getTheme(currentTheme)}>
             <CssBaseline />

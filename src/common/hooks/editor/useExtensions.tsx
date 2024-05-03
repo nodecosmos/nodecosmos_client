@@ -2,7 +2,6 @@ import { WS_URI } from '../../../api/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/users/users.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
-import { CountExtension } from '@remirror/extension-count';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ExtensionPriority } from 'remirror';
@@ -49,7 +48,6 @@ export enum EnabledExtensions {
     Strike,
     TaskList,
     TrailingNode,
-    CountExtension,
 }
 
 export type RemirrorExtensions = BlockquoteExtension
@@ -70,7 +68,6 @@ export type RemirrorExtensions = BlockquoteExtension
     | TaskListExtension
     | TrailingNodeExtension
     | YjsExtension
-    | CountExtension;
 
 const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
     [EnabledExtensions.Link]: () => new LinkExtension({
@@ -100,7 +97,6 @@ const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
         defaultTarget: '_blank',
         autoLink: false,
     }),
-    [EnabledExtensions.CountExtension]: () => new CountExtension({ maximum: 64000 }),
 };
 
 interface UseExtensionsProps {

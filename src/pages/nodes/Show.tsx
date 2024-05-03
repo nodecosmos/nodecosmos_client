@@ -1,9 +1,10 @@
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
+import { showBranch } from '../../features/branch/branches.thunks';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import Sidebar from '../../features/nodes/components/sidebar/Sidebar';
-import useNodeSSE from '../../features/nodes/hooks/useNodeSSE';
+import useNodeSSE from '../../features/nodes/hooks/sse/useNodeSSE';
 import { selectOptNode } from '../../features/nodes/nodes.selectors';
-import { showNode } from '../../features/nodes/nodes.thunks';
+import { showBranchNode, showNode } from '../../features/nodes/nodes.thunks';
 import { NodecosmosDispatch } from '../../store';
 import { UUID } from '../../types';
 import { Box } from '@mui/material';
@@ -17,16 +18,17 @@ export default function NodeShow() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { originalId, branchId } = useBranchParams();
-
+    const {
+        originalId, branchId, isBranch,
+    } = useBranchParams();
     if (!id) {
         navigate('/404');
     }
-
     const optNode = useSelector(selectOptNode(originalId as UUID, id as UUID));
     const isNodeFetched = !!optNode;
+    const [branchedFetched, setBranchedFetched] = React.useState(false);
 
-    useNodeSSE(id as UUID, isNodeFetched);
+    useNodeSSE(optNode?.rootId);
 
     useEffect(() => {
         if (isNodeFetched) {
@@ -49,6 +51,18 @@ export default function NodeShow() {
             }
         });
     }, [originalId, dispatch, navigate, id, isNodeFetched, branchId]);
+
+    useEffect(() => {
+        if (isBranch && !branchedFetched) {
+            console.log('showBranchNode');
+            dispatch(showBranchNode({
+                branchId,
+                id: id as UUID,
+            }));
+            dispatch(showBranch(branchId));
+            setBranchedFetched(true);
+        }
+    }, [branchId, branchedFetched, dispatch, id, isBranch, isNodeFetched]);
 
     if (!isNodeFetched) {
         return null;

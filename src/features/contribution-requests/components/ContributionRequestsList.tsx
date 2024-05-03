@@ -3,6 +3,8 @@ import NcAvatar from '../../../common/components/NcAvatar';
 import NcLink from '../../../common/components/NcLink';
 import { NodecosmosDispatch } from '../../../store';
 import { Profile, UUID } from '../../../types';
+import useBranchParams from '../../branch/hooks/useBranchParams';
+import { selectOptNode } from '../../nodes/nodes.selectors';
 import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequests, selectSearchTerm } from '../contributionRequests.selectors';
 import { deleteContributionRequest } from '../contributionRequests.thunks';
@@ -28,13 +30,20 @@ export default function ContributionRequestsList({ nodeId }: Props) {
     const contributionRequests = useSelector(selectContributionRequests(nodeId));
     const searchTerm = useSelector(selectSearchTerm);
     const dispatch: NodecosmosDispatch = useDispatch();
+    const { originalId } = useBranchParams();
+    const optNode = useSelector(selectOptNode(originalId as UUID, nodeId as UUID));
+    const rootId = optNode?.rootId;
 
     const deleteCR = useCallback((id: UUID) => {
+        if (!rootId) {
+            throw new Error('Root ID is not defined');
+        }
         return () => dispatch(deleteContributionRequest({
+            rootId,
             nodeId,
             id,
         }));
-    }, [dispatch, nodeId]);
+    }, [dispatch, nodeId, rootId]);
 
     const columns: GridColDef<ContributionRequest>[] = [
         {

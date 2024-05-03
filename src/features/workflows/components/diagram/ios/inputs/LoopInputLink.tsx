@@ -26,6 +26,11 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     } = theme.palette.workflow;
     const { nestedTreeColor } = useFlowStepNodeColors();
     const color = isSelected ? nestedTreeColor : defaultLoopInputColor;
+
+    if (!outputsById[nodeOutputId]) {
+        return null;
+    }
+
     const { position: originOutputPosition, nodePosition: originNodePosition } = outputsById[nodeOutputId];
     // current input starts where origin output ends (xEnd, yEnd)
     const { xEnd: x, yEnd: y } = originOutputPosition || {};
@@ -37,9 +42,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     }
 
     const originNodeY = originNodePosition.y - ORIGIN_NODE_Y_OFFSET;
-
     const destNodeXOffset = destNodePos.x - DEST_NODE_X_OFFSET;
-
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
     return (
@@ -60,13 +63,13 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                     transition: `d ${transitionAnimationDuration / 2}ms`,
                 }}
             />
-            {/*<text*/}
-            {/*    className="InputLinkText"*/}
-            {/*    x={x - 30}*/}
-            {/*    y={loopOriginY - 5}*/}
-            {/*    fill={isSelected ? backgroundColor : defaultLoopInputColor}>*/}
-            {/*    loop*/}
-            {/*</text>*/}
+            <text
+                className="InputLinkText"
+                x={x - 30}
+                y={originNodeY - 5}
+                fill={isSelected ? selectedLoopInputColor : defaultLoopInputColor}>
+                loop
+            </text>
             <circle
                 className="InputLink"
                 cx={x}

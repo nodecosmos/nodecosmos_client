@@ -40,7 +40,6 @@ const TOOLBAR_MAP: ToolbarMap = {
     [EnabledExtensions.Placeholder]: null,
     [EnabledExtensions.TaskList]: null,
     [EnabledExtensions.TrailingNode]: null,
-    [EnabledExtensions.CountExtension]: null,
 };
 
 export default function RemirrorEditorToolbar() {

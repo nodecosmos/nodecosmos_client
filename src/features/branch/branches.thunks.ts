@@ -18,7 +18,24 @@ export const reloadBranch = createAsyncThunk<Branch, UUID, { rejectValue: Nodeco
         }
 
         try {
-            const response = await nodecosmos.get(`/branches/reload/${branchId}`);
+            const response = await nodecosmos.get(`/branches/${branchId}`);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const showBranch = createAsyncThunk<Branch, UUID, { rejectValue: NodecosmosError }>(
+    'branches/showBranch',
+    async (branchId, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/branches/${branchId}`);
 
             return response.data;
         } catch (error) {

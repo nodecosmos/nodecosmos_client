@@ -1,14 +1,20 @@
 import { Typography } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function NcLink({
-    title, maxWidth, to, onClick, 
-}) {
+interface Props {
+    title: string;
+    maxWidth?: string | number;
+    to?: string;
+}
+
+export default function NcLink(props: Props) {
+    const {
+        title, maxWidth = '100%', to = '',
+    } = props;
+
     return (
         <Typography
-            onClick={onClick}
             component={to ? Link : 'span'}
             to={to}
             variant="body2"
@@ -17,7 +23,6 @@ export default function NcLink({
             p={0.5}
             px={2}
             borderRadius={1}
-            backgroundColor="toolbar.active"
             key="2"
             sx={{
                 maxWidth,
@@ -30,6 +35,7 @@ export default function NcLink({
                     textDecoration: 'underline',
                     color: 'text.link',
                 },
+                backgroundColor: 'toolbar.active',
             }}
         >
             {title}
@@ -37,16 +43,3 @@ export default function NcLink({
         </Typography>
     );
 }
-
-NcLink.defaultProps = {
-    onClick: null,
-    to: null,
-    maxWidth: '100%',
-};
-
-NcLink.propTypes = {
-    title: PropTypes.string.isRequired,
-    maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    to: PropTypes.string,
-    onClick: PropTypes.func,
-};

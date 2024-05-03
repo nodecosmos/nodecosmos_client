@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Show() {
     const {
-        originalId, branchId, nodeId,
+        originalId, branchId, nodeId, isBranch,
     } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
 
@@ -59,12 +59,30 @@ export default function Show() {
             dispatch(showWorkflow({
                 rootId,
                 nodeId,
-                branchId,
-            })).then(() => setLoading(false));
+                branchId: originalId,
+            })).then(() => {
+                if (!isBranch) {
+                    setLoading(false);
+                }
+            });
         } else {
             setLoading(false);
         }
-    }, [originalId, branchId, dispatch, workflowNodeId, nodeId, rootId]);
+    }, [originalId, branchId, dispatch, workflowNodeId, nodeId, rootId, isBranch]);
+
+    useEffect(() => {
+        if (isBranch && rootId) {
+            console.log('showBranchWorkflow');
+            //
+            dispatch(showWorkflow({
+                rootId,
+                nodeId,
+                branchId,
+            })).then(() => {
+                setLoading(false);
+            });
+        }
+    }, [branchId, dispatch, isBranch, nodeId, rootId]);
 
     if (loading || !rootId) {
         return <Loader />;

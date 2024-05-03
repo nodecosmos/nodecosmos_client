@@ -83,7 +83,6 @@ export default function useTreeBuilder(props: Props): Tree {
         }];
 
         let treeIndex = 0;
-        console.log('hit');
 
         while (queue.length > 0) {
             const {

@@ -2,7 +2,7 @@ import useFlowStepNodeContext from './flow-step-node/useFlowStepNodeContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { selectNode } from '../../../nodes/nodes.selectors';
+import { selectOptNode } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -16,11 +16,11 @@ export default function useFlowStepNodeColors() {
     const {
         isFlowStepNodeCreated, isFlowStepNodeDeleted, isFlowStepDeleted, isFlowStepCreated,
     } = useWorkflowBranch();
-    const { ancestorIds } = useSelector(selectNode(branchId, id));
+    const fsNode = useSelector(selectOptNode(branchId, id));
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
-    const nestedTreeColor = backgrounds[(ancestorIds?.length || 0) % backgroundCount];
+    const nestedTreeColor = backgrounds[(fsNode?.ancestorIds?.length || 0) % backgroundCount];
 
     let colors = {
         backgroundColor: isSelected ? nestedTreeColor : theme.palette.background[3],

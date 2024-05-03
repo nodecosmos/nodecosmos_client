@@ -1,6 +1,6 @@
 import { Position, UUID } from '../../../../../types';
 import { selectSelectedObject } from '../../../../app/app.selectors';
-import { selectNode } from '../../../../nodes/nodes.selectors';
+import { selectOptNode } from '../../../../nodes/nodes.selectors';
 import { FlowStepNode } from '../../../diagram/diagram.types';
 import useWorkflowContext from '../../useWorkflowContext';
 import useFlowStepContext from '../flow-step/useFlowStepContext';
@@ -33,7 +33,8 @@ export default function useFlowStepNodeContext() {
     const selectedObject = useSelector(selectSelectedObject);
     const { branchId } = useWorkflowContext();
     const { id: flowStepId } = useFlowStepContext();
-    const { title } = useSelector(selectNode(branchId, id));
+    const fsNode = useSelector(selectOptNode(branchId, id));
+    const title = fsNode?.title || 'deleted node';
     const position = flowStepNode?.position || {} as Position;
     const inputIds = flowStepNode?.inputIds || [];
     const outputs = flowStepNode?.outputs || [];

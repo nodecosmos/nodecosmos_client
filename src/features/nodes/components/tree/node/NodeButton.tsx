@@ -62,7 +62,7 @@ function NodeButton() {
             <NodeSymbol />
 
             <div className="NodeButtonText">
-                {isTitleEdited && <span className="diff-removed">{oldTitle}</span>}
+                {isTitleEdited && <span className="diff-removed">{originalNode?.title}</span>}
                 <span className={isTitleEdited ? 'diff-added' : undefined}>{title}</span>
             </div>
         </button>

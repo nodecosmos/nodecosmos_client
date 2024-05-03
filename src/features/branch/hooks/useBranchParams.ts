@@ -1,5 +1,7 @@
 import { UUID } from '../../../types';
+import { selectOptNode } from '../../nodes/nodes.selectors';
 import { BranchParams } from '../branches.types';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 interface UseBranchParams extends BranchParams {
@@ -10,15 +12,17 @@ interface UseBranchParams extends BranchParams {
 export default function useBranchParams(): UseBranchParams {
     const { originalId, id: nodeId } = useParams<{ originalId: UUID, id: UUID }>();
     let { branchId } = useParams<{ branchId: UUID }>();
-    const isBranch = !!branchId;
 
     if (!branchId) {
         branchId = originalId as UUID;
     }
 
+    const node = useSelector(selectOptNode(originalId as UUID, nodeId));
+    const isBranch = (node || false) && node.rootId !== originalId;
+
     return {
         isBranch,
-        originalId: originalId as UUID,
+        originalId: isBranch && node ? node.rootId : originalId as UUID,
         branchId,
         nodeId: nodeId as UUID,
     };

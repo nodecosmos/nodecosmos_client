@@ -1,6 +1,6 @@
 import ContributionRequestMainThreadComments from './ContributionRequestMainThreadComments';
 import { UUID } from '../../../types';
-import { mainCrThread } from '../../comments/comments.selectors';
+import { selectThread } from '../../comments/comments.selectors';
 import { ObjectType, ThreadType } from '../../comments/comments.types';
 import CommentEditor from '../../comments/components/CommentEditor';
 import { Box } from '@mui/material';
@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 
 export default function ContributionRequestMainThread() {
     const { id: nodeId, branchId: id } = useParams();
-    const mainThread = useSelector(mainCrThread(id as UUID));
+    const mainThread = useSelector(selectThread(id as UUID));
     const mainThreadCommentEditor = React.useMemo(() => {
         if (mainThread) {
             return (

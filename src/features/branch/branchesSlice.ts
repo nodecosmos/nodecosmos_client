@@ -4,7 +4,7 @@ import {
     restoreFlow,
     restoreFlowStep,
     restoreIo,
-    restoreNode,
+    restoreNode, showBranch,
     undoDeleteFlow,
     undoDeleteFlowStep, undoDeleteIo,
     undoDeleteNode,
@@ -210,6 +210,7 @@ const branchesSlice = createSlice({
                     branch.deletedIos.add(ioId);
                 }
             })
+            .addCase(showBranch.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(restoreNode.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(undoDeleteNode.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(restoreFlow.fulfilled, (state, action) => initBranch(state, action.payload))

@@ -1,3 +1,8 @@
+import { LinkProps } from '@mui/material';
+import {
+    ForwardRefExoticComponent, ReactNode, RefAttributes,
+} from 'react';
+
 type Shadow = string | 0;
 
 interface Shadows {
