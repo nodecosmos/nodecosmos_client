@@ -19,6 +19,8 @@ const initWorkflowStep = (stepIndex: number): WorkflowStep => ({
     position: calculateWorkflowStepPosition(stepIndex),
     flows: [],
     outputIds: new Set(),
+    inputIds: new Set(),
+    hasLoop: false,
 });
 
 export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDiagram {
@@ -77,6 +79,10 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
                     workflowSteps[wfIndex].outputIds.add(output.id);
                 });
 
+                workflowStepFlow.inputIds.forEach((inputId) => {
+                    workflowSteps[wfIndex].inputIds.add(inputId);
+                });
+
                 // update yEnd of each flow step to highest yEnd within the flow
                 workflowStepFlow.position.yEnd = currentFlowYEnd;
             });
@@ -86,6 +92,17 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
 
         height = prefFlowYEnd;
     }
+
+    let prevWorkflowStep: WorkflowStep | null = null;
+    workflowSteps.forEach((step) => {
+        if (prevWorkflowStep) {
+            step.hasLoop = !Array.from(step.inputIds).every(id => prevWorkflowStep?.outputIds.has(id));
+        } else {
+            step.hasLoop = !Array.from(step.inputIds).every(id => initialInputs.find(input => input.id === id));
+        }
+
+        prevWorkflowStep = step;
+    });
 
     // init workflow diagram
     return {

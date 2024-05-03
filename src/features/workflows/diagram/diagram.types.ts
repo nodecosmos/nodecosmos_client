@@ -40,6 +40,7 @@ export interface WorkflowStepFlow {
     position: Position;
     flowStepNodes: FlowStepNode[];
     outputs: Output[]; // combined outputs from all nodes
+    inputIds: UUID[]; // combined inputs from all nodes
     prevStepIndex: Decimal | null;
     nextStepIndex: Decimal | null;
 }
@@ -49,6 +50,8 @@ export interface WorkflowStep {
     flows: WorkflowStepFlow[];
     position: Position;
     outputIds: Set<UUID>;
+    inputIds: Set<UUID>;
+    hasLoop: boolean;
 }
 
 export interface WorkflowDiagram {

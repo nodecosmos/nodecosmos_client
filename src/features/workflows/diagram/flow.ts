@@ -51,6 +51,7 @@ export function buildFlow(data: FlowStepData): FlowRes {
             position: empty,
             flowStepNodes: [],
             outputs: [],
+            inputIds: [],
             prevStepIndex: null,
             nextStepIndex: null,
         });
@@ -69,6 +70,7 @@ export function buildFlow(data: FlowStepData): FlowRes {
             currentFlowYEnd = Math.max(flowStepPosition.yEnd, currentFlowYEnd);
 
             let prevNodeYEnd = 0;
+            const flowInputIds: UUID[] = [];
             const flowOutputs: Output[] = [];
 
             const flowStepNodes = flowStep?.nodeIds?.map((nodeId) => {
@@ -88,6 +90,11 @@ export function buildFlow(data: FlowStepData): FlowRes {
 
                 // collect all outputs from all nodes
                 flowOutputs.push(...outputs);
+
+                // collect all inputs from all nodes
+                flowStep.inputIdsByNodeId[nodeId]?.forEach((inputId) => {
+                    flowInputIds.push(inputId);
+                });
 
                 const node: FlowStepNode = {
                     id: nodeId,
@@ -113,6 +120,7 @@ export function buildFlow(data: FlowStepData): FlowRes {
                 position: flowStepPosition,
                 flowStepNodes,
                 outputs: flowOutputs,
+                inputIds: flowInputIds,
                 prevStepIndex,
                 nextStepIndex,
             });
