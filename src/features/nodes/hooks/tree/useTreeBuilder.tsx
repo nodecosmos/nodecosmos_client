@@ -2,11 +2,17 @@ import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from './useTreeContext';
 import { UUID } from '../../../../types';
-import { selectBranchChildIds, selectNodeAttribute } from '../../nodes.selectors';
+import { TRANSFORMABLE_ID } from '../../../app/constants';
+import { setNodeScrollTo } from '../../nodes.actions';
+import {
+    selectBranchChildIds, selectNode, selectScrollTo,
+} from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
 import { calculatePosition } from '../../utils/position';
-import { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import {
+    useCallback, useEffect, useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 type QueueItem = {
     currentId: UUID;
@@ -37,12 +43,30 @@ export default function useTreeBuilder(props: Props): Tree {
         branchId,
         type,
     } = props;
-    const ancestorIds = useSelector(selectNodeAttribute(branchId, treeRootId, 'ancestorIds'));
+    const { ancestorIds } = useSelector(selectNode(branchId, treeRootId));
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
+    const scrollToId = useSelector(selectScrollTo);
+    const dispatch = useDispatch();
+
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
         orderedTreeNodeIds: [] as UUID[],
     });
+
+    useEffect(() => {
+        if (scrollToId) {
+            const transformable = document.getElementById(TRANSFORMABLE_ID);
+            const node = treeState.treeNodes[scrollToId];
+
+            if (transformable && node) {
+                transformable.scrollTop = node.y - 50;
+                transformable.scrollLeft = node.x - 50;
+
+                dispatch(setNodeScrollTo(null));
+            }
+        }
+    }, [dispatch, scrollToId, treeState.treeNodes]);
+
     const buildTree = useCallback(() => {
         if (!branchChildIds) return;
 
@@ -59,6 +83,7 @@ export default function useTreeBuilder(props: Props): Tree {
         }];
 
         let treeIndex = 0;
+        console.log('hit');
 
         while (queue.length > 0) {
             const {

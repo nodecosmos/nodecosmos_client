@@ -27,7 +27,7 @@ import { useDispatch } from 'react-redux';
 export default function FlowStepNodeButton() {
     const { context: workflowContext, deactivateInputsAddition } = useWorkflowContext();
     const {
-        id, title, position, flowStepId,
+        id, title, position, flowStepId, inputIds,
     } = useFlowStepNodeContext();
     const { originalId, branchId } = useBranchParams();
     const { x, y } = position;
@@ -40,7 +40,6 @@ export default function FlowStepNodeButton() {
     } = useFlowStepNodeColors();
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
@@ -50,7 +49,10 @@ export default function FlowStepNodeButton() {
             objectNodeId: id,
             objectId: id,
             objectType: ObjectType.Node,
-            metadata: { flowStepId },
+            metadata: {
+                flowStepId,
+                inputIds,
+            },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
@@ -66,6 +68,7 @@ export default function FlowStepNodeButton() {
         deactivateInputsAddition,
         dispatch,
         flowStepId,
+        inputIds,
         id,
         workflowContext,
     ]);

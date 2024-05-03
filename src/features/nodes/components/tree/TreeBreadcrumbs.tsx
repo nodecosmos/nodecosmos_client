@@ -1,7 +1,6 @@
 import TreeBreadcrumbItem from './TreeBreadcrumbItem';
 import { NodecosmosDispatch } from '../../../../store';
 import { UUID } from '../../../../types';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { select } from '../../nodes.actions';
 import { selectBranchTitles, selectSelectedNode } from '../../nodes.selectors';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
@@ -12,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function TreeBreadcrumbs() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { branchId } = useBranchParams();
     const selectedNode = useSelector(selectSelectedNode);
+    const branchId = selectedNode?.branchId;
     const nodeTitlesById = useSelector(selectBranchTitles(branchId));
     const items: { id: UUID; title?: string; }[] = [];
 

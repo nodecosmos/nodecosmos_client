@@ -6,7 +6,7 @@ import {
     replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
 } from '../../../../nodes.actions';
 import { SAVE_NODE_TIMEOUT } from '../../../../nodes.constants';
-import { selectNodeAttribute, selectSaveInProgress } from '../../../../nodes.selectors';
+import { selectNode, selectSaveInProgress } from '../../../../nodes.selectors';
 import { create, updateTitle } from '../../../../nodes.thunks';
 import useNodeContext from '../useNodeContext';
 import {
@@ -24,7 +24,7 @@ export default function useNodeSave() {
         rootId,
         persistedId,
     } = useNodeContext();
-    const orderIndex = useSelector(selectNodeAttribute(branchId, id, 'orderIndex'));
+    const { orderIndex } = useSelector(selectNode(branchId, id));
     const handleServerError = useHandleServerErrorAlert();
     const saveInProgress = useSelector(selectSaveInProgress);
     const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
@@ -74,8 +74,8 @@ export default function useNodeSave() {
                 }));
             } else {
                 const data = {
-                    branchId,
                     rootId,
+                    branchId,
                     parentId,
                     isRoot: false,
                     isPublic: true,

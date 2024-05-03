@@ -4,7 +4,7 @@ import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
-import { selectNodeAttribute } from '../../../../nodes.selectors';
+import { selectNode } from '../../../../nodes.selectors';
 import LikeButton from '../../../LikeButton';
 import {
     faArrowUpRightFromSquare, faPenToSquare, faTrash, faUndo,
@@ -29,7 +29,7 @@ export default function NodeToolbar() {
     const {
         addNode, editNode, removeNode, undoNodeDeletion,
     } = useNodeActions();
-    const likeCount = useSelector(selectNodeAttribute(branchId, id, 'likeCount'));
+    const { likeCount } = useSelector(selectNode(branchId, id));
     const {
         isOriginalDeleted, isDeleted, isAncestorDeleted,
     } = useNodeBranchContext();

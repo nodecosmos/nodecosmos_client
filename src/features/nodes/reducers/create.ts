@@ -17,7 +17,8 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
         };
         // update node state
         state.titles[branchId][id] = tmpNode.title;
-        state.childIds[branchId][id] = [];
+        // avoid double rendering as this will be added in `replaceTmpNodeWithPersisted`
+        // state.childIds[branchId][id] = [];
 
         tmpNode.persistedId = id;
         tmpNode.branchId = branchId;

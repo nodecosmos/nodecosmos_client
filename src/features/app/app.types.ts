@@ -16,10 +16,6 @@ export interface Alert {
     isOpen: boolean;
     message: string;
     severity: 'info' | 'warning' | 'error' | 'success';
-    anchorOrigin: {
-        vertical: 'top' | 'bottom';
-        horizontal: 'left' | 'center' | 'right';
-    };
 }
 
 // TODO: remove this once we get rid of current landing page
@@ -55,6 +51,7 @@ export interface SelectedObject {
     insidePane?: boolean;
     metadata?: {
         flowStepId?: UUID;
+        inputIds?: UUID[]; // for selecting inputs on fs node click
         mainObjectId?: UUID;
     };
 }

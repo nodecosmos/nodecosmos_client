@@ -6,7 +6,7 @@ import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import useNodeActions from '../../../hooks/tree/node/useNodeActions';
 import useNodeColors from '../../../hooks/tree/node/useNodeColors';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
-import { selectNodeAttribute } from '../../../nodes.selectors';
+import { selectOptNode } from '../../../nodes.selectors';
 import { useTheme } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -34,8 +34,8 @@ function NodeButton() {
         dropCapture,
     } = useNodeActions();
     const { originalId } = useBranchParams();
-    const oldTitle = useSelector(selectNodeAttribute(originalId, id, 'title'));
-    const isTitleEdited = oldTitle && title !== oldTitle;
+    const originalNode = useSelector(selectOptNode(originalId, id));
+    const isTitleEdited = originalNode ? title !== originalNode.title : false;
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
 

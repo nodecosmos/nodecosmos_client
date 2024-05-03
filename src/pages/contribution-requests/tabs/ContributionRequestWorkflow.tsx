@@ -69,11 +69,11 @@ export default function ContributionRequestWorkflow() {
         }
     }, [rootId, originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
 
-    if (loading) {
+    if (loading || !rootId) {
         return <Loader />;
     }
 
-    if (!workflow || !rootId) {
+    if (!workflow) {
         throw new Error('originalWorkflow is not defined');
     }
 

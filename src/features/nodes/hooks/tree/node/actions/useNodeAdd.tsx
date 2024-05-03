@@ -51,10 +51,6 @@ export default function useNodeAdd() {
                 isOpen: true,
                 severity: 'error',
                 message,
-                anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                },
             }));
         } else {
             initTempChildNode();

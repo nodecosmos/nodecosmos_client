@@ -15,6 +15,7 @@ export default function useNodeClick() {
         isExpanded,
         isEditing,
         isSelected,
+        isCreationInProgress,
     } = useNodeContext();
     const { type: treeType } = useTreeContext();
     const {
@@ -35,6 +36,8 @@ export default function useNodeClick() {
 
     //------------------------------------------------------------------------------------------------------------------
     return useCallback((event: MouseEvent<HTMLButtonElement | HTMLInputElement>) => {
+        if (isCreationInProgress) return;
+
         if (treeType === 'checkbox') {
             event.preventDefault();
             event.stopPropagation();
@@ -65,6 +68,6 @@ export default function useNodeClick() {
         }
     }, [
         branchId, collapseNode, dispatch, expandNode, handleCheckboxChange, id,
-        isEditing, isExpanded, isSelected, treeType, originalId,
+        isEditing, isExpanded, isSelected, treeType, originalId, isCreationInProgress,
     ]);
 }

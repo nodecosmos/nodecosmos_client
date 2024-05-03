@@ -38,6 +38,7 @@ const initialState: NodeState = {
     saveInProgress: false,
     dragAndDrop: null,
     justCreatedNodeId: null,
+    scrollTo: null,
 };
 
 const nodesSlice = createSlice({
@@ -69,6 +70,9 @@ const nodesSlice = createSlice({
             delete state.childIds[branchId];
             delete state.positions[branchId];
             delete state.titles[branchId];
+        },
+        setNodeScrollTo: (state: NodeState, action: PayloadAction<UUID | null>) => {
+            state.scrollTo = action.payload;
         },
     },
     extraReducers(builder) {

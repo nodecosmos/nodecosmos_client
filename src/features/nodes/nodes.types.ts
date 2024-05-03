@@ -98,6 +98,7 @@ export interface NodeState {
     positions: Record<UUID, Record<UUID, Position>>;
     titles: Record<UUID, Record<UUID, string>>;
     selected: NodePrimaryKey | null;
+    scrollTo: UUID | null;
     nodePaneContent: NodePaneContent;
     indexNodesById: Record<UUID, IndexNode>;
     saveInProgress: boolean;

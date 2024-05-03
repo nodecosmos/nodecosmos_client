@@ -37,10 +37,6 @@ const initialState: AppState = {
         isOpen: false,
         message: '',
         severity: 'info',
-        anchorOrigin: {
-            vertical: 'top',
-            horizontal: 'center',
-        },
     },
     descriptionCoordinates: {
         x: 0,

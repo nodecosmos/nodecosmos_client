@@ -13,11 +13,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function PaneWorkflow() {
     const {
-        rootId, objectId, objectType, 
+        rootId, objectId, objectType,
     } = usePaneContext();
     const { branchId } = useBranchParams();
     if (objectType !== ObjectType.Node) {
         throw new Error('PaneWorkflow is only supported for nodes');
+    }
+
+    if (!branchId) {
+        throw new Error('PaneWorkflow requires a branchId');
     }
 
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();

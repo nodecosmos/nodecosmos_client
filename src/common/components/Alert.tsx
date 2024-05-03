@@ -1,17 +1,22 @@
+import { selectAlert } from '../../features/app/app.selectors';
 import { setAlert } from '../../features/app/appSlice';
 import { HEADER_HEIGHT } from '../../features/app/constants';
 import {
     Alert as MuiAlert, Typography, Box,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Alert({ position }) {
+interface AlertProps {
+    position?: string;
+}
+
+export default function Alert(props: AlertProps) {
+    const { position = 'fixed' } = props;
     const dispatch = useDispatch();
     const {
-        isOpen, message, severity, anchorOrigin,
-    } = useSelector((state) => state.app.alert);
+        isOpen, message, severity,
+    } = useSelector(selectAlert);
 
     const handleClose = useCallback(() => dispatch(
         setAlert({
@@ -32,12 +37,10 @@ export default function Alert({ position }) {
     return (
         <Box
             display={isOpen ? 'flex' : 'none'}
-            onClose={handleClose}
-            anchororigin={anchorOrigin}
             minHeight={HEADER_HEIGHT}
-            position={position}
             width={1}
             zIndex={3}
+            sx={{ position }}
         >
             <MuiAlert
                 onClose={handleClose}
@@ -70,7 +73,3 @@ export default function Alert({ position }) {
         </Box>
     );
 }
-
-Alert.defaultProps = { position: 'fixed' };
-
-Alert.propTypes = { position: PropTypes.string };
