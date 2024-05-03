@@ -104,6 +104,7 @@ export enum ActionTypes {
     ReadComment = 'READ_COMMENT',
     UpdateComment = 'UPDATE_COMMENT',
     DeleteComment = 'DELETE_COMMENT',
+    CloseSSE = 'CLOSE_SSE',
 }
 
 export type EventData = Comment | Node;

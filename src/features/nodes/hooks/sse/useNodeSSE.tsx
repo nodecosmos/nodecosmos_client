@@ -37,7 +37,13 @@ export default function useNodeSSE(rootId?: UUID) {
             });
         });
 
+        window.onbeforeunload = () => {
+            channel.postMessage({ action: ActionTypes.CloseSSE });
+        };
+
         return () => {
+            channel.postMessage({ action: ActionTypes.CloseSSE });
+
             channel.close();
         };
     }, [currentUser, dispatch, rootId]);

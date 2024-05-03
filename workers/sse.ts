@@ -16,13 +16,15 @@ self.addEventListener('activate', (event) => {
 });
 
 const channel = new BroadcastChannel(CHANNEL_NAME);
-
-let eventSource: EventSource | null = null;
+const eventSourceByURL = new Map<string, EventSource>();
+const activeClientsByURL = new Map<string, number>();
 
 function initializeSSE(url: string) {
+    const eventSource = eventSourceByURL.get(url);
+
     if (!eventSource) {
-        console.log('Initializing SSE', url);
-        eventSource = new EventSource(url, { withCredentials: true });
+        const eventSource = new EventSource(url, { withCredentials: true });
+        eventSourceByURL.set(url, eventSource);
 
         eventSource.addEventListener(ActionTypes.CreateComment, (event) => {
             const data: Comment = JSON.parse(event.data);
@@ -33,11 +35,32 @@ function initializeSSE(url: string) {
             });
         });
 
+        eventSource.onmessage = (event) => {
+            console.log('EventSource message:', event);
+        };
+
         eventSource.onerror = (error) => {
             console.error('EventSource failed:', error);
             eventSource?.close();
         };
+
+        channel.onmessage = (event) => {
+            if (event.data.action === ActionTypes.CloseSSE) {
+                const activeClients = (activeClientsByURL.get(url) ?? 1) - 1;
+                activeClientsByURL.set(url, activeClients);
+
+                if (activeClients === 0) {
+                    console.log('Closing EventSource:', url);
+                    eventSource.close();
+                    eventSourceByURL.delete(url);
+                }
+            }
+        };
+
+        activeClientsByURL.set(url, 0);
     }
+
+    activeClientsByURL.set(url, (activeClientsByURL.get(url) ?? 0) + 1);
 }
 
 interface InitMessage {
