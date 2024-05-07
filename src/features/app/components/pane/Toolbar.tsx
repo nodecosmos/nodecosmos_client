@@ -1,3 +1,4 @@
+import { PanePage } from './Pane';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
@@ -5,7 +6,7 @@ import { HEADER_HEIGHT } from '../../constants';
 import { PaneContent, usePaneContext } from '../../hooks/pane/usePaneContext';
 import TogglePaneButton from '../TogglePaneButton';
 import {
-    faDisplay, faPenToSquare, faRectangleCode, faCodeCommit,
+    faCodeCommit, faDisplay, faPenToSquare, faRectangleCode,
 } from '@fortawesome/pro-regular-svg-icons';
 import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +15,7 @@ import React, { useCallback } from 'react';
 
 export default function PaneToolbar() {
     const {
-        objectTitle, originalObjectTitle, setContent, content, objectType,
+        objectTitle, originalObjectTitle, setContent, content, objectType, page,
     } = usePaneContext();
 
     const isTitleEdited = objectTitle && objectTitle !== originalObjectTitle;
@@ -63,7 +64,7 @@ export default function PaneToolbar() {
                     <ToolbarItem
                         title="Workflow"
                         icon={faCodeCommit}
-                        color="toolbar.blue"
+                        color="toolbar.purple"
                         active={content === PaneContent.Workflow}
                         onClick={handleTogglePane}
                         onClickValue={PaneContent.Workflow}
@@ -123,7 +124,9 @@ export default function PaneToolbar() {
                     <span className={isTitleEdited ? 'diff-added' : undefined}>{objectTitle}</span>
                 </Typography>
             </Box>
-            <TogglePaneButton />
+            {
+                (page === PanePage.Workflow && <TogglePaneButton />) || <div />
+            }
         </Box>
     );
 }

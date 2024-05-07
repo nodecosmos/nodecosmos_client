@@ -1,7 +1,7 @@
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
-import Pane from '../../features/app/components/pane/Pane';
+import Pane, { PanePage } from '../../features/app/components/pane/Pane';
 import useBranchParams from '../../features/branch/hooks/useBranchParams';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
@@ -114,7 +114,7 @@ export default function Show() {
                 borderLeft={1}
                 style={{ borderLeftColor: resizerHovered ? theme.palette.borders['4'] : theme.palette.borders['2'] }}
             >
-                <Pane rootId={nodeRootId} />
+                <Pane rootId={nodeRootId} page={PanePage.Tree} />
             </Box>
         </Box>
     );

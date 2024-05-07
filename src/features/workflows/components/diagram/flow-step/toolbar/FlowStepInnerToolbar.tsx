@@ -90,10 +90,10 @@ export default function FlowStepInnerToolbar() {
                                 sx={{ color: 'toolbar.red' }}
                             />
                         </Tooltip>
-                        <Tooltip title="Restore Flow." placement="top">
+                        <Tooltip title="Restore Flow Step" placement="top">
                             <IconButton
                                 className="Item"
-                                aria-label="Restore Flow"
+                                aria-label="Restore Step"
                                 sx={{ color: 'toolbar.lightRed' }}
                                 onClick={restoreFlowStep}
                             >

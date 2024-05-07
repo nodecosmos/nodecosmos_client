@@ -4,12 +4,21 @@ import { usePaneContextCreator } from '../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
-interface Props {
-    rootId: UUID;
+export enum PanePage {
+    Tree,
+    Workflow,
 }
 
-export default function Pane({ rootId }: Props) {
-    const { PaneContext, CtxCreatorValue } = usePaneContextCreator(rootId);
+export interface PaneProps {
+    rootId: UUID;
+    page: PanePage;
+}
+
+export default function Pane({ rootId, page }: PaneProps) {
+    const { PaneContext, CtxCreatorValue } = usePaneContextCreator({
+        rootId,
+        page, 
+    });
 
     if (!CtxCreatorValue.isObjectSelected) {
         return (

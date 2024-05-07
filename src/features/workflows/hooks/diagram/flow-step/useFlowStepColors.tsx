@@ -26,7 +26,7 @@ export default function useFlowStepColors() {
 
     if (isBranch) {
         if (isFlowStepInConflict(id) || isFlowStepDeletedConflict(id)) {
-            colors = diffColors(true, DiffState.Conflict, 0.1);
+            colors = diffColors(true, DiffState.Conflict, 0.2);
         } else if (isFlowDeleted(flowId) || isFlowStepDeleted(id)) {
             colors = diffColors(true, DiffState.Removed, 0.5);
         } else if (isFlowStepCreated(id)) {

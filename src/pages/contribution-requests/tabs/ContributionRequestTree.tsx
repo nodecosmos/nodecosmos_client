@@ -1,6 +1,6 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import Pane from '../../../features/app/components/pane/Pane';
+import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
 import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Tree from '../../../features/nodes/components/tree/Tree';
@@ -102,7 +102,7 @@ export default function ContributionRequestTree() {
                     borderLeftColor: resizerHovered
                         ? theme.palette.borders['5'] : theme.palette.borders['3'],
                 }}>
-                <Pane rootId={rootId} />
+                <Pane rootId={rootId} page={PanePage.Tree} />
             </Box>
         </Box>
     );

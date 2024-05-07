@@ -18,7 +18,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, objectId } = usePaneContext();
-    const { branchId } = useBranchParams();
+    const { isBranch, branchId } = useBranchParams();
 
     if (!branchId) {
         throw new Error('`branchId` is required in `metadata`');
@@ -98,30 +98,34 @@ export default function NodePaneCoverImage() {
                                 image={coverImageUrl}
                                 alt="Cover Image"
                             />
-                            <Button
-                                component="label"
-                                variant="contained"
-                                startIcon={<FontAwesomeIcon icon={faCamera} />}
-                                onClick={openModal}
-                                sx={{
-                                    opacity: buttonDisplayed ? 0.8 : 0,
-                                    transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                                    position: 'absolute',
-                                    backgroundColor: 'background.1',
-                                    color: 'text.primary',
-                                    bottom: 16,
-                                    right: 16,
-                                    '&:hover': { backgroundColor: 'background.1' },
-                                }}
-                            >
-                               Upload cover image
-                            </Button>
+                            {
+                                !isBranch && (
+                                    <Button
+                                        component="label"
+                                        variant="contained"
+                                        startIcon={<FontAwesomeIcon icon={faCamera} />}
+                                        onClick={openModal}
+                                        sx={{
+                                            opacity: buttonDisplayed ? 0.8 : 0,
+                                            transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+                                            position: 'absolute',
+                                            backgroundColor: 'background.1',
+                                            color: 'text.primary',
+                                            bottom: 16,
+                                            right: 16,
+                                            '&:hover': { backgroundColor: 'background.1' },
+                                        }}
+                                    >
+                                        Upload cover image
+                                    </Button>
+                                )
+                            }
                         </Box>
                     </Box>
                 </>
             )}
 
-            {!coverImageUrl && !isTmp && (
+            {!coverImageUrl && !isTmp && !isBranch && (
                 <Box
                     component="div"
                     sx={{

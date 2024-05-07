@@ -2,7 +2,7 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
-import Pane from '../../../features/app/components/pane/Pane';
+import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import { selectOptNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
@@ -125,7 +125,7 @@ export default function ContributionRequestWorkflow() {
                     style={{ borderLeftColor }}
                     sx={{ backgroundColor: 'background.5' }}
                 >
-                    <Pane rootId={rootId} />
+                    <Pane rootId={rootId} page={PanePage.Workflow} />
                 </Box>
             </Box>
         </Box>

@@ -4,6 +4,7 @@ import { ObjectType, UUID } from '../../../../types';
 import { selectSelectedObject } from '../../app.selectors';
 import { SelectedObject } from '../../app.types';
 import { clearSelectedObject } from '../../appSlice';
+import { PanePage, PaneProps } from '../../components/pane/Pane';
 import {
     createContext, useCallback, useContext, useEffect, useState,
 } from 'react';
@@ -17,6 +18,7 @@ export enum PaneContent {
 }
 
 interface CtxCreatorValue {
+    page: PanePage;
     rootId: UUID;
     loading: boolean;
     setLoading: () => void;
@@ -29,7 +31,11 @@ interface CtxCreatorValue {
 
 const PaneContext = createContext<CtxCreatorValue>({} as CtxCreatorValue);
 
-export function usePaneContextCreator(rootId: UUID) {
+export function usePaneContextCreator(props: PaneProps) {
+    const {
+        rootId,
+        page,
+    } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [loading, setLoading, _unsetLoading] = useBooleanStateValue();
     const [content, setContent] = useState<PaneContent>(PaneContent.Description);
@@ -46,6 +52,7 @@ export function usePaneContextCreator(rootId: UUID) {
     return {
         PaneContext,
         CtxCreatorValue: {
+            page,
             rootId,
             loading,
             setLoading,
@@ -64,6 +71,7 @@ interface PaneCtxValue extends CtxValue {
 
 export function usePaneContext(): PaneCtxValue {
     const {
+        page,
         rootId,
         loading,
         setLoading,
@@ -99,6 +107,7 @@ export function usePaneContext(): PaneCtxValue {
     }
 
     return {
+        page,
         rootId,
         loading,
         setLoading,

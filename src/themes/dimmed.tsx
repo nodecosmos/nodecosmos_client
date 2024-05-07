@@ -195,7 +195,7 @@ const theme: NodecosmosTheme = {
                 fg: '#eef47a',
             },
             conflict: {
-                bg: '#705d52',
+                bg: '#934c46',
                 fg: '#f4af7a',
             },
         },
