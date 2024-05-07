@@ -1,40 +1,64 @@
 import { TextField } from '@mui/material';
-import * as PropTypes from 'prop-types';
+import { FieldValidator } from 'final-form';
 import React from 'react';
 import { Field } from 'react-final-form';
 /* mui */
 
-const composeValidators = (validators) => (value, values) => (
-    validators.reduce((error, validator) => error || validator(value, values), undefined)
-);
+function composeValidators<Val> (validators: FieldValidator<Val>[]): FieldValidator<Val> {
+    return (value: Val, allValues: object) => validators.reduce(
+        (error, validator) => error || validator(value, allValues), undefined,
+    );
+}
 
-const requiredValidator = (value) => (
-    value ? undefined : 'is required'
-);
+function requiredValidator<Val> (value: Val) {
+    return value ? undefined : 'is required';
+}
 
-const maxLengthValidator = (maxLength) => (value) => (
-    (value && (value.length > maxLength)) ? `${value.length}/${maxLength} length limit` : undefined
-);
+function maxLengthValidator (maxLength: number) {
+    return (value: string) => (value && (value.length > maxLength))
+        ? `${value.length}/${maxLength} length limit` : undefined;
+}
 
-const minLengthValidator = (minLength) => (value) => (
-    (value && (value.length < minLength)) ? `${value.length}/${minLength} minimum length` : undefined
-);
+function minLengthValidator (minLength: number) {
+    return (value: string) => (value && (value.length < minLength))
+        ? `${value.length}/${minLength} minimum length` : undefined;
+}
 
-export default function FinalFormInputField({
-    name,
-    label,
-    validate,
-    type,
-    disabled,
-    multiline,
-    fullWidth,
-    required,
-    maxLength,
-    minLength,
-    sx,
-    InputProps,
-    placeholder,
-}) {
+interface FinalFormInputFieldProps<Val> {
+    name: string;
+    label?: string;
+    validate?: FieldValidator<Val> | FieldValidator<Val>[];
+    type?: string;
+    disabled?: boolean;
+    multiline?: boolean;
+    fullWidth?: boolean;
+    required?: boolean;
+    maxLength?: number;
+    minLength?: number;
+    sx?: object;
+    InputProps?: object;
+    placeholder?: string;
+
+}
+
+export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps<Val>) {
+    const {
+        label = null,
+        name,
+        validate,
+        type = 'text',
+        disabled = false,
+        multiline = false,
+        fullWidth = false,
+        sx = null,
+        InputProps,
+        /* validators */
+        required = false,
+        maxLength = null,
+        minLength = null,
+        placeholder,
+    } = props;
+
     const validators = [];
 
     if (required) validators.push(requiredValidator);
@@ -42,7 +66,7 @@ export default function FinalFormInputField({
     if (minLength) validators.push(minLengthValidator(minLength));
     if (validate) [validate].flat().forEach((validator) => validators.push(validator));
 
-    const validateFun = (validators.length && composeValidators(validators)) || null;
+    const validateFun = (validators.length && composeValidators(validators)) || undefined;
 
     return (
         <Field
@@ -83,36 +107,3 @@ export default function FinalFormInputField({
         </Field>
     );
 }
-
-FinalFormInputField.defaultProps = {
-    label: null,
-    sx: null,
-    validate: null,
-    type: 'text',
-    disabled: false,
-    multiline: false,
-    fullWidth: false,
-    InputProps: null,
-    /* validators */
-    required: false,
-    maxLength: null,
-    minLength: null,
-    placeholder: null,
-};
-
-FinalFormInputField.propTypes = {
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string,
-    placeholder: PropTypes.string,
-    validate: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-    type: PropTypes.string,
-    disabled: PropTypes.bool,
-    multiline: PropTypes.bool,
-    fullWidth: PropTypes.bool,
-    sx: PropTypes.object,
-    InputProps: PropTypes.object,
-    /* validators */
-    required: PropTypes.bool,
-    maxLength: PropTypes.number,
-    minLength: PropTypes.number,
-};

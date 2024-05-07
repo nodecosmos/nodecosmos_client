@@ -1,4 +1,4 @@
-import Field from '../../../common/components/final-form/FinalFormInputField.jsx';
+import Field from '../../../common/components/final-form/FinalFormInputField';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import { LoginForm } from '../users.thunks';
 import { Button, Grid } from '@mui/material';

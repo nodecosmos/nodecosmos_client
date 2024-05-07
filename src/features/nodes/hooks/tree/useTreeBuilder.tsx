@@ -2,52 +2,76 @@ import {
     LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from './useTreeContext';
 import { UUID } from '../../../../types';
-import { selectBranchChildIds, selectNodeAttribute } from '../../nodes.selectors';
-import { NodeId, TreeType } from '../../nodes.types';
+import { TRANSFORMABLE_ID } from '../../../app/constants';
+import { setNodeScrollTo } from '../../nodes.actions';
+import {
+    selectBranchChildIds, selectNode, selectScrollTo,
+} from '../../nodes.selectors';
+import { TreeType } from '../../nodes.types';
 import { calculatePosition } from '../../utils/position';
-import { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import {
+    useCallback, useEffect, useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 type QueueItem = {
-    currentId: NodeId;
-    parentId: NodeId | null;
+    currentId: UUID;
+    parentId: UUID | null;
     upperSiblingId: UpperSiblingId;
     lowerSiblingId: LowerSiblingId;
     siblingIndex: SiblingIndex;
-    ancestorIds: NodeId[];
+    ancestorIds: UUID[];
 };
 type Queue = QueueItem[];
 
 export interface Tree {
     treeNodes: TreeNodes;
-    orderedTreeNodeIds: NodeId[];
+    orderedTreeNodeIds: UUID[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
     buildTree: () => void;
 }
 
 type Props = {
     treeRootId: UUID;
-    currentBranchId: UUID;
+    branchId: UUID;
     type: TreeType;
 };
 
 export default function useTreeBuilder(props: Props): Tree {
     const {
         treeRootId,
-        currentBranchId,
+        branchId,
         type,
     } = props;
-    const ancestorIds = useSelector(selectNodeAttribute(currentBranchId, treeRootId, 'ancestorIds'));
-    const branchChildIds = useSelector(selectBranchChildIds(currentBranchId));
+    const { ancestorIds } = useSelector(selectNode(branchId, treeRootId));
+    const branchChildIds = useSelector(selectBranchChildIds(branchId));
+    const scrollToId = useSelector(selectScrollTo);
+    const dispatch = useDispatch();
+
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
-        orderedTreeNodeIds: [] as NodeId[],
+        orderedTreeNodeIds: [] as UUID[],
     });
+
+    useEffect(() => {
+        if (scrollToId) {
+            const transformable = document.getElementById(TRANSFORMABLE_ID);
+            const node = treeState.treeNodes[scrollToId];
+
+            if (transformable && node) {
+                transformable.scrollTop = node.y - 50;
+                transformable.scrollLeft = node.x - 50;
+
+                dispatch(setNodeScrollTo(null));
+            }
+        }
+    }, [dispatch, scrollToId, treeState.treeNodes]);
+
     const buildTree = useCallback(() => {
         if (!branchChildIds) return;
 
         const treeNodes = { ...treeState.treeNodes };
-        const orderedTreeNodeIds: NodeId[] = [];
+        const orderedTreeNodeIds: UUID[] = [];
 
         const queue: Queue = [{
             currentId: treeRootId,

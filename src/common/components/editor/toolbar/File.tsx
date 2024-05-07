@@ -11,14 +11,17 @@ import { useSelector } from 'react-redux';
 
 /// TODO: we need to pass pros from RemirrorEditor
 export default function File() {
-    const { id, branchId } = useSelector(selectSelectedNode);
+    const {
+        id, branchId, rootId, 
+    } = useSelector(selectSelectedNode);
     const commands = useCommands<RemirrorExtensions>();
     const [fileDialogOpen, openFileDialog, closeFileDialog] = useBooleanStateValue();
     const fileUploadParams = useMemo(() => ({
         nodeId: id,
+        rootId,
         branchId,
         objectId: id,
-    }), [branchId, id]);
+    }), [branchId, id, rootId]);
 
     const handleFileDialogClose = useCallback((attachment?: { url: string; filename: string }) => {
         if (attachment) {

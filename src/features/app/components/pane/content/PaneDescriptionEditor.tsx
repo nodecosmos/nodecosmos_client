@@ -9,7 +9,10 @@ const RemirrorEditor = React.lazy(
 );
 
 export default function PaneDescriptionEditor() {
-    const { loading } = usePaneContext();
+    const {
+        rootId,
+        loading, 
+    } = usePaneContext();
 
     const {
         objectId,
@@ -34,6 +37,7 @@ export default function PaneDescriptionEditor() {
                     wsRoomId={objectId}
                     wsAuthNodeId={objectNodeId}
                     wsAuthNodeBranchId={branchId}
+                    wsAuthRootId={rootId}
                     editorOutline={0}
                     editorBackgroundColor="background.5"
                     editorFocusBorderColor="toolbar.default"

@@ -11,17 +11,19 @@ export interface BranchChanges {
     isReordered: boolean;
     isDescriptionEdited: boolean;
     isTitleEdited: boolean;
+    isEdited: boolean;
 }
 
 export default function useNodeBranchContext(): BranchChanges {
     const {
-        currentBranchId, id, ancestorIds,
+        branchId, id, ancestorIds,
     } = useNodeContext();
-    const branch = useSelector(selectBranch(currentBranchId));
-    const conflict = useSelector(selectConflict(currentBranchId));
+    const branch = useSelector(selectBranch(branchId));
+    const conflict = useSelector(selectConflict(branchId));
     const {
         deletedNodes,
         createdNodes,
+        editedNodes,
         reorderedNodes,
         editedDescriptionNodes,
         editedTitleNodes,
@@ -49,6 +51,7 @@ export default function useNodeBranchContext(): BranchChanges {
             isOriginalDeleted: (deletedAncestorConflict?.has(id) || deletedEditedNodes?.has(id)) ?? false,
             isDescriptionEdited: editedDescriptionNodes?.has(id) ?? false,
             isTitleEdited: editedTitleNodes?.has(id) ?? false,
+            isEdited: editedNodes?.has(id) ?? false,
         };
     }, [
         ancestorIds,
@@ -60,5 +63,6 @@ export default function useNodeBranchContext(): BranchChanges {
         id,
         reorderedNodes,
         editedTitleNodes,
+        editedNodes,
     ]);
 }

@@ -4,7 +4,7 @@ import {
     restoreFlow,
     restoreFlowStep,
     restoreIo,
-    restoreNode,
+    restoreNode, showBranch,
     undoDeleteFlow,
     undoDeleteFlowStep, undoDeleteIo,
     undoDeleteNode,
@@ -46,7 +46,7 @@ function initBranch(state: BranchesState, branch: Branch) {
         restoredNodes: new Set(branch.restoredNodes),
         editedTitleNodes: new Set(branch.editedTitleNodes),
         editedDescriptionNodes: new Set(branch.editedDescriptionNodes),
-        editedWorkflowNodes: new Set(branch.editedWorkflowNodes),
+        editedNodes: new Set(branch.editedNodes),
         createdWorkflowInitialInputs: deepArrayToSet(branch.createdWorkflowInitialInputs),
         deletedWorkflowInitialInputs: deepArrayToSet(branch.deletedWorkflowInitialInputs),
         reorderedNodes: branch.reorderedNodes || [],
@@ -100,8 +100,8 @@ const branchesSlice = createSlice({
             })
             .addCase(create.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload;
-                const { currentBranchId } = action.meta.arg;
-                const branch = currentBranchId && state.byId[currentBranchId];
+                const { branchId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
 
                 if (branch) {
                     branch.createdNodes ||= new Set();
@@ -110,8 +110,8 @@ const branchesSlice = createSlice({
             })
             .addCase(deleteNode.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload.data;
-                const { currentBranchId } = action.meta.arg;
-                const branch = currentBranchId && state.byId[currentBranchId];
+                const { branchId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
 
                 if (branch) {
                     branch.deletedNodes ||= new Set();
@@ -120,8 +120,8 @@ const branchesSlice = createSlice({
             })
             .addCase(updateTitle.fulfilled, (state, action) => {
                 const { id: nodeId } = action.payload;
-                const { currentBranchId } = action.meta.arg;
-                const branch = currentBranchId && state.byId[currentBranchId];
+                const { branchId } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
 
                 if (branch) {
                     branch.editedTitleNodes ||= new Set();
@@ -210,6 +210,7 @@ const branchesSlice = createSlice({
                     branch.deletedIos.add(ioId);
                 }
             })
+            .addCase(showBranch.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(restoreNode.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(undoDeleteNode.fulfilled, (state, action) => initBranch(state, action.payload))
             .addCase(restoreFlow.fulfilled, (state, action) => initBranch(state, action.payload))

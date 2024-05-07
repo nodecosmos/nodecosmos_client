@@ -1,11 +1,10 @@
 import {
-    Profile, ProfileType, Position, UUID, CurrentBranchId,
+    Profile, ProfileType, Position, UUID, BranchId, RootId,
 } from '../../types';
 
-// for main nodes branch id is equal to branch id
 export interface NodePrimaryKey {
-    id: UUID;
     branchId: UUID;
+    id: UUID;
 }
 
 export interface Node extends NodePrimaryKey {
@@ -26,7 +25,8 @@ export interface Node extends NodePrimaryKey {
     createdAt?: Date | null;
     updatedAt?: Date | null;
 }
-export interface NodeDescendant extends NodePrimaryKey {
+
+export interface NodeDescendant {
     rootId: UUID;
     branchId: UUID;
     nodeId: UUID;
@@ -55,6 +55,7 @@ export interface AppNode extends Node, NodeTreeAttributes {
 export interface IndexNode {
     id: UUID;
     branchId: UUID;
+    rootId: UUID;
     isRoot: boolean;
     isPublic: boolean;
     shortDescription: string | null;
@@ -71,10 +72,8 @@ export interface IndexNodesPayload {
     page?: number;
 }
 
-export type PKWithCurrentBranch = NodePrimaryKey & CurrentBranchId;
-export type NodePayload = PKWithCurrentBranch & Partial<Omit<Node, keyof NodePrimaryKey>>;
-export type UpdateTitlePayload = PKWithCurrentBranch & Pick<Node, 'title'>;
-export type TreeNodeKey = CurrentBranchId & Omit<NodePrimaryKey, 'branchId'>
+export type UpdateTitlePayload = Pick<Node, 'title'> & NodePrimaryKey & RootId;
+export type TreeNodeKey = BranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
 export enum NodePaneContent {
@@ -84,25 +83,24 @@ export enum NodePaneContent {
     Editor = 'editor',
 }
 
-export type BranchId = UUID;
-export type NodeId = UUID;
-
 export interface DragAndDrop {
-    id: NodeId;
-    currentBranchId: BranchId;
-    branchId: BranchId;
-    parentId: NodeId;
+    id: UUID;
+    branchId: UUID;
+    parentId: UUID;
+    rootId: UUID;
     siblingIndex: number;
 }
 
 export interface NodeState {
-    byBranchId: Record<BranchId, Record<NodeId, AppNode>>;
-    childIds: Record<BranchId, Record<NodeId, NodeId[]>>;
-    positions: Record<BranchId, Record<NodeId, Position>>;
-    titles: Record<BranchId, Record<NodeId, string>>;
-    selected: PKWithCurrentBranch | null;
+    // branchId -> nodeId
+    byBranchId: Record<UUID, Record<UUID, AppNode>>;
+    childIds: Record<UUID, Record<UUID, UUID[]>>;
+    positions: Record<UUID, Record<UUID, Position>>;
+    titles: Record<UUID, Record<UUID, string>>;
+    selected: NodePrimaryKey | null;
+    scrollTo: UUID | null;
     nodePaneContent: NodePaneContent;
-    indexNodesById: Record<NodeId, IndexNode>;
+    indexNodesById: Record<UUID, IndexNode>;
     saveInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
     justCreatedNodeId: UUID | null;

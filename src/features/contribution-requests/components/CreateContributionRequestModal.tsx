@@ -24,11 +24,12 @@ interface Props {
     open: boolean;
     onClose: () => void;
     nodeId: UUID;
+    rootId: UUID;
 }
 
 export default function CreateContributionRequestModal(props: Props) {
     const {
-        open, onClose, nodeId,
+        open, onClose, nodeId, rootId,
     } = props;
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -37,6 +38,7 @@ export default function CreateContributionRequestModal(props: Props) {
         setLoading(true);
 
         const payload = {
+            rootId,
             nodeId,
             status: ContributionRequestStatus.WorkInProgress,
             ...formValues,
@@ -46,7 +48,7 @@ export default function CreateContributionRequestModal(props: Props) {
             onClose();
             setTimeout(() => setLoading(false), 500);
         });
-    }, [dispatch, nodeId, onClose]);
+    }, [dispatch, nodeId, onClose, rootId]);
 
     return (
         <Dialog

@@ -41,7 +41,7 @@ export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
             const x = step.position.x || 0;
             const isLast = index === diagram.workflowSteps.length - 1;
 
-            return isLast || isInsideViewport(x);
+            return step.hasLoop || isLast || isInsideViewport(x);
         });
     }, [diagram, isInsideViewport]);
 }

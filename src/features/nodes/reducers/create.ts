@@ -3,11 +3,11 @@ import { NodeState } from '../nodes.types';
 
 export default function createFulfilled(state: NodeState, action: ReturnType<typeof create.fulfilled>) {
     const { id, branchId } = action.payload;
-    const { tmpId, currentBranchId } = action.meta.arg;
+    const { tmpId } = action.meta.arg;
 
-    if (tmpId && currentBranchId) {
-        const tmpNode = state.byBranchId[currentBranchId][tmpId];
-        state.byBranchId[currentBranchId][id] = {
+    if (tmpId && branchId) {
+        const tmpNode = state.byBranchId[branchId][tmpId];
+        state.byBranchId[branchId][id] = {
             ...tmpNode,
             ...action.payload,
             persistedId: id,
@@ -16,8 +16,9 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             isEditing: false,
         };
         // update node state
-        state.titles[currentBranchId][id] = tmpNode.title;
-        state.childIds[currentBranchId][id] = [];
+        state.titles[branchId][id] = tmpNode.title;
+        // avoid double rendering as this will be added in `replaceTmpNodeWithPersisted`
+        // state.childIds[branchId][id] = [];
 
         tmpNode.persistedId = id;
         tmpNode.branchId = branchId;

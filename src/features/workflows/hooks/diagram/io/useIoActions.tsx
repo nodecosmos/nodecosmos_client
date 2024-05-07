@@ -13,7 +13,6 @@ import { useDispatch } from 'react-redux';
 
 export default function useIoActions() {
     const {
-        branchId,
         context: workflowContext,
         inputsAdditionActive,
         selectedInputs,
@@ -23,7 +22,7 @@ export default function useIoActions() {
     const {
         id, rootId, mainId,
     } = useIoContext();
-    const { currentBranchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
     const {
         openTitleEdit,
         closeTitleEdit,
@@ -53,10 +52,9 @@ export default function useIoActions() {
             await handleInputsChange(selectedInputsArray);
         } else if (workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(selectObject({
-                currentOriginalBranchId: branchId,
-                currentBranchId,
-                objectNodeId: nodeId,
+                originalId,
                 branchId,
+                objectNodeId: nodeId,
                 objectId: id,
                 objectType: ObjectType.Io,
                 metadata: { mainObjectId: mainId },
@@ -64,8 +62,8 @@ export default function useIoActions() {
         }
     },
     [
+        originalId,
         branchId,
-        currentBranchId,
         dispatch,
         handleInputsChange,
         id,
@@ -78,27 +76,25 @@ export default function useIoActions() {
         workflowContext,
     ]);
 
-    const deleteIoCb = useCallback(() => {
-        dispatch(deleteIo({
-            currentBranchId,
+    const deleteIoCb = useCallback(async () => {
+        await dispatch(deleteIo({
+            branchId,
             rootId,
             nodeId,
-            branchId,
             id,
         }));
-    }, [branchId, currentBranchId, dispatch, id, nodeId, rootId]);
+    }, [branchId, dispatch, id, nodeId, rootId]);
 
     const handleTitleChange = useCallback(async (newTitle: string) => {
         await dispatch(updateIoTitle({
             mainId,
-            currentBranchId,
+            branchId,
             rootId,
             nodeId,
-            branchId,
             id,
             title: newTitle,
         }));
-    }, [branchId, currentBranchId, dispatch, id, mainId, nodeId, rootId]);
+    }, [branchId, dispatch, id, mainId, nodeId, rootId]);
 
     const undoDeleteIoCb = useCallback(() => {
         dispatch(undoDeleteIo({

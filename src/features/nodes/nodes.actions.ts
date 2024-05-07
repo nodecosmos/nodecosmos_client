@@ -12,4 +12,5 @@ export const {
     setNodePaneContent,
     setSaveInProgress,
     clearJustCreatedNode,
+    setNodeScrollTo,
 } = actions;

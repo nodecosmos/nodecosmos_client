@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 export default function useNodeBranchColors() {
     const { isSelected, nestedLevel } = useNodeContext();
     const {
-        isCreated, isDeleted, isOriginalDeleted, isReordered, isDescriptionEdited,
+        isCreated, isDeleted, isEdited, isOriginalDeleted, isReordered, isDescriptionEdited,
     } = useNodeBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
@@ -32,7 +32,7 @@ export default function useNodeBranchColors() {
             branchColors = diffColors(isSelected, DiffState.Removed);
         } else if (isOriginalDeleted) {
             branchColors = diffColors(isSelected, DiffState.Conflict);
-        } else if (isReordered || isDescriptionEdited) {
+        } else if (isReordered || isDescriptionEdited || isEdited) {
             branchColors = diffColors(isSelected, DiffState.Edited);
         } else {
             branchColors = {
@@ -52,7 +52,7 @@ export default function useNodeBranchColors() {
         };
     },
     [
-        isCreated, isDeleted, isOriginalDeleted, isSelected, isReordered, isDescriptionEdited,
+        isCreated, isDeleted, isOriginalDeleted, isSelected, isReordered, isDescriptionEdited, isEdited,
         defaultBorder, nestedTreeColor, theme.palette, diffColors,
     ],
     );

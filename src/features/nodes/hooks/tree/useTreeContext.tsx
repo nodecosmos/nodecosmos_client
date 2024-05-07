@@ -1,7 +1,7 @@
 import useTreeBuilder from './useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
-import { NodeId, TreeType } from '../../nodes.types';
+import { TreeType } from '../../nodes.types';
 import {
     createContext, useContext, useEffect, useMemo,
 } from 'react';
@@ -9,7 +9,7 @@ import {
 interface TreeContextValue extends TreeProps {
     selectedNodeIds: Set<UUID>;
     treeNodes: TreeNodes;
-    orderedTreeNodeIds: NodeId[];
+    orderedTreeNodeIds: UUID[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
 }
 
@@ -18,20 +18,20 @@ export type LowerSiblingId = UUID | null;
 export type SiblingIndex = number;
 
 export interface TreeNode extends Position {
-    id: NodeId;
-    parentId?: NodeId;
-    childIds: NodeId[];
-    treeRootId: NodeId;
+    id: UUID;
+    parentId?: UUID;
+    childIds: UUID[];
+    treeRootId: UUID;
     upperSiblingId: UpperSiblingId;
     lowerSiblingId: LowerSiblingId;
-    lastChildId: NodeId;
+    lastChildId: UUID;
     isMounted: boolean;
     isExpanded: boolean;
     siblingIndex: SiblingIndex;
     treeIndex: number;
     isTreeRoot: boolean;
-    descendantIds: NodeId[];
-    ancestorIds: NodeId[];
+    descendantIds: UUID[];
+    ancestorIds: UUID[];
     nestedLevel: number;
 }
 
@@ -44,7 +44,7 @@ const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
 export function useTreeContextCreator(props: TreeProps) {
     const {
         rootId,
-        currentBranchId,
+        branchId,
         type = TreeType.Default,
         onChange,
         value,
@@ -59,7 +59,7 @@ export function useTreeContextCreator(props: TreeProps) {
         buildTree,
     } = useTreeBuilder({
         treeRootId: rootId,
-        currentBranchId,
+        branchId,
         type,
     });
 
@@ -69,7 +69,7 @@ export function useTreeContextCreator(props: TreeProps) {
 
     const ctxValue = useMemo(
         () => ({
-            currentBranchId,
+            branchId,
             rootId,
             type,
             selectedNodeIds,
@@ -79,7 +79,7 @@ export function useTreeContextCreator(props: TreeProps) {
             setTreeNodes,
         }),
         [
-            orderedTreeNodeIds, rootId, selectedNodeIds, currentBranchId, treeNodes, type,
+            orderedTreeNodeIds, rootId, selectedNodeIds, branchId, treeNodes, type,
             onChange, setTreeNodes,
         ],
     );

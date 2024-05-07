@@ -2,6 +2,7 @@ import Loader from '../../../../../common/components/Loader';
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
+import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import Workflow from '../../../../workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../../workflows/constants';
 import { showWorkflow } from '../../../../workflows/worfklow.thunks';
@@ -12,10 +13,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function PaneWorkflow() {
     const {
-        objectId, objectType, branchId,
+        rootId, objectId, objectType,
     } = usePaneContext();
+    const { branchId } = useBranchParams();
     if (objectType !== ObjectType.Node) {
         throw new Error('PaneWorkflow is only supported for nodes');
+    }
+
+    if (!branchId) {
+        throw new Error('PaneWorkflow requires a branchId');
     }
 
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
@@ -27,6 +33,7 @@ export default function PaneWorkflow() {
         if (!fetched && !loading && !workflow?.nodeId) {
             setLoading();
             dispatch(showWorkflow({
+                rootId,
                 nodeId: objectId,
                 branchId,
             })).then(() => {
@@ -42,6 +49,7 @@ export default function PaneWorkflow() {
         };
     },
     [
+        rootId,
         branchId,
         dispatch,
         fetched,

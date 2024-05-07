@@ -12,7 +12,7 @@ const EditorContext = createContext<EditorContextValue>({} as EditorContextValue
 
 export function useEditorContextCreator(props: RemirrorEditorProps) {
     const {
-        wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId,
+        wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId, wsAuthRootId,
         isRealTime, enabledExtensions,
     } = props;
 
@@ -21,6 +21,7 @@ export function useEditorContextCreator(props: RemirrorEditorProps) {
         base64,
         wsAuthNodeId,
         wsAuthNodeBranchId,
+        wsAuthRootId,
         wsRoomId,
         enabledExtensions,
     });

@@ -1,6 +1,6 @@
 import SidebarListItem from './SidebarListItem';
 import { NodecosmosTheme } from '../../../../themes/type';
-import { UUID } from '../../../../types';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
 import {
     faChartSimple as faChartSimpleSolid,
     faCodeCommit as faCodeCommitSolid,
@@ -20,18 +20,20 @@ import {
     faTable,
 } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
+import { faSquareRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     List, Box, useTheme,
 } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 export default function Sidebar() {
-    const { rootId, id } = useParams();
+    const {
+        originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId,
+    } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
-
-    const toPath = rootId ? `${rootId}/${id}` : id as UUID;
+    const toOrgId = isContributionRequest ? originalId : branchId;
+    const toPath = `${toOrgId}/${nodeId}`;
 
     return (
         <Box
@@ -42,6 +44,19 @@ export default function Sidebar() {
             mt={7}
         >
             <List sx={{ px: 1 }}>
+                {
+                    (isBranch && !isContributionRequest && branchNodeId) && (
+                        <SidebarListItem
+                            to={`${originalId}/${branchNodeId}/contribution_requests/${branchId}`}
+                            flip
+                            icon={(<FontAwesomeIcon icon={faSquareRight} />)}
+                            selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
+                            title="Contribution Request"
+                            color="toolbar.orange"
+                        />
+                    )
+                }
+
                 <SidebarListItem
                     to={toPath}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
@@ -54,42 +69,50 @@ export default function Sidebar() {
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                     title="Workflow"
-                />
-                <SidebarListItem
-                    to={`${toPath}/contribution_requests`}
-                    icon={(<FontAwesomeIcon icon={faCodePullRequest} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faCodePullRequestSolid} />)}
-                    title="Contribution Requests"
-                    end={false}
-                />
-                <SidebarListItem
-                    to={`${toPath}/topics`}
-                    icon={(<FontAwesomeIcon icon={faMessageBot} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
-                    title="Threads"
-                >
-                    <FontAwesomeIcon icon={faCircle0} color={theme.palette.background.labels.green1} size="2xs" />
-                </SidebarListItem>
-                <SidebarListItem
-                    disabled
-                    to={`${toPath}/tasks_board`}
-                    icon={(<FontAwesomeIcon icon={faTable} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faTableSolid} />)}
-                    title="Tasks Board"
-                />
-                <SidebarListItem
-                    disabled
-                    to={`${toPath}/insights`}
-                    icon={(<FontAwesomeIcon icon={faChartSimple} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faChartSimpleSolid} />)}
-                    title="Insights"
-                />
-                <SidebarListItem
-                    to={`${toPath}/settings`}
-                    icon={(<FontAwesomeIcon icon={faGears} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faGearsSolid} />)}
-                    title="Settings"
-                />
+                />{
+                    (!isBranch || isContributionRequest) && (
+                        <>
+                            <SidebarListItem
+                                to={`${toPath}/contribution_requests`}
+                                icon={(<FontAwesomeIcon icon={faCodePullRequest} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faCodePullRequestSolid} />)}
+                                title="Contribution Requests"
+                                end={false}
+                            />
+                            <SidebarListItem
+                                to={`${toPath}/topics`}
+                                icon={(<FontAwesomeIcon icon={faMessageBot} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
+                                title="Threads"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faCircle0}
+                                    color={theme.palette.background.labels.green1}
+                                    size="2xs" />
+                            </SidebarListItem>
+                            <SidebarListItem
+                                disabled
+                                to={`${toPath}/tasks_board`}
+                                icon={(<FontAwesomeIcon icon={faTable} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faTableSolid} />)}
+                                title="Tasks Board"
+                            />
+                            <SidebarListItem
+                                disabled
+                                to={`${toPath}/insights`}
+                                icon={(<FontAwesomeIcon icon={faChartSimple} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faChartSimpleSolid} />)}
+                                title="Insights"
+                            />
+                            <SidebarListItem
+                                to={`${toPath}/settings`}
+                                icon={(<FontAwesomeIcon icon={faGears} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faGearsSolid} />)}
+                                title="Settings"
+                            />
+                        </>
+                    )
+                }
             </List>
         </Box>
     );

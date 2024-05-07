@@ -3,12 +3,16 @@ import FlowStepInnerToolbar from './toolbar/FlowStepInnerToolbar';
 import FlowTitle from './toolbar/FlowTitle';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
 import useFlowColors from '../../../hooks/diagram/flows/useFlowColors';
+import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
+import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
 import { Box } from '@mui/material';
 import React from 'react';
 
 // Flow and FlowStep toolbar
 export default function Toolbar() {
-    const { backgroundColor: flowBg, outlineColor: flowBorder } = useFlowColors();
+    const { id } = useFlowContext();
+    const { isFlowCreated, isFlowDeleted } = useWorkflowBranch();
+    const { outlineColor: flowBorder } = useFlowColors();
 
     return (
         <Box
@@ -18,10 +22,10 @@ export default function Toolbar() {
             display="flex"
             alignItems="center"
             style={{
-                backgroundColor: flowBg,
                 outline: `solid ${flowBorder}`,
-                outlineWidth: 1,
-                outlineOffset: -1,
+                outlineWidth: isFlowCreated(id) || isFlowDeleted(id) ? 2 : 0,
+                outlineOffset: isFlowCreated(id) || isFlowDeleted(id) ? -2 : 0,
+                borderBottom: isFlowCreated(id) ? 'none' : `1px solid ${flowBorder}`,
             }}>
             <FlowTitle />
             <ToolsContainer ml={1}>

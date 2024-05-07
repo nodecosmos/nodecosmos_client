@@ -26,21 +26,19 @@ interface Props {
 export default function useFlowStepActions(props?: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isFlowDeleted } = useWorkflowBranch();
-    const {
-        rootId, branchId, inputsAdditionActive,
-    } = useWorkflowContext();
-    const { currentBranchId } = useBranchParams();
+    const { rootId, inputsAdditionActive } = useWorkflowContext();
+    const { originalId, branchId } = useBranchParams();
     const {
         flowStepPrimaryKey, stepIndex, nextStepIndex,
     } = useFlowStepContext();
     const { handleFlowClick } = useFlowActions();
     const handleServerError = useHandleServerErrorAlert();
 
-    const deleteFlowStepCb = useCallback(() => {
+    const deleteFlowStepCb = useCallback(async () => {
         if (!flowStepPrimaryKey) {
             throw new Error('Flow Step Primary Key is not defined');
         }
-        dispatch(deleteFlowStep({
+        await dispatch(deleteFlowStep({
             ...flowStepPrimaryKey,
             rootId,
         }));
@@ -95,17 +93,16 @@ export default function useFlowStepActions(props?: Props) {
         props.unhover();
 
         dispatch(selectObject({
-            currentOriginalBranchId: branchId,
-            currentBranchId,
-            objectNodeId: flowStepPrimaryKey.nodeId,
+            originalId,
             branchId,
+            objectNodeId: flowStepPrimaryKey.nodeId,
             objectId: flowStepPrimaryKey.id,
             objectType: ObjectType.FlowStep,
         }));
     },
     [
         inputsAdditionActive, props, flowStepPrimaryKey,
-        isFlowDeleted, dispatch, branchId, currentBranchId, handleFlowClick,
+        isFlowDeleted, dispatch, originalId, branchId, handleFlowClick,
     ]);
 
     const createNextFlowStep = useCallback(async () => {

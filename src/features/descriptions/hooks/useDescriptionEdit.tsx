@@ -1,7 +1,7 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError } from '../../../types';
+import { NodecosmosError, UUID } from '../../../types';
 import { uint8ArrayToBase64 } from '../../../utils/serializer';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
 const EMPTY_PARAGRAPH = '<p></p>';
+
+type HandleChangeById = Record<UUID, number>;
 
 export default function useDescriptionEdit() {
     const {
@@ -25,7 +27,7 @@ export default function useDescriptionEdit() {
         unsetLoading,
     } = usePaneContext();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const handleChangeTimeout = React.useRef<number| null>(null);
+    const handleChangeTimeout = React.useRef<HandleChangeById| null>(null);
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     const handleServerError = useHandleServerErrorAlert();
     const {
@@ -36,6 +38,7 @@ export default function useDescriptionEdit() {
         if (!fetched && !loading) {
             setLoading();
             dispatch(getDescriptionBase64({
+                rootId,
                 nodeId: objectNodeId,
                 branchId,
                 objectId,
@@ -55,6 +58,7 @@ export default function useDescriptionEdit() {
         };
     },
     [
+        rootId,
         branchId,
         objectNodeId,
         objectId,
@@ -76,12 +80,13 @@ export default function useDescriptionEdit() {
             throw new Error('uint8ArrayState is null');
         }
 
-        if (handleChangeTimeout.current) {
-            clearTimeout(handleChangeTimeout.current);
-            handleChangeTimeout.current = null;
+        if (handleChangeTimeout.current && handleChangeTimeout.current[objectNodeId]) {
+            clearTimeout(handleChangeTimeout.current[objectNodeId]);
+            delete handleChangeTimeout.current[objectNodeId];
         }
 
-        handleChangeTimeout.current = setTimeout(async () => {
+        handleChangeTimeout.current ||= {};
+        handleChangeTimeout.current[objectNodeId] = setTimeout(async () => {
             handleChangeTimeout.current = null;
 
             const markdown = helpers.getMarkdown();

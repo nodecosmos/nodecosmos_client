@@ -1,5 +1,7 @@
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import { Position, UUID } from '../../../../../types';
+import {
+    ObjectType, Position, UUID,
+} from '../../../../../types';
 import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectInputOutput } from '../../../../input-outputs/inputOutputs.selectors';
 import useWorkflowContext from '../../useWorkflowContext';
@@ -53,10 +55,17 @@ export default function useIoContext() {
 
     const { branchId } = useWorkflowContext();
     const {
-        rootId, title, mainId, 
+        rootId, title, mainId,
     } = useSelector(selectInputOutput(branchId, id));
     const selectedObject = useSelector(selectSelectedObject);
     const isSelected = id === selectedObject?.objectId;
+    let selectedNodeId;
+
+    if (selectedObject?.objectType === ObjectType.Node) {
+        selectedNodeId = selectedObject.objectId;
+    }
+
+    const isNodeSelected = selectedObject?.metadata?.inputIds?.includes(id);
 
     return {
         id,
@@ -64,6 +73,8 @@ export default function useIoContext() {
         mainId,
         title,
         isSelected,
+        selectedNodeId,
+        isNodeSelected,
         titleEditOpen,
         fsNodeId,
         ...position,

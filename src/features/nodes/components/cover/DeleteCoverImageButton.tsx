@@ -2,6 +2,7 @@ import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerE
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError } from '../../../../types';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
+import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { updateState } from '../../nodes.actions';
 import { deleteNodeImage } from '../../nodes.thunks';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
@@ -17,15 +18,11 @@ interface DeleteCoverImageButtonProps {
 
 export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const {
-        objectId,
-        branchId,
-        metadata,
-    } = usePaneContext();
-    const currentBranchId = metadata?.currentBranchId;
+    const { rootId, objectId } = usePaneContext();
+    const { branchId } = useBranchParams();
 
-    if (!currentBranchId) {
-        throw new Error('`currentBranchId` is required in `metadata`');
+    if (!branchId) {
+        throw new Error('`branchId` is required in `metadata`');
     }
 
     const handleServerError = useHandleServerErrorAlert();
@@ -34,6 +31,7 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
         dispatch(deleteNodeImage({
             branchId,
             id: objectId,
+            rootId,
         })).then((response) => {
             if (response.meta.requestStatus === 'rejected') {
                 const error: NodecosmosError = response.payload as NodecosmosError;
@@ -43,12 +41,12 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
                 return;
             }
             dispatch(updateState({
-                currentBranchId,
+                branchId,
                 id: objectId,
                 coverImageUrl: null,
             }));
         });
-    }, [branchId, dispatch, handleServerError, objectId, currentBranchId]);
+    }, [rootId, branchId, dispatch, handleServerError, objectId]);
 
     return (
         <Tooltip title="Delete Cover Image">

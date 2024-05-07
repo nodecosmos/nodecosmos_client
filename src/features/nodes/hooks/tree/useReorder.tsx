@@ -19,17 +19,13 @@ export interface NodeDropCaptureParams {
 
 export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
-    const { isBranch } = useBranchParams();
+    const { branchId, isBranch } = useBranchParams();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const {
-        id,
-        branchId,
-        currentBranchId,
-    } = dragAndDrop || {};
+    const { rootId, id } = dragAndDrop || {};
 
     const [reorderInProgress, setReorderInProgress] = useState(false);
     const handleServerError = useHandleServerErrorAlert();
-    const childIdsByParentId = useSelector(selectBranchChildIds(currentBranchId));
+    const childIdsByParentId = useSelector(selectBranchChildIds(branchId));
 
     return useCallback(async (params: NodeDropCaptureParams) => {
         const {
@@ -54,9 +50,9 @@ export default function useReorder() {
         }
 
         const response = await dispatch(reorder({
-            currentBranchId,
-            id,
+            rootId,
             branchId,
+            id,
             newParentId,
             newUpperSiblingId,
             newLowerSiblingId,
@@ -73,13 +69,13 @@ export default function useReorder() {
         }
 
         if (isBranch) {
-            dispatch(reloadBranch(currentBranchId));
+            dispatch(reloadBranch(branchId));
         }
 
         dispatch(setDragAndDrop(null));
         setReorderInProgress(false);
     },
     [
-        reorderInProgress, childIdsByParentId, dispatch, currentBranchId, id, branchId, isBranch, handleServerError,
+        dispatch, reorderInProgress, childIdsByParentId, rootId, branchId, id, isBranch, handleServerError,
     ]);
 }

@@ -4,7 +4,7 @@ import { NodecosmosDispatch } from '../../../../store';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
 import { updateState } from '../../nodes.actions';
-import { selectNode } from '../../nodes.selectors';
+import { selectOptNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,19 +17,14 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const {
-        objectId,
-        branchId,
-    } = usePaneContext();
-    const { currentBranchId } = useBranchParams();
+    const { rootId, objectId } = usePaneContext();
+    const { isBranch, branchId } = useBranchParams();
 
-    if (!currentBranchId) {
-        throw new Error('`currentBranchId` is required in `metadata`');
+    if (!branchId) {
+        throw new Error('`branchId` is required in `metadata`');
     }
 
-    const {
-        id, isTmp, coverImageUrl,
-    } = useSelector(selectNode(currentBranchId, objectId));
+    const node = useSelector(selectOptNode(branchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
     const handleClose = useCallback((responseBody?: { url: string }) => {
@@ -37,12 +32,20 @@ export default function NodePaneCoverImage() {
 
         if (responseBody?.url) {
             dispatch(updateState({
-                currentBranchId,
-                id,
+                branchId,
+                id: objectId,
                 coverImageUrl: responseBody.url,
             }));
         }
-    }, [closeModal, currentBranchId, dispatch, id]);
+    }, [closeModal, branchId, dispatch, objectId]);
+
+    if (!node) {
+        return null;
+    }
+
+    const {
+        id, isTmp, coverImageUrl,
+    } = node;
 
     return (
         <>
@@ -95,30 +98,34 @@ export default function NodePaneCoverImage() {
                                 image={coverImageUrl}
                                 alt="Cover Image"
                             />
-                            <Button
-                                component="label"
-                                variant="contained"
-                                startIcon={<FontAwesomeIcon icon={faCamera} />}
-                                onClick={openModal}
-                                sx={{
-                                    opacity: buttonDisplayed ? 0.8 : 0,
-                                    transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                                    position: 'absolute',
-                                    backgroundColor: 'background.1',
-                                    color: 'text.primary',
-                                    bottom: 16,
-                                    right: 16,
-                                    '&:hover': { backgroundColor: 'background.1' },
-                                }}
-                            >
-                               Upload cover image
-                            </Button>
+                            {
+                                !isBranch && (
+                                    <Button
+                                        component="label"
+                                        variant="contained"
+                                        startIcon={<FontAwesomeIcon icon={faCamera} />}
+                                        onClick={openModal}
+                                        sx={{
+                                            opacity: buttonDisplayed ? 0.8 : 0,
+                                            transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+                                            position: 'absolute',
+                                            backgroundColor: 'background.1',
+                                            color: 'text.primary',
+                                            bottom: 16,
+                                            right: 16,
+                                            '&:hover': { backgroundColor: 'background.1' },
+                                        }}
+                                    >
+                                        Upload cover image
+                                    </Button>
+                                )
+                            }
                         </Box>
                     </Box>
                 </>
             )}
 
-            {!coverImageUrl && !isTmp && (
+            {!coverImageUrl && !isTmp && !isBranch && (
                 <Box
                     component="div"
                     sx={{
@@ -147,7 +154,7 @@ export default function NodePaneCoverImage() {
                     <UppyUploadImageModal
                         open={modalOpen}
                         onClose={handleClose}
-                        endpointPath={`nodes/${id}/${branchId}/upload_cover_image`}
+                        endpointPath={`nodes/${branchId}/${id}/${rootId}/upload_cover_image`}
                     />
                 </Suspense>
             )}

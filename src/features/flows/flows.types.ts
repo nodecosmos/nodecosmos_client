@@ -1,4 +1,6 @@
-import { WithOptionalId, UUID } from '../../types';
+import {
+    WithOptionalId, UUID, RootId, 
+} from '../../types';
 
 export interface FlowPrimaryKey {
     nodeId: UUID;
@@ -17,7 +19,9 @@ export interface Flow extends FlowPrimaryKey {
 }
 
 // primary key with optional id + partial of the rest
-export type FlowUpsertPayload = WithOptionalId<FlowPrimaryKey> & Partial<Omit<Flow, keyof FlowPrimaryKey>>;
+export type FlowUpsertPayload = WithOptionalId<FlowPrimaryKey>
+    & Partial<Omit<Flow, keyof FlowPrimaryKey>>
+    & RootId;
 
 export enum FlowPaneContent {
     Description = 'description',

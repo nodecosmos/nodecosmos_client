@@ -6,7 +6,7 @@ import useBranchParams from '../../../../branch/hooks/useBranchParams';
 import useNodeActions from '../../../hooks/tree/node/useNodeActions';
 import useNodeColors from '../../../hooks/tree/node/useNodeColors';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
-import { selectNodeAttribute } from '../../../nodes.selectors';
+import { selectOptNode } from '../../../nodes.selectors';
 import { useTheme } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -33,10 +33,9 @@ function NodeButton() {
         dragLeave,
         dropCapture,
     } = useNodeActions();
-    const { currentBranchId } = useBranchParams();
-    const oldTitle = useSelector(selectNodeAttribute(currentBranchId, id, 'title'));
-    const isTitleEdited = oldTitle && title !== oldTitle;
-
+    const { originalId } = useBranchParams();
+    const originalNode = useSelector(selectOptNode(originalId, id));
+    const isTitleEdited = originalNode ? title !== originalNode.title : false;
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
 
@@ -63,7 +62,7 @@ function NodeButton() {
             <NodeSymbol />
 
             <div className="NodeButtonText">
-                {isTitleEdited && <span className="diff-removed">{oldTitle}</span>}
+                {isTitleEdited && <span className="diff-removed">{originalNode?.title}</span>}
                 <span className={isTitleEdited ? 'diff-added' : undefined}>{title}</span>
             </div>
         </button>

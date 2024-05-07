@@ -30,16 +30,16 @@ const inputOutputsSlice = createSlice({
                 });
             }).addCase(createIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { currentBranchId } = action.meta.arg;
+                const { branchId } = action.meta.arg;
 
-                state.byBranchId[currentBranchId] ||= {};
-                state.byBranchId[currentBranchId][inputOutput.id] = inputOutput;
+                state.byBranchId[branchId] ||= {};
+                state.byBranchId[branchId][inputOutput.id] = inputOutput;
             }).addCase(updateIoTitle.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
-                const { currentBranchId } = action.meta.arg;
+                const { branchId } = action.meta.arg;
                 const { title } = inputOutput;
 
-                Object.values(state.byBranchId[currentBranchId]).forEach((io) => {
+                Object.values(state.byBranchId[branchId]).forEach((io) => {
                     if (io.mainId === inputOutput.mainId) {
                         io.title = title as string;
                     }
@@ -49,10 +49,10 @@ const inputOutputsSlice = createSlice({
                 const io = action.payload.data;
                 const { deleteFromState } = action.payload.metadata;
                 const { id } = io;
-                const { currentBranchId } = action.meta.arg;
+                const { branchId } = action.meta.arg;
 
                 if (deleteFromState) {
-                    delete state.byBranchId[currentBranchId][id];
+                    delete state.byBranchId[branchId][id];
                 }
             })
             .addCase(deleteFlowStep.fulfilled, (state, action) => {

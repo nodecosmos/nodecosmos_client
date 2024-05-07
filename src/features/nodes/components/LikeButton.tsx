@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from 'react-redux';
 interface LikeButtonProps {
     id: UUID;
     objectType: LikeType;
-    currentBranchId?: UUID;
     branchId?: UUID;
     likeCount?: number | null;
     fontSize?: number;
@@ -26,7 +25,7 @@ interface LikeButtonProps {
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, objectType, branchId = id, fontSize, likeCount, currentBranchId,
+        id, objectType, branchId = id, fontSize, likeCount,
     } = props;
     const likes = useSelector(selectBranchLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -39,11 +38,10 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(getLikeCount({
                 objectId: id,
                 branchId,
-                currentBranchId,
                 objectType,
             }));
         }
-    }, [branchId, dispatch, id, likeCount, currentBranchId, objectType]);
+    }, [branchId, dispatch, id, likeCount, objectType]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {
@@ -57,22 +55,20 @@ export default function LikeButton(props: LikeButtonProps) {
 
         if (likedByCurrentUser) {
             dispatch(unlikeObject({
-                currentBranchId,
-                objectId: id,
                 branchId,
+                objectId: id,
             }));
         } else {
             dispatch(likeObject({
-                currentBranchId,
-                objectId: id,
                 branchId,
+                objectId: id,
                 objectType: LikeType.Node,
             }));
         }
 
         requestAnimationFrame(() => setShouldBeat(true));
         setTimeout(() => setShouldBeat(false), 1000);
-    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, currentBranchId]);
+    }, [branchId, currentUser, dispatch, id, likedByCurrentUser]);
 
     return (
         <div className={`Like ${likedByCurrentUser && 'liked'}`}>

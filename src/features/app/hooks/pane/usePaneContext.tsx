@@ -1,11 +1,14 @@
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
 import { selectSelectedObject } from '../../app.selectors';
 import { SelectedObject } from '../../app.types';
+import { clearSelectedObject } from '../../appSlice';
+import { PanePage, PaneProps } from '../../components/pane/Pane';
 import {
-    createContext, useCallback, useContext, useState,
+    createContext, useCallback, useContext, useEffect, useState,
 } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export enum PaneContent {
     Description,
@@ -15,6 +18,7 @@ export enum PaneContent {
 }
 
 interface CtxCreatorValue {
+    page: PanePage;
     rootId: UUID;
     loading: boolean;
     setLoading: () => void;
@@ -27,7 +31,12 @@ interface CtxCreatorValue {
 
 const PaneContext = createContext<CtxCreatorValue>({} as CtxCreatorValue);
 
-export function usePaneContextCreator(rootId: UUID) {
+export function usePaneContextCreator(props: PaneProps) {
+    const {
+        rootId,
+        page,
+    } = props;
+    const dispatch: NodecosmosDispatch = useDispatch();
     const [loading, setLoading, _unsetLoading] = useBooleanStateValue();
     const [content, setContent] = useState<PaneContent>(PaneContent.Description);
     const selectedObject = useSelector(selectSelectedObject);
@@ -36,9 +45,14 @@ export function usePaneContextCreator(rootId: UUID) {
         setTimeout(_unsetLoading, 200);
     }, [_unsetLoading]);
 
+    useEffect(() => {
+        dispatch(clearSelectedObject());
+    }, [dispatch]);
+
     return {
         PaneContext,
         CtxCreatorValue: {
+            page,
             rootId,
             loading,
             setLoading,
@@ -57,6 +71,7 @@ interface PaneCtxValue extends CtxValue {
 
 export function usePaneContext(): PaneCtxValue {
     const {
+        page,
         rootId,
         loading,
         setLoading,
@@ -92,6 +107,7 @@ export function usePaneContext(): PaneCtxValue {
     }
 
     return {
+        page,
         rootId,
         loading,
         setLoading,

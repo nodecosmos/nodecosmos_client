@@ -2,9 +2,9 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
-import { clearPaneContent } from '../../../features/app/appSlice';
-import Pane from '../../../features/app/components/pane/Pane';
+import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
+import { selectOptNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
@@ -18,22 +18,22 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContributionRequestWorkflow() {
-    const { currentBranchId, currentOriginalBranchId } = useBranchParams();
+    const {
+        originalId, branchId, nodeId,
+    } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(currentBranchId, currentOriginalBranchId));
-    const originalWorkflow = useSelector(selectOptWorkflow(currentOriginalBranchId, currentOriginalBranchId));
-
+    const workflow = useSelector(selectOptWorkflow(branchId, nodeId));
+    const originalWorkflow = useSelector(selectOptWorkflow(branchId, nodeId));
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
-
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
     const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
-
     const workflowRef = useRef(null);
     const workflowDetailsRef = useRef(null);
-
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
+    const node = useSelector(selectOptNode(branchId, nodeId));
+    const rootId = node?.rootId;
 
     const {
         paneAWidth,
@@ -53,25 +53,23 @@ export default function ContributionRequestWorkflow() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (loading) {
+        if (loading && rootId) {
             if (!originalWorkflow?.nodeId) {
                 dispatch(showWorkflow({
-                    nodeId: currentOriginalBranchId,
-                    branchId: currentBranchId,
+                    rootId,
+                    nodeId,
+                    branchId: originalId,
                 }));
             }
             dispatch(showWorkflow({
-                nodeId: currentOriginalBranchId,
-                branchId: currentBranchId,
+                rootId,
+                nodeId,
+                branchId,
             })).then(() => setLoading(false));
         }
+    }, [rootId, originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
 
-        return () => {
-            dispatch(clearPaneContent());
-        };
-    }, [currentOriginalBranchId, dispatch, loading, currentBranchId, originalWorkflow?.nodeId]);
-
-    if (loading) {
+    if (loading || !rootId) {
         return <Loader />;
     }
 
@@ -80,7 +78,6 @@ export default function ContributionRequestWorkflow() {
     }
 
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
-    const { rootId } = workflow;
 
     return (
         <Box
@@ -100,8 +97,8 @@ export default function ContributionRequestWorkflow() {
                     overflow="hidden"
                 >
                     {workflow && <Workflow
-                        nodeId={currentOriginalBranchId}
-                        branchId={currentBranchId}
+                        nodeId={nodeId}
+                        branchId={branchId}
                         context={WorkflowDiagramContext.workflowPage} />}
                 </Box>
                 <Box
@@ -128,7 +125,7 @@ export default function ContributionRequestWorkflow() {
                     style={{ borderLeftColor }}
                     sx={{ backgroundColor: 'background.5' }}
                 >
-                    <Pane rootId={rootId} />
+                    <Pane rootId={rootId} page={PanePage.Workflow} />
                 </Box>
             </Box>
         </Box>

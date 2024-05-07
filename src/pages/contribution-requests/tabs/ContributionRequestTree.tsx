@@ -1,6 +1,6 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
-import Pane from '../../../features/app/components/pane/Pane';
+import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
 import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchParams from '../../../features/branch/hooks/useBranchParams';
 import Tree from '../../../features/nodes/components/tree/Tree';
@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 
 export default function ContributionRequestTree() {
     const theme: NodecosmosTheme = useTheme();
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
-    const { rootId } = useSelector(selectBranch(currentBranchId));
+    const { nodeId, branchId } = useBranchParams();
+    const branch = useSelector(selectBranch(branchId));
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
     const paneARef = React.useRef(null);
@@ -47,6 +47,12 @@ export default function ContributionRequestTree() {
         }
     }, [resizeInProgress, leaveResizer]);
 
+    const rootId = branch?.rootId;
+
+    if (!rootId) {
+        return null;
+    }
+
     return (
         <Box
             display={{
@@ -65,8 +71,8 @@ export default function ContributionRequestTree() {
                 display="flex"
             >
                 <Tree
-                    currentBranchId={currentBranchId}
-                    rootId={currentOriginalBranchId}
+                    branchId={branchId}
+                    rootId={nodeId}
                     type={TreeType.ContributionRequest} />
                 <Box
                     component="span"
@@ -96,7 +102,7 @@ export default function ContributionRequestTree() {
                     borderLeftColor: resizerHovered
                         ? theme.palette.borders['5'] : theme.palette.borders['3'],
                 }}>
-                <Pane rootId={rootId} />
+                <Pane rootId={rootId} page={PanePage.Tree} />
             </Box>
         </Box>
     );

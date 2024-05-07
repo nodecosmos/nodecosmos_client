@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 export default function ContributionRequestShowHeader() {
     const cr = useSelector(selectCurrentContributionRequest);
 
+    if (!cr) return null;
+
     const breadcrumbs = [
         <MuiLink
             underline="hover"
@@ -19,7 +21,7 @@ export default function ContributionRequestShowHeader() {
             color="text.tertiary"
             component={Link}
             relative="route"
-            to={`nodes/${cr?.nodeId}/contribution_requests`}
+            to={`nodes/${cr.rootId}/${cr.nodeId}/contribution_requests`}
             variant="body2"
             fontWeight="bold"
         >

@@ -15,6 +15,14 @@ export enum ThreadType {
     ContributionRequestNodeDescription = 'ContributionRequest::NodeDescription',
 }
 
+export const THREAD_TYPE_DESCRIPTION = {
+    [ThreadType.Topic]: 'commented on topic:',
+    [ThreadType.ContributionRequestMainThread]: 'commented on main thread:',
+    [ThreadType.ContributionRequestNodeAddition]: 'commented added node:',
+    [ThreadType.ContributionRequestNodeRemoval]: 'commented removed node:',
+    [ThreadType.ContributionRequestNodeDescription]: 'commented line:',
+};
+
 /**
  * **objectId** corresponds to the following:
  *   * **`ContributionRequest['id']`** for ContributionRequest related comments

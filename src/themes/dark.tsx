@@ -124,7 +124,7 @@ const theme: NodecosmosTheme = {
                 '#a190e1',
                 '#698ed8',
                 '#86b45c',
-                '#a4a255',
+                '#c0bd5c',
                 '#daa975',
             ],
             defaultText: '#ffffff',

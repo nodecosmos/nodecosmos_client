@@ -19,8 +19,9 @@ export interface Workflow extends WorkflowPrimaryKey {
 }
 
 // primary key with optional id + partial of the rest
-export type WorkflowUpsertPayload =
-    WithOptionalId<WorkflowPrimaryKey> & Partial<Omit<Workflow, keyof WorkflowPrimaryKey>>;
+export type WorkflowUpsertPayload = WithOptionalId<WorkflowPrimaryKey>
+    & Partial<Omit<Workflow, keyof WorkflowPrimaryKey>>
+    & RootId;
 
 export interface WorkflowData {
     workflow: Workflow,

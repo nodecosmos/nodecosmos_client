@@ -6,10 +6,8 @@ import {
     replaceTmpNodeWithPersisted, setSaveInProgress, updateState,
 } from '../../../../nodes.actions';
 import { SAVE_NODE_TIMEOUT } from '../../../../nodes.constants';
-import { selectNodeAttribute, selectSaveInProgress } from '../../../../nodes.selectors';
+import { selectNode, selectSaveInProgress } from '../../../../nodes.selectors';
 import { create, updateTitle } from '../../../../nodes.thunks';
-import { TreeType } from '../../../../nodes.types';
-import useTreeContext from '../../useTreeContext';
 import useNodeContext from '../useNodeContext';
 import {
     ChangeEvent, useCallback, useEffect, useRef, useState,
@@ -18,17 +16,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeSave() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { type: treeType } = useTreeContext();
     const {
         isTmp,
-        currentBranchId,
         branchId,
         id,
         parentId,
         rootId,
         persistedId,
     } = useNodeContext();
-    const orderIndex = useSelector(selectNodeAttribute(currentBranchId, id, 'orderIndex'));
+    const { orderIndex } = useSelector(selectNode(branchId, id));
     const handleServerError = useHandleServerErrorAlert();
     const saveInProgress = useSelector(selectSaveInProgress);
     const [shouldReplaceTmpNode, setShouldReplaceTmpNode] = useState(false);
@@ -42,7 +38,7 @@ export default function useNodeSave() {
 
         // Update title of tmp node within redux store
         dispatch(updateState({
-            currentBranchId,
+            branchId,
             id,
             title,
             isCreationInProgress: isTmp,
@@ -51,7 +47,7 @@ export default function useNodeSave() {
         // Change title of persisted node if tmp node is not replaced yet
         if (isTmp && persistedId) {
             dispatch(updateState({
-                currentBranchId,
+                branchId,
                 id: persistedId,
                 title,
             }));
@@ -71,22 +67,15 @@ export default function useNodeSave() {
             if (persistedId) {
                 // Update persisted node
                 response = await dispatch(updateTitle({
-                    currentBranchId,
+                    rootId,
                     branchId,
                     id: persistedId,
                     title,
                 }));
             } else {
-                // Create new node
-                let creationBranchId;
-                if (treeType === TreeType.ContributionRequest) {
-                    creationBranchId = currentBranchId;
-                }
-
                 const data = {
-                    currentBranchId,
-                    branchId: creationBranchId,
                     rootId,
+                    branchId,
                     parentId,
                     isRoot: false,
                     isPublic: true,
@@ -108,8 +97,8 @@ export default function useNodeSave() {
         }, SAVE_NODE_TIMEOUT);
     },
     [
-        currentBranchId, branchId, dispatch, handleServerError, id, saveInProgress,
-        orderIndex, parentId, persistedId, rootId, treeType, isTmp,
+        branchId, dispatch, handleServerError, id, saveInProgress,
+        orderIndex, parentId, persistedId, rootId, isTmp,
     ]);
 
     const processQueue = useCallback(async () => {
@@ -132,22 +121,22 @@ export default function useNodeSave() {
     //------------------------------------------------------------------------------------------------------------------
     const blurNode = useCallback(() => {
         dispatch(updateState({
-            currentBranchId,
+            branchId,
             id,
             isEditing: false,
         }));
         setShouldReplaceTmpNode(true);
-    }, [dispatch, id, currentBranchId]);
+    }, [dispatch, id, branchId]);
 
     useEffect(() => {
         if (shouldReplaceTmpNode && isTmp && persistedId) {
             // Replace tmp node with persisted node within redux store
             dispatch(replaceTmpNodeWithPersisted({
-                currentBranchId,
+                branchId,
                 tmpId: id,
             }));
         }
-    }, [dispatch, id, isTmp, persistedId, shouldReplaceTmpNode, currentBranchId]);
+    }, [dispatch, id, isTmp, persistedId, shouldReplaceTmpNode, branchId]);
 
     useEffect(() => {
         return () => {

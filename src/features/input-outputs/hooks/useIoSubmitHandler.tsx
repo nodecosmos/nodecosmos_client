@@ -21,10 +21,9 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         outputIdsByNodeId,
     } = props;
     const {
-        branchId, nodeId, rootId, initialInputIds: currentInitialInputIds,
+        nodeId, rootId, initialInputIds: currentInitialInputIds,
     } = useWorkflowContext();
-    const { isBranch } = useBranchParams();
-
+    const { branchId } = useBranchParams();
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId));
@@ -36,8 +35,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
 
         const payload = {
             nodeId,
-            branchId: isBranch ? branchId : rootId,
-            currentBranchId: branchId,
+            branchId,
             rootId,
             mainId: (autocompleteValue && existingIo?.id) || nodeId,
             flowId: flowStepPrimaryKey?.flowId ?? null,
@@ -62,6 +60,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
                 const initialInputIds = [...currentInitialInputIds, inputOutput.id] || [inputOutput.id];
 
                 await dispatch(updateWorkflowInitialInputs({
+                    rootId,
                     nodeId,
                     branchId,
                     initialInputIds,
@@ -99,7 +98,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         props.onClose();
     },
     [
-        autocompleteValue, allWorkflowIos, nodeId, isBranch, branchId, rootId, associatedObject,
+        autocompleteValue, allWorkflowIos, nodeId, branchId, rootId, associatedObject,
         flowStepPrimaryKey, dispatch, props, handleServerError, currentInitialInputIds, outputIdsByNodeId, outputNodeId,
     ]);
 

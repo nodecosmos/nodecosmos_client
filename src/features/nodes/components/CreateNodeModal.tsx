@@ -36,7 +36,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
         dispatch(create(payload)).then((response) => {
             const node = response.payload as Node;
 
-            navigate(`/nodes/${node.rootId}`);
+            navigate(`/nodes/${node.rootId}/${node.id}`);
             setLoading(false);
         }).catch((error) => {
             setLoading(false);

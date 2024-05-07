@@ -2,7 +2,7 @@ import {
     Workflow, WorkflowData, WorkflowPrimaryKey, WorkflowUpsertPayload,
 } from './workflow.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosError } from '../../types';
+import { NodecosmosError, WithRootId } from '../../types';
 import { FlowStep } from '../flow-steps/flowSteps.types';
 import { Flow } from '../flows/flows.types';
 import { InputOutput } from '../input-outputs/inputOutputs.types';
@@ -17,12 +17,14 @@ interface ShowWorkflowResponse {
 
 export const showWorkflow = createAsyncThunk<
     ShowWorkflowResponse,
-    WorkflowPrimaryKey,
+    WithRootId<WorkflowPrimaryKey>,
     { rejectValue: NodecosmosError }
 >(
     'workflows/showWorkflow',
-    async ({ nodeId, branchId }): Promise<WorkflowData> => {
-        const response = await nodecosmos.get(`/workflows/${nodeId}/${branchId}`);
+    async ({
+        rootId, branchId, nodeId,
+    }): Promise<WorkflowData> => {
+        const response = await nodecosmos.get(`/workflows/${rootId}/${branchId}/${nodeId}`);
 
         return response.data;
     },

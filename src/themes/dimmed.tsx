@@ -43,7 +43,7 @@ const theme: NodecosmosTheme = {
         secondary: { main: '#cdd4ff' },
 
         error: {
-            main: '#ed4b82',
+            main: '#fd526f',
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
@@ -111,7 +111,7 @@ const theme: NodecosmosTheme = {
             pink: '#a868aa',
             purple: '#9377e2',
             yellow: '#f5f58e',
-            orange: '#b08369',
+            orange: '#de9a72',
             hover: 'rgba(63,78,89,0.53)',
             active: 'rgba(63,78,89,0.53)',
             default: '#758593',
@@ -144,7 +144,7 @@ const theme: NodecosmosTheme = {
             defaultInputColor: '#52565e',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',
-            selectedBg: '#3a3e47',
+            selectedBg: 'rgba(58,62,71,0.28)',
         },
 
         markdownContent: {
@@ -183,19 +183,19 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: '#424d46',
-                fg: '#b1f47a',
+                bg: '#2c4c3c',
+                fg: '#0aff83',
             },
             removed: {
-                bg: '#5e3e4a',
-                fg: '#fd526f',
+                bg: '#5c303f',
+                fg: '#ff6682',
             },
             edited: {
                 bg: '#484d46',
                 fg: '#eef47a',
             },
             conflict: {
-                bg: '#705d52',
+                bg: '#934c46',
                 fg: '#f4af7a',
             },
         },

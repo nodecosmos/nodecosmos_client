@@ -3,7 +3,7 @@ import useIoContext from './io/useIoContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
 import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { selectNodeAttribute } from '../../../nodes/nodes.selectors';
+import { selectOptNode } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
 import useWorkflowContext from '../useWorkflowContext';
 import { useTheme } from '@mui/material';
@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 export default function useOutputColors() {
     const theme: NodecosmosTheme = useTheme();
     const {
-        id, mainId, isSelected, fsNodeId,
+        id, mainId, isSelected, fsNodeId, isNodeSelected, selectedNodeId,
     } = useIoContext();
     const { branchId } = useWorkflowContext();
     const {
@@ -20,14 +20,14 @@ export default function useOutputColors() {
     } = useWorkflowBranch();
     const { isBranch } = useBranchParams();
     const diffColors = useDiffColors();
-    const ancestorIds = useSelector(selectNodeAttribute(branchId, fsNodeId, 'ancestorIds'));
-    const selectedNodeAncestorIds
-        = useSelector(selectNodeAttribute(branchId, fsNodeId, 'ancestorIds'));
-    const nestedLevel = ancestorIds?.length || 0;
+    const fsNode = useSelector(selectOptNode(branchId, fsNodeId));
+    const nestedLevel = fsNode?.ancestorIds?.length || 0;
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
     const nestedLevelColor = backgrounds[nestedLevel % backgroundCount];
-    const selectedNodeNestedLevel = selectedNodeAncestorIds?.length || 0;
+
+    const selectedNode = useSelector(selectOptNode(branchId, selectedNodeId));
+    const selectedNodeNestedLevel = selectedNode?.ancestorIds?.length || 0;
     const selectedNodeNestedLevelColor = backgrounds[selectedNodeNestedLevel % backgroundCount];
     const { id: flowStepId } = useFlowStepContext();
 
@@ -37,7 +37,13 @@ export default function useOutputColors() {
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
     };
 
-    if (isBranch) {
+    if (isNodeSelected) {
+        colors = {
+            backgroundColor: selectedNodeNestedLevelColor,
+            outlineColor: selectedNodeNestedLevelColor,
+            color: theme.palette.tree.selectedText,
+        };
+    } else if (isBranch) {
         if (isFlowStepDeleted(flowStepId)) {
             colors = diffColors(isSelected, DiffState.Removed);
         }

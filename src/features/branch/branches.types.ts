@@ -30,8 +30,8 @@ export type WithBranchMetadata<T> = {
 };
 
 export interface BranchParams {
-    currentOriginalBranchId: UUID; // corresponds to the id of the current node
-    currentBranchId: UUID; // either id of the current node or id of the contribution request, depending on the context
+    originalId: UUID; // corresponds to the id of the current node
+    branchId: UUID; // either id of the current node or id of the contribution request, depending on the context
 }
 
 // TextChange is used to store the old and new values of a text field at time of merge
@@ -43,8 +43,8 @@ export interface TextChange {
 export enum BranchStatus {
     Open = 'Open',
     Merged = 'Merged',
-    Recovered = 'Recovered',
-    RecoveryFailed = 'RecoveryFailed',
+    // Recovered = 'Recovered',
+    // RecoveryFailed = 'RecoveryFailed',
     Closed = 'CLOSED',
 }
 
@@ -73,7 +73,7 @@ export interface Branch {
     editedTitleNodes: Set<UUID>;
     editedDescriptionNodes: Set<UUID>;
     reorderedNodes: BranchReorderData[];
-    editedWorkflowNodes: Set<UUID>;
+    editedNodes: Set<UUID>;
     createdWorkflowInitialInputs: Record<UUID, UUID[]>;
     deletedWorkflowInitialInputs: Record<UUID, UUID[]>;
     createdFlows: Set<UUID>;
@@ -103,8 +103,8 @@ export interface Branch {
 }
 
 export interface BranchDiffPayload {
-    currentOriginalBranchId: UUID;
-    currentBranchId: UUID;
+    originalId: UUID;
+    branchId: UUID;
     objectId: UUID;
 }
 

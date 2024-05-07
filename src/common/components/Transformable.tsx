@@ -1,7 +1,7 @@
 import { selectTransformablePositionAttribute } from '../../features/app/app.selectors';
 import { setTransformablePositions } from '../../features/app/appSlice';
 import {
-    TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
+    TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_ID, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
 import { Box } from '@mui/material';
@@ -125,6 +125,7 @@ export default function Transformable(props: TransformableProps) {
     //------------------------------------------------------------------------------------------------
     return (
         <Box
+            id={TRANSFORMABLE_ID}
             ref={containerRef}
             onMouseDown={onMouseDown}
             onScroll={handleScroll}

@@ -72,7 +72,9 @@ export default function UploadImageModal(props: UploadImageModalProps) {
         });
 
         uppy.on('file-editor:complete', () => {
-            uppy.upload();
+            uppy.upload().catch((error) => {
+                console.error('Upload error:', error);
+            });
         });
 
         return () => {
@@ -131,7 +133,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
                 <UploadDashboardContainer>
                     <Dashboard
                         uppy={uppy}
-                        autoOpenFileEditor
+                        autoOpen="imageEditor"
                         theme="dark"
                         plugins={['ImageEditor']}
                         showLinkToFileUploadResult={false}

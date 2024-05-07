@@ -25,13 +25,11 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepNodeButton() {
+    const { context: workflowContext, deactivateInputsAddition } = useWorkflowContext();
     const {
-        branchId, context: workflowContext, deactivateInputsAddition,
-    } = useWorkflowContext();
-    const {
-        id, title, position, flowStepId,
+        id, title, position, flowStepId, inputIds,
     } = useFlowStepNodeContext();
-    const { currentOriginalBranchId, currentBranchId } = useBranchParams();
+    const { originalId, branchId } = useBranchParams();
     const { x, y } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const preventDefault = usePreventDefault();
@@ -42,23 +40,23 @@ export default function FlowStepNodeButton() {
     } = useFlowStepNodeColors();
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
         dispatch(selectObject({
-            currentOriginalBranchId,
-            currentBranchId,
+            originalId,
+            branchId,
             objectNodeId: id,
             objectId: id,
-            branchId,
             objectType: ObjectType.Node,
-            metadata: { flowStepId },
+            metadata: {
+                flowStepId,
+                inputIds,
+            },
         }));
 
         if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
             dispatch(select({
-                currentBranchId: branchId,
                 branchId,
                 id,
             }));
@@ -66,11 +64,11 @@ export default function FlowStepNodeButton() {
     },
     [
         branchId,
-        currentOriginalBranchId,
-        currentBranchId,
+        originalId,
         deactivateInputsAddition,
         dispatch,
         flowStepId,
+        inputIds,
         id,
         workflowContext,
     ]);

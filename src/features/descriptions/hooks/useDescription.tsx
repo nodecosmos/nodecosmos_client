@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function useDescription() {
     const {
+        rootId,
         mainObjectId: objectId,
         branchId,
         objectNodeId,
@@ -24,6 +25,7 @@ export default function useDescription() {
         if (!description?.html && !loading && !fetched) {
             setLoading();
             dispatch(getDescription({
+                rootId,
                 nodeId: objectNodeId,
                 objectId,
                 objectType,
@@ -43,6 +45,7 @@ export default function useDescription() {
         };
     },
     [
+        rootId,
         branchId,
         objectNodeId,
         objectId,

@@ -13,41 +13,36 @@ interface InputProps {
     nodeOutputId: UUID
 }
 
-const LOOP_NODE_OFFSET = -30;
-const LOOP_OUTPUT_Y_OFFSET = -30;
-// const LOOP_OUTPUT_X_OFFSET = -0;
+const ORIGIN_NODE_Y_OFFSET = 30;
+const DEST_NODE_X_OFFSET = 20;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
-    const { position: nodePosition, isSelected } = useFlowStepNodeContext();
+    const { position: destNodePos, isSelected } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
     const {
         selectedLoopInputColor,
         defaultLoopInputColor,
     } = theme.palette.workflow;
+    const { nestedTreeColor } = useFlowStepNodeColors();
+    const color = isSelected ? nestedTreeColor : defaultLoopInputColor;
 
-    const { backgroundColor } = useFlowStepNodeColors();
-
-    const color = isSelected ? backgroundColor : defaultLoopInputColor;
-
-    const { position: prevOutputPosition } = outputsById[nodeOutputId] || {};
-
-    // current input starts where previous output ends (xEnd, yEnd)
-    const { xEnd: x, yEnd: y } = prevOutputPosition || {};
-
-    // current input ends where current node starts (x, y)
-    const { x: xEnd, y: yEnd } = nodePosition;
-
-    const loopDestinationNodeY = yEnd + LOOP_NODE_OFFSET;
-
-    let loopOriginY = (prevOutputPosition?.yEnd || 0) + LOOP_OUTPUT_Y_OFFSET || loopDestinationNodeY;
-
-    if (loopDestinationNodeY > y) {
-        loopOriginY = (prevOutputPosition?.yEnd || 0) - LOOP_OUTPUT_Y_OFFSET;
+    if (!outputsById[nodeOutputId]) {
+        return null;
     }
 
-    // const loopOriginNodeX = ((outputNodePosition && outputNodePosition.x) || xEnd) + LOOP_OUTPUT_X_OFFSET;
+    const { position: originOutputPosition, nodePosition: originNodePosition } = outputsById[nodeOutputId];
+    // current input starts where origin output ends (xEnd, yEnd)
+    const { xEnd: x, yEnd: y } = originOutputPosition || {};
+    // current input ends where destination node starts (x, y)
+    const { x: xEnd, y: yEnd } = destNodePos;
 
+    if (!originNodePosition) {
+        return null;
+    }
+
+    const originNodeY = originNodePosition.y - ORIGIN_NODE_Y_OFFSET;
+    const destNodeXOffset = destNodePos.x - DEST_NODE_X_OFFSET;
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
     return (
@@ -57,10 +52,10 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 stroke={color}
                 fill="transparent"
                 strokeWidth={2}
-                d={`M ${x} ${y} 
-                    L${x} ${loopOriginY}
-                    L${xEnd - 20} ${loopOriginY}
-                    L${xEnd - 20} ${yEnd}
+                d={`M ${x} ${y}
+                    L ${x} ${originNodeY}
+                    L ${destNodeXOffset} ${originNodeY}
+                    L ${destNodeXOffset} ${yEnd}
                     L ${xEnd} ${yEnd}`}
                 style={{
                     opacity: 0,
@@ -71,8 +66,8 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
             <text
                 className="InputLinkText"
                 x={x - 30}
-                y={loopOriginY - 5}
-                fill={isSelected ? backgroundColor : defaultLoopInputColor}>
+                y={originNodeY - 5}
+                fill={isSelected ? selectedLoopInputColor : defaultLoopInputColor}>
                 loop
             </text>
             <circle

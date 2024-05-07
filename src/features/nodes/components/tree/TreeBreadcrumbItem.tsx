@@ -1,21 +1,23 @@
 import { NodecosmosTheme } from '../../../../themes/type';
 import { UUID } from '../../../../types';
+import { setNodeScrollTo } from '../../nodes.actions';
 import { faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     IconButton, Link, Tooltip, useTheme,
 } from '@mui/material';
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface TreeBreadcrumbItemProps {
     id: UUID;
     title?: string;
     index: number;
     handleClick: (id: UUID) => void;
-    // handleCentering: (id: UUID) => void;
 }
 
 export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
+    const dispatch = useDispatch();
     const {
         id, title, index, handleClick,
     } = props;
@@ -27,9 +29,9 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
         handleClick(id);
     }, [handleClick, id]);
 
-    // const onCentering = useCallback(() => {
-    //     handleCentering(id);
-    // }, [handleCentering, id]);
+    const handleCentering = useCallback(() => {
+        dispatch(setNodeScrollTo(id));
+    }, [dispatch, id]);
 
     return (
         <div className="BreadcrumbItem">
@@ -40,7 +42,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
                 <IconButton
                     size="small"
                     className="tools"
-                    // onClick={onCentering}
+                    onClick={handleCentering}
                     sx={{ '&:hover': { color: nestedLevelColors[index % 3] } }}
                 >
                     <FontAwesomeIcon icon={faCircle} />

@@ -37,10 +37,6 @@ const initialState: AppState = {
         isOpen: false,
         message: '',
         severity: 'info',
-        anchorOrigin: {
-            vertical: 'top',
-            horizontal: 'center',
-        },
     },
     descriptionCoordinates: {
         x: 0,
@@ -76,7 +72,7 @@ const appSlice = createSlice({
         setDescriptionCoordinates(state, action) {
             state.descriptionCoordinates = action.payload;
         },
-        clearPaneContent(state) {
+        clearSelectedObject(state) {
             state.selectedObject = null;
         },
     },
@@ -101,7 +97,7 @@ export const {
     setTransformablePositions,
     setAlert,
     setDescriptionCoordinates,
-    clearPaneContent,
+    clearSelectedObject,
 } = actions;
 
 export default reducer;

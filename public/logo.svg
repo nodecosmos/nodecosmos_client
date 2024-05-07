@@ -25,12 +25,12 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="1.4721733"
-     inkscape:cx="324.01077"
-     inkscape:cy="211.59194"
+     inkscape:cx="319.25589"
+     inkscape:cy="212.2712"
      inkscape:window-width="3840"
-     inkscape:window-height="2087"
-     inkscape:window-x="3840"
-     inkscape:window-y="40"
+     inkscape:window-height="2083"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="g1749" />
   <defs
@@ -76,22 +76,6 @@
          cy="455.50552"
          rx="78.33313"
          ry="78.333122" />
-      <rect
-         style="fill:#2ddefe;fill-opacity:1;stroke-width:1.395;stroke-dasharray:none"
-         id="rect3184"
-         width="100"
-         height="15"
-         x="225.5471"
-         y="448.52631"
-         ry="0.77757108" />
-      <rect
-         style="fill:#fe6a57;fill-opacity:1;stroke-width:1.39523"
-         id="rect3184-3"
-         width="100"
-         height="15"
-         x="491.54706"
-         y="448.52631"
-         ry="0.77757108" />
     </g>
   </g>
 </svg>

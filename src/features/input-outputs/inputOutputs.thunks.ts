@@ -4,14 +4,14 @@ import {
 } from './inputOutputs.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
-import { NodecosmosError, WithCurrentBranchId } from '../../types';
+import { NodecosmosError, WithBranchId } from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
 export const createIo = createAsyncThunk<
     InputOutput,
-    WithCurrentBranchId<InsertInputOutputPayload>,
+    WithBranchId<InsertInputOutputPayload>,
     { rejectValue: NodecosmosError }
 >(
     'inputOutputs/create',
@@ -32,7 +32,7 @@ export const createIo = createAsyncThunk<
 
 export const updateIoTitle = createAsyncThunk<
     Partial<InputOutput> & InputOutputPrimaryKey,
-    WithCurrentBranchId<UpdateIoTitlePayload>,
+    WithBranchId<UpdateIoTitlePayload>,
     { rejectValue: NodecosmosError }
 >(
     'inputOutputs/updateTitle',
@@ -45,7 +45,7 @@ export const updateIoTitle = createAsyncThunk<
 
 export const deleteIo = createAsyncThunk<
     WithBranchMetadata<Partial<InputOutput> & InputOutputPrimaryKey>,
-    WithCurrentBranchId<InputOutputPrimaryKey>,
+    WithBranchId<InputOutputPrimaryKey>,
     { state: RootState, rejectValue: NodecosmosError }
 >(
     'inputOutputs/delete',
@@ -61,11 +61,10 @@ export const deleteIo = createAsyncThunk<
 
             const metadata: BranchMetadata = {};
 
-            if (branchId !== rootId) {
-                const state = getState();
+            const state = getState();
+            const branch = state.branches.byId[branchId];
 
-                const branch = state.branches.byId[branchId];
-
+            if (branch) {
                 metadata.deleteFromState = branch.createdIos.has(id) || branch.restoredIos.has(id);
             } else {
                 metadata.deleteFromState = true;

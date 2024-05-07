@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useNodeAdd() {
     const {
         id,
-        currentBranchId,
+        branchId,
         isTmp,
         title,
     } = useNodeContext();
@@ -23,11 +23,11 @@ export default function useNodeAdd() {
 
         dispatch(setAlert({ isOpen: false }));
         dispatch(buildTmpNode({
-            currentBranchId,
+            branchId,
             tmpId,
             id,
         }));
-    }, [dispatch, id, currentBranchId]);
+    }, [dispatch, id, branchId]);
 
     const addNode = useCallback(async () => {
         if (shouldAddNode) return;
@@ -35,7 +35,7 @@ export default function useNodeAdd() {
         if (saveInProgress) {
             setShouldAddNode(true);
             dispatch(updateState({
-                currentBranchId,
+                branchId,
                 id,
                 isCreationInProgress: true,
             }));
@@ -51,27 +51,23 @@ export default function useNodeAdd() {
                 isOpen: true,
                 severity: 'error',
                 message,
-                anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                },
             }));
         } else {
             initTempChildNode();
         }
-    }, [shouldAddNode, saveInProgress, isTmp, dispatch, currentBranchId, id, title, initTempChildNode]);
+    }, [shouldAddNode, saveInProgress, isTmp, dispatch, branchId, id, title, initTempChildNode]);
 
     useEffect(() => {
         if (shouldAddNode && !saveInProgress) {
             initTempChildNode();
             setShouldAddNode(false);
             dispatch(updateState({
-                currentBranchId,
+                branchId,
                 id,
                 isCreationInProgress: false,
             }));
         }
-    }, [dispatch, id, initTempChildNode, saveInProgress, shouldAddNode, currentBranchId]);
+    }, [dispatch, id, initTempChildNode, saveInProgress, shouldAddNode, branchId]);
 
     return addNode;
 }

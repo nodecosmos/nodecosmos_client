@@ -76,19 +76,15 @@ export const deleteFlowStep = createAsyncThunk<
     'flowSteps/deleteFlowStep',
     async (payload, { rejectWithValue, getState }) => {
         try {
-            const {
-                branchId, id, nodeId, 
-            } = payload;
+            const { branchId, id } = payload;
             // we use post as stepIndex is double that can't be passed in url
             const response = await nodecosmos.post('/flow_steps/delete', payload);
 
             const metadata: BranchMetadata = {};
+            const state = getState();
+            const branch = state.branches.byId[branchId];
 
-            if (branchId !== nodeId) {
-                const state = getState();
-
-                const branch = state.branches.byId[branchId];
-
+            if (branch) {
                 metadata.deleteFromState = branch.createdFlowSteps.has(id) || branch.restoredFlowSteps.has(id);
             } else {
                 metadata.deleteFromState = true;

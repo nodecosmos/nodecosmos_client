@@ -1,4 +1,7 @@
+import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import ToolsContainer from '../../../../../../common/components/tools/ToolsContainer';
+import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useBranchParams from '../../../../../branch/hooks/useBranchParams';
 import { TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import {
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
@@ -10,9 +13,10 @@ import { faPenToSquare, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export default function OutputToolbar() {
+    const { isIoCreated } = useWorkflowBranch();
     const {
         isSelected, x, y, id,
     } = useIoContext();
@@ -20,6 +24,12 @@ export default function OutputToolbar() {
         openTitleEdit, deleteIoCb, undoDeleteIo,
     } = useIoActions();
     const { isIoDeleted } = useWorkflowBranch();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const handleDelete = useCallback(async () => {
+        await deleteIoCb();
+        closeDelMod();
+    }, [closeDelMod, deleteIoCb]);
+    const { isBranch } = useBranchParams();
 
     if (!isSelected) {
         return null;
@@ -58,14 +68,13 @@ export default function OutputToolbar() {
                                     fontSize: 14,
                                     ml: 1,
                                 }}
-                                onClick={deleteIoCb}
+                                onClick={openDelMod}
                             >
                                 <FontAwesomeIcon icon={faTrash} />
                             </IconButton>
                         </Tooltip>
                     </ToolsContainer>
                 )
-
             }
             {
                 isIoDeleted(id) && (
@@ -83,6 +92,19 @@ export default function OutputToolbar() {
                     </ToolsContainer>
                 )
             }
+            <ConfirmationModal
+                text={
+                    isBranch && !isIoCreated(id)
+                        ? `This action will mark output for deletion within the contribution request. 
+                           Actual deletion will occur once the contribution is merged.`
+                        : 'This action will delete output and dissociate it from flow step nodes that are using it.'
+                }
+                confirmText={isBranch && !isIoCreated(id) ? 'Mark as deleted' : 'Delete'}
+                confirmType={ConfirmType.Deletion}
+                open={delModOpen}
+                onCancel={closeDelMod}
+                onConfirm={handleDelete}
+            />
         </foreignObject>
     );
 }

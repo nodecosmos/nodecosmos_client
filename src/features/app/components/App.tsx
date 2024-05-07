@@ -42,6 +42,15 @@ export default function App() {
         dispatch(syncUpCurrentUser());
     }, [dispatch]);
 
+    useEffect(() => {
+        navigator.serviceWorker.register('/workers/sse.ts', { type: 'module' })
+            .then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, err => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    }, []);
+
     return (
         <ThemeProvider theme={getTheme(currentTheme)}>
             <CssBaseline />
@@ -49,7 +58,6 @@ export default function App() {
                 <Header />
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>
-                        <Route path="/nodes" element={(<NodesIndex />)} />
                         <Route
                             path="/auth"
                             element={isAuthenticated
@@ -58,30 +66,41 @@ export default function App() {
                             <Route path="login" element={<LoginForm />} />
                             <Route path="signup" element={<SignupForm />} />
                         </Route>
-                        <Route path="/nodes" element={<NodeShow />}>
-                            <Route path=":id" element={<TreeShow />}>
-                                <Route path=":branchId" element={<NodeShow />} />
-                            </Route>
-                            <Route path=":id/workflow" element={<WorkflowShow />} />
-                            {/* Contribution Requests */}
-                            <Route path=":id/contribution_requests" element={<ContributionRequestIndex />} />
-                            <Route path=":id/contribution_requests">
-                                <Route path=":branchId" element={<ContributionRequestShow />}>
-                                    <Route path="" element={<ContributionRequestConversation />}>
-                                        <Route path="" element={<MainThread />} />
-                                        <Route path="activity" element={<Activity />} />
-                                    </Route>
-                                    <Route path="tree" element={<ContributionRequestTree />} />
-                                    <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                                    <Route path="commits" element={<ContributionRequestCommits />} />
-                                </Route>
-                            </Route>
-                            <Route path=":id/topics" element={<div />} />
-                            <Route path=":id/tasks_board" element={<div />} />
-                            <Route path=":id/settings" element={<div />} />
-                        </Route>
                         <Route path="404" element={<NotFound />} />
                         <Route path=":username" element={<UserShow />} />
+                        <Route path="/nodes" element={(<NodesIndex />)} />
+                        <Route path="/nodes" element={<NodeShow />}>
+                            <Route path=":originalId/:id" element={<TreeShow />} />
+
+                            <Route path=":originalId/:id">
+                                {/*Workflows*/}
+                                <Route path="workflow" element={<WorkflowShow />} />
+
+                                {/*Contribution Requests*/}
+                                <Route path="contribution_requests" element={<ContributionRequestIndex />} />
+                                <Route path="contribution_requests">
+                                    <Route path=":branchId" element={<ContributionRequestShow />}>
+                                        <Route path="" element={<ContributionRequestConversation />}>
+                                            <Route path="" element={<MainThread />} />
+                                            <Route path="activity" element={<Activity />} />
+                                        </Route>
+                                        <Route path="tree" element={<ContributionRequestTree />} />
+                                        <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                                        <Route path="commits" element={<ContributionRequestCommits />} />
+                                    </Route>
+                                </Route>
+
+                                {/*Topics*/}
+                                <Route path="topics" element={<div />} />
+
+                                {/*Tasks*/}
+                                <Route path="tasks_board" element={<div />} />
+
+                                {/*Settings*/}
+                                <Route path="settings" element={<div />} />
+                            </Route>
+
+                        </Route>
                     </Routes>
                 </Box>
 

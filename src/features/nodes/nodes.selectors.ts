@@ -11,6 +11,7 @@ export const selectDragAndDrop = (state: RootState) => state.nodes.dragAndDrop;
 export const selectChildIds = (state: RootState) => state.nodes.childIds;
 export const selectSaveInProgress = (state: RootState) => state.nodes.saveInProgress;
 export const selectJustCreatedNodeId = (state: RootState) => state.nodes.justCreatedNodeId;
+export const selectScrollTo = (state: RootState) => state.nodes.scrollTo;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,
@@ -46,31 +47,10 @@ export const selectSelectedNode = createSelector(
         if (!selected) {
             return {} as AppNode;
         }
-        const { currentBranchId, id } = selected;
-        return nodesByBranchId[currentBranchId]?.[id] || {} as AppNode;
+        const { branchId, id } = selected;
+        return nodesByBranchId[branchId]?.[id] || {} as AppNode;
     },
 );
-
-export const selectNodeAttribute = <K extends keyof AppNode>(
-    branchId: UUID,
-    nodeId: UUID,
-    attribute: K,
-) => createSelector(
-        selectNodesByBranchId,
-        (nodesByBranchId) => {
-            const branchNodes = nodesByBranchId[branchId];
-            if (!branchNodes) {
-                return null;
-            }
-
-            const node = branchNodes[nodeId];
-            if (!node) {
-                return null;
-            }
-
-            return node[attribute];
-        },
-    );
 
 export const selectBranchTitles = (branchId?: UUID) => createSelector(
     selectTitles,
