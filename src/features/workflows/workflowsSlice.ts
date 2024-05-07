@@ -88,10 +88,13 @@ const workflowsSlice = createSlice({
                 const { nodeId, id } = inputOutput.data;
                 const { branchId } = action.meta.arg;
                 const { initialInputIds } = state.byBranchId[branchId][nodeId];
+                const { deleteFromState } = action.payload.metadata;
 
-                if (initialInputIds.includes(id as UUID)) {
-                    state.byBranchId[branchId][nodeId].initialInputIds
-                        = initialInputIds.filter((iid) => iid !== id);
+                if (deleteFromState) {
+                    if (initialInputIds.includes(id as UUID)) {
+                        state.byBranchId[branchId][nodeId].initialInputIds
+                            = initialInputIds.filter((iid) => iid !== id);
+                    }
                 }
             });
     },
@@ -105,7 +108,6 @@ const {
 export const {
     clearWorkflowBranchData,
     setWorkflowScale,
-    updateWorkflow,
     rebuildWorkflowDiagram,
 } = actions;
 

@@ -34,11 +34,11 @@ export default function useFlowStepActions(props?: Props) {
     const { handleFlowClick } = useFlowActions();
     const handleServerError = useHandleServerErrorAlert();
 
-    const deleteFlowStepCb = useCallback(() => {
+    const deleteFlowStepCb = useCallback(async () => {
         if (!flowStepPrimaryKey) {
             throw new Error('Flow Step Primary Key is not defined');
         }
-        dispatch(deleteFlowStep({
+        await dispatch(deleteFlowStep({
             ...flowStepPrimaryKey,
             rootId,
         }));

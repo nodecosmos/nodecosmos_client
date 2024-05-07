@@ -6,9 +6,9 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 interface SidebarListItemProps {
-    to?: string;
     icon: React.ReactNode;
     title: string;
+    to?: string;
     flip?: boolean;
     component?: React.ElementType;
     onClick?: () => void;
@@ -16,12 +16,14 @@ interface SidebarListItemProps {
     disabled?: boolean;
     end?: boolean;
     selectedIcon?: React.ReactNode;
+    color?: string;
 }
 
 export default function SidebarListItem(props: SidebarListItemProps) {
     const {
         to, icon, title, flip, component = NavLink,
         onClick, children, disabled, end = true, selectedIcon = icon,
+        color,
     } = props;
     const location = useLocation();
     const selected = to && location.pathname.includes(to);
@@ -38,12 +40,21 @@ export default function SidebarListItem(props: SidebarListItemProps) {
                     end,
                 })}
             >
-                <ListItemIcon sx={{ transform: flip ? 'scaleX(-1)' : 'none' }}
+                <ListItemIcon sx={{
+                    transform: flip ? 'scaleX(-1)' : 'none',
+                    color: color ?? 'inherit',
+                }}
                 >
                     {selected ? selectedIcon : icon}
                 </ListItemIcon>
-                <Box display="flex" justifyContent="space-between" alignItems="center" width={1}>
-                    <Typography variant="subtitle2">
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    width={1}>
+                    <Typography
+                        variant="subtitle2"
+                        sx={{ color: color ?? 'inherit' }}>
                         {title}
                     </Typography>
                     {children}

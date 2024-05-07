@@ -1,28 +1,40 @@
+const sw = self as unknown as ServiceWorkerGlobalScope;
+
 // // sse-service-worker.js
+import { Comment } from '../src/features/comments/comments.types';
 import { ActionTypes } from '../src/types';
 
 export const CHANNEL_NAME = 'sse_channel';
 
-self.addEventListener('install', () => {
-    // Service worker installation
-    // @ts-expect-error - Service worker ignore
-    self.skipWaiting(); // Activate worker immediately
+sw.addEventListener('install', () => {
+    sw.skipWaiting().catch((error) => {
+        console.error('Service worker installation failed:', error);
+    });
 });
-//
-self.addEventListener('activate', (event) => {
-    // Service worker activation
-    // @ts-expect-error - Service worker ignore
-    event.waitUntil(clients.claim()); // Become available to all pages
+
+sw.addEventListener('activate', (event) => {
+    event.waitUntil(sw.clients.claim());
 });
 
 const channel = new BroadcastChannel(CHANNEL_NAME);
 const eventSourceByURL = new Map<string, EventSource>();
 const activeClientsByURL = new Map<string, number>();
 
+if ('Notification' in self && Notification.permission !== 'granted') {
+    Notification.requestPermission().catch((error) => {
+        console.error('Notification permission error:', error);
+    });
+}
+
 function initializeSSE(url: string) {
     const eventSource = eventSourceByURL.get(url);
 
     if (!eventSource) {
+        if (eventSourceByURL.size >= 4) {
+            console.error('Too many EventSources open');
+            return;
+        }
+
         const eventSource = new EventSource(url, { withCredentials: true });
         eventSourceByURL.set(url, eventSource);
 
@@ -33,6 +45,15 @@ function initializeSSE(url: string) {
                 action: ActionTypes.CreateComment,
                 payload: data,
             });
+
+            // push notification
+            if (Notification.permission === 'granted') {
+                sw.registration.showNotification(
+                    `${data.author.name} added a comment`, { icon: 'https://nodecosmos.com/logo-square.png' },
+                ).catch((error) => {
+                    console.error('Notification error:', error);
+                });
+            }
         });
 
         eventSource.onmessage = (event) => {
@@ -73,7 +94,7 @@ export enum InitActions {
 }
 
 // Listening for messages to start SSE
-self.addEventListener('message', (event) => {
+sw.addEventListener('message', (event) => {
     const data: InitMessage = event.data;
 
     switch (data.action) {

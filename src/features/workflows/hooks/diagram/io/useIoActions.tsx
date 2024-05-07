@@ -76,8 +76,8 @@ export default function useIoActions() {
         workflowContext,
     ]);
 
-    const deleteIoCb = useCallback(() => {
-        dispatch(deleteIo({
+    const deleteIoCb = useCallback(async () => {
+        await dispatch(deleteIo({
             branchId,
             rootId,
             nodeId,

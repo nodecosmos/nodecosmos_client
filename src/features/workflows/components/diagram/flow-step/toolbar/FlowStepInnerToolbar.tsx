@@ -1,4 +1,6 @@
+import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useBranchParams from '../../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../../flow-steps/components/FlowStepModal';
 import useFlowStepActions from '../../../../../flow-steps/hooks/useFlowStepActions';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
@@ -14,11 +16,11 @@ import {
     Box, Chip, IconButton, Tooltip,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export default function FlowStepInnerToolbar() {
     const {
-        isFlowDeleted, isFlowStepDeleted, isFlowStepInConflict, isFlowStepDeletedConflict,
+        isFlowStepCreated, isFlowDeleted, isFlowStepDeleted, isFlowStepInConflict, isFlowStepDeletedConflict,
     } = useWorkflowBranch();
     const { flowStepPrimaryKey } = useFlowStepContext();
     const {
@@ -29,6 +31,12 @@ export default function FlowStepInnerToolbar() {
     const { isSelected } = useFlowContext();
     const { isSelected: isFlowStepSelected } = useFlowStepContext();
     const [modalOpen, openModal, closeModal] = useModalOpen();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const handleDelete = useCallback(async () => {
+        await deleteFlowStep();
+        closeDelMod();
+    }, [closeDelMod, deleteFlowStep]);
+    const { isBranch } = useBranchParams();
 
     if (!flowStepPrimaryKey?.id || (!isSelected && !isFlowStepSelected)) {
         return null;
@@ -116,7 +124,7 @@ export default function FlowStepInnerToolbar() {
                                 className="Item"
                                 aria-label="Delete Flow Step"
                                 sx={{ color: 'toolbar.red' }}
-                                onClick={deleteFlowStep}
+                                onClick={openDelMod}
                             >
                                 <FontAwesomeIcon icon={faTrashXmark} />
                             </IconButton>
@@ -157,6 +165,19 @@ export default function FlowStepInnerToolbar() {
 
                 }
             </Tooltip>
+            <ConfirmationModal
+                text={
+                    isBranch && !isFlowStepCreated(flowStepPrimaryKey.id)
+                        ? `This action will mark step for deletion within the contribution request. 
+                           Actual deletion will occur once the contribution is merged.`
+                        : 'This action will delete the flow step and all of its outputs'
+                }
+                confirmText={isBranch && !isFlowStepCreated(flowStepPrimaryKey.id) ? 'Mark for deletion' : 'Delete'}
+                confirmType={ConfirmType.Deletion}
+                open={delModOpen}
+                onCancel={closeDelMod}
+                onConfirm={handleDelete}
+            />
             <FlowStepModal open={modalOpen} onClose={closeModal} />
         </Box>
     );

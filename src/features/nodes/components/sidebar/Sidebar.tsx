@@ -20,6 +20,7 @@ import {
     faTable,
 } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
+import { faSquareRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     List, Box, useTheme,
@@ -28,11 +29,11 @@ import React from 'react';
 
 export default function Sidebar() {
     const {
-        branchId, nodeId, isBranch,
+        originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId,
     } = useBranchParams();
     const theme: NodecosmosTheme = useTheme();
-
-    const toPath = `${branchId}/${nodeId}`;
+    const toOrgId = isContributionRequest ? originalId : branchId;
+    const toPath = `${toOrgId}/${nodeId}`;
 
     return (
         <Box
@@ -43,6 +44,19 @@ export default function Sidebar() {
             mt={7}
         >
             <List sx={{ px: 1 }}>
+                {
+                    (isBranch && !isContributionRequest && branchNodeId) && (
+                        <SidebarListItem
+                            to={`${originalId}/${branchNodeId}/contribution_requests/${branchId}`}
+                            flip
+                            icon={(<FontAwesomeIcon icon={faSquareRight} />)}
+                            selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
+                            title="Contribution Request"
+                            color="toolbar.orange"
+                        />
+                    )
+                }
+
                 <SidebarListItem
                     to={toPath}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
@@ -55,9 +69,8 @@ export default function Sidebar() {
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                     title="Workflow"
-                />
-                {
-                    !isBranch && (
+                />{
+                    (!isBranch || isContributionRequest) && (
                         <>
                             <SidebarListItem
                                 to={`${toPath}/contribution_requests`}

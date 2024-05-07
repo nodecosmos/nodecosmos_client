@@ -1,4 +1,6 @@
+import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useBranchParams from '../../../../../branch/hooks/useBranchParams';
 import FlowStepModal from '../../../../../flow-steps/components/FlowStepModal';
 import useFlowActions from '../../../../../flows/hooks/useFlowActions';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
@@ -11,10 +13,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Chip, IconButton, Tooltip,
 } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export default function FlowInnerToolbar() {
-    const { isFlowDeleted, isFlowDeletedConflict } = useWorkflowBranch();
+    const {
+        isFlowDeleted, isFlowDeletedConflict, isFlowCreated,
+    } = useWorkflowBranch();
     const { isSelected, id: flowId } = useFlowContext();
     const { isSelected: isFlowStepSelected, isCreated: isFlowStepCreated } = useFlowStepContext();
     const [modalOpen, openModal, closeModal] = useModalOpen();
@@ -23,6 +27,12 @@ export default function FlowInnerToolbar() {
     } = useFlowActions();
     const isFlowDelConflict = isFlowDeletedConflict(flowId);
     const { deleteFlowCb } = useFlowActions();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const handleDelete = useCallback(async () => {
+        await deleteFlowCb();
+        closeDelMod();
+    }, [closeDelMod, deleteFlowCb]);
+    const { isBranch } = useBranchParams();
 
     return (
         <>
@@ -78,7 +88,7 @@ export default function FlowInnerToolbar() {
                                                 className="Item"
                                                 aria-label="Delete Flow"
                                                 sx={{ color: 'toolbar.default' }}
-                                                onClick={deleteFlowCb}
+                                                onClick={openDelMod}
                                             >
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </IconButton>
@@ -124,6 +134,19 @@ export default function FlowInnerToolbar() {
                 )
             }
 
+            <ConfirmationModal
+                text={
+                    isBranch && !isFlowCreated(flowId)
+                        ? `This action will mark flow for deletion within the contribution request. 
+                           Actual deletion will occur once the contribution is merged.`
+                        : 'This action will delete the complete flow'
+                }
+                confirmText={isBranch && !isFlowCreated(flowId) ? 'Mark as deleted' : 'I understand, delete this flow'}
+                confirmType={ConfirmType.Deletion}
+                open={delModOpen}
+                onCancel={closeDelMod}
+                onConfirm={handleDelete}
+            />
             <FlowStepModal open={modalOpen} onClose={closeModal} />
         </>
     );

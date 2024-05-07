@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export default function useNodeRemove() {
+export default function useNodeDelete() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isBranch } = useBranchParams();
     const {
@@ -16,21 +16,21 @@ export default function useNodeRemove() {
     } = useNodeContext();
     const navigate = useNavigate();
 
-    return useCallback(() => {
+    return useCallback(async () => {
         if (isTmp) {
             dispatch(deleteFromState({
                 branchId,
                 id,
             }));
         } else {
-            dispatch(deleteNode({
+            await dispatch(deleteNode({
                 rootId,
                 branchId,
                 id,
             }));
 
             if (isBranch) {
-                dispatch(reloadBranch(branchId));
+                await dispatch(reloadBranch(branchId));
             }
         }
         if (treeRootId === id) navigate('/nodes');

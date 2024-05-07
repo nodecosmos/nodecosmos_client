@@ -31,8 +31,8 @@ export default function useFlowActions() {
         }));
     }, [branchId, dispatch, flowId, nodeId, originalId]);
 
-    const deleteFlowCb = useCallback(() => {
-        dispatch(deleteFlow({
+    const deleteFlowCb = useCallback(async () => {
+        await dispatch(deleteFlow({
             rootId,
             nodeId,
             branchId,

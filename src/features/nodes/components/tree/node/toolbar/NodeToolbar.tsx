@@ -1,4 +1,7 @@
 import ConflictToolbar from './NodeConflictToolbar';
+import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
+import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useBranchParams from '../../../../../branch/hooks/useBranchParams';
 import { LikeType } from '../../../../../likes/likes.types';
 import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
@@ -15,11 +18,12 @@ import {
     Box, Tooltip, ButtonBase,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function NodeToolbar() {
     const {
+        isRoot,
         isExpanded,
         isSelected,
         branchId,
@@ -27,12 +31,18 @@ export default function NodeToolbar() {
         isCreationInProgress,
     } = useNodeContext();
     const {
-        addNode, editNode, removeNode, undoNodeDeletion,
+        addNode, editNode, deleteNode, undoNodeDeletion,
     } = useNodeActions();
     const { likeCount } = useSelector(selectNode(branchId, id));
     const {
-        isOriginalDeleted, isDeleted, isAncestorDeleted,
+        isOriginalDeleted, isDeleted, isAncestorDeleted, isCreated,
     } = useNodeBranchContext();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const handleDelete = useCallback(async () => {
+        await deleteNode();
+        closeDelMod();
+    }, [closeDelMod, deleteNode]);
+    const { isBranch } = useBranchParams();
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;
@@ -67,6 +77,27 @@ export default function NodeToolbar() {
         );
     }
 
+    let deleteText;
+
+    if (isBranch && !isCreated) {
+        deleteText = `This action will mark node for deletion within the contribution request. Actual deletion of the 
+        node and its descendants will occur once the contribution is merged.`;
+    } else if (isRoot) {
+        deleteText = 'This action will permanently delete the entire node project.';
+    } else {
+        deleteText = 'This action will delete the node and all of its descendants including their workflows.';
+    }
+
+    let deleteConfirmText;
+
+    if (isBranch && !isCreated) {
+        deleteConfirmText = 'Mark for deletion';
+    } else if (isRoot) {
+        deleteConfirmText = 'I understand, delete complete project';
+    } else {
+        deleteConfirmText = 'I understand, delete the node';
+    }
+
     return (
         <div className="NodeToolbar">
             <Tooltip title="Add Node" placement="top">
@@ -79,14 +110,18 @@ export default function NodeToolbar() {
                     <FontAwesomeIcon icon={faPenToSquare} />
                 </ButtonBase>
             </Tooltip>
-            <Tooltip title="Delete Node" placement="top">
-                <ButtonBase
-                    className="Item"
-                    onClick={removeNode}
-                    aria-label="Delete Node">
-                    <FontAwesomeIcon icon={faTrash} />
-                </ButtonBase>
-            </Tooltip>
+            {
+                !(isRoot && isBranch) && (
+                    <Tooltip title="Delete Node" placement="top">
+                        <ButtonBase
+                            className="Item"
+                            onClick={openDelMod}
+                            aria-label="Delete Node">
+                            <FontAwesomeIcon icon={faTrash} />
+                        </ButtonBase>
+                    </Tooltip>
+                )
+            }
             <LikeButton
                 id={id}
                 objectType={LikeType.Node}
@@ -105,6 +140,14 @@ export default function NodeToolbar() {
                     />
                 </ButtonBase>
             </Tooltip>
+            <ConfirmationModal
+                text={deleteText}
+                confirmText={deleteConfirmText}
+                confirmType={ConfirmType.Deletion}
+                open={delModOpen}
+                onCancel={closeDelMod}
+                onConfirm={handleDelete}
+            />
         </div>
     );
 }

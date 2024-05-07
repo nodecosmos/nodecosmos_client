@@ -11,7 +11,7 @@ import React from 'react';
 // Flow and FlowStep toolbar
 export default function Toolbar() {
     const { id } = useFlowContext();
-    const { isFlowCreated } = useWorkflowBranch();
+    const { isFlowCreated, isFlowDeleted } = useWorkflowBranch();
     const { outlineColor: flowBorder } = useFlowColors();
 
     return (
@@ -23,8 +23,8 @@ export default function Toolbar() {
             alignItems="center"
             style={{
                 outline: `solid ${flowBorder}`,
-                outlineWidth: isFlowCreated(id) ? 3 : 0,
-                outlineOffset: isFlowCreated(id) ? -3 : 0,
+                outlineWidth: isFlowCreated(id) || isFlowDeleted(id) ? 2 : 0,
+                outlineOffset: isFlowCreated(id) || isFlowDeleted(id) ? -2 : 0,
                 borderBottom: isFlowCreated(id) ? 'none' : `1px solid ${flowBorder}`,
             }}>
             <FlowTitle />
