@@ -7,17 +7,19 @@ import { useDispatch } from 'react-redux';
 export default function useWorkflowActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
+        rootId,
         branchId,
         nodeId,
     } = useWorkflowContext();
 
     const handleTitleChange = useCallback(async (title: string) => {
         await dispatch(updateWorkflowTitle({
+            rootId,
             branchId,
             nodeId,
             title,
         }));
-    }, [branchId, dispatch, nodeId]);
+    }, [branchId, dispatch, nodeId, rootId]);
 
     return { handleTitleChange };
 }

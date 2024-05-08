@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import {
     EDGE_LENGTH,
     INITIAL_ANIMATION_DURATION,

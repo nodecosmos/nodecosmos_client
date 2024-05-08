@@ -10,7 +10,7 @@ import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
 import { maybeSelectWorkflow } from '../../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosTheme } from '../../../themes/type';
+import { NodecosmosTheme } from '../../../themes/themes.types';
 import { Box, useTheme } from '@mui/material';
 import React, {
     useEffect, useRef, useState,

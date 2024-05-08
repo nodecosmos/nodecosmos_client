@@ -1,5 +1,5 @@
 import SidebarListItem from './SidebarListItem';
-import { NodecosmosTheme } from '../../../../themes/type';
+import { NodecosmosTheme } from '../../../../themes/themes.types';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     faChartSimple as faChartSimpleSolid,

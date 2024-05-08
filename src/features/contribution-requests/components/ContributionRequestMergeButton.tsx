@@ -1,4 +1,6 @@
 import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
+import ConfirmationModal, { ConfirmType } from '../../../common/components/ConfirmationModal';
+import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequest } from '../contributionRequests.selectors';
@@ -18,6 +20,7 @@ export default function ContributionRequestMergeButton() {
 
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
     const merge = useMerge();
+    const [modOpen, openMod, closeMod] = useModalOpen();
 
     if (contributionRequest?.status == ContributionRequestStatus.Merged) {
         return (
@@ -33,13 +36,24 @@ export default function ContributionRequestMergeButton() {
     if (!contributionRequest) return null;
 
     return (
-        <Button
-            variant="outlined"
-            className="NodeButton focused"
-            onClick={merge}
-            startIcon={<FontAwesomeIcon icon={faCodeMerge} />}
-        >
-            Merge
-        </Button>
+        <div>
+            <Button
+                variant="outlined"
+                className="NodeButton focused"
+                onClick={openMod}
+                startIcon={<FontAwesomeIcon icon={faCodeMerge} />}
+            >
+                Merge
+            </Button>
+
+            <ConfirmationModal
+                text="This action will apply all changes from this contribution request to the original records."
+                confirmText="Merge Changes"
+                confirmType={ConfirmType.Merge}
+                open={modOpen}
+                onClose={closeMod}
+                onConfirm={merge}
+            />
+        </div>
     );
 }

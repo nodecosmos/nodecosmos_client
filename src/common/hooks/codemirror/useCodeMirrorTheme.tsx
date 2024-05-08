@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../themes/type';
+import { NodecosmosTheme } from '../../../themes/themes.types';
 import { tags as t } from '@lezer/highlight';
 import { useTheme } from '@mui/material';
 import { createTheme } from '@uiw/codemirror-themes';

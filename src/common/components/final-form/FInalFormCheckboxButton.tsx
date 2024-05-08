@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../themes/type';
+import { NodecosmosTheme } from '../../../themes/themes.types';
 import { Checkbox, useTheme } from '@mui/material';
 import React, { useCallback, useRef } from 'react';
 import { Field } from 'react-final-form';

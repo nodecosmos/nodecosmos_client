@@ -6,7 +6,7 @@ import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
-import { NodecosmosTheme } from '../../themes/type';
+import { NodecosmosTheme } from '../../themes/themes.types';
 import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';

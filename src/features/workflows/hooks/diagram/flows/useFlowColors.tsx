@@ -1,6 +1,6 @@
 import useFlowContext from './useFlowContext';
 import useDiffColors, { DiffState } from '../../../../../common/hooks/useDiffColors';
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useWorkflowBranch from '../../useWorkflowBranch';
 import useFlowStepColors from '../flow-step/useFlowStepColors';

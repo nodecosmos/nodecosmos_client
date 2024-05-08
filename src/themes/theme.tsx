@@ -21,7 +21,7 @@ import typography from './styles/mui/typography';
 import scrollbar from './styles/scrollbar';
 import toolbar from './styles/toolbar';
 import tree from './styles/tree';
-import { NodecosmosTheme } from './type';
+import { NodecosmosTheme } from './themes.types';
 import { createTheme } from '@mui/material/styles';
 
 const getTheme = (theme: NodecosmosTheme) => createTheme({

@@ -1,6 +1,6 @@
 import Toolbar from './Toolbar';
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useFlowStepActions from '../../../../flow-steps/hooks/useFlowStepActions';
 import { TRANSITION_ANIMATION_DURATION } from '../../../../home-tree/constants';
 import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';

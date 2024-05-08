@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../../nodes/nodes.constants';

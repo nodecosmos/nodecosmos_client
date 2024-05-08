@@ -1,5 +1,5 @@
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import { UUID } from '../../../../../types';
 import useReorder from '../../../hooks/tree/useReorder';
 import useTreeContext from '../../../hooks/tree/useTreeContext';

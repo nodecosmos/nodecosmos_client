@@ -144,7 +144,7 @@ export default function FlowInnerToolbar() {
                 confirmText={isBranch && !isFlowCreated(flowId) ? 'Mark as deleted' : 'I understand, delete this flow'}
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
-                onCancel={closeDelMod}
+                onClose={closeDelMod}
                 onConfirm={handleDelete}
             />
             <FlowStepModal open={modalOpen} onClose={closeModal} />

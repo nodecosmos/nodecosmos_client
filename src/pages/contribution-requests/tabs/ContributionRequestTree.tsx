@@ -5,7 +5,7 @@ import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
 import Tree from '../../../features/nodes/components/tree/Tree';
 import { TreeType } from '../../../features/nodes/nodes.types';
-import { NodecosmosTheme } from '../../../themes/type';
+import { NodecosmosTheme } from '../../../themes/themes.types';
 import { Box, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';

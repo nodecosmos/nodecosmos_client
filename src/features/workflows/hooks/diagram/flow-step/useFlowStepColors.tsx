@@ -1,6 +1,6 @@
 import useFlowStepContext from './useFlowStepContext';
 import useDiffColors, { DiffState } from '../../../../../common/hooks/useDiffColors';
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useWorkflowBranch from '../../useWorkflowBranch';
 import { useTheme } from '@mui/material';

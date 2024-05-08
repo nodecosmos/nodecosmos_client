@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../themes/type';
+import { NodecosmosTheme } from '../../../themes/themes.types';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { useTheme } from '@mui/material';
 

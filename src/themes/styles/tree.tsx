@@ -1,5 +1,5 @@
 import { NODE_BUTTON_HEIGHT } from '../../features/nodes/nodes.constants';
-import { NodecosmosTheme } from '../type';
+import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
     '.Tree': {

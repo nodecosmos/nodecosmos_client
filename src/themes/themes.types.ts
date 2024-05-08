@@ -1,7 +1,4 @@
-import { LinkProps } from '@mui/material';
-import {
-    ForwardRefExoticComponent, ReactNode, RefAttributes,
-} from 'react';
+// noinspection JSUnusedGlobalSymbols
 
 type Shadow = string | 0;
 
@@ -71,6 +68,7 @@ interface Palette {
     toggle: PaletteColors;
     button: PaletteColors;
     buttonContrast: PaletteColors;
+    merge: PaletteColors;
     borders: {
         1: string;
         2: string;
@@ -205,6 +203,7 @@ declare module '@mui/material/Button' {
         toggle: true;
         buttonContrast: true;
         button: true;
+        merge: true;
     }
 }
 

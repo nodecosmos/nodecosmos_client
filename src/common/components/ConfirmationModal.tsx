@@ -14,6 +14,7 @@ export enum ConfirmType {
     // noinspection JSUnusedGlobalSymbols
     Creation = 'success',
     Deletion = 'error',
+    Merge = 'merge',
 }
 
 interface Props {
@@ -21,21 +22,22 @@ interface Props {
     confirmText: string;
     confirmType: ConfirmType;
     open: boolean;
-    onCancel: () => void;
+    onClose: () => void;
     onConfirm: () => void;
 }
 
 export default function ConfirmationModal(props: Props) {
     const {
-        text, confirmText, open, confirmType, onCancel, onConfirm,
+        text, confirmText, open, confirmType, onClose, onConfirm,
     } = props;
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
     const handleConfirm = useCallback(async () => {
         setLoading();
         await onConfirm();
         unsetLoading();
-    }, [onConfirm, setLoading, unsetLoading]);
-    const icon = confirmType === ConfirmType.Creation ? faCheck : faClose;
+        onClose();
+    }, [onClose, onConfirm, setLoading, unsetLoading]);
+    const icon = confirmType === ConfirmType.Deletion ? faClose : faCheck;
 
     return (
         <Dialog
@@ -54,7 +56,7 @@ export default function ConfirmationModal(props: Props) {
             }}>
             <DialogTitle fontWeight="bold">
                 Are you sure?
-                <CloseModalButton onClose={onCancel} />
+                <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
                 <Typography color="text.secondary">
@@ -62,7 +64,7 @@ export default function ConfirmationModal(props: Props) {
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button disableElevation variant="contained" onClick={onCancel} color="button">Cancel</Button>
+                <Button disableElevation variant="contained" onClick={onClose} color="button">Cancel</Button>
                 <Button
                     disableElevation
                     variant="outlined"

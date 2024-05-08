@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../type';
+import { NodecosmosTheme } from '../../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
     MuiList: { styleOverrides: { root: { '& .MuiSvgIcon-root': { color: theme.palette.background[8] } } } },

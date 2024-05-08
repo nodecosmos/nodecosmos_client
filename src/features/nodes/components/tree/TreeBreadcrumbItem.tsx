@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../../themes/type';
+import { NodecosmosTheme } from '../../../../themes/themes.types';
 import { UUID } from '../../../../types';
 import { setNodeScrollTo } from '../../nodes.actions';
 import { faCircle } from '@fortawesome/pro-solid-svg-icons';

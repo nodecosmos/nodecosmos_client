@@ -6,11 +6,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import { updateContributionRequestDescription } from '../contributionRequests.thunks';
-import { faClose } from '@fortawesome/pro-thin-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Box, Button, Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { HelpersFromExtensions } from '@remirror/core';
 import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,18 +24,27 @@ export default function ContributionRequestDescription() {
     const { id: nodeId, branchId: id } = useParams();
     const [editorOpen, openEditor, closeEditor] = useBooleanStateValue();
     const { description } = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
-    const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
+    const updateDescription = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
         const description = helpers.getHTML();
 
         dispatch(updateContributionRequestDescription({
             nodeId: nodeId as UUID,
             id: id as UUID,
             description,
-        }));
-    }, [dispatch, id, nodeId]);
+        })).finally(() => {
+            unsetLoading();
+        });
+    }, [dispatch, id, nodeId, unsetLoading]);
 
-    const [handleChangeDebounced] = useDebounce(handleChange);
+    const [handleChangeDebounced] = useDebounce(updateDescription);
+
+    const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
+        setLoading();
+
+        return handleChangeDebounced(helpers);
+    }, [handleChangeDebounced, setLoading]);
     const descriptionEmpty = !description || description === '<p></p>';
 
     return (
@@ -58,6 +63,7 @@ export default function ContributionRequestDescription() {
                             p: 2,
                             '&:hover': { borderColor: 'borders.5' },
                         }}>
+                        {loading && <Box height={20} width={20} mb={2}><Loader color="primary.main" size={20} /></Box> }
                         {descriptionEmpty && (
                             <Typography color="text.tertiary" variant="body2">
                                 Describe contribution request...
@@ -81,7 +87,8 @@ export default function ContributionRequestDescription() {
                             overflow="hidden">
                             <RemirrorEditor
                                 markdown={description ?? ''}
-                                onChange={handleChangeDebounced}
+                                onChange={handleChange}
+                                onBlur={closeEditor}
                                 enabledExtensions={[
                                     Bold,
                                     Italic,
@@ -96,16 +103,6 @@ export default function ContributionRequestDescription() {
                                 p={1}
                             />
                         </Box>
-                        <Button
-                            sx={{ mt: 2 }}
-                            onClick={closeEditor}
-                            component="label"
-                            variant="outlined"
-                            color="error"
-                            startIcon={<FontAwesomeIcon icon={faClose} />}
-                        >
-                            Close
-                        </Button>
                     </Suspense>
                 )
             }

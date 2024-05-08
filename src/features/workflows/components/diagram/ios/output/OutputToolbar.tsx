@@ -102,7 +102,7 @@ export default function OutputToolbar() {
                 confirmText={isBranch && !isIoCreated(id) ? 'Mark as deleted' : 'Delete'}
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
-                onCancel={closeDelMod}
+                onClose={closeDelMod}
                 onConfirm={handleDelete}
             />
         </foreignObject>

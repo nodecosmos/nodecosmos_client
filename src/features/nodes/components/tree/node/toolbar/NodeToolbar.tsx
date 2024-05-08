@@ -145,7 +145,7 @@ export default function NodeToolbar() {
                 confirmText={deleteConfirmText}
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
-                onCancel={closeDelMod}
+                onClose={closeDelMod}
                 onConfirm={handleDelete}
             />
         </div>

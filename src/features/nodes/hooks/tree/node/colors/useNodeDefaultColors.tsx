@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 

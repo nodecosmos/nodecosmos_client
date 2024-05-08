@@ -1,8 +1,7 @@
-// import Output from './ios/Output';
 import Output from './ios/Output';
 import StartToolbar from './StartToolbar';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
-import { NodecosmosTheme } from '../../../../themes/type';
+import { NodecosmosTheme } from '../../../../themes/themes.types';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes/nodes.constants';
@@ -14,7 +13,6 @@ import {
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_BUTTON_HEIGHT,
 } from '../../constants';
-// import { Output as OutputType } from '../../diagram/diagram.types';
 import { Output as OutputType } from '../../diagram/diagram.types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';

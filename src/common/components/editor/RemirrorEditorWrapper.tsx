@@ -16,7 +16,7 @@ import * as Y from 'yjs';
 
 export default function RemirrorEditorWrapper() {
     const {
-        base64, markdown, onChange, p = 8, doc, isRealTime, extensions, info, clearState, autoFocus = true,
+        base64, markdown, onChange, p = 8, doc, isRealTime, extensions, info, clearState, autoFocus = true, onBlur,
     } = useEditorContext();
 
     const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
@@ -55,6 +55,7 @@ export default function RemirrorEditorWrapper() {
                 initialContent={state}
                 autoFocus={autoFocus}
                 onChange={handleChange}
+                onBlur={onBlur}
                 editable
             >
                 <RemirrorEditorToolbar />

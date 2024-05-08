@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { NodecosmosTheme } from './type';
+import { NodecosmosTheme } from './themes.types';
 
 const theme: NodecosmosTheme = {
     shadows: {
@@ -65,6 +65,11 @@ const theme: NodecosmosTheme = {
         buttonContrast: {
             main: '#a5b4be',
             contrastText: '#3d4652',
+        },
+
+        merge: {
+            main: '#c187ff',
+            contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
         borders: {

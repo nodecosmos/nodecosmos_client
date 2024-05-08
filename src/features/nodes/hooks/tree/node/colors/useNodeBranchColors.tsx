@@ -1,5 +1,5 @@
 import useDiffColors, { DiffState } from '../../../../../../common/hooks/useDiffColors';
-import { NodecosmosTheme } from '../../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import useNodeBranchContext from '../useNodeBranchContext';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';

@@ -1,5 +1,5 @@
 import { HEADER_HEIGHT } from '../../../features/app/constants';
-import { NodecosmosTheme } from '../../../themes/type';
+import { NodecosmosTheme } from '../../../themes/themes.types';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import { Box, useTheme } from '@mui/material';
 import React from 'react';

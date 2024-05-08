@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../themes/type';
+import { NodecosmosTheme } from '../../themes/themes.types';
 import { CheckboxOption } from '../components/final-form/FinalFormCheckboxTree';
 import {
     Box, Checkbox, FormControlLabel, useTheme,

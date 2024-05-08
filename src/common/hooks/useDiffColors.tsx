@@ -1,4 +1,4 @@
-import { NodecosmosTheme } from '../../themes/type';
+import { NodecosmosTheme } from '../../themes/themes.types';
 import { withOpacity } from '../../utils/colors';
 import { useTheme } from '@mui/material';
 import { useCallback } from 'react';

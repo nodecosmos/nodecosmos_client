@@ -60,7 +60,11 @@ export default function NodeShowContent() {
         }
     }, [branchId, branchNode, dispatch, id, isBranch]);
 
-    if ((!originalNode) || (isBranch && !branchNode)) {
+    if (!isBranch && !originalNode) {
+        return <Loader />;
+    }
+
+    if (isBranch && !branchNode) {
         return <Loader />;
     }
 

@@ -1,5 +1,5 @@
 import usePrevious from '../../../../../common/hooks/usePrevious';
-import { NodecosmosTheme } from '../../../../../themes/type';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {

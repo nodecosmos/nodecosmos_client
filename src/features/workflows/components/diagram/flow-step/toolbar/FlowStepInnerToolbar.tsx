@@ -175,7 +175,7 @@ export default function FlowStepInnerToolbar() {
                 confirmText={isBranch && !isFlowStepCreated(flowStepPrimaryKey.id) ? 'Mark for deletion' : 'Delete'}
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
-                onCancel={closeDelMod}
+                onClose={closeDelMod}
                 onConfirm={handleDelete}
             />
             <FlowStepModal open={modalOpen} onClose={closeModal} />
