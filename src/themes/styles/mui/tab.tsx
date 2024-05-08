@@ -17,7 +17,7 @@ export default () => ({
             indicator: {
                 height: 7,
                 width: 5,
-                borderRadius: 8,
+                borderRadius: 4,
                 '&.header': {
                     height: 11,
                     top: 48,

@@ -11,7 +11,7 @@ import React, { useEffect } from 'react';
 const steps = [
     'Design Product',
     'Node Tree',
-    'Markdown Editor',
+    'Text Editor',
     'Workflow',
     'Media',
     'Contribution Request',
@@ -73,7 +73,7 @@ export default function Mvp() {
                     }}
                     >
                         <Stepper
-                            activeStep={5}
+                            activeStep={6}
                             alternativeLabel
                             sx={{
                                 '.Mui-completed': {
