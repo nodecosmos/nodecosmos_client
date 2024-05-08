@@ -1,5 +1,5 @@
 import { UUID } from '../../../../../types';
-import { selectOptFlow } from '../../../../flows/flows.selectors';
+import { maybeSelectFlow } from '../../../../flows/flows.selectors';
 import { WorkflowStepFlow as WorkflowStepFlowType } from '../../../diagram/diagram.types';
 import { useFlowStepContextCreator } from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import { useFlowContextCreator } from '../../../hooks/diagram/flows/useFlowContext';
@@ -29,7 +29,7 @@ export default function WorkflowStepFlow({ workflowStepFlow }: Props) {
         workflowStepFlow,
     });
 
-    const flow = useSelector(selectOptFlow(branchId, workflowStepFlow.id));
+    const flow = useSelector(maybeSelectFlow(branchId, workflowStepFlow.id));
 
     if (!flow) {
         return null;

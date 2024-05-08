@@ -1,7 +1,7 @@
 import ThreadLine from './ThreadLine';
 import { timeSince } from '../../../../utils/localTime';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { selectOptNode } from '../../../nodes/nodes.selectors';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
+import { maybeSelectNode } from '../../../nodes/nodes.selectors';
 import { ThreadType } from '../../comments.types';
 import { useThreadContext } from '../../hooks/thread/useThreadContext';
 import {
@@ -15,8 +15,8 @@ export default function ThreadHeader() {
     const {
         author, createdAt, threadType, threadNodeId,
     } = useThreadContext();
-    const { branchId } = useBranchParams();
-    const node = useSelector(selectOptNode(branchId, threadNodeId));
+    const { branchId } = useBranchContext();
+    const node = useSelector(maybeSelectNode(branchId, threadNodeId));
     const nodeTitle = node ? node.title : '';
 
     let commentAction;

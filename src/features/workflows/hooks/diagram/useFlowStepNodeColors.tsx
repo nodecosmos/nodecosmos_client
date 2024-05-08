@@ -1,8 +1,8 @@
 import useFlowStepNodeContext from './flow-step-node/useFlowStepNodeContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { selectOptNode } from '../../../nodes/nodes.selectors';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
+import { maybeSelectNode } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
 import { useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -11,12 +11,12 @@ export default function useFlowStepNodeColors() {
     const {
         branchId, id, isSelected, flowStepId,
     } = useFlowStepNodeContext();
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
     const diffColors = useDiffColors();
     const {
         isFlowStepNodeCreated, isFlowStepNodeDeleted, isFlowStepDeleted, isFlowStepCreated,
     } = useWorkflowBranch();
-    const fsNode = useSelector(selectOptNode(branchId, id));
+    const fsNode = useSelector(maybeSelectNode(branchId, id));
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;

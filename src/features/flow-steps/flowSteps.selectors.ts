@@ -16,7 +16,7 @@ export const selectFlowStep = (branchId: UUID, id: UUID) => createSelector(
     (flowStepsById) => flowStepsById[id],
 );
 
-export const selectOptFlowStep = (branchId: UUID, id?: UUID) => createSelector(
+export const maybeSelectFlowStep = (branchId: UUID, id?: UUID) => createSelector(
     selectFlowStepsByBranch(branchId),
     (flowStepsById) => id ? flowStepsById[id] : null,
 );

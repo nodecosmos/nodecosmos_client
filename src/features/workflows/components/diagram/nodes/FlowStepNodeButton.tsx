@@ -4,7 +4,7 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
-import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes/nodes.actions';
 import {
     ANIMATION_DELAY,
@@ -29,7 +29,7 @@ export default function FlowStepNodeButton() {
     const {
         id, title, position, flowStepId, inputIds,
     } = useFlowStepNodeContext();
-    const { originalId, branchId } = useBranchParams();
+    const { originalId, branchId } = useBranchContext();
     const { x, y } = position;
     const dispatch: NodecosmosDispatch = useDispatch();
     const preventDefault = usePreventDefault();

@@ -59,6 +59,7 @@ interface BranchReorderData {
 export interface Branch {
     id: UUID;
     rootId: UUID;
+    nodeId: UUID;
     title: string;
     description: string;
     status: BranchStatus;

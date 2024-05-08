@@ -179,7 +179,6 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                                 sx={{ ml: 1 }}
                                 variant="outlined"
                                 color="primary"
-                                borderColor="primary"
                                 startIcon={faSave}
                                 loading={loading}
                                 title={comment ? 'Update' : 'Create'}

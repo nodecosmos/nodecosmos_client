@@ -2,7 +2,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import useBranchParams from '../../branch/hooks/useBranchParams';
+import useBranchContext from '../../branch/hooks/useBranchContext';
 import { clearNodeBranchData } from '../../nodes/nodes.actions';
 import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
 import { selectContributionRequest } from '../contributionRequests.selectors';
@@ -16,7 +16,7 @@ export default function useMerge() {
         id: nodeId,
         branchId: id,
     } = useParams();
-    const { originalId } = useBranchParams();
+    const { originalId } = useBranchContext();
 
     if (!nodeId) {
         throw new Error('Missing nodeId');

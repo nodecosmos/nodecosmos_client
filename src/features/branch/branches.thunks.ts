@@ -48,23 +48,6 @@ export const showBranch = createAsyncThunk<Branch, UUID, { rejectValue: Nodecosm
     },
 );
 
-export const getBranchNodeId = createAsyncThunk<UUID, UUID, { rejectValue: NodecosmosError }>(
-    'branches/getBranchNodeId',
-    async (branchId, { rejectWithValue }) => {
-        try {
-            const response = await nodecosmos.get(`/branches/${branchId}/node_id`);
-
-            return response.data.nodeId;
-        } catch (error) {
-            if (isAxiosError(error) && error.response) {
-                return rejectWithValue(error.response.data);
-            }
-
-            console.error(error);
-        }
-    },
-);
-
 interface BranchPayload {
     branchId: UUID;
     objectId: UUID;

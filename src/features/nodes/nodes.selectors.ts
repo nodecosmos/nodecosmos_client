@@ -25,7 +25,7 @@ export const selectNode = (branchId: UUID, nodeId: UUID) => createSelector(
     },
 );
 
-export const selectOptNode = (branchId: UUID, nodeId?: UUID) => createSelector(
+export const maybeSelectNode = (branchId: UUID, nodeId?: UUID) => createSelector(
     selectBranchNodes(branchId),
     (branchNodes) => {
         if (nodeId && branchNodes) {

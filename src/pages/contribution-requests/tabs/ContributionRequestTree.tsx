@@ -2,7 +2,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
 import { selectBranch } from '../../../features/branch/branches.selectors';
-import useBranchParams from '../../../features/branch/hooks/useBranchParams';
+import useBranchContext from '../../../features/branch/hooks/useBranchContext';
 import Tree from '../../../features/nodes/components/tree/Tree';
 import { TreeType } from '../../../features/nodes/nodes.types';
 import { NodecosmosTheme } from '../../../themes/type';
@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 export default function ContributionRequestTree() {
     const theme: NodecosmosTheme = useTheme();
-    const { nodeId, branchId } = useBranchParams();
+    const { nodeId, branchId } = useBranchContext();
     const branch = useSelector(selectBranch(branchId));
     const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
     const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');

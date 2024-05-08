@@ -14,7 +14,7 @@ export const selectFlow = (branchId: UUID, flowId: UUID) => createSelector(
     (flows) => flows[flowId],
 );
 
-export const selectOptFlow = (branchId: UUID, flowId: UUID | null) => createSelector(
+export const maybeSelectFlow = (branchId: UUID, flowId: UUID | null) => createSelector(
     selectFlowByBranchId(branchId),
     (flows) => flowId && flows[flowId],
 );

@@ -3,7 +3,7 @@ import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError, UUID } from '../../../../types';
 import { setAlert } from '../../../app/appSlice';
 import { reloadBranch } from '../../../branch/branches.thunks';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { setDragAndDrop } from '../../nodes.actions';
 import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
 import { reorder } from '../../nodes.thunks';
@@ -19,7 +19,7 @@ export interface NodeDropCaptureParams {
 
 export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
-    const { branchId, isBranch } = useBranchParams();
+    const { branchId, isBranch } = useBranchContext();
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, id } = dragAndDrop || {};
 

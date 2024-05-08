@@ -3,7 +3,7 @@ import { CommentWidget } from '../../../../common/lib/codemirror/extensions/widg
 import { removeInsertCommentWidget, setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { hoveredLineField, selectedLineField } from '../../../../common/lib/codemirror/stateFields';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     ObjectType, ThreadType, ThreadInsertPayload,
 } from '../../comments.types';
@@ -18,7 +18,7 @@ import { createPortal } from 'react-dom';
 
 export default function useCommentInsertWidget(view: EditorView) {
     const { objectId } = usePaneContext();
-    const { nodeId, branchId } = useBranchParams();
+    const { nodeId, branchId } = useBranchContext();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();

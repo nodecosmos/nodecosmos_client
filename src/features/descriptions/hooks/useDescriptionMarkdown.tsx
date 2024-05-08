@@ -4,7 +4,7 @@ import { ObjectType } from '../../../types';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectBranch } from '../../branch/branches.selectors';
 import { BranchStatus } from '../../branch/branches.types';
-import useBranchParams from '../../branch/hooks/useBranchParams';
+import useBranchContext from '../../branch/hooks/useBranchContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescription, getOriginalDescription } from '../descriptions.thunks';
 import {
@@ -16,7 +16,7 @@ export default function useDescriptionMarkdown() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         isBranch, originalId, branchId,
-    } = useBranchParams();
+    } = useBranchContext();
     const {
         rootId,
         mainObjectId: objectId,

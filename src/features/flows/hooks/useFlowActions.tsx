@@ -2,7 +2,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { ObjectType } from '../../../types';
 import { selectObject } from '../../app/app.thunks';
 import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
-import useBranchParams from '../../branch/hooks/useBranchParams';
+import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { deleteFlow, updateFlowTitle } from '../flows.thunks';
@@ -14,7 +14,7 @@ export default function useFlowActions() {
     const {
         id: flowId, nodeId, startIndex, verticalIndex,
     } = useFlowContext();
-    const { originalId, branchId } = useBranchParams();
+    const { originalId, branchId } = useBranchContext();
     const {
         openTitleEdit,
         closeTitleEdit,

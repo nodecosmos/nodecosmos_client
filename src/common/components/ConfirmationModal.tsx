@@ -65,7 +65,7 @@ export default function ConfirmationModal(props: Props) {
                 <Button disableElevation variant="contained" onClick={onCancel} color="button">Cancel</Button>
                 <Button
                     disableElevation
-                    variant="contained"
+                    variant="outlined"
                     onClick={handleConfirm}
                     color={confirmType}
                     startIcon={

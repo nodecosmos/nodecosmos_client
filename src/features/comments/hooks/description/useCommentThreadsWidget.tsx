@@ -2,7 +2,7 @@ import { COMMENT_THREAD_WIDGET_CLASS, CommentThreadWidget } from '../../../../co
 import { setThreadWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { UUID } from '../../../../types';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { selectNodeThreadsByLine } from '../../comments.selectors';
 import CommentThread from '../../components/CommentThread';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 
 export default function useCommentThreadsWidget(view: EditorView): ReactPortal[] {
     const { objectId } = usePaneContext();
-    const { branchId } = useBranchParams();
+    const { branchId } = useBranchContext();
     const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, objectId));
     const [portalsById, setDescThreadPortals] = useState<Record<UUID, ReactPortal> | null>();
 

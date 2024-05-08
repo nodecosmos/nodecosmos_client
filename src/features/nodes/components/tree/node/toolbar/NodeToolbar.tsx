@@ -1,7 +1,7 @@
 import ConflictToolbar from './NodeConflictToolbar';
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { LikeType } from '../../../../../likes/likes.types';
 import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
@@ -42,7 +42,7 @@ export default function NodeToolbar() {
         await deleteNode();
         closeDelMod();
     }, [closeDelMod, deleteNode]);
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;

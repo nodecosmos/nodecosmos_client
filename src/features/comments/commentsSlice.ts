@@ -6,6 +6,7 @@ import {
 } from './comments.types';
 import { RootState } from '../../store';
 import { UUID } from '../../types';
+import { showContributionRequest } from '../contribution-requests/contributionRequests.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const MAX_COMMENT_WIDTH = 780;
@@ -88,6 +89,21 @@ const commentsSlice = createSlice({
                 const objectId = action.meta.arg;
 
                 resetObjectState(state, objectId);
+
+                threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
+                    populateThread(state, thread);
+                });
+
+                comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+                    .forEach((comment) => {
+                        populateComment(state, comment);
+                    });
+            })
+            .addCase(showContributionRequest.fulfilled, (state, action) => {
+                const { comments, threads } = action.payload;
+                const { id } = action.meta.arg;
+
+                resetObjectState(state, id);
 
                 threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
                     populateThread(state, thread);

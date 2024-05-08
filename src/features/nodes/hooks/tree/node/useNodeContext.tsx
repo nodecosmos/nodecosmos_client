@@ -1,5 +1,5 @@
 import { UUID } from '../../../../../types';
-import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { NodeProps } from '../../../components/tree/node/Node';
 import { selectNode } from '../../../nodes.selectors';
 import useTreeContext from '../useTreeContext';
@@ -18,7 +18,7 @@ export function useNodeContextCreator(contextProviderValue: NodeProps) {
 export default function useNodeContext() {
     const { id, isAlreadyMounted } = useContext(NodeContext);
     const { treeNodes } = useTreeContext();
-    const { branchId } = useBranchParams();
+    const { branchId } = useBranchContext();
 
     // tree node attributes
     const {

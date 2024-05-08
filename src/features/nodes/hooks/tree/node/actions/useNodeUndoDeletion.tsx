@@ -2,7 +2,7 @@ import useHandleServerErrorAlert from '../../../../../../common/hooks/useHandleS
 import { NodecosmosDispatch } from '../../../../../../store';
 import { NodecosmosError } from '../../../../../../types';
 import { undoDeleteNode } from '../../../../../branch/branches.thunks';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import useNodeContext from '../useNodeContext';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 export default function useNodeUndoDeletion() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id } = useNodeContext();
-    const { branchId } = useBranchParams();
+    const { branchId } = useBranchContext();
     const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async () => {

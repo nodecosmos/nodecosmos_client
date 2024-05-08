@@ -27,7 +27,7 @@ export const selectWorkflowDiagram = (branchId: UUID, nodeId: UUID) => createSel
     (branchWorkflowDiagrams) => branchWorkflowDiagrams[nodeId],
 );
 
-export const selectOptWorkflow = (branchId: UUID, nodeId: UUID) => createSelector(
+export const maybeSelectWorkflow = (branchId: UUID, nodeId: UUID) => createSelector(
     selectWorkflowByBranchId(branchId),
     (workflowsByBranchId) => {
         if (workflowsByBranchId) {

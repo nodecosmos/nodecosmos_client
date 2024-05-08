@@ -1,21 +1,21 @@
 import Loader from '../../common/components/Loader';
 import { HEADER_HEIGHT } from '../../features/app/constants';
-import useBranchParams from '../../features/branch/hooks/useBranchParams';
+import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import ContributionRequestsIndexToolbar
     from '../../features/contribution-requests/components/ContributionRequestsIndexToolbar';
 import ContributionRequestsList from '../../features/contribution-requests/components/ContributionRequestsList';
 import { indexContributionRequests } from '../../features/contribution-requests/contributionRequests.thunks';
-import { selectOptNode } from '../../features/nodes/nodes.selectors';
+import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Index() {
-    const { branchId, nodeId } = useBranchParams();
+    const { branchId, nodeId } = useBranchContext();
     const [loading, setLoading] = useState(true);
 
     const dispatch = useDispatch();
-    const node = useSelector(selectOptNode(branchId, nodeId));
+    const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
 
     useEffect(() => {

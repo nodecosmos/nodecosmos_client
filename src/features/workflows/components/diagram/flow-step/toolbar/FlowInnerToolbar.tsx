@@ -1,6 +1,6 @@
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import FlowStepModal from '../../../../../flow-steps/components/FlowStepModal';
 import useFlowActions from '../../../../../flows/hooks/useFlowActions';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
@@ -32,7 +32,7 @@ export default function FlowInnerToolbar() {
         await deleteFlowCb();
         closeDelMod();
     }, [closeDelMod, deleteFlowCb]);
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
 
     return (
         <>

@@ -2,7 +2,7 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { selectSelectedObject } from '../../../../app/app.selectors';
 import { setAlert } from '../../../../app/appSlice';
-import { selectOptFlowStep } from '../../../../flow-steps/flowSteps.selectors';
+import { maybeSelectFlowStep } from '../../../../flow-steps/flowSteps.selectors';
 import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../useWorkflowContext';
 import { useCallback } from 'react';
@@ -17,7 +17,7 @@ export default function useInputsChange() {
     const selectedObject = useSelector(selectSelectedObject);
     const { branchId, rootId } = useWorkflowContext();
 
-    const flowStep = useSelector(selectOptFlowStep(branchId, selectedObject?.metadata?.flowStepId));
+    const flowStep = useSelector(maybeSelectFlowStep(branchId, selectedObject?.metadata?.flowStepId));
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback(async (selectedInputs: UUID[]) => {

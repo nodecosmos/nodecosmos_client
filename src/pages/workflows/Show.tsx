@@ -3,11 +3,11 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
-import useBranchParams from '../../features/branch/hooks/useBranchParams';
-import { selectOptNode } from '../../features/nodes/nodes.selectors';
+import useBranchContext from '../../features/branch/hooks/useBranchContext';
+import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import Workflow from '../../features/workflows/components/Workflow';
 import { showWorkflow } from '../../features/workflows/worfklow.thunks';
-import { selectOptWorkflow } from '../../features/workflows/workflow.selectors';
+import { maybeSelectWorkflow } from '../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/type';
 import { Box, useTheme } from '@mui/material';
@@ -17,13 +17,13 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Show() {
     const {
         originalId, branchId, nodeId, isBranch,
-    } = useBranchParams();
+    } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
 
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(branchId, nodeId));
+    const workflow = useSelector(maybeSelectWorkflow(branchId, nodeId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const node = useSelector(selectOptNode(branchId, nodeId));
+    const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
 
     const workflowNodeId = workflow?.nodeId;

@@ -2,9 +2,9 @@ import DeleteCoverImageButton from './DeleteCoverImageButton';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { updateState } from '../../nodes.actions';
-import { selectOptNode } from '../../nodes.selectors';
+import { maybeSelectNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -18,13 +18,13 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, objectId } = usePaneContext();
-    const { isBranch, branchId } = useBranchParams();
+    const { isBranch, branchId } = useBranchContext();
 
     if (!branchId) {
         throw new Error('`branchId` is required in `metadata`');
     }
 
-    const node = useSelector(selectOptNode(branchId, objectId));
+    const node = useSelector(maybeSelectNode(branchId, objectId));
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const [buttonDisplayed, displayButton, hideButton] = useBooleanStateValue();
     const handleClose = useCallback((responseBody?: { url: string }) => {

@@ -2,7 +2,7 @@ import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerE
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError } from '../../../../types';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { updateState } from '../../nodes.actions';
 import { deleteNodeImage } from '../../nodes.thunks';
 import { faClose } from '@fortawesome/pro-regular-svg-icons';
@@ -19,7 +19,7 @@ interface DeleteCoverImageButtonProps {
 export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, objectId } = usePaneContext();
-    const { branchId } = useBranchParams();
+    const { branchId } = useBranchContext();
 
     if (!branchId) {
         throw new Error('`branchId` is required in `metadata`');

@@ -2,8 +2,8 @@ import useFlowStepContext from './flow-step/useFlowStepContext';
 import useIoContext from './io/useIoContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/type';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
-import { selectOptNode } from '../../../nodes/nodes.selectors';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
+import { maybeSelectNode } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
 import useWorkflowContext from '../useWorkflowContext';
 import { useTheme } from '@mui/material';
@@ -18,15 +18,15 @@ export default function useOutputColors() {
     const {
         isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepCreated, isFlowStepDeleted,
     } = useWorkflowBranch();
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
     const diffColors = useDiffColors();
-    const fsNode = useSelector(selectOptNode(branchId, fsNodeId));
+    const fsNode = useSelector(maybeSelectNode(branchId, fsNodeId));
     const nestedLevel = fsNode?.ancestorIds?.length || 0;
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
     const nestedLevelColor = backgrounds[nestedLevel % backgroundCount];
 
-    const selectedNode = useSelector(selectOptNode(branchId, selectedNodeId));
+    const selectedNode = useSelector(maybeSelectNode(branchId, selectedNodeId));
     const selectedNodeNestedLevel = selectedNode?.ancestorIds?.length || 0;
     const selectedNodeNestedLevelColor = backgrounds[selectedNodeNestedLevel % backgroundCount];
     const { id: flowStepId } = useFlowStepContext();

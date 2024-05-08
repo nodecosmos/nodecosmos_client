@@ -1,7 +1,7 @@
 import useFlowContext from './useFlowContext';
 import useDiffColors, { DiffState } from '../../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../../themes/type';
-import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useWorkflowBranch from '../../useWorkflowBranch';
 import useFlowStepColors from '../flow-step/useFlowStepColors';
 import useFlowStepContext from '../flow-step/useFlowStepContext';
@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material';
 
 export default function useFlowColors() {
     const theme: NodecosmosTheme = useTheme();
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
     const {
         isFlowCreated, isFlowDeleted, isFlowDeletedConflict, isFlowStepCreated, isFlowStepDeleted,
     } = useWorkflowBranch();

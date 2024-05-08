@@ -3,7 +3,7 @@ import FinalFormInputField from '../../../common/components/final-form/FinalForm
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
-import { selectOptFlow } from '../flows.selectors';
+import { maybeSelectFlow } from '../flows.selectors';
 import { createFlow } from '../flows.thunks';
 import { FlowUpsertPayload } from '../flows.types';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
@@ -31,7 +31,7 @@ export default function FlowModal(props: Props) {
         rootId, branchId, nodeId,
     } = useWorkflowContext();
     const [loading, setLoading] = React.useState(false);
-    const currentFlow = useSelector(selectOptFlow(branchId, id));
+    const currentFlow = useSelector(maybeSelectFlow(branchId, id));
     const title = currentFlow ? currentFlow.title : '';
     const dispatch: NodecosmosDispatch = useDispatch();
     const onSubmit = useCallback(async (formValues: {title: string}) => {

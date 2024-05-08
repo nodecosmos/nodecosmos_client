@@ -6,6 +6,7 @@ import {
     NodecosmosError, UUID, WithRootId,
 } from '../../types';
 import { Branch } from '../branch/branches.types';
+import { Comment, CommentThread } from '../comments/comments.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -20,6 +21,8 @@ export const indexContributionRequests = createAsyncThunk<BaseCR[], UUID, { reje
 interface ShowResponse {
     contributionRequest: ContributionRequest;
     branch: Branch;
+    comments: Comment[];
+    threads: CommentThread[];
 }
 
 export const showContributionRequest = createAsyncThunk<
@@ -136,7 +139,7 @@ export const deleteContributionRequest = createAsyncThunk<
 >(
     'contributionRequests/deleteContributionRequest',
     async ({
-        nodeId, rootId, id, 
+        nodeId, rootId, id,
     }, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.delete(`/contribution_requests/${nodeId}/${rootId}/${id}`);

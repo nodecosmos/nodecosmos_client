@@ -1,0 +1,82 @@
+import Sidebar from './sidebar/Sidebar';
+import Loader from '../../../common/components/Loader';
+import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
+import { SIDEBAR_WIDTH } from '../../app/constants';
+import useBranchContext from '../../branch/hooks/useBranchContext';
+import useNodeSSE from '../hooks/sse/useNodeSSE';
+import { maybeSelectNode } from '../nodes.selectors';
+import { showBranchNode, showNode } from '../nodes.thunks';
+import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    Outlet, useNavigate, useParams,
+} from 'react-router-dom';
+
+export default function NodeShowContent() {
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const {
+        originalId, branchId, isBranch,
+    } = useBranchContext();
+    if (!id) {
+        navigate('/404');
+    }
+    const originalNode = useSelector(maybeSelectNode(originalId, id as UUID));
+    const branchNode = useSelector(maybeSelectNode(branchId, id as UUID));
+
+    useNodeSSE(originalNode?.rootId);
+
+    useEffect(() => {
+        if (!id) {
+            throw new Error('Node ID is not defined');
+        }
+
+        if (!originalNode) {
+            dispatch(showNode({
+                branchId: originalId,
+                id,
+            })).then((response) => {
+                if (!isBranch) {
+                    if (response.meta.requestStatus === 'rejected') {
+                        navigate('/404');
+                        console.error(response);
+
+                        return;
+                    }
+                }
+            });
+        }
+    }, [dispatch, id, isBranch, navigate, originalId, originalNode]);
+
+    useEffect(() => {
+        if (isBranch && !branchNode) {
+            dispatch(showBranchNode({
+                branchId,
+                id: id as UUID,
+            }));
+        }
+    }, [branchId, branchNode, dispatch, id, isBranch]);
+
+    if ((!originalNode) || (isBranch && !branchNode)) {
+        return <Loader />;
+    }
+
+    return (
+        <Box height={1} display="flex">
+            <Box
+                width={SIDEBAR_WIDTH}
+                borderRight={1}
+                borderColor="borders.1"
+                zIndex={4}
+            >
+                <Sidebar />
+            </Box>
+            <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
+                <Outlet />
+            </Box>
+        </Box>
+    );
+}

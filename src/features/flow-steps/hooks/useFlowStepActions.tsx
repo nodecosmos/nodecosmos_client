@@ -8,7 +8,7 @@ import { selectObject } from '../../app/app.thunks';
 import {
     keepFlowStep, restoreFlowStep, undoDeleteFlowStep,
 } from '../../branch/branches.thunks';
-import useBranchParams from '../../branch/hooks/useBranchParams';
+import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowActions from '../../flows/hooks/useFlowActions';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
 import useWorkflowBranch from '../../workflows/hooks/useWorkflowBranch';
@@ -27,7 +27,7 @@ export default function useFlowStepActions(props?: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isFlowDeleted } = useWorkflowBranch();
     const { rootId, inputsAdditionActive } = useWorkflowContext();
-    const { originalId, branchId } = useBranchParams();
+    const { originalId, branchId } = useBranchContext();
     const {
         flowStepPrimaryKey, stepIndex, nextStepIndex,
     } = useFlowStepContext();

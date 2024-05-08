@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../../../../store';
 import { ObjectType } from '../../../../../../types';
 import { selectObject } from '../../../../../app/app.thunks';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes.actions';
 import useTreeActions from '../../useTreeActions';
 import useTreeContext from '../../useTreeContext';
@@ -22,7 +22,7 @@ export default function useNodeClick() {
         addId, deleteId, isChecked, expandNode, collapseNode,
     } = useTreeActions();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { branchId, originalId } = useBranchParams();
+    const { branchId, originalId } = useBranchContext();
 
     //------------------------------------------------------------------------------------------------------------------
     const handleCheckboxChange = useCallback(() => {

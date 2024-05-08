@@ -1,6 +1,6 @@
 import { NodecosmosDispatch } from '../../../../../../store';
 import { reloadBranch } from '../../../../../branch/branches.thunks';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { deleteFromState } from '../../../../nodes.actions';
 import { deleteNode } from '../../../../nodes.thunks';
 import useNodeContext from '../useNodeContext';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function useNodeDelete() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
     const {
         treeRootId, branchId, id, rootId, isTmp,
     } = useNodeContext();

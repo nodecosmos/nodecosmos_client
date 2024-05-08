@@ -1,6 +1,6 @@
 import SidebarListItem from './SidebarListItem';
 import { NodecosmosTheme } from '../../../../themes/type';
-import useBranchParams from '../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     faChartSimple as faChartSimpleSolid,
     faCodeCommit as faCodeCommitSolid,
@@ -20,7 +20,7 @@ import {
     faTable,
 } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
-import { faSquareRight } from '@fortawesome/pro-solid-svg-icons';
+import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     List, Box, useTheme,
@@ -30,7 +30,7 @@ import React from 'react';
 export default function Sidebar() {
     const {
         originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId,
-    } = useBranchParams();
+    } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const toOrgId = isContributionRequest ? originalId : branchId;
     const toPath = `${toOrgId}/${nodeId}`;
@@ -48,15 +48,13 @@ export default function Sidebar() {
                     (isBranch && !isContributionRequest && branchNodeId) && (
                         <SidebarListItem
                             to={`${originalId}/${branchNodeId}/contribution_requests/${branchId}`}
-                            flip
-                            icon={(<FontAwesomeIcon icon={faSquareRight} />)}
+                            icon={(<FontAwesomeIcon icon={faSquareLeft} />)}
                             selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                             title="Contribution Request"
                             color="toolbar.orange"
                         />
                     )
                 }
-
                 <SidebarListItem
                     to={toPath}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}

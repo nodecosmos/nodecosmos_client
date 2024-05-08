@@ -2,7 +2,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import useBranchParams from '../../branch/hooks/useBranchParams';
+import useBranchContext from '../../branch/hooks/useBranchContext';
 import { updateFlowStepOutputs } from '../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { updateWorkflowInitialInputs } from '../../workflows/worfklow.thunks';
@@ -23,7 +23,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
     const {
         nodeId, rootId, initialInputIds: currentInitialInputIds,
     } = useWorkflowContext();
-    const { branchId } = useBranchParams();
+    const { branchId } = useBranchContext();
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId));

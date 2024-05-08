@@ -2,7 +2,7 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
-import useBranchParams from '../../features/branch/hooks/useBranchParams';
+import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
@@ -15,7 +15,7 @@ import { useParams } from 'react-router-dom';
 
 export default function Show() {
     const { id } = useParams<{id: UUID}>();
-    const { branchId } = useBranchParams();
+    const { branchId } = useBranchContext();
     const dispatch: NodecosmosDispatch = useDispatch();
     const theme: NodecosmosTheme = useTheme();
 

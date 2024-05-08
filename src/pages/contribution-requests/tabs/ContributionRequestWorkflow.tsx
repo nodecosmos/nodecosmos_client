@@ -3,12 +3,12 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
-import useBranchParams from '../../../features/branch/hooks/useBranchParams';
-import { selectOptNode } from '../../../features/nodes/nodes.selectors';
+import useBranchContext from '../../../features/branch/hooks/useBranchContext';
+import { maybeSelectNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
 import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
-import { selectOptWorkflow } from '../../../features/workflows/workflow.selectors';
+import { maybeSelectWorkflow } from '../../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/type';
 import { Box, useTheme } from '@mui/material';
@@ -20,11 +20,12 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function ContributionRequestWorkflow() {
     const {
         originalId, branchId, nodeId,
-    } = useBranchParams();
+    } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const workflow = useSelector(selectOptWorkflow(branchId, nodeId));
-    const originalWorkflow = useSelector(selectOptWorkflow(branchId, nodeId));
+    const workflow = useSelector(maybeSelectWorkflow(branchId, nodeId));
+    const originalWorkflow = useSelector(maybeSelectWorkflow(originalId, nodeId));
+    const branchWorfklow = useSelector(maybeSelectWorkflow(branchId, nodeId));
     const [loading, setLoading] = useState(true);
     const isPaneOpen = useSelector(selectIsPaneOpen);
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
@@ -32,7 +33,7 @@ export default function ContributionRequestWorkflow() {
     const workflowRef = useRef(null);
     const workflowDetailsRef = useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
-    const node = useSelector(selectOptNode(branchId, nodeId));
+    const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
 
     const {
@@ -53,21 +54,24 @@ export default function ContributionRequestWorkflow() {
     }, [paneAWidth, paneBWidth]);
 
     useEffect(() => {
-        if (loading && rootId) {
-            if (!originalWorkflow?.nodeId) {
-                dispatch(showWorkflow({
-                    rootId,
-                    nodeId,
-                    branchId: originalId,
-                }));
-            }
+        if (loading && rootId && !originalWorkflow) {
+            dispatch(showWorkflow({
+                rootId,
+                nodeId,
+                branchId: originalId,
+            }));
+        }
+    }, [dispatch, loading, nodeId, originalId, originalWorkflow, rootId]);
+
+    useEffect(() => {
+        if (loading && rootId && !branchWorfklow) {
             dispatch(showWorkflow({
                 rootId,
                 nodeId,
                 branchId,
             })).then(() => setLoading(false));
         }
-    }, [rootId, originalId, nodeId, dispatch, loading, branchId, originalWorkflow?.nodeId]);
+    }, [branchId, branchWorfklow, dispatch, loading, nodeId, rootId]);
 
     if (loading || !rootId) {
         return <Loader />;

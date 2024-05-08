@@ -32,6 +32,7 @@ function initBranch(state: BranchesState, branch: Branch) {
 
     state.byId[branch.id] = {
         rootId: branch.rootId,
+        nodeId: branch.nodeId,
         id: branch.id,
         title: branch.title,
         description: branch.description,

@@ -8,7 +8,7 @@ import {
 import React from 'react';
 
 export default function ConflictToolbar() {
-    const { removeNode, restoreNode } = useNodeActions();
+    const { deleteNode, restoreNode } = useNodeActions();
     const {
         isExpanded,
         isSelected,
@@ -32,7 +32,7 @@ export default function ConflictToolbar() {
                     <Tooltip title="Delete Node and it's descendants" placement="top">
                         <ButtonBase
                             className="Item"
-                            onClick={removeNode}
+                            onClick={deleteNode}
                             aria-label="Delete Node">
                             <FontAwesomeIcon icon={faTrash} />
                         </ButtonBase>

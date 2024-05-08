@@ -1,7 +1,7 @@
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import ToolsContainer from '../../../../../../common/components/tools/ToolsContainer';
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
-import useBranchParams from '../../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import {
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
@@ -29,7 +29,7 @@ export default function OutputToolbar() {
         await deleteIoCb();
         closeDelMod();
     }, [closeDelMod, deleteIoCb]);
-    const { isBranch } = useBranchParams();
+    const { isBranch } = useBranchContext();
 
     if (!isSelected) {
         return null;

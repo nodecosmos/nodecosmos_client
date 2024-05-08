@@ -2,11 +2,11 @@ import NodeSymbol from './NodeSymbol';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
 import { NodecosmosTheme } from '../../../../../themes/type';
-import useBranchParams from '../../../../branch/hooks/useBranchParams';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useNodeActions from '../../../hooks/tree/node/useNodeActions';
 import useNodeColors from '../../../hooks/tree/node/useNodeColors';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
-import { selectOptNode } from '../../../nodes.selectors';
+import { maybeSelectNode } from '../../../nodes.selectors';
 import { useTheme } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -33,8 +33,8 @@ function NodeButton() {
         dragLeave,
         dropCapture,
     } = useNodeActions();
-    const { originalId } = useBranchParams();
-    const originalNode = useSelector(selectOptNode(originalId, id));
+    const { originalId } = useBranchContext();
+    const originalNode = useSelector(maybeSelectNode(originalId, id));
     const isTitleEdited = originalNode ? title !== originalNode.title : false;
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
