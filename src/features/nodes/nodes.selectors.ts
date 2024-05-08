@@ -12,6 +12,7 @@ export const selectChildIds = (state: RootState) => state.nodes.childIds;
 export const selectSaveInProgress = (state: RootState) => state.nodes.saveInProgress;
 export const selectJustCreatedNodeId = (state: RootState) => state.nodes.justCreatedNodeId;
 export const selectScrollTo = (state: RootState) => state.nodes.scrollTo;
+export const selectExpandedNodes = (state: RootState) => state.nodes.expandedNodes;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,

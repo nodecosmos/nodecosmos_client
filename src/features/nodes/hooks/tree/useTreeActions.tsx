@@ -1,9 +1,14 @@
 import useTreeContext, { TreeNode, TreeNodes } from './useTreeContext';
+import { NodecosmosDispatch } from '../../../../store';
 import { UUID } from '../../../../types';
+import { collapseNodeAction, expandNodeAction } from '../../nodes.actions';
 import { calculatePositions } from '../../utils/position';
 import { ChangeEvent, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function useTreeActions() {
+    const dispatch: NodecosmosDispatch = useDispatch();
+
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
     } = useTreeContext();
@@ -25,32 +30,8 @@ export default function useTreeActions() {
         }
 
         setTreeNodes(newTreeNodes);
-    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const expandNodes = useCallback((nodeIds: UUID[]) => {
-        const newTreeNodes = { ...treeNodes };
-
-        nodeIds.forEach((nodeId) => {
-            const node = treeNodes[nodeId];
-
-            if (node.isExpanded) return;
-
-            const newNode = {
-                ...node,
-                isExpanded: true,
-            };
-
-            newTreeNodes[nodeId] = newNode;
-
-            if (node.childIds.length > 0) {
-                mountDescendants(newTreeNodes, node);
-            }
-        });
-
-        calculatePositions(orderedTreeNodeIds, newTreeNodes);
-        setTreeNodes(newTreeNodes);
-    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
+        dispatch(expandNodeAction(nodeId));
+    }, [dispatch, orderedTreeNodeIds, setTreeNodes, treeNodes]);
 
     const collapseNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];
@@ -67,7 +48,8 @@ export default function useTreeActions() {
         }
 
         setTreeNodes(newTreeNodes);
-    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
+        dispatch(collapseNodeAction(nodeId));
+    }, [dispatch, orderedTreeNodeIds, setTreeNodes, treeNodes]);
 
     // checkboxes
     const addId = useCallback((nodeId: UUID) => {

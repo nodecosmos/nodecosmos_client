@@ -19,6 +19,7 @@ export interface NodeDropCaptureParams {
 
 export default function useReorder() {
     const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
+    const oldParentId = dragAndDrop?.parentId;
     const { branchId, isBranch } = useBranchContext();
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, id } = dragAndDrop || {};
@@ -53,6 +54,7 @@ export default function useReorder() {
             rootId,
             branchId,
             id,
+            oldParentId,
             newParentId,
             newUpperSiblingId,
             newLowerSiblingId,
@@ -76,6 +78,6 @@ export default function useReorder() {
         setReorderInProgress(false);
     },
     [
-        dispatch, reorderInProgress, childIdsByParentId, rootId, branchId, id, isBranch, handleServerError,
+        dispatch, reorderInProgress, childIdsByParentId, rootId, branchId, id, isBranch, handleServerError, oldParentId,
     ]);
 }

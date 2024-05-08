@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 
 export default function NodeToolbar() {
     const {
+        isTmp,
         isRoot,
         isExpanded,
         isSelected,
@@ -38,11 +39,14 @@ export default function NodeToolbar() {
         isOriginalDeleted, isDeleted, isAncestorDeleted, isCreated,
     } = useNodeBranchContext();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
-    const handleDelete = useCallback(async () => {
-        await deleteNode();
-        closeDelMod();
-    }, [closeDelMod, deleteNode]);
     const { isBranch } = useBranchContext();
+    const handleDelete = useCallback(() => {
+        if (isTmp) {
+            deleteNode().catch(console.error);
+        } else {
+            openDelMod();
+        }
+    }, [deleteNode, isTmp, openDelMod]);
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;
@@ -115,7 +119,7 @@ export default function NodeToolbar() {
                     <Tooltip title="Delete Node" placement="top">
                         <ButtonBase
                             className="Item"
-                            onClick={openDelMod}
+                            onClick={handleDelete}
                             aria-label="Delete Node">
                             <FontAwesomeIcon icon={faTrash} />
                         </ButtonBase>
@@ -146,7 +150,7 @@ export default function NodeToolbar() {
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
                 onClose={closeDelMod}
-                onConfirm={handleDelete}
+                onConfirm={deleteNode}
             />
         </div>
     );

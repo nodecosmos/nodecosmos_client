@@ -25,8 +25,7 @@ export default function ContributionRequestWorkflow() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const workflow = useSelector(maybeSelectWorkflow(branchId, nodeId));
     const originalWorkflow = useSelector(maybeSelectWorkflow(originalId, nodeId));
-    const branchWorfklow = useSelector(maybeSelectWorkflow(branchId, nodeId));
-    const [loading, setLoading] = useState(true);
+    const branchWorkflow = useSelector(maybeSelectWorkflow(branchId, nodeId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
     const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
     const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
@@ -35,6 +34,7 @@ export default function ContributionRequestWorkflow() {
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
     const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
+    const [loading, setLoading] = useState(!workflow);
 
     const {
         paneAWidth,
@@ -64,21 +64,21 @@ export default function ContributionRequestWorkflow() {
     }, [dispatch, loading, nodeId, originalId, originalWorkflow, rootId]);
 
     useEffect(() => {
-        if (loading && rootId && !branchWorfklow) {
+        if (loading && rootId && !branchWorkflow) {
             dispatch(showWorkflow({
                 rootId,
                 nodeId,
                 branchId,
             })).then(() => setLoading(false));
         }
-    }, [branchId, branchWorfklow, dispatch, loading, nodeId, rootId]);
+    }, [branchId, branchWorkflow, dispatch, loading, nodeId, rootId]);
 
     if (loading || !rootId) {
         return <Loader />;
     }
 
     if (!workflow) {
-        throw new Error('originalWorkflow is not defined');
+        throw new Error('workflow is not defined');
     }
 
     const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];

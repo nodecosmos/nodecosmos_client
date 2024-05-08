@@ -26,11 +26,12 @@ export default function useNodeBranchColors() {
         let outlinedColored = true;
         let branchColors;
 
-        if (isCreated) {
-            branchColors = diffColors(isSelected, DiffState.Added);
-        } else if (isDeleted) {
+        if (isDeleted) {
             branchColors = diffColors(isSelected, DiffState.Removed);
-        } else if (isOriginalDeleted) {
+        } else if (isCreated) {
+            branchColors = diffColors(isSelected, DiffState.Added);
+        }
+        else if (isOriginalDeleted) {
             branchColors = diffColors(isSelected, DiffState.Conflict);
         } else if (isReordered || isDescriptionEdited || isEdited) {
             branchColors = diffColors(isSelected, DiffState.Edited);

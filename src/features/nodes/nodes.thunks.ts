@@ -156,6 +156,7 @@ export interface ReorderPayload {
     newParentId: UUID;
     newUpperSiblingId?: UUID;
     newLowerSiblingId?: UUID;
+    oldParentId: UUID;
     newSiblingIndexAfterMove: number;
 }
 

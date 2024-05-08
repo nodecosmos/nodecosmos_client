@@ -21,7 +21,7 @@ import { createFlowStep, deleteFlowStep } from '../flow-steps/flowSteps.thunks';
 import { createFlow, deleteFlow } from '../flows/flows.thunks';
 import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import {
-    create, deleteNode, updateTitle,
+    create, deleteNode, reorder, updateTitle,
 } from '../nodes/nodes.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -127,6 +127,23 @@ const branchesSlice = createSlice({
                 if (branch) {
                     branch.editedTitleNodes ||= new Set();
                     branch.editedTitleNodes.add(nodeId);
+                }
+            })
+            .addCase(reorder.fulfilled, (state, action) => {
+                const {
+                    id, branchId, newParentId, oldParentId, newSiblingIndexAfterMove,
+                } = action.meta.arg;
+                const branch = branchId && state.byId[branchId];
+
+                if (branch) {
+                    branch.reorderedNodes ||= [];
+                    branch.reorderedNodes.push({
+                        newParentId,
+                        oldParentId,
+                        id,
+                        oldOrderIndex: 0,
+                        newOrderIndex: newSiblingIndexAfterMove,
+                    });
                 }
             })
             .addCase(saveDescription.fulfilled, (state, action) => {

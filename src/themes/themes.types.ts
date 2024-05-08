@@ -69,6 +69,7 @@ interface Palette {
     button: PaletteColors;
     buttonContrast: PaletteColors;
     merge: PaletteColors;
+    info: PaletteColors;
     borders: {
         1: string;
         2: string;

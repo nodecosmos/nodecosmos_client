@@ -1,19 +1,16 @@
+import ContributionRequestActions from './ContributionRequestActions';
 import ContributionRequestStatusIcon from './ContributionRequestStatusIcon';
+import Alert from '../../../common/components/Alert';
 import NcAvatar from '../../../common/components/NcAvatar';
 import NcLink from '../../../common/components/NcLink';
-import { NodecosmosDispatch } from '../../../store';
 import { Profile, UUID } from '../../../types';
-import useBranchContext from '../../branch/hooks/useBranchContext';
-import { maybeSelectNode } from '../../nodes/nodes.selectors';
 import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequests, selectSearchTerm } from '../contributionRequests.selectors';
-import { deleteContributionRequest } from '../contributionRequests.thunks';
-import { Button } from '@mui/material';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props {
     nodeId: UUID;
@@ -29,21 +26,6 @@ const STATUS_ORDER = {
 export default function ContributionRequestsList({ nodeId }: Props) {
     const contributionRequests = useSelector(selectContributionRequests(nodeId));
     const searchTerm = useSelector(selectSearchTerm);
-    const dispatch: NodecosmosDispatch = useDispatch();
-    const { originalId } = useBranchContext();
-    const optNode = useSelector(maybeSelectNode(originalId as UUID, nodeId as UUID));
-    const rootId = optNode?.rootId;
-
-    const deleteCR = useCallback((id: UUID) => {
-        if (!rootId) {
-            throw new Error('Root ID is not defined');
-        }
-        return () => dispatch(deleteContributionRequest({
-            rootId,
-            nodeId,
-            id,
-        }));
-    }, [dispatch, nodeId, rootId]);
 
     const columns: GridColDef<ContributionRequest>[] = [
         {
@@ -94,15 +76,13 @@ export default function ContributionRequestsList({ nodeId }: Props) {
             field: 'actions',
             flex: 1,
             type: 'string',
-            renderCell: (params: GridRenderCellParams<ContributionRequest>) => (
-                <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={deleteCR(params.row.id)}
-                >
-                    Delete
-                </Button>
-            ),
+            renderCell: (params: GridRenderCellParams<ContributionRequest>) => {
+                if (params.row.status === ContributionRequestStatus.WorkInProgress) {
+                    return (
+                        <ContributionRequestActions nodeId={nodeId} id={params.row.id} />
+                    );
+                }
+            },
         },
     ];
 
@@ -113,32 +93,36 @@ export default function ContributionRequestsList({ nodeId }: Props) {
     }
 
     return (
-        <DataGrid
-            rows={rows}
-            columns={columns}
-            initialState={{
-                pagination: { paginationModel: { pageSize: 50 } },
-                sorting: {
-                    sortModel: [
-                        {
-                            field: 'createdAt',
-                            sort: 'desc',
-                        },
-                    ],
-                },
-            }}
-            checkboxSelection={false}
-            rowSelection={false}
-            disableColumnMenu
-            columnHeaderHeight={48}
-            rowHeight={48}
-            filterModel={
-                {
-                    items: [],
-                    quickFilterValues: [searchTerm],
+        <>
+            <Alert position="relative" />
+            <DataGrid
+                rows={rows}
+                columns={columns}
+                initialState={{
+                    pagination: { paginationModel: { pageSize: 50 } },
+                    sorting: {
+                        sortModel: [
+                            {
+                                field: 'createdAt',
+                                sort: 'desc',
+                            },
+                        ],
+                    },
+                }}
+                checkboxSelection={false}
+                rowSelection={false}
+                disableColumnMenu
+                columnHeaderHeight={48}
+                rowHeight={48}
+                filterModel={
+                    {
+                        items: [],
+                        quickFilterValues: [searchTerm],
+                    }
                 }
-            }
-            style={{ height: '100%' }}
-        />
+                style={{ height: '100%' }}
+            />
+        </>
+
     );
 }

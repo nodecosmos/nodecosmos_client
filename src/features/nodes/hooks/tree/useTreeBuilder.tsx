@@ -5,7 +5,7 @@ import { UUID } from '../../../../types';
 import { TRANSFORMABLE_ID } from '../../../app/constants';
 import { setNodeScrollTo } from '../../nodes.actions';
 import {
-    selectBranchChildIds, selectNode, selectScrollTo,
+    selectBranchChildIds, selectExpandedNodes, selectNode, selectScrollTo,
 } from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
 import { calculatePosition } from '../../utils/position';
@@ -47,6 +47,7 @@ export default function useTreeBuilder(props: Props): Tree {
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
     const scrollToId = useSelector(selectScrollTo);
     const dispatch = useDispatch();
+    const expandedNodes = useSelector(selectExpandedNodes);
 
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
@@ -97,7 +98,8 @@ export default function useTreeBuilder(props: Props): Tree {
             const isCheckbox = type === TreeType.Checkbox;
             const isExpanded = isCheckbox
                 || isTreeRoot
-                || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false);
+                || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false)
+                || expandedNodes.has(currentId);
             orderedTreeNodeIds.push(currentId);
             const childIds = (branchChildIds && branchChildIds[currentId]) || [];
 

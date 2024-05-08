@@ -39,6 +39,7 @@ const initialState: NodeState = {
     dragAndDrop: null,
     justCreatedNodeId: null,
     scrollTo: null,
+    expandedNodes: new Set(),
 };
 
 const nodesSlice = createSlice({
@@ -73,6 +74,12 @@ const nodesSlice = createSlice({
         },
         setNodeScrollTo: (state: NodeState, action: PayloadAction<UUID | null>) => {
             state.scrollTo = action.payload;
+        },
+        expandNode: (state: NodeState, action: PayloadAction<UUID>) => {
+            state.expandedNodes.add(action.payload);
+        },
+        collapseNode: (state: NodeState, action: PayloadAction<UUID>) => {
+            state.expandedNodes.delete(action.payload);
         },
     },
     extraReducers(builder) {

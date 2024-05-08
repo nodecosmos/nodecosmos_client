@@ -72,6 +72,11 @@ const theme: NodecosmosTheme = {
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
+        info: {
+            main: '#5591de',
+            contrastText: 'rgba(0, 0, 0, 0.7)',
+        },
+
         borders: {
             1: '#43464d',
             2: '#454b53', // 454b53 3c4149
@@ -197,7 +202,7 @@ const theme: NodecosmosTheme = {
             },
             edited: {
                 bg: '#484d46',
-                fg: '#eef47a',
+                fg: '#ccde5f',
             },
             conflict: {
                 bg: '#934c46',

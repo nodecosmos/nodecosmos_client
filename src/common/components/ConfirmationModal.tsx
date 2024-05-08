@@ -1,4 +1,5 @@
 import CloseModalButton from './modal/CloseModalButton';
+import SimpleAlert from './SimpleAlert';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { faCheck, faClose } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,11 +25,13 @@ interface Props {
     open: boolean;
     onClose: () => void;
     onConfirm: () => void;
+    warning?: string;
+    info?: string;
 }
 
 export default function ConfirmationModal(props: Props) {
     const {
-        text, confirmText, open, confirmType, onClose, onConfirm,
+        text, confirmText, open, confirmType, onClose, onConfirm, warning, info,
     } = props;
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
     const handleConfirm = useCallback(async () => {
@@ -62,6 +65,8 @@ export default function ConfirmationModal(props: Props) {
                 <Typography color="text.secondary">
                     {text}
                 </Typography>
+                {warning && <SimpleAlert severity="warning" message={warning} />}
+                {info && <SimpleAlert severity="info" message={info} />}
             </DialogContent>
             <DialogActions>
                 <Button disableElevation variant="contained" onClick={onClose} color="button">Cancel</Button>

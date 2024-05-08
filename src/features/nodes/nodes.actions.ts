@@ -9,8 +9,9 @@ export const {
     select,
     search,
     setDragAndDrop,
-    setNodePaneContent,
     setSaveInProgress,
     clearJustCreatedNode,
     setNodeScrollTo,
+    expandNode: expandNodeAction,
+    collapseNode: collapseNodeAction,
 } = actions;

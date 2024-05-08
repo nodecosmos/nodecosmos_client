@@ -104,6 +104,7 @@ export interface NodeState {
     saveInProgress: boolean;
     dragAndDrop: DragAndDrop | null;
     justCreatedNodeId: UUID | null;
+    expandedNodes: Set<UUID>;
 }
 
 export enum TreeType {
