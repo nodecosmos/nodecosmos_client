@@ -5,7 +5,7 @@ import PaneWorkflow from './PaneWorkflow';
 import { HEADER_HEIGHT } from '../../../constants';
 import { PaneContent, usePaneContext } from '../../../hooks/pane/usePaneContext';
 import Toolbar from '../Toolbar';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 
 const PANE_CONTENTS = {
@@ -16,8 +16,29 @@ const PANE_CONTENTS = {
 };
 
 export default function Content() {
-    const { content } = usePaneContext();
+    const { content, metadata } = usePaneContext();
     const PaneContent = PANE_CONTENTS[content];
+
+    if (metadata?.isTmp) {
+        return (
+            <Box
+                m={3}
+                height={1}
+                width={1}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="column"
+            >
+                <Typography variant="h6" color="text.secondary" textAlign="center">
+                    Temporary object. Add title to initialize it.
+                </Typography>
+                <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
+                    ¯\_(ツ)_/¯
+                </Typography>
+            </Box>
+        );
+    }
 
     return (
         <Box

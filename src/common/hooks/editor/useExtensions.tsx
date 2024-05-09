@@ -136,6 +136,7 @@ export default function useExtensions(props: UseExtensionsProps) {
     }
 
     const doc = useMemo(() => {
+        console.log('hit doc useMemo');
         if (!isRealTime) return null;
 
         const ydoc = new Y.Doc();
@@ -146,7 +147,10 @@ export default function useExtensions(props: UseExtensionsProps) {
         }
 
         return ydoc;
-    }, [base64, isRealTime]);
+
+        // base64 is built on initial render if provided in props, and it should not be a dependency
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isRealTime]);
 
     const provider = useMemo(
         () => {

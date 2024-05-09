@@ -93,11 +93,15 @@ export default function useDescriptionEdit() {
             const descriptionHtml = helpers.getHTML();
             const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
 
+            console.log('Saving description', {
+                isEmptySame,
+                currentHTML,
+                descriptionHtml,
+            });
+
             if (isEmptySame || (descriptionHtml === currentHTML)) {
                 return;
             }
-
-            console.log('Saving description', descriptionHtml);
 
             const response = await dispatch(saveDescription({
                 branchId,

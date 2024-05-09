@@ -16,6 +16,7 @@ export default function useNodeClick() {
         isEditing,
         isSelected,
         isCreationInProgress,
+        isTmp,
     } = useNodeContext();
     const { type: treeType } = useTreeContext();
     const {
@@ -64,10 +65,12 @@ export default function useNodeClick() {
                 objectNodeId: id,
                 objectId: id,
                 objectType: ObjectType.Node,
+                metadata: { isTmp },
+
             }));
         }
     }, [
         branchId, collapseNode, dispatch, expandNode, handleCheckboxChange, id,
-        isEditing, isExpanded, isSelected, treeType, originalId, isCreationInProgress,
+        isEditing, isExpanded, isSelected, treeType, originalId, isCreationInProgress, isTmp,
     ]);
 }

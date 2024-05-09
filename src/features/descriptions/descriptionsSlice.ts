@@ -38,7 +38,7 @@ const descriptionsSlice = createSlice({
             })
             .addCase(saveDescription.fulfilled, (state, action) => {
                 const {
-                    objectId, branchId, rootId, nodeId, objectType, html, markdown,
+                    objectId, branchId, rootId, nodeId, objectType, html, markdown, base64,
                 } = action.payload;
 
                 state.byBranchId[branchId] ||= {};
@@ -50,11 +50,13 @@ const descriptionsSlice = createSlice({
                     objectType,
                     html,
                     markdown,
-                    base64: '',
+                    base64,
                 };
-                // DO NOT reassign base64 here as it will break description save flow
+
                 state.byBranchId[branchId][objectId].html = html;
                 state.byBranchId[branchId][objectId].markdown = markdown;
+                // NOTE: we need to pay attention to not break editor flow
+                state.byBranchId[branchId][objectId].base64 = base64;
             });
     },
 });

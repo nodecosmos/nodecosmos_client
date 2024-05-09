@@ -50,7 +50,7 @@ export default function ContributionRequestActions(props: Props) {
             </Button>
             <ConfirmationModal
                 text="This action will delete all contributions within this CR."
-                confirmText="I understand, delete this CR."
+                confirmText="I understand, delete this CR"
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
                 onClose={closeDelMod}

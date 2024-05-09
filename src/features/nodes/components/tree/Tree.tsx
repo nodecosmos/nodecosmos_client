@@ -29,8 +29,7 @@ function Tree(props: TreeProps) {
         onChange,
         value,
     });
-
-    const isTreeLoading = false; // TODO
+    const isTreeLoading = false; // TODO on reorder
 
     return (
         <TreeContext.Provider value={ctxValue}>

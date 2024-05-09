@@ -1,17 +1,36 @@
 import useTreeContext, { TreeNode, TreeNodes } from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
-import { UUID } from '../../../../types';
-import { collapseNodeAction, expandNodeAction } from '../../nodes.actions';
+import { ObjectType, UUID } from '../../../../types';
+import { selectObject } from '../../../app/app.thunks';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
+import {
+    collapseNodeAction, expandNodeAction, select,
+} from '../../nodes.actions';
 import { calculatePositions } from '../../utils/position';
 import { ChangeEvent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useTreeActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
+    const { branchId, originalId } = useBranchContext();
 
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
     } = useTreeContext();
+
+    const selectNode = useCallback((id: UUID) => {
+        dispatch(select({
+            branchId,
+            id,
+        }));
+        dispatch(selectObject({
+            originalId,
+            branchId,
+            objectNodeId: id,
+            objectId: id,
+            objectType: ObjectType.Node,
+        }));
+    }, [branchId, dispatch, originalId]);
 
     const expandNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];
@@ -76,6 +95,7 @@ export default function useTreeActions() {
     }, [isChecked, addId, deleteId]);
 
     return {
+        selectNode,
         expandNode,
         collapseNode,
         addId,

@@ -48,8 +48,8 @@ export interface SelectedObject {
     objectType: ObjectType;
     objectTitle: string;
     originalObjectTitle: string;
-    insidePane?: boolean;
     metadata?: {
+        isTmp?: boolean;
         flowStepId?: UUID;
         inputIds?: UUID[]; // for selecting inputs on fs node click
         mainObjectId?: UUID;
