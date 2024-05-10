@@ -13,17 +13,14 @@ interface InputProps {
     nodeOutputId: UUID
 }
 
-const ORIGIN_NODE_Y_OFFSET = 30;
-const DEST_NODE_X_OFFSET = 20;
+const ORIGIN_NODE_Y_OFFSET = 25;
+const X_OFFSET = 20;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const { position: destNodePos, isSelected } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
-    const {
-        selectedLoopInputColor,
-        defaultLoopInputColor,
-    } = theme.palette.workflow;
+    const { defaultLoopInputColor } = theme.palette.workflow;
     const { nestedTreeColor } = useFlowStepNodeColors();
     const color = isSelected ? nestedTreeColor : defaultLoopInputColor;
 
@@ -42,7 +39,6 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     }
 
     const originNodeY = originNodePosition.y - ORIGIN_NODE_Y_OFFSET;
-    const destNodeXOffset = destNodePos.x - DEST_NODE_X_OFFSET;
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
 
     return (
@@ -51,11 +47,12 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 className="InputLink"
                 stroke={color}
                 fill="transparent"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 d={`M ${x} ${y}
-                    L ${x} ${originNodeY}
-                    L ${destNodeXOffset} ${originNodeY}
-                    L ${destNodeXOffset} ${yEnd}
+                    L ${x + X_OFFSET + 2.5} ${y}
+                    L ${x + X_OFFSET + 2.5} ${originNodeY}
+                    L ${destNodePos.x - X_OFFSET} ${originNodeY}
+                    L ${destNodePos.x - X_OFFSET} ${yEnd}
                     L ${xEnd} ${yEnd}`}
                 style={{
                     opacity: 0,
@@ -65,9 +62,9 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
             />
             <text
                 className="InputLinkText"
-                x={x - 30}
-                y={originNodeY - 5}
-                fill={isSelected ? selectedLoopInputColor : defaultLoopInputColor}>
+                x={x - 12.5}
+                y={y - 10}
+                fill={color}>
                 loop
             </text>
             <circle
@@ -76,7 +73,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 cy={y}
                 r={5}
                 strokeWidth={2}
-                stroke={isSelected ? selectedLoopInputColor : defaultLoopInputColor}
+                stroke={color}
                 fill={color}
                 style={{
                     opacity: 0,

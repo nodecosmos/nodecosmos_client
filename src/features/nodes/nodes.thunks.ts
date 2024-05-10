@@ -9,7 +9,7 @@ import {
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
 import {
-    NodecosmosError, RootId, UUID, WithRootId,
+    NodecosmosError, RootId, UUID,
 } from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -183,7 +183,7 @@ export const reorder = createAsyncThunk<null, ReorderPayload, { rejectValue: Nod
     },
 );
 
-export const deleteNodeImage = createAsyncThunk<null, WithRootId<NodePrimaryKey>, { rejectValue: NodecosmosError }>(
+export const deleteNodeImage = createAsyncThunk<null, NodePrimaryKey & RootId, { rejectValue: NodecosmosError }>(
     'nodes/deleteNodeImage',
     async ({
         branchId, id, rootId,

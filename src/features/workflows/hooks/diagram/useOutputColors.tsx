@@ -58,6 +58,7 @@ export default function useOutputColors() {
 
     return {
         ...colors,
-        checkboxColor: selectedNodeNestedLevelColor,
+        checkboxColor: colors.backgroundColor === selectedNodeNestedLevelColor
+            ? theme.palette.toolbar.active : selectedNodeNestedLevelColor,
     };
 }

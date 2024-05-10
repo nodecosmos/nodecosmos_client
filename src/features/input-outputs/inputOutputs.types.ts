@@ -3,7 +3,6 @@ import { Property } from '../properties/types';
 
 export interface InputOutputPrimaryKey {
     rootId: UUID;
-    nodeId: UUID;
     branchId: UUID;
     id: UUID;
 }
@@ -14,6 +13,7 @@ export interface InputOutputPrimaryKey {
  *  While others use node_id -> branch_id relationship, InputOutputs use root_id -> branch_id.
  */
 export interface InputOutput extends InputOutputPrimaryKey {
+    nodeId: UUID;
     mainId: UUID;
     flowId: UUID | null;
     flowStepId: UUID | null;
@@ -29,6 +29,7 @@ export interface InputOutput extends InputOutputPrimaryKey {
 }
 
 export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'id'> {
+    nodeId: InputOutput['nodeId'];
     flowStepId: InputOutput['flowStepId'];
     flowId: InputOutput['flowId'];
     mainId?: InputOutput['mainId'];

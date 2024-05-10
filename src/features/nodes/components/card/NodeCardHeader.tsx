@@ -63,7 +63,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                     />
                     <Link
                         component={RouterLink}
-                        to={`/nodes/${node.id}`}
+                        to={`/nodes/${node.rootId}/${node.id}`}
                     >
                         <CardMedia
                             className="CoverImage"

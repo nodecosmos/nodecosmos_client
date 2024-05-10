@@ -1,7 +1,7 @@
 import FinalFormAutocompleteInputField from './FinalFormAutocompleteInputField';
 import { Autocomplete } from '@mui/material';
 import { AutocompleteRenderInputParams } from '@mui/material/Autocomplete/Autocomplete';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-final-form';
 
 interface FinalFormAutocompleteFieldProps {
@@ -14,7 +14,7 @@ interface FinalFormAutocompleteFieldProps {
         option: string,
     ) => React.ReactNode;
     startAdornment?: React.ReactNode;
-    setAutocompleteValue: (value: string) => void;
+    setAutocompleteValue: (value: string | null) => void;
 }
 
 export default function FinalFormAutocompleteField(props: FinalFormAutocompleteFieldProps) {
@@ -30,11 +30,13 @@ export default function FinalFormAutocompleteField(props: FinalFormAutocompleteF
     const { change } = useForm();
 
     const onChange = useCallback((_event: React.SyntheticEvent, value: string | null) => {
-        if (value) {
-            change(name, value);
-            setAutocompleteValue(value);
-        }
+        change(name, value);
+        setAutocompleteValue(value);
     }, [change, name, setAutocompleteValue]);
+
+    useEffect(() => {
+        return () => setAutocompleteValue(null);
+    }, [setAutocompleteValue]);
 
     const renderInput = useCallback((params: AutocompleteRenderInputParams) => (
         <FinalFormAutocompleteInputField

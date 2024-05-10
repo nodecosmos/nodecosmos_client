@@ -37,6 +37,9 @@ export default function NodeInput(props: NodeInputProps) {
     const onEnter = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             onBlur();
+
+            event.stopPropagation();
+            event.preventDefault();
         }
     }, [onBlur]);
 

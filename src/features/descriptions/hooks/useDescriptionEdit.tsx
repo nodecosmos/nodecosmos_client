@@ -80,24 +80,18 @@ export default function useDescriptionEdit() {
             throw new Error('uint8ArrayState is null');
         }
 
-        if (handleChangeTimeout.current && handleChangeTimeout.current[objectNodeId]) {
-            clearTimeout(handleChangeTimeout.current[objectNodeId]);
-            delete handleChangeTimeout.current[objectNodeId];
+        if (handleChangeTimeout.current && handleChangeTimeout.current[objectId]) {
+            clearTimeout(handleChangeTimeout.current[objectId]);
+            delete handleChangeTimeout.current[objectId];
         }
 
         handleChangeTimeout.current ||= {};
-        handleChangeTimeout.current[objectNodeId] = setTimeout(async () => {
+        handleChangeTimeout.current[objectId] = setTimeout(async () => {
             handleChangeTimeout.current = null;
 
             const markdown = helpers.getMarkdown();
             const descriptionHtml = helpers.getHTML();
             const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
-
-            console.log('Saving description', {
-                isEmptySame,
-                currentHTML,
-                descriptionHtml,
-            });
 
             if (isEmptySame || (descriptionHtml === currentHTML)) {
                 return;

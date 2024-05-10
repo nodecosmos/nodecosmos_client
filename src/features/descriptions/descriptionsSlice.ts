@@ -9,7 +9,13 @@ const initialState: DescriptionState = { byBranchId: {} };
 const descriptionsSlice = createSlice({
     name: 'descriptions',
     initialState,
-    reducers: {},
+    reducers: {
+        clearDescBranchData(state, action) {
+            const { branchId } = action.payload;
+
+            state.byBranchId[branchId] = {};
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getDescription.fulfilled, (state, action) => {
@@ -60,6 +66,8 @@ const descriptionsSlice = createSlice({
             });
     },
 });
+
+export const { clearDescBranchData } = descriptionsSlice.actions;
 
 const { reducer } = descriptionsSlice;
 

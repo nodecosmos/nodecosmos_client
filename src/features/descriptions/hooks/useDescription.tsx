@@ -1,10 +1,13 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescription } from '../descriptions.thunks';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+type FetchedByBranchId = Record<UUID, Set<UUID>>;
 
 export default function useDescription() {
     const {
@@ -21,8 +24,10 @@ export default function useDescription() {
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     const description = useSelector(selectDescription(branchId, objectId));
 
+    const fetchedById = useRef<FetchedByBranchId>({});
+
     useEffect(() => {
-        if (!description?.html && !loading && !fetched) {
+        if (!description?.html && !loading && !fetched && !fetchedById.current[branchId]?.has(objectId)) {
             setLoading();
             dispatch(getDescription({
                 rootId,
@@ -31,10 +36,12 @@ export default function useDescription() {
                 objectType,
                 branchId,
             })).then(() => {
-                setFetched();
                 unsetLoading();
             }).catch((error) => {
                 console.error(error);
+            }).finally(() => {
+                fetchedById.current[branchId] ||= new Set();
+                fetchedById.current[branchId].add(objectId);
             });
         }
 

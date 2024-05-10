@@ -40,7 +40,7 @@ export default function OutputToolbar() {
             width={OUTPUT_BUTTON_SKEWED_WIDTH}
             height={NODE_BUTTON_HEIGHT}
             x={x + OUTPUT_BUTTON_X_MARGIN}
-            y={y - 50}
+            y={y - 47.5}
             style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
         >
             {

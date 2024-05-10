@@ -3,6 +3,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import useBranchContext from '../../branch/hooks/useBranchContext';
+import { clearDescBranchData } from '../../descriptions/descriptionsSlice';
 import { clearNodeBranchData } from '../../nodes/nodes.actions';
 import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
 import { selectContributionRequest } from '../contributionRequests.selectors';
@@ -53,8 +54,9 @@ export default function useMerge() {
                 return;
             }
 
-            dispatch(clearNodeBranchData(nodeId));
-            dispatch(clearWorkflowBranchData(nodeId));
+            dispatch(clearNodeBranchData(rootId));
+            dispatch(clearWorkflowBranchData(rootId));
+            dispatch(clearDescBranchData(rootId));
             navigate(`/nodes/${originalId}/${nodeId}`);
             setTimeout(() => dispatch(setAlert({
                 isOpen: true,

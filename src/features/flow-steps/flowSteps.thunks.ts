@@ -4,7 +4,7 @@ import {
 } from './flowSteps.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
-import { NodecosmosError, WithRootId } from '../../types';
+import { NodecosmosError, RootId } from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
@@ -70,7 +70,7 @@ export const updateFlowStepInputs = createAsyncThunk<
 
 export const deleteFlowStep = createAsyncThunk<
     WithBranchMetadata<Partial<FlowStep> & FlowStepPrimaryKey>,
-    WithRootId<FlowStepPrimaryKey>,
+    FlowStepPrimaryKey & RootId,
     { state: RootState, rejectValue: NodecosmosError }
 >(
     'flowSteps/deleteFlowStep',

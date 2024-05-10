@@ -139,7 +139,7 @@ export default function FlowInnerToolbar() {
                     isBranch && !isFlowCreated(flowId)
                         ? `This action will mark flow for deletion within the contribution request. 
                            Actual deletion will occur once the contribution is merged.`
-                        : 'This action will delete the complete flow'
+                        : 'This action will delete the complete flow and all its steps.'
                 }
                 confirmText={isBranch && !isFlowCreated(flowId) ? 'Mark as deleted' : 'I understand, delete this flow'}
                 confirmType={ConfirmType.Deletion}

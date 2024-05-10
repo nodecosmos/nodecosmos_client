@@ -23,14 +23,6 @@ const workflowsSlice = createSlice({
             localStorage.setItem('workflowScale', action.payload);
             state.workflowScale = action.payload;
         },
-        updateWorkflow(state, action) {
-            const workflow = state.byBranchId[action.payload.branchId][action.payload.nodeId];
-
-            state.byBranchId[action.payload.branchId][action.payload.nodeId] = {
-                ...workflow,
-                ...action.payload,
-            };
-        },
         rebuildWorkflowDiagram(
             state,
             action: PayloadAction<{ nodeId: UUID, branchId: UUID, data: BuildWorkflowDiagramData }>,

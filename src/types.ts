@@ -73,9 +73,9 @@ export interface RootId {
     rootId: UUID;
 }
 
-export type WithRootId<T> = T & RootId;
-export type WithBranchId<T> = T & BranchId;
-export type WithOriginalId<T> = T & { originalId: UUID };
+export interface NodeId {
+    nodeId: UUID;
+}
 
 export enum ActionTypes {
     CreateNode = 'CREATE_NODE',

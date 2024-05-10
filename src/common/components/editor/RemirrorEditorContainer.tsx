@@ -22,6 +22,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
 
     return (
         <Box
+            id="remirror-editor-container"
             sx={{
                 height: '100%',
                 cursor: 'text',

@@ -3,7 +3,7 @@ import {
 } from './contributionRequest.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import {
-    NodecosmosError, UUID, WithRootId,
+    NodecosmosError, RootId, UUID,
 } from '../../types';
 import { Branch } from '../branch/branches.types';
 import { Comment, CommentThread } from '../comments/comments.types';
@@ -27,7 +27,7 @@ interface ShowResponse {
 
 export const showContributionRequest = createAsyncThunk<
     ShowResponse,
-    WithRootId<CRPrimaryKey>,
+    CRPrimaryKey & RootId,
     { rejectValue: NodecosmosError }
 >(
     'contributionRequests/showContributionRequest',
@@ -134,7 +134,7 @@ export const updateContributionRequestDescription = createAsyncThunk<
 
 export const deleteContributionRequest = createAsyncThunk<
     ContributionRequest,
-    WithRootId<CRPrimaryKey>,
+    CRPrimaryKey & RootId,
     { rejectValue: NodecosmosError }
 >(
     'contributionRequests/deleteContributionRequest',
@@ -166,7 +166,7 @@ interface MergeRejectValue extends NodecosmosError {
 
 export const mergeContributionRequest = createAsyncThunk<
     ContributionRequest,
-    WithRootId<CRPrimaryKey>,
+    CRPrimaryKey & RootId,
     { rejectValue: MergeRejectValue }
 >(
     'contributionRequests/mergeContributionRequest',
