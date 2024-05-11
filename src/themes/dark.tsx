@@ -128,7 +128,7 @@ const theme: NodecosmosTheme = {
         },
 
         tree: {
-            default: '#272a31',
+            default: '#2d3138',
             backgrounds: [
                 '#fd526f',
                 '#a38dff',
@@ -140,7 +140,7 @@ const theme: NodecosmosTheme = {
             defaultText: '#ffffff',
             selectedText: 'rgba(0, 0, 0, 0.9)',
             hashtag: '#787d88',
-            defaultBorder: '#303436',
+            defaultBorder: '#51555d',
             dragInIndicator: '#bf7869',
             checkboxColor: '#63686c',
         },

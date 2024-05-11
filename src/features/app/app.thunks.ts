@@ -41,8 +41,8 @@ export const selectObject = createAsyncThunk<
                 break;
 
             case ObjectType.Io:
-                originalObjectTitle = state.inputOutputs.byBranchId[payload.branchId]?.[payload.objectId]?.title;
-                objectTitle
+                objectTitle = state.inputOutputs.byBranchId[payload.branchId]?.[payload.objectId]?.title;
+                originalObjectTitle
                     = state.inputOutputs.byBranchId[payload.originalId]?.[payload.objectId]?.title;
                 break;
 
