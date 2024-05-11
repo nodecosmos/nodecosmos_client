@@ -4,7 +4,6 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import Workflow from '../../../../workflows/components/Workflow';
-import { WorkflowDiagramContext } from '../../../../workflows/constants';
 import { showWorkflow } from '../../../../workflows/worfklow.thunks';
 import { maybeSelectWorkflow } from '../../../../workflows/workflow.selectors';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
@@ -68,12 +67,5 @@ export default function PaneWorkflow() {
         return <Loader />;
     }
 
-    return (
-        <>
-            {workflow && <Workflow
-                nodeId={objectId}
-                branchId={branchId}
-                context={WorkflowDiagramContext.treeNodeDetails} />}
-        </>
-    );
+    return workflow && <Workflow nodeId={objectId} branchId={branchId} insidePane />;
 }

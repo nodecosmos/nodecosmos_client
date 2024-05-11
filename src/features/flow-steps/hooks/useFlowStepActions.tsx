@@ -5,6 +5,7 @@ import {
     NodecosmosError, ObjectType, Strict,
 } from '../../../types';
 import { selectObject } from '../../app/app.thunks';
+import { setAlert } from '../../app/appSlice';
 import {
     keepFlowStep, restoreFlowStep, undoDeleteFlowStep,
 } from '../../branch/branches.thunks';
@@ -26,7 +27,9 @@ interface Props {
 export default function useFlowStepActions(props?: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isFlowDeleted } = useWorkflowBranch();
-    const { rootId, inputsAdditionActive } = useWorkflowContext();
+    const {
+        rootId, inputsAdditionActive, insidePane,
+    } = useWorkflowContext();
     const { originalId, branchId } = useBranchContext();
     const {
         flowStepPrimaryKey, stepIndex, nextStepIndex,
@@ -92,6 +95,17 @@ export default function useFlowStepActions(props?: Props) {
 
         props.unhover();
 
+        if (insidePane) {
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'warning',
+                message: 'Cannot select workflow object in the pane for now. Please use workflow page.',
+                duration: 5000,
+            }));
+
+            return;
+        }
+
         dispatch(selectObject({
             originalId,
             branchId,
@@ -101,8 +115,8 @@ export default function useFlowStepActions(props?: Props) {
         }));
     },
     [
-        inputsAdditionActive, props, flowStepPrimaryKey,
-        isFlowDeleted, dispatch, originalId, branchId, handleFlowClick,
+        inputsAdditionActive, props, flowStepPrimaryKey, isFlowDeleted, insidePane,
+        dispatch, originalId, branchId, handleFlowClick,
     ]);
 
     const createNextFlowStep = useCallback(async () => {

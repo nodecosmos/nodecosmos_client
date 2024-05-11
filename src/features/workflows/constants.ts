@@ -17,9 +17,3 @@ export const OUTPUT_VERTICAL_EDGE_LENGTH = 220;
 export const OUTPUT_BUTTON_WIDTH = 150;
 export const OUTPUT_BUTTON_SKEWED_WIDTH = 169.63; // got it from dev tools
 export const OUTPUT_BUTTON_X_MARGIN = (OUTPUT_VERTICAL_EDGE_LENGTH - OUTPUT_BUTTON_SKEWED_WIDTH) / 2;
-
-export enum WorkflowDiagramContext {
-    workflowPage = 'workflowPage',
-    workflowNodeDetails = 'workflowNodeDetails',
-    treeNodeDetails = 'treeNodeDetails',
-}

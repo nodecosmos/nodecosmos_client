@@ -1,6 +1,7 @@
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType } from '../../../types';
 import { selectObject } from '../../app/app.thunks';
+import { setAlert } from '../../app/appSlice';
 import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
@@ -10,7 +11,7 @@ import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useFlowActions() {
-    const { rootId } = useWorkflowContext();
+    const { rootId, insidePane } = useWorkflowContext();
     const {
         id: flowId, nodeId, startIndex, verticalIndex,
     } = useFlowContext();
@@ -22,6 +23,17 @@ export default function useFlowActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
 
     const handleFlowClick = useCallback(() => {
+        if (insidePane) {
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'warning',
+                message: 'Cannot select workflow object in the pane for now. Please use workflow page.',
+                duration: 5000,
+            }));
+
+            return;
+        }
+
         dispatch(selectObject({
             originalId,
             branchId,
@@ -29,7 +41,7 @@ export default function useFlowActions() {
             objectId: flowId,
             objectType: ObjectType.Flow,
         }));
-    }, [branchId, dispatch, flowId, nodeId, originalId]);
+    }, [branchId, dispatch, flowId, insidePane, nodeId, originalId]);
 
     const deleteFlowCb = useCallback(async () => {
         await dispatch(deleteFlow({

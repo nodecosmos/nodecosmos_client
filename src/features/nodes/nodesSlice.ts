@@ -30,7 +30,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: NodeState = {
     byBranchId: {},
     childIds: {},
-    positions: {},
     titles: {},
     selected: null,
     nodePaneContent: NodePaneContent.Description,
@@ -52,9 +51,6 @@ const nodesSlice = createSlice({
         deleteFromState,
         select,
         search,
-        setNodePaneContent(state: NodeState, action: PayloadAction<NodePaneContent>) {
-            state.nodePaneContent = action.payload;
-        },
         setSaveInProgress: (state: NodeState, action: PayloadAction<boolean>) => {
             state.saveInProgress = action.payload;
         },
@@ -69,7 +65,6 @@ const nodesSlice = createSlice({
 
             delete state.byBranchId[branchId];
             delete state.childIds[branchId];
-            delete state.positions[branchId];
             delete state.titles[branchId];
         },
         setNodeScrollTo: (state: NodeState, action: PayloadAction<UUID | null>) => {

@@ -4,6 +4,7 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
 import { selectObject } from '../../../../app/app.thunks';
+import { setAlert } from '../../../../app/appSlice';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes/nodes.actions';
 import {
@@ -13,7 +14,7 @@ import {
 } from '../../../../nodes/nodes.constants';
 import {
     EDGE_LENGTH,
-    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH, WorkflowDiagramContext,
+    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH,
 } from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
@@ -25,7 +26,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepNodeButton() {
-    const { context: workflowContext, deactivateInputsAddition } = useWorkflowContext();
+    const { insidePane, deactivateInputsAddition } = useWorkflowContext();
     const {
         id, title, position, flowStepId, inputIds,
     } = useFlowStepNodeContext();
@@ -43,6 +44,17 @@ export default function FlowStepNodeButton() {
     const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
+        if (insidePane) {
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'warning',
+                message: 'Cannot select workflow object in the pane for now. Please use workflow page.',
+                duration: 5000,
+            }));
+
+            return;
+        }
+
         dispatch(selectObject({
             originalId,
             branchId,
@@ -55,7 +67,7 @@ export default function FlowStepNodeButton() {
             },
         }));
 
-        if (id && workflowContext === WorkflowDiagramContext.workflowPage) {
+        if (id && !insidePane) {
             dispatch(select({
                 branchId,
                 id,
@@ -70,7 +82,7 @@ export default function FlowStepNodeButton() {
         flowStepId,
         inputIds,
         id,
-        workflowContext,
+        insidePane,
     ]);
 
     if (!x) return null;

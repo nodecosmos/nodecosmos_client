@@ -6,7 +6,6 @@ import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
-import { WorkflowDiagramContext } from '../../../features/workflows/constants';
 import { showWorkflow } from '../../../features/workflows/worfklow.thunks';
 import { maybeSelectWorkflow } from '../../../features/workflows/workflow.selectors';
 import { NodecosmosDispatch } from '../../../store';
@@ -100,10 +99,7 @@ export default function ContributionRequestWorkflow() {
                     ref={workflowRef}
                     overflow="hidden"
                 >
-                    {workflow && <Workflow
-                        nodeId={nodeId}
-                        branchId={branchId}
-                        context={WorkflowDiagramContext.workflowPage} />}
+                    {workflow && <Workflow nodeId={nodeId} branchId={branchId} />}
                 </Box>
                 <Box
                     onMouseDown={handleResize}

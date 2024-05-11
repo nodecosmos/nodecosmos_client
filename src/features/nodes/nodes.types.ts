@@ -1,5 +1,5 @@
 import {
-    Profile, ProfileType, Position, UUID, BranchId, RootId,
+    Profile, ProfileType, UUID, BranchId, RootId,
 } from '../../types';
 
 export interface NodePrimaryKey {
@@ -95,7 +95,6 @@ export interface NodeState {
     // branchId -> nodeId
     byBranchId: Record<UUID, Record<UUID, AppNode>>;
     childIds: Record<UUID, Record<UUID, UUID[]>>;
-    positions: Record<UUID, Record<UUID, Position>>;
     titles: Record<UUID, Record<UUID, string>>;
     selected: NodePrimaryKey | null;
     scrollTo: UUID | null;

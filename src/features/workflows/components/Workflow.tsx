@@ -4,29 +4,24 @@ import WorkflowToolbar from './WorkflowToolbar';
 import Alert from '../../../common/components/Alert';
 import { UUID } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
-import { WorkflowDiagramContext } from '../constants';
 import { useWorkflowContextCreator } from '../hooks/useWorkflowContext';
 import { Box } from '@mui/material';
 import React, { memo } from 'react';
 
-interface DefaultProps {
-    context: WorkflowDiagramContext;
-}
-
-interface Props extends Partial<DefaultProps> {
+interface Props {
     nodeId: UUID;
     branchId: UUID;
-    context?: WorkflowDiagramContext;
+    insidePane?: boolean;
 }
 
 const Workflow: React.FC<Props> = ({
-    nodeId, branchId, context = WorkflowDiagramContext.workflowPage,
+    nodeId, branchId, insidePane = false,
 }) => {
     const {
         WorkflowContext,
         contextProviderValue,
     } = useWorkflowContextCreator({
-        context,
+        insidePane,
         branchId,
         nodeId,
     });
@@ -35,7 +30,7 @@ const Workflow: React.FC<Props> = ({
         <WorkflowContext.Provider value={contextProviderValue}>
             <WorkflowContainer>
                 <WorkflowToolbar />
-                <Alert />
+                {!insidePane && <Alert />}
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <WorkflowDiagram />
                 </Box>

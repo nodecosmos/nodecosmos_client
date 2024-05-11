@@ -66,7 +66,6 @@ export default function useNodeClick() {
                 objectId: id,
                 objectType: ObjectType.Node,
                 metadata: { isTmp },
-
             }));
         }
     }, [

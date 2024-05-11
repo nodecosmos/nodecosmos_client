@@ -4,7 +4,9 @@ import useNodeColors from '../../../hooks/tree/node/useNodeColors';
 import useNodeContext from '../../../hooks/tree/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../nodes.constants';
-import { maybeSelectNode, selectExpandedNodes } from '../../../nodes.selectors';
+import {
+    maybeSelectNode, selectExpandedNodes, selectSelected,
+} from '../../../nodes.selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -16,11 +18,13 @@ export default function ReorderIndicator() {
     const { treeNodes } = useTreeContext();
     const branch = useSelector(selectBranch(branchId));
     const { reorderedNodes } = branch;
-    const { outlineColor, color } = useNodeColors();
+    const { outlineColor, nestedTreeColor } = useNodeColors();
     const reorderData = reorderedNodes.find((data) => data.id === id);
     const originalNode = useSelector(maybeSelectNode(originalId, id));
     const expandedNodes = useSelector(selectExpandedNodes);
     const oldParent = useSelector(maybeSelectNode(branchId, reorderData?.oldParentId));
+    const selected = useSelector(selectSelected);
+    const color = selected?.id === id ? nestedTreeColor : outlineColor;
 
     if (!reorderData) return null;
 
@@ -96,7 +100,7 @@ export default function ReorderIndicator() {
             <path
                 markerEnd="url(#head)"
                 className="InputLink"
-                stroke={outlineColor}
+                stroke={color}
                 fill="transparent"
                 strokeWidth={2}
                 d={`M ${x} ${y}

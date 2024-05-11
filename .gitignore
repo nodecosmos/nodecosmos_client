@@ -26,4 +26,3 @@ src/wasm/tree/Cargo.lock
 src/wasm/tree/bin/
 src/wasm/tree/pkg/
 src/wasm/tree/wasm-pack.log
-

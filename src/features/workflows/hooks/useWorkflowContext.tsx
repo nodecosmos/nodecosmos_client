@@ -1,12 +1,11 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../types';
-import { WorkflowDiagramContext } from '../constants';
 import { selectWorkflow, selectWorkflowScale } from '../workflow.selectors';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 interface WorkflowContextType {
-    context: WorkflowDiagramContext;
+    insidePane: boolean;
     nodeId: UUID;
     branchId: UUID;
     inputsAdditionActive: boolean;
@@ -18,10 +17,10 @@ interface WorkflowContextType {
 
 const WorkflowContext = React.createContext<WorkflowContextType>({} as WorkflowContextType);
 
-type WorkflowContextProviderProps = Pick<WorkflowContextType, 'context' | 'nodeId' | 'branchId'>;
+type WorkflowContextProviderProps = Pick<WorkflowContextType, 'insidePane' | 'nodeId' | 'branchId'>;
 
 export function useWorkflowContextCreator({
-    context, nodeId, branchId,
+    insidePane, nodeId, branchId,
 }: WorkflowContextProviderProps) {
     const [inputsAdditionActive, activateInputsAddition, deactivateInputsAddition] = useBooleanStateValue();
     const [selectedInputs, setSelectedInputs] = React.useState<Set<UUID>>(new Set<UUID>());
@@ -33,7 +32,7 @@ export function useWorkflowContextCreator({
     }, [inputsAdditionActive]);
 
     const contextProviderValue = useMemo(() => ({
-        context,
+        insidePane,
         nodeId,
         branchId,
         inputsAdditionActive,
@@ -43,7 +42,7 @@ export function useWorkflowContextCreator({
         setSelectedInputs,
     }),
     [
-        context, nodeId, branchId,
+        insidePane, nodeId, branchId,
         inputsAdditionActive, activateInputsAddition, deactivateInputsAddition,
         selectedInputs,
     ]);
@@ -56,7 +55,7 @@ export function useWorkflowContextCreator({
 
 export default function useWorkflowContext() {
     const {
-        context,
+        insidePane,
         nodeId,
         branchId,
         inputsAdditionActive,
@@ -66,7 +65,7 @@ export default function useWorkflowContext() {
         setSelectedInputs,
     } = React.useContext(WorkflowContext);
 
-    if (context === undefined) {
+    if (insidePane === undefined) {
         throw new Error('useWorkflowContext must be used within a WorkflowContext.Provider');
     }
 
@@ -76,11 +75,11 @@ export default function useWorkflowContext() {
         initialInputIds,
     } = useSelector(selectWorkflow(branchId, nodeId));
 
-    const transformableId = `WF_${context}_${nodeId}`;
+    const transformableId = `WF_${insidePane}_${nodeId}`;
     const scale = useSelector(selectWorkflowScale);
 
     return {
-        context,
+        insidePane,
         nodeId,
         branchId,
         rootId,
