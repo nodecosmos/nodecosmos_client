@@ -11,9 +11,9 @@ const descriptionsSlice = createSlice({
     initialState,
     reducers: {
         clearDescBranchData(state, action) {
-            const { branchId } = action.payload;
+            const branchId = action.payload;
 
-            state.byBranchId[branchId] = {};
+            delete state.byBranchId[branchId];
         },
     },
     extraReducers: (builder) => {
