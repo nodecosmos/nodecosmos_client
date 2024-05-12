@@ -3,7 +3,7 @@ import { UUID } from '../../../types';
 import { maybeSelectNode } from '../../nodes/nodes.selectors';
 import { maybeSelectBranch } from '../branches.selectors';
 import { showBranch } from '../branches.thunks';
-import { BranchParams } from '../branches.types';
+import { BranchParams, BranchStatus } from '../branches.types';
 import {
     createContext, useContext,
     useEffect, useMemo,
@@ -14,8 +14,11 @@ import { useLocation, useParams } from 'react-router-dom';
 interface BranchContextValue extends BranchParams {
     isContributionRequest: boolean;
     isBranch: boolean;
+    isMerged: boolean;
     nodeId: UUID;
-    branchNodeId: UUID | null;
+    branchNodeId?: UUID;
+    ownerId?: UUID;
+    editorIds?: UUID[];
 }
 
 const BranchContext = createContext<BranchContextValue>({} as BranchContextValue);
@@ -30,7 +33,12 @@ export function useBranchContextCreator() {
     }
 
     const branch = useSelector(maybeSelectBranch(branchId));
-    const branchNodeId = branch?.nodeId || null;
+    const {
+        nodeId: branchNodeId,
+        status: branchStatus,
+        ownerId,
+        editorIds,
+    } = branch || {};
     const node = useSelector(maybeSelectNode(originalId as UUID, nodeId));
     const { pathname } = useLocation();
     const isContributionRequest = useMemo(
@@ -56,6 +64,9 @@ export function useBranchContextCreator() {
             branchId,
             nodeId: nodeId as UUID,
             branchNodeId,
+            isMerged: branchStatus === BranchStatus.Merged,
+            ownerId,
+            editorIds,
         },
     };
 }

@@ -1,4 +1,5 @@
 import { NodecosmosTheme } from '../../../../../../themes/themes.types';
+import { withOpacity } from '../../../../../../utils/colors';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 
@@ -14,18 +15,18 @@ export default function useNodeDefaultColors() {
     const { defaultBorder } = theme.palette.tree;
     const outlinedColored = hasChildren;
 
-    let backgroundColor = isSelected ? nestedTreeColor : theme.palette.tree.default;
+    let backgroundColor = isSelected ? withOpacity(nestedTreeColor, 0.8) : theme.palette.tree.default;
 
     const color = (isSelected && theme.palette.tree.selectedText)
-        || (outlinedColored && nestedTreeColor) || theme.palette.tree.defaultText;
+        || (hasChildren && nestedTreeColor) || theme.palette.tree.defaultText;
 
     const parentBackgroundColor = isRoot
         ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount];
 
-    const outlineColor = outlinedColored ? nestedTreeColor : defaultBorder;
+    const outlineColor = hasChildren || isSelected ? withOpacity(nestedTreeColor, 0.4) : defaultBorder;
 
-    if (outlinedColored && !isSelected) {
-        backgroundColor = theme.palette.background[3];
+    if (hasChildren && !isSelected) {
+        backgroundColor = withOpacity(nestedTreeColor, 0.075);
     }
 
     return {

@@ -3,6 +3,7 @@ import { UUID } from '../../../../../../types';
 import { setDragAndDrop, updateState } from '../../../../nodes.actions';
 import { selectDragAndDrop, selectSaveInProgress } from '../../../../nodes.selectors';
 import useReorder from '../../useReorder';
+import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +24,7 @@ export default function useNodeDrag() {
     const onNodeDropCapture = useReorder();
     const isNodeActionInProgress = useSelector(selectSaveInProgress);
     const dragAndDropNodeId = dragAndDrop?.id;
+    const authorizeNodeAction = useAuthorizeNodeAction();
 
     //------------------------------------------------------------------------------------------------------------------
     const startDrag = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
@@ -61,6 +63,10 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
+        if (!authorizeNodeAction()) {
+            return;
+        }
+
         if (!isDragOver) return;
 
         dispatch(updateState({
@@ -68,7 +74,7 @@ export default function useNodeDrag() {
             id,
             isDragOver: false,
         }));
-    }, [dispatch, id, isDragOver, branchId]);
+    }, [authorizeNodeAction, isDragOver, dispatch, branchId, id]);
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {

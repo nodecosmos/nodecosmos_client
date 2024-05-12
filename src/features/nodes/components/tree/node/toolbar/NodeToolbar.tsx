@@ -39,7 +39,7 @@ export default function NodeToolbar() {
         isOriginalDeleted, isDeleted, isAncestorDeleted, isCreated,
     } = useNodeBranchContext();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
-    const { isBranch } = useBranchContext();
+    const { isBranch, isMerged } = useBranchContext();
     const handleDelete = useCallback(() => {
         if (isTmp) {
             deleteNode().catch(console.error);
@@ -54,7 +54,7 @@ export default function NodeToolbar() {
 
     if (!isExpanded || !isSelected) return null;
 
-    if (isDeleted) {
+    if (isDeleted && !isMerged) {
         if (isAncestorDeleted) {
             return null;
         }
@@ -104,26 +104,32 @@ export default function NodeToolbar() {
 
     return (
         <div className="NodeToolbar">
-            <Tooltip title="Add Node" placement="top">
-                <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
-                    <FontAwesomeIcon icon={faPlus} />
-                </ButtonBase>
-            </Tooltip>
-            <Tooltip title="Edit Node" placement="top">
-                <ButtonBase className="Item" onClick={editNode} aria-label="Edit Node">
-                    <FontAwesomeIcon icon={faPenToSquare} />
-                </ButtonBase>
-            </Tooltip>
             {
-                !(isRoot && isBranch) && (
-                    <Tooltip title="Delete Node" placement="top">
-                        <ButtonBase
-                            className="Item"
-                            onClick={handleDelete}
-                            aria-label="Delete Node">
-                            <FontAwesomeIcon icon={faTrash} />
-                        </ButtonBase>
-                    </Tooltip>
+                !isMerged && (
+                    <>
+                        <Tooltip title="Add Node" placement="top">
+                            <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </ButtonBase>
+                        </Tooltip>
+                        <Tooltip title="Edit Node" placement="top">
+                            <ButtonBase className="Item" onClick={editNode} aria-label="Edit Node">
+                                <FontAwesomeIcon icon={faPenToSquare} />
+                            </ButtonBase>
+                        </Tooltip>
+                        {
+                            !(isRoot && isBranch) && (
+                                <Tooltip title="Delete Node" placement="top">
+                                    <ButtonBase
+                                        className="Item"
+                                        onClick={handleDelete}
+                                        aria-label="Delete Node">
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </ButtonBase>
+                                </Tooltip>
+                            )
+                        }
+                    </>
                 )
             }
             <LikeButton

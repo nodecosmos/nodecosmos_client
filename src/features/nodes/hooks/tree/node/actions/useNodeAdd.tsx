@@ -1,6 +1,7 @@
 import { setAlert } from '../../../../../app/appSlice';
 import { buildTmpNode, updateState } from '../../../../nodes.actions';
 import { selectSaveInProgress } from '../../../../nodes.selectors';
+import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
 import {
     useCallback, useEffect, useState,
@@ -17,8 +18,13 @@ export default function useNodeAdd() {
     const dispatch = useDispatch();
     const saveInProgress = useSelector(selectSaveInProgress);
     const [shouldAddNode, setShouldAddNode] = useState(false);
+    const authorizeNodeAction = useAuthorizeNodeAction();
 
     const initTempChildNode = useCallback(() => {
+        if (!authorizeNodeAction()) {
+            return;
+        }
+
         const tmpId = `tmp_${Date.now()}`;
 
         dispatch(setAlert({ isOpen: false }));
@@ -27,7 +33,7 @@ export default function useNodeAdd() {
             tmpId,
             id,
         }));
-    }, [dispatch, id, branchId]);
+    }, [authorizeNodeAction, dispatch, branchId, id]);
 
     const addNode = useCallback(async () => {
         if (shouldAddNode) return;

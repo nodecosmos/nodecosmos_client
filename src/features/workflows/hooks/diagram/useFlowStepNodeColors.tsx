@@ -1,6 +1,7 @@
 import useFlowStepNodeContext from './flow-step-node/useFlowStepNodeContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/themes.types';
+import { withOpacity } from '../../../../utils/colors';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
@@ -23,8 +24,8 @@ export default function useFlowStepNodeColors() {
     const nestedTreeColor = backgrounds[(fsNode?.ancestorIds?.length || 0) % backgroundCount];
 
     let colors = {
-        backgroundColor: isSelected ? nestedTreeColor : theme.palette.background[3],
-        outlineColor: isSelected ? 'transparent' : nestedTreeColor,
+        backgroundColor: isSelected ? nestedTreeColor : withOpacity(nestedTreeColor, 0.075),
+        outlineColor: isSelected ? 'transparent' : withOpacity(nestedTreeColor, 0.4),
         color: isSelected ? theme.palette.tree.selectedText : nestedTreeColor,
     };
 
