@@ -7,7 +7,7 @@ import {
     showNode,
 } from './nodes.thunks';
 import {
-    DragAndDrop, NodePaneContent, NodeState,
+    DragAndDrop, NodePaneContent, NodePrimaryKey, NodeState,
 } from './nodes.types';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
@@ -75,6 +75,28 @@ const nodesSlice = createSlice({
         },
         collapseNode: (state: NodeState, action: PayloadAction<UUID>) => {
             state.expandedNodes.delete(action.payload);
+        },
+        selectNodeFromParams: (state: NodeState, action: PayloadAction<NodePrimaryKey>) => {
+            const { branchId, id } = action.payload;
+            const branchNodes = state.byBranchId[branchId];
+
+            if (!branchNodes) return;
+
+            const node = branchNodes[id];
+
+            if (node) {
+                state.expandedNodes.add(id);
+
+                node.ancestorIds.forEach((ancestorId) => {
+                    state.expandedNodes.add(ancestorId);
+                });
+
+                state.byBranchId[branchId][id].isSelected = true;
+                state.selected = {
+                    branchId,
+                    id,
+                };
+            }
         },
     },
     extraReducers(builder) {

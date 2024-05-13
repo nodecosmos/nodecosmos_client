@@ -3,12 +3,13 @@ import Loader from '../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { SIDEBAR_WIDTH } from '../../app/constants';
+import { useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useNodeSSE from '../hooks/sse/useNodeSSE';
 import { maybeSelectNode } from '../nodes.selectors';
 import { showBranchNode, showNode } from '../nodes.thunks';
 import { Box } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Outlet, useNavigate, useParams, useSearchParams,
@@ -65,6 +66,18 @@ export default function NodeShowContent() {
             }));
         }
     }, [branchId, branchNode, dispatch, id, isBranch, isBranchQ, originalIdQ]);
+
+    const expandedNodesFromParams = useRef<boolean>(false);
+    const selectObjectFromParams = useSelectObjectFromParams();
+
+    useEffect(() => {
+        if (expandedNodesFromParams.current) return;
+        if (!isBranch && !originalNode) return;
+        if (isBranch && !branchNode) return;
+
+        selectObjectFromParams();
+        expandedNodesFromParams.current = true;
+    }, [branchNode, isBranch, originalNode, selectObjectFromParams]);
 
     if (!isBranch && !originalNode) {
         return <Loader />;

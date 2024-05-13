@@ -53,6 +53,33 @@ export default function useTreeActions() {
         dispatch(expandNodeAction(nodeId));
     }, [dispatch, orderedTreeNodeIds, setTreeNodes, treeNodes]);
 
+    // currently used only for expanding nodes from the URL
+    const expandNodes = useCallback((ids: UUID[]) => {
+        let newTreeNodes = { ...treeNodes };
+
+        ids.forEach((id) => {
+            const node = treeNodes[id];
+
+            if (!node) return;
+
+            if (node.isExpanded) return;
+
+            const newNode = {
+                ...node,
+                isExpanded: true,
+            };
+
+            newTreeNodes = Object.assign({}, newTreeNodes, { [id]: newNode });
+
+            if (node.childIds.length > 0) {
+                mountDescendants(newTreeNodes, node);
+                calculatePositions(orderedTreeNodeIds, newTreeNodes);
+            }
+        });
+
+        setTreeNodes(newTreeNodes);
+    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
+
     const collapseNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];
 
@@ -98,6 +125,7 @@ export default function useTreeActions() {
     return {
         selectNode,
         expandNode,
+        expandNodes,
         collapseNode,
         addId,
         deleteId,

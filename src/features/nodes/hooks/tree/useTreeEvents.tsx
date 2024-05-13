@@ -1,13 +1,20 @@
 import useTreeActions from './useTreeActions';
 import useTreeContext from './useTreeContext';
+import { NodecosmosDispatch } from '../../../../store';
+import { ObjectType, UUID } from '../../../../types';
+import { SELECTED_OBJ_Q } from '../../../app/hooks/useSelectObject';
+import { setNodeScrollTo } from '../../nodes.actions';
 import { selectExpandedNodes, selectSelected } from '../../nodes.selectors';
-import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import {
+    useCallback, useEffect, useRef,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
 export default function useTreeEvents() {
     const { orderedTreeNodeIds } = useTreeContext();
     const {
-        selectNode, expandNode, collapseNode,
+        selectNode, expandNode, expandNodes, collapseNode,
     } = useTreeActions();
     const selected = useSelector(selectSelected);
     const selId = selected?.id;
@@ -74,4 +81,41 @@ export default function useTreeEvents() {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [handleKeyDown]);
+
+    const expandedNodesFromParams = useRef<boolean>(false);
+    const [searchParams] = useSearchParams();
+    const { treeNodes } = useTreeContext();
+    const dispatch: NodecosmosDispatch = useDispatch();
+
+    useEffect(() => {
+        if (expandedNodesFromParams.current) {
+            return;
+        }
+
+        const encodedData = searchParams.get(SELECTED_OBJ_Q);
+
+        if (encodedData && (Object.keys(treeNodes).length > 0)) {
+            const data = JSON.parse(atob(encodedData));
+
+            if (data.objectType === ObjectType.Node && treeNodes[data.objectId]) {
+                const ids = [];
+                const ancestorIds = data.metadata?.ancestorIds;
+
+                ancestorIds?.forEach((id: UUID) => {
+                    ids.push(id);
+                });
+
+                ids.push(data.objectId);
+
+                expandNodes(ids);
+
+                setTimeout(() => {
+                    dispatch(setNodeScrollTo(data.objectId));
+                }, 150);
+                expandedNodesFromParams.current = true;
+            } else if (data.objectType !== ObjectType.Node) {
+                expandedNodesFromParams.current = true;
+            }
+        }
+    }, [expandNodes, searchParams, treeNodes, dispatch]);
 }
