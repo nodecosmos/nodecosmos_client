@@ -98,12 +98,16 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                     comment: {
                         ...threadPk,
                         content,
+                        url: window.location.href,
                     },
                 };
             } else if (newThread) {
                 payload = {
                     newThread,
-                    comment: { content },
+                    comment: {
+                        content,
+                        url: window.location.href,
+                    },
                 };
             } else {
                 throw new Error('Invalid props');

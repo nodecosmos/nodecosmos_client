@@ -3,7 +3,9 @@ import ToolbarContainer from '../../../../common/components/toolbar/ToolbarConta
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
 import { HEADER_HEIGHT } from '../../constants';
-import { PaneContent, usePaneContext } from '../../hooks/pane/usePaneContext';
+import {
+    PANE_Q, PaneContent, usePaneContext, 
+} from '../../hooks/pane/usePaneContext';
 import TogglePaneButton from '../TogglePaneButton';
 import {
     faCodeCommit, faDisplay, faPenToSquare, faRectangleCode,
@@ -12,6 +14,7 @@ import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import React, { useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export default function PaneToolbar() {
     const {
@@ -19,12 +22,17 @@ export default function PaneToolbar() {
     } = usePaneContext();
 
     const isTitleEdited = objectTitle && objectTitle !== originalObjectTitle;
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleTogglePane = useCallback((paneContent: PaneContent | undefined) => {
         if (paneContent !== undefined) {
             setContent(paneContent);
+
+            const newParams = new URLSearchParams(searchParams);
+            newParams.set(PANE_Q, paneContent);
+            setSearchParams(newParams);
         }
-    }, [setContent]);
+    }, [searchParams, setContent, setSearchParams]);
 
     return (
         <Box

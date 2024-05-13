@@ -15,9 +15,6 @@ export default function PaneWorkflow() {
         rootId, objectId, objectType,
     } = usePaneContext();
     const { branchId } = useBranchContext();
-    if (objectType !== ObjectType.Node) {
-        throw new Error('PaneWorkflow is only supported for nodes');
-    }
 
     if (!branchId) {
         throw new Error('PaneWorkflow requires a branchId');
@@ -60,6 +57,10 @@ export default function PaneWorkflow() {
         unsetLoading,
         workflow?.nodeId,
     ]);
+
+    if (objectType !== ObjectType.Node) {
+        return null;
+    }
 
     if (!objectId) return null;
 

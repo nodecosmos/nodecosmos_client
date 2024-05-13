@@ -4,8 +4,8 @@ import { NodecosmosDispatch } from '../../../store';
 import {
     NodecosmosError, ObjectType, Strict,
 } from '../../../types';
-import { selectObject } from '../../app/app.thunks';
 import { setAlert } from '../../app/appSlice';
+import useSelectObject from '../../app/hooks/useSelectObject';
 import {
     keepFlowStep, restoreFlowStep, undoDeleteFlowStep,
 } from '../../branch/branches.thunks';
@@ -48,6 +48,7 @@ export default function useFlowStepActions(props?: Props) {
     }, [dispatch, flowStepPrimaryKey, rootId]);
 
     const [createLoading, setCreateIsLoading, setCreateIsNotLoading] = useBooleanStateValue();
+    const selectObject = useSelectObject();
 
     const handleFlowStepClick = useCallback((event: React.MouseEvent<SVGGElement | HTMLElement>) => {
         if (inputsAdditionActive) return;
@@ -106,17 +107,17 @@ export default function useFlowStepActions(props?: Props) {
             return;
         }
 
-        dispatch(selectObject({
+        selectObject({
             originalId,
             branchId,
             objectNodeId: flowStepPrimaryKey.nodeId,
             objectId: flowStepPrimaryKey.id,
             objectType: ObjectType.FlowStep,
-        }));
+        });
     },
     [
         inputsAdditionActive, props, flowStepPrimaryKey, isFlowDeleted, insidePane,
-        dispatch, originalId, branchId, handleFlowClick,
+        dispatch, originalId, branchId, handleFlowClick, selectObject,
     ]);
 
     const createNextFlowStep = useCallback(async () => {

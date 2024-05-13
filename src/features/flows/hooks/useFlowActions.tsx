@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType } from '../../../types';
-import { selectObject } from '../../app/app.thunks';
 import { setAlert } from '../../app/appSlice';
+import useSelectObject from '../../app/hooks/useSelectObject';
 import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
@@ -21,6 +21,7 @@ export default function useFlowActions() {
         closeTitleEdit,
     } = useContext(FlowContext);
     const dispatch: NodecosmosDispatch = useDispatch();
+    const selectObject = useSelectObject();
 
     const handleFlowClick = useCallback(() => {
         if (insidePane) {
@@ -34,14 +35,14 @@ export default function useFlowActions() {
             return;
         }
 
-        dispatch(selectObject({
+        selectObject({
             originalId,
             branchId,
             objectNodeId: nodeId,
             objectId: flowId,
             objectType: ObjectType.Flow,
-        }));
-    }, [branchId, dispatch, flowId, insidePane, nodeId, originalId]);
+        });
+    }, [branchId, dispatch, flowId, insidePane, nodeId, originalId, selectObject]);
 
     const deleteFlowCb = useCallback(async () => {
         await dispatch(deleteFlow({

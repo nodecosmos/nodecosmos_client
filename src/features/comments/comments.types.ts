@@ -65,6 +65,7 @@ export interface CommentPrimaryKey {
 
 export interface Comment extends CommentPrimaryKey {
     threadId: UUID;
+    url: string;
     content: string;
     authorId: UUID;
     author: Profile;
@@ -72,8 +73,8 @@ export interface Comment extends CommentPrimaryKey {
     updatedAt: string;
 }
 
-type CommentContent = Pick<Comment, 'content'>;
-export type WithoutThreadInsertPayload = Pick<Comment, 'content' | 'objectId' | 'threadId'>
+type CommentContent = Pick<Comment, 'content' | 'url'>;
+export type WithoutThreadInsertPayload = Pick<Comment, 'content' | 'objectId' | 'threadId' | 'url'>
 export type UpdateCommentPayload = Pick<Comment, keyof CommentPrimaryKey | 'content'>
 export type UpdateCommentContentResponse = Pick<Comment, 'id' | 'content' | 'updatedAt'>
 

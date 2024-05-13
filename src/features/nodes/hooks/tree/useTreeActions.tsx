@@ -1,7 +1,7 @@
 import useTreeContext, { TreeNode, TreeNodes } from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
-import { selectObject } from '../../../app/app.thunks';
+import useSelectObject from '../../../app/hooks/useSelectObject';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     collapseNodeAction, expandNodeAction, select,
@@ -17,20 +17,21 @@ export default function useTreeActions() {
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
     } = useTreeContext();
+    const selectObject = useSelectObject();
 
     const selectNode = useCallback((id: UUID) => {
         dispatch(select({
             branchId,
             id,
         }));
-        dispatch(selectObject({
+        selectObject({
             originalId,
             branchId,
             objectNodeId: id,
             objectId: id,
             objectType: ObjectType.Node,
-        }));
-    }, [branchId, dispatch, originalId]);
+        });
+    }, [branchId, dispatch, originalId, selectObject]);
 
     const expandNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];

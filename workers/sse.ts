@@ -49,9 +49,30 @@ function initializeSSE(url: string) {
             // push notification
             if (Notification.permission === 'granted') {
                 sw.registration.showNotification(
-                    `${data.author.name} added a comment`, { icon: 'https://nodecosmos.com/logo-square.png' },
+                    `${data.author.name} added a comment`, {
+                        icon: 'https://nodecosmos.com/logo-square.png',
+                        data: { url: data.url },
+                    },
                 ).catch((error) => {
                     console.error('Notification error:', error);
+                });
+
+                sw.addEventListener('notificationclick', function(event) {
+                    const { url } = event.notification.data; // Retrieve the URL from the notification data
+                    event.notification.close(); // Close the current notification
+
+                    // Handle the notification click
+                    event.waitUntil(
+                        sw.clients.matchAll({ type: 'window' }).then(function(windowClients) {
+                            for (let i = 0; i < windowClients.length; i += 1) {
+                                const client = windowClients[i];
+                                if (client.url === url && 'focus' in client) {
+                                    return client.focus();
+                                }
+                            }
+                            return sw.clients.openWindow(url);
+                        }),
+                    );
                 });
             }
         });

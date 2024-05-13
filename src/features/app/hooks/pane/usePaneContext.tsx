@@ -9,12 +9,15 @@ import {
     createContext, useCallback, useContext, useEffect, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+
+export const PANE_Q = 'pane';
 
 export enum PaneContent {
-    Description,
-    Markdown,
-    Editor,
-    Workflow,
+    Description = 'description',
+    Markdown = 'markdown',
+    Editor = 'editor',
+    Workflow = 'workflow',
 }
 
 interface CtxCreatorValue {
@@ -38,15 +41,18 @@ export function usePaneContextCreator(props: PaneProps) {
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [loading, setLoading, _unsetLoading] = useBooleanStateValue();
-    const [content, setContent] = useState<PaneContent>(PaneContent.Description);
     const selectedObject = useSelector(selectSelectedObject);
-
+    const [searchParams] = useSearchParams();
+    const paneQ = searchParams.get(PANE_Q) as PaneContent;
+    const [content, setContent] = useState<PaneContent>(paneQ || PaneContent.Description);
     const unsetLoading = useCallback(() => {
         setTimeout(_unsetLoading, 200);
     }, [_unsetLoading]);
 
     useEffect(() => {
-        dispatch(clearSelectedObject());
+        return () => {
+            dispatch(clearSelectedObject());
+        };
     }, [dispatch]);
 
     return {

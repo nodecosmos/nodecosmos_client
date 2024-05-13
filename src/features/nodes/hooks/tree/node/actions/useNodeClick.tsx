@@ -1,6 +1,6 @@
 import { NodecosmosDispatch } from '../../../../../../store';
 import { ObjectType } from '../../../../../../types';
-import { selectObject } from '../../../../../app/app.thunks';
+import useSelectObject from '../../../../../app/hooks/useSelectObject';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes.actions';
 import useTreeActions from '../../useTreeActions';
@@ -24,6 +24,7 @@ export default function useNodeClick() {
     } = useTreeActions();
     const dispatch: NodecosmosDispatch = useDispatch();
     const { branchId, originalId } = useBranchContext();
+    const selectObject = useSelectObject();
 
     //------------------------------------------------------------------------------------------------------------------
     const handleCheckboxChange = useCallback(() => {
@@ -59,17 +60,18 @@ export default function useNodeClick() {
                 branchId,
                 id,
             }));
-            dispatch(selectObject({
+            selectObject({
                 originalId,
                 branchId,
                 objectNodeId: id,
                 objectId: id,
                 objectType: ObjectType.Node,
                 metadata: { isTmp },
-            }));
+            });
         }
-    }, [
-        branchId, collapseNode, dispatch, expandNode, handleCheckboxChange, id,
+    },
+    [
+        branchId, collapseNode, dispatch, expandNode, handleCheckboxChange, id, selectObject,
         isEditing, isExpanded, isSelected, treeType, originalId, isCreationInProgress, isTmp,
     ]);
 }
