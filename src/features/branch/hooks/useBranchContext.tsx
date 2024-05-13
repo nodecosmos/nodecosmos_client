@@ -9,7 +9,9 @@ import {
     useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import {
+    useLocation, useParams, useSearchParams,
+} from 'react-router-dom';
 
 interface BranchContextValue extends BranchParams {
     isContributionRequest: boolean;
@@ -18,18 +20,29 @@ interface BranchContextValue extends BranchParams {
     nodeId: UUID;
     branchNodeId?: UUID;
     ownerId?: UUID;
-    editorIds?: UUID[];
+    editorIds?: Set<UUID>;
 }
 
 const BranchContext = createContext<BranchContextValue>({} as BranchContextValue);
 
 export function useBranchContextCreator() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { originalId, id: nodeId } = useParams<{ originalId: UUID, id: UUID }>();
-    let { branchId } = useParams<{ branchId: UUID }>();
+
+    // extract initial branch data from url path
+    const { id: nodeId } = useParams<{ originalId: UUID, id: UUID }>();
+    let { originalId, branchId } = useParams<{ originalId: UUID, branchId: UUID }>();
 
     if (!branchId) {
         branchId = originalId as UUID;
+    }
+
+    // extract branch data from query params if they exist
+    const [searchParams] = useSearchParams();
+    const isBranchQ = searchParams.get('isBranchQ');
+    const originalIdQ = searchParams.get('originalIdQ');
+
+    if (isBranchQ && originalIdQ) {
+        originalId = originalIdQ as UUID;
     }
 
     const branch = useSelector(maybeSelectBranch(branchId));
@@ -47,13 +60,13 @@ export function useBranchContextCreator() {
         }, [pathname],
     );
     const isBranchedNode = (node ? node.rootId !== originalId : false);
-    const isBranch = isContributionRequest || (node ? node.rootId !== originalId : false);
+    const isBranch = !!isBranchQ || isContributionRequest || (node ? node.rootId !== originalId : false);
 
     useEffect(() => {
-        if (isBranchedNode && !isContributionRequest && !branchNodeId) {
+        if ((isBranchedNode || isBranchQ) && !isContributionRequest && !branchNodeId) {
             dispatch(showBranch(branchId));
         }
-    }, [branchId, branchNodeId, dispatch, isBranchedNode, isContributionRequest]);
+    }, [branchId, branchNodeId, dispatch, isBranchQ, isBranchedNode, isContributionRequest]);
 
     return {
         BranchContext,

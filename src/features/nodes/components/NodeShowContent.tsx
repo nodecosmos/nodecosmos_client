@@ -11,7 +11,7 @@ import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Outlet, useNavigate, useParams,
+    Outlet, useNavigate, useParams, useSearchParams,
 } from 'react-router-dom';
 
 export default function NodeShowContent() {
@@ -28,6 +28,8 @@ export default function NodeShowContent() {
     const branchNode = useSelector(maybeSelectNode(branchId, id as UUID));
 
     useNodeSSE(originalNode?.rootId);
+
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         if (!id) {
@@ -51,14 +53,18 @@ export default function NodeShowContent() {
         }
     }, [dispatch, id, isBranch, navigate, originalId, originalNode]);
 
+    const isBranchQ = searchParams.get('isBranchQ');
+    const originalIdQ = searchParams.get('originalIdQ');
+
     useEffect(() => {
-        if (isBranch && !branchNode) {
+        if ((isBranch || isBranchQ) && !branchNode) {
             dispatch(showBranchNode({
                 branchId,
                 id: id as UUID,
+                originalId: originalIdQ,
             }));
         }
-    }, [branchId, branchNode, dispatch, id, isBranch]);
+    }, [branchId, branchNode, dispatch, id, isBranch, isBranchQ, originalIdQ]);
 
     if (!isBranch && !originalNode) {
         return <Loader />;

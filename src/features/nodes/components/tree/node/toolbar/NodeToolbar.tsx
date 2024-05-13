@@ -25,6 +25,7 @@ export default function NodeToolbar() {
     const {
         isTmp,
         isRoot,
+        rootId,
         isExpanded,
         isSelected,
         branchId,
@@ -141,7 +142,7 @@ export default function NodeToolbar() {
             <Tooltip title="Open Node In New Tab" placement="top">
                 <ButtonBase
                     target="_blank"
-                    href={`/nodes/${branchId}/${id}`}
+                    href={`/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
                     className="Item"
                     aria-label="Open Node in New Tab"
                 >

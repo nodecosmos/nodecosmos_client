@@ -8,18 +8,27 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function useAuthorizeNodeAction(): () => boolean {
     const dispatch = useDispatch();
     const {
-        nodeId, branchId, isContributionRequest, ownerId: branchOwnerId, editorIds: branchEditors,
+        nodeId, branchId, isBranch, isContributionRequest, ownerId: branchOwnerId, editorIds: branchEditors, isMerged,
     } = useBranchContext();
     const node = useSelector(selectNode(branchId, nodeId));
     const currentUser = useSelector(selectCurrentUser);
-    const canEditNode = !isContributionRequest
+    const canEditNode = !isBranch
         && currentUser
         && (node?.ownerId === currentUser.id || node?.editorIds?.includes(currentUser.id));
-    const canEditBranch = isContributionRequest
+    const canEditBranch = isBranch
         && currentUser
-        && (branchOwnerId === currentUser.id || branchEditors?.includes(currentUser.id));
+        && (branchOwnerId === currentUser.id || branchEditors?.has(currentUser.id));
 
     return useCallback(() => {
+        if (isMerged) {
+            dispatch(setAlert({
+                isOpen: true,
+                message: 'This node has been merged and cannot be edited.',
+                severity: 'info',
+            }));
+            return false;
+        }
+
         if (!currentUser || !(canEditNode || canEditBranch)) {
             let message = `You do not have permission to edit this 
                            ${isContributionRequest ? '<b>Contribution Request</b>' : 'Node'}. `;
@@ -27,7 +36,7 @@ export default function useAuthorizeNodeAction(): () => boolean {
             if (!currentUser) {
                 message += 'Please sign in to edit nodes.';
             }
-            else if (isContributionRequest) {
+            else if (isContributionRequest || isBranch) {
                 message += `You can request author to add you as 
                             <b>contributor</b> or submit your own Contribution Request.`;
             }
@@ -44,5 +53,5 @@ export default function useAuthorizeNodeAction(): () => boolean {
         }
 
         return true;
-    }, [canEditBranch, canEditNode, currentUser, dispatch, isContributionRequest]);
+    }, [canEditBranch, canEditNode, currentUser, dispatch, isBranch, isContributionRequest, isMerged]);
 }

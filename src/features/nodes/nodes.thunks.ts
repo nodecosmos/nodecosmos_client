@@ -40,10 +40,22 @@ export const showNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rej
 );
 
 // shows branch node + branch descendants + original descendants
-export const showBranchNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rejectValue: NodecosmosError }>(
+export const showBranchNode = createAsyncThunk<
+    ShowNodeResponse,
+    NodePrimaryKey & {originalId?: UUID | null},
+    { rejectValue: NodecosmosError }
+>(
     'nodes/showBranchNode',
-    async ({ branchId, id }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
-        const response = await nodecosmos.get(`/nodes/${branchId}/${id}/branch`);
+    async ({
+        branchId, id, originalId,
+    }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
+        let path = `/nodes/${branchId}/${id}/branch`;
+
+        if (originalId) {
+            path += `?originalId=${originalId}`;
+        }
+
+        const response = await nodecosmos.get(path);
 
         return response.data;
     },
