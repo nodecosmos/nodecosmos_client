@@ -18,8 +18,6 @@ export function useSelectObjectFromParams() {
         const encodedData = searchParams.get(SELECTED_OBJ_Q);
 
         if (encodedData) {
-            console.log('hit');
-
             const data = JSON.parse(atob(encodedData));
             dispatch(selectObject(data));
 

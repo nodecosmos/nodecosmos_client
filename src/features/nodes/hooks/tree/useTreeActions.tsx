@@ -13,7 +13,6 @@ import { useDispatch } from 'react-redux';
 export default function useTreeActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { branchId, originalId } = useBranchContext();
-
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
     } = useTreeContext();

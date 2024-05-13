@@ -117,5 +117,9 @@ export default function useTreeEvents() {
                 expandedNodesFromParams.current = true;
             }
         }
+
+        setTimeout(() => {
+            expandedNodesFromParams.current = true;
+        }, 500);
     }, [expandNodes, searchParams, treeNodes, dispatch]);
 }

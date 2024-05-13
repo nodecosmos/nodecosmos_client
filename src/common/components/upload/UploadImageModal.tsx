@@ -61,7 +61,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             method: 'POST',
             allowedMetaFields: [],
             withCredentials: true,
-            endpoint: `${uri}${endpointPath}`,
+            endpoint: `${uri}/${endpointPath}`,
         });
     }, [aspectRatio, endpointPath, uri]);
 
