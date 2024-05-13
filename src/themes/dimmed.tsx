@@ -131,12 +131,30 @@ const theme: NodecosmosTheme = {
         tree: {
             default: '#444a54',
             backgrounds: [
-                '#fd526f',
-                '#a38dff',
-                '#5a9aeb',
-                '#9bdf64',
-                '#d4df33',
-                '#efbd51',
+                {
+                    fg: '#fd526f',
+                    bg: '#453c44',
+                },
+                {
+                    fg: '#a38dff',
+                    bg: '#3e414f',
+                },
+                {
+                    fg: '#5a9aeb',
+                    bg: '#39414e',
+                },
+                {
+                    fg: '#9bdf64',
+                    bg: '#3e4743',
+                },
+                {
+                    fg: '#d4df33',
+                    bg: '#424740',
+                },
+                {
+                    fg: '#efbd51',
+                    bg: '#444442',
+                },
             ],
             defaultText: '#ffffff',
             selectedText: 'rgba(0, 0, 0, 0.9)',

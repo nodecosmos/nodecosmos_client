@@ -41,8 +41,7 @@ export default function NodeContent() {
                 animation: `node-button-appear 
                             ${initialAnimationDuration}ms
                             ${initialAnimationDelay}ms 
-                            forwards 
-                            ease-in-out`,
+                            forwards`,
             }}>
                 <foreignObject
                     width="700"

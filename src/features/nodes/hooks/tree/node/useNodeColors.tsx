@@ -9,6 +9,7 @@ export default function useNodeColors() {
     const defaultColors = useNodeDefaultColors();
     const checkboxColors = useNodeCheckboxColors();
     const branchColors = useNodeBranchColors();
+
     const { isBranch } = useBranchContext();
     const { type: treeType } = useTreeContext();
 

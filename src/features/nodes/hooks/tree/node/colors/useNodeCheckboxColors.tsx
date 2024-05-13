@@ -13,7 +13,7 @@ export default function useNodeCheckboxColors() {
 
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
-    const nestedTreeColor = backgrounds[nestedLevel % backgroundCount];
+    const nestedTreeColor = backgrounds[nestedLevel % backgroundCount].fg;
     const { checkboxColor } = theme.palette.tree;
 
     const isChecked = commands.isChecked(id);
@@ -22,7 +22,7 @@ export default function useNodeCheckboxColors() {
 
     const color = (isChecked && nestedTreeColor) || theme.palette.tree.defaultText;
     const parentBackgroundColor = isRoot
-        ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount];
+        ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount].fg;
 
     const outlineColor = isChecked ? nestedTreeColor : checkboxColor;
 

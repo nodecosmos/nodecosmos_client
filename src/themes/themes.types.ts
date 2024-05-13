@@ -2,6 +2,11 @@
 
 type Shadow = string | 0;
 
+interface TreeColor {
+    bg: string;
+    fg: string;
+}
+
 interface Shadows {
     0: Shadow;
     1: Shadow;
@@ -117,7 +122,7 @@ interface Palette {
     };
     tree: {
         default: string;
-        backgrounds: string[];
+        backgrounds: TreeColor[];
         defaultText: string;
         selectedText: string;
         hashtag: string;

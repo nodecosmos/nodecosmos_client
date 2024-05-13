@@ -132,12 +132,30 @@ const theme: NodecosmosTheme = {
             default: '#e4e4ec',
             defaultBorder: '#e0e0f0',
             backgrounds: [
-                '#e14d58',
-                '#b74de1',
-                '#4193ff',
-                '#4db761',
-                '#9dab1d',
-                '#de9255',
+                {
+                    fg: '#fd526f',
+                    bg: '#453c44',
+                },
+                {
+                    fg: '#a38dff',
+                    bg: '#3e414f',
+                },
+                {
+                    fg: '#65a9ff',
+                    bg: '#39414e',
+                },
+                {
+                    fg: '#9bdf64',
+                    bg: '#3e4743',
+                },
+                {
+                    fg: '#c9d711',
+                    bg: '#424740',
+                },
+                {
+                    fg: '#e8a200',
+                    bg: '#444442',
+                },
             ],
             hashtag: '#aaaac4',
             defaultText: '#21212c',
