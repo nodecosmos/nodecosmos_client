@@ -1,6 +1,7 @@
 import UserProfileOptions from './UserProfileOptions';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import { REDIRECT_Q } from '../../../users/components/LoginForm';
 import { selectIsAuthenticated } from '../../../users/users.selectors';
 import { faBell, faMessages } from '@fortawesome/pro-regular-svg-icons';
 import {
@@ -31,16 +32,21 @@ export default function UserHeaderOptions() {
     // if it's not authenticated, show the login and signup buttons
     return (
         <Box display="flex" justifyContent="end" height={30} width={150}>
-            <Button component={Link} to="/auth/login" color="primary" sx={{ mr: 1 }}>
-        Log in
+            <Button
+                component={Link}
+                color="primary"
+                sx={{ mr: 1 }}
+                to={`/auth/login?${REDIRECT_Q}=${btoa(window.location.href)}`}
+            >
+                Log in
             </Button>
             <Button
                 component={Link}
-                to="/auth/signup"
                 variant="outlined"
                 className="LogoButton focused"
+                to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
             >
-        Sign Up
+                Sign Up
             </Button>
         </Box>
     );

@@ -26,6 +26,29 @@ if ('Notification' in self && Notification.permission !== 'granted') {
     });
 }
 
+sw.addEventListener('notificationclick', function(event) {
+    const { url } = event.notification.data;
+    event.notification.close();
+
+    const parsedUrl = new URL(url);
+    const clientOrigin = import.meta.env.VITE_REACT_APP_URL;
+
+    // security check
+    if (parsedUrl.origin === clientOrigin) {
+        event.waitUntil(
+            sw.clients.matchAll({ type: 'window' }).then(function(windowClients) {
+                for (let i = 0; i < windowClients.length; i += 1) {
+                    const client = windowClients[i];
+                    if (client.url === url && 'focus' in client) {
+                        return client.focus();
+                    }
+                }
+                return sw.clients.openWindow(url);
+            }),
+        );
+    }
+});
+
 function initializeSSE(url: string) {
     const eventSource = eventSourceByURL.get(url);
 
@@ -55,24 +78,6 @@ function initializeSSE(url: string) {
                     },
                 ).catch((error) => {
                     console.error('Notification error:', error);
-                });
-
-                sw.addEventListener('notificationclick', function(event) {
-                    const { url } = event.notification.data; // Retrieve the URL from the notification data
-                    event.notification.close(); // Close the current notification
-
-                    // Handle the notification click
-                    event.waitUntil(
-                        sw.clients.matchAll({ type: 'window' }).then(function(windowClients) {
-                            for (let i = 0; i < windowClients.length; i += 1) {
-                                const client = windowClients[i];
-                                if (client.url === url && 'focus' in client) {
-                                    return client.focus();
-                                }
-                            }
-                            return sw.clients.openWindow(url);
-                        }),
-                    );
                 });
             }
         });

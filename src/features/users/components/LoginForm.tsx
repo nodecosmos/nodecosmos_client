@@ -5,6 +5,8 @@ import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { Form } from 'react-final-form';
 
+export const REDIRECT_Q = 'redirect';
+
 export default function Login() {
     const { handleLogin } = useUserAuthentication();
 

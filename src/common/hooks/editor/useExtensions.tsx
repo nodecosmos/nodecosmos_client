@@ -136,7 +136,6 @@ export default function useExtensions(props: UseExtensionsProps) {
     }
 
     const doc = useMemo(() => {
-        console.log('hit doc useMemo');
         if (!isRealTime) return null;
 
         const ydoc = new Y.Doc();

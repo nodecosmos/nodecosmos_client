@@ -32,7 +32,7 @@ export default function useNodeSSE(rootId?: UUID) {
             registrations.forEach((registration) => {
                 registration.active?.postMessage({
                     action: InitActions.Initialize,
-                    url: `${nodecosmos.defaults.baseURL}nodes/${rootId}/events/listen`,
+                    url: `${nodecosmos.defaults.baseURL}/nodes/${rootId}/events/listen`,
                 });
             });
         });

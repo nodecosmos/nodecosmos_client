@@ -1,17 +1,20 @@
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import { REDIRECT_Q } from '../components/LoginForm';
 import {
     create, logIn, LoginForm, logOut,
 } from '../users.thunks';
 import { UserCreateForm } from '../users.types';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function useUserAuthentication() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const redirect = searchParams.get(REDIRECT_Q);
 
     const handleLogin = useCallback(async (formValues: LoginForm) => {
         const response = await dispatch(logIn(formValues));
@@ -31,10 +34,24 @@ export default function useUserAuthentication() {
             return;
         }
 
-        navigate(-1);
+        if (redirect) {
+            const url = new URL(atob(redirect));
+            const path = url.pathname + url.search;
+            navigate(path);
+
+            setTimeout(() => dispatch(setAlert({
+                isOpen: true,
+                severity: 'success',
+                message: 'Logged in successfully',
+            })), 250);
+
+            return null;
+        } else {
+            navigate(-1);
+        }
 
         return null;
-    }, [dispatch, navigate]);
+    }, [dispatch, navigate, redirect]);
 
     const handleLogout = useCallback(() => {
         dispatch(logOut());
@@ -56,10 +73,17 @@ export default function useUserAuthentication() {
             duration: 5000,
         }));
 
-        navigate('/auth/login');
-    }, [dispatch, navigate]);
+        let redirectPath = '/auth/login';
+
+        if (redirect) {
+            redirectPath = `/auth/login?${REDIRECT_Q}=${redirect}`;
+        }
+
+        navigate(redirectPath);
+    }, [dispatch, navigate, redirect]);
 
     return {
+        redirect,
         handleLogin,
         handleLogout,
         handleUserCreation,

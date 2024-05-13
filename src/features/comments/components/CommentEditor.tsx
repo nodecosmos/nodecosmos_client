@@ -3,6 +3,8 @@ import Loader from '../../../common/components/Loader';
 import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
+import { REDIRECT_Q } from '../../users/components/LoginForm';
+import { selectCurrentUser } from '../../users/users.selectors';
 import { createComment, updateCommentContent } from '../comments.thunks';
 import {
     CommentThreadPrimaryKey, CreateCommentPayload, UpdateCommentPayload,
@@ -14,7 +16,8 @@ import { HelpersFromExtensions } from '@remirror/core';
 import React, {
     Suspense, useCallback, useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 import { MarkdownExtension } from 'remirror/extensions';
 
 const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
@@ -65,6 +68,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
     const isUpdate = Boolean(comment);
     const [clearState, setClearStateTrigger] = useState(false);
+    const currentUser = useSelector(selectCurrentUser);
 
     const clearContent = useCallback(() => {
         setContent('');
@@ -123,6 +127,35 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
             });
         }
     }, [setLoading, comment, content, dispatch, onClose, unsetLoading, threadPk, newThread, clearContent]);
+
+    if (!currentUser) {
+        return (
+            <div>
+                <Box display="flex" height={30} width={1} m={1}>
+                    <Button
+                        variant="outlined"
+                        component={RouterLink}
+                        to={`/auth/login?${REDIRECT_Q}=${btoa(window.location.href)}`}
+                        color="primary"
+                        sx={{ mr: 1 }}>
+                        Log in
+                    </Button>
+                    or
+                    <Button
+                        sx={{ mx: 1 }}
+                        component={RouterLink}
+                        to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
+                        variant="outlined"
+                        className="LogoButton focused"
+                    >
+                        Sign Up
+                    </Button>
+
+                    to add a comment.
+                </Box>
+            </div>
+        );
+    }
 
     return (
         <Box>

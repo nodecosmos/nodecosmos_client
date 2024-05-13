@@ -1,4 +1,5 @@
 import Alert from '../../common/components/Alert';
+import useUserAuthentication from '../../features/users/hooks/useUserAuthentication';
 import {
     Tab,
     Tabs,
@@ -18,6 +19,7 @@ import {
 export default function Authentication() {
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(0);
+    const { redirect } = useUserAuthentication();
 
     useEffect(() => {
         if (location.pathname === '/auth/login') {
@@ -68,8 +70,16 @@ export default function Authentication() {
                         onChange={handleTabChange}
                         centered
                     >
-                        <Tab label="Log in" disableRipple LinkComponent={Link} to="/auth/login" />
-                        <Tab label="Sign up" disableRipple LinkComponent={Link} to="/auth/signup" />
+                        <Tab
+                            label="Log in"
+                            disableRipple
+                            LinkComponent={Link}
+                            to={`/auth/login?redirect=${redirect}`} />
+                        <Tab
+                            label="Sign up"
+                            disableRipple
+                            LinkComponent={Link}
+                            to={`/auth/signup?redirect=${redirect}`} />
                     </Tabs>
                 </Box>
                 <Box textAlign="center" mt={3}>
