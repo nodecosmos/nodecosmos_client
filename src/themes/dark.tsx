@@ -155,10 +155,10 @@ const theme: NodecosmosTheme = {
                     bg: '#2b281f',
                 },
             ],
-            defaultText: '#ffffff',
+            defaultText: '#ebe7e7',
             selectedText: 'rgba(0, 0, 0, 0.9)',
             hashtag: '#787d88',
-            defaultBorder: '#51555d',
+            defaultBorder: '#3d4145',
             dragInIndicator: '#bf7869',
             checkboxColor: '#63686c',
         },
@@ -228,8 +228,8 @@ const theme: NodecosmosTheme = {
         },
 
         text: {
-            primary: '#e3e3e3',
-            secondary: '#e3e3e3',
+            primary: '#ebe7e7',
+            secondary: '#e4e1e7',
             tertiary: '#747982',
             disabled: '#5c616b',
             contrast: '#fff',

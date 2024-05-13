@@ -37,7 +37,7 @@ export default function useFlowStepNodeColors() {
         }
         else {
             colors = {
-                backgroundColor: isSelected ? nestedTreeColor.bg : theme.palette.tree.default,
+                backgroundColor: isSelected ? withOpacity(nestedTreeColor.fg, 0.8) : theme.palette.tree.default,
                 outlineColor: theme.palette.tree.defaultBorder,
                 color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
             };

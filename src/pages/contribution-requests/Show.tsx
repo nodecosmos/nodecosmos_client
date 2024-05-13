@@ -5,7 +5,6 @@ import CRShowToolbar from '../../features/contribution-requests/components/Contr
 import { selectContributionRequest } from '../../features/contribution-requests/contributionRequests.selectors';
 import { showContributionRequest } from '../../features/contribution-requests/contributionRequests.thunks';
 import { setCurrentContributionRequest } from '../../features/contribution-requests/contributionRequestsSlice';
-import { select } from '../../features/nodes/nodes.actions';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { Box } from '@mui/material';
@@ -40,10 +39,6 @@ export default function Show() {
         if (cr) {
             dispatch(setCurrentContributionRequest(cr));
         }
-
-        return () => {
-            dispatch(select(null));
-        };
     }, [dispatch, cr]);
 
     return (

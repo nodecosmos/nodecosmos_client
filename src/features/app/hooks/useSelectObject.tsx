@@ -22,6 +22,7 @@ export function useSelectObjectFromParams() {
             dispatch(selectObject(data));
 
             if (data.objectType === ObjectType.Node) {
+                console.log('selecting node from params', data);
                 dispatch(selectNodeFromParams({
                     branchId: data.branchId,
                     id: data.objectId,

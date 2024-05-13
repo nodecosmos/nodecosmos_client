@@ -111,7 +111,7 @@ export default function useTreeEvents() {
 
                 setTimeout(() => {
                     dispatch(setNodeScrollTo(data.objectId));
-                }, 150);
+                }, 10);
                 expandedNodesFromParams.current = true;
             } else if (data.objectType !== ObjectType.Node) {
                 expandedNodesFromParams.current = true;
