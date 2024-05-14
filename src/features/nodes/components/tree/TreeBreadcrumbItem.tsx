@@ -21,9 +21,9 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
     const {
         id, title, index, handleClick,
     } = props;
-
     const theme: NodecosmosTheme = useTheme();
     const nestedLevelColors = theme.palette.tree.backgrounds;
+    const nestedTreeColor = nestedLevelColors[index % nestedLevelColors.length];
 
     const onClick = useCallback(() => {
         handleClick(id);
@@ -35,15 +35,40 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
 
     return (
         <div className="BreadcrumbItem">
-            <Link onClick={onClick} variant="body2">
-                {title}
-            </Link>
-            <Tooltip title="reveal" placement="top">
+            <Tooltip title="select">
+                <Link
+                    onClick={onClick}
+                    variant="body2"
+                    sx={{
+                        px: 1,
+                        py: 0.5,
+                        borderRadius: 1,
+                        ml: 1,
+                        fontWeight: 500,
+                        fontSize: 14,
+                        color: 'text.tertiary',
+                        '&:hover': {
+                            backgroundColor: nestedTreeColor.bg,
+                            color: `${nestedTreeColor.fg} !important`,
+                        },
+                    }}>
+                    {title}
+                </Link>
+            </Tooltip>
+            <Tooltip title="scroll" placement="top">
                 <IconButton
                     size="small"
                     className="tools"
                     onClick={handleCentering}
-                    sx={{ '&:hover': { color: nestedLevelColors[index % 3] } }}
+                    sx={{
+                        ml: 0,
+                        mr: 0.5,
+                        svg: {
+                            color: 'borders.2',
+                            fontSize: 8,
+                        },
+                        '&:hover': { svg: { color: nestedTreeColor.fg } },
+                    }}
                 >
                     <FontAwesomeIcon icon={faCircle} />
                 </IconButton>

@@ -2,6 +2,7 @@ import FlowInnerToolbar from './toolbar/FlowInnerToolbar';
 import FlowStepInnerToolbar from './toolbar/FlowStepInnerToolbar';
 import FlowTitle from './toolbar/FlowTitle';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
+import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowColors from '../../../hooks/diagram/flows/useFlowColors';
 import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
@@ -11,7 +12,10 @@ import React from 'react';
 // Flow and FlowStep toolbar
 export default function Toolbar() {
     const { id, isSelected } = useFlowContext();
-    const { isFlowCreated, isFlowDeleted } = useWorkflowBranch();
+    const { id: flowStepId } = useFlowStepContext();
+    const {
+        isFlowCreated, isFlowDeleted, isFlowStepCreated, isFlowStepDeleted,
+    } = useWorkflowBranch();
     const { outlineColor: flowBorder, backgroundColor: flowBg } = useFlowColors();
 
     return (
@@ -26,7 +30,8 @@ export default function Toolbar() {
                 outlineWidth: isFlowCreated(id) || isFlowDeleted(id) || isSelected ? 1 : 0,
                 outlineOffset: isFlowCreated(id) || isFlowDeleted(id) || isSelected ? -1 : 0,
                 borderBottom: isFlowCreated(id) ? 'none' : `1px solid ${flowBorder}`,
-                backgroundColor: flowBg,
+                backgroundColor: isFlowStepCreated(flowStepId) || isFlowStepDeleted(flowStepId)
+                    ? 'transparent' : flowBg,
             }}>
             <FlowTitle />
             <ToolsContainer ml={1}>

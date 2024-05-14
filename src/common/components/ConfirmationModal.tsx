@@ -62,7 +62,7 @@ export default function ConfirmationModal(props: Props) {
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
-                <Typography color="text.secondary">
+                <Typography color="text.secondary" fontWeight={500}>
                     {text}
                 </Typography>
                 {warning && <SimpleAlert severity="warning" message={warning} />}

@@ -172,7 +172,7 @@ const theme: NodecosmosTheme = {
             defaultInputColor: '#52565e',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',
-            selectedBg: 'rgba(71,76,89,0.28)',
+            selectedBg: 'rgba(58,62,71,0.28)',
         },
 
         markdownContent: {
@@ -211,8 +211,8 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: '#2c4c3c',
-                fg: '#9bf47a',
+                bg: '#364e35',
+                fg: '#7af4a9',
             },
             removed: {
                 bg: '#5c303f',

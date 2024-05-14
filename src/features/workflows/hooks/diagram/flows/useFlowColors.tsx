@@ -33,9 +33,9 @@ export default function useFlowColors() {
             colors = diffColors(true, DiffState.Removed, 0.5);
         }
     } else if (isBranch && isFlowStepCreated(flowStepId)) {
-        colors.backgroundColor = isSelected ? diffColors(true, DiffState.Added, 0.5).backgroundColor : flowStepBg;
+        colors.outlineColor = diffColors(true, DiffState.Added, 0.5).outlineColor;
     } else if (isBranch && isFlowStepDeleted(flowStepId)) {
-        colors.backgroundColor = isSelected ? diffColors(true, DiffState.Removed, 0.5).backgroundColor : flowStepBg;
+        colors.outlineColor = diffColors(true, DiffState.Removed, 0.5).outlineColor;
     }
 
     return colors;

@@ -1,23 +1,27 @@
 import Loader from '../../../../common/components/Loader';
+import NcAvatar from '../../../../common/components/NcAvatar';
 import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import useTreeContext from '../../hooks/tree/useTreeContext';
 import { search } from '../../nodes.actions';
+import { selectNode } from '../../nodes.selectors';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, InputAdornment, TextField,
+    Box, InputAdornment, Link, TextField,
 } from '@mui/material';
 import React, {
     ChangeEvent, useCallback, useEffect, useRef,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function TreeToolbar() {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { branchId } = useTreeContext();
+    const { branchId, rootId } = useTreeContext();
     const searchVal = useRef<string>('');
+    const node = useSelector(selectNode(branchId, rootId));
 
     const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         dispatch(search({
@@ -41,6 +45,10 @@ export default function TreeToolbar() {
 
     const [handleChange, inProgress] = useDebounce<ChangeEvent<HTMLInputElement>>(handleSearch, 100);
 
+    if (!node) {
+        return null;
+    }
+
     return (
         <Box
             height={HEADER_HEIGHT}
@@ -54,8 +62,18 @@ export default function TreeToolbar() {
             zIndex={3}
             pl={1.25}
         >
+            <Link component={RouterLink} to={`/${node.owner?.username}`}>
+                <NcAvatar
+                    width={25}
+                    height={25}
+                    fontSize={14}
+                    name={node.owner?.name || ''}
+                    src={node.owner?.profileImageUrl} />
+            </Link>
+
             <TextField
                 sx={{
+                    ml: 1,
                     height: 32,
                     width: '350px',
                     svg: { color: 'toolbar.default' },
