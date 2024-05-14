@@ -10,10 +10,10 @@ import Activity from '../../../pages/contribution-requests/tabs/conversation-tab
 import MainThread from '../../../pages/contribution-requests/tabs/conversation-tabs/MainThread';
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
-import TreeShow from '../../../pages/trees/Show';
+import TreeShow from '../../../pages/nodes/TreeShow';
+import WorkflowShow from '../../../pages/nodes/WorkflowShow';
 import UserAuthentication from '../../../pages/users/Authentication';
 import UserShow from '../../../pages/users/Show';
-import WorkflowShow from '../../../pages/workflows/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
 import LoginForm from '../../users/components/LoginForm';

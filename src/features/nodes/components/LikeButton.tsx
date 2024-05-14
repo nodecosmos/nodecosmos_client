@@ -2,7 +2,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import abbreviateNumber from '../../../utils/abbreviateNumber';
 import { setAlert } from '../../app/appSlice';
-import { selectBranchLikes } from '../../likes/likes.selectors';
+import { selectCurrentUserLikes } from '../../likes/likes.selectors';
 import {
     getLikeCount, likeObject, unlikeObject,
 } from '../../likes/likes.thunks';
@@ -27,7 +27,7 @@ export default function LikeButton(props: LikeButtonProps) {
     const {
         id, objectType, branchId = id, fontSize, likeCount,
     } = props;
-    const likes = useSelector(selectBranchLikes(branchId));
+    const likes = useSelector(selectCurrentUserLikes(branchId));
     const likedByCurrentUser = !!likes[id];
     const [shouldBeat, setShouldBeat] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -38,7 +38,6 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(getLikeCount({
                 objectId: id,
                 branchId,
-                objectType,
             }));
         }
     }, [branchId, dispatch, id, likeCount, objectType]);
@@ -48,7 +47,7 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(setAlert({
                 isOpen: true,
                 severity: 'warning',
-                message: 'Log in to hit that like!',
+                message: 'You must be logged in to like this.',
             }));
             return;
         }
@@ -57,12 +56,14 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(unlikeObject({
                 branchId,
                 objectId: id,
+                userId: currentUser.id,
             }));
         } else {
             dispatch(likeObject({
                 branchId,
                 objectId: id,
                 objectType: LikeType.Node,
+                userId: currentUser.id,
             }));
         }
 

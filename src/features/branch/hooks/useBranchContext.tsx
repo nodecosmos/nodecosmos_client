@@ -38,7 +38,7 @@ export function useBranchContextCreator() {
 
     // extract branch data from query params if they exist
     const [searchParams] = useSearchParams();
-    const isBranchQ = searchParams.get('isBranchQ');
+    const isBranchQ = searchParams.get('isBranchQ') === 'true';
     const originalIdQ = searchParams.get('originalIdQ');
 
     if (isBranchQ && originalIdQ) {
@@ -60,7 +60,7 @@ export function useBranchContextCreator() {
         }, [pathname],
     );
     const isBranchedNode = (node ? node.rootId !== originalId : false);
-    const isBranch = !!isBranchQ || isContributionRequest || (node ? node.rootId !== originalId : false);
+    const isBranch = isBranchQ || isContributionRequest || (node ? node.rootId !== originalId : false);
 
     useEffect(() => {
         if ((isBranchedNode || isBranchQ) && !isContributionRequest && !branchNodeId) {

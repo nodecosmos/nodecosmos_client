@@ -9,8 +9,10 @@ import { HttpErrorCodes } from '../../types';
 import { updatePropertiesOf } from '../../utils/object';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const CURRENT_USER_KEY = 'CU';
+
 function getCurrentUser(): CurrentUser | null {
-    const user = localStorage.getItem('currentUser');
+    const user = localStorage.getItem(CURRENT_USER_KEY);
     if (user) {
         return JSON.parse(user, (key, value) => {
             if (key === 'lastSyncUpAt') {
@@ -24,7 +26,7 @@ function getCurrentUser(): CurrentUser | null {
 
 const initialState: UserState = {
     byUsername: {},
-    isAuthenticated: Boolean(localStorage.getItem('currentUser')),
+    isAuthenticated: Boolean(localStorage.getItem(CURRENT_USER_KEY)),
     currentUser: getCurrentUser(),
 };
 
@@ -42,7 +44,7 @@ const usersSlice = createSlice({
             if (state.currentUser && state.currentUser?.id === state.byUsername[username].id) {
                 updatePropertiesOf<CurrentUser, UpdateUserStatePayload>(state.currentUser, state.byUsername[username]);
 
-                localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+                localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
             }
         },
     },
@@ -55,7 +57,7 @@ const usersSlice = createSlice({
                 state.isAuthenticated = true;
                 state.currentUser = user;
 
-                localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+                localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
             })
             .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
                 const user = action.payload;
@@ -66,17 +68,17 @@ const usersSlice = createSlice({
                         lastSyncUpAt: new Date(),
                     };
 
-                    localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+                    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
                 } else {
                     state.currentUser = null;
-                    localStorage.removeItem('currentUser');
+                    localStorage.removeItem(CURRENT_USER_KEY);
                 }
             })
             .addCase(syncUpCurrentUser.rejected, (state, action) => {
                 if (action.payload?.status === HttpErrorCodes.Unauthorized) {
                     state.isAuthenticated = false;
                     state.currentUser = null;
-                    localStorage.removeItem('currentUser');
+                    localStorage.removeItem(CURRENT_USER_KEY);
                 }
             })
             .addCase(showUserByUsername.fulfilled, (state, action) => {
@@ -85,7 +87,7 @@ const usersSlice = createSlice({
                 state.byUsername[user.username] = user;
             })
             .addCase(logOut.fulfilled, (state) => {
-                localStorage.removeItem('currentUser');
+                localStorage.removeItem(CURRENT_USER_KEY);
 
                 state.isAuthenticated = false;
                 state.currentUser = null;

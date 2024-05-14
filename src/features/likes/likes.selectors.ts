@@ -1,9 +1,10 @@
 import { RootState } from '../../store';
+import { UUID } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectLikesByBranchId = (state: RootState) => state.likes.byBranchId;
+export const selectCurrentUserLikesState = (state: RootState) => state.likes.currentUserLikes;
 
-export const selectBranchLikes = (branchId: string) => createSelector(
-    selectLikesByBranchId,
+export const selectCurrentUserLikes = (branchId: UUID) => createSelector(
+    selectCurrentUserLikesState,
     (likesByBranchId) => (likesByBranchId[branchId] && likesByBranchId[branchId]) || {},
 );

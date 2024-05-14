@@ -61,8 +61,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
                     className="tools"
                     onClick={handleCentering}
                     sx={{
-                        ml: 0,
-                        mr: 0.5,
+                        mx: 1,
                         svg: {
                             color: 'borders.2',
                             fontSize: 8,

@@ -3,6 +3,7 @@ import { UUID } from '../../types';
 export interface LikePrimaryKey {
     objectId: UUID;
     branchId: UUID;
+    userId: UUID;
 }
 
 export interface Like extends LikePrimaryKey {
@@ -22,5 +23,6 @@ export interface likeCountResponse {
 }
 
 export interface LikeState {
-    byBranchId: Record<UUID, Record<UUID, boolean>>;
+    // branchId, objectId, liked
+    currentUserLikes: Record<UUID, Record<UUID, boolean>>;
 }

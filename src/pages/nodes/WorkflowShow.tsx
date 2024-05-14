@@ -14,7 +14,7 @@ import { Box, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Show() {
+export default function WorkflowShow() {
     const {
         originalId, branchId, nodeId, isBranch,
     } = useBranchContext();

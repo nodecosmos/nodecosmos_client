@@ -58,7 +58,7 @@ export const syncUpCurrentUser = createAsyncThunk<
     }) => {
         const state = getState();
         const currentUser = state.users.currentUser;
-        const likes = state.likes.byBranchId;
+        const likes = state.likes.currentUserLikes;
 
         if (!currentUser) {
             return rejectWithValue({

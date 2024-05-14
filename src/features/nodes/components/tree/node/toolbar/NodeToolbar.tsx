@@ -9,10 +9,10 @@ import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNode } from '../../../../nodes.selectors';
 import LikeButton from '../../../LikeButton';
+import { faDiagramSubtask, faArrowUpRightFromSquare } from '@fortawesome/pro-light-svg-icons';
 import {
-    faArrowUpRightFromSquare, faPenToSquare, faTrash, faUndo,
+    faPenToSquare, faTrash, faUndo, faPlus,
 } from '@fortawesome/pro-regular-svg-icons';
-import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Tooltip, ButtonBase,
@@ -25,7 +25,9 @@ export default function NodeToolbar() {
     const {
         isTmp,
         isRoot,
+        isCurrentRoot,
         rootId,
+        parentId,
         isExpanded,
         isSelected,
         branchId,
@@ -109,12 +111,12 @@ export default function NodeToolbar() {
                 !isMerged && (
                     <>
                         <Tooltip title="Add Node" placement="top">
-                            <ButtonBase className="Item" onClick={addNode} aria-label="Add Node">
+                            <ButtonBase className="Item red" onClick={addNode} aria-label="Add Node">
                                 <FontAwesomeIcon icon={faPlus} />
                             </ButtonBase>
                         </Tooltip>
                         <Tooltip title="Edit Node" placement="top">
-                            <ButtonBase className="Item" onClick={editNode} aria-label="Edit Node">
+                            <ButtonBase className="Item green" onClick={editNode} aria-label="Edit Node">
                                 <FontAwesomeIcon icon={faPenToSquare} />
                             </ButtonBase>
                         </Tooltip>
@@ -122,7 +124,7 @@ export default function NodeToolbar() {
                             !(isRoot && isBranch) && (
                                 <Tooltip title="Delete Node" placement="top">
                                     <ButtonBase
-                                        className="Item"
+                                        className="Item blue"
                                         onClick={handleDelete}
                                         aria-label="Delete Node">
                                         <FontAwesomeIcon icon={faTrash} />
@@ -138,19 +140,54 @@ export default function NodeToolbar() {
                 objectType={LikeType.Node}
                 branchId={branchId}
                 likeCount={likeCount} />
+            {isCurrentRoot && (
+                <>
+                    <Tooltip
+                        title="Open Parent"
+                        placement="top"
+                    >
+                        <ButtonBase
+                            target="_blank"
+                            href={`/nodes/${branchId}/${parentId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
+                            className="Item purple"
+                            aria-label="Open Parent Node in New Tab"
+                        >
+                            <FontAwesomeIcon
+                                icon={faDiagramSubtask}
+                            />
+                        </ButtonBase>
+                    </Tooltip>
 
-            <Tooltip title="Open Node In New Tab" placement="top">
-                <ButtonBase
-                    target="_blank"
-                    href={`/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
-                    className="Item"
-                    aria-label="Open Node in New Tab"
-                >
-                    <FontAwesomeIcon
-                        icon={faArrowUpRightFromSquare}
-                    />
-                </ButtonBase>
-            </Tooltip>
+                    <Tooltip title="Open Root" placement="top">
+                        <ButtonBase
+                            target="_blank"
+                            href={`/nodes/${branchId}/${rootId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
+                            className="Item blue"
+                            aria-label="Open Root Node in New Tab"
+                        >
+                            <FontAwesomeIcon
+                                icon={faArrowUpRightFromSquare}
+                            />
+                        </ButtonBase>
+                    </Tooltip>
+                </>
+            )}
+
+            {!isCurrentRoot && (
+                <Tooltip title="Open Node In New Tab" placement="top">
+                    <ButtonBase
+                        target="_blank"
+                        href={`/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
+                        className="Item purple"
+                        aria-label="Open Node in New Tab"
+                    >
+                        <FontAwesomeIcon
+                            icon={faArrowUpRightFromSquare}
+                        />
+                    </ButtonBase>
+                </Tooltip>
+            )}
+
             <ConfirmationModal
                 text={deleteText}
                 confirmText={deleteConfirmText}

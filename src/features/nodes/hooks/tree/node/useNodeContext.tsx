@@ -48,8 +48,11 @@ export default function useNodeContext() {
         yEnd,
     } = treeNodes[id] || {};
 
+    const isCurrentRoot = treeRootId === id;
+
     return {
         treeRootId,
+        isCurrentRoot,
         branchId,
         id,
         rootId,
