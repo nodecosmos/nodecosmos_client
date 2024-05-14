@@ -14,12 +14,12 @@ export default function useNodeBranchColors() {
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
-    const nestedTreeColor = backgrounds[nestedLevel % backgroundCount];
+    const nestedTreeColor = backgrounds[nestedLevel % backgroundCount].fg;
     const { defaultBorder } = theme.palette.tree;
     const diffColors = useDiffColors();
 
     return useMemo(() => {
-        const backgroundColor = isSelected ? withOpacity(nestedTreeColor.fg, 0.8) : theme.palette.tree.default;
+        const backgroundColor = isSelected ? withOpacity(nestedTreeColor, 0.8) : theme.palette.tree.default;
         const outlineColor = defaultBorder;
         const color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
         const parentBackgroundColor = theme.palette.workflow.defaultInputColor;

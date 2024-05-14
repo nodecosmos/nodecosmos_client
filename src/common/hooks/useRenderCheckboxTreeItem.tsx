@@ -33,7 +33,7 @@ export default function useRenderCheckboxTreeItem(initialNestedLevel = 1) {
                     }
                     <FormControlLabel
                         sx={{
-                            borderColor: nodeBackgroundColors[nestedLevel % bgCount],
+                            borderColor: nodeBackgroundColors[nestedLevel % bgCount].fg,
                             borderRadius: 1,
                         }}
                         componentsProps={{
@@ -56,7 +56,7 @@ export default function useRenderCheckboxTreeItem(initialNestedLevel = 1) {
                                 value={option.value}
                                 onChange={input.onChange}
                                 name={input.name}
-                                sx={{ color: nodeBackgroundColors[nestedLevel % bgCount] }}
+                                sx={{ color: nodeBackgroundColors[nestedLevel % bgCount].fg }}
                             />
                         )}
                     />

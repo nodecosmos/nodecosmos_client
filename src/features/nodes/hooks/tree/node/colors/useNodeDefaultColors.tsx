@@ -36,6 +36,6 @@ export default function useNodeDefaultColors() {
         color,
         isSelected,
         outlinedColored,
-        nestedTreeColor,
+        nestedTreeColor: nestedTreeColor.fg,
     };
 }
