@@ -2,6 +2,7 @@ import useFlowStepContext from './flow-step/useFlowStepContext';
 import useIoContext from './io/useIoContext';
 import useDiffColors, { DiffState } from '../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../themes/themes.types';
+import { withOpacity } from '../../../../utils/colors';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../../nodes/nodes.selectors';
 import useWorkflowBranch from '../useWorkflowBranch';
@@ -14,7 +15,7 @@ export default function useOutputColors() {
     const {
         id, mainId, isSelected, fsNodeId, isNodeSelected, selectedNodeId,
     } = useIoContext();
-    const { branchId } = useWorkflowContext();
+    const { branchId, inputsAdditionActive } = useWorkflowContext();
     const {
         isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepCreated, isFlowStepDeleted,
     } = useWorkflowBranch();
@@ -32,15 +33,15 @@ export default function useOutputColors() {
     const { id: flowStepId } = useFlowStepContext();
 
     let colors = {
-        backgroundColor: isSelected ? nestedLevelColor : theme.palette.background[6],
+        backgroundColor: isSelected ? withOpacity(nestedLevelColor.fg, 0.8) : theme.palette.background[6],
         outlineColor: isSelected ? nestedLevelColor : theme.palette.workflow.defaultInputColor,
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
     };
 
     if (isNodeSelected) {
         colors = {
-            backgroundColor: selectedNodeNestedLevelColor,
-            outlineColor: selectedNodeNestedLevelColor,
+            backgroundColor: withOpacity(selectedNodeNestedLevelColor.fg, 0.8),
+            outlineColor: selectedNodeNestedLevelColor.fg,
             color: theme.palette.tree.selectedText,
         };
     } else if (isBranch) {
@@ -56,9 +57,14 @@ export default function useOutputColors() {
         }
     }
 
+    // if bg and checkbox color are the same, change checkbox color to active toolbar color
+    if (colors.backgroundColor === withOpacity(selectedNodeNestedLevelColor.fg, 0.8) && inputsAdditionActive) {
+        colors.backgroundColor = theme.palette.workflow.default;
+        colors.color = selectedNodeNestedLevelColor.fg;
+    }
+
     return {
         ...colors,
-        checkboxColor: colors.backgroundColor === selectedNodeNestedLevelColor
-            ? theme.palette.toolbar.active : selectedNodeNestedLevelColor,
+        checkboxColor: withOpacity(selectedNodeNestedLevelColor.fg, 0.8),
     };
 }

@@ -10,9 +10,9 @@ import React from 'react';
 
 // Flow and FlowStep toolbar
 export default function Toolbar() {
-    const { id } = useFlowContext();
+    const { id, isSelected } = useFlowContext();
     const { isFlowCreated, isFlowDeleted } = useWorkflowBranch();
-    const { outlineColor: flowBorder } = useFlowColors();
+    const { outlineColor: flowBorder, backgroundColor: flowBg } = useFlowColors();
 
     return (
         <Box
@@ -23,9 +23,10 @@ export default function Toolbar() {
             alignItems="center"
             style={{
                 outline: `solid ${flowBorder}`,
-                outlineWidth: isFlowCreated(id) || isFlowDeleted(id) ? 2 : 0,
-                outlineOffset: isFlowCreated(id) || isFlowDeleted(id) ? -2 : 0,
+                outlineWidth: isFlowCreated(id) || isFlowDeleted(id) || isSelected ? 1 : 0,
+                outlineOffset: isFlowCreated(id) || isFlowDeleted(id) || isSelected ? -1 : 0,
                 borderBottom: isFlowCreated(id) ? 'none' : `1px solid ${flowBorder}`,
+                backgroundColor: flowBg,
             }}>
             <FlowTitle />
             <ToolsContainer ml={1}>

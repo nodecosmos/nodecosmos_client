@@ -50,7 +50,7 @@ export default function OutputButton() {
                         onClick={handleIoClick}
                         onKeyUp={preventDefault}
                         style={{
-                            background: backgroundColor,
+                            backgroundColor,
                             border: `1px solid ${isChecked ? checkboxColor : outlineColor}`,
                             color,
                         }}

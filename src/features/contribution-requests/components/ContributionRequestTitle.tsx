@@ -3,6 +3,7 @@ import EditTitleField from '../../../common/components/EditTItleField';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { withOpacity } from '../../../utils/colors';
+import useAuthorizeBranch from '../../branch/hooks/useAuthorizeBranch';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import { updateContributionRequestTitle } from '../contributionRequests.thunks';
 import { useStatus } from '../hooks/useStatus';
@@ -29,6 +30,7 @@ export default function ContributionRequestTitle() {
 
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
     const { color: statusColor, label: statusLabel } = useStatus(contributionRequest.status);
+    const authorized = useAuthorizeBranch();
 
     if (!contributionRequest) {
         return null;
@@ -72,6 +74,7 @@ export default function ContributionRequestTitle() {
 
             <Box ml={2} width={1}>
                 <EditTitleField
+                    authorized={authorized}
                     inputFontSize="2rem"
                     variant="h2"
                     title={title}

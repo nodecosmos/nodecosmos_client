@@ -6,6 +6,7 @@ import React, { useCallback } from 'react';
 
 interface EditTitleFieldProps {
     title: string;
+    authorized?: boolean;
     color?: string;
     pr?: number;
     variant?: Variant;
@@ -22,6 +23,7 @@ interface EditTitleFieldProps {
 export default function EditTitleField(props: EditTitleFieldProps) {
     const {
         title,
+        authorized = true,
         color = 'text.secondary',
         pr = 0,
         variant = 'body2',
@@ -35,6 +37,10 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         defaultEditing = false,
     } = props;
     const [editing, setEditing, unsetEditing] = useBooleanStateValue(defaultEditing);
+
+    const edit = useCallback(() => {
+        if (authorized) setEditing();
+    }, [authorized, setEditing]);
 
     const handleEditClose = useCallback(() => {
         if (onClose) {
@@ -60,7 +66,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
 
     return (
         <Typography
-            onClick={setEditing}
+            onClick={edit}
             variant={variant}
             sx={{
                 pr,

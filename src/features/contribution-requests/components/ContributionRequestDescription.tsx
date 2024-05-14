@@ -4,6 +4,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useDebounce from '../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
+import useAuthorizeBranch from '../../branch/hooks/useAuthorizeBranch';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import { updateContributionRequestDescription } from '../contributionRequests.thunks';
 import { Box, Typography } from '@mui/material';
@@ -25,6 +26,7 @@ export default function ContributionRequestDescription() {
     const [editorOpen, openEditor, closeEditor] = useBooleanStateValue();
     const { description } = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
+    const authorized = useAuthorizeBranch();
 
     const updateDescription = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
         const description = helpers.getHTML();
@@ -49,7 +51,7 @@ export default function ContributionRequestDescription() {
 
     return (
         <Box width={1}>
-            {!editorOpen
+            {(!editorOpen || !authorized)
                 && (
                     <Box
                         width={1}
@@ -77,7 +79,7 @@ export default function ContributionRequestDescription() {
                 )
             }
             {
-                editorOpen && (
+                (editorOpen && authorized) && (
                     <Suspense fallback={<Loader />}>
                         <Box
                             width={1}

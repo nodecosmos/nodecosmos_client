@@ -20,7 +20,7 @@ export default function useFlowColors() {
 
     let colors = {
         backgroundColor: isSelected ? theme.palette.workflow.selectedBg : flowStepBg,
-        outlineColor: theme.palette.borders[1],
+        outlineColor: isSelected ? theme.palette.secondary.main : theme.palette.borders[1],
         color: theme.palette.tree.defaultText,
     };
 
