@@ -69,7 +69,7 @@ export default function useUserAuthentication() {
         dispatch(setAlert({
             isOpen: true,
             severity: 'success',
-            message: 'Your account has been created. Please log in.',
+            message: 'Activation link sent! Please check your email to activate your account.',
             duration: 5000,
         }));
 

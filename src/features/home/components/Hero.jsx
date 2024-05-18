@@ -108,23 +108,23 @@ export default function Hero() {
                         },
                     }}
                 >
-                    <Box component="li" color="tree.backgrounds.1">
+                    <Box component="li" color="tree.backgrounds.1.fg">
                         <AnimateOnView delay={300}>
               💡 Share Your Innovation
                         </AnimateOnView>
                     </Box>
-                    <Box component="li" color="tree.backgrounds.2">
+                    <Box component="li" color="tree.backgrounds.2.fg">
                         <AnimateOnView delay={450}>
               👩‍💻 Connect With Communities
                         </AnimateOnView>
                     </Box>
-                    <Box component="li" color="tree.backgrounds.3">
+                    <Box component="li" color="tree.backgrounds.3.fg">
                         <AnimateOnView delay={600}>
               🔧 Get Contributions
                         </AnimateOnView>
                     </Box>
                     <AnimateOnView delay={750}>
-                        <Box component="li" color="tree.backgrounds.4">
+                        <Box component="li" color="tree.backgrounds.4.fg">
               ✨ And much more...
                         </Box>
                     </AnimateOnView>

@@ -9,7 +9,9 @@ import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNode } from '../../../../nodes.selectors';
 import LikeButton from '../../../LikeButton';
-import { faDiagramSubtask, faArrowUpRightFromSquare } from '@fortawesome/pro-light-svg-icons';
+import {
+    faDiagramSubtask, faArrowUpRightFromSquare, faArrowUpSmallBig,
+} from '@fortawesome/pro-light-svg-icons';
 import {
     faPenToSquare, faTrash, faUndo, faPlus,
 } from '@fortawesome/pro-regular-svg-icons';
@@ -66,7 +68,7 @@ export default function NodeToolbar() {
             <div className="NodeToolbar">
                 <Tooltip title="Undo Node Deletion" placement="top">
                     <ButtonBase
-                        className="Item"
+                        className="Item purple"
                         onClick={undoNodeDeletion}
                         aria-label="Undo Node Deletion">
                         <FontAwesomeIcon icon={faUndo} />
@@ -135,12 +137,7 @@ export default function NodeToolbar() {
                     </>
                 )
             }
-            <LikeButton
-                id={id}
-                objectType={LikeType.Node}
-                branchId={branchId}
-                likeCount={likeCount} />
-            {isCurrentRoot && (
+            {isCurrentRoot && !isRoot && (
                 <>
                     <Tooltip
                         title="Open Parent"
@@ -149,7 +146,7 @@ export default function NodeToolbar() {
                         <ButtonBase
                             target="_blank"
                             href={`/nodes/${branchId}/${parentId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
-                            className="Item purple"
+                            className="Item blue"
                             aria-label="Open Parent Node in New Tab"
                         >
                             <FontAwesomeIcon
@@ -161,19 +158,20 @@ export default function NodeToolbar() {
                     <Tooltip title="Open Root" placement="top">
                         <ButtonBase
                             target="_blank"
+                            sx={{ ml: 0 }}
                             href={`/nodes/${branchId}/${rootId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
-                            className="Item blue"
+                            className="Item purple"
                             aria-label="Open Root Node in New Tab"
                         >
                             <FontAwesomeIcon
-                                icon={faArrowUpRightFromSquare}
+                                icon={faArrowUpSmallBig}
                             />
                         </ButtonBase>
                     </Tooltip>
                 </>
             )}
 
-            {!isCurrentRoot && (
+            {(!isCurrentRoot || isRoot) && (
                 <Tooltip title="Open Node In New Tab" placement="top">
                     <ButtonBase
                         target="_blank"
@@ -187,6 +185,12 @@ export default function NodeToolbar() {
                     </ButtonBase>
                 </Tooltip>
             )}
+
+            <LikeButton
+                id={id}
+                objectType={LikeType.Node}
+                branchId={branchId}
+                likeCount={likeCount} />
 
             <ConfirmationModal
                 text={deleteText}
