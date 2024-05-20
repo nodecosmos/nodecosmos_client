@@ -2,12 +2,15 @@ import Field from '../../../common/components/final-form/FinalFormInputField';
 import { passwordsMustMatch, validateEmailFormat } from '../../../utils/validation';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import { UserCreateForm } from '../users.types';
+import { faUser } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { Form } from 'react-final-form';
 
 export default function SignupForm() {
-    const { handleUserCreation } = useUserAuthentication();
+    const { handleUserCreation, loading } = useUserAuthentication();
 
     return (
         <Form<UserCreateForm> onSubmit={handleUserCreation} subscription={{ active: true }}>
@@ -59,7 +62,17 @@ export default function SignupForm() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button sx={{ mt: 2 }} variant="contained" type="submit" disabled={submitting}>
+                            <Button
+                                type="submit"
+                                variant="outlined"
+                                color="primary"
+                                disabled={submitting}
+                                startIcon={
+                                    loading
+                                        ? <CircularProgress size={20} sx={{ color: 'primary.main' }} />
+                                        : <FontAwesomeIcon size="2xs" icon={faUser} />
+                                }
+                            >
                                 Sign up
                             </Button>
                         </Grid>

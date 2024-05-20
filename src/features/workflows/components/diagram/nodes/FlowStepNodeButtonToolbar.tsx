@@ -1,4 +1,4 @@
-import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import useModalOpenAuthorized from '../../../../../common/hooks/useModalOpenAuthorized';
 import { UUID } from '../../../../../types';
 import CreateIoModal, { IoObjectType } from '../../../../input-outputs/components/CreateIoModal';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
@@ -19,7 +19,7 @@ export default function FlowStepNodeButtonToolbar() {
     } = useFlowStepContext();
     const { setSelectedInputs } = useWorkflowContext();
 
-    const [outputsModalOpen, openOutputModal, closeOutputModal] = useModalOpen();
+    const [outputsModalOpen, openOutputModal, closeOutputModal] = useModalOpenAuthorized();
 
     const handleOpenInputsAddition = useCallback(() => {
         setSelectedInputs(new Set<UUID>(currentFlowStepInputIds[id] || []));

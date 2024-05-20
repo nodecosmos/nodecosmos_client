@@ -1,4 +1,4 @@
-import useModalOpen from '../../../../common/hooks/useModalOpen';
+import useModalOpenAuthorized from '../../../../common/hooks/useModalOpenAuthorized';
 import CreateIoModal, { IoObjectType } from '../../../input-outputs/components/CreateIoModal';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +12,7 @@ interface StartToolbarProps {
 }
 
 export default function StartToolbar({ startStepHovered }: StartToolbarProps) {
-    const [modalOpen, openModal, closeModal] = useModalOpen();
+    const [modalOpen, openModal, closeModal] = useModalOpenAuthorized();
 
     return (
         <>

@@ -11,6 +11,7 @@ import {
 } from '../../branch/branches.thunks';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowActions from '../../flows/hooks/useFlowActions';
+import useAuthorizeNodeAction from '../../nodes/hooks/tree/node/useAuthorizeNodeAction';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
 import useWorkflowBranch from '../../workflows/hooks/useWorkflowBranch';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
@@ -36,6 +37,7 @@ export default function useFlowStepActions(props?: Props) {
     } = useFlowStepContext();
     const { handleFlowClick } = useFlowActions();
     const handleServerError = useHandleServerErrorAlert();
+    const authorizeNodeAction = useAuthorizeNodeAction();
 
     const deleteFlowStepCb = useCallback(async () => {
         if (!flowStepPrimaryKey) {
@@ -125,6 +127,8 @@ export default function useFlowStepActions(props?: Props) {
             throw new Error('Flow Step Primary Key is not defined');
         }
 
+        if (!authorizeNodeAction()) return;
+
         setCreateIsLoading();
 
         let newStepIndex;
@@ -164,7 +168,7 @@ export default function useFlowStepActions(props?: Props) {
         }
     }, [
         dispatch, stepIndex, flowStepPrimaryKey, handleServerError, nextStepIndex,
-        rootId, setCreateIsLoading, setCreateIsNotLoading,
+        rootId, setCreateIsLoading, setCreateIsNotLoading, authorizeNodeAction,
     ]);
 
     const keepFlowStepCb = useCallback(() => {

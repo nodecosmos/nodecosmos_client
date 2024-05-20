@@ -1,4 +1,4 @@
-import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import useBooleanStateAuthorized from '../../../common/hooks/useBooleanStateAuthorized';
 import { UUID } from '../../../types';
 import { selectWorkflow, selectWorkflowScale } from '../workflow.selectors';
 import React, { useEffect, useMemo } from 'react';
@@ -22,7 +22,7 @@ type WorkflowContextProviderProps = Pick<WorkflowContextType, 'insidePane' | 'no
 export function useWorkflowContextCreator({
     insidePane, nodeId, branchId,
 }: WorkflowContextProviderProps) {
-    const [inputsAdditionActive, activateInputsAddition, deactivateInputsAddition] = useBooleanStateValue();
+    const [inputsAdditionActive, activateInputsAddition, deactivateInputsAddition] = useBooleanStateAuthorized();
     const [selectedInputs, setSelectedInputs] = React.useState<Set<UUID>>(new Set<UUID>());
 
     useEffect(() => {

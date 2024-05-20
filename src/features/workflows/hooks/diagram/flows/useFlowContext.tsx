@@ -1,4 +1,4 @@
-import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
+import useBooleanStateAuthorized from '../../../../../common/hooks/useBooleanStateAuthorized';
 import { UUID } from '../../../../../types';
 import { selectSelectedObject } from '../../../../app/app.selectors';
 import { selectFlow } from '../../../../flows/flows.selectors';
@@ -17,7 +17,7 @@ export const FlowContext = React.createContext({} as FlowContextValue);
 
 export function useFlowContextCreator({ id }: { id: UUID }) {
     const value = useMemo(() => ({ id }), [id]);
-    const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateValue(false);
+    const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateAuthorized(false);
 
     return {
         FlowContext,

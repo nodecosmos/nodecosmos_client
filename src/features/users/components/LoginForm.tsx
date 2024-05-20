@@ -46,18 +46,20 @@ export default function Login() {
                                     InputProps={{ autoComplete: 'on' }}
                                     required
                                 />
-
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button variant="outlined" type="submit">
+                                    Log In
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <Button
-                                    sx={{ mt: 2 }}
+                                    color="warning"
+                                    sx={{ mt: 1 }}
                                     variant="outlined"
                                     onClick={openResetPassMod}
                                     type="button">
                                     Forgot password?
-                                </Button>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button sx={{ mt: 2 }} variant="contained" type="submit">
-                                    Log In
                                 </Button>
                             </Grid>
                         </Grid>

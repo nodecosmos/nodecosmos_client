@@ -96,7 +96,10 @@ export default function ResetPassword() {
                         <Box component="span" color="logo.red">cosmos</Box>
                     </Typography>
                 </Box>
-                <Box mt={0} mb={-4}>
+                <Typography variant="body1" color="warning.main" fontWeight="bold" my={2}>
+                    Reset Password
+                </Typography>
+                <Box mb={-4}>
                     <Alert position="static" />
                 </Box>
                 <Box textAlign="center" mt={3}>

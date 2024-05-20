@@ -1,5 +1,5 @@
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
-import useModalOpen from '../../../../../common/hooks/useModalOpen';
+import useModalOpenAuthorized from '../../../../../common/hooks/useModalOpenAuthorized';
 import FlowModal from '../../../../flows/components/FlowModal';
 import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
@@ -15,7 +15,7 @@ function WorkflowStep({ index }: { index: number }) {
     const wfStep = workflowSteps[index];
 
     const [hovered, hover, unhover] = useBooleanStateValue();
-    const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpen();
+    const [flowModalOpen, openFlowModal, closeFlowModal] = useModalOpenAuthorized();
 
     const { x } = wfStep.position;
     const { WorkflowStepContext, contextProviderValue } = useWorkflowStepContextCreator({

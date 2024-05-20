@@ -1,3 +1,4 @@
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
@@ -15,8 +16,11 @@ export default function useUserAuthentication() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const redirect = searchParams.get(REDIRECT_Q);
+    const token = searchParams.get('token');
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
 
     const handleLogin = useCallback(async (formValues: LoginForm) => {
+        setLoading();
         const response = await dispatch(logIn(formValues));
 
         if (response.meta.requestStatus === 'rejected') {
@@ -48,15 +52,20 @@ export default function useUserAuthentication() {
             message: 'Logged in successfully',
         })), 250);
 
+        unsetLoading();
         return null;
-    }, [dispatch, navigate, redirect]);
+    }, [dispatch, navigate, redirect, setLoading, unsetLoading]);
 
     const handleLogout = useCallback(() => {
         dispatch(logOut());
     }, [dispatch]);
 
     const handleUserCreation = useCallback(async (formValues: UserCreateForm) => {
-        const response = await dispatch(create(formValues));
+        setLoading();
+        const response = await dispatch(create({
+            token,
+            ...formValues,
+        }));
 
         if (response.meta.requestStatus === 'rejected') {
             const error: NodecosmosError = response.payload as NodecosmosError;
@@ -78,9 +87,11 @@ export default function useUserAuthentication() {
         }
 
         navigate(redirectPath);
-    }, [dispatch, navigate, redirect]);
+        unsetLoading();
+    }, [dispatch, navigate, redirect, setLoading, token, unsetLoading]);
 
     return {
+        loading,
         redirect,
         handleLogin,
         handleLogout,

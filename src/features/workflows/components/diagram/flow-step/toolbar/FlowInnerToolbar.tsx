@@ -1,5 +1,5 @@
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
-import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useModalOpenAuthorized from '../../../../../../common/hooks/useModalOpenAuthorized';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import FlowStepModal from '../../../../../flow-steps/components/FlowStepModal';
 import useFlowActions from '../../../../../flows/hooks/useFlowActions';
@@ -21,13 +21,13 @@ export default function FlowInnerToolbar() {
     } = useWorkflowBranch();
     const { isSelected, id: flowId } = useFlowContext();
     const { isSelected: isFlowStepSelected, isCreated: isFlowStepCreated } = useFlowStepContext();
-    const [modalOpen, openModal, closeModal] = useModalOpen();
+    const [modalOpen, openModal, closeModal] = useModalOpenAuthorized();
     const {
         openTitleEdit, restoreFlow, undoDeleteFlow,
     } = useFlowActions();
     const isFlowDelConflict = isFlowDeletedConflict(flowId);
     const { deleteFlowCb } = useFlowActions();
-    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpenAuthorized();
     const handleDelete = useCallback(async () => {
         await deleteFlowCb();
         closeDelMod();

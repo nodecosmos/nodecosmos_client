@@ -184,11 +184,15 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: NodecosmosErro
     },
 );
 
-export const create = createAsyncThunk<CurrentUser, UserCreateForm, { rejectValue: NodecosmosError }>(
+interface UserCreatePayload extends UserCreateForm {
+    token: string | null;
+}
+
+export const create = createAsyncThunk<CurrentUser, UserCreatePayload, { rejectValue: NodecosmosError }>(
     'users/create',
-    async (user, { rejectWithValue }) => {
+    async (payload, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.post('/users', user);
+            const response = await nodecosmos.post(`/users?token=${payload.token}`, payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

@@ -23,6 +23,10 @@ export default (theme: NodecosmosTheme) => ({
                         marginLeft: 8,
                     },
                 },
+
+                '.MuiButton-startIcon>*:nth-of-type(1)': {
+                    fontSize: 16,
+                },
             },
         },
     },

@@ -66,8 +66,6 @@ export default function App() {
         }
     }, [currentUser, dispatch]);
 
-    console.log('isAuthenticated: ', isAuthenticated);
-
     return (
         <ThemeProvider theme={getTheme(currentTheme)}>
             <CssBaseline />

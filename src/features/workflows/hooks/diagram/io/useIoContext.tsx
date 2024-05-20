@@ -1,4 +1,4 @@
-import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
+import useBooleanStateAuthorized from '../../../../../common/hooks/useBooleanStateAuthorized';
 import {
     ObjectType, Position, UUID,
 } from '../../../../../types';
@@ -23,7 +23,7 @@ export function useIoContextCreator({
         fsNodeId,
         ...position,
     }), [id, fsNodeId, position]);
-    const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateValue(false);
+    const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateAuthorized(false);
 
     return {
         IoContext,

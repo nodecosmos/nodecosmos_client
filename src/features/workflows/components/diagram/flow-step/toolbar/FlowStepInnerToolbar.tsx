@@ -1,5 +1,5 @@
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
-import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useModalOpenAuthorized from '../../../../../../common/hooks/useModalOpenAuthorized';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import FlowStepModal from '../../../../../flow-steps/components/FlowStepModal';
 import useFlowStepActions from '../../../../../flow-steps/hooks/useFlowStepActions';
@@ -30,8 +30,8 @@ export default function FlowStepInnerToolbar() {
     const isFsDeletedConflict = flowStepPrimaryKey?.id && isFlowStepDeletedConflict(flowStepPrimaryKey.id);
     const { isSelected } = useFlowContext();
     const { isSelected: isFlowStepSelected } = useFlowStepContext();
-    const [modalOpen, openModal, closeModal] = useModalOpen();
-    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const [modalOpen, openModal, closeModal] = useModalOpenAuthorized();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpenAuthorized();
     const handleDelete = useCallback(async () => {
         await deleteFlowStep();
         closeDelMod();

@@ -3,6 +3,7 @@ import ConfirmationModal, { ConfirmType } from '../../../../../../common/compone
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { LikeType } from '../../../../../likes/likes.types';
+import useAuthorizeNodeAction from '../../../../hooks/tree/node/useAuthorizeNodeAction';
 import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
@@ -44,14 +45,19 @@ export default function NodeToolbar() {
         isOriginalDeleted, isDeleted, isAncestorDeleted, isCreated,
     } = useNodeBranchContext();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const authorizeNodeAction = useAuthorizeNodeAction();
     const { isBranch, isMerged } = useBranchContext();
     const handleDelete = useCallback(() => {
+        if (!authorizeNodeAction()) {
+            return;
+        }
+
         if (isTmp) {
             deleteNode().catch(console.error);
         } else {
             openDelMod();
         }
-    }, [deleteNode, isTmp, openDelMod]);
+    }, [authorizeNodeAction, deleteNode, isTmp, openDelMod]);
 
     if (isOriginalDeleted) {
         return <ConflictToolbar />;

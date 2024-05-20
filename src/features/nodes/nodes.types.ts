@@ -18,7 +18,7 @@ export interface Node extends NodePrimaryKey {
     ownerId?: UUID | null;
     ownerType?: ProfileType | null;
     creatorId?: UUID | null;
-    editorIds?: UUID[] | null;
+    editorIds?: Set<UUID> | null;
     owner?: Profile | null;
     coverImageUrl?: string | null;
     coverImageFilename?: string | null;

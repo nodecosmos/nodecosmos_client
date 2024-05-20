@@ -14,7 +14,7 @@ export default function useAuthorizeNodeAction(): () => boolean {
     const currentUser = useSelector(selectCurrentUser);
     const canEditNode = !isBranch
         && currentUser
-        && (node?.ownerId === currentUser.id || node?.editorIds?.includes(currentUser.id));
+        && (node?.ownerId === currentUser.id || node?.editorIds?.has(currentUser.id));
     const canEditBranch = isBranch
         && currentUser
         && (branchOwnerId === currentUser.id || branchEditors?.has(currentUser.id));

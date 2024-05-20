@@ -39,7 +39,7 @@ function initBranch(state: BranchesState, branch: Branch) {
         ownerId: branch.ownerId,
         owner: branch.owner,
         status: branch.status,
-        editorIds: branch.editorIds,
+        editorIds: new Set(branch.editorIds),
         isPublic: branch.isPublic,
         isContributionRequest: branch.isContributionRequest,
         createdNodes: new Set(branch.createdNodes),

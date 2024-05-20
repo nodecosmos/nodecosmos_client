@@ -3,8 +3,8 @@
 
 <svg
    width="500"
-   height="500"
-   viewBox="0 0 500.00001 500"
+   height="234.51677"
+   viewBox="0 0 500.00001 234.51677"
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="logo.svg"
@@ -25,8 +25,8 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="1.4721733"
-     inkscape:cx="324.01077"
-     inkscape:cy="211.59194"
+     inkscape:cx="223.47912"
+     inkscape:cy="212.2712"
      inkscape:window-width="3840"
      inkscape:window-height="2087"
      inkscape:window-x="3840"
@@ -38,15 +38,15 @@
     <linearGradient
        id="linearGradient1532">
       <stop
-         style="stop-color:#2adfff;stop-opacity:1;"
+         style="stop-color:#2dcdfe;stop-opacity:1;"
          offset="0"
          id="stop1528" />
       <stop
-         style="stop-color:#f07bc5;stop-opacity:1;"
-         offset="0.62739879"
+         style="stop-color:#f04fff;stop-opacity:1;"
+         offset="0.47675228"
          id="stop1883" />
       <stop
-         style="stop-color:#ff684d;stop-opacity:1;"
+         style="stop-color:#fe565a;stop-opacity:1;"
          offset="1"
          id="stop1530" />
     </linearGradient>
@@ -62,7 +62,7 @@
   </defs>
   <g
      id="layer1"
-     transform="translate(-225.5471,-369.67241)">
+     transform="translate(-225.5471,-502.41403)">
     <g
        id="g1749"
        transform="matrix(1.3661204,0,0,1.3661204,-82.577402,-2.6029782)"
@@ -77,7 +77,7 @@
          rx="78.33313"
          ry="78.333122" />
       <rect
-         style="fill:#2ddefe;fill-opacity:1;stroke-width:1.395;stroke-dasharray:none"
+         style="fill:#2dcdfe;fill-opacity:1;stroke-width:1.395;stroke-dasharray:none"
          id="rect3184"
          width="100"
          height="15"
@@ -85,7 +85,7 @@
          y="448.52631"
          ry="0.77757108" />
       <rect
-         style="fill:#fe6a57;fill-opacity:1;stroke-width:1.39523"
+         style="fill:#fe565a;fill-opacity:1;stroke-width:1.39523"
          id="rect3184-3"
          width="100"
          height="15"

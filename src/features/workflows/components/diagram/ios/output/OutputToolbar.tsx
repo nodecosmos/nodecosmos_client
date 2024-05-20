@@ -1,6 +1,6 @@
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import ToolsContainer from '../../../../../../common/components/tools/ToolsContainer';
-import useModalOpen from '../../../../../../common/hooks/useModalOpen';
+import useModalOpenAuthorized from '../../../../../../common/hooks/useModalOpenAuthorized';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import {
@@ -24,7 +24,7 @@ export default function OutputToolbar() {
         openTitleEdit, deleteIoCb, undoDeleteIo,
     } = useIoActions();
     const { isIoDeleted } = useWorkflowBranch();
-    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const [delModOpen, openDelMod, closeDelMod] = useModalOpenAuthorized();
     const handleDelete = useCallback(async () => {
         await deleteIoCb();
         closeDelMod();

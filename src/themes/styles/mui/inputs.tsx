@@ -20,7 +20,7 @@ export default (theme: NodecosmosTheme) => ({
                 '.MuiOutlinedInput-input': {
                     '&.Mui-disabled': {
                         color: theme.palette.text.secondary,
-                        '-webkitTextFillColor': theme.palette.text.secondary,
+                        WebkitTextFillColor: theme.palette.text.secondary,
                     },
                     '&.MuiInputBase-inputMultiline': {
                         padding: 0,
