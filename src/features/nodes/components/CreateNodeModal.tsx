@@ -1,7 +1,10 @@
+import Alert from '../../../common/components/Alert';
 import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
+import { NodecosmosError } from '../../../types';
 import { create, NodeCreationPayload } from '../nodes.thunks';
 import { Node } from '../nodes.types';
 import { faHashtag } from '@fortawesome/pro-light-svg-icons';
@@ -22,6 +25,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
+    const handleServerError = useHandleServerErrorAlert();
 
     const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);
@@ -34,6 +38,13 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
         };
 
         dispatch(create(payload)).then((response) => {
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+                handleServerError(error);
+                console.error(error);
+                setLoading(false);
+                return;
+            }
             const node = response.payload as Node;
 
             navigate(`/nodes/${node.rootId}/${node.id}`);
@@ -42,7 +53,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             setLoading(false);
             console.error(error);
         });
-    }, [dispatch, navigate]);
+    }, [dispatch, handleServerError, navigate]);
 
     return (
         <Dialog
@@ -66,6 +77,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
+                <Alert position="sticky" mb={1} />
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>

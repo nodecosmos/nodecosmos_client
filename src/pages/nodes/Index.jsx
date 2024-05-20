@@ -1,3 +1,4 @@
+import Alert from '../../common/components/Alert';
 import { setHeaderContent } from '../../features/app/appSlice';
 import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import NodeCards from '../../features/nodes/components/card/NodeCards';
@@ -8,7 +9,6 @@ import { useDispatch } from 'react-redux';
 
 export default function NodeIndex() {
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(setHeaderContent('NodeIndexHeader'));
         dispatch(indexNodes());
@@ -27,6 +27,7 @@ export default function NodeIndex() {
                 borderColor="borders.1"
             />
             <Box height={1} width={`calc(100% - ${SIDEBAR_WIDTH}px)`} overflow="auto" pb={2}>
+                <Alert position="sticky" mb={1} />
                 <Container maxWidth="md">
                     <NodeCards />
                 </Container>

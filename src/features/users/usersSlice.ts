@@ -1,6 +1,6 @@
 import {
     showUserByUsername,
-    logIn, logOut, syncUpCurrentUser, updateBio,
+    logIn, logOut, syncUpCurrentUser, updateBio, confirmEmail,
 } from './users.thunks';
 import {
     CurrentUser, UpdateUserStatePayload, UserState,
@@ -79,6 +79,15 @@ const usersSlice = createSlice({
                     state.isAuthenticated = false;
                     state.currentUser = null;
                     localStorage.removeItem(CURRENT_USER_KEY);
+                }
+            })
+            .addCase(confirmEmail.fulfilled, (state, action) => {
+                if (state.currentUser) {
+                    const confirmedUser = action.payload;
+
+                    if (state.currentUser.id === confirmedUser.id) {
+                        state.currentUser.isConfirmed = true;
+                    }
                 }
             })
             .addCase(showUserByUsername.fulfilled, (state, action) => {

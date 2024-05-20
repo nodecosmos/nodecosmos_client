@@ -17,6 +17,9 @@ export default function useHandleServerErrorAlert() {
             break;
         case HttpErrorCodes.Unauthorized:
             message = 'Unauthorized!';
+            if (error.message) {
+                message += ` ${error.message}`;
+            }
             break;
         case HttpErrorCodes.Forbidden:
             message = 'Forbidden!';

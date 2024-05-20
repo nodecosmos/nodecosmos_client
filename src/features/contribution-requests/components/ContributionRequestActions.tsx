@@ -27,11 +27,15 @@ export default function ContributionRequestActions(props: Props) {
         if (!rootId) {
             throw new Error('Root ID is not defined');
         }
-        await dispatch(deleteContributionRequest({
+        const res = await dispatch(deleteContributionRequest({
             rootId,
             nodeId,
             id,
         }));
+
+        if (res.meta.requestStatus === 'rejected') {
+            return;
+        }
         dispatch(setAlert({
             isOpen: true,
             severity: 'warning',

@@ -14,6 +14,7 @@ import React, { useCallback } from 'react';
 export enum ConfirmType {
     // noinspection JSUnusedGlobalSymbols
     Creation = 'success',
+    Warning = 'warning',
     Deletion = 'error',
     Merge = 'merge',
 }

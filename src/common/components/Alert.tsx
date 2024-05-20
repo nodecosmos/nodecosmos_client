@@ -9,10 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface AlertProps {
     position?: string;
+    mb?: number;
 }
 
 export default function Alert(props: AlertProps) {
-    const { position = 'fixed' } = props;
+    const { position = 'fixed', mb = 0 } = props;
     const dispatch = useDispatch();
     const {
         isOpen, message, severity,
@@ -40,7 +41,10 @@ export default function Alert(props: AlertProps) {
             minHeight={HEADER_HEIGHT}
             width={1}
             zIndex={3}
-            sx={{ position }}
+            sx={{
+                position,
+                mb, 
+            }}
         >
             <MuiAlert
                 onClose={handleClose}

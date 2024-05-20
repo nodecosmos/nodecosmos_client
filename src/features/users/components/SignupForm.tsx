@@ -1,22 +1,16 @@
 import Field from '../../../common/components/final-form/FinalFormInputField';
+import { passwordsMustMatch, validateEmailFormat } from '../../../utils/validation';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import { UserCreateForm } from '../users.types';
 import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { Form } from 'react-final-form';
 
-// eslint-disable-next-line max-len
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passwordsMustMatch = (value: string, values: object) => {
-    return (values as UserCreateForm).password === value ? undefined : 'passwords must match';
-};
-const validateEmailFormat = (email: string) => emailRegex.test(email) ? undefined : 'email must be valid';
-
 export default function SignupForm() {
     const { handleUserCreation } = useUserAuthentication();
 
     return (
-        <Form onSubmit={handleUserCreation} subscription={{ active: true }}>
+        <Form<UserCreateForm> onSubmit={handleUserCreation} subscription={{ active: true }}>
             {({
                 handleSubmit,
                 submitting,

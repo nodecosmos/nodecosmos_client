@@ -32,6 +32,10 @@ export interface UserCreateForm {
     password: string;
 }
 
+export interface Password {
+    password: string;
+}
+
 export interface UpdateUserBase {
     id: UUID;
     username: string;

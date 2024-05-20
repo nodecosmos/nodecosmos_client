@@ -3,7 +3,9 @@ import {
 } from './users.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosDispatch, RootState } from '../../store';
-import { HttpErrorCodes, NodecosmosError } from '../../types';
+import {
+    HttpErrorCodes, NodecosmosError, UUID,
+} from '../../types';
 import { SYNC_UP_INTERVAL } from '../app/constants';
 import { getUserLikes } from '../likes/likes.thunks';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -90,6 +92,78 @@ export const syncUpCurrentUser = createAsyncThunk<
                 status: HttpErrorCodes.InternalServerError,
                 message: 'An error occurred while syncing up the current user',
             });
+        }
+    },
+);
+
+export const resendConfirmationEmail = createAsyncThunk<void, void, { rejectValue: NodecosmosError }>(
+    'users/resendConfirmationEmail',
+    async (_, { rejectWithValue }) => {
+        try {
+            await nodecosmos.post('/users/resend_confirmation_email');
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const confirmEmail = createAsyncThunk<{ id: UUID; email: string }, string, { rejectValue: NodecosmosError }>(
+    'users/confirmEmail',
+    async (token, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post(`/users/confirm_email/${token}`);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export const resetPasswordRequest = createAsyncThunk<void, string, { rejectValue: NodecosmosError }>(
+    'users/resetPassword',
+    async (email, { rejectWithValue }) => {
+        try {
+            await nodecosmos.post('/users/reset_password', { email });
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+
+);
+
+export const updatePassword = createAsyncThunk<
+    { email: string },
+    { password: string; token: string },
+    { rejectValue: NodecosmosError }
+>(
+    'users/updatePassword',
+    async ({ password, token }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/users/update_password', {
+                password,
+                token,
+            });
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
         }
     },
 );

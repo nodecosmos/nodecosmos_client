@@ -18,6 +18,10 @@ export default (theme: NodecosmosTheme) => ({
                 borderRadius: 4,
                 background: theme.palette.background[6],
                 '.MuiOutlinedInput-input': {
+                    '&.Mui-disabled': {
+                        color: theme.palette.text.secondary,
+                        '-webkitTextFillColor': theme.palette.text.secondary,
+                    },
                     '&.MuiInputBase-inputMultiline': {
                         padding: 0,
                         marginTop: 12,

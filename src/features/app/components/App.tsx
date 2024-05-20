@@ -13,6 +13,7 @@ import NodeShow from '../../../pages/nodes/Show';
 import TreeShow from '../../../pages/nodes/TreeShow';
 import WorkflowShow from '../../../pages/nodes/WorkflowShow';
 import UserAuthentication from '../../../pages/users/Authentication';
+import ResetPassword from '../../../pages/users/ResetPassword';
 import UserShow from '../../../pages/users/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
@@ -21,6 +22,7 @@ import SignupForm from '../../users/components/SignupForm';
 import { selectCurrentUser, selectIsAuthenticated } from '../../users/users.selectors';
 import { syncUpCurrentUser } from '../../users/users.thunks';
 import { selectTheme } from '../app.selectors';
+import { setAlert } from '../appSlice';
 import { HEADER_HEIGHT } from '../constants';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -51,6 +53,21 @@ export default function App() {
             });
     }, []);
 
+    useEffect(() => {
+        if (currentUser && !currentUser.isConfirmed) {
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'warning',
+                message: `Please confirm your email address to access all features.
+                if you didn't receive the email, please check your spam folder or request a new one from profile 
+                options. If you still have issues, please write us at <b>support@nodecosmos.com</b>`,
+                duration: 100000000,
+            }));
+        }
+    }, [currentUser, dispatch]);
+
+    console.log('isAuthenticated: ', isAuthenticated);
+
     return (
         <ThemeProvider theme={getTheme(currentTheme)}>
             <CssBaseline />
@@ -67,6 +84,8 @@ export default function App() {
                             <Route path="signup" element={<SignupForm />} />
                         </Route>
                         <Route path="404" element={<NotFound />} />
+
+                        <Route path="reset_password" element={<ResetPassword />} />
                         <Route path=":username" element={<UserShow />} />
                         <Route path="/nodes" element={(<NodesIndex />)} />
                         <Route path="/nodes" element={<NodeShow />}>

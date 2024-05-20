@@ -38,17 +38,15 @@ export default function useUserAuthentication() {
             const url = new URL(atob(redirect));
             const path = url.pathname + url.search;
             navigate(path);
-
-            setTimeout(() => dispatch(setAlert({
-                isOpen: true,
-                severity: 'success',
-                message: 'Logged in successfully',
-            })), 250);
-
-            return null;
         } else {
-            navigate(-1);
+            navigate('/nodes');
         }
+
+        setTimeout(() => dispatch(setAlert({
+            isOpen: true,
+            severity: 'success',
+            message: 'Logged in successfully',
+        })), 250);
 
         return null;
     }, [dispatch, navigate, redirect]);
