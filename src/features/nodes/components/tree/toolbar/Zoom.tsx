@@ -1,6 +1,6 @@
-import ToolsContainer from '../../../../common/components/tools/ToolsContainer';
-import { selectWorkflowScale } from '../../workflow.selectors';
-import { setWorkflowScale } from '../../workflowsSlice';
+import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
+import { setScale } from '../../../nodes.actions';
+import { selectScale } from '../../../nodes.selectors';
 import { faCircleMinus, faCirclePlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,29 +9,29 @@ import {
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function WorkflowZoomTools() {
+export default function Zoom() {
     const dispatch = useDispatch();
-    const workflowScale = useSelector(selectWorkflowScale);
+    const treeScale = useSelector(selectScale);
 
     const zoomIn = useCallback(() => {
-        const newScale = Math.round((workflowScale + 0.1) * 10) / 10;
+        const newScale = Math.round((treeScale + 0.1) * 10) / 10;
 
         if (newScale > 2) return;
 
-        dispatch(setWorkflowScale(newScale));
-    }, [dispatch, workflowScale]);
+        dispatch(setScale(newScale));
+    }, [dispatch, treeScale]);
 
     const zoomOut = useCallback(() => {
-        const newScale = Math.round((workflowScale - 0.1) * 10) / 10;
+        const newScale = Math.round((treeScale - 0.1) * 10) / 10;
 
         if (newScale < 0.5) return;
 
-        dispatch(setWorkflowScale(newScale));
-    }, [dispatch, workflowScale]);
+        dispatch(setScale(newScale));
+    }, [dispatch, treeScale]);
 
     return (
-        <Box flex={1}>
-            <ToolsContainer ml={1}>
+        <Box>
+            <ToolsContainer>
                 <Tooltip title="Zoom in" placement="top">
                     <IconButton
                         className="Item"
@@ -46,12 +46,8 @@ export default function WorkflowZoomTools() {
                     color="text.tertiary"
                     textAlign="center"
                     width={24}
-                    sx={{
-                        borderBottom: 1,
-                        pb: 0.05,
-                    }}
                 >
-                    {workflowScale}
+                    {treeScale}
                 </Typography>
                 <Tooltip title="Zoom out" placement="top">
                     <IconButton

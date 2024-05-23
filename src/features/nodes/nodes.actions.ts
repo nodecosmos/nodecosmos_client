@@ -15,4 +15,6 @@ export const {
     expandNode: expandNodeAction,
     collapseNode: collapseNodeAction,
     selectNodeFromParams,
+    setScale,
+    setDensity,
 } = actions;

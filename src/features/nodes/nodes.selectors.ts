@@ -13,6 +13,8 @@ export const selectSaveInProgress = (state: RootState) => state.nodes.saveInProg
 export const selectJustCreatedNodeId = (state: RootState) => state.nodes.justCreatedNodeId;
 export const selectScrollTo = (state: RootState) => state.nodes.scrollTo;
 export const selectExpandedNodes = (state: RootState) => state.nodes.expandedNodes;
+export const selectScale = (state: RootState) => state.nodes.scale;
+export const selectDensity = (state: RootState) => state.nodes.treeDensity;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,

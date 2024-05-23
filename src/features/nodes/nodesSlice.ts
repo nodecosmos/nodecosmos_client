@@ -7,7 +7,7 @@ import {
     showNode,
 } from './nodes.thunks';
 import {
-    DragAndDrop, NodePaneContent, NodePrimaryKey, NodeState,
+    DragAndDrop, NodePaneContent, NodePrimaryKey, NodeState, TreeDensity,
 } from './nodes.types';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
@@ -27,6 +27,22 @@ import {
 } from '../likes/likes.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const parseScaleFromLS = () => {
+    const scale = localStorage.getItem('treeScale');
+
+    if (!scale) return 1;
+
+    return parseFloat(scale);
+};
+
+const parseDensityFromLS = () => {
+    const density = localStorage.getItem('treeDensity');
+
+    if (!density) return TreeDensity.Default;
+
+    return density as TreeDensity;
+};
+
 const initialState: NodeState = {
     byBranchId: {},
     childIds: {},
@@ -39,6 +55,8 @@ const initialState: NodeState = {
     justCreatedNodeId: null,
     scrollTo: null,
     expandedNodes: new Set(),
+    scale: parseScaleFromLS(),
+    treeDensity: parseDensityFromLS(),
 };
 
 const nodesSlice = createSlice({
@@ -97,6 +115,16 @@ const nodesSlice = createSlice({
                     id,
                 };
             }
+        },
+        setScale: (state: NodeState, action: PayloadAction<number>) => {
+            state.scale = action.payload;
+
+            localStorage.setItem('treeScale', action.payload.toString());
+        },
+        setDensity: (state: NodeState, action: PayloadAction<TreeDensity>) => {
+            state.treeDensity = action.payload;
+
+            localStorage.setItem('treeDensity', action.payload);
         },
     },
     extraReducers(builder) {

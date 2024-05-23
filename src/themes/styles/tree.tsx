@@ -22,7 +22,7 @@ export default (theme: NodecosmosTheme) => ({
                 ':focus': { outline: 'none' },
                 ':not(.outlined)': {
                     '.fa-hashtag': {
-                        fontSize: 14,
+                        fontSize: 12,
                         color: theme.palette.tree.hashtag,
                     },
                     '.fa-arrow': { color: theme.palette.tree.hashtag },
@@ -34,7 +34,7 @@ export default (theme: NodecosmosTheme) => ({
                     marginLeft: 8,
                     padding: 0,
                     backgroundColor: 'transparent',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: 500,
                     letterSpacing: '0.02857em',
                     minWidth: 40,

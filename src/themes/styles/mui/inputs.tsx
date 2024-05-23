@@ -79,4 +79,33 @@ export default (theme: NodecosmosTheme) => ({
     },
 
     MuiInputAdornment: { styleOverrides: { root: { marginRight: 0 } } },
+
+    MuiSwitch: {
+        styleOverrides: {
+            root: {
+
+            },
+        },
+    },
+
+    MuiFormLabel: {
+        styleOverrides: {
+            root: {
+                fontSize: '1rem',
+                color: theme.palette.text.primary,
+                '&.Mui-focused': {
+                    color: theme.palette.text.primary,
+                },
+            },
+        },
+    },
+
+    MuiFormControlLabel: {
+        styleOverrides: {
+            label: {
+                fontSize: '0.875rem',
+                color: theme.palette.text.secondary,
+            },
+        },
+    },
 });

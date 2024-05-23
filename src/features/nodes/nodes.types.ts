@@ -91,6 +91,11 @@ export interface DragAndDrop {
     siblingIndex: number;
 }
 
+export enum TreeDensity {
+    Default = 'default',
+    Compact = 'compact',
+}
+
 export interface NodeState {
     // branchId -> nodeId
     byBranchId: Record<UUID, Record<UUID, AppNode>>;
@@ -104,6 +109,8 @@ export interface NodeState {
     dragAndDrop: DragAndDrop | null;
     justCreatedNodeId: UUID | null;
     expandedNodes: Set<UUID>;
+    scale: number;
+    treeDensity: TreeDensity;
 }
 
 export enum TreeType {

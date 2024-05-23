@@ -6,9 +6,11 @@ import Transformable from '../../../../common/components/Transformable';
 import { UUID } from '../../../../types';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import { useTreeContextCreator } from '../../hooks/tree/useTreeContext';
+import { selectScale } from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
 import { Box } from '@mui/material';
 import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 export interface TreeProps {
     branchId: UUID;
@@ -30,6 +32,7 @@ function Tree(props: TreeProps) {
         value,
     });
     const isTreeLoading = false; // TODO on reorder
+    const treeScale = useSelector(selectScale);
 
     return (
         <TreeContext.Provider value={ctxValue}>
@@ -38,7 +41,7 @@ function Tree(props: TreeProps) {
                 <Alert />
                 <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                     {isTreeLoading ? <OverlayLoader /> : null}
-                    <Transformable transformableId={branchId}>
+                    <Transformable transformableId={branchId} scale={treeScale}>
                         <TreeNodes />
                     </Transformable>
                 </Box>

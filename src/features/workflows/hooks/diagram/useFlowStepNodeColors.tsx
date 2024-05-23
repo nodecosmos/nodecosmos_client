@@ -21,12 +21,12 @@ export default function useFlowStepNodeColors() {
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
-    const nestedTreeColor = backgrounds[(fsNode?.ancestorIds?.length || 0) % backgroundCount].fg;
+    const nestedTreeColor = backgrounds[(fsNode?.ancestorIds?.length || 0) % backgroundCount];
 
     let colors = {
-        backgroundColor: isSelected ? withOpacity(nestedTreeColor, 0.8) : withOpacity(nestedTreeColor, 0.075),
-        outlineColor: isSelected ? 'transparent' : withOpacity(nestedTreeColor, 0.4),
-        color: isSelected ? theme.palette.tree.selectedText : nestedTreeColor,
+        backgroundColor: isSelected ? withOpacity(nestedTreeColor.fg, 0.8) : nestedTreeColor.bg,
+        outlineColor: isSelected ? 'transparent' : withOpacity(nestedTreeColor.fg, 0.4),
+        color: isSelected ? theme.palette.tree.selectedText : nestedTreeColor.fg,
     };
 
     if (isBranch) {
@@ -37,7 +37,7 @@ export default function useFlowStepNodeColors() {
         }
         else {
             colors = {
-                backgroundColor: isSelected ? withOpacity(nestedTreeColor, 0.8) : theme.palette.tree.default,
+                backgroundColor: isSelected ? nestedTreeColor.bg : theme.palette.tree.default,
                 outlineColor: theme.palette.tree.defaultBorder,
                 color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
             };

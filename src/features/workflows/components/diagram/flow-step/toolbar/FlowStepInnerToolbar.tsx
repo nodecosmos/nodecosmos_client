@@ -110,10 +110,7 @@ export default function FlowStepInnerToolbar() {
                             <IconButton
                                 className="Item"
                                 aria-label="Add Node"
-                                sx={{
-                                    color: 'toolbar.default',
-                                    borderRadius: '50%',
-                                }}
+                                sx={{ color: 'toolbar.default' }}
                                 onClick={openModal}
                             >
                                 <FontAwesomeIcon icon={faEllipsisVertical} />

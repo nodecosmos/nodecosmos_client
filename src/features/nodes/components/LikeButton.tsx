@@ -47,7 +47,7 @@ export default function LikeButton(props: LikeButtonProps) {
             dispatch(setAlert({
                 isOpen: true,
                 severity: 'warning',
-                message: 'You must be logged in to like this.',
+                message: 'You must be logged in order to like content.',
             }));
             return;
         }
