@@ -18,10 +18,10 @@ export default function Homepage() {
     const location = useLocation();
 
     const isHomepage = location.pathname === '/';
-    // @ts-expect-error TODO: fix types
-    const isDevelopment = process.env.NODE_ENV === 'development';
+    // // @ts-expect-error TODO: fix types
+    // const isDevelopment = process.env.NODE_ENV === 'development';
 
-    if (!isHomepage && isDevelopment) {
+    if (!isHomepage) {
         return (
             <Suspense fallback={null}>
                 <App />

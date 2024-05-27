@@ -1,6 +1,6 @@
-import useDiffColors, { DiffState } from '../../../../../../common/hooks/useDiffColors';
-import { NodecosmosTheme } from '../../../../../../themes/themes.types';
-import { withOpacity } from '../../../../../../utils/colors';
+import useDiffColors, { DiffState } from '../../../../../common/hooks/useDiffColors';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
+import { withOpacity } from '../../../../../utils/colors';
 import useNodeBranchContext from '../useNodeBranchContext';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';

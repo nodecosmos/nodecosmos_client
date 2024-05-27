@@ -1,4 +1,4 @@
-import { selectTransformablePositionAttribute } from '../../features/app/app.selectors';
+import { selectTransformablePositionsById } from '../../features/app/app.selectors';
 import { setTransformablePositions } from '../../features/app/appSlice';
 import {
     TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_ID, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
@@ -7,7 +7,7 @@ import usePannable from '../hooks/usePannable';
 import { Box } from '@mui/material';
 import React, {
     useCallback,
-    useEffect, useRef, useState,
+    useEffect, useMemo, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -29,7 +29,8 @@ export default function Transformable(props: TransformableProps) {
         width: 0,
         height: 0,
     });
-    const scrollTop = useSelector(selectTransformablePositionAttribute(transformableId, 'scrollTop'));
+    const position = useSelector(selectTransformablePositionsById(transformableId));
+    const { scrollTop } = useMemo(() => position ?? {}, [position]);
 
     useEffect(() => {
         const handleResize = () => {

@@ -1,6 +1,6 @@
 import usePrevious from '../../../../../common/hooks/usePrevious';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {
     ANIMATION_DELAY,
@@ -10,7 +10,13 @@ import {
     TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
+
+const STYLE = {
+    opacity: 0,
+    animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
+    transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+};
 
 export default function NestedNodesBranch() {
     const theme: NodecosmosTheme = useTheme();
@@ -30,6 +36,9 @@ export default function NestedNodesBranch() {
     const x = xEnd + MARGIN_LEFT;
     const linkY = y + MARGIN_TOP;
     const yEnd = lastChildY || prevPathYEnd;
+    const pathD = useMemo(() => {
+        return `M ${x} ${linkY} L ${x} ${yEnd}`;
+    }, [x, linkY, yEnd]);
 
     if (!lastChildId || !isExpanded || !yEnd) return null;
 
@@ -38,12 +47,8 @@ export default function NestedNodesBranch() {
             stroke={theme.palette.tree.default}
             fill="transparent"
             strokeWidth={3.5}
-            d={`M ${x} ${linkY} L ${x} ${yEnd}`}
-            style={{
-                opacity: 0,
-                animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
-                transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-            }}
+            d={pathD}
+            style={STYLE}
         />
     );
 }

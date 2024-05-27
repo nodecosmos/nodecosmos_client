@@ -1,4 +1,4 @@
-import { updateState } from '../../../../nodes.actions';
+import { updateState } from '../../../nodes.actions';
 import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
 import React, { useCallback } from 'react';

@@ -8,7 +8,9 @@ import { setDragAndDrop } from '../../nodes.actions';
 import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
 import { reorder } from '../../nodes.thunks';
 import { DragAndDrop } from '../../nodes.types';
-import { useCallback, useState } from 'react';
+import {
+    useCallback, useMemo, useState, 
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export interface NodeDropCaptureParams {
@@ -22,8 +24,9 @@ export default function useReorder() {
     const oldParentId = dragAndDrop?.parentId;
     const { branchId, isBranch } = useBranchContext();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { rootId, id } = dragAndDrop || {};
-
+    const { rootId, id } = useMemo(() => {
+        return dragAndDrop || {};
+    }, [dragAndDrop]);
     const [reorderInProgress, setReorderInProgress] = useState(false);
     const handleServerError = useHandleServerErrorAlert();
     const childIdsByParentId = useSelector(selectBranchChildIds(branchId));

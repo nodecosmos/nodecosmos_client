@@ -1,5 +1,5 @@
 import {
-    LowerSiblingId, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
+    LowerSiblingId, NodeSize, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from './useTreeContext';
 import { UUID } from '../../../../types';
 import { TRANSFORMABLE_ID } from '../../../app/constants';
@@ -35,6 +35,7 @@ type Props = {
     treeRootId: UUID;
     branchId: UUID;
     type: TreeType;
+    size: NodeSize;
 };
 
 export default function useTreeBuilder(props: Props): Tree {
@@ -42,6 +43,7 @@ export default function useTreeBuilder(props: Props): Tree {
         treeRootId,
         branchId,
         type,
+        size,
     } = props;
     const { ancestorIds } = useSelector(selectNode(branchId, treeRootId));
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
@@ -142,7 +144,7 @@ export default function useTreeBuilder(props: Props): Tree {
             };
 
             treeNodes[currentId] = treeNode;
-            calculatePosition(treeNodes, treeNode);
+            calculatePosition(treeNodes, treeNode, size);
 
             // reversely populate ancestorIds
             for (let i = childIds.length - 1; i >= 0; i -= 1) {
@@ -172,7 +174,7 @@ export default function useTreeBuilder(props: Props): Tree {
         // we use `treeNodes` to build tree, but we don't rebuild it if structure is not changed,
         // so we don't need to observe treeNodes here
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ancestorIds, branchChildIds, treeRootId]);
+    }, [ancestorIds, branchChildIds, treeRootId, size]);
 
     const setTreeNodes = useCallback((treeNodes: TreeNodes) => {
         setTreeState((prev) => ({

@@ -3,12 +3,13 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
-import useNodeActions from '../../../hooks/tree/node/useNodeActions';
-import useNodeColors from '../../../hooks/tree/node/useNodeColors';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useNodeActions from '../../../hooks/node/useNodeActions';
+import useNodeColors from '../../../hooks/node/useNodeColors';
+import useNodeContext from '../../../hooks/node/useNodeContext';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { maybeSelectNode } from '../../../nodes.selectors';
 import { useTheme } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 function NodeButton() {
@@ -38,6 +39,25 @@ function NodeButton() {
     const isTitleEdited = originalNode ? title !== originalNode.title : false;
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
+    const { size } = useTreeContext();
+    const { height, fontSize } = size;
+    const buttonStyle = useMemo(() => ({
+        height,
+        border: '1px solid',
+        borderColor: outlineColor,
+        backgroundColor: isDragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
+        color: isDragOver ? theme.palette.text.primary : color,
+    }),
+    [
+        backgroundColor,
+        color,
+        height,
+        isDragOver,
+        outlineColor,
+        theme.palette.text.primary,
+        theme.palette.tree.dragInIndicator,
+    ]);
+    const divStyle = useMemo(() => ({ fontSize }), [fontSize]);
 
     return (
         <button
@@ -52,16 +72,13 @@ function NodeButton() {
             className={`NodeButton ${isSelected && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
             onClick={clickNode}
             onKeyUp={preventDefault}
-            style={{
-                border: '1px solid',
-                borderColor: outlineColor,
-                backgroundColor: isDragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
-                color: isDragOver ? theme.palette.text.primary : color,
-            }}
+            style={buttonStyle}
         >
             <NodeSymbol />
 
-            <div className="NodeButtonText">
+            <div
+                className="NodeButtonText"
+                style={divStyle}>
                 {isTitleEdited && <span className="diff-removed">{originalNode?.title}</span>}
                 <span className={isTitleEdited ? 'diff-added' : undefined}>{title}</span>
             </div>

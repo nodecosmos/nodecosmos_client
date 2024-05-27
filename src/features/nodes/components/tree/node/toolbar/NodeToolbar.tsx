@@ -3,10 +3,10 @@ import ConfirmationModal, { ConfirmType } from '../../../../../../common/compone
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
 import { LikeType } from '../../../../../likes/likes.types';
-import useAuthorizeNodeAction from '../../../../hooks/tree/node/useAuthorizeNodeAction';
-import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
-import useNodeBranchContext from '../../../../hooks/tree/node/useNodeBranchContext';
-import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
+import useAuthorizeNodeAction from '../../../../hooks/node/useAuthorizeNodeAction';
+import useNodeActions from '../../../../hooks/node/useNodeActions';
+import useNodeBranchContext from '../../../../hooks/node/useNodeBranchContext';
+import useNodeContext from '../../../../hooks/node/useNodeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNode } from '../../../../nodes.selectors';
 import LikeButton from '../../../LikeButton';
@@ -164,7 +164,6 @@ export default function NodeToolbar() {
                     <Tooltip title="Open Root" placement="top">
                         <ButtonBase
                             target="_blank"
-                            sx={{ ml: 0 }}
                             href={`/nodes/${branchId}/${rootId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
                             className="Item purple"
                             aria-label="Open Root Node in New Tab"

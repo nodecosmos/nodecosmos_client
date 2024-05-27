@@ -1,9 +1,11 @@
-import { UUID } from '../../../../../types';
-import useBranchContext from '../../../../branch/hooks/useBranchContext';
-import { NodeProps } from '../../../components/tree/node/Node';
-import { selectNode } from '../../../nodes.selectors';
-import useTreeContext from '../useTreeContext';
-import { createContext, useContext } from 'react';
+import { UUID } from '../../../../types';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
+import { NodeProps } from '../../components/tree/node/Node';
+import { selectNode } from '../../nodes.selectors';
+import useTreeContext from '../tree/useTreeContext';
+import {
+    createContext, useContext, useMemo,
+} from 'react';
 import { useSelector } from 'react-redux';
 
 const NodeContext = createContext<NodeProps>({} as NodeProps);
@@ -46,8 +48,9 @@ export default function useNodeContext() {
         y,
         xEnd,
         yEnd,
-    } = treeNodes[id] || {};
-
+    } = useMemo(() => {
+        return treeNodes[id] || {};
+    }, [treeNodes, id]);
     const isCurrentRoot = treeRootId === id;
 
     return {

@@ -1,5 +1,5 @@
-import useNodeActions from '../../../../hooks/tree/node/useNodeActions';
-import useNodeContext from '../../../../hooks/tree/node/useNodeContext';
+import useNodeActions from '../../../../hooks/node/useNodeActions';
+import useNodeContext from '../../../../hooks/node/useNodeContext';
 import { faRotateLeft, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

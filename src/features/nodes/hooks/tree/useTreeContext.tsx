@@ -1,16 +1,36 @@
 import useTreeBuilder from './useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
-import { TreeType } from '../../nodes.types';
+import {
+    COMPACT_EDGE_LENGTH, COMPACT_FONT_SIZE,
+    COMPACT_MARGIN_TOP,
+    COMPACT_NODE_HEIGHT,
+    EDGE_LENGTH,
+    FONT_SIZE,
+    MARGIN_TOP,
+    NODE_BUTTON_HEIGHT,
+} from '../../nodes.constants';
+import { selectDensity } from '../../nodes.selectors';
+import { TreeDensity, TreeType } from '../../nodes.types';
 import {
     createContext, useContext, useEffect, useMemo,
 } from 'react';
+import { useSelector } from 'react-redux';
+
+export interface NodeSize {
+    height: number;
+    marginTop: number;
+    edgeLength: number;
+    fontSize: number;
+    yLength: number;
+}
 
 interface TreeContextValue extends TreeProps {
     selectedNodeIds: Set<UUID>;
     treeNodes: TreeNodes;
     orderedTreeNodeIds: UUID[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
+    size: NodeSize;
 }
 
 export type UpperSiblingId = UUID | null;
@@ -41,6 +61,23 @@ export interface TreeNodes {
 
 const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
 
+const NODE_SIZE = {
+    [TreeDensity.Default]: {
+        height: NODE_BUTTON_HEIGHT,
+        marginTop: MARGIN_TOP,
+        edgeLength: EDGE_LENGTH,
+        fontSize: FONT_SIZE,
+        yLength: EDGE_LENGTH + MARGIN_TOP,
+    },
+    [TreeDensity.Compact]: {
+        height: COMPACT_NODE_HEIGHT,
+        marginTop: COMPACT_MARGIN_TOP,
+        edgeLength: COMPACT_EDGE_LENGTH,
+        fontSize: COMPACT_FONT_SIZE,
+        yLength: COMPACT_EDGE_LENGTH + COMPACT_MARGIN_TOP,
+    },
+};
+
 export function useTreeContextCreator(props: TreeProps) {
     const {
         rootId,
@@ -50,6 +87,10 @@ export function useTreeContextCreator(props: TreeProps) {
         value,
     } = props;
     const selectedNodeIds = useMemo(() => new Set<UUID>(value), [value]);
+    const treeDensity = useSelector(selectDensity);
+    const size = useMemo(() => {
+        return NODE_SIZE[treeDensity];
+    }, [treeDensity]);
 
     // build tree
     const {
@@ -61,6 +102,7 @@ export function useTreeContextCreator(props: TreeProps) {
         treeRootId: rootId,
         branchId,
         type,
+        size,
     });
 
     useEffect(() => {
@@ -77,10 +119,11 @@ export function useTreeContextCreator(props: TreeProps) {
             orderedTreeNodeIds,
             onChange,
             setTreeNodes,
+            size,
         }),
         [
             orderedTreeNodeIds, rootId, selectedNodeIds, branchId, treeNodes, type,
-            onChange, setTreeNodes,
+            onChange, setTreeNodes, size,
         ],
     );
 
@@ -90,8 +133,6 @@ export function useTreeContextCreator(props: TreeProps) {
     };
 }
 
-// TODO: separate state and commands
-// TODO: consider renaming commands to actions
 export default function useTreeContext() {
     return useContext(TreeContext);
 }

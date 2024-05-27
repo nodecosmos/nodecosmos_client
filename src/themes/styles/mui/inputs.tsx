@@ -80,10 +80,10 @@ export default (theme: NodecosmosTheme) => ({
 
     MuiInputAdornment: { styleOverrides: { root: { marginRight: 0 } } },
 
-    MuiSwitch: {
+    MuiFormGroup: {
         styleOverrides: {
             root: {
-
+                marginTop: 8,
             },
         },
     },
@@ -92,9 +92,10 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 fontSize: '1rem',
-                color: theme.palette.text.primary,
+                color: theme.palette.text.secondary,
+                fontWeight: 700,
                 '&.Mui-focused': {
-                    color: theme.palette.text.primary,
+                    color: theme.palette.text.secondary,
                 },
             },
         },
@@ -102,6 +103,11 @@ export default (theme: NodecosmosTheme) => ({
 
     MuiFormControlLabel: {
         styleOverrides: {
+            root: {
+                marginLeft: 0,
+                marginRight: 0,
+                lineHeight: 1,
+            },
             label: {
                 fontSize: '0.875rem',
                 color: theme.palette.text.secondary,

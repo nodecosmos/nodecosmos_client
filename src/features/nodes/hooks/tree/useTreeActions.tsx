@@ -14,7 +14,7 @@ export default function useTreeActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { branchId, originalId } = useBranchContext();
     const {
-        orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes,
+        orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes, size,
     } = useTreeContext();
     const selectObject = useSelectObject();
 
@@ -45,12 +45,12 @@ export default function useTreeActions() {
 
         if (node.childIds.length > 0) {
             mountDescendants(newTreeNodes, node);
-            calculatePositions(orderedTreeNodeIds, newTreeNodes);
+            calculatePositions(orderedTreeNodeIds, newTreeNodes, size);
         }
 
         setTreeNodes(newTreeNodes);
         dispatch(expandNodeAction(nodeId));
-    }, [dispatch, orderedTreeNodeIds, setTreeNodes, treeNodes]);
+    }, [dispatch, orderedTreeNodeIds, setTreeNodes, size, treeNodes]);
 
     // currently used only for expanding nodes from the URL
     const expandNodes = useCallback((ids: UUID[]) => {
@@ -72,12 +72,12 @@ export default function useTreeActions() {
 
             if (node.childIds.length > 0) {
                 mountDescendants(newTreeNodes, node);
-                calculatePositions(orderedTreeNodeIds, newTreeNodes);
+                calculatePositions(orderedTreeNodeIds, newTreeNodes, size);
             }
         });
 
         setTreeNodes(newTreeNodes);
-    }, [orderedTreeNodeIds, setTreeNodes, treeNodes]);
+    }, [orderedTreeNodeIds, setTreeNodes, size, treeNodes]);
 
     const collapseNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];
@@ -90,12 +90,12 @@ export default function useTreeActions() {
 
         if (node.childIds.length > 0) {
             unmountDescendants(newTreeNodes, node);
-            calculatePositions(orderedTreeNodeIds, newTreeNodes);
+            calculatePositions(orderedTreeNodeIds, newTreeNodes, size);
         }
 
         setTreeNodes(newTreeNodes);
         dispatch(collapseNodeAction(nodeId));
-    }, [dispatch, orderedTreeNodeIds, setTreeNodes, treeNodes]);
+    }, [dispatch, orderedTreeNodeIds, setTreeNodes, size, treeNodes]);
 
     // checkboxes
     const addId = useCallback((nodeId: UUID) => {

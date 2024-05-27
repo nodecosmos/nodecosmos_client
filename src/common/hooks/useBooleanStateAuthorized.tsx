@@ -1,5 +1,5 @@
 import useBooleanStateValue from './useBooleanStateValue';
-import useAuthorizeNodeAction from '../../features/nodes/hooks/tree/node/useAuthorizeNodeAction';
+import useAuthorizeNodeAction from '../../features/nodes/hooks/node/useAuthorizeNodeAction';
 import { useCallback } from 'react';
 
 export default function useBooleanStateAuthorized(defaultVal?: boolean): [boolean, () => void, () => void] {

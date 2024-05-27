@@ -1,16 +1,29 @@
 import { selectBranch } from '../../../../branch/branches.selectors';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
-import useNodeColors from '../../../hooks/tree/node/useNodeColors';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useNodeColors from '../../../hooks/node/useNodeColors';
+import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../nodes.constants';
 import {
     maybeSelectNode, selectExpandedNodes, selectSelected,
 } from '../../../nodes.selectors';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+
+const PATH_STYLE = {
+    opacity: 0,
+    animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
+    transition: `d ${transitionAnimationDuration}ms`,
+};
+
+const CIRCLE_STYLE = {
+    opacity: 0,
+    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
+    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
+};
 
 export default function ReorderIndicator() {
     const { originalId, branchId } = useBranchContext();
@@ -26,17 +39,13 @@ export default function ReorderIndicator() {
     const selected = useSelector(selectSelected);
     const color = selected?.id === id ? nestedTreeColor : outlineColor;
 
-    if (!reorderData) return null;
-
-    let oldParentId = reorderData.oldParentId;
+    let oldParentId = reorderData?.oldParentId;
 
     if (originalNode) {
         oldParentId = originalNode.parentId;
     }
 
-    if (!treeNodes[oldParentId]) return null;
-
-    if (oldParent && !expandedNodes.has(oldParentId)
+    if (reorderData && oldParent && oldParentId && !expandedNodes.has(oldParentId)
         && !expandedNodes.has(oldParent?.parentId)
         && originalNode?.ancestorIds?.length) {
         // Find the first ancestor that is expanded
@@ -45,20 +54,36 @@ export default function ReorderIndicator() {
             oldParentId = id;
         }
     }
+    const { x, y } = useMemo(() => {
+        if (!oldParentId) return {
+            x: 0,
+            y: 0,
+        };
 
-    if (!treeNodes[oldParentId]) return null;
+        const { x, y } = treeNodes[oldParentId];
 
-    const { x, y } = treeNodes[oldParentId];
-    const { x: xEnd, y: yEnd } = treeNodes[id];
-    let midY = yEnd;
-    let midX = x;
+        return {
+            x,
+            y,
+        };
+    }, [oldParentId, treeNodes]);
 
-    if (xEnd < x) {
-        midY = y;
-        midX = xEnd;
-    }
+    const pathD = useMemo(() => {
+        if (!oldParentId) return '';
 
-    const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+        const { x: xEnd, y: yEnd } = treeNodes[id];
+        let midY = yEnd;
+        let midX = x;
+
+        if (xEnd < x) {
+            midY = y;
+            midX = xEnd;
+        }
+
+        return `M ${x} ${y} L ${midX} ${midY} L ${xEnd} ${yEnd}`;
+    }, [id, oldParentId, treeNodes, x, y]);
+
+    if (!reorderData) return null;
 
     return (
         <g>
@@ -70,11 +95,7 @@ export default function ReorderIndicator() {
                 strokeWidth={1}
                 stroke={color}
                 fill={outlineColor}
-                style={{
-                    opacity: 0,
-                    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
-                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-                }}
+                style={CIRCLE_STYLE}
             />
             <defs>
                 <marker
@@ -90,11 +111,7 @@ export default function ReorderIndicator() {
                     <path
                         d="M0,0 V5 L2.5,2.5 Z"
                         fill={color}
-                        style={{
-                            opacity: 0,
-                            animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
-                            transition: `d ${transitionAnimationDuration}ms`,
-                        }} />
+                        style={PATH_STYLE} />
                 </marker>
             </defs>
             <path
@@ -103,14 +120,8 @@ export default function ReorderIndicator() {
                 stroke={color}
                 fill="transparent"
                 strokeWidth={2}
-                d={`M ${x} ${y}
-                    L ${midX} ${midY}
-                    L ${xEnd} ${yEnd}`}
-                style={{
-                    opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
-                    transition: `d ${transitionAnimationDuration / 2}ms`,
-                }}
+                d={pathD}
+                style={PATH_STYLE}
             />
         </g>
     );

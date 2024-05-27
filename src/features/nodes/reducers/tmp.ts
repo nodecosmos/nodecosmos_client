@@ -41,7 +41,7 @@ export function buildTmpNode(state: NodeState, action: PayloadAction<BuildTmpNod
         coverImageFilename: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        editorIds: [],
+        editorIds: new Set(),
         owner: node.owner,
         persistedId: null,
         isTmp: true,

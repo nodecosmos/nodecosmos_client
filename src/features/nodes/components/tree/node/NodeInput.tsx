@@ -1,13 +1,11 @@
-import useNodeColors from '../../../hooks/tree/node/useNodeColors';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
-import {
-    MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE, NODE_BUTTON_HEIGHT,
-} from '../../../nodes.constants';
+import useNodeColors from '../../../hooks/node/useNodeColors';
+import useNodeContext from '../../../hooks/node/useNodeContext';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
+import { MAX_NODE_INPUT_SIZE, MIN_NODE_INPUT_SIZE } from '../../../nodes.constants';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import React, {
-    MouseEvent, useCallback, useEffect,
+    MouseEvent, useCallback, useEffect, useMemo,
 } from 'react';
 
 interface NodeInputProps {
@@ -33,6 +31,7 @@ export default function NodeInput(props: NodeInputProps) {
     useEffect(() => ref.current?.focus(), []);
 
     const titleLength = title ? title.length : 0;
+    const { height, fontSize } = useTreeContext().size;
 
     const onEnter = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
@@ -43,17 +42,25 @@ export default function NodeInput(props: NodeInputProps) {
         }
     }, [onBlur]);
 
+    const divStyle = useMemo(() => ({
+        height,
+        border: '1px solid',
+        borderColor: outlineColor,
+        backgroundColor,
+        color,
+        fontSize,
+    }), [backgroundColor, color, fontSize, height, outlineColor]);
+
+    const inputStyle = useMemo(() => ({
+        color,
+        marginRight: titleLength < 4 ? 0 : -4,
+    }), [color, titleLength]);
+
     //------------------------------------------------------------------------------------------------------------------
     return (
         <div
             className={`NodeButton ${isSelected && 'selected'}`}
-            style={{
-                border: '1px solid',
-                borderColor: outlineColor,
-                backgroundColor,
-                height: NODE_BUTTON_HEIGHT,
-                color,
-            }}
+            style={divStyle}
         >
             <FontAwesomeIcon icon={faHashtag} />
             <input
@@ -66,17 +73,8 @@ export default function NodeInput(props: NodeInputProps) {
                 value={title}
                 maxLength={MAX_NODE_INPUT_SIZE}
                 size={Math.max(titleLength, MIN_NODE_INPUT_SIZE)}
-                style={{
-                    color,
-                    marginRight: titleLength < 4 ? 0 : -4,
-                }}
+                style={inputStyle}
             />
         </div>
     );
 }
-
-NodeInput.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onBlur: PropTypes.func.isRequired,
-};

@@ -1,4 +1,3 @@
-import { NODE_BUTTON_HEIGHT } from '../../features/nodes/nodes.constants';
 import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
@@ -12,7 +11,6 @@ export default (theme: NodecosmosTheme) => ({
             alignItems: 'start',
             height: '100%',
             '.NodeButton': {
-                height: NODE_BUTTON_HEIGHT,
                 display: 'inline-flex',
                 alignItems: 'center',
                 cursor: 'pointer',
@@ -21,10 +19,7 @@ export default (theme: NodecosmosTheme) => ({
                 padding: '0px 14px',
                 ':focus': { outline: 'none' },
                 ':not(.outlined)': {
-                    '.fa-hashtag': {
-                        fontSize: 12,
-                        color: theme.palette.tree.hashtag,
-                    },
+                    '.fa-hashtag': { color: theme.palette.tree.hashtag },
                     '.fa-arrow': { color: theme.palette.tree.hashtag },
                 },
                 '.fa-arrow': { margin: '0 8px' },
@@ -34,7 +29,6 @@ export default (theme: NodecosmosTheme) => ({
                     marginLeft: 8,
                     padding: 0,
                     backgroundColor: 'transparent',
-                    fontSize: 12,
                     fontWeight: 500,
                     letterSpacing: '0.02857em',
                     minWidth: 40,

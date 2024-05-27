@@ -2,16 +2,18 @@ import NodeButton from './NodeButton';
 import NodeInput from './NodeInput';
 import ReorderIndicator from './ReorderIndicator';
 import NodeToolbar from './toolbar/NodeToolbar';
-import useNodeActions from '../../../hooks/tree/node/useNodeActions';
-import useNodeBranchContext from '../../../hooks/tree/node/useNodeBranchContext';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useNodeActions from '../../../hooks/node/useNodeActions';
+import useNodeBranchContext from '../../../hooks/node/useNodeBranchContext';
+import useNodeContext from '../../../hooks/node/useNodeContext';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
-    MARGIN_TOP,
-    NODE_BUTTON_HEIGHT, TRANSITION_ANIMATION_DURATION,
+    TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
-import React from 'react';
+import React, { useMemo } from 'react';
+
+const TRANSITION_STYLE = { transition: `y ${TRANSITION_ANIMATION_DURATION}ms` };
 
 export default function NodeContent() {
     const {
@@ -22,33 +24,37 @@ export default function NodeContent() {
         y,
     } = useNodeContext();
     const { isReordered } = useNodeBranchContext();
-
+    const { height, marginTop } = useTreeContext().size;
     // we don't use this directly in input as input unmounts on blur
     // so command chain is broken
     const {
         clickNode, blurNode, saveNode,
     } = useNodeActions();
 
-    if (!xEnd) return null;
+    const gStyle = useMemo(() => {
+        const initialAnimationDelay = isRoot || isAlreadyMounted ? 0 : ANIMATION_DELAY;
+        const initialAnimationDuration = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
 
-    const initialAnimationDelay = isRoot || isAlreadyMounted ? 0 : ANIMATION_DELAY;
-    const initialAnimationDuration = isRoot || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-
-    return (
-        <g>
-            <g style={{
-                opacity: 0,
-                animation: `node-button-appear 
+        return {
+            opacity: 0,
+            animation: `node-button-appear 
                             ${initialAnimationDuration}ms
                             ${initialAnimationDelay}ms 
                             forwards`,
-            }}>
+        };
+    }, [isAlreadyMounted, isRoot]);
+
+    if (!xEnd) return null;
+
+    return (
+        <g>
+            <g style={gStyle}>
                 <foreignObject
                     width="700"
-                    height={NODE_BUTTON_HEIGHT + 8}
+                    height={height + 8}
                     x={xEnd}
-                    y={y - MARGIN_TOP}
-                    style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
+                    y={y - marginTop}
+                    style={TRANSITION_STYLE}
                 >
                     <div className="NodeButtonContainer">
                         {isEditing ? (

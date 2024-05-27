@@ -1,18 +1,19 @@
-import useNodeColors from '../../../hooks/tree/node/useNodeColors';
-import useNodeContext from '../../../hooks/tree/node/useNodeContext';
+import useNodeColors from '../../../hooks/node/useNodeColors';
+import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeActions from '../../../hooks/tree/useTreeActions';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { TreeType } from '../../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export default function NodeSymbol() {
     const { id } = useNodeContext();
     const { outlineColor } = useNodeColors();
     const { type: treeType } = useTreeContext();
     const { handleCheckboxChange, isChecked } = useTreeActions();
+    const style = useMemo(() => ({ color: outlineColor }), [outlineColor]);
 
     if (treeType !== TreeType.Checkbox) {
         return (
@@ -22,7 +23,7 @@ export default function NodeSymbol() {
 
     return (
         <Checkbox
-            style={{ color: outlineColor }}
+            style={style}
             value={id}
             checked={isChecked(id)}
             onChange={handleCheckboxChange}

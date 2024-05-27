@@ -1,5 +1,5 @@
-import { NodecosmosTheme } from '../../../../../../themes/themes.types';
-import { withOpacity } from '../../../../../../utils/colors';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
+import { withOpacity } from '../../../../../utils/colors';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 

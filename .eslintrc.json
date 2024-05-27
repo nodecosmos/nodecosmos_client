@@ -88,8 +88,9 @@
             "afterOpening": "never",
             "beforeClosing": "never"
         }],
-        "react/jsx-no-bind": 2,
-        "react-hooks/exhaustive-deps": 2,
+        "react/jsx-no-bind": "error",
+        "react/jsx-no-constructed-context-values": "error",
+        "react-hooks/exhaustive-deps": "error",
         "padded-blocks": ["error", "never"],
         "semi": ["error", "always"],
         "semi-spacing": ["error", {"before": false, "after": true}],

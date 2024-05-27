@@ -57,7 +57,6 @@ export default function NodeIndexSearch() {
                         borderRadius: 1,
                         pl: 0.5,
                     },
-                    '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
                 }}
                 InputProps={{
                     id: 'search',

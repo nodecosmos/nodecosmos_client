@@ -1,7 +1,7 @@
 import NestedNodesBranch from './NestedNodesBranch';
 import NodeBranch from './NodeBranch';
 import NodeContent from './NodeContent';
-import { useNodeContextCreator } from '../../../hooks/tree/node/useNodeContext';
+import { useNodeContextCreator } from '../../../hooks/node/useNodeContext';
 import React from 'react';
 
 export interface NodeProps {

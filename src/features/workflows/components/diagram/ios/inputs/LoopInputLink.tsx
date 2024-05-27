@@ -22,7 +22,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const { outputsById } = useDiagramContext();
     const { defaultLoopInputColor } = theme.palette.workflow;
     const { nestedTreeColor } = useFlowStepNodeColors();
-    const color = isSelected ? nestedTreeColor : defaultLoopInputColor;
+    const color = isSelected ? nestedTreeColor.fg : defaultLoopInputColor;
 
     if (!outputsById[nodeOutputId]) {
         return null;

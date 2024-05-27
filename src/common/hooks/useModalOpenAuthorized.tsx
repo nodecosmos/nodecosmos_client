@@ -1,5 +1,5 @@
 import useModalOpen from './useModalOpen';
-import useAuthorizeNodeAction from '../../features/nodes/hooks/tree/node/useAuthorizeNodeAction';
+import useAuthorizeNodeAction from '../../features/nodes/hooks/node/useAuthorizeNodeAction';
 import { useCallback } from 'react';
 
 export default function useModalOpenAuthorized(): [boolean, () => void, () => void] {

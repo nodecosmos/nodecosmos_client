@@ -84,7 +84,6 @@ export default function TreeToolbar() {
                             borderColor: 'transparent',
                             height: 1,
                         },
-                        '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
                     }}
                     InputProps={{
                         name: 'customSearch',

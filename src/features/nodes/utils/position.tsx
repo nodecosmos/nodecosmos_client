@@ -1,10 +1,15 @@
 import { UUID } from '../../../types';
-import { TreeNode, TreeNodes } from '../hooks/tree/useTreeContext';
 import {
-    COMPLETE_Y_LENGTH, EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
-} from '../nodes.constants';
+    NodeSize, TreeNode, TreeNodes,
+} from '../hooks/tree/useTreeContext';
+import { MARGIN_LEFT, MARGIN_TOP } from '../nodes.constants';
 
-export function calculatePosition(treeNodes: TreeNodes, node: TreeNode) {
+export function calculatePosition(treeNodes: TreeNodes, node: TreeNode, size: NodeSize) {
+    const {
+        edgeLength,
+        yLength,
+    } = size;
+
     const {
         upperSiblingId,
         parentId,
@@ -20,32 +25,32 @@ export function calculatePosition(treeNodes: TreeNodes, node: TreeNode) {
     let x, y;
 
     if (isTreeRoot) {
-        x = EDGE_LENGTH;
-        y = EDGE_LENGTH + MARGIN_TOP;
+        x = edgeLength;
+        y = edgeLength + MARGIN_TOP;
     } else {
         const { x: parentX, y: parentY } = treeNodes[parentId as UUID];
 
-        x = parentX + MARGIN_LEFT + EDGE_LENGTH;
-        y = (upperSiblingYEnd || parentY) + COMPLETE_Y_LENGTH;
+        x = parentX + MARGIN_LEFT + edgeLength;
+        y = (upperSiblingYEnd || parentY) + yLength;
     }
 
     node.x = x;
     node.y = y;
-    node.xEnd = x + EDGE_LENGTH;
+    node.xEnd = x + edgeLength;
     node.yEnd = y;
 
     if (node.isMounted) {
         ancestorIds.forEach((ancestorId) => {
             if (treeNodes[ancestorId]) {
-                treeNodes[ancestorId].yEnd += COMPLETE_Y_LENGTH;
+                treeNodes[ancestorId].yEnd += yLength;
             }
         });
     }
 }
 
-export function calculatePositions(orderedTreeNodeIds: UUID[], treeNodes: TreeNodes) {
+export function calculatePositions(orderedTreeNodeIds: UUID[], treeNodes: TreeNodes, size: NodeSize) {
     for (let i = 0; i < orderedTreeNodeIds.length; i += 1) {
         const id = orderedTreeNodeIds[i];
-        calculatePosition(treeNodes, treeNodes[id]);
+        calculatePosition(treeNodes, treeNodes[id], size);
     }
 }

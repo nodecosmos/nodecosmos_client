@@ -1,5 +1,5 @@
-import { NodecosmosTheme } from '../../../../../../themes/themes.types';
-import useTreeActions from '../../useTreeActions';
+import { NodecosmosTheme } from '../../../../../themes/themes.types';
+import useTreeActions from '../../tree/useTreeActions';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
 

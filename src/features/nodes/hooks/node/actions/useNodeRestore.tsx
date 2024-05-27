@@ -1,7 +1,7 @@
-import useHandleServerErrorAlert from '../../../../../../common/hooks/useHandleServerErrorAlert';
-import { NodecosmosDispatch } from '../../../../../../store';
-import { NodecosmosError } from '../../../../../../types';
-import { restoreNode } from '../../../../../branch/branches.thunks';
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
+import { NodecosmosDispatch } from '../../../../../store';
+import { NodecosmosError } from '../../../../../types';
+import { restoreNode } from '../../../../branch/branches.thunks';
 import useNodeContext from '../useNodeContext';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';

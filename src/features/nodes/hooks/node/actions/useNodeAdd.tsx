@@ -1,6 +1,6 @@
-import { setAlert } from '../../../../../app/appSlice';
-import { buildTmpNode, updateState } from '../../../../nodes.actions';
-import { selectSaveInProgress } from '../../../../nodes.selectors';
+import { setAlert } from '../../../../app/appSlice';
+import { buildTmpNode, updateState } from '../../../nodes.actions';
+import { selectSaveInProgress } from '../../../nodes.selectors';
 import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
 import {
