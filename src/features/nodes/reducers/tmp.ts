@@ -83,6 +83,10 @@ export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAct
                 branchId,
                 id: persistedId,
             };
+
+            if (state.expandedNodes.has(tmpId)) {
+                state.expandedNodes.add(persistedId);
+            }
         }
 
         // update node state

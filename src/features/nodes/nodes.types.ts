@@ -111,6 +111,7 @@ export interface NodeState {
     expandedNodes: Set<UUID>;
     scale: number;
     treeDensity: TreeDensity;
+    showAncestorChain: boolean;
 }
 
 export enum TreeType {

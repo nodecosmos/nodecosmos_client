@@ -20,8 +20,9 @@ export default function useNodeDefaultColors() {
     const color = (isSelected && theme.palette.tree.selectedText)
         || (hasChildren && nestedTreeColor.fg) || theme.palette.tree.defaultText;
 
-    const parentBackgroundColor = isRoot
-        ? theme.palette.tree.default : withOpacity(backgrounds[(nestedLevel - 1) % backgroundCount].fg, 0.8);
+    const parentColor = isRoot
+        ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount].fg;
+    const parentBg = isRoot ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount].bg;
 
     const outlineColor = hasChildren || isSelected ? withOpacity(nestedTreeColor.fg, 0.4) : defaultBorder;
 
@@ -32,7 +33,8 @@ export default function useNodeDefaultColors() {
     return {
         backgroundColor,
         outlineColor,
-        parentBackgroundColor,
+        parentColor,
+        parentBg,
         color,
         isSelected,
         outlinedColored,

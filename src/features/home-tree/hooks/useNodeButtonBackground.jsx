@@ -30,7 +30,7 @@ export default function useNodeButtonBackground(props) {
     const outlineColor = !isCurrentNode && hasNestedNodes
         ? nestedLevelColor.fg : 'transparent';
 
-    const parentBackgroundColor = parentExpanded
+    const parentColor = parentExpanded
         ? backgrounds[(nestedLevel - 1) % backgroundCount].fg : theme.palette.tree.default;
 
     const color = (outlinedColored && outlineColor)
@@ -41,7 +41,7 @@ export default function useNodeButtonBackground(props) {
     return {
         backgroundColor: outlinedColored ? nestedLevelColor.bg : backgroundColor,
         outlineColor,
-        parentBackgroundColor,
+        parentColor,
         color,
         hashColor,
     };

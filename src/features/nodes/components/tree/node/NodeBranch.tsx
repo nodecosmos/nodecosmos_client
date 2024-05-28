@@ -1,8 +1,10 @@
+import NodeAncestorChain from './NodeAncestorChain';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useNodeColors from '../../../hooks/node/useNodeColors';
 import useNodeContext from '../../../hooks/node/useNodeContext';
+import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {
-    ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
+    ANIMATION_DELAY, EDGE_LENGTH, INITIAL_ANIMATION_DURATION, MARGIN_LEFT, TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
@@ -11,38 +13,49 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export default function NodeBranch() {
     const theme: NodecosmosTheme = useTheme();
+    const { size, showAncestorChain } = useTreeContext();
     const {
-        isRoot, x, xEnd, y, isAlreadyMounted,
+        isRoot, x, xEnd, y, isAlreadyMounted, isSelected,
     } = useNodeContext();
 
-    const { parentBackgroundColor } = useNodeColors();
+    const { parentColor } = useNodeColors();
 
-    const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-    const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-    const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
+    const pathStyle = useMemo(() => {
+        const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+        const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
+        const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
 
-    const pathStyle = useMemo(() => ({
-        opacity: 0,
-        animation: `appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-        transition: `d ${transitionAnimationDuration}ms`,
-    }), [initialAnimationDuration, initialAnimationDelay, transitionAnimationDuration]);
+        return {
+            opacity: 0,
+            animation: `appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+            transition: `d ${transitionAnimationDuration}ms`,
+        };
+    }, [isAlreadyMounted]);
 
-    const circleStyle = useMemo(() => ({
-        opacity: 0,
-        animation: `node-circle-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-        transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-    }), [initialAnimationDuration, initialAnimationDelay, transitionAnimationDuration]);
+    const circleStyle = useMemo(() => {
+        const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+        const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
+        const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
+
+        return {
+            opacity: 0,
+            animation: `node-circle-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
+            transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
+        };
+    }, [isAlreadyMounted]);
 
     const pathD = useMemo(() => {
-        return `M ${x} ${y}
-                C ${x} ${y}
-                  ${x + 25} ${y + 1}
+        const pathX = showAncestorChain && isSelected ? size.edgeLength * 2 + MARGIN_LEFT : x;
+
+        return `M ${pathX} ${y}
+                C ${pathX} ${y}
+                  ${pathX + EDGE_LENGTH / 2} ${y + 1}
                   ${xEnd} ${y}
                 L ${xEnd} ${y}`;
-    }, [x, xEnd, y]);
+    }, [isSelected, showAncestorChain, size.edgeLength, x, xEnd, y]);
 
     const rootPathD = useMemo(() => {
-        return `M ${x + 6} ${y} L ${xEnd} ${y}`;
+        return `M ${x} ${y} L ${xEnd} ${y}`;
     }, [x, xEnd, y]);
 
     if (!x) { return null; }
@@ -50,8 +63,8 @@ export default function NodeBranch() {
     if (isRoot) {
         return (
             <g>
-                <circle cx={x} cy={y} r={6} fill={parentBackgroundColor} />
-                <path strokeWidth={4} d={rootPathD} stroke={theme.palette.tree.default} />
+                <circle cx={x} cy={y} r={5} fill={parentColor} />
+                <path strokeWidth={3} d={rootPathD} stroke={theme.palette.tree.default} />
             </g>
         );
     }
@@ -59,7 +72,7 @@ export default function NodeBranch() {
     return (
         <g>
             <path
-                strokeWidth={3.5}
+                strokeWidth={3}
                 d={pathD}
                 stroke={theme.palette.tree.default}
                 fill="transparent"
@@ -68,10 +81,12 @@ export default function NodeBranch() {
             <circle
                 cx={x}
                 cy={y}
-                r={5}
-                fill={parentBackgroundColor}
+                r={size.ancestorRadius}
+                fill={theme.palette.tree.default}
+                stroke={parentColor}
                 style={circleStyle}
             />
+            <NodeAncestorChain />
         </g>
     );
 }

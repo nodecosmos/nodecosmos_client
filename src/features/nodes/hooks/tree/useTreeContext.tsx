@@ -2,6 +2,7 @@ import useTreeBuilder from './useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
 import {
+    ANCESTOR_RADIUS, COMPACT_ANCESTOR_RADIUS,
     COMPACT_EDGE_LENGTH, COMPACT_FONT_SIZE,
     COMPACT_MARGIN_TOP,
     COMPACT_NODE_HEIGHT,
@@ -10,7 +11,7 @@ import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT,
 } from '../../nodes.constants';
-import { selectDensity } from '../../nodes.selectors';
+import { selectDensity, selectShowAncestorChain } from '../../nodes.selectors';
 import { TreeDensity, TreeType } from '../../nodes.types';
 import {
     createContext, useContext, useEffect, useMemo,
@@ -23,6 +24,7 @@ export interface NodeSize {
     edgeLength: number;
     fontSize: number;
     yLength: number;
+    ancestorRadius: number;
 }
 
 interface TreeContextValue extends TreeProps {
@@ -31,6 +33,7 @@ interface TreeContextValue extends TreeProps {
     orderedTreeNodeIds: UUID[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
     size: NodeSize;
+    showAncestorChain: boolean;
 }
 
 export type UpperSiblingId = UUID | null;
@@ -68,6 +71,7 @@ const NODE_SIZE = {
         edgeLength: EDGE_LENGTH,
         fontSize: FONT_SIZE,
         yLength: EDGE_LENGTH + MARGIN_TOP,
+        ancestorRadius: ANCESTOR_RADIUS,
     },
     [TreeDensity.Compact]: {
         height: COMPACT_NODE_HEIGHT,
@@ -75,6 +79,7 @@ const NODE_SIZE = {
         edgeLength: COMPACT_EDGE_LENGTH,
         fontSize: COMPACT_FONT_SIZE,
         yLength: COMPACT_EDGE_LENGTH + COMPACT_MARGIN_TOP,
+        ancestorRadius: COMPACT_ANCESTOR_RADIUS,
     },
 };
 
@@ -88,6 +93,7 @@ export function useTreeContextCreator(props: TreeProps) {
     } = props;
     const selectedNodeIds = useMemo(() => new Set<UUID>(value), [value]);
     const treeDensity = useSelector(selectDensity);
+    const showAncestorChain = useSelector(selectShowAncestorChain);
     const size = useMemo(() => {
         return NODE_SIZE[treeDensity];
     }, [treeDensity]);
@@ -120,10 +126,11 @@ export function useTreeContextCreator(props: TreeProps) {
             onChange,
             setTreeNodes,
             size,
+            showAncestorChain,
         }),
         [
             orderedTreeNodeIds, rootId, selectedNodeIds, branchId, treeNodes, type,
-            onChange, setTreeNodes, size,
+            onChange, setTreeNodes, size, showAncestorChain,
         ],
     );
 

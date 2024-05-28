@@ -51,6 +51,7 @@ export function calculatePosition(treeNodes: TreeNodes, node: TreeNode, size: No
 export function calculatePositions(orderedTreeNodeIds: UUID[], treeNodes: TreeNodes, size: NodeSize) {
     for (let i = 0; i < orderedTreeNodeIds.length; i += 1) {
         const id = orderedTreeNodeIds[i];
+
         calculatePosition(treeNodes, treeNodes[id], size);
     }
 }

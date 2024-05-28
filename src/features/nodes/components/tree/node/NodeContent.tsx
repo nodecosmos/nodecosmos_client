@@ -15,7 +15,7 @@ import React, { useMemo } from 'react';
 
 const TRANSITION_STYLE = { transition: `y ${TRANSITION_ANIMATION_DURATION}ms` };
 
-export default function NodeContent() {
+function NodeContent() {
     const {
         isAlreadyMounted,
         isEditing,
@@ -75,3 +75,5 @@ export default function NodeContent() {
 
     );
 }
+
+export default React.memo(NodeContent);

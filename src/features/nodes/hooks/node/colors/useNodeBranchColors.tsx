@@ -22,7 +22,8 @@ export default function useNodeBranchColors() {
         const backgroundColor = isSelected ? withOpacity(nestedTreeColor, 0.8) : theme.palette.tree.default;
         const outlineColor = defaultBorder;
         const color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
-        const parentBackgroundColor = theme.palette.workflow.defaultInputColor;
+        const parentColor = theme.palette.workflow.defaultInputColor;
+        const parentBg = theme.palette.workflow.defaultInputColor;
 
         let outlinedColored = true;
         let branchColors;
@@ -47,7 +48,8 @@ export default function useNodeBranchColors() {
 
         return {
             ...branchColors,
-            parentBackgroundColor,
+            parentColor,
+            parentBg,
             isSelected,
             outlinedColored,
             nestedTreeColor,

@@ -17,7 +17,6 @@ export default function useTreeActions() {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes, size,
     } = useTreeContext();
     const selectObject = useSelectObject();
-
     const selectNode = useCallback((id: UUID) => {
         dispatch(select({
             branchId,

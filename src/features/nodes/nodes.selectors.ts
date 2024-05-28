@@ -15,6 +15,7 @@ export const selectScrollTo = (state: RootState) => state.nodes.scrollTo;
 export const selectExpandedNodes = (state: RootState) => state.nodes.expandedNodes;
 export const selectScale = (state: RootState) => state.nodes.scale;
 export const selectDensity = (state: RootState) => state.nodes.treeDensity;
+export const selectShowAncestorChain = (state: RootState) => state.nodes.showAncestorChain;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,

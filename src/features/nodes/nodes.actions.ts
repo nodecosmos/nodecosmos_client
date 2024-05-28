@@ -17,4 +17,5 @@ export const {
     selectNodeFromParams,
     setScale,
     setDensity,
+    setShowAncestorChain,
 } = actions;

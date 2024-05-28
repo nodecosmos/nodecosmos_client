@@ -36,11 +36,11 @@ const theme: NodecosmosTheme = {
 
     palette: {
         primary: {
-            main: '#9fadff',
+            main: '#5135c8',
             contrastText: '#fff',
         },
 
-        secondary: { main: '#afbcef' },
+        secondary: { main: '#7987bd' },
 
         error: {
             main: '#f56565',
@@ -58,7 +58,7 @@ const theme: NodecosmosTheme = {
         },
 
         button: {
-            main: '#ffffff',
+            main: '#e7e8ef',
             contrastText: '#5d6265',
         },
 
@@ -68,7 +68,7 @@ const theme: NodecosmosTheme = {
         },
 
         merge: {
-            main: '#c187ff',
+            main: '#8e5cc2',
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
@@ -78,22 +78,22 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#e8e8e8',
-            2: '#eeeeee',
-            3: '#ecebf1',
+            1: '#dfdfdf',
+            2: '#cecece',
+            3: '#dfdbec',
             4: '#c8c8c8',
             5: '#9fadff',
         },
 
         background: {
-            1: '#ffffff', // f8f9fa
-            2: '#f8f8fd', // f0f0ef ededed
+            1: '#e9eaef', // f8f9fa
+            2: '#eef1f6', // f0f0ef ededed
             3: '#f8f9fa',
             4: '#ffffff',
-            5: '#f8fafd',
-            6: '#ebf1f9',
-            7: '#ebf1f9',
-            8: '#ebf1f9',
+            5: '#eef1f6',
+            6: '#e4e4eb',
+            7: '#e2e2eb',
+            8: '#d2d6de',
 
             labels: {
                 orange: '#f5a623',
@@ -106,7 +106,7 @@ const theme: NodecosmosTheme = {
 
             list: {
                 defaultColor: '#525264',
-                activeColor: '#5872d2',
+                activeColor: '#6987d5',
             },
 
             paper: '#fcfbfe',
@@ -115,7 +115,7 @@ const theme: NodecosmosTheme = {
 
         toolbar: {
             red: '#ff7878',
-            green: '#a4d166',
+            green: '#a0d418',
             blue: '#0095ff',
             lightRed: '#ff8686',
             pink: '#bb7eaf',
@@ -123,38 +123,38 @@ const theme: NodecosmosTheme = {
             yellow: '#ffd000',
             orange: '#dd9432',
             hover: '#eff2fb',
-            active: '#eff2fb',
-            default: '#767276',
+            active: '#e3e5ec',
+            default: '#9c9cb4',
             breadcrumbs: '#4a5568',
         },
 
         tree: {
-            default: '#e4e4ec',
+            default: '#e0e0e9',
             defaultBorder: '#e0e0f0',
             backgrounds: [
                 {
                     fg: '#fd526f',
-                    bg: '#453c44',
+                    bg: '#f9dddd',
                 },
                 {
-                    fg: '#a38dff',
-                    bg: '#3e414f',
+                    fg: '#994ce1',
+                    bg: '#e3ddf9',
                 },
                 {
-                    fg: '#65a9ff',
-                    bg: '#39414e',
+                    fg: '#0068cf',
+                    bg: '#dde7f9',
                 },
                 {
-                    fg: '#9bdf64',
-                    bg: '#3e4743',
+                    fg: '#00b603',
+                    bg: '#e4f9dd',
                 },
                 {
-                    fg: '#c9d711',
-                    bg: '#424740',
+                    fg: '#938e00',
+                    bg: '#f9f7dd',
                 },
                 {
-                    fg: '#e8a200',
-                    bg: '#444442',
+                    fg: '#b88301',
+                    bg: '#f9eddd',
                 },
             ],
             hashtag: '#aaaac4',
@@ -165,7 +165,7 @@ const theme: NodecosmosTheme = {
         },
 
         workflow: {
-            default: '#f0f2f5',
+            default: '#e0e0e9',
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#80a4ff',
@@ -206,19 +206,19 @@ const theme: NodecosmosTheme = {
 
         diff: {
             added: {
-                bg: '#424d46',
-                fg: '#b1f47a',
+                bg: '#badfbf',
+                fg: '#0ab020',
             },
             removed: {
-                bg: '#5e3e4a',
+                bg: '#e8bdcd',
                 fg: '#fd526f',
             },
             edited: {
-                bg: '#484d46',
-                fg: '#eef47a',
+                bg: '#ebebc9',
+                fg: '#8d8830',
             },
             conflict: {
-                bg: '#705d52',
+                bg: '#ebd9c9',
                 fg: '#f4af7a',
             },
         },

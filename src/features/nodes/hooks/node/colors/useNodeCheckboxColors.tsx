@@ -21,15 +21,17 @@ export default function useNodeCheckboxColors() {
     const backgroundColor = isChecked ? theme.palette.background[3] : theme.palette.tree.default;
 
     const color = (isChecked && nestedTreeColor) || theme.palette.tree.defaultText;
-    const parentBackgroundColor = isRoot
+    const parentColor = isRoot
         ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount].fg;
+    const parentBg = isRoot ? theme.palette.tree.default : backgrounds[(nestedLevel - 1) % backgroundCount].bg;
 
     const outlineColor = isChecked ? nestedTreeColor : checkboxColor;
 
     return {
         backgroundColor,
         outlineColor,
-        parentBackgroundColor,
+        parentColor,
+        parentBg,
         color,
         isSelected: false,
         outlinedColored,

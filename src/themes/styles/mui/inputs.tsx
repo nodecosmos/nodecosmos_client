@@ -70,6 +70,24 @@ export default (theme: NodecosmosTheme) => ({
         },
     },
 
+    MuiSwitch: {
+        styleOverrides: {
+            root: {
+                padding: 4,
+                marginRight: 8,
+                marginLeft: 0,
+            },
+            switchBase: {
+                color: theme.palette.background[8],
+            },
+            track: {
+                borderRadius: 16,
+                backgroundColor: theme.palette.background[1],
+                opacity: 1,
+            },
+        },
+    },
+
     MuiCheckbox: {
         styleOverrides: {
             root: {

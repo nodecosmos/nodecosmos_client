@@ -43,6 +43,12 @@ const parseDensityFromLS = () => {
     return density as TreeDensity;
 };
 
+const parseShowAncestorChainFromLS = () => {
+    const showAncestorChain = localStorage.getItem('showAncestorChain');
+
+    return showAncestorChain === 'true';
+};
+
 const initialState: NodeState = {
     byBranchId: {},
     childIds: {},
@@ -57,6 +63,7 @@ const initialState: NodeState = {
     expandedNodes: new Set(),
     scale: parseScaleFromLS(),
     treeDensity: parseDensityFromLS(),
+    showAncestorChain: parseShowAncestorChainFromLS(),
 };
 
 const nodesSlice = createSlice({
@@ -125,6 +132,11 @@ const nodesSlice = createSlice({
             state.treeDensity = action.payload;
 
             localStorage.setItem('treeDensity', action.payload);
+        },
+        setShowAncestorChain: (state: NodeState, action: PayloadAction<boolean>) => {
+            state.showAncestorChain = action.payload;
+
+            localStorage.setItem('showAncestorChain', action.payload.toString());
         },
     },
     extraReducers(builder) {

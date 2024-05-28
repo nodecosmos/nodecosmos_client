@@ -42,7 +42,7 @@ export default function NonAnimatedNodeLink(props) {
     const pathRef = useRef(null);
     const circleRef = useRef(null);
 
-    const { parentBackgroundColor } = useNodeButtonBackground({
+    const { parentColor } = useNodeButtonBackground({
         id,
         nestedLevel,
         isRoot,
@@ -53,11 +53,11 @@ export default function NonAnimatedNodeLink(props) {
     if (isRoot) {
         return (
             <g>
-                <circle cx={x} cy={y} r={6} fill={parentBackgroundColor} />
+                <circle cx={x} cy={y} r={6} fill={parentColor} />
                 <path
                     strokeWidth={4}
                     d={`M ${x} ${y} L ${xEnds} ${y}`}
-                    stroke={parentBackgroundColor}
+                    stroke={parentColor}
                 />
             </g>
         );
@@ -90,7 +90,7 @@ export default function NonAnimatedNodeLink(props) {
                 cx={x}
                 cy={circleY}
                 r={5}
-                fill={parentBackgroundColor}
+                fill={parentColor}
                 sx={{
                     opacity: 0,
                     animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms ${ANIMATION_DELAY}ms forwards`,

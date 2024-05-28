@@ -27,28 +27,34 @@ export default function NestedNodesBranch() {
         y,
         xEnd,
     } = useNodeContext();
+    let lastChildY = null;
 
-    let lastChildY;
     if (lastChildId) {
         lastChildY = treeNodes[lastChildId].y;
     }
     const prevPathYEnd = usePrevious(lastChildY);
-    const x = xEnd + MARGIN_LEFT;
-    const linkY = y + MARGIN_TOP;
-    const yEnd = lastChildY || prevPathYEnd;
-    const pathD = useMemo(() => {
-        return `M ${x} ${linkY} L ${x} ${yEnd}`;
-    }, [x, linkY, yEnd]);
 
-    if (!lastChildId || !isExpanded || !yEnd) return null;
+    const pathD = useMemo(() => {
+        const x = xEnd + MARGIN_LEFT;
+        const linkY = y + MARGIN_TOP;
+        const yEnd = lastChildY || prevPathYEnd;
+
+        if (!yEnd) return null;
+
+        return `M ${x} ${linkY} L ${x} ${yEnd}`;
+    }, [lastChildY, prevPathYEnd, xEnd, y]);
+
+    if (!lastChildId || !isExpanded || !pathD || !lastChildY) return null;
 
     return (
-        <path
-            stroke={theme.palette.tree.default}
-            fill="transparent"
-            strokeWidth={3.5}
-            d={pathD}
-            style={STYLE}
-        />
+        <>
+            <path
+                stroke={theme.palette.tree.default}
+                fill="transparent"
+                strokeWidth={2}
+                d={pathD}
+                style={STYLE}
+            />
+        </>
     );
 }

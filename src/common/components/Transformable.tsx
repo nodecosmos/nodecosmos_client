@@ -22,7 +22,7 @@ export default function Transformable(props: TransformableProps) {
     const {
         children, transformableId, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
     } = props;
-    const containerRef = useRef<HTMLElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
     const dispatch = useDispatch();
     const [dimensions, setDimensions] = useState({
@@ -50,17 +50,18 @@ export default function Transformable(props: TransformableProps) {
         };
 
         const resizeObserver = new ResizeObserver(handleResize);
-        if (gRef.current) {
-            resizeObserver.observe(gRef.current);
+        const gEl = gRef.current;
+
+        if (gEl) {
+            resizeObserver.observe(gEl);
         }
 
         return () => {
-            if (resizeObserver && gRef.current) {
-                // eslint-disable-next-line react-hooks/exhaustive-deps
-                resizeObserver.unobserve(gRef.current);
+            if (resizeObserver && gEl) {
+                resizeObserver.unobserve(gEl);
             }
         };
-    }, [dimensions.height, dimensions.width, heightMargin]);
+    }, [dimensions, heightMargin]);
 
     //------------------------------------------------------------------------------------------------
     const { onMouseDown } = usePannable(containerRef);
@@ -125,16 +126,12 @@ export default function Transformable(props: TransformableProps) {
 
     //------------------------------------------------------------------------------------------------
     return (
-        <Box
+        <div
+            className="Transformable"
             id={TRANSFORMABLE_ID}
             ref={containerRef}
             onMouseDown={onMouseDown}
             onScroll={handleScroll}
-            sx={{
-                overflow: 'auto',
-                width: 1,
-                height: 1,
-            }}
         >
             <Box
                 sx={{
@@ -148,25 +145,16 @@ export default function Transformable(props: TransformableProps) {
                 }}
             >
                 <svg
+                    className="TransformableSVG"
                     xmlns="http://www.w3.org/2000/svg"
                     width={dimensions.width}
                     height={dimensions.height}
-                    style={{
-                        WebkitTapHighlightColor: 'transparent',
-                        WebkitTouchCallout: 'none',
-                        WebkitUserSelect: 'none',
-                        KhtmlUserSelect: 'none',
-                        MozUserSelect: 'none',
-                        userSelect: 'none',
-                        transformOrigin: 'top left',
-                        display: 'block',
-                    }}
                 >
                     <g ref={gRef}>
                         {children}
                     </g>
                 </svg>
             </Box>
-        </Box>
+        </div>
     );
 }

@@ -66,7 +66,6 @@ export default (theme: NodecosmosTheme) => ({
                     svg: { fontSize: '1.4rem' },
                 },
             },
-
             '.NodeToolbar': {
                 display: 'flex',
                 alignItems: 'center',
@@ -103,6 +102,11 @@ export default (theme: NodecosmosTheme) => ({
                 '.Item.purple': { color: theme.palette.toolbar.purple },
                 '.Item.yellow': { color: theme.palette.toolbar.yellow },
             },
+        },
+
+        '.NodeAncestorCircle': {
+            cursor: 'pointer',
+            transition: 'r 0.2s, fill 0.2s, stroke 0.2s',
         },
     },
 });

@@ -1,5 +1,5 @@
-import { setDensity } from '../../../nodes.actions';
-import { selectDensity } from '../../../nodes.selectors';
+import { setDensity, setShowAncestorChain } from '../../../nodes.actions';
+import { selectDensity, selectShowAncestorChain } from '../../../nodes.selectors';
 import { TreeDensity } from '../../../nodes.types';
 import { faEllipsisVertical } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ import {
     FormControlLabel,
     Radio,
     RadioGroup,
-    IconButton,
+    IconButton, Switch,
 } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import React, {
@@ -23,6 +23,7 @@ export default function Options() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const density = useSelector(selectDensity);
+    const showAncestorChain = useSelector(selectShowAncestorChain);
     const open = Boolean(anchorEl);
     const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -31,6 +32,10 @@ export default function Options() {
     const handleDensityChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setDensity(event.target.value as TreeDensity));
     }, [dispatch]);
+    const handleShowAncestorChainChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setShowAncestorChain(event.target.checked));
+    }, [dispatch]);
+    console.log(showAncestorChain);
 
     return (
         <Box component="div" flex={1} textAlign="end">
@@ -65,11 +70,8 @@ export default function Options() {
                     },
                 }}
             >
-                <Box
-                    p={2}
-                    fontSize={14}
-                >
-                    <FormControl>
+                <Box p={2} fontSize={14}>
+                    <FormControl fullWidth>
                         <FormLabel>Density</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
@@ -80,6 +82,17 @@ export default function Options() {
                             <FormControlLabel value={TreeDensity.Default} control={<Radio />} label="Default" />
                             <FormControlLabel value={TreeDensity.Compact} control={<Radio />} label="Compact" />
                         </RadioGroup>
+                        <FormLabel sx={{ mt: 2 }}>Show Ancestor Chain</FormLabel>
+                        <FormControlLabel
+                            sx={{ mt: 1 }}
+                            id="ancestor-chain-label"
+                            value={showAncestorChain}
+                            control={
+                                <Switch
+                                    onChange={handleShowAncestorChainChange}
+                                    checked={showAncestorChain} />
+                            }
+                            label="True" />
                     </FormControl>
                 </Box>
             </Menu>
