@@ -33,14 +33,6 @@ export enum Browser {
     Unknown = 'Unknown',
 }
 
-export interface TransformablePositions {
-    id: UUID;
-    clientHeight: number;
-    clientWidth: number;
-    scrollTop: number;
-    scrollLeft: number;
-}
-
 export interface SelectedObject {
     objectId: UUID;
     branchId: UUID;
@@ -60,7 +52,6 @@ export interface SelectedObject {
 export interface AppState {
     headerContent?: HeaderContent;
     theme: Theme;
-    transformablePositionsById: Record<UUID, TransformablePositions>;
     currentNodeId: string | null;
     browser: Browser;
     alert: Alert;

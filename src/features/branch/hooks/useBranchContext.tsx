@@ -68,7 +68,7 @@ export function useBranchContextCreator() {
         }
     }, [branchId, branchNodeId, dispatch, isBranchQ, isBranchedNode, isContributionRequest]);
 
-    return {
+    return useMemo(() => ({
         BranchContext,
         ctxValue: {
             isBranch,
@@ -81,7 +81,11 @@ export function useBranchContextCreator() {
             ownerId,
             editorIds,
         },
-    };
+    }),
+    [
+        branchId, branchNodeId, branchStatus, editorIds, isBranch, isContributionRequest, node, nodeId, originalId,
+        ownerId,
+    ]);
 }
 
 export default function useBranchContext(): BranchContextValue {

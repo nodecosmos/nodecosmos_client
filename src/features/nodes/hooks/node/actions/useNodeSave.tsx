@@ -10,7 +10,7 @@ import { selectNode, selectSaveInProgress } from '../../../nodes.selectors';
 import { create, updateTitle } from '../../../nodes.thunks';
 import useNodeContext from '../useNodeContext';
 import {
-    ChangeEvent, useCallback, useEffect, useRef, useState,
+    ChangeEvent, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -147,8 +147,8 @@ export default function useNodeSave() {
     }, [dispatch, persistedId]);
 
     //------------------------------------------------------------------------------------------------------------------
-    return {
+    return useMemo(() => ({
         saveNode,
         blurNode,
-    };
+    }), [saveNode, blurNode]);
 }

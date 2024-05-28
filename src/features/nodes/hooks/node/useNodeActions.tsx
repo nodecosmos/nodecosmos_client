@@ -6,6 +6,7 @@ import useNodeEdit from './actions/useNodeEdit';
 import useNodeRestore from './actions/useNodeRestore';
 import useNodeSave from './actions/useNodeSave';
 import useNodeUndoDeletion from './actions/useNodeUndoDeletion';
+import { useMemo } from 'react';
 
 export default function useNodeActions() {
     const clickNode = useNodeClick();
@@ -23,7 +24,24 @@ export default function useNodeActions() {
     const restoreNode = useNodeRestore();
     const undoNodeDeletion = useNodeUndoDeletion();
 
-    return {
+    return useMemo(() => (
+        {
+            clickNode,
+            editNode,
+            addNode,
+            deleteNode,
+            saveNode,
+            blurNode,
+            startDrag,
+            stopDrag,
+            dragOver,
+            dragLeave,
+            dropCapture,
+            restoreNode,
+            undoNodeDeletion,
+        }
+    ),
+    [
         clickNode,
         editNode,
         addNode,
@@ -37,5 +55,5 @@ export default function useNodeActions() {
         dropCapture,
         restoreNode,
         undoNodeDeletion,
-    };
+    ]);
 }

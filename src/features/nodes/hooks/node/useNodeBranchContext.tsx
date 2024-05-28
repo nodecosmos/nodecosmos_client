@@ -30,12 +30,14 @@ export default function useNodeBranchContext(): BranchChanges {
     } = useMemo(() => {
         return branch ?? {};
     }, [branch]);
+
     const {
         deletedAncestors: deletedAncestorConflict,
         deletedEditedNodes,
     } = useMemo(() => {
         return conflict ?? {};
     }, [conflict]);
+
     return useMemo(() => {
         const isAncestorDeleted = (
             deletedNodes && ancestorIds?.some((ancestorId) => deletedNodes?.has(ancestorId))

@@ -7,9 +7,10 @@ export const INITIAL_ANIMATION_DURATION = 150; // ms
 export const ANIMATION_DELAY = 50; // ms - move down siblings first than extend current node
 export const TRANSITION_ANIMATION_DURATION = 150; // ms
 export const ANCESTOR_RADIUS = 5;
+export const STROKE_WIDTH = 3.5;
 
 // for virtualization
-export const CLIENT_VIEWPORT_BUFFER_FACTOR = 1;
+export const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
 
 export const SAVE_NODE_TIMEOUT = 500; // ms
 export const MIN_NODE_INPUT_SIZE = 3;
@@ -21,3 +22,4 @@ export const COMPACT_MARGIN_TOP = COMPACT_NODE_HEIGHT / 2;
 export const COMPACT_EDGE_LENGTH = 22;
 export const COMPACT_FONT_SIZE = 12;
 export const COMPACT_ANCESTOR_RADIUS = 4;
+export const COMPACT_STROKE_WIDTH = 3;

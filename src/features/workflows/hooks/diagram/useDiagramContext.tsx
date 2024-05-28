@@ -1,5 +1,5 @@
+import { useTransformableContext } from '../../../../common/hooks/useTransformableContext';
 import { UUID } from '../../../../types';
-import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { selectWorkflowDiagram } from '../../workflow.selectors';
 import useWorkflowContext from '../useWorkflowContext';
 import React, { useMemo } from 'react';
@@ -22,22 +22,14 @@ export function useDiagramContextCreator({ nodeId }: DiagramContextType) {
 
 export default function useDiagramContext() {
     const { nodeId } = React.useContext(DiagramContext);
-
-    const {
-        branchId, transformableId, scale,
-    } = useWorkflowContext();
-
+    const { branchId, scale } = useWorkflowContext();
     const {
         initialInputs,
         workflowSteps,
         outputsById,
         height: diagramHeight,
     } = useSelector(selectWorkflowDiagram(branchId, nodeId));
-
-    const clientHeight = useSelector(
-        selectTransformablePositionAttribute(transformableId, 'clientHeight'),
-    ) as number;
-
+    const { clientHeight } = useTransformableContext();
     let height = (diagramHeight || 0) > clientHeight ? diagramHeight : clientHeight;
 
     if (scale < 1) {

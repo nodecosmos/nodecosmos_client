@@ -20,7 +20,7 @@ const STYLE = {
 
 export default function NestedNodesBranch() {
     const theme: NodecosmosTheme = useTheme();
-    const { treeNodes } = useTreeContext();
+    const { treeNodes, size } = useTreeContext();
     const {
         lastChildId,
         isExpanded,
@@ -51,7 +51,7 @@ export default function NestedNodesBranch() {
             <path
                 stroke={theme.palette.tree.default}
                 fill="transparent"
-                strokeWidth={2}
+                strokeWidth={size.pathWidth}
                 d={pathD}
                 style={STYLE}
             />

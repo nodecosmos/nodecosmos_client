@@ -4,6 +4,7 @@ import useNodeDefaultColors from './colors/useNodeDefaultColors';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { TreeType } from '../../nodes.types';
 import useTreeContext from '../tree/useTreeContext';
+import { useMemo } from 'react';
 
 export default function useNodeColors() {
     const defaultColors = useNodeDefaultColors();
@@ -13,11 +14,13 @@ export default function useNodeColors() {
     const { isBranch } = useBranchContext();
     const { type: treeType } = useTreeContext();
 
-    if (treeType === TreeType.Checkbox) {
-        return checkboxColors;
-    } else if (treeType === TreeType.ContributionRequest || isBranch) {
-        return branchColors;
-    }
+    return useMemo(() => {
+        if (treeType === TreeType.Checkbox) {
+            return checkboxColors;
+        } else if (treeType === TreeType.ContributionRequest || isBranch) {
+            return branchColors;
+        }
 
-    return defaultColors;
+        return defaultColors;
+    }, [branchColors, checkboxColors, defaultColors, isBranch, treeType]);
 }

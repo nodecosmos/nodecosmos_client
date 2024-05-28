@@ -24,10 +24,15 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
     }, [dispatch, ancestorId]);
     const { size } = useTreeContext();
     const { isSelected } = useNodeContext();
+    const [hovered, hover, leave] = useBooleanStateValue();
+
+    if (!node) {
+        return null;
+    }
+
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
     const nestedTreeColor = backgrounds[node.nestedLevel % backgroundCount];
-    const [hovered, hover, leave] = useBooleanStateValue();
 
     return (
         <>
@@ -38,7 +43,7 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
                 onClick={handleCentering}
                 cx={node.x + size.edgeLength + MARGIN_LEFT}
                 cy={currentNodeY}
-                r={hovered ? size.ancestorRadius + 1 : (isSelected ? size.ancestorRadius : size.ancestorRadius - 1)}
+                r={hovered ? size.circleRadius + 1 : (isSelected ? size.circleRadius : size.circleRadius - 1)}
                 stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
                 strokeWidth={1}
                 fill={theme.palette.tree.default}

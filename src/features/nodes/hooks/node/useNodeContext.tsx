@@ -11,10 +11,10 @@ import { useSelector } from 'react-redux';
 const NodeContext = createContext<NodeProps>({} as NodeProps);
 
 export function useNodeContextCreator(contextProviderValue: NodeProps) {
-    return {
+    return useMemo(() => ({
         NodeContext,
         contextProviderValue,
-    };
+    }), [contextProviderValue]);
 }
 
 export default function useNodeContext() {
@@ -51,33 +51,39 @@ export default function useNodeContext() {
     } = useMemo(() => {
         return treeNodes[id] || {};
     }, [treeNodes, id]);
-    const isCurrentRoot = treeRootId === id;
 
-    return {
-        treeRootId,
-        isCurrentRoot,
-        branchId,
-        id,
-        rootId,
-        parentId,
-        persistedId,
-        ancestorIds,
-        lastChildId,
-        siblingIndex: siblingIndex as number,
-        title,
-        tmpId,
-        isRoot,
-        isTmp,
-        isAlreadyMounted,
-        isSelected,
-        isExpanded,
-        isEditing,
-        isDragOver,
-        isCreationInProgress,
-        nestedLevel,
-        x,
-        y,
-        xEnd,
-        yEnd,
-    };
+    return useMemo(() => (
+        {
+            treeRootId,
+            isCurrentRoot: treeRootId === id,
+            branchId,
+            id,
+            rootId,
+            parentId,
+            persistedId,
+            ancestorIds,
+            lastChildId,
+            siblingIndex: siblingIndex as number,
+            title,
+            tmpId,
+            isRoot,
+            isTmp,
+            isAlreadyMounted,
+            isSelected,
+            isExpanded,
+            isEditing,
+            isDragOver,
+            isCreationInProgress,
+            nestedLevel,
+            x,
+            y,
+            xEnd,
+            yEnd,
+        }
+    ),
+    [
+        ancestorIds, branchId, id, isAlreadyMounted, isCreationInProgress, isDragOver, isEditing,
+        isExpanded, isRoot, isSelected, isTmp, lastChildId, nestedLevel, parentId, persistedId, rootId, siblingIndex,
+        title, tmpId, treeRootId, x, xEnd, y, yEnd,
+    ]);
 }

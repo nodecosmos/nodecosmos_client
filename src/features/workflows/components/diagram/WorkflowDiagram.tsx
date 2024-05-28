@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function WorkflowDiagram() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        branchId, nodeId, initialInputIds, transformableId,
+        branchId, nodeId, initialInputIds,
     } = useWorkflowContext();
 
     const wfScale = useSelector(selectWorkflowScale);
@@ -48,11 +48,7 @@ export default function WorkflowDiagram() {
     if (!nodeId) return null;
 
     return (
-        <Transformable
-            transformableId={transformableId}
-            scale={wfScale}
-            heightMargin={-19}
-        >
+        <Transformable scale={wfScale} heightMargin={-19}>
             <DiagramContext.Provider value={contextProviderValue}>
                 <WorkflowStepCells />
                 <StartStep />

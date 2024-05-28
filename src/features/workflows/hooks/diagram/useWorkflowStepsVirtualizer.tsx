@@ -1,25 +1,17 @@
 import useDiagramContext from './useDiagramContext';
+import { useTransformableContext } from '../../../../common/hooks/useTransformableContext';
 import { Position } from '../../../../types';
-import { selectTransformablePositionAttribute } from '../../../app/app.selectors';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../../../nodes/nodes.constants';
 import { WorkflowStep } from '../../diagram/diagram.types';
 import { selectWorkflowScale } from '../../workflow.selectors';
-import useWorkflowContext from '../useWorkflowContext';
 import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 type VisibleWorkflowSteps = WorkflowStep[];
 
 export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
-    const { transformableId } = useWorkflowContext();
     const diagram = useDiagramContext();
-
-    const scrollLeft = useSelector(
-        selectTransformablePositionAttribute(transformableId, 'scrollLeft'),
-    ) as number;
-    const clientWidth = useSelector(
-        selectTransformablePositionAttribute(transformableId, 'clientWidth'),
-    ) as number;
+    const { scrollLeft, clientWidth } = useTransformableContext();
     const wfScale = useSelector(selectWorkflowScale);
 
     const isInsideViewport = useCallback((x: Position['x']) => {

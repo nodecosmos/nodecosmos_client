@@ -1,10 +1,10 @@
 import { selectObject } from './app.thunks';
 import {
-    AppState, Browser, Theme, TransformablePositions,
+    AppState, Browser, Theme,
 } from './app.types';
 import { deleteFlow } from '../flows/flows.thunks';
 import { deleteIo } from '../input-outputs/inputOutputs.thunks';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 function fnBrowserDetect() {
     const { userAgent } = navigator;
@@ -30,7 +30,6 @@ function getTheme() {
 
 const initialState: AppState = {
     theme: getTheme() || Theme.Dimmed,
-    transformablePositionsById: {},
     currentNodeId: null, // used for landing page
     browser: fnBrowserDetect(),
     alert: {
@@ -59,10 +58,6 @@ const appSlice = createSlice({
             state.isPaneOpen = action.payload;
         },
         setCurrentNode(state, action) { state.currentNodeId = action.payload; },
-
-        setTransformablePositions(state, action: PayloadAction<TransformablePositions>) {
-            state.transformablePositionsById[action.payload.id] = { ...action.payload };
-        },
         setAlert(state, action) {
             state.alert = {
                 ...state.alert,
@@ -94,7 +89,6 @@ export const {
     setIsPaneOpen,
     setCurrentNode,
     setHeaderContent,
-    setTransformablePositions,
     setAlert,
     setDescriptionCoordinates,
     clearSelectedObject,

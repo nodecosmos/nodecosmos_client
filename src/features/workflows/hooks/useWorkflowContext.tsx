@@ -68,14 +68,11 @@ export default function useWorkflowContext() {
     if (insidePane === undefined) {
         throw new Error('useWorkflowContext must be used within a WorkflowContext.Provider');
     }
-
     const {
         rootId,
         title,
         initialInputIds,
     } = useSelector(selectWorkflow(branchId, nodeId));
-
-    const transformableId = `WF_${insidePane}_${nodeId}`;
     const scale = useSelector(selectWorkflowScale);
 
     return {
@@ -85,7 +82,6 @@ export default function useWorkflowContext() {
         rootId,
         title,
         initialInputIds,
-        transformableId,
         scale,
         inputsAdditionActive,
         activateInputsAddition,

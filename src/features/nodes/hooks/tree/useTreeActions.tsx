@@ -7,7 +7,9 @@ import {
     collapseNodeAction, expandNodeAction, select,
 } from '../../nodes.actions';
 import { calculatePositions } from '../../utils/position';
-import { ChangeEvent, useCallback } from 'react';
+import {
+    ChangeEvent, useCallback, useMemo, 
+} from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useTreeActions() {
@@ -120,7 +122,7 @@ export default function useTreeActions() {
         }
     }, [isChecked, addId, deleteId]);
 
-    return {
+    return useMemo(() => ({
         selectNode,
         expandNode,
         expandNodes,
@@ -129,7 +131,7 @@ export default function useTreeActions() {
         deleteId,
         isChecked,
         handleCheckboxChange,
-    };
+    }), [addId, collapseNode, deleteId, expandNode, expandNodes, handleCheckboxChange, isChecked, selectNode]);
 }
 
 function mountDescendants(treeNodes: TreeNodes, node: TreeNode) {

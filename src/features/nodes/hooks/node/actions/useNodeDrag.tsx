@@ -5,7 +5,7 @@ import { selectDragAndDrop, selectSaveInProgress } from '../../../nodes.selector
 import useReorder from '../../tree/useReorder';
 import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeDrag() {
@@ -97,11 +97,11 @@ export default function useNodeDrag() {
     );
 
     //------------------------------------------------------------------------------------------------------------------
-    return {
+    return useMemo(() => ({
         startDrag,
         stopDrag,
         dragOver,
         dragLeave,
         dropCapture,
-    };
+    }), [startDrag, stopDrag, dragOver, dragLeave, dropCapture]);
 }

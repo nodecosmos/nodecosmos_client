@@ -1,7 +1,7 @@
-import { TransformablePositions } from '../features/app/app.types';
+import { TransformablePosition } from '../common/hooks/useTransformableContext';
 import { CLIENT_VIEWPORT_BUFFER_FACTOR } from '../features/nodes/nodes.constants';
 
-export function isYInViewport(y: number, transformablePosition: TransformablePositions) {
+export function isYInViewport(y: number, transformablePosition: TransformablePosition) {
     const {
         scrollTop,
         clientHeight,

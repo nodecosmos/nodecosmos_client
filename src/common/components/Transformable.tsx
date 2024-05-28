@@ -1,36 +1,34 @@
-import { selectTransformablePositionsById } from '../../features/app/app.selectors';
-import { setTransformablePositions } from '../../features/app/appSlice';
 import {
     TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_ID, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
+import { useTransformableContextCreator } from '../hooks/useTransformableContext';
 import { Box } from '@mui/material';
 import React, {
     useCallback,
     useEffect, useMemo, useRef, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 interface TransformableProps {
     children: React.ReactNode;
-    transformableId: string;
     scale?: number;
     heightMargin?: number;
 }
 
 export default function Transformable(props: TransformableProps) {
     const {
-        children, transformableId, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
+        children, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
     } = props;
     const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
-    const dispatch = useDispatch();
     const [dimensions, setDimensions] = useState({
         width: 0,
         height: 0,
     });
-    const position = useSelector(selectTransformablePositionsById(transformableId));
-    const { scrollTop } = useMemo(() => position ?? {}, [position]);
+    const {
+        TransformableContext, ctxValue, setTransformablePositions, 
+    } = useTransformableContextCreator();
+    const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -61,7 +59,8 @@ export default function Transformable(props: TransformableProps) {
                 resizeObserver.unobserve(gEl);
             }
         };
-    }, [dimensions, heightMargin]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     //------------------------------------------------------------------------------------------------
     const { onMouseDown } = usePannable(containerRef);
@@ -71,27 +70,25 @@ export default function Transformable(props: TransformableProps) {
         requestAnimationFrame(() => {
             if (!containerRef.current) return;
 
-            dispatch(setTransformablePositions({
-                id: transformableId,
+            setTransformablePositions({
                 clientHeight: containerRef.current.clientHeight,
                 clientWidth: containerRef.current.clientWidth,
                 scrollTop: containerRef.current.scrollTop,
                 scrollLeft: containerRef.current.scrollLeft,
-            }));
+            });
         });
-    }), [dispatch, transformableId]);
+    }), [setTransformablePositions]);
 
     useEffect(() => {
         if (containerRef.current) {
-            dispatch(setTransformablePositions({
-                id: transformableId,
+            setTransformablePositions({
                 clientHeight: containerRef.current.clientHeight,
                 clientWidth: containerRef.current.clientWidth,
                 scrollTop: containerRef.current.scrollTop,
                 scrollLeft: containerRef.current.scrollLeft,
-            }));
+            });
         }
-    }, [dispatch, transformableId]);
+    }, [setTransformablePositions]);
 
     // used by breadcrumbs
     useEffect(() => {
@@ -109,52 +106,53 @@ export default function Transformable(props: TransformableProps) {
 
             resizeTimeout.current = setTimeout(() => {
                 if (!clientHeight) return;
-                dispatch(setTransformablePositions({
-                    id: transformableId,
+                setTransformablePositions({
                     clientHeight: containerRef.current.clientHeight,
                     clientWidth: containerRef.current.clientWidth,
                     scrollTop: containerRef.current.scrollTop,
                     scrollLeft: containerRef.current.scrollLeft,
-                }));
+                });
             }, 100);
         };
 
         return () => {
             window.onresize = null;
         };
-    }, [dispatch, transformableId, clientHeight]);
+    }, [clientHeight, setTransformablePositions]);
 
     //------------------------------------------------------------------------------------------------
     return (
-        <div
-            className="Transformable"
-            id={TRANSFORMABLE_ID}
-            ref={containerRef}
-            onMouseDown={onMouseDown}
-            onScroll={handleScroll}
-        >
-            <Box
-                sx={{
-                    transformOrigin: 'top left',
-                    width: 1,
-                    height: 1,
-                }}
-                style={{
-                    transform: `scale(${scale})`,
-                    transition: 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                }}
+        <TransformableContext.Provider value={ctxValue}>
+            <div
+                className="Transformable"
+                id={TRANSFORMABLE_ID}
+                ref={containerRef}
+                onMouseDown={onMouseDown}
+                onScroll={handleScroll}
             >
-                <svg
-                    className="TransformableSVG"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={dimensions.width}
-                    height={dimensions.height}
+                <Box
+                    sx={{
+                        transformOrigin: 'top left',
+                        width: 1,
+                        height: 1,
+                    }}
+                    style={{
+                        transform: `scale(${scale})`,
+                        transition: 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+                    }}
                 >
-                    <g ref={gRef}>
-                        {children}
-                    </g>
-                </svg>
-            </Box>
-        </div>
+                    <svg
+                        className="TransformableSVG"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={dimensions.width}
+                        height={dimensions.height}
+                    >
+                        <g ref={gRef}>
+                            {children}
+                        </g>
+                    </svg>
+                </Box>
+            </div>
+        </TransformableContext.Provider>
     );
 }

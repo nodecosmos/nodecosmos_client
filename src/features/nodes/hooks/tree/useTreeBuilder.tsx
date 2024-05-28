@@ -10,7 +10,7 @@ import {
 import { TreeType } from '../../nodes.types';
 import { calculatePosition } from '../../utils/position';
 import {
-    useCallback, useEffect, useState,
+    useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -183,10 +183,10 @@ export default function useTreeBuilder(props: Props): Tree {
         }));
     }, []);
 
-    return {
+    return useMemo(() => ({
         treeNodes: treeState.treeNodes,
         orderedTreeNodeIds: treeState.orderedTreeNodeIds,
         setTreeNodes,
         buildTree,
-    };
+    }), [treeState, setTreeNodes, buildTree]);
 }

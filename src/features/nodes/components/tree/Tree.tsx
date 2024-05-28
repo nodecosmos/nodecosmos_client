@@ -41,7 +41,7 @@ function Tree(props: TreeProps) {
                 <Alert />
                 <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
                     {isTreeLoading ? <OverlayLoader /> : null}
-                    <Transformable transformableId={branchId} scale={treeScale}>
+                    <Transformable scale={treeScale}>
                         <TreeNodes />
                     </Transformable>
                 </Box>

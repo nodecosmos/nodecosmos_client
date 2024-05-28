@@ -5,11 +5,11 @@ import {
     ANCESTOR_RADIUS, COMPACT_ANCESTOR_RADIUS,
     COMPACT_EDGE_LENGTH, COMPACT_FONT_SIZE,
     COMPACT_MARGIN_TOP,
-    COMPACT_NODE_HEIGHT,
+    COMPACT_NODE_HEIGHT, COMPACT_STROKE_WIDTH,
     EDGE_LENGTH,
     FONT_SIZE,
     MARGIN_TOP,
-    NODE_BUTTON_HEIGHT,
+    NODE_BUTTON_HEIGHT, STROKE_WIDTH,
 } from '../../nodes.constants';
 import { selectDensity, selectShowAncestorChain } from '../../nodes.selectors';
 import { TreeDensity, TreeType } from '../../nodes.types';
@@ -24,7 +24,8 @@ export interface NodeSize {
     edgeLength: number;
     fontSize: number;
     yLength: number;
-    ancestorRadius: number;
+    pathWidth: number;
+    circleRadius: number;
 }
 
 interface TreeContextValue extends TreeProps {
@@ -71,7 +72,8 @@ const NODE_SIZE = {
         edgeLength: EDGE_LENGTH,
         fontSize: FONT_SIZE,
         yLength: EDGE_LENGTH + MARGIN_TOP,
-        ancestorRadius: ANCESTOR_RADIUS,
+        pathWidth: STROKE_WIDTH,
+        circleRadius: ANCESTOR_RADIUS,
     },
     [TreeDensity.Compact]: {
         height: COMPACT_NODE_HEIGHT,
@@ -79,7 +81,8 @@ const NODE_SIZE = {
         edgeLength: COMPACT_EDGE_LENGTH,
         fontSize: COMPACT_FONT_SIZE,
         yLength: COMPACT_EDGE_LENGTH + COMPACT_MARGIN_TOP,
-        ancestorRadius: COMPACT_ANCESTOR_RADIUS,
+        pathWidth: COMPACT_STROKE_WIDTH,
+        circleRadius: COMPACT_ANCESTOR_RADIUS,
     },
 };
 

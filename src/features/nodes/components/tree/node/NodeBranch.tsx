@@ -72,7 +72,7 @@ export default function NodeBranch() {
     return (
         <g>
             <path
-                strokeWidth={3}
+                strokeWidth={size.pathWidth}
                 d={pathD}
                 stroke={theme.palette.tree.default}
                 fill="transparent"
@@ -81,7 +81,7 @@ export default function NodeBranch() {
             <circle
                 cx={x}
                 cy={y}
-                r={size.ancestorRadius}
+                r={size.circleRadius}
                 fill={theme.palette.tree.default}
                 stroke={parentColor}
                 style={circleStyle}
