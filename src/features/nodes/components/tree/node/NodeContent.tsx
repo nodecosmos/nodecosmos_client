@@ -37,10 +37,7 @@ function NodeContent() {
 
         return {
             opacity: 0,
-            animation: `node-button-appear 
-                            ${initialAnimationDuration}ms
-                            ${initialAnimationDelay}ms 
-                            forwards`,
+            animation: `node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
         };
     }, [isAlreadyMounted, isRoot]);
 

@@ -17,9 +17,7 @@ export default function NodeBranch() {
     const {
         isRoot, x, xEnd, y, isAlreadyMounted, isSelected,
     } = useNodeContext();
-
     const { parentColor } = useNodeColors();
-
     const pathStyle = useMemo(() => {
         const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
         const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
@@ -31,7 +29,6 @@ export default function NodeBranch() {
             transition: `d ${transitionAnimationDuration}ms`,
         };
     }, [isAlreadyMounted]);
-
     const circleStyle = useMemo(() => {
         const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
         const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
@@ -43,7 +40,6 @@ export default function NodeBranch() {
             transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
         };
     }, [isAlreadyMounted]);
-
     const pathD = useMemo(() => {
         const pathX = showAncestorChain && isSelected ? size.edgeLength * 2 + MARGIN_LEFT : x;
 
@@ -53,7 +49,6 @@ export default function NodeBranch() {
                   ${xEnd} ${y}
                 L ${xEnd} ${y}`;
     }, [isSelected, showAncestorChain, size.edgeLength, x, xEnd, y]);
-
     const rootPathD = useMemo(() => {
         return `M ${x} ${y} L ${xEnd} ${y}`;
     }, [x, xEnd, y]);

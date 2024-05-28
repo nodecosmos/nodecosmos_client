@@ -5,7 +5,7 @@ import useTreeEvents from '../../hooks/tree/useTreeEvents';
 import useTreeVirtualizer from '../../hooks/tree/useTreeVirtualizer';
 import React from 'react';
 
-export default function TreeNodes() {
+function TreeNodes() {
     const { branchId } = useTreeContext();
     const visibleNodes = useTreeVirtualizer();
 
@@ -29,3 +29,5 @@ export default function TreeNodes() {
         </g>
     );
 }
+
+export default React.memo(TreeNodes);

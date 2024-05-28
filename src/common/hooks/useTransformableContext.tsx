@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 
-interface TransformableContextVal {
+export interface TransformableContextVal {
     clientHeight: number;
     clientWidth: number;
     scrollTop: number;

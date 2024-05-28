@@ -58,18 +58,21 @@ function NodeButton() {
         theme.palette.tree.dragInIndicator,
     ]);
     const divStyle = useMemo(() => ({ fontSize }), [fontSize]);
+    const className = useMemo(() => {
+        return `NodeButton ${isSelected && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`;
+    }, [isSelected, outlinedColored, isDragOver]);
 
     return (
         <button
             draggable
+            type="button"
             onMouseDown={stopPropagation} // prevents pannable from firing
             onDragStart={startDrag}
             onDragEnd={stopDrag}
             onDragOver={dragOver}
             onDragLeave={dragLeave}
             onDropCapture={dropCapture}
-            type="button"
-            className={`NodeButton ${isSelected && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`}
+            className={className}
             onClick={clickNode}
             onKeyUp={preventDefault}
             style={buttonStyle}

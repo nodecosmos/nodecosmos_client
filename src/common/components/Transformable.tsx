@@ -3,7 +3,6 @@ import {
 } from '../../features/app/constants';
 import usePannable from '../hooks/usePannable';
 import { useTransformableContextCreator } from '../hooks/useTransformableContext';
-import { Box } from '@mui/material';
 import React, {
     useCallback,
     useEffect, useMemo, useRef, useState,
@@ -26,7 +25,7 @@ export default function Transformable(props: TransformableProps) {
         height: 0,
     });
     const {
-        TransformableContext, ctxValue, setTransformablePositions, 
+        TransformableContext, ctxValue, setTransformablePositions,
     } = useTransformableContextCreator();
     const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
 
@@ -120,6 +119,8 @@ export default function Transformable(props: TransformableProps) {
         };
     }, [clientHeight, setTransformablePositions]);
 
+    const containerStyle = useMemo(() => ({ transform: `scale(${scale})` }), [scale]);
+
     //------------------------------------------------------------------------------------------------
     return (
         <TransformableContext.Provider value={ctxValue}>
@@ -130,17 +131,7 @@ export default function Transformable(props: TransformableProps) {
                 onMouseDown={onMouseDown}
                 onScroll={handleScroll}
             >
-                <Box
-                    sx={{
-                        transformOrigin: 'top left',
-                        width: 1,
-                        height: 1,
-                    }}
-                    style={{
-                        transform: `scale(${scale})`,
-                        transition: 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                    }}
-                >
+                <div style={containerStyle} className="TransformableContainer">
                     <svg
                         className="TransformableSVG"
                         xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +142,7 @@ export default function Transformable(props: TransformableProps) {
                             {children}
                         </g>
                     </svg>
-                </Box>
+                </div>
             </div>
         </TransformableContext.Provider>
     );
