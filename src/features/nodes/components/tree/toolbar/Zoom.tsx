@@ -30,8 +30,8 @@ export default function Zoom() {
     }, [dispatch, treeScale]);
 
     return (
-        <Box>
-            <ToolsContainer>
+        <Box component="div" flex={1}>
+            <ToolsContainer justifyContent="center">
                 <Tooltip title="Zoom in" placement="top">
                     <IconButton
                         className="Item"

@@ -50,7 +50,7 @@ export default function NodeBranch() {
                 L ${xEnd} ${y}`;
     }, [isSelected, showAncestorChain, size.edgeLength, x, xEnd, y]);
     const rootPathD = useMemo(() => {
-        return `M ${x} ${y} L ${xEnd} ${y}`;
+        return `M ${x + 4} ${y} L ${xEnd} ${y}`;
     }, [x, xEnd, y]);
 
     if (!x) { return null; }

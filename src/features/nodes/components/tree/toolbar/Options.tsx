@@ -38,7 +38,7 @@ export default function Options() {
     console.log(showAncestorChain);
 
     return (
-        <Box component="div" flex={1} textAlign="end">
+        <Box component="div" textAlign="end">
             <Tooltip title="Tree Options" placement="top">
                 <IconButton
                     className="Item"
