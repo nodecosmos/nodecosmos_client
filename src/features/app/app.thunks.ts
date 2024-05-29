@@ -16,7 +16,7 @@ export const selectObject = createAsyncThunk<
             let objectTitle, originalObjectTitle;
             const branch = state.branches.byId[payload.branchId];
 
-            if (branch && branch.status === BranchStatus.Merged && branch.titleChangeByObject[payload.objectId]) {
+            if (branch && branch.status === BranchStatus.Merged && branch.titleChangeByObject?.[payload.objectId]) {
                 objectTitle = branch.titleChangeByObject[payload.objectId].new;
                 originalObjectTitle = branch.titleChangeByObject[payload.objectId].old;
             } else {

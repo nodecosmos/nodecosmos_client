@@ -16,9 +16,9 @@ export default function InsertCommentPlaceholder({ onClick }: InsertCommentPlace
                 height: 40,
                 justifyContent: 'start',
                 color: 'text.tertiary',
-                backgroundColor: 'background.2',
+                backgroundColor: 'background.3',
                 borderRadius: 0,
-                '&:hover': { backgroundColor: 'background.3' },
+                '&:hover': { backgroundColor: 'background.4' },
             }}>
             Reply...
         </Button>
