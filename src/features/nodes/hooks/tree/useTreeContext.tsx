@@ -1,3 +1,4 @@
+import useTreeActions from './useTreeActions';
 import useTreeBuilder from './useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
@@ -28,7 +29,7 @@ export interface NodeSize {
     circleRadius: number;
 }
 
-interface TreeContextValue extends TreeProps {
+export interface TreeContextValue extends TreeProps {
     selectedNodeIds: Set<UUID>;
     treeNodes: TreeNodes;
     orderedTreeNodeIds: UUID[];
@@ -144,5 +145,11 @@ export function useTreeContextCreator(props: TreeProps) {
 }
 
 export default function useTreeContext() {
-    return useContext(TreeContext);
+    const ctx = useContext(TreeContext);
+    const actions = useTreeActions(ctx);
+
+    return useMemo(() => ({
+        ...ctx,
+        ...actions,
+    }), [actions, ctx]);
 }

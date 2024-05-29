@@ -35,7 +35,6 @@ export default function Options() {
     const handleShowAncestorChainChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setShowAncestorChain(event.target.checked));
     }, [dispatch]);
-    console.log(showAncestorChain);
 
     return (
         <Box component="div" textAlign="end">

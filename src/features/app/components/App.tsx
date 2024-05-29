@@ -24,6 +24,7 @@ import { syncUpCurrentUser } from '../../users/users.thunks';
 import { selectTheme } from '../app.selectors';
 import { setAlert } from '../appSlice';
 import { HEADER_HEIGHT } from '../constants';
+import { useAppContextCreator } from '../hooks/useAppContext';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
@@ -66,62 +67,69 @@ export default function App() {
         }
     }, [currentUser, dispatch]);
 
+    const {
+        AppContext,
+        ctxValue,
+    } = useAppContextCreator();
+
     return (
-        <ThemeProvider theme={getTheme(currentTheme)}>
-            <CssBaseline />
-            <Box component="div" height={1} sx={{ backgroundColor: 'background.2' }}>
-                <Header />
-                <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-                    <Routes>
-                        <Route
-                            path="/auth"
-                            element={isAuthenticated
-                                ? <Navigate to={`/${currentUser?.username}`} /> : <UserAuthentication />}
-                        >
-                            <Route path="login" element={<LoginForm />} />
-                            <Route path="signup" element={<SignupForm />} />
-                        </Route>
-                        <Route path="404" element={<NotFound />} />
+        <AppContext.Provider value={ctxValue}>
+            <ThemeProvider theme={getTheme(currentTheme)}>
+                <CssBaseline />
+                <Box component="div" height={1} sx={{ backgroundColor: 'background.2' }}>
+                    <Header />
+                    <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                        <Routes>
+                            <Route
+                                path="/auth"
+                                element={isAuthenticated
+                                    ? <Navigate to={`/${currentUser?.username}`} /> : <UserAuthentication />}
+                            >
+                                <Route path="login" element={<LoginForm />} />
+                                <Route path="signup" element={<SignupForm />} />
+                            </Route>
+                            <Route path="404" element={<NotFound />} />
 
-                        <Route path="reset_password" element={<ResetPassword />} />
-                        <Route path=":username" element={<UserShow />} />
-                        <Route path="/nodes" element={(<NodesIndex />)} />
-                        <Route path="/nodes" element={<NodeShow />}>
-                            <Route path=":originalId/:id" element={<TreeShow />} />
+                            <Route path="reset_password" element={<ResetPassword />} />
+                            <Route path=":username" element={<UserShow />} />
+                            <Route path="/nodes" element={(<NodesIndex />)} />
+                            <Route path="/nodes" element={<NodeShow />}>
+                                <Route path=":originalId/:id" element={<TreeShow />} />
 
-                            <Route path=":originalId/:id">
-                                {/*Workflows*/}
-                                <Route path="workflow" element={<WorkflowShow />} />
+                                <Route path=":originalId/:id">
+                                    {/*Workflows*/}
+                                    <Route path="workflow" element={<WorkflowShow />} />
 
-                                {/*Contribution Requests*/}
-                                <Route path="contribution_requests" element={<ContributionRequestIndex />} />
-                                <Route path="contribution_requests">
-                                    <Route path=":branchId" element={<ContributionRequestShow />}>
-                                        <Route path="" element={<ContributionRequestConversation />}>
-                                            <Route path="" element={<MainThread />} />
-                                            <Route path="activity" element={<Activity />} />
+                                    {/*Contribution Requests*/}
+                                    <Route path="contribution_requests" element={<ContributionRequestIndex />} />
+                                    <Route path="contribution_requests">
+                                        <Route path=":branchId" element={<ContributionRequestShow />}>
+                                            <Route path="" element={<ContributionRequestConversation />}>
+                                                <Route path="" element={<MainThread />} />
+                                                <Route path="activity" element={<Activity />} />
+                                            </Route>
+                                            <Route path="tree" element={<ContributionRequestTree />} />
+                                            <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                                            <Route path="commits" element={<ContributionRequestCommits />} />
                                         </Route>
-                                        <Route path="tree" element={<ContributionRequestTree />} />
-                                        <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                                        <Route path="commits" element={<ContributionRequestCommits />} />
                                     </Route>
+
+                                    {/*Topics*/}
+                                    <Route path="topics" element={<div />} />
+
+                                    {/*Tasks*/}
+                                    <Route path="tasks_board" element={<div />} />
+
+                                    {/*Settings*/}
+                                    <Route path="settings" element={<div />} />
                                 </Route>
 
-                                {/*Topics*/}
-                                <Route path="topics" element={<div />} />
-
-                                {/*Tasks*/}
-                                <Route path="tasks_board" element={<div />} />
-
-                                {/*Settings*/}
-                                <Route path="settings" element={<div />} />
                             </Route>
+                        </Routes>
+                    </Box>
 
-                        </Route>
-                    </Routes>
                 </Box>
-
-            </Box>
-        </ThemeProvider>
+            </ThemeProvider>
+        </AppContext.Provider>
     );
 }

@@ -14,7 +14,7 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function useNodeSave() {
+export default function useNodeSave(): [(event: ChangeEvent<HTMLInputElement>) => void, () => void] {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
         isTmp,
@@ -130,11 +130,15 @@ export default function useNodeSave() {
 
     useEffect(() => {
         if (shouldReplaceTmpNode && isTmp && persistedId) {
+            console.log('hit shouldReplaceTmpNode');
+
             // Replace tmp node with persisted node within redux store
             dispatch(replaceTmpNodeWithPersisted({
                 branchId,
                 tmpId: id,
             }));
+
+            setShouldReplaceTmpNode(false);
         }
     }, [dispatch, id, isTmp, persistedId, shouldReplaceTmpNode, branchId]);
 
@@ -147,8 +151,5 @@ export default function useNodeSave() {
     }, [dispatch, persistedId]);
 
     //------------------------------------------------------------------------------------------------------------------
-    return useMemo(() => ({
-        saveNode,
-        blurNode,
-    }), [saveNode, blurNode]);
+    return useMemo(() => [saveNode, blurNode], [saveNode, blurNode]);
 }

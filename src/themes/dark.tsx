@@ -51,6 +51,16 @@ const theme: NodecosmosTheme = {
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
+        warning: {
+            main: '#f5a623',
+            contrastText: 'rgba(0, 0, 0, 0.7)',
+        },
+
+        info: {
+            main: '#459ef8',
+            contrastText: 'rgba(0, 0, 0, 0.7)',
+        },
+
         toggle: {
             main: '#32373e',
             contrastText: '#fff',
@@ -68,11 +78,6 @@ const theme: NodecosmosTheme = {
 
         merge: {
             main: '#c187ff',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
-        },
-
-        info: {
-            main: '#459ef8',
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
@@ -236,6 +241,10 @@ const theme: NodecosmosTheme = {
             sectionPrimary: '#9acb75',
             sectionSecondary: '#afbcef',
             link: '#4892d7',
+            success: '#cce8cd',
+            info: '#b8e7fb',
+            warning: '#ffe2b7',
+            error: '#f4c7c7',
             gradients: {
                 1: {
                     xs: 'linear-gradient(90deg, #a987df, #df78ba, #df4581)',

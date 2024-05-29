@@ -72,7 +72,6 @@ export function replaceTmpNodeWithPersisted(state: NodeState, action: PayloadAct
         const parentId = tmpNode.parentId;
         const parentChildIds = state.childIds[branchId][parentId];
         const siblingIndex = parentChildIds.indexOf(tmpId);
-
         parentChildIds.splice(siblingIndex, 1, persistedId);
         state.byBranchId[branchId][parentId].childIds = parentChildIds;
 

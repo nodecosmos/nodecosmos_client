@@ -9,7 +9,7 @@ import { selectBranchChildIds, selectDragAndDrop } from '../../nodes.selectors';
 import { reorder } from '../../nodes.thunks';
 import { DragAndDrop } from '../../nodes.types';
 import {
-    useCallback, useMemo, useState, 
+    useCallback, useMemo, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,12 +20,12 @@ export interface NodeDropCaptureParams {
 }
 
 export default function useReorder() {
-    const dragAndDrop = useSelector(selectDragAndDrop) as DragAndDrop;
+    const dragAndDrop = useSelector(selectDragAndDrop);
     const oldParentId = dragAndDrop?.parentId;
     const { branchId, isBranch } = useBranchContext();
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, id } = useMemo(() => {
-        return dragAndDrop || {};
+        return dragAndDrop || {} as DragAndDrop;
     }, [dragAndDrop]);
     const [reorderInProgress, setReorderInProgress] = useState(false);
     const handleServerError = useHandleServerErrorAlert();
@@ -51,6 +51,10 @@ export default function useReorder() {
         if (childIdsByParentId) {
             newUpperSiblingId = childIdsByParentId[newParentId][newSiblingIndex - 1];
             newLowerSiblingId = childIdsByParentId[newParentId][newSiblingIndex];
+        }
+
+        if (!oldParentId) {
+            throw new Error('oldParentId is not defined');
         }
 
         const response = await dispatch(reorder({

@@ -4,13 +4,11 @@ import { withOpacity } from '../../../../../utils/colors';
 import useNodeBranchContext from '../useNodeBranchContext';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 
 export default function useNodeBranchColors() {
     const { isSelected, nestedLevel } = useNodeContext();
-    const {
-        isCreated, isDeleted, isEdited, isOriginalDeleted, isReordered, isDescriptionEdited,
-    } = useNodeBranchContext();
+    const branchCtx = useNodeBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const { backgrounds } = theme.palette.tree;
     const backgroundCount = backgrounds.length;
@@ -18,7 +16,26 @@ export default function useNodeBranchColors() {
     const { defaultBorder } = theme.palette.tree;
     const diffColors = useDiffColors();
 
-    return useMemo(() => {
+    return useCallback(() => {
+        if (!branchCtx) return {
+            backgroundColor: theme.palette.tree.default,
+            outlineColor: defaultBorder,
+            color: theme.palette.tree.defaultText,
+            parentColor: theme.palette.workflow.defaultInputColor,
+            parentBg: theme.palette.workflow.defaultInputColor,
+            isSelected: false,
+            outlinedColored: false,
+            nestedTreeColor,
+        };
+
+        const {
+            isCreated,
+            isDeleted,
+            isEdited,
+            isOriginalDeleted,
+            isReordered,
+            isDescriptionEdited,
+        } = branchCtx;
         const backgroundColor = isSelected ? withOpacity(nestedTreeColor, 0.8) : theme.palette.tree.default;
         const outlineColor = defaultBorder;
         const color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
@@ -54,10 +71,5 @@ export default function useNodeBranchColors() {
             outlinedColored,
             nestedTreeColor,
         };
-    },
-    [
-        isCreated, isDeleted, isOriginalDeleted, isSelected, isReordered, isDescriptionEdited, isEdited,
-        defaultBorder, nestedTreeColor, theme.palette, diffColors,
-    ],
-    );
+    }, [isSelected, defaultBorder, nestedTreeColor, theme, diffColors, branchCtx]);
 }

@@ -13,7 +13,6 @@ export default function ConflictToolbar() {
         isExpanded,
         isSelected,
     } = useNodeContext();
-    const showToolbar = isExpanded && isSelected;
 
     return (
         <div className="NodeToolbar">
@@ -27,7 +26,7 @@ export default function ConflictToolbar() {
                     label="Conflict"
                 />
             </Tooltip>
-            {showToolbar && (
+            {isExpanded && isSelected && (
                 <>
                     <Tooltip title="Delete Node and it's descendants" placement="top">
                         <ButtonBase

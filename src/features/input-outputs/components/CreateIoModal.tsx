@@ -9,7 +9,9 @@ import useIoSubmitHandler from '../hooks/useIoSubmitHandler';
 import { selectUniqueIoByRootId } from '../inputOutputs.selectors';
 import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputAdornment, DialogContent } from '@mui/material';
+import {
+    InputAdornment, DialogContent, Typography, Alert as MuiAlert,
+} from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
@@ -68,6 +70,16 @@ export default function CreateIoModal(props: CreateIoModalProps) {
         </li>
     ), []);
 
+    let description = '';
+
+    if (associatedObject === IoObjectType.startStep) {
+        description = `Initial inputs are used to start the workflow. 
+                       They are the first inputs that are passed into the workflow.`;
+    } else {
+        description = `Each node can have multiple outputs. Outputs can be used as inputs for
+                       nodes on either next step or previous steps as feedback loop.`;
+    }
+
     return (
         <DefaultModal open={open} onClose={onClose}>
             <DialogTitle>
@@ -98,6 +110,19 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                                 placeholder="IO Title"
                                 setAutocompleteValue={setAutocompleteValue}
                             />
+                            <MuiAlert
+                                severity="info"
+                                variant="outlined"
+                                sx={{
+                                    borderRadius: 0.5,
+                                    width: 'calc(100% - 1px)',
+                                    border: 0,
+                                    mt: 2,
+                                    backgroundColor: 'background.1',
+                                }}
+                            >
+                                <Typography variant="body2" color="text.info"> {description} </Typography>
+                            </MuiAlert>
 
                             <DefaultFormButton loading={loading} />
                         </form>

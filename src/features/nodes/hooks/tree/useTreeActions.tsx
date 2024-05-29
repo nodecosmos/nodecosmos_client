@@ -1,24 +1,26 @@
-import useTreeContext, { TreeNode, TreeNodes } from './useTreeContext';
+import {
+    TreeContextValue, TreeNode, TreeNodes,
+} from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
-import useSelectObject from '../../../app/hooks/useSelectObject';
+import useAppContext from '../../../app/hooks/useAppContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     collapseNodeAction, expandNodeAction, select,
 } from '../../nodes.actions';
 import { calculatePositions } from '../../utils/position';
 import {
-    ChangeEvent, useCallback, useMemo, 
+    ChangeEvent, useCallback, useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-export default function useTreeActions() {
+export default function useTreeActions(ctx: TreeContextValue) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { branchId, originalId } = useBranchContext();
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes, size,
-    } = useTreeContext();
-    const selectObject = useSelectObject();
+    } = ctx;
+    const { selectObject } = useAppContext();
     const selectNode = useCallback((id: UUID) => {
         dispatch(select({
             branchId,

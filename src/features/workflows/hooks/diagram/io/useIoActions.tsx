@@ -2,7 +2,7 @@ import useIoContext, { IoContext } from './useIoContext';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
-import useSelectObject from '../../../../app/hooks/useSelectObject';
+import useAppContext from '../../../../app/hooks/useAppContext';
 import { undoDeleteIo } from '../../../../branch/branches.thunks';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { deleteIo, updateIoTitle } from '../../../../input-outputs/inputOutputs.thunks';
@@ -30,7 +30,7 @@ export default function useIoActions() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleInputsChange = useInputsChange();
     const isChecked = selectedInputs.has(id);
-    const selectObject = useSelectObject();
+    const { selectObject } = useAppContext();
 
     const handleIoClick = useCallback(async () => {
         if (inputsAdditionActive) {

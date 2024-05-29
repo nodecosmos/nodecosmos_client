@@ -16,11 +16,11 @@ export default function useNodeColors() {
 
     return useMemo(() => {
         if (treeType === TreeType.Checkbox) {
-            return checkboxColors;
+            return checkboxColors();
         } else if (treeType === TreeType.ContributionRequest || isBranch) {
-            return branchColors;
+            return branchColors();
         }
 
-        return defaultColors;
+        return defaultColors();
     }, [branchColors, checkboxColors, defaultColors, isBranch, treeType]);
 }

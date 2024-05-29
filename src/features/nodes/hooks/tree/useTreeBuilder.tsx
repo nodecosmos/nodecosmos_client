@@ -102,7 +102,6 @@ export default function useTreeBuilder(props: Props): Tree {
                 || isTreeRoot
                 || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false)
                 || expandedNodes.has(currentId);
-            orderedTreeNodeIds.push(currentId);
             const childIds = (branchChildIds && branchChildIds[currentId]) || [];
 
             let isParentExpanded = false;
@@ -143,6 +142,7 @@ export default function useTreeBuilder(props: Props): Tree {
                 yEnd: 0,
             };
 
+            orderedTreeNodeIds.push(currentId);
             treeNodes[currentId] = treeNode;
             calculatePosition(treeNodes, treeNode, size);
 

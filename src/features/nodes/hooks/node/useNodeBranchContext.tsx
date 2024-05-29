@@ -1,5 +1,6 @@
 import useNodeContext from './useNodeContext';
 import { selectBranch, selectConflict } from '../../../branch/branches.selectors';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +15,8 @@ export interface BranchChanges {
     isEdited: boolean;
 }
 
-export default function useNodeBranchContext(): BranchChanges {
+export default function useNodeBranchContext(): BranchChanges | null {
+    const { isBranch } = useBranchContext();
     const {
         branchId, id, ancestorIds,
     } = useNodeContext();
@@ -39,6 +41,8 @@ export default function useNodeBranchContext(): BranchChanges {
     }, [conflict]);
 
     return useMemo(() => {
+        if (!isBranch) return null;
+
         const isAncestorDeleted = (
             deletedNodes && ancestorIds?.some((ancestorId) => deletedNodes?.has(ancestorId))
         ) ?? false;
@@ -59,6 +63,7 @@ export default function useNodeBranchContext(): BranchChanges {
             isEdited: editedNodes?.has(id) ?? false,
         };
     }, [
+        isBranch,
         ancestorIds,
         createdNodes,
         deletedAncestorConflict,

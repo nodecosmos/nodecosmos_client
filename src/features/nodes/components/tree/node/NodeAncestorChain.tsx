@@ -6,7 +6,7 @@ import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { setNodeScrollTo } from '../../../nodes.actions';
 import { MARGIN_LEFT } from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface NodeAncestorProps {
@@ -25,32 +25,35 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
     const { size } = useTreeContext();
     const { isSelected } = useNodeContext();
     const [hovered, hover, leave] = useBooleanStateValue();
+    const { backgrounds } = theme.palette.tree;
+    const nestedTreeColor = useMemo(() => {
+        if (!node) return;
 
-    if (!node) {
+        const backgroundCount = backgrounds.length;
+        return backgrounds[node.nestedLevel % backgroundCount];
+    }, [backgrounds, node]);
+
+    if (!node || !nestedTreeColor) {
         return null;
     }
 
-    const { backgrounds } = theme.palette.tree;
-    const backgroundCount = backgrounds.length;
-    const nestedTreeColor = backgrounds[node.nestedLevel % backgroundCount];
-
     return (
-        <>
-            <circle
-                className="NodeAncestorCircle"
-                onMouseEnter={hover}
-                onMouseLeave={leave}
-                onClick={handleCentering}
-                cx={node.x + size.edgeLength + MARGIN_LEFT}
-                cy={currentNodeY}
-                r={hovered ? size.circleRadius + 1 : (isSelected ? size.circleRadius : size.circleRadius - 1)}
-                stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
-                strokeWidth={1}
-                fill={theme.palette.tree.default}
-            />
-        </>
+        <circle
+            className="NodeAncestorCircle"
+            onMouseEnter={hover}
+            onMouseLeave={leave}
+            onClick={handleCentering}
+            cx={node.x + size.edgeLength + MARGIN_LEFT}
+            cy={currentNodeY}
+            r={hovered ? size.circleRadius + 1 : (isSelected ? size.circleRadius : size.circleRadius - 1)}
+            stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
+            strokeWidth={1}
+            fill={theme.palette.tree.default}
+        />
     );
 }
+
+const Ancestor = React.memo(NodeAncestor);
 
 export default function NodeAncestorChain() {
     const { showAncestorChain } = useTreeContext();
@@ -61,6 +64,6 @@ export default function NodeAncestorChain() {
     }
 
     return ancestorIds.map((ancestorId) => (
-        <NodeAncestor key={ancestorId} ancestorId={ancestorId} />
+        <Ancestor key={ancestorId} ancestorId={ancestorId} />
     ));
 }

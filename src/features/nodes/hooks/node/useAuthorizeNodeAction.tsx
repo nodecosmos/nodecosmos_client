@@ -12,12 +12,6 @@ export default function useAuthorizeNodeAction(): () => boolean {
     } = useBranchContext();
     const node = useSelector(selectNode(branchId, nodeId));
     const currentUser = useSelector(selectCurrentUser);
-    const canEditNode = !isBranch
-        && currentUser
-        && (node?.ownerId === currentUser.id || node?.editorIds?.has(currentUser.id));
-    const canEditBranch = isBranch
-        && currentUser
-        && (branchOwnerId === currentUser.id || branchEditors?.has(currentUser.id));
 
     return useCallback(() => {
         if (isMerged) {
@@ -28,6 +22,13 @@ export default function useAuthorizeNodeAction(): () => boolean {
             }));
             return false;
         }
+
+        const canEditNode = !isBranch
+            && currentUser
+            && (node?.ownerId === currentUser.id || node?.editorIds?.has(currentUser.id));
+        const canEditBranch = isBranch
+            && currentUser
+            && (branchOwnerId === currentUser.id || branchEditors?.has(currentUser.id));
 
         if (!currentUser || !(canEditNode || canEditBranch)) {
             let message = `You do not have permission to edit this 
@@ -47,11 +48,15 @@ export default function useAuthorizeNodeAction(): () => boolean {
             dispatch(setAlert({
                 isOpen: true,
                 message,
-                severity: 'warning',
+                severity: 'error',
             }));
             return false;
         }
 
         return true;
-    }, [canEditBranch, canEditNode, currentUser, dispatch, isBranch, isContributionRequest, isMerged]);
+    },
+    [
+        branchEditors, branchOwnerId, currentUser, dispatch, isBranch, isContributionRequest, isMerged,
+        node?.editorIds, node?.ownerId,
+    ]);
 }

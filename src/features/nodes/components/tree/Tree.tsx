@@ -8,7 +8,6 @@ import { HEADER_HEIGHT } from '../../../app/constants';
 import { useTreeContextCreator } from '../../hooks/tree/useTreeContext';
 import { selectScale } from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
-import { Box } from '@mui/material';
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -19,6 +18,11 @@ export interface TreeProps {
     onChange?: (ids: UUID[]) => void;
     value?: UUID[] | null;
 }
+
+const TREE_STYLE = {
+    height: `calc(100% - ${HEADER_HEIGHT})`,
+    position: 'relative',
+};
 
 function Tree(props: TreeProps) {
     const {
@@ -39,12 +43,13 @@ function Tree(props: TreeProps) {
             <div className="Tree">
                 <TreeToolbar />
                 <Alert />
-                <Box position="relative" height={`calc(100% - ${HEADER_HEIGHT})`}>
+                {/* @ts-expect-error style position not recognized */ }
+                <div style={TREE_STYLE}>
                     {isTreeLoading ? <OverlayLoader /> : null}
                     <Transformable scale={treeScale}>
                         <TreeNodes />
                     </Transformable>
-                </Box>
+                </div>
             </div>
         </TreeContext.Provider>
     );

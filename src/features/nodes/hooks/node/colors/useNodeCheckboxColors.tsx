@@ -1,17 +1,17 @@
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
-import useTreeActions from '../../tree/useTreeActions';
+import useTreeContext from '../../tree/useTreeContext';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 
 export default function useNodeCheckboxColors() {
     const {
         id, isRoot, nestedLevel,
     } = useNodeContext();
     const theme: NodecosmosTheme = useTheme();
-    const commands = useTreeActions();
+    const commands = useTreeContext();
 
-    return useMemo(() => {
+    return useCallback(() => {
         const { backgrounds } = theme.palette.tree;
         const backgroundCount = backgrounds.length;
         const nestedTreeColor = backgrounds[nestedLevel % backgroundCount].fg;
@@ -38,5 +38,5 @@ export default function useNodeCheckboxColors() {
             outlinedColored,
             nestedTreeColor,
         };
-    }, [commands, id, isRoot, nestedLevel, theme.palette.background, theme.palette.tree]);
+    }, [commands, id, isRoot, nestedLevel, theme]);
 }

@@ -1,4 +1,3 @@
-import useTreeActions from './useTreeActions';
 import useTreeContext from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
@@ -12,10 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 export default function useTreeEvents() {
-    const { orderedTreeNodeIds } = useTreeContext();
     const {
-        selectNode, expandNode, expandNodes, collapseNode,
-    } = useTreeActions();
+        selectNode, expandNode, expandNodes, collapseNode, orderedTreeNodeIds,
+    } = useTreeContext();
     const selected = useSelector(selectSelected);
     const selId = selected?.id;
     const expandedNodes = useSelector(selectExpandedNodes);

@@ -1,6 +1,5 @@
 import useNodeColors from '../../../hooks/node/useNodeColors';
 import useNodeContext from '../../../hooks/node/useNodeContext';
-import useTreeActions from '../../../hooks/tree/useTreeActions';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { TreeType } from '../../../nodes.types';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
@@ -11,8 +10,9 @@ import React, { useMemo } from 'react';
 export default function NodeSymbol() {
     const { id } = useNodeContext();
     const { outlineColor } = useNodeColors();
-    const { type: treeType } = useTreeContext();
-    const { handleCheckboxChange, isChecked } = useTreeActions();
+    const {
+        type: treeType, handleCheckboxChange, isChecked,
+    } = useTreeContext();
     const style = useMemo(() => ({ color: outlineColor }), [outlineColor]);
 
     if (treeType !== TreeType.Checkbox) {

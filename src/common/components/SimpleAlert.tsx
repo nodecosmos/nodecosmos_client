@@ -20,8 +20,8 @@ export default function SimpleAlert(props: Props) {
                 height: 1,
                 borderRadius: 0.5,
                 width: 'calc(100% - 1px)',
-                borderColor: `${severity}.main`,
-                '.MuiTypography-root, .MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
+                backgroundColor: 'background.1',
+                '.MuiAlert-icon, .MuiAlert-action': {
                     color: `${severity}.main`,
                     // eslint-disable-next-line object-curly-newline
                 },
@@ -34,6 +34,7 @@ export default function SimpleAlert(props: Props) {
         >
             <Typography
                 variant="body2"
+                color={`text.${severity}`}
                 dangerouslySetInnerHTML={{ __html: message }}
             />
         </MuiAlert>

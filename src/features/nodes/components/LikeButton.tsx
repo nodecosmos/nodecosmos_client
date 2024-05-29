@@ -12,7 +12,9 @@ import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox, Typography } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo, 
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
@@ -71,6 +73,9 @@ export default function LikeButton(props: LikeButtonProps) {
         setTimeout(() => setShouldBeat(false), 1000);
     }, [branchId, currentUser, dispatch, id, likedByCurrentUser]);
 
+    const style = useMemo(() => ({ fontSize }), [fontSize]);
+    const inputProps = useMemo(() => ({ 'aria-label': 'Like' }), []);
+
     return (
         <div className={`Like ${likedByCurrentUser && 'liked'}`}>
             <Checkbox
@@ -78,10 +83,10 @@ export default function LikeButton(props: LikeButtonProps) {
                 onClick={handleLike}
                 className="Heart"
                 disableRipple
-                style={{ fontSize }}
+                style={style}
                 icon={(<FontAwesomeIcon icon={faHeartOutline} />)}
                 checkedIcon={<FontAwesomeIcon icon={faHeart} beat={shouldBeat} />}
-                inputProps={{ 'aria-label': 'Like' }}
+                inputProps={inputProps}
             />
             <Typography variant="caption">
                 {abbreviateNumber(likeCount || 0)}

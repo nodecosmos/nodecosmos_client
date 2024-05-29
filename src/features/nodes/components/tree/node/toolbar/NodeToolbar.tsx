@@ -21,10 +21,10 @@ import {
     Box, Tooltip, ButtonBase,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-export default function NodeToolbar() {
+function NodeToolbar() {
     const {
         isTmp,
         isRoot,
@@ -41,9 +41,7 @@ export default function NodeToolbar() {
         addNode, editNode, deleteNode, undoNodeDeletion,
     } = useNodeActions();
     const { likeCount } = useSelector(selectNode(branchId, id));
-    const {
-        isOriginalDeleted, isDeleted, isAncestorDeleted, isCreated,
-    } = useNodeBranchContext();
+    const ctx = useNodeBranchContext();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
     const authorizeNodeAction = useAuthorizeNodeAction();
     const { isBranch, isMerged } = useBranchContext();
@@ -59,14 +57,26 @@ export default function NodeToolbar() {
         }
     }, [authorizeNodeAction, deleteNode, isTmp, openDelMod]);
 
-    if (isOriginalDeleted) {
+    const openParentNodeHref = useMemo(() => {
+        return `/nodes/${branchId}/${parentId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`;
+    }, [branchId, isBranch, parentId, rootId]);
+
+    const openRootNodeHref = useMemo(() => {
+        return `/nodes/${branchId}/${rootId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`;
+    }, [branchId, isBranch, rootId]);
+
+    const openNodeHref = useMemo(() => {
+        return `/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`;
+    }, [branchId, isBranch, id, rootId]);
+
+    if (ctx?.isOriginalDeleted) {
         return <ConflictToolbar />;
     }
 
     if (!isExpanded || !isSelected) return null;
 
-    if (isDeleted && !isMerged) {
-        if (isAncestorDeleted) {
+    if (ctx?.isDeleted && !isMerged) {
+        if (ctx?.isAncestorDeleted) {
             return null;
         }
 
@@ -94,7 +104,7 @@ export default function NodeToolbar() {
 
     let deleteText;
 
-    if (isBranch && !isCreated) {
+    if (isBranch && !ctx?.isCreated) {
         deleteText = `This action will mark node for deletion within the contribution request. Actual deletion of the 
         node and its descendants will occur once the contribution is merged.`;
     } else if (isRoot) {
@@ -105,7 +115,7 @@ export default function NodeToolbar() {
 
     let deleteConfirmText;
 
-    if (isBranch && !isCreated) {
+    if (isBranch && !ctx?.isCreated) {
         deleteConfirmText = 'Mark for deletion';
     } else if (isRoot) {
         deleteConfirmText = 'I understand, delete complete project';
@@ -151,20 +161,18 @@ export default function NodeToolbar() {
                     >
                         <ButtonBase
                             target="_blank"
-                            href={`/nodes/${branchId}/${parentId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
+                            href={openParentNodeHref}
                             className="Item blue"
                             aria-label="Open Parent Node in New Tab"
                         >
-                            <FontAwesomeIcon
-                                icon={faDiagramSubtask}
-                            />
+                            <FontAwesomeIcon icon={faDiagramSubtask} />
                         </ButtonBase>
                     </Tooltip>
 
                     <Tooltip title="Open Root" placement="top">
                         <ButtonBase
                             target="_blank"
-                            href={`/nodes/${branchId}/${rootId}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
+                            href={openRootNodeHref}
                             className="Item purple"
                             aria-label="Open Root Node in New Tab"
                         >
@@ -180,7 +188,7 @@ export default function NodeToolbar() {
                 <Tooltip title="Open Node In New Tab" placement="top">
                     <ButtonBase
                         target="_blank"
-                        href={`/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`}
+                        href={openNodeHref}
                         className="Item purple"
                         aria-label="Open Node in New Tab"
                     >
@@ -208,3 +216,5 @@ export default function NodeToolbar() {
         </div>
     );
 }
+
+export default React.memo(NodeToolbar);

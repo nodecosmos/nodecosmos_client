@@ -35,6 +35,8 @@ export default function NestedNodesBranch() {
     const prevPathYEnd = usePrevious(lastChildY);
 
     const pathD = useMemo(() => {
+        if (!lastChildId || !isExpanded || !lastChildY) return null;
+
         const x = xEnd + MARGIN_LEFT;
         const linkY = y + MARGIN_TOP;
         const yEnd = lastChildY || prevPathYEnd;
@@ -42,9 +44,9 @@ export default function NestedNodesBranch() {
         if (!yEnd) return null;
 
         return `M ${x} ${linkY} L ${x} ${yEnd}`;
-    }, [lastChildY, prevPathYEnd, xEnd, y]);
+    }, [isExpanded, lastChildId, lastChildY, prevPathYEnd, xEnd, y]);
 
-    if (!lastChildId || !isExpanded || !pathD || !lastChildY) return null;
+    if (!pathD) return null;
 
     return (
         <>

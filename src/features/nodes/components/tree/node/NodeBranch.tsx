@@ -11,36 +11,50 @@ import React, { useMemo } from 'react';
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+const PATH_ANIMATION = {
+    opacity: 0,
+    animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
+    transition: `d ${TRANSITION_ANIMATION_DURATION}ms`,
+};
+
+const CIRCLE_ANIMATION = {
+    opacity: 0,
+    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
+    transition: `cx ${TRANSITION_ANIMATION_DURATION}ms, cy ${TRANSITION_ANIMATION_DURATION}ms`,
+};
+
 export default function NodeBranch() {
     const theme: NodecosmosTheme = useTheme();
     const { size, showAncestorChain } = useTreeContext();
     const {
-        isRoot, x, xEnd, y, isAlreadyMounted, isSelected,
+        isRoot, x, xEnd, y, isSelected, isAlreadyMounted,
     } = useNodeContext();
     const { parentColor } = useNodeColors();
+    const animated = !isSafari;
+
     const pathStyle = useMemo(() => {
-        const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-        const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-        const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
+        if (!animated) return undefined;
 
-        return {
-            opacity: 0,
-            animation: `appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-            transition: `d ${transitionAnimationDuration}ms`,
-        };
-    }, [isAlreadyMounted]);
+        if (!isRoot && !isAlreadyMounted) {
+            return PATH_ANIMATION;
+        }
+
+        return { transition: PATH_ANIMATION.transition };
+    }, [animated, isAlreadyMounted, isRoot]);
+
     const circleStyle = useMemo(() => {
-        const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-        const initialAnimationDuration = isSafari || isAlreadyMounted ? 0 : INITIAL_ANIMATION_DURATION;
-        const initialAnimationDelay = isSafari || isAlreadyMounted ? 0 : ANIMATION_DELAY;
+        if (!animated) return undefined;
 
-        return {
-            opacity: 0,
-            animation: `node-circle-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-            transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-        };
-    }, [isAlreadyMounted]);
+        if (!isRoot && !isAlreadyMounted) {
+            return CIRCLE_ANIMATION;
+        }
+
+        return { transition: CIRCLE_ANIMATION.transition };
+    }, [animated, isAlreadyMounted, isRoot]);
+
     const pathD = useMemo(() => {
+        if (!x) { return null; }
+
         const pathX = showAncestorChain && isSelected ? size.edgeLength * 2 + MARGIN_LEFT : x;
 
         return `M ${pathX} ${y}
@@ -49,11 +63,12 @@ export default function NodeBranch() {
                   ${xEnd} ${y}
                 L ${xEnd} ${y}`;
     }, [isSelected, showAncestorChain, size.edgeLength, x, xEnd, y]);
+
     const rootPathD = useMemo(() => {
         return `M ${x + 4} ${y} L ${xEnd} ${y}`;
     }, [x, xEnd, y]);
 
-    if (!x) { return null; }
+    if (!x || !pathD) { return null; }
 
     if (isRoot) {
         return (

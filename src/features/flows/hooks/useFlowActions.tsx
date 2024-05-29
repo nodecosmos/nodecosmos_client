@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import useSelectObject from '../../app/hooks/useSelectObject';
+import useAppContext from '../../app/hooks/useAppContext';
 import { restoreFlow, undoDeleteFlow } from '../../branch/branches.thunks';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
@@ -21,7 +21,7 @@ export default function useFlowActions() {
         closeTitleEdit,
     } = useContext(FlowContext);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const selectObject = useSelectObject();
+    const { selectObject } = useAppContext();
 
     const handleFlowClick = useCallback(() => {
         if (insidePane) {

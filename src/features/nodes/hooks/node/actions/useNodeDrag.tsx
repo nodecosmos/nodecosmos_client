@@ -97,11 +97,11 @@ export default function useNodeDrag() {
     );
 
     //------------------------------------------------------------------------------------------------------------------
-    return useMemo(() => ({
+    return useMemo(() => ([
         startDrag,
         stopDrag,
         dragOver,
         dragLeave,
         dropCapture,
-    }), [startDrag, stopDrag, dragOver, dragLeave, dropCapture]);
+    ]), [startDrag, stopDrag, dragOver, dragLeave, dropCapture]);
 }

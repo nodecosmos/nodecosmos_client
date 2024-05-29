@@ -43,7 +43,7 @@ export default function Alert(props: AlertProps) {
             zIndex={3}
             sx={{
                 position,
-                mb, 
+                mb,
             }}
         >
             <MuiAlert
@@ -56,9 +56,8 @@ export default function Alert(props: AlertProps) {
                     height: 1,
                     borderRadius: 0.5,
                     width: 'calc(100% - 1px)',
-                    borderColor: `${severity}.main`,
-                    backgroundColor: 'background.5',
-                    '.MuiTypography-root, .MuiAlert-icon, .MuiAlert-message, .MuiAlert-action': {
+                    backgroundColor: 'background.1',
+                    '.MuiAlert-icon, .MuiAlert-action': {
                         color: `${severity}.main`,
                         // eslint-disable-next-line object-curly-newline
                     },
@@ -71,6 +70,7 @@ export default function Alert(props: AlertProps) {
             >
                 <Typography
                     variant="body2"
+                    color={`text.${severity}`}
                     dangerouslySetInnerHTML={{ __html: message }}
                 />
             </MuiAlert>

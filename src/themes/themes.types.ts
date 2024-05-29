@@ -55,6 +55,10 @@ interface Text {
     sectionPrimary: string;
     sectionSecondary: string;
     link: string;
+    success: string;
+    error: string;
+    warning: string;
+    info: string;
     gradients: {
         1: Gradient;
         2: Gradient;
@@ -70,11 +74,12 @@ interface Palette {
     secondary: PaletteColors;
     error: PaletteColors;
     success: PaletteColors;
+    warning: PaletteColors;
+    info: PaletteColors;
     toggle: PaletteColors;
     button: PaletteColors;
     buttonContrast: PaletteColors;
     merge: PaletteColors;
-    info: PaletteColors;
     borders: {
         1: string;
         2: string;

@@ -4,7 +4,7 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
-import useSelectObject from '../../../../app/hooks/useSelectObject';
+import useAppContext from '../../../../app/hooks/useAppContext';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes/nodes.actions';
 import {
@@ -41,8 +41,7 @@ export default function FlowStepNodeButton() {
     } = useFlowStepNodeColors();
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-    const selectObject = useSelectObject();
-    const handleClick = useCallback(() => {
+    const { selectObject } = useAppContext(); const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
         if (insidePane) {

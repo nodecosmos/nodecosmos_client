@@ -3,16 +3,16 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
-import useNodeActions from '../../../hooks/node/useNodeActions';
+import useNodeDrag from '../../../hooks/node/actions/useNodeDrag';
 import useNodeColors from '../../../hooks/node/useNodeColors';
 import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { maybeSelectNode } from '../../../nodes.selectors';
 import { useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { MouseEvent, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-function NodeButton() {
+function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>) => void}) {
     const theme: NodecosmosTheme = useTheme();
     const {
         id,
@@ -26,14 +26,13 @@ function NodeButton() {
         isSelected,
         outlinedColored,
     } = useNodeColors();
-    const {
-        clickNode,
+    const [
         startDrag,
         stopDrag,
         dragOver,
         dragLeave,
         dropCapture,
-    } = useNodeActions();
+    ] = useNodeDrag();
     const { originalId } = useBranchContext();
     const originalNode = useSelector(maybeSelectNode(originalId, id));
     const isTitleEdited = originalNode ? title !== originalNode.title : false;
@@ -73,9 +72,9 @@ function NodeButton() {
             onDragLeave={dragLeave}
             onDropCapture={dropCapture}
             className={className}
-            onClick={clickNode}
             onKeyUp={preventDefault}
             style={buttonStyle}
+            onClick={onClick}
         >
             <NodeSymbol />
 

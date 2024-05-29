@@ -1,12 +1,15 @@
 import {
     TRANSFORMABLE_HEIGHT_MARGIN, TRANSFORMABLE_ID, TRANSFORMABLE_MIN_WIDTH, TRANSFORMABLE_WIDTH_MARGIN,
 } from '../../features/app/constants';
+import { setNodeScrollTo } from '../../features/nodes/nodes.actions';
+import { selectScrollTo } from '../../features/nodes/nodes.selectors';
 import usePannable from '../hooks/usePannable';
 import { useTransformableContextCreator } from '../hooks/useTransformableContext';
 import React, {
     useCallback,
     useEffect, useMemo, useRef, useState,
 } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface TransformableProps {
     children: React.ReactNode;
@@ -18,6 +21,7 @@ export default function Transformable(props: TransformableProps) {
     const {
         children, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
     } = props;
+    const dispatch = useDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
     const [dimensions, setDimensions] = useState({
@@ -28,6 +32,7 @@ export default function Transformable(props: TransformableProps) {
         TransformableContext, ctxValue, setTransformablePositions,
     } = useTransformableContextCreator();
     const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
+    const scrollTo = useSelector(selectScrollTo);
 
     useEffect(() => {
         const handleResize = () => {
@@ -91,8 +96,12 @@ export default function Transformable(props: TransformableProps) {
 
     // used by breadcrumbs
     useEffect(() => {
-        if (containerRef.current) { containerRef.current.scrollTop = Number(scrollTop); }
-    }, [scrollTop]);
+        if (containerRef.current && scrollTo) {
+            containerRef.current.scrollTop = Number(scrollTop);
+
+            dispatch(setNodeScrollTo(null));
+        }
+    }, [scrollTop, dispatch, scrollTo]);
 
     const resizeTimeout = useRef<number | null>(null);
     const clientHeight = containerRef.current?.clientHeight;

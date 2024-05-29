@@ -2,7 +2,7 @@ import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import { withOpacity } from '../../../../../utils/colors';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 
 export default function useNodeDefaultColors() {
     const {
@@ -10,7 +10,7 @@ export default function useNodeDefaultColors() {
     } = useNodeContext();
     const theme: NodecosmosTheme = useTheme();
 
-    return useMemo(() => {
+    return useCallback(() => {
         const hasChildren = !!lastChildId;
         const { backgrounds } = theme.palette.tree;
         const backgroundCount = backgrounds.length;
@@ -43,5 +43,5 @@ export default function useNodeDefaultColors() {
             outlinedColored,
             nestedTreeColor: nestedTreeColor.fg,
         };
-    }, [isRoot, isSelected, lastChildId, nestedLevel, theme.palette.tree]);
+    }, [isRoot, isSelected, lastChildId, nestedLevel, theme]);
 }

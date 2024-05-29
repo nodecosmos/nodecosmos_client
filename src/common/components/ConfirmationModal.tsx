@@ -9,7 +9,7 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 export enum ConfirmType {
     // noinspection JSUnusedGlobalSymbols
@@ -30,6 +30,11 @@ interface Props {
     info?: string;
 }
 
+const PROPS = {
+    elevation: 5,
+    sx: { borderRadius: 2.5 },
+};
+
 export default function ConfirmationModal(props: Props) {
     const {
         text, confirmText, open, confirmType, onClose, onConfirm, warning, info,
@@ -42,22 +47,14 @@ export default function ConfirmationModal(props: Props) {
         onClose();
     }, [onClose, onConfirm, setLoading, unsetLoading]);
     const icon = confirmType === ConfirmType.Deletion ? faClose : faCheck;
+    const progressStyle = useMemo(() => ({ color: `${confirmType}.contrastText` }), [confirmType]);
 
     return (
         <Dialog
             fullWidth
             maxWidth="md"
             open={open}
-            PaperProps={{
-                elevation: 5,
-                sx: { borderRadius: 2.5 },
-            }}
-            sx={{
-                '& .MuiDialog-paper': {
-                    border: 1,
-                    borderColor: 'borders.4',
-                },
-            }}>
+            PaperProps={PROPS}>
             <DialogTitle fontWeight="bold">
                 Are you sure?
                 <CloseModalButton onClose={onClose} />
@@ -78,7 +75,7 @@ export default function ConfirmationModal(props: Props) {
                     color={confirmType}
                     startIcon={
                         loading
-                            ? <CircularProgress size={20} sx={{ color: `${confirmType}.contrastText` }} />
+                            ? <CircularProgress size={20} style={progressStyle} />
                             : <FontAwesomeIcon icon={icon} />
                     }
                 >
