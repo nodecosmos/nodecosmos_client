@@ -8,6 +8,7 @@ import flowsSlice from './features/flows/flowsSlice';
 import homeSlice from './features/home/homeSlice';
 import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
 import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
+import invitationsSlice from './features/invitations/invitationsSlice';
 import likesSlice from './features/likes/likesSlice';
 import nodesSlice from './features/nodes/nodesSlice';
 import usersSlice from './features/users/usersSlice';
@@ -29,4 +30,5 @@ export default combineReducers({
     users: usersSlice,
     comments: commentsSlice,
     descriptions: descriptionsSlice,
+    invitations: invitationsSlice,
 });

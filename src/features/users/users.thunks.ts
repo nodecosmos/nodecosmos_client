@@ -107,6 +107,11 @@ export const resendConfirmationEmail = createAsyncThunk<void, void, { rejectValu
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while resending the confirmation email. Please try again later.',
+            });
         }
     },
 );
@@ -124,6 +129,11 @@ export const confirmEmail = createAsyncThunk<{ id: UUID; email: string }, string
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while confirming the email. Please try again later.',
+            });
         }
     },
 );
@@ -139,6 +149,11 @@ export const resetPasswordRequest = createAsyncThunk<void, string, { rejectValue
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while requesting a password reset. Please try again later.',
+            });
         }
     },
 
@@ -164,6 +179,11 @@ export const updatePassword = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while updating the password. Please try again later.',
+            });
         }
     },
 );
@@ -180,6 +200,11 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: NodecosmosErro
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while logging out. Please try again later.',
+            });
         }
     },
 );
@@ -188,7 +213,7 @@ interface UserCreatePayload extends UserCreateForm {
     token: string | null;
 }
 
-export const create = createAsyncThunk<CurrentUser, UserCreatePayload, { rejectValue: NodecosmosError }>(
+export const create = createAsyncThunk<CurrentUser | null, UserCreatePayload, { rejectValue: NodecosmosError }>(
     'users/create',
     async (payload, { rejectWithValue }) => {
         try {
@@ -200,6 +225,11 @@ export const create = createAsyncThunk<CurrentUser, UserCreatePayload, { rejectV
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while creating the current user. Please try again later.',
+            });
         }
     },
 );
@@ -220,6 +250,11 @@ export const updateBio = createAsyncThunk<UpdateBioPayload, UpdateBioPayload, { 
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while updating the bio. Please try again later.',
+            });
         }
     },
 );

@@ -130,8 +130,6 @@ export default function useNodeSave(): [(event: ChangeEvent<HTMLInputElement>) =
 
     useEffect(() => {
         if (shouldReplaceTmpNode && isTmp && persistedId) {
-            console.log('hit shouldReplaceTmpNode');
-
             // Replace tmp node with persisted node within redux store
             dispatch(replaceTmpNodeWithPersisted({
                 branchId,

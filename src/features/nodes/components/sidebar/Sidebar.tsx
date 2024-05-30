@@ -5,7 +5,7 @@ import {
     faChartSimple as faChartSimpleSolid,
     faCodeCommit as faCodeCommitSolid,
     faCodePullRequest as faCodePullRequestSolid,
-    faGears as faGearsSolid,
+    faUsers as faUsersSolid,
     faMessageBot as faMessageBotSolid,
     faTable as faTableSolid,
     faCircle0,
@@ -14,7 +14,7 @@ import {
     faChartSimple,
     faCodeCommit,
     faCodePullRequest,
-    faGears,
+    faUsers,
     faMessageBot,
     faHashtag,
     faTable,
@@ -103,10 +103,10 @@ export default function Sidebar() {
                                 title="Insights"
                             />
                             <SidebarListItem
-                                to={`${toPath}/settings`}
-                                icon={(<FontAwesomeIcon icon={faGears} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faGearsSolid} />)}
-                                title="Settings"
+                                to={`${toPath}/team`}
+                                icon={(<FontAwesomeIcon icon={faUsers} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faUsersSolid} />)}
+                                title="Team"
                             />
                         </>
                     )

@@ -24,7 +24,14 @@ export default (theme: NodecosmosTheme) => ({
                     },
                 },
 
+                '.Text': {
+                    height: '100%',
+                },
+
                 '.MuiButton-startIcon>*:nth-of-type(1)': {
+                    fontSize: 16,
+                },
+                '.MuiButton-endIcon>*:nth-of-type(1)': {
                     fontSize: 16,
                 },
             },

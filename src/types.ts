@@ -31,7 +31,7 @@ export interface Position {
 
 export interface Profile {
     id: UUID;
-    profileType: string;
+    profileType: ProfileType;
     name: string;
     username: string | null;
     profileImageUrl: string | null;

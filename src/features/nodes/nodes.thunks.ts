@@ -12,6 +12,7 @@ import {
     NodecosmosError, RootId, UUID,
 } from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
+import { ShowUser } from '../users/users.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -214,6 +215,29 @@ export const deleteNodeImage = createAsyncThunk<null, NodePrimaryKey & RootId, {
             return rejectWithValue({
                 status: 500,
                 message: 'An error occurred while deleting the node image.',
+                viewMessage: true,
+            });
+        }
+    },
+);
+
+export const getEditors = createAsyncThunk<ShowUser[], NodePrimaryKey, { rejectValue: NodecosmosError }>(
+    'nodes/getEditors',
+    async ({ branchId, id }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/nodes/${branchId}/${id}/editors`);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while getting the editors.',
                 viewMessage: true,
             });
         }

@@ -8,8 +8,10 @@ import ContributionRequestTree from '../../../pages/contribution-requests/tabs/C
 import ContributionRequestWorkflow from '../../../pages/contribution-requests/tabs/ContributionRequestWorkflow';
 import Activity from '../../../pages/contribution-requests/tabs/conversation-tabs/Activity';
 import MainThread from '../../../pages/contribution-requests/tabs/conversation-tabs/MainThread';
+import Invite from '../../../pages/invitations/Invite';
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
+import TeamShow from '../../../pages/nodes/TeamShow';
 import TreeShow from '../../../pages/nodes/TreeShow';
 import WorkflowShow from '../../../pages/nodes/WorkflowShow';
 import UserAuthentication from '../../../pages/users/Authentication';
@@ -89,7 +91,6 @@ export default function App() {
                                 <Route path="signup" element={<SignupForm />} />
                             </Route>
                             <Route path="404" element={<NotFound />} />
-
                             <Route path="reset_password" element={<ResetPassword />} />
                             <Route path=":username" element={<UserShow />} />
                             <Route path="/nodes" element={(<NodesIndex />)} />
@@ -121,10 +122,11 @@ export default function App() {
                                     <Route path="tasks_board" element={<div />} />
 
                                     {/*Settings*/}
-                                    <Route path="settings" element={<div />} />
+                                    <Route path="team" element={<TeamShow />} />
                                 </Route>
 
                             </Route>
+                            <Route path="/invitations" element={<Invite />} />
                         </Routes>
                     </Box>
 

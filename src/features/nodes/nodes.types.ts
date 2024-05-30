@@ -76,13 +76,6 @@ export type UpdateTitlePayload = Pick<Node, 'title'> & NodePrimaryKey & RootId;
 export type TreeNodeKey = BranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
 
-export enum NodePaneContent {
-    Markdown = 'markdown',
-    Description = 'description',
-    Workflow = 'workflow',
-    Editor = 'editor',
-}
-
 export interface DragAndDrop {
     id: UUID;
     branchId: UUID;
@@ -103,7 +96,6 @@ export interface NodeState {
     titles: Record<UUID, Record<UUID, string>>;
     selected: NodePrimaryKey | null;
     scrollTo: UUID | null;
-    nodePaneContent: NodePaneContent;
     indexNodesById: Record<UUID, IndexNode>;
     saveInProgress: boolean;
     dragAndDrop: DragAndDrop | null;

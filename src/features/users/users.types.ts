@@ -45,10 +45,19 @@ export interface CurrentUser extends Omit<User, 'password' | 'address' | 'bio' |
     lastSyncUpAt: Date;
 }
 
+export interface ShowUser {
+    id: UUID;
+    username: string;
+    firstName?: string;
+    lastName?: string;
+    profileImageUrl: string | null;
+}
+
 export type UpdateUserStatePayload = Pick<User, 'username'> & Partial<User>;
 
 export interface UserState {
     byUsername: { [username: string]: User };
     isAuthenticated: boolean;
     currentUser: CurrentUser | null;
+    byId: Record<UUID, ShowUser>;
 }

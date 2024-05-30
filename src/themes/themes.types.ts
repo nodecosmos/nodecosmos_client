@@ -231,3 +231,11 @@ declare module '@mui/material/Box' {
         opacity: true;
     }
 }
+
+declare module '@mui/material/Chip' {
+    interface ChipPropsColorOverrides {
+        toggle: true;
+        buttonContrast: true;
+        button: true;
+    }
+}

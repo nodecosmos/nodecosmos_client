@@ -1,12 +1,14 @@
 import {
     showUserByUsername,
-    logIn, logOut, syncUpCurrentUser, updateBio, confirmEmail,
+    logIn, logOut, syncUpCurrentUser, updateBio, confirmEmail, create,
 } from './users.thunks';
 import {
     CurrentUser, UpdateUserStatePayload, UserState,
 } from './users.types';
-import { HttpErrorCodes } from '../../types';
+import { HttpErrorCodes, ProfileType } from '../../types';
 import { updatePropertiesOf } from '../../utils/object';
+import { findByToken } from '../invitations/invitations.thunks';
+import { getEditors, showNode } from '../nodes/nodes.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const CURRENT_USER_KEY = 'CU';
@@ -28,6 +30,7 @@ const initialState: UserState = {
     byUsername: {},
     isAuthenticated: Boolean(localStorage.getItem(CURRENT_USER_KEY)),
     currentUser: getCurrentUser(),
+    byId: {},
 };
 
 const usersSlice = createSlice({
@@ -58,6 +61,18 @@ const usersSlice = createSlice({
                 state.currentUser = user;
 
                 localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
+            })
+            .addCase(create.fulfilled, (state, action) => {
+                const user = action.payload;
+
+                if (user) {
+                    user.lastSyncUpAt = new Date();
+
+                    state.isAuthenticated = true;
+                    state.currentUser = user;
+
+                    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
+                }
             })
             .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
                 const user = action.payload;
@@ -94,6 +109,7 @@ const usersSlice = createSlice({
                 const user = action.payload;
 
                 state.byUsername[user.username] = user;
+                state.byId[user.id] = user;
             })
             .addCase(logOut.fulfilled, (state) => {
                 localStorage.removeItem(CURRENT_USER_KEY);
@@ -103,8 +119,38 @@ const usersSlice = createSlice({
             })
             .addCase(updateBio.fulfilled, (state, action) => {
                 const { username, bio } = action.payload;
+                const user = state.byUsername[username];
 
-                state.byUsername[username].bio = bio;
+                user.bio = bio;
+
+                state.byId[user.id] = user;
+            })
+            .addCase(showNode.fulfilled, (state, action) => {
+                const { owner } = action.payload.node;
+                if (owner && owner.profileType === ProfileType.User) {
+                    state.byId[owner.id] = {
+                        id: owner.id,
+                        firstName: owner.name,
+                        username: owner.username as string,
+                        profileImageUrl: owner.profileImageUrl,
+                    };
+                }
+            })
+            .addCase(getEditors.fulfilled, (state, action) => {
+                action.payload.forEach((editor) => {
+                    state.byId[editor.id] = {
+                        id: editor.id,
+                        firstName: editor.firstName,
+                        lastName: editor.lastName,
+                        username: editor.username as string,
+                        profileImageUrl: editor.profileImageUrl,
+                    };
+                });
+            })
+            .addCase(findByToken.fulfilled, (state, action) => {
+                const { inviter } = action.payload;
+
+                state.byId[inviter.id] = inviter;
             });
     },
 });

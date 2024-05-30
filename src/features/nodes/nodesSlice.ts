@@ -7,7 +7,7 @@ import {
     showNode,
 } from './nodes.thunks';
 import {
-    DragAndDrop, NodePaneContent, NodePrimaryKey, NodeState, TreeDensity,
+    DragAndDrop, NodePrimaryKey, NodeState, TreeDensity,
 } from './nodes.types';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
@@ -54,7 +54,6 @@ const initialState: NodeState = {
     childIds: {},
     titles: {},
     selected: null,
-    nodePaneContent: NodePaneContent.Description,
     indexNodesById: {},
     saveInProgress: false,
     dragAndDrop: null,

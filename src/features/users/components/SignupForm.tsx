@@ -1,5 +1,7 @@
 import Field from '../../../common/components/final-form/FinalFormInputField';
-import { passwordsMustMatch, validateEmailFormat } from '../../../utils/validation';
+import {
+    passwordsMustMatch, validateEmailFormat, validateNotEmailFormat,
+} from '../../../utils/validation';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import { UserCreateForm } from '../users.types';
 import { faUser } from '@fortawesome/pro-light-svg-icons';
@@ -27,7 +29,14 @@ export default function SignupForm() {
                             <Field fullWidth name="lastName" label="Last Name" />
                         </Grid>
                         <Grid item xs={12}>
-                            <Field fullWidth name="username" label="Username" required maxLength={20} minLength={3} />
+                            <Field
+                                fullWidth
+                                name="username"
+                                validate={validateNotEmailFormat}
+                                label="Username"
+                                required
+                                maxLength={20}
+                                minLength={3} />
                         </Grid>
                         <Grid item xs={12}>
                             <Field

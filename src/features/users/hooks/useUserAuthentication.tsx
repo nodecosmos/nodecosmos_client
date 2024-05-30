@@ -73,21 +73,30 @@ export default function useUserAuthentication() {
             return error.message; // maps error object to final-form submitError
         }
 
-        dispatch(setAlert({
-            isOpen: true,
-            severity: 'success',
-            message: 'Activation link sent! Please check your email to activate your account.',
-            duration: 5000,
-        }));
+        // current user is set from token
+        if (response.payload) {
+            if (redirect) {
+                const url = new URL(atob(redirect));
+                const path = url.pathname + url.search;
+                navigate(path);
+            }
+        } else {
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'success',
+                message: 'Activation link sent! Please check your email to activate your account.',
+                duration: 5000,
+            }));
 
-        let redirectPath = '/auth/login';
+            let redirectPath = '/auth/login';
 
-        if (redirect) {
-            redirectPath = `/auth/login?${REDIRECT_Q}=${redirect}`;
+            if (redirect) {
+                redirectPath = `/auth/login?${REDIRECT_Q}=${redirect}`;
+            }
+
+            navigate(redirectPath);
+            unsetLoading();
         }
-
-        navigate(redirectPath);
-        unsetLoading();
     }, [dispatch, navigate, redirect, setLoading, token, unsetLoading]);
 
     return {
