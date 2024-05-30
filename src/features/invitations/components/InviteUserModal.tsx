@@ -11,7 +11,8 @@ import { createInvitation } from '../invitations.thunks';
 import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Button, DialogActions, DialogContent,
+    Alert as MuiAlert,
+    Button, DialogActions, DialogContent, Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
@@ -79,9 +80,26 @@ export default function InviteUserModal({ open, onClose }: Props) {
                 subscription={{ submitting: true }}>
                 {({ handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
-                        <DialogContent dividers>
+                        <DialogContent sx={{ overflow: 'hidden' }}>
                             <Alert position="relative" mb={2} />
 
+                            <MuiAlert
+                                severity="info"
+                                variant="outlined"
+                                sx={{
+                                    borderRadius: 1,
+                                    width: 'calc(100% - 1px)',
+                                    border: 0,
+                                    mb: 2,
+                                    backgroundColor: 'background.1',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Typography variant="body2" color="text.info">
+                                    Invite a user to this node. Once invitation is  accepted, the user will become
+                                    editor of this node.
+                                </Typography>
+                            </MuiAlert>
                             <Field
                                 fullWidth
                                 name="usernameOrEmail"
@@ -90,7 +108,10 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                 required
                             />
                         </DialogContent>
-                        <DialogActions>
+                        <DialogActions sx={{
+                            px: 3,
+                            pb: 3,
+                        }}>
                             <Button disableElevation variant="contained" onClick={onClose} color="button">
                                 Cancel
                             </Button>

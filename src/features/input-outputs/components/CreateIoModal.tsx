@@ -90,6 +90,20 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
+                            <MuiAlert
+                                severity="info"
+                                variant="outlined"
+                                sx={{
+                                    borderRadius: 1,
+                                    width: 'calc(100% - 1px)',
+                                    border: 0,
+                                    mb: 2,
+                                    backgroundColor: 'background.1',
+                                }}
+                            >
+                                <Typography variant="body2" color="text.info"> {description} </Typography>
+                            </MuiAlert>
+
                             <FinalFormAutocompleteField
                                 freeSolo
                                 options={uniqueIoTitles}
@@ -110,19 +124,6 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                                 placeholder="IO Title"
                                 setAutocompleteValue={setAutocompleteValue}
                             />
-                            <MuiAlert
-                                severity="info"
-                                variant="outlined"
-                                sx={{
-                                    borderRadius: 0.5,
-                                    width: 'calc(100% - 1px)',
-                                    border: 0,
-                                    mt: 2,
-                                    backgroundColor: 'background.1',
-                                }}
-                            >
-                                <Typography variant="body2" color="text.info"> {description} </Typography>
-                            </MuiAlert>
 
                             <DefaultFormButton loading={loading} />
                         </form>
