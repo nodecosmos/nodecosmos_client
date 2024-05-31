@@ -2,9 +2,10 @@ import { PanePage } from './Pane';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { HEADER_HEIGHT } from '../../constants';
 import {
-    PANE_Q, PaneContent, usePaneContext, 
+    PANE_Q, PaneContent, usePaneContext,
 } from '../../hooks/pane/usePaneContext';
 import TogglePaneButton from '../TogglePaneButton';
 import {
@@ -17,6 +18,7 @@ import React, { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export default function PaneToolbar() {
+    const { isBranch } = useBranchContext();
     const {
         objectTitle, originalObjectTitle, setContent, content, objectType, page,
     } = usePaneContext();
@@ -34,6 +36,11 @@ export default function PaneToolbar() {
         }
     }, [searchParams, setContent, setSearchParams]);
 
+    let markdownTitle = 'Markdown (Read Only)';
+    if (isBranch) {
+        markdownTitle += ' You can use this page to add text comments to the branch.';
+    }
+
     return (
         <Box
             display="flex"
@@ -45,7 +52,7 @@ export default function PaneToolbar() {
         >
             <ToolbarContainer>
                 <ToolbarItem
-                    title="Markdown (Read Only)"
+                    title={markdownTitle}
                     icon={faRectangleCode}
                     color="toolbar.lightRed"
                     active={content === PaneContent.Markdown}

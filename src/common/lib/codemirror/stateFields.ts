@@ -22,13 +22,13 @@ export const hoveredLineField = StateField.define<number | null>({
     create() {
         return null;
     },
-    update(_value, tr) {
+    update(value, tr) {
         for (const effect of tr.effects) {
             if (effect.is(setHoveredLine)) {
                 return effect.value;
             }
         }
-        return null;
+        return value;
     },
 });
 

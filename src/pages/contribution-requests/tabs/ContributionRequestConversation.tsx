@@ -98,7 +98,7 @@ export default function ContributionRequestConversation() {
                         <ToolbarItem
                             color="text.primary"
                             iconColor="toolbar.lightRed"
-                            title="Activity Thread"
+                            title="Activity Threads"
                             icon={faTimeline}
                             to="activity"
                             titleAsTooltip={false}

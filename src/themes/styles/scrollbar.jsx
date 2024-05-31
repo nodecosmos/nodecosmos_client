@@ -13,4 +13,9 @@ export default (theme) => ({
     },
     '::-webkit-scrollbar-track': { backgroundColor: theme.palette.background[5] },
     '::-webkit-scrollbar-corner': { backgroundColor: theme.palette.background[2] },
+    //  set firefox scrollbar
+    '*': {
+        scrollbarWidth: 'auto',
+        scrollbarColor: `${theme.palette.background[8]} ${theme.palette.background[5]}`,
+    },
 });

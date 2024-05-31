@@ -53,7 +53,7 @@ const theme: NodecosmosTheme = {
         },
 
         warning: {
-            main: '#f5a623',
+            main: '#db8e00',
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
@@ -91,7 +91,7 @@ const theme: NodecosmosTheme = {
         },
 
         background: {
-            1: '#f3eff5', // f8f9fa
+            1: '#e6e2e9', // f8f9fa
             2: '#f3eff5', // f0f0ef ededed
             3: '#e9e7ee',
             4: '#e1dfe8',
@@ -236,7 +236,7 @@ const theme: NodecosmosTheme = {
         text: {
             primary: '#3a383a',
             secondary: '#504e50',
-            tertiary: '#504e50',
+            tertiary: '#7c8194',
             disabled: '#5c616b',
             contrast: '#5c616b',
             sectionPrimary: '#acdf83',

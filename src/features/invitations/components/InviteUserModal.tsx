@@ -49,6 +49,7 @@ export default function InviteUserModal({ open, onClose }: Props) {
             const error: NodecosmosError = response.payload as NodecosmosError;
 
             if (error.status === 403) {
+                unsetLoading();
                 return error.message; // maps error object to final-form submitError
             }
 

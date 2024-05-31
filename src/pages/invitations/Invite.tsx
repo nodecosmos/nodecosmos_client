@@ -1,5 +1,6 @@
 import Alert from '../../common/components/Alert';
 import ConfirmationModal, { ConfirmType } from '../../common/components/ConfirmationModal';
+import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../common/hooks/useHandleServerErrorAlert';
 import useModalOpen from '../../common/hooks/useModalOpen';
 import { setAlert } from '../../features/app/appSlice';
@@ -17,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Button, Link, Typography,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,6 +35,7 @@ export default function Invite() {
     const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
     const [rejModOpen, openRejMod, closeDelMod] = useModalOpen();
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
     const findByTokenCb = useCallback(async () => {
         if (!token) throw new Error('Missing token');
@@ -54,6 +57,10 @@ export default function Invite() {
     const confirmInvitationCb = useCallback(async () => {
         if (!response) throw new Error('Missing response');
 
+        if (loading) return;
+
+        setLoading();
+
         const res = await dispatch(confirmInvitation({
             branchId: response.node.branchId,
             nodeId: response.node.id,
@@ -65,6 +72,8 @@ export default function Invite() {
 
             handleServerError(error);
             console.error(error);
+
+            unsetLoading();
 
             return;
         }
@@ -79,7 +88,7 @@ export default function Invite() {
                 }));
             }, 250);
         }, 250);
-    }, [dispatch, handleServerError, navigate, response]);
+    }, [dispatch, handleServerError, loading, navigate, response, setLoading, unsetLoading]);
 
     const rejectInvitationCb = useCallback(async () => {
         if (!response) throw new Error('Missing response');
@@ -205,7 +214,10 @@ export default function Invite() {
                             }}
                             variant="outlined"
                             type="button"
-                            startIcon={<FontAwesomeIcon icon={faCheck} size="2xs" />}
+                            startIcon={
+                                loading ? <CircularProgress size={20} sx={{ color: 'text.success' }} />
+                                    : <FontAwesomeIcon icon={faCheck} size="2xs" />
+                            }
                         >
                             <span className="Text">
                                 Accept Invitation
