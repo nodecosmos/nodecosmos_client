@@ -15,3 +15,8 @@ export const selectUserById = (id: string) => createSelector(
     selectUsersById,
     (users) => users[id],
 );
+
+export const selectUsersByIds = (ids: string[]) => createSelector(
+    selectUsersById,
+    (users) => ids.map((id) => users[id]),
+);

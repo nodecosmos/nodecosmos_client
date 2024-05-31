@@ -33,10 +33,12 @@ const PROPS = {
 
 export default function InviteUserModal({ open, onClose }: Props) {
     const { branchId, nodeId } = useBranchContext();
-    const [loading] = useBooleanStateValue(false);
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
     const onSubmit = useCallback(async ({ usernameOrEmail }: { usernameOrEmail: string }) => {
+        setLoading();
+
         const response = await dispatch(createInvitation({
             branchId,
             nodeId,
@@ -53,17 +55,22 @@ export default function InviteUserModal({ open, onClose }: Props) {
             handleServerError(error);
             console.error(error);
 
+            unsetLoading();
+
             return;
         }
 
         onClose();
+        unsetLoading();
 
-        dispatch(setAlert({
-            isOpen: true,
-            message: 'Invitation sent successfully.',
-            severity: 'success',
-        }));
-    }, [branchId, dispatch, handleServerError, nodeId, onClose]);
+        setTimeout(() => {
+            dispatch(setAlert({
+                isOpen: true,
+                message: 'Invitation sent successfully.',
+                severity: 'success',
+            }));
+        }, 250);
+    }, [branchId, dispatch, handleServerError, nodeId, onClose, setLoading, unsetLoading]);
 
     return (
         <Dialog
@@ -96,8 +103,9 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                 }}
                             >
                                 <Typography variant="body2" color="text.info">
-                                    Invite a user to this node. Once invitation is  accepted, the user will become
-                                    editor of this node.
+                                    Invite a user to collaborate on this node. If the user is not a member of the
+                                    nodecosmos, you can invite them by their email. Once invitation is  accepted,
+                                    the user will become editor of this node.
                                 </Typography>
                             </MuiAlert>
                             <Field

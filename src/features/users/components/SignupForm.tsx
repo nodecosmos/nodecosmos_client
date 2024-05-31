@@ -10,12 +10,18 @@ import { Button, Grid } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { Form } from 'react-final-form';
+import { useSearchParams } from 'react-router-dom';
 
 export default function SignupForm() {
     const { handleUserCreation, loading } = useUserAuthentication();
+    const [searchParams] = useSearchParams();
+    const email = searchParams.get('email');
 
     return (
-        <Form<UserCreateForm> onSubmit={handleUserCreation} subscription={{ active: true }}>
+        <Form<UserCreateForm>
+            onSubmit={handleUserCreation}
+            subscription={{ active: true }}
+            initialValues={{ email: email ?? undefined }}>
             {({
                 handleSubmit,
                 submitting,

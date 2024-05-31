@@ -138,19 +138,20 @@ const usersSlice = createSlice({
             })
             .addCase(getEditors.fulfilled, (state, action) => {
                 action.payload.forEach((editor) => {
-                    state.byId[editor.id] = {
-                        id: editor.id,
-                        firstName: editor.firstName,
-                        lastName: editor.lastName,
-                        username: editor.username as string,
-                        profileImageUrl: editor.profileImageUrl,
-                    };
+                    state.byId[editor.id] = editor;
                 });
             })
             .addCase(findByToken.fulfilled, (state, action) => {
                 const { inviter } = action.payload;
 
-                state.byId[inviter.id] = inviter;
+                state.byId[inviter.id] = {
+                    id: inviter.id,
+                    firstName: inviter.firstName,
+                    lastName: inviter.lastName,
+                    username: inviter.username as string,
+                    profileImageUrl: inviter.profileImageUrl,
+                    createdAt: inviter.createdAt,
+                };
             });
     },
 });

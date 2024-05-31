@@ -2,7 +2,6 @@ import SidebarListItem from './SidebarListItem';
 import { NodecosmosTheme } from '../../../../themes/themes.types';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
-    faChartSimple as faChartSimpleSolid,
     faCodeCommit as faCodeCommitSolid,
     faCodePullRequest as faCodePullRequestSolid,
     faUsers as faUsersSolid,
@@ -11,7 +10,6 @@ import {
     faCircle0,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
-    faChartSimple,
     faCodeCommit,
     faCodePullRequest,
     faUsers,
@@ -89,24 +87,17 @@ export default function Sidebar() {
                                     size="2xs" />
                             </SidebarListItem>
                             <SidebarListItem
+                                to={`${toPath}/team`}
+                                icon={(<FontAwesomeIcon icon={faUsers} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faUsersSolid} />)}
+                                title="Team"
+                            />
+                            <SidebarListItem
                                 disabled
                                 to={`${toPath}/tasks_board`}
                                 icon={(<FontAwesomeIcon icon={faTable} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faTableSolid} />)}
                                 title="Tasks Board"
-                            />
-                            <SidebarListItem
-                                disabled
-                                to={`${toPath}/insights`}
-                                icon={(<FontAwesomeIcon icon={faChartSimple} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faChartSimpleSolid} />)}
-                                title="Insights"
-                            />
-                            <SidebarListItem
-                                to={`${toPath}/team`}
-                                icon={(<FontAwesomeIcon icon={faUsers} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faUsersSolid} />)}
-                                title="Team"
                             />
                         </>
                     )

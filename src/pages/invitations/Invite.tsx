@@ -137,7 +137,8 @@ export default function Invite() {
                 }));
             }, 250);
         } else if (!response.hasUser) {
-            navigate(`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}&token=${token}`);
+            navigate(`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}
+                      &token=${token}&email=${response.invitation.usernameOrEmail}`);
             setTimeout(() => {
                 dispatch(setAlert({
                     isOpen: true,

@@ -130,3 +130,26 @@ export const rejectInvitation = createAsyncThunk<void, InvitationPrimaryKey, { r
         }
     },
 );
+
+export const deleteInvitation = createAsyncThunk<void, InvitationPrimaryKey, { rejectValue: NodecosmosError }>(
+    'invitations/deleteInvitation',
+    async (payload, { rejectWithValue }) => {
+        try {
+            await nodecosmos.delete(`/invitations/${payload.nodeId}/${payload.branchId}/${payload.usernameOrEmail}`);
+
+            return;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the invitation.',
+                viewMessage: true,
+            });
+        }
+    },
+);

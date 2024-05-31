@@ -1,5 +1,5 @@
 import {
-    createInvitation, findByToken, IndexInvitations,
+    createInvitation, deleteInvitation, findByToken, IndexInvitations,
 } from './invitations.thunks';
 import { InvitationState } from './invitations.types';
 import { createSlice } from '@reduxjs/toolkit';
@@ -30,6 +30,17 @@ const invitationsSlice = createSlice({
                 state.byBranchAndNodeId[branchId] = state.byBranchAndNodeId[branchId] || {};
                 state.byBranchAndNodeId[branchId][nodeId] = state.byBranchAndNodeId[branchId][nodeId] || [];
                 state.byBranchAndNodeId[branchId][nodeId].push(action.payload);
+            })
+            .addCase(deleteInvitation.fulfilled, (state, action) => {
+                const {
+                    branchId, nodeId, usernameOrEmail, 
+                } = action.meta.arg;
+                const invitations = state.byBranchAndNodeId[branchId][nodeId];
+                const index = invitations.findIndex((i) => i.usernameOrEmail === usernameOrEmail);
+
+                if (index !== -1) {
+                    invitations.splice(index, 1);
+                }
             });
     },
 });

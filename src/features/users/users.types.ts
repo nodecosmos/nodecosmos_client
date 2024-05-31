@@ -51,6 +51,7 @@ export interface ShowUser {
     firstName?: string;
     lastName?: string;
     profileImageUrl: string | null;
+    createdAt?: Date;
 }
 
 export type UpdateUserStatePayload = Pick<User, 'username'> & Partial<User>;

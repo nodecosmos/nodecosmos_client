@@ -6,11 +6,15 @@ import NcLink from '../../../common/components/NcLink';
 import { Profile, UUID } from '../../../types';
 import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequests, selectSearchTerm } from '../contributionRequests.selectors';
+import {
+    Box, Link, Typography,
+} from '@mui/material';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface Props {
     nodeId: UUID;
@@ -41,22 +45,38 @@ export default function ContributionRequestsList({ nodeId }: Props) {
         },
         {
             headerName: 'Author',
+            sortComparator: (v1: Profile, v2: Profile) => {
+                if (!v1.username || !v2.username) {
+                    return 0;
+                }
+
+                return v1.username > v2.username ? 1 : -1;
+            },
             field: 'owner',
-            flex: 0,
+            flex: 0.25,
             renderCell: (params: GridRenderCellParams<ContributionRequest, Profile>) => {
                 const value = params.value as Profile;
 
-                return <NcAvatar
-                    width={25}
-                    height={25}
-                    fontSize={14}
-                    name={value.name}
-                    src={value.profileImageUrl} />;
+                return (
+                    <Link component={RouterLink} to={`/${value.username}`}>
+                        <Box display="flex" alignItems="center">
+                            <NcAvatar
+                                width={25}
+                                height={25}
+                                fontSize={14}
+                                name={value.name}
+                                src={value.profileImageUrl} />
+                            <Typography variant="body2" color="text.tertiary" px={2} fontWeight="bold">
+                                @{value.username}
+                            </Typography>
+                        </Box>
+                    </Link>
+                );
             },
         },
         {
             field: 'title',
-            flex: 1,
+            flex: 0.75,
             headerName: 'Title',
             renderCell: (params: GridRenderCellParams<ContributionRequest, string>) => {
                 return <NcLink to={params.row.id} title={params.value as string} />;
@@ -64,7 +84,7 @@ export default function ContributionRequestsList({ nodeId }: Props) {
         },
         {
             field: 'createdAt',
-            flex: 1,
+            flex: 0.5,
             headerName: 'Date',
             type: 'dateTime',
             valueGetter: (params: string) => {
