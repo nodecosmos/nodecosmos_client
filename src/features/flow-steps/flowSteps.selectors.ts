@@ -42,3 +42,8 @@ export const selectFlowStepsByNodeId = (branchId: UUID, nodeId: UUID) => createS
         .sort((a, b) => new Decimal(a.stepIndex).cmp(b.stepIndex))
         .filter((flowStep) => flowStep.nodeId === nodeId),
 );
+
+export const selectFlowStepsByIds = (branchId: UUID, flowStepIds: Set<UUID>) => createSelector(
+    selectFlowStepsByBranch(branchId),
+    (flowSteps) => Array.from(flowStepIds).map((flowStepId) => flowSteps[flowStepId]),
+);

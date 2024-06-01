@@ -6,7 +6,7 @@ import {
 } from './inputOutputs.types';
 import { UUID } from '../../types';
 import { deleteFlowStep } from '../flow-steps/flowSteps.thunks';
-import { showWorkflow } from '../workflows/worfklow.thunks';
+import { indexWorkflowBranchData, showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: InputOutputSlice = {
@@ -66,6 +66,15 @@ const inputOutputsSlice = createSlice({
                         delete state.byBranchId[branchId][outputId];
                     });
                 }
+            })
+            .addCase(indexWorkflowBranchData.fulfilled, (state, action) => {
+                const { inputOutputs } = action.payload;
+                const { branchId } = action.meta.arg;
+                state.byBranchId[branchId] ||= {};
+
+                inputOutputs.forEach((inputOutput: InputOutput) => {
+                    state.byBranchId[branchId][inputOutput.id] = inputOutput;
+                });
             });
     },
 });

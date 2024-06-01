@@ -55,3 +55,21 @@ export const updateWorkflowTitle = createAsyncThunk<
         return response.data;
     },
 );
+
+export const indexWorkflowBranchData = createAsyncThunk<
+    {
+        flows: Flow[];
+        flowSteps: FlowStep[];
+        inputOutputs: InputOutput[];
+    },
+    WorkflowPrimaryKey & RootId
+>(
+    'workflows/indexWorkflowBranchData',
+    async ({
+        branchId, nodeId, rootId, 
+    }) => {
+        const response = await nodecosmos.get(`/workflows/index/branch_data/${branchId}/${nodeId}/${rootId}`);
+
+        return response.data;
+    },
+);

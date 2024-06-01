@@ -8,7 +8,7 @@ import {
 import { FlowStep, FlowStepState } from './flowSteps.types';
 import { UUID } from '../../types';
 import { deleteIo } from '../input-outputs/inputOutputs.thunks';
-import { showWorkflow } from '../workflows/worfklow.thunks';
+import { indexWorkflowBranchData, showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 import Decimal from 'decimal.js';
 
@@ -90,6 +90,18 @@ const flowStepsSlice = createSlice({
                             = outputIdsByNodeId[nodeId].filter((outputId) => outputId !== id);
                     });
                 }
+            })
+            .addCase(indexWorkflowBranchData.fulfilled, (state, action) => {
+                const { flowSteps } = action.payload;
+                const { branchId } = action.meta.arg;
+
+                state.byBranchId[branchId] ||= {};
+
+                flowSteps.forEach((flowStep) => {
+                    flowStep.branchId = branchId;
+                    flowStep.stepIndex = new Decimal(flowStep.stepIndex);
+                    state.byBranchId[branchId][flowStep.id] = flowStep;
+                });
             });
     },
 });

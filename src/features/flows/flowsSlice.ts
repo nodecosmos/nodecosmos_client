@@ -4,7 +4,7 @@ import {
 import {
     Flow, FlowPaneContent, FlowState,
 } from './flows.types';
-import { showWorkflow } from '../workflows/worfklow.thunks';
+import { indexWorkflowBranchData, showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FlowState = {
@@ -52,6 +52,18 @@ const flowStepsSlice = createSlice({
                 } = flow;
 
                 state.byBranchId[branchId][id].title = title as string;
+            })
+            .addCase(indexWorkflowBranchData.fulfilled, (state, action) => {
+                const { flows } = action.payload;
+                const { branchId } = action.meta.arg;
+
+                state.byBranchId[branchId] ||= {};
+
+                flows.forEach((flow: Flow) => {
+                    flow.branchId = branchId;
+
+                    state.byBranchId[branchId][flow.id] = flow;
+                });
             });
     },
 });

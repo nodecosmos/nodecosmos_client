@@ -11,10 +11,13 @@ import { useSelector } from 'react-redux';
 interface Props {
     title: string;
     ids: Set<UUID> | null;
+    showBlank?: boolean;
 }
 
 export default function CommitNodes(props: Props) {
-    const { title, ids } = props;
+    const {
+        title, ids, showBlank = false, 
+    } = props;
     const { branchId } = useBranchContext();
     const nodes = useSelector(selectNodesByIds(branchId, ids || new Set()));
     const orderedNodes = useMemo(() => {
@@ -24,13 +27,13 @@ export default function CommitNodes(props: Props) {
         });
     }, [nodes]);
 
-    if (!ids || !ids.size) {
+    if (!ids || (!ids.size && !showBlank)) {
         return null;
     }
 
     return (
-        <Box p={4} borderBottom={1} borderColor="borders.3">
-            <Typography fontWeight="bold" color="text.secondary">
+        <Box p={4} pl={3} borderBottom={1} borderColor="borders.3">
+            <Typography fontWeight="bold" color="text.secondary" ml={1}>
                 {title}
                 <Chip
                     component="span"

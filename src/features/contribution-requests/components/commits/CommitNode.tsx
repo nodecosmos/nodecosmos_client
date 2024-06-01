@@ -10,7 +10,9 @@ import { AppNode } from '../../../nodes/nodes.types';
 import { NODE_BUTTON_HEIGHT } from '../../../workflows/constants';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonBase, useTheme } from '@mui/material';
+import {
+    ButtonBase, Tooltip, useTheme,
+} from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -41,6 +43,7 @@ function CommitNode({ node }: Props) {
             objectType: ObjectType.Node,
             metadata: { ancestorIds: node?.ancestorIds || [] },
         });
+
         dispatch(select({
             branchId,
             id,
@@ -65,23 +68,25 @@ function CommitNode({ node }: Props) {
     }
 
     return (
-        <ButtonBase
-            type="button"
-            className="NodeButton"
-            style={{
-                border: '1px solid',
-                borderColor: nestedTreeColor.fg,
-                backgroundColor: nestedTreeColor.bg,
-                height: NODE_BUTTON_HEIGHT,
-                color: nestedTreeColor.fg,
-            }}
-            onClick={handleClick}
-        >
-            <FontAwesomeIcon icon={faHashtag} />
-            <div className="NodeButtonText">
-                {node.title}
-            </div>
-        </ButtonBase>
+        <Tooltip title="Go to Node">
+            <ButtonBase
+                type="button"
+                className="NodeButton"
+                style={{
+                    border: '1px solid',
+                    borderColor: nestedTreeColor.fg,
+                    backgroundColor: nestedTreeColor.bg,
+                    height: NODE_BUTTON_HEIGHT,
+                    color: nestedTreeColor.fg,
+                }}
+                onClick={handleClick}
+            >
+                <FontAwesomeIcon icon={faHashtag} />
+                <div className="NodeButtonText">
+                    {node.title}
+                </div>
+            </ButtonBase>
+        </Tooltip>
     );
 }
 

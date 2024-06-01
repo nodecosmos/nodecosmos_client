@@ -48,7 +48,7 @@ export default function useMerge() {
             if (response.meta.requestStatus === 'rejected') {
                 const error: NodecosmosError = response.payload as NodecosmosError;
 
-                handleServerError(error);
+                setTimeout(() => handleServerError(error), 250);
                 console.error(error);
 
                 return;
