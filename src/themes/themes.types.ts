@@ -96,6 +96,7 @@ interface Palette {
         6: string;
         7: string;
         8: string;
+        hover: string;
         labels: {
             orange: string;
             red: string;
@@ -210,6 +211,9 @@ export interface NodecosmosThemeOptions {
 }
 
 declare module '@mui/material/Button' {
+    interface HTMLAttributes {
+        backgroundColor: true;
+    }
     interface ButtonPropsColorOverrides {
         toggle: true;
         buttonContrast: true;

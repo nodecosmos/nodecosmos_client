@@ -98,7 +98,6 @@ type LineNumber = number;
 
 export interface CommentState {
     byId: Record<UUID, Comment>;
-    idsByObjectId: Record<UUID, UUID[]>;
     idsByThreadId: Record<UUID, UUID[]>;
     threadsById: Record<UUID, CommentThread>;
     threadIdsByObjectId: Record<UUID, UUID[]>;

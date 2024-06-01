@@ -16,6 +16,7 @@ export interface InputOutput extends InputOutputPrimaryKey {
     nodeId: UUID;
     mainId: UUID;
     flowId: UUID | null;
+    initialInput: boolean;
     flowStepId: UUID | null;
     title: string;
     unit: string | null;
@@ -34,6 +35,7 @@ export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'i
     flowId: InputOutput['flowId'];
     mainId?: InputOutput['mainId'];
     title: InputOutput['title'];
+    initialInput: InputOutput['initialInput'];
 }
 
 export interface UpdateIoTitlePayload extends InputOutputPrimaryKey {

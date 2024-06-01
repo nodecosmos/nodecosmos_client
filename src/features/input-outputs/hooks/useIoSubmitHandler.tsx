@@ -13,7 +13,7 @@ import { InputOutput } from '../inputOutputs.types';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function useIoSubmitHandler(props: CreateIoModalProps, autocompleteValue: string | null) {
+export default function useIoSubmitHandler(props: CreateIoModalProps) {
     const {
         associatedObject,
         flowStepPrimaryKey,
@@ -31,15 +31,17 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
 
     const onSubmit = useCallback(async (formValues: { title: string }) => {
         setLoading(true);
-        const existingIo = autocompleteValue ? allWorkflowIos.find((io) => io.title === autocompleteValue) : null;
+        const { title } = formValues;
+        const existingIo = title ? allWorkflowIos.find((io) => io.title === title) : null;
 
         const payload = {
             nodeId,
             branchId,
             rootId,
-            mainId: (autocompleteValue && existingIo?.id) || nodeId,
+            mainId: (title && existingIo?.id) || nodeId,
             flowId: flowStepPrimaryKey?.flowId ?? null,
             flowStepId: flowStepPrimaryKey?.id ?? null,
+            initialInput: associatedObject === IoObjectType.startStep,
             ...formValues,
         };
 
@@ -98,7 +100,7 @@ export default function useIoSubmitHandler(props: CreateIoModalProps, autocomple
         props.onClose();
     },
     [
-        autocompleteValue, allWorkflowIos, nodeId, branchId, rootId, associatedObject,
+        allWorkflowIos, nodeId, branchId, rootId, associatedObject,
         flowStepPrimaryKey, dispatch, props, handleServerError, currentInitialInputIds, outputIdsByNodeId, outputNodeId,
     ]);
 

@@ -13,7 +13,6 @@ export const MAX_COMMENT_WIDTH = 780;
 
 const initialState: CommentState = {
     byId: {},
-    idsByObjectId: {},
     idsByThreadId: {},
     threadsById: {},
     threadIdsByObjectId: {},
@@ -21,8 +20,6 @@ const initialState: CommentState = {
 };
 
 function resetObjectState(state: RootState['comments'], objectId: UUID) {
-    state.idsByObjectId[objectId] = [];
-
     const currentThreadCommentIds = state.threadIdsByObjectId[objectId];
 
     if (currentThreadCommentIds) {
@@ -36,12 +33,6 @@ function resetObjectState(state: RootState['comments'], objectId: UUID) {
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
-    if (!state.idsByObjectId[comment.objectId]) {
-        state.idsByObjectId[comment.objectId] = [];
-    }
-
-    state.idsByObjectId[comment.objectId].push(comment.id);
-
     if (!state.idsByThreadId[comment.threadId]) {
         state.idsByThreadId[comment.threadId] = [];
     }
@@ -140,13 +131,10 @@ const commentsSlice = createSlice({
                 state.byId[id].updatedAt = updatedAt;
             })
             .addCase(deleteComment.fulfilled, (state, action) => {
-                const {
-                    objectId, threadId, id,
-                } = action.meta.arg;
+                const { threadId, id } = action.meta.arg;
 
                 delete state.byId[id];
 
-                state.idsByObjectId[objectId] = state.idsByObjectId[objectId].filter((commentId) => commentId !== id);
                 state.idsByThreadId[threadId] = state.idsByThreadId[threadId].filter((commentId) => commentId !== id);
 
                 const thread = state.threadsById[threadId];

@@ -45,18 +45,18 @@ export const updateIoTitle = createAsyncThunk<
 
 export const deleteIo = createAsyncThunk<
     WithBranchMetadata<Partial<InputOutput> & InputOutputPrimaryKey & NodeId>,
-    InputOutputPrimaryKey & NodeId,
+    InputOutputPrimaryKey & NodeId & { deleteDangling?: boolean },
     { state: RootState, rejectValue: NodecosmosError }
 >(
     'inputOutputs/delete',
     async (payload, { rejectWithValue, getState }) => {
         try {
             const {
-                rootId, nodeId, branchId, id,
+                rootId, nodeId, branchId, id, deleteDangling = false,
             } = payload;
 
             const response = await nodecosmos.delete(
-                `/input_outputs/${rootId}/${nodeId}/${branchId}/${id}`,
+                `/input_outputs/${rootId}/${nodeId}/${branchId}/${id}?deleteDangling=${deleteDangling}`,
             );
 
             const metadata: BranchMetadata = {};

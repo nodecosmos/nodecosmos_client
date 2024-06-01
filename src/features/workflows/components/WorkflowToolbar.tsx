@@ -4,6 +4,7 @@ import EditTitleField from '../../../common/components/EditTItleField';
 import { selectIsPaneOpen } from '../../app/app.selectors';
 import TogglePaneButton from '../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../app/constants';
+import DanglingIosButton from '../../input-outputs/components/DanglingIosButton';
 import useWorkflowActions from '../hooks/useWorkflowActions';
 import useWorkflowContext from '../hooks/useWorkflowContext';
 import { Box } from '@mui/material';
@@ -45,6 +46,7 @@ export default function WorkflowToolbar() {
             <WorkflowZoomTools />
 
             <CloseFlowStepInputsButton />
+            <DanglingIosButton />
 
             {!isPaneOpen && (<TogglePaneButton />)}
 

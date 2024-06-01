@@ -45,6 +45,21 @@ export default (theme: NodecosmosTheme) => ({
         },
     },
 
+    MuiAutocomplete: {
+        styleOverrides: {
+            option: {
+                padding: 16,
+
+                '&:hover': {
+                    backgroundColor: theme.palette.background.hover,
+                },
+            },
+            popupIndicator: {
+                color: theme.palette.text.tertiary,
+            },
+        },
+    },
+
     MuiInputLabel: {
         styleOverrides: {
             animated: {

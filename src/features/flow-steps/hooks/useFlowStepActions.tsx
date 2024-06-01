@@ -74,6 +74,7 @@ export default function useFlowStepActions(props?: Props) {
                 || event.target instanceof HTMLHeadingElement
                 || event.target instanceof HTMLSpanElement
                 || event.target instanceof HTMLFieldSetElement
+                || event.target instanceof HTMLFormElement
                 || event.target instanceof SVGElement
             ) return;
 
@@ -83,6 +84,7 @@ export default function useFlowStepActions(props?: Props) {
                     event.currentTarget.classList.contains('FlowToolbarClick')
                     || event.target.classList.contains('FlowToolbar')
                     || event.target.classList.contains('MuiDialogContent-root')
+                    || event.target.classList.contains('MuiDialogActions-root')
                     || event.target.classList.contains('MuiDialog-container')
                     || event.target.classList.contains('MuiInputBase-root')
 
@@ -166,7 +168,8 @@ export default function useFlowStepActions(props?: Props) {
         } finally {
             setCreateIsNotLoading();
         }
-    }, [
+    },
+    [
         dispatch, stepIndex, flowStepPrimaryKey, handleServerError, nextStepIndex,
         rootId, setCreateIsLoading, setCreateIsNotLoading, authorizeNodeAction,
     ]);

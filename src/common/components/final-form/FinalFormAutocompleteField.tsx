@@ -1,6 +1,7 @@
 import FinalFormAutocompleteInputField from './FinalFormAutocompleteInputField';
 import { Autocomplete } from '@mui/material';
 import { AutocompleteRenderInputParams } from '@mui/material/Autocomplete/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-final-form';
 
@@ -15,6 +16,7 @@ interface FinalFormAutocompleteFieldProps {
     ) => React.ReactNode;
     startAdornment?: React.ReactNode;
     setAutocompleteValue: (value: string | null) => void;
+    loading?: boolean;
 }
 
 export default function FinalFormAutocompleteField(props: FinalFormAutocompleteFieldProps) {
@@ -26,6 +28,7 @@ export default function FinalFormAutocompleteField(props: FinalFormAutocompleteF
         renderOption,
         startAdornment = null,
         setAutocompleteValue,
+        loading,
     } = props;
     const { change } = useForm();
 
@@ -49,10 +52,16 @@ export default function FinalFormAutocompleteField(props: FinalFormAutocompleteF
             InputProps={{
                 ...params.InputProps,
                 startAdornment,
+                endAdornment: loading ? <CircularProgress
+                    size={30}
+                    sx={{
+                        color: 'text.secondary',
+                        mr: 2,
+                    }} /> : null,
             }}
             inputProps={params.inputProps}
         />
-    ), [name, placeholder, startAdornment]);
+    ), [loading, name, placeholder, startAdornment]);
 
     return (
         <Autocomplete

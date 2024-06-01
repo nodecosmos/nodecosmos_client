@@ -1,3 +1,4 @@
+import Alert from './Alert';
 import CloseModalButton from './modal/CloseModalButton';
 import SimpleAlert from './SimpleAlert';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
@@ -25,7 +26,7 @@ interface Props {
     confirmType: ConfirmType;
     open: boolean;
     onClose: () => void;
-    onConfirm: () => void;
+    onConfirm: () => Promise<void>;
     warning?: string;
     info?: string;
 }
@@ -42,9 +43,13 @@ export default function ConfirmationModal(props: Props) {
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
     const handleConfirm = useCallback(async () => {
         setLoading();
-        await onConfirm();
-        unsetLoading();
-        onClose();
+        try {
+            await onConfirm();
+            unsetLoading();
+            onClose();
+        } catch (e) {
+            unsetLoading();
+        }
     }, [onClose, onConfirm, setLoading, unsetLoading]);
     const icon = confirmType === ConfirmType.Deletion ? faClose : faCheck;
     const progressStyle = useMemo(() => ({ color: `${confirmType}.contrastText` }), [confirmType]);
@@ -60,6 +65,7 @@ export default function ConfirmationModal(props: Props) {
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
+                <Alert position="relative" mb={2} />
                 <Typography color="text.secondary" fontWeight={500}>
                     {text}
                 </Typography>

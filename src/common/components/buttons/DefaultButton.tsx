@@ -15,7 +15,7 @@ interface DefaultButtonProps {
     fontSize?: string;
     variant?: 'contained' | 'outlined' | 'text';
     loading?: boolean;
-    color?: 'primary' | 'secondary' | 'button';
+    color?: 'info' | 'warning' | 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'button' | 'toggle';
 }
 export default function DefaultButton(props: DefaultButtonProps) {
     const {

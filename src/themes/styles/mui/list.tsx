@@ -6,9 +6,9 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 padding: 0,
-                ':not(:first-of-type)': { marginTop: 6 },
+                ':not(:first-of-type)': { marginTop: 4 },
                 '.MuiListItemButton-root': {
-                    transition: 'all 150ms cubic-bezier(0.0, 0, 0.3, 1) 0ms',
+                    transition: 'none',
                     borderRadius: 4,
                     padding: '12px 16px',
                     color: theme.palette.background.list.defaultColor,
@@ -25,9 +25,12 @@ export default (theme: NodecosmosTheme) => ({
     MuiListItemIcon: {
         styleOverrides: {
             root: {
-                fontSize: 18,
-                width: 18,
-                height: 18,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: 20,
+                width: 25,
+                height: 25,
                 marginRight: 16,
                 minWidth: 0,
                 color: theme.palette.background.list.defaultColor,

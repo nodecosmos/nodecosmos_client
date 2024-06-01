@@ -1,23 +1,32 @@
+/* eslint-disable react/jsx-no-bind */
+import InviteUsersList from './InviteUsersList';
 import Alert from '../../../common/components/Alert';
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import useDebounce from '../../../common/hooks/useDebounce';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
+import { isEmail } from '../../../utils/validation';
 import { setAlert } from '../../app/appSlice';
 import useBranchContext from '../../branch/hooks/useBranchContext';
+import { searchUsers } from '../../users/users.thunks';
+import { ShowUser } from '../../users/users.types';
 import { createInvitation } from '../invitations.thunks';
 import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Alert as MuiAlert,
-    Button, DialogActions, DialogContent, Typography,
+    Button,
+    DialogActions,
+    DialogContent,
+    Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
 
@@ -61,6 +70,8 @@ export default function InviteUserModal({ open, onClose }: Props) {
             return;
         }
 
+        setUsernameFromList(null);
+
         onClose();
         unsetLoading();
 
@@ -73,24 +84,60 @@ export default function InviteUserModal({ open, onClose }: Props) {
         }, 250);
     }, [branchId, dispatch, handleServerError, nodeId, onClose, setLoading, unsetLoading]);
 
+    const [users, setUsers] = useState<ShowUser[]>([]);
+    const [usernameFromList, setUsernameFromList] = React.useState<null | string>(null);
+    const [to, setTo] = useState<string | null>(null);
+
+    const handleSearch = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUsernameFromList(null);
+        setUsers([]);
+
+        if (isEmail(event.target.value)) {
+            setTo(event.target.value);
+            return;
+        } else {
+            setTo(null);
+        }
+
+        const response = await dispatch(searchUsers(event.target.value));
+
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
+
+            handleServerError(error);
+            console.error(error);
+
+            return;
+        }
+
+        setUsers(response.payload as ShowUser[]);
+    }, [dispatch, handleServerError]);
+
+    const [handleSearchCb, searchInProgress] = useDebounce(handleSearch, 500);
+
+    const handleClose = useCallback(() => {
+        setUsernameFromList(null);
+        onClose();
+    }, [onClose]);
+
     return (
         <Dialog
+            onClose={handleClose}
             fullWidth
-            maxWidth="md"
+            maxWidth="lg"
             open={open}
             PaperProps={PROPS}>
             <DialogTitle fontWeight="bold">
                 Invite User to Node
-                <CloseModalButton onClose={onClose} />
+                <CloseModalButton onClose={handleClose} />
             </DialogTitle>
             <Form<{ usernameOrEmail: string }>
                 onSubmit={onSubmit}
                 subscription={{ submitting: true }}>
-                {({ handleSubmit }) => (
+                {({ handleSubmit, form }) => (
                     <form onSubmit={handleSubmit}>
                         <DialogContent sx={{ overflow: 'hidden' }}>
                             <Alert position="relative" mb={2} />
-
                             <MuiAlert
                                 severity="info"
                                 variant="outlined"
@@ -113,17 +160,31 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                 fullWidth
                                 name="usernameOrEmail"
                                 label="username || email"
-                                InputProps={{ autoComplete: 'on' }}
+                                onChange={handleSearchCb}
+                                InputProps={{
+                                    autoComplete: 'off',
+                                    endAdornment: searchInProgress ? <CircularProgress
+                                        size={30}
+                                        sx={{
+                                            color: 'text.secondary',
+                                            mr: 2,
+                                        }} /> : null,
+                                }}
                                 required
+                            />
+
+                            <InviteUsersList
+                                setTo={setTo}
+                                usernameFromList={usernameFromList}
+                                users={users}
+                                form={form}
+                                setUsernameFromList={setUsernameFromList}
                             />
                         </DialogContent>
                         <DialogActions sx={{
                             px: 3,
                             pb: 3,
                         }}>
-                            <Button disableElevation variant="contained" onClick={onClose} color="button">
-                                Cancel
-                            </Button>
                             <Button
                                 type="submit"
                                 disableElevation
@@ -134,9 +195,13 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                         ? <CircularProgress size={20} style={{ color: 'warning.main' }} />
                                         : <FontAwesomeIcon icon={faUserPlus} />
                                 }
+                                sx={{ height: 'auto' }}
                             >
                                 <span className="Text">
                                     Send Invitation
+                                    {
+                                        to ? <span> to <b>{to}</b></span> : null
+                                    }
                                 </span>
                             </Button>
                         </DialogActions>

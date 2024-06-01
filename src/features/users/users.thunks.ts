@@ -258,3 +258,24 @@ export const updateBio = createAsyncThunk<UpdateBioPayload, UpdateBioPayload, { 
         }
     },
 );
+
+export const searchUsers = createAsyncThunk<User[], string, { rejectValue: NodecosmosError }>(
+    'users/searchUsers',
+    async (query, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.get(`/users/search/user?q=${query}`);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: HttpErrorCodes.InternalServerError,
+                message: 'An error occurred while searching for users. Please try again later.',
+            });
+        }
+    },
+);

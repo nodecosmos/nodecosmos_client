@@ -5,6 +5,7 @@ import animations from './styles/animations';
 import card from './styles/card';
 import description from './styles/description';
 import like from './styles/like';
+import alert from './styles/mui/alert';
 import autocomplete from './styles/mui/autocomplete';
 import backdrop from './styles/mui/backdrop';
 import breadcrumbs from './styles/mui/breadcrumbs';
@@ -61,6 +62,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 },
             },
         },
+        ...alert(),
         ...autocomplete(theme),
         ...backdrop(theme),
         ...breadcrumbs(theme),

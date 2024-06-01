@@ -9,7 +9,7 @@ import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     InputAdornment,
-    DialogContent,
+    DialogContent, Typography, Alert as MuiAlert,
 } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -71,6 +71,22 @@ export default function CreateContributionRequestModal(props: Props) {
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
+                <MuiAlert
+                    severity="info"
+                    variant="outlined"
+                    sx={{
+                        borderRadius: 1,
+                        width: 'calc(100% - 1px)',
+                        border: 0,
+                        mb: 2,
+                        backgroundColor: 'background.1',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Typography variant="body2" color="text.info">
+                        Create a new contribution request to add changes to the node.
+                    </Typography>
+                </MuiAlert>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>

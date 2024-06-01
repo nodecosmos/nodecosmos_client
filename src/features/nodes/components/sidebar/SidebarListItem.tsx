@@ -53,7 +53,7 @@ export default function SidebarListItem(props: SidebarListItemProps) {
                     alignItems="center"
                     width={1}>
                     <Typography
-                        variant="subtitle2"
+                        variant="subtitle1"
                         sx={{ color: color ?? 'inherit' }}>
                         {title}
                     </Typography>
