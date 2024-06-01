@@ -2,7 +2,7 @@ import {
     OptionalId, Profile, UUID,
 } from '../../types';
 
-export enum ObjectType {
+export enum CommentObjectType {
     ContributionRequest = 'ContributionRequest',
     Topic = 'Topic',
 }
@@ -10,17 +10,21 @@ export enum ObjectType {
 export enum ThreadType {
     Topic = 'Topic',
     ContributionRequestMainThread = 'ContributionRequest::MainThread',
-    ContributionRequestNodeAddition = 'ContributionRequest::NodeAddition',
-    ContributionRequestNodeRemoval = 'ContributionRequest::NodeRemoval',
-    ContributionRequestNodeDescription = 'ContributionRequest::NodeDescription',
+    ContributionRequestObjectDescription = 'ContributionRequest::NodeDescription',
+    ContributionRequestNode = 'ContributionRequest::Node',
+    ContributionRequestFlow = 'ContributionRequest::Flow',
+    ContributionRequestFlowStep = 'ContributionRequest::FlowStep',
+    ContributionRequestInputOutput = 'ContributionRequest::InputOutput',
 }
 
 export const THREAD_TYPE_DESCRIPTION = {
     [ThreadType.Topic]: 'commented on topic:',
     [ThreadType.ContributionRequestMainThread]: 'commented on main thread:',
-    [ThreadType.ContributionRequestNodeAddition]: 'commented added node:',
-    [ThreadType.ContributionRequestNodeRemoval]: 'commented removed node:',
-    [ThreadType.ContributionRequestNodeDescription]: 'commented line:',
+    [ThreadType.ContributionRequestObjectDescription]: 'commented line:',
+    [ThreadType.ContributionRequestNode]: 'commented on node:',
+    [ThreadType.ContributionRequestFlow]: 'commented on flow:',
+    [ThreadType.ContributionRequestFlowStep]: 'commented on flow step:',
+    [ThreadType.ContributionRequestInputOutput]: 'commented on input/output:',
 };
 
 /**
@@ -42,10 +46,11 @@ export interface CommentThreadPrimaryKey {
 }
 
 export interface CommentThread extends CommentThreadPrimaryKey {
-    objectType: ObjectType;
+    title: string;
+    objectType: CommentObjectType;
     objectNodeId: UUID; // nodeId of the contribution request or topic
     threadType: ThreadType;
-    threadNodeId?: UUID;
+    threadObjectId?: UUID;
     lineNumber?: number; // line number of the description where the thread is created
     lineContent?: string; // line of description where the thread is created
     authorId: UUID;
@@ -90,8 +95,8 @@ interface WithoutThreadCommentInsertPayload {
 
 export type CreateCommentPayload = WithThreadCommentInsertPayload | WithoutThreadCommentInsertPayload;
 
-type NodeId = UUID;
-type ObjectId = UUID;
+type ThreadObjectId = UUID; // equals to objectId of thread e.g. node, flow, io, etc..
+type ObjectId = UUID; // equals to branchId for ContributionRequest
 type ThreadId = UUID;
 type LineContent = string;
 type LineNumber = number;
@@ -101,5 +106,6 @@ export interface CommentState {
     idsByThreadId: Record<UUID, UUID[]>;
     threadsById: Record<UUID, CommentThread>;
     threadIdsByObjectId: Record<UUID, UUID[]>;
-    threadByDescriptionLine: Record<ObjectId, Record<NodeId, Map<LineContent, [ThreadId, LineNumber]>>>;
+    objectDescriptionThreadsByLine: Record<ObjectId, Record<ThreadObjectId, Map<LineContent, [ThreadId, LineNumber]>>>;
+    mainObjectThread: Record<ObjectId, Record<ThreadObjectId, ThreadId>>;
 }

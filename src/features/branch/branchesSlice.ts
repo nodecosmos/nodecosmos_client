@@ -124,7 +124,7 @@ const branchesSlice = createSlice({
                 const { branchId } = action.meta.arg;
                 const branch = branchId && state.byId[branchId];
 
-                if (branch) {
+                if (branch && !branch.createdNodes?.has(nodeId)) {
                     branch.editedTitleNodes ||= new Set();
                     branch.editedTitleNodes.add(nodeId);
                 }

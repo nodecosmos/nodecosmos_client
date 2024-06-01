@@ -9,7 +9,7 @@ import {
 } from '../../hooks/pane/usePaneContext';
 import TogglePaneButton from '../TogglePaneButton';
 import {
-    faCodeCommit, faDisplay, faPenToSquare, faRectangleCode,
+    faCodeCommit, faDisplay, faPenToSquare, faRectangleCode, faComments,
 } from '@fortawesome/pro-regular-svg-icons';
 import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -85,6 +85,18 @@ export default function PaneToolbar() {
                         onClickValue={PaneContent.Workflow}
                     />
                 )}
+                {
+                    isBranch && (
+                        <ToolbarItem
+                            title="Comments"
+                            icon={faComments}
+                            color="toolbar.pink"
+                            active={content === PaneContent.Comments}
+                            onClick={handleTogglePane}
+                            onClickValue={PaneContent.Comments}
+                        />
+                    )
+                }
             </ToolbarContainer>
 
             <Box

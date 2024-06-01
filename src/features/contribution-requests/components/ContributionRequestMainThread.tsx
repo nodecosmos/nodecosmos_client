@@ -1,7 +1,7 @@
 import ContributionRequestMainThreadComments from './ContributionRequestMainThreadComments';
 import { UUID } from '../../../types';
 import { selectThread } from '../../comments/comments.selectors';
-import { ObjectType, ThreadType } from '../../comments/comments.types';
+import { CommentObjectType, ThreadType } from '../../comments/comments.types';
 import CommentEditor from '../../comments/components/CommentEditor';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -29,9 +29,10 @@ export default function ContributionRequestMainThread() {
             <CommentEditor
                 autoFocus={false}
                 newThread={{
+                    title: 'Contribution Request Thread',
                     id: id as UUID,
                     objectId: id as UUID,
-                    objectType: ObjectType.ContributionRequest,
+                    objectType: CommentObjectType.ContributionRequest,
                     objectNodeId: nodeId as UUID,
                     threadType: ThreadType.ContributionRequestMainThread,
                 }}

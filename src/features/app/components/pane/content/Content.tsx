@@ -1,3 +1,4 @@
+import PaneComments from './PaneComments';
 import PaneDescription from './PaneDescription';
 import PaneDescriptionEditor from './PaneDescriptionEditor';
 import PaneMarkdownEditor from './PaneMarkdownEditor';
@@ -13,6 +14,7 @@ const PANE_CONTENTS = {
     [PaneContent.Editor]: PaneDescriptionEditor,
     [PaneContent.Markdown]: PaneMarkdownEditor,
     [PaneContent.Workflow]: PaneWorkflow,
+    [PaneContent.Comments]: PaneComments,
 };
 
 export default function Content() {

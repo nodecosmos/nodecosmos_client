@@ -16,7 +16,8 @@ const initialState: CommentState = {
     idsByThreadId: {},
     threadsById: {},
     threadIdsByObjectId: {},
-    threadByDescriptionLine: {},
+    objectDescriptionThreadsByLine: {},
+    mainObjectThread: {},
 };
 
 function resetObjectState(state: RootState['comments'], objectId: UUID) {
@@ -29,7 +30,7 @@ function resetObjectState(state: RootState['comments'], objectId: UUID) {
     }
 
     state.threadIdsByObjectId[objectId] = [];
-    state.threadByDescriptionLine[objectId] = {};
+    state.objectDescriptionThreadsByLine[objectId] = {};
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
@@ -48,11 +49,15 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
     state.threadIdsByObjectId[thread.objectId].push(thread.id);
 
     if (thread.lineContent) {
-        if (!thread.threadNodeId) throw new Error('Thread node id is required for line content');
-        state.threadByDescriptionLine[thread.objectId] ||= {};
-        state.threadByDescriptionLine[thread.objectId][thread.threadNodeId] ||= new Map<string, [UUID, number]>();
-        state.threadByDescriptionLine[thread.objectId][thread.threadNodeId]
+        if (!thread.threadObjectId) throw new Error('Thread Object Id is required for line content');
+        state.objectDescriptionThreadsByLine[thread.objectId] ||= {};
+        state.objectDescriptionThreadsByLine[thread.objectId][thread.threadObjectId]
+            ||= new Map<string, [UUID, number]>();
+        state.objectDescriptionThreadsByLine[thread.objectId][thread.threadObjectId]
             .set(thread.lineContent, [thread.id, thread.lineNumber as number]);
+    } else if (thread.threadObjectId) {
+        state.mainObjectThread[thread.objectId] ||= {};
+        state.mainObjectThread[thread.objectId][thread.threadObjectId] = thread.id;
     }
 }
 
@@ -141,10 +146,10 @@ const commentsSlice = createSlice({
 
                 if (state.idsByThreadId[threadId].length === 0) {
                     if (thread.lineContent) {
-                        if (!thread.threadNodeId) throw new Error('Thread node id is required for line content');
+                        if (!thread.threadObjectId) throw new Error('Thread node id is required for line content');
 
-                        state.threadByDescriptionLine[thread.objectId]
-                            ?.[thread.threadNodeId]
+                        state.objectDescriptionThreadsByLine[thread.objectId]
+                            ?.[thread.threadObjectId]
                             ?.delete(thread.lineContent);
                     }
 

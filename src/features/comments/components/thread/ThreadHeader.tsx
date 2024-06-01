@@ -13,21 +13,27 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export default function ThreadHeader() {
     const {
-        author, createdAt, threadType, threadNodeId,
+        author, createdAt, threadType, threadObjectId,
     } = useThreadContext();
     const { branchId } = useBranchContext();
-    const node = useSelector(maybeSelectNode(branchId, threadNodeId));
+    const node = useSelector(maybeSelectNode(branchId, threadObjectId));
     const nodeTitle = node ? node.title : '';
 
     let commentAction;
     switch (threadType) {
-    case ThreadType.ContributionRequestNodeAddition:
-        commentAction = <span>commented added node <em>{nodeTitle}</em></span>;
+    case ThreadType.ContributionRequestNode:
+        commentAction = <span>commented node <em>{nodeTitle}</em></span>;
         break;
-    case ThreadType.ContributionRequestNodeRemoval:
-        commentAction = <span>commented removed node <em>{nodeTitle}</em></span>;
+    case ThreadType.ContributionRequestFlow:
+        commentAction = <span>commented flow <em>{nodeTitle}</em></span>;
         break;
-    case ThreadType.ContributionRequestNodeDescription:
+    case ThreadType.ContributionRequestFlowStep:
+        commentAction = <span>commented flow step <em>{nodeTitle}</em></span>;
+        break;
+    case ThreadType.ContributionRequestInputOutput:
+        commentAction = <span>commented input/output <em>{nodeTitle}</em></span>;
+        break;
+    case ThreadType.ContributionRequestObjectDescription:
         commentAction = <span>commented line <em>{nodeTitle}</em></span>;
         break;
     default:

@@ -3,7 +3,7 @@ import { setThreadWidget } from '../../../../common/lib/codemirror/stateEffects'
 import { UUID } from '../../../../types';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
-import { selectNodeThreadsByLine } from '../../comments.selectors';
+import { selectObjectThreadsByLine } from '../../comments.selectors';
 import CommentThread from '../../components/CommentThread';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
 import { Decoration } from '@codemirror/view';
@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 export default function useCommentThreadsWidget(view: EditorView): ReactPortal[] {
     const { objectId } = usePaneContext();
     const { branchId } = useBranchContext();
-    const nodeThreadsByLine = useSelector(selectNodeThreadsByLine(branchId, objectId));
+    const objectThreadsByLine = useSelector(selectObjectThreadsByLine(branchId, objectId));
     const [portalsById, setDescThreadPortals] = useState<Record<UUID, ReactPortal> | null>();
 
     // const clearWidgets = useCallback(() => {
@@ -92,7 +92,7 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
     }
 
     const linesThreads = useMemo(() => {
-        if (nodeThreadsByLine) {
+        if (objectThreadsByLine) {
             const linesThreads: LineThread[] = [];
 
             // iterate lines of text in view
@@ -100,7 +100,7 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                 const line = view.state.doc.lineAt(pos);
                 pos = line.to + 1; // Move to the start of the next line
                 const lineContent = line.text || EMPTY_LINE_PLACEHOLDER;
-                const threadByLine = nodeThreadsByLine.get(lineContent);
+                const threadByLine = objectThreadsByLine.get(lineContent);
 
                 if (!threadByLine) {
                     continue;
@@ -124,7 +124,7 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
         }
 
         return [];
-    }, [nodeThreadsByLine, view.state.doc]);
+    }, [objectThreadsByLine, view.state.doc]);
 
     const addCommentThreadWidgets = useCallback(() => {
         linesThreads.forEach(({ lineNumber, threadId }) => {
@@ -148,10 +148,10 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
     }, [linesThreads, portalsById, view]);
 
     useEffect(() => {
-        if (nodeThreadsByLine) {
+        if (objectThreadsByLine) {
             addCommentThreadWidgets();
         }
-    }, [addCommentThreadWidgets, nodeThreadsByLine]);
+    }, [addCommentThreadWidgets, objectThreadsByLine]);
 
     return portalsById ? Object.values(portalsById) : [];
 }

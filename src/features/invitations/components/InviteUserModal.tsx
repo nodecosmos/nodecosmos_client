@@ -124,7 +124,7 @@ export default function InviteUserModal({ open, onClose }: Props) {
         <Dialog
             onClose={handleClose}
             fullWidth
-            maxWidth="lg"
+            maxWidth="md"
             open={open}
             PaperProps={PROPS}>
             <DialogTitle fontWeight="bold">

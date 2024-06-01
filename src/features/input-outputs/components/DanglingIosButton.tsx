@@ -19,7 +19,7 @@ export default function DanglingIosButton() {
     }, [allWorkflowIos]);
     const [open, openModal, closeModal] = useModalOpen();
 
-    if (!isBranch && (!danglingIos.length || danglingIos.length === 0)) {
+    if (isBranch || !danglingIos.length || danglingIos.length === 0) {
         return null;
     }
 

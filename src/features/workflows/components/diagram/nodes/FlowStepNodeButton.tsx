@@ -41,7 +41,8 @@ export default function FlowStepNodeButton() {
     } = useFlowStepNodeColors();
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
-    const { selectObject } = useAppContext(); const handleClick = useCallback(() => {
+    const { selectObject } = useAppContext();
+    const handleClick = useCallback(() => {
         deactivateInputsAddition();
 
         if (insidePane) {

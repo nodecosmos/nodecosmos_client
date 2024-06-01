@@ -5,7 +5,7 @@ import { hoveredLineField, selectedLineField } from '../../../../common/lib/code
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
-    ObjectType, ThreadType, ThreadInsertPayload,
+    ThreadType, ThreadInsertPayload, CommentObjectType,
 } from '../../comments.types';
 import CommentEditor from '../../components/CommentEditor';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
@@ -59,12 +59,13 @@ export default function useCommentInsertWidget(view: EditorView) {
 
             const threadPayload: ThreadInsertPayload = {
                 objectId: branchId,
-                objectType: ObjectType.ContributionRequest,
+                objectType: CommentObjectType.ContributionRequest,
                 objectNodeId: nodeId,
-                threadType: ThreadType.ContributionRequestNodeDescription,
-                threadNodeId: objectId,
+                threadType: ThreadType.ContributionRequestObjectDescription,
+                threadObjectId: objectId,
                 lineNumber,
                 lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
+                title: 'Description Review',
             };
 
             // Codemirror Widget element is created and appended to the DOM

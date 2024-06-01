@@ -39,6 +39,17 @@ export const maybeSelectNode = (branchId: UUID, nodeId?: UUID) => createSelector
     },
 );
 
+export const selectNodesByIds = (branchId: UUID, nodeIds: Set<UUID>) => createSelector(
+    selectBranchNodes(branchId),
+    (branchNodes) => {
+        if (!branchNodes) {
+            return [];
+        }
+
+        return Array.from(nodeIds).map((id) => branchNodes[id]);
+    },
+);
+
 export const selectIndexedNode = (nodeId: UUID) => createSelector(
     selectIndexNodesById,
     (indexedNodesById) => indexedNodesById[nodeId],

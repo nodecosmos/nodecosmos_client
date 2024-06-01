@@ -18,6 +18,7 @@ export enum PaneContent {
     Markdown = 'markdown',
     Editor = 'editor',
     Workflow = 'workflow',
+    Comments = 'comments',
 }
 
 interface CtxCreatorValue {
