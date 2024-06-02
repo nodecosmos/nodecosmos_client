@@ -4,7 +4,9 @@ import {
 } from './flowSteps.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
-import { NodecosmosError, RootId } from '../../types';
+import {
+    NodecosmosError, RootId, UUID,
+} from '../../types';
 import { BranchMetadata, WithBranchMetadata } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
@@ -25,6 +27,12 @@ export const createFlowStep = createAsyncThunk<
             }
 
             console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while creating the flow step.',
+                viewMessage: true,
+            });
         }
     },
 );
@@ -43,15 +51,73 @@ export const updateFlowStepNodes = createAsyncThunk<
 );
 
 export const updateFlowStepInputs = createAsyncThunk<
-    Partial<FlowStep> & FlowStepPrimaryKey,
+        {
+            flowStep: Partial<FlowStep> & FlowStepPrimaryKey,
+            createdDiff: Record<UUID, UUID[]>,
+            removedDiff: Record<UUID, UUID[]>,
+        },
     FlowStepUpdatePayload,
-    { rejectValue: NodecosmosError }
+    { rejectValue: NodecosmosError, state: RootState }
 >(
     'flow_steps/updateFlowStepInputs',
-    async (payload) => {
-        const response = await nodecosmos.put('/flow_steps/inputs', payload);
+    async (payload, { rejectWithValue, getState }) => {
+        try {
+            const response = await nodecosmos.put('/flow_steps/inputs', payload);
+            const state = getState();
+            const {
+                branchId, id, rootId, inputIdsByNodeId: newInputsByNodeId = {},
+            } = response.data;
+            const flowStep = state.flowSteps.byBranchId[branchId][id];
+            const { inputIdsByNodeId: currentInputIdsByNodeId } = flowStep;
+            const isBranch = rootId !== branchId;
+            const createdDiff: Record<UUID, UUID[]> = {};
+            const removedDiff: Record<UUID, UUID[]> = {};
 
-        return response.data;
+            if (isBranch) {
+                Object.keys(newInputsByNodeId).forEach((nodeId: UUID) => {
+                    if (currentInputIdsByNodeId[nodeId]) {
+                        const currentInputIds = currentInputIdsByNodeId[nodeId];
+                        const newInputIds = newInputsByNodeId[nodeId];
+                        const createdNodeInputs = newInputIds.filter((id: UUID) => !currentInputIds.includes(id));
+                        const removedNodeInputs = currentInputIds.filter((id: UUID) => !newInputIds.includes(id));
+
+                        if (createdNodeInputs.length) {
+                            createdDiff[nodeId] = createdNodeInputs;
+                        }
+
+                        if (removedNodeInputs.length) {
+                            removedDiff[nodeId] = removedNodeInputs;
+                        }
+                    } else {
+                        createdDiff[nodeId] = newInputsByNodeId[nodeId];
+                    }
+                });
+
+                Object.keys(currentInputIdsByNodeId).forEach((nodeId) => {
+                    if (!newInputsByNodeId[nodeId]) {
+                        removedDiff[nodeId] = currentInputIdsByNodeId[nodeId];
+                    }
+                });
+            }
+
+            return {
+                flowStep: response.data,
+                createdDiff,
+                removedDiff,
+            };
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while updating the flow step inputs.',
+                viewMessage: true,
+            });
+        }
     },
 );
 

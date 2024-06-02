@@ -28,10 +28,13 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const { nestedTreeColor } = useFlowStepNodeColors();
     let color = isSelected ? nestedTreeColor.fg : defaultLoopInputColor;
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
+    let strokeWidth = 1.5;
 
     if (isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId)) {
+        strokeWidth = isSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.added.fg, 0.6);
     } else if (isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId)) {
+        strokeWidth = isSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.removed.fg, 0.6);
     }
 
@@ -58,7 +61,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 className="InputLink"
                 stroke={color}
                 fill="transparent"
-                strokeWidth={1.5}
+                strokeWidth={strokeWidth}
                 d={`M ${x} ${y}
                     L ${x + X_OFFSET + 2.5} ${y}
                     L ${x + X_OFFSET + 2.5} ${originNodeY}

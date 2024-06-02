@@ -4,7 +4,7 @@ import {
     updateFlowStepInputs,
     updateFlowStepNodes,
 } from './flowSteps.thunks';
-import { FlowStep, FlowStepState } from './flowSteps.types';
+import { FlowStepState } from './flowSteps.types';
 import { UUID } from '../../types';
 import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { indexWorkflowBranchData, showWorkflow } from '../workflows/worfklow.thunks';
@@ -51,11 +51,24 @@ const flowStepsSlice = createSlice({
                 state.byBranchId[branchId][id].nodeIds = nodeIds || [];
             })
             .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
-                const flowStep = action.payload;
-                const { branchId } = flowStep;
+                const { flowStep, createdDiff } = action.payload;
+                const {
+                    branchId, rootId, inputIdsByNodeId = {},
+                } = flowStep;
+                const isBranch = rootId !== branchId;
 
-                state.byBranchId[branchId][flowStep.id as UUID].inputIdsByNodeId
-                    = flowStep.inputIdsByNodeId as FlowStep['inputIdsByNodeId'];
+                if (isBranch) {
+                    Object.keys(createdDiff).forEach((nodeId: UUID) => {
+                        const createdNodeInputs = createdDiff[nodeId];
+
+                        createdNodeInputs.forEach((inputId: UUID) => {
+                            state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId] ||= [];
+                            state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId].push(inputId);
+                        });
+                    });
+                } else {
+                    state.byBranchId[branchId][flowStep.id as UUID].inputIdsByNodeId = inputIdsByNodeId;
+                }
             })
             .addCase(createIo.fulfilled, (state, action) => {
                 const {

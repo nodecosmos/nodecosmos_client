@@ -172,7 +172,7 @@ const theme: NodecosmosTheme = {
         },
 
         workflow: {
-            default: '#4e535e',
+            default: '#444a54',
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#cdd4ff',

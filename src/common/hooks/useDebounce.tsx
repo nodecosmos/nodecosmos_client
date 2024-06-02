@@ -1,6 +1,6 @@
 import {
     useCallback,
-    useEffect, useRef, useState,
+    useEffect, useMemo, useRef, useState,
 } from 'react';
 
 type Callback<T> = (value: T) => Promise<void> | void;
@@ -23,8 +23,5 @@ export default function useDebounce<T>(callback: Callback<T>, timeout = 500): [C
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
     }, []);
 
-    return [
-        debounce,
-        inProgress,
-    ];
+    return useMemo(() => [debounce, inProgress], [debounce, inProgress]);
 }

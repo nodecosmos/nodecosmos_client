@@ -1,5 +1,5 @@
 import {
-    WORKFLOW_BUTTON_HEIGHT, OUTPUT_BUTTON_WIDTH, WORKFLOW_BUTTON_WIDTH, 
+    WORKFLOW_BUTTON_HEIGHT, OUTPUT_BUTTON_WIDTH, WORKFLOW_BUTTON_WIDTH,
 } from '../constants';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -48,7 +48,6 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                 '.WorkflowOutputButton': {
                     display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
                     height: WORKFLOW_BUTTON_HEIGHT,
                     ml: 1,
                     borderRadius: 1,

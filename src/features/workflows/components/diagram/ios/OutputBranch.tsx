@@ -6,6 +6,7 @@ import {
     EDGE_LENGTH, OUTPUT_BUTTON_WIDTH, OUTPUT_VERTICAL_EDGE_LENGTH,
 } from '../../../constants';
 import { Output as OutputType } from '../../../diagram/diagram.types';
+import useOutputColors from '../../../hooks/diagram/useOutputColors';
 import { useTheme } from '@mui/material';
 import React from 'react';
 
@@ -20,13 +21,15 @@ export default function OutputBranch(props: OutputProps) {
 
     const { output } = props;
     const { x, y } = output.position;
-    if (!x) { return null; }
+    const { pathColor } = useOutputColors();
 
+    if (!x) { return null; }
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
     const animationDelay = ANIMATION_DELAY;
     const xEnd = x + OUTPUT_VERTICAL_EDGE_LENGTH;
     const existingX = x + EDGE_LENGTH + OUTPUT_BUTTON_WIDTH - 1;
+
     return (
         <g>
             <path
@@ -68,7 +71,7 @@ export default function OutputBranch(props: OutputProps) {
                 cx={xEnd}
                 cy={y}
                 r={5}
-                fill={theme.palette.workflow.default}
+                fill={pathColor}
                 style={{
                     opacity: 0,
                     animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${animationDelay}ms forwards`,

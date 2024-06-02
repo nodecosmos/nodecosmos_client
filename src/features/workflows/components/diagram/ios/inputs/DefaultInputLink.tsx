@@ -27,11 +27,14 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
 
     let color = isSelected ? selectedInputColor : defaultInputColor;
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
+    let strokeWidth = 1;
 
     if (isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId)) {
-        color = withOpacity(theme.palette.diff.added.fg, 0.6);
+        strokeWidth = isSelected ? 2 : 1;
+        color = withOpacity(theme.palette.diff.added.fg, 0.4);
     } else if (isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId)) {
-        color = withOpacity(theme.palette.diff.removed.fg, 0.6);
+        strokeWidth = isSelected ? 2 : 1;
+        color = withOpacity(theme.palette.diff.removed.fg, 0.4);
     }
 
     const { position: prevOutputPosition } = outputsById[nodeOutputId] || {};
@@ -50,7 +53,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 className="InputLink"
                 stroke={color}
                 fill="transparent"
-                strokeWidth={1}
+                strokeWidth={strokeWidth}
                 d={`M ${x} ${y} L ${xEnd} ${yEnd}`}
                 style={{
                     opacity: 0,

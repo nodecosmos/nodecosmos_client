@@ -52,6 +52,7 @@ export default function OutputButton() {
                         style={{
                             backgroundColor,
                             border: `1px solid ${isChecked ? checkboxColor : outlineColor}`,
+                            justifyContent: inputsAdditionActive ? 'flex-start' : 'center',
                             color,
                         }}
                     >

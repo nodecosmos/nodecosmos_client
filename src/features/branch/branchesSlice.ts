@@ -18,7 +18,9 @@ import {
     showContributionRequest,
 } from '../contribution-requests/contributionRequests.thunks';
 import { saveDescription } from '../descriptions/descriptions.thunks';
-import { createFlowStep, deleteFlowStep } from '../flow-steps/flowSteps.thunks';
+import {
+    createFlowStep, deleteFlowStep, updateFlowStepInputs,
+} from '../flow-steps/flowSteps.thunks';
 import { createFlow, deleteFlow } from '../flows/flows.thunks';
 import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import {
@@ -209,6 +211,49 @@ const branchesSlice = createSlice({
                 if (branch) {
                     branch.deletedFlowSteps ||= new Set();
                     branch.deletedFlowSteps.add(flowStepId);
+                }
+            })
+            .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
+                const {
+                    flowStep, createdDiff, removedDiff,
+                } = action.payload;
+                const { id: flowStepId, branchId } = flowStep;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    Object.keys(createdDiff).forEach((nodeId) => {
+                        branch.createdFlowStepInputsByNode ||= {};
+                        branch.createdFlowStepInputsByNode[flowStepId] ||= {};
+                        branch.createdFlowStepInputsByNode[flowStepId][nodeId] ||= new Set();
+                        createdDiff[nodeId].forEach((inputId) => {
+                            branch.createdFlowStepInputsByNode[flowStepId][nodeId].add(inputId);
+                        });
+
+                        // remove from deleted inputs
+                        if (branch.deletedFlowStepInputsByNode[flowStepId]
+                            && branch.deletedFlowStepInputsByNode[flowStepId][nodeId]) {
+                            createdDiff[nodeId].forEach((inputId) => {
+                                branch.deletedFlowStepInputsByNode[flowStepId][nodeId].delete(inputId);
+                            });
+                        }
+                    });
+
+                    Object.keys(removedDiff).forEach((nodeId) => {
+                        branch.deletedFlowStepInputsByNode ||= {};
+                        branch.deletedFlowStepInputsByNode[flowStepId] ||= {};
+                        branch.deletedFlowStepInputsByNode[flowStepId][nodeId] ||= new Set();
+                        removedDiff[nodeId].forEach((inputId) => {
+                            branch.deletedFlowStepInputsByNode[flowStepId][nodeId].add(inputId);
+                        });
+
+                        // remove from created inputs
+                        if (branch.createdFlowStepInputsByNode[flowStepId]
+                            && branch.createdFlowStepInputsByNode[flowStepId][nodeId]) {
+                            removedDiff[nodeId].forEach((inputId) => {
+                                branch.createdFlowStepInputsByNode[flowStepId][nodeId].delete(inputId);
+                            });
+                        }
+                    });
                 }
             })
             .addCase(createIo.fulfilled, (state, action) => {
