@@ -3,6 +3,7 @@ import { UUID } from '../../../../../types';
 import CreateIoModal, { IoObjectType } from '../../../../input-outputs/components/CreateIoModal';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { faPlus, faChartNetwork } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,17 +16,22 @@ export default function FlowStepNodeButtonToolbar() {
     const { activateInputsAddition } = useWorkflowContext();
     const { id, isSelected } = useFlowStepNodeContext();
     const {
-        flowStepPrimaryKey, outputIdsByNodeId, inputIdsByNodeId: currentFlowStepInputIds,
+        flowStepPrimaryKey, outputIdsByNodeId, inputIdsByNodeId: currentFlowStepInputIds, id: flowStepId,
     } = useFlowStepContext();
     const { setSelectedInputs } = useWorkflowContext();
+    const { isFlowStepInputDeleted } = useWorkflowBranch();
 
     const [outputsModalOpen, openOutputModal, closeOutputModal] = useModalOpenAuthorized();
 
     const handleOpenInputsAddition = useCallback(() => {
-        setSelectedInputs(new Set<UUID>(currentFlowStepInputIds[id] || []));
+        const inputs = (currentFlowStepInputIds[id] || []).filter(
+            (inputId) => !isFlowStepInputDeleted(flowStepId, id, inputId),
+        );
+
+        setSelectedInputs(new Set<UUID>(inputs));
 
         activateInputsAddition();
-    }, [activateInputsAddition, currentFlowStepInputIds, id, setSelectedInputs]);
+    }, [activateInputsAddition, currentFlowStepInputIds, flowStepId, id, isFlowStepInputDeleted, setSelectedInputs]);
 
     if (!isSelected || !flowStepPrimaryKey) return null;
 

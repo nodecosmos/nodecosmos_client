@@ -6,7 +6,8 @@ import {
     restoreIo,
     restoreNode, showBranch,
     undoDeleteFlow,
-    undoDeleteFlowStep, undoDeleteIo,
+    undoDeleteFlowStep,
+    undoDeleteIo,
     undoDeleteNode,
 } from './branches.thunks';
 import { Branch, BranchesState } from './branches.types';

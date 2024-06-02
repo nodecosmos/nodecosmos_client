@@ -1,8 +1,10 @@
 import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
+import { withOpacity } from '../../../../../../utils/colors';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
+import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { useTheme } from '@mui/material';
 import React from 'react';
 
@@ -14,14 +16,23 @@ interface InputProps {
 
 export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
-    const { position: nodePosition, isSelected } = useFlowStepNodeContext();
+    const {
+        position: nodePosition, isSelected, flowStepId, id: nodeId,
+    } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
     const {
         selectedInputColor,
         defaultInputColor,
     } = theme.palette.workflow;
 
-    const color = isSelected ? selectedInputColor : defaultInputColor;
+    let color = isSelected ? selectedInputColor : defaultInputColor;
+    const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
+
+    if (isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId)) {
+        color = withOpacity(theme.palette.diff.added.fg, 0.6);
+    } else if (isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId)) {
+        color = withOpacity(theme.palette.diff.removed.fg, 0.6);
+    }
 
     const { position: prevOutputPosition } = outputsById[nodeOutputId] || {};
 

@@ -1,9 +1,11 @@
 import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
+import { withOpacity } from '../../../../../../utils/colors';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
 import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
+import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { useTheme } from '@mui/material';
 import React from 'react';
 
@@ -18,11 +20,20 @@ const X_OFFSET = 20;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
-    const { position: destNodePos, isSelected } = useFlowStepNodeContext();
+    const {
+        position: destNodePos, isSelected, flowStepId, id: nodeId,
+    } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
     const { defaultLoopInputColor } = theme.palette.workflow;
     const { nestedTreeColor } = useFlowStepNodeColors();
-    const color = isSelected ? nestedTreeColor.fg : defaultLoopInputColor;
+    let color = isSelected ? nestedTreeColor.fg : defaultLoopInputColor;
+    const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
+
+    if (isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId)) {
+        color = withOpacity(theme.palette.diff.added.fg, 0.6);
+    } else if (isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId)) {
+        color = withOpacity(theme.palette.diff.removed.fg, 0.6);
+    }
 
     if (!outputsById[nodeOutputId]) {
         return null;
