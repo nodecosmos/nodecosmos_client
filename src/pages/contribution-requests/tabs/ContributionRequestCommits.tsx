@@ -11,28 +11,27 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContributionRequestCommits() {
     const dispatch: NodecosmosDispatch = useDispatch();
+
     const {
         branchId, nodeId, originalId,
     } = useBranchContext();
+
     const branch = useSelector(selectBranch(branchId));
+
     const {
         createdNodes, restoredNodes, editedTitleNodes, deletedNodes, editedDescriptionNodes,
-        reorderedNodes: reorderedNodesData, createdWorkflowInitialInputs, deletedWorkflowInitialInputs,
+        reorderedNodes: reorderedNodesData, createdInitialInputs, deletedInitialInputs,
     } = useMemo(() => {
         return branch ?? {};
     }, [branch]);
 
-    const createdInitialInputs = useMemo(() => {
-        return createdWorkflowInitialInputs ? new Set(
-            Object.values(createdWorkflowInitialInputs).flatMap(set => Array.from(set)),
-        ) : null;
-    }, [createdWorkflowInitialInputs]);
+    const createdWfInitialInputs = useMemo(() => {
+        return createdInitialInputs ? new Set(createdInitialInputs) : null;
+    }, [createdInitialInputs]);
 
-    const deletedInitialInputs = useMemo(() => {
-        return deletedWorkflowInitialInputs ? new Set (
-            Object.values(deletedWorkflowInitialInputs).flatMap(set => Array.from(set)),
-        ) : null;
-    }, [deletedWorkflowInitialInputs]);
+    const deletedWfInitialInputs = useMemo(() => {
+        return deletedInitialInputs ? new Set(deletedInitialInputs) : null;
+    }, [deletedInitialInputs]);
 
     const reorderedNodes = useMemo(() => {
         return new Set(reorderedNodesData?.map((data) => data.id));
@@ -68,11 +67,11 @@ export default function ContributionRequestCommits() {
             <CommitNodes ids={reorderedNodes} title="Reordered Nodes" />
             <CommitWorkflowObjectsWrapper
                 title="Created Workflow Initial Inputs"
-                ids={createdInitialInputs}
+                ids={createdWfInitialInputs}
                 objectType={WorkflowObjectType.InputOutput} />
             <CommitWorkflowObjectsWrapper
                 title="Deleted Workflow Initial Inputs"
-                ids={deletedInitialInputs}
+                ids={deletedWfInitialInputs}
                 objectType={WorkflowObjectType.InputOutput} />
         </Box>
     );

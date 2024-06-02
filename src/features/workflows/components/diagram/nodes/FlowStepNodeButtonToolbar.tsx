@@ -73,7 +73,7 @@ export default function FlowStepNodeButtonToolbar() {
                 onClose={closeOutputModal}
                 associatedObject={IoObjectType.flowStep}
                 flowStepPrimaryKey={flowStepPrimaryKey}
-                outputNodeId={id}
+                flowStepNodeId={id}
                 outputIdsByNodeId={outputIdsByNodeId}
             />
         </>

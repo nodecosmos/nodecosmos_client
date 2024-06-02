@@ -3,11 +3,10 @@ import {
     deleteFlowStep,
     updateFlowStepInputs,
     updateFlowStepNodes,
-    updateFlowStepOutputs,
 } from './flowSteps.thunks';
 import { FlowStep, FlowStepState } from './flowSteps.types';
 import { UUID } from '../../types';
-import { deleteIo } from '../input-outputs/inputOutputs.thunks';
+import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { indexWorkflowBranchData, showWorkflow } from '../workflows/worfklow.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 import Decimal from 'decimal.js';
@@ -51,13 +50,6 @@ const flowStepsSlice = createSlice({
 
                 state.byBranchId[branchId][id].nodeIds = nodeIds || [];
             })
-            .addCase(updateFlowStepOutputs.fulfilled, (state, action) => {
-                const flowStep = action.payload;
-                const { branchId } = flowStep;
-
-                state.byBranchId[branchId][flowStep.id as UUID].outputIdsByNodeId
-                    = flowStep.outputIdsByNodeId as FlowStep['outputIdsByNodeId'];
-            })
             .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
                 const flowStep = action.payload;
                 const { branchId } = flowStep;
@@ -65,14 +57,20 @@ const flowStepsSlice = createSlice({
                 state.byBranchId[branchId][flowStep.id as UUID].inputIdsByNodeId
                     = flowStep.inputIdsByNodeId as FlowStep['inputIdsByNodeId'];
             })
-            .addCase(deleteFlowStep.fulfilled, (state, action) => {
-                const flowStep = action.payload.data;
-                const { deleteFromState } = action.payload.metadata;
-                const { branchId } = flowStep;
+            .addCase(createIo.fulfilled, (state, action) => {
+                const {
+                    flowStepId, flowStepNodeId, id,
+                } = action.payload;
 
-                if (deleteFromState) {
-                    delete state.byBranchId[branchId][flowStep.id];
-                }
+                if (!flowStepId || !flowStepNodeId) return;
+
+                const { branchId } = action.meta.arg;
+                state.byBranchId[branchId][flowStepId].outputIdsByNodeId ||= {};
+                const currentNodeOutputs = state.byBranchId[branchId][flowStepId].outputIdsByNodeId[flowStepNodeId]
+                    || [];
+
+                state.byBranchId[branchId][flowStepId].outputIdsByNodeId[flowStepNodeId]
+                    = [...currentNodeOutputs, id];
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const { flowStepId, id } = action.payload.data;
@@ -89,6 +87,15 @@ const flowStepsSlice = createSlice({
                         state.byBranchId[branchId][flowStepId].outputIdsByNodeId[nodeId]
                             = outputIdsByNodeId[nodeId].filter((outputId) => outputId !== id);
                     });
+                }
+            })
+            .addCase(deleteFlowStep.fulfilled, (state, action) => {
+                const flowStep = action.payload.data;
+                const { deleteFromState } = action.payload.metadata;
+                const { branchId } = flowStep;
+
+                if (deleteFromState) {
+                    delete state.byBranchId[branchId][flowStep.id];
                 }
             })
             .addCase(indexWorkflowBranchData.fulfilled, (state, action) => {

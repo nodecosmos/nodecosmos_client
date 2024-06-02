@@ -42,19 +42,6 @@ export const updateFlowStepNodes = createAsyncThunk<
     },
 );
 
-export const updateFlowStepOutputs = createAsyncThunk<
-    Partial<FlowStep> & FlowStepPrimaryKey,
-    FlowStepUpdatePayload,
-    { rejectValue: NodecosmosError }
->(
-    'flow_steps/updateFlowStepOutputs',
-    async (payload) => {
-        const response = await nodecosmos.put('/flow_steps/outputs', payload);
-
-        return response.data;
-    },
-);
-
 export const updateFlowStepInputs = createAsyncThunk<
     Partial<FlowStep> & FlowStepPrimaryKey,
     FlowStepUpdatePayload,

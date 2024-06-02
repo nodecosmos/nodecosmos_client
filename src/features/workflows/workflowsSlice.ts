@@ -1,11 +1,11 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
 import {
-    showWorkflow, updateWorkflowInitialInputs, updateWorkflowTitle,
+    showWorkflow, updateInitialInputs, updateWorkflowTitle,
 } from './worfklow.thunks';
 import { WorkflowState } from './workflow.types';
 import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
-import { deleteIo } from '../input-outputs/inputOutputs.thunks';
+import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: WorkflowState = {
@@ -69,11 +69,22 @@ const workflowsSlice = createSlice({
 
                 state.byBranchId[branchId][nodeId].title = workflow.title;
             })
-            .addCase(updateWorkflowInitialInputs.fulfilled, (state, action) => {
+            .addCase(updateInitialInputs.fulfilled, (state, action) => {
                 const workflow = action.payload;
                 const { initialInputIds } = workflow;
 
                 state.byBranchId[workflow.branchId][workflow.nodeId].initialInputIds = initialInputIds;
+            })
+            .addCase(createIo.fulfilled, (state, action) => {
+                const inputOutput = action.payload;
+                const {
+                    branchId, nodeId, initialInput, 
+                } = inputOutput;
+
+                if (initialInput) {
+                    state.byBranchId[branchId][nodeId].initialInputIds ||= [];
+                    state.byBranchId[branchId][nodeId].initialInputIds.push(inputOutput.id);
+                }
             })
             .addCase(deleteIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;

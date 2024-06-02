@@ -26,14 +26,14 @@ export enum IoObjectType {
 // Assuming these interfaces are defined somewhere
 interface FlowStepProps {
     flowStepPrimaryKey: FlowStepPrimaryKey;
-    outputNodeId: UUID;
     outputIdsByNodeId: FlowStep['outputIdsByNodeId'];
+    flowStepNodeId: UUID;
 }
 
 interface StartStepProps {
     flowStepPrimaryKey?: never;
-    outputNodeId?: never;
     outputIdsByNodeId?: never;
+    flowStepNodeId?: never;
 }
 
 type ConditionalProps = FlowStepProps | StartStepProps;
@@ -83,8 +83,8 @@ export default function CreateIoModal(props: CreateIoModalProps) {
     }, [uniqueIoTitles]);
 
     const handleCloseCb = useCallback(() => {
-        onClose();
         setTitleFromList(null);
+        onClose();
     }, [onClose]);
 
     return (
@@ -156,7 +156,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                                 <span className="Text">
                                     Create
                                     {
-                                        titleFromList ? <span> new <b>{titleFromList}</b></span> : null
+                                        titleFromList ? <span> new {titleFromList}</span> : null
                                     }
                                 </span>
                             </Button>

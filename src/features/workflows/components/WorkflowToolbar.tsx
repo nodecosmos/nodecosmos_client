@@ -20,7 +20,7 @@ export default function WorkflowToolbar() {
         <Box
             height={HEADER_HEIGHT}
             width={1}
-            pl={1.25}
+            pl={2}
             display="flex"
             alignItems="center"
             justifyContent="space-between"

@@ -30,12 +30,12 @@ export const showWorkflow = createAsyncThunk<
     },
 );
 
-export const updateWorkflowInitialInputs = createAsyncThunk<
+export const updateInitialInputs = createAsyncThunk<
     Workflow,
     WorkflowUpsertPayload,
     { rejectValue: NodecosmosError }
 >(
-    'workflows/updateWorkflowInitialInputs',
+    'workflows/updateInitialInputs',
     async (payload) => {
         const response = await nodecosmos.put('/workflows/initial_input_ids', payload);
 

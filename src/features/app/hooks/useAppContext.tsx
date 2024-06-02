@@ -25,7 +25,6 @@ export function useAppContextCreator() {
             const encodedData = btoa(JSON.stringify(obj));
 
             newParams.set(SELECTED_OBJ_Q, encodedData);
-
             setSearchParams(newParams);
         }
 
