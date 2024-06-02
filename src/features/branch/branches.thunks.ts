@@ -189,11 +189,30 @@ export const restoreIo = createAsyncThunk<Branch, BranchPayload, { rejectValue: 
     },
 );
 
-export const undoDeleteIo = createAsyncThunk<Branch, BranchPayload, { rejectValue: NodecosmosError }>(
+export const undoDeleteIo = createAsyncThunk<Branch, {
+    branchId: UUID;
+    flowStepId?: UUID | null;
+    flowStepNodeId?: UUID | null;
+    id: UUID;
+}, { rejectValue: NodecosmosError }>(
     'branches/undoDeleteIo',
-    async (payload, { rejectWithValue }) => {
+    async ({
+        branchId,
+        flowStepId = '',
+        flowStepNodeId = '',
+        id,
+    }, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.put('/branches/undo_delete_io', payload);
+            let response;
+            if (flowStepNodeId && flowStepId) {
+                response = await nodecosmos.put(
+                    `/branches/undo_delete_flow_step_io/${branchId}/${flowStepId}/${flowStepNodeId}/${id}`,
+                );
+            } else {
+                response = await nodecosmos.put(
+                    `/branches/undo_delete_initial_io/${branchId}/${id}`,
+                );
+            }
 
             return response.data;
         } catch (error) {

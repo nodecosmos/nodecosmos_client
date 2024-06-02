@@ -20,7 +20,7 @@ export default function useIoActions() {
         nodeId,
     } = useWorkflowContext();
     const {
-        id, rootId, mainId,
+        id, rootId, mainId, flowStepId, flowStepNodeId,
     } = useIoContext();
     const { originalId, branchId } = useBranchContext();
     const {
@@ -112,9 +112,11 @@ export default function useIoActions() {
     const undoDeleteIoCb = useCallback(() => {
         dispatch(undoDeleteIo({
             branchId,
-            objectId: id,
+            flowStepId,
+            flowStepNodeId,
+            id,
         }));
-    }, [dispatch, branchId, id]);
+    }, [dispatch, branchId, flowStepId, flowStepNodeId, id]);
 
     return {
         handleIoClick,

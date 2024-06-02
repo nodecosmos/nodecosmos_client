@@ -55,7 +55,7 @@ export default function useIoContext() {
 
     const { branchId } = useWorkflowContext();
     const {
-        rootId, title, mainId,
+        rootId, title, mainId, flowStepId, flowStepNodeId,
     } = useSelector(selectInputOutput(branchId, id));
     const selectedObject = useSelector(selectSelectedObject);
     const isSelected = id === selectedObject?.objectId;
@@ -77,6 +77,8 @@ export default function useIoContext() {
         isNodeSelected,
         titleEditOpen,
         fsNodeId,
+        flowStepId,
+        flowStepNodeId,
         ...position,
     };
 }
