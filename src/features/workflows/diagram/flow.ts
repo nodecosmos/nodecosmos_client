@@ -92,14 +92,14 @@ export function buildFlow(data: FlowStepData): FlowRes {
                 flowOutputs.push(...outputs);
 
                 // collect all inputs from all nodes
-                flowStep.inputIdsByNodeId[nodeId]?.forEach((inputId) => {
+                flowStep.inputIdsByNodeId?.[nodeId]?.forEach((inputId) => {
                     flowInputIds.push(inputId);
                 });
 
                 const node: FlowStepNode = {
                     id: nodeId,
                     flowStepId: flowStep.id,
-                    inputIds: flowStep.inputIdsByNodeId[nodeId] || [],
+                    inputIds: flowStep.inputIdsByNodeId?.[nodeId] || [],
                     outputs,
                     position: nodePosition,
                 };

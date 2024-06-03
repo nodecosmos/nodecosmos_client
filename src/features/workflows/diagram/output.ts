@@ -36,8 +36,7 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
     const { IosById } = flowStepData;
 
     const outputs: Output[] = [];
-    const outputIdsByNodeId = flowStep?.outputIdsByNodeId || {};
-    const nodeOutputs = outputIdsByNodeId[nodeId];
+    const nodeOutputs = flowStep?.outputIdsByNodeId?.[nodeId];
 
     if (nodeOutputs) {
         nodeOutputs.forEach((outputId, ioIndex) => {

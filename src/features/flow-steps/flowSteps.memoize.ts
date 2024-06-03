@@ -8,9 +8,6 @@ export const groupFlowStepsByFlowId = lruMemoize((flowSteps: FlowStep[]): Record
     flowSteps.reduce((acc: Record<UUID, FlowStep[]>, flowStep: FlowStep) => {
         acc[flowStep.flowId] ||= [];
 
-        flowStep.inputIdsByNodeId ||= {};
-        flowStep.outputIdsByNodeId ||= {};
-
         acc[flowStep.flowId].push(flowStep);
         return acc;
     }, flowStepsByFlowId);

@@ -79,8 +79,7 @@ export function calculateFlowStepNodePosition(data: NodePositionData): Position 
         prevNodeYEnd,
     } = data;
 
-    const outputIdsByNodeId = flowStep?.outputIdsByNodeId;
-    const outputLength = (outputIdsByNodeId && outputIdsByNodeId[nodeId]?.length) || 0;
+    const outputLength = flowStep?.outputIdsByNodeId?.[nodeId]?.length || 0;
 
     let y;
     if (prevNodeYEnd) {
