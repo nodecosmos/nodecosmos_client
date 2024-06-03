@@ -1,7 +1,5 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
-import {
-    showWorkflow, updateInitialInputs, updateWorkflowTitle,
-} from './worfklow.thunks';
+import { showWorkflow, updateWorkflowTitle } from './worfklow.thunks';
 import { WorkflowState } from './workflow.types';
 import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
@@ -69,16 +67,10 @@ const workflowsSlice = createSlice({
 
                 state.byBranchId[branchId][nodeId].title = workflow.title;
             })
-            .addCase(updateInitialInputs.fulfilled, (state, action) => {
-                const workflow = action.payload;
-                const { initialInputIds } = workflow;
-
-                state.byBranchId[workflow.branchId][workflow.nodeId].initialInputIds = initialInputIds;
-            })
             .addCase(createIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
                 const {
-                    branchId, nodeId, initialInput, 
+                    branchId, nodeId, initialInput,
                 } = inputOutput;
 
                 if (initialInput) {
