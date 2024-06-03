@@ -63,13 +63,13 @@ function initBranch(state: BranchesState, branch: Branch) {
         deletedFlowSteps: new Set(branch.deletedFlowSteps),
         restoredFlowSteps: new Set(branch.restoredFlowSteps),
         keptFlowSteps: new Set(branch.keptFlowSteps),
-        createdFlowStepNodes: deepArrayToSet(branch.createdFlowStepNodes),
-        deletedFlowStepNodes: deepArrayToSet(branch.deletedFlowStepNodes),
-        createdFlowStepInputsByNode: deepArrayToSet(branch.createdFlowStepInputsByNode),
-        deletedFlowStepInputsByNode: deepArrayToSet(branch.deletedFlowStepInputsByNode),
-        createdFlowStepOutputsByNode: deepArrayToSet(branch.createdFlowStepOutputsByNode),
-        deletedFlowStepOutputsByNode: deepArrayToSet(branch.deletedFlowStepOutputsByNode),
-        editedDescriptionFlowSteps: new Set(branch.editedDescriptionFlowSteps),
+        createdFlowStepNodes: deepArrayToSet(branch.createdFlowStepNodes) || {},
+        deletedFlowStepNodes: deepArrayToSet(branch.deletedFlowStepNodes) || {},
+        createdFlowStepInputsByNode: deepArrayToSet(branch.createdFlowStepInputsByNode) || {},
+        deletedFlowStepInputsByNode: deepArrayToSet(branch.deletedFlowStepInputsByNode) || {},
+        createdFlowStepOutputsByNode: deepArrayToSet(branch.createdFlowStepOutputsByNode) || {},
+        deletedFlowStepOutputsByNode: deepArrayToSet(branch.deletedFlowStepOutputsByNode) || {},
+        editedDescriptionFlowSteps: new Set(branch.editedDescriptionFlowSteps) || {},
         createdIos: new Set(branch.createdIos),
         deletedIos: new Set(branch.deletedIos),
         restoredIos: new Set(branch.restoredIos),
@@ -220,10 +220,11 @@ const branchesSlice = createSlice({
                 const { id: flowStepId, branchId } = flowStep;
                 const branch = state.byId[branchId];
 
+                branch.createdFlowStepInputsByNode[flowStepId] ||= {};
+                branch.deletedFlowStepInputsByNode[flowStepId] ||= {};
+
                 if (branch) {
                     Object.keys(createdDiff).forEach((nodeId) => {
-                        branch.createdFlowStepInputsByNode ||= {};
-                        branch.createdFlowStepInputsByNode[flowStepId] ||= {};
                         branch.createdFlowStepInputsByNode[flowStepId][nodeId] ||= new Set();
                         createdDiff[nodeId].forEach((inputId) => {
                             branch.createdFlowStepInputsByNode[flowStepId][nodeId].add(inputId);
@@ -239,8 +240,6 @@ const branchesSlice = createSlice({
                     });
 
                     Object.keys(removedDiff).forEach((nodeId) => {
-                        branch.deletedFlowStepInputsByNode ||= {};
-                        branch.deletedFlowStepInputsByNode[flowStepId] ||= {};
                         branch.deletedFlowStepInputsByNode[flowStepId][nodeId] ||= new Set();
                         removedDiff[nodeId].forEach((inputId) => {
                             branch.deletedFlowStepInputsByNode[flowStepId][nodeId].add(inputId);

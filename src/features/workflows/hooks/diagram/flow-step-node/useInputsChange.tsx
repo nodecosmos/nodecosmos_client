@@ -1,5 +1,8 @@
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../../store';
-import { ObjectType, UUID } from '../../../../../types';
+import {
+    NodecosmosError, ObjectType, UUID,
+} from '../../../../../types';
 import { selectSelectedObject } from '../../../../app/app.selectors';
 import { setAlert } from '../../../../app/appSlice';
 import { selectBranch } from '../../../../branch/branches.selectors';
@@ -22,6 +25,7 @@ export default function useInputsChange() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const branch = useSelector(selectBranch(branchId));
     const { deletedFlowStepInputsByNode } = useMemo(() => (branch ?? {}), [branch]);
+    const handleServerError = useHandleServerErrorAlert();
 
     return useCallback(async (selectedInputs: UUID[]) => {
         if (!selectedObject) {
@@ -48,7 +52,7 @@ export default function useInputsChange() {
 
         try {
             const inputIdsByNodeId = { ...flowStep.inputIdsByNodeId };
-            const deletedInputs = deletedFlowStepInputsByNode[flowStep.id];
+            const deletedInputs = deletedFlowStepInputsByNode?.[flowStep.id];
             if (deletedInputs) {
                 for (const nodeId in deletedInputs) {
                     const deletedInputIds = deletedInputs[nodeId];
@@ -60,11 +64,20 @@ export default function useInputsChange() {
 
             inputIdsByNodeId[objectId] = selectedInputs;
 
-            await dispatch(updateFlowStepInputs({
+            const response = await dispatch(updateFlowStepInputs({
                 ...flowStepPrimaryKey,
                 rootId,
                 inputIdsByNodeId,
             }));
+
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+
+                setTimeout(() => handleServerError(error), 250);
+                console.error(error);
+
+                return;
+            }
         } catch (e) {
             dispatch(setAlert({
                 isOpen: true,
@@ -74,5 +87,5 @@ export default function useInputsChange() {
 
             console.error(e);
         }
-    }, [branchId, deletedFlowStepInputsByNode, dispatch, flowStep, rootId, selectedObject]);
+    }, [branchId, deletedFlowStepInputsByNode, dispatch, flowStep, handleServerError, rootId, selectedObject]);
 }
