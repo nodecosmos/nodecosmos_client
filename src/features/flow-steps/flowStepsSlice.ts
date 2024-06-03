@@ -51,13 +51,15 @@ const flowStepsSlice = createSlice({
                 state.byBranchId[branchId][id].nodeIds = nodeIds || [];
             })
             .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
-                const { flowStep, createdDiff } = action.payload;
+                const {
+                    flowStep, createdDiff, removedDiff,
+                } = action.payload;
                 const {
                     branchId, rootId, inputIdsByNodeId = {},
                 } = flowStep;
                 const isBranch = rootId !== branchId;
 
-                if (isBranch) {
+                if (isBranch && rootId) {
                     Object.keys(createdDiff).forEach((nodeId: UUID) => {
                         const createdNodeInputs = createdDiff[nodeId];
 
@@ -68,6 +70,22 @@ const flowStepsSlice = createSlice({
                                 state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId].push(inputId);
                             }
                         });
+                    });
+
+                    Object.keys(removedDiff).forEach((nodeId: UUID) => {
+                        const removedNodeInputs = removedDiff[nodeId];
+                        const currentNodeInputs = state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId];
+                        const originalNodeInputs = state.byBranchId[rootId]?.[flowStep.id]?.inputIdsByNodeId?.[nodeId];
+
+                        if (!currentNodeInputs || !originalNodeInputs) return;
+
+                        // remove inputs from state that were created in the branch
+                        // leave inputs that are present in original node inputs as they will be marked as removed in ui
+                        state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId] = currentNodeInputs.filter(
+                            (inputId) => {
+                                return !removedNodeInputs.includes(inputId) || originalNodeInputs.includes(inputId);
+                            },
+                        );
                     });
                 } else {
                     state.byBranchId[branchId][flowStep.id as UUID].inputIdsByNodeId = inputIdsByNodeId;

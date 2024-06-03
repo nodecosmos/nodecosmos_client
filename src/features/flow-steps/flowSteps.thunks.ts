@@ -72,6 +72,7 @@ export const updateFlowStepInputs = createAsyncThunk<
             const { inputIdsByNodeId: currentInputIdsByNodeId } = flowStep;
             const createdDiff: Record<UUID, UUID[]> = {};
             const removedDiff: Record<UUID, UUID[]> = {};
+            // we remove from state if input is created on the branch and then removed
 
             if (branch) {
                 const branchDeletedFlowStepInputsByNode = branch.deletedFlowStepInputsByNode?.[id];
