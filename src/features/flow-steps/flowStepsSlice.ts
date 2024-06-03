@@ -63,7 +63,10 @@ const flowStepsSlice = createSlice({
 
                         createdNodeInputs.forEach((inputId: UUID) => {
                             state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId] ||= [];
-                            state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId].push(inputId);
+
+                            if (!state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId].includes(inputId)) {
+                                state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId].push(inputId);
+                            }
                         });
                     });
                 } else {

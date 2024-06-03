@@ -3,7 +3,9 @@ import { UUID } from '../../../types';
 import { maybeSelectNode } from '../../nodes/nodes.selectors';
 import { maybeSelectBranch } from '../branches.selectors';
 import { showBranch } from '../branches.thunks';
-import { BranchParams, BranchStatus } from '../branches.types';
+import {
+    Branch, BranchParams, BranchStatus, 
+} from '../branches.types';
 import {
     createContext, useContext,
     useEffect, useMemo,
@@ -51,7 +53,7 @@ export function useBranchContextCreator() {
         status: branchStatus,
         ownerId,
         editorIds,
-    } = branch || {};
+    } = useMemo(() => (branch ?? {} as Branch), [branch]);
     const node = useSelector(maybeSelectNode(originalId as UUID, nodeId));
     const { pathname } = useLocation();
     const isContributionRequest = useMemo(

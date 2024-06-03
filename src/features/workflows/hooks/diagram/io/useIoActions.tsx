@@ -11,7 +11,6 @@ import useInputsChange from '../flow-step-node/useInputsChange';
 import { useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
-// FIXME: figure out if we can exclude deleted branch Inputs from the selectedInputs
 export default function useIoActions() {
     const {
         insidePane,

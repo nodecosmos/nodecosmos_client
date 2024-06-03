@@ -20,7 +20,7 @@ export default function useOutputColors() {
         isIoCreated, isIoDeleted, isIoTitleEdited, isIoDescriptionEdited, isFlowStepCreated, isFlowStepDeleted,
     } = useWorkflowBranch();
     const { isBranch } = useBranchContext();
-    const calcDiffColor = useDiffColors();
+    const diffColors = useDiffColors();
     const fsNode = useSelector(maybeSelectNode(branchId, fsNodeId));
     const nestedLevel = fsNode?.ancestorIds?.length || 0;
     const { backgrounds } = theme.palette.tree;
@@ -36,36 +36,25 @@ export default function useOutputColors() {
         backgroundColor: isSelected ? withOpacity(nestedLevelColor.fg, 0.8) : theme.palette.background[6],
         outlineColor: isSelected ? nestedLevelColor : theme.palette.workflow.defaultInputColor,
         color: isSelected ? theme.palette.tree.selectedText : theme.palette.tree.defaultText,
-        pathColor: isSelected ? nestedLevelColor.fg : theme.palette.workflow.default,
     };
 
     if (isNodeSelected) {
         colors = {
-            backgroundColor: selectedNodeNestedLevelColor.bg,
+            backgroundColor: withOpacity(selectedNodeNestedLevelColor.fg, 0.8),
             outlineColor: selectedNodeNestedLevelColor.fg,
-            color: theme.palette.tree.defaultText,
-            pathColor: selectedNodeNestedLevelColor.fg,
+            color: theme.palette.tree.selectedText,
         };
     } else if (isBranch) {
-        let diffColors;
-
         if (isFlowStepDeleted(flowStepId)) {
-            diffColors = calcDiffColor(isSelected, DiffState.Removed);
+            colors = diffColors(isSelected, DiffState.Removed);
         }
         else if (isIoCreated(id) || isFlowStepCreated(flowStepId)) {
-            diffColors = calcDiffColor(isSelected, DiffState.Added);
+            colors = diffColors(isSelected, DiffState.Added);
         } else if (isIoDeleted(id)) {
-            diffColors = calcDiffColor(isSelected, DiffState.Removed);
+            colors = diffColors(isSelected, DiffState.Removed);
         } else if (isIoTitleEdited(id) || isIoDescriptionEdited(mainId)) {
-            diffColors = calcDiffColor(isSelected, DiffState.Edited);
-        } else {
-            diffColors = colors;
+            colors = diffColors(isSelected, DiffState.Edited);
         }
-
-        colors = {
-            ...diffColors,
-            pathColor: colors.pathColor,
-        };
     }
 
     // if bg and checkbox color are the same, change checkbox color to active toolbar color

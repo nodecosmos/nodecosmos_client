@@ -1,7 +1,7 @@
 import useWorkflowContext from './useWorkflowContext';
 import { UUID } from '../../../types';
 import { selectBranch } from '../../branch/branches.selectors';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export interface WorkflowBranchChanges {
@@ -50,7 +50,7 @@ export default function useWorkflowBranch(): WorkflowBranchChanges {
         createdFlowStepNodes,
         deletedFlowStepNodes,
         conflict,
-    } = branch ?? {};
+    } = useMemo(() => (branch ?? {}), [branch]);
 
     const isFlowCreated = useCallback((flowId: UUID) => createdFlows?.has(flowId), [createdFlows]);
 

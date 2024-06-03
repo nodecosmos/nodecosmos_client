@@ -2,10 +2,11 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { selectSelectedObject } from '../../../../app/app.selectors';
 import { setAlert } from '../../../../app/appSlice';
+import { selectBranch } from '../../../../branch/branches.selectors';
 import { maybeSelectFlowStep } from '../../../../flow-steps/flowSteps.selectors';
 import { updateFlowStepInputs } from '../../../../flow-steps/flowSteps.thunks';
 import useWorkflowContext from '../../useWorkflowContext';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 /**
@@ -19,6 +20,8 @@ export default function useInputsChange() {
 
     const flowStep = useSelector(maybeSelectFlowStep(branchId, selectedObject?.metadata?.flowStepId));
     const dispatch: NodecosmosDispatch = useDispatch();
+    const branch = useSelector(selectBranch(branchId));
+    const { deletedFlowStepInputsByNode } = useMemo(() => (branch ?? {}), [branch]);
 
     return useCallback(async (selectedInputs: UUID[]) => {
         if (!selectedObject) {
@@ -45,6 +48,16 @@ export default function useInputsChange() {
 
         try {
             const inputIdsByNodeId = { ...flowStep.inputIdsByNodeId };
+            const deletedInputs = deletedFlowStepInputsByNode[flowStep.id];
+            if (deletedInputs) {
+                for (const nodeId in deletedInputs) {
+                    const deletedInputIds = deletedInputs[nodeId];
+                    inputIdsByNodeId[nodeId] = inputIdsByNodeId[nodeId].filter(
+                        (inputId) => !deletedInputIds.has(inputId),
+                    );
+                }
+            }
+
             inputIdsByNodeId[objectId] = selectedInputs;
 
             await dispatch(updateFlowStepInputs({
@@ -61,5 +74,5 @@ export default function useInputsChange() {
 
             console.error(e);
         }
-    }, [branchId, dispatch, flowStep, rootId, selectedObject]);
+    }, [branchId, deletedFlowStepInputsByNode, dispatch, flowStep, rootId, selectedObject]);
 }

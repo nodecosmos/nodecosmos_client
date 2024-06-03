@@ -65,21 +65,28 @@ export const updateFlowStepInputs = createAsyncThunk<
             const response = await nodecosmos.put('/flow_steps/inputs', payload);
             const state = getState();
             const {
-                branchId, id, rootId, inputIdsByNodeId: newInputsByNodeId = {},
+                branchId, id, inputIdsByNodeId: newInputsByNodeId = {},
             } = response.data;
             const flowStep = state.flowSteps.byBranchId[branchId][id];
+            const branch = state.branches.byId[branchId];
             const { inputIdsByNodeId: currentInputIdsByNodeId } = flowStep;
-            const isBranch = rootId !== branchId;
             const createdDiff: Record<UUID, UUID[]> = {};
             const removedDiff: Record<UUID, UUID[]> = {};
 
-            if (isBranch) {
+            if (branch) {
+                const branchDeletedFlowStepInputsByNode = branch.deletedFlowStepInputsByNode?.[id];
                 Object.keys(newInputsByNodeId).forEach((nodeId: UUID) => {
                     if (currentInputIdsByNodeId[nodeId]) {
                         const currentInputIds = currentInputIdsByNodeId[nodeId];
                         const newInputIds = newInputsByNodeId[nodeId];
-                        const createdNodeInputs = newInputIds.filter((id: UUID) => !currentInputIds.includes(id));
-                        const removedNodeInputs = currentInputIds.filter((id: UUID) => !newInputIds.includes(id));
+                        const createdNodeInputs = newInputIds.filter(
+                            (id: UUID) => !currentInputIds.includes(id)
+                                || branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
+                        );
+                        const removedNodeInputs = currentInputIds.filter(
+                            (id: UUID) => !newInputIds.includes(id)
+                                && !branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
+                        );
 
                         if (createdNodeInputs.length) {
                             createdDiff[nodeId] = createdNodeInputs;
@@ -94,8 +101,10 @@ export const updateFlowStepInputs = createAsyncThunk<
                 });
 
                 Object.keys(currentInputIdsByNodeId).forEach((nodeId) => {
-                    if (!newInputsByNodeId[nodeId]) {
-                        removedDiff[nodeId] = currentInputIdsByNodeId[nodeId];
+                    if (!newInputsByNodeId[nodeId] && branch) {
+                        removedDiff[nodeId] = currentInputIdsByNodeId[nodeId].filter(
+                            (id: UUID) => !branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
+                        );
                     }
                 });
             }
