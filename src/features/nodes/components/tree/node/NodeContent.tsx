@@ -1,7 +1,9 @@
 import NodeButton from './NodeButton';
+import NodeCommentsBadge from './NodeCommentsBadge';
 import NodeInput from './NodeInput';
 import ReorderIndicator from './ReorderIndicator';
 import NodeToolbar from './toolbar/NodeToolbar';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useNodeClick from '../../../hooks/node/actions/useNodeClick';
 import useNodeSave from '../../../hooks/node/actions/useNodeSave';
 import useNodeBranchContext from '../../../hooks/node/useNodeBranchContext';
@@ -29,6 +31,7 @@ function NodeContent() {
         xEnd,
         y,
     } = useNodeContext();
+    const { isBranch } = useBranchContext();
     const ctx = useNodeBranchContext();
     const { height, marginTop } = useTreeContext().size;
     // we don't use this directly in input as input unmounts on blur
@@ -46,7 +49,7 @@ function NodeContent() {
             <g style={animated ? G_STYLE : undefined}>
                 <foreignObject
                     width="700"
-                    height={height + 8}
+                    height={height}
                     x={xEnd}
                     y={y - marginTop}
                     style={TRANSITION_STYLE}
@@ -59,6 +62,9 @@ function NodeContent() {
                                 onBlur={blurNode}
                             />
                         ) : <NodeButton onClick={clickNode} />}
+
+                        {isBranch && <NodeCommentsBadge />}
+
                         <NodeToolbar />
                     </div>
                 </foreignObject>

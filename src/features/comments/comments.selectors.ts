@@ -19,6 +19,11 @@ export const selectThreadCommentIds = (threadId: UUID) => createSelector(
     (idsByThreadId) => idsByThreadId[threadId],
 );
 
+export const selectThreadCommentsLength = (threadId: UUID) => createSelector(
+    selectThreadCommentIds(threadId),
+    (commentIds) => commentIds?.length,
+);
+
 export const selectObjectThreadIds = (objectId: UUID) => createSelector(
     selectThreadIdsByObjectId,
     (threadIdsByObjectId) => threadIdsByObjectId[objectId],

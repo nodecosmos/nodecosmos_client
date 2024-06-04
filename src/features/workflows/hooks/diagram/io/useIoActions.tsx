@@ -1,4 +1,4 @@
-import useIoContext, { IoContext } from './useIoContext';
+import useIoContext from './useIoContext';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
@@ -8,7 +8,7 @@ import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { deleteIo, updateIoTitle } from '../../../../input-outputs/inputOutputs.thunks';
 import useWorkflowContext from '../../useWorkflowContext';
 import useInputsChange from '../flow-step-node/useInputsChange';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useIoActions() {
@@ -20,13 +20,16 @@ export default function useIoActions() {
         nodeId,
     } = useWorkflowContext();
     const {
-        id, rootId, mainId, flowStepId, flowStepNodeId,
-    } = useIoContext();
-    const { originalId, branchId } = useBranchContext();
-    const {
+        id,
+        rootId,
+        mainId,
+        flowStepId,
+        flowStepNodeId,
         openTitleEdit,
         closeTitleEdit,
-    } = useContext(IoContext);
+    } = useIoContext();
+    const { originalId, branchId } = useBranchContext();
+
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleInputsChange = useInputsChange();
     const isChecked = selectedInputs.has(id);

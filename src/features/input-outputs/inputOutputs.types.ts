@@ -26,8 +26,8 @@ export interface InputOutput extends InputOutputPrimaryKey {
     description: string | null;
     descriptionMarkdown: string | null;
     properties: Property[];
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface InsertInputOutputPayload extends Omit<InputOutputPrimaryKey, 'id'> {

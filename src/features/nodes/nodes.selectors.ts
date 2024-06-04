@@ -46,7 +46,11 @@ export const selectNodesByIds = (branchId: UUID, nodeIds: Set<UUID>) => createSe
             return [];
         }
 
-        return Array.from(nodeIds).map((id) => branchNodes[id]);
+        return Array.from(nodeIds).reduce((acc: AppNode[], id) => {
+            const node = branchNodes[id];
+            if (node) acc.push(node);
+            return acc;
+        }, []);
     },
 );
 

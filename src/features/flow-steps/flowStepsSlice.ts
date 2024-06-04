@@ -141,7 +141,7 @@ const flowStepsSlice = createSlice({
                 flowSteps.forEach((flowStep) => {
                     flowStep.branchId = branchId;
                     flowStep.stepIndex = new Decimal(flowStep.stepIndex);
-                    state.byBranchId[branchId][flowStep.id] = flowStep;
+                    state.byBranchId[branchId][flowStep.id] ||= flowStep;
                 });
             });
     },

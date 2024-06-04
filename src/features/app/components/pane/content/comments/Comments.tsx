@@ -11,7 +11,6 @@ export default function Comments() {
     const { objectId } = usePaneContext();
     const threadId = useSelector(selectMainObjectThreadByObjectId(branchId, objectId));
     const mainThreadCommentIds = useSelector(selectThreadCommentIds(threadId));
-    const commentCount = mainThreadCommentIds?.length;
 
     return (
         <Box
@@ -25,7 +24,7 @@ export default function Comments() {
                             <Comment
                                 key={commentId}
                                 id={commentId}
-                                isLast={commentCount === index + 1} />
+                                isLast={mainThreadCommentIds?.length === index + 1} />
                         );
                     },
                 )

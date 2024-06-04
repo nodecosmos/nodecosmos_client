@@ -3,7 +3,7 @@ import ToolbarContainer from '../../../../common/components/toolbar/ToolbarConta
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { REDIRECT_Q } from '../../../users/components/LoginForm';
 import { selectIsAuthenticated } from '../../../users/users.selectors';
-import { faBell, faMessages } from '@fortawesome/pro-regular-svg-icons';
+import { faBell } from '@fortawesome/pro-regular-svg-icons';
 import {
     Box,
     Button, Tooltip,
@@ -18,7 +18,6 @@ export default function UserHeaderOptions() {
     if (isAuthenticated) {
         return (
             <ToolbarContainer>
-                <ToolbarItem title="messages" icon={faMessages} color="toolbar.green" />
                 <ToolbarItem title="notifications" icon={faBell} color="toolbar.yellow" />
                 <Tooltip title="Profile" placement="top">
                     <Box ml={1}>

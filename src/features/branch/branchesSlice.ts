@@ -256,12 +256,19 @@ const branchesSlice = createSlice({
                 }
             })
             .addCase(createIo.fulfilled, (state, action) => {
-                const { id: ioId, branchId } = action.payload;
+                const {
+                    id: ioId, branchId, initialInput, 
+                } = action.payload;
                 const branch = state.byId[branchId];
 
                 if (branch) {
                     branch.createdIos ||= new Set();
                     branch.createdIos.add(ioId);
+
+                    if (initialInput) {
+                        branch.createdInitialInputs ||= [];
+                        branch.createdInitialInputs.push(ioId);
+                    }
                 }
             })
             .addCase(deleteIo.fulfilled, (state, action) => {

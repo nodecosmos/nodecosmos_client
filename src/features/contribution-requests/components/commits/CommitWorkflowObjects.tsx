@@ -7,7 +7,7 @@ import { selectNodesByIds } from '../../../nodes/nodes.selectors';
 import {
     Box, Chip, Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export enum WorkflowObjectType {
@@ -48,7 +48,11 @@ export default function CommitWorkflowObjectsWrapper(props: Props) {
 function CommitWorkflowInputOutputs(props: ObjectProps) {
     const { title, ids } = props;
     const { branchId } = useBranchContext();
-    const ios = useSelector(selectIosByIds(branchId, ids || new Set()));
+    const selectedIos = useSelector(selectIosByIds(branchId, ids || new Set()));
+    const ios = useMemo(() => {
+        // sort by createdAt Date
+        return selectedIos.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1);
+    }, [selectedIos]);
 
     if (!ios.length) {
         return null;
@@ -78,7 +82,10 @@ function CommitWorkflowInputOutputs(props: ObjectProps) {
 function CommitWorkflowFlows(props: ObjectProps) {
     const { title, ids } = props;
     const { branchId } = useBranchContext();
-    const flows = useSelector(selectFlowsByIds(branchId, ids || new Set()));
+    const selectedFlows = useSelector(selectFlowsByIds(branchId, ids || new Set()));
+    const flows = useMemo(() => {
+        return selectedFlows.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1);
+    }, [selectedFlows]);
 
     if (!flows.length) {
         return null;
@@ -108,7 +115,10 @@ function CommitWorkflowFlows(props: ObjectProps) {
 function CommitWorkflowFlowSteps(props: ObjectProps) {
     const { title, ids } = props;
     const { branchId } = useBranchContext();
-    const flowSteps = useSelector(selectFlowStepsByIds(branchId, ids || new Set()));
+    const selectedFlowSteps = useSelector(selectFlowStepsByIds(branchId, ids || new Set()));
+    const flowSteps = useMemo(() => {
+        return selectedFlowSteps.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1);
+    }, [selectedFlowSteps]);
 
     if (!flowSteps.length) {
         return null;

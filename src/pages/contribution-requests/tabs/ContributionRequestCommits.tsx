@@ -5,6 +5,7 @@ import CommitWorkflowObjectsWrapper
 , { WorkflowObjectType } from '../../../features/contribution-requests/components/commits/CommitWorkflowObjects';
 import { indexWorkflowBranchData } from '../../../features/workflows/worfklow.thunks';
 import { NodecosmosDispatch } from '../../../store';
+import { UUID } from '../../../types';
 import { Box } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +22,10 @@ export default function ContributionRequestCommits() {
     const {
         createdNodes, restoredNodes, editedTitleNodes, deletedNodes, editedDescriptionNodes,
         reorderedNodes: reorderedNodesData, createdInitialInputs, deletedInitialInputs,
+        restoredFlows, createdFlows, deletedFlows, editedTitleFlows, editedDescriptionFlows,
+        restoredFlowSteps, createdFlowSteps, deletedFlowSteps, editedDescriptionFlowSteps,
+        createdFlowStepInputsByNode, createdFlowStepOutputsByNode,
+        createdIos, deletedIos, editedTitleIos, editedDescriptionIos,
     } = useMemo(() => {
         return branch ?? {};
     }, [branch]);
@@ -36,6 +41,26 @@ export default function ContributionRequestCommits() {
     const reorderedNodes = useMemo(() => {
         return new Set(reorderedNodesData?.map((data) => data.id));
     }, [reorderedNodesData]);
+
+    const createdFlowStepInputs: Set<UUID> = useMemo(() => {
+        if (!createdFlowStepInputsByNode) {
+            return new Set();
+        }
+
+        return new Set(Object.keys(createdFlowStepInputsByNode).reduce((acc: UUID[], byNode) => {
+            return acc.concat(Object.values(byNode));
+        }, []));
+    }, [createdFlowStepInputsByNode]);
+
+    const createdFlowStepOutputs: Set<UUID> = useMemo(() => {
+        if (!createdFlowStepOutputsByNode) {
+            return new Set();
+        }
+
+        return new Set(Object.keys(createdFlowStepOutputsByNode).reduce((acc: UUID[], byNode) => {
+            return acc.concat(Object.values(byNode));
+        }, []));
+    }, [createdFlowStepOutputsByNode]);
 
     useEffect(() => {
         dispatch(indexWorkflowBranchData({
@@ -72,6 +97,66 @@ export default function ContributionRequestCommits() {
             <CommitWorkflowObjectsWrapper
                 title="Deleted Workflow Initial Inputs"
                 ids={deletedWfInitialInputs}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Restored Flows"
+                ids={restoredFlows}
+                objectType={WorkflowObjectType.Flow} />
+            <CommitWorkflowObjectsWrapper
+                title="Created Flows"
+                ids={createdFlows}
+                objectType={WorkflowObjectType.Flow} />
+            <CommitWorkflowObjectsWrapper
+                title="Deleted Flows"
+                ids={deletedFlows}
+                objectType={WorkflowObjectType.Flow} />
+            <CommitWorkflowObjectsWrapper
+                title="Edited Title Flows"
+                ids={editedTitleFlows}
+                objectType={WorkflowObjectType.Flow} />
+            <CommitWorkflowObjectsWrapper
+                title="Edited Description Flows"
+                ids={editedDescriptionFlows}
+                objectType={WorkflowObjectType.Flow} />
+            <CommitWorkflowObjectsWrapper
+                title="Restored Flow Steps"
+                ids={restoredFlowSteps}
+                objectType={WorkflowObjectType.FlowStep} />
+            <CommitWorkflowObjectsWrapper
+                title="Created Flow Steps"
+                ids={createdFlowSteps}
+                objectType={WorkflowObjectType.FlowStep} />
+            <CommitWorkflowObjectsWrapper
+                title="Deleted Flow Steps"
+                ids={deletedFlowSteps}
+                objectType={WorkflowObjectType.FlowStep} />
+            <CommitWorkflowObjectsWrapper
+                title="Edited Description Flow Steps"
+                ids={editedDescriptionFlowSteps}
+                objectType={WorkflowObjectType.FlowStep} />
+            <CommitWorkflowObjectsWrapper
+                title="Created Flow Step Inputs"
+                ids={createdFlowStepInputs}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Created Flow Step Outputs"
+                ids={createdFlowStepOutputs}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Created Input Outputs"
+                ids={createdIos}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Deleted Input Outputs"
+                ids={deletedIos}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Edited Title Input Outputs"
+                ids={editedTitleIos}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Edited Description Input Outputs"
+                ids={editedDescriptionIos}
                 objectType={WorkflowObjectType.InputOutput} />
         </Box>
     );

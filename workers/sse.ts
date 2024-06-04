@@ -2,7 +2,7 @@ const sw = self as unknown as ServiceWorkerGlobalScope;
 
 // // sse-service-worker.js
 import { Comment } from '../src/features/comments/comments.types';
-import { ActionTypes } from '../src/types';
+import { ActionTypes, UUID } from '../src/types';
 
 export const CHANNEL_NAME = 'sse_channel';
 
@@ -17,7 +17,13 @@ sw.addEventListener('activate', (event) => {
 });
 
 const channel = new BroadcastChannel(CHANNEL_NAME);
-const eventSourceByURL = new Map<string, EventSource>();
+
+interface EventSourceWrapper {
+    eventSource: EventSource;
+    userId: UUID;
+}
+
+const eventSourceByURL = new Map<string, EventSourceWrapper>();
 const activeClientsByURL = new Map<string, number>();
 
 if ('Notification' in self && Notification.permission !== 'granted') {
@@ -49,7 +55,7 @@ sw.addEventListener('notificationclick', function(event) {
     }
 });
 
-function initializeSSE(url: string) {
+function initializeSSE(url: string, userId: UUID = '') {
     const eventSource = eventSourceByURL.get(url);
 
     if (!eventSource) {
@@ -59,7 +65,11 @@ function initializeSSE(url: string) {
         }
 
         const eventSource = new EventSource(url, { withCredentials: true });
-        eventSourceByURL.set(url, eventSource);
+        const wrapper = {
+            eventSource,
+            userId,
+        };
+        eventSourceByURL.set(url, wrapper);
 
         eventSource.addEventListener(ActionTypes.CreateComment, (event) => {
             const data: Comment = JSON.parse(event.data);
@@ -70,7 +80,7 @@ function initializeSSE(url: string) {
             });
 
             // push notification
-            if (Notification.permission === 'granted') {
+            if (Notification.permission === 'granted' && data.author.id !== userId) {
                 sw.registration.showNotification(
                     `${data.author.name} added a comment`, {
                         icon: 'https://nodecosmos.com/logo-square.png',
@@ -97,7 +107,6 @@ function initializeSSE(url: string) {
                 activeClientsByURL.set(url, activeClients);
 
                 if (activeClients === 0) {
-                    console.log('Closing EventSource:', url);
                     eventSource.close();
                     eventSourceByURL.delete(url);
                 }
@@ -113,6 +122,7 @@ function initializeSSE(url: string) {
 interface InitMessage {
     action: InitActions;
     url: string;
+    userId: UUID;
 }
 
 export enum InitActions {
@@ -125,7 +135,7 @@ sw.addEventListener('message', (event) => {
 
     switch (data.action) {
     case InitActions.Initialize:
-        initializeSSE(data.url);
+        initializeSSE(data.url, data.userId);
         break;
     }
 });

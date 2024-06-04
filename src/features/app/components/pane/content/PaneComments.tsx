@@ -5,6 +5,7 @@ import { selectMainObjectThreadByObjectId } from '../../../../comments/comments.
 import { CommentObjectType, ThreadType } from '../../../../comments/comments.types';
 import CommentEditor from '../../../../comments/components/CommentEditor';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
+import { Box, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -61,15 +62,28 @@ export default function PaneComments() {
     }, [branchId, nodeId, objectId, threadId, threadType]);
 
     return (
-        <Container sx={{
-            backgroundColor: 'background.1',
-            boxShadow: '5',
-            borderRadius: 2,
-            my: 4,
+        <Box sx={{
+            width: 1,
             p: 4,
         }}>
-            <Comments />
-            {mainThreadCommentEditor}
-        </Container>
+            <Box>
+                <Container>
+                    <Typography variant="h5" color="text.secondary">
+                        Conversation
+                    </Typography>
+                </Container>
+                <Container sx={{
+                    backgroundColor: 'background.1',
+                    border: 1,
+                    borderColor: 'borders.4',
+                    borderRadius: 2,
+                    p: 4,
+                    mt: 4,
+                }}>
+                    <Comments />
+                    {mainThreadCommentEditor}
+                </Container>
+            </Box>
+        </Box>
     );
 }

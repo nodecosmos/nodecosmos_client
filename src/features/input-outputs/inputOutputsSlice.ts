@@ -73,7 +73,7 @@ const inputOutputsSlice = createSlice({
                 state.byBranchId[branchId] ||= {};
 
                 inputOutputs.forEach((inputOutput: InputOutput) => {
-                    state.byBranchId[branchId][inputOutput.id] = inputOutput;
+                    state.byBranchId[branchId][inputOutput.id] ||= inputOutput;
                 });
             });
     },

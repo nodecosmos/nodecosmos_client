@@ -4,7 +4,7 @@ import { maybeSelectNode } from '../../nodes/nodes.selectors';
 import { maybeSelectBranch } from '../branches.selectors';
 import { showBranch } from '../branches.thunks';
 import {
-    Branch, BranchParams, BranchStatus, 
+    Branch, BranchParams, BranchStatus,
 } from '../branches.types';
 import {
     createContext, useContext,
@@ -21,6 +21,7 @@ interface BranchContextValue extends BranchParams {
     isMerged: boolean;
     nodeId: UUID;
     branchNodeId?: UUID;
+    title?: string;
     ownerId?: UUID;
     editorIds?: Set<UUID>;
 }
@@ -53,6 +54,7 @@ export function useBranchContextCreator() {
         status: branchStatus,
         ownerId,
         editorIds,
+        title,
     } = useMemo(() => (branch ?? {} as Branch), [branch]);
     const node = useSelector(maybeSelectNode(originalId as UUID, nodeId));
     const { pathname } = useLocation();
@@ -79,6 +81,7 @@ export function useBranchContextCreator() {
             branchId,
             nodeId: nodeId as UUID,
             branchNodeId,
+            title,
             isMerged: branchStatus === BranchStatus.Merged,
             ownerId,
             editorIds,
@@ -86,7 +89,7 @@ export function useBranchContextCreator() {
     }),
     [
         branchId, branchNodeId, branchStatus, editorIds, isBranch, isContributionRequest, node, nodeId, originalId,
-        ownerId,
+        ownerId, title,
     ]);
 }
 

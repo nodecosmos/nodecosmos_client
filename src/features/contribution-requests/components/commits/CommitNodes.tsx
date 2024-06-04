@@ -16,7 +16,7 @@ interface Props {
 
 export default function CommitNodes(props: Props) {
     const {
-        title, ids, showBlank = false, 
+        title, ids, showBlank = false,
     } = props;
     const { branchId } = useBranchContext();
     const nodes = useSelector(selectNodesByIds(branchId, ids || new Set()));
@@ -27,7 +27,7 @@ export default function CommitNodes(props: Props) {
         });
     }, [nodes]);
 
-    if (!ids || (!ids.size && !showBlank)) {
+    if (!orderedNodes || (!orderedNodes.length && !showBlank)) {
         return null;
     }
 
@@ -43,9 +43,7 @@ export default function CommitNodes(props: Props) {
             </Typography>
             <Box>
                 {
-                    orderedNodes.map((node) => (
-                        <CommitNode node={node} key={node.id} />
-                    ))
+                    orderedNodes.map((node) => (<CommitNode node={node} key={node.id} />))
                 }
             </Box>
         </Box>

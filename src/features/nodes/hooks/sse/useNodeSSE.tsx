@@ -19,8 +19,6 @@ export default function useNodeSSE(rootId?: UUID) {
         const channel = new BroadcastChannel(CHANNEL_NAME);
 
         channel.onmessage = (event) => {
-            console.log('Received message from worker:', event.data);
-
             switch (event.data.action) {
             case ActionTypes.CreateComment:
                 dispatch(SSECreateComment(event.data.payload));
@@ -33,6 +31,7 @@ export default function useNodeSSE(rootId?: UUID) {
                 registration.active?.postMessage({
                     action: InitActions.Initialize,
                     url: `${nodecosmos.defaults.baseURL}/nodes/${rootId}/events/listen`,
+                    userId: currentUser.id,
                 });
             });
         });

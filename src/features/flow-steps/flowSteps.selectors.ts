@@ -45,5 +45,6 @@ export const selectFlowStepsByNodeId = (branchId: UUID, nodeId: UUID) => createS
 
 export const selectFlowStepsByIds = (branchId: UUID, flowStepIds: Set<UUID>) => createSelector(
     selectFlowStepsByBranch(branchId),
-    (flowSteps) => Array.from(flowStepIds).map((flowStepId) => flowSteps[flowStepId]),
+    (flowSteps) => Array.from(flowStepIds).map((flowStepId) => flowSteps && flowSteps[flowStepId])
+        .filter((flowStep) => !!flowStep),
 );

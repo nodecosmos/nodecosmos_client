@@ -28,5 +28,5 @@ export const selectFlowsByNodeId = (branchId: UUID, nodeId: UUID | null) => crea
 
 export const selectFlowsByIds = (branchId: UUID, flowIds: Set<UUID>) => createSelector(
     selectFlowByBranchId(branchId),
-    (flows) => Array.from(flowIds).map((flowId) => flows[flowId]),
+    (flows) => Array.from(flowIds).map((flowId) => flows && flows[flowId]).filter((flow) => !!flow),
 );
