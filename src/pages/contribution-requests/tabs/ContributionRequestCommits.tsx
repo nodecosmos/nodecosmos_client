@@ -7,7 +7,9 @@ import { indexWorkflowBranchData } from '../../../features/workflows/worfklow.th
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { Box } from '@mui/material';
-import React, { useEffect, useMemo } from 'react';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContributionRequestCommits() {
@@ -62,6 +64,14 @@ export default function ContributionRequestCommits() {
         }, []));
     }, [createdFlowStepOutputsByNode]);
 
+    const filterOutCreated = useCallback((createdIds: Set<UUID>, editedIds: Set<UUID>) => {
+        return new Set(
+            Array.from(editedIds).filter((id) => {
+                return !createdIds.has(id);
+            }),
+        );
+    }, []);
+
     useEffect(() => {
         dispatch(indexWorkflowBranchData({
             branchId,
@@ -86,8 +96,10 @@ export default function ContributionRequestCommits() {
         }}>
             <CommitNodes ids={createdNodes} title="Created Nodes" showBlank />
             <CommitNodes ids={restoredNodes} title="Restored Nodes" />
-            <CommitNodes ids={editedTitleNodes} title="Edited Title Nodes" />
-            <CommitNodes ids={editedDescriptionNodes} title="Edited Description Nodes" />
+            <CommitNodes ids={filterOutCreated(createdNodes, editedTitleNodes)} title="Edited Title Nodes" />
+            <CommitNodes
+                ids={filterOutCreated(createdNodes, editedDescriptionNodes)}
+                title="Edited Description Nodes" />
             <CommitNodes ids={deletedNodes} title="Deleted Nodes" showBlank />
             <CommitNodes ids={reorderedNodes} title="Reordered Nodes" />
             <CommitWorkflowObjectsWrapper
@@ -112,11 +124,11 @@ export default function ContributionRequestCommits() {
                 objectType={WorkflowObjectType.Flow} />
             <CommitWorkflowObjectsWrapper
                 title="Edited Title Flows"
-                ids={editedTitleFlows}
+                ids={filterOutCreated(createdFlows, editedTitleFlows)}
                 objectType={WorkflowObjectType.Flow} />
             <CommitWorkflowObjectsWrapper
                 title="Edited Description Flows"
-                ids={editedDescriptionFlows}
+                ids={filterOutCreated(createdFlows, editedDescriptionFlows)}
                 objectType={WorkflowObjectType.Flow} />
             <CommitWorkflowObjectsWrapper
                 title="Restored Flow Steps"
@@ -132,7 +144,7 @@ export default function ContributionRequestCommits() {
                 objectType={WorkflowObjectType.FlowStep} />
             <CommitWorkflowObjectsWrapper
                 title="Edited Description Flow Steps"
-                ids={editedDescriptionFlowSteps}
+                ids={filterOutCreated(createdFlowSteps, editedDescriptionFlowSteps)}
                 objectType={WorkflowObjectType.FlowStep} />
             <CommitWorkflowObjectsWrapper
                 title="Created Flow Step Inputs"
@@ -152,7 +164,7 @@ export default function ContributionRequestCommits() {
                 objectType={WorkflowObjectType.InputOutput} />
             <CommitWorkflowObjectsWrapper
                 title="Edited Title Input Outputs"
-                ids={editedTitleIos}
+                ids={filterOutCreated(createdIos, editedTitleIos)}
                 objectType={WorkflowObjectType.InputOutput} />
             <CommitWorkflowObjectsWrapper
                 title="Edited Description Input Outputs"

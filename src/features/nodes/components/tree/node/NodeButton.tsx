@@ -35,9 +35,6 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
     ] = useNodeDrag();
     const { originalId } = useBranchContext();
     const originalNode = useSelector(maybeSelectNode(originalId, id));
-
-    if (id === '2b75c4de-896c-404a-9274-a375bc93cf44') console.log('originalNode', originalNode);
-
     const isTitleEdited = originalNode ? title !== originalNode.title : false;
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();

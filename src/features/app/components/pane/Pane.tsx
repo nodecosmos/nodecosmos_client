@@ -17,19 +17,19 @@ export interface PaneProps {
 export default function Pane({ rootId, page }: PaneProps) {
     const { PaneContext, CtxCreatorValue } = usePaneContextCreator({
         rootId,
-        page, 
+        page,
     });
 
     if (!CtxCreatorValue.isObjectSelected) {
         return (
             <Box
-                m={3}
                 height={1}
                 width={1}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 flexDirection="column"
+                sx={{ backgroundColor: 'background.5' }}
             >
                 <Typography variant="h6" color="text.secondary" textAlign="center">
                     Select an object to view its details.
