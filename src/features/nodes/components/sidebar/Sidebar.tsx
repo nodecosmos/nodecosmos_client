@@ -20,8 +20,9 @@ import {
     faTable,
 } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
-import { faSquareLeft, faCircleInfo } from '@fortawesome/pro-solid-svg-icons';
+import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import InfoIcon from '@mui/icons-material/Info';
 import {
     List, Box, useTheme, Tooltip,
 } from '@mui/material';
@@ -53,8 +54,17 @@ export default function Sidebar() {
                     (isBranch && title && !isContributionRequest && branchNodeId) && (
                         <>
                             <Box pb={1} mb={1} mx={-1} borderTop={1} borderBottom={1} borderColor="borders.3">
-                                <Tooltip placement="right" title={<CrTooltip />}>
+                                <Tooltip
+                                    componentsProps={{ tooltip: { sx: { p: 0 } } }}
+                                    PopperProps={{
+                                        className: 'TooltipElement',
+                                        sx: { p: 0 },
+                                    }}
+                                    placement="right"
+                                    title={<CrTooltip />}>
                                     <Typography
+                                        display="inline-flex"
+                                        alignItems="center"
                                         mx={2.5}
                                         mt={2}
                                         mb={1}
@@ -63,7 +73,7 @@ export default function Sidebar() {
                                         fontWeight={700}
                                         color="text.tertiary">
                                         <Box component="span" mr={1}>Contribution Request</Box>
-                                        <FontAwesomeIcon size="lg" icon={faCircleInfo} />
+                                        <InfoIcon fontSize="small" />
                                     </Typography>
                                 </Tooltip>
 

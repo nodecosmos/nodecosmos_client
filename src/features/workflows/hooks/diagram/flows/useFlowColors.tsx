@@ -20,7 +20,7 @@ export default function useFlowColors() {
 
     let colors = {
         backgroundColor: isSelected ? theme.palette.workflow.selectedBg : flowStepBg,
-        outlineColor: isSelected ? theme.palette.secondary.main : theme.palette.borders[1],
+        outlineColor: isSelected ? theme.palette.workflow.selectedInputColor : theme.palette.borders[1],
         color: theme.palette.tree.defaultText,
     };
 
@@ -32,10 +32,10 @@ export default function useFlowColors() {
         } else if (isFlowDeleted(id)) {
             colors = diffColors(true, DiffState.Removed, 0.5);
         }
-    } else if (isBranch && isFlowStepCreated(flowStepId)) {
-        colors.outlineColor = diffColors(true, DiffState.Added, 0.5).outlineColor;
-    } else if (isBranch && isFlowStepDeleted(flowStepId)) {
-        colors.outlineColor = diffColors(true, DiffState.Removed, 0.5).outlineColor;
+    } else if (isBranch && isFlowStepCreated(flowStepId) && !isSelected) {
+        colors.outlineColor = diffColors(true, DiffState.Added, 0.2).outlineColor;
+    } else if (isBranch && isFlowStepDeleted(flowStepId) && !isSelected) {
+        colors.outlineColor = diffColors(true, DiffState.Removed, 0.2).outlineColor;
     }
 
     return colors;

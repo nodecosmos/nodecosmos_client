@@ -28,7 +28,7 @@ export default function useFlowActions() {
             dispatch(setAlert({
                 isOpen: true,
                 severity: 'warning',
-                message: 'Cannot select workflow object in the pane for now. Please use workflow page.',
+                message: 'Cannot select workflow object in the pane for now. Please use node\'s workflow page.',
                 duration: 5000,
             }));
 

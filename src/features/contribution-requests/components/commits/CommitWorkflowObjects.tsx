@@ -59,7 +59,7 @@ function CommitWorkflowInputOutputs(props: ObjectProps) {
     }
 
     return (
-        <Box p={4} pl={3} borderBottom={1} borderColor="borders.3">
+        <Box className="CommitObjectContainer" p={4} pl={3} borderBottom={1} borderColor="borders.3">
             <Typography fontWeight="bold" color="text.secondary" ml={1}>
                 {title}
                 <Chip

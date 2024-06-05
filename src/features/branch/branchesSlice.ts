@@ -220,10 +220,10 @@ const branchesSlice = createSlice({
                 const { id: flowStepId, branchId } = flowStep;
                 const branch = state.byId[branchId];
 
-                branch.createdFlowStepInputsByNode[flowStepId] ||= {};
-                branch.deletedFlowStepInputsByNode[flowStepId] ||= {};
-
                 if (branch) {
+                    branch.createdFlowStepInputsByNode[flowStepId] ||= {};
+                    branch.deletedFlowStepInputsByNode[flowStepId] ||= {};
+
                     Object.keys(createdDiff).forEach((nodeId) => {
                         branch.createdFlowStepInputsByNode[flowStepId][nodeId] ||= new Set();
                         createdDiff[nodeId].forEach((inputId) => {
@@ -257,7 +257,7 @@ const branchesSlice = createSlice({
             })
             .addCase(createIo.fulfilled, (state, action) => {
                 const {
-                    id: ioId, branchId, initialInput, 
+                    id: ioId, branchId, initialInput,
                 } = action.payload;
                 const branch = state.byId[branchId];
 

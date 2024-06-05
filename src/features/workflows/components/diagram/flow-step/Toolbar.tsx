@@ -4,18 +4,14 @@ import FlowTitle from './toolbar/FlowTitle';
 import ToolsContainer from '../../../../../common/components/tools/ToolsContainer';
 import useFlowStepContext from '../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowColors from '../../../hooks/diagram/flows/useFlowColors';
-import useFlowContext from '../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../hooks/useWorkflowBranch';
 import { Box } from '@mui/material';
 import React from 'react';
 
 // Flow and FlowStep toolbar
 export default function Toolbar() {
-    const { id, isSelected } = useFlowContext();
     const { id: flowStepId } = useFlowStepContext();
-    const {
-        isFlowCreated, isFlowDeleted, isFlowStepCreated, isFlowStepDeleted,
-    } = useWorkflowBranch();
+    const { isFlowStepCreated, isFlowStepDeleted } = useWorkflowBranch();
     const { outlineColor: flowBorder, backgroundColor: flowBg } = useFlowColors();
 
     return (
@@ -26,10 +22,7 @@ export default function Toolbar() {
             display="flex"
             alignItems="center"
             style={{
-                outline: `solid ${flowBorder}`,
-                outlineWidth: isFlowCreated(id) || isFlowDeleted(id) || isSelected ? 1 : 0,
-                outlineOffset: isFlowCreated(id) || isFlowDeleted(id) || isSelected ? -1 : 0,
-                borderBottom: isFlowCreated(id) ? 'none' : `1px solid ${flowBorder}`,
+                border: `1px solid ${flowBorder}`,
                 backgroundColor: isFlowStepCreated(flowStepId) || isFlowStepDeleted(flowStepId)
                     ? 'transparent' : flowBg,
             }}>

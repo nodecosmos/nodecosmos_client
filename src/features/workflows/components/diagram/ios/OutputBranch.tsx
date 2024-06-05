@@ -48,7 +48,7 @@ export default function OutputBranch(props: OutputProps) {
                 fill={theme.palette.workflow.default}
                 style={{
                     opacity: 0,
-                    animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${animationDelay}ms forwards`,
+                    animation: `appear ${initialAnimationDuration / 2}ms ${animationDelay}ms forwards`,
                     transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
                 }}
             />
@@ -71,7 +71,7 @@ export default function OutputBranch(props: OutputProps) {
                 fill={theme.palette.workflow.default}
                 style={{
                     opacity: 0,
-                    animation: `node-circle-appear ${initialAnimationDuration / 2}ms ${animationDelay}ms forwards`,
+                    animation: `appear ${initialAnimationDuration / 2}ms ${animationDelay}ms forwards`,
                     transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
                 }}
             />

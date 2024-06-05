@@ -67,8 +67,8 @@ const theme: NodecosmosTheme = {
         },
 
         button: {
-            main: '#272b34',
-            contrastText: '#fbfdff',
+            main: '#353744',
+            contrastText: '#c5cdd4',
         },
 
         buttonContrast: {

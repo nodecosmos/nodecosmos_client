@@ -91,7 +91,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 fill={color}
                 style={{
                     opacity: 0,
-                    animation: `node-circle-appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
+                    animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
                     transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
                 }}
             />

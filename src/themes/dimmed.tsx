@@ -175,7 +175,7 @@ const theme: NodecosmosTheme = {
             default: '#444a54',
             input: '#cdd4ff',
             background: '#2d3139',
-            selectedInputColor: '#cdd4ff',
+            selectedInputColor: '#8e93b0',
             defaultInputColor: '#52565e',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',

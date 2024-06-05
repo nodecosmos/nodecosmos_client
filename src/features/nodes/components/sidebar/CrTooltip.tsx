@@ -8,15 +8,13 @@ export default function CrTooltip() {
     return (
         <Box sx={{
             backgroundColor: 'background.1',
-            m: -1,
             p: 1,
             fontSize: 14,
-            ml: -8,
+            ml: -0,
             borderRadius: 1,
             color: 'text.secondary',
         }}>
-            Current Node is not part of the main project.
-            It is part of the Contribution Request <b>{title}</b>.
+            This node is not part of the main project tree. It belongs to Contribution Request <b>#{title}</b>.
         </Box>
     );
 }

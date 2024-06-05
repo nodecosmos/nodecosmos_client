@@ -40,9 +40,9 @@ export default function useOutputColors() {
 
     if (isNodeSelected) {
         colors = {
-            backgroundColor: withOpacity(selectedNodeNestedLevelColor.fg, 0.8),
+            backgroundColor: selectedNodeNestedLevelColor.bg,
             outlineColor: selectedNodeNestedLevelColor.fg,
-            color: theme.palette.tree.selectedText,
+            color: selectedNodeNestedLevelColor.fg,
         };
     } else if (isBranch) {
         if (isFlowStepDeleted(flowStepId)) {

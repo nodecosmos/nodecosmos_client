@@ -1,4 +1,5 @@
 import { selectBranch } from '../../../features/branch/branches.selectors';
+import { Branch } from '../../../features/branch/branches.types';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
 import CommitNodes from '../../../features/contribution-requests/components/commits/CommitNodes';
 import CommitWorkflowObjectsWrapper
@@ -29,7 +30,7 @@ export default function ContributionRequestCommits() {
         createdFlowStepInputsByNode, createdFlowStepOutputsByNode,
         createdIos, deletedIos, editedTitleIos, editedDescriptionIos,
     } = useMemo(() => {
-        return branch ?? {};
+        return branch ?? {} as Branch;
     }, [branch]);
 
     const createdWfInitialInputs = useMemo(() => {
@@ -46,27 +47,39 @@ export default function ContributionRequestCommits() {
 
     const createdFlowStepInputs: Set<UUID> = useMemo(() => {
         if (!createdFlowStepInputsByNode) {
-            return new Set();
+            return new Set<UUID>();
         }
 
-        return new Set(Object.keys(createdFlowStepInputsByNode).reduce((acc: UUID[], byNode) => {
-            return acc.concat(Object.values(byNode));
-        }, []));
+        return Object.values(createdFlowStepInputsByNode).reduce((acc: Set<UUID>, byNode: Record<UUID, Set<UUID>>) => {
+            Object.values(byNode).forEach((ids) => {
+                ids.forEach((id) => {
+                    acc.add(id);
+                });
+            });
+
+            return acc;
+        }, new Set<UUID>());
     }, [createdFlowStepInputsByNode]);
 
     const createdFlowStepOutputs: Set<UUID> = useMemo(() => {
         if (!createdFlowStepOutputsByNode) {
-            return new Set();
+            return new Set<UUID>();
         }
 
-        return new Set(Object.keys(createdFlowStepOutputsByNode).reduce((acc: UUID[], byNode) => {
-            return acc.concat(Object.values(byNode));
-        }, []));
+        return Object.values(createdFlowStepOutputsByNode).reduce((acc: Set<UUID>, byNode: Record<UUID, Set<UUID>>) => {
+            Object.values(byNode).forEach((ids) => {
+                ids.forEach((id) => {
+                    acc.add(id);
+                });
+            });
+
+            return acc;
+        }, new Set<UUID>());
     }, [createdFlowStepOutputsByNode]);
 
     const filterOutCreated = useCallback((createdIds: Set<UUID>, editedIds: Set<UUID>) => {
         return new Set(
-            Array.from(editedIds).filter((id) => {
+            Array.from(editedIds || []).filter((id) => {
                 return !createdIds.has(id);
             }),
         );
@@ -93,6 +106,11 @@ export default function ContributionRequestCommits() {
             },
             '.NodeButtonText': { ml: 2 },
             '.MuiChip-root': { ml: 1 },
+            '.Date': {
+                ml: 1,
+                fontWeight: 'bold',
+                fontSize: 14,
+            },
         }}>
             <CommitNodes ids={createdNodes} title="Created Nodes" showBlank />
             <CommitNodes ids={restoredNodes} title="Restored Nodes" />

@@ -1,5 +1,5 @@
 import FlowStepNodeBranch from './FlowStepNodeBranch';
-import FlowStepNodeButtonToolbar from './FlowStepNodeButtonToolbar';
+import FlowStepNodeToolbar from './FlowStepNodeToolbar';
 import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
@@ -14,7 +14,7 @@ import {
 } from '../../../../nodes/nodes.constants';
 import {
     EDGE_LENGTH,
-    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH,
+    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH, WORKFLOW_WIDTH_WITH_TOOLBAR,
 } from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
@@ -49,7 +49,7 @@ export default function FlowStepNodeButton() {
             dispatch(setAlert({
                 isOpen: true,
                 severity: 'warning',
-                message: 'Cannot select workflow object in the pane for now. Please use workflow page.',
+                message: 'Cannot select workflow object in the pane for now. Please use node\'s workflow page.',
                 duration: 5000,
             }));
 
@@ -97,7 +97,7 @@ export default function FlowStepNodeButton() {
         >
             <FlowStepNodeBranch />
             <foreignObject
-                width={WORKFLOW_BUTTON_WIDTH}
+                width={WORKFLOW_WIDTH_WITH_TOOLBAR}
                 height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
                 x={x + EDGE_LENGTH}
                 y={y - MARGIN_TOP}
@@ -114,6 +114,7 @@ export default function FlowStepNodeButton() {
                             borderColor: outlineColor,
                             backgroundColor,
                             height: NODE_BUTTON_HEIGHT,
+                            maxWidth: WORKFLOW_BUTTON_WIDTH,
                             color,
                         }}
                     >
@@ -122,7 +123,7 @@ export default function FlowStepNodeButton() {
                             {title}
                         </div>
                     </ButtonBase>
-                    <FlowStepNodeButtonToolbar />
+                    <FlowStepNodeToolbar />
                 </div>
             </foreignObject>
         </g>
