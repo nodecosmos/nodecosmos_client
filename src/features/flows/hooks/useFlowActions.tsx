@@ -7,7 +7,9 @@ import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowContext, { FlowContext } from '../../workflows/hooks/diagram/flows/useFlowContext';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { deleteFlow, updateFlowTitle } from '../flows.thunks';
-import { useCallback, useContext } from 'react';
+import {
+    useCallback, useContext, useMemo, 
+} from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useFlowActions() {
@@ -81,7 +83,7 @@ export default function useFlowActions() {
         }));
     }, [dispatch, branchId, flowId]);
 
-    return {
+    return useMemo(() => ({
         handleFlowClick,
         deleteFlowCb,
         handleTitleChange,
@@ -89,5 +91,13 @@ export default function useFlowActions() {
         closeTitleEdit,
         restoreFlow: restoreFlowCb,
         undoDeleteFlow: undoDeleteFlowCb,
-    };
+    }), [
+        closeTitleEdit,
+        deleteFlowCb,
+        handleFlowClick,
+        handleTitleChange,
+        openTitleEdit,
+        restoreFlowCb,
+        undoDeleteFlowCb,
+    ]);
 }

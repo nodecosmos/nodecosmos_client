@@ -9,6 +9,7 @@ import {
 import useIoActions from '../../../../hooks/diagram/io/useIoActions';
 import useIoContext from '../../../../hooks/diagram/io/useIoContext';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
+import ObjectCommentsBadge from '../../ObjectCommentBadge';
 import { faPenToSquare, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,7 +33,17 @@ export default function OutputToolbar() {
     const { isBranch } = useBranchContext();
 
     if (!isSelected) {
-        return null;
+        return (
+            <foreignObject
+                width={OUTPUT_BUTTON_SKEWED_WIDTH}
+                height={NODE_BUTTON_HEIGHT}
+                x={x + OUTPUT_BUTTON_X_MARGIN}
+                y={y - 45}
+                style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
+            >
+                {isBranch && <ObjectCommentsBadge id={id} justifyContent="end" mt={-0.5} />}
+            </foreignObject>
+        );
     }
 
     return (
@@ -73,12 +84,14 @@ export default function OutputToolbar() {
                                 <FontAwesomeIcon icon={faTrash} />
                             </IconButton>
                         </Tooltip>
+                        {isBranch && <ObjectCommentsBadge mt={-0.25} mr={1} id={id} />}
                     </ToolsContainer>
                 )
             }
             {
                 isIoDeleted(id) && (
                     <ToolsContainer justifyContent="end">
+                        {isBranch && <ObjectCommentsBadge id={id} />}
                         <Tooltip title="Undo Delete" placement="top">
                             <IconButton
                                 className="Item"
@@ -89,6 +102,7 @@ export default function OutputToolbar() {
                                 <FontAwesomeIcon icon={faRotateLeft} />
                             </IconButton>
                         </Tooltip>
+                        {isBranch && <ObjectCommentsBadge mt={-0.25} mr={1} id={id} />}
                     </ToolsContainer>
                 )
             }

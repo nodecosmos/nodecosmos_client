@@ -18,7 +18,7 @@ import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { createFlowStep, deleteFlowStep } from '../flowSteps.thunks';
 import { FlowStepCreationParams } from '../flowSteps.types';
 import Decimal from 'decimal.js';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface Props {
@@ -207,7 +207,7 @@ export default function useFlowStepActions(props?: Props) {
         }));
     }, [dispatch, flowStepPrimaryKey]);
 
-    return {
+    return useMemo(() => ({
         createLoading,
         createNextFlowStep,
         deleteFlowStep: deleteFlowStepCb,
@@ -215,5 +215,13 @@ export default function useFlowStepActions(props?: Props) {
         restoreFlowStep: restoreFlowStepCb,
         handleFlowStepClick,
         undoDeleteFlowStep: undoDeleteFlowStepCb,
-    };
+    }), [
+        createLoading,
+        createNextFlowStep,
+        deleteFlowStepCb,
+        handleFlowStepClick,
+        keepFlowStepCb,
+        restoreFlowStepCb,
+        undoDeleteFlowStepCb,
+    ]);
 }

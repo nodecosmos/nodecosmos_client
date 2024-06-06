@@ -63,4 +63,26 @@ export default (theme: NodecosmosTheme) => ({
         '.Item.purple': { color: theme.palette.toolbar.purple },
         '.Item.yellow': { color: theme.palette.toolbar.yellow },
     },
+
+    '.CommentBadge': {
+        display: 'flex',
+        alignItems: 'center',
+        height: '100%',
+        marginLeft: 8,
+        svg: {
+            height: '77%',
+            color: theme.palette.button.main,
+        },
+        '.Count ': {
+            fontWeight: 'bold',
+            fontSize: 12,
+            color: theme.palette.button.contrastText,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    },
 });

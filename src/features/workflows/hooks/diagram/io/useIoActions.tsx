@@ -8,7 +8,7 @@ import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { deleteIo, updateIoTitle } from '../../../../input-outputs/inputOutputs.thunks';
 import useWorkflowContext from '../../useWorkflowContext';
 import useInputsChange from '../flow-step-node/useInputsChange';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useIoActions() {
@@ -121,12 +121,12 @@ export default function useIoActions() {
         }));
     }, [dispatch, branchId, flowStepId, flowStepNodeId, id]);
 
-    return {
+    return useMemo(() => ({
         handleIoClick,
         deleteIoCb,
         handleTitleChange,
         openTitleEdit,
         closeTitleEdit,
         undoDeleteIo: undoDeleteIoCb,
-    };
+    }), [handleIoClick, deleteIoCb, handleTitleChange, openTitleEdit, closeTitleEdit, undoDeleteIoCb]);
 }

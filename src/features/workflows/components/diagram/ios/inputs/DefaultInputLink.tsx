@@ -4,6 +4,7 @@ import { withOpacity } from '../../../../../../utils/colors';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
+import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { useTheme } from '@mui/material';
 import React from 'react';
@@ -20,12 +21,10 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
         position: nodePosition, isSelected, flowStepId, id: nodeId,
     } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
-    const {
-        selectedInputColor,
-        defaultInputColor,
-    } = theme.palette.workflow;
+    const { nestedTreeColor } = useFlowStepNodeColors();
+    const { defaultInputColor, default: defualtWfColor } = theme.palette.workflow;
 
-    let color = isSelected ? selectedInputColor : defaultInputColor;
+    let color = isSelected ? nestedTreeColor.fg : defaultInputColor;
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
     let strokeWidth = 1;
 
@@ -67,8 +66,8 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 cy={y}
                 r={5}
                 strokeWidth={1}
-                stroke={selectedInputColor}
-                fill={color}
+                stroke={color}
+                fill={defualtWfColor}
                 style={{
                     opacity: 0,
                     animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,

@@ -2,6 +2,8 @@ import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
 import { withOpacity } from '../../../../../../utils/colors';
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
+import { FLOW_TOOLBAR_HEIGHT } from '../../../../constants';
+import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
 import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
@@ -15,8 +17,9 @@ interface InputProps {
     nodeOutputId: UUID
 }
 
-const ORIGIN_NODE_Y_OFFSET = 25;
-const X_OFFSET = 20;
+const X_ORIGIN_OFFSET = 103;
+const X_DEST_OFFSET = 36.68500;
+const Y_ORIGIN_OFFSET = 32.5;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
@@ -27,6 +30,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const { defaultLoopInputColor } = theme.palette.workflow;
     const { nestedTreeColor } = useFlowStepNodeColors();
     let color = isSelected ? nestedTreeColor.fg : defaultLoopInputColor;
+    const strokeColor = defaultLoopInputColor;
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
     let strokeWidth = 1.5;
 
@@ -37,6 +41,10 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
         strokeWidth = isSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.removed.fg, 0.6);
     }
+
+    let { y: flowStepY } = useFlowStepContext();
+
+    flowStepY += FLOW_TOOLBAR_HEIGHT;
 
     if (!outputsById[nodeOutputId]) {
         return null;
@@ -52,8 +60,11 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
         return null;
     }
 
-    const originNodeY = originNodePosition.y - ORIGIN_NODE_Y_OFFSET;
+    const selectedOffset = isSelected ? 1 : 0;
+
     const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
+    const isDestBelow = flowStepY < originNodePosition.y;
+    const yOriginOffset = isDestBelow ? Y_ORIGIN_OFFSET : -Y_ORIGIN_OFFSET;
 
     return (
         <g>
@@ -62,23 +73,35 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 stroke={color}
                 fill="transparent"
                 strokeWidth={strokeWidth}
-                d={`M ${x} ${y}
-                    L ${x + X_OFFSET + 2.5} ${y}
-                    L ${x + X_OFFSET + 2.5} ${originNodeY}
-                    L ${destNodePos.x - X_OFFSET} ${originNodeY}
-                    L ${destNodePos.x - X_OFFSET} ${yEnd}
+                d={`M ${x - selectedOffset} ${y - selectedOffset}
+                    L ${x + X_ORIGIN_OFFSET - selectedOffset} ${y - yOriginOffset}
+                    L ${x + X_ORIGIN_OFFSET - selectedOffset} ${flowStepY + selectedOffset}
+                    L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${flowStepY + selectedOffset}
+                    L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${yEnd}
                     L ${xEnd} ${yEnd}`}
+                style={{ transition: `d ${transitionAnimationDuration / 2}ms` }}
+            />
+            <circle
+                className="InputLink"
+                cx={destNodePos.x - X_DEST_OFFSET}
+                cy={flowStepY}
+                r={5}
+                strokeWidth={1}
+                stroke={strokeColor}
+                fill={color}
                 style={{
                     opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
-                    transition: `d ${transitionAnimationDuration / 2}ms`,
-                }}
-            />
+                    animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
+                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
+                }} />
+            ;
             <text
                 className="InputLinkText"
-                x={x - 12.5}
-                y={y - 10}
-                fill={color}>
+                x={destNodePos.x - 50}
+                y={flowStepY - 12.5}
+                fill={color}
+                fontSize="bigger"
+            >
                 loop
             </text>
             <circle

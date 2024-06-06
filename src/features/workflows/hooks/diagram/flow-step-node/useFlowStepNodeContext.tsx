@@ -35,11 +35,13 @@ export default function useFlowStepNodeContext() {
     const { id: flowStepId } = useFlowStepContext();
     const fsNode = useSelector(maybeSelectNode(branchId, id));
     const title = fsNode?.title || 'deleted node';
-    const position = flowStepNode?.position || {} as Position;
-    const inputIds = flowStepNode?.inputIds || [];
-    const outputs = flowStepNode?.outputs || [];
-    const isSelected = selectedObject?.objectId === id
-        && selectedObject.metadata?.flowStepId === flowStepId;
+    const position = useMemo(() => flowStepNode?.position || {} as Position, [flowStepNode?.position]);
+    const inputIds = useMemo(() => flowStepNode?.inputIds || [], [flowStepNode?.inputIds]);
+    const outputs = useMemo(() => flowStepNode?.outputs || [], [flowStepNode?.outputs]);
+    const isSelected = useMemo(() => (
+        selectedObject?.objectId === id
+        && selectedObject.metadata?.flowStepId === flowStepId
+    ), [flowStepId, id, selectedObject]);
 
     return {
         branchId,

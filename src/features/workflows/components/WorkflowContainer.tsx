@@ -75,7 +75,7 @@ export default function WorkflowContainer({ children }: { children: React.ReactN
                 },
                 '.InputLink': { pointerEvents: 'none' },
                 '.InputLinkText': {
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: 500,
                 },
             }}

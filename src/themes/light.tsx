@@ -96,7 +96,7 @@ const theme: NodecosmosTheme = {
             3: '#e9e7ee',
             4: '#e1dfe8',
             5: '#efe9f1',
-            6: '#eae8ef',
+            6: '#eae7ee',
             7: '#e2e2eb',
             8: '#d2d6de',
 
@@ -131,7 +131,7 @@ const theme: NodecosmosTheme = {
             orange: '#dd9432',
             hover: '#e6e0e8',
             active: '#e6e0e8',
-            default: '#9c9cb4',
+            default: '#ababd2',
             breadcrumbs: '#4a5568',
         },
 
@@ -140,11 +140,11 @@ const theme: NodecosmosTheme = {
             defaultBorder: '#e0e0f0',
             backgrounds: [
                 {
-                    fg: '#fd526f',
+                    fg: '#fd6052',
                     bg: '#f9dddd',
                 },
                 {
-                    fg: '#994ce1',
+                    fg: '#9a6cce',
                     bg: '#e3ddf9',
                 },
                 {
@@ -165,7 +165,7 @@ const theme: NodecosmosTheme = {
                 },
             ],
             hashtag: '#aaaac4',
-            defaultText: '#21212c',
+            defaultText: '#64647c',
             selectedText: '#fefeff',
             checkboxColor: '#bbbbc7',
             dragInIndicator: '#ff5866',
@@ -176,7 +176,7 @@ const theme: NodecosmosTheme = {
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#80a4ff',
-            defaultInputColor: '#e0e0f0',
+            defaultInputColor: '#FFB387',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.26)',
             selectedBg: 'rgba(89,137,172,0.03)',
@@ -236,7 +236,7 @@ const theme: NodecosmosTheme = {
         },
 
         text: {
-            primary: '#3a383a',
+            primary: '#64647c',
             secondary: '#504e50',
             tertiary: '#7c8194',
             disabled: '#5c616b',

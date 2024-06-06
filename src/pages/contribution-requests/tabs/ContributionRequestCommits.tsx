@@ -28,6 +28,7 @@ export default function ContributionRequestCommits() {
         restoredFlows, createdFlows, deletedFlows, editedTitleFlows, editedDescriptionFlows,
         restoredFlowSteps, createdFlowSteps, deletedFlowSteps, editedDescriptionFlowSteps,
         createdFlowStepInputsByNode, createdFlowStepOutputsByNode,
+        deletedFlowStepInputsByNode, deletedFlowStepOutputsByNode,
         createdIos, deletedIos, editedTitleIos, editedDescriptionIos,
     } = useMemo(() => {
         return branch ?? {} as Branch;
@@ -76,6 +77,38 @@ export default function ContributionRequestCommits() {
             return acc;
         }, new Set<UUID>());
     }, [createdFlowStepOutputsByNode]);
+
+    const deletedFlowStepInputs: Set<UUID> = useMemo(() => {
+        if (!deletedFlowStepInputsByNode) {
+            return new Set<UUID>();
+        }
+
+        return Object.values(deletedFlowStepInputsByNode).reduce((acc: Set<UUID>, byNode: Record<UUID, Set<UUID>>) => {
+            Object.values(byNode).forEach((ids) => {
+                ids.forEach((id) => {
+                    acc.add(id);
+                });
+            });
+
+            return acc;
+        }, new Set<UUID>());
+    }, [deletedFlowStepInputsByNode]);
+
+    const deletedFlowStepOutputs: Set<UUID> = useMemo(() => {
+        if (!deletedFlowStepOutputsByNode) {
+            return new Set<UUID>();
+        }
+
+        return Object.values(deletedFlowStepOutputsByNode).reduce((acc: Set<UUID>, byNode: Record<UUID, Set<UUID>>) => {
+            Object.values(byNode).forEach((ids) => {
+                ids.forEach((id) => {
+                    acc.add(id);
+                });
+            });
+
+            return acc;
+        }, new Set<UUID>());
+    }, [deletedFlowStepOutputsByNode]);
 
     const filterOutCreated = useCallback((createdIds: Set<UUID>, editedIds: Set<UUID>) => {
         return new Set(
@@ -169,8 +202,16 @@ export default function ContributionRequestCommits() {
                 ids={createdFlowStepInputs}
                 objectType={WorkflowObjectType.InputOutput} />
             <CommitWorkflowObjectsWrapper
+                title="Deleted Flow Step Inputs"
+                ids={deletedFlowStepInputs}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
                 title="Created Flow Step Outputs"
                 ids={createdFlowStepOutputs}
+                objectType={WorkflowObjectType.InputOutput} />
+            <CommitWorkflowObjectsWrapper
+                title="Deleted Flow Step Outputs"
+                ids={deletedFlowStepOutputs}
                 objectType={WorkflowObjectType.InputOutput} />
             <CommitWorkflowObjectsWrapper
                 title="Created Input Outputs"
