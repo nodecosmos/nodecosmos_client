@@ -1,18 +1,18 @@
 import Alert from '../../../common/components/Alert';
 import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { create, NodeCreationPayload } from '../nodes.thunks';
 import { Node } from '../nodes.types';
-import { faHashtag } from '@fortawesome/pro-light-svg-icons';
+import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    InputAdornment,
-    DialogContent, Typography, Alert as MuiAlert,
+    DialogContent, Typography, Alert as MuiAlert, Box,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback } from 'react';
@@ -97,19 +97,33 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                            <FinalFormInputField
-                                fullWidth
-                                name="title"
-                                placeholder="Title"
-                                required
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <FontAwesomeIcon icon={faHashtag} />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
+                            <Box
+                                display="flex"
+                                alignItems="center"
+                                sx={{
+                                    '.fa-hashtag': {
+                                        color: 'text.tertiary',
+                                        ml: 1,
+                                        mr: 2,
+                                    },
+                                }}>
+                                <FontAwesomeIcon icon={faHashtag} />
+                                <Field
+                                    fullWidth
+                                    name="title"
+                                    label="Title"
+                                    InputProps={{
+                                        autoComplete: 'off',
+                                        endAdornment: loading ? <CircularProgress
+                                            size={30}
+                                            sx={{
+                                                color: 'text.secondary',
+                                                mr: 2,
+                                            }} /> : null,
+                                    }}
+                                    required
+                                />
+                            </Box>
 
                             <DefaultFormButton loading={loading} color="primary" variant="outlined" />
                         </form>

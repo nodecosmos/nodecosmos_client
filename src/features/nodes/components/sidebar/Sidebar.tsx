@@ -47,7 +47,7 @@ export default function Sidebar() {
         >
             <List sx={{
                 px: 1,
-                pt: isBranch ? 0 : 1,
+                pt: isBranch && !isContributionRequest ? 0 : 1,
                 mt: '-1px',
             }}>
                 {
