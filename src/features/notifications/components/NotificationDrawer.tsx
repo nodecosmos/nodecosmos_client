@@ -1,8 +1,13 @@
+import Notification from './Notification';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { selectNotifications, selectUnseenNotificationCount } from '../notifications.selectors';
 import { markAllAsRead } from '../notifications.thunks';
-import { Box, Drawer } from '@mui/material';
+import { faBell } from '@fortawesome/pro-duotone-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    Box, Drawer, Typography,
+} from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,13 +32,23 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
     return (
         <div>
             <Drawer open={open} onClose={onClose} anchor="right">
-                <Box width={{
-                    xs: '100%',
-                    sm: 450,
-                }}>
-                    {notifications.map((notification) => (
-                        <div key={notification.id}>{notification.text}</div>
-                    ))}
+                <Box
+                    boxSizing="border-box"
+                    width={{
+                        xs: '100%',
+                        sm: 450,
+                    }}
+                    height={1}
+                >
+                    <Typography variant="h5" color="text.secondary" mx={4} my={4}>
+                        <FontAwesomeIcon icon={faBell} />
+                        <Box component="span" ml={2}>Notifications</Box>
+                    </Typography>
+                    <Box m={2}>
+                        {notifications.map((notification) => (
+                            <Notification key={notification.id} id={notification.id} onClose={onClose} />
+                        ))}
+                    </Box>
                 </Box>
             </Drawer>
         </div>

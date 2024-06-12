@@ -1,4 +1,4 @@
-import { UUID } from '../../types';
+import { Profile, UUID } from '../../types';
 
 export interface NotificationPrimaryKey {
     userId: UUID;
@@ -18,6 +18,7 @@ export interface Notification extends NotificationPrimaryKey {
     url: string;
     seen: boolean;
     updatedAt: Date;
+    author: Profile;
 }
 
 export interface NotificationState {

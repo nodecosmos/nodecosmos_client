@@ -13,3 +13,8 @@ export const selectUnseenNotificationCount = createSelector(
     selectNotificationsById,
     (notifications) => Object.values(notifications).filter((notification) => !notification.seen).length,
 );
+
+export const selectNotification = (id: string) => createSelector(
+    selectNotificationsById,
+    (notificationsById) => notificationsById[id],
+);

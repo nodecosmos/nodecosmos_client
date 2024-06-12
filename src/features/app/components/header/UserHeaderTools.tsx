@@ -1,6 +1,6 @@
 import UserProfileOptions from './UserProfileOptions';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import Notifications from '../../../notifications/components/Notifications';
+import NotificationsButton from '../../../notifications/components/NotificationsButton';
 import { REDIRECT_Q } from '../../../users/components/LoginForm';
 import { selectIsAuthenticated } from '../../../users/users.selectors';
 import {
@@ -17,7 +17,7 @@ export default function UserHeaderTools() {
     if (isAuthenticated) {
         return (
             <ToolbarContainer size={35} showIndicator={false} hasBg borderRadius="50%" fontSize={16}>
-                <Notifications />
+                <NotificationsButton />
                 <Tooltip title="Profile" placement="top">
                     <UserProfileOptions />
                 </Tooltip>

@@ -9,7 +9,7 @@ import { Badge } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Notifications() {
+export default function NotificationsButton() {
     const unseenNotificationCount = useSelector(selectUnseenNotificationCount);
     const [fetched, setFetched] = useBooleanStateValue(false);
     const [modalOpen, openModal, closeModal] = useBooleanStateValue(false);
