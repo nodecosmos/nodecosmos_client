@@ -7,6 +7,7 @@ import useAuthorizeNodeAction from '../../../../hooks/node/useAuthorizeNodeActio
 import useNodeActions from '../../../../hooks/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/node/useNodeContext';
+import useTreeContext from '../../../../hooks/tree/useTreeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNode } from '../../../../nodes.selectors';
 import LikeButton from '../../../LikeButton';
@@ -68,6 +69,7 @@ function NodeToolbar() {
     const openNodeHref = useMemo(() => {
         return `/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`;
     }, [branchId, isBranch, id, rootId]);
+    const { size } = useTreeContext();
 
     if (ctx?.isOriginalDeleted) {
         return <ConflictToolbar />;
@@ -124,7 +126,7 @@ function NodeToolbar() {
     }
 
     return (
-        <div className="NodeToolbar">
+        <div className="NodeToolbar" style={{ height: size.height }}>
             {
                 !isMerged && (
                     <>

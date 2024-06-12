@@ -41,6 +41,11 @@ export function buildOutputs(data: BuildOutputsData): Output[] {
     if (nodeOutputs) {
         nodeOutputs.forEach((outputId, ioIndex) => {
             const io = IosById[outputId];
+
+            if (!io) {
+                return;
+            }
+
             const wfOutput = {
                 id: io.id,
                 nodeId,

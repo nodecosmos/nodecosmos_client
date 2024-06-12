@@ -22,7 +22,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
     const { nestedTreeColor } = useFlowStepNodeColors();
-    const { defaultInputColor, default: defualtWfColor } = theme.palette.workflow;
+    const { defaultInputColor, default: defaultWfColor } = theme.palette.workflow;
 
     let color = isSelected ? nestedTreeColor.fg : defaultInputColor;
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
@@ -53,7 +53,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 stroke={color}
                 fill="transparent"
                 strokeWidth={strokeWidth}
-                d={`M ${x} ${y} L ${xEnd} ${yEnd}`}
+                d={`M ${x} ${y} L ${xEnd - 40} ${yEnd} L ${xEnd} ${yEnd}`}
                 style={{
                     opacity: 0,
                     animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
@@ -67,7 +67,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 r={5}
                 strokeWidth={1}
                 stroke={color}
-                fill={defualtWfColor}
+                fill={defaultWfColor}
                 style={{
                     opacity: 0,
                     animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,

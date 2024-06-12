@@ -5,6 +5,8 @@ import { selectMainObjectThreadByObjectId } from '../../../../comments/comments.
 import { CommentObjectType, ThreadType } from '../../../../comments/comments.types';
 import CommentEditor from '../../../../comments/components/CommentEditor';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
+import { faComments } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import React, { useMemo } from 'react';
@@ -69,7 +71,8 @@ export default function PaneComments() {
             <Box>
                 <Container>
                     <Typography variant="h5" color="text.secondary">
-                        Conversation
+                        <FontAwesomeIcon icon={faComments} />
+                        <Box component="span" ml={2}>Conversation</Box>
                     </Typography>
                 </Container>
                 <Container sx={{

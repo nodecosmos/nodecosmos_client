@@ -49,7 +49,7 @@ function NodeContent() {
             <g style={animated ? G_STYLE : undefined}>
                 <foreignObject
                     width="700"
-                    height={height}
+                    height={height + 3}
                     x={xEnd}
                     y={y - marginTop}
                     style={TRANSITION_STYLE}

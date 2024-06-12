@@ -30,7 +30,7 @@ export default function ToolsContainer(props: ToolsContainerProps) {
                     borderRadius: '50%',
                     '&:hover': { backgroundColor: 'toolbar.hover' },
                 },
-                '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
+                '.MuiButtonBase-root > .svg-inline--fa, .MuiSvgIcon-root': { fontSize: 16 },
             }}
         >
             {children}

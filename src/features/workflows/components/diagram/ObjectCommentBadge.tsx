@@ -14,7 +14,7 @@ interface Props {
     mt?: number;
     mb?: number;
     justifyContent?: 'start' | 'center' | 'end';
-    width?: number;
+    width?: number | 'auto';
 }
 
 export default function ObjectCommentsBadge({
@@ -39,7 +39,12 @@ export default function ObjectCommentsBadge({
                 width,
             }}>
             <Tooltip title="Comments" placement="top">
-                <div className="CommentBadge" style={{ position: 'relative' }}>
+                <div
+                    className="CommentBadge"
+                    style={{
+                        position: 'relative',
+                        fontSize: 23, 
+                    }}>
                     <FontAwesomeIcon icon={faComment} />
                     <span className="Count">{length}</span>
                 </div>

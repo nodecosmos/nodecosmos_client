@@ -17,8 +17,8 @@ interface InputProps {
     nodeOutputId: UUID
 }
 
-const X_ORIGIN_OFFSET = 103;
-const X_DEST_OFFSET = 36.68500;
+const X_ORIGIN_OFFSET = 105;
+export const X_DEST_OFFSET = 40;
 const Y_ORIGIN_OFFSET = 32.5;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {

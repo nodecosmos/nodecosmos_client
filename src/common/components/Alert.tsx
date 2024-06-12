@@ -55,12 +55,9 @@ export default function Alert(props: AlertProps) {
                     py: 0.35,
                     height: 1,
                     borderRadius: 0.5,
-                    width: 'calc(100% - 1px)',
+                    width: 'calc(100% - 3px)',
                     backgroundColor: 'background.1',
-                    '.MuiAlert-icon, .MuiAlert-action': {
-                        color: `${severity}.main`,
-                        // eslint-disable-next-line object-curly-newline
-                    },
+                    '.MuiAlert-icon, .MuiAlert-action': { color: `${severity}.main` },
                     '.MuiAlert-action': {
                         p: 0,
                         mr: 0,

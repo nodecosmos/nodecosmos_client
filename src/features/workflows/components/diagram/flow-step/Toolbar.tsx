@@ -14,7 +14,7 @@ import React, { useMemo } from 'react';
 // Flow and FlowStep toolbar
 export default function Toolbar() {
     const { id: flowId, isSelected } = useFlowContext();
-    const { id: flowStepId } = useFlowStepContext();
+    const { id: flowStepId, isSelected: isFlowStepSelected } = useFlowStepContext();
     const { isFlowStepCreated, isFlowStepDeleted } = useWorkflowBranch();
     const { outlineColor: flowBorder, backgroundColor: flowBg } = useFlowColors();
     const { isBranch } = useBranchContext();
@@ -41,7 +41,10 @@ export default function Toolbar() {
                 {isBranch && <ObjectCommentsBadge id={flowId} mr={1} />}
                 <FlowInnerToolbar />
                 <FlowStepInnerToolbar />
-                {isBranch && <ObjectCommentsBadge id={flowStepId} justifyContent="end" />}
+                {isBranch && <ObjectCommentsBadge
+                    id={flowStepId}
+                    justifyContent="end"
+                    width={isFlowStepSelected ? 'auto' : 1} />}
             </ToolsContainer>
         </Box>
     );

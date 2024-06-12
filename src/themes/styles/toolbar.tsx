@@ -26,6 +26,7 @@ export default (theme: NodecosmosTheme) => ({
             },
         },
     },
+
     '.NodeToolbar': {
         display: 'flex',
         alignItems: 'center',
@@ -70,7 +71,7 @@ export default (theme: NodecosmosTheme) => ({
         height: '100%',
         marginLeft: 8,
         svg: {
-            height: '77%',
+            fontSize: 23,
             color: theme.palette.button.main,
         },
         '.Count ': {
