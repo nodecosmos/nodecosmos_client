@@ -6,11 +6,12 @@ interface Props {
     children: React.ReactNode;
     round?: boolean;
     size?: string | number;
+    fontSize?: string | number;
     ml?: number;
     mr?: number;
-    fontSize?: string;
     hasText?: boolean;
-    borderRadius?: number;
+    hasBg?: boolean;
+    borderRadius?: number | string;
     showIndicator?: boolean;
     hoverColor?: string;
     activeColor?: string;
@@ -18,7 +19,7 @@ interface Props {
 
 export default function ToolbarContainer(props: Props) {
     const {
-        children, round = true, size = HEADER_HEIGHT, ml = 0, mr = 0, fontSize = '1rem', hasText = false,
+        children, round = true, size = HEADER_HEIGHT, ml = 0, mr = 0, hasText = false, hasBg = false, fontSize = '1rem',
         borderRadius = 0, showIndicator = true, hoverColor = 'toolbar.hover', activeColor = 'toolbar.active',
     } = props;
 
@@ -43,7 +44,7 @@ export default function ToolbarContainer(props: Props) {
                     },
 
                     button: {
-                        p: 0,
+                        backgroundColor: hasBg ? activeColor : 'transparent',
                         fontWeight: 500,
                         borderBottom: showIndicator ? 3 : 0,
                         borderColor: 'transparent',

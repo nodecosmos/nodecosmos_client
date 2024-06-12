@@ -7,9 +7,15 @@ export default (theme: NodecosmosTheme) => ({
         justifyContent: 'flex-start',
         height: '100%',
         '.ButtonWrapper': {
+            display: 'inline-flex',
+            alignItems: 'center',
+            height: '100%',
             '&:hover': { button: { borderColor: 'transparent' } },
             '&.active': { button: { borderColor: 'inherit' } },
             button: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 padding: 0,
                 cursor: 'pointer',
                 border: 'none',

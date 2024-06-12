@@ -36,7 +36,7 @@ export default function UserProfileOptions() {
     }
 
     return (
-        <>
+        <Box ml={2}>
             <NcAvatar
                 src={currentUser.profileImageUrl}
                 name={currentUser.username}
@@ -112,6 +112,6 @@ export default function UserProfileOptions() {
                     </Box>
                 </SidebarListItem>
             </Menu>
-        </>
+        </Box>
     );
 }

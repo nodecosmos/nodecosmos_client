@@ -4,7 +4,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { selectUnseenNotificationCount } from '../notifications.selectors';
 import { getNotifications } from '../notifications.thunks';
-import { faBell } from '@fortawesome/pro-regular-svg-icons';
+import { faBell } from '@fortawesome/pro-solid-svg-icons';
 import { Badge } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

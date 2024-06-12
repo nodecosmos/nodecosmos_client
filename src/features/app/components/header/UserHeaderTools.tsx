@@ -16,12 +16,10 @@ export default function UserHeaderTools() {
 
     if (isAuthenticated) {
         return (
-            <ToolbarContainer size={40}>
+            <ToolbarContainer size={35} showIndicator={false} hasBg borderRadius="50%" fontSize={16}>
                 <Notifications />
                 <Tooltip title="Profile" placement="top">
-                    <Box ml={2}>
-                        <UserProfileOptions />
-                    </Box>
+                    <UserProfileOptions />
                 </Tooltip>
             </ToolbarContainer>
         );
