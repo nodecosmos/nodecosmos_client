@@ -28,7 +28,7 @@ export default function ObjectCommentsBadge({
 
     return (
         <Box
-            className="CommentBadge"
+            className="CountBadge"
             sx={{
                 justifyContent,
                 height: 32,
@@ -40,7 +40,7 @@ export default function ObjectCommentsBadge({
             }}>
             <Tooltip title="Comments" placement="top">
                 <div
-                    className="CommentBadge"
+                    className="CountBadge"
                     style={{
                         position: 'relative',
                         fontSize: 23, 

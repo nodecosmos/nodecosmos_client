@@ -1,9 +1,8 @@
 import UserProfileOptions from './UserProfileOptions';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
-import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
+import Notifications from '../../../notifications/components/Notifications';
 import { REDIRECT_Q } from '../../../users/components/LoginForm';
 import { selectIsAuthenticated } from '../../../users/users.selectors';
-import { faBell } from '@fortawesome/pro-regular-svg-icons';
 import {
     Box,
     Button, Tooltip,
@@ -12,15 +11,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export default function UserHeaderOptions() {
+export default function UserHeaderTools() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
 
     if (isAuthenticated) {
         return (
-            <ToolbarContainer>
-                <ToolbarItem title="notifications" icon={faBell} color="toolbar.yellow" />
+            <ToolbarContainer size={40}>
+                <Notifications />
                 <Tooltip title="Profile" placement="top">
-                    <Box ml={1}>
+                    <Box ml={2}>
                         <UserProfileOptions />
                     </Box>
                 </Tooltip>

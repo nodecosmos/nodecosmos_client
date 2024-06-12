@@ -65,7 +65,7 @@ export default (theme: NodecosmosTheme) => ({
         '.Item.yellow': { color: theme.palette.toolbar.yellow },
     },
 
-    '.CommentBadge': {
+    '.CountBadge': {
         display: 'flex',
         alignItems: 'center',
         height: '100%',

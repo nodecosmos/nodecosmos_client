@@ -1,5 +1,5 @@
 /* mui */
-import UserHeaderOptions from './UserHeaderOptions';
+import UserHeaderTools from './UserHeaderTools';
 import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
 import NodeIndexHeader from '../../../nodes/components/header/NodeIndexHeader';
 import TreeShowHeader from '../../../nodes/components/tree/TreeShowHeader';
@@ -96,7 +96,7 @@ export default function Header() {
                         display="flex"
                         alignItems="center"
                     >
-                        <UserHeaderOptions />
+                        <UserHeaderTools />
                     </Box>
                 </Box>
             </Box>

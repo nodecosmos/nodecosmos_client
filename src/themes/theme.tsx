@@ -8,6 +8,7 @@ import like from './styles/like';
 import alert from './styles/mui/alert';
 import autocomplete from './styles/mui/autocomplete';
 import backdrop from './styles/mui/backdrop';
+import badge from './styles/mui/badge';
 import breadcrumbs from './styles/mui/breadcrumbs';
 import buttons from './styles/mui/buttons';
 import dataGrid from './styles/mui/dataGrid';
@@ -65,6 +66,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         ...alert(),
         ...autocomplete(theme),
         ...backdrop(theme),
+        ...badge(theme),
         ...breadcrumbs(theme),
         ...buttons(theme),
         ...dataGrid(theme),
