@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 export const SELECTED_OBJ_Q = 'selectedObject';
-export const RELOAD_FROM_PARAMS_Q = 'reload';
 
 export function useSelectObjectFromParams() {
     const [searchParams] = useSearchParams();

@@ -3,7 +3,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
 import { timeSince } from '../../../utils/localTime';
 import { selectObject } from '../../app/app.thunks';
-import { RELOAD_FROM_PARAMS_Q, SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
+import { SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
 import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectNotification } from '../notifications.selectors';
 import { Box, Typography } from '@mui/material';
@@ -26,8 +26,6 @@ export default function Notification({ id, onClose }: NotificationProps) {
     const navigateToNotification = useCallback(() => {
         const parsed = new URL(url);
         const path = parsed.pathname;
-        parsed.searchParams.set(RELOAD_FROM_PARAMS_Q, 'true');
-
         const encodedData = parsed.searchParams.get(SELECTED_OBJ_Q);
 
         if (encodedData) {
@@ -42,7 +40,10 @@ export default function Notification({ id, onClose }: NotificationProps) {
             }
         }
 
-        navigate(path + parsed.search);
+        navigate({
+            pathname: path,
+            search: parsed.search,
+        });
 
         onClose();
     }, [dispatch, navigate, onClose, url]);

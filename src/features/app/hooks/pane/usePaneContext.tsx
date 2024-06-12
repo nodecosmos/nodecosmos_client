@@ -51,6 +51,13 @@ export function usePaneContextCreator(props: PaneProps) {
     }, [_unsetLoading]);
 
     useEffect(() => {
+        if (paneQ && paneQ !== content) {
+            console.log('paneQ hit');
+            setContent(paneQ);
+        }
+    }, [content, paneQ]);
+
+    useEffect(() => {
         return () => {
             dispatch(clearSelectedObject());
         };
