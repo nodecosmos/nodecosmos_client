@@ -30,27 +30,27 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
     }, [dispatch, open, seen, setSeen, unseenNotificationCount]);
 
     return (
-        <div>
-            <Drawer open={open} onClose={onClose} anchor="right">
-                <Box
-                    boxSizing="border-box"
-                    width={{
-                        xs: '100%',
-                        sm: 450,
-                    }}
-                    height={1}
-                >
-                    <Typography variant="h5" color="text.secondary" mx={4} my={4}>
-                        <FontAwesomeIcon icon={faBell} />
-                        <Box component="span" ml={2}>Notifications</Box>
-                    </Typography>
-                    <Box m={2}>
-                        {notifications.map((notification) => (
-                            <Notification key={notification.id} id={notification.id} onClose={onClose} />
-                        ))}
-                    </Box>
+        <Drawer open={open} onClose={onClose} anchor="right" elevation={8}>
+            <Box
+                boxSizing="border-box"
+                mt={2}
+                width={{
+                    xs: '100%',
+                    sm: 450,
+                }}
+                height={1}
+            >
+                <Typography variant="h5" color="text.secondary" mx={4} mb={4}>
+                    <FontAwesomeIcon icon={faBell} />
+                    <Box component="span" ml={2}>Notifications</Box>
+                </Typography>
+                <Box m={2} mb={4}>
+                    {notifications.map((notification) => (
+                        <Notification key={notification.id} id={notification.id} onClose={onClose} />
+                    ))}
                 </Box>
-            </Drawer>
-        </div>
+                <br />
+            </Box>
+        </Drawer>
     );
 }

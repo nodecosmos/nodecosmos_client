@@ -19,7 +19,9 @@ export default function UserHeaderTools() {
             <ToolbarContainer size={35} showIndicator={false} hasBg borderRadius="50%" fontSize={16}>
                 <NotificationsButton />
                 <Tooltip title="Profile" placement="top">
-                    <UserProfileOptions />
+                    <div>
+                        <UserProfileOptions />
+                    </div>
                 </Tooltip>
             </ToolbarContainer>
         );

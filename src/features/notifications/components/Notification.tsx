@@ -1,13 +1,15 @@
 import NcAvatar from '../../../common/components/NcAvatar';
-import { UUID } from '../../../types';
+import { NodecosmosDispatch } from '../../../store';
+import { ObjectType, UUID } from '../../../types';
 import { timeSince } from '../../../utils/localTime';
+import { selectObject } from '../../app/app.thunks';
+import { RELOAD_FROM_PARAMS_Q, SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
+import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectNotification } from '../notifications.selectors';
-import {
-    Box, Link, Typography,
-} from '@mui/material';
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface NotificationProps {
     id: UUID;
@@ -19,16 +21,35 @@ export default function Notification({ id, onClose }: NotificationProps) {
     const {
         author, createdAt, url,
     } = notification;
-    const path = useMemo(() => url.split(window.location.origin)[1], [url]);
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const navigate = useNavigate();
+    const navigateToNotification = useCallback(() => {
+        const parsed = new URL(url);
+        const path = parsed.pathname;
+        parsed.searchParams.set(RELOAD_FROM_PARAMS_Q, 'true');
+
+        const encodedData = parsed.searchParams.get(SELECTED_OBJ_Q);
+
+        if (encodedData) {
+            const data = JSON.parse(atob(encodedData));
+            dispatch(selectObject(data));
+
+            if (data.objectType === ObjectType.Node) {
+                dispatch(selectNodeFromParams({
+                    branchId: data.branchId,
+                    id: data.objectId,
+                }));
+            }
+        }
+
+        navigate(path + parsed.search);
+
+        onClose();
+    }, [dispatch, navigate, onClose, url]);
 
     return (
-        <Box
-            borderRadius={2}
-            border={1}
-            borderColor="borders.4"
-            mt={2}
-            p={2}>
-            <Link component={RouterLink} to={path} onClick={onClose}>
+        <div className="Notification">
+            <Box onClick={navigateToNotification}>
                 <Box display="flex" alignItems="center">
                     <NcAvatar
                         width={45}
@@ -43,7 +64,7 @@ export default function Notification({ id, onClose }: NotificationProps) {
                                 fontWeight="bold"
                                 mr={1}>{author?.name}
                             </Typography>
-                            <Typography variant="body2" component="span">{notification.text}
+                            <Typography variant="body2" component="span" color="text.secondary">{notification.text}
                             </Typography>
                         </Typography>
                         <Typography variant="body2" color="text.tertiary" ml={2} mt={1}>
@@ -51,7 +72,7 @@ export default function Notification({ id, onClose }: NotificationProps) {
                         </Typography>
                     </Box>
                 </Box>
-            </Link>
-        </Box>
+            </Box>
+        </div>
     );
 }

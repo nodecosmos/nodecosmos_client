@@ -22,6 +22,7 @@ import tooltip from './styles/mui/tooltip';
 import typography from './styles/mui/typography';
 import scrollbar from './styles/scrollbar';
 import toolbar from './styles/toolbar';
+import transformable from './styles/transformable';
 import tree from './styles/tree';
 import { NodecosmosTheme } from './themes.types';
 import { createTheme } from '@mui/material/styles';
@@ -41,25 +42,15 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 ...scrollbar(theme),
                 ...toolbar(theme),
                 ...tree(theme),
-                '.Transformable': {
-                    overflow: 'auto',
-                    width: '100%',
-                    height: '100%',
-                },
-                '.TransformableContainer': {
-                    transition: 'transform 350ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                    transformOrigin: 'top left',
-                    width: '100%',
-                    height: '100%',
-                },
-                '.TransformableSVG': {
-                    transformOrigin: 'top left',
-                    WebkitTapHighlightColor: 'transparent',
-                    WebkitTouchCallout: 'none',
-                    WebkitUserSelect: 'none',
-                    MozUserSelect: 'none',
-                    userSelect: 'none',
-                    display: 'block',
+                ...transformable(),
+                '.Notification': {
+                    borderRadius: 8,
+                    border: '1px solid',
+                    borderColor: theme.palette.borders[4],
+                    marginTop: 16,
+                    padding: 16,
+                    cursor: 'pointer',
+                    '&:hover': { backgroundColor: theme.palette.background[4] },
                 },
             },
         },

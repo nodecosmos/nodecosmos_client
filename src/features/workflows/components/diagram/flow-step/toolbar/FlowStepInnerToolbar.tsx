@@ -58,7 +58,7 @@ export default function FlowStepInnerToolbar() {
                     <>
                         <Tooltip
                             title="FlowStep with same index already exists.
-                                                    You can choose to delete it from CR or keep it."
+                                   You can choose to delete it from CR or keep it."
                             placement="top">
                             <Chip
                                 className="ToolbarChip"

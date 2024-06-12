@@ -115,6 +115,14 @@ const nodesSlice = createSlice({
                     state.expandedNodes.add(ancestorId);
                 });
 
+                if (state.selected) {
+                    const { branchId: selectedBranchId, id: selectedId } = state.selected;
+
+                    if (branchId !== selectedBranchId || id !== selectedId) {
+                        state.byBranchId[selectedBranchId][selectedId].isSelected = false;
+                    }
+                }
+
                 state.byBranchId[branchId][id].isSelected = true;
                 state.selected = {
                     branchId,

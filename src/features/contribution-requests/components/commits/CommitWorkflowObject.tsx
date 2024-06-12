@@ -1,4 +1,3 @@
-import { WorkflowObjectType } from './CommitWorkflowObjects';
 import { NodecosmosTheme } from '../../../../themes/themes.types';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { FlowStep } from '../../../flow-steps/flowSteps.types';
@@ -17,7 +16,7 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 interface Props {
-    objectType: WorkflowObjectType;
+    // objectType: WorkflowObjectType;
     object: InputOutput | Flow | FlowStep | AppNode // - FlowStepNode;
 }
 
@@ -36,8 +35,7 @@ function TooltipTitle() {
 }
 
 export default function CommitWorkflowObject(props: Props) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { objectType, object } = props;
+    const { object } = props;
     const { branchId } = useBranchContext();
     const nodeId = isAppNode(object) ? object.id : object.nodeId;
     const navigateToNode = useNavigateToNode(nodeId);
