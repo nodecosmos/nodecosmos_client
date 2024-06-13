@@ -63,6 +63,7 @@ const initialState: NodeState = {
     scale: parseScaleFromLS(),
     treeDensity: parseDensityFromLS(),
     showAncestorChain: parseShowAncestorChainFromLS(),
+    indexSearchTerm: undefined,
 };
 
 const nodesSlice = createSlice({
@@ -144,6 +145,9 @@ const nodesSlice = createSlice({
             state.showAncestorChain = action.payload;
 
             localStorage.setItem('showAncestorChain', action.payload.toString());
+        },
+        setIndexSearchTerm: (state: NodeState, action: PayloadAction<string | undefined>) => {
+            state.indexSearchTerm = action.payload;
         },
     },
     extraReducers(builder) {

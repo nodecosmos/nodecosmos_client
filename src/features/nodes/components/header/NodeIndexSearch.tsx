@@ -1,4 +1,5 @@
 import { NodecosmosDispatch } from '../../../../store';
+import { setIndexSearchTerm } from '../../nodes.actions';
 import { indexNodes } from '../../nodes.thunks';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,10 +19,11 @@ export default function NodeIndexSearch() {
 
         let payload = null;
         if (value) {
-            payload = { q: value };
+            payload = { query: { q: value } };
         }
 
         dispatch(indexNodes(payload));
+        dispatch(setIndexSearchTerm(value));
     }, [dispatch]);
 
     const onChange = useCallback((event: ChangeEvent<HTMLElement>) => {

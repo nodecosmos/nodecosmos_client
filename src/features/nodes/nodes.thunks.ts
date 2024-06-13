@@ -1,5 +1,4 @@
 import {
-    IndexNodesPayload,
     NodePrimaryKey,
     NodeDescendant,
     Node,
@@ -16,12 +15,34 @@ import { ShowUser } from '../users/users.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
+export interface IndexNodesPayload {
+    append?: boolean;
+    query?: {
+        q?: string;
+        page?: number;
+    }
+}
+
 export const indexNodes = createAsyncThunk<IndexNode[], IndexNodesPayload | null, { rejectValue: NodecosmosError }>(
     'nodes/indexNodes',
     async (payload) => {
-        const response = await nodecosmos.get('/nodes', { params: payload });
+        try {
+            const response = await nodecosmos.get('/nodes', { params: payload?.query });
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return error.response.data;
+            }
+
+            console.error(error);
+
+            return {
+                status: 500,
+                message: 'An error occurred while indexing the nodes.',
+                viewMessage: true,
+            };
+        }
     },
 );
 

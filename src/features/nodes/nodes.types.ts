@@ -67,11 +67,6 @@ export interface IndexNode {
     updatedAt: string;
 }
 
-export interface IndexNodesPayload {
-    q: string;
-    page?: number;
-}
-
 export type UpdateTitlePayload = Pick<Node, 'title'> & NodePrimaryKey & RootId;
 export type TreeNodeKey = BranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
@@ -104,6 +99,7 @@ export interface NodeState {
     scale: number;
     treeDensity: TreeDensity;
     showAncestorChain: boolean;
+    indexSearchTerm?: string;
 }
 
 export enum TreeType {

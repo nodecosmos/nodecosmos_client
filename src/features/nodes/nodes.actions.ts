@@ -18,4 +18,5 @@ export const {
     setScale,
     setDensity,
     setShowAncestorChain,
+    setIndexSearchTerm,
 } = actions;

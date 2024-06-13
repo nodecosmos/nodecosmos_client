@@ -36,7 +36,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
             styleOverrides: {
                 a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 ...animations(),
-                ...card(),
+                ...card(theme),
                 ...description(theme),
                 ...like(theme),
                 ...scrollbar(theme),
