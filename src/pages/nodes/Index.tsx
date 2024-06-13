@@ -6,7 +6,7 @@ import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import NodeCard from '../../features/nodes/components/card/NodeCard';
 import { setIndexSearchTerm } from '../../features/nodes/nodes.actions';
 import { selectIndexNodesById, selectIndexSearchTerm } from '../../features/nodes/nodes.selectors';
-import { indexNodes } from '../../features/nodes/nodes.thunks';
+import { indexNodes, IndexNodesPayload } from '../../features/nodes/nodes.thunks';
 import { IndexNode } from '../../features/nodes/nodes.types';
 import { NodecosmosDispatch } from '../../store';
 import { Box } from '@mui/material';
@@ -25,12 +25,15 @@ export default function NodeIndex() {
     const indexSearchTerm = useSelector(selectIndexSearchTerm);
 
     const indexMoreNodes = useCallback(async () => {
+        const query: IndexNodesPayload['query'] = { page: pagingState.page };
+
+        if (indexSearchTerm) {
+            query.q = indexSearchTerm;
+        }
+
         const response = await dispatch(indexNodes({
             append: true,
-            query: {
-                q: indexSearchTerm,
-                page: pagingState.page,
-            },
+            query,
         }));
 
         if (response.meta.requestStatus === 'fulfilled' && response.payload) {
@@ -38,9 +41,9 @@ export default function NodeIndex() {
                 ...state,
                 page: state.page + 1,
             }));
-            const nodes = response.payload as IndexNode[];
+            const resNodes = response.payload as IndexNode[];
 
-            if (nodes.length < CURRENT_PAGE_SIZE) {
+            if (resNodes.length < CURRENT_PAGE_SIZE) {
                 unsetHasMore();
             }
         }
@@ -53,6 +56,7 @@ export default function NodeIndex() {
     useEffect(() => {
         dispatch(setHeaderContent('NodeIndexHeader'));
         dispatch(indexNodes(null));
+        setHasMore();
 
         return () => {
             dispatch(setHeaderContent(''));
