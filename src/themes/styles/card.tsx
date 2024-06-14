@@ -1,3 +1,4 @@
+import { withOpacity } from '../../utils/colors';
 import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
@@ -30,14 +31,28 @@ export default (theme: NodecosmosTheme) => ({
         '.CardContent': {
             paddingLeft: 24,
             paddingRight: 24,
+            paddingTop: 0,
             paddingBottom: 0,
 
         },
         '.CoverImageUrl': { paddingTop: 24 },
+
         '.Link': {
             '&:hover h2': {
                 color: theme.palette.text.link,
                 textDecoration: 'underline',
+            },
+        },
+
+        '.NodeCardTitle': {
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            '& .MuiChip-root': {
+                marginLeft: 16,
+                height: 24,
+                fontSize: 12,
+                backgroundColor: withOpacity(theme.palette.primary.main, 0.05),
             },
         },
 

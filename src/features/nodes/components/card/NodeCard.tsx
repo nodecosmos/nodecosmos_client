@@ -7,7 +7,7 @@ import {
     Card,
     CardContent,
     Typography,
-    Link,
+    Link, Chip,
 } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -25,25 +25,29 @@ export default function NodeCard({ id }: {id: UUID}) {
                 <Card className="Card" elevation={2}>
                     <NodeCardHeader node={node} />
                     <CardContent className={`CardContent ${node.coverImageUrl ? 'CoverImageUrl' : ''}`}>
-                        <Link
-                            sx={{
-                                '&:hover h2': {
-                                    color: 'text.link',
-                                    textDecoration: 'underline',
-                                },
-                            }}
-                            component={RouterLink}
-                            to={`/nodes/${node.rootId}/${node.id}`}
-                        >
-                            <Typography
-                                variant="h5"
-                                variantMapping={{ h5: 'h2' }}
-                                color="text.contrast"
-                                fontWeight="bold"
+                        <div className="NodeCardTitle">
+                            <Link
+                                className="Link"
+                                component={RouterLink}
+                                to={`/nodes/${node.rootId}/${node.id}`}
                             >
-                                {node.title}
-                            </Typography>
-                        </Link>
+                                <Typography
+                                    variant="h5"
+                                    variantMapping={{ h5: 'h2' }}
+                                    color="text.contrast"
+                                    fontWeight="bold"
+                                >
+                                    {node.title}
+                                </Typography>
+
+                            </Link>
+
+                            <Chip
+                                variant="outlined"
+                                color="primary"
+                                label={node.isRoot ? 'Root' : 'Constituent'}
+                            />
+                        </div>
                         {
                             node.shortDescription
                             && (

@@ -20,7 +20,8 @@ const CURRENT_PAGE_SIZE = 20;
 export default function NodeIndex() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const nodes = useSelector(selectIndexNodesById);
-    const [pagingState, setPagingState] = React.useState({ page: 1 });
+    const length = useMemo(() => Object.keys(nodes).length, [nodes]);
+    const [pagingState, setPagingState] = React.useState({ page: Math.round(length / CURRENT_PAGE_SIZE) || 1 });
     const [hasMore, setHasMore, unsetHasMore] = useBooleanStateValue(true);
     const indexSearchTerm = useSelector(selectIndexSearchTerm);
 
@@ -55,7 +56,7 @@ export default function NodeIndex() {
 
     useEffect(() => {
         dispatch(setHeaderContent('NodeIndexHeader'));
-        dispatch(indexNodes(null));
+        dispatch(indexNodes({ append: true }));
         setHasMore();
 
         return () => {
@@ -81,7 +82,7 @@ export default function NodeIndex() {
                 height={1}
                 borderColor="borders.1"
             />
-            <Alert position="sticky" mb={1} />
+            <Alert position="absolute" right={0} width={`calc(100% - ${SIDEBAR_WIDTH}px)`} />
             <VirtualContainer onMore={onMore}>
                 {
                     Object.keys(nodes).map((id) => (

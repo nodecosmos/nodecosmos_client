@@ -52,7 +52,7 @@ export default function VirtualContainer({
             });
         }, {
             root: listRef.current,
-            rootMargin: '200px',
+            rootMargin: '2000px',
             threshold: [0, 0.1, 0.9, 1],
         });
 

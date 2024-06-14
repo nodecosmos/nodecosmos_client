@@ -61,6 +61,8 @@ export interface IndexNode {
     shortDescription: string | null;
     title: string;
     likeCount: number;
+    contributionRequestsCount: number;
+    threadCount: number;
     owner: Profile;
     coverImageUrl: string | null;
     createdAt: string;

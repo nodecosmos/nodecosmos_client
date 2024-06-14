@@ -10,10 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 interface AlertProps {
     position?: string;
     mb?: number;
+    right?: number | string;
+    width?: number | string;
 }
 
 export default function Alert(props: AlertProps) {
-    const { position = 'fixed', mb = 0 } = props;
+    const {
+        position = 'fixed', mb = 0, right = 'auto', width = '100%',
+    } = props;
     const dispatch = useDispatch();
     const {
         isOpen, message, severity,
@@ -39,11 +43,12 @@ export default function Alert(props: AlertProps) {
         <Box
             display={isOpen ? 'flex' : 'none'}
             minHeight={HEADER_HEIGHT}
-            width={1}
+            width={width}
             zIndex={3}
             sx={{
                 position,
                 mb,
+                right,
             }}
         >
             <MuiAlert
