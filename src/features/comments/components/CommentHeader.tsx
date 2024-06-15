@@ -25,8 +25,7 @@ export default function CommentHeader() {
                 <Box display="flex" alignItems="center" zIndex={1} position="relative">
                     <Link component={RouterLink} to={`/${author.username}`}>
                         <NcAvatar
-                            width={35}
-                            height={35}
+                            size={35}
                             name={author.name}
                             src={author.profileImageUrl} />
                     </Link>

@@ -37,9 +37,12 @@ export default (theme: NodecosmosTheme) => ({
         color: theme.palette.text.contrast,
     },
     body2: { fontSize: '1rem' },
-    subtitle1: { fontSize: '0.75rem' },
+    subtitle1: {
+        fontSize: '0.90rem',
+        lineHeight: 1.5,
+    },
     subtitle2: {
-        fontSize: '0.75rem',
+        fontSize: '0.80rem',
         fontWeight: 500,
     },
     button: {

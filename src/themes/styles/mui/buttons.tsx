@@ -37,5 +37,25 @@ export default (theme: NodecosmosTheme) => ({
             },
         },
     },
-    MuiButtonBase: { styleOverrides: { root: { overflow: 'hidden' } } },
+    MuiButtonBase: {
+        styleOverrides: {
+            root: {
+                overflow: 'hidden',
+                '&.CloseModalButton': {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'absolute',
+                    top: 16,
+                    right: 24,
+                    p: 0,
+                    svg: {
+                        color: theme.palette.button.contrastText,
+                        fontSize: 18,
+                    },
+                },
+
+            },
+        },
+    },
 });

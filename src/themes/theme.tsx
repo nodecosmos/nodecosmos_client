@@ -7,6 +7,7 @@ import description from './styles/description';
 import like from './styles/like';
 import alert from './styles/mui/alert';
 import autocomplete from './styles/mui/autocomplete';
+import avatar from './styles/mui/avatar';
 import backdrop from './styles/mui/backdrop';
 import badge from './styles/mui/badge';
 import breadcrumbs from './styles/mui/breadcrumbs';
@@ -52,10 +53,23 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     cursor: 'pointer',
                     '&:hover': { backgroundColor: theme.palette.background[4] },
                 },
+                '.NcLink': {
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap', // otherwise safari will break two or more words into multiple lines
+                    '&:hover': {
+                        backgroundColor: theme.palette.toolbar.hover,
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        color: theme.palette.text.link,
+                    },
+                    backgroundColor: theme.palette.toolbar.active,
+                },
             },
         },
-        ...alert(),
+        ...alert(theme),
         ...autocomplete(theme),
+        ...avatar(theme),
         ...backdrop(theme),
         ...badge(theme),
         ...breadcrumbs(theme),

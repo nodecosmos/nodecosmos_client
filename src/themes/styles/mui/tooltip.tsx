@@ -5,7 +5,7 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             tooltip: {
                 fontSize: 14,
-                backgroundColor: theme.palette.background[7],
+                backgroundColor: theme.palette.background[1],
                 color: theme.palette.text.contrast,
                 '.TooltipTitle': {
                     padding: '8px',

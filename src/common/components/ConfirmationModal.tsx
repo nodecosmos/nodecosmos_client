@@ -53,6 +53,7 @@ export default function ConfirmationModal(props: Props) {
     }, [onClose, onConfirm, setLoading, unsetLoading]);
     const icon = confirmType === ConfirmType.Deletion ? faClose : faCheck;
     const progressStyle = useMemo(() => ({ color: `${confirmType}.contrastText` }), [confirmType]);
+    const titleMb = warning || info ? 2 : 0;
 
     return (
         <Dialog
@@ -66,7 +67,7 @@ export default function ConfirmationModal(props: Props) {
             </DialogTitle>
             <DialogContent>
                 <Alert position="relative" mb={2} />
-                <Typography color="text.secondary" fontWeight={500}>
+                <Typography color="text.secondary" fontWeight={500} mb={titleMb}>
                     {text}
                 </Typography>
                 {warning && <SimpleAlert severity="warning" message={warning} />}

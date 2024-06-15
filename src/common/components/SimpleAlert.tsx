@@ -11,26 +11,9 @@ export default function SimpleAlert(props: Props) {
 
     return (
         <MuiAlert
+            className={`SimpleAlert ${severity}`}
             severity={severity}
             variant="outlined"
-            sx={{
-                mt: 2,
-                px: 1,
-                py: 0.35,
-                height: 1,
-                borderRadius: 0.5,
-                width: 'calc(100% - 1px)',
-                backgroundColor: 'background.1',
-                '.MuiAlert-icon, .MuiAlert-action': {
-                    color: `${severity}.main`,
-                    // eslint-disable-next-line object-curly-newline
-                },
-                '.MuiAlert-action': {
-                    p: 0,
-                    mr: 0,
-                },
-                alignItems: 'center',
-            }}
         >
             <Typography
                 variant="body2"

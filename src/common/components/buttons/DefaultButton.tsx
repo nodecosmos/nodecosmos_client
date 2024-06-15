@@ -16,6 +16,8 @@ interface DefaultButtonProps {
     variant?: 'contained' | 'outlined' | 'text';
     loading?: boolean;
     color?: 'info' | 'warning' | 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'button' | 'toggle';
+    width?: string | number;
+    height?: string | number;
 }
 export default function DefaultButton(props: DefaultButtonProps) {
     const {
@@ -30,6 +32,8 @@ export default function DefaultButton(props: DefaultButtonProps) {
         variant = 'contained',
         loading = false,
         color = 'button',
+        width = 'auto',
+        height = '32px',
     } = props;
 
     return (
@@ -39,6 +43,8 @@ export default function DefaultButton(props: DefaultButtonProps) {
             type={type}
             disabled={disabled || loading}
             sx={{
+                width,
+                height,
                 '.MuiButton-startIcon': {
                     display: 'flex',
                     alignItems: 'center',

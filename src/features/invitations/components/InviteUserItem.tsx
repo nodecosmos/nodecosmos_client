@@ -40,7 +40,7 @@ export default function InviteUserItem({
             }}
         >
             <Link component={RouterLink} to={`/${user.username}`} target="_blank">
-                <NcAvatar height={50} width={50} name={user.username} src={user.profileImageUrl} />
+                <NcAvatar size={50} name={user.username} src={user.profileImageUrl} />
             </Link>
             <Box>
                 <Typography variant="body2" color="text.primary" ml={1} fontWeight="bold">

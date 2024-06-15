@@ -1,18 +1,19 @@
-import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+
+import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
+import { MAX_NODE_INPUT_SIZE } from '../../nodes/nodes.constants';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { createContributionRequest } from '../contributionRequests.thunks';
-import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
+import { faCodeCommit, faCodePullRequest } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    InputAdornment,
-    DialogContent, Typography, Alert as MuiAlert,
+    DialogContent,
+    Box, Button, Typography,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
@@ -26,6 +27,11 @@ interface Props {
     nodeId: UUID;
     rootId: UUID;
 }
+
+const DIALOG_PAPER_PROPS = {
+    elevation: 5,
+    sx: { borderRadius: 2.5 },
+};
 
 export default function CreateContributionRequestModal(props: Props) {
     const {
@@ -53,57 +59,78 @@ export default function CreateContributionRequestModal(props: Props) {
     return (
         <Dialog
             fullWidth
-            maxWidth="md"
+            maxWidth="sm"
             onClose={onClose}
             open={open}
-            PaperProps={{
-                elevation: 5,
-                sx: { borderRadius: 2.5 },
-            }}
-            sx={{
-                '& .MuiDialog-paper': {
-                    border: 1,
-                    borderColor: 'borders.4',
+            PaperProps={DIALOG_PAPER_PROPS}>
+            <Box sx={{
+                mt: 2,
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                textAlign: 'center',
+                color: 'text.primary',
+                fontWeight: 'bold',
+                h5: { lineHeight: 1 },
+                svg: {
+                    color: 'text.tertiary',
+                    mr: 1.5,
                 },
             }}>
-            <DialogTitle>
-                New Contribution Request
-                <CloseModalButton onClose={onClose} />
-            </DialogTitle>
-            <DialogContent>
-                <MuiAlert
-                    severity="info"
-                    variant="outlined"
-                    sx={{
-                        borderRadius: 1,
-                        width: 'calc(100% - 1px)',
-                        border: 0,
-                        mb: 2,
-                        backgroundColor: 'background.1',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography variant="body2" color="text.info">
-                        Create a new contribution request to add changes to the node.
+                <div>
+                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                        <FontAwesomeIcon icon={faCodePullRequest} />
+                        Contribution Request
                     </Typography>
-                </MuiAlert>
+                </div>
+                <Typography variant="subtitle1" color="text.secondary" mt={1} px={4} align="center" width={1}>
+                    Create contribution request to propose set of changes to the node
+                </Typography>
+                <CloseModalButton onClose={onClose} />
+            </Box>
+            <DialogContent>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                            <FinalFormInputField
-                                fullWidth
-                                name="title"
-                                placeholder="Contribution Request Title"
-                                required
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start" sx={{ svg: { color: 'tree.hashtag' } }}>
-                                            <FontAwesomeIcon icon={faCodeCommit} />
-                                        </InputAdornment>
-                                    ),
+                            <Box display="flex" alignItems="center">
+                                <Field
+                                    fullWidth
+                                    name="title"
+                                    label="Title"
+                                    InputProps={{ autoComplete: 'off' }}
+                                    maxLength={MAX_NODE_INPUT_SIZE}
+                                    required
+                                />
+                            </Box>
+
+                            <Button
+                                size="small"
+                                color="button"
+                                type="submit"
+                                disabled={loading}
+                                sx={{
+                                    mt: 2,
+                                    width: 1,
+                                    height: '50px',
+                                    '.MuiButton-startIcon': {
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        svg: { height: 20 },
+                                    },
                                 }}
-                            />
-                            <DefaultFormButton loading={loading} />
+                                variant="contained"
+                                disableElevation
+                                startIcon={
+                                    loading
+                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        : <FontAwesomeIcon icon={faCodeCommit} />
+                                }
+                            >
+                                <Typography variant="subtitle1">
+                                    Create
+                                </Typography>
+                            </Button>
+
                         </form>
                     )}
                 </Form>

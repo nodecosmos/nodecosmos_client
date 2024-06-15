@@ -3,9 +3,24 @@ import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputAdornment, TextField } from '@mui/material';
 import React, {
-    ChangeEvent, useCallback, useEffect, 
+    ChangeEvent, useCallback, useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
+
+const INPUT_PROPS = {
+    startAdornment: (
+        <InputAdornment
+            position="start"
+            sx={{
+                p: 1,
+                pr: 1.5,
+            }}>
+            <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+            />
+        </InputAdornment>
+    ),
+};
 
 export default function ContributionRequestSearchInput() {
     const dispatch = useDispatch();
@@ -19,28 +34,8 @@ export default function ContributionRequestSearchInput() {
 
     return (
         <TextField
-            sx={{
-                ml: 1.25,
-                height: 32,
-                width: '350px',
-                svg: { color: 'toolbar.default' },
-                '.MuiInputBase-root': {
-                    borderColor: 'transparent',
-                    height: 32,
-                    borderRadius: 1,
-                    pl: 0.5,
-                },
-                '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
-            }}
-            InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start" sx={{ p: 1 }}>
-                        <FontAwesomeIcon
-                            icon={faMagnifyingGlass}
-                        />
-                    </InputAdornment>
-                ),
-            }}
+            className="SearchInput"
+            InputProps={INPUT_PROPS}
             color="primary"
             variant="outlined"
             placeholder="Search"

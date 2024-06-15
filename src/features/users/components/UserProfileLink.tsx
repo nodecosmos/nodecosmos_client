@@ -35,7 +35,7 @@ function UserProfileLink({ id, mt = 0 }: UserProfileLinkProps) {
     return (
         <Box display="flex" alignItems="center" zIndex={1} position="relative" mt={mt}>
             <Link component={RouterLink} to={`/${user.username}`}>
-                <NcAvatar height={50} width={50} name={name} src={user.profileImageUrl} />
+                <NcAvatar size={50} name={name} src={user.profileImageUrl} />
             </Link>
             <Box>
                 <Link component={RouterLink} to={`/${user.username}`}>

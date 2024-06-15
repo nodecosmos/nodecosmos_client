@@ -53,8 +53,7 @@ export default function Notification({ id, onClose }: NotificationProps) {
             <Box onClick={navigateToNotification}>
                 <Box display="flex" alignItems="center">
                     <NcAvatar
-                        width={45}
-                        height={45}
+                        size={45}
                         name={author?.name}
                         src={author?.profileImageUrl} />
                     <Box>

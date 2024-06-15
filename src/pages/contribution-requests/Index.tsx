@@ -6,6 +6,7 @@ import ContributionRequestsIndexToolbar
 import ContributionRequestsList from '../../features/contribution-requests/components/ContributionRequestsList';
 import { indexContributionRequests } from '../../features/contribution-requests/contributionRequests.thunks';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
+import { NodecosmosDispatch } from '../../store';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Index() {
     const { branchId, nodeId } = useBranchContext();
     const [loading, setLoading] = useState(true);
-
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
     const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
 

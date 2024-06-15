@@ -56,8 +56,7 @@ export default function EditorsV2() {
             flex: 0,
             renderCell: (params: GridRenderCellParams<ShowUser, ShowUser>) => {
                 return <NcAvatar
-                    width={30}
-                    height={30}
+                    size={30}
                     fontSize={18}
                     name={params.row.username}
                     src={params.row.profileImageUrl} />;

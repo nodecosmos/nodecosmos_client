@@ -112,7 +112,7 @@ export default function Sidebar() {
                                 end={false}
                             />
                             <SidebarListItem
-                                to={`${toPath}/topics`}
+                                to={`${toPath}/threads`}
                                 icon={(<FontAwesomeIcon icon={faMessageBot} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
                                 title="Threads"

@@ -40,7 +40,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                     </Typography>
                 </Box>
             </Tooltip>
-            <Tooltip title="Topics">
+            <Tooltip title="Threads">
                 <Box
                     display="flex"
                     alignItems="center"

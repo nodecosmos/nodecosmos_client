@@ -5,43 +5,28 @@ interface NcAvatarProps {
     name: string;
     src?: string | null;
     onClick?: (event: MouseEvent<HTMLElement>) => void;
-    backgroundColor?: string;
-    scale?: number;
-    width?: number;
-    height?: number;
-    fontSize?: number;
-    borderRadius?: number | string;
+    size?: 25 | 30 | 35 | 40 | 45 | 50 | 200;
+    fontSize?: 14 | 15 | 18 | 69;
 }
 
-export default function NcAvatar(props: NcAvatarProps) {
+function NcAvatar(props: NcAvatarProps) {
     const {
         name,
         src,
         onClick,
-        borderRadius,
-        backgroundColor = 'background.8',
-        scale = 1,
-        width = 40,
-        height = 40,
+        size = 40,
         fontSize = 20,
     } = props;
 
     return (
         <Avatar
+            className={`NcAvatar size-${size} fontSize-${fontSize}`}
             src={src ?? undefined}
             onClick={onClick}
-            sx={{
-                transform: `scale(${scale})`,
-                width,
-                height,
-                fontSize,
-                backgroundColor,
-                color: 'text.primary',
-                cursor: 'pointer',
-                borderRadius,
-            }}
         >
             {name?.charAt(0)?.toUpperCase()}
         </Avatar>
     );
 }
+
+export default React.memo(NcAvatar);

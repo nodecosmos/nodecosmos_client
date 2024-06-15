@@ -45,11 +45,7 @@ export default function ContributionRequestActions(props: Props) {
 
     return (
         <div>
-            <Button
-                variant="outlined"
-                color="error"
-                onClick={openDelMod}
-            >
+            <Button variant="outlined" color="error" onClick={openDelMod}>
                 Delete
             </Button>
             <ConfirmationModal

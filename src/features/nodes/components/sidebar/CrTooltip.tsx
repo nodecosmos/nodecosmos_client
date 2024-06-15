@@ -14,7 +14,9 @@ export default function CrTooltip() {
             borderRadius: 1,
             color: 'text.secondary',
         }}>
-            This node is not part of the main project tree. It belongs to Contribution Request <b>#{title}</b>.
+            This node is not part of the main project tree. It belongs to Contribution Request:
+            <br />
+            <b># {title}</b>
         </Box>
     );
 }

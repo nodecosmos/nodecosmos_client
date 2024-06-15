@@ -1,16 +1,17 @@
 import Alert from '../../../common/components/Alert';
-import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
+import { MAX_NODE_INPUT_SIZE } from '../nodes.constants';
 import { create, NodeCreationPayload } from '../nodes.thunks';
 import { Node } from '../nodes.types';
+import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    DialogContent, Typography, Alert as MuiAlert, Box,
+    DialogContent, Typography, Box, Button,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
@@ -58,7 +59,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
     return (
         <Dialog
             fullWidth
-            maxWidth="md"
+            maxWidth="sm"
             onClose={onClose}
             open={open}
             PaperProps={{
@@ -72,60 +73,75 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 },
             }}
         >
-            <DialogTitle>
-                New Node
+            <DialogTitle sx={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                textAlign: 'center',
+                color: 'text.primary',
+                fontWeight: 'bold',
+                h5: { lineHeight: 1 },
+                '.fa-hashtag': {
+                    color: 'text.tertiary',
+                    mr: 1.5,
+                },
+            }}>
+                <div>
+                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                        <FontAwesomeIcon icon={faHashtag} />
+                        New Node
+                    </Typography>
+                </div>
+                <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
+                    Create a node to start a new innovation, research, or knowledge sharing project.
+                </Typography>
+
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
                 <Alert position="sticky" mb={1} />
-                <MuiAlert
-                    severity="info"
-                    variant="outlined"
-                    sx={{
-                        borderRadius: 1,
-                        width: 'calc(100% - 1px)',
-                        border: 0,
-                        mb: 2,
-                        backgroundColor: 'background.1',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography variant="body2" color="text.info">
-                        Create a new node to start a new innovation, research, or any other type of project.
-                    </Typography>
-                </MuiAlert>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                sx={{
-                                    '.fa-hashtag': {
-                                        color: 'text.tertiary',
-                                        ml: 1,
-                                        mr: 2,
-                                    },
-                                }}>
-                                <FontAwesomeIcon icon={faHashtag} />
+                            <Box display="flex" alignItems="center">
                                 <Field
                                     fullWidth
                                     name="title"
                                     label="Title"
-                                    InputProps={{
-                                        autoComplete: 'off',
-                                        endAdornment: loading ? <CircularProgress
-                                            size={30}
-                                            sx={{
-                                                color: 'text.secondary',
-                                                mr: 2,
-                                            }} /> : null,
-                                    }}
+                                    InputProps={{ autoComplete: 'off' }}
+                                    maxLength={MAX_NODE_INPUT_SIZE}
                                     required
                                 />
                             </Box>
 
-                            <DefaultFormButton loading={loading} color="primary" variant="outlined" />
+                            <Button
+                                size="small"
+                                color="button"
+                                type="submit"
+                                disabled={loading}
+                                sx={{
+                                    mt: 2,
+                                    width: 1,
+                                    height: '50px',
+                                    '.MuiButton-startIcon': {
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        svg: { height: 20 },
+                                    },
+                                }}
+                                variant="contained"
+                                disableElevation
+                                startIcon={
+                                    loading
+                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        : <FontAwesomeIcon icon={faCodeCommit} />
+                                }
+                            >
+                                <Typography variant="subtitle1">
+                                    Create
+                                </Typography>
+                            </Button>
+
                         </form>
                     )}
                 </Form>

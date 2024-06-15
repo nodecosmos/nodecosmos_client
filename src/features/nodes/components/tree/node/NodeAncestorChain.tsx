@@ -4,7 +4,11 @@ import { UUID } from '../../../../../types';
 import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { setNodeScrollTo } from '../../../nodes.actions';
-import { MARGIN_LEFT } from '../../../nodes.constants';
+import {
+    INITIAL_ANIMATION_DURATION,
+    MARGIN_LEFT,
+    TRANSITION_ANIMATION_DURATION,
+} from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,12 +17,18 @@ interface NodeAncestorProps {
     ancestorId: UUID;
 }
 
+const STYLE = {
+    opacity: 0,
+    animation: `appear ${INITIAL_ANIMATION_DURATION}ms 150ms forwards`,
+    transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+};
+
 function NodeAncestor({ ancestorId }: NodeAncestorProps) {
     const dispatch = useDispatch();
     const theme: NodecosmosTheme = useTheme();
     const { treeNodes } = useTreeContext();
     const node = treeNodes[ancestorId];
-    const { y: currentNodeY } = useNodeContext();
+    const { y: currentNodeY, isAlreadyMounted } = useNodeContext();
     const handleCentering = useCallback(() => {
         dispatch(setNodeScrollTo(ancestorId));
     }, [dispatch, ancestorId]);
@@ -49,6 +59,7 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
             stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
             strokeWidth={1}
             fill={theme.palette.tree.default}
+            style={isAlreadyMounted ? undefined : STYLE}
         />
     );
 }

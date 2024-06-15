@@ -49,8 +49,7 @@ export default function Profile() {
                 >
                     {hovered && <ImageUpload onModalClose={unhover} />}
                     <NcAvatar
-                        width={200}
-                        height={200}
+                        size={200}
                         fontSize={69}
                         src={user.profileImageUrl}
                         name={user.username} />

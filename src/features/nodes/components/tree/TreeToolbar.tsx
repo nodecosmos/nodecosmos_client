@@ -66,8 +66,7 @@ export default function TreeToolbar() {
             <ToolsContainer>
                 <Link component={RouterLink} to={`/${node.owner?.username}`}>
                     <NcAvatar
-                        width={25}
-                        height={25}
+                        size={25}
                         fontSize={14}
                         name={node.owner?.name || ''}
                         src={node.owner?.profileImageUrl} />

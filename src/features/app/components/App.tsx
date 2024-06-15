@@ -115,8 +115,8 @@ export default function App() {
                                         </Route>
                                     </Route>
 
-                                    {/*Topics*/}
-                                    <Route path="topics" element={<div />} />
+                                    {/*Threads*/}
+                                    <Route path="threads" element={<div />} />
 
                                     {/*Tasks*/}
                                     <Route path="tasks_board" element={<div />} />

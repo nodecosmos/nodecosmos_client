@@ -85,7 +85,7 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
             {({ input, meta }) => (
                 <TextField
                     sx={{
-                        '& .MuiInputBase-input': { p: label ? '28px 14px 14px' : 2 },
+                        '& .MuiInputBase-input': { p: label ? '24px 14px 14px' : 2 },
                         '.MuiInputAdornment-root': { color: 'text.foreground' },
                         ...sx,
                     }}

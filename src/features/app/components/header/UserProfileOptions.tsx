@@ -41,8 +41,7 @@ export default function UserProfileOptions() {
                 src={currentUser.profileImageUrl}
                 name={currentUser.username}
                 onClick={handleClick}
-                width={30}
-                height={30}
+                size={30}
                 fontSize={15}
             />
             <Menu

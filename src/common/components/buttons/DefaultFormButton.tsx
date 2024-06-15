@@ -10,11 +10,13 @@ interface DefaultFormButtonProps {
     startIcon?: IconProp;
     title?: string;
     onSubmit?: () => void;
+    width?: string | number;
+    height?: string | number;
 }
 
 export default function DefaultFormButton(props: DefaultFormButtonProps) {
     const {
-        loading, startIcon = faAdd, title = 'Create', onSubmit, color, variant,
+        loading, startIcon = faAdd, title = 'Create', onSubmit, color, variant, width, height,
     } = props;
 
     return (
@@ -32,6 +34,8 @@ export default function DefaultFormButton(props: DefaultFormButtonProps) {
             onClick={onSubmit}
             loading={loading}
             startIcon={startIcon}
+            width={width}
+            height={height}
         />
     );
 }

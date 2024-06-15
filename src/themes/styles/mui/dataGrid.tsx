@@ -4,7 +4,9 @@ export default (theme: NodecosmosTheme) => ({
     MuiDataGrid: {
         styleOverrides: {
             root: {
+                contain: 'strict',
                 minHeight: 400,
+                height: '100%',
                 border: 'none',
                 borderRadius: 0,
                 '& .MuiSvgIcon-root': {

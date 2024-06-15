@@ -45,6 +45,26 @@ export default (theme: NodecosmosTheme) => ({
         },
     },
 
+    MuiTextField: {
+        styleOverrides: {
+            root: {
+                '&.SearchInput': {
+                    marginLeft: 8,
+                    height: 32,
+                    width: '350px',
+                    svg: { color: theme.palette.toolbar.default },
+                    '.MuiInputBase-root': {
+                        borderColor: 'transparent',
+                        height: 32,
+                        borderRadius: 4,
+                        paddingLeft: 4,
+                    },
+                    '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
+                },
+            },
+        },
+    },
+
     MuiAutocomplete: {
         styleOverrides: {
             option: {
@@ -68,6 +88,7 @@ export default (theme: NodecosmosTheme) => ({
           + 'transform 100ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
             },
             outlined: {
+                fontWeight: 500,
                 background: 'none',
                 backgroundColor: 'none',
                 color: theme.palette.text.tertiary,
@@ -75,9 +96,9 @@ export default (theme: NodecosmosTheme) => ({
                 position: 'absolute',
                 transform: 'none',
                 marginLeft: 14,
-                marginTop: 22,
+                marginTop: 20,
                 '&.MuiInputLabel-shrink': {
-                    marginTop: 8,
+                    marginTop: 6,
                     transform: 'scale(0.8)',
                     color: theme.palette.text.tertiary,
                 },

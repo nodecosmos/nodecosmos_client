@@ -138,11 +138,11 @@ const theme: NodecosmosTheme = {
             default: '#2d3138',
             backgrounds: [
                 {
-                    fg: '#fd526f',
+                    fg: '#e7465d',
                     bg: '#2d2227',
                 },
                 {
-                    fg: '#a38dff',
+                    fg: '#7e68d7',
                     bg: '#262732',
                 },
                 {
