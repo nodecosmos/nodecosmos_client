@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
@@ -62,30 +61,8 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             maxWidth="sm"
             onClose={onClose}
             open={open}
-            PaperProps={{
-                elevation: 0,
-                sx: { borderRadius: 2.5 },
-            }}
-            sx={{
-                '& .MuiDialog-paper': {
-                    border: 1,
-                    borderColor: 'borders.4',
-                },
-            }}
         >
-            <DialogTitle sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-                textAlign: 'center',
-                color: 'text.primary',
-                fontWeight: 'bold',
-                h5: { lineHeight: 1 },
-                '.fa-hashtag': {
-                    color: 'text.tertiary',
-                    mr: 1.5,
-                },
-            }}>
+            <div className="DialogHeader">
                 <div>
                     <Typography variant="h6" color="text.primary" align="center" width="auto">
                         <FontAwesomeIcon icon={faHashtag} />
@@ -97,12 +74,12 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 </Typography>
 
                 <CloseModalButton onClose={onClose} />
-            </DialogTitle>
+            </div>
             <DialogContent>
                 <Alert position="sticky" mb={1} />
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
-                        <form style={{ height: '100%' }} onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                             <Box display="flex" alignItems="center">
                                 <Field
                                     fullWidth

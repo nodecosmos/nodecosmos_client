@@ -29,11 +29,11 @@ interface Props {
 }
 
 const DIALOG_PAPER_PROPS = {
-    elevation: 5,
+    elevation: 8,
     sx: { borderRadius: 2.5 },
 };
 
-export default function CreateContributionRequestModal(props: Props) {
+function CreateContributionRequestModal(props: Props) {
     const {
         open, onClose, nodeId, rootId,
     } = props;
@@ -63,20 +63,7 @@ export default function CreateContributionRequestModal(props: Props) {
             onClose={onClose}
             open={open}
             PaperProps={DIALOG_PAPER_PROPS}>
-            <Box sx={{
-                mt: 2,
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-                textAlign: 'center',
-                color: 'text.primary',
-                fontWeight: 'bold',
-                h5: { lineHeight: 1 },
-                svg: {
-                    color: 'text.tertiary',
-                    mr: 1.5,
-                },
-            }}>
+            <div className="DialogHeader">
                 <div>
                     <Typography variant="h6" color="text.primary" align="center" width="auto">
                         <FontAwesomeIcon icon={faCodePullRequest} />
@@ -87,7 +74,7 @@ export default function CreateContributionRequestModal(props: Props) {
                     Create contribution request to propose set of changes to the node
                 </Typography>
                 <CloseModalButton onClose={onClose} />
-            </Box>
+            </div>
             <DialogContent>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
@@ -104,20 +91,11 @@ export default function CreateContributionRequestModal(props: Props) {
                             </Box>
 
                             <Button
+                                className="SubmitButtonBig"
                                 size="small"
                                 color="button"
                                 type="submit"
                                 disabled={loading}
-                                sx={{
-                                    mt: 2,
-                                    width: 1,
-                                    height: '50px',
-                                    '.MuiButton-startIcon': {
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        svg: { height: 20 },
-                                    },
-                                }}
                                 variant="contained"
                                 disableElevation
                                 startIcon={
@@ -138,3 +116,5 @@ export default function CreateContributionRequestModal(props: Props) {
         </Dialog>
     );
 }
+
+export default React.memo(CreateContributionRequestModal);

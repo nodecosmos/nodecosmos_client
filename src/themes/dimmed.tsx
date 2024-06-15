@@ -117,7 +117,7 @@ const theme: NodecosmosTheme = {
             },
 
             paper: '#34373d',
-            backdrop: 'rgba(99, 110, 123, 0.4)',
+            backdrop: 'rgba(0,0,0,0.37)',
         },
 
         toolbar: {

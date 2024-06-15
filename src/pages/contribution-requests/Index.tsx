@@ -13,10 +13,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Index() {
     const { branchId, nodeId } = useBranchContext();
-    const [loading, setLoading] = useState(true);
     const dispatch: NodecosmosDispatch = useDispatch();
     const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
+    const [loading, setLoading] = useState(!rootId);
 
     useEffect(() => {
         if (!rootId) setLoading(true);
