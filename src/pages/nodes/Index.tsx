@@ -82,7 +82,7 @@ export default function NodeIndex() {
                 height={1}
                 borderColor="borders.1"
             />
-            <Alert position="absolute" right={0} width={`calc(100% - ${SIDEBAR_WIDTH}px)`} />
+            <Alert position="absolute" right={0} width={`calc(100% - ${SIDEBAR_WIDTH})`} />
             <VirtualContainer onMore={onMore}>
                 {
                     Object.keys(nodes).map((id) => (

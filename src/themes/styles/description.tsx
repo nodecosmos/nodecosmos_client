@@ -9,6 +9,7 @@ export default (theme: NodecosmosTheme) => ({
             'sans-serif',
         ].join(','),
         width: '100%',
+        '&.size-720': { maxWidth: 850 },
         color: theme.palette.text.secondary,
         hr: {
             border: 0,
@@ -18,10 +19,9 @@ export default (theme: NodecosmosTheme) => ({
         blockquote: {
             margin: 0,
             backgroundColor: theme.palette.markdownContent.canvas,
-            borderRadius: 4,
-            borderLeft: '8px solid',
+            borderLeft: '6px solid',
             padding: '12px 6px',
-            borderColor: theme.palette.borders[5],
+            borderColor: theme.palette.markdownContent.canvasBorder,
             marginBlockEnd: '1em',
         },
         table: {
@@ -55,6 +55,10 @@ export default (theme: NodecosmosTheme) => ({
             fontWeight: 500,
             wordWrap: 'break-word',
             '&:empty': { height: 32 },
+        },
+        h1: {
+            borderBottom: `1px solid ${theme.palette.borders[2]}`,
+            marginBottom: 16,
         },
         'img:not(.ProseMirror-separator)': {
             maxWidth: 850,

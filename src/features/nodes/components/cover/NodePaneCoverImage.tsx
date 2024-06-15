@@ -59,13 +59,12 @@ export default function NodePaneCoverImage() {
                             alignItems: 'center',
                             position: 'relative',
                             mx: -4,
-                            my: -1,
                             '.CoverImage': {
-                                mt: 3,
+                                my: 3,
                                 px: 2,
                                 position: 'relative',
                                 '.CoverImageMedia': {
-                                    borderRadius: 0.75,
+                                    borderRadius: 2,
                                     maxWidth: '100%',
                                     width: 850,
                                     maxHeight: 375,
@@ -81,7 +80,7 @@ export default function NodePaneCoverImage() {
                             sx={{
                                 position: 'absolute',
                                 width: '100%',
-                                height: 415,
+                                height: 375,
                                 filter: 'blur(50px) opacity(0.4)',
                                 borderBottom: 1,
                             }}
@@ -111,8 +110,8 @@ export default function NodePaneCoverImage() {
                                             position: 'absolute',
                                             backgroundColor: 'background.1',
                                             color: 'text.primary',
-                                            bottom: 16,
-                                            right: 16,
+                                            bottom: 8,
+                                            right: 24,
                                             '&:hover': { backgroundColor: 'background.1' },
                                         }}
                                     >
@@ -129,23 +128,25 @@ export default function NodePaneCoverImage() {
                 <Box
                     component="div"
                     sx={{
-                        w: 1,
                         mt: 0,
                         mb: -5,
+                        width: 1,
                         display: 'flex',
                         justifyContent: 'center',
                         p: 4,
                     }}
                 >
-                    <Button
-                        component="label"
-                        variant="outlined"
-                        startIcon={<FontAwesomeIcon icon={faCamera} />}
-                        onClick={openModal}
-                        color="buttonContrast"
-                    >
-                        Upload cover image
-                    </Button>
+                    <Box width={850}>
+                        <Button
+                            component="label"
+                            variant="outlined"
+                            startIcon={<FontAwesomeIcon icon={faCamera} />}
+                            onClick={openModal}
+                            color="buttonContrast"
+                        >
+                            Cover Image
+                        </Button>
+                    </Box>
                 </Box>
             )}
 

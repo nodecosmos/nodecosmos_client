@@ -97,7 +97,7 @@ export default function NodeShowContent() {
             >
                 <Sidebar />
             </Box>
-            <Box width={`calc(100% - ${SIDEBAR_WIDTH}px)`}>
+            <Box width={`calc(100% - ${SIDEBAR_WIDTH})`}>
                 <Outlet />
             </Box>
         </Box>

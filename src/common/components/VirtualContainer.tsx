@@ -81,7 +81,7 @@ export default function VirtualContainer({
         <Box
             ref={listRef}
             height={1}
-            width={`calc(100% - ${SIDEBAR_WIDTH}px)`}
+            width={`calc(100% - ${SIDEBAR_WIDTH})`}
             overflow="auto"
             pb={4}
         >

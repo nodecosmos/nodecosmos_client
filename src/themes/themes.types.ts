@@ -148,6 +148,7 @@ interface Palette {
     };
     markdownContent: {
         canvas: string;
+        canvasBorder: string;
         background: string;
     };
     markdownEditor: {

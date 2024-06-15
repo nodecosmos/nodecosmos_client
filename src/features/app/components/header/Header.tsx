@@ -74,7 +74,7 @@ export default function Header() {
                 </Box>
                 <Box
                     display="flex"
-                    width={`calc(100% - ${SIDEBAR_WIDTH}px)`}
+                    width={`calc(100% - ${SIDEBAR_WIDTH})`}
                     borderBottom={1}
                     borderColor="borders.1"
                     alignItems="center"

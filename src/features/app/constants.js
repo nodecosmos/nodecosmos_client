@@ -1,5 +1,5 @@
 export const HEADER_HEIGHT = '3rem';
-export const SIDEBAR_WIDTH = 270;
+export const SIDEBAR_WIDTH = '250px';
 
 export const TRANSFORMABLE_ID = 'transformable';
 export const TRANSFORMABLE_HEIGHT_MARGIN = 50;

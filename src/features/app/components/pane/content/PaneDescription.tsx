@@ -23,7 +23,7 @@ export default function PaneDescription() {
             <Box display="flex" justifyContent="center">
                 <Box
                     m={4}
-                    className="DescriptionHTML"
+                    className="DescriptionHTML size-720"
                     dangerouslySetInnerHTML={{ __html: description?.html as TrustedHTML }} />
             </Box>
         </Box>

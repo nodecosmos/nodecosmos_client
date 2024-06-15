@@ -73,7 +73,7 @@ const theme: NodecosmosTheme = {
         },
 
         buttonContrast: {
-            main: '#a5b4be',
+            main: '#7f8a92',
             contrastText: '#3d4652',
         },
 
@@ -183,7 +183,8 @@ const theme: NodecosmosTheme = {
         },
 
         markdownContent: {
-            canvas: '#444756',
+            canvas: '#353e48',
+            canvasBorder: '#335faa',
             background: 'transparent',
         },
 
