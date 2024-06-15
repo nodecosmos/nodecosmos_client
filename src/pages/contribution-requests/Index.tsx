@@ -1,3 +1,4 @@
+import Alert from '../../common/components/Alert';
 import Loader from '../../common/components/Loader';
 import { HEADER_HEIGHT } from '../../features/app/constants';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
@@ -31,7 +32,8 @@ export default function Index() {
         <Box height={1} overflow="hidden">
             <ContributionRequestsIndexToolbar nodeId={nodeId} rootId={rootId} />
             <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-                <ContributionRequestsList nodeId={nodeId} />
+                <Alert position="relative" />
+                <ContributionRequestsList />
             </Box>
         </Box>
     );

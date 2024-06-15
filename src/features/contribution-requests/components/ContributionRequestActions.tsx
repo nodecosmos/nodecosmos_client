@@ -11,12 +11,12 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface Props {
-    nodeId: UUID;
     id: UUID;
 }
 
 export default function ContributionRequestActions(props: Props) {
-    const { nodeId, id } = props;
+    const { nodeId } = useBranchContext();
+    const { id } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const { originalId } = useBranchContext();
     const optNode = useSelector(maybeSelectNode(originalId as UUID, nodeId as UUID));
