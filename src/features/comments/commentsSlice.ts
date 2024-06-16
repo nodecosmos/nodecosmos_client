@@ -15,13 +15,13 @@ const initialState: CommentState = {
     byId: {},
     idsByThreadId: {},
     threadsById: {},
-    threadIdsByObjectId: {},
+    threadIdsByBranchId: {},
     objectDescriptionThreadsByLine: {},
     mainObjectThread: {},
 };
 
-function resetObjectState(state: RootState['comments'], objectId: UUID) {
-    const currentThreadCommentIds = state.threadIdsByObjectId[objectId];
+function resetBranchState(state: RootState['comments'], branchId: UUID) {
+    const currentThreadCommentIds = state.threadIdsByBranchId[branchId];
 
     if (currentThreadCommentIds) {
         currentThreadCommentIds.forEach((commentId) => {
@@ -29,8 +29,8 @@ function resetObjectState(state: RootState['comments'], objectId: UUID) {
         });
     }
 
-    state.threadIdsByObjectId[objectId] = [];
-    state.objectDescriptionThreadsByLine[objectId] = {};
+    state.threadIdsByBranchId[branchId] = [];
+    state.objectDescriptionThreadsByLine[branchId] = {};
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
@@ -45,19 +45,18 @@ function populateComment(state: RootState['comments'], comment: Comment) {
 
 function populateThread(state: RootState['comments'], thread: CommentThread) {
     state.threadsById[thread.id] = thread;
-    state.threadIdsByObjectId[thread.objectId] ||= [];
-    state.threadIdsByObjectId[thread.objectId].push(thread.id);
+    state.threadIdsByBranchId[thread.branchId] ||= [];
+    state.threadIdsByBranchId[thread.branchId].push(thread.id);
 
     if (thread.lineContent) {
-        if (!thread.threadObjectId) throw new Error('Thread Object Id is required for line content');
-        state.objectDescriptionThreadsByLine[thread.objectId] ||= {};
-        state.objectDescriptionThreadsByLine[thread.objectId][thread.threadObjectId]
+        state.objectDescriptionThreadsByLine[thread.branchId] ||= {};
+        state.objectDescriptionThreadsByLine[thread.branchId][thread.objectId]
             ||= new Map<string, [UUID, number]>();
-        state.objectDescriptionThreadsByLine[thread.objectId][thread.threadObjectId]
+        state.objectDescriptionThreadsByLine[thread.branchId][thread.objectId]
             .set(thread.lineContent, [thread.id, thread.lineNumber as number]);
-    } else if (thread.threadObjectId) {
-        state.mainObjectThread[thread.objectId] ||= {};
-        state.mainObjectThread[thread.objectId][thread.threadObjectId] = thread.id;
+    } else if (thread.objectId) {
+        state.mainObjectThread[thread.branchId] ||= {};
+        state.mainObjectThread[thread.branchId][thread.objectId] = thread.id;
     }
 }
 
@@ -82,9 +81,9 @@ const commentsSlice = createSlice({
         builder
             .addCase(indexComments.fulfilled, (state, action) => {
                 const { comments, threads } = action.payload;
-                const objectId = action.meta.arg;
+                const branchId = action.meta.arg;
 
-                resetObjectState(state, objectId);
+                resetBranchState(state, branchId);
 
                 threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
                     populateThread(state, thread);
@@ -99,7 +98,7 @@ const commentsSlice = createSlice({
                 const { comments, threads } = action.payload;
                 const { id } = action.meta.arg;
 
-                resetObjectState(state, id);
+                resetBranchState(state, id);
 
                 threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
                     populateThread(state, thread);
@@ -146,17 +145,17 @@ const commentsSlice = createSlice({
 
                 if (state.idsByThreadId[threadId].length === 0) {
                     if (thread.lineContent) {
-                        if (!thread.threadObjectId) throw new Error('Thread node id is required for line content');
+                        if (!thread.objectId) throw new Error('Thread node id is required for line content');
 
-                        state.objectDescriptionThreadsByLine[thread.objectId]
-                            ?.[thread.threadObjectId]
+                        state.objectDescriptionThreadsByLine[thread.branchId]
+                            ?.[thread.objectId]
                             ?.delete(thread.lineContent);
                     }
 
-                    const threadIdsByObjectId = state.threadIdsByObjectId[thread.objectId];
-                    if (threadIdsByObjectId) {
-                        state.threadIdsByObjectId[thread.objectId]
-                            = threadIdsByObjectId.filter((threadId) => threadId !== thread.id);
+                    const threadIdsByBranchId = state.threadIdsByBranchId[thread.branchId];
+                    if (threadIdsByBranchId) {
+                        state.threadIdsByBranchId[thread.branchId]
+                            = threadIdsByBranchId.filter((threadId) => threadId !== thread.id);
                     }
 
                     delete state.threadsById[threadId];

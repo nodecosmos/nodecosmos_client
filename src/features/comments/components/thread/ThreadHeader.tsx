@@ -2,7 +2,7 @@ import ThreadLine from './ThreadLine';
 import { timeSince } from '../../../../utils/localTime';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../../nodes/nodes.selectors';
-import { ThreadType } from '../../comments.types';
+import { ThreadLocation } from '../../comments.types';
 import { useThreadContext } from '../../hooks/thread/useThreadContext';
 import {
     Box, Link, Typography,
@@ -13,27 +13,27 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export default function ThreadHeader() {
     const {
-        author, createdAt, threadType, threadObjectId,
+        author, createdAt, threadLocation, threadObjectId,
     } = useThreadContext();
     const { branchId } = useBranchContext();
     const node = useSelector(maybeSelectNode(branchId, threadObjectId));
     const nodeTitle = node ? node.title : '';
 
     let commentAction;
-    switch (threadType) {
-    case ThreadType.ContributionRequestNode:
+    switch (threadLocation) {
+    case ThreadLocation.ContributionRequestNode:
         commentAction = <span>commented node <em>{nodeTitle}</em></span>;
         break;
-    case ThreadType.ContributionRequestFlow:
+    case ThreadLocation.ContributionRequestFlow:
         commentAction = <span>commented flow <em>{nodeTitle}</em></span>;
         break;
-    case ThreadType.ContributionRequestFlowStep:
+    case ThreadLocation.ContributionRequestFlowStep:
         commentAction = <span>commented flow step <em>{nodeTitle}</em></span>;
         break;
-    case ThreadType.ContributionRequestInputOutput:
+    case ThreadLocation.ContributionRequestInputOutput:
         commentAction = <span>commented input/output <em>{nodeTitle}</em></span>;
         break;
-    case ThreadType.ContributionRequestObjectDescription:
+    case ThreadLocation.ContributionRequestObjectDescription:
         commentAction = <span>commented line <em>{nodeTitle}</em></span>;
         break;
     default:

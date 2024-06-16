@@ -1,8 +1,8 @@
 import Comments from './comments/Comments';
-import { ObjectType, UUID } from '../../../../../types';
+import { ObjectType } from '../../../../../types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { selectMainObjectThreadByObjectId } from '../../../../comments/comments.selectors';
-import { CommentObjectType, ThreadType } from '../../../../comments/comments.types';
+import { ThreadObjectType, ThreadLocation } from '../../../../comments/comments.types';
 import CommentEditor from '../../../../comments/components/CommentEditor';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { faComments } from '@fortawesome/pro-light-svg-icons';
@@ -13,20 +13,20 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function PaneComments() {
-    const { branchId, nodeId } = useBranchContext();
+    const { branchId } = useBranchContext();
     const { objectId, objectType } = usePaneContext();
     const threadId = useSelector(selectMainObjectThreadByObjectId(branchId, objectId));
 
-    const threadType = useMemo(() => {
+    const threadLocation = useMemo(() => {
         switch (objectType) {
         case ObjectType.Node:
-            return ThreadType.ContributionRequestNode;
+            return ThreadLocation.ContributionRequestNode;
         case ObjectType.Flow:
-            return ThreadType.ContributionRequestFlow;
+            return ThreadLocation.ContributionRequestFlow;
         case ObjectType.FlowStep:
-            return ThreadType.ContributionRequestFlowStep;
+            return ThreadLocation.ContributionRequestFlowStep;
         case ObjectType.Io:
-            return ThreadType.ContributionRequestInputOutput;
+            return ThreadLocation.ContributionRequestInputOutput;
         default:
             throw new Error(`Unsupported object type: ${objectType}`);
         }
@@ -38,8 +38,9 @@ export default function PaneComments() {
                 <CommentEditor
                     autoFocus={false}
                     threadPk={{
-                        objectId: branchId,
-                        threadId: objectId,
+                        branchId,
+                        objectId,
+                        id: threadId,
                     }}
                     info="Add a comment to the thread"
                 />
@@ -51,17 +52,15 @@ export default function PaneComments() {
                 autoFocus={false}
                 newThread={{
                     title: 'CR Object Thread',
-                    id: objectId,
-                    objectId: branchId,
-                    threadObjectId: objectId,
-                    objectType: CommentObjectType.ContributionRequest,
-                    objectNodeId: nodeId as UUID,
-                    threadType,
+                    branchId,
+                    objectId,
+                    objectType: ThreadObjectType.ContributionRequest,
+                    threadLocation,
                 }}
                 info="Start a conversation about this object"
             />
         );
-    }, [branchId, nodeId, objectId, threadId, threadType]);
+    }, [branchId, objectId, threadId, threadLocation]);
 
     return (
         <Box sx={{

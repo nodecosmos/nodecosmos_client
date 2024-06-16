@@ -5,7 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 export const selectComments = (state: RootState) => state.comments.byId;
 export const selectCommentIdsByThreadId = (state: RootState) => state.comments.idsByThreadId;
 export const selectThreadById = (state: RootState) => state.comments.threadsById;
-export const selectThreadIdsByObjectId = (state: RootState) => state.comments.threadIdsByObjectId;
+export const selectThreadIdsByBranchId = (state: RootState) => state.comments.threadIdsByBranchId;
 export const selectObjectDescriptionThreadsByLine = (state: RootState) => state.comments.objectDescriptionThreadsByLine;
 export const selectMainObjectThread = (state: RootState) => state.comments.mainObjectThread;
 
@@ -24,9 +24,9 @@ export const selectThreadCommentsLength = (threadId: UUID) => createSelector(
     (commentIds) => commentIds?.length,
 );
 
-export const selectObjectThreadIds = (objectId: UUID) => createSelector(
-    selectThreadIdsByObjectId,
-    (threadIdsByObjectId) => threadIdsByObjectId[objectId],
+export const selectBranchThreadIds = (branchId: UUID) => createSelector(
+    selectThreadIdsByBranchId,
+    (threadIdsByBranchId) => threadIdsByBranchId[branchId],
 );
 
 export const selectThread = (threadId: UUID) => createSelector(
@@ -34,12 +34,12 @@ export const selectThread = (threadId: UUID) => createSelector(
     (threadsById) => threadsById[threadId],
 );
 
-export const selectObjectThreadsByLine = (objectId: UUID, threadObjectId: UUID) => createSelector(
+export const selectObjectThreadsByLine = (branchId: UUID, objectId: UUID) => createSelector(
     selectObjectDescriptionThreadsByLine,
-    (objectDescriptionThreadsByLine) => objectDescriptionThreadsByLine[objectId]?.[threadObjectId],
+    (objectDescriptionThreadsByLine) => objectDescriptionThreadsByLine[branchId]?.[objectId],
 );
 
-export const selectMainObjectThreadByObjectId = (objectId: UUID, threadObjectId: UUID) => createSelector(
+export const selectMainObjectThreadByObjectId = (branchId: UUID, objectId: UUID) => createSelector(
     selectMainObjectThread,
-    (mainObjectThread) => mainObjectThread[objectId]?.[threadObjectId],
+    (mainObjectThread) => mainObjectThread[branchId]?.[objectId],
 );

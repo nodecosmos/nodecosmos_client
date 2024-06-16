@@ -33,10 +33,7 @@ interface WithThreadInsertPayload {
 interface WithoutThreadInsertPayload {
     newThread?: never;
     comment?: never;
-    threadPk: {
-        objectId: CommentThreadPrimaryKey['objectId'];
-        threadId: CommentThreadPrimaryKey['id']
-    };
+    threadPk: CommentThreadPrimaryKey;
 }
 
 // when we update a comment
@@ -100,7 +97,9 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
             if (threadPk) {
                 payload = {
                     comment: {
-                        ...threadPk,
+                        branchId: threadPk.branchId,
+                        objectId: threadPk.objectId,
+                        threadId: threadPk.id,
                         content,
                         url: window.location.href,
                     },

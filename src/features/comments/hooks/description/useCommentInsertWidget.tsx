@@ -5,7 +5,7 @@ import { hoveredLineField, selectedLineField } from '../../../../common/lib/code
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
-    ThreadType, ThreadInsertPayload, CommentObjectType,
+    ThreadLocation, ThreadInsertPayload, ThreadObjectType,
 } from '../../comments.types';
 import CommentEditor from '../../components/CommentEditor';
 import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
@@ -18,7 +18,7 @@ import { createPortal } from 'react-dom';
 
 export default function useCommentInsertWidget(view: EditorView) {
     const { objectId } = usePaneContext();
-    const { nodeId, branchId } = useBranchContext();
+    const { branchId } = useBranchContext();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
@@ -58,11 +58,10 @@ export default function useCommentInsertWidget(view: EditorView) {
             });
 
             const threadPayload: ThreadInsertPayload = {
-                objectId: branchId,
-                objectType: CommentObjectType.ContributionRequest,
-                objectNodeId: nodeId,
-                threadType: ThreadType.ContributionRequestObjectDescription,
-                threadObjectId: objectId,
+                branchId,
+                objectId,
+                objectType: ThreadObjectType.ContributionRequest,
+                threadLocation: ThreadLocation.ContributionRequestObjectDescription,
                 lineNumber,
                 lineContent: lineContent || EMPTY_LINE_PLACEHOLDER,
                 title: 'Description Review',
@@ -82,7 +81,7 @@ export default function useCommentInsertWidget(view: EditorView) {
 
             setCreateDescriptionPortals(portals => portals ? [...portals, portal] : [portal]);
         }
-    }, [view, branchId, nodeId, objectId, closeInsertComment]);
+    }, [branchId, closeInsertComment, objectId, view]);
 
     useEffect(() => {
         CommentGutterMarker.prototype.addComment = function() {

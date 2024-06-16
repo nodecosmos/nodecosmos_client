@@ -65,7 +65,7 @@ export default function ThreadComments() {
                     id={commentId}
                     isLast={commentCount === index + 1} />)
             }
-            <CommentReply id={id} />
+            <CommentReply threadId={id} />
         </Box>
     );
 }

@@ -1,4 +1,4 @@
-import { selectObjectThreadIds } from '../../../../features/comments/comments.selectors';
+import { selectBranchThreadIds } from '../../../../features/comments/comments.selectors';
 import CommentThread from '../../../../features/comments/components/CommentThread';
 import { UUID } from '../../../../types';
 import { Box, Typography } from '@mui/material';
@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 export default function Activity() {
     const { branchId: id } = useParams();
-    const threadIds = useSelector(selectObjectThreadIds(id as UUID));
+    const threadIds = useSelector(selectBranchThreadIds(id as UUID));
     // We have main thread and activity threads. Main thread is the thread is where id is equal to cr.id.
     const activityThreadIds = threadIds && threadIds.filter(threadId => threadId !== id);
 
