@@ -8,13 +8,14 @@ interface CommentContentProps {
 }
 export default function CommentContent({ isLast }: CommentContentProps) {
     const {
-        objectId, threadId, id, content, editorOpen,
+        objectId, threadId, id, content, editorOpen, branchId,
     } = useCommentContext();
     const { closeEditor } = useCommentCommands();
 
     const commentContent = editorOpen
         ? <CommentEditor
             comment={{
+                branchId,
                 objectId,
                 threadId,
                 id,

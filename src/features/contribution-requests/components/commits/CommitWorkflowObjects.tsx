@@ -71,7 +71,7 @@ function CommitWorkflowInputOutputs(props: ObjectProps) {
             <Box>
                 {
                     ios.map((io) => (
-                        <CommitWorkflowObject key={io.id} objectType={WorkflowObjectType.InputOutput} object={io} />
+                        <CommitWorkflowObject key={io.id} object={io} />
                     ))
                 }
             </Box>
@@ -104,7 +104,7 @@ function CommitWorkflowFlows(props: ObjectProps) {
             <Box>
                 {
                     flows.map((flow) => (
-                        <CommitWorkflowObject key={flow.id} objectType={WorkflowObjectType.Flow} object={flow} />
+                        <CommitWorkflowObject key={flow.id} object={flow} />
                     ))
                 }
             </Box>
@@ -137,10 +137,7 @@ function CommitWorkflowFlowSteps(props: ObjectProps) {
             <Box>
                 {
                     flowSteps.map((flowStep) => (
-                        <CommitWorkflowObject
-                            key={flowStep.id}
-                            objectType={WorkflowObjectType.FlowStep}
-                            object={flowStep} />
+                        <CommitWorkflowObject key={flowStep.id} object={flowStep} />
                     ))
                 }
             </Box>
@@ -170,10 +167,7 @@ function CommitWorkflowFlowStepNodes(props: ObjectProps) {
             <Box>
                 {
                     flowStepNodes.map((flowStepNode) => (
-                        <CommitWorkflowObject
-                            key={flowStepNode.id}
-                            objectType={WorkflowObjectType.FlowStepNode}
-                            object={flowStepNode} />
+                        <CommitWorkflowObject key={flowStepNode.id} object={flowStepNode} />
                     ))
                 }
             </Box>

@@ -16,7 +16,6 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 interface Props {
-    // objectType: WorkflowObjectType;
     object: InputOutput | Flow | FlowStep | AppNode // - FlowStepNode;
 }
 

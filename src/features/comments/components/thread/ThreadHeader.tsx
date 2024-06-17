@@ -13,10 +13,10 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export default function ThreadHeader() {
     const {
-        author, createdAt, threadLocation, threadObjectId,
+        author, createdAt, threadLocation, objectId,
     } = useThreadContext();
     const { branchId } = useBranchContext();
-    const node = useSelector(maybeSelectNode(branchId, threadObjectId));
+    const node = useSelector(maybeSelectNode(branchId, objectId));
     const nodeTitle = node ? node.title : '';
 
     let commentAction;

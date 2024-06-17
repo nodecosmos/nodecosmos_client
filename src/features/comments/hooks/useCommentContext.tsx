@@ -4,7 +4,7 @@ import { UUID } from '../../../types';
 import { selectComment } from '../comments.selectors';
 import { deleteComment as deleteCommentThunk, updateCommentContent } from '../comments.thunks';
 import {
-    createContext, useCallback, useContext,
+    createContext, useCallback, useContext, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,6 +36,7 @@ export function useCommentContext() {
     const {
         objectId,
         threadId,
+        branchId,
         content,
         authorId,
         author,
@@ -43,9 +44,10 @@ export function useCommentContext() {
         updatedAt,
     } = useSelector(selectComment(id));
 
-    return {
+    return useMemo(() => ({
         objectId,
         threadId,
+        branchId,
         id,
         content,
         authorId,
@@ -54,37 +56,39 @@ export function useCommentContext() {
         updatedAt,
         editorOpen,
         isEdited: createdAt !== updatedAt,
-    };
+    }), [author, authorId, branchId, content, createdAt, editorOpen, id, objectId, threadId, updatedAt]);
 }
 
 export function useCommentCommands() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const {
-        objectId, threadId, id,
+        objectId, threadId, id, branchId,
     } = useCommentContext();
     const { openEditor, closeEditor } = useContext(CommentContext);
 
     const updateComment = useCallback((content: string) => {
         dispatch(updateCommentContent({
             objectId,
+            branchId,
             threadId,
             id,
             content,
         }));
-    }, [dispatch, id, objectId, threadId]);
+    }, [branchId, dispatch, id, objectId, threadId]);
 
     const deleteComment = useCallback(() => {
         dispatch(deleteCommentThunk({
+            branchId,
             objectId,
             threadId,
             id,
         }));
-    }, [dispatch, id, objectId, threadId]);
+    }, [branchId, dispatch, id, objectId, threadId]);
 
-    return {
+    return useMemo(() => ({
         updateComment,
         deleteComment,
         openEditor,
         closeEditor,
-    };
+    }), [closeEditor, deleteComment, openEditor, updateComment]);
 }

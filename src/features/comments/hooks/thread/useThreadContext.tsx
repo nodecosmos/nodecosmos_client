@@ -32,18 +32,18 @@ export function useThreadContext() {
     } = useContext(ThreadContext);
 
     const {
-        author, lineNumber, lineContent, threadLocation, threadObjectId, createdAt,
+        objectId, author, lineNumber, lineContent, threadLocation, createdAt,
     } = useSelector(selectThread(id));
 
     const commentIds = useSelector(selectThreadCommentIds(id));
 
     return {
+        objectId,
         id,
         author,
         lineNumber,
         lineContent,
         threadLocation,
-        threadObjectId,
         createdAt,
         commentIds,
         commentCount: commentIds.length,
