@@ -1,5 +1,6 @@
 /* mui */
 import UserHeaderTools from './UserHeaderTools';
+import ThreadShowHeader from '../../../comments/components/thread/ThreadShowHeader';
 import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
 import NodeIndexHeader from '../../../nodes/components/header/NodeIndexHeader';
 import TreeShowHeader from '../../../nodes/components/tree/TreeShowHeader';
@@ -22,6 +23,7 @@ export default function Header() {
         NodeIndexHeader: <NodeIndexHeader />,
         TreeShowHeader: <TreeShowHeader />,
         ContributionRequestShowHeader: <ContributionRequestShowHeader />,
+        ThreadShowHeader: <ThreadShowHeader />,
     };
     const location = useLocation();
     const headerContent = useSelector(selectHeaderContent);

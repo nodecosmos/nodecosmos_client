@@ -59,7 +59,7 @@ export default function New() {
                             objectType: ThreadObjectType.Thread,
                             threadLocation: ThreadLocation.Thread,
                         }}
-                        info="Start a conversation about this contribution request"
+                        info="Start a conversation about current node."
                         onClose={handleClose}
                     />
                 </Box>

@@ -116,6 +116,7 @@ export default function Sidebar() {
                                 icon={(<FontAwesomeIcon icon={faMessageBot} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
                                 title="Threads"
+                                end={false}
                             >
                                 <FontAwesomeIcon
                                     icon={faCircle0}

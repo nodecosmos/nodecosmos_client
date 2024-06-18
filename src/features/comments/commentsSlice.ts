@@ -1,5 +1,5 @@
 import {
-    createComment, deleteComment, indexComments, indexThreads, updateCommentContent,
+    createComment, deleteComment, deleteThread, indexComments, indexThreads, updateCommentContent,
 } from './comments.thunks';
 import {
     CommentState, CommentThread, Comment,
@@ -19,6 +19,7 @@ const initialState: CommentState = {
     objectDescriptionThreadsByLine: {},
     mainObjectThread: {},
     threadIdsByBranchIdAndObjectId: {},
+    currentThread: undefined,
 };
 
 function resetBranchState(state: RootState['comments'], branchId: UUID) {
@@ -32,6 +33,7 @@ function resetBranchState(state: RootState['comments'], branchId: UUID) {
 
     state.threadIdsByBranchId[branchId] = [];
     state.objectDescriptionThreadsByLine[branchId] = {};
+    state.threadIdsByBranchIdAndObjectId[branchId] = {};
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
@@ -68,6 +70,9 @@ const commentsSlice = createSlice({
     name: 'comments',
     initialState,
     reducers: {
+        setCurrentThread: (state, action) => {
+            state.currentThread = action.payload;
+        },
         SSECreateComment: (state, action) => {
             const comment = action.payload;
 
@@ -91,12 +96,15 @@ const commentsSlice = createSlice({
                 });
             })
             .addCase(indexComments.fulfilled, (state, action) => {
-                const comments = action.payload;
+                const { comments, thread } = action.payload;
+                resetBranchState(state, thread.branchId);
 
                 comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
                     .forEach((comment) => {
                         populateComment(state, comment);
                     });
+
+                populateThread(state, thread);
             })
             .addCase(showContributionRequest.fulfilled, (state, action) => {
                 const { comments, threads } = action.payload;
@@ -138,6 +146,23 @@ const commentsSlice = createSlice({
                 state.byId[id].content = content;
                 state.byId[id].updatedAt = updatedAt;
             })
+            .addCase(deleteThread.fulfilled, (state, action) => {
+                const { id } = action.meta.arg;
+
+                const thread = state.threadsById[id];
+
+                state.threadIdsByBranchId[thread.branchId]
+                    = state.threadIdsByBranchId[thread.branchId].filter((threadId) => threadId !== id);
+
+                delete state.threadIdsByBranchIdAndObjectId[thread.branchId]?.[thread.objectId];
+                delete state.threadsById[id];
+
+                state.idsByThreadId[id].forEach((commentId) => {
+                    delete state.byId[commentId];
+                });
+
+                delete state.idsByThreadId[id];
+            })
             .addCase(deleteComment.fulfilled, (state, action) => {
                 const { threadId, id } = action.meta.arg;
 
@@ -173,6 +198,6 @@ const commentsSlice = createSlice({
 
 const { actions, reducer } = commentsSlice;
 
-export const { SSECreateComment } = actions;
+export const { setCurrentThread, SSECreateComment } = actions;
 
 export default reducer;

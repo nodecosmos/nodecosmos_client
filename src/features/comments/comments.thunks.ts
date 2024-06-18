@@ -1,5 +1,11 @@
 import {
-    Comment, CreateCommentPayload, CommentPrimaryKey, CommentThread, UpdateCommentPayload, UpdateCommentContentResponse,
+    Comment,
+    CreateCommentPayload,
+    CommentPrimaryKey,
+    CommentThread,
+    UpdateCommentPayload,
+    UpdateCommentContentResponse,
+    CommentThreadPrimaryKey,
 } from './comments.types';
 import nodecosmos from '../../api/nodecosmos-server';
 import { NodecosmosError, UUID } from '../../types';
@@ -7,6 +13,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
 interface IndexThreadsPayload {
+    rootId: UUID;
     branchId: UUID;
     objectId: UUID;
 }
@@ -17,25 +24,36 @@ export const indexThreads = createAsyncThunk<
     { rejectValue: NodecosmosError }
 >(
     'comments/indexThreads',
-    async ({ branchId, objectId }) => {
-        const response = await nodecosmos.get(`/comments/threads/${branchId}/${objectId}`);
+    async ({
+        rootId, branchId, objectId,
+    }) => {
+        const response = await nodecosmos.get(`/comments/threads/${rootId}/${branchId}/${objectId}`);
         return response.data;
     },
 );
 
+interface IndexCommentsResponse {
+    comments: Comment[];
+    thread: CommentThread;
+}
+
 interface IndexCommentsPayload {
+    rootId: UUID;
     branchId: UUID;
+    objectId: UUID;
     threadId: UUID;
 }
 
 export const indexComments = createAsyncThunk<
-    Comment[],
+    IndexCommentsResponse,
     IndexCommentsPayload,
     { rejectValue: NodecosmosError }
 >(
     'comments/indexComments',
-    async ({ branchId, threadId }) => {
-        const response = await nodecosmos.get(`/comments/${branchId}/${threadId}`);
+    async ({
+        rootId, branchId, objectId, threadId,
+    }) => {
+        const response = await nodecosmos.get(`/comments/${rootId}/${branchId}/${objectId}/${threadId}`);
         return response.data;
     },
 );
@@ -74,6 +92,22 @@ export const updateCommentContent = createAsyncThunk<
         try {
             const response = await nodecosmos.put('/comments/content', payload);
             return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            console.error(error);
+        }
+    },
+);
+
+export const deleteThread = createAsyncThunk<void, CommentThreadPrimaryKey, { rejectValue: NodecosmosError }>(
+    'comments/deleteThread',
+    async ({
+        branchId, objectId, id,
+    }, { rejectWithValue }) => {
+        try {
+            await nodecosmos.delete(`/comments/thread/${branchId}/${objectId}/${id}`);
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 return rejectWithValue(error.response.data);

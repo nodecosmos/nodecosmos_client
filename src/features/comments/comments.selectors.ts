@@ -9,6 +9,7 @@ export const selectThreadIdsByBranchId = (state: RootState) => state.comments.th
 export const selectObjectDescriptionThreadsByLine = (state: RootState) => state.comments.objectDescriptionThreadsByLine;
 export const selectMainObjectThread = (state: RootState) => state.comments.mainObjectThread;
 export const selectThreadIdsByBranchIdAndObjectId = (state: RootState) => state.comments.threadIdsByBranchIdAndObjectId;
+export const selectCurrentThread = (state: RootState) => state.comments.currentThread;
 
 export const selectComment = (id: UUID) => createSelector(
     selectComments,

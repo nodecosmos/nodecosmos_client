@@ -20,7 +20,7 @@ interface BranchContextValue extends BranchParams {
     isBranch: boolean;
     isMerged: boolean;
     nodeId: UUID;
-    originalId: UUID;
+    originalId: UUID; // rootId
     branchId: UUID;
     branchNodeId?: UUID;
     title?: string;

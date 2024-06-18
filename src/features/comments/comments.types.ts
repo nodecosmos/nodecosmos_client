@@ -106,4 +106,5 @@ export interface CommentState {
     objectDescriptionThreadsByLine: Record<BranchId, Record<ObjectId, Map<LineContent, [ThreadId, LineNumber]>>>;
     mainObjectThread: Record<BranchId, Record<ObjectId, ThreadId>>;
     threadIdsByBranchIdAndObjectId: Record<BranchId, Record<ObjectId, UUID[]>>;
+    currentThread?: CommentThread;
 }

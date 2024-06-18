@@ -26,10 +26,11 @@ export default function ThreadsIndexToolbar() {
                 pl={1.25}
             >
                 <Button
-                    variant="outlined"
+                    variant="contained"
+                    disableElevation
                     component={RouterLink}
                     to={to}
-                    color="primary"
+                    color="button"
                     startIcon={<FontAwesomeIcon icon={faAdd} />}
                     sx={{ mr: 1 }}>
                     New Thread
