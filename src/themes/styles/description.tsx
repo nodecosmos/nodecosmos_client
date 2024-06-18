@@ -9,7 +9,7 @@ export default (theme: NodecosmosTheme) => ({
             'sans-serif',
         ].join(','),
         width: '100%',
-        '&.size-720': { maxWidth: 850 },
+        '&.size-850': { maxWidth: 850 },
         color: theme.palette.text.secondary,
         hr: {
             border: 0,

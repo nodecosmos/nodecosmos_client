@@ -51,28 +51,10 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
     return (
         <Tooltip title="Delete Cover Image">
             <IconButton
+                className="DeleteCoverImageButton"
                 color="button"
                 onClick={handleDeleteCoverImage}
-                sx={{
-                    zIndex: 1,
-                    backgroundColor: 'background.1',
-                    opacity: show ? 0.8 : 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    borderRadius: '50%',
-                    top: 8,
-                    right: 24,
-                    width: 30,
-                    height: 30,
-                    p: 0,
-                    svg: {
-                        color: 'button.contrastText',
-                        fontSize: 18,
-                    },
-                    '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
-                }}
+                style={{ opacity: show ? 0.8 : 0 }}
             >
                 <FontAwesomeIcon icon={faClose} />
             </IconButton>

@@ -51,45 +51,14 @@ export default function NodePaneCoverImage() {
         <>
             {coverImageUrl && (
                 <>
-                    <Box
-                        sx={{
-                            height: 'auto',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            position: 'relative',
-                            mx: -4,
-                            '.CoverImage': {
-                                my: 3,
-                                px: 2,
-                                position: 'relative',
-                                '.CoverImageMedia': {
-                                    borderRadius: 2,
-                                    maxWidth: '100%',
-                                    width: 850,
-                                    maxHeight: 375,
-                                },
-                            },
-                        }}
-                    >
+                    <div className="Cover">
                         <CardMedia
                             className="AmbientImage"
                             component="img"
                             image={coverImageUrl}
                             alt="Cover Image Ambient"
-                            sx={{
-                                position: 'absolute',
-                                width: '100%',
-                                height: 375,
-                                filter: 'blur(50px) opacity(0.4)',
-                                borderBottom: 1,
-                            }}
                         />
-                        <Box
-                            className="CoverImage"
-                            onMouseOver={displayButton}
-                            onMouseLeave={hideButton}
-                        >
+                        <div className="CoverImage" onMouseOver={displayButton} onMouseLeave={hideButton}>
                             <DeleteCoverImageButton show={buttonDisplayed} />
                             <CardMedia
                                 className="CoverImageMedia"
@@ -100,42 +69,24 @@ export default function NodePaneCoverImage() {
                             {
                                 !isBranch && (
                                     <Button
+                                        className="CoverImageUploadButton"
                                         component="label"
                                         variant="contained"
                                         startIcon={<FontAwesomeIcon icon={faCamera} />}
                                         onClick={openModal}
-                                        sx={{
-                                            opacity: buttonDisplayed ? 0.8 : 0,
-                                            transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                                            position: 'absolute',
-                                            backgroundColor: 'background.1',
-                                            color: 'text.primary',
-                                            bottom: 8,
-                                            right: 24,
-                                            '&:hover': { backgroundColor: 'background.1' },
-                                        }}
+                                        style={{ opacity: buttonDisplayed ? 0.8 : 0 }}
                                     >
                                         Upload cover image
                                     </Button>
                                 )
                             }
-                        </Box>
-                    </Box>
+                        </div>
+                    </div>
                 </>
             )}
 
             {!coverImageUrl && !isTmp && !isBranch && (
-                <Box
-                    component="div"
-                    sx={{
-                        mt: 0,
-                        mb: -5,
-                        width: 1,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        p: 4,
-                    }}
-                >
+                <div className="CoverImageButtonContainer">
                     <Box width={850}>
                         <Button
                             component="label"
@@ -147,7 +98,7 @@ export default function NodePaneCoverImage() {
                             Cover Image
                         </Button>
                     </Box>
-                </Box>
+                </div>
             )}
 
             {modalOpen && (
