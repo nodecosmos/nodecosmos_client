@@ -44,12 +44,12 @@ interface IndexCommentsPayload {
     threadId: UUID;
 }
 
-export const indexComments = createAsyncThunk<
+export const showThread = createAsyncThunk<
     IndexCommentsResponse,
     IndexCommentsPayload,
     { rejectValue: NodecosmosError }
 >(
-    'comments/indexComments',
+    'comments/showThread',
     async ({
         rootId, branchId, objectId, threadId,
     }) => {

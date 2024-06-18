@@ -1,5 +1,5 @@
 import {
-    createComment, deleteComment, deleteThread, indexComments, indexThreads, updateCommentContent,
+    createComment, deleteComment, deleteThread, showThread, indexThreads, updateCommentContent,
 } from './comments.thunks';
 import {
     CommentState, CommentThread, Comment,
@@ -21,19 +21,30 @@ const initialState: CommentState = {
     threadIdsByBranchIdAndObjectId: {},
     currentThread: undefined,
 };
-
+// FIXME: fix state reset for comments and threads
 function resetBranchState(state: RootState['comments'], branchId: UUID) {
-    const currentThreadCommentIds = state.threadIdsByBranchId[branchId];
+    const threadIds = state.threadIdsByBranchId[branchId];
 
-    if (currentThreadCommentIds) {
-        currentThreadCommentIds.forEach((commentId) => {
-            state.idsByThreadId[commentId] = [];
+    if (threadIds) {
+        threadIds.forEach((threadId) => {
+            state.idsByThreadId[threadId] = [];
         });
     }
 
     state.threadIdsByBranchId[branchId] = [];
     state.objectDescriptionThreadsByLine[branchId] = {};
     state.threadIdsByBranchIdAndObjectId[branchId] = {};
+}
+
+function resetThreadCommentsState(state: RootState['comments'], branchId: UUID) {
+    const threadIds = state.threadIdsByBranchId[branchId];
+
+    if (threadIds) {
+        threadIds.forEach((threadId) => {
+            state.idsByThreadId[threadId] = [];
+        });
+    }
+    state.threadIdsByBranchIdAndObjectId[branchId] ||= {};
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
@@ -60,8 +71,6 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
     } else {
         state.mainObjectThread[thread.branchId] ||= {};
         state.mainObjectThread[thread.branchId][thread.objectId] = thread.id;
-        state.threadIdsByBranchIdAndObjectId[thread.branchId] ||= {};
-        state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId] ||= [];
         state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId].push(thread.id);
     }
 }
@@ -89,22 +98,26 @@ const commentsSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(indexThreads.fulfilled, (state, action) => {
+                const { branchId, objectId } = action.meta.arg;
                 const threads = action.payload;
+
+                state.threadIdsByBranchIdAndObjectId[branchId] ||= {};
+                state.threadIdsByBranchIdAndObjectId[branchId][objectId] = [];
 
                 threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
                     populateThread(state, thread);
                 });
             })
-            .addCase(indexComments.fulfilled, (state, action) => {
+            .addCase(showThread.fulfilled, (state, action) => {
                 const { comments, thread } = action.payload;
-                resetBranchState(state, thread.branchId);
 
+                resetThreadCommentsState(state, thread.id);
                 comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
                     .forEach((comment) => {
                         populateComment(state, comment);
                     });
-
-                populateThread(state, thread);
+                state.threadsById[thread.id] = thread;
+                state.currentThread = thread;
             })
             .addCase(showContributionRequest.fulfilled, (state, action) => {
                 const { comments, threads } = action.payload;

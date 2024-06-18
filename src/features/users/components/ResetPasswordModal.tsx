@@ -41,7 +41,10 @@ export default function ResetPasswordModal(props: Props) {
             unsetLoading();
             return;
         } else if (response.meta.requestStatus === 'fulfilled') {
-            dispatch(setAlert({
+            unsetLoading();
+            onClose();
+
+            setTimeout(() => dispatch(setAlert({
                 isOpen: true,
                 message: `<b>Password Reset Requested</b>
                 <br />
@@ -52,11 +55,8 @@ export default function ResetPasswordModal(props: Props) {
                 If you have not received the email within a few minutes, please contact our support team.
                 </p>`,
                 severity: 'success',
-            }));
+            })), 250);
         }
-
-        unsetLoading();
-        onClose();
     }, [dispatch, handleServerError, onClose, setLoading, unsetLoading]);
 
     return (

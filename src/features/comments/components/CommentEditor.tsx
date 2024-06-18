@@ -5,6 +5,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
+import { setAlert } from '../../app/appSlice';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
 import { selectCurrentUser } from '../../users/users.selectors';
 import {
@@ -110,6 +111,17 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                     },
                 };
             } else if (newThread) {
+                if (!newThread.title) {
+                    dispatch(setAlert({
+                        isOpen: true,
+                        severity: 'error',
+                        message: 'Thread title is required.',
+                    }));
+
+                    unsetLoading();
+
+                    return;
+                }
                 payload = {
                     newThread,
                     comment: {

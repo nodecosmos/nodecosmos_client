@@ -2,7 +2,7 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import { selectThread, selectThreadCommentIds } from '../../features/comments/comments.selectors';
-import { indexComments } from '../../features/comments/comments.thunks';
+import { showThread } from '../../features/comments/comments.thunks';
 import { setCurrentThread } from '../../features/comments/commentsSlice';
 import Comment from '../../features/comments/components/Comment';
 import CommentEditor from '../../features/comments/components/CommentEditor';
@@ -25,7 +25,7 @@ export default function Show() {
     const thread = useSelector(selectThread(threadId as UUID));
     const mainThreadCommentIds = useSelector(selectThreadCommentIds(threadId as UUID));
     const commentCount = mainThreadCommentIds?.length;
-    const [fetched, setFetched, unsetFetched] = useBooleanStateValue(false);
+    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
 
     if (!threadId) {
         throw new Error('Thread ID is required');
@@ -33,33 +33,30 @@ export default function Show() {
 
     useEffect(() => {
         if (!rootId) return;
-        console.log('hit');
 
         if (fetched) {
             dispatch(setHeaderContent('ThreadShowHeader'));
-            dispatch(setCurrentThread(thread));
         } else {
-            dispatch(indexComments({
+            dispatch(showThread({
                 rootId,
                 threadId,
                 objectId: nodeId,
                 branchId,
-            })).then(setFetched);
+            })).then(() => setFetched());
         }
 
         return () => {
             dispatch(setHeaderContent(''));
             dispatch(setCurrentThread(null));
-            unsetFetched();
         };
-    }, [branchId, dispatch, fetched, nodeId, rootId, setFetched, thread, threadId, unsetFetched]);
+    }, [branchId, dispatch, fetched, nodeId, rootId, setFetched, threadId, unsetFetched]);
 
     if (fetched && !thread) {
         return <Box m={4}> <Typography variant="h5">Thread not found</Typography> </Box>;
     }
 
     if (!thread) {
-        return null;
+        return <div />;
     }
 
     return (
