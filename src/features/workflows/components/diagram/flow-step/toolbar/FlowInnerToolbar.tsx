@@ -141,7 +141,7 @@ export default function FlowInnerToolbar() {
                            Actual deletion will occur once the contribution is merged.`
                         : 'This action will delete the complete flow and all of its steps.'
                 }
-                confirmText={isBranch && !isFlowCreated(flowId) ? 'Mark as deleted' : 'I understand, delete this flow'}
+                confirmText={isBranch && !isFlowCreated(flowId) ? 'Mark as deleted' : 'I understand, delete this flow '}
                 confirmType={ConfirmType.Deletion}
                 open={delModOpen}
                 onClose={closeDelMod}

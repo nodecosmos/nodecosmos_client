@@ -6,7 +6,7 @@ export enum ThreadObjectType {
 }
 
 export enum ThreadLocation {
-    Topic = 'Topic',
+    Thread = 'Thread',
     ContributionRequestMainThread = 'ContributionRequest::MainThread',
     ContributionRequestObjectDescription = 'ContributionRequest::ObjectDescription',
     ContributionRequestNode = 'ContributionRequest::Node',
@@ -16,7 +16,7 @@ export enum ThreadLocation {
 }
 
 export const THREAD_TYPE_DESCRIPTION = {
-    [ThreadLocation.Topic]: 'commented on topic:',
+    [ThreadLocation.Thread]: 'commented on thread:',
     [ThreadLocation.ContributionRequestMainThread]: 'commented on main thread:',
     [ThreadLocation.ContributionRequestObjectDescription]: 'commented line:',
     [ThreadLocation.ContributionRequestNode]: 'commented on node:',
@@ -105,4 +105,5 @@ export interface CommentState {
     threadIdsByBranchId: Record<UUID, UUID[]>;
     objectDescriptionThreadsByLine: Record<BranchId, Record<ObjectId, Map<LineContent, [ThreadId, LineNumber]>>>;
     mainObjectThread: Record<BranchId, Record<ObjectId, ThreadId>>;
+    threadIdsByBranchIdAndObjectId: Record<BranchId, Record<ObjectId, UUID[]>>;
 }

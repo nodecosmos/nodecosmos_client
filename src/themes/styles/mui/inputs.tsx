@@ -41,6 +41,9 @@ export default (theme: NodecosmosTheme) => ({
                     background: 'none',
                     borderColor: theme.palette.borders[5],
                 },
+                '.MuiInputAdornment-root': {
+                    color: theme.palette.text.foreground,
+                },
             },
         },
     },
@@ -60,6 +63,15 @@ export default (theme: NodecosmosTheme) => ({
                         paddingLeft: 4,
                     },
                     '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
+                },
+
+                '&.InputField': {
+                    padding: 16,
+                },
+                '&.InputFieldWithLabel': {
+                    '.MuiInputBase-input': {
+                        padding: '24px 14px 14px',
+                    },
                 },
             },
         },

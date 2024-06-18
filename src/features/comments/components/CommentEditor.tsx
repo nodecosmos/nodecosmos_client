@@ -2,10 +2,14 @@ import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import Loader from '../../../common/components/Loader';
 import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
+import { NodecosmosError } from '../../../types';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
 import { selectCurrentUser } from '../../users/users.selectors';
-import { createComment, updateCommentContent } from '../comments.thunks';
+import {
+    createComment, CreateCommentResponse, updateCommentContent,
+} from '../comments.thunks';
 import {
     CommentThreadPrimaryKey, CreateCommentPayload, UpdateCommentPayload,
 } from '../comments.types';
@@ -46,7 +50,7 @@ interface UpdatePayload {
 export type CreateCommentProps = WithThreadInsertPayload | WithoutThreadInsertPayload | UpdatePayload;
 
 export type AddDescriptionCommentProps = CreateCommentProps & {
-    onClose?: () => void;
+    onClose?: (response?: CreateCommentResponse) => void;
     withThreadBlock?: boolean;
     autoFocus?: boolean;
     info?: string;
@@ -66,6 +70,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     const isUpdate = Boolean(comment);
     const [clearState, setClearStateTrigger] = useState(false);
     const currentUser = useSelector(selectCurrentUser);
+    const handleServerError = useHandleServerErrorAlert();
 
     const clearContent = useCallback(() => {
         setContent('');
@@ -116,16 +121,42 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                 throw new Error('Invalid props');
             }
 
-            dispatch(createComment(payload)).then(() => {
+            dispatch(createComment(payload)).then((response) => {
+                if (response.meta.requestStatus === 'rejected') {
+                    const error: NodecosmosError = response.payload as NodecosmosError;
+
+                    setTimeout(() => handleServerError(error), 250);
+                    console.error(error);
+                    if (onClose) {
+                        onClose();
+                    } else {
+                        clearContent();
+                    }
+
+                    return;
+                }
+
+                const responsePayload = response.payload as CreateCommentResponse;
                 if (onClose) {
-                    onClose();
+                    onClose(responsePayload);
                 } else {
                     clearContent();
                 }
                 unsetLoading();
             });
         }
-    }, [setLoading, comment, content, dispatch, onClose, unsetLoading, threadPk, newThread, clearContent]);
+    }, [
+        setLoading, comment, content, dispatch, onClose, unsetLoading,
+        threadPk, newThread, handleServerError, clearContent,
+    ]);
+
+    const handleCancel = useCallback(() => {
+        if (onClose) {
+            onClose();
+        } else {
+            clearContent();
+        }
+    }, [onClose, clearContent]);
 
     if (!currentUser) {
         return (
@@ -206,7 +237,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                             {
                                 onClose
                                 && (
-                                    <Button variant="outlined" color="buttonContrast" onClick={onClose}>
+                                    <Button variant="outlined" color="buttonContrast" onClick={handleCancel}>
                                         Cancel
                                     </Button>
                                 )

@@ -6,24 +6,41 @@ import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-interface IndexCommentsResponse {
-    comments: Comment[];
-    threads: CommentThread[];
+interface IndexThreadsPayload {
+    branchId: UUID;
+    objectId: UUID;
 }
 
-export const indexComments = createAsyncThunk<
-    IndexCommentsResponse,
-    UUID,
+export const indexThreads = createAsyncThunk<
+    CommentThread[],
+    IndexThreadsPayload,
     { rejectValue: NodecosmosError }
 >(
-    'comments/indexComments',
-    async (objectId) => {
-        const response = await nodecosmos.get(`/comments/${objectId}`);
+    'comments/indexThreads',
+    async ({ branchId, objectId }) => {
+        const response = await nodecosmos.get(`/comments/threads/${branchId}/${objectId}`);
         return response.data;
     },
 );
 
-interface CreateCommentResponse {
+interface IndexCommentsPayload {
+    branchId: UUID;
+    threadId: UUID;
+}
+
+export const indexComments = createAsyncThunk<
+    Comment[],
+    IndexCommentsPayload,
+    { rejectValue: NodecosmosError }
+>(
+    'comments/indexComments',
+    async ({ branchId, threadId }) => {
+        const response = await nodecosmos.get(`/comments/${branchId}/${threadId}`);
+        return response.data;
+    },
+);
+
+export interface CreateCommentResponse {
     comment: Comment,
     thread?: CommentThread,
 }

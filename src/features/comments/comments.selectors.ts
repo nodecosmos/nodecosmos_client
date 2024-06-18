@@ -8,6 +8,7 @@ export const selectThreadById = (state: RootState) => state.comments.threadsById
 export const selectThreadIdsByBranchId = (state: RootState) => state.comments.threadIdsByBranchId;
 export const selectObjectDescriptionThreadsByLine = (state: RootState) => state.comments.objectDescriptionThreadsByLine;
 export const selectMainObjectThread = (state: RootState) => state.comments.mainObjectThread;
+export const selectThreadIdsByBranchIdAndObjectId = (state: RootState) => state.comments.threadIdsByBranchIdAndObjectId;
 
 export const selectComment = (id: UUID) => createSelector(
     selectComments,
@@ -37,6 +38,17 @@ export const selectThread = (threadId: UUID) => createSelector(
 export const selectObjectThreadsByLine = (branchId: UUID, objectId: UUID) => createSelector(
     selectObjectDescriptionThreadsByLine,
     (objectDescriptionThreadsByLine) => objectDescriptionThreadsByLine[branchId]?.[objectId],
+);
+
+export const selectThreadIds = (branchId: UUID, objectId: UUID) => createSelector(
+    selectThreadIdsByBranchIdAndObjectId,
+    (threadIdsByBranchIdAndObjectId) => threadIdsByBranchIdAndObjectId[branchId]?.[objectId],
+);
+
+export const selectThreads = (branchId: UUID, objectId: UUID) => createSelector(
+    selectThreadIds(branchId, objectId),
+    selectThreadById,
+    (threadIds, threadsById) => threadIds?.map((threadId) => threadsById[threadId]),
 );
 
 export const selectMainObjectThreadByObjectId = (branchId: UUID, objectId: UUID) => createSelector(

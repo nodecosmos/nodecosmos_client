@@ -14,6 +14,9 @@ import NodeShow from '../../../pages/nodes/Show';
 import TeamShow from '../../../pages/nodes/TeamShow';
 import TreeShow from '../../../pages/nodes/TreeShow';
 import WorkflowShow from '../../../pages/nodes/WorkflowShow';
+import ThreadsIndex from '../../../pages/threads/Index';
+import ThreadNew from '../../../pages/threads/New';
+import ThreadShow from '../../../pages/threads/Show';
 import UserAuthentication from '../../../pages/users/Authentication';
 import ResetPassword from '../../../pages/users/ResetPassword';
 import UserShow from '../../../pages/users/Show';
@@ -116,7 +119,9 @@ export default function App() {
                                     </Route>
 
                                     {/*Threads*/}
-                                    <Route path="threads" element={<div />} />
+                                    <Route path="threads" element={<ThreadsIndex />} />
+                                    <Route path="threads/new" element={<ThreadNew />} />
+                                    <Route path="threads/:threadId" element={<ThreadShow />} />
 
                                     {/*Tasks*/}
                                     <Route path="tasks_board" element={<div />} />

@@ -1,5 +1,5 @@
 import {
-    createComment, deleteComment, indexComments, updateCommentContent,
+    createComment, deleteComment, indexComments, indexThreads, updateCommentContent,
 } from './comments.thunks';
 import {
     CommentState, CommentThread, Comment,
@@ -18,6 +18,7 @@ const initialState: CommentState = {
     threadIdsByBranchId: {},
     objectDescriptionThreadsByLine: {},
     mainObjectThread: {},
+    threadIdsByBranchIdAndObjectId: {},
 };
 
 function resetBranchState(state: RootState['comments'], branchId: UUID) {
@@ -54,9 +55,12 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
             ||= new Map<string, [UUID, number]>();
         state.objectDescriptionThreadsByLine[thread.branchId][thread.objectId]
             .set(thread.lineContent, [thread.id, thread.lineNumber as number]);
-    } else if (thread.objectId) {
+    } else {
         state.mainObjectThread[thread.branchId] ||= {};
         state.mainObjectThread[thread.branchId][thread.objectId] = thread.id;
+        state.threadIdsByBranchIdAndObjectId[thread.branchId] ||= {};
+        state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId] ||= [];
+        state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId].push(thread.id);
     }
 }
 
@@ -79,15 +83,15 @@ const commentsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(indexComments.fulfilled, (state, action) => {
-                const { comments, threads } = action.payload;
-                const branchId = action.meta.arg;
-
-                resetBranchState(state, branchId);
+            .addCase(indexThreads.fulfilled, (state, action) => {
+                const threads = action.payload;
 
                 threads.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach((thread) => {
                     populateThread(state, thread);
                 });
+            })
+            .addCase(indexComments.fulfilled, (state, action) => {
+                const comments = action.payload;
 
                 comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
                     .forEach((comment) => {
@@ -158,6 +162,9 @@ const commentsSlice = createSlice({
                             = threadIdsByBranchId.filter((threadId) => threadId !== thread.id);
                     }
 
+                    state.threadIdsByBranchIdAndObjectId;
+
+                    delete state.threadIdsByBranchIdAndObjectId[thread.branchId]?.[thread.objectId];
                     delete state.threadsById[threadId];
                 }
             });

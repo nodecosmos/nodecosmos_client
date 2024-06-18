@@ -67,7 +67,7 @@ export default function ConfirmationModal(props: Props) {
             </DialogTitle>
             <DialogContent>
                 <Alert position="relative" mb={2} />
-                <Typography color="text.secondary" fontWeight={500} mb={titleMb}>
+                <Typography color="text.secondary" fontWeight={700} mb={titleMb}>
                     {text}
                 </Typography>
                 {warning && <SimpleAlert severity="warning" message={warning} />}

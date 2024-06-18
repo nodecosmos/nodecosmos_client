@@ -36,7 +36,6 @@ interface FinalFormInputFieldProps<Val> {
     required?: boolean;
     maxLength?: number;
     minLength?: number;
-    sx?: object;
     InputProps?: object;
     placeholder?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -51,7 +50,6 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
         disabled = false,
         multiline = false,
         fullWidth = false,
-        sx = null,
         InputProps,
         /* validators */
         required = false,
@@ -84,11 +82,12 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
         >
             {({ input, meta }) => (
                 <TextField
-                    sx={{
-                        '& .MuiInputBase-input': { p: label ? '24px 14px 14px' : 2 },
-                        '.MuiInputAdornment-root': { color: 'text.foreground' },
-                        ...sx,
-                    }}
+                    // sx={{
+                    //     '& .MuiInputBase-input': { p: label ? '24px 14px 14px' : 2 },
+                    //     '.MuiInputAdornment-root': { color: 'text.foreground' },
+                    //     ...sx,
+                    // }}
+                    className={label ? 'InputFieldWithLabel' : 'InputField'}
                     color="primary"
                     variant="outlined"
                     label={label}
