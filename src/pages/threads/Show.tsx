@@ -46,8 +46,10 @@ export default function Show() {
         }
 
         return () => {
-            dispatch(setHeaderContent(''));
-            dispatch(setCurrentThread(null));
+            if (fetched) {
+                dispatch(setHeaderContent(''));
+                dispatch(setCurrentThread(null));
+            }
         };
     }, [branchId, dispatch, fetched, nodeId, rootId, setFetched, threadId, unsetFetched]);
 

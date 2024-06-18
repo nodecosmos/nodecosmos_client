@@ -36,15 +36,8 @@ function resetBranchState(state: RootState['comments'], branchId: UUID) {
     state.threadIdsByBranchIdAndObjectId[branchId] = {};
 }
 
-function resetThreadCommentsState(state: RootState['comments'], branchId: UUID) {
-    const threadIds = state.threadIdsByBranchId[branchId];
-
-    if (threadIds) {
-        threadIds.forEach((threadId) => {
-            state.idsByThreadId[threadId] = [];
-        });
-    }
-    state.threadIdsByBranchIdAndObjectId[branchId] ||= {};
+function resetThreadCommentsState(state: RootState['comments'], threadId: UUID) {
+    state.idsByThreadId[threadId] = [];
 }
 
 function populateComment(state: RootState['comments'], comment: Comment) {
@@ -71,6 +64,8 @@ function populateThread(state: RootState['comments'], thread: CommentThread) {
     } else {
         state.mainObjectThread[thread.branchId] ||= {};
         state.mainObjectThread[thread.branchId][thread.objectId] = thread.id;
+        state.threadIdsByBranchIdAndObjectId[thread.branchId] ||= {};
+        state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId] ||= [];
         state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId].push(thread.id);
     }
 }
