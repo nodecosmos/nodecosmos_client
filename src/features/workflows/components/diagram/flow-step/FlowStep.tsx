@@ -34,7 +34,7 @@ export default function FlowStep() {
                 height={yEnd - y}
                 fill={backgroundColor}
                 strokeWidth={1}
-                stroke={hovered || isSelected ? theme.palette.toolbar.default : outlineColor}
+                stroke={hovered || isSelected ? theme.palette.workflow.selectedFsBorder : outlineColor}
                 style={{ transition: `height ${TRANSITION_ANIMATION_DURATION}ms` }}
             />
             {/*Flow Step Toolbar*/}
