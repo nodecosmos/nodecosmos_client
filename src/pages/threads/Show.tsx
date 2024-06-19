@@ -1,3 +1,4 @@
+import Alert from '../../common/components/Alert';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
@@ -64,6 +65,7 @@ export default function Show() {
     return (
         <Box m={4}>
             <Container>
+                <Alert position="relative" mb={2} />
                 <Typography variant="h5" color="text.secondary" mb={2} mx={2}>
                     <FontAwesomeIcon icon={faMessageBot} />
                     <Box component="span" ml={2}>{thread.title}</Box>

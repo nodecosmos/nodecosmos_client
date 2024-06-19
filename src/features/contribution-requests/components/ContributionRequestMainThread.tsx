@@ -9,7 +9,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function ContributionRequestMainThread() {
-    const { branchId } = useBranchContext();
+    const { originalId: rootId, branchId } = useBranchContext();
     // main Cr Thread has same id as branchId
     const mainThread = useSelector(selectThread(branchId as UUID));
     const mainThreadCommentEditor = React.useMemo(() => {
@@ -31,6 +31,7 @@ export default function ContributionRequestMainThread() {
             <CommentEditor
                 autoFocus={false}
                 newThread={{
+                    rootId,
                     title: 'Contribution Request Thread',
                     branchId,
                     objectId: branchId,
@@ -40,7 +41,7 @@ export default function ContributionRequestMainThread() {
                 info="Start a conversation about this contribution request"
             />
         );
-    }, [branchId, mainThread]);
+    }, [branchId, mainThread, rootId]);
 
     return (
         <Box p={2} borderRadius={2} border={1} borderColor="borders.4" sx={{ backgroundColor: 'background.5' }}>

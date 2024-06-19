@@ -1,5 +1,5 @@
 import {
-    create,
+    create, deleteEditor,
     deleteNode,
     indexNodes,
     reorder,
@@ -160,7 +160,12 @@ const nodesSlice = createSlice({
             .addCase(reorder.fulfilled, reorderFulfilled)
             .addCase(getLikeCount.fulfilled, getLikeCountFulfilled)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
-            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled);
+            .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
+            .addCase(deleteEditor.fulfilled, (state: NodeState, action: ReturnType<typeof deleteEditor.fulfilled>) => {
+                const { branchId, id } = action.meta.arg;
+                const node = state.byBranchId[branchId][id];
+                node.editorIds?.delete(action.meta.arg.editorId);
+            });
     },
 });
 

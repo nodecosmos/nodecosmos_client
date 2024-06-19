@@ -1,4 +1,6 @@
 import Loader from '../../../../../common/components/Loader';
+import SimpleAlert from '../../../../../common/components/SimpleAlert';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useDescriptionEdit from '../../../../descriptions/hooks/useDescriptionEdit';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box } from '@mui/material';
@@ -9,9 +11,10 @@ const RemirrorEditor = React.lazy(
 );
 
 export default function PaneDescriptionEditor() {
+    const { isMerged } = useBranchContext();
     const {
         rootId,
-        loading, 
+        loading,
     } = usePaneContext();
 
     const {
@@ -22,6 +25,14 @@ export default function PaneDescriptionEditor() {
         markdown,
         base64,
     } = useDescriptionEdit();
+
+    if (isMerged) {
+        return (
+            <Box m={2}>
+                <SimpleAlert severity="warning" message="This node has been merged and cannot be edited." />
+            </Box>
+        );
+    }
 
     if (loading) {
         return <Loader />;

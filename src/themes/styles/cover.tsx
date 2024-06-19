@@ -60,7 +60,6 @@ export default (theme: NodecosmosTheme) => ({
 
     '.CoverImageButtonContainer': {
         marginTop: 24,
-        marginBottom: 24,
         width: '100%',
         display: 'flex',
         justifyContent: 'center',

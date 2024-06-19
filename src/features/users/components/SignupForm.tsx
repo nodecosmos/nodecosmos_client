@@ -1,6 +1,6 @@
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import {
-    passwordsMustMatch, validateEmailFormat, validateNotEmailFormat,
+    passwordsMustMatch, validateEmailFormat, validateNotEmailFormat, validateURLSafe,
 } from '../../../utils/validation';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import { UserCreateForm } from '../users.types';
@@ -36,9 +36,10 @@ export default function SignupForm() {
                         </Grid>
                         <Grid item xs={12}>
                             <Field
+                                helperText="Choose your username wisely as it cannot be changed later."
                                 fullWidth
                                 name="username"
-                                validate={validateNotEmailFormat}
+                                validate={[validateNotEmailFormat, validateURLSafe]}
                                 label="Username"
                                 required
                                 maxLength={20}

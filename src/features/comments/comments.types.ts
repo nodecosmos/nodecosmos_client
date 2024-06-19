@@ -45,6 +45,7 @@ export interface CommentThreadPrimaryKey {
 }
 
 export interface CommentThread extends CommentThreadPrimaryKey {
+    rootId: UUID;
     title: string;
     objectType: ThreadObjectType;
     threadLocation: ThreadLocation;

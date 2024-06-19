@@ -16,7 +16,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export default function New() {
-    const { branchId, nodeId } = useBranchContext();
+    const {
+        originalId: rootId, branchId, nodeId,
+    } = useBranchContext();
     const navigate = useNavigate();
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleClose = useCallback((response?: CreateCommentResponse) => {
@@ -28,7 +30,7 @@ export default function New() {
                     isOpen: true,
                     severity: 'success',
                     message: 'Thread created successfully.',
-                })), 250);
+                })), 10);
             } else {
                 throw new Error('Thread not found');
             }
@@ -64,6 +66,7 @@ export default function New() {
                     <CommentEditor
                         autoFocus={false}
                         newThread={{
+                            rootId,
                             title,
                             branchId,
                             objectId: branchId,

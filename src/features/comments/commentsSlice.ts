@@ -162,12 +162,18 @@ const commentsSlice = createSlice({
                 state.threadIdsByBranchId[thread.branchId]
                     = state.threadIdsByBranchId[thread.branchId].filter((threadId) => threadId !== id);
 
-                delete state.threadIdsByBranchIdAndObjectId[thread.branchId]?.[thread.objectId];
+                if (state.threadIdsByBranchIdAndObjectId[thread.branchId]) {
+                    state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId]
+                        = state.threadIdsByBranchIdAndObjectId[thread.branchId][thread.objectId]
+                            .filter((threadId) => threadId !== id);
+                }
                 delete state.threadsById[id];
 
-                state.idsByThreadId[id].forEach((commentId) => {
-                    delete state.byId[commentId];
-                });
+                if (state.idsByThreadId[id]) {
+                    state.idsByThreadId[id].forEach((commentId) => {
+                        delete state.byId[commentId];
+                    });
+                }
 
                 delete state.idsByThreadId[id];
             })

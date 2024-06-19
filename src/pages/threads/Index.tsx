@@ -23,17 +23,16 @@ export default function ThreadsIndex() {
     } = useBranchContext();
     const threads = useSelector(selectThreads(branchId, objectId));
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [loading, setLoading, unsetLoading] = useBooleanStateValue(!threads?.length);
+    const [loading, , unsetLoading] = useBooleanStateValue(!threads?.length);
     useEffect(() => {
-        if (!threads || threads.length === 0) {
-            setLoading();
+        if (loading) {
             dispatch(indexThreads({
                 rootId: originalId,
                 branchId,
                 objectId,
-            })).then(unsetLoading);
+            })).then(() => unsetLoading());
         }
-    }, [branchId, dispatch, objectId, originalId, setLoading, threads, unsetLoading]);
+    }, [branchId, dispatch, loading, objectId, originalId, unsetLoading]);
 
     if (loading) {
         return <Loader />;

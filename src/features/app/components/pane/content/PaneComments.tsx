@@ -13,7 +13,7 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function PaneComments() {
-    const { branchId } = useBranchContext();
+    const { originalId: rootId, branchId } = useBranchContext();
     const { objectId, objectType } = usePaneContext();
     const threadId = useSelector(selectMainObjectThreadByObjectId(branchId, objectId));
 
@@ -51,6 +51,7 @@ export default function PaneComments() {
             <CommentEditor
                 autoFocus={false}
                 newThread={{
+                    rootId,
                     title: 'CR Object Thread',
                     branchId,
                     objectId,
@@ -60,7 +61,7 @@ export default function PaneComments() {
                 info="Start a conversation about this object"
             />
         );
-    }, [branchId, objectId, threadId, threadLocation]);
+    }, [branchId, objectId, rootId, threadId, threadLocation]);
 
     return (
         <Box sx={{

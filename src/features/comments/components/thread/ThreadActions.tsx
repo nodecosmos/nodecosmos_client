@@ -1,5 +1,5 @@
 import ConfirmationModal, { ConfirmType } from '../../../../common/components/ConfirmationModal';
-import useModalOpen from '../../../../common/hooks/useModalOpen';
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { UUID } from '../../../../types';
 import { setAlert } from '../../../app/appSlice';
@@ -19,7 +19,7 @@ export default function ThreadActions(props: Props) {
     } = useBranchContext();
     const { id } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const [modalOpen, openModal, closeModal] = useBooleanStateValue();
 
     const handleThreadDeletion = useCallback(async () => {
         if (!rootId) {
@@ -30,8 +30,6 @@ export default function ThreadActions(props: Props) {
             objectId: nodeId,
             id,
         }));
-
-        closeDelMod();
 
         if (res.meta.requestStatus === 'rejected') {
             setTimeout(() => dispatch(setAlert({
@@ -47,19 +45,19 @@ export default function ThreadActions(props: Props) {
             severity: 'warning',
             message: 'Thread deleted!',
         })));
-    }, [rootId, dispatch, branchId, nodeId, id, closeDelMod]);
+    }, [rootId, dispatch, branchId, nodeId, id]);
 
     return (
         <div>
-            <Button variant="outlined" color="error" onClick={openDelMod}>
+            <Button variant="outlined" color="error" onClick={openModal}>
                 Delete
             </Button>
             <ConfirmationModal
                 text="This action will delete the thread and all of its comments."
                 confirmText="I understand, delete this Thread"
                 confirmType={ConfirmType.Deletion}
-                open={delModOpen}
-                onClose={closeDelMod}
+                open={modalOpen}
+                onClose={closeModal}
                 onConfirm={handleThreadDeletion}
             />
         </div>

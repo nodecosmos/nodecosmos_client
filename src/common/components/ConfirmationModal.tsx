@@ -48,6 +48,7 @@ export default function ConfirmationModal(props: Props) {
             unsetLoading();
             onClose();
         } catch (e) {
+            console.error(e);
             unsetLoading();
         }
     }, [onClose, onConfirm, setLoading, unsetLoading]);

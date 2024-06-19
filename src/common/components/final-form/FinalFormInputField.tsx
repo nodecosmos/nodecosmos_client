@@ -28,6 +28,7 @@ function minLengthValidator (minLength: number) {
 interface FinalFormInputFieldProps<Val> {
     name: string;
     label?: string;
+    helperText?: string;
     validate?: FieldValidator<Val> | FieldValidator<Val>[];
     type?: string;
     disabled?: boolean;
@@ -47,6 +48,7 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
         name,
         validate,
         type = 'text',
+        helperText = null,
         disabled = false,
         multiline = false,
         fullWidth = false,
@@ -99,7 +101,9 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
                         if (onChange) onChange(event);
                     }}
                     error={(meta.error || (!meta.dirtySinceLastSubmit && meta.submitError)) && meta.touched}
-                    helperText={meta.touched && (meta.error || (!meta.dirtySinceLastSubmit && meta.submitError))}
+                    helperText={
+                        (meta.touched && (meta.error || (!meta.dirtySinceLastSubmit && meta.submitError))) || helperText
+                    }
                     type={type}
                     disabled={disabled}
                     multiline={multiline}

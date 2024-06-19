@@ -1,3 +1,4 @@
+import EditorActions from './EditorActions';
 import Loader from '../../../../common/components/Loader';
 import NcAvatar from '../../../../common/components/NcAvatar';
 import { NodecosmosDispatch } from '../../../../store';
@@ -14,20 +15,97 @@ import {
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
+
+const COLUMNS: GridColDef<ShowUser>[] = [
+    {
+        headerName: '',
+        field: '',
+        flex: 0,
+        renderCell: (params: GridRenderCellParams<ShowUser, ShowUser>) => {
+            return <NcAvatar
+                size={30}
+                fontSize={18}
+                name={params.row.username}
+                src={params.row.profileImageUrl} />;
+        },
+    },
+    {
+        headerName: 'Username',
+        field: 'username',
+        flex: 0.5,
+        minWidth: 150,
+        renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
+            return (
+                <Link component={RouterLink} to={`/${params.value}`}>
+                    <Box display="flex" alignItems="center">
+                        <Typography variant="body2" color="text.link" px={2} fontWeight="bold">
+                            @{params.value}
+                        </Typography>
+                    </Box>
+                </Link>
+            );
+        },
+    },
+    {
+        field: 'firstName',
+        minWidth: 150,
+        flex: 0.5,
+        headerName: 'First Name',
+        renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
+            return (
+                <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
+                    {params.value}
+                </Typography>
+            );
+        },
+    },
+    {
+        field: 'lastName',
+        minWidth: 150,
+        flex: 0.5,
+        headerName: 'Last Name',
+        renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
+            return (
+                <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
+                    {params.value}
+                </Typography>
+            );
+        },
+    },
+    {
+        field: 'createdAt',
+        minWidth: 200,
+        flex: 1,
+        headerName: 'Joined Platform',
+        type: 'dateTime',
+        valueGetter: (params: string) => {
+            return new Date(params);
+        },
+    },
+    {
+        headerName: '',
+        field: 'actions',
+        flex: 1,
+        type: 'string',
+        renderCell: (params: GridRenderCellParams<ShowUser>) => {
+            return <EditorActions id={params.row.id} />;
+        },
+    },
+];
 
 export default function EditorsV2() {
     const { branchId, nodeId } = useBranchContext();
     const node = useSelector(maybeSelectNode(branchId, nodeId));
     const [fetched, setFetched] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const editors = useSelector(selectUsersByIds(Array.from(node?.editorIds || [])));
-
+    const editorIds = useMemo(() => Array.from(node?.editorIds || []), [node]);
+    const editors = useSelector(selectUsersByIds(editorIds));
     const [searchTerm, setSearchTerm] = React.useState('');
-
     const handleSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     }, []);
@@ -48,74 +126,6 @@ export default function EditorsV2() {
     if (!node) {
         return null;
     }
-
-    const columns: GridColDef<ShowUser>[] = [
-        {
-            headerName: '',
-            field: '',
-            flex: 0,
-            renderCell: (params: GridRenderCellParams<ShowUser, ShowUser>) => {
-                return <NcAvatar
-                    size={30}
-                    fontSize={18}
-                    name={params.row.username}
-                    src={params.row.profileImageUrl} />;
-            },
-        },
-        {
-            headerName: 'Username',
-            field: 'username',
-            flex: 0.5,
-            minWidth: 150,
-            renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
-                return (
-                    <Link component={RouterLink} to={`/${params.value}`}>
-                        <Box display="flex" alignItems="center">
-                            <Typography variant="body2" color="text.link" px={2} fontWeight="bold">
-                                @{params.value}
-                            </Typography>
-                        </Box>
-                    </Link>
-                );
-            },
-        },
-        {
-            field: 'firstName',
-            minWidth: 150,
-            flex: 0.5,
-            headerName: 'First Name',
-            renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
-                return (
-                    <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
-                        {params.value}
-                    </Typography>
-                );
-            },
-        },
-        {
-            field: 'lastName',
-            minWidth: 150,
-            flex: 0.5,
-            headerName: 'Last Name',
-            renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
-                return (
-                    <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
-                        {params.value}
-                    </Typography>
-                );
-            },
-        },
-        {
-            field: 'createdAt',
-            minWidth: 200,
-            flex: 1,
-            headerName: 'Joined Platform',
-            type: 'dateTime',
-            valueGetter: (params: string) => {
-                return new Date(params);
-            },
-        },
-    ];
 
     const rows: GridRowsProp<ShowUser> = editors;
 
@@ -167,7 +177,7 @@ export default function EditorsV2() {
 
             <DataGrid
                 rows={rows}
-                columns={columns}
+                columns={COLUMNS}
                 initialState={{
                     pagination: { paginationModel: { pageSize: 25 } },
                     sorting: {

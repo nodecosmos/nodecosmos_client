@@ -264,3 +264,32 @@ export const getEditors = createAsyncThunk<ShowUser[], NodePrimaryKey, { rejectV
         }
     },
 );
+
+export const deleteEditor = createAsyncThunk<
+    null,
+    NodePrimaryKey & { editorId: UUID },
+    { rejectValue: NodecosmosError }
+>(
+    'nodes/deleteEditor',
+    async ({
+        branchId, id, editorId,
+    }, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.delete(`/nodes/${branchId}/${id}/editors/${editorId}`);
+
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while deleting the editor.',
+                viewMessage: true,
+            });
+        }
+    },
+);

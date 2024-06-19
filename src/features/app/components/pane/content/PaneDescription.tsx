@@ -20,8 +20,8 @@ export default function PaneDescription() {
         <Box px={4}>
             {objectType === ObjectType.Node && <NodePaneCoverImage />}
 
-            <Box display="flex" justifyContent="center">
-                <Box
+            <Box display="flex" justifyContent="center" mt={2}>
+                <div
                     className="DescriptionHTML size-850"
                     dangerouslySetInnerHTML={{ __html: description?.html as TrustedHTML }} />
             </Box>
