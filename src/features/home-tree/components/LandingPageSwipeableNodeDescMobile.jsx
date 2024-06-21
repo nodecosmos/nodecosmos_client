@@ -13,7 +13,7 @@ function SwipeableEdgeDrawer() {
     const currentNodeTitle = useSelector((state) => state.landingPageNodes[currentNodeId]?.title);
     const currentNodeDescription = useSelector((state) => state.landingPageNodes[currentNodeId]?.description);
 
-    const [height, drawerRef, textContainerRef, textRef, setHeight] = useDrawerHeight(0);
+    const [height, drawerRef, textContainerRef, textRef, setHeight] = useDrawerHeight();
 
     // check if current node is changed
     React.useEffect(() => {

@@ -3,6 +3,7 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
+import { MD_FLEX } from '../../features/app/constants';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import Workflow from '../../features/workflows/components/Workflow';
@@ -11,7 +12,7 @@ import { maybeSelectWorkflow } from '../../features/workflows/workflow.selectors
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/themes.types';
 import { Box, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function WorkflowShow() {
@@ -83,6 +84,7 @@ export default function WorkflowShow() {
             });
         }
     }, [branchId, dispatch, isBranch, nodeId, rootId]);
+    const style = useMemo(() => ({ cursor: resizeInProgress ? 'col-resize' : 'default' }), [resizeInProgress]);
 
     if (loading || !rootId) {
         return <Loader />;
@@ -102,8 +104,8 @@ export default function WorkflowShow() {
             <Box
                 height={1}
                 width={1}
-                display="flex"
-                style={{ cursor: resizeInProgress ? 'col-resize' : 'default' }}
+                display={MD_FLEX}
+                style={style}
             >
                 <Box
                     height={1}
@@ -113,28 +115,18 @@ export default function WorkflowShow() {
                 >
                     {workflow && <Workflow nodeId={nodeId} branchId={branchId} />}
                 </Box>
-                <Box
-                    component="div"
+                <div
+                    className="Resizer"
                     onMouseDown={handleResize}
                     onMouseEnter={hoverResizer}
                     onMouseLeave={leaveResizer}
-                    width="8px"
-                    // backgroundColor="transparent"
-                    height={1}
-                    ml={-1}
-                    sx={{
-                        position: 'relative',
-                        '&:hover': { cursor: 'col-resize' },
-                    }}
                 />
                 <Box
                     component="div"
-                    // backgroundColor="background.5"
                     height={1}
                     display={isPaneOpen ? 'block' : 'none'}
                     width={(isPaneOpen && paneBWidth) || 0}
                     ref={workflowDetailsRef}
-                    position="relative"
                     overflow="hidden"
                     boxShadow="left.2"
                     borderLeft={1}

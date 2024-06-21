@@ -17,6 +17,7 @@ export const selectScale = (state: RootState) => state.nodes.scale;
 export const selectDensity = (state: RootState) => state.nodes.treeDensity;
 export const selectShowAncestorChain = (state: RootState) => state.nodes.showAncestorChain;
 export const selectIndexSearchTerm = (state: RootState) => state.nodes.indexSearchTerm;
+export const selectSidebarOpen = (state: RootState) => state.nodes.sidebarOpen;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,

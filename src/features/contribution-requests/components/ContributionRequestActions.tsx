@@ -36,11 +36,11 @@ export default function ContributionRequestActions(props: Props) {
         if (res.meta.requestStatus === 'rejected') {
             return;
         }
-        dispatch(setAlert({
+        setTimeout(() => dispatch(setAlert({
             isOpen: true,
             severity: 'warning',
             message: 'Contribution request deleted!',
-        }));
+        })), 50);
     }, [id, dispatch, nodeId, rootId]);
 
     return (

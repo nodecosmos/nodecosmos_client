@@ -14,14 +14,15 @@ export default (theme: NodecosmosTheme) => ({
                     color: theme.palette.background[8],
                 },
 
+                '.MuiDataGrid-filler': {
+                    borderRadius: 0,
+                    backgroundColor: theme.palette.background[6],
+                },
+
                 '& .MuiDataGrid-scrollbarFiller': {
                     borderRadius: 0,
                     backgroundColor: theme.palette.background[6],
                 },
-            },
-            filter: {
-                borderRadius: 0,
-                backgroundColor: theme.palette.background[6],
             },
             virtualScroller: {
                 borderTopLeftRadius: '0!important',

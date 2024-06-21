@@ -1,6 +1,8 @@
 import Content from './content/Content';
+import MobilePane from './MobilePane';
 import { UUID } from '../../../../types';
 import { usePaneContextCreator } from '../../hooks/pane/usePaneContext';
+import useIsMobile from '../../hooks/useIsMobile';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
@@ -19,6 +21,12 @@ export default function Pane({ rootId, page }: PaneProps) {
         rootId,
         page,
     });
+
+    const isMobile = useIsMobile();
+
+    if (isMobile) {
+        return <MobilePane rootId={rootId} page={page} />;
+    }
 
     if (!CtxCreatorValue.isObjectSelected) {
         return (

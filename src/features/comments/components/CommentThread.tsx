@@ -36,9 +36,12 @@ export default function CommentThread(props: CommentThreadProps) {
                 borderColor="borders.4"
                 p={2}
                 sx={{ backgroundColor: 'background.1' }}
-                boxSizing="border-box">
-                <ThreadHeader />
-                <ThreadComments />
+                boxSizing="border-box"
+            >
+                <Box p={2}>
+                    <ThreadHeader />
+                    <ThreadComments />
+                </Box>
             </Box>
         </ThreadContext.Provider>
     );

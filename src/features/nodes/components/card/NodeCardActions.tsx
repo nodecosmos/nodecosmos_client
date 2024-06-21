@@ -57,7 +57,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                         />
                     </Box>
                     <Typography variant="caption" color="text.tertiary">
-                        {abbreviateNumber(node.threadCount || 0)}
+                        {abbreviateNumber(node.threadsCount || 0)}
                     </Typography>
                 </Box>
             </Tooltip>

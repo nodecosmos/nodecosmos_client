@@ -49,7 +49,6 @@ export default function ThreadComments() {
     return (
         <Box
             overflow="hidden"
-            maxWidth={MAX_COMMENT_WIDTH}
             border={1}
             borderRadius={1.5}
             borderColor="borders.4">
@@ -59,12 +58,14 @@ export default function ThreadComments() {
                     Collapse
                 </button>
             </ExpContainer>
-            {
-                commentIds.map((commentId, index) => <Comment
-                    key={commentId}
-                    id={commentId}
-                    isLast={commentCount === index + 1} />)
-            }
+            <Box p={2}>
+                {
+                    commentIds.map((commentId, index) => <Comment
+                        key={commentId}
+                        id={commentId}
+                        isLast={commentCount === index + 1} />)
+                }
+            </Box>
             <CommentReply threadId={id} />
         </Box>
     );

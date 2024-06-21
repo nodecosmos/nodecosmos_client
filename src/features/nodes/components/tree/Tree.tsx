@@ -4,11 +4,12 @@ import Alert from '../../../../common/components/Alert';
 import OverlayLoader from '../../../../common/components/OverlayLoader';
 import Transformable from '../../../../common/components/Transformable';
 import { UUID } from '../../../../types';
-import { HEADER_HEIGHT } from '../../../app/constants';
+import { HEADER_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from '../../../app/constants';
+import useIsMobile from '../../../app/hooks/useIsMobile';
 import { useTreeContextCreator } from '../../hooks/tree/useTreeContext';
 import { selectScale } from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export interface TreeProps {
@@ -21,6 +22,11 @@ export interface TreeProps {
 
 const TREE_STYLE = {
     height: `calc(100% - ${HEADER_HEIGHT})`,
+    position: 'relative',
+};
+
+const TREE_MOBILE_STYLE = {
+    height: `calc(100% - ${MOBILE_TOOLBAR_HEIGHT})`,
     position: 'relative',
 };
 
@@ -37,6 +43,8 @@ function Tree(props: TreeProps) {
     });
     const isTreeLoading = false; // TODO on reorder
     const treeScale = useSelector(selectScale);
+    const isMobile = useIsMobile();
+    const style = useMemo(() => (isMobile ? TREE_MOBILE_STYLE : TREE_STYLE), [isMobile]);
 
     return (
         <TreeContext.Provider value={ctxValue}>
@@ -44,7 +52,7 @@ function Tree(props: TreeProps) {
                 <TreeToolbar />
                 <Alert />
                 {/* @ts-expect-error style position not recognized */ }
-                <div style={TREE_STYLE}>
+                <div style={style}>
                     {isTreeLoading ? <OverlayLoader /> : null}
                     <Transformable scale={treeScale}>
                         <TreeNodes />

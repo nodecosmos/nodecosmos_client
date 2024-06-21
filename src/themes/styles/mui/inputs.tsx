@@ -54,7 +54,6 @@ export default (theme: NodecosmosTheme) => ({
                 '&.SearchInput': {
                     marginLeft: 8,
                     height: 32,
-                    width: '350px',
                     svg: { color: theme.palette.toolbar.default },
                     '.MuiInputBase-root': {
                         borderColor: 'transparent',
@@ -65,9 +64,6 @@ export default (theme: NodecosmosTheme) => ({
                     '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
                 },
 
-                '&.InputField': {
-                    padding: 16,
-                },
                 '&.InputFieldWithLabel': {
                     '.MuiInputBase-input': {
                         padding: '24px 14px 14px',

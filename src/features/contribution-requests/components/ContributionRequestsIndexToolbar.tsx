@@ -4,9 +4,10 @@ import DefaultButton from '../../../common/components/buttons/DefaultButton';
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
+import useIsMobile from '../../app/hooks/useIsMobile';
 import { faAdd } from '@fortawesome/pro-light-svg-icons';
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface Props {
     nodeId: UUID;
@@ -15,6 +16,11 @@ interface Props {
 
 export default function ContributionRequestsIndexToolbar({ nodeId, rootId }: Props) {
     const [modalOpen, openModal, closeModal] = useModalOpen();
+    const isMobile = useIsMobile();
+
+    const title = useMemo(() => {
+        return isMobile ? 'Add CR' : 'Add Contribution Request';
+    }, [isMobile]);
 
     return (
         <>
@@ -31,7 +37,7 @@ export default function ContributionRequestsIndexToolbar({ nodeId, rootId }: Pro
                 pl={1.25}
             >
                 <DefaultButton
-                    title="Add Contribution Request"
+                    title={title}
                     startIcon={faAdd}
                     onClick={openModal}
                 />

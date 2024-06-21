@@ -1,23 +1,34 @@
 import NodeIndexSearch from './NodeIndexSearch';
 import DefaultButton from '../../../../common/components/buttons/DefaultButton';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
-import { HEADER_HEIGHT } from '../../../app/constants';
 import useIsMobile from '../../../app/hooks/useIsMobile';
 import CreateNodeModal from '../CreateNodeModal';
 import { faAdd } from '@fortawesome/pro-regular-svg-icons';
 import { Box } from '@mui/material';
 import React from 'react';
 
-export default function NodeIndexHeader() {
+export default function NodeIndexMobileFooter() {
     const [createNodeDialogOpen, openCreateNodeDialog, closeNodeDialog] = useBooleanStateValue();
     const isMobile = useIsMobile();
 
-    if (isMobile) {
+    if (!isMobile) {
         return null;
     }
 
     return (
-        <Box display="flex" alignItems="center" height={HEADER_HEIGHT}>
+        <Box
+            p={2}
+            position="absolute"
+            bottom={0}
+            display="flex"
+            alignItems="center"
+            height={75}
+            sx={{
+                backgroundColor: 'background.1',
+                zIndex: 1,
+                width: 1,
+            }}
+        >
             <DefaultButton
                 variant="outlined"
                 color="primary"
@@ -25,7 +36,7 @@ export default function NodeIndexHeader() {
                 startIcon={faAdd}
                 onClick={openCreateNodeDialog}
             />
-            <NodeIndexSearch />
+            <NodeIndexSearch flex={1} />
             <CreateNodeModal
                 open={createNodeDialogOpen}
                 onClose={closeNodeDialog}

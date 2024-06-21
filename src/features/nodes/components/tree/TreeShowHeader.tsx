@@ -1,4 +1,5 @@
 import TreeBreadcrumbs from './TreeBreadcrumbs';
+import useIsMobile from '../../../app/hooks/useIsMobile';
 import { selectSelected } from '../../nodes.selectors';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -6,8 +7,11 @@ import { useSelector } from 'react-redux';
 
 export default function TreeShowHeader() {
     const selected = useSelector(selectSelected);
+    const isMobile = useIsMobile();
 
-    if (!selected) return null;
+    if (isMobile || !selected) {
+        return null;
+    }
 
     return (
         <Box sx={{

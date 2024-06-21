@@ -37,20 +37,12 @@ export default function Authentication() {
             sx={{
                 height: 1,
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
             }}
         >
-            <Box sx={{
-                height: 600,
-                width: 1,
-            }}>
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+            <Box width={1}>
+                <Box display="flex" alignItems="center" justifyContent="center">
                     <Typography
                         sx={{
                             fontSize: 50,

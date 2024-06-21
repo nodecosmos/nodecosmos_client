@@ -41,8 +41,8 @@ export default function ThreadsIndex() {
     return (
         <ThreadsContext.Provider value={ctxValue}>
             <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-                <Alert position="relative" />
                 <ThreadsIndexToolbar />
+                <Alert position="relative" />
                 <ThreadList />
             </Box>
         </ThreadsContext.Provider>

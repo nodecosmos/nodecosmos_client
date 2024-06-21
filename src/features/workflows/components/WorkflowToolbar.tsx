@@ -4,6 +4,7 @@ import EditTitleField from '../../../common/components/EditTItleField';
 import { selectIsPaneOpen } from '../../app/app.selectors';
 import TogglePaneButton from '../../app/components/TogglePaneButton';
 import { HEADER_HEIGHT } from '../../app/constants';
+import useIsMobile from '../../app/hooks/useIsMobile';
 import DanglingIosButton from '../../input-outputs/components/DanglingIosButton';
 import useWorkflowActions from '../hooks/useWorkflowActions';
 import useWorkflowContext from '../hooks/useWorkflowContext';
@@ -15,6 +16,7 @@ export default function WorkflowToolbar() {
     const { title } = useWorkflowContext();
     const { handleTitleChange } = useWorkflowActions();
     const isPaneOpen = useSelector(selectIsPaneOpen);
+    const isMobile = useIsMobile();
 
     return (
         <Box
@@ -35,9 +37,9 @@ export default function WorkflowToolbar() {
                 alignItems="center"
             >
                 <EditTitleField
+                    maxWidth={isMobile ? '150px' : '350px'}
                     title={title}
                     color="text.secondary"
-                    pr={1}
                     variant="body2"
                     onChange={handleTitleChange}
                 />

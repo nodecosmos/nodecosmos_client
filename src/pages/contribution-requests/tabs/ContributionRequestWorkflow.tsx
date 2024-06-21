@@ -3,6 +3,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
+import { MD_FLEX } from '../../../features/app/constants';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
@@ -26,8 +27,6 @@ export default function ContributionRequestWorkflow() {
     const originalWorkflow = useSelector(maybeSelectWorkflow(originalId, nodeId));
     const branchWorkflow = useSelector(maybeSelectWorkflow(branchId, nodeId));
     const isPaneOpen = useSelector(selectIsPaneOpen);
-    const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
-    const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
     const workflowRef = useRef(null);
     const workflowDetailsRef = useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
@@ -43,8 +42,8 @@ export default function ContributionRequestWorkflow() {
     } = usePaneResizable({
         aRef: workflowRef,
         bRef: workflowDetailsRef,
-        initialWidthA: workflowWidthFromLocalStorage || '70%',
-        initialWidthB: workflowPaneWidthFromLocalStorage || '30%',
+        initialWidthA: localStorage.getItem('workflowWidth') || '70%',
+        initialWidthB: localStorage.getItem('workflowPaneWidth') || '30%',
     });
 
     useEffect(() => {
@@ -90,7 +89,7 @@ export default function ContributionRequestWorkflow() {
             <Box
                 height={1}
                 width={1}
-                display="flex"
+                display={MD_FLEX}
                 style={{ cursor: resizeInProgress ? 'col-resize' : 'default' }}
             >
                 <Box
@@ -101,18 +100,11 @@ export default function ContributionRequestWorkflow() {
                 >
                     {workflow && <Workflow nodeId={nodeId} branchId={branchId} />}
                 </Box>
-                <Box
+                <div
+                    className="Resizer"
                     onMouseDown={handleResize}
                     onMouseEnter={hoverResizer}
                     onMouseLeave={leaveResizer}
-                    width="8px"
-                    height={1}
-                    ml={-1}
-                    sx={{
-                        backgroundColor: 'transparent',
-                        position: 'relative',
-                        '&:hover': { cursor: 'col-resize' },
-                    }}
                 />
                 <Box
                     height={1}

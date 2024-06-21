@@ -23,9 +23,8 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const COLUMNS: GridColDef<ShowUser>[] = [
     {
-        headerName: '',
+        headerName: 'User',
         field: '',
-        flex: 0,
         renderCell: (params: GridRenderCellParams<ShowUser, ShowUser>) => {
             return <NcAvatar
                 size={30}
@@ -37,7 +36,6 @@ const COLUMNS: GridColDef<ShowUser>[] = [
     {
         headerName: 'Username',
         field: 'username',
-        flex: 0.5,
         minWidth: 150,
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
@@ -54,7 +52,6 @@ const COLUMNS: GridColDef<ShowUser>[] = [
     {
         field: 'firstName',
         minWidth: 150,
-        flex: 0.5,
         headerName: 'First Name',
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
@@ -67,7 +64,6 @@ const COLUMNS: GridColDef<ShowUser>[] = [
     {
         field: 'lastName',
         minWidth: 150,
-        flex: 0.5,
         headerName: 'Last Name',
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
@@ -80,7 +76,6 @@ const COLUMNS: GridColDef<ShowUser>[] = [
     {
         field: 'createdAt',
         minWidth: 200,
-        flex: 1,
         headerName: 'Joined Platform',
         type: 'dateTime',
         valueGetter: (params: string) => {
@@ -90,7 +85,6 @@ const COLUMNS: GridColDef<ShowUser>[] = [
     {
         headerName: '',
         field: 'actions',
-        flex: 1,
         type: 'string',
         renderCell: (params: GridRenderCellParams<ShowUser>) => {
             return <EditorActions id={params.row.id} />;

@@ -10,13 +10,14 @@ export default function useNodeBranchColors() {
     const { isSelected, nestedLevel } = useNodeContext();
     const branchCtx = useNodeBranchContext();
     const theme: NodecosmosTheme = useTheme();
-    const { backgrounds } = theme.palette.tree;
-    const backgroundCount = backgrounds.length;
-    const nestedTreeColor = backgrounds[nestedLevel % backgroundCount].fg;
-    const { defaultBorder } = theme.palette.tree;
     const diffColors = useDiffColors();
 
     return useCallback(() => {
+        const { backgrounds } = theme.palette.tree;
+        const backgroundCount = backgrounds.length;
+        const { defaultBorder } = theme.palette.tree;
+        const nestedTreeColor = backgrounds[nestedLevel % backgroundCount].fg;
+
         if (!branchCtx) return {
             backgroundColor: theme.palette.tree.default,
             outlineColor: defaultBorder,
@@ -71,5 +72,5 @@ export default function useNodeBranchColors() {
             outlinedColored,
             nestedTreeColor,
         };
-    }, [isSelected, defaultBorder, nestedTreeColor, theme, diffColors, branchCtx]);
+    }, [theme, nestedLevel, branchCtx, isSelected, diffColors]);
 }

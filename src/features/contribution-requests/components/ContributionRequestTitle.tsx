@@ -41,7 +41,6 @@ export default function ContributionRequestTitle() {
     return (
         <Box
             display="flex"
-            alignItems="center"
             borderBottom={2}
             borderColor="transparent"
             sx={{
@@ -53,6 +52,14 @@ export default function ContributionRequestTitle() {
                     borderColor: 'borders.5',
                     transition: 'none',
                 },
+            }}
+            flexDirection={{
+                xs: 'column',
+                md: 'row',
+            }}
+            alignItems={{
+                xs: 'flex-start',
+                md: 'center',
             }}
         >
             <Box
@@ -72,7 +79,16 @@ export default function ContributionRequestTitle() {
                 />
             </Box>
 
-            <Box ml={2} width={1}>
+            <Box
+                ml={{
+                    xs: 0,
+                    md: 2,
+                }}
+                mt={{
+                    xs: 2,
+                    md: 0,
+                }}
+                width={1}>
                 <EditTitleField
                     authorized={authorized}
                     inputFontSize="2rem"

@@ -16,7 +16,13 @@ const initialState: FlowStepState = { byBranchId: {} };
 const flowStepsSlice = createSlice({
     name: 'flowSteps',
     initialState,
-    reducers: {},
+    reducers: {
+        clearFlowStepBranchData: (state, action) => {
+            const branchId = action.payload;
+
+            delete state.byBranchId[branchId];
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(showWorkflow.fulfilled, (state, action) => {
@@ -147,6 +153,8 @@ const flowStepsSlice = createSlice({
     },
 });
 
-const { reducer } = flowStepsSlice;
+const { actions, reducer } = flowStepsSlice;
+
+export const { clearFlowStepBranchData } = actions;
 
 export default reducer;

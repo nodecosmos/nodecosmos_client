@@ -19,4 +19,5 @@ export const {
     setDensity,
     setShowAncestorChain,
     setIndexSearchTerm,
+    setSidebarOpen,
 } = actions;

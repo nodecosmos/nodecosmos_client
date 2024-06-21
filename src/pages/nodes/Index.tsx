@@ -2,8 +2,9 @@ import Alert from '../../common/components/Alert';
 import VirtualContainer from '../../common/components/VirtualContainer';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
-import { SIDEBAR_WIDTH } from '../../features/app/constants';
+import { MOBILE_HEIGHT, SIDEBAR_WIDTH } from '../../features/app/constants';
 import NodeCard from '../../features/nodes/components/card/NodeCard';
+import NodeIndexMobileFooter from '../../features/nodes/components/header/NodeIndexMobileFooter';
 import { setIndexSearchTerm } from '../../features/nodes/nodes.actions';
 import { selectIndexNodesById, selectIndexSearchTerm } from '../../features/nodes/nodes.selectors';
 import { indexNodes, IndexNodesPayload } from '../../features/nodes/nodes.thunks';
@@ -75,21 +76,35 @@ export default function NodeIndex() {
     }, [indexSearchTerm, nodes, setHasMore, unsetHasMore]);
 
     return (
-        <Box height={1} display="flex">
+        <Box
+            display="flex"
+            height={MOBILE_HEIGHT}
+        >
             <Box
                 width={SIDEBAR_WIDTH}
+                display={{
+                    xs: 'none',
+                    md: 'block',
+                }}
                 borderRight={1}
-                height={1}
                 borderColor="borders.1"
             />
             <Alert position="absolute" right={0} width={`calc(100% - ${SIDEBAR_WIDTH})`} />
-            <VirtualContainer onMore={onMore}>
+            <VirtualContainer
+                onMore={onMore}
+                width={{
+                    xs: 1,
+                    md: `calc(100% - ${SIDEBAR_WIDTH})`,
+                }}
+                p={1}
+            >
                 {
                     Object.keys(nodes).map((id) => (
                         <NodeCard key={id} id={id} />
                     ))
                 }
             </VirtualContainer>
+            <NodeIndexMobileFooter />
         </Box>
     );
 }

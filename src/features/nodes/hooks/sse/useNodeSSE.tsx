@@ -26,15 +26,17 @@ export default function useNodeSSE(rootId?: UUID) {
             }
         };
 
-        navigator.serviceWorker.getRegistrations().then((registrations) => {
-            registrations.forEach((registration) => {
-                registration.active?.postMessage({
-                    action: InitActions.Initialize,
-                    url: `${nodecosmos.defaults.baseURL}/nodes/${rootId}/events/listen`,
-                    userId: currentUser.id,
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                registrations.forEach((registration) => {
+                    registration.active?.postMessage({
+                        action: InitActions.Initialize,
+                        url: `${nodecosmos.defaults.baseURL}/nodes/${rootId}/events/listen`,
+                        userId: currentUser.id,
+                    });
                 });
             });
-        });
+        }
 
         window.onbeforeunload = () => {
             channel.postMessage({ action: ActionTypes.CloseSSE });

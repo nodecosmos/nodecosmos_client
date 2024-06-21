@@ -14,7 +14,7 @@ import {
 import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export default function PaneToolbar() {
@@ -36,10 +36,13 @@ export default function PaneToolbar() {
         }
     }, [searchParams, setContent, setSearchParams]);
 
-    let markdownTitle = 'Markdown (Read Only)';
-    if (isBranch) {
-        markdownTitle += ' You can use this page to add text comments to the branch.';
-    }
+    const markdownTitle = useMemo(() => {
+        if (isBranch) {
+            return 'Markdown (Read Only) You can use this page to add text comments to the branch.';
+        }
+
+        return 'Markdown (Read Only)';
+    }, [isBranch]);
 
     return (
         <Box

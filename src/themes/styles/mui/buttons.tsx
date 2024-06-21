@@ -34,6 +34,24 @@ export default (theme: NodecosmosTheme) => ({
                 '.MuiButton-endIcon>*:nth-of-type(1)': {
                     fontSize: 16,
                 },
+
+                '&.SidebarMobileButton': {
+                    backgroundColor: theme.palette.background[7],
+                    color: theme.palette.toolbar.default,
+                    padding: 0,
+                },
+            },
+        },
+    },
+    MuiButtonBase: {
+        styleOverrides: {
+            root: {
+                '&.SidebarMobileButton': {
+                    color: theme.palette.toolbar.default,
+                    padding: 0,
+                    marginLeft: 8,
+                    fontsize: 24,
+                },
             },
         },
     },

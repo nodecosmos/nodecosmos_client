@@ -28,6 +28,14 @@ export default (theme: NodecosmosTheme) => ({
             height: 280,
             borderRadius: 0,
         },
+        '.CardHeader': {
+            padding: 24,
+            paddingRight: 0,
+            marginRight: 0,
+            '& .MuiCardHeader-avatar': { marginRight: 0 },
+            '.Link': { '&:hover h6': { color: theme.palette.text.link } },
+            zIndex: 1,
+        },
         '.CardContent': {
             paddingLeft: 24,
             paddingRight: 24,

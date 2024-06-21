@@ -62,7 +62,7 @@ export interface IndexNode {
     title: string;
     likeCount: number;
     contributionRequestsCount: number;
-    threadCount: number;
+    threadsCount: number;
     owner: Profile;
     coverImageUrl: string | null;
     createdAt: string;
@@ -102,6 +102,7 @@ export interface NodeState {
     treeDensity: TreeDensity;
     showAncestorChain: boolean;
     indexSearchTerm?: string;
+    sidebarOpen: boolean;
 }
 
 export enum TreeType {

@@ -36,14 +36,13 @@ export default function CommentOptions() {
                 color="button"
                 disableRipple
                 sx={{
-                    backgroundColor: 'button.main',
                     width: 30,
                     height: 30,
-                    border: 1,
+                    border: 0,
                     borderColor: 'borders.4',
                     svg: {
                         color: 'button.contrastText',
-                        fontSize: 14,
+                        fontSize: 16,
                     },
                 }}
             >

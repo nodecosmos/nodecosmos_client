@@ -4,6 +4,7 @@ import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { clearDescBranchData } from '../../descriptions/descriptionsSlice';
+import { clearFlowStepBranchData } from '../../flow-steps/flowStepsSlice';
 import { clearNodeBranchData } from '../../nodes/nodes.actions';
 import { clearWorkflowBranchData } from '../../workflows/workflowsSlice';
 import { selectContributionRequest } from '../contributionRequests.selectors';
@@ -54,15 +55,16 @@ export default function useMerge() {
                 return;
             }
 
-            dispatch(clearNodeBranchData(rootId));
-            dispatch(clearWorkflowBranchData(rootId));
-            dispatch(clearDescBranchData(rootId));
+            dispatch(clearNodeBranchData(originalId));
+            dispatch(clearWorkflowBranchData(originalId));
+            dispatch(clearFlowStepBranchData(originalId));
+            dispatch(clearDescBranchData(originalId));
             navigate(`/nodes/${originalId}/${nodeId}`);
             setTimeout(() => dispatch(setAlert({
                 isOpen: true,
                 severity: 'success',
                 message: 'Contribution request merged successfully!',
-            })), 250);
+            })), 50);
         }
         catch (error) {
             console.error(error);

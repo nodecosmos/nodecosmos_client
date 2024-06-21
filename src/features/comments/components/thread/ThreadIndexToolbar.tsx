@@ -33,7 +33,7 @@ export default function ThreadsIndexToolbar() {
                     color="button"
                     startIcon={<FontAwesomeIcon icon={faAdd} />}
                     sx={{ mr: 1 }}>
-                    New Thread
+                    New
                 </Button>
 
                 <ThreadSearchInput />

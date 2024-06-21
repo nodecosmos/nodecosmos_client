@@ -61,6 +61,19 @@ const {
     Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link, OrderedList, Image, File,
 } = EnabledExtensions;
 
+const ENABLED_EXTENSIONS: EnabledExtensions[] = [
+    Bold,
+    Italic,
+    Strike,
+    Markdown,
+    Blockquote,
+    CodeBlock,
+    Link,
+    OrderedList,
+    Image,
+    File,
+];
+
 export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
         newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info,
@@ -221,18 +234,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                             <RemirrorEditor
                                 markdown={content}
                                 onChange={handleChange}
-                                enabledExtensions={[
-                                    Bold,
-                                    Italic,
-                                    Strike,
-                                    Markdown,
-                                    Blockquote,
-                                    CodeBlock,
-                                    Link,
-                                    OrderedList,
-                                    Image,
-                                    File,
-                                ]}
+                                enabledExtensions={ENABLED_EXTENSIONS}
                                 p={1}
                                 toolbarHeight={38}
                                 editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}

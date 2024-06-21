@@ -11,7 +11,7 @@ import {
     Box, TextField, Typography,
 } from '@mui/material';
 import Container from '@mui/material/Container';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,16 +42,27 @@ export default function New() {
     const handleTitleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     }, []);
+    const newThread = useMemo(() => ({
+        rootId,
+        title,
+        branchId,
+        objectId: branchId,
+        objectType: ThreadObjectType.Thread,
+        threadLocation: ThreadLocation.Thread,
+    }), [rootId, title, branchId]);
 
     return (
-        <Box m={4}>
+        <Box m={{
+            xs: 1,
+            md: 4,
+        }}>
             <Container maxWidth="md">
-                <Alert position="relative" mb={2} width={780} />
+                <Alert position="relative" mb={2} maxWidth={780} />
                 <Typography variant="h5" color="text.secondary">
                     <FontAwesomeIcon icon={faComments} />
                     <Box component="span" ml={2}>New Thread</Box>
                 </Typography>
-                <Box display="flex" alignItems="center" mt={2} width={780}>
+                <Box display="flex" alignItems="center" mt={2} maxWidth={780}>
                     <TextField
                         className="InputFieldWithLabel"
                         fullWidth
@@ -65,14 +76,7 @@ export default function New() {
                 <Box mt={2}>
                     <CommentEditor
                         autoFocus={false}
-                        newThread={{
-                            rootId,
-                            title,
-                            branchId,
-                            objectId: branchId,
-                            objectType: ThreadObjectType.Thread,
-                            threadLocation: ThreadLocation.Thread,
-                        }}
+                        newThread={newThread}
                         info="Start a conversation about current node."
                         onClose={handleClose}
                     />

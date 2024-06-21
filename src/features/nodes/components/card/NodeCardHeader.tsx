@@ -11,42 +11,36 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
     return (
         <Box className={node.coverImageUrl ? 'CoverHeader' : ''}>
             <CardHeader
-                sx={{
-                    p: 3,
-                    pr: 0,
-                    mr: 0,
-                    '& .MuiCardHeader-avatar': { mr: 0 },
-                }}
+                className="CardHeader"
                 avatar={(
                     <Box display="flex" alignItems="center" zIndex={1} position="relative">
                         <Link component={RouterLink} to={`/${node.owner.username}`}>
-                            <NcAvatar name={node.owner.name} src={node.owner.profileImageUrl} />
-                        </Link>
-                        <Link component={RouterLink} to={`/${node.owner.username}`}>
-                            <Typography variant="h6" color="text.primary" ml={1} fontWeight="bold">
-                                {node.owner.name}
-                            </Typography>
-                        </Link>
-                        <Link
-                            component={RouterLink}
-                            to={`/${node.owner.username}`}
-                            sx={{ '&:hover h6': { color: 'text.link' } }}
-                        >
-                            {node.owner.username && (
-                                <Typography variant="h6" color="text.tertiary" ml={1}>
-                @
-                                    {node.owner.username}
-                                </Typography>
-                            )}
+                            <NcAvatar name={node.owner.name} src={node.owner.profileImageUrl} size={45} />
                         </Link>
                     </Box>
                 )}
                 subheader={(
-                    <Box display="flex" alignItems="center">
-                        <Box component="span" mx={1} fontSize={30}>
-              ·
+                    <Box ml={2}>
+                        <Box display="flex" alignItems="center">
+                            <Link component={RouterLink} to={`/${node.owner.username}`}>
+                                <Typography variant="h6" color="text.primary" fontWeight="bold">
+                                    {node.owner.name}
+                                </Typography>
+                            </Link>
+                            <Link
+                                className="Link"
+                                component={RouterLink}
+                                to={`/${node.owner.username}`}
+                            >
+                                {node.owner.username && (
+                                    <Typography variant="h6" color="text.tertiary" ml={2}>
+                                        @
+                                        {node.owner.username}
+                                    </Typography>
+                                )}
+                            </Link>
                         </Box>
-                        <Typography color="text.tertiary">
+                        <Typography color="text.tertiary" variant="body2">
                             {' '}
                             {toLocalTime(node.createdAt)}
                         </Typography>

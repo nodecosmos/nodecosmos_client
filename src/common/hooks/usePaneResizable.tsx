@@ -1,21 +1,40 @@
-import { useState } from 'react';
+import useIsMobile from '../../features/app/hooks/useIsMobile';
+import React, {
+    useCallback, useMemo, useState,
+} from 'react';
 
-export default function usePaneResizable({
-    aRef, bRef, initialWidthA, initialWidthB, 
-}) {
+interface UsePaneResizableProps {
+    aRef: React.RefObject<HTMLDivElement>;
+    bRef: React.RefObject<HTMLDivElement>;
+    initialWidthA: string;
+    initialWidthB: string;
+}
+
+export default function usePaneResizable(props: UsePaneResizableProps) {
+    const {
+        aRef, bRef, initialWidthA, initialWidthB,
+    } = props;
     const [paneAWidth, setPaneAWidth] = useState(initialWidthA || '50%');
     const [paneBWidth, setPaneBWidth] = useState(initialWidthB || '50%');
-
     const [resizeInProgress, setResizeInProgress] = useState(false);
+    const isMobile = useIsMobile();
 
-    const handleResize = (e) => {
+    const handleResize = useCallback((e: React.MouseEvent) => {
+        if (!aRef.current || !bRef.current) {
+            return;
+        }
+
         e.stopPropagation();
         e.preventDefault();
         const startX = e.pageX;
         const startAWidth = aRef.current.offsetWidth;
         const startPaneWidth = bRef.current.offsetWidth;
 
-        const handleMouseMove = (e2) => {
+        const handleMouseMove = (e2: MouseEvent) => {
+            if (!aRef.current || !bRef.current) {
+                return;
+            }
+
             e.stopPropagation();
             e.preventDefault();
             setResizeInProgress(true);
@@ -23,8 +42,11 @@ export default function usePaneResizable({
             const newAWidth = startAWidth + dx;
             const newPaneWidth = startPaneWidth - dx;
 
-            let newPaneAWidthPercent = (newAWidth / aRef.current.parentNode.offsetWidth) * 100;
-            let newPaneBWidthPercent = (newPaneWidth / bRef.current.parentNode.offsetWidth) * 100;
+            const aParentNode = aRef.current.parentNode as HTMLElement;
+            const bParentNode = bRef.current.parentNode as HTMLElement;
+
+            let newPaneAWidthPercent = (newAWidth / aParentNode.offsetWidth || 1) * 100;
+            let newPaneBWidthPercent = (newPaneWidth / bParentNode.offsetWidth || 1) * 100;
 
             if (newPaneAWidthPercent < 30) {
                 newPaneAWidthPercent = 30;
@@ -47,12 +69,12 @@ export default function usePaneResizable({
 
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
-    };
+    }, [aRef, bRef]);
 
-    return {
-        paneAWidth,
-        paneBWidth,
+    return useMemo(() => ({
+        paneAWidth: isMobile ? '100%' : paneAWidth,
+        paneBWidth: isMobile ? '100%' : paneBWidth,
         handleResize,
         resizeInProgress,
-    };
+    }), [isMobile, paneAWidth, paneBWidth, handleResize, resizeInProgress]);
 }

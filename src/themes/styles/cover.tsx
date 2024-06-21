@@ -21,6 +21,10 @@ export default (theme: NodecosmosTheme) => ({
                 maxHeight: 375,
             },
         },
+        '@media (max-width: 600px)': {
+            height: 210,
+            '.CoverImage': { padding: 0 },
+        },
         '.AmbientImage': {
             position: 'absolute',
             width: '100%',

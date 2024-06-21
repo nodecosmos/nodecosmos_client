@@ -3,6 +3,7 @@ import {
 } from '../../features/app/constants';
 import { setNodeScrollTo } from '../../features/nodes/nodes.actions';
 import { selectScrollTo } from '../../features/nodes/nodes.selectors';
+import { NodecosmosDispatch } from '../../store';
 import usePannable from '../hooks/usePannable';
 import { useTransformableContextCreator } from '../hooks/useTransformableContext';
 import React, {
@@ -17,11 +18,11 @@ interface TransformableProps {
     heightMargin?: number;
 }
 
-export default function Transformable(props: TransformableProps) {
+function Transformable(props: TransformableProps) {
     const {
         children, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
     } = props;
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
     const [dimensions, setDimensions] = useState({
@@ -34,23 +35,23 @@ export default function Transformable(props: TransformableProps) {
     const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
     const scrollTo = useSelector(selectScrollTo);
 
+    const handleResize = useCallback(() => {
+        const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
+        const clientHeight = containerRef.current?.clientHeight || 0;
+        const height = Math.max(svgHeight, clientHeight - 8);
+
+        const newWidth = (gRef.current?.getBBox().width || 0) + TRANSFORMABLE_WIDTH_MARGIN;
+        const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
+
+        if (height !== dimensions.height || width !== dimensions.width) {
+            setDimensions({
+                height,
+                width,
+            });
+        }
+    }, [heightMargin, dimensions.height, dimensions.width]);
+
     useEffect(() => {
-        const handleResize = () => {
-            const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
-            const clientHeight = containerRef.current?.clientHeight || 0;
-            const height = Math.max(svgHeight, clientHeight - 8);
-
-            const newWidth = (gRef.current?.getBBox().width || 0) + TRANSFORMABLE_WIDTH_MARGIN;
-            const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
-
-            if (height !== dimensions.height || width !== dimensions.width) {
-                setDimensions({
-                    height,
-                    width,
-                });
-            }
-        };
-
         const resizeObserver = new ResizeObserver(handleResize);
         const gEl = gRef.current;
 
@@ -67,7 +68,7 @@ export default function Transformable(props: TransformableProps) {
     }, []);
 
     //------------------------------------------------------------------------------------------------
-    const { onMouseDown } = usePannable(containerRef);
+    const onMouseDown = usePannable(containerRef);
 
     //------------------------------------------------------------------------------------------------
     const handleScroll = useCallback((() => {
@@ -104,7 +105,6 @@ export default function Transformable(props: TransformableProps) {
     }, [scrollTop, dispatch, scrollTo]);
 
     const resizeTimeout = useRef<number | null>(null);
-    const clientHeight = containerRef.current?.clientHeight;
 
     useEffect(() => {
         window.onresize = () => {
@@ -113,7 +113,7 @@ export default function Transformable(props: TransformableProps) {
             }
 
             resizeTimeout.current = setTimeout(() => {
-                if (!clientHeight) return;
+                if (!containerRef.current?.clientHeight) return;
                 setTransformablePositions({
                     clientHeight: containerRef.current.clientHeight,
                     clientWidth: containerRef.current.clientWidth,
@@ -126,7 +126,7 @@ export default function Transformable(props: TransformableProps) {
         return () => {
             window.onresize = null;
         };
-    }, [clientHeight, setTransformablePositions]);
+    }, [setTransformablePositions]);
 
     const containerStyle = useMemo(() => ({ transform: `scale(${scale})` }), [scale]);
 
@@ -156,3 +156,5 @@ export default function Transformable(props: TransformableProps) {
         </TransformableContext.Provider>
     );
 }
+
+export default React.memo(Transformable);

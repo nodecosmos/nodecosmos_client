@@ -1,11 +1,13 @@
-// pan on mouse click and drag
+import React, { MouseEvent as ReactMouseEvent, useCallback } from 'react';
 
-export default function usePannable(containerRef) {
-    const handleMouseDown = (event) => {
+export default function usePannable(containerRef: React.RefObject<HTMLElement>) {
+    return useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
+        if (!containerRef.current) return;
+
         const { clientX: initialClientX, clientY: initialClientY } = event;
         const { scrollLeft: initialScrollLeft, scrollTop: initialScrollTop } = containerRef.current;
 
-        const handleMouseMove = (moveEvent) => {
+        const handleMouseMove = (moveEvent: MouseEvent) => {
             const { clientX, clientY } = moveEvent;
 
             const scrollLeft = initialScrollLeft + initialClientX - clientX;
@@ -24,7 +26,5 @@ export default function usePannable(containerRef) {
 
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
-    };
-
-    return { onMouseDown: handleMouseDown };
+    }, [containerRef]);
 }

@@ -44,7 +44,15 @@ export default function ContributionRequestMainThread() {
     }, [branchId, mainThread, rootId]);
 
     return (
-        <Box p={2} borderRadius={2} border={1} borderColor="borders.4" sx={{ backgroundColor: 'background.5' }}>
+        <Box
+            p={{
+                xs: 2,
+                md: 4,
+            }}
+            borderRadius={2}
+            border={1}
+            borderColor="borders.4"
+            sx={{ backgroundColor: 'background.1' }}>
             <ContributionRequestMainThreadComments />
             {mainThreadCommentEditor}
         </Box>

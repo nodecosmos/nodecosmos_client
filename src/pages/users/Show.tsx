@@ -37,11 +37,27 @@ export default function Show() {
         <Box height={1} display="flex">
             <Box
                 width={SIDEBAR_WIDTH}
+                display={{
+                    md: 'block',
+                    xs: 'none',
+                }}
                 borderRight={1}
                 height={1}
                 borderColor="borders.1"
             />
-            <Box m={4} width={1}>
+            <Box
+                m={{
+                    xs: 0,
+                    md: 4,
+                }}
+                mt={{
+                    xs: 1,
+                    md: 4,
+                }}
+                width={{
+                    md: `calc(100% - ${SIDEBAR_WIDTH})`,
+                    xs: 1,
+                }}>
                 <Profile />
             </Box>
         </Box>

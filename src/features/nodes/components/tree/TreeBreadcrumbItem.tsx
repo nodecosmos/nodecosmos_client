@@ -1,11 +1,9 @@
-import { NodecosmosTheme } from '../../../../themes/themes.types';
+import { TREE_COLORS } from '../../../../themes/themes.types';
 import { UUID } from '../../../../types';
 import { setNodeScrollTo } from '../../nodes.actions';
 import { faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    IconButton, Link, Tooltip, useTheme,
-} from '@mui/material';
+import { Link, Tooltip } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -21,9 +19,6 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
     const {
         id, title, index, handleClick,
     } = props;
-    const theme: NodecosmosTheme = useTheme();
-    const nestedLevelColors = theme.palette.tree.backgrounds;
-    const nestedTreeColor = nestedLevelColors[index % nestedLevelColors.length];
 
     const onClick = useCallback(() => {
         handleClick(id);
@@ -37,40 +32,20 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
         <div className="BreadcrumbItem">
             <Tooltip title="select">
                 <Link
+                    color="text.tertiary"
+                    className={`TreeNestedColorHover-${index % TREE_COLORS}`}
                     onClick={onClick}
-                    variant="body2"
-                    sx={{
-                        px: 1,
-                        py: 0.5,
-                        borderRadius: 1,
-                        ml: 1,
-                        fontWeight: 500,
-                        fontSize: 14,
-                        color: 'text.tertiary',
-                        '&:hover': {
-                            backgroundColor: nestedTreeColor.bg,
-                            color: `${nestedTreeColor.fg} !important`,
-                        },
-                    }}>
+                    variant="body2">
                     {title}
                 </Link>
             </Tooltip>
             <Tooltip title="scroll" placement="top">
-                <IconButton
-                    size="small"
-                    className="tools"
+                <button
                     onClick={handleCentering}
-                    sx={{
-                        mx: 1,
-                        svg: {
-                            color: 'borders.2',
-                            fontSize: 8,
-                        },
-                        '&:hover': { svg: { color: nestedTreeColor.fg } },
-                    }}
+                    className={`ScrollButton mx-1 tools TreeNestedColorHover-${index % TREE_COLORS}`}
                 >
                     <FontAwesomeIcon icon={faCircle} />
-                </IconButton>
+                </button>
             </Tooltip>
         </div>
     );

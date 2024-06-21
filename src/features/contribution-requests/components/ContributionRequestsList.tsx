@@ -58,7 +58,8 @@ const COLUMNS: GridColDef<ContributionRequest>[] = [
             return v1.username > v2.username ? 1 : -1;
         },
         field: 'owner',
-        flex: 0.25,
+        flex: 1,
+        minWidth: 150,
         renderCell: (params: GridRenderCellParams<ContributionRequest, Profile>) => {
             const value = params.value as Profile;
 
@@ -80,17 +81,19 @@ const COLUMNS: GridColDef<ContributionRequest>[] = [
     },
     {
         field: 'title',
-        flex: 0.75,
         headerName: 'Title',
+        flex: 3,
+        minWidth: 200,
         renderCell: (params: GridRenderCellParams<ContributionRequest, string>) => {
             return <NcLink to={params.row.id} title={params.value as string} />;
         },
     },
     {
         field: 'createdAt',
-        flex: 0.5,
         headerName: 'Date',
         type: 'dateTime',
+        flex: 1,
+        minWidth: 200,
         valueGetter: (params: string) => {
             return new Date(params);
         },
@@ -98,8 +101,9 @@ const COLUMNS: GridColDef<ContributionRequest>[] = [
     {
         headerName: '',
         field: 'actions',
-        flex: 1,
         type: 'string',
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: GridRenderCellParams<ContributionRequest>) => {
             if (params.row.status === ContributionRequestStatus.WorkInProgress) {
                 return (
@@ -138,6 +142,7 @@ export default function ContributionRequestsList() {
             rowHeight={48}
             filterModel={filterModel}
             scrollbarSize={0} // solves forced reflow issue
+            autoPageSize
         />
     );
 }

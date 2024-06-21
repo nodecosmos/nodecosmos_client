@@ -48,6 +48,9 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 padding: '16px 24px',
+                '@media (max-width: 600px)': {
+                    padding: '8px 12px',
+                },
             },
         },
     },

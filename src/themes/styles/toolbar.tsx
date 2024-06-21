@@ -6,6 +6,7 @@ export default (theme: NodecosmosTheme) => ({
         alignItems: 'center',
         justifyContent: 'flex-start',
         height: '100%',
+        overflow: 'hidden',
         '.ButtonWrapper': {
             display: 'inline-flex',
             alignItems: 'center',

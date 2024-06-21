@@ -9,7 +9,10 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-export default function NodeIndexSearch() {
+interface Props {
+    flex?: number;
+}
+export default function NodeIndexSearch({ flex }: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
 
     const dispatchTimeout = useRef<number | null>(null);
@@ -46,16 +49,18 @@ export default function NodeIndexSearch() {
 
     return (
         <>
-            <input type="text" style={{ display: 'none' }} />
             <TextField
                 sx={{
                     ml: 1.25,
                     height: 1,
+                    py: 0.75,
+                    maxWidth: '100%',
                     width: '350px',
                     svg: { color: 'toolbar.default' },
+                    flex,
                     '.MuiInputBase-root': {
                         borderColor: 'transparent',
-                        height: 32,
+                        height: 1,
                         borderRadius: 1,
                         pl: 0.5,
                     },

@@ -26,6 +26,7 @@ import scrollbar from './styles/scrollbar';
 import toolbar from './styles/toolbar';
 import transformable from './styles/transformable';
 import tree from './styles/tree';
+import utils from './styles/utils';
 import { NodecosmosTheme } from './themes.types';
 import { createTheme } from '@mui/material/styles';
 
@@ -46,6 +47,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 ...toolbar(theme),
                 ...tree(theme),
                 ...transformable(),
+                ...utils(),
                 '.Notification': {
                     borderRadius: 8,
                     border: '1px solid',
@@ -66,6 +68,13 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                         color: theme.palette.text.link,
                     },
                     backgroundColor: theme.palette.toolbar.active,
+                },
+                '.Resizer': {
+                    width: 8,
+                    height: '100%',
+                    position: 'relative',
+                    marginLeft: -8,
+                    '&:hover': { cursor: 'col-resize' },
                 },
             },
         },

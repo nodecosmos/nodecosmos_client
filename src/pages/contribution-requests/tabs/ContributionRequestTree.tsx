@@ -14,8 +14,6 @@ export default function ContributionRequestTree() {
     const theme: NodecosmosTheme = useTheme();
     const { nodeId, branchId } = useBranchContext();
     const branch = useSelector(selectBranch(branchId));
-    const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
-    const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
@@ -27,8 +25,8 @@ export default function ContributionRequestTree() {
     } = usePaneResizable({
         aRef: paneARef,
         bRef: paneBRef,
-        initialWidthA: treeWidthFromLocalStorage,
-        initialWidthB: nodePaneWidthFromLocalStorage,
+        initialWidthA: localStorage.getItem('treeWidth') || '50%',
+        initialWidthB: localStorage.getItem('nodePaneWidth') || '50%',
     });
     const onResizerLeave = useCallback(() => {
         if (!resizeInProgress) {
@@ -74,21 +72,11 @@ export default function ContributionRequestTree() {
                     branchId={branchId}
                     rootId={nodeId}
                     type={TreeType.ContributionRequest} />
-                <Box
-                    component="span"
+                <div
+                    className="Resizer"
                     onMouseDown={handleResize}
-                    width="4px"
-                    height={1}
-                    ml={-0.5}
-                    borderRight={1}
-                    borderColor="transparent"
                     onMouseEnter={hoverResizer}
                     onMouseLeave={onResizerLeave}
-                    sx={{
-                        backgroundColor: 'transparent',
-                        position: 'relative',
-                        '&:hover': { cursor: 'col-resize' },
-                    }}
                 />
             </Box>
             <Box

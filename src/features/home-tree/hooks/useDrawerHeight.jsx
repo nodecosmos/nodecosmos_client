@@ -1,4 +1,6 @@
-import { useState, useRef } from 'react';
+import {
+    useState, useRef, useCallback, 
+} from 'react';
 
 function useDrawerHeight() {
     const [height, setHeight] = useState(0);
@@ -7,7 +9,7 @@ function useDrawerHeight() {
     const textRef = useRef(null);
     const lastHeight = useRef(0);
 
-    const handleTouchStart = (event) => {
+    const handleTouchStart = useCallback((event) => {
         const yStart = event.touches[0].clientY;
         const textContainerHeight = textContainerRef.current.clientHeight;
 
@@ -39,7 +41,7 @@ function useDrawerHeight() {
 
         window.addEventListener('touchmove', handleTouchMove, { passive: false });
         window.addEventListener('touchend', handleTouchEnd, { passive: false });
-    };
+    }, []);
 
     // add event listener if there is no event listener
     if (drawerRef.current && !drawerRef.current.hasEventListener) {

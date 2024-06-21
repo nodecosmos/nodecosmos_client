@@ -3,8 +3,10 @@ import PaneDescription from './PaneDescription';
 import PaneDescriptionEditor from './PaneDescriptionEditor';
 import PaneMarkdownEditor from './PaneMarkdownEditor';
 import PaneWorkflow from './PaneWorkflow';
-import { HEADER_HEIGHT } from '../../../constants';
+import { HEADER_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from '../../../constants';
 import { PaneContent, usePaneContext } from '../../../hooks/pane/usePaneContext';
+import useIsMobile from '../../../hooks/useIsMobile';
+import PaneMobileToolbar from '../MobileToolbar';
 import Toolbar from '../Toolbar';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
@@ -17,9 +19,14 @@ const PANE_CONTENTS = {
     [PaneContent.Comments]: PaneComments,
 };
 
-export default function Content() {
+interface ClickableRefProps {
+    clickableRef?: React.RefObject<HTMLDivElement> | null;
+}
+
+export default function Content({ clickableRef }: ClickableRefProps) {
     const { content, metadata } = usePaneContext();
     const PaneContent = PANE_CONTENTS[content];
+    const isMobile = useIsMobile();
 
     if (metadata?.isTmp) {
         return (
@@ -54,8 +61,14 @@ export default function Content() {
             position="relative"
             zIndex={1}
         >
-            <Toolbar />
-            <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto">
+            {isMobile && clickableRef !== undefined ? <PaneMobileToolbar clickableRef={clickableRef} /> : <Toolbar />}
+            <Box
+                height={{
+                    xs: `calc(100% - ${MOBILE_TOOLBAR_HEIGHT})`,
+                    md: `calc(100% - ${HEADER_HEIGHT})`,
+                }}
+                overflow="auto"
+            >
                 <PaneContent />
             </Box>
         </Box>

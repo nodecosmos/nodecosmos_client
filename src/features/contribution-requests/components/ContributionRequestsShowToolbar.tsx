@@ -27,6 +27,7 @@ export default function ContributionRequestsShowToolbar() {
                 borderRadius={1.25}
                 hoverColor="background.7"
                 activeColor="background.7"
+                overflowX="auto"
             >
                 <ToolbarItem
                     title="Conversation"

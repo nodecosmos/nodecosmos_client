@@ -29,7 +29,11 @@ import {
 import Typography from '@mui/material/Typography';
 import React from 'react';
 
-export default function Sidebar() {
+interface Props {
+    handleClose?: () => void;
+}
+
+export default function Sidebar({ handleClose }: Props) {
     const {
         originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId, title,
     } = useBranchContext();
@@ -78,6 +82,7 @@ export default function Sidebar() {
                                 </Tooltip>
 
                                 <SidebarListItem
+                                    onClick={handleClose}
                                     to={`${originalId}/${branchNodeId}/contribution_requests/${branchId}`}
                                     icon={(<FontAwesomeIcon icon={faSquareLeft} />)}
                                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
@@ -90,12 +95,14 @@ export default function Sidebar() {
                     )
                 }
                 <SidebarListItem
+                    onClick={handleClose}
                     to={toPath}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHashtagSolid} />)}
                     title="Node"
                 />
                 <SidebarListItem
+                    onClick={handleClose}
                     to={`${toPath}/workflow`}
                     flip
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
@@ -105,6 +112,7 @@ export default function Sidebar() {
                     (!isBranch || isContributionRequest) && (
                         <>
                             <SidebarListItem
+                                onClick={handleClose}
                                 to={`${toPath}/contribution_requests`}
                                 icon={(<FontAwesomeIcon icon={faCodePullRequest} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faCodePullRequestSolid} />)}
@@ -112,6 +120,7 @@ export default function Sidebar() {
                                 end={false}
                             />
                             <SidebarListItem
+                                onClick={handleClose}
                                 to={`${toPath}/threads`}
                                 icon={(<FontAwesomeIcon icon={faMessageBot} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
@@ -124,12 +133,14 @@ export default function Sidebar() {
                                     size="2xs" />
                             </SidebarListItem>
                             <SidebarListItem
+                                onClick={handleClose}
                                 to={`${toPath}/team`}
                                 icon={(<FontAwesomeIcon icon={faUsers} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faUsersSolid} />)}
                                 title="Team"
                             />
                             <SidebarListItem
+                                onClick={handleClose}
                                 disabled
                                 to={`${toPath}/tasks_board`}
                                 icon={(<FontAwesomeIcon icon={faTable} />)}

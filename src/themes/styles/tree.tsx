@@ -73,4 +73,41 @@ export default (theme: NodecosmosTheme) => ({
             transition: 'r 0.2s, fill 0.2s, stroke 0.2s',
         },
     },
+
+    '.TreeNestedColorHover-0': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[0].bg,
+            color: theme.palette.tree.backgrounds[0].fg,
+        },
+    },
+    '.TreeNestedColorHover-1': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[1].bg,
+            color: theme.palette.tree.backgrounds[1].fg,
+        },
+    },
+    '.TreeNestedColorHover-2': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[2].bg,
+            color: theme.palette.tree.backgrounds[2].fg,
+        },
+    },
+    '.TreeNestedColorHover-3': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[3].bg,
+            color: theme.palette.tree.backgrounds[3].fg,
+        },
+    },
+    '.TreeNestedColorHover-4': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[4].bg,
+            color: theme.palette.tree.backgrounds[4].fg,
+        },
+    },
+    '.TreeNestedColorHover-5': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[5].bg,
+            color: theme.palette.tree.backgrounds[5].fg,
+        },
+    },
 });

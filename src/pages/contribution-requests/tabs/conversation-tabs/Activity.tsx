@@ -17,7 +17,7 @@ export default function Activity() {
             <Box mb={2}>
                 {
                     activityThreadIds && activityThreadIds.map((threadId) => (
-                        <Box mt={2} key={threadId} p={0}>
+                        <Box mt={2} key={threadId}>
                             <CommentThread id={threadId} showLine />
                         </Box>
                     ))

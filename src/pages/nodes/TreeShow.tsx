@@ -2,6 +2,7 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
+import { MD_FLEX } from '../../features/app/constants';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
@@ -19,9 +20,6 @@ export default function TreeShow() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const theme: NodecosmosTheme = useTheme();
 
-    const treeWidthFromLocalStorage = localStorage.getItem('treeWidth');
-    const nodePaneWidthFromLocalStorage = localStorage.getItem('nodePaneWidth');
-
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
@@ -34,8 +32,8 @@ export default function TreeShow() {
     } = usePaneResizable({
         aRef: paneARef,
         bRef: paneBRef,
-        initialWidthA: treeWidthFromLocalStorage,
-        initialWidthB: nodePaneWidthFromLocalStorage,
+        initialWidthA: localStorage.getItem('treeWidth') || '50%',
+        initialWidthB: localStorage.getItem('nodePaneWidth') || '50%',
     });
 
     useEffect(() => {
@@ -72,10 +70,7 @@ export default function TreeShow() {
 
     return (
         <Box
-            display={{
-                xs: 'block',
-                md: 'flex',
-            }}
+            display={MD_FLEX}
             width={1}
             height={1}
             overflow="hidden"
@@ -88,21 +83,11 @@ export default function TreeShow() {
                 display="flex"
             >
                 <Tree branchId={branchId} rootId={id} />
-                <Box
-                    component="span"
+                <div
+                    className="Resizer"
                     onMouseDown={handleResize}
-                    width="4px"
-                    height={1}
-                    ml={-0.5}
-                    borderRight={1}
-                    borderColor="transparent"
                     onMouseEnter={hoverResizer}
                     onMouseLeave={onResizerLeave}
-                    sx={{
-                        backgroundColor: 'transparent',
-                        position: 'relative',
-                        '&:hover': { cursor: 'col-resize' },
-                    }}
                 />
             </Box>
             <Box

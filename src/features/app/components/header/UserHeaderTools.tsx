@@ -3,6 +3,7 @@ import ToolbarContainer from '../../../../common/components/toolbar/ToolbarConta
 import NotificationsButton from '../../../notifications/components/NotificationsButton';
 import { REDIRECT_Q } from '../../../users/components/LoginForm';
 import { selectIsAuthenticated } from '../../../users/users.selectors';
+import useIsMobile from '../../hooks/useIsMobile';
 import {
     Box,
     Button, Tooltip,
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 export default function UserHeaderTools() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
+    const isMobile = useIsMobile();
 
     if (isAuthenticated) {
         return (
@@ -29,7 +31,7 @@ export default function UserHeaderTools() {
 
     // if it's not authenticated, show the login and signup buttons
     return (
-        <Box display="flex" justifyContent="end" height={30} width={150}>
+        <Box display="flex" justifyContent="end" height={30}>
             <Button
                 component={Link}
                 color="primary"
@@ -38,14 +40,15 @@ export default function UserHeaderTools() {
             >
                 Log in
             </Button>
-            <Button
-                component={Link}
-                variant="outlined"
-                className="LogoButton focused"
-                to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
-            >
-                Sign Up
-            </Button>
+            {!isMobile && (
+                <Button
+                    component={Link}
+                    color="primary"
+                    to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
+                >
+                    Sign up
+                </Button>
+            )}
         </Box>
     );
 }

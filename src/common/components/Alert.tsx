@@ -12,11 +12,12 @@ interface AlertProps {
     mb?: number;
     right?: number | string;
     width?: number | string;
+    maxWidth?: number | string;
 }
 
 export default function Alert(props: AlertProps) {
     const {
-        position = 'fixed', mb = 0, right = 'auto', width = '100%',
+        position = 'fixed', mb = 0, right = 'auto', width = '100%', maxWidth = '100%',
     } = props;
     const dispatch = useDispatch();
     const {
@@ -44,6 +45,7 @@ export default function Alert(props: AlertProps) {
             display={isOpen ? 'flex' : 'none'}
             minHeight={HEADER_HEIGHT}
             width={width}
+            maxWidth={maxWidth}
             zIndex={3}
             sx={{
                 position,

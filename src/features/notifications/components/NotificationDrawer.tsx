@@ -1,4 +1,5 @@
 import Notification from './Notification';
+import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { selectNotifications, selectUnseenNotificationCount } from '../notifications.selectors';
@@ -43,6 +44,9 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
                 <Typography variant="h5" color="text.secondary" mx={4} mb={4}>
                     <FontAwesomeIcon icon={faBell} />
                     <Box component="span" ml={2}>Notifications</Box>
+                    <Box component="span" ml={2}>
+                        <CloseModalButton onClose={onClose} />
+                    </Box>
                 </Typography>
                 <Box m={2} mb={4}>
                     {notifications.map((notification) => (

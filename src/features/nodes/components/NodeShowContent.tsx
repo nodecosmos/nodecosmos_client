@@ -1,8 +1,11 @@
+import MobileSidebar from './sidebar/MobileSidebar';
 import Sidebar from './sidebar/Sidebar';
 import Loader from '../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
-import { SIDEBAR_WIDTH } from '../../app/constants';
+import {
+    DISPLAY_MD, SIDEBAR_WIDTH, WIDTH_MD,
+} from '../../app/constants';
 import { useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useNodeSSE from '../hooks/sse/useNodeSSE';
@@ -91,13 +94,15 @@ export default function NodeShowContent() {
         <Box height={1} display="flex">
             <Box
                 width={SIDEBAR_WIDTH}
+                display={DISPLAY_MD}
                 borderRight={1}
                 borderColor="borders.1"
                 zIndex={4}
             >
                 <Sidebar />
             </Box>
-            <Box width={`calc(100% - ${SIDEBAR_WIDTH})`}>
+            <MobileSidebar />
+            <Box width={WIDTH_MD}>
                 <Outlet />
             </Box>
         </Box>

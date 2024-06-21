@@ -66,27 +66,31 @@ export default function PaneComments() {
     return (
         <Box sx={{
             width: 1,
-            p: 4,
+            p: {
+                xs: 2,
+                md: 4,
+            },
         }}>
-            <Box>
-                <Container>
-                    <Typography variant="h5" color="text.secondary">
-                        <FontAwesomeIcon icon={faComments} />
-                        <Box component="span" ml={2}>Conversation</Box>
-                    </Typography>
-                </Container>
-                <Container sx={{
-                    backgroundColor: 'background.1',
-                    border: 1,
-                    borderColor: 'borders.4',
-                    borderRadius: 2,
-                    p: 4,
-                    mt: 4,
-                }}>
-                    <Comments />
-                    {mainThreadCommentEditor}
-                </Container>
-            </Box>
+            <Container>
+                <Typography variant="h5" color="text.secondary">
+                    <FontAwesomeIcon icon={faComments} />
+                    <Box component="span" ml={2}>Conversation</Box>
+                </Typography>
+            </Container>
+            <Container sx={{
+                backgroundColor: 'background.1',
+                border: 1,
+                borderColor: 'borders.4',
+                borderRadius: 2,
+                p: {
+                    xs: 2,
+                    md: 4,
+                },
+                mt: 4,
+            }}>
+                <Comments />
+                {mainThreadCommentEditor}
+            </Container>
         </Box>
     );
 }

@@ -1,4 +1,3 @@
-import { SIDEBAR_WIDTH } from '../../features/app/constants';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { faChevronDown } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +5,7 @@ import {
     Box, Button, Divider,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ResponsiveStyleValue } from '@mui/system/styleFunctionSx';
 import React, {
     useCallback,
     useEffect, useRef, useState,
@@ -15,11 +15,13 @@ interface Props {
     children: React.ReactNode[];
     onMore?: () => void;
     maxWidth?: number;
+    width?: string | number | ResponsiveStyleValue<string | number>;
+    p?: number | ResponsiveStyleValue<number>;
 }
 
 // Renders elements that are visible in the viewport
 export default function VirtualContainer({
-    children, onMore, maxWidth = 680,
+    children, onMore, maxWidth = 680, width = '100%', p,
 }: Props) {
     const [visibleItems, setVisibleItems] = useState(new Set<number>());
     const listRef = useRef<HTMLDivElement>(null);
@@ -81,7 +83,8 @@ export default function VirtualContainer({
         <Box
             ref={listRef}
             height={1}
-            width={`calc(100% - ${SIDEBAR_WIDTH})`}
+            width={width}
+            p={p}
             overflow="auto"
             pb={4}
         >
@@ -94,7 +97,8 @@ export default function VirtualContainer({
                 <Box width={1} my={3} display="flex" alignItems="center" justifyContent="center" position="relative">
                     <Divider sx={{
                         position: 'absolute',
-                        width: maxWidth,
+                        width,
+                        maxWidth,
                         backgroundColor: 'toolbar.default',
                     }} />
                     <Box width={maxWidth} textAlign="center">

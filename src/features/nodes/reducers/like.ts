@@ -27,12 +27,12 @@ export function unlikeObjectFulfilled(state: NodeState, action: ReturnType<typeo
 }
 
 function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number) {
-    if (branchId) {
-        const likeCount = state.byBranchId[branchId][id].likeCount || 0;
-        state.byBranchId[branchId][id].likeCount = likeCount + increment;
-    }
-
     if (id === branchId && state.indexNodesById[id]) {
         state.indexNodesById[id].likeCount += increment;
+    }
+
+    if (branchId && state.byBranchId[branchId] && state.byBranchId[branchId][id]) {
+        const likeCount = state.byBranchId[branchId][id].likeCount || 0;
+        state.byBranchId[branchId][id].likeCount = likeCount + increment;
     }
 }

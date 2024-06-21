@@ -63,7 +63,7 @@ export default function Show() {
     }
 
     return (
-        <Box m={4}>
+        <Box my={4}>
             <Container>
                 <Alert position="relative" mb={2} />
                 <Typography variant="h5" color="text.secondary" mb={2} mx={2}>

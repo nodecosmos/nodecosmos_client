@@ -15,21 +15,25 @@ interface Props {
     showIndicator?: boolean;
     hoverColor?: string;
     activeColor?: string;
+    overflowX?: string;
 }
 
 export default function ToolbarContainer(props: Props) {
     const {
         children, round = true, size = HEADER_HEIGHT, ml = 0, mr = 0, hasText = false, hasBg = false, fontSize = '1rem',
         borderRadius = 0, showIndicator = true, hoverColor = 'toolbar.hover', activeColor = 'toolbar.active',
+        overflowX = 'hidden',
     } = props;
 
     return (
         <Box
             className="Toolbar"
             sx={{
+                overflowX,
                 '.ButtonWrapper': {
                     ml,
                     mr,
+                    whiteSpace: 'nowrap',
                     '&:hover': {
                         button: {
                             borderRadius: round ? '50%' : borderRadius,

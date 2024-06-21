@@ -14,6 +14,20 @@ import { MarkdownExtension } from 'remirror/extensions';
 
 const RemirrorEditor = React.lazy(() => import('../../../../common/components/editor/RemirrorEditor'));
 
+const {
+    Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
+} = EnabledExtensions;
+
+const ENABLED_EXTENSIONS = [
+    Bold,
+    Italic,
+    Strike,
+    Markdown,
+    Blockquote,
+    Link,
+    OrderedList,
+];
+
 export default function Bio() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const user = useProfileUser();
@@ -45,10 +59,6 @@ export default function Bio() {
 
         return handleUpdateBioDebounced(helpers);
     }, [handleUpdateBioDebounced, setLoading]);
-
-    const {
-        Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
-    } = EnabledExtensions;
 
     return (
         <Box mt={4} width={1}>
@@ -90,21 +100,12 @@ export default function Bio() {
                             width={1}
                             border={1}
                             borderColor="borders.1"
-                            borderRadius={2}
-                            overflow="hidden">
+                            borderRadius={2}>
                             <RemirrorEditor
                                 onBlur={closeBioEditor}
                                 markdown={user.bio}
                                 onChange={handleBio}
-                                enabledExtensions={[
-                                    Bold,
-                                    Italic,
-                                    Strike,
-                                    Markdown,
-                                    Blockquote,
-                                    Link,
-                                    OrderedList,
-                                ]}
+                                enabledExtensions={ENABLED_EXTENSIONS}
                                 p={1}
                                 toolbarHeight={38}
                                 editorBackgroundColor="background.2"

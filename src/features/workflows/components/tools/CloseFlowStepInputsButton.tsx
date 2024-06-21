@@ -1,11 +1,13 @@
+import useIsMobile from '../../../app/hooks/useIsMobile';
 import useWorkflowContext from '../../hooks/useWorkflowContext';
-import { faCodePullRequestClosed } from '@fortawesome/pro-light-svg-icons';
+import { faClose } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@mui/material';
 import React from 'react';
 
 export default function CloseFlowStepInputsButton() {
     const { inputsAdditionActive, deactivateInputsAddition } = useWorkflowContext();
+    const isMobile = useIsMobile();
 
     if (!inputsAdditionActive) return null;
 
@@ -14,10 +16,10 @@ export default function CloseFlowStepInputsButton() {
             variant="outlined"
             color="error"
             onClick={deactivateInputsAddition}
-            startIcon={<FontAwesomeIcon icon={faCodePullRequestClosed} />}
+            startIcon={<FontAwesomeIcon icon={faClose} />}
             sx={{ mr: 1 }}
         >
-            Close Inputs Addition
+            {isMobile ? 'Close' : 'Close Step Inputs'}
         </Button>
     );
 }

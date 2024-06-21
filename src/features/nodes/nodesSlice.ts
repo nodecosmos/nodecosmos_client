@@ -64,6 +64,7 @@ const initialState: NodeState = {
     treeDensity: parseDensityFromLS(),
     showAncestorChain: parseShowAncestorChainFromLS(),
     indexSearchTerm: undefined,
+    sidebarOpen: false,
 };
 
 const nodesSlice = createSlice({
@@ -76,6 +77,9 @@ const nodesSlice = createSlice({
         deleteFromState,
         select,
         search,
+        setSidebarOpen: (state: NodeState, action: PayloadAction<boolean>) => {
+            state.sidebarOpen = action.payload;
+        },
         setSaveInProgress: (state: NodeState, action: PayloadAction<boolean>) => {
             state.saveInProgress = action.payload;
         },

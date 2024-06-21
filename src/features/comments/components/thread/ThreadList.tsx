@@ -31,6 +31,7 @@ const INITIAL_STATE: GridInitialStateCommunity = {
 const COLUMNS: GridColDef<CommentThread>[] = [
     {
         headerName: 'Author',
+        field: 'author',
         sortComparator: (v1: Profile, v2: Profile) => {
             if (!v1.username || !v2.username) {
                 return 0;
@@ -38,8 +39,8 @@ const COLUMNS: GridColDef<CommentThread>[] = [
 
             return v1.username > v2.username ? 1 : -1;
         },
-        field: 'author',
-        flex: 0.25,
+        flex: 1,
+        minWidth: 150,
         renderCell: (params: GridRenderCellParams<CommentThread, Profile>) => {
             const value = params.value as Profile;
 
@@ -61,17 +62,19 @@ const COLUMNS: GridColDef<CommentThread>[] = [
     },
     {
         field: 'title',
-        flex: 0.75,
         headerName: 'Title',
+        flex: 1,
+        minWidth: 200,
         renderCell: (params: GridRenderCellParams<CommentThread, string>) => {
             return <NcLink to={params.row.id} title={params.value as string} />;
         },
     },
     {
         field: 'createdAt',
-        flex: 0.5,
         headerName: 'Date',
         type: 'dateTime',
+        flex: 1,
+        minWidth: 200,
         valueGetter: (params: string) => {
             return new Date(params);
         },
@@ -79,8 +82,9 @@ const COLUMNS: GridColDef<CommentThread>[] = [
     {
         headerName: '',
         field: 'actions',
-        flex: 1,
         type: 'string',
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: GridRenderCellParams<CommentThread>) => {
             return <ThreadActions id={params.row.id} />;
         },
