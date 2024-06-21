@@ -2,12 +2,7 @@ import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
     '.DescriptionHTML': {
-        fontFamily: [
-            '-apple-system',
-            'system-ui',
-            'Roboto',
-            'sans-serif',
-        ].join(','),
+        fontFamily: '-apple-system, system-ui, Roboto, sans-serif',
         width: '100%',
         '&.size-850': { maxWidth: 850 },
         color: theme.palette.text.secondary,

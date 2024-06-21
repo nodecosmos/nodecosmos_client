@@ -52,10 +52,7 @@ export default function New() {
     }), [rootId, title, branchId]);
 
     return (
-        <Box m={{
-            xs: 1,
-            md: 4,
-        }}>
+        <Box my={4}>
             <Container maxWidth="md">
                 <Alert position="relative" mb={2} maxWidth={780} />
                 <Typography variant="h5" color="text.secondary">

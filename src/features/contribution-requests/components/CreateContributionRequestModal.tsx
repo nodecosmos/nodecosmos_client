@@ -70,7 +70,7 @@ function CreateContributionRequestModal(props: Props) {
                         Contribution Request
                     </Typography>
                 </div>
-                <Typography variant="subtitle1" color="text.secondary" mt={1} px={4} align="center" width={1}>
+                <Typography variant="subtitle1" color="text.secondary" mt={1} align="center" width={1}>
                     Create contribution request to propose set of changes to the node
                 </Typography>
                 <CloseModalButton onClose={onClose} />
@@ -108,7 +108,6 @@ function CreateContributionRequestModal(props: Props) {
                                     Create
                                 </Typography>
                             </Button>
-
                         </form>
                     )}
                 </Form>

@@ -19,6 +19,9 @@ export default (theme: NodecosmosTheme) => ({
                         color: theme.palette.text.tertiary,
                         marginRight: 12,
                     },
+                    '@media (max-width: 600px)': {
+                        padding: 8,
+                    },
                 },
                 '.CloseModalButton': {
                     display: 'flex',
@@ -29,8 +32,13 @@ export default (theme: NodecosmosTheme) => ({
                     right: 16,
                     padding: 0,
                     svg: {
-                        color: theme.palette.button.contrastText,
+                        color: theme.palette.text.tertiary,
                         fontSize: 18,
+                    },
+
+                    '@media (max-width: 600px)': {
+                        top: 16,
+                        right: 0,
                     },
                 },
 

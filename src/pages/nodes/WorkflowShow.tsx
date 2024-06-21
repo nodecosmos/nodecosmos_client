@@ -3,7 +3,8 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
-import { MD_FLEX } from '../../features/app/constants';
+import { MD_FLEX, MOBILE_NO_HEIGHT } from '../../features/app/constants';
+import useIsMobile from '../../features/app/hooks/useIsMobile';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import Workflow from '../../features/workflows/components/Workflow';
@@ -14,6 +15,9 @@ import { NodecosmosTheme } from '../../themes/themes.types';
 import { Box, useTheme } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+const WORKFLOW_WIDTH = 'workflowWidth';
+const WORKFLOW_PANE_WIDTH = 'workflowPaneWidth';
 
 export default function WorkflowShow() {
     const {
@@ -26,17 +30,14 @@ export default function WorkflowShow() {
     const isPaneOpen = useSelector(selectIsPaneOpen);
     const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
-
     const workflowNodeId = workflow?.nodeId;
-
     const [loading, setLoading] = React.useState(!workflowNodeId);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
-
-    const workflowWidthFromLocalStorage = localStorage.getItem('workflowWidth');
-    const workflowPaneWidthFromLocalStorage = localStorage.getItem('workflowPaneWidth');
-
+    const workflowWidthFromLocalStorage = localStorage.getItem(WORKFLOW_WIDTH);
+    const workflowPaneWidthFromLocalStorage = localStorage.getItem(WORKFLOW_PANE_WIDTH);
     const workflowRef = React.useRef(null);
     const workflowDetailsRef = React.useRef(null);
+    const isMobile = useIsMobile();
 
     const {
         paneAWidth,
@@ -51,9 +52,11 @@ export default function WorkflowShow() {
     });
 
     useEffect(() => {
-        localStorage.setItem('workflowWidth', paneAWidth);
-        localStorage.setItem('workflowPaneWidth', paneBWidth);
-    }, [paneAWidth, paneBWidth]);
+        if (isMobile) return;
+
+        localStorage.setItem(WORKFLOW_WIDTH, paneAWidth);
+        localStorage.setItem(WORKFLOW_PANE_WIDTH, paneBWidth);
+    }, [isMobile, paneAWidth, paneBWidth]);
 
     useEffect(() => {
         if (!workflowNodeId && rootId) {
@@ -85,6 +88,9 @@ export default function WorkflowShow() {
         }
     }, [branchId, dispatch, isBranch, nodeId, rootId]);
     const style = useMemo(() => ({ cursor: resizeInProgress ? 'col-resize' : 'default' }), [resizeInProgress]);
+    const resizerStyle = useMemo(() => (
+        { borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'] }
+    ), [resizerHovered, theme.palette.borders]);
 
     if (loading || !rootId) {
         return <Loader />;
@@ -93,8 +99,6 @@ export default function WorkflowShow() {
     if (!workflow) {
         throw new Error('Workflow not found');
     }
-
-    const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
 
     return (
         <Box
@@ -123,7 +127,7 @@ export default function WorkflowShow() {
                 />
                 <Box
                     component="div"
-                    height={1}
+                    height={MOBILE_NO_HEIGHT}
                     display={isPaneOpen ? 'block' : 'none'}
                     width={(isPaneOpen && paneBWidth) || 0}
                     ref={workflowDetailsRef}
@@ -131,7 +135,7 @@ export default function WorkflowShow() {
                     boxShadow="left.2"
                     borderLeft={1}
                     zIndex={1000}
-                    style={{ borderLeftColor }}
+                    style={resizerStyle}
                 >
                     <Pane rootId={rootId} page={PanePage.Workflow} />
                 </Box>

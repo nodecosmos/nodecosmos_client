@@ -15,18 +15,6 @@ export default function MobilePane({ rootId, page }: PaneProps) {
     });
     const [height, drawerRef, clickableRef] = useDrawer();
 
-    // const handleClick = useCallback(() => {
-    //     setHeight((prevHeight) => {
-    //         const isNumber = typeof prevHeight === 'number';
-    //
-    //         if (isNumber && (prevHeight > (window.innerHeight / 2))) {
-    //             return MOBILE_PANE_HEIGHT;
-    //         } else {
-    //             return 60;
-    //         }
-    //     });
-    // }, [setHeight]);
-
     if (!CtxCreatorValue.isObjectSelected) {
         return (
             <Box

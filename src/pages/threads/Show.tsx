@@ -74,7 +74,7 @@ export default function Show() {
                     component="div"
                     border={1}
                     borderColor="borders.3"
-                    borderRadius={4}
+                    borderRadius={3}
                     p={2}
                     boxSizing="border-box"
                     sx={{ backgroundColor: 'background.5' }}

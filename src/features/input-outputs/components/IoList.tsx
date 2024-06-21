@@ -1,5 +1,5 @@
 import IoListItem from './IoListItem';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { FormApi } from 'final-form';
 import React, { useCallback } from 'react';
 
@@ -9,6 +9,11 @@ interface Props {
     titleFromList: string | null;
     setTitleFromList: (value: string | null) => void;
 }
+
+const MAX_HEIGHT = {
+    xs: 300,
+    sm: 'auto',
+};
 
 export default function IoList(props: Props) {
     const {
@@ -31,25 +36,29 @@ export default function IoList(props: Props) {
     }
 
     return (
-        <Box
-            component="ul"
-            mt={2}
-            p={1}
-            borderRadius={2}
-            border={titleFromList ? 2 : 1}
-            borderColor={titleFromList ? 'text.link' : 'borders.3'}
-            sx={{ backgroundColor: 'background.4' }}>
-            {
-                titlesToDisplay.map((title, idx) => (
-                    <IoListItem
-                        key={title}
-                        mt={idx ? 2 : 0}
-                        noHover={!!titleFromList}
-                        title={title}
-                        onClick={handleClick}
-                    />
-                ))
-            }
+        <Box mt={2} maxHeight={MAX_HEIGHT} height={1}>
+            <Typography variant="body2" fontWeight="bold" color="text.secondary">
+                Existing Inputs
+            </Typography>
+            <Box
+                component="ul"
+                p={1}
+                borderRadius={2}
+                border={titleFromList ? 2 : 1}
+                borderColor={titleFromList ? 'text.link' : 'borders.3'}
+                sx={{ backgroundColor: 'background.4' }}>
+                {
+                    titlesToDisplay.map((title, idx) => (
+                        <IoListItem
+                            key={title}
+                            mt={idx ? 2 : 0}
+                            noHover={!!titleFromList}
+                            title={title}
+                            onClick={handleClick}
+                        />
+                    ))
+                }
+            </Box>
         </Box>
     );
 }

@@ -1,3 +1,4 @@
+import LazyLoadComponent from '../../../../../common/components/LazyLoadComponent';
 import Loader from '../../../../../common/components/Loader';
 import SimpleAlert from '../../../../../common/components/SimpleAlert';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
@@ -16,7 +17,6 @@ export default function PaneDescriptionEditor() {
         rootId,
         loading,
     } = usePaneContext();
-
     const {
         objectId,
         objectNodeId,
@@ -39,22 +39,24 @@ export default function PaneDescriptionEditor() {
     }
 
     return (
-        <Suspense fallback={<Loader />}>
-            <Box height={1}>
-                <RemirrorEditor
-                    markdown={markdown || ''}
-                    onChange={handleChange}
-                    base64={base64}
-                    wsRoomId={objectId}
-                    wsAuthNodeId={objectNodeId}
-                    wsAuthNodeBranchId={branchId}
-                    wsAuthRootId={rootId}
-                    editorOutline={0}
-                    editorBackgroundColor="background.5"
-                    editorFocusBorderColor="toolbar.default"
-                    isRealTime
-                />
-            </Box>
-        </Suspense>
+        <LazyLoadComponent>
+            <Suspense fallback={<Loader />}>
+                <Box height={1}>
+                    <RemirrorEditor
+                        markdown={markdown || ''}
+                        onChange={handleChange}
+                        base64={base64}
+                        wsRoomId={objectId}
+                        wsAuthNodeId={objectNodeId}
+                        wsAuthNodeBranchId={branchId}
+                        wsAuthRootId={rootId}
+                        editorOutline={0}
+                        editorBackgroundColor="background.5"
+                        editorFocusBorderColor="toolbar.default"
+                        isRealTime
+                    />
+                </Box>
+            </Suspense>
+        </LazyLoadComponent>
     );
 }

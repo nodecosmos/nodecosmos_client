@@ -1,10 +1,14 @@
 import Alert from './Alert';
 import CloseModalButton from './modal/CloseModalButton';
 import SimpleAlert from './SimpleAlert';
+import {
+    MD_FLEX, ML_MD, MT_XS,
+} from '../../features/app/constants';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { faCheck, faClose } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+    Box,
     Button, DialogActions, DialogContent, Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -75,20 +79,34 @@ export default function ConfirmationModal(props: Props) {
                 {info && <SimpleAlert severity="info" message={info} />}
             </DialogContent>
             <DialogActions>
-                <Button disableElevation variant="contained" onClick={onClose} color="button">Cancel</Button>
-                <Button
-                    disableElevation
-                    variant="outlined"
-                    onClick={handleConfirm}
-                    color={confirmType}
-                    startIcon={
-                        loading
-                            ? <CircularProgress size={20} style={progressStyle} />
-                            : <FontAwesomeIcon icon={icon} />
-                    }
-                >
-                    {confirmText}
-                </Button>
+                <Box display={MD_FLEX} width={1} justifyContent="end">
+                    <Box width={1}>
+                        <Button
+                            fullWidth
+                            disableElevation
+                            variant="contained"
+                            onClick={onClose}
+                            color="button">Cancel
+                        </Button>
+                    </Box>
+                    <Box mt={MT_XS} ml={ML_MD} width={1}>
+                        <Button
+                            fullWidth
+                            disableElevation
+                            variant="outlined"
+                            onClick={handleConfirm}
+                            color={confirmType}
+                            startIcon={
+                                loading
+                                    ? <CircularProgress size={20} style={progressStyle} />
+                                    : <FontAwesomeIcon icon={icon} />
+                            }
+                        >
+                            {confirmText}
+                        </Button>
+                    </Box>
+
+                </Box>
             </DialogActions>
         </Dialog>
     );

@@ -2,7 +2,8 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { setHeaderContent } from '../../features/app/appSlice';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
-import { MD_FLEX } from '../../features/app/constants';
+import { MD_FLEX, MOBILE_NO_HEIGHT } from '../../features/app/constants';
+import useIsMobile from '../../features/app/hooks/useIsMobile';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
@@ -10,9 +11,14 @@ import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/themes.types';
 import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
+const TREE_WIDTH = 'treeWidth';
+const NODE_PANE_WIDTH = 'nodePaneWidth';
 
 export default function TreeShow() {
     const { id } = useParams<{id: UUID}>();
@@ -23,7 +29,7 @@ export default function TreeShow() {
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
-
+    const isMobile = useIsMobile();
     const {
         paneAWidth,
         paneBWidth,
@@ -32,14 +38,16 @@ export default function TreeShow() {
     } = usePaneResizable({
         aRef: paneARef,
         bRef: paneBRef,
-        initialWidthA: localStorage.getItem('treeWidth') || '50%',
-        initialWidthB: localStorage.getItem('nodePaneWidth') || '50%',
+        initialWidthA: localStorage.getItem(TREE_WIDTH) || '50%',
+        initialWidthB: localStorage.getItem(NODE_PANE_WIDTH) || '50%',
     });
 
     useEffect(() => {
-        localStorage.setItem('treeWidth', paneAWidth);
-        localStorage.setItem('nodePaneWidth', paneBWidth);
-    }, [paneAWidth, paneBWidth]);
+        if (isMobile) return;
+
+        localStorage.setItem(TREE_WIDTH, paneAWidth);
+        localStorage.setItem(NODE_PANE_WIDTH, paneBWidth);
+    }, [isMobile, paneAWidth, paneBWidth]);
 
     useEffect(() => {
         dispatch(setHeaderContent('TreeShowHeader'));
@@ -60,6 +68,10 @@ export default function TreeShow() {
             leaveResizer();
         }
     }, [resizeInProgress, leaveResizer]);
+
+    const resizerStyle = useMemo(() => (
+        { borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'] }
+    ), [resizerHovered, theme.palette.borders]);
 
     if (!id) {
         throw new Error('No id provided');
@@ -92,12 +104,12 @@ export default function TreeShow() {
             </Box>
             <Box
                 ref={paneBRef}
-                height={1}
+                height={MOBILE_NO_HEIGHT}
                 width={paneBWidth}
                 overflow="hidden"
                 boxShadow="left.2"
                 borderLeft={1}
-                style={{ borderLeftColor: resizerHovered ? theme.palette.borders['4'] : theme.palette.borders['2'] }}
+                style={resizerStyle}
             >
                 <Pane rootId={nodeRootId} page={PanePage.Tree} />
             </Box>

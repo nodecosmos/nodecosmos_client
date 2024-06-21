@@ -58,7 +58,6 @@ export default function useDrawer():
 
     // add event listener if there is no event listener
     if (clickableRef.current && !addedEventListener) {
-        console.log('hit');
         setAddedEventListener(true);
         clickableRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
     }

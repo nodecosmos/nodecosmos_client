@@ -64,8 +64,7 @@ function Transformable(props: TransformableProps) {
                 resizeObserver.unobserve(gEl);
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [handleResize]);
 
     //------------------------------------------------------------------------------------------------
     const onMouseDown = usePannable(containerRef);

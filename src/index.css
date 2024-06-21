@@ -19,7 +19,7 @@ html, body, #root {
     width: 100%;
     margin: 0;
     line-height: 1.75;
-    overscroll-behavior: none;
+    position: fixed;
 }
 
 input {

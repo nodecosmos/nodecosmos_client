@@ -34,3 +34,18 @@ export const MOBILE_HEIGHT = {
     xs: `calc(100% - ${HEADER_HEIGHT})`,
     md: 1,
 };
+
+export const MOBILE_NO_HEIGHT = {
+    xs: 0,
+    md: 1,
+};
+
+export const MT_XS = {
+    xs: 1,
+    md: 0,
+};
+
+export const ML_MD = {
+    xs: 0,
+    md: 1,
+};

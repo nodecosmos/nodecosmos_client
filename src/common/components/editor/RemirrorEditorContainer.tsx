@@ -38,7 +38,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
                     zIndex: 1,
                     width: 1,
                     whiteSpace: 'nowrap',
-                    overflow: 'auto',
+                    overflowX: 'auto',
                     borderBottom: 1,
                     borderColor: 'borders.2',
                     backgroundColor: 'background.5',

@@ -11,7 +11,7 @@ import {
 } from '../../constants';
 import useIsMobile from '../../hooks/useIsMobile';
 import {
-    Box, Button, Chip, Typography,
+    Box, Button, Typography,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ export default function Header() {
     const headerContent = useSelector(selectHeaderContent);
     const isMobile = useIsMobile();
     const hasSidebar = useMemo(() => (
-        !isMobile && SIDEBAR_PATHS.includes(location.pathname)
+        !isMobile && SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path))
     ), [isMobile, location.pathname]);
 
     if (NON_HEADER_PATHS.includes(location.pathname)) return null;
@@ -57,7 +57,7 @@ export default function Header() {
                     borderColor="borders.1"
                 >
                     <MobileSidebarIcon />
-                    <Box m={1}>
+                    <Box ml={1}>
                         <Button
                             component={Link}
                             to="/nodes"
@@ -68,19 +68,17 @@ export default function Header() {
                                 <Box component="span" color="logo.blue">node</Box>
                                 <Box component="span" color="logo.red">cosmos</Box>
                             </Typography>
+                            <Typography
+                                fontWeight="bold"
+                                variant="subtitle2"
+                                color="text.tertiary"
+                                ml={1}
+                                mt={0.25}
+                            >
+                                beta
+                            </Typography>
                         </Button>
                     </Box>
-                    <Chip
-                        size="small"
-                        label="beta"
-                        sx={{
-                            zIndex: 1000,
-                            width: 45,
-                            height: 15,
-                            borderColor: 'transparent',
-                            color: 'toolbar.default',
-                        }}
-                    />
                 </Box>
                 <Box
                     display="flex"

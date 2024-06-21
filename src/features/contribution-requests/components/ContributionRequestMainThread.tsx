@@ -50,11 +50,12 @@ export default function ContributionRequestMainThread() {
                 md: 4,
             }}
             borderRadius={2}
-            border={1}
             borderColor="borders.4"
             sx={{ backgroundColor: 'background.1' }}>
             <ContributionRequestMainThreadComments />
-            {mainThreadCommentEditor}
+            <Box mt={2}>
+                {mainThreadCommentEditor}
+            </Box>
         </Box>
     );
 }

@@ -89,7 +89,9 @@ export default function PaneComments() {
                 mt: 4,
             }}>
                 <Comments />
-                {mainThreadCommentEditor}
+                <Box mt={4}>
+                    {mainThreadCommentEditor}
+                </Box>
             </Container>
         </Box>
     );

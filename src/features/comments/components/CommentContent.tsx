@@ -45,8 +45,9 @@ export default function CommentContent({ isLast }: CommentContentProps) {
                 <Box
                     p={2}
                     backgroundColor="background.5"
-                    borderRadius={3}
+                    borderRadius={2}
                     className="DescriptionHTML"
+                    maxWidth={780}
                     dangerouslySetInnerHTML={{ __html: content as TrustedHTML }} />
             </div>
         );

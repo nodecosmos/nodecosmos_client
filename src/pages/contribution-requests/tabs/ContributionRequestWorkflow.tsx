@@ -3,7 +3,8 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../../features/app/app.selectors';
 import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
-import { MD_FLEX } from '../../../features/app/constants';
+import { MD_FLEX, MOBILE_NO_HEIGHT } from '../../../features/app/constants';
+import useIsMobile from '../../../features/app/hooks/useIsMobile';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../../features/nodes/nodes.selectors';
 import Workflow from '../../../features/workflows/components/Workflow';
@@ -13,9 +14,12 @@ import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosTheme } from '../../../themes/themes.types';
 import { Box, useTheme } from '@mui/material';
 import React, {
-    useEffect, useRef, useState,
+    useEffect, useMemo, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+const CR_WORKFLOW_WIDTH = 'contribution-request-workflow-width';
+const CR_WORKFLOW_PANE_WIDTH = 'contribution-request-workflow-pane-width';
 
 export default function ContributionRequestWorkflow() {
     const {
@@ -33,6 +37,7 @@ export default function ContributionRequestWorkflow() {
     const node = useSelector(maybeSelectNode(branchId, nodeId));
     const rootId = node?.rootId;
     const [loading, setLoading] = useState(!workflow);
+    const isMobile = useIsMobile();
 
     const {
         paneAWidth,
@@ -42,14 +47,16 @@ export default function ContributionRequestWorkflow() {
     } = usePaneResizable({
         aRef: workflowRef,
         bRef: workflowDetailsRef,
-        initialWidthA: localStorage.getItem('workflowWidth') || '70%',
-        initialWidthB: localStorage.getItem('workflowPaneWidth') || '30%',
+        initialWidthA: localStorage.getItem(CR_WORKFLOW_WIDTH) || '70%',
+        initialWidthB: localStorage.getItem(CR_WORKFLOW_PANE_WIDTH) || '30%',
     });
 
     useEffect(() => {
-        localStorage.setItem('workflowWidth', paneAWidth);
-        localStorage.setItem('workflowPaneWidth', paneBWidth);
-    }, [paneAWidth, paneBWidth]);
+        if (isMobile) return;
+
+        localStorage.setItem(CR_WORKFLOW_WIDTH, paneAWidth);
+        localStorage.setItem(CR_WORKFLOW_PANE_WIDTH, paneBWidth);
+    }, [isMobile, paneAWidth, paneBWidth]);
 
     useEffect(() => {
         if (loading && rootId && !originalWorkflow) {
@@ -71,6 +78,10 @@ export default function ContributionRequestWorkflow() {
         }
     }, [branchId, branchWorkflow, dispatch, loading, nodeId, rootId]);
 
+    const resizerStyle = useMemo(() => (
+        { borderLeftColor: resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'] }
+    ), [resizerHovered, theme.palette.borders]);
+
     if (loading || !rootId) {
         return <Loader />;
     }
@@ -78,8 +89,6 @@ export default function ContributionRequestWorkflow() {
     if (!workflow) {
         throw new Error('workflow is not defined');
     }
-
-    const borderLeftColor = resizerHovered ? theme.palette.borders['5'] : theme.palette.borders['3'];
 
     return (
         <Box
@@ -107,14 +116,14 @@ export default function ContributionRequestWorkflow() {
                     onMouseLeave={leaveResizer}
                 />
                 <Box
-                    height={1}
+                    height={MOBILE_NO_HEIGHT}
                     display={isPaneOpen ? 'block' : 'none'}
                     width={(isPaneOpen && paneBWidth) || 0}
                     ref={workflowDetailsRef}
                     overflow="hidden"
                     boxShadow="left.2"
                     borderLeft={1}
-                    style={{ borderLeftColor }}
+                    style={resizerStyle}
                     sx={{ backgroundColor: 'background.5' }}
                 >
                     <Pane rootId={rootId} page={PanePage.Workflow} />

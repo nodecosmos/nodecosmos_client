@@ -52,7 +52,6 @@ export function usePaneContextCreator(props: PaneProps) {
 
     useEffect(() => {
         if (paneQ && paneQ !== content) {
-            console.log('paneQ hit');
             setContent(paneQ);
         }
     }, [content, paneQ]);

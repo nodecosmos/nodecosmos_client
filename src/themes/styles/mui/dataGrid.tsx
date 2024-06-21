@@ -16,7 +16,7 @@ export default (theme: NodecosmosTheme) => ({
 
                 '.MuiDataGrid-filler': {
                     borderRadius: 0,
-                    backgroundColor: theme.palette.background[6],
+                    backgroundColor: theme.palette.background[2],
                 },
 
                 '& .MuiDataGrid-scrollbarFiller': {

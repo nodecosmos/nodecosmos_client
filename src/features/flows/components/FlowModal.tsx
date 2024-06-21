@@ -1,16 +1,17 @@
-import DefaultFormButton from '../../../common/components/buttons/DefaultFormButton';
-import FinalFormInputField from '../../../common/components/final-form/FinalFormInputField';
+import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { maybeSelectFlow } from '../flows.selectors';
 import { createFlow } from '../flows.thunks';
 import { FlowUpsertPayload } from '../flows.types';
-import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
+import { faCodeCommit, faSave } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputAdornment, DialogContent } from '@mui/material';
+import {
+    DialogContent, Typography, Button,
+} from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,33 +56,70 @@ export default function FlowModal(props: Props) {
     return (
         <Dialog
             fullWidth
-            maxWidth="md"
+            maxWidth="sm"
             onClose={onClose}
             open={open}
             PaperProps={{ elevation: 8 }}
         >
-            <DialogTitle>
-                Add Flow
+            <div className="DialogHeader">
+                <div>
+                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                        <FontAwesomeIcon icon={faCodeCommit} />
+                        New Flow
+                    </Typography>
+                </div>
+                <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
+                    Create a flow to define a isolated process within your workflow.
+                </Typography>
+
                 <CloseModalButton onClose={onClose} />
-            </DialogTitle>
+            </div>
             <DialogContent>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }} initialValues={{ title }}>
                     {({ handleSubmit }) => (
                         <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                            <FinalFormInputField
+                            <Field
                                 fullWidth
                                 name="title"
-                                placeholder="Flow Title"
-                                required
+                                label="Flow Title"
                                 InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start" sx={{ svg: { color: 'tree.hashtag' } }}>
-                                            <FontAwesomeIcon icon={faCodeCommit} />
-                                        </InputAdornment>
-                                    ),
+                                    autoComplete: 'off',
+                                    endAdornment: loading ? <CircularProgress
+                                        size={30}
+                                        sx={{
+                                            color: 'text.secondary',
+                                            mr: 2,
+                                        }} /> : null,
                                 }}
+                                required
                             />
-                            <DefaultFormButton loading={loading} />
+                            <Button
+                                size="small"
+                                color="button"
+                                type="submit"
+                                disabled={loading}
+                                sx={{
+                                    mt: 2,
+                                    width: 1,
+                                    height: '50px',
+                                    '.MuiButton-startIcon': {
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        svg: { height: 20 },
+                                    },
+                                }}
+                                variant="contained"
+                                disableElevation
+                                startIcon={
+                                    loading
+                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        : <FontAwesomeIcon icon={faSave} />
+                                }
+                            >
+                                <Typography variant="subtitle1">
+                                    Create
+                                </Typography>
+                            </Button>
                         </form>
                     )}
                 </Form>

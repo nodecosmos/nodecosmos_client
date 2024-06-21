@@ -6,14 +6,22 @@ import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { CreateIoModalProps, IoObjectType } from '../components/CreateIoModal';
 import { selectUniqueIoByRootId } from '../inputOutputs.selectors';
 import { createIo } from '../inputOutputs.thunks';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function useIoSubmitHandler(props: CreateIoModalProps) {
+interface TitleProps {
+    setTitleFromList: (value: string | null) => void;
+}
+
+type Props = CreateIoModalProps & TitleProps;
+
+export default function useIoSubmitHandler(props: Props) {
     const {
         associatedObject,
         flowStepPrimaryKey,
         flowStepNodeId,
+        setTitleFromList,
+        onClose,
     } = props;
     const { nodeId, rootId } = useWorkflowContext();
     const { branchId } = useBranchContext();
@@ -49,18 +57,21 @@ export default function useIoSubmitHandler(props: CreateIoModalProps) {
             return;
         }
 
-        setTimeout(() => setLoading(false), 500);
+        setTimeout(() => {
+            setLoading(false);
+            setTitleFromList(null);
+        }, 500);
 
-        props.onClose();
+        onClose();
     },
     [
         allWorkflowIos, associatedObject, branchId, dispatch, flowStepPrimaryKey?.flowId, flowStepNodeId,
         flowStepPrimaryKey?.id,
-        handleServerError, nodeId, props, rootId,
+        handleServerError, nodeId, rootId, setTitleFromList, onClose,
     ]);
 
-    return {
+    return useMemo(() => ({
         onSubmit,
         loading,
-    };
+    }), [onSubmit, loading]);
 }

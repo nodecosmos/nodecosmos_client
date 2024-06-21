@@ -32,7 +32,6 @@ export default function CommentThread(props: CommentThreadProps) {
         <ThreadContext.Provider value={ctxValue}>
             <Box
                 borderRadius={2}
-                border={1}
                 borderColor="borders.4"
                 p={2}
                 sx={{ backgroundColor: 'background.1' }}

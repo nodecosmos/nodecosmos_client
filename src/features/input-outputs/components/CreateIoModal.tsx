@@ -7,13 +7,12 @@ import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/flowSteps.types';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import useIoSubmitHandler from '../hooks/useIoSubmitHandler';
 import { selectUniqueIoByRootId } from '../inputOutputs.selectors';
-import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
+import { faCodeFork, faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    DialogContent, Typography, Alert as MuiAlert, DialogActions, Button,
+    DialogContent, Typography, DialogActions, Button,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useSelector } from 'react-redux';
@@ -54,11 +53,17 @@ export default function CreateIoModal(props: CreateIoModalProps) {
     const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId as UUID));
     const allIoTitles = useMemo(() => allWorkflowIos.map((io) => io.title), [allWorkflowIos]);
     const uniqueIoTitles = useMemo(() => Array.from(new Set(allIoTitles)), [allIoTitles]);
+    const [titleFromList, setTitleFromList] = React.useState<string | null>(null);
 
     const title = associatedObject === IoObjectType.startStep
         ? 'Create Initial Input' : 'Create Output';
 
-    const { onSubmit, loading } = useIoSubmitHandler(props);
+    const submitProps = useMemo(() => ({
+        ...props,
+        setTitleFromList,
+    }), [props, setTitleFromList]);
+
+    const { onSubmit, loading } = useIoSubmitHandler(submitProps);
 
     let description = '';
 
@@ -70,7 +75,6 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                        nodes on either next step or previous steps as feedback loop.`;
     }
 
-    const [titleFromList, setTitleFromList] = React.useState<string | null>(null);
     const [listTitles, setListTitles] = React.useState<string[]>(uniqueIoTitles.slice(0, 5));
 
     const handleChangeCb = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,31 +92,28 @@ export default function CreateIoModal(props: CreateIoModalProps) {
     }, [onClose]);
 
     return (
-        <DefaultModal open={open} onClose={handleCloseCb}>
-            <DialogTitle>
-                {title}
-                <CloseModalButton onClose={handleCloseCb} />
-            </DialogTitle>
+        <DefaultModal open={open} onClose={handleCloseCb} maxWidth="sm">
+            <div className="DialogHeader">
+                <div>
+                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                        <FontAwesomeIcon icon={faCodeFork} />
+                        {title}
+                    </Typography>
+                </div>
+                <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
+                    {description}
+                </Typography>
+
+                <CloseModalButton onClose={onClose} />
+            </div>
 
             <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
-                {({ handleSubmit, form }) => (
+                {({
+                    handleSubmit,
+                    form,
+                }) => (
                     <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                        <DialogContent sx={{ minHeight: 550 }}>
-
-                            <MuiAlert
-                                severity="info"
-                                variant="outlined"
-                                sx={{
-                                    borderRadius: 1,
-                                    width: 'calc(100% - 1px)',
-                                    border: 0,
-                                    mb: 2,
-                                    backgroundColor: 'background.1',
-                                }}
-                            >
-                                <Typography variant="body2" color="text.info"> {description} </Typography>
-                            </MuiAlert>
-
+                        <DialogContent sx={{ minHeight: 150 }}>
                             <Field
                                 fullWidth
                                 name="title"
