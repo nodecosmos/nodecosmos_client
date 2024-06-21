@@ -3,8 +3,8 @@
 
 <svg
    width="500"
-   height="234.51677"
-   viewBox="0 0 500.00001 234.51677"
+   height="234.51675"
+   viewBox="0 0 500.00001 234.51675"
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="logo.svg"
@@ -42,8 +42,8 @@
          offset="0"
          id="stop1528" />
       <stop
-         style="stop-color:#f04fff;stop-opacity:1;"
-         offset="0.47675228"
+         style="stop-color:#f06e9d;stop-opacity:1;"
+         offset="0.55830628"
          id="stop1883" />
       <stop
          style="stop-color:#fe565a;stop-opacity:1;"

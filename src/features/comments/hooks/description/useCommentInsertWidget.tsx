@@ -18,7 +18,7 @@ import { createPortal } from 'react-dom';
 
 export default function useCommentInsertWidget(view: EditorView) {
     const { objectId } = usePaneContext();
-    const { branchId } = useBranchContext();
+    const { originalId, branchId } = useBranchContext();
 
     // we use `ReactPortal` to render components within the CodeMirror widgets e.g. CommentWidget
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
@@ -58,6 +58,7 @@ export default function useCommentInsertWidget(view: EditorView) {
             });
 
             const threadPayload: ThreadInsertPayload = {
+                rootId: originalId,
                 branchId,
                 objectId,
                 objectType: ThreadObjectType.ContributionRequest,
@@ -81,7 +82,7 @@ export default function useCommentInsertWidget(view: EditorView) {
 
             setCreateDescriptionPortals(portals => portals ? [...portals, portal] : [portal]);
         }
-    }, [branchId, closeInsertComment, objectId, view]);
+    }, [branchId, closeInsertComment, objectId, originalId, view]);
 
     useEffect(() => {
         CommentGutterMarker.prototype.addComment = function() {
