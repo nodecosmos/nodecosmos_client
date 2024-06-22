@@ -3,6 +3,7 @@ import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { DRAWER_HEIGHT, HEADER_HEIGHT } from '../../constants';
+import useDrawer from '../../hooks/pane/useDrawer';
 import {
     PANE_Q, PaneContent, usePaneContext,
 } from '../../hooks/pane/usePaneContext';
@@ -15,18 +16,14 @@ import { Box, Typography } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-interface ClickableRefProps {
-    clickableRef: React.RefObject<HTMLDivElement> | null;
-}
-
-export default function PaneMobileToolbar({ clickableRef }: ClickableRefProps) {
+export default function Toolbar() {
     const { isBranch } = useBranchContext();
     const {
         objectTitle, originalObjectTitle, setContent, content, objectType,
     } = usePaneContext();
-
     const isTitleEdited = objectTitle && objectTitle !== originalObjectTitle;
     const [searchParams, setSearchParams] = useSearchParams();
+    const clickableRef = useDrawer();
 
     const handleTogglePane = useCallback((paneContent: PaneContent | undefined) => {
         if (paneContent !== undefined) {
@@ -94,31 +91,7 @@ export default function PaneMobileToolbar({ clickableRef }: ClickableRefProps) {
                         justifyContent="center">
                         <FontAwesomeIcon icon={faAngleRight} />
                     </Box>
-                    <Typography
-                        align="center"
-                        variant="body2"
-                        fontWeight="bold"
-                        color="text.link"
-                        p={0.5}
-                        px={2}
-                        sx={{
-                            overflow: 'hidden',
-                            whiteSpace: 'nowrap',
-                            textOverflow: 'ellipsis',
-                            backgroundColor: isTitleEdited ? 'none' : 'toolbar.active',
-                            '.diff-removed': {
-                                backgroundColor: 'diff.removed.bg',
-                                color: 'diff.removed.fg',
-                                fontWeight: 'bold',
-                            },
-                            '.diff-added': {
-                                ml: 2,
-                                backgroundColor: 'diff.added.bg',
-                                color: 'diff.added.fg',
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    >
+                    <Typography className="ObjectTitle" variant="body2">
                         {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}
 
                         <span className={isTitleEdited ? 'diff-added' : undefined}>{objectTitle}</span>

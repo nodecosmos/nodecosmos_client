@@ -5,8 +5,9 @@ import { selectSelectedObject } from '../../app.selectors';
 import { SelectedObject } from '../../app.types';
 import { clearSelectedObject } from '../../appSlice';
 import { PanePage, PaneProps } from '../../components/pane/Pane';
+import { DRAWER_HEIGHT } from '../../constants';
 import {
-    createContext, useCallback, useContext, useEffect, useState,
+    createContext, Dispatch, SetStateAction, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -31,6 +32,8 @@ interface CtxCreatorValue {
     originalObjectTitle?: string;
     content: PaneContent;
     setContent: (content: PaneContent) => void;
+    mobilePaneHeight: number | string;
+    setMobilePaneHeight: Dispatch<SetStateAction<string | number>>;
 }
 
 const PaneContext = createContext<CtxCreatorValue>({} as CtxCreatorValue);
@@ -46,6 +49,8 @@ export function usePaneContextCreator(props: PaneProps) {
     const [searchParams] = useSearchParams();
     const paneQ = searchParams.get(PANE_Q) as PaneContent;
     const [content, setContent] = useState<PaneContent>(paneQ || PaneContent.Description);
+    const [mobilePaneHeight, setMobilePaneHeight] = useState<number | string>(DRAWER_HEIGHT);
+
     const unsetLoading = useCallback(() => {
         setTimeout(_unsetLoading, 200);
     }, [_unsetLoading]);
@@ -62,7 +67,7 @@ export function usePaneContextCreator(props: PaneProps) {
         };
     }, [dispatch]);
 
-    return {
+    return useMemo(() => ({
         PaneContext,
         CtxCreatorValue: {
             page,
@@ -73,8 +78,10 @@ export function usePaneContextCreator(props: PaneProps) {
             content,
             setContent,
             isObjectSelected: !!selectedObject?.objectId,
+            mobilePaneHeight,
+            setMobilePaneHeight,
         },
-    };
+    }), [page, rootId, loading, setLoading, unsetLoading, content, selectedObject, mobilePaneHeight]);
 }
 
 type CtxValue = Omit<CtxCreatorValue, 'objectId' | 'branchId' | 'objectNodeId' | 'objectType'> & SelectedObject;
@@ -91,6 +98,8 @@ export function usePaneContext(): PaneCtxValue {
         unsetLoading,
         content,
         setContent,
+        mobilePaneHeight,
+        setMobilePaneHeight,
     } = useContext(PaneContext);
     const selectedObject = useSelector(selectSelectedObject);
 
@@ -119,7 +128,7 @@ export function usePaneContext(): PaneCtxValue {
         mainObjectId = metadata.mainObjectId;
     }
 
-    return {
+    return useMemo(() => ({
         page,
         rootId,
         loading,
@@ -127,7 +136,6 @@ export function usePaneContext(): PaneCtxValue {
         unsetLoading,
         content,
         setContent,
-        // selectedObject
         objectId,
         mainObjectId,
         branchId,
@@ -136,5 +144,26 @@ export function usePaneContext(): PaneCtxValue {
         objectTitle,
         originalObjectTitle,
         metadata,
-    };
+        mobilePaneHeight,
+        setMobilePaneHeight,
+    }),
+    [
+        page,
+        rootId,
+        loading,
+        setLoading,
+        unsetLoading,
+        content,
+        setContent,
+        objectId,
+        mainObjectId,
+        branchId,
+        objectNodeId,
+        objectType,
+        objectTitle,
+        originalObjectTitle,
+        metadata,
+        mobilePaneHeight,
+        setMobilePaneHeight,
+    ]);
 }

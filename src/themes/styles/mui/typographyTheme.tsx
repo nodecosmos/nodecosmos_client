@@ -1,12 +1,7 @@
 import { NodecosmosTheme } from '../../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
-    fontFamily: [
-        '-apple-system',
-        'system-ui',
-        'Roboto',
-        'sans-serif',
-    ].join(','),
+    fontFamily: '-apple-system, system-ui, Roboto, sans-serif',
     h1: {
         fontSize: '2.5rem',
         fontWeight: 500,

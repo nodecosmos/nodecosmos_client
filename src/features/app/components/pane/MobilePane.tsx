@@ -1,19 +1,20 @@
 import Content from './content/Content';
 import { PaneProps } from './Pane';
 import { DRAWER_HEIGHT, HEADER_HEIGHT } from '../../constants';
-import useDrawer from '../../hooks/pane/useDrawer';
 import { usePaneContextCreator } from '../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export const MOBILE_PANE_HEIGHT = `calc(100% - ${HEADER_HEIGHT})`;
+const SX = { backgroundColor: 'background.5' };
 
 export default function MobilePane({ rootId, page }: PaneProps) {
     const { PaneContext, CtxCreatorValue } = usePaneContextCreator({
         rootId,
         page,
     });
-    const [height, drawerRef, clickableRef] = useDrawer();
+
+    const style = useMemo(() => ({ height: CtxCreatorValue.mobilePaneHeight }), [CtxCreatorValue.mobilePaneHeight]);
 
     if (!CtxCreatorValue.isObjectSelected) {
         return (
@@ -29,7 +30,7 @@ export default function MobilePane({ rootId, page }: PaneProps) {
                 alignItems="center"
                 justifyContent="center"
                 flexDirection="column"
-                sx={{ backgroundColor: 'background.5' }}
+                sx={SX}
             >
                 <Typography variant="body2" color="text.secondary" textAlign="center" fontWeight="bold">
                     Select an object to view its details.
@@ -40,7 +41,6 @@ export default function MobilePane({ rootId, page }: PaneProps) {
 
     return (
         <Box
-            ref={drawerRef}
             position="absolute"
             bottom={0}
             height={DRAWER_HEIGHT}
@@ -52,12 +52,12 @@ export default function MobilePane({ rootId, page }: PaneProps) {
             alignItems="center"
             justifyContent="center"
             flexDirection="column"
-            style={{ height }}
+            style={style}
             zIndex={1000}
-            sx={{ backgroundColor: 'background.5' }}
+            sx={SX}
         >
             <PaneContext.Provider value={CtxCreatorValue}>
-                <Content clickableRef={clickableRef} />
+                <Content />
             </PaneContext.Provider>
         </Box>
     );

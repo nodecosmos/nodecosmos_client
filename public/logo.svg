@@ -3,8 +3,8 @@
 
 <svg
    width="500"
-   height="234.51675"
-   viewBox="0 0 500.00001 234.51675"
+   height="234.51677"
+   viewBox="0 0 500.00001 234.51677"
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="logo.svg"
@@ -25,13 +25,13 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="1.4721733"
-     inkscape:cx="223.47912"
-     inkscape:cy="212.2712"
-     inkscape:window-width="3840"
-     inkscape:window-height="2087"
-     inkscape:window-x="3840"
-     inkscape:window-y="40"
-     inkscape:window-maximized="1"
+     inkscape:cx="116.83407"
+     inkscape:cy="267.97117"
+     inkscape:window-width="1685"
+     inkscape:window-height="1251"
+     inkscape:window-x="4827"
+     inkscape:window-y="379"
+     inkscape:window-maximized="0"
      inkscape:current-layer="g1749" />
   <defs
      id="defs601">
@@ -75,7 +75,10 @@
          cx="408.54709"
          cy="455.50552"
          rx="78.33313"
-         ry="78.333122" />
+         ry="78.333122"
+         inkscape:export-filename="logo.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
       <rect
          style="fill:#2dcdfe;fill-opacity:1;stroke-width:1.395;stroke-dasharray:none"
          id="rect3184"

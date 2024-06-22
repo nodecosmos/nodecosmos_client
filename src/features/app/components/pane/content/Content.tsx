@@ -19,11 +19,17 @@ const PANE_CONTENTS = {
     [PaneContent.Comments]: PaneComments,
 };
 
-interface ClickableRefProps {
-    clickableRef?: React.RefObject<HTMLDivElement> | null;
-}
+const SECTION_SX = {
+    overflow: 'hidden',
+    backgroundColor: 'background.5',
+};
 
-export default function Content({ clickableRef }: ClickableRefProps) {
+const BOX_HEIGHT_SX = {
+    xs: `calc(100% - ${MOBILE_TOOLBAR_HEIGHT})`,
+    md: `calc(100% - ${HEADER_HEIGHT})`,
+};
+
+export default function Content() {
     const { content, metadata } = usePaneContext();
     const PaneContent = PANE_CONTENTS[content];
     const isMobile = useIsMobile();
@@ -54,21 +60,13 @@ export default function Content({ clickableRef }: ClickableRefProps) {
             component="section"
             width={1}
             height={1}
-            sx={{
-                overflow: 'hidden',
-                backgroundColor: 'background.5',
-            }}
+            overflow="hidden"
+            sx={SECTION_SX}
             position="relative"
             zIndex={1}
         >
-            {isMobile && clickableRef !== undefined ? <PaneMobileToolbar clickableRef={clickableRef} /> : <Toolbar />}
-            <Box
-                height={{
-                    xs: `calc(100% - ${MOBILE_TOOLBAR_HEIGHT})`,
-                    md: `calc(100% - ${HEADER_HEIGHT})`,
-                }}
-                overflow="auto"
-            >
+            {isMobile ? <PaneMobileToolbar /> : <Toolbar />}
+            <Box height={BOX_HEIGHT_SX} overflow="auto">
                 <PaneContent />
             </Box>
         </Box>

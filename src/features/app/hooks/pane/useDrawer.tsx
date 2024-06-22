@@ -1,27 +1,20 @@
+import { usePaneContext } from './usePaneContext';
 import { MOBILE_PANE_HEIGHT } from '../../components/pane/MobilePane';
 import { DRAWER_HEIGHT } from '../../constants';
 import {
-    useState, useRef, useCallback, Dispatch, SetStateAction, MutableRefObject,
+    useState, useRef, useCallback, MutableRefObject, useEffect,
 } from 'react';
 
-export default function useDrawer():
-    [string | number,
-        MutableRefObject<null | HTMLDivElement>,
-        MutableRefObject<null | HTMLDivElement>,
-        Dispatch<SetStateAction<string | number>>]
-{
-    const [height, setHeight] = useState<string | number>(DRAWER_HEIGHT);
-    const drawerRef = useRef<null | HTMLDivElement>(null);
+export default function useDrawer(): MutableRefObject<null | HTMLDivElement> {
+    const { setMobilePaneHeight } = usePaneContext();
     const clickableRef = useRef<null | HTMLDivElement>(null);
     const [addedEventListener, setAddedEventListener] = useState(false);
 
     const handleTouchStart = useCallback((event: TouchEvent) => {
         const yStart = event.touches[0].clientY;
-        const currentHeight = drawerRef?.current?.clientHeight || 64;
+        const currentHeight = 64;
 
         const handleTouchMove = (touchEvent: TouchEvent) => {
-            if (!drawerRef.current) return;
-
             touchEvent.preventDefault();
             const yMove = touchEvent.touches[0].clientY;
 
@@ -32,11 +25,11 @@ export default function useDrawer():
                 newHeight = 64;
             }
 
-            setHeight(newHeight);
+            setMobilePaneHeight(newHeight);
         };
 
         const handleTouchEnd = () => {
-            setHeight((prevHeight) => {
+            setMobilePaneHeight((prevHeight: string | number) => {
                 const isNumber = typeof prevHeight === 'number';
 
                 if (isNumber && (prevHeight > (window.innerHeight / 4))) {
@@ -54,12 +47,14 @@ export default function useDrawer():
 
         window.addEventListener('touchmove', handleTouchMove, { passive: false });
         window.addEventListener('touchend', handleTouchEnd, { passive: false });
-    }, []);
+    }, [setMobilePaneHeight]);
 
-    // add event listener if there is no event listener
-    if (clickableRef.current && !addedEventListener) {
-        setAddedEventListener(true);
-        clickableRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
-    }
-    return [height, drawerRef, clickableRef, setHeight];
+    useEffect(() => {
+        if (clickableRef.current && !addedEventListener) {
+            clickableRef.current.addEventListener('touchstart', handleTouchStart);
+            setAddedEventListener(true);
+        }
+    }, [addedEventListener, handleTouchStart]);
+
+    return clickableRef;
 }

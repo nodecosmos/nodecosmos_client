@@ -124,31 +124,7 @@ export default function PaneToolbar() {
                     justifyContent="center">
                     <FontAwesomeIcon icon={faAngleRight} />
                 </Box>
-                <Typography
-                    align="center"
-                    variant="body2"
-                    fontWeight="bold"
-                    color="text.link"
-                    p={0.5}
-                    px={2}
-                    sx={{
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        backgroundColor: isTitleEdited ? 'none' : 'toolbar.active',
-                        '.diff-removed': {
-                            backgroundColor: 'diff.removed.bg',
-                            color: 'diff.removed.fg',
-                            fontWeight: 'bold',
-                        },
-                        '.diff-added': {
-                            ml: 2,
-                            backgroundColor: 'diff.added.bg',
-                            color: 'diff.added.fg',
-                            fontWeight: 'bold',
-                        },
-                    }}
-                >
+                <Typography className="ObjectTitle" variant="body2">
                     {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}
 
                     <span className={isTitleEdited ? 'diff-added' : undefined}>{objectTitle}</span>

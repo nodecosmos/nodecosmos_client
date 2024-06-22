@@ -21,7 +21,8 @@ import menu from './styles/mui/menu';
 import popper from './styles/mui/popper';
 import tab from './styles/mui/tab';
 import tooltip from './styles/mui/tooltip';
-import typography from './styles/mui/typography';
+import typographyStyle from './styles/mui/typographyStyle';
+import typography from './styles/mui/typographyTheme';
 import scrollbar from './styles/scrollbar';
 import toolbar from './styles/toolbar';
 import transformable from './styles/transformable';
@@ -37,7 +38,6 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
     components: {
         MuiCssBaseline: {
             styleOverrides: {
-                a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 ...animations(),
                 ...card(theme),
                 ...cover(theme),
@@ -48,6 +48,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 ...tree(theme),
                 ...transformable(),
                 ...utils(),
+                a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 '.Notification': {
                     borderRadius: 8,
                     border: '1px solid',
@@ -76,6 +77,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     marginLeft: -8,
                     '&:hover': { cursor: 'col-resize' },
                 },
+                '.MobilePane': { transition: 'height 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms' },
             },
         },
         ...alert(theme),
@@ -93,6 +95,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         ...popper(theme),
         ...tab(),
         ...tooltip(theme),
+        ...typographyStyle(theme),
     },
     //-----------------------------------------------------------------------------------------------------------------
     ...theme,
