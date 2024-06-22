@@ -12,7 +12,7 @@ interface Props {
 
 const MAX_HEIGHT = {
     xs: 300,
-    sm: 'auto',
+    sm: 420,
 };
 
 export default function IoList(props: Props) {
@@ -36,7 +36,7 @@ export default function IoList(props: Props) {
     }
 
     return (
-        <Box mt={2} maxHeight={MAX_HEIGHT} height={1}>
+        <Box mt={2} maxHeight={MAX_HEIGHT} height={1} sx={{ overflow: 'auto' }}>
             <Typography variant="body2" fontWeight="bold" color="text.secondary">
                 Existing Inputs
             </Typography>

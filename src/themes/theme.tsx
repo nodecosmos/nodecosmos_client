@@ -47,7 +47,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 ...toolbar(theme),
                 ...tree(theme),
                 ...transformable(),
-                ...utils(),
+                ...utils(theme),
                 a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 '.Notification': {
                     borderRadius: 8,
@@ -77,7 +77,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     marginLeft: -8,
                     '&:hover': { cursor: 'col-resize' },
                 },
-                '.MobilePane': { transition: 'height 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms' },
+                '.MobilePane': { transition: 'height 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms' },
             },
         },
         ...alert(theme),

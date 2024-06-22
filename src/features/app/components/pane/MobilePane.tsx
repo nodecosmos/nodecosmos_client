@@ -41,6 +41,7 @@ export default function MobilePane({ rootId, page }: PaneProps) {
 
     return (
         <Box
+            className="MobilePane"
             position="absolute"
             bottom={0}
             height={DRAWER_HEIGHT}

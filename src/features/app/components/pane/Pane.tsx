@@ -37,7 +37,7 @@ export default function Pane({ rootId, page }: PaneProps) {
                 alignItems="center"
                 justifyContent="center"
                 flexDirection="column"
-                sx={{ backgroundColor: 'background.5' }}
+                className="background-5"
             >
                 <Typography variant="h6" color="text.secondary" textAlign="center">
                     Select an object to view its details.

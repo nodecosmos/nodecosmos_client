@@ -43,6 +43,7 @@ export default function CommentContent({ isLast }: CommentContentProps) {
                 }
                 {/*@ts-expect-error backgroundColor is valid prop*/}
                 <Box
+                    fontSize="1.15rem"
                     p={2}
                     backgroundColor="background.5"
                     borderRadius={2}

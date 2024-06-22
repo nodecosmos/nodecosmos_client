@@ -77,7 +77,7 @@ export default function FlowModal(props: Props) {
             <DialogContent>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }} initialValues={{ title }}>
                     {({ handleSubmit }) => (
-                        <form style={{ height: '100%' }} onSubmit={handleSubmit}>
+                        <form className="h-100" onSubmit={handleSubmit}>
                             <Field
                                 fullWidth
                                 name="title"
@@ -112,7 +112,7 @@ export default function FlowModal(props: Props) {
                                 disableElevation
                                 startIcon={
                                     loading
-                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        ? <CircularProgress size={20} />
                                         : <FontAwesomeIcon icon={faSave} />
                                 }
                             >

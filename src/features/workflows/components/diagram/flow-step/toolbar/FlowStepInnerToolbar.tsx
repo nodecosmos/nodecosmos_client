@@ -148,7 +148,7 @@ export default function FlowStepInnerToolbar() {
             <Tooltip title="Add Next Flow Step" placement="top">
                 {
                     createLoading
-                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                        ? <CircularProgress size={20} />
                         : (
                             <IconButton
                                 className="Item"

@@ -9,6 +9,8 @@ import {
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+const COLOR_SX = { color: 'toolbar.default' };
+
 export default function Zoom() {
     const dispatch = useDispatch();
     const treeScale = useSelector(selectScale);
@@ -36,7 +38,7 @@ export default function Zoom() {
                     <IconButton
                         className="Item"
                         aria-label="Zoom in"
-                        sx={{ color: 'toolbar.default' }}
+                        sx={COLOR_SX}
                         onClick={zoomIn}
                     >
                         <FontAwesomeIcon icon={faCirclePlus} />
@@ -53,7 +55,7 @@ export default function Zoom() {
                     <IconButton
                         className="Item"
                         aria-label="Zoom out"
-                        sx={{ color: 'toolbar.default' }}
+                        sx={COLOR_SX}
                         onClick={zoomOut}
                     >
                         <FontAwesomeIcon icon={faCircleMinus} />

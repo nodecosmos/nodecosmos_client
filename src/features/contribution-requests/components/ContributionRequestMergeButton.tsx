@@ -28,7 +28,6 @@ export default function ContributionRequestMergeButton() {
         return (
             <Button
                 color="secondary"
-                className="NodeButton"
                 startIcon={<ContributionRequestStatusIcon status={contributionRequest.status} />}>
                 Merged
             </Button>

@@ -1,6 +1,5 @@
 import Options from './toolbar/Options';
 import Zoom from './toolbar/Zoom';
-import Loader from '../../../../common/components/Loader';
 import NcAvatar from '../../../../common/components/NcAvatar';
 import ToolsContainer from '../../../../common/components/tools/ToolsContainer';
 import useDebounce from '../../../../common/hooks/useDebounce';
@@ -12,13 +11,26 @@ import { selectNode } from '../../nodes.selectors';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, InputAdornment, Link, TextField,
+    Box, Link, TextField,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, {
-    ChangeEvent, useCallback, useEffect, useRef,
+    ChangeEvent, useCallback, useEffect, useMemo, useRef,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
+
+const SX = {
+    mx: 2,
+    height: 32,
+    width: '350px',
+    svg: { color: 'toolbar.default' },
+    '.MuiInputBase-root': {
+        borderRadius: 1,
+        borderColor: 'transparent',
+        height: 1,
+    },
+};
 
 export default function TreeToolbar() {
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -47,6 +59,16 @@ export default function TreeToolbar() {
 
     const [handleChange, inProgress] = useDebounce<ChangeEvent<HTMLInputElement>>(handleSearch, 100);
 
+    const inputProps = useMemo(() => ({
+        id: 'search',
+        name: 'search',
+        autoComplete: 'search',
+        endAdornment: (
+            inProgress ? <CircularProgress size={20} />
+                : <FontAwesomeIcon icon={faMagnifyingGlass} />
+        ),
+    }), [inProgress]);
+
     if (!node) {
         return null;
     }
@@ -73,28 +95,8 @@ export default function TreeToolbar() {
                 </Link>
 
                 <TextField
-                    sx={{
-                        mx: 2,
-                        height: 32,
-                        width: '350px',
-                        svg: { color: 'toolbar.default' },
-                        '.MuiInputBase-root': {
-                            borderRadius: 1,
-                            borderColor: 'transparent',
-                            height: 1,
-                        },
-                    }}
-                    InputProps={{
-                        name: 'customSearch',
-                        autoComplete: 'off',
-                        startAdornment: (
-                            <InputAdornment position="start" sx={{ mr: 2 }}>
-                                <FontAwesomeIcon
-                                    icon={faMagnifyingGlass}
-                                />
-                            </InputAdornment>
-                        ),
-                    }}
+                    sx={SX}
+                    InputProps={inputProps}
                     color="primary"
                     variant="outlined"
                     placeholder="Search"
@@ -102,7 +104,6 @@ export default function TreeToolbar() {
                 />
                 <Zoom />
                 <Options />
-                {inProgress && <Loader size={20} width={20} ml={1} />}
             </ToolsContainer>
         </Box>
     );

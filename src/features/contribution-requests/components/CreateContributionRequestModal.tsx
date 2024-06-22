@@ -78,7 +78,7 @@ function CreateContributionRequestModal(props: Props) {
             <DialogContent>
                 <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                     {({ handleSubmit }) => (
-                        <form style={{ height: '100%' }} onSubmit={handleSubmit}>
+                        <form className="h-100" onSubmit={handleSubmit}>
                             <Box display="flex" alignItems="center">
                                 <Field
                                     fullWidth
@@ -100,7 +100,7 @@ function CreateContributionRequestModal(props: Props) {
                                 disableElevation
                                 startIcon={
                                     loading
-                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        ? <CircularProgress size={20} />
                                         : <FontAwesomeIcon icon={faCodeCommit} />
                                 }
                             >

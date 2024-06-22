@@ -69,12 +69,7 @@ export default function Toolbar() {
                         borderRadius={1}
                         sx={{ backgroundColor: 'background.8' }} />
                 </Box>
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    sx={{ svg: { color: 'background.list.defaultColor' } }}
-                >
+                <Box display="flex" alignItems="center" justifyContent="center">
                     <Typography
                         variant="body2"
                         color="text.tertiary"
@@ -89,7 +84,7 @@ export default function Toolbar() {
                         display="flex"
                         alignItems="center"
                         justifyContent="center">
-                        <FontAwesomeIcon icon={faAngleRight} />
+                        <FontAwesomeIcon icon={faAngleRight} className="default-list-color" />
                     </Box>
                     <Typography className="ObjectTitle" variant="body2">
                         {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}

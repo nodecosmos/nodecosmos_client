@@ -1,7 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Tooltip } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
     useMatch, useNavigate, useResolvedPath,
 } from 'react-router-dom';
@@ -39,7 +39,6 @@ export default function ToolbarItem<Val>(props: Props<Val>) {
     const additionalPath1 = useResolvedPath(additionalActivePaths[0] || 'undefined');
     const additionalPath2 = useResolvedPath(additionalActivePaths[1] || 'undefined');
     const additionalPath3 = useResolvedPath(additionalActivePaths[2] || 'undefined');
-
     const mainPathActive = useMatch(path.pathname);
     const isPath1Active = useMatch(additionalPath1.pathname);
     const isPath2Active = useMatch(additionalPath2.pathname);
@@ -54,19 +53,17 @@ export default function ToolbarItem<Val>(props: Props<Val>) {
         onClick && onClick(onClickValue);
     }, [navigate, onClick, onClickValue, to]);
 
+    const sx = useMemo(() => ({ '&:hover, &.active': { button: { color } } }), [color]);
+    const iconStyle = useMemo(() => ({
+        transform: flipX ? 'scaleX(-1)' : 'scaleX(1)',
+        color: iconColor ? iconColor : 'inherit',
+    }), [flipX, iconColor]);
+
     return (
         <Tooltip title={titleAsTooltip && title} placement="top">
-            <Box
-                className={`ButtonWrapper ${isActive && 'active'}`}
-                sx={{
-                    svg: { color: iconColor ? iconColor : 'inherit' },
-                    '&:hover, &.active': {
-                        button: { color },
-                        svg: { color: iconColor ? iconColor : 'inherit' },
-                    },
-                }}>
+            <Box className={`ButtonWrapper ${isActive && 'active'}`} sx={sx}>
                 <button onClick={handleClick}>
-                    <FontAwesomeIcon icon={icon} style={{ transform: flipX ? 'scaleX(-1)' : 'scaleX(1)' }} />
+                    <FontAwesomeIcon icon={icon} style={iconStyle} />
                     {titleAsTooltip ? null : <span className="ButtonContent">{title}</span>}
                 </button>
             </Box>

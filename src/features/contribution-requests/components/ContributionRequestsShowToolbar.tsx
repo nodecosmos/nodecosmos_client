@@ -58,7 +58,9 @@ export default function ContributionRequestsShowToolbar() {
                     titleAsTooltip={false}
                     to="commits"
                 />
-                <ContributionRequestMergeButton />
+                <Box ml={1}>
+                    <ContributionRequestMergeButton />
+                </Box>
             </ToolbarContainer>
         </Box>
     );

@@ -110,7 +110,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                                 disableElevation
                                 startIcon={
                                     loading
-                                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                        ? <CircularProgress size={20} />
                                         : <FontAwesomeIcon icon={faCodeCommit} />
                                 }
                             >

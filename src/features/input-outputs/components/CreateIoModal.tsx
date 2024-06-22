@@ -1,7 +1,6 @@
 import IoList from './IoList';
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
-import DefaultModal from '../../../common/components/modal/DefaultModal';
 import { UUID } from '../../../types';
 import { FlowStep, FlowStepPrimaryKey } from '../../flow-steps/flowSteps.types';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
@@ -11,6 +10,7 @@ import { faCodeFork, faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     DialogContent, Typography, DialogActions, Button,
+    Dialog,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useCallback, useMemo } from 'react';
@@ -41,6 +41,12 @@ export type CreateIoModalProps = ConditionalProps & {
     open: boolean;
     onClose: () => void;
     associatedObject: IoObjectType;
+};
+
+const DIALOG_PAPER_PROPS = {
+    elevation: 8,
+    m: 0,
+    sx: { borderRadius: 2.5 },
 };
 
 export default function CreateIoModal(props: CreateIoModalProps) {
@@ -92,7 +98,12 @@ export default function CreateIoModal(props: CreateIoModalProps) {
     }, [onClose]);
 
     return (
-        <DefaultModal open={open} onClose={handleCloseCb} maxWidth="sm">
+        <Dialog
+            fullWidth
+            maxWidth="sm"
+            onClose={handleCloseCb}
+            open={open}
+            PaperProps={DIALOG_PAPER_PROPS}>
             <div className="DialogHeader">
                 <div>
                     <Typography variant="h6" color="text.primary" align="center" width="auto">
@@ -112,8 +123,11 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                     handleSubmit,
                     form,
                 }) => (
-                    <form style={{ height: '100%' }} onSubmit={handleSubmit}>
-                        <DialogContent sx={{ minHeight: 150 }}>
+                    <form className="h-100" onSubmit={handleSubmit}>
+                        <DialogContent sx={{
+                            minHeight: 150,
+                            overflow: 'hidden',
+                        }}>
                             <Field
                                 fullWidth
                                 name="title"
@@ -167,7 +181,6 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                 )}
             </Form>
 
-        </DefaultModal>
-    )
-    ;
+        </Dialog>
+    );
 }

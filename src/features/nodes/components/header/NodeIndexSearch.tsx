@@ -1,25 +1,36 @@
+import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
 import { setIndexSearchTerm } from '../../nodes.actions';
 import { indexNodes } from '../../nodes.thunks';
-import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputAdornment, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, {
-    ChangeEvent, KeyboardEventHandler, KeyboardEvent, useCallback, useRef,
+    ChangeEvent, KeyboardEventHandler, KeyboardEvent, useCallback, useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-interface Props {
-    flex?: number;
-}
-export default function NodeIndexSearch({ flex }: Props) {
+const SX = {
+    ml: 1.25,
+    height: 1,
+    py: 0.75,
+    maxWidth: '100%',
+    width: '350px',
+    svg: { color: 'toolbar.default' },
+    flex: 1,
+    '.MuiInputBase-root': {
+        borderColor: 'transparent',
+        height: 1,
+        borderRadius: 1,
+        pl: 0.5,
+    },
+};
+
+export default function NodeIndexSearch() {
     const dispatch: NodecosmosDispatch = useDispatch();
 
-    const dispatchTimeout = useRef<number | null>(null);
-
     const execSearch = useCallback((value: string) => {
-        if (dispatchTimeout.current) clearTimeout(dispatchTimeout.current);
-
         let payload = null;
         if (value) {
             payload = { query: { q: value } };
@@ -30,14 +41,12 @@ export default function NodeIndexSearch({ flex }: Props) {
     }, [dispatch]);
 
     const onChange = useCallback((event: ChangeEvent<HTMLElement>) => {
-        if (dispatchTimeout.current) clearTimeout(dispatchTimeout.current);
+        const { value } = event.target as HTMLInputElement;
 
-        dispatchTimeout.current = setTimeout(() => {
-            const { value } = event.target as HTMLInputElement;
-
-            execSearch(value);
-        }, 500);
+        execSearch(value);
     }, [execSearch]);
+
+    const [handleChange, inProgress] = useDebounce(onChange, 500);
 
     const onEnter: KeyboardEventHandler<HTMLElement> = useCallback((event: KeyboardEvent<HTMLElement>) => {
         if (event.key === 'Enter') {
@@ -47,42 +56,24 @@ export default function NodeIndexSearch({ flex }: Props) {
         }
     }, [execSearch]);
 
+    const inputProps = useMemo(() => ({
+        id: 'search',
+        name: 'search',
+        autoComplete: 'search',
+        endAdornment: (
+            inProgress ? <CircularProgress size={20} />
+                : <FontAwesomeIcon icon={faMagnifyingGlass} />
+        ),
+    }), [inProgress]);
+
     return (
-        <>
-            <TextField
-                sx={{
-                    ml: 1.25,
-                    height: 1,
-                    py: 0.75,
-                    maxWidth: '100%',
-                    width: '350px',
-                    svg: { color: 'toolbar.default' },
-                    flex,
-                    '.MuiInputBase-root': {
-                        borderColor: 'transparent',
-                        height: 1,
-                        borderRadius: 1,
-                        pl: 0.5,
-                    },
-                }}
-                InputProps={{
-                    id: 'search',
-                    name: 'search',
-                    autoComplete: 'search',
-                    startAdornment: (
-                        <InputAdornment position="start" sx={{ p: 1 }}>
-                            <FontAwesomeIcon
-                                icon={faMagnifyingGlass}
-                            />
-                        </InputAdornment>
-                    ),
-                }}
-                color="primary"
-                variant="outlined"
-                placeholder="Search"
-                onKeyDown={onEnter}
-                onChange={onChange}
-            />
-        </>
-    );
+        <TextField
+            sx={SX}
+            InputProps={inputProps}
+            color="primary"
+            variant="outlined"
+            placeholder="Search"
+            onKeyDown={onEnter}
+            onChange={handleChange}
+        />);
 }

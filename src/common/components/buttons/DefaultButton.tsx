@@ -59,7 +59,7 @@ export default function DefaultButton(props: DefaultButtonProps) {
                 startIcon
                 && (
                     loading
-                        ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                        ? <CircularProgress size={20} />
                         : <FontAwesomeIcon icon={startIcon} />
                 )
             }

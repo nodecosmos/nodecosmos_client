@@ -109,7 +109,7 @@ export default function VirtualContainer({
                             color="button"
                             disableElevation
                             endIcon={
-                                loading ? <CircularProgress size={20} sx={{ color: 'text.foreground' }} />
+                                loading ? <CircularProgress size={20} />
                                     : <FontAwesomeIcon icon={faChevronDown} />
                             }>
 

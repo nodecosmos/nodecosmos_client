@@ -7,6 +7,8 @@ import { faAdd } from '@fortawesome/pro-regular-svg-icons';
 import { Box } from '@mui/material';
 import React from 'react';
 
+const SX = { backgroundColor: 'background.1' };
+
 export default function NodeIndexMobileFooter() {
     const [createNodeDialogOpen, openCreateNodeDialog, closeNodeDialog] = useBooleanStateValue();
     const isMobile = useIsMobile();
@@ -23,11 +25,9 @@ export default function NodeIndexMobileFooter() {
             display="flex"
             alignItems="center"
             height={75}
-            sx={{
-                backgroundColor: 'background.1',
-                zIndex: 1,
-                width: 1,
-            }}
+            sx={SX}
+            zIndex={1}
+            width={1}
         >
             <DefaultButton
                 variant="outlined"
@@ -36,7 +36,7 @@ export default function NodeIndexMobileFooter() {
                 startIcon={faAdd}
                 onClick={openCreateNodeDialog}
             />
-            <NodeIndexSearch flex={1} />
+            <NodeIndexSearch />
             <CreateNodeModal
                 open={createNodeDialogOpen}
                 onClose={closeNodeDialog}

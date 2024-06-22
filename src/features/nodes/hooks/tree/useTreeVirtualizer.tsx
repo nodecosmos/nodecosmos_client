@@ -2,7 +2,7 @@ import useTreeContext from './useTreeContext';
 import { useTransformableContext } from '../../../../common/hooks/useTransformableContext';
 import { UUID } from '../../../../types';
 import { isYInViewport } from '../../../../utils/position';
-import { selectJustCreatedNodeId } from '../../nodes.selectors';
+import { selectJustCreatedNodeId, selectScale } from '../../nodes.selectors';
 import { useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -14,6 +14,7 @@ export default function useTreeVirtualizer(): VirtualizedNode[] {
     const justCreatedNodeId = useSelector(selectJustCreatedNodeId);
     const transformablePosition = useTransformableContext();
     const prevIsMounted = useRef<Set<UUID>>(new Set());
+    const treeScale = useSelector(selectScale);
 
     return useMemo(() => {
         const visibleNodes: VirtualizedNode[] = [];
@@ -32,13 +33,13 @@ export default function useTreeVirtualizer(): VirtualizedNode[] {
                 y,
             } = node;
             const parent = parentId ? treeNodes[parentId] : null;
-            const isInViewport = isYInViewport(y, transformablePosition);
+            const isInViewport = isYInViewport(y, transformablePosition, treeScale);
             const isLastChild = parent?.lastChildId === id;
 
             if (isMounted && (isInViewport || isLastChild)) {
                 alreadyRendered.add(id);
 
-                if (parentId && !alreadyRendered.has(parentId)) {
+                if (isInViewport && parentId && !alreadyRendered.has(parentId)) {
                     alreadyRendered.add(parentId);
 
                     visibleNodes.push([
@@ -61,5 +62,5 @@ export default function useTreeVirtualizer(): VirtualizedNode[] {
         }
 
         return visibleNodes;
-    }, [justCreatedNodeId, orderedTreeNodeIds, transformablePosition, treeNodes]);
+    }, [justCreatedNodeId, orderedTreeNodeIds, transformablePosition, treeNodes, treeScale]);
 }

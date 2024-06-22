@@ -225,6 +225,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                 <Suspense fallback={<Loader p={4} />}>
                     <Box maxWidth={MAX_COMMENT_WIDTH}>
                         <Box
+                            fontSize="1.15rem"
                             overflow="hidden"
                             border={1}
                             borderColor="borders.4"

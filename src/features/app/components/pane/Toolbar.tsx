@@ -106,7 +106,6 @@ export default function PaneToolbar() {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                sx={{ svg: { color: 'background.list.defaultColor' } }}
             >
                 <Typography
                     variant="body2"
@@ -122,7 +121,7 @@ export default function PaneToolbar() {
                     display="flex"
                     alignItems="center"
                     justifyContent="center">
-                    <FontAwesomeIcon icon={faAngleRight} />
+                    <FontAwesomeIcon icon={faAngleRight} className="default-list-color" />
                 </Box>
                 <Typography className="ObjectTitle" variant="body2">
                     {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}

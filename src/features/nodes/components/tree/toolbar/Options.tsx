@@ -19,6 +19,25 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+const SLOT_PROPS = {
+    paper: {
+        elevation: 4,
+        sx: {
+            p: 0,
+            m: 0.25,
+            width: 300,
+            '.MuiList-root': { p: 0 },
+            '.MuiListItemButton-root': { minHeight: 62 },
+            '.MuiSlider-markLabel': {
+                fontSize: 12,
+                textTransform: 'capitalize',
+            },
+        },
+    },
+};
+
+const SX_COLOR = { color: 'toolbar.default' };
+
 export default function Options() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -42,7 +61,7 @@ export default function Options() {
                 <IconButton
                     className="Item"
                     aria-label="Options"
-                    sx={{ color: 'toolbar.default' }}
+                    sx={SX_COLOR}
                     onClick={handleClick}
                 >
                     <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -52,22 +71,7 @@ export default function Options() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                slotProps={{
-                    paper: {
-                        elevation: 4,
-                        sx: {
-                            p: 0,
-                            m: 0.25,
-                            width: 300,
-                            '.MuiList-root': { p: 0 },
-                            '.MuiListItemButton-root': { minHeight: 62 },
-                            '.MuiSlider-markLabel': {
-                                fontSize: 12,
-                                textTransform: 'capitalize',
-                            },
-                        },
-                    },
-                }}
+                slotProps={SLOT_PROPS}
             >
                 <Box p={2} fontSize={14}>
                     <FormControl fullWidth>
@@ -81,16 +85,12 @@ export default function Options() {
                             <FormControlLabel value={TreeDensity.Default} control={<Radio />} label="Default" />
                             <FormControlLabel value={TreeDensity.Compact} control={<Radio />} label="Compact" />
                         </RadioGroup>
-                        <FormLabel sx={{ mt: 2 }}>Show Ancestor Chain</FormLabel>
+                        <FormLabel className="mt-2">Show Ancestor Chain</FormLabel>
                         <FormControlLabel
-                            sx={{ mt: 1 }}
+                            className="mt-1"
                             id="ancestor-chain-label"
                             value={showAncestorChain}
-                            control={
-                                <Switch
-                                    onChange={handleShowAncestorChainChange}
-                                    checked={showAncestorChain} />
-                            }
+                            control={<Switch onChange={handleShowAncestorChainChange} checked={showAncestorChain} />}
                             label="True" />
                     </FormControl>
                 </Box>

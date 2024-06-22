@@ -1,6 +1,18 @@
 # https://www.robotstxt.org/robotstxt.html
 
-User-agent: *
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Yandex
 Allow: /
 
 Sitemap: https://www.nodecosmos.com/sitemap.xml
