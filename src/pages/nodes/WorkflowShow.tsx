@@ -3,7 +3,7 @@ import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../common/hooks/usePaneResizable';
 import { selectIsPaneOpen } from '../../features/app/app.selectors';
 import Pane, { PanePage } from '../../features/app/components/pane/Pane';
-import { MD_FLEX, MOBILE_NO_HEIGHT } from '../../features/app/constants';
+import { MD_FLEX_SX, MOBILE_NO_HEIGHT_SX } from '../../features/app/constants';
 import useIsMobile from '../../features/app/hooks/useIsMobile';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
@@ -108,7 +108,7 @@ export default function WorkflowShow() {
             <Box
                 height={1}
                 width={1}
-                display={MD_FLEX}
+                display={MD_FLEX_SX}
                 style={style}
             >
                 <Box
@@ -127,7 +127,7 @@ export default function WorkflowShow() {
                 />
                 <Box
                     component="div"
-                    height={MOBILE_NO_HEIGHT}
+                    height={MOBILE_NO_HEIGHT_SX}
                     display={isPaneOpen ? 'block' : 'none'}
                     width={(isPaneOpen && paneBWidth) || 0}
                     ref={workflowDetailsRef}

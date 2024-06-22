@@ -4,7 +4,7 @@ import Loader from '../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import {
-    DISPLAY_MD, SIDEBAR_WIDTH, WIDTH_MD,
+    DISPLAY_MD_SX, SIDEBAR_WIDTH, WIDTH_SIDEBAR_MD_SX,
 } from '../../app/constants';
 import { useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
@@ -94,7 +94,7 @@ export default function NodeShowContent() {
         <Box height={1} display="flex">
             <Box
                 width={SIDEBAR_WIDTH}
-                display={DISPLAY_MD}
+                display={DISPLAY_MD_SX}
                 borderRight={1}
                 borderColor="borders.1"
                 zIndex={4}
@@ -102,7 +102,7 @@ export default function NodeShowContent() {
                 <Sidebar />
             </Box>
             <MobileSidebar />
-            <Box width={WIDTH_MD}>
+            <Box width={WIDTH_SIDEBAR_MD_SX}>
                 <Outlet />
             </Box>
         </Box>

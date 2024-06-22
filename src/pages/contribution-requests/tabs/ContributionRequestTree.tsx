@@ -1,7 +1,7 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
-import { MOBILE_NO_HEIGHT } from '../../../features/app/constants';
+import { MOBILE_NO_HEIGHT_SX } from '../../../features/app/constants';
 import useIsMobile from '../../../features/app/hooks/useIsMobile';
 import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
@@ -95,7 +95,7 @@ export default function ContributionRequestTree() {
             </Box>
             <Box
                 ref={paneBRef}
-                height={MOBILE_NO_HEIGHT}
+                height={MOBILE_NO_HEIGHT_SX}
                 width={paneBWidth}
                 overflow="hidden"
                 boxShadow="left.2"

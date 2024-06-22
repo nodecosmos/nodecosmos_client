@@ -7,7 +7,7 @@ import MobileSidebarIcon from '../../../nodes/components/sidebar/MobileSidebarIc
 import TreeShowHeader from '../../../nodes/components/tree/TreeShowHeader';
 import { selectHeaderContent } from '../../app.selectors';
 import {
-    HEADER_HEIGHT, SIDEBAR_WIDTH, WIDTH_MD_SIDEBAR,
+    HEADER_HEIGHT, SIDEBAR_WIDTH, SIDEBAR_MD_SX,
 } from '../../constants';
 import useIsMobile from '../../hooks/useIsMobile';
 import {
@@ -49,7 +49,7 @@ export default function Header() {
                 <Box
                     component="div"
                     height={1}
-                    width={WIDTH_MD_SIDEBAR}
+                    width={SIDEBAR_MD_SX}
                     display="flex"
                     alignItems="center"
                     borderRight={hasSidebar ? 1 : 0}

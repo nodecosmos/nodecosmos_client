@@ -2,7 +2,7 @@ import Alert from '../../common/components/Alert';
 import VirtualContainer from '../../common/components/VirtualContainer';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
-import { MOBILE_HEIGHT, SIDEBAR_WIDTH } from '../../features/app/constants';
+import { MOBILE_HEIGHT_SX, SIDEBAR_WIDTH } from '../../features/app/constants';
 import NodeCard from '../../features/nodes/components/card/NodeCard';
 import NodeIndexMobileFooter from '../../features/nodes/components/header/NodeIndexMobileFooter';
 import { setIndexSearchTerm } from '../../features/nodes/nodes.actions';
@@ -78,7 +78,7 @@ export default function NodeIndex() {
     return (
         <Box
             display="flex"
-            height={MOBILE_HEIGHT}
+            height={MOBILE_HEIGHT_SX}
         >
             <Box
                 width={SIDEBAR_WIDTH}

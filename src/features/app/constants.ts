@@ -10,42 +10,42 @@ export const TRANSFORMABLE_MIN_WIDTH = 800;
 
 export const SYNC_UP_INTERVAL = 1000 * 60 * 10; // 10 minutes
 
-export const DISPLAY_MD = {
-    md: 'block',
+export const DISPLAY_MD_SX = {
     xs: 'none',
+    md: 'block',
 };
 
-export const WIDTH_MD = {
-    md: `calc(100% - ${SIDEBAR_WIDTH})`,
+export const WIDTH_SIDEBAR_MD_SX = {
     xs: 1,
+    md: `calc(100% - ${SIDEBAR_WIDTH})`,
 };
 
-export const MD_FLEX = {
-    md: 'flex',
+export const MD_FLEX_SX = {
     xs: 'block',
+    md: 'flex',
 };
 
-export const WIDTH_MD_SIDEBAR = {
-    md: SIDEBAR_WIDTH,
+export const SIDEBAR_MD_SX = {
     xs: 'auto',
+    md: SIDEBAR_WIDTH,
 };
 
-export const MOBILE_HEIGHT = {
+export const MOBILE_HEIGHT_SX = {
     xs: `calc(100% - ${HEADER_HEIGHT})`,
     md: 1,
 };
 
-export const MOBILE_NO_HEIGHT = {
+export const MOBILE_NO_HEIGHT_SX = {
     xs: 0,
     md: 1,
 };
 
-export const MT_XS = {
+export const MT_XS_SX = {
     xs: 1,
     md: 0,
 };
 
-export const ML_MD = {
+export const ML_MD_SX = {
     xs: 0,
     md: 1,
 };
