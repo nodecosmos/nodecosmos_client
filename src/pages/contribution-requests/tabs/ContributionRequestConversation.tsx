@@ -8,7 +8,7 @@ import ContributionRequestTitle from '../../../features/contribution-requests/co
 import { selectContributionRequest } from '../../../features/contribution-requests/contributionRequests.selectors';
 import { UUID } from '../../../types';
 import { timeSince } from '../../../utils/localTime';
-import { faTimeline, faComments } from '@fortawesome/pro-thin-svg-icons';
+import { faTimeline, faComments } from '@fortawesome/pro-light-svg-icons';
 import {
     Box, Container, Link, Typography,
 } from '@mui/material';
@@ -30,12 +30,7 @@ export default function ContributionRequestConversation() {
 
     return (
         <Box height={1} overflow="auto" width={1} my={2} pb={8}>
-            <Container
-                maxWidth="lg"
-                sx={{
-                    overflow: 'hidden',
-                    position: 'relative',
-                }}>
+            <Container className="overflow-hidden position-relative" maxWidth="lg">
                 <Alert position="sticky" />
                 <Box
                     display="flex"
@@ -56,7 +51,12 @@ export default function ContributionRequestConversation() {
                     <Box component="span" mx={1} fontSize={30}>
                         ·
                     </Box>
-                    <Typography component="span" variant="body2" color="text.tertiary" sx={{ float: 'right' }}>
+                    <Typography
+                        className="flaot-right"
+                        component="span"
+                        variant="body2"
+                        color="text.tertiary"
+                    >
                         {timeSince(createdAt)}
                     </Typography>
                 </Box>

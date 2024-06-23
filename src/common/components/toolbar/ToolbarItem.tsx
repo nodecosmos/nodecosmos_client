@@ -53,11 +53,13 @@ export default function ToolbarItem<Val>(props: Props<Val>) {
         onClick && onClick(onClickValue);
     }, [navigate, onClick, onClickValue, to]);
 
-    const sx = useMemo(() => ({ '&:hover, &.active': { button: { color } } }), [color]);
-    const iconStyle = useMemo(() => ({
-        transform: flipX ? 'scaleX(-1)' : 'scaleX(1)',
-        color: iconColor ? iconColor : 'inherit',
-    }), [flipX, iconColor]);
+    const sx = useMemo(() => ({
+        '&:hover, &.active': {
+            button: { color },
+            svg: { color: iconColor ? iconColor : 'inherit' },
+        },
+    }), [color, iconColor]);
+    const iconStyle = useMemo(() => ({ transform: flipX ? 'scaleX(-1)' : 'scaleX(1)' }), [flipX]);
 
     return (
         <Tooltip title={titleAsTooltip && title} placement="top">

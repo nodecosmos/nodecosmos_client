@@ -14,6 +14,11 @@ interface DefaultFormButtonProps {
     height?: string | number;
 }
 
+const SX = {
+    mt: 3,
+    float: 'right',
+};
+
 export default function DefaultFormButton(props: DefaultFormButtonProps) {
     const {
         loading, startIcon = faAdd, title = 'Create', onSubmit, color, variant, width, height,
@@ -23,10 +28,7 @@ export default function DefaultFormButton(props: DefaultFormButtonProps) {
         <DefaultButton
             variant={variant}
             color={color}
-            sx={{
-                mt: 3,
-                float: 'right',
-            }}
+            sx={SX}
             title={title}
             type="submit"
             disabled={loading}

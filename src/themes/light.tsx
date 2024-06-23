@@ -246,7 +246,7 @@ const theme: NodecosmosTheme = {
             sectionPrimary: '#acdf83',
             sectionSecondary: '#cdd4eb',
             link: '#3ba0ff',
-            success: '#00d20a',
+            success: '#268c2b',
             info: '#008dca',
             warning: '#db7f00',
             error: '#e74576',

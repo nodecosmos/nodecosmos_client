@@ -120,10 +120,10 @@ export const deleteThread = createAsyncThunk<void, CommentThreadPrimaryKey, { re
 export const deleteComment = createAsyncThunk<void, CommentPrimaryKey, { rejectValue: NodecosmosError }>(
     'comments/deleteComment',
     async ({
-        objectId, threadId, id,
+        branchId, threadId, objectId, id,
     }, { rejectWithValue }) => {
         try {
-            await nodecosmos.delete(`/comments/${objectId}/${threadId}/${id}`);
+            await nodecosmos.delete(`/comments/${branchId}/${threadId}/${objectId}/${id}`);
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 return rejectWithValue(error.response.data);

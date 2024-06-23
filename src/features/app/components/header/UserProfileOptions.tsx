@@ -16,6 +16,38 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+const MENU_SLOT_PROPS = {
+    paper: {
+        elevation: 4,
+        sx: {
+            p: 0,
+            m: 0.25,
+            width: 350,
+            '.MuiList-root': { p: 0 },
+            '.MuiListItemButton-root': { minHeight: 62 },
+            '.MuiSlider-markLabel': {
+                fontSize: 12,
+                textTransform: 'capitalize',
+            },
+        },
+    },
+};
+
+const SLIDER_MARKS = [
+    {
+        value: 0,
+        label: 'Dark',
+    },
+    {
+        value: 1,
+        label: 'Default',
+    },
+    {
+        value: 2,
+        label: 'Light',
+    },
+];
+
 export default function UserProfileOptions() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -27,7 +59,7 @@ export default function UserProfileOptions() {
         setAnchorEl(event.currentTarget);
     }, []);
     const handleClose = useCallback(() => { setAnchorEl(null); }, []);
-    const handleChange = useCallback((_e: Event, value: number | number[]) => {
+    const handleThemeChange = useCallback((_e: Event, value: number | number[]) => {
         dispatch(setTheme(value));
     }, [dispatch]);
 
@@ -48,22 +80,7 @@ export default function UserProfileOptions() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                slotProps={{
-                    paper: {
-                        elevation: 4,
-                        sx: {
-                            p: 0,
-                            m: 0.25,
-                            width: 350,
-                            '.MuiList-root': { p: 0 },
-                            '.MuiListItemButton-root': { minHeight: 62 },
-                            '.MuiSlider-markLabel': {
-                                fontSize: 12,
-                                textTransform: 'capitalize',
-                            },
-                        },
-                    },
-                }}
+                slotProps={MENU_SLOT_PROPS}
             >
                 <SidebarListItem
                     to={`/${currentUser.username}`}
@@ -92,21 +109,8 @@ export default function UserProfileOptions() {
                             max={2}
                             valueLabelDisplay="off"
                             track={false}
-                            marks={[
-                                {
-                                    value: 0,
-                                    label: 'Dark',
-                                },
-                                {
-                                    value: 1,
-                                    label: 'Default',
-                                },
-                                {
-                                    value: 2,
-                                    label: 'Light',
-                                },
-                            ]}
-                            onChange={handleChange}
+                            marks={SLIDER_MARKS}
+                            onChange={handleThemeChange}
                         />
                     </Box>
                 </SidebarListItem>

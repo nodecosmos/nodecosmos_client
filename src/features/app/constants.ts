@@ -15,6 +15,16 @@ export const DISPLAY_MD_SX = {
     md: 'block',
 };
 
+export const DISPLAY_MD_FLEX_SX = {
+    xs: 'none',
+    md: 'flex',
+};
+
+export const DISPLAY_XS_SX = {
+    xs: 'block',
+    md: 'none',
+};
+
 export const MD_FLEX_SX = {
     xs: 'block',
     md: 'flex',

@@ -1,6 +1,7 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
+import { selectCurrentUser } from '../../users/users.selectors';
 import { selectComment } from '../comments.selectors';
 import { deleteComment as deleteCommentThunk, updateCommentContent } from '../comments.thunks';
 import {
@@ -43,6 +44,7 @@ export function useCommentContext() {
         createdAt,
         updatedAt,
     } = useSelector(selectComment(id));
+    const currentUser = useSelector(selectCurrentUser);
 
     return useMemo(() => ({
         objectId,
@@ -56,7 +58,11 @@ export function useCommentContext() {
         updatedAt,
         editorOpen,
         isEdited: createdAt !== updatedAt,
-    }), [author, authorId, branchId, content, createdAt, editorOpen, id, objectId, threadId, updatedAt]);
+        isAuthor: currentUser?.id === authorId,
+    }),
+    [
+        author, authorId, branchId, content, createdAt, currentUser?.id, editorOpen, id, objectId, threadId, updatedAt,
+    ]);
 }
 
 export function useCommentCommands() {

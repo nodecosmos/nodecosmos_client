@@ -53,7 +53,20 @@ export default function useFlowStepActions(props?: Props) {
     const { selectObject } = useAppContext();
 
     const handleFlowStepClick = useCallback((event: React.MouseEvent<SVGGElement | HTMLElement>) => {
-        if (inputsAdditionActive) return;
+        if (inputsAdditionActive) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'warning',
+                message: 'Cannot select workflow object while adding inputs. Please finish adding inputs first.',
+                duration: 5000,
+
+            }));
+
+            return;
+        }
 
         if (!props?.unhover) {
             throw new Error('Unhover callback is not provided');

@@ -185,91 +185,90 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
 
     if (!currentUser) {
         return (
-            <div>
-                <Box display="flex" height={30} width={1} m={1}>
-                    <Button
-                        variant="outlined"
-                        component={RouterLink}
-                        to={`/auth/login?${REDIRECT_Q}=${btoa(window.location.href)}`}
-                        color="primary"
-                        sx={{ mr: 1 }}>
+            <Box
+                sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
+                display="flex"
+                height={30}
+                width={1}
+                gap={1}>
+                <Button
+                    variant="outlined"
+                    component={RouterLink}
+                    to={`/auth/login?${REDIRECT_Q}=${btoa(window.location.href)}`}
+                    color="primary"
+                >
                         Log in
-                    </Button>
+                </Button>
                     or
-                    <Button
-                        sx={{ mx: 1 }}
-                        component={RouterLink}
-                        to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
-                        variant="outlined"
-                        className="LogoButton focused"
-                    >
+                <Button
+                    component={RouterLink}
+                    to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
+                    variant="outlined"
+                    className="LogoButton focused"
+                >
                         Sign Up
-                    </Button>
-
+                </Button>
                     to add a comment.
-                </Box>
-            </div>
+            </Box>
         );
     }
 
     return (
-        <Box>
-            <Box
-                borderRadius={0}
-                borderTop={!isUpdate && withThreadBlock ? 1 : 0}
-                borderBottom={withThreadBlock ? 1 : 0}
-                borderColor="borders.4"
-                p={withThreadBlock ? 2 : 0}
-                sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
-                boxSizing="border-box">
-                <Suspense fallback={<Loader p={4} />}>
-                    <Box maxWidth={MAX_COMMENT_WIDTH}>
-                        <Box
-                            fontSize="1.15rem"
-                            overflow="hidden"
-                            border={1}
-                            borderColor="borders.4"
-                            borderRadius={1.50}
-                            width={1}
-                        >
-                            <RemirrorEditor
-                                markdown={content}
-                                onChange={handleChange}
-                                enabledExtensions={ENABLED_EXTENSIONS}
-                                p={1}
-                                toolbarHeight={38}
-                                editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}
-                                info={info}
-                                clearState={isUpdate ? undefined : clearState}
-                                autoFocus={autoFocus}
-                            />
-                        </Box>
-                        <Box
-                            mt={1}
-                            display="flex"
-                            justifyContent="flex-end"
-                        >
-                            {
-                                onClose
-                                && (
-                                    <Button variant="outlined" color="buttonContrast" onClick={handleCancel}>
-                                        Cancel
-                                    </Button>
-                                )
-                            }
-                            <DefaultButton
-                                sx={{ ml: 1 }}
-                                variant="outlined"
-                                color="primary"
-                                startIcon={faSave}
-                                loading={loading}
-                                title={comment ? 'Update' : 'Create'}
-                                onClick={handleSave}
-                            />
-                        </Box>
+        <Box
+            borderRadius={0}
+            borderTop={!isUpdate && withThreadBlock ? 1 : 0}
+            borderBottom={withThreadBlock ? 1 : 0}
+            borderColor="borders.4"
+            p={withThreadBlock ? 2 : 0}
+            sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
+            boxSizing="border-box">
+            <Suspense fallback={<Loader p={4} />}>
+                <Box maxWidth={MAX_COMMENT_WIDTH}>
+                    <Box
+                        fontSize="1.15rem"
+                        overflow="hidden"
+                        border={1}
+                        borderColor="borders.4"
+                        borderRadius={1.50}
+                        width={1}
+                    >
+                        <RemirrorEditor
+                            markdown={content}
+                            onChange={handleChange}
+                            enabledExtensions={ENABLED_EXTENSIONS}
+                            p={1}
+                            toolbarHeight={38}
+                            editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}
+                            info={info}
+                            clearState={isUpdate ? undefined : clearState}
+                            autoFocus={autoFocus}
+                        />
                     </Box>
-                </Suspense>
-            </Box>
+                    <Box
+                        mt={1}
+                        display="flex"
+                        justifyContent="flex-end"
+                    >
+                        {
+                            onClose
+                            && (
+                                <Button variant="outlined" color="buttonContrast" onClick={handleCancel}>
+                                    Cancel
+                                </Button>
+                            )
+                        }
+                        <DefaultButton
+                            sx={{ ml: 1 }}
+                            variant="outlined"
+                            color="primary"
+                            startIcon={faSave}
+                            loading={loading}
+                            title={comment ? 'Update' : 'Create'}
+                            onClick={handleSave}
+                        />
+                    </Box>
+                </Box>
+            </Suspense>
         </Box>
     );
 }

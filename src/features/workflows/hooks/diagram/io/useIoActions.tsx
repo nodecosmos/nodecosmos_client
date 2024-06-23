@@ -8,7 +8,7 @@ import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { deleteIo, updateIoTitle } from '../../../../input-outputs/inputOutputs.thunks';
 import useWorkflowContext from '../../useWorkflowContext';
 import useInputsChange from '../flow-step-node/useInputsChange';
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function useIoActions() {
@@ -35,7 +35,9 @@ export default function useIoActions() {
     const isChecked = selectedInputs.has(id);
     const { selectObject } = useAppContext();
 
-    const handleIoClick = useCallback(async () => {
+    const handleIoClick = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+
         if (inputsAdditionActive) {
             let selectedInputsArray = Array.from(selectedInputs);
 

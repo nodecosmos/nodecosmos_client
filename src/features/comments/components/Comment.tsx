@@ -17,11 +17,17 @@ export default function Comment({ id, isLast }: CommentProps) {
 
     return (
         <CommentContext.Provider value={ctxValue}>
-            <CommentHeader />
-            {/* total width of avatar is 40 so 19.5 + 1px border-width + 19.5 = 40 */}
-            <Box marginLeft="19.5px">
-                <CommentContent isLast={isLast} />
+            <Box>
+                <CommentHeader />
+                {
+                    // total width of avatar is 35 so marginLeft of 16 should align border in middle of the avatar as
+                    // 16 + 3(border) + 16 = 35
+                }
+                <Box px={2} my={-0.5}>
+                    <CommentContent isLast={isLast} />
+                </Box>
             </Box>
+
         </CommentContext.Provider>
     );
 }

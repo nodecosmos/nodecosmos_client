@@ -1,6 +1,6 @@
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface Props {
     children: React.ReactNode;
@@ -25,49 +25,51 @@ export default function ToolbarContainer(props: Props) {
         overflowX = 'hidden',
     } = props;
 
-    return (
-        <Box
-            className="Toolbar"
-            sx={{
-                overflowX,
-                '.ButtonWrapper': {
-                    ml,
-                    mr,
-                    whiteSpace: 'nowrap',
-                    '&:hover': {
-                        button: {
-                            borderRadius: round ? '50%' : borderRadius,
-                            backgroundColor: hoverColor,
-                        },
-                    },
-                    '&.active': {
-                        button: {
-                            backgroundColor: activeColor,
-                            borderRadius,
-                        },
-                    },
-
-                    button: {
-                        backgroundColor: hasBg ? activeColor : 'transparent',
-                        fontWeight: 500,
-                        borderBottom: showIndicator ? 3 : 0,
-                        borderColor: 'transparent',
-                        height: size,
-                        minWidth: size,
-                        borderRadius,
-                        '&.active': {
-                            backgroundColor: activeColor,
-                            borderColor: 'inherit',
-                            borderRadius,
-                        },
-                        svg: {
-                            ml: hasText ? 1.5 : 0,
-                            fontSize,
-                        },
-                    },
+    const sx = useMemo(() => ({
+        overflowX,
+        '.ButtonWrapper': {
+            ml,
+            mr,
+            whiteSpace: 'nowrap',
+            '&:hover': {
+                button: {
+                    borderRadius: round ? '50%' : borderRadius,
+                    backgroundColor: hoverColor,
                 },
-            }}
-        >
+            },
+            '&.active': {
+                button: {
+                    backgroundColor: activeColor,
+                    borderRadius,
+                },
+            },
+
+            button: {
+                backgroundColor: hasBg ? activeColor : 'transparent',
+                fontWeight: 500,
+                borderBottom: showIndicator ? 3 : 0,
+                borderColor: 'transparent',
+                height: size,
+                minWidth: size,
+                borderRadius,
+                '&.active': {
+                    backgroundColor: activeColor,
+                    borderColor: 'inherit',
+                    borderRadius,
+                },
+                svg: {
+                    ml: hasText ? 1.5 : 0,
+                    fontSize,
+                },
+            },
+        },
+    }),
+    [
+        activeColor, borderRadius, fontSize, hasBg, hasText, hoverColor, ml, mr, overflowX, round, showIndicator, size,
+    ]);
+
+    return (
+        <Box className="Toolbar" sx={sx}>
             {children}
         </Box>
     );

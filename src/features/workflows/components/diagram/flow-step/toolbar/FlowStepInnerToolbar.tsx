@@ -67,9 +67,8 @@ export default function FlowStepInnerToolbar() {
                             />
                         </Tooltip>
                         <IconButton
-                            className="Item"
+                            className="Item toolbar-lightRed"
                             aria-label="Keep Flow Step"
-                            sx={{ color: 'toolbar.lightRed' }}
                             onClick={keepFlowStep}
                         >
                             <FontAwesomeIcon icon={faSave} />
@@ -84,17 +83,15 @@ export default function FlowStepInnerToolbar() {
                             title="Step deleted from original branch. You can restore or delete it."
                             placement="top">
                             <Chip
-                                className="ToolbarChip"
+                                className="ToolbarChip toolbar-lightRed"
                                 size="small"
                                 label="Conflict"
-                                sx={{ color: 'toolbar.red' }}
                             />
                         </Tooltip>
                         <Tooltip title="Restore Flow Step" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-lightRed"
                                 aria-label="Restore Step"
-                                sx={{ color: 'toolbar.lightRed' }}
                                 onClick={restoreFlowStep}
                             >
                                 <FontAwesomeIcon icon={faRotateLeft} />
@@ -108,9 +105,8 @@ export default function FlowStepInnerToolbar() {
                     <>
                         <Tooltip title="Flow Step Nodes" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-default"
                                 aria-label="Add Node"
-                                sx={{ color: 'toolbar.default' }}
                                 onClick={openModal}
                             >
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -118,9 +114,8 @@ export default function FlowStepInnerToolbar() {
                         </Tooltip>
                         <Tooltip title="Delete Flow Step" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-red"
                                 aria-label="Delete Flow Step"
-                                sx={{ color: 'toolbar.red' }}
                                 onClick={openDelMod}
                             >
                                 <FontAwesomeIcon icon={faTrashXmark} />
@@ -134,9 +129,8 @@ export default function FlowStepInnerToolbar() {
                     <Box display="flex" alignItems="center">
                         <Tooltip title="Undo Delete" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-purple"
                                 aria-label="Undo Delete"
-                                sx={{ color: 'toolbar.purple' }}
                                 onClick={undoDeleteFlowStep}
                             >
                                 <FontAwesomeIcon icon={faRotateLeft} />
@@ -151,12 +145,10 @@ export default function FlowStepInnerToolbar() {
                         ? <CircularProgress size={20} />
                         : (
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-green"
                                 aria-label="Add Next Flow Step"
-                                sx={{ color: 'toolbar.green' }}
                                 onClick={createNextFlowStep}>
-                                <FontAwesomeIcon
-                                    icon={faPlay} />
+                                <FontAwesomeIcon icon={faPlay} />
                             </IconButton>
                         )
 

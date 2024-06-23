@@ -3,22 +3,22 @@ import { NodecosmosTheme } from '../../themes.types';
 export default (theme: NodecosmosTheme) => ({
     MuiAlert: {
         styleOverrides: {
-            icon: {
-                alignItems: 'center',
-            },
-
-            '&.SimpleAlert': {
-                marginTop: 16,
+            root: {
                 padding: '4px 8px',
-                height: '100%',
-                borderRadius: 2,
-                width: 'calc(100% - 1px)',
-                backgroundColor: theme.palette.background[1],
+                width: '100%',
+                backgroundColor: theme.palette.background[5],
                 alignItems: 'center',
+                margin: 8,
 
                 '.MuiAlert-action': {
                     padding: 0,
                     marginRight: 0,
+                },
+
+                '&.success': {
+                    '.MuiAlert-icon, .MuiAlert-action': {
+                        color: theme.palette.success.main,
+                    },
                 },
 
                 '&.warning': {
@@ -38,6 +38,9 @@ export default (theme: NodecosmosTheme) => ({
                         color: theme.palette.info.main,
                     },
                 },
+            },
+            icon: {
+                alignItems: 'center',
             },
         },
     },

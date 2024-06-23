@@ -1,4 +1,5 @@
 import { NodecosmosTheme } from '../../themes.types';
+import utils from '../utils';
 
 export default (theme: NodecosmosTheme) => ({
     MuiButton: {
@@ -52,6 +53,8 @@ export default (theme: NodecosmosTheme) => ({
                     marginLeft: 8,
                     fontsize: 24,
                 },
+
+                ...utils(theme),
             },
         },
     },

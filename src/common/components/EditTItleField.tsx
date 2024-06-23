@@ -4,6 +4,16 @@ import { Typography } from '@mui/material';
 import { Variant } from '@mui/material/styles/createTypography';
 import React, { useCallback } from 'react';
 
+const SX = {
+    height: 1,
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+};
+
 interface EditTitleFieldProps {
     title: string;
     authorized?: boolean;
@@ -68,18 +78,10 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         <Typography
             onClick={edit}
             variant={variant}
-            sx={{
-                pr,
-                height: 1,
-                display: 'table-cell',
-                verticalAlign: 'middle',
-                maxWidth,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                color: (title && color) || 'text.tertiary',
-            }}
+            pr={pr}
+            maxWidth={maxWidth}
+            color={(title && color) || 'text.tertiary'}
+            sx={SX}
         >
             {title || 'Click to add title'}
         </Typography>

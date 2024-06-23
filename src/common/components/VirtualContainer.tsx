@@ -8,16 +8,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { ResponsiveStyleValue } from '@mui/system/styleFunctionSx';
 import React, {
     useCallback,
-    useEffect, useRef, useState,
+    useEffect, useMemo, useRef, useState,
 } from 'react';
 
 interface Props {
     children: React.ReactNode[];
-    onMore?: () => void;
+    onMore?: () => Promise<void>;
     maxWidth?: number;
     width?: string | number | ResponsiveStyleValue<string | number>;
     p?: number | ResponsiveStyleValue<number>;
 }
+
+const MORE_RES_SX = { borderRadius: 4 };
 
 // Renders elements that are visible in the viewport
 export default function VirtualContainer({
@@ -79,6 +81,13 @@ export default function VirtualContainer({
         }
     }, [onMore, setLoading, unsetLoading]);
 
+    const dividerSx = useMemo(() => ({
+        position: 'absolute',
+        maxWidth,
+        width: '100%',
+        backgroundColor: 'toolbar.default',
+    }), [ maxWidth]);
+
     return (
         <Box
             ref={listRef}
@@ -89,32 +98,27 @@ export default function VirtualContainer({
             pb={4}
         >
             {children.map((child, index) => (
-                <div ref={itemRefs.current[index]} key={index} style={{ minHeight: 210 }}>
+                <Box ref={itemRefs.current[index]} key={index} className="min-h-210">
                     {visibleItems.has(index) ? child : null}
-                </div>
+                </Box>
             ))}
             {onMore && (
                 <Box width={1} my={3} display="flex" alignItems="center" justifyContent="center" position="relative">
-                    <Divider sx={{
-                        position: 'absolute',
-                        width,
-                        maxWidth,
-                        backgroundColor: 'toolbar.default',
-                    }} />
+                    <Divider sx={dividerSx} />
                     <Box width={maxWidth} textAlign="center">
                         <Button
+                            className="border-radius-100"
                             onClick={handleOnMore}
-                            sx={{ borderRadius: 100 }}
                             variant="contained"
                             color="button"
                             disableElevation
                             endIcon={
                                 loading ? <CircularProgress size={20} />
                                     : <FontAwesomeIcon icon={faChevronDown} />
-                            }>
-
+                            }
+                            sx={MORE_RES_SX}
+                        >
                             More results
-
                         </Button>
                     </Box>
                 </Box>

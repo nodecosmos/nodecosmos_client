@@ -45,13 +45,14 @@ export default function ContributionRequestMainThread() {
 
     return (
         <Box
+            className="background-5"
             p={{
                 xs: 2,
                 md: 4,
             }}
             borderRadius={2}
             borderColor="borders.4"
-            sx={{ backgroundColor: 'background.1' }}>
+        >
             <ContributionRequestMainThreadComments />
             <Box mt={2}>
                 {mainThreadCommentEditor}

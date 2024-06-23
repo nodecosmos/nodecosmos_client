@@ -1,6 +1,6 @@
 import CommentEditor from './CommentEditor';
 import { useCommentCommands, useCommentContext } from '../hooks/useCommentContext';
-import { Box, Chip } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useMemo } from 'react';
 
 interface CommentContentProps {
@@ -8,7 +8,7 @@ interface CommentContentProps {
 }
 export default function CommentContent({ isLast }: CommentContentProps) {
     const {
-        objectId, threadId, id, content, editorOpen, branchId, isEdited,
+        objectId, threadId, id, content, editorOpen, branchId,
     } = useCommentContext();
     const { closeEditor } = useCommentCommands();
     const comment = useMemo(() => ({
@@ -19,6 +19,8 @@ export default function CommentContent({ isLast }: CommentContentProps) {
         content,
     }), [branchId, content, id, objectId, threadId]);
 
+    const innerHTML = useMemo(() => ({ __html: content as TrustedHTML }), [content]);
+
     const commentContent = editorOpen
         ? <CommentEditor
             comment={comment}
@@ -26,42 +28,25 @@ export default function CommentContent({ isLast }: CommentContentProps) {
         />
         : (
             <div>
-                {
-                    isEdited
-                    && <Chip
-                        color="secondary"
-                        variant="outlined"
-                        sx={{
-                            float: 'right',
-                            mr: 2,
-                            mt: 2,
-                        }}
-                        className="ToolbarChip"
-                        size="small"
-                        label="Edited"
-                    />
-                }
-                {/*@ts-expect-error backgroundColor is valid prop*/}
                 <Box
-                    fontSize="1.15rem"
-                    p={2}
-                    backgroundColor="background.5"
+                    fontSize="1.05rem"
                     borderRadius={2}
                     className="DescriptionHTML"
+                    fontWeight={500}
                     maxWidth={780}
-                    dangerouslySetInnerHTML={{ __html: content as TrustedHTML }} />
+                    dangerouslySetInnerHTML={innerHTML} />
             </div>
         );
 
     return (
         <Box
+            minHeight={60}
+            pl={4.25}
             py={2}
-            px={{
-                xs: 2,
-                md: 4,
-            }}
+            pr={0}
             borderLeft={isLast ? 0 : 3}
-            borderColor="borders.3">
+            borderColor="borders.3"
+        >
             {commentContent}
         </Box>
     );

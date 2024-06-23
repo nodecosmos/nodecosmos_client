@@ -10,6 +10,33 @@ import React, {
     MouseEvent, useCallback, useState,
 } from 'react';
 
+const ICON_BUTTON_SX = {
+    width: 30,
+    height: 30,
+    border: 0,
+    borderColor: 'borders.4',
+    svg: {
+        color: 'button.contrastText',
+        fontSize: 16,
+    },
+};
+
+const MENU_SLOT_PROPS = {
+    paper: {
+        elevation: 4,
+        sx: {
+            p: 0,
+            m: 0.25,
+            width: 200,
+            '.MuiList-root': { p: 0 },
+            '.MuiSlider-markLabel': {
+                fontSize: 12,
+                textTransform: 'capitalize',
+            },
+        },
+    },
+};
+
 export default function CommentOptions() {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
@@ -35,16 +62,7 @@ export default function CommentOptions() {
                 onClick={handleClick}
                 color="button"
                 disableRipple
-                sx={{
-                    width: 30,
-                    height: 30,
-                    border: 0,
-                    borderColor: 'borders.4',
-                    svg: {
-                        color: 'button.contrastText',
-                        fontSize: 16,
-                    },
-                }}
+                sx={ICON_BUTTON_SX}
             >
                 <FontAwesomeIcon icon={faEllipsis} />
             </IconButton>
@@ -52,21 +70,7 @@ export default function CommentOptions() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                slotProps={{
-                    paper: {
-                        elevation: 4,
-                        sx: {
-                            p: 0,
-                            m: 0.25,
-                            width: 200,
-                            '.MuiList-root': { p: 0 },
-                            '.MuiSlider-markLabel': {
-                                fontSize: 12,
-                                textTransform: 'capitalize',
-                            },
-                        },
-                    },
-                }}
+                slotProps={MENU_SLOT_PROPS}
             >
                 <SidebarListItem
                     component="button"

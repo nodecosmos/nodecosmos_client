@@ -2,7 +2,10 @@ import Alert from '../../common/components/Alert';
 import VirtualContainer from '../../common/components/VirtualContainer';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
-import { MOBILE_WO_HEADER_HEIGHT_SX, SIDEBAR_WIDTH } from '../../features/app/constants';
+import {
+    DISPLAY_MD_SX,
+    MD_WO_SIDEBAR_WIDTH_SX, MOBILE_WO_HEADER_HEIGHT_SX, SIDEBAR_WIDTH,
+} from '../../features/app/constants';
 import NodeCard from '../../features/nodes/components/card/NodeCard';
 import NodeIndexMobileFooter from '../../features/nodes/components/header/NodeIndexMobileFooter';
 import { setIndexSearchTerm } from '../../features/nodes/nodes.actions';
@@ -51,10 +54,6 @@ export default function NodeIndex() {
         }
     }, [dispatch, indexSearchTerm, pagingState.page, unsetHasMore]);
 
-    const onMore = useMemo(() => {
-        return hasMore ? indexMoreNodes : undefined;
-    }, [hasMore, indexMoreNodes]);
-
     useEffect(() => {
         dispatch(setHeaderContent('NodeIndexHeader'));
         dispatch(indexNodes({ append: true }));
@@ -82,20 +81,14 @@ export default function NodeIndex() {
         >
             <Box
                 width={SIDEBAR_WIDTH}
-                display={{
-                    xs: 'none',
-                    md: 'block',
-                }}
+                display={DISPLAY_MD_SX}
                 borderRight={1}
                 borderColor="borders.1"
             />
             <Alert position="absolute" right={0} width={`calc(100% - ${SIDEBAR_WIDTH})`} />
             <VirtualContainer
-                onMore={onMore}
-                width={{
-                    xs: 1,
-                    md: `calc(100% - ${SIDEBAR_WIDTH})`,
-                }}
+                onMore={hasMore ? indexMoreNodes : undefined}
+                width={MD_WO_SIDEBAR_WIDTH_SX}
                 p={1}
             >
                 {

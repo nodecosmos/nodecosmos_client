@@ -98,7 +98,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
             <text
                 className="InputLinkText"
                 x={destNodePos.x - 50}
-                y={flowStepY - 12.5}
+                y={flowStepY - 9}
                 fill={color}
                 fontSize="bigger"
             >

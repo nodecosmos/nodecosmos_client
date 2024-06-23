@@ -2,7 +2,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface DefaultButtonProps {
     startIcon?: IconProp;
@@ -19,7 +19,7 @@ interface DefaultButtonProps {
     width?: string | number;
     height?: string | number;
 }
-export default function DefaultButton(props: DefaultButtonProps) {
+function DefaultButton(props: DefaultButtonProps) {
     const {
         startIcon,
         endIcon,
@@ -36,23 +36,25 @@ export default function DefaultButton(props: DefaultButtonProps) {
         height = '32px',
     } = props;
 
+    const buttonSx = useMemo(() => ({
+        width,
+        height,
+        '.MuiButton-startIcon': {
+            display: 'flex',
+            alignItems: 'center',
+            svg: { fontSize: 16 },
+        },
+        '.MuiTypography-root': { fontSize },
+        ...sx,
+    }), [fontSize, height, sx, width]);
+
     return (
         <Button
             size="small"
             color={color}
             type={type}
             disabled={disabled || loading}
-            sx={{
-                width,
-                height,
-                '.MuiButton-startIcon': {
-                    display: 'flex',
-                    alignItems: 'center',
-                    svg: { fontSize: 16 },
-                },
-                '.MuiTypography-root': { fontSize },
-                ...sx,
-            }}
+            sx={buttonSx}
             variant={variant}
             disableElevation
             startIcon={
@@ -72,3 +74,5 @@ export default function DefaultButton(props: DefaultButtonProps) {
         </Button>
     );
 }
+
+export default React.memo(DefaultButton);

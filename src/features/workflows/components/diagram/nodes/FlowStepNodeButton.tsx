@@ -22,7 +22,7 @@ import useWorkflowContext from '../../../hooks/useWorkflowContext';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function FlowStepNodeButton() {
@@ -42,7 +42,8 @@ export default function FlowStepNodeButton() {
     const initialAnimationDelay = ANIMATION_DELAY;
     const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
     const { selectObject } = useAppContext();
-    const handleClick = useCallback(() => {
+    const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         deactivateInputsAddition();
 
         if (insidePane) {
@@ -87,6 +88,15 @@ export default function FlowStepNodeButton() {
         selectObject,
     ]);
 
+    const style = useMemo(() => ({
+        border: '1px solid',
+        borderColor: outlineColor,
+        backgroundColor,
+        height: NODE_BUTTON_HEIGHT,
+        maxWidth: WORKFLOW_BUTTON_WIDTH,
+        color,
+    }), [backgroundColor, color, outlineColor]);
+
     if (!x) return null;
 
     return (
@@ -109,14 +119,7 @@ export default function FlowStepNodeButton() {
                         className="NodeButton"
                         onKeyUp={preventDefault}
                         onClick={handleClick}
-                        style={{
-                            border: '1px solid',
-                            borderColor: outlineColor,
-                            backgroundColor,
-                            height: NODE_BUTTON_HEIGHT,
-                            maxWidth: WORKFLOW_BUTTON_WIDTH,
-                            color,
-                        }}
+                        style={style}
                     >
                         <FontAwesomeIcon icon={faHashtag} />
                         <div className="NodeButtonText">

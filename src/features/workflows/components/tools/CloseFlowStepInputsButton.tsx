@@ -19,7 +19,7 @@ export default function CloseFlowStepInputsButton() {
             startIcon={<FontAwesomeIcon icon={faClose} />}
             sx={{ mr: 1 }}
         >
-            {isMobile ? 'Close' : 'Close Step Inputs'}
+            {isMobile ? 'Finish IO' : 'Finish Adding Inputs'}
         </Button>
     );
 }

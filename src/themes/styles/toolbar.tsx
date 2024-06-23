@@ -1,3 +1,4 @@
+import utils from './utils';
 import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
@@ -64,7 +65,10 @@ export default (theme: NodecosmosTheme) => ({
             color: theme.palette.toolbar.lightRed,
             width: 'fit-content',
             marginRight: 8,
+            ...utils(theme),
         },
+        '.Item.default': { color: theme.palette.toolbar.default },
+        '.Item.lightRed': { color: theme.palette.toolbar.lightRed },
         '.Item.red': { color: theme.palette.toolbar.red },
         '.Item.green': { color: theme.palette.toolbar.green },
         '.Item.blue': { color: theme.palette.toolbar.blue },

@@ -4,7 +4,9 @@ import { HEADER_HEIGHT } from '../../features/app/constants';
 import {
     Alert as MuiAlert, Typography, Box,
 } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface AlertProps {
@@ -38,6 +40,12 @@ export default function Alert(props: AlertProps) {
         }
     }, [isOpen, handleClose]);
 
+    const sx = useMemo(() => ({
+        position,
+        mb,
+        right,
+    }), [position, mb, right]);
+
     if (!isOpen) return null;
 
     return (
@@ -47,30 +55,13 @@ export default function Alert(props: AlertProps) {
             width={width}
             maxWidth={maxWidth}
             zIndex={3}
-            sx={{
-                position,
-                mb,
-                right,
-            }}
+            sx={sx}
         >
             <MuiAlert
+                className={severity}
                 onClose={handleClose}
                 severity={severity}
                 variant="outlined"
-                sx={{
-                    px: 1,
-                    py: 0.35,
-                    height: 1,
-                    borderRadius: 0.5,
-                    width: 'calc(100% - 3px)',
-                    backgroundColor: 'background.1',
-                    '.MuiAlert-icon, .MuiAlert-action': { color: `${severity}.main` },
-                    '.MuiAlert-action': {
-                        p: 0,
-                        mr: 0,
-                    },
-                    alignItems: 'center',
-                }}
             >
                 <Typography
                     variant="body2"
