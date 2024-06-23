@@ -45,13 +45,13 @@ export default function Toolbar() {
 
     return (
         <Box
+            ref={clickableRef}
             height="7rem"
             borderBottom={1}
             borderColor="borders.2"
             boxShadow="2"
         >
             <Box
-                ref={clickableRef}
                 className="DrawerHeader"
                 height={DRAWER_HEIGHT}
                 borderBottom={1}

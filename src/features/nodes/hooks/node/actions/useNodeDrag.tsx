@@ -39,13 +39,15 @@ export default function useNodeDrag() {
         img.src = '/drag-image.svg';
         event.dataTransfer?.setDragImage(img, 5, -10);
 
-        dispatch(setDragAndDrop({
-            rootId,
-            branchId,
-            id,
-            parentId,
-            siblingIndex,
-        }));
+        setTimeout(() => {
+            dispatch(setDragAndDrop({
+                rootId,
+                branchId,
+                id,
+                parentId,
+                siblingIndex,
+            }));
+        }, 50);
     }, [rootId, branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex]);
 
     //------------------------------------------------------------------------------------------------------------------
@@ -78,6 +80,8 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
+        console.log('stopDrag');
+
         dispatch(setDragAndDrop(null));
     }, [dispatch]);
 

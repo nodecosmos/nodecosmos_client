@@ -15,11 +15,6 @@ export const DISPLAY_MD_SX = {
     md: 'block',
 };
 
-export const WIDTH_SIDEBAR_MD_SX = {
-    xs: 1,
-    md: `calc(100% - ${SIDEBAR_WIDTH})`,
-};
-
 export const MD_FLEX_SX = {
     xs: 'block',
     md: 'flex',
@@ -30,9 +25,14 @@ export const SIDEBAR_MD_SX = {
     md: SIDEBAR_WIDTH,
 };
 
-export const MOBILE_HEIGHT_SX = {
+export const MOBILE_WO_HEADER_HEIGHT_SX = {
     xs: `calc(100% - ${HEADER_HEIGHT})`,
     md: 1,
+};
+
+export const MD_WO_SIDEBAR_WIDTH_SX = {
+    xs: 1,
+    md: `calc(100% - ${SIDEBAR_WIDTH})`,
 };
 
 export const MOBILE_NO_HEIGHT_SX = {

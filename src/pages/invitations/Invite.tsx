@@ -102,7 +102,7 @@ export default function Invite() {
         if (res.meta.requestStatus === 'rejected') {
             const error: NodecosmosError = res.payload as NodecosmosError;
 
-            handleServerError(error);
+            setTimeout(() => handleServerError(error), 250);
             console.error(error);
 
             return;

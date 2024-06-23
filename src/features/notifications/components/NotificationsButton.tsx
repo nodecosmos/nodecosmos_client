@@ -9,6 +9,8 @@ import { Badge } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+const FETCH_NOTIFICATIONS_INTERVAL = 120000; // 2 minutes
+
 export default function NotificationsButton() {
     const unseenNotificationCount = useSelector(selectUnseenNotificationCount);
     const [fetched, setFetched] = useBooleanStateValue(false);
@@ -18,6 +20,7 @@ export default function NotificationsButton() {
     useEffect(() => {
         if (!fetched) {
             dispatch(getNotifications());
+            setInterval(() => dispatch(getNotifications()), FETCH_NOTIFICATIONS_INTERVAL);
             setFetched();
         }
     }, [dispatch, fetched, setFetched]);
@@ -29,6 +32,5 @@ export default function NotificationsButton() {
             </Badge>
             <NotificationDrawer open={modalOpen} onClose={closeModal} />
         </div>
-
     );
 }

@@ -42,12 +42,13 @@ export default function MobilePane({ rootId, page }: PaneProps) {
     return (
         <Box
             className="MobilePane"
+            id="MobilePane"
             position="absolute"
             bottom={0}
             height={DRAWER_HEIGHT}
             borderTop={1}
             borderColor="borders.1"
-            boxShadow="8"
+            boxShadow="top.2"
             width={1}
             display="flex"
             alignItems="center"

@@ -37,6 +37,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         headerName: 'Username',
         field: 'username',
         minWidth: 150,
+        flex: 1,
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
                 <Link component={RouterLink} to={`/${params.value}`}>
@@ -53,6 +54,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         field: 'firstName',
         minWidth: 150,
         headerName: 'First Name',
+        flex: 1,
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
                 <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
@@ -65,6 +67,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         field: 'lastName',
         minWidth: 150,
         headerName: 'Last Name',
+        flex: 1,
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
                 <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
@@ -78,6 +81,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         minWidth: 200,
         headerName: 'Joined Platform',
         type: 'dateTime',
+        flex: 1,
         valueGetter: (params: string) => {
             return new Date(params);
         },
@@ -86,6 +90,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         headerName: '',
         field: 'actions',
         type: 'string',
+        flex: 1,
         renderCell: (params: GridRenderCellParams<ShowUser>) => {
             return <EditorActions id={params.row.id} />;
         },

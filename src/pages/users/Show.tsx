@@ -1,4 +1,4 @@
-import { SIDEBAR_WIDTH } from '../../features/app/constants';
+import { SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX } from '../../features/app/constants';
 import Profile from '../../features/users/components/profile/Profile';
 import useUsername from '../../features/users/hooks/useUsername';
 import { selectUser } from '../../features/users/users.selectors';
@@ -46,18 +46,14 @@ export default function Show() {
                 borderColor="borders.1"
             />
             <Box
-                m={{
+                mx={{
                     xs: 0,
                     md: 4,
                 }}
-                mt={{
-                    xs: 1,
-                    md: 4,
-                }}
-                width={{
-                    md: `calc(100% - ${SIDEBAR_WIDTH})`,
-                    xs: 1,
-                }}>
+                py={4}
+                width={MD_WO_SIDEBAR_WIDTH_SX}
+                sx={{ overflow: 'auto' }}
+            >
                 <Profile />
             </Box>
         </Box>

@@ -10,6 +10,7 @@ export enum NotificationType {
     NewContributionRequest = 'NewContributionRequest',
     MergeContributionRequest = 'MergeContributionRequest',
     NewComment = 'NewComment',
+    NewInvitation = 'NewInvitation',
 }
 
 export interface Notification extends NotificationPrimaryKey {

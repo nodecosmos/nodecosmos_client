@@ -58,11 +58,21 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
     ]);
     const divStyle = useMemo(() => ({ fontSize }), [fontSize]);
     const className = useMemo(() => {
-        return `NodeButton ${isSelected && 'selected'} ${(outlinedColored || isDragOver) && 'outlined'}`;
+        let className = 'NodeButton';
+        if (isSelected) {
+            className += ' selected';
+        }
+
+        if (outlinedColored || isDragOver) {
+            className += ' outlined';
+        }
+
+        return className;
     }, [isSelected, outlinedColored, isDragOver]);
 
     return (
         <button
+            className={className}
             draggable
             type="button"
             onMouseDown={stopPropagation} // prevents pannable from firing
@@ -71,7 +81,6 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
             onDragOver={dragOver}
             onDragLeave={dragLeave}
             onDropCapture={dropCapture}
-            className={className}
             onKeyUp={preventDefault}
             style={buttonStyle}
             onClick={onClick}

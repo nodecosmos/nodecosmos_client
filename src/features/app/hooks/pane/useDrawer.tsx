@@ -12,7 +12,8 @@ export default function useDrawer(): MutableRefObject<null | HTMLDivElement> {
 
     const handleTouchStart = useCallback((event: TouchEvent) => {
         const yStart = event.touches[0].clientY;
-        const currentHeight = 64;
+        const currentHeight = document.getElementById('MobilePane')?.clientHeight || 64;
+        const startTime = new Date().getTime();
 
         const handleTouchMove = (touchEvent: TouchEvent) => {
             touchEvent.preventDefault();
@@ -21,7 +22,7 @@ export default function useDrawer(): MutableRefObject<null | HTMLDivElement> {
             const diff = Math.floor(yStart - yMove);
             let newHeight = currentHeight + diff;
 
-            if ((newHeight < 64) || ((newHeight < currentHeight) && ((currentHeight - newHeight) > 64))) {
+            if (newHeight < 64) {
                 newHeight = 64;
             }
 
@@ -29,17 +30,26 @@ export default function useDrawer(): MutableRefObject<null | HTMLDivElement> {
         };
 
         const handleTouchEnd = () => {
-            setMobilePaneHeight((prevHeight: string | number) => {
-                const isNumber = typeof prevHeight === 'number';
+            const endTime = new Date().getTime();
+            const totalTime = endTime - startTime;
+            // if totalTime is less than 300ms then it's a swipe
+            if (totalTime < 300) {
+                setMobilePaneHeight((prevHeight: string | number) => {
+                    const isNumber = typeof prevHeight === 'number';
 
-                if (isNumber && (prevHeight > (window.innerHeight / 4))) {
-                    return MOBILE_PANE_HEIGHT;
-                } else if (isNumber) {
-                    return DRAWER_HEIGHT;
-                } else {
+                    // if diff is more then 64 move up or down
+                    if (isNumber) {
+                        const diff = currentHeight - prevHeight;
+                        if (diff > 64) {
+                            return DRAWER_HEIGHT;
+                        } else if (diff < -64) {
+                            return MOBILE_PANE_HEIGHT;
+                        }
+                    }
+
                     return prevHeight;
-                }
-            });
+                });
+            }
 
             window.removeEventListener('touchmove', handleTouchMove);
             window.removeEventListener('touchend', handleTouchEnd);
