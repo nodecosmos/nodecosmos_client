@@ -77,7 +77,14 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     marginLeft: -8,
                     '&:hover': { cursor: 'col-resize' },
                 },
-                '.MobilePane': { transition: 'height 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms' },
+                '.Pane': {
+                    backgroundColor: theme.palette.background[5],
+                    height: '100%',
+                },
+                '.MobilePane': {
+                    transition: 'height 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
+                    backgroundColor: theme.palette.background[1],
+                },
             },
         },
         ...alert(theme),

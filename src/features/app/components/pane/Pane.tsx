@@ -51,7 +51,9 @@ export default function Pane({ rootId, page }: PaneProps) {
 
     return (
         <PaneContext.Provider value={CtxCreatorValue}>
-            <Content />
+            <div className="Pane">
+                <Content />
+            </div>
         </PaneContext.Provider>
     );
 }

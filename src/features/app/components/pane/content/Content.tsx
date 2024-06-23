@@ -19,11 +19,6 @@ const PANE_CONTENTS = {
     [PaneContent.Comments]: PaneComments,
 };
 
-const SECTION_SX = {
-    overflow: 'hidden',
-    backgroundColor: 'background.5',
-};
-
 const BOX_HEIGHT_SX = {
     xs: `calc(100% - ${MOBILE_TOOLBAR_HEIGHT})`,
     md: `calc(100% - ${HEADER_HEIGHT})`,
@@ -57,11 +52,11 @@ export default function Content() {
 
     return (
         <Box
+            className="overflow-hidden"
             component="section"
             width={1}
             height={1}
             overflow="hidden"
-            sx={SECTION_SX}
             position="relative"
             zIndex={1}
         >

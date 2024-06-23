@@ -74,7 +74,7 @@ export default function PaneComments() {
             <Container>
                 <Typography variant="h5" color="text.secondary">
                     <FontAwesomeIcon icon={faComments} />
-                    <Box component="span" ml={2}>Conversation</Box>
+                    <Box component="span" ml={2}>Comments</Box>
                 </Typography>
             </Container>
             <Container sx={{

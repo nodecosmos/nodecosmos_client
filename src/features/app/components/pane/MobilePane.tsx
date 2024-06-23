@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material';
 import React, { useMemo } from 'react';
 
 export const MOBILE_PANE_HEIGHT = `calc(100% - ${HEADER_HEIGHT})`;
-const SX = { backgroundColor: 'background.5' };
+const SX = { backgroundColor: 'background.1' };
 
 export default function MobilePane({ rootId, page }: PaneProps) {
     const { PaneContext, CtxCreatorValue } = usePaneContextCreator({
@@ -48,7 +48,7 @@ export default function MobilePane({ rootId, page }: PaneProps) {
             height={DRAWER_HEIGHT}
             borderTop={1}
             borderColor="borders.1"
-            boxShadow="top.2"
+            boxShadow="2"
             width={1}
             display="flex"
             alignItems="center"
