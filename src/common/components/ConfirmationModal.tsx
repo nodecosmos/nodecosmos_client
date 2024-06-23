@@ -75,8 +75,10 @@ export default function ConfirmationModal(props: Props) {
                 <Typography color="text.secondary" fontWeight={700} mb={titleMb}>
                     {text}
                 </Typography>
-                {warning && <SimpleAlert severity="warning" message={warning} />}
-                {info && <SimpleAlert severity="info" message={info} />}
+                <Box>
+                    {warning && <SimpleAlert severity="warning" message={warning} />}
+                    {info && <SimpleAlert severity="info" message={info} />}
+                </Box>
             </DialogContent>
             <DialogActions>
                 <Box display={MD_FLEX_SX} width={1} justifyContent="end">
