@@ -46,7 +46,7 @@ const parseDensityFromLS = () => {
 const parseShowAncestorChainFromLS = () => {
     const showAncestorChain = localStorage.getItem('showAncestorChain');
 
-    return showAncestorChain === 'true';
+    return showAncestorChain ? showAncestorChain === 'true' : true;
 };
 
 const initialState: NodeState = {

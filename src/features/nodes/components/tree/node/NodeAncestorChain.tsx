@@ -15,20 +15,15 @@ import { useDispatch } from 'react-redux';
 
 interface NodeAncestorProps {
     ancestorId: UUID;
+    index: number;
 }
 
-const STYLE = {
-    opacity: 0,
-    animation: `appear ${INITIAL_ANIMATION_DURATION}ms 150ms forwards`,
-    transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-};
-
-function NodeAncestor({ ancestorId }: NodeAncestorProps) {
+function NodeAncestor({ ancestorId, index }: NodeAncestorProps) {
     const dispatch = useDispatch();
     const theme: NodecosmosTheme = useTheme();
     const { treeNodes } = useTreeContext();
     const node = treeNodes[ancestorId];
-    const { y: currentNodeY, isAlreadyMounted } = useNodeContext();
+    const { y: currentNodeY } = useNodeContext();
     const handleCentering = useCallback(() => {
         dispatch(setNodeScrollTo(ancestorId));
     }, [dispatch, ancestorId]);
@@ -42,6 +37,11 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
         const backgroundCount = backgrounds.length;
         return backgrounds[node.nestedLevel % backgroundCount];
     }, [backgrounds, node]);
+    const style = useMemo(() => ({
+        opacity: 0,
+        animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${index * 15}ms forwards`,
+        transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
+    }), [index]);
 
     if (!node || !nestedTreeColor) {
         return null;
@@ -59,7 +59,7 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
             stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
             strokeWidth={1}
             fill={theme.palette.tree.default}
-            style={isAlreadyMounted ? undefined : STYLE}
+            style={style}
         />
     );
 }
@@ -67,14 +67,15 @@ function NodeAncestor({ ancestorId }: NodeAncestorProps) {
 const Ancestor = React.memo(NodeAncestor);
 
 export default function NodeAncestorChain() {
+    const { isSelected } = useNodeContext();
     const { showAncestorChain } = useTreeContext();
     const { ancestorIds } = useNodeContext();
 
-    if (!showAncestorChain) {
+    if (!showAncestorChain || !isSelected || !ancestorIds) {
         return null;
     }
 
-    return ancestorIds.map((ancestorId) => (
-        <Ancestor key={ancestorId} ancestorId={ancestorId} />
+    return ancestorIds.map((ancestorId, index) => (
+        <Ancestor key={ancestorId} ancestorId={ancestorId} index={ancestorIds.length - index - 1} />
     ));
 }

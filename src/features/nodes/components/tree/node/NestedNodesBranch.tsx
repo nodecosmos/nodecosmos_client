@@ -18,9 +18,43 @@ const STYLE = {
     transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
 };
 
+interface NodeAncestorChainProps {
+    y: number;
+    yEnd: number;
+}
+
+function NodeAncestorChain({ y, yEnd }: NodeAncestorChainProps) {
+    const { size } = useTreeContext();
+    const { xEnd } = useNodeContext();
+    const theme: NodecosmosTheme = useTheme();
+    const { edgeLength, marginTop } = size;
+    const totalEdgeLength = edgeLength + marginTop;
+
+    // for each edgeLength between y and yEnd, render a circle
+    const circles = useMemo(
+        () => [...Array(Math.round(Math.abs(yEnd - y) / totalEdgeLength))], [totalEdgeLength, y, yEnd],
+    );
+
+    return circles.map((_, i) => (<circle
+        key={i}
+        className="NodeAncestorCircle"
+        cx={xEnd + MARGIN_LEFT}
+        cy={y + (i + 1) * totalEdgeLength}
+        stroke={theme.palette.tree.default}
+        strokeWidth={1}
+        r={size.circleRadius - 1}
+        fill={theme.palette.tree.default}
+        style={STYLE}
+    />));
+}
+
 export default function NestedNodesBranch() {
     const theme: NodecosmosTheme = useTheme();
-    const { treeNodes, size } = useTreeContext();
+    const {
+        treeNodes,
+        size,
+        showAncestorChain,
+    } = useTreeContext();
     const {
         lastChildId,
         isExpanded,
@@ -33,23 +67,24 @@ export default function NestedNodesBranch() {
         lastChildY = treeNodes[lastChildId].y;
     }
     const prevPathYEnd = usePrevious(lastChildY);
+    const yEnd = lastChildY || prevPathYEnd;
 
     const pathD = useMemo(() => {
         if (!lastChildId || !isExpanded || !lastChildY) return null;
 
         const x = xEnd + MARGIN_LEFT;
         const linkY = y + MARGIN_TOP;
-        const yEnd = lastChildY || prevPathYEnd;
 
         if (!yEnd) return null;
 
         return `M ${x} ${linkY} L ${x} ${yEnd}`;
-    }, [isExpanded, lastChildId, lastChildY, prevPathYEnd, xEnd, y]);
+    }, [isExpanded, lastChildId, lastChildY, xEnd, y, yEnd]);
 
-    if (!pathD) return null;
+    if (!pathD || !yEnd) return null;
 
     return (
         <>
+            {showAncestorChain && lastChildY && <NodeAncestorChain y={y} yEnd={yEnd} />}
             <path
                 stroke={theme.palette.tree.default}
                 fill="transparent"
