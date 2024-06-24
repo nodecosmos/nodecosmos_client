@@ -2,7 +2,10 @@ import ConfirmationModal, { ConfirmType } from '../../../../../../common/compone
 import ToolsContainer from '../../../../../../common/components/tools/ToolsContainer';
 import useModalOpenAuthorized from '../../../../../../common/hooks/useModalOpenAuthorized';
 import useBranchContext from '../../../../../branch/hooks/useBranchContext';
-import { TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
+import {
+    selectMainObjectThreadByObjectId,
+    selectThreadCommentsLength,
+} from '../../../../../comments/comments.selectors';
 import {
     NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
 } from '../../../../constants';
@@ -15,6 +18,7 @@ import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton, Tooltip } from '@mui/material';
 import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function OutputToolbar() {
     const { isIoCreated } = useWorkflowBranch();
@@ -24,6 +28,7 @@ export default function OutputToolbar() {
     const {
         openTitleEdit, deleteIoCb, undoDeleteIo,
     } = useIoActions();
+    const { branchId } = useBranchContext();
     const { isIoDeleted } = useWorkflowBranch();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpenAuthorized();
     const handleDelete = useCallback(async () => {
@@ -31,20 +36,23 @@ export default function OutputToolbar() {
         closeDelMod();
     }, [closeDelMod, deleteIoCb]);
     const { isBranch } = useBranchContext();
+    const threadId = useSelector(selectMainObjectThreadByObjectId(branchId, id));
+    const length = useSelector(selectThreadCommentsLength(threadId));
 
-    if (!isSelected) {
+    if (!isSelected && length) {
         return (
             <foreignObject
                 width={OUTPUT_BUTTON_SKEWED_WIDTH}
                 height={NODE_BUTTON_HEIGHT}
-                x={x + OUTPUT_BUTTON_X_MARGIN}
-                y={y - 45}
-                style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
+                x={x + OUTPUT_BUTTON_X_MARGIN - 8}
+                y={y - 44.5}
             >
                 {isBranch && <ObjectCommentsBadge id={id} justifyContent="end" mt={-0.5} />}
             </foreignObject>
         );
     }
+
+    if (!isSelected) return null;
 
     return (
         <foreignObject
@@ -52,7 +60,6 @@ export default function OutputToolbar() {
             height={NODE_BUTTON_HEIGHT}
             x={x + OUTPUT_BUTTON_X_MARGIN}
             y={y - 47.5}
-            style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
         >
             {
                 !isIoDeleted(id) && (
