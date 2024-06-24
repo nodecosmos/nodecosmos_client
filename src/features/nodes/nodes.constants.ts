@@ -24,4 +24,4 @@ export const COMPACT_EDGE_LENGTH = 22;
 export const COMPACT_FONT_SIZE = 12;
 export const COMPACT_ANCESTOR_RADIUS = 4;
 export const COMPACT_STROKE_WIDTH = 3;
-export const COMPACT_DROP_INDICATOR_Y_OFFSET = 24;
+export const COMPACT_DROP_INDICATOR_Y_OFFSET = 20;

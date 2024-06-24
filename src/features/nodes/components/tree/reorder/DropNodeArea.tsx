@@ -75,7 +75,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
 
     const x = nodeX - 10;
     const y = newSiblingIndex === 0
-        ? nodeY - dropIndicatorYOffset + 2.5 : nodeY - dropIndicatorYOffset;
+        ? nodeY - dropIndicatorYOffset + 3 : nodeY - dropIndicatorYOffset;
     const dropZoneY = y - dropIndicatorYOffset / 2 - (newSiblingIndex === 0 ? 4 : 2);
 
     return (
