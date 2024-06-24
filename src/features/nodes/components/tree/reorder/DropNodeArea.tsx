@@ -21,7 +21,9 @@ function DropNodeArea(props: DropNodeAreaProps) {
         parentId: dragAndDropParentId,
         siblingIndex: dragAndDropSiblingIndex,
     } = dragAndDrop;
-    const { branchId, treeNodes } = useTreeContext();
+    const {
+        branchId, treeNodes, size,
+    } = useTreeContext();
     const {
         parentId,
         isTmp,
@@ -37,6 +39,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
     const onDropCapture = useReorder();
     const [hovered, hover, leave] = useBooleanStateValue();
     const isSameParent = dragAndDropParentId === parentId;
+    const { dropIndicatorYOffset } = size;
 
     // handle new sibling index when a node is moved down on the same level
     const newSiblingIndex = siblingIndex as number;
@@ -71,8 +74,9 @@ function DropNodeArea(props: DropNodeAreaProps) {
     ) return null;
 
     const x = nodeX - 10;
-    const y = newSiblingIndex === 0 ? nodeY - 20 : nodeY - 28;
-    const dropZoneY = newSiblingIndex === 0 ? nodeY - 40 : y - 15;
+    const y = newSiblingIndex === 0
+        ? nodeY - dropIndicatorYOffset + 2.5 : nodeY - dropIndicatorYOffset;
+    const dropZoneY = y - dropIndicatorYOffset / 2 - (newSiblingIndex === 0 ? 4 : 2);
 
     return (
         <g
@@ -80,7 +84,6 @@ function DropNodeArea(props: DropNodeAreaProps) {
             onDragLeave={leave}
             onDropCapture={onDrop}
         >
-
             <rect
                 x={x}
                 y={y}
@@ -91,7 +94,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
             />
 
             <rect
-                x={x}
+                x={x - 10}
                 y={dropZoneY}
                 width="300"
                 height="30"

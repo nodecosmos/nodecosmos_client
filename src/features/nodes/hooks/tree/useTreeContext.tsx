@@ -3,10 +3,10 @@ import useTreeBuilder from './useTreeBuilder';
 import { Position, UUID } from '../../../../types';
 import { TreeProps } from '../../components/tree/Tree';
 import {
-    ANCESTOR_RADIUS, COMPACT_ANCESTOR_RADIUS,
+    ANCESTOR_RADIUS, COMPACT_ANCESTOR_RADIUS, COMPACT_DROP_INDICATOR_Y_OFFSET,
     COMPACT_EDGE_LENGTH, COMPACT_FONT_SIZE,
     COMPACT_MARGIN_TOP,
-    COMPACT_NODE_HEIGHT, COMPACT_STROKE_WIDTH,
+    COMPACT_NODE_HEIGHT, COMPACT_STROKE_WIDTH, DROP_INDICATOR_Y_OFFSET,
     EDGE_LENGTH,
     FONT_SIZE,
     MARGIN_TOP,
@@ -27,6 +27,7 @@ export interface NodeSize {
     yLength: number;
     pathWidth: number;
     circleRadius: number;
+    dropIndicatorYOffset: number;
 }
 
 export interface TreeContextValue extends TreeProps {
@@ -75,6 +76,7 @@ const NODE_SIZE = {
         yLength: EDGE_LENGTH + MARGIN_TOP,
         pathWidth: STROKE_WIDTH,
         circleRadius: ANCESTOR_RADIUS,
+        dropIndicatorYOffset: DROP_INDICATOR_Y_OFFSET,
     },
     [TreeDensity.Compact]: {
         height: COMPACT_NODE_HEIGHT,
@@ -84,6 +86,7 @@ const NODE_SIZE = {
         yLength: COMPACT_EDGE_LENGTH + COMPACT_MARGIN_TOP,
         pathWidth: COMPACT_STROKE_WIDTH,
         circleRadius: COMPACT_ANCESTOR_RADIUS,
+        dropIndicatorYOffset: COMPACT_DROP_INDICATOR_Y_OFFSET,
     },
 };
 

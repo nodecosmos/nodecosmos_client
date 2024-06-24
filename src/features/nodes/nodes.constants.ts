@@ -8,6 +8,7 @@ export const ANIMATION_DELAY = 50; // ms - move down siblings first than extend 
 export const TRANSITION_ANIMATION_DURATION = 150; // ms
 export const ANCESTOR_RADIUS = 5;
 export const STROKE_WIDTH = 3.5;
+export const DROP_INDICATOR_Y_OFFSET = 25;
 
 // for virtualization
 export const CLIENT_VIEWPORT_BUFFER_FACTOR = 2;
@@ -23,3 +24,4 @@ export const COMPACT_EDGE_LENGTH = 22;
 export const COMPACT_FONT_SIZE = 12;
 export const COMPACT_ANCESTOR_RADIUS = 4;
 export const COMPACT_STROKE_WIDTH = 3;
+export const COMPACT_DROP_INDICATOR_Y_OFFSET = 24;

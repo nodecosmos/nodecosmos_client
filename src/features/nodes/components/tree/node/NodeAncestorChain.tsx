@@ -57,7 +57,7 @@ function NodeAncestor({ ancestorId, index }: NodeAncestorProps) {
             cy={currentNodeY}
             r={hovered ? size.circleRadius + 1 : (isSelected ? size.circleRadius : size.circleRadius - 1)}
             stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
-            strokeWidth={1}
+            strokeWidth={0.5}
             fill={theme.palette.tree.default}
             style={style}
         />

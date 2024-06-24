@@ -27,7 +27,7 @@ export default function NodeBranch() {
     const theme: NodecosmosTheme = useTheme();
     const { size, showAncestorChain } = useTreeContext();
     const {
-        isRoot, x, xEnd, y, isSelected, isAlreadyMounted,
+        isRoot, x, xEnd, y, isSelected,
     } = useNodeContext();
     const { parentColor } = useNodeColors();
     const animated = !isSafari;
@@ -35,22 +35,14 @@ export default function NodeBranch() {
     const pathStyle = useMemo(() => {
         if (!animated) return undefined;
 
-        if (!isRoot && !isAlreadyMounted) {
-            return PATH_ANIMATION;
-        }
-
-        return { transition: PATH_ANIMATION.transition };
-    }, [animated, isAlreadyMounted, isRoot]);
+        return PATH_ANIMATION;
+    }, [animated]);
 
     const circleStyle = useMemo(() => {
         if (!animated) return undefined;
 
-        if (!isRoot && !isAlreadyMounted) {
-            return CIRCLE_ANIMATION;
-        }
-
-        return { transition: CIRCLE_ANIMATION.transition };
-    }, [animated, isAlreadyMounted, isRoot]);
+        return CIRCLE_ANIMATION;
+    }, [animated]);
 
     const pathD = useMemo(() => {
         if (!x) { return null; }
@@ -94,6 +86,7 @@ export default function NodeBranch() {
                 r={size.circleRadius}
                 fill={theme.palette.tree.default}
                 stroke={parentColor}
+                strokeWidth={0.5}
                 style={circleStyle}
             />
             <NodeAncestorChain />

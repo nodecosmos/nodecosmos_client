@@ -1,13 +1,19 @@
 import ContributionRequestSearchInput from './ContributionRequestSearchInput';
 import CreateContributionRequestModal from './CreateContributionRequestModal';
-import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import ToolsContainer from '../../../common/components/tools/ToolsContainer';
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { HEADER_HEIGHT } from '../../app/constants';
 import useIsMobile from '../../app/hooks/useIsMobile';
 import { faAdd } from '@fortawesome/pro-light-svg-icons';
-import { Box } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Button } from '@mui/material';
 import React, { useMemo } from 'react';
+
+const BUTTON_SX = {
+    mr: 1,
+    width: 'fit-content',
+};
 
 interface Props {
     nodeId: UUID;
@@ -19,7 +25,7 @@ export default function ContributionRequestsIndexToolbar({ nodeId, rootId }: Pro
     const isMobile = useIsMobile();
 
     const title = useMemo(() => {
-        return isMobile ? 'Add CR' : 'Add Contribution Request';
+        return isMobile ? 'New' : 'New Contribution Request';
     }, [isMobile]);
 
     return (
@@ -34,15 +40,23 @@ export default function ContributionRequestsIndexToolbar({ nodeId, rootId }: Pro
                 borderBottom={1}
                 borderColor="borders.1"
                 zIndex={3}
-                pl={1.25}
+                px={1.25}
             >
-                <DefaultButton
-                    title={title}
-                    startIcon={faAdd}
-                    onClick={openModal}
-                />
+                <ToolsContainer>
+                    <Button
+                        variant="contained"
+                        disableElevation
+                        onClick={openModal}
+                        color="button"
+                        startIcon={<FontAwesomeIcon icon={faAdd} />}
+                        sx={BUTTON_SX}
+                    >
+                        {title}
+                    </Button>
 
-                <ContributionRequestSearchInput />
+                    <ContributionRequestSearchInput />
+
+                </ToolsContainer>
             </Box>
             <CreateContributionRequestModal
                 rootId={rootId}

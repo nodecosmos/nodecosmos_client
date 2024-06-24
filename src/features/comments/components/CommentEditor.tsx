@@ -6,6 +6,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import { EMPTY_PARAGRAPH } from '../../descriptions/hooks/useDescriptionEdit';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
 import { selectCurrentUser } from '../../users/users.selectors';
 import {
@@ -135,6 +136,19 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
 
                     return;
                 }
+
+                if (!content || content === EMPTY_PARAGRAPH) {
+                    dispatch(setAlert({
+                        isOpen: true,
+                        severity: 'error',
+                        message: 'Comment is required.',
+                    }));
+
+                    unsetLoading();
+
+                    return;
+                }
+
                 payload = {
                     newThread,
                     comment: {

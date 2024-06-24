@@ -6,10 +6,21 @@ import React, {
     ChangeEvent, useCallback, useEffect,
 } from 'react';
 
+const SX = {
+    height: 32,
+    width: '350px',
+    svg: { color: 'toolbar.default' },
+    '.MuiInputBase-root': {
+        borderRadius: 1,
+        borderColor: 'transparent',
+        height: 1,
+    },
+};
+
 const INPUT_PROPS = {
     startAdornment: (
         <InputAdornment
-            position="start"
+            position="end"
             sx={{
                 p: 1,
                 pr: 1.5,
@@ -33,6 +44,7 @@ export default function ThreadSearchInput() {
 
     return (
         <TextField
+            sx={SX}
             className="SearchInput"
             InputProps={INPUT_PROPS}
             color="primary"

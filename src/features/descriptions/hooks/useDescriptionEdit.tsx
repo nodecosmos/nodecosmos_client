@@ -11,7 +11,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MarkdownExtension } from 'remirror/extensions';
 
-const EMPTY_PARAGRAPH = '<p></p>';
+export const EMPTY_PARAGRAPH = '<p></p>';
 
 type HandleChangeById = Record<UUID, number>;
 

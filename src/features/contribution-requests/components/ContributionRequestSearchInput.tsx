@@ -7,14 +7,23 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
+const SX = {
+    height: 32,
+    width: '350px',
+    svg: { color: 'toolbar.default' },
+    '.MuiInputBase-root': {
+        borderRadius: 1,
+        borderColor: 'transparent',
+        height: 1,
+    },
+};
+
 const INPUT_PROPS = {
-    startAdornment: (
-        <InputAdornment
-            position="start"
-            sx={{
-                p: 1,
-                pr: 1.5,
-            }}>
+    id: 'search',
+    name: 'search',
+    autoComplete: 'search',
+    endAdornment: (
+        <InputAdornment position="start">
             <FontAwesomeIcon
                 icon={faMagnifyingGlass}
             />
@@ -34,6 +43,7 @@ export default function ContributionRequestSearchInput() {
 
     return (
         <TextField
+            sx={SX}
             className="SearchInput"
             InputProps={INPUT_PROPS}
             color="primary"
