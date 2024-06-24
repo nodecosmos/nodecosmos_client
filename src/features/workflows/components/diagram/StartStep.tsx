@@ -5,6 +5,8 @@ import { NodecosmosTheme } from '../../../../themes/themes.types';
 import {
     ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes/nodes.constants';
+import { Output as OutputType } from '../../diagram/diagram.types';
+import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import {
     MARGIN_LEFT,
     WORKFLOW_START_MARGIN_TOP,
@@ -12,9 +14,7 @@ import {
     OUTPUT_EDGE_LENGTH,
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_BUTTON_HEIGHT,
-} from '../../constants';
-import { Output as OutputType } from '../../diagram/diagram.types';
-import useDiagramContext from '../../hooks/diagram/useDiagramContext';
+} from '../../workflows.constants';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme } from '@mui/material';

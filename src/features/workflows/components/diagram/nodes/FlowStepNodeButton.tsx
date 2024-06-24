@@ -7,18 +7,19 @@ import { setAlert } from '../../../../app/appSlice';
 import useAppContext from '../../../../app/hooks/useAppContext';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes/nodes.actions';
-import {
-    ANIMATION_DELAY,
-    INITIAL_ANIMATION_DURATION,
-    TRANSITION_ANIMATION_DURATION,
-} from '../../../../nodes/nodes.constants';
-import {
-    EDGE_LENGTH,
-    MARGIN_TOP, NODE_BUTTON_HEIGHT, SHADOW_OFFSET, WORKFLOW_BUTTON_WIDTH, WORKFLOW_WIDTH_WITH_TOOLBAR,
-} from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
+import {
+    BUTTON_APPEAR_STYLE,
+    EDGE_LENGTH,
+    MARGIN_TOP,
+    NODE_BUTTON_HEIGHT,
+    SHADOW_OFFSET,
+    WORKFLOW_BUTTON_WIDTH,
+    WORKFLOW_WIDTH_WITH_TOOLBAR,
+    Y_TRANSITION_STYLE,
+} from '../../../workflows.constants';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ButtonBase } from '@mui/material';
@@ -39,8 +40,6 @@ export default function FlowStepNodeButton() {
         outlineColor,
         color,
     } = useFlowStepNodeColors();
-    const initialAnimationDelay = ANIMATION_DELAY;
-    const initialAnimationDuration = INITIAL_ANIMATION_DURATION;
     const { selectObject } = useAppContext();
     const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -100,18 +99,14 @@ export default function FlowStepNodeButton() {
     if (!x) return null;
 
     return (
-        <g style={{
-            opacity: 0,
-            animation: `workflow-node-button-appear ${initialAnimationDuration}ms ${initialAnimationDelay}ms forwards`,
-        }}
-        >
+        <g style={BUTTON_APPEAR_STYLE}>
             <FlowStepNodeBranch />
             <foreignObject
                 width={WORKFLOW_WIDTH_WITH_TOOLBAR}
                 height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
                 x={x + EDGE_LENGTH}
                 y={y - MARGIN_TOP}
-                style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
+                style={Y_TRANSITION_STYLE}
             >
                 <div className="NodeButtonContainer">
                     <ButtonBase

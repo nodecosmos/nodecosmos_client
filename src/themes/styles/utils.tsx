@@ -35,6 +35,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.toolbar-active': { color: theme.palette.toolbar.active },
     '&.toolbar-default': { color: theme.palette.toolbar.default },
     '&.toolbar-breadcrumbs': { color: theme.palette.toolbar.breadcrumbs },
+    '&.default-list-color': { color: theme.palette.background.list.defaultColor },
 
     '&.ellipsis': { textOverflow: 'ellipsis' },
 
@@ -44,5 +45,5 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.float-right': { float: 'right' },
 
-    '&.default-list-color': { color: theme.palette.background.list.defaultColor },
+    '&.cursor-pointer': { cursor: 'pointer' },
 });

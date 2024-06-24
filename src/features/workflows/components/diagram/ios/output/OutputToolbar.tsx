@@ -6,12 +6,12 @@ import {
     selectMainObjectThreadByObjectId,
     selectThreadCommentsLength,
 } from '../../../../../comments/comments.selectors';
-import {
-    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
-} from '../../../../constants';
 import useIoActions from '../../../../hooks/diagram/io/useIoActions';
 import useIoContext from '../../../../hooks/diagram/io/useIoContext';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
+import {
+    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
+} from '../../../../workflows.constants';
 import ObjectCommentsBadge from '../../ObjectCommentBadge';
 import { faPenToSquare, faTrash } from '@fortawesome/pro-light-svg-icons';
 import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
@@ -66,12 +66,8 @@ export default function OutputToolbar() {
                     <ToolsContainer justifyContent="end">
                         <Tooltip title="Edit IO Title" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-green"
                                 aria-label="Edit IO Title"
-                                sx={{
-                                    color: 'toolbar.green',
-                                    fontSize: 14,
-                                }}
                                 onClick={openTitleEdit}
                             >
                                 <FontAwesomeIcon icon={faPenToSquare} />
@@ -79,13 +75,8 @@ export default function OutputToolbar() {
                         </Tooltip>
                         <Tooltip title="Delete IO" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-lightRed"
                                 aria-label="Delete IO"
-                                sx={{
-                                    color: 'toolbar.lightRed',
-                                    fontSize: 14,
-                                    ml: 1,
-                                }}
                                 onClick={openDelMod}
                             >
                                 <FontAwesomeIcon icon={faTrash} />
@@ -98,12 +89,10 @@ export default function OutputToolbar() {
             {
                 isIoDeleted(id) && (
                     <ToolsContainer justifyContent="end">
-                        {isBranch && <ObjectCommentsBadge id={id} />}
                         <Tooltip title="Undo Delete" placement="top">
                             <IconButton
-                                className="Item"
+                                className="Item toolbar-purple"
                                 aria-label="Undo Delete"
-                                sx={{ color: 'toolbar.purple' }}
                                 onClick={undoDeleteIo}
                             >
                                 <FontAwesomeIcon icon={faRotateLeft} />

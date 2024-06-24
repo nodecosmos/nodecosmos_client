@@ -1,13 +1,8 @@
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
-import {
-    ANIMATION_DELAY,
-    INITIAL_ANIMATION_DURATION,
-    TRANSITION_ANIMATION_DURATION,
-} from '../../../../nodes/nodes.constants';
-import {
-    EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP,
-} from '../../../constants';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
+import {
+    EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP, PATH_STYLE,
+} from '../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
 /* nodecosmos */
@@ -35,11 +30,7 @@ export default function NodeOutputsBranch() {
             fill="transparent"
             strokeWidth={3}
             d={`M ${branchX} ${branchY} L ${branchX} ${yEnd}`}
-            style={{
-                opacity: 0,
-                animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
-                transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-            }}
+            style={PATH_STYLE}
         />
     );
 }

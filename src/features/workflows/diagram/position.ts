@@ -8,7 +8,7 @@ import {
     WORKFLOW_START_MARGIN_TOP,
     FLOW_TOOLBAR_HEIGHT,
     OUTPUT_BUTTON_SKEWED_WIDTH, BORDER_WIDTH,
-} from '../constants';
+} from '../workflows.constants';
 
 export function calculateWorkflowStepPosition(index: number): Position {
     return {

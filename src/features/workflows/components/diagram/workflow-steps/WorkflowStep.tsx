@@ -1,9 +1,9 @@
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import useModalOpenAuthorized from '../../../../../common/hooks/useModalOpenAuthorized';
 import FlowModal from '../../../../flows/components/FlowModal';
-import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
+import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
     Box, Button, Typography,

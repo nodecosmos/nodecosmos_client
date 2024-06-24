@@ -1,17 +1,16 @@
 import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
 import { withOpacity } from '../../../../../../utils/colors';
-import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
-import { FLOW_TOOLBAR_HEIGHT } from '../../../../constants';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
 import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
+import {
+    ANIMATION_PATH_STYLE, CIRCLE_STYLE, FLOW_TOOLBAR_HEIGHT,
+} from '../../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
-
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 interface InputProps {
     nodeOutputId: UUID
@@ -62,7 +61,6 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
 
     const selectedOffset = isSelected ? 1 : 0;
 
-    const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
     const isDestBelow = flowStepY < originNodePosition.y;
     const yOriginOffset = isDestBelow ? Y_ORIGIN_OFFSET : -Y_ORIGIN_OFFSET;
 
@@ -79,7 +77,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                     L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${flowStepY + selectedOffset}
                     L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${yEnd}
                     L ${xEnd} ${yEnd}`}
-                style={{ transition: `d ${transitionAnimationDuration / 2}ms` }}
+                style={ANIMATION_PATH_STYLE}
             />
             <circle
                 className="InputLink"
@@ -89,11 +87,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 strokeWidth={1}
                 stroke={strokeColor}
                 fill={color}
-                style={{
-                    opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
-                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-                }} />
+                style={CIRCLE_STYLE} />
             ;
             <text
                 className="InputLinkText"
@@ -112,11 +106,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 strokeWidth={2}
                 stroke={color}
                 fill={color}
-                style={{
-                    opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
-                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-                }}
+                style={CIRCLE_STYLE}
             />
         </g>
     );

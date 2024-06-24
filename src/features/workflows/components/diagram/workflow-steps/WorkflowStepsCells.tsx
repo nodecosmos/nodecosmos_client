@@ -1,6 +1,6 @@
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
-import { WORKFLOW_STEP_WIDTH } from '../../../constants';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
+import { WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
 

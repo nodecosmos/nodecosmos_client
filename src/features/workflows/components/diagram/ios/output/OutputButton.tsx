@@ -1,18 +1,18 @@
 import EditTitleField from '../../../../../../common/components/EditTItleField';
 import usePreventDefault from '../../../../../../common/hooks/usePreventDefault';
-import { TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
+import useIoActions from '../../../../hooks/diagram/io/useIoActions';
+import useIoContext from '../../../../hooks/diagram/io/useIoContext';
+import useOutputColors from '../../../../hooks/diagram/useOutputColors';
+import useWorkflowContext from '../../../../hooks/useWorkflowContext';
 import {
     MARGIN_TOP,
     NODE_BUTTON_HEIGHT,
     OUTPUT_BUTTON_SKEWED_WIDTH,
     OUTPUT_BUTTON_X_MARGIN,
-} from '../../../../constants';
-import useIoActions from '../../../../hooks/diagram/io/useIoActions';
-import useIoContext from '../../../../hooks/diagram/io/useIoContext';
-import useOutputColors from '../../../../hooks/diagram/useOutputColors';
-import useWorkflowContext from '../../../../hooks/useWorkflowContext';
-import { Box, Checkbox } from '@mui/material';
-import React from 'react';
+    Y_TRANSITION_STYLE,
+} from '../../../../workflows.constants';
+import { Checkbox } from '@mui/material';
+import React, { useMemo } from 'react';
 
 export default function OutputButton() {
     const {
@@ -33,6 +33,12 @@ export default function OutputButton() {
         handleIoClick, handleTitleChange, closeTitleEdit,
     } = useIoActions();
     const preventDefault = usePreventDefault();
+    const buttonStyle = useMemo(() => ({
+        backgroundColor,
+        border: `1px solid ${isChecked ? checkboxColor : outlineColor}`,
+        justifyContent: inputsAdditionActive ? 'flex-start' : 'center',
+        color,
+    }), [backgroundColor, checkboxColor, color, isChecked, inputsAdditionActive, outlineColor]);
 
     return (
         <foreignObject
@@ -40,7 +46,7 @@ export default function OutputButton() {
             height={NODE_BUTTON_HEIGHT + 3}
             x={x + OUTPUT_BUTTON_X_MARGIN}
             y={y - MARGIN_TOP}
-            style={{ transition: `y ${TRANSITION_ANIMATION_DURATION}ms` }}
+            style={Y_TRANSITION_STYLE}
         >
             {
                 !titleEditOpen && (
@@ -49,12 +55,7 @@ export default function OutputButton() {
                         className="WorkflowOutputButton"
                         onClick={handleIoClick}
                         onKeyUp={preventDefault}
-                        style={{
-                            backgroundColor,
-                            border: `1px solid ${isChecked ? checkboxColor : outlineColor}`,
-                            justifyContent: inputsAdditionActive ? 'flex-start' : 'center',
-                            color,
-                        }}
+                        style={buttonStyle}
                     >
                         {
                             inputsAdditionActive
@@ -71,7 +72,7 @@ export default function OutputButton() {
             }
             {
                 titleEditOpen && (
-                    <Box sx={{ backgroundColor: 'background.1' }}>
+                    <div className="background-1">
                         <EditTitleField
                             title={title}
                             color="text.primary"
@@ -80,7 +81,7 @@ export default function OutputButton() {
                             onClose={closeTitleEdit}
                             defaultEditing
                         />
-                    </Box>
+                    </div>
                 )
 
             }

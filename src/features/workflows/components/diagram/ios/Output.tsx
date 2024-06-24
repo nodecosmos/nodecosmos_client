@@ -17,6 +17,11 @@ interface OutputProps {
     output: OutputType;
 }
 
+const G_STYLE = {
+    opacity: 0,
+    animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
+};
+
 export default function Output(props: OutputProps) {
     const { output } = props;
     const {
@@ -39,12 +44,7 @@ export default function Output(props: OutputProps) {
         <g>
             <IoContext.Provider value={ioContextValue}>
                 <OutputBranch output={output} />
-                <g style={{
-                    opacity: 0,
-                    animation: `node-button-appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
-                }}
-                >
-
+                <g style={G_STYLE}>
                     <OutputToolbar />
                     <OutputButton />
                 </g>

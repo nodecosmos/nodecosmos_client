@@ -1,15 +1,13 @@
 import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
 import { withOpacity } from '../../../../../../utils/colors';
-import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../../../../../nodes/nodes.constants';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
 import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
+import { CIRCLE_STYLE, PATH_STYLE } from '../../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
-
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 interface InputProps {
     nodeOutputId: UUID
@@ -44,8 +42,6 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     // current input ends where current node starts (x, y)
     const { x: xEnd, y: yEnd } = nodePosition;
 
-    const transitionAnimationDuration = isSafari ? 0 : TRANSITION_ANIMATION_DURATION;
-
     return (
         <g>
             <path
@@ -54,11 +50,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 fill="transparent"
                 strokeWidth={strokeWidth}
                 d={`M ${x} ${y} L ${xEnd - 40} ${yEnd} L ${xEnd} ${yEnd}`}
-                style={{
-                    opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION * 5}ms forwards`,
-                    transition: `d ${transitionAnimationDuration / 2}ms`,
-                }}
+                style={PATH_STYLE}
             />
             <circle
                 className="InputLink"
@@ -68,11 +60,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 strokeWidth={1}
                 stroke={color}
                 fill={defaultWfColor}
-                style={{
-                    opacity: 0,
-                    animation: `appear ${INITIAL_ANIMATION_DURATION / 2}ms forwards`,
-                    transition: `cx ${transitionAnimationDuration}ms, cy ${transitionAnimationDuration}ms`,
-                }}
+                style={CIRCLE_STYLE}
             />
         </g>
     );

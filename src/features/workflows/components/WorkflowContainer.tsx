@@ -1,6 +1,6 @@
 import {
     WORKFLOW_BUTTON_HEIGHT, OUTPUT_BUTTON_WIDTH, WORKFLOW_BUTTON_WIDTH,
-} from '../constants';
+} from '../workflows.constants';
 import { Box } from '@mui/material';
 import React from 'react';
 

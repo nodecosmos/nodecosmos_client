@@ -1,6 +1,6 @@
 import { NodecosmosTheme } from '../../../../themes/themes.types';
 import { AppNode } from '../../../nodes/nodes.types';
-import { NODE_BUTTON_HEIGHT } from '../../../workflows/constants';
+import { NODE_BUTTON_HEIGHT } from '../../../workflows/workflows.constants';
 import useNavigateToNode from '../../hooks/useNavigateToNode';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
