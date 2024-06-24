@@ -4,7 +4,7 @@ import { selectMainObjectThreadByObjectId, selectThreadCommentsLength } from '..
 import { faComment } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 interface Props {
@@ -23,28 +23,22 @@ export default function ObjectCommentsBadge({
     const { branchId } = useBranchContext();
     const threadId = useSelector(selectMainObjectThreadByObjectId(branchId, id));
     const length = useSelector(selectThreadCommentsLength(threadId));
+    const sxMemo = useMemo(() => ({
+        justifyContent,
+        height: 32,
+        mt,
+        ml,
+        mr,
+        mb,
+        width,
+    }), [justifyContent, mt, ml, mr, mb, width]);
 
     if (!length) return null;
 
     return (
-        <Box
-            className="CountBadge"
-            sx={{
-                justifyContent,
-                height: 32,
-                mt,
-                ml,
-                mr,
-                mb,
-                width,
-            }}>
+        <Box className="CountBadge" sx={sxMemo}>
             <Tooltip title="Comments" placement="top">
-                <div
-                    className="CountBadge"
-                    style={{
-                        position: 'relative',
-                        fontSize: 23, 
-                    }}>
+                <div className="CountBadge">
                     <FontAwesomeIcon icon={faComment} />
                     <span className="Count">{length}</span>
                 </div>

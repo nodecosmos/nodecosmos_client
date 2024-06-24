@@ -47,12 +47,7 @@ export default function FlowStepInnerToolbar() {
     }
 
     return (
-        <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="end"
-            width="100%"
-        >
+        <Box display="flex" alignItems="center" justifyContent="end" width="100%">
             {isFsInConflict
                 && (
                     <>

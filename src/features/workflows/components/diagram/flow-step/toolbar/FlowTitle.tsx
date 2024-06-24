@@ -5,6 +5,19 @@ import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { Typography } from '@mui/material';
 import React from 'react';
 
+const SX = {
+    minWidth: 'fit-content(14px)',
+    maxWidth: 220,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap', // otherwise safari will break words into multiple lines
+    '&:hover': {
+        cursor: 'pointer',
+        textDecoration: 'underline',
+        color: 'text.link',
+    },
+};
+
 export default function FlowTitle() {
     const {
         id, title, titleEditOpen,
@@ -32,20 +45,8 @@ export default function FlowTitle() {
             onClick={handleFlowClick}
             variant="body1"
             fontWeight={600}
-            color="text.tertiary"
-            sx={{
-                minWidth: 'fit-content(14px)',
-                maxWidth: 220,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap', // otherwise safari will break words into multiple lines
-                color: isFlowDelConflict ? 'toolbar.lightRed' : 'text.primary',
-                '&:hover': {
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                    color: 'text.link',
-                },
-            }}
+            color={isFlowDelConflict ? 'toolbar.lightRed' : 'text.primary'}
+            sx={SX}
         >
             {title}
         </Typography>

@@ -13,11 +13,11 @@ export default function CloseFlowStepInputsButton() {
 
     return (
         <Button
+            className="mr-1"
             variant="outlined"
             color="error"
             onClick={deactivateInputsAddition}
             startIcon={<FontAwesomeIcon icon={faClose} />}
-            sx={{ mr: 1 }}
         >
             {isMobile ? 'Finish IO' : 'Finish Adding Inputs'}
         </Button>

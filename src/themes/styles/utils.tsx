@@ -10,18 +10,22 @@ export default (theme: NodecosmosTheme) => ({
     },
 
     '&.ml-1': { marginLeft: 8 },
+    '&.ml-2': { marginLeft: 16 },
 
     '&.mr-1': { marginRight: 8 },
     '&.mr-2': { marginRight: 16 },
 
     '&.h-100': { height: '100%' },
-
     '&.min-h-210': { minHeight: 210 },
 
+    '&.border-radius-1': { borderRadius: 4 },
+
+    '&.fs-16': { fontSize: 16 },
     '&.fs-18': { fontSize: 18 },
 
     '&.background-2': { backgroundColor: theme.palette.background[2] },
     '&.background-5': { backgroundColor: theme.palette.background[5] },
+    '&.background-workflow-default': { backgroundColor: theme.palette.workflow.default },
 
     '&.toolbar-red': { color: theme.palette.toolbar.red },
     '&.toolbar-green': { color: theme.palette.toolbar.green },

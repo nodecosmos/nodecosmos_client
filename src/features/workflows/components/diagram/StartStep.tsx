@@ -2,9 +2,6 @@ import Output from './ios/Output';
 import StartToolbar from './StartToolbar';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosTheme } from '../../../../themes/themes.types';
-import {
-    ANIMATION_DELAY, INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION,
-} from '../../../nodes/nodes.constants';
 import { Output as OutputType } from '../../diagram/diagram.types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import {
@@ -13,7 +10,7 @@ import {
     NODE_BUTTON_HEIGHT,
     OUTPUT_EDGE_LENGTH,
     WORKFLOW_STEP_WIDTH,
-    WORKFLOW_BUTTON_HEIGHT,
+    WORKFLOW_BUTTON_HEIGHT, PATH_STYLE,
 } from '../../workflows.constants';
 import { faPlay } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,9 +20,7 @@ import React from 'react';
 export default function StartStep() {
     const theme: NodecosmosTheme = useTheme();
     const diagram = useDiagramContext();
-
     const inputsLength = diagram.initialInputs.length || 0;
-
     const x = OUTPUT_EDGE_LENGTH;
     const y = OUTPUT_EDGE_LENGTH;
     const yEnd = y + (OUTPUT_EDGE_LENGTH) * inputsLength + WORKFLOW_START_MARGIN_TOP;
@@ -68,11 +63,7 @@ export default function StartStep() {
                         fill="transparent"
                         strokeWidth={3}
                         d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
-                        style={{
-                            opacity: 0,
-                            animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${ANIMATION_DELAY}ms forwards`,
-                            transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
-                        }}
+                        style={PATH_STYLE}
                     />
                 )
             }
@@ -85,11 +76,7 @@ export default function StartStep() {
                 <div className="NodeButtonContainer">
                     <button
                         type="button"
-                        className="NodeButton"
-                        style={{
-                            backgroundColor: theme.palette.workflow.default,
-                            height: WORKFLOW_BUTTON_HEIGHT,
-                        }}
+                        className="NodeButton background-workflow-default"
                     >
                         <FontAwesomeIcon icon={faPlay} />
                         <div className="NodeButtonText">

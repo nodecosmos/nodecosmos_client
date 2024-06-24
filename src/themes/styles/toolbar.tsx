@@ -81,6 +81,7 @@ export default (theme: NodecosmosTheme) => ({
         alignItems: 'center',
         height: '100%',
         marginLeft: 8,
+        position: 'relative',
         svg: {
             fontSize: 23,
             color: theme.palette.button.main,

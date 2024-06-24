@@ -51,7 +51,7 @@ export default function FlowStepNodeToolbar() {
                     <IconButton
                         className="Item fs-18"
                         aria-label="Inputs"
-                        sx={{ color: 'secondary.main' }}
+                        color="secondary"
                         onClick={handleOpenInputsAddition}
                     >
                         <FontAwesomeIcon icon={faChartNetwork} />

@@ -1,5 +1,6 @@
 import useModalOpenAuthorized from '../../../../common/hooks/useModalOpenAuthorized';
 import CreateIoModal, { IoObjectType } from '../../../input-outputs/components/CreateIoModal';
+import { WORKFLOW_BUTTON_HEIGHT } from '../../workflows.constants';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,25 +18,11 @@ export default function StartToolbar({ startStepHovered }: StartToolbarProps) {
     return (
         <>
             {startStepHovered && (
-                <Box
-                    display="flex"
-                    sx={{
-                        ml: 1,
-                        '.Item': {
-                            width: 31,
-                            height: 1,
-                            mx: 0.5,
-                            borderRadius: 1,
-                            '&:hover': { backgroundColor: 'toolbar.hover' },
-                        },
-                        '.svg-inline--fa, .MuiSvgIcon-root': { fontSize: 15 },
-                    }}
-                >
+                <Box height={WORKFLOW_BUTTON_HEIGHT} ml={1}>
                     <Tooltip title="Add Initial Input" placement="top">
                         <IconButton
-                            className="Item"
+                            className="Item toolbar-red fs-18 border-radius-1"
                             aria-label="Add Initial Inputs"
-                            sx={{ color: 'toolbar.red' }}
                             onClick={openModal}
                         >
                             <FontAwesomeIcon icon={faPlus} />

@@ -3,7 +3,9 @@ import useModalOpenAuthorized from '../../../../../common/hooks/useModalOpenAuth
 import FlowModal from '../../../../flows/components/FlowModal';
 import useDiagramContext from '../../../hooks/diagram/useDiagramContext';
 import { useWorkflowStepContextCreator } from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
-import { FLOW_TOOLBAR_HEIGHT, WORKFLOW_STEP_WIDTH } from '../../../workflows.constants';
+import {
+    FLOW_TOOLBAR_HEIGHT, FS_BUTTON_APPEAR_STYLE, WORKFLOW_STEP_WIDTH,
+} from '../../../workflows.constants';
 import WorkflowStepFlows from '../flows/WorkflowStepFlows';
 import {
     Box, Button, Typography,
@@ -39,10 +41,7 @@ function WorkflowStep({ index }: { index: number }) {
 
     return (
         <WorkflowStepContext.Provider value={contextProviderValue}>
-            <g
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={unhover}>
-
+            <g onMouseEnter={handleMouseEnter} onMouseLeave={unhover}>
                 <rect
                     x={x}
                     y={0}
@@ -64,17 +63,13 @@ function WorkflowStep({ index }: { index: number }) {
                         </Typography>
                         {hovered && (
                             <Button
+                                className="ml-2 border-radius-1"
                                 size="small"
                                 variant="outlined"
                                 color="secondary"
                                 disableElevation
                                 type="submit"
-                                sx={{
-                                    ml: 2,
-                                    borderRadius: 1,
-                                    opacity: 0,
-                                    animation: 'appear 0.25s forwards',
-                                }}
+                                style={FS_BUTTON_APPEAR_STYLE}
                                 onClick={openFlowModal}
                             >
                                 Add Flow

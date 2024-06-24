@@ -34,9 +34,8 @@ export default function WorkflowZoomTools() {
             <ToolsContainer>
                 <Tooltip title="Zoom in" placement="top">
                     <IconButton
-                        className="Item"
+                        className="Item toolbar-default"
                         aria-label="Zoom in"
-                        sx={{ color: 'toolbar.default' }}
                         onClick={zoomIn}
                     >
                         <FontAwesomeIcon icon={faCirclePlus} />
@@ -46,18 +45,13 @@ export default function WorkflowZoomTools() {
                     color="text.tertiary"
                     textAlign="center"
                     width={24}
-                    sx={{
-                        borderBottom: 1,
-                        pb: 0.05,
-                    }}
                 >
                     {workflowScale}
                 </Typography>
                 <Tooltip title="Zoom out" placement="top">
                     <IconButton
-                        className="Item"
+                        className="Item toolbar-default"
                         aria-label="Zoom out"
-                        sx={{ color: 'toolbar.default' }}
                         onClick={zoomOut}
                     >
                         <FontAwesomeIcon icon={faCircleMinus} />

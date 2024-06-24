@@ -50,17 +50,15 @@ export default function FlowInnerToolbar() {
                                         title="Flow deleted from original branch. You can restore or delete it."
                                         placement="top">
                                         <Chip
-                                            className="ToolbarChip"
+                                            className="ToolbarChip toolbar-red"
                                             size="small"
                                             label="Conflict"
-                                            sx={{ color: 'toolbar.red' }}
                                         />
                                     </Tooltip>
                                     <Tooltip title="Restore Flow." placement="top">
                                         <IconButton
-                                            className="Item"
+                                            className="Item lightRed"
                                             aria-label="Restore Flow"
-                                            sx={{ color: 'toolbar.lightRed' }}
                                             onClick={restoreFlow}
                                         >
                                             <FontAwesomeIcon icon={faRotateLeft} />
@@ -75,9 +73,8 @@ export default function FlowInnerToolbar() {
                                     <Box display="flex" alignItems="center">
                                         <Tooltip title="Edit Flow Title" placement="top">
                                             <IconButton
-                                                className="Item"
+                                                className="Item toolbar-default"
                                                 aria-label="Edit Flow Title"
-                                                sx={{ color: 'toolbar.default' }}
                                                 onClick={openTitleEdit}
                                             >
                                                 <FontAwesomeIcon icon={faPenToSquare} />
@@ -85,9 +82,8 @@ export default function FlowInnerToolbar() {
                                         </Tooltip>
                                         <Tooltip title="Delete Complete Flow" placement="top">
                                             <IconButton
-                                                className="Item"
+                                                className="Item toolbar-default"
                                                 aria-label="Delete Flow"
-                                                sx={{ color: 'toolbar.default' }}
                                                 onClick={openDelMod}
                                             >
                                                 <FontAwesomeIcon icon={faTrash} />
@@ -100,9 +96,8 @@ export default function FlowInnerToolbar() {
                                 isFlowDeleted(flowId) && (
                                     <Tooltip title="Undo Delete" placement="top">
                                         <IconButton
-                                            className="Item"
+                                            className="Item toolbar-purple"
                                             aria-label="Undo Delete"
-                                            sx={{ color: 'toolbar.purple' }}
                                             onClick={undoDeleteFlow}
                                         >
                                             <FontAwesomeIcon icon={faRotateLeft} />
@@ -115,12 +110,8 @@ export default function FlowInnerToolbar() {
                                     <div>
                                         <Tooltip title="Flow Step Nodes" placement="top">
                                             <IconButton
-                                                className="Item"
-                                                aria-label="Add Node"
-                                                sx={{
-                                                    color: 'toolbar.default',
-                                                    borderRadius: '50%',
-                                                }}
+                                                className="Item toolbar-default"
+                                                aria-label="Flow Step Nodes"
                                                 onClick={openModal}
                                             >
                                                 <FontAwesomeIcon icon={faEllipsisVertical} />

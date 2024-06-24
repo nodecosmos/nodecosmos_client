@@ -50,3 +50,8 @@ export const BUTTON_APPEAR_STYLE = {
     opacity: 0,
     animation: `workflow-node-button-appear ${DURATION}ms 0ms forwards`,
 };
+
+export const FS_BUTTON_APPEAR_STYLE = {
+    opacity: 0,
+    animation: 'appear 0.25s forwards',
+};
