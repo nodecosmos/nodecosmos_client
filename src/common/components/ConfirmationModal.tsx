@@ -2,7 +2,7 @@ import Alert from './Alert';
 import CloseModalButton from './modal/CloseModalButton';
 import SimpleAlert from './SimpleAlert';
 import {
-    MD_FLEX_SX, ML_MD_SX, MT_XS_SX,
+    MD_FLEX_SX, ML_MD_SX, MT_XS_SX, WIDTH_FIT_CONTENT_MD_SX,
 } from '../../features/app/constants';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { faCheck, faClose } from '@fortawesome/pro-light-svg-icons';
@@ -81,7 +81,11 @@ export default function ConfirmationModal(props: Props) {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Box display={MD_FLEX_SX} width={1} justifyContent="end">
+                <Box
+                    className="width-fit-content nowrap"
+                    display={MD_FLEX_SX}
+                    width={WIDTH_FIT_CONTENT_MD_SX}
+                    justifyContent="end">
                     <Box width={1}>
                         <Button
                             fullWidth
@@ -91,7 +95,11 @@ export default function ConfirmationModal(props: Props) {
                             color="button">Cancel
                         </Button>
                     </Box>
-                    <Box mt={MT_XS_SX} ml={ML_MD_SX} width={1}>
+                    <Box
+                        mt={MT_XS_SX}
+                        ml={ML_MD_SX}
+                        width={1}
+                    >
                         <Button
                             fullWidth
                             disableElevation

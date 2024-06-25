@@ -59,3 +59,8 @@ export const ML_MD_SX = {
     xs: 0,
     md: 1,
 };
+
+export const WIDTH_FIT_CONTENT_MD_SX = {
+    xs: 1,
+    md: 'fit-content',
+};

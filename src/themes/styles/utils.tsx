@@ -18,6 +18,8 @@ export default (theme: NodecosmosTheme) => ({
     '&.h-100': { height: '100%' },
     '&.min-h-210': { minHeight: 210 },
 
+    '&.width-fit-content': { width: 'fit-content' },
+
     '&.border-radius-1': { borderRadius: 4 },
 
     '&.fs-16': { fontSize: 16 },
@@ -51,4 +53,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.float-right': { float: 'right' },
 
     '&.cursor-pointer': { cursor: 'pointer' },
+
+    '&.nowrap': { whiteSpace: 'nowrap' },
+
 });
