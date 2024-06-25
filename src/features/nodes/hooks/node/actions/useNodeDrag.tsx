@@ -50,7 +50,7 @@ export default function useNodeDrag() {
                 parentId,
                 siblingIndex,
             }));
-        }, 50);
+        }, 10);
     }, [isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId, siblingIndex]);
 
     //------------------------------------------------------------------------------------------------------------------

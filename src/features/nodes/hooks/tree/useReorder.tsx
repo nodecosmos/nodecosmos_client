@@ -74,6 +74,8 @@ export default function useReorder() {
             setReorderInProgress(false);
             console.error(error);
 
+            dispatch(setDragAndDrop(null));
+
             return;
         }
 
