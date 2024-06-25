@@ -238,7 +238,7 @@ const theme: NodecosmosTheme = {
 
         text: {
             primary: '#ebe7e7',
-            secondary: '#e4e1e7',
+            secondary: '#b3b9c7',
             tertiary: '#747982',
             disabled: '#5c616b',
             contrast: '#fff',
