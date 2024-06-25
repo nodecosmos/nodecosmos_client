@@ -36,11 +36,12 @@ export default function IoList(props: Props) {
     }
 
     return (
-        <Box mt={2} maxHeight={MAX_HEIGHT} height={1} sx={{ overflow: 'auto' }}>
-            <Typography variant="body2" fontWeight="bold" color="text.secondary">
+        <Box mt={2} maxHeight={MAX_HEIGHT} height={1} className="no-io-close overflow-auto">
+            <Typography variant="body2" fontWeight="bold" color="text.secondary" className="no-io-close overflow-auto">
                 Existing Inputs
             </Typography>
             <Box
+                className="overflow-auto"
                 component="ul"
                 p={1}
                 borderRadius={2}

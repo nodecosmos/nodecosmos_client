@@ -43,6 +43,7 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.ellipsis': { textOverflow: 'ellipsis' },
 
+    '&.overflow-auto': { overflow: 'auto' },
     '&.overflow-hidden': { overflow: 'hidden' },
 
     '&.position-relative': { position: 'relative' },

@@ -47,6 +47,7 @@ const DIALOG_PAPER_PROPS = {
     elevation: 8,
     m: 0,
     sx: { borderRadius: 2.5 },
+    className: 'no-io-close',
 };
 
 export default function CreateIoModal(props: CreateIoModalProps) {
@@ -99,12 +100,13 @@ export default function CreateIoModal(props: CreateIoModalProps) {
 
     return (
         <Dialog
+            className="no-io-close"
             fullWidth
             maxWidth="sm"
             onClose={handleCloseCb}
             open={open}
             PaperProps={DIALOG_PAPER_PROPS}>
-            <div className="DialogHeader">
+            <div className="DialogHeader no-io-close">
                 <div>
                     <Typography variant="h6" color="text.primary" align="center" width="auto">
                         <FontAwesomeIcon icon={faCodeFork} />
@@ -129,6 +131,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                             overflow: 'hidden',
                         }}>
                             <Field
+                                className="no-io-close"
                                 fullWidth
                                 name="title"
                                 label="Input/Output Title"

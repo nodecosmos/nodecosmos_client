@@ -75,7 +75,7 @@ export default function useWorkflowContext() {
     } = useSelector(selectWorkflow(branchId, nodeId));
     const scale = useSelector(selectWorkflowScale);
 
-    return {
+    return useMemo(() => ({
         insidePane,
         nodeId,
         branchId,
@@ -88,5 +88,19 @@ export default function useWorkflowContext() {
         deactivateInputsAddition,
         selectedInputs,
         setSelectedInputs,
-    };
+    }),
+    [
+        insidePane,
+        nodeId,
+        branchId,
+        rootId,
+        title,
+        initialInputIds,
+        scale,
+        inputsAdditionActive,
+        activateInputsAddition,
+        deactivateInputsAddition,
+        selectedInputs,
+        setSelectedInputs,
+    ]);
 }

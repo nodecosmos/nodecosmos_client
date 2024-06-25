@@ -26,6 +26,7 @@ function minLengthValidator (minLength: number) {
 }
 
 interface FinalFormInputFieldProps<Val> {
+    className?: string;
     name: string;
     label?: string;
     helperText?: string;
@@ -44,6 +45,7 @@ interface FinalFormInputFieldProps<Val> {
 
 export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps<Val>) {
     const {
+        className,
         label = null,
         name,
         validate,
@@ -72,6 +74,7 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
 
     return (
         <Field
+            className={className}
             name={name}
             validate={validateFun}
             subscription={{

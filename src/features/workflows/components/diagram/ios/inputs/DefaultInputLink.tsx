@@ -49,7 +49,7 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
                 stroke={color}
                 fill="transparent"
                 strokeWidth={strokeWidth}
-                d={`M ${x} ${y} L ${xEnd - 40} ${yEnd} L ${xEnd} ${yEnd}`}
+                d={`M ${x} ${y} L ${xEnd} ${yEnd}`}
                 style={PATH_STYLE}
             />
             <circle

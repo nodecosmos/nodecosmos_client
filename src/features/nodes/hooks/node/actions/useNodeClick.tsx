@@ -3,6 +3,7 @@ import { ObjectType } from '../../../../../types';
 import useAppContext from '../../../../app/hooks/useAppContext';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { select } from '../../../nodes.actions';
+import { TreeType } from '../../../nodes.types';
 import useTreeContext from '../../tree/useTreeContext';
 import useNodeContext from '../useNodeContext';
 import { MouseEvent, useCallback } from 'react';
@@ -39,15 +40,16 @@ export default function useNodeClick() {
     return useCallback((event: MouseEvent<HTMLButtonElement | HTMLInputElement>) => {
         if (isCreationInProgress) return;
 
-        if (treeType === 'checkbox') {
+        if (treeType === TreeType.Checkbox) {
             event.preventDefault();
             event.stopPropagation();
 
             handleCheckboxChange();
 
-            return;
+            if (event.target instanceof HTMLInputElement) {
+                return;
+            }
         }
-
         if (isEditing) return;
 
         if (isExpanded && isSelected) {
@@ -59,17 +61,20 @@ export default function useNodeClick() {
                 branchId,
                 id,
             }));
-            selectObject({
-                originalId,
-                branchId,
-                objectNodeId: id,
-                objectId: id,
-                objectType: ObjectType.Node,
-                metadata: {
-                    isTmp,
-                    ancestorIds,
-                },
-            });
+
+            if (treeType !== TreeType.Checkbox) {
+                selectObject({
+                    originalId,
+                    branchId,
+                    objectNodeId: id,
+                    objectId: id,
+                    objectType: ObjectType.Node,
+                    metadata: {
+                        isTmp,
+                        ancestorIds,
+                    },
+                });
+            }
         }
     },
     [

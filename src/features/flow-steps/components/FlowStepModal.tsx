@@ -125,7 +125,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
                             whiteSpace: 'nowrap',
                             textOverflow: 'ellipsis',
                         }}>
-                        Add Flow Step Nodes
+                        Flow Step Nodes
                     </Typography>
                 </Box>
                 <IconButton

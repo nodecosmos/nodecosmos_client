@@ -78,6 +78,7 @@ export default function NodeIndex() {
         <Box
             display="flex"
             height={MOBILE_WO_HEADER_HEIGHT_SX}
+            width={1}
         >
             <Box
                 width={SIDEBAR_WIDTH}
@@ -85,7 +86,7 @@ export default function NodeIndex() {
                 borderRight={1}
                 borderColor="borders.1"
             />
-            <Alert position="absolute" right={0} width={`calc(100% - ${SIDEBAR_WIDTH})`} />
+            <Alert width={MD_WO_SIDEBAR_WIDTH_SX} right={0} />
             <VirtualContainer
                 onMore={hasMore ? indexMoreNodes : undefined}
                 width={MD_WO_SIDEBAR_WIDTH_SX}

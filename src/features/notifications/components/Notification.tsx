@@ -6,8 +6,9 @@ import { selectObject } from '../../app/app.thunks';
 import { SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
 import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectNotification } from '../notifications.selectors';
+import { NotificationType } from '../notifications.types';
 import { Box, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,8 +49,23 @@ export default function Notification({ id, onClose }: NotificationProps) {
         onClose();
     }, [dispatch, navigate, onClose, url]);
 
+    const borderColor = useMemo(() => {
+        switch (notification.notificationType) {
+        case NotificationType.NewContributionRequest:
+            return 'borders.3';
+        case NotificationType.MergeContributionRequest:
+            return 'merge.main';
+        case NotificationType.NewComment:
+            return 'borders.3';
+        case NotificationType.NewInvitation:
+            return 'info.main';
+        default:
+            return 'background.paper';
+        }
+    }, [notification.notificationType]);
+
     return (
-        <div className="Notification">
+        <Box className="Notification" borderColor={borderColor}>
             <Box onClick={navigateToNotification}>
                 <Box display="flex" alignItems="center">
                     <NcAvatar
@@ -73,6 +89,6 @@ export default function Notification({ id, onClose }: NotificationProps) {
                     </Box>
                 </Box>
             </Box>
-        </div>
+        </Box>
     );
 }

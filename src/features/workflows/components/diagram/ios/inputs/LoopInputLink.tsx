@@ -16,9 +16,8 @@ interface InputProps {
     nodeOutputId: UUID
 }
 
-const X_ORIGIN_OFFSET = 105;
+const X_ORIGIN_OFFSET = 40;
 export const X_DEST_OFFSET = 40;
-const Y_ORIGIN_OFFSET = 32.5;
 
 export default function LoopInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
@@ -61,9 +60,6 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
 
     const selectedOffset = isSelected ? 1 : 0;
 
-    const isDestBelow = flowStepY < originNodePosition.y;
-    const yOriginOffset = isDestBelow ? Y_ORIGIN_OFFSET : -Y_ORIGIN_OFFSET;
-
     return (
         <g>
             <path
@@ -72,7 +68,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 fill="transparent"
                 strokeWidth={strokeWidth}
                 d={`M ${x - selectedOffset} ${y - selectedOffset}
-                    L ${x + X_ORIGIN_OFFSET - selectedOffset} ${y - yOriginOffset}
+                    L ${x + X_ORIGIN_OFFSET - selectedOffset} ${y}
                     L ${x + X_ORIGIN_OFFSET - selectedOffset} ${flowStepY + selectedOffset}
                     L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${flowStepY + selectedOffset}
                     L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${yEnd}

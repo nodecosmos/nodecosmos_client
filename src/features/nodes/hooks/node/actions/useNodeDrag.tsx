@@ -2,7 +2,9 @@ import { NodecosmosDispatch } from '../../../../../store';
 import { UUID } from '../../../../../types';
 import { setDragAndDrop, updateState } from '../../../nodes.actions';
 import { selectDragAndDrop, selectSaveInProgress } from '../../../nodes.selectors';
+import { TreeType } from '../../../nodes.types';
 import useReorder from '../../tree/useReorder';
+import useTreeContext from '../../tree/useTreeContext';
 import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
 import React, { useCallback, useMemo } from 'react';
@@ -25,10 +27,11 @@ export default function useNodeDrag() {
     const isNodeActionInProgress = useSelector(selectSaveInProgress);
     const dragAndDropNodeId = dragAndDrop?.id;
     const authorizeNodeAction = useAuthorizeNodeAction();
+    const { type } = useTreeContext();
 
     //------------------------------------------------------------------------------------------------------------------
     const startDrag = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
-        if (isRoot || isNodeActionInProgress) {
+        if (isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
             event.preventDefault();
             return;
         }
@@ -48,7 +51,7 @@ export default function useNodeDrag() {
                 siblingIndex,
             }));
         }, 50);
-    }, [rootId, branchId, dispatch, id, isNodeActionInProgress, isRoot, parentId, siblingIndex]);
+    }, [isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId, siblingIndex]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {

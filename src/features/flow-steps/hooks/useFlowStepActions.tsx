@@ -29,7 +29,7 @@ export default function useFlowStepActions(props?: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { isFlowDeleted } = useWorkflowBranch();
     const {
-        rootId, inputsAdditionActive, insidePane,
+        rootId, inputsAdditionActive, insidePane, deactivateInputsAddition,
     } = useWorkflowContext();
     const { originalId, branchId } = useBranchContext();
     const {
@@ -57,16 +57,20 @@ export default function useFlowStepActions(props?: Props) {
             event.stopPropagation();
             event.preventDefault();
 
-            dispatch(setAlert({
-                isOpen: true,
-                severity: 'warning',
-                message: 'Cannot select workflow object while adding inputs. Please finish adding inputs first.',
-                duration: 5000,
+            // dispatch(setAlert({
+            //     isOpen: true,
+            //     severity: 'warning',
+            //     message: 'Cannot select workflow object while adding inputs. Please finish adding inputs first.',
+            //     duration: 5000,
+            //
+            // }));
 
-            }));
+            deactivateInputsAddition();
 
-            return;
+            // return;
         }
+
+        console.log('event.target', event.target);
 
         if (!props?.unhover) {
             throw new Error('Unhover callback is not provided');
@@ -88,6 +92,7 @@ export default function useFlowStepActions(props?: Props) {
                 || event.target instanceof HTMLSpanElement
                 || event.target instanceof HTMLFieldSetElement
                 || event.target instanceof HTMLFormElement
+                || event.target instanceof HTMLLabelElement
                 || event.target instanceof SVGElement
             ) return;
 
@@ -95,10 +100,12 @@ export default function useFlowStepActions(props?: Props) {
             if (event.target instanceof HTMLElement) {
                 if (
                     event.currentTarget.classList.contains('FlowToolbarClick')
+                    || event.target.classList.contains('no-io-close')
                     || event.target.classList.contains('FlowToolbar')
                     || event.target.classList.contains('MuiDialogContent-root')
                     || event.target.classList.contains('MuiDialogActions-root')
                     || event.target.classList.contains('MuiDialog-container')
+                    || event.target.classList.contains('MuiFormControl-root')
                     || event.target.classList.contains('MuiInputBase-root')
 
                 ) return;
@@ -133,7 +140,7 @@ export default function useFlowStepActions(props?: Props) {
         });
     },
     [
-        inputsAdditionActive, props, flowStepPrimaryKey, isFlowDeleted, insidePane,
+        inputsAdditionActive, deactivateInputsAddition, props, flowStepPrimaryKey, isFlowDeleted, insidePane,
         dispatch, originalId, branchId, handleFlowClick, selectObject,
     ]);
 
