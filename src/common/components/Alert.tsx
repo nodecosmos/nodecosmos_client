@@ -13,7 +13,7 @@ interface AlertProps {
     position?: string;
     mb?: number;
     right?: number | string;
-    width?: number | string;
+    width?: number | string | {xs: number | string, md: number | string};
     maxWidth?: number | string;
 }
 
