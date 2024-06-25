@@ -83,8 +83,6 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
-        console.log('stopDrag');
-
         dispatch(setDragAndDrop(null));
     }, [dispatch]);
 
