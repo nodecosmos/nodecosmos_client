@@ -36,7 +36,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Navigate, Route, Routes,
+    Navigate, Route, Routes, useSearchParams,
 } from 'react-router-dom';
 
 export default function App() {
@@ -45,6 +45,8 @@ export default function App() {
     const currentUser = useSelector(selectCurrentUser);
     const theme = useSelector(selectTheme);
     const currentTheme = themes[theme];
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get('token');
 
     useEffect(() => {
         dispatch(syncUpCurrentUser());
@@ -61,17 +63,19 @@ export default function App() {
     }, []);
 
     useEffect(() => {
-        if (currentUser && !currentUser.isConfirmed) {
-            dispatch(setAlert({
-                isOpen: true,
-                severity: 'warning',
-                message: `Please confirm your email address to access all features.
+        if (currentUser && !currentUser.isConfirmed && !token) {
+            setTimeout(() => {
+                dispatch(setAlert({
+                    isOpen: true,
+                    severity: 'warning',
+                    message: `Please confirm your email address to access all features.
                 if you didn't receive the email, please check your spam folder or request a new one from profile 
                 options. If you still have issues, please write us at <b>support@nodecosmos.com</b>`,
-                duration: 100000000,
-            }));
+                    duration: 100000000,
+                }));
+            }, 100);
         }
-    }, [currentUser, dispatch]);
+    }, [currentUser, dispatch, token]);
 
     const {
         AppContext,
@@ -82,7 +86,7 @@ export default function App() {
         <AppContext.Provider value={ctxValue}>
             <ThemeProvider theme={getTheme(currentTheme)}>
                 <CssBaseline />
-                <Box component="div" height={1} sx={{ backgroundColor: 'background.2' }}>
+                <div className="background-2 h-100">
                     <Header />
                     <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                         <Routes>
@@ -136,7 +140,7 @@ export default function App() {
                         </Routes>
                     </Box>
 
-                </Box>
+                </div>
             </ThemeProvider>
         </AppContext.Provider>
     );

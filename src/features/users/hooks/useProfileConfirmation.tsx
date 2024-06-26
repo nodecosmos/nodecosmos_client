@@ -4,7 +4,7 @@ import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { selectCurrentUser } from '../users.selectors';
 import { confirmEmail, resendConfirmationEmail } from '../users.thunks';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -12,8 +12,7 @@ export default function useProfileConfirmation() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
     const [loading, setLoading] = React.useState(false);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const token = searchParams.get('token');
+    const [searchParams] = useSearchParams();
     const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
 
@@ -36,14 +35,13 @@ export default function useProfileConfirmation() {
     }, [dispatch, handleServerError]);
 
     const handleConfirmEmail = useCallback(async () => {
+        const token = searchParams.get('token');
+
         if (!token) return;
-        console.log('hit');
         setLoading(true);
 
         const response = await dispatch(confirmEmail(token));
         if (response.meta.requestStatus === 'rejected') {
-            setSearchParams('');
-
             const error: NodecosmosError = response.payload as NodecosmosError;
             handleServerError(error);
             console.error(error);
@@ -73,16 +71,11 @@ export default function useProfileConfirmation() {
         }
 
         setLoading(false);
-    }, [currentUser, dispatch, handleServerError, navigate, setSearchParams, token]);
+    }, [currentUser, dispatch, handleServerError, navigate, searchParams]);
 
-    useEffect(() => {
-        if (token) {
-            handleConfirmEmail().catch(console.error);
-        }
-    }, [handleConfirmEmail, token]);
-
-    return {
+    return useMemo(() => ({
         loading,
         handleResendConfirmationEmail,
-    };
+        handleConfirmEmail,
+    }), [loading, handleResendConfirmationEmail, handleConfirmEmail]);
 }

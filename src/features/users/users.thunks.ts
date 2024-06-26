@@ -2,12 +2,12 @@ import {
     CurrentUser, UpdateUserBase, User, UserCreateForm,
 } from './users.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { NodecosmosDispatch, RootState } from '../../store';
+import { RootState } from '../../store';
 import {
     HttpErrorCodes, NodecosmosError, UUID,
 } from '../../types';
 import { SYNC_UP_INTERVAL } from '../app/constants';
-import { getUserLikes } from '../likes/likes.thunks';
+import { LikePrimaryKey } from '../likes/likes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -50,17 +50,18 @@ export const showUserByUsername = createAsyncThunk<User, string, { rejectValue: 
 );
 
 export const syncUpCurrentUser = createAsyncThunk<
-    CurrentUser,
+    { user: CurrentUser, likes: LikePrimaryKey[] },
     void,
-    { rejectValue: NodecosmosError, dispatch: NodecosmosDispatch, state: RootState }
+    { rejectValue: NodecosmosError, state: RootState }
 >(
     'users/syncUpCurrentUser',
     async (_, {
-        rejectWithValue, fulfillWithValue, dispatch, getState,
+        rejectWithValue, fulfillWithValue, getState,
     }) => {
         const state = getState();
         const currentUser = state.users.currentUser;
-        const likes = state.likes.currentUserLikes;
+        // branchId, objectId, liked
+        const currentUserLikes: Record<UUID, Record<UUID, boolean>> = state.likes.currentUserLikes;
 
         if (!currentUser) {
             return rejectWithValue({
@@ -70,15 +71,28 @@ export const syncUpCurrentUser = createAsyncThunk<
         }
 
         if ((Date.now() - currentUser.lastSyncUpAt.getTime()) < SYNC_UP_INTERVAL) {
-            if (Object.keys(likes).length === 0) {
-                await dispatch(getUserLikes());
-            }
-            return fulfillWithValue({ ...currentUser });
+            const likes: LikePrimaryKey[] = [];
+            Object.keys(currentUserLikes).forEach((branchId: UUID) => {
+                const branchLikes = currentUserLikes[branchId];
+                Object.keys(branchLikes).forEach((objectId) => {
+                    if (branchLikes[objectId]) {
+                        likes.push({
+                            branchId,
+                            objectId,
+                            userId: currentUser.id,
+                        });
+                    }
+                });
+            });
+
+            return fulfillWithValue({
+                user: currentUser,
+                likes,
+            });
         }
 
         try {
             const response = await nodecosmos.get('/users/session/sync');
-            dispatch(getUserLikes());
 
             return response.data;
         } catch (error) {

@@ -75,7 +75,7 @@ const usersSlice = createSlice({
                 }
             })
             .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
-                const user = action.payload;
+                const user = action.payload.user;
 
                 if (user) {
                     state.currentUser = {
@@ -102,6 +102,8 @@ const usersSlice = createSlice({
 
                     if (state.currentUser.id === confirmedUser.id) {
                         state.currentUser.isConfirmed = true;
+
+                        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
                     }
                 }
             })

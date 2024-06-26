@@ -94,6 +94,7 @@ export default function Profile() {
                                     a new one from profile page.
                                 </Typography>
                                 <Button
+                                    className="mt-2"
                                     variant="outlined"
                                     onClick={handleResendConfirmationEmail}
                                     color="success"
@@ -103,7 +104,6 @@ export default function Profile() {
                                             ? <CircularProgress size={20} sx={{ color: 'success.main' }} />
                                             : <FontAwesomeIcon icon={faMailReply} />
                                     }
-                                    sx={{ mt: 2 }}
                                 >
                                     Resend Confirmation Email
                                 </Button>

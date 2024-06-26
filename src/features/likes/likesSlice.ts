@@ -1,9 +1,7 @@
-import {
-    getUserLikes, likeObject, unlikeObject,
-} from './likes.thunks';
+import { likeObject, unlikeObject } from './likes.thunks';
 import { LikeState } from './likes.types';
 import { UUID } from '../../types';
-import { logOut } from '../users/users.thunks';
+import { logOut, syncUpCurrentUser } from '../users/users.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const CURRENT_USER_LIKES_KEY = 'CU_LIKES';
@@ -28,8 +26,8 @@ const likesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getUserLikes.fulfilled, (state, action) => {
-            const userLikes = action.payload;
+        builder.addCase(syncUpCurrentUser.fulfilled, (state, action) => {
+            const userLikes = action.payload.likes;
 
             userLikes?.forEach((userLike) => {
                 state.currentUserLikes[userLike.branchId] ||= {};

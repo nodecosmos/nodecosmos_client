@@ -69,3 +69,8 @@ export const DRAWER_WIDTH = {
     xs: '100%',
     sm: 450,
 };
+
+export const MARGIN_X_MD_SX = {
+    xs: 0,
+    md: 4,
+};

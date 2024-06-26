@@ -1,5 +1,9 @@
-import { SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX } from '../../features/app/constants';
+import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
+import {
+    SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX, MARGIN_X_MD_SX, DISPLAY_MD_SX,
+} from '../../features/app/constants';
 import Profile from '../../features/users/components/profile/Profile';
+import useProfileConfirmation from '../../features/users/hooks/useProfileConfirmation';
 import useUsername from '../../features/users/hooks/useUsername';
 import { selectUser } from '../../features/users/users.selectors';
 import { showUserByUsername } from '../../features/users/users.thunks';
@@ -15,44 +19,52 @@ export default function Show() {
     const username = useUsername();
     const user = useSelector(selectUser(username));
     const navigate = useNavigate();
-
+    const [fetch, setFetched] = useBooleanStateValue(false);
+    const { handleConfirmEmail } = useProfileConfirmation();
     const showUser = useCallback(async () => {
-        if (!user) {
-            const response = await dispatch(showUserByUsername(username));
+        const response = await dispatch(showUserByUsername(username));
 
-            if (response.meta.requestStatus === 'rejected') {
-                const error: NodecosmosError = response.payload as NodecosmosError;
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
 
-                if (error.status === 404) {
-                    navigate('/404');
-                }
-                console.error(response);
+            if (error.status === 404) {
+                navigate('/404');
             }
+            console.error(response);
         }
-    }, [dispatch, navigate, user, username]);
+    }, [dispatch, navigate, username]);
 
-    useEffect(() => { showUser(); }, [showUser]);
+    useEffect(() => {
+        if (!fetch && !user) {
+            showUser()
+                .then(setFetched);
+        }
+    }, [fetch, setFetched, showUser, user]);
+
+    const [confirmed, setConfirmed] = useBooleanStateValue(false);
+
+    useEffect(() => {
+        if (user && !confirmed) {
+            handleConfirmEmail();
+            setConfirmed();
+        }
+        // eslint-disable-next-line
+    }, [user, confirmed, setConfirmed]);
 
     return (
         <Box height={1} display="flex">
             <Box
                 width={SIDEBAR_WIDTH}
-                display={{
-                    md: 'block',
-                    xs: 'none',
-                }}
+                display={DISPLAY_MD_SX}
                 borderRight={1}
                 height={1}
                 borderColor="borders.1"
             />
             <Box
-                mx={{
-                    xs: 0,
-                    md: 4,
-                }}
+                className="overflow-auto"
+                mx={MARGIN_X_MD_SX}
                 py={4}
                 width={MD_WO_SIDEBAR_WIDTH_SX}
-                sx={{ overflow: 'auto' }}
             >
                 <Profile />
             </Box>
