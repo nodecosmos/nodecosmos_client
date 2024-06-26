@@ -98,4 +98,16 @@ export default (theme: NodecosmosTheme) => ({
             color: theme.palette.tree.backgrounds[3].fg,
         },
     },
+    '.TreeNestedColorHover-4': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[4].bg,
+            color: theme.palette.tree.backgrounds[4].fg,
+        },
+    },
+    '.TreeNestedColorHover-5': {
+        '&:hover': {
+            backgroundColor: theme.palette.tree.backgrounds[5].bg,
+            color: theme.palette.tree.backgrounds[5].fg,
+        },
+    },
 });

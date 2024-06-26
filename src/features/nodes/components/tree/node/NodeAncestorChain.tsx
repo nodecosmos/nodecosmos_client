@@ -39,7 +39,7 @@ function NodeAncestor({ ancestorId, index }: NodeAncestorProps) {
     }, [backgrounds, node]);
     const style = useMemo(() => ({
         opacity: 0,
-        animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${index * 15}ms forwards`,
+        animation: `appear ${INITIAL_ANIMATION_DURATION}ms ${index * 25}ms forwards`,
         transition: `d ${TRANSITION_ANIMATION_DURATION / 2}ms`,
     }), [index]);
 
@@ -57,7 +57,7 @@ function NodeAncestor({ ancestorId, index }: NodeAncestorProps) {
             cy={currentNodeY}
             r={hovered ? size.circleRadius + 1 : (isSelected ? size.circleRadius : size.circleRadius - 1)}
             stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}
-            strokeWidth={0.5}
+            strokeWidth={1}
             fill={theme.palette.tree.default}
             style={style}
         />

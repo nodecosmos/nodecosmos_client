@@ -28,6 +28,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.background-2': { backgroundColor: theme.palette.background[2] },
     '&.background-5': { backgroundColor: theme.palette.background[5] },
     '&.background-workflow-default': { backgroundColor: theme.palette.workflow.default },
+    '&.background-toolbar-hover': { backgroundColor: theme.palette.toolbar.hover },
 
     '&.toolbar-red': { color: theme.palette.toolbar.red },
     '&.toolbar-green': { color: theme.palette.toolbar.green },

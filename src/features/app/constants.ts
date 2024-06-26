@@ -64,3 +64,8 @@ export const WIDTH_FIT_CONTENT_MD_SX = {
     xs: 1,
     md: 'fit-content',
 };
+
+export const DRAWER_WIDTH = {
+    xs: '100%',
+    sm: 450,
+};

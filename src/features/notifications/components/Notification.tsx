@@ -7,6 +7,11 @@ import { SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
 import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectNotification } from '../notifications.selectors';
 import { NotificationType } from '../notifications.types';
+import { faCalendarUsers } from '@fortawesome/pro-light-svg-icons';
+import {
+    faCodePullRequest, faComments, faCodeMerge,
+} from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,29 +54,63 @@ export default function Notification({ id, onClose }: NotificationProps) {
         onClose();
     }, [dispatch, navigate, onClose, url]);
 
-    const borderColor = useMemo(() => {
+    const icon = useMemo(() => {
         switch (notification.notificationType) {
         case NotificationType.NewContributionRequest:
-            return 'borders.3';
+            return <FontAwesomeIcon icon={faCodePullRequest} />;
+        case NotificationType.MergeContributionRequest:
+            return <FontAwesomeIcon icon={faCodeMerge} />;
+        case NotificationType.NewComment:
+            return <FontAwesomeIcon icon={faComments} />;
+        case NotificationType.NewInvitation:
+            return <FontAwesomeIcon icon={faCalendarUsers} />;
+        default:
+            return <FontAwesomeIcon icon={faComments} />;
+        }
+    }, [notification.notificationType]);
+
+    const color = useMemo(() => {
+        switch (notification.notificationType) {
+        case NotificationType.NewContributionRequest:
+            return 'toolbar.orange';
         case NotificationType.MergeContributionRequest:
             return 'merge.main';
         case NotificationType.NewComment:
-            return 'borders.3';
+            return 'toolbar.blue';
         case NotificationType.NewInvitation:
-            return 'info.main';
+            return 'toolbar.green';
         default:
-            return 'background.paper';
+            return 'text.primary';
         }
     }, [notification.notificationType]);
 
     return (
-        <Box className="Notification" borderColor={borderColor}>
+        <Box className="Notification">
             <Box onClick={navigateToNotification}>
                 <Box display="flex" alignItems="center">
-                    <NcAvatar
-                        size={45}
-                        name={author?.name}
-                        src={author?.profileImageUrl} />
+                    <Box position="relative">
+                        <Box
+                            className="background-toolbar-hover"
+                            position="absolute"
+                            zIndex={1}
+                            color={color}
+                            borderRadius="500px"
+                            height={35}
+                            width={35}
+                            fontSize={18}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            bottom={-16}
+                            right={-8}
+                        >
+                            {icon}
+                        </Box>
+                        <NcAvatar
+                            size={45}
+                            name={author?.name}
+                            src={author?.profileImageUrl} />
+                    </Box>
                     <Box>
                         <Typography variant="body1" color="text.secondary" ml={2}>
                             <Typography
@@ -83,7 +122,7 @@ export default function Notification({ id, onClose }: NotificationProps) {
                             <Typography variant="body2" component="span" color="text.secondary">{notification.text}
                             </Typography>
                         </Typography>
-                        <Typography variant="body2" color="text.tertiary" ml={2} mt={1}>
+                        <Typography variant="subtitle2" color="toolbar.blue" ml={2} mt={1} fontWeight="bold">
                             {timeSince(createdAt.toString())}
                         </Typography>
                     </Box>

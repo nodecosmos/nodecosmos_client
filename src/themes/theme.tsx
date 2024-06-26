@@ -51,9 +51,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 '.Notification': {
                     borderRadius: 8,
-                    border: '1px solid',
-                    borderColor: theme.palette.borders[4],
-                    marginTop: 16,
+                    marginTop: 0,
                     padding: 16,
                     cursor: 'pointer',
                     '&:hover': { backgroundColor: theme.palette.background[4] },

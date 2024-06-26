@@ -2,6 +2,7 @@ import Notification from './Notification';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
+import { DRAWER_WIDTH } from '../../app/constants';
 import { selectNotifications, selectUnseenNotificationCount } from '../notifications.selectors';
 import { markAllAsRead } from '../notifications.thunks';
 import { faBell } from '@fortawesome/pro-duotone-svg-icons';
@@ -35,10 +36,7 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
             <Box
                 boxSizing="border-box"
                 mt={2}
-                width={{
-                    xs: '100%',
-                    sm: 450,
-                }}
+                width={DRAWER_WIDTH}
                 height={1}
             >
                 <Typography variant="h5" color="text.secondary" mx={4} mb={4}>
