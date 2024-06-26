@@ -4,7 +4,6 @@ import { NodecosmosTheme } from '../../../../themes/themes.types';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
-    faCodeCommit as faCodeCommitSolid,
     faCodePullRequest as faCodePullRequestSolid,
     faUsers as faUsersSolid,
     faMessageBot as faMessageBotSolid,
@@ -19,7 +18,7 @@ import {
     faHashtag,
     faTable,
 } from '@fortawesome/pro-light-svg-icons';
-import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
+import { faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid } from '@fortawesome/pro-regular-svg-icons';
 import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoIcon from '@mui/icons-material/Info';
