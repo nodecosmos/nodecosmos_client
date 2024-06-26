@@ -67,11 +67,11 @@ function NodeAncestor({ ancestorId, index }: NodeAncestorProps) {
 const Ancestor = React.memo(NodeAncestor);
 
 export default function NodeAncestorChain() {
-    const { isSelected } = useNodeContext();
+    const { isSelected, isCurrentRoot } = useNodeContext();
     const { showAncestorChain } = useTreeContext();
     const { ancestorIds } = useNodeContext();
 
-    if (!showAncestorChain || !isSelected || !ancestorIds) {
+    if (!showAncestorChain || !isSelected || !ancestorIds || isCurrentRoot) {
         return null;
     }
 

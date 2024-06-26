@@ -91,7 +91,7 @@ export default function ContributionRequestDescription() {
                             {
                                 descriptionEmpty && authorized && (
                                     <Typography color="text.tertiary" variant="body2" py={2}>
-                                        Click to add the contribution request description
+                                        Click here to add the contribution request description
                                     </Typography>
                                 )
                             }

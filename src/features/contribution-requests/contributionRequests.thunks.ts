@@ -63,6 +63,7 @@ export const createContributionRequest = createAsyncThunk<
     async (payload, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.post('/contribution_requests', payload);
+
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

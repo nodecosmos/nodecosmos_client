@@ -29,7 +29,7 @@ export default function New() {
                 setTimeout(() => dispatch(setAlert({
                     isOpen: true,
                     severity: 'success',
-                    message: 'Thread created successfully.',
+                    message: 'Thread successfully created!',
                 })), 10);
             } else {
                 throw new Error('Thread not found');

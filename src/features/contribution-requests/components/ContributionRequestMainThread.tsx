@@ -78,7 +78,7 @@ export default function ContributionRequestMainThread() {
                 <Divider sx={DIVIDER_SX} />
             </Box>
             <ContributionRequestDescription />
-            <Box display="flex" alignItems="center" mb={2}>
+            <Box display="flex" alignItems="center" mb={4}>
                 <Typography color="text.secondary" variant="body1" fontWeight="bold">
                     <Box component="span" color="toolbar.default">
                         <FontAwesomeIcon icon={faComments} />

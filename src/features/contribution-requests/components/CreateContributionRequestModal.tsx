@@ -1,10 +1,12 @@
 
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { UUID } from '../../../types';
+import { NodecosmosError, UUID } from '../../../types';
+import { setAlert } from '../../app/appSlice';
 import { MAX_NODE_INPUT_SIZE } from '../../nodes/nodes.constants';
-import { ContributionRequestStatus } from '../contributionRequest.types';
+import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { createContributionRequest } from '../contributionRequests.thunks';
 import { faCodeCommit, faCodePullRequest } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +19,7 @@ import Dialog from '@mui/material/Dialog';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 /* mui */
 /* nodecosmos */
@@ -39,8 +42,10 @@ function CreateContributionRequestModal(props: Props) {
     } = props;
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
+    const handleServerError = useHandleServerErrorAlert();
+    const navigate = useNavigate();
 
-    const onSubmit = useCallback((formValues: {title: string}) => {
+    const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);
 
         const payload = {
@@ -50,11 +55,27 @@ function CreateContributionRequestModal(props: Props) {
             ...formValues,
         };
 
-        dispatch(createContributionRequest(payload)).then(() => {
-            onClose();
-            setTimeout(() => setLoading(false), 500);
-        });
-    }, [dispatch, nodeId, onClose, rootId]);
+        const response = await dispatch(createContributionRequest(payload));
+        setTimeout(() => setLoading(false), 500);
+
+        if (response.meta.requestStatus === 'rejected') {
+            const error: NodecosmosError = response.payload as NodecosmosError;
+
+            setTimeout(() => handleServerError(error), 250);
+            console.error(error);
+
+            return;
+        }
+
+        const cr = response.payload as ContributionRequest;
+        navigate(`/nodes/${rootId}/${nodeId}/contribution_requests/${cr.id}`);
+
+        setTimeout(() => dispatch(setAlert({
+            isOpen: true,
+            severity: 'success',
+            message: 'Contribution Request successfully created!',
+        })), 10);
+    }, [dispatch, handleServerError, navigate, nodeId, rootId]);
 
     return (
         <Dialog
