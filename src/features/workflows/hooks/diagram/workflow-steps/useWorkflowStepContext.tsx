@@ -20,32 +20,33 @@ export function useWorkflowStepContextCreator({
         hovered,
     }), [hovered, wfStep, wfStepIndex]);
 
-    return {
+    return useMemo(() => ({
         WorkflowStepContext,
         contextProviderValue,
-    };
+    }), [contextProviderValue]);
 }
 
 export default function useWorkflowStepContext() {
     const {
         wfStep, wfStepIndex, hovered,
     } = useContext(WorkflowStepContext);
-
     const diagram = useDiagramContext();
 
-    let prevStepOutputIds: WorkflowStep['outputIds'];
+    return useMemo(() => {
+        let prevStepOutputIds: WorkflowStep['outputIds'];
 
-    if (wfStepIndex > 0) {
-        const prevStep = diagram.workflowSteps[wfStepIndex - 1];
-        prevStepOutputIds = prevStep.outputIds;
-    } else {
-        prevStepOutputIds = new Set<UUID>(diagram.initialInputs.map((input) => input.id));
-    }
+        if (wfStepIndex > 0) {
+            const prevStep = diagram.workflowSteps[wfStepIndex - 1];
+            prevStepOutputIds = prevStep.outputIds;
+        } else {
+            prevStepOutputIds = new Set<UUID>(diagram.initialInputs.map((input) => input.id));
+        }
 
-    return {
-        wfStep,
-        wfStepIndex,
-        hovered,
-        prevStepOutputIds,
-    };
+        return {
+            wfStep,
+            wfStepIndex,
+            hovered,
+            prevStepOutputIds,
+        };
+    }, [hovered, diagram, wfStep, wfStepIndex]);
 }

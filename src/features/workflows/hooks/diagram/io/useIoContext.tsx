@@ -25,7 +25,7 @@ export function useIoContextCreator({
     }), [id, fsNodeId, position]);
     const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateAuthorized(false);
 
-    return {
+    return useMemo(() => ({
         IoContext,
         ioContextValue: {
             ...value,
@@ -33,7 +33,7 @@ export function useIoContextCreator({
             openTitleEdit,
             closeTitleEdit,
         },
-    };
+    }), [value, titleEditOpen, openTitleEdit, closeTitleEdit]);
 }
 
 interface IoContextValue extends Position{
@@ -48,37 +48,50 @@ export default function useIoContext() {
     const {
         id, titleEditOpen, fsNodeId, ...position
     } = useContext(IoContext);
-
     if (!id) {
         throw new Error('useIoContext must be used within IoContext');
     }
-
     const { branchId } = useWorkflowContext();
     const {
         rootId, title, mainId, flowStepId, flowStepNodeId,
     } = useSelector(selectInputOutput(branchId, id));
     const selectedObject = useSelector(selectSelectedObject);
-    const isSelected = id === selectedObject?.objectId;
-    let selectedNodeId;
 
-    if (selectedObject?.objectType === ObjectType.Node) {
-        selectedNodeId = selectedObject.objectId;
-    }
+    return useMemo(() => {
+        const isSelected = id === selectedObject?.objectId;
+        let selectedNodeId: UUID | undefined;
 
-    const isNodeSelected = selectedObject?.metadata?.inputIds?.includes(id);
+        if (selectedObject?.objectType === ObjectType.Node) {
+            selectedNodeId = selectedObject.objectId;
+        }
 
-    return {
+        const isNodeSelected = selectedObject?.metadata?.inputIds?.includes(id);
+
+        return {
+            id,
+            rootId,
+            mainId,
+            title,
+            isSelected,
+            selectedNodeId,
+            isNodeSelected,
+            titleEditOpen,
+            fsNodeId,
+            flowStepId,
+            flowStepNodeId,
+            ...position,
+        };
+    },
+    [
         id,
         rootId,
         mainId,
+        selectedObject,
         title,
-        isSelected,
-        selectedNodeId,
-        isNodeSelected,
         titleEditOpen,
         fsNodeId,
         flowStepId,
         flowStepNodeId,
-        ...position,
-    };
+        position,
+    ]);
 }

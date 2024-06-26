@@ -19,7 +19,7 @@ export function useFlowContextCreator({ id }: { id: UUID }) {
     const value = useMemo(() => ({ id }), [id]);
     const [titleEditOpen, openTitleEdit, closeTitleEdit] = useBooleanStateAuthorized(false);
 
-    return {
+    return useMemo(() => ({
         FlowContext,
         flowContextValue: {
             ...value,
@@ -27,7 +27,7 @@ export function useFlowContextCreator({ id }: { id: UUID }) {
             openTitleEdit,
             closeTitleEdit,
         },
-    };
+    }), [value, titleEditOpen, openTitleEdit, closeTitleEdit]);
 }
 
 export default function useFlowContext() {
@@ -40,15 +40,14 @@ export default function useFlowContext() {
         title,
     } = useSelector(selectFlow(branchId, id));
     const selectedObject = useSelector(selectSelectedObject);
-    const isSelected = id === selectedObject?.objectId;
 
-    return {
+    return useMemo(() => ({
         nodeId,
         startIndex,
         verticalIndex,
         id,
         title,
-        isSelected,
+        isSelected: id === selectedObject?.objectId,
         titleEditOpen,
-    };
+    }), [nodeId, startIndex, verticalIndex, id, title, selectedObject, titleEditOpen]);
 }

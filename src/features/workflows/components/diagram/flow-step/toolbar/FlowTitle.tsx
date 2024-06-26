@@ -43,7 +43,7 @@ export default function FlowTitle() {
         <Typography
             className="FlowToolbarClick"
             onClick={handleFlowClick}
-            variant="body1"
+            variant="body2"
             fontWeight={600}
             color={isFlowDelConflict ? 'toolbar.lightRed' : 'text.primary'}
             sx={SX}

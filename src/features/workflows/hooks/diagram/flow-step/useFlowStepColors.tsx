@@ -4,6 +4,7 @@ import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useWorkflowBranch from '../../useWorkflowBranch';
 import { useTheme } from '@mui/material';
+import { useMemo } from 'react';
 
 export default function useFlowStepColors() {
     const theme: NodecosmosTheme = useTheme();
@@ -18,21 +19,28 @@ export default function useFlowStepColors() {
         id, flowId, isSelected,
     } = useFlowStepContext();
 
-    let colors = {
-        backgroundColor: isSelected ? theme.palette.workflow.selectedBg : 'transparent',
-        outlineColor: theme.palette.borders[1],
-        color: theme.palette.tree.defaultText,
-    };
+    return useMemo(() => {
+        let colors = {
+            backgroundColor: isSelected ? theme.palette.workflow.selectedBg : 'transparent',
+            outlineColor: theme.palette.borders[1],
+            color: theme.palette.tree.defaultText,
+        };
 
-    if (isBranch) {
-        if (isFlowStepInConflict(id) || isFlowStepDeletedConflict(id)) {
-            colors = diffColors(true, DiffState.Conflict, 0.2);
-        } else if (isFlowDeleted(flowId) || isFlowStepDeleted(id)) {
-            colors = diffColors(true, DiffState.Removed, 0.5);
-        } else if (isFlowStepCreated(id)) {
-            colors = diffColors(true, DiffState.Added, 0.3);
+        if (isBranch) {
+            if (isFlowStepInConflict(id) || isFlowStepDeletedConflict(id)) {
+                colors = diffColors(true, DiffState.Conflict, 0.2);
+            } else if (isFlowDeleted(flowId) || isFlowStepDeleted(id)) {
+                colors = diffColors(true, DiffState.Removed, 0.5);
+            } else if (isFlowStepCreated(id)) {
+                colors = diffColors(true, DiffState.Added, 0.3);
+            }
         }
-    }
 
-    return colors;
+        return colors;
+    },
+    [
+        diffColors, flowId, id, isBranch,
+        isFlowDeleted, isFlowStepCreated, isFlowStepDeleted, isFlowStepDeletedConflict, isFlowStepInConflict,
+        isSelected, theme.palette.borders, theme.palette.tree.defaultText, theme.palette.workflow.selectedBg,
+    ]);
 }

@@ -28,10 +28,10 @@ export function useFlowStepContextCreator(val: FlowStepContextValue) {
         yEnd,
     }), [id, workflowStepFlow, x, y, yEnd]);
 
-    return {
+    return useMemo(() => ({
         FlowStepContext,
         flowStepContextValue,
-    };
+    }), [flowStepContextValue]);
 }
 
 export default function useFlowStepContext() {
@@ -53,10 +53,8 @@ export default function useFlowStepContext() {
         flowStepNodes, prevStepIndex, nextStepIndex, stepId,
     } = workflowStepFlow || {};
     const selectedObject = useSelector(selectSelectedObject);
-    const isSelected = id === selectedObject?.objectId;
-    const isCreated = !!flowStepPrimaryKey?.id;
 
-    return {
+    return useMemo(() => ({
         nodeId,
         flowId,
         stepIndex,
@@ -72,7 +70,24 @@ export default function useFlowStepContext() {
         x,
         y,
         yEnd,
-        isSelected,
-        isCreated,
-    };
+        isSelected: id === selectedObject?.objectId,
+        isCreated: !!flowStepPrimaryKey?.id,
+    }), [
+        nodeId,
+        flowId,
+        stepIndex,
+        id,
+        nodeIds,
+        inputIdsByNodeId,
+        outputIdsByNodeId,
+        stepId,
+        flowStepNodes,
+        prevStepIndex,
+        nextStepIndex,
+        x,
+        y,
+        yEnd,
+        selectedObject,
+        flowStepPrimaryKey,
+    ]);
 }

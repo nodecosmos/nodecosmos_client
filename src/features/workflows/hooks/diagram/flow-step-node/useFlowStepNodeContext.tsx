@@ -22,10 +22,10 @@ export function useFlowStepNodeContextCreator(val: FlowStepNodeContextValue) {
         flowStepNode,
     }), [id, flowStepNode]);
 
-    return {
+    return useMemo(() => ({
         FlowStepNodeContext,
         flowStepContextValue,
-    };
+    }), [flowStepContextValue]);
 }
 
 export default function useFlowStepNodeContext() {
@@ -43,7 +43,7 @@ export default function useFlowStepNodeContext() {
         && selectedObject.metadata?.flowStepId === flowStepId
     ), [flowStepId, id, selectedObject]);
 
-    return {
+    return useMemo(() => ({
         branchId,
         id,
         flowStepId,
@@ -52,5 +52,5 @@ export default function useFlowStepNodeContext() {
         position,
         outputs,
         isSelected,
-    };
+    }), [branchId, id, flowStepId, title, inputIds, position, outputs, isSelected]);
 }
