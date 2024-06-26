@@ -73,7 +73,7 @@ export default function App() {
                 options. If you still have issues, please write us at <b>support@nodecosmos.com</b>`,
                     duration: 100000000,
                 }));
-            }, 100);
+            }, 10);
         }
     }, [currentUser, dispatch, token]);
 

@@ -29,10 +29,10 @@ export default function SignupForm() {
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            <Field fullWidth name="firstName" label="First Name" />
+                            <Field fullWidth name="firstName" label="First Name" required />
                         </Grid>
                         <Grid item xs={6}>
-                            <Field fullWidth name="lastName" label="Last Name" />
+                            <Field fullWidth name="lastName" label="Last Name" required />
                         </Grid>
                         <Grid item xs={12}>
                             <Field
