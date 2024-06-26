@@ -27,6 +27,7 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.background-2': { backgroundColor: theme.palette.background[2] },
     '&.background-5': { backgroundColor: theme.palette.background[5] },
+    '&.background-8': { backgroundColor: theme.palette.background[8] },
     '&.background-workflow-default': { backgroundColor: theme.palette.workflow.default },
     '&.background-toolbar-hover': { backgroundColor: theme.palette.toolbar.hover },
 
@@ -54,6 +55,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.float-right': { float: 'right' },
 
     '&.cursor-pointer': { cursor: 'pointer' },
+    '&.cursor-grab': { cursor: 'grab' },
 
     '&.nowrap': { whiteSpace: 'nowrap' },
 

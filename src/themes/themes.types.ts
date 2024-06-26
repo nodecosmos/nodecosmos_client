@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-export const TREE_COLORS = 7;
+export const TREE_COLORS_LEN = 6;
 
 type Shadow = string | 0;
 

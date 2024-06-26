@@ -45,6 +45,7 @@ export default function Toolbar() {
 
     return (
         <Box
+            className="cursor-grab"
             ref={clickableRef}
             height="7rem"
             borderBottom={1}
@@ -63,11 +64,12 @@ export default function Toolbar() {
             >
                 <Box display="flex" justifyContent="center" height={4}>
                     <Box
+                        className="background-8"
                         component="div"
                         width={45}
                         height={4}
                         borderRadius={1}
-                        sx={{ backgroundColor: 'background.8' }} />
+                    />
                 </Box>
                 <Box display="flex" alignItems="center" justifyContent="center">
                     <Typography
