@@ -27,6 +27,20 @@ interface Props {
     onClose: () => void;
 }
 
+const PAPER_PROPS = {
+    elevation: 8,
+    sx: {
+        p: 0,
+        height: '100%',
+    },
+};
+
+const CLOSE_SX = {
+    position: 'absolute',
+    right: 8,
+    top: 8,
+};
+
 export default function FlowStepModal({ open, onClose }: Props) {
     const {
         branchId, nodeId, rootId,
@@ -106,13 +120,7 @@ export default function FlowStepModal({ open, onClose }: Props) {
             maxWidth="lg"
             onClose={onClose}
             open={open}
-            PaperProps={{
-                elevation: 8,
-                sx: {
-                    p: 0,
-                    height: '100%',
-                },
-            }}
+            PaperProps={PAPER_PROPS}
         >
             <DialogTitle>
                 <Box display="flex" alignItems="center" justifyContent="center">
@@ -120,37 +128,26 @@ export default function FlowStepModal({ open, onClose }: Props) {
                         align="center"
                         variant="body1"
                         fontWeight="bold"
-                        sx={{
-                            overflow: 'hidden',
-                            whiteSpace: 'nowrap',
-                            textOverflow: 'ellipsis',
-                        }}>
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        textOverflow="ellipsis">
                         Flow Step Nodes
                     </Typography>
                 </Box>
                 <IconButton
                     disableRipple
                     onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                    }}>
-                    <CloseOutlined sx={{ color: 'background.3' }} />
+                    sx={CLOSE_SX}>
+                    <CloseOutlined className="toolbar-default" />
                 </IconButton>
             </DialogTitle>
-            <DialogContent sx={{
-                overflow: 'hidden',
-                height: 1,
-            }}>
+            <DialogContent>
                 <Box mt={2} height="calc(100% - 75px)">
                     <Box
                         height={1}
-                        sx={{
-                            mx: -3,
-                            borderBottom: 1,
-                            borderColor: 'borders.4',
-                        }}>
+                        mx={-3}
+                        borderBottom={1}
+                        borderColor="borders.4">
                         <Tree
                             rootId={nodeId}
                             branchId={branchId}

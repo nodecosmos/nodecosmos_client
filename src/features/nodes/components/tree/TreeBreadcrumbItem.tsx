@@ -42,7 +42,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
             <Tooltip title="scroll" placement="top">
                 <button
                     onClick={handleCentering}
-                    className={`ScrollButton mx-1 tools TreeNestedColorHover-${index % TREE_COLORS}`}
+                    className={`ScrollButton ml-1 tools TreeNestedColorHover-${index % TREE_COLORS}`}
                 >
                     <FontAwesomeIcon icon={faCircle} />
                 </button>

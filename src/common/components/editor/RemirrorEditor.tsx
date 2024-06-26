@@ -28,6 +28,7 @@ export interface RemirrorEditorProps {
     clearState?: boolean;
     autoFocus?: boolean;
     onBlur?: () => void;
+    editorClassName?: string;
 }
 
 export default function RemirrorEditor(props: RemirrorEditorProps) {

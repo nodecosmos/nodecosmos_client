@@ -1,3 +1,4 @@
+import CheckboxToolbar from './CheckboxToolbar';
 import ConflictToolbar from './NodeConflictToolbar';
 import ConfirmationModal, { ConfirmType } from '../../../../../../common/components/ConfirmationModal';
 import useModalOpen from '../../../../../../common/hooks/useModalOpen';
@@ -10,6 +11,7 @@ import useNodeContext from '../../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../../hooks/tree/useTreeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
 import { selectNode } from '../../../../nodes.selectors';
+import { TreeType } from '../../../../nodes.types';
 import LikeButton from '../../../LikeButton';
 import {
     faDiagramSubtask, faArrowUpRightFromSquare, faArrowUpSmallBig,
@@ -69,10 +71,14 @@ function NodeToolbar() {
     const openNodeHref = useMemo(() => {
         return `/nodes/${branchId}/${id}?isBranchQ=${isBranch}&originalIdQ=${rootId}`;
     }, [branchId, isBranch, id, rootId]);
-    const { size } = useTreeContext();
+    const { size, type } = useTreeContext();
 
     if (ctx?.isOriginalDeleted) {
         return <ConflictToolbar />;
+    }
+
+    if (type === TreeType.Checkbox) {
+        return <CheckboxToolbar />;
     }
 
     if (!isExpanded || !isSelected) return null;

@@ -7,10 +7,8 @@ import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepC
 import useFlowContext from '../../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { faTrashXmark } from '@fortawesome/pro-light-svg-icons';
-import { faRotateLeft } from '@fortawesome/pro-regular-svg-icons';
-import {
-    faEllipsisVertical, faPlay, faSave,
-} from '@fortawesome/pro-solid-svg-icons';
+import { faRotateLeft, faCodePullRequestDraft } from '@fortawesome/pro-regular-svg-icons';
+import { faPlay, faSave } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Chip, IconButton, Tooltip,
@@ -104,7 +102,7 @@ export default function FlowStepInnerToolbar() {
                                 aria-label="Add Node"
                                 onClick={openModal}
                             >
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                                <FontAwesomeIcon icon={faCodePullRequestDraft} />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete Flow Step" placement="top">

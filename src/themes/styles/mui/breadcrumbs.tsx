@@ -8,12 +8,15 @@ export default (theme: NodecosmosTheme) => ({
                 '.BreadcrumbItem': {
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '4px 8px',
+                    padding: 4,
                     borderRadius: 4,
                     marginLeft: 8,
                     fontWeight: 500,
                     fontSize: 14,
                     color: theme.palette.text.tertiary,
+                },
+                '.BreadcrumbItem:first-of-type': {
+                    marginLeft: 0,
                 },
                 '.MuiLink-root': {
                     cursor: 'pointer',
@@ -28,15 +31,15 @@ export default (theme: NodecosmosTheme) => ({
                 },
                 'button, button:hover': { backgroundColor: theme.palette.toolbar.active },
                 '.ScrollButton': {
+                    background: 'transparent',
+                    svg: {
+                        fontSize: '0.6rem',
+                    },
                     color: theme.palette.background[8],
                     '&:hover': {
+                        background: theme.palette.toolbar.active,
                         color: 'inherit',
                     },
-                },
-                '.tools': {
-                    background: 'transparent',
-                    fontSize: '0.6rem',
-                    ml: 1,
                 },
 
             },

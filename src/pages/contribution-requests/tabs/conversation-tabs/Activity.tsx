@@ -1,7 +1,7 @@
 import { selectBranchThreadIds } from '../../../../features/comments/comments.selectors';
 import CommentThread from '../../../../features/comments/components/CommentThread';
 import { UUID } from '../../../../types';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -24,10 +24,12 @@ export default function Activity() {
                 }
                 {
                     (!threadIds || activityThreadIds.length === 0) && (
-                        <Box mt={4} p={0}>
-                            <Typography variant="body2" fontWeight="bold" color="textSecondary">
-                                No activity
-                            </Typography>
+                        <Box
+                            p={1.5}
+                            borderRadius={2}
+                            color="text.secondary"
+                            fontWeight={700}>
+                            No Activity
                         </Box>
                     )
                 }

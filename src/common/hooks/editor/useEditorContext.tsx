@@ -1,6 +1,8 @@
 import useExtensions, { RemirrorExtensions } from './useExtensions';
 import { RemirrorEditorProps } from '../../components/editor/RemirrorEditor';
-import { createContext, useContext } from 'react';
+import {
+    createContext, useContext, useMemo, 
+} from 'react';
 import { Doc } from 'yjs';
 
 interface EditorContextValue extends RemirrorEditorProps {
@@ -26,14 +28,14 @@ export function useEditorContextCreator(props: RemirrorEditorProps) {
         enabledExtensions,
     });
 
-    return {
+    return useMemo(() => ({
         EditorContext,
         ctxValue: {
             ...props,
             extensions,
             doc,
         },
-    };
+    }), [props, extensions, doc]);
 }
 
 export function useEditorContext() {

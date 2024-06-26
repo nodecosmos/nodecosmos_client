@@ -75,11 +75,10 @@ export default function CreateIoModal(props: CreateIoModalProps) {
     let description = '';
 
     if (associatedObject === IoObjectType.startStep) {
-        description = `Initial inputs are used to start the workflow. 
-                       They are the first inputs that are passed into the workflow.`;
+        description = 'Initial inputs are are the first inputs that are passed into the workflow.';
     } else {
-        description = `Each node can have multiple outputs. Outputs can be used as inputs for
-                       nodes on either next step or previous steps as feedback loop.`;
+        description = `Each node can have multiple outputs. These outputs can be used as inputs for nodes in either
+                      the next step or in previous steps as a feedback loop.`;
     }
 
     const [listTitles, setListTitles] = React.useState<string[]>(uniqueIoTitles.slice(0, 5));

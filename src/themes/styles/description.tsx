@@ -42,15 +42,14 @@ export default (theme: NodecosmosTheme) => ({
             backgroundColor: theme.palette.markdownContent.canvas,
             textWrap: 'wrap',
         },
-        a: {
-            color: theme.palette.text.link,
-            fontWeight: 'bold',
-        },
+        a: { color: theme.palette.text.link },
         p: {
-            fontWeight: 500,
+            fontSize: 16,
+            fontWeight: 400,
             wordWrap: 'break-word',
             '&:empty': { height: 32 },
         },
+        '&.fs-18': { p: { fontSize: 18 } },
         h1: {
             borderBottom: `1px solid ${theme.palette.borders[2]}`,
             marginBottom: 16,
@@ -58,9 +57,7 @@ export default (theme: NodecosmosTheme) => ({
         'img:not(.ProseMirror-separator)': {
             maxWidth: 850,
             width: '100%',
-            borderRadius: 20,
-            marginTop: 16,
-            marginBottom: 16,
+            borderRadius: 6,
         },
     },
 });

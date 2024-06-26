@@ -46,9 +46,7 @@ export default function useNodeClick() {
 
             handleCheckboxChange();
 
-            if (event.target instanceof HTMLInputElement) {
-                return;
-            }
+            return;
         }
         if (isEditing) return;
 
@@ -62,19 +60,17 @@ export default function useNodeClick() {
                 id,
             }));
 
-            if (treeType !== TreeType.Checkbox) {
-                selectObject({
-                    originalId,
-                    branchId,
-                    objectNodeId: id,
-                    objectId: id,
-                    objectType: ObjectType.Node,
-                    metadata: {
-                        isTmp,
-                        ancestorIds,
-                    },
-                });
-            }
+            selectObject({
+                originalId,
+                branchId,
+                objectNodeId: id,
+                objectId: id,
+                objectType: ObjectType.Node,
+                metadata: {
+                    isTmp,
+                    ancestorIds,
+                },
+            });
         }
     },
     [

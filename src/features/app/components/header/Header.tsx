@@ -90,7 +90,7 @@ export default function Header() {
                     height={1}
                 >
                     <Box
-                        pl={1.25}
+                        pl={1.5}
                         height={1}
                         display="flex"
                         alignItems="center"

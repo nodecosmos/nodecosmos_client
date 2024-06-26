@@ -14,7 +14,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 export default function Image() {
     const [imageDialogOpen, openImageDialog, closeImageDialog] = useBooleanStateValue();
     const {
-        id, rootId, branchId, 
+        id, rootId, branchId,
     } = useSelector(selectSelectedNode);
     const commands = useCommands<RemirrorExtensions>();
 
@@ -22,7 +22,8 @@ export default function Image() {
         closeImageDialog();
         if (responseBody?.url) {
             commands.insertImage({ src: responseBody.url });
-            commands.insertText('\n\n');
+            commands.insertParagraph();
+            commands.insertParagraph();
         }
     }, [closeImageDialog, commands]);
 

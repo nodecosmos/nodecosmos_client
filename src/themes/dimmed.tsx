@@ -184,7 +184,7 @@ const theme: NodecosmosTheme = {
         },
 
         markdownContent: {
-            canvas: '#24262f',
+            canvas: '#373b49',
             canvasBorder: '#335faa',
             background: 'transparent',
         },
@@ -239,7 +239,7 @@ const theme: NodecosmosTheme = {
 
         text: {
             primary: '#f5f5f2',
-            secondary: '#babece',
+            secondary: '#bcc6d2',
             tertiary: '#838a9a',
             disabled: '#5c616b',
             contrast: '#fff',

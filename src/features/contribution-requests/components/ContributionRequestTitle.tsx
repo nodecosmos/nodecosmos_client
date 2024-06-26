@@ -12,6 +12,17 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+const SX = {
+    p: 0,
+    pb: 2,
+    transition: 'border-color 0.2s',
+    '&:hover': { borderColor: 'borders.5' },
+    '&:focus-within': {
+        borderColor: 'borders.5',
+        transition: 'none',
+    },
+};
+
 export default function ContributionRequestTitle() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { id: nodeId, branchId: id } = useParams();
@@ -43,16 +54,7 @@ export default function ContributionRequestTitle() {
             display="flex"
             borderBottom={2}
             borderColor="transparent"
-            sx={{
-                p: 0,
-                pb: 2,
-                transition: 'border-color 0.2s',
-                '&:hover': { borderColor: 'borders.5' },
-                '&:focus-within': {
-                    borderColor: 'borders.5',
-                    transition: 'none',
-                },
-            }}
+            sx={SX}
             flexDirection={{
                 xs: 'column',
                 md: 'row',
@@ -92,7 +94,7 @@ export default function ContributionRequestTitle() {
                 <EditTitleField
                     authorized={authorized}
                     inputFontSize="2rem"
-                    variant="h2"
+                    variant="h5"
                     title={title}
                     color="text.secondary"
                     onChange={handleTitleChange}

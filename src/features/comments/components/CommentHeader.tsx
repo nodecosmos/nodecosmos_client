@@ -36,17 +36,6 @@ export default function CommentHeader() {
                                 </Typography>
                             </Link>
                         </Box>
-                        {/*<Link*/}
-                        {/*    component={RouterLink}*/}
-                        {/*    to={`/${author.username}`}*/}
-                        {/*    sx={{ '&:hover p': { color: 'text.link' } }}*/}
-                        {/*>*/}
-                        {/*    {author.username && (*/}
-                        {/*        <Typography variant="body2" color="text.tertiary">*/}
-                        {/*            @{author.username}*/}
-                        {/*        </Typography>*/}
-                        {/*    )}*/}
-                        {/*</Link>*/}
                         <Typography variant="subtitle1" color="text.tertiary" ml={1}>
                             {timeSince(createdAt)}
                         </Typography>

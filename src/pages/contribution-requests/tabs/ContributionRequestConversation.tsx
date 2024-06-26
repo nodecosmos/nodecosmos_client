@@ -2,8 +2,6 @@ import Alert from '../../../common/components/Alert';
 import NcAvatar from '../../../common/components/NcAvatar';
 import ToolbarContainer from '../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
-import ContributionRequestDescription
-    from '../../../features/contribution-requests/components/ContributionRequestDescription';
 import ContributionRequestTitle from '../../../features/contribution-requests/components/ContributionRequestTitle';
 import { selectContributionRequest } from '../../../features/contribution-requests/contributionRequests.selectors';
 import { UUID } from '../../../types';
@@ -62,9 +60,6 @@ export default function ContributionRequestConversation() {
                 </Box>
                 <Box mt={3}>
                     <ContributionRequestTitle />
-                </Box>
-                <Box mt={3}>
-                    <ContributionRequestDescription />
                 </Box>
                 <Box
                     mt={3}

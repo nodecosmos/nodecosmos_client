@@ -14,7 +14,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
         toolbarHeight,
         editorBackgroundColor,
         editorOutline = 2,
-        editorFocusBorderColor,
+        editorFocusBorderColor = 'toolbar.purple',
         p = 0,
         px = 0,
         py = 0,
@@ -49,8 +49,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
             m: 1,
             '&:focus-within': {
                 outline: editorOutline,
-                outlineColor: 'toolbar.purple',
-                borderColor: editorFocusBorderColor,
+                outlineColor: editorFocusBorderColor,
             },
         },
         '.remirror-editor-wrapper': {

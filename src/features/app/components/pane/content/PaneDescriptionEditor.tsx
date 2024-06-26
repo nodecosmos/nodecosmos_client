@@ -53,6 +53,7 @@ export default function PaneDescriptionEditor() {
                         editorOutline={0}
                         editorBackgroundColor="background.5"
                         editorFocusBorderColor="toolbar.default"
+                        editorClassName="fs-18"
                         isRealTime
                     />
                 </Box>

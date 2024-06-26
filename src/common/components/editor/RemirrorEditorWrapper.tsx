@@ -3,6 +3,7 @@ import RemirrorEditorFocusContainer from './RemirrorEditorFocusContainer';
 import RemirrorEditorToolbar from './RemirrorEditorToolbar';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import { RemirrorExtensions } from '../../hooks/editor/useExtensions';
+import useOutsideClick from '../../hooks/useOutsideClick';
 import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
@@ -17,6 +18,7 @@ import * as Y from 'yjs';
 export default function RemirrorEditorWrapper() {
     const {
         base64, markdown, onChange, p = 4, doc, isRealTime, extensions, info, clearState, autoFocus = true, onBlur,
+        editorClassName,
     } = useEditorContext();
 
     const handleChange = useCallback((remirrorProps: RemirrorEventListenerProps<MarkdownExtension>) => {
@@ -48,46 +50,49 @@ export default function RemirrorEditorWrapper() {
         }
     }, [clearState, manager, setState]);
 
+    const ref = React.useRef<HTMLDivElement>(null);
+
+    useOutsideClick(ref, onBlur);
+
     return (
-        <RemirrorEditorContainer>
-            <Remirror
-                manager={manager}
-                initialContent={state}
-                autoFocus={autoFocus}
-                onChange={handleChange}
-                onBlur={onBlur}
-                editable
-            >
-                <RemirrorEditorToolbar />
-                <RemirrorEditorFocusContainer>
-                    <Box className="DescriptionHTML" p={p}>
-                        <EditorComponent />
-                    </Box>
-                </RemirrorEditorFocusContainer>
-                {
-                    info && (
-                        <Box sx={{
-                            ml: 1,
-                            mb: 1,
-                            color: 'text.tertiary',
-                            backgroundColor: 'transparent',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'start',
-                        }}
-                        >
-                            <FontAwesomeIcon icon={faCircleInfo} />
-                            <Typography
-                                ml={1}
-                                fontWeight="bold"
-                                variant="caption"
-                                color="text.tertiary">
-                                {info}
-                            </Typography>
+        <div className="h-100" ref={ref}>
+            <RemirrorEditorContainer>
+                <Remirror
+                    manager={manager}
+                    initialContent={state}
+                    autoFocus={autoFocus}
+                    onChange={handleChange}
+                    editable
+                >
+                    <RemirrorEditorToolbar />
+                    <RemirrorEditorFocusContainer>
+                        <Box className={`DescriptionHTML ${editorClassName}`} p={p}>
+                            <EditorComponent />
                         </Box>
-                    )
-                }
-            </Remirror>
-        </RemirrorEditorContainer>
+                    </RemirrorEditorFocusContainer>
+                    {
+                        info && (
+                            <Box
+                                ml={1}
+                                mb={1}
+                                color="text.tertiary"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="start"
+                            >
+                                <FontAwesomeIcon icon={faCircleInfo} />
+                                <Typography
+                                    ml={1}
+                                    fontWeight="bold"
+                                    variant="caption"
+                                    color="text.tertiary">
+                                    {info}
+                                </Typography>
+                            </Box>
+                        )
+                    }
+                </Remirror>
+            </RemirrorEditorContainer>
+        </div>
     );
 }

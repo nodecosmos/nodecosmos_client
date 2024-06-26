@@ -3,27 +3,27 @@ import { NodecosmosTheme } from '../../themes.types';
 export default (theme: NodecosmosTheme) => ({
     fontFamily: '-apple-system, system-ui, Roboto, sans-serif',
     h1: {
-        fontSize: '2.5rem',
+        fontSize: '35px',
         fontWeight: 500,
     },
     h2: {
-        fontSize: '2.25rem',
+        fontSize: '33px',
         fontWeight: 500,
     },
     h3: {
-        fontSize: '2rem',
+        fontSize: '30px',
         fontWeight: 500,
     },
     h4: {
-        fontSize: '1.75rem',
+        fontSize: '27px',
         fontWeight: 500,
     },
     h5: {
-        fontSize: '1.5rem',
+        fontSize: '25px',
         fontWeight: 500,
     },
     h6: {
-        fontSize: '1.25rem',
+        fontSize: '22px',
         fontWeight: 500,
     },
     body1: {

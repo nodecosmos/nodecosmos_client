@@ -3,6 +3,7 @@ import useNodeDelete from './actions/useNodeDelete';
 import useNodeEdit from './actions/useNodeEdit';
 import useNodeRestore from './actions/useNodeRestore';
 import useNodeUndoDeletion from './actions/useNodeUndoDeletion';
+import { useMemo } from 'react';
 
 export default function useNodeActions() {
     const editNode = useNodeEdit();
@@ -11,11 +12,11 @@ export default function useNodeActions() {
     const restoreNode = useNodeRestore();
     const undoNodeDeletion = useNodeUndoDeletion();
 
-    return {
+    return useMemo(() => ({
         editNode,
         addNode,
         deleteNode,
         restoreNode,
         undoNodeDeletion,
-    };
+    }), [editNode, addNode, deleteNode, restoreNode, undoNodeDeletion]);
 }

@@ -5,12 +5,30 @@ import { selectMainObjectThreadByObjectId } from '../../../../comments/comments.
 import { ThreadObjectType, ThreadLocation } from '../../../../comments/comments.types';
 import CommentEditor from '../../../../comments/components/CommentEditor';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
-import { faComments } from '@fortawesome/pro-light-svg-icons';
+import { faComments } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
+const PANE_SX = {
+    width: 1,
+    p: {
+        xs: 2,
+        md: 4,
+    },
+};
+
+const CONTAINER_SX = {
+    backgroundColor: 'background.1',
+    borderColor: 'borders.4',
+    borderRadius: 2,
+    p: {
+        xs: 2,
+        md: 4,
+    },
+};
 
 export default function PaneComments() {
     const { originalId: rootId, branchId } = useBranchContext();
@@ -64,30 +82,14 @@ export default function PaneComments() {
     }, [branchId, objectId, rootId, threadId, threadLocation]);
 
     return (
-        <Box sx={{
-            width: 1,
-            p: {
-                xs: 2,
-                md: 4,
-            },
-        }}>
+        <Box sx={PANE_SX}>
             <Container>
-                <Typography variant="h5" color="text.secondary">
-                    <FontAwesomeIcon icon={faComments} />
+                <Typography variant="h5" color="text.secondary" mb={3}>
+                    <Box component="span" color="tree.hashtag"><FontAwesomeIcon icon={faComments} /></Box>
                     <Box component="span" ml={2}>Comments</Box>
                 </Typography>
             </Container>
-            <Container sx={{
-                backgroundColor: 'background.1',
-                border: 1,
-                borderColor: 'borders.4',
-                borderRadius: 2,
-                p: {
-                    xs: 2,
-                    md: 4,
-                },
-                mt: 4,
-            }}>
+            <Container sx={CONTAINER_SX}>
                 <Comments />
                 <Box mt={4}>
                     {mainThreadCommentEditor}
