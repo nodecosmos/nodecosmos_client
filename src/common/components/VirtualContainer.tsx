@@ -7,8 +7,7 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import { ResponsiveStyleValue } from '@mui/system/styleFunctionSx';
 import React, {
-    useCallback,
-    useEffect, useMemo, useRef, useState,
+    useCallback, useMemo, useRef, useState,
 } from 'react';
 
 interface Props {
@@ -20,66 +19,36 @@ interface Props {
 }
 
 const MORE_RES_SX = { borderRadius: 4 };
+const COUNT_INCREMENT = 20;
 
-// Renders elements that are visible in the viewport
+// Initially, the component was used to virtualize the list of items, but now it loads more items on button click, and
+// once it unmounts, it resets the visible count to the initial value. This way we don't have glitches when the list
+// is scrolled.
 export default function VirtualContainer({
     children, onMore, maxWidth = 680, width = '100%', p,
 }: Props) {
-    const [visibleItems, setVisibleItems] = useState(new Set<number>());
+    const [visibleCount, setVisibleCount] = useState(COUNT_INCREMENT);
     const listRef = useRef<HTMLDivElement>(null);
-    const itemRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
-    const observer = useRef<IntersectionObserver | null>(null);
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
-
-    // Initialize or update refs
-    itemRefs.current = children.map(() => React.createRef());
-
-    useEffect(() => {
-        observer.current = new IntersectionObserver((entries) => {
-            const itemsToAdd = new Set<number>();
-            const itemsToRemove = new Set<number>();
-            entries.forEach(entry => {
-                const index = itemRefs.current.findIndex(ref => ref.current === entry.target);
-                if (entry.isIntersecting) {
-                    itemsToAdd.add(index);
-                } else {
-                    itemsToRemove.add(index);
-                }
-            });
-
-            setVisibleItems(prevVisibleItems => {
-                const newVisibleItems = new Set([...prevVisibleItems]);
-                itemsToAdd.forEach(index => newVisibleItems.add(index));
-                itemsToRemove.forEach(index => newVisibleItems.delete(index));
-
-                return newVisibleItems;
-            });
-        }, {
-            root: listRef.current,
-            rootMargin: '2000px',
-            threshold: [0, 0.1, 0.9, 1],
-        });
-
-        itemRefs.current.forEach((ref) => {
-            if (ref.current && observer.current) {
-                observer.current.observe(ref.current);
-            }
-        });
-
-        return () => {
-            if (observer.current) {
-                observer.current.disconnect();
-            }
-        };
-    }, [children]); // Re-run effect when children change
+    const visibleCountChildren = useMemo(() => children.slice(0, visibleCount), [children, visibleCount]);
+    const hasInternalOnMore = useMemo(() => children.length > visibleCount, [children, visibleCount]);
+    const handleOnMoreInternal = useCallback(() => {
+        setVisibleCount((prevVisibleCount) => prevVisibleCount + COUNT_INCREMENT);
+    }, []);
 
     const handleOnMore = useCallback(async () => {
+        if (hasInternalOnMore) {
+            handleOnMoreInternal();
+            return;
+        }
+
         if (onMore) {
             setLoading();
             await onMore();
             unsetLoading();
+            setVisibleCount((prevVisibleCount) => prevVisibleCount + COUNT_INCREMENT);
         }
-    }, [onMore, setLoading, unsetLoading]);
+    }, [handleOnMoreInternal, hasInternalOnMore, onMore, setLoading, unsetLoading]);
 
     const dividerSx = useMemo(() => ({
         position: 'absolute',
@@ -97,12 +66,12 @@ export default function VirtualContainer({
             overflow="auto"
             pb={4}
         >
-            {children.map((child, index) => (
-                <Box ref={itemRefs.current[index]} key={index} className="min-h-210">
-                    {visibleItems.has(index) ? child : null}
+            {visibleCountChildren.map((child, index) => (
+                <Box key={index} className="min-h-210">
+                    {child}
                 </Box>
             ))}
-            {onMore && (
+            {(onMore || hasInternalOnMore) && (
                 <Box width={1} my={3} display="flex" alignItems="center" justifyContent="center" position="relative">
                     <Divider sx={dividerSx} />
                     <Box width={maxWidth} textAlign="center">

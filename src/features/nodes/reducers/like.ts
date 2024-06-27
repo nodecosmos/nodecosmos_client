@@ -32,7 +32,10 @@ function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: numbe
     }
 
     if (branchId && state.byBranchId[branchId] && state.byBranchId[branchId][id]) {
-        const likeCount = state.byBranchId[branchId][id].likeCount || 0;
-        state.byBranchId[branchId][id].likeCount = likeCount + increment;
+        const likeCount = state.byBranchId[branchId][id].likeCount;
+
+        if (likeCount) {
+            state.byBranchId[branchId][id].likeCount = likeCount + increment;
+        }
     }
 }
