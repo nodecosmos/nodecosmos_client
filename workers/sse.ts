@@ -26,12 +26,6 @@ interface EventSourceWrapper {
 const eventSourceByURL = new Map<string, EventSourceWrapper>();
 const activeClientsByURL = new Map<string, number>();
 
-if ('Notification' in self && Notification.permission !== 'granted') {
-    Notification.requestPermission().catch((error) => {
-        console.error('Notification permission error:', error);
-    });
-}
-
 sw.addEventListener('notificationclick', function(event) {
     const { url } = event.notification.data;
     event.notification.close();

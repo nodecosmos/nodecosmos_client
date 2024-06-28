@@ -26,6 +26,12 @@ export default function useNodeSSE(rootId?: UUID) {
             }
         };
 
+        if ('Notification' in self && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+            Notification.requestPermission().catch((error) => {
+                console.error('Notification permission error:', error);
+            });
+        }
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then((registrations) => {
                 registrations.forEach((registration) => {

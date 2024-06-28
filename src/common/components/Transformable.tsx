@@ -18,6 +18,11 @@ interface TransformableProps {
     heightMargin?: number;
 }
 
+const DEFAULT_DIMENSIONS = {
+    width: 0,
+    height: 0,
+};
+
 function Transformable(props: TransformableProps) {
     const {
         children, scale = 1, heightMargin = TRANSFORMABLE_HEIGHT_MARGIN,
@@ -25,30 +30,34 @@ function Transformable(props: TransformableProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
-    const [dimensions, setDimensions] = useState({
-        width: 0,
-        height: 0,
-    });
+    const [dimensions, setDimensions] = useState(DEFAULT_DIMENSIONS);
     const {
         TransformableContext, ctxValue, setTransformablePositions,
     } = useTransformableContextCreator();
-    const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
     const scrollTo = useSelector(selectScrollTo);
 
+    const resizeTimeout = useRef<number | null>(null);
+
     const handleResize = useCallback(() => {
-        const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
-        const clientHeight = containerRef.current?.clientHeight || 0;
-        const height = Math.max(svgHeight, clientHeight - 8);
-
-        const newWidth = (gRef.current?.getBBox().width || 0) + TRANSFORMABLE_WIDTH_MARGIN;
-        const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
-
-        if (height !== dimensions.height || width !== dimensions.width) {
-            setDimensions({
-                height,
-                width,
-            });
+        if (resizeTimeout.current) {
+            clearTimeout(resizeTimeout.current);
         }
+
+        resizeTimeout.current = setTimeout(() => {
+            const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
+            const clientHeight = containerRef.current?.clientHeight || 0;
+            const height = Math.max(svgHeight, clientHeight - 8);
+
+            const newWidth = (gRef.current?.getBBox().width || 0) + TRANSFORMABLE_WIDTH_MARGIN;
+            const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
+
+            if (height !== dimensions.height || width !== dimensions.width) {
+                requestAnimationFrame(() => setDimensions({
+                    height,
+                    width,
+                }));
+            }
+        }, 1000);
     }, [heightMargin, dimensions.height, dimensions.width]);
 
     useEffect(() => {
@@ -83,6 +92,17 @@ function Transformable(props: TransformableProps) {
         });
     }), [setTransformablePositions]);
 
+    // used by breadcrumbs
+    useEffect(() => {
+        if (containerRef.current && scrollTo) {
+            containerRef.current.scrollTop = Number(ctxValue?.scrollTop);
+
+            dispatch(setNodeScrollTo(null));
+        }
+    }, [ctxValue?.scrollTop, dispatch, scrollTo]);
+
+    const winResizeTimeout = useRef<number | null>(null);
+
     useEffect(() => {
         if (containerRef.current) {
             setTransformablePositions({
@@ -92,26 +112,13 @@ function Transformable(props: TransformableProps) {
                 scrollLeft: containerRef.current.scrollLeft,
             });
         }
-    }, [setTransformablePositions]);
 
-    // used by breadcrumbs
-    useEffect(() => {
-        if (containerRef.current && scrollTo) {
-            containerRef.current.scrollTop = Number(scrollTop);
-
-            dispatch(setNodeScrollTo(null));
-        }
-    }, [scrollTop, dispatch, scrollTo]);
-
-    const resizeTimeout = useRef<number | null>(null);
-
-    useEffect(() => {
         window.onresize = () => {
-            if (resizeTimeout.current) {
-                clearTimeout(resizeTimeout.current);
+            if (winResizeTimeout.current) {
+                clearTimeout(winResizeTimeout.current);
             }
 
-            resizeTimeout.current = setTimeout(() => {
+            winResizeTimeout.current = setTimeout(() => {
                 if (!containerRef.current?.clientHeight) return;
                 setTransformablePositions({
                     clientHeight: containerRef.current.clientHeight,

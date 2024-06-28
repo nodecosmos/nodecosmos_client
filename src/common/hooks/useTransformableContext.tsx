@@ -1,4 +1,6 @@
-import React, { useCallback, useContext } from 'react';
+import React, {
+    useCallback, useContext, useMemo, 
+} from 'react';
 
 export interface TransformableContextVal {
     clientHeight: number;
@@ -24,11 +26,11 @@ export function useTransformableContextCreator() {
         }));
     }, []);
 
-    return {
+    return useMemo(() => ({
         TransformableContext,
         ctxValue: transformablePositions,
         setTransformablePositions,
-    };
+    }), [transformablePositions, setTransformablePositions]);
 }
 
 export function useTransformableContext() {
