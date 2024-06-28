@@ -6,10 +6,10 @@ import Transformable from '../../../../common/components/Transformable';
 import { UUID } from '../../../../types';
 import { HEADER_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from '../../../app/constants';
 import useIsMobile from '../../../app/hooks/useIsMobile';
-import { useTreeContextCreator } from '../../hooks/tree/useTreeContext';
+import { TreeContext, useTreeContextValue } from '../../hooks/tree/useTreeContext';
 import { selectScale } from '../../nodes.selectors';
 import { TreeType } from '../../nodes.types';
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export interface TreeProps {
@@ -30,11 +30,11 @@ const TREE_MOBILE_STYLE = {
     position: 'relative',
 };
 
-function Tree(props: TreeProps) {
+export default function Tree(props: TreeProps) {
     const {
         branchId, rootId, type = TreeType.Default, onChange, value = null,
     } = props;
-    const { TreeContext, ctxValue } = useTreeContextCreator({
+    const ctxValue = useTreeContextValue({
         branchId,
         rootId,
         type,
@@ -62,5 +62,3 @@ function Tree(props: TreeProps) {
         </TreeContext.Provider>
     );
 }
-
-export default memo(Tree);

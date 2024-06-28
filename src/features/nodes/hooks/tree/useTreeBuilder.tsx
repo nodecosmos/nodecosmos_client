@@ -1,6 +1,7 @@
 import {
     LowerSiblingId, NodeSize, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from './useTreeContext';
+import { NodecosmosDispatch } from '../../../../store';
 import { UUID } from '../../../../types';
 import { TRANSFORMABLE_ID } from '../../../app/constants';
 import { setNodeScrollTo } from '../../nodes.actions';
@@ -28,7 +29,6 @@ export interface Tree {
     treeNodes: TreeNodes;
     orderedTreeNodeIds: UUID[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
-    buildTree: () => void;
 }
 
 type Props = {
@@ -48,7 +48,7 @@ export default function useTreeBuilder(props: Props): Tree {
     const { ancestorIds } = useSelector(selectNode(branchId, treeRootId));
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
     const scrollToId = useSelector(selectScrollTo);
-    const dispatch = useDispatch();
+    const dispatch: NodecosmosDispatch = useDispatch();
     const expandedNodes = useSelector(selectExpandedNodes);
 
     const [treeState, setTreeState] = useState({
@@ -68,7 +68,7 @@ export default function useTreeBuilder(props: Props): Tree {
                 dispatch(setNodeScrollTo(null));
             }
         }
-    }, [dispatch, scrollToId, treeState.treeNodes]);
+    }, [dispatch, scrollToId, treeState]);
 
     const buildTree = useCallback(() => {
         if (!branchChildIds) return;
@@ -183,10 +183,13 @@ export default function useTreeBuilder(props: Props): Tree {
         }));
     }, []);
 
+    useEffect(() => {
+        buildTree();
+    }, [buildTree]);
+
     return useMemo(() => ({
         treeNodes: treeState.treeNodes,
         orderedTreeNodeIds: treeState.orderedTreeNodeIds,
         setTreeNodes,
-        buildTree,
-    }), [treeState, setTreeNodes, buildTree]);
+    }), [treeState, setTreeNodes]);
 }

@@ -60,7 +60,7 @@ export default function Header() {
                     <Box ml={1}>
                         <Button
                             component={Link}
-                            to="/nodes"
+                            to="/"
                             className="LogoButton"
                         >
                             <img src="/logo.svg" alt="logo" height={30} width={30} />

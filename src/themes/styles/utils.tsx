@@ -25,6 +25,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.fs-16': { fontSize: 16 },
     '&.fs-18': { fontSize: 18 },
 
+    '&.background-1': { backgroundColor: theme.palette.background[1] },
     '&.background-2': { backgroundColor: theme.palette.background[2] },
     '&.background-5': { backgroundColor: theme.palette.background[5] },
     '&.background-8': { backgroundColor: theme.palette.background[8] },

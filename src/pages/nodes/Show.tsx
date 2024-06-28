@@ -1,9 +1,9 @@
-import { useBranchContextCreator } from '../../features/branch/hooks/useBranchContext';
+import { BranchContext, useBranchContextValue } from '../../features/branch/hooks/useBranchContext';
 import NodeShowContent from '../../features/nodes/components/NodeShowContent';
 import React from 'react';
 
 export default function NodeShow() {
-    const { BranchContext, ctxValue } = useBranchContextCreator();
+    const ctxValue = useBranchContextValue();
 
     return (
         <BranchContext.Provider value={ctxValue}>

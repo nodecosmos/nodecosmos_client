@@ -9,11 +9,6 @@ export const selectBranch = (id: UUID) => createSelector(
     (branches) => branches[id],
 );
 
-export const maybeSelectBranch = (id?: UUID) => createSelector(
-    selectBranches,
-    (branches) => id ? branches[id] : undefined,
-);
-
 export const selectConflict = (branchId: UUID) => createSelector(
     selectBranch(branchId),
     (branch) => branch?.conflict,

@@ -1,7 +1,7 @@
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { maybeSelectNode } from '../../nodes/nodes.selectors';
-import { maybeSelectBranch } from '../branches.selectors';
+import { selectBranch } from '../branches.selectors';
 import { showBranch } from '../branches.thunks';
 import {
     Branch, BranchParams, BranchStatus,
@@ -11,13 +11,12 @@ import {
     useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    useLocation, useParams, useSearchParams,
-} from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 interface BranchContextValue extends BranchParams {
     isContributionRequest: boolean;
     isBranch: boolean;
+    isBranchQ: boolean;
     isMerged: boolean;
     nodeId: UUID;
     originalId: UUID; // rootId
@@ -28,9 +27,9 @@ interface BranchContextValue extends BranchParams {
     editorIds?: Set<UUID>;
 }
 
-const BranchContext = createContext<BranchContextValue>({} as BranchContextValue);
+export const BranchContext = createContext<BranchContextValue>({} as BranchContextValue);
 
-export function useBranchContextCreator() {
+export function useBranchContextValue() {
     const dispatch: NodecosmosDispatch = useDispatch();
 
     // extract initial branch data from url path
@@ -45,12 +44,13 @@ export function useBranchContextCreator() {
     const [searchParams] = useSearchParams();
     const isBranchQ = searchParams.get('isBranchQ') === 'true';
     const originalIdQ = searchParams.get('originalIdQ');
+    const isContributionRequest = window.location.pathname.includes('/contribution_requests/');
 
     if (isBranchQ && originalIdQ) {
         originalId = originalIdQ as UUID;
     }
 
-    const branch = useSelector(maybeSelectBranch(branchId));
+    const branch = useSelector(selectBranch(branchId));
     const {
         nodeId: branchNodeId,
         status: branchStatus,
@@ -59,12 +59,6 @@ export function useBranchContextCreator() {
         title,
     } = useMemo(() => (branch ?? {} as Branch), [branch]);
     const node = useSelector(maybeSelectNode(originalId as UUID, nodeId));
-    const { pathname } = useLocation();
-    const isContributionRequest = useMemo(
-        () => {
-            return pathname.includes('/contribution_requests/');
-        }, [pathname],
-    );
     const isBranchedNode = (node ? node.rootId !== originalId : false);
     const isBranch = isBranchQ || isContributionRequest || (node ? node.rootId !== originalId : false);
 
@@ -75,23 +69,21 @@ export function useBranchContextCreator() {
     }, [branchId, branchNodeId, dispatch, isBranchQ, isBranchedNode, isContributionRequest]);
 
     return useMemo(() => ({
-        BranchContext,
-        ctxValue: {
-            isBranch,
-            isContributionRequest,
-            originalId: (isBranch && node) ? node.rootId : originalId as UUID,
-            branchId,
-            nodeId: nodeId as UUID,
-            branchNodeId,
-            title,
-            isMerged: branchStatus === BranchStatus.Merged,
-            ownerId,
-            editorIds,
-        },
+        isBranch,
+        isBranchQ,
+        isContributionRequest,
+        originalId: (isBranch && node) ? node.rootId : originalId as UUID,
+        branchId,
+        nodeId: nodeId as UUID,
+        branchNodeId,
+        title,
+        isMerged: branchStatus === BranchStatus.Merged,
+        ownerId,
+        editorIds,
     }),
     [
-        branchId, branchNodeId, branchStatus, editorIds, isBranch, isContributionRequest, node, nodeId, originalId,
-        ownerId, title,
+        branchId, branchNodeId, branchStatus, editorIds, isBranch, isBranchQ,
+        isContributionRequest, node, nodeId, originalId, ownerId, title,
     ]);
 }
 

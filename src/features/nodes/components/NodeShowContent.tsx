@@ -14,16 +14,13 @@ import { showBranchNode, showNode } from '../nodes.thunks';
 import { Box } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    Outlet, useNavigate, useParams, useSearchParams,
-} from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function NodeShowContent() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
-    const { id } = useParams();
     const {
-        originalId, branchId, isBranch,
+        originalId, branchId, isBranch, isBranchQ, nodeId: id,
     } = useBranchContext();
     if (!id) {
         navigate('/404');
@@ -32,8 +29,6 @@ export default function NodeShowContent() {
     const branchNode = useSelector(maybeSelectNode(branchId, id as UUID));
 
     useNodeSSE(originalNode?.rootId);
-
-    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         if (!id) {
@@ -57,18 +52,15 @@ export default function NodeShowContent() {
         }
     }, [dispatch, id, isBranch, navigate, originalId, originalNode]);
 
-    const isBranchQ = searchParams.get('isBranchQ');
-    const originalIdQ = searchParams.get('originalIdQ');
-
     useEffect(() => {
         if ((isBranch || isBranchQ) && !branchNode) {
             dispatch(showBranchNode({
                 branchId,
                 id: id as UUID,
-                originalId: originalIdQ,
+                originalId,
             }));
         }
-    }, [branchId, branchNode, dispatch, id, isBranch, isBranchQ, originalIdQ]);
+    }, [branchId, branchNode, dispatch, id, isBranch, isBranchQ, originalId]);
 
     const expandedNodesFromParams = useRef<boolean>(false);
     const selectObjectFromParams = useSelectObjectFromParams();

@@ -31,7 +31,7 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const startDrag = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
-        if (isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
+        if (!authorizeNodeAction() || isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
             event.preventDefault();
             return;
         }
@@ -51,7 +51,11 @@ export default function useNodeDrag() {
                 siblingIndex,
             }));
         }, 10);
-    }, [isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId, siblingIndex]);
+    },
+    [
+        authorizeNodeAction, isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId,
+        siblingIndex,
+    ]);
 
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
