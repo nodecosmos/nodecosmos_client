@@ -49,7 +49,7 @@ export default function useTreeBuilder(props: Props): Tree {
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
     const scrollToId = useSelector(selectScrollTo);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const expandedNodes = useSelector(selectExpandedNodes);
+    const expandedNodes = useSelector(selectExpandedNodes, () => true);
 
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,

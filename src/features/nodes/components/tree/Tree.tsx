@@ -46,6 +46,8 @@ export default function Tree(props: TreeProps) {
     const isMobile = useIsMobile();
     const style = useMemo(() => (isMobile ? TREE_MOBILE_STYLE : TREE_STYLE), [isMobile]);
 
+    console.log('Tree');
+
     return (
         <TreeContext.Provider value={ctxValue}>
             <div className="Tree">

@@ -4,6 +4,7 @@ import {
 import { setNodeScrollTo } from '../../features/nodes/nodes.actions';
 import { selectScrollTo } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
+import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import usePannable from '../hooks/usePannable';
 import { useTransformableContextCreator } from '../hooks/useTransformableContext';
 import React, {
@@ -11,6 +12,16 @@ import React, {
     useEffect, useMemo, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+interface Dimensions {
+    width: string | number;
+    height: string | number;
+}
+
+const TRANSFOMABLE_DIMENTIONS = {
+    width: '100%',
+    height: '100%',
+};
 
 interface TransformableProps {
     children: React.ReactNode;
@@ -25,16 +36,14 @@ function Transformable(props: TransformableProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
-    const [dimensions, setDimensions] = useState({
-        width: 0,
-        height: 0,
-    });
+    const [dimensions, setDimensions] = useState<Dimensions>(TRANSFOMABLE_DIMENTIONS);
     const {
         TransformableContext, ctxValue, setTransformablePositions,
     } = useTransformableContextCreator();
     const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
     const scrollTo = useSelector(selectScrollTo);
     const onMouseDown = usePannable(containerRef);
+    const [resizeObserverSet, setResizeObserverSet] = useBooleanStateValue(false);
 
     // on gRef size change we adjust the svg size
     const resizeTimeout = useRef<number | null>(null);
@@ -44,6 +53,8 @@ function Transformable(props: TransformableProps) {
         }
 
         resizeTimeout.current = setTimeout(() => {
+            console.log('resize');
+
             const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
             const clientHeight = containerRef.current?.clientHeight || 0;
             const height = Math.max(svgHeight, clientHeight - 8);
@@ -61,6 +72,8 @@ function Transformable(props: TransformableProps) {
     }, [heightMargin, dimensions.height, dimensions.width]);
 
     useEffect(() => {
+        if (resizeObserverSet) return;
+
         const resizeObserver = new ResizeObserver(handleResize);
         const g = gRef.current;
 
@@ -68,12 +81,8 @@ function Transformable(props: TransformableProps) {
             resizeObserver.observe(g);
         }
 
-        return () => {
-            if (resizeObserver && g) {
-                resizeObserver.unobserve(g);
-            }
-        };
-    }, [handleResize]);
+        setResizeObserverSet();
+    }, [handleResize, resizeObserverSet, setResizeObserverSet]);
 
     const winResizeTimeout = useRef<number | null>(null);
 

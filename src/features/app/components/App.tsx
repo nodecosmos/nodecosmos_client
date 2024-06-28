@@ -60,6 +60,7 @@ export default function App() {
             }
         };
     }, []);
+
     useConfirmEmailAlert();
 
     return (

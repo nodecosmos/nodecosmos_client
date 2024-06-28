@@ -1,8 +1,12 @@
 import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
+    '&.m-0': { margin: 0 },
     '&.mt-1': { marginTop: 8 },
     '&.mt-2': { marginTop: 16 },
+
+    '&.mb-1': { marginBottom: 8 },
+    '&.mb-2': { marginBottom: 16 },
 
     '&.mx-1': {
         marginLeft: 8,
@@ -14,6 +18,10 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.mr-1': { marginRight: 8 },
     '&.mr-2': { marginRight: 16 },
+
+    '&.p-0': { padding: 0 },
+    '&.p-1': { padding: 8 },
+    '&.p-2': { padding: 16 },
 
     '&.h-100': { height: '100%' },
     '&.min-h-210': { minHeight: 210 },
