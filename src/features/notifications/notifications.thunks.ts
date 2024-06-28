@@ -4,14 +4,20 @@ import { NodecosmosError } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-export const getNotifications = createAsyncThunk<{
+interface IndexResponse {
     notifications: Notification[];
     pagingState: string;
-}, void, { rejectValue: NodecosmosError }>(
+}
+
+interface Params {
+    new?: boolean;
+}
+
+export const getNotifications = createAsyncThunk<IndexResponse, Params | undefined, { rejectValue: NodecosmosError }>(
     'notifications/getNotifications',
-    async (_, { rejectWithValue }) => {
+    async (params, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.get('/notifications/');
+            const response = await nodecosmos.get('/notifications/', { params });
 
             return response.data;
         } catch (error) {

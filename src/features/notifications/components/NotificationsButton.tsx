@@ -20,7 +20,7 @@ export default function NotificationsButton() {
     useEffect(() => {
         if (!fetched) {
             dispatch(getNotifications());
-            setInterval(() => dispatch(getNotifications()), FETCH_NOTIFICATIONS_INTERVAL);
+            setInterval(() => dispatch(getNotifications({ new: true })), FETCH_NOTIFICATIONS_INTERVAL);
             setFetched();
         }
     }, [dispatch, fetched, setFetched]);
