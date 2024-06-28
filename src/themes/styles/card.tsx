@@ -57,8 +57,8 @@ export default (theme: NodecosmosTheme) => ({
             display: 'flex',
             alignItems: 'center',
             '& .MuiChip-root': {
-                marginLeft: 16,
-                height: 24,
+                marginLeft: 12,
+                height: 26,
                 fontSize: 12,
                 backgroundColor: withOpacity(theme.palette.primary.main, 0.05),
             },
