@@ -9,7 +9,6 @@ export default (theme: NodecosmosTheme) => ({
                 width: '100%',
                 backgroundColor: theme.palette.background[5],
                 alignItems: 'center',
-                margin: 8,
                 ...utils(theme),
 
                 '.MuiAlert-action': {
