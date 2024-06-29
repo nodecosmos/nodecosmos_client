@@ -30,9 +30,7 @@ export default (theme: NodecosmosTheme) => ({
         },
         '.CardHeader': {
             padding: 24,
-            paddingRight: 0,
             marginRight: 0,
-            '& .MuiCardHeader-avatar': { marginRight: 0 },
             '.Link': { '&:hover h6': { color: theme.palette.text.link } },
             zIndex: 1,
         },

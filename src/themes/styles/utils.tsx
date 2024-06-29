@@ -57,6 +57,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.ellipsis': { textOverflow: 'ellipsis' },
 
     '&.overflow-auto': { overflow: 'auto' },
+    '&.overflow-x-auto': { overflowX: 'auto' },
     '&.overflow-hidden': { overflow: 'hidden' },
 
     '&.position-relative': { position: 'relative' },
@@ -67,5 +68,8 @@ export default (theme: NodecosmosTheme) => ({
     '&.cursor-grab': { cursor: 'grab' },
 
     '&.nowrap': { whiteSpace: 'nowrap' },
+
+    '&.min-vis-width-viewport-360': { '@media (max-width: 360px)': { display: 'none' } },
+    '&.min-vis-width-viewport-400': { '@media (max-width: 400px)': { display: 'none' } },
 
 });
