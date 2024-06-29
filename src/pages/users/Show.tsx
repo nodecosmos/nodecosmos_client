@@ -1,6 +1,6 @@
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import {
-    SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX, MARGIN_X_MD_SX, DISPLAY_MD_SX,
+    SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX, DISPLAY_MD_SX,
 } from '../../features/app/constants';
 import Profile from '../../features/users/components/profile/Profile';
 import useProfileConfirmation from '../../features/users/hooks/useProfileConfirmation';
@@ -62,7 +62,6 @@ export default function Show() {
             />
             <Box
                 className="overflow-auto"
-                mx={MARGIN_X_MD_SX}
                 py={4}
                 width={MD_WO_SIDEBAR_WIDTH_SX}
             >

@@ -31,7 +31,7 @@ export default function Header() {
     const headerContent = useSelector(selectHeaderContent);
     const isMobile = useIsMobile();
     const hasSidebar = useMemo(() => (
-        !isMobile || !NON_SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path))
+        !isMobile || NON_SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path))
     ), [isMobile, location.pathname]);
 
     if (NON_HEADER_PATHS.includes(location.pathname)) return null;
