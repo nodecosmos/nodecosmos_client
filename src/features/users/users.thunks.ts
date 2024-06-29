@@ -14,6 +14,7 @@ import { isAxiosError } from 'axios';
 export interface LoginForm {
     usernameOrEmail: string;
     password: string;
+    rToken?: string;
 }
 
 export const logIn = createAsyncThunk<CurrentUser, LoginForm, { rejectValue: NodecosmosError }>(
@@ -225,13 +226,15 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: NodecosmosErro
 
 interface UserCreatePayload extends UserCreateForm {
     token: string | null;
-}
 
+    // reCaptcha token
+    rToken?: string | null;
+}
 export const create = createAsyncThunk<CurrentUser | null, UserCreatePayload, { rejectValue: NodecosmosError }>(
     'users/create',
     async (payload, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.post(`/users?token=${payload.token}`, payload);
+            const response = await nodecosmos.post(`/users?token=${payload.token}&rToken=${payload.rToken}`, payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

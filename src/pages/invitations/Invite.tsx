@@ -108,7 +108,7 @@ export default function Invite() {
             return;
         }
 
-        navigate('/nodes');
+        navigate('/');
 
         setTimeout(() => {
             dispatch(setAlert({

@@ -6,24 +6,26 @@ import { selectUnseenNotificationCount } from '../notifications.selectors';
 import { getNotifications } from '../notifications.thunks';
 import { faBell } from '@fortawesome/pro-solid-svg-icons';
 import { Badge } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const FETCH_NOTIFICATIONS_INTERVAL = 120000; // 2 minutes
 
 export default function NotificationsButton() {
     const unseenNotificationCount = useSelector(selectUnseenNotificationCount);
-    const [fetched, setFetched] = useBooleanStateValue(false);
     const [modalOpen, openModal, closeModal] = useBooleanStateValue(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-
+    const interval = useRef<number | undefined>();
     useEffect(() => {
-        if (!fetched) {
+        if (!interval.current) {
             dispatch(getNotifications());
-            setInterval(() => dispatch(getNotifications({ new: true })), FETCH_NOTIFICATIONS_INTERVAL);
-            setFetched();
+            interval.current = setInterval(
+                () => dispatch(getNotifications({ new: true })), FETCH_NOTIFICATIONS_INTERVAL,
+            );
         }
-    }, [dispatch, fetched, setFetched]);
+
+        return () => clearInterval(interval.current);
+    }, [dispatch]);
 
     return (
         <div>

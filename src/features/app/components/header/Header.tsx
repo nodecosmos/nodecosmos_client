@@ -20,7 +20,7 @@ import { Link, useLocation } from 'react-router-dom';
 /* nodecosmos */
 
 const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
-const SIDEBAR_PATHS = ['/nodes'];
+const SIDEBAR_PATHS = ['/'];
 const HEADER_CONTENT = {
     NodeIndexHeader: <NodeIndexHeader />,
     TreeShowHeader: <TreeShowHeader />,

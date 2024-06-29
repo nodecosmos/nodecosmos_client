@@ -16,6 +16,39 @@ import {
     Outlet, Link, useLocation,
 } from 'react-router-dom';
 
+function loadRecaptcha() {
+    const script = document.createElement('script');
+    script.id = 'recaptcha';
+    script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
+function unloadRecaptcha() {
+    // Check if script is already loaded
+    if (!window.grecaptcha) {
+        // Already unloaded
+        return;
+    }
+    const script = document.getElementById('recaptcha');
+    if (script) {
+        document.head.removeChild(script);
+    }
+
+    const recaptcha = document.querySelector('.grecaptcha-badge');
+    if (recaptcha) {
+        recaptcha.remove();
+    }
+
+    const scripts = document.querySelectorAll('script');
+    for (const script of scripts) {
+        if (script.src && script.src.indexOf('gstatic.com/recaptcha') !== -1) {
+            script.parentNode.removeChild(script);
+        }
+    }
+}
+
 export default function Authentication() {
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(0);
@@ -30,6 +63,16 @@ export default function Authentication() {
     }, [location.pathname]);
 
     const handleTabChange = useCallback((_event, value) => setCurrentPage(value), []);
+
+    useEffect(() => {
+        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
+            loadRecaptcha();
+        }
+
+        return () => {
+            unloadRecaptcha();
+        };
+    }, []);
 
     return (
         <Container

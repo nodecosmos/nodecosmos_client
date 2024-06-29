@@ -53,8 +53,6 @@ function Transformable(props: TransformableProps) {
         }
 
         resizeTimeout.current = setTimeout(() => {
-            console.log('resize');
-
             const svgHeight = (gRef.current?.getBBox().height || 0) + heightMargin;
             const clientHeight = containerRef.current?.clientHeight || 0;
             const height = Math.max(svgHeight, clientHeight - 8);

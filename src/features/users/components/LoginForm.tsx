@@ -3,7 +3,10 @@ import Field from '../../../common/components/final-form/FinalFormInputField';
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import useUserAuthentication from '../hooks/useUserAuthentication';
 import { LoginForm } from '../users.thunks';
+import { faRightToBracket } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { Form } from 'react-final-form';
 import { useSearchParams } from 'react-router-dom';
@@ -11,7 +14,7 @@ import { useSearchParams } from 'react-router-dom';
 export const REDIRECT_Q = 'redirect';
 
 export default function Login() {
-    const { handleLogin } = useUserAuthentication();
+    const { handleLogin, loading } = useUserAuthentication();
     const [searchParams] = useSearchParams();
     const email = searchParams.get('email');
     const [resetPassModOpen, openResetPassMod, closeResetPassMod] = useModalOpen();
@@ -48,7 +51,14 @@ export default function Login() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="outlined" type="submit">
+                                <Button
+                                    variant="outlined"
+                                    type="submit"
+                                    startIcon={
+                                        loading
+                                            ? <CircularProgress size={20} className="toolbar-purple" />
+                                            : <FontAwesomeIcon icon={faRightToBracket} />
+                                    }>
                                     Log In
                                 </Button>
                             </Grid>

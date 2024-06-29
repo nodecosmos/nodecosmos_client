@@ -83,6 +83,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     transition: 'height 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
                     backgroundColor: theme.palette.background[1],
                 },
+                '.rc-anchor-normal-footer': { backgroundColor: theme.palette.background[2] },
             },
         },
         ...alert(theme),
