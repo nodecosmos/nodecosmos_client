@@ -4,6 +4,10 @@ on:
     branches:
       - main
 env:
+  VITE_API_BASE_URL: https://api.nodecosmos.com
+  VITE_REACT_APP_URL: https://nodecosmos.com
+  VITE_RECAPTCHA_ENABLED: true
+  VITE_RECAPTCHA_SITE_KEY: 6Ld30jMjAAAAAIsW1c9xvFRaaOXOLjLywqPWDHSA
   BUCKET_NAME: nodecosmos.com
   AWS_REGION: us-east-1
 jobs:
