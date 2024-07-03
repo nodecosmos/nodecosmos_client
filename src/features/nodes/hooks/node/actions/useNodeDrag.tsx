@@ -60,8 +60,12 @@ export default function useNodeDrag() {
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        console.log(dragAndDropNodeId, isDragOver, id, ancestorIds);
 
-        if (isDragOver || id === dragAndDropNodeId || ancestorIds?.includes(dragAndDropNodeId as UUID)) return;
+        if (!dragAndDropNodeId
+            || isDragOver
+            || id === dragAndDropNodeId
+            || ancestorIds?.includes(dragAndDropNodeId as UUID)) return;
 
         dispatch(updateState({
             branchId,
