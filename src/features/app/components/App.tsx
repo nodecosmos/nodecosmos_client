@@ -1,5 +1,6 @@
 import Header from './header/Header';
 import NotFound from '../../../common/components/404';
+import ContactUs from '../../../pages/ContactUs';
 import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
 import ContributionRequestShow from '../../../pages/contribution-requests/Show';
 import ContributionRequestCommits from '../../../pages/contribution-requests/tabs/ContributionRequestCommits';
@@ -117,6 +118,7 @@ export default function App() {
 
                         </Route>
                         <Route path="/invitations" element={<Invite />} />
+                        <Route path="/contact" element={<ContactUs />} />
                     </Routes>
                 </Box>
 

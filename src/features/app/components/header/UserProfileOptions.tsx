@@ -86,6 +86,7 @@ export default function UserProfileOptions() {
                     to={`/${currentUser.username}`}
                     icon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
+                    onClick={handleClose}
                     title="Profile"
                 />
                 <SidebarListItem
@@ -115,8 +116,8 @@ export default function UserProfileOptions() {
                     </Box>
                 </SidebarListItem>
                 <SidebarListItem
-                    component="button"
-                    onClick={handleLogout}
+                    onClick={handleClose}
+                    to="/contact"
                     icon={(<FontAwesomeIcon icon={faMessage} />)}
                     title="Contact Us"
                 />
