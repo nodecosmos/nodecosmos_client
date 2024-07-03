@@ -6,7 +6,7 @@ import { selectCurrentUser } from '../../../users/users.selectors';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
-    faHeadSideBrain, faLightbulbOn, faRightFromBracket,
+    faHeadSideBrain, faLightbulbOn, faRightFromBracket, faMessage,
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Slider } from '@mui/material';
@@ -102,7 +102,7 @@ export default function UserProfileOptions() {
                     <Box width={150} mr={2} display="flex" alignItems="center">
                         <Slider
                             aria-label="Theme"
-                            defaultValue={Number(theme)}
+                            value={Number(theme)}
                             color="secondary"
                             step={1}
                             min={0}
@@ -114,6 +114,12 @@ export default function UserProfileOptions() {
                         />
                     </Box>
                 </SidebarListItem>
+                <SidebarListItem
+                    component="button"
+                    onClick={handleLogout}
+                    icon={(<FontAwesomeIcon icon={faMessage} />)}
+                    title="Contact Us"
+                />
             </Menu>
         </Box>
     );

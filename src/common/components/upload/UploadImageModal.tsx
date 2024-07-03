@@ -1,9 +1,9 @@
-import UploadDashboardContainer from './UploadDashboardContainer';
 import nodecosmos from '../../../api/nodecosmos-server';
 import CloseModalButton from '../modal/CloseModalButton';
-import { DialogContent } from '@mui/material';
+import { faImage } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DialogContent, Typography } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import { Uppy } from '@uppy/core';
 import ImageEditor from '@uppy/image-editor';
 import { Dashboard } from '@uppy/react';
@@ -21,6 +21,7 @@ interface UploadImageModalProps {
     endpointPath: string; // no leading slash
     aspectRatio?: number;
 }
+const PLUGINS = ['ImageEditor'];
 
 export default function UploadImageModal(props: UploadImageModalProps) {
     const {
@@ -123,22 +124,24 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             maxWidth="md"
             open={open}
             onClose={onModalClose}
-            PaperProps={{ elevation: 8 }}
         >
-            <DialogTitle>
-                Upload  Image
-                <CloseModalButton onClose={onModalClose} />
-            </DialogTitle>
+            <div className="DialogHeader">
+                <div>
+                    <Typography variant="h5" align="center" color="text.secondary" width="auto">
+                        <FontAwesomeIcon icon={faImage} />
+                        Upload Image
+                    </Typography>
+                </div>
+                <CloseModalButton onClose={onClose} />
+            </div>
             <DialogContent>
-                <UploadDashboardContainer>
-                    <Dashboard
-                        uppy={uppy}
-                        autoOpen="imageEditor"
-                        theme="dark"
-                        plugins={['ImageEditor']}
-                        showLinkToFileUploadResult={false}
-                    />
-                </UploadDashboardContainer>
+                <Dashboard
+                    uppy={uppy}
+                    autoOpen="imageEditor"
+                    theme="dark"
+                    plugins={PLUGINS}
+                    showLinkToFileUploadResult={false}
+                />
             </DialogContent>
         </Dialog>
     );

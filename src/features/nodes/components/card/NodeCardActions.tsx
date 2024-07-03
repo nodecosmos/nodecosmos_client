@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, CardActions, Tooltip, Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function NodeCardActions({ node }: {node: IndexNode}) {
@@ -64,5 +63,3 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
         </CardActions>
     );
 }
-
-NodeCardActions.propTypes = { node: PropTypes.object.isRequired };

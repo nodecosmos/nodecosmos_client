@@ -4,20 +4,29 @@ export default (theme: NodecosmosTheme) => ({
     '&.m-0': { margin: 0 },
     '&.mt-1': { marginTop: 8 },
     '&.mt-2': { marginTop: 16 },
-
     '&.mb-1': { marginBottom: 8 },
     '&.mb-2': { marginBottom: 16 },
-
-    '&.mx-1': {
-        marginLeft: 8,
-        marginRight: 8,
-    },
 
     '&.ml-1': { marginLeft: 8 },
     '&.ml-2': { marginLeft: 16 },
 
     '&.mr-1': { marginRight: 8 },
     '&.mr-2': { marginRight: 16 },
+
+    '&.mx-1': {
+        marginLeft: 8,
+        marginRight: 8,
+    },
+
+    '&.my-1': {
+        marginTop: 8,
+        marginBottom: 8,
+    },
+
+    '&.my-2': {
+        marginTop: 16,
+        marginBottom: 16,
+    },
 
     '&.p-0': { padding: 0 },
     '&.p-1': { padding: 8 },
@@ -32,6 +41,9 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.fs-16': { fontSize: 16 },
     '&.fs-18': { fontSize: 18 },
+
+    '&.min-vis-width-viewport-360': { '@media (max-width: 360px)': { display: 'none' } },
+    '&.min-vis-width-viewport-400': { '@media (max-width: 400px)': { display: 'none' } },
 
     '&.background-1': { backgroundColor: theme.palette.background[1] },
     '&.background-2': { backgroundColor: theme.palette.background[2] },
@@ -69,7 +81,6 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.nowrap': { whiteSpace: 'nowrap' },
 
-    '&.min-vis-width-viewport-360': { '@media (max-width: 360px)': { display: 'none' } },
-    '&.min-vis-width-viewport-400': { '@media (max-width: 400px)': { display: 'none' } },
+    '&.center': { textAlign: 'center' },
 
 });

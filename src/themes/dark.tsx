@@ -35,7 +35,7 @@ const theme: NodecosmosTheme = {
 
     palette: {
         primary: {
-            main: '#9edf5c',
+            main: '#a7ff87',
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
@@ -91,7 +91,7 @@ const theme: NodecosmosTheme = {
 
         background: {
             1: '#14161a',
-            2: '#1c1e22',
+            2: '#16181d',
             3: '#202128',
             4: '#272831',
             5: '#191b20',
@@ -139,15 +139,15 @@ const theme: NodecosmosTheme = {
             backgrounds: [
                 {
                     fg: '#e7465d',
-                    bg: '#2d2227',
+                    bg: '#2d121f',
                 },
                 {
                     fg: '#b4a1ff',
-                    bg: '#262732',
+                    bg: '#1f2028',
                 },
                 {
                     fg: '#65a9ff',
-                    bg: '#222932',
+                    bg: '#1c222a',
                 },
                 {
                     fg: '#9bdf64',

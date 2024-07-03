@@ -27,12 +27,17 @@ import {
 } from '../likes/likes.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const TREE_SCALE_LS_KEY = 'TS';
+
 const parseScaleFromLS = () => {
-    const scale = localStorage.getItem('treeScale');
+    const scale = localStorage.getItem(TREE_SCALE_LS_KEY);
 
-    if (!scale) return 1;
+    if (scale) {
+        return parseFloat(scale);
+    }
 
-    return parseFloat(scale);
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    return isMobile ? 0.8 : 1;
 };
 
 const parseDensityFromLS = () => {
@@ -138,7 +143,7 @@ const nodesSlice = createSlice({
         setScale: (state: NodeState, action: PayloadAction<number>) => {
             state.scale = action.payload;
 
-            localStorage.setItem('treeScale', action.payload.toString());
+            localStorage.setItem(TREE_SCALE_LS_KEY, action.payload.toString());
         },
         setDensity: (state: NodeState, action: PayloadAction<TreeDensity>) => {
             state.treeDensity = action.payload;

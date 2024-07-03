@@ -49,12 +49,17 @@ export default function useTreeBuilder(props: Props): Tree {
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
     const scrollToId = useSelector(selectScrollTo);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const expandedNodes = useSelector(selectExpandedNodes);
+    const [initialLoad, setInitialLoad] = useState(true);
+    const expandedNodes = useSelector(selectExpandedNodes, () => true);
 
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
         orderedTreeNodeIds: [] as UUID[],
     });
+
+    useEffect(() => {
+        setInitialLoad(false);
+    }, []);
 
     useEffect(() => {
         if (scrollToId) {
@@ -101,7 +106,7 @@ export default function useTreeBuilder(props: Props): Tree {
             const isExpanded = isCheckbox
                 || isTreeRoot
                 || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false)
-                || expandedNodes.has(currentId);
+                || (initialLoad && expandedNodes.has(currentId));
             const childIds = (branchChildIds && branchChildIds[currentId]) || [];
 
             let isParentExpanded = false;
@@ -174,7 +179,7 @@ export default function useTreeBuilder(props: Props): Tree {
         // we use `treeNodes` to build tree, but we don't rebuild it if structure is not changed,
         // so we don't need to observe treeNodes here
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ancestorIds, branchChildIds, treeRootId, size]);
+    }, [ancestorIds, branchChildIds, treeRootId, size, initialLoad]);
 
     const setTreeNodes = useCallback((treeNodes: TreeNodes) => {
         setTreeState((prev) => ({
