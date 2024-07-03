@@ -10,7 +10,23 @@ export function getLikeCountFulfilled(state: NodeState, action: ReturnType<typeo
     const { id, likeCount } = action.payload;
 
     if (branchId) {
-        state.byBranchId[branchId][id].likeCount = likeCount;
+        const node = state.byBranchId[branchId][id];
+
+        if (node) {
+            node.likeCount = likeCount || 0;
+        }
+    }
+}
+
+export function getLikeCountRejected(state: NodeState, action: ReturnType<typeof getLikeCount.rejected>) {
+    const { objectId, branchId } = action.meta.arg;
+
+    if (branchId) {
+        const node = state.byBranchId[branchId][objectId];
+
+        if (node) {
+            node.likeCount ||= 0;
+        }
     }
 }
 

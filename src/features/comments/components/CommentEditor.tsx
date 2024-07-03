@@ -200,11 +200,17 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     if (!currentUser) {
         return (
             <Box
-                sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
+                className={`${withThreadBlock ? 'background-1' : 'background-0'}`}
                 display="flex"
-                height={30}
                 width={1}
-                gap={1}>
+                gap={1}
+                p={2}
+                border={withThreadBlock ? 1 : 0}
+                borderColor="borders.4"
+                fontWeight={700}
+                color="text.secondary"
+                alignItems="center"
+            >
                 <Button
                     variant="outlined"
                     component={RouterLink}

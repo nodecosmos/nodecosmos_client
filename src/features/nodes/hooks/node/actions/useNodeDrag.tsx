@@ -60,7 +60,6 @@ export default function useNodeDrag() {
     //------------------------------------------------------------------------------------------------------------------
     const dragOver = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        console.log(dragAndDropNodeId, isDragOver, id, ancestorIds);
 
         if (!dragAndDropNodeId
             || isDragOver

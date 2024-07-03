@@ -13,7 +13,7 @@ import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
 import { deleteFromState, deleteFulfilled } from './reducers/delete';
 import {
-    getLikeCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
+    getLikeCountFulfilled, getLikeCountRejected, likeObjectFulfilled, unlikeObjectFulfilled,
 } from './reducers/like';
 import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
@@ -168,6 +168,7 @@ const nodesSlice = createSlice({
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)
             .addCase(getLikeCount.fulfilled, getLikeCountFulfilled)
+            .addCase(getLikeCount.rejected, getLikeCountRejected)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
             .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
             .addCase(deleteEditor.fulfilled, (state: NodeState, action: ReturnType<typeof deleteEditor.fulfilled>) => {
