@@ -69,6 +69,15 @@ export interface IndexNode {
     updatedAt: string;
 }
 
+export interface NodeByOwner {
+    id: UUID;
+    branchId: UUID;
+    rootId: UUID;
+    title: string;
+    isPublic: boolean;
+    isRoot: boolean;
+}
+
 export type UpdateTitlePayload = Pick<Node, 'title'> & NodePrimaryKey & RootId;
 export type TreeNodeKey = BranchId & Omit<NodePrimaryKey, 'branchId'>
 export type AppNodePayload = TreeNodeKey & Partial<Omit<AppNode, keyof NodePrimaryKey>>;
@@ -103,6 +112,7 @@ export interface NodeState {
     showAncestorChain: boolean;
     indexSearchTerm?: string;
     sidebarOpen: boolean;
+    byOwnerId: Record<UUID, NodeByOwner[]>;
 }
 
 export enum TreeType {

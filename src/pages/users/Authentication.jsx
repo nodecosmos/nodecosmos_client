@@ -49,6 +49,13 @@ function unloadRecaptcha() {
     }
 }
 
+const SX = {
+    height: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+};
+
 export default function Authentication() {
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(0);
@@ -75,23 +82,13 @@ export default function Authentication() {
     }, []);
 
     return (
-        <Container
-            maxWidth="sm"
-            sx={{
-                height: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
+        <Container maxWidth="sm" sx={SX}>
             <Box width={1}>
                 <Box display="flex" alignItems="center" justifyContent="center">
                     <Typography
-                        sx={{
-                            fontSize: 50,
-                            ml: 1,
-                        }}
-                        fontWeight="bold">
+                        fontSize="50px"
+                        fontWeight="bold"
+                    >
                         <Box component="span" color="logo.blue">node</Box>
                         <Box component="span" color="logo.red">cosmos</Box>
                     </Typography>

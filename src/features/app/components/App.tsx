@@ -24,6 +24,8 @@ import UserShow from '../../../pages/users/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
 import LoginForm from '../../users/components/LoginForm';
+import Bio from '../../users/components/profile/Bio';
+import RootNodes from '../../users/components/profile/RootNodes';
 import SignupForm from '../../users/components/SignupForm';
 import { selectCurrentUser, selectIsAuthenticated } from '../../users/users.selectors';
 import { syncUpCurrentUser } from '../../users/users.thunks';
@@ -81,7 +83,10 @@ export default function App() {
                         </Route>
                         <Route path="404" element={<NotFound />} />
                         <Route path="reset_password" element={<ResetPassword />} />
-                        <Route path=":username" element={<UserShow />} />
+                        <Route path="/:username" element={<UserShow />}>
+                            <Route path="" element={<Bio />} />
+                            <Route path="nodes" element={<RootNodes />} />
+                        </Route>
                         <Route path="/" element={(<NodesIndex />)} />
                         <Route path="/nodes" element={<NodeShow />}>
                             <Route path=":originalId/:id" element={<TreeShow />} />

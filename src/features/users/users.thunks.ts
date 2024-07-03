@@ -8,6 +8,7 @@ import {
 } from '../../types';
 import { SYNC_UP_INTERVAL } from '../app/constants';
 import { LikePrimaryKey } from '../likes/likes.types';
+import { NodeByOwner } from '../nodes/nodes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -33,7 +34,12 @@ export const logIn = createAsyncThunk<CurrentUser, LoginForm, { rejectValue: Nod
     },
 );
 
-export const showUserByUsername = createAsyncThunk<User, string, { rejectValue: NodecosmosError }>(
+interface UserByUsernameResponse {
+    user: User;
+    rootNodes: NodeByOwner[];
+}
+
+export const showUserByUsername = createAsyncThunk<UserByUsernameResponse, string, { rejectValue: NodecosmosError }>(
     'users/showUserByUsername',
     async (username, { rejectWithValue }) => {
         try {

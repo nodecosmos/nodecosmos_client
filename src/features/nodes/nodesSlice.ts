@@ -25,6 +25,7 @@ import { UUID } from '../../types';
 import {
     getLikeCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
+import { showUserByUsername } from '../users/users.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const TREE_SCALE_LS_KEY = 'TS';
@@ -70,6 +71,7 @@ const initialState: NodeState = {
     showAncestorChain: parseShowAncestorChainFromLS(),
     indexSearchTerm: undefined,
     sidebarOpen: false,
+    byOwnerId: {},
 };
 
 const nodesSlice = createSlice({
@@ -175,6 +177,11 @@ const nodesSlice = createSlice({
                 const { branchId, id } = action.meta.arg;
                 const node = state.byBranchId[branchId][id];
                 node.editorIds?.delete(action.meta.arg.editorId);
+            })
+            .addCase(showUserByUsername.fulfilled, (state: NodeState, action) => {
+                const { user, rootNodes } = action.payload;
+
+                state.byOwnerId[user.id] = rootNodes;
             });
     },
 });
