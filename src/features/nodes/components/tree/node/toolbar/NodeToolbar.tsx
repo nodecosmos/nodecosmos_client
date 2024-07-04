@@ -132,7 +132,7 @@ function NodeToolbar() {
     }
 
     return (
-        <div className="NodeToolbar" style={{ height: size.height }}>
+        <div className={`NodeToolbar h-${size.height}`}>
             {
                 !isMerged && (
                     <>

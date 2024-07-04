@@ -26,11 +26,18 @@ import {
     List, Box, useTheme, Tooltip,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface Props {
     handleClose?: () => void;
 }
+
+const POPPER_PROPS = {
+    className: 'TooltipElement',
+    sx: { p: 0 },
+};
+
+const COMPONENTS_PROPS = { tooltip: { sx: { p: 0 } } };
 
 export default function Sidebar({ handleClose }: Props) {
     const {
@@ -39,6 +46,11 @@ export default function Sidebar({ handleClose }: Props) {
     const theme: NodecosmosTheme = useTheme();
     const toOrgId = isContributionRequest ? originalId : branchId;
     const toPath = `${toOrgId}/${nodeId}`;
+    const sx = useMemo(() => ({
+        px: 1,
+        pt: isBranch && !isContributionRequest ? 0 : 1,
+        mt: '-1px',
+    }), [isBranch, isContributionRequest]);
 
     return (
         <Box
@@ -48,21 +60,14 @@ export default function Sidebar({ handleClose }: Props) {
             flexDirection="column"
             mt={HEADER_HEIGHT}
         >
-            <List sx={{
-                px: 1,
-                pt: isBranch && !isContributionRequest ? 0 : 1,
-                mt: '-1px',
-            }}>
+            <List sx={sx}>
                 {
                     (isBranch && title && !isContributionRequest && branchNodeId) && (
                         <>
                             <Box pb={1} mb={1} mx={-1} borderTop={1} borderBottom={1} borderColor="borders.3">
                                 <Tooltip
-                                    componentsProps={{ tooltip: { sx: { p: 0 } } }}
-                                    PopperProps={{
-                                        className: 'TooltipElement',
-                                        sx: { p: 0 },
-                                    }}
+                                    componentsProps={COMPONENTS_PROPS}
+                                    PopperProps={POPPER_PROPS}
                                     placement="right"
                                     title={<CrTooltip />}>
                                     <Typography

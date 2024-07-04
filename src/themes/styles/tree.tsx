@@ -61,10 +61,7 @@ export default (theme: NodecosmosTheme) => ({
                         fontWeight: 500,
                     },
                 },
-                '.MuiCheckbox-root': {
-                    padding: 0,
-                    svg: { fontSize: '1.4rem' },
-                },
+                '.fa-square, .fa-square-check': { fontSize: 20 },
             },
         },
 

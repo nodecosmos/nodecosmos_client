@@ -41,7 +41,6 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
     const { size } = useTreeContext();
     const { height, fontSize } = size;
     const buttonStyle = useMemo(() => ({
-        height,
         border: '1px solid',
         borderColor: outlineColor,
         backgroundColor: isDragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
@@ -50,7 +49,6 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
     [
         backgroundColor,
         color,
-        height,
         isDragOver,
         outlineColor,
         theme.palette.text.primary,
@@ -58,7 +56,7 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
     ]);
     const divStyle = useMemo(() => ({ fontSize }), [fontSize]);
     const className = useMemo(() => {
-        let className = 'NodeButton';
+        let className = `NodeButton h-${height}`;
         if (isSelected) {
             className += ' selected';
         }
@@ -68,7 +66,7 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
         }
 
         return className;
-    }, [isSelected, outlinedColored, isDragOver]);
+    }, [height, isSelected, outlinedColored, isDragOver]);
 
     return (
         <button

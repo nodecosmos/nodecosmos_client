@@ -42,7 +42,6 @@ export default function useTreeBuilder(props: Props): Tree {
     const {
         treeRootId,
         branchId,
-        type,
         size,
     } = props;
     const { ancestorIds } = useSelector(selectNode(branchId, treeRootId));
@@ -102,9 +101,7 @@ export default function useTreeBuilder(props: Props): Tree {
                 ancestorIds,
             } = queue.pop() as QueueItem;
             const isTreeRoot = treeRootId === currentId;
-            const isCheckbox = type === TreeType.Checkbox;
-            const isExpanded = isCheckbox
-                || isTreeRoot
+            const isExpanded = isTreeRoot
                 || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false)
                 || (initialLoad && expandedNodes.has(currentId));
             const childIds = (branchChildIds && branchChildIds[currentId]) || [];
@@ -113,8 +110,8 @@ export default function useTreeBuilder(props: Props): Tree {
             let isParentMounted = false;
 
             if (!isTreeRoot && parentId) {
-                isParentExpanded = isCheckbox || treeNodes[parentId].isExpanded as boolean;
-                isParentMounted = isCheckbox || treeNodes[parentId].isMounted as boolean;
+                isParentExpanded = treeNodes[parentId].isExpanded as boolean;
+                isParentMounted = treeNodes[parentId].isMounted as boolean;
             }
 
             // populate ancestor's descendantIds
