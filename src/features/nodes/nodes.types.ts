@@ -95,6 +95,13 @@ export enum TreeDensity {
     Compact = 'compact',
 }
 
+export interface RecentNode {
+    branchId: UUID;
+    id: UUID;
+    title: UUID;
+    nestedLevel: number;
+}
+
 export interface NodeState {
     // branchId -> nodeId
     byBranchId: Record<UUID, Record<UUID, AppNode>>;
@@ -113,6 +120,7 @@ export interface NodeState {
     indexSearchTerm?: string;
     sidebarOpen: boolean;
     byOwnerId: Record<UUID, NodeByOwner[]>;
+    recentNodes: RecentNode[];
 }
 
 export enum TreeType {

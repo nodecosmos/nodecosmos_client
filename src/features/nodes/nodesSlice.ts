@@ -18,7 +18,7 @@ import {
 import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
 import select from './reducers/select';
-import showFulfilled from './reducers/show';
+import showFulfilled, { showNodeRejected } from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
 import { UUID } from '../../types';
@@ -29,6 +29,8 @@ import { showUserByUsername } from '../users/users.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const TREE_SCALE_LS_KEY = 'TS';
+export const RECENT_NODES_LS_KEY = 'RNI';
+const RECENT_NODES_MAX = 50;
 
 const parseScaleFromLS = () => {
     const scale = localStorage.getItem(TREE_SCALE_LS_KEY);
@@ -55,6 +57,16 @@ const parseShowAncestorChainFromLS = () => {
     return showAncestorChain === 'true';
 };
 
+const parseRecentNodesFromLS = () => {
+    const recentNodes = localStorage.getItem(RECENT_NODES_LS_KEY);
+
+    if (recentNodes) {
+        return JSON.parse(recentNodes);
+    }
+
+    return [];
+};
+
 const initialState: NodeState = {
     byBranchId: {},
     childIds: {},
@@ -72,6 +84,7 @@ const initialState: NodeState = {
     indexSearchTerm: undefined,
     sidebarOpen: false,
     byOwnerId: {},
+    recentNodes: parseRecentNodesFromLS(),
 };
 
 const nodesSlice = createSlice({
@@ -160,11 +173,36 @@ const nodesSlice = createSlice({
         setIndexSearchTerm: (state: NodeState, action: PayloadAction<string | undefined>) => {
             state.indexSearchTerm = action.payload;
         },
+        pushRecentNode: (state: NodeState, action: PayloadAction<[UUID, UUID]>) => {
+            const [branchId, id] = action.payload;
+            // insert at the beginning, remove if already exists
+            state.recentNodes = state.recentNodes.filter(
+                (node) => node.id !== id,
+            );
+
+            if (!state.byBranchId[branchId]?.[id]) return;
+
+            const recentNode = {
+                branchId,
+                id,
+                title: state.byBranchId[branchId][id].title,
+                nestedLevel: state.byBranchId[branchId][id].ancestorIds.length,
+            };
+
+            state.recentNodes.unshift(recentNode);
+
+            if (state.recentNodes.length > RECENT_NODES_MAX) {
+                state.recentNodes.shift();
+            }
+
+            localStorage.setItem(RECENT_NODES_LS_KEY, JSON.stringify(state.recentNodes));
+        },
     },
     extraReducers(builder) {
         builder
             .addCase(indexNodes.fulfilled, indexNodesFulfilled)
             .addCase(showNode.fulfilled, showFulfilled)
+            .addCase(showNode.rejected, showNodeRejected)
             .addCase(showBranchNode.fulfilled, showFulfilled)
             .addCase(create.fulfilled, createFulfilled)
             .addCase(deleteNode.fulfilled, deleteFulfilled)

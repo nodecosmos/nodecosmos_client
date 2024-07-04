@@ -16,7 +16,7 @@ export default function NodeSymbol() {
 
     if (treeType !== TreeType.Checkbox) {
         return (
-            <FontAwesomeIcon icon={faHashtag} style={style} />
+            <FontAwesomeIcon icon={faHashtag} />
         );
     }
 

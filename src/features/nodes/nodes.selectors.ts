@@ -19,6 +19,7 @@ export const selectShowAncestorChain = (state: RootState) => state.nodes.showAnc
 export const selectIndexSearchTerm = (state: RootState) => state.nodes.indexSearchTerm;
 export const selectSidebarOpen = (state: RootState) => state.nodes.sidebarOpen;
 export const selectNodesByOwnerId = (state: RootState) => state.nodes.byOwnerId;
+export const selectRecentNodes = (state: RootState) => state.nodes.recentNodes;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,

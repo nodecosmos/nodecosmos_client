@@ -74,6 +74,14 @@ export default function showFulfilled(
     updateAncestors(state, id, branchId);
 }
 
+export function showNodeRejected(state: NodeState, action: ReturnType<typeof showNode.rejected>) {
+    // remove from recent nodes
+    const index = state.recentNodes.findIndex((node) => node.id === action.meta.arg.id);
+    if (index !== -1) {
+        state.recentNodes.splice(index, 1);
+    }
+}
+
 export function updateAncestors(state: NodeState, rootId: UUID, branchId: UUID) {
     const childIds = state.childIds[branchId];
     const stack: UUID[] = [rootId];

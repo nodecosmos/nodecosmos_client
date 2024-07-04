@@ -108,7 +108,6 @@ export default function Sidebar({ handleClose }: Props) {
                 <SidebarListItem
                     onClick={handleClose}
                     to={`${toPath}/workflow`}
-                    flip
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                     title="Workflow"

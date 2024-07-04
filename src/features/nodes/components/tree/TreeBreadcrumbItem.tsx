@@ -33,7 +33,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
             <Tooltip title="select">
                 <Link
                     color="text.tertiary"
-                    className={`TreeNestedColorHover-${index % TREE_COLORS_LEN}`}
+                    className={`tree-nested-color-hover-${index % TREE_COLORS_LEN}`}
                     onClick={onClick}
                     variant="body2">
                     {title}
@@ -42,7 +42,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
             <Tooltip title="scroll" placement="top">
                 <button
                     onClick={handleCentering}
-                    className={`ScrollButton ml-1 tools TreeNestedColorHover-${index % TREE_COLORS_LEN}`}
+                    className={`ScrollButton ml-1 tools tree-nested-color-hover-${index % TREE_COLORS_LEN}`}
                 >
                     <FontAwesomeIcon icon={faCircle} />
                 </button>

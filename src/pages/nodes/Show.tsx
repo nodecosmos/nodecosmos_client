@@ -1,9 +1,31 @@
 import { BranchContext, useBranchContextValue } from '../../features/branch/hooks/useBranchContext';
 import NodeShowContent from '../../features/nodes/components/NodeShowContent';
-import React from 'react';
+import { pushRecentNode } from '../../features/nodes/nodes.actions';
+import { NodecosmosDispatch } from '../../store';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function NodeShow() {
     const ctxValue = useBranchContextValue();
+    const {
+        isBranch, branchId, nodeId,
+    } = ctxValue;
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const timeout = useRef<number | null>(null);
+
+    useEffect(() => {
+        if (!isBranch) {
+            timeout.current = setTimeout(() => {
+                dispatch(pushRecentNode([branchId, nodeId]));
+            }, 5000);
+        }
+
+        return () => {
+            if (timeout.current) {
+                clearTimeout(timeout.current);
+            }
+        };
+    }, [branchId, dispatch, isBranch, nodeId]);
 
     return (
         <BranchContext.Provider value={ctxValue}>
