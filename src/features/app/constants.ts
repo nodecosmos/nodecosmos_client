@@ -75,4 +75,9 @@ export const MARGIN_X_MD_SX = {
     md: 4,
 };
 
+export const P_XS_2_MD_4_SX = {
+    xs: 2,
+    md: 4,
+};
+
 export const AUTOCOMPLETE_OFF = { autoComplete: 'off' };

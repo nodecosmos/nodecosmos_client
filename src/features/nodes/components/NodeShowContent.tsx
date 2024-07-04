@@ -74,13 +74,7 @@ export default function NodeShowContent() {
         expandedNodesFromParams.current = true;
     }, [branchNode, isBranch, originalNode, selectObjectFromParams]);
 
-    if (!isBranch && !originalNode) {
-        return <Loader />;
-    }
-
-    if (isBranch && !branchNode) {
-        return <Loader />;
-    }
+    const loading = (!isBranch && !originalNode) || (isBranch && !branchNode);
 
     return (
         <Box height={1} display="flex">
@@ -95,7 +89,9 @@ export default function NodeShowContent() {
             </Box>
             <MobileSidebar />
             <Box width={MD_WO_SIDEBAR_WIDTH_SX}>
-                <Outlet />
+                {
+                    loading ? <Loader /> : <Outlet />
+                }
             </Box>
         </Box>
     );

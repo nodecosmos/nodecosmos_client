@@ -6,8 +6,8 @@ import { selectCurrentUser } from '../../../users/users.selectors';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
-    faHeadSideBrain, faLightbulbOn, faRightFromBracket, faMessage,
-} from '@fortawesome/pro-light-svg-icons';
+    faLightbulbOn, faRightFromBracket, faMessageDots,
+} from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Slider } from '@mui/material';
 import Menu from '@mui/material/Menu';
@@ -84,8 +84,13 @@ export default function UserProfileOptions() {
             >
                 <SidebarListItem
                     to={`/${currentUser.username}`}
-                    icon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
-                    selectedIcon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
+                    icon={(<NcAvatar
+                        src={currentUser.profileImageUrl}
+                        name={currentUser.username}
+                        onClick={handleClick}
+                        size={30}
+                        fontSize={15}
+                    />)}
                     onClick={handleClose}
                     title="Profile"
                 />
@@ -118,7 +123,7 @@ export default function UserProfileOptions() {
                 <SidebarListItem
                     onClick={handleClose}
                     to="/contact"
-                    icon={(<FontAwesomeIcon icon={faMessage} />)}
+                    icon={(<FontAwesomeIcon icon={faMessageDots} />)}
                     title="Contact Us"
                 />
             </Menu>

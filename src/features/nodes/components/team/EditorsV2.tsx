@@ -119,7 +119,7 @@ export default function EditorsV2() {
     }, [branchId, dispatch, fetched, node, nodeId]);
 
     if (!fetched) {
-        return <Loader />;
+        return <Loader p={4} />;
     }
 
     if (!node) {

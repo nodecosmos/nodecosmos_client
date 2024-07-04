@@ -56,6 +56,7 @@ export type AddDescriptionCommentProps = CreateCommentProps & {
     withThreadBlock?: boolean;
     autoFocus?: boolean;
     info?: string;
+    url?: string;
 };
 
 const {
@@ -77,7 +78,7 @@ const ENABLED_EXTENSIONS: EnabledExtensions[] = [
 
 export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
-        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info,
+        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info, url,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>(comment?.content || '');
@@ -121,7 +122,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                         objectId: threadPk.objectId,
                         threadId: threadPk.id,
                         content,
-                        url: window.location.href,
+                        url: url ?? window.location.href,
                     },
                 };
             } else if (newThread) {
@@ -153,7 +154,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                     newThread,
                     comment: {
                         content,
-                        url: window.location.href,
+                        url: url ?? window.location.href,
                     },
                 };
             } else {
@@ -186,7 +187,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
         }
     }, [
         setLoading, comment, content, dispatch, onClose, unsetLoading,
-        threadPk, newThread, handleServerError, clearContent,
+        threadPk, newThread, handleServerError, clearContent, url,
     ]);
 
     const handleCancel = useCallback(() => {
