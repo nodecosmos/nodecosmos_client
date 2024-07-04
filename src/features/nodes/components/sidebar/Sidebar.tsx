@@ -41,11 +41,12 @@ const COMPONENTS_PROPS = { tooltip: { sx: { p: 0 } } };
 
 export default function Sidebar({ handleClose }: Props) {
     const {
-        originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId, title,
+        originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId, title, isBranchQ,
     } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const toOrgId = isContributionRequest ? originalId : branchId;
     const toPath = `${toOrgId}/${nodeId}`;
+    const pathParams = isBranchQ ? `?isBranchQ=${isBranchQ}&originalIdQ${originalId}` : '';
     const sx = useMemo(() => ({
         px: 1,
         pt: isBranch && !isContributionRequest ? 0 : 1,
@@ -100,14 +101,15 @@ export default function Sidebar({ handleClose }: Props) {
                 }
                 <SidebarListItem
                     onClick={handleClose}
-                    to={toPath}
+                    to={toPath + pathParams}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHashtagSolid} />)}
                     title="Node"
+                    end
                 />
                 <SidebarListItem
                     onClick={handleClose}
-                    to={`${toPath}/workflow`}
+                    to={`${toPath}/workflow${pathParams}`}
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                     title="Workflow"

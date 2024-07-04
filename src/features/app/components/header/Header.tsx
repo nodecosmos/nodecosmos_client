@@ -19,7 +19,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 /* nodecosmos */
 const NON_HEADER_PATHS = ['/auth/login', '/auth/signup'];
-const NON_SIDEBAR_PATHS = ['/auth/login', '/auth/signup', '/reset_password', '/404'];
+const NON_SIDEBAR_PATHS = ['/auth/login', '/auth/signup', '/reset_password', '/404', '/contact'];
 const HEADER_CONTENT = {
     NodeIndexHeader: <NodeIndexHeader />,
     TreeShowHeader: <TreeShowHeader />,
@@ -31,7 +31,7 @@ export default function Header() {
     const headerContent = useSelector(selectHeaderContent);
     const isMobile = useIsMobile();
     const hasSidebar = useMemo(() => (
-        !isMobile || NON_SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path))
+        !isMobile && !NON_SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path))
     ), [isMobile, location.pathname]);
 
     if (NON_HEADER_PATHS.includes(location.pathname)) return null;

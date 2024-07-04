@@ -23,7 +23,7 @@ interface SidebarListItemProps {
 export default function SidebarListItem(props: SidebarListItemProps) {
     const {
         to, icon, title, component = NavLink,
-        onClick, children, disabled, end = true, selectedIcon = icon,
+        onClick, children, disabled, end, selectedIcon = icon,
         color, className, iconClassName,
     } = props;
     const location = useLocation();
