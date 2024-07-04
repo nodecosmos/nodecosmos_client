@@ -7,7 +7,7 @@ import {
     showNode,
 } from './nodes.thunks';
 import {
-    DragAndDrop, NodePrimaryKey, NodeState, TreeDensity,
+    DragAndDrop, NodeState, TreeDensity,
 } from './nodes.types';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
@@ -124,36 +124,6 @@ const nodesSlice = createSlice({
         },
         collapseNode: (state: NodeState, action: PayloadAction<UUID>) => {
             state.expandedNodes.delete(action.payload);
-        },
-        selectNodeFromParams: (state: NodeState, action: PayloadAction<NodePrimaryKey>) => {
-            const { branchId, id } = action.payload;
-            const branchNodes = state.byBranchId[branchId];
-
-            if (!branchNodes) return;
-
-            const node = branchNodes[id];
-
-            if (node) {
-                state.expandedNodes.add(id);
-
-                node.ancestorIds.forEach((ancestorId) => {
-                    state.expandedNodes.add(ancestorId);
-                });
-
-                if (state.selected) {
-                    const { branchId: selectedBranchId, id: selectedId } = state.selected;
-
-                    if (branchId !== selectedBranchId || id !== selectedId) {
-                        state.byBranchId[selectedBranchId][selectedId].isSelected = false;
-                    }
-                }
-
-                state.byBranchId[branchId][id].isSelected = true;
-                state.selected = {
-                    branchId,
-                    id,
-                };
-            }
         },
         setScale: (state: NodeState, action: PayloadAction<number>) => {
             state.scale = action.payload;

@@ -1,7 +1,5 @@
 import { NodecosmosDispatch } from '../../../store';
-import { ObjectType } from '../../../types';
 import { BranchDiffPayload } from '../../branch/branches.types';
-import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectObject } from '../app.thunks';
 import { SelectedObject } from '../app.types';
 import { useCallback } from 'react';
@@ -39,13 +37,6 @@ export function useSelectObjectFromParams() {
         if (encodedData) {
             const data = JSON.parse(atob(encodedData));
             dispatch(selectObject(data));
-
-            if (data.objectType === ObjectType.Node) {
-                dispatch(selectNodeFromParams({
-                    branchId: data.branchId,
-                    id: data.objectId,
-                }));
-            }
         }
 
         // select node from params only on initial render, so we can't use searchParams as a dependency

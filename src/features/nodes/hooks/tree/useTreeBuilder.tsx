@@ -56,6 +56,8 @@ export default function useTreeBuilder(props: Props): Tree {
         orderedTreeNodeIds: [] as UUID[],
     });
 
+    console.log('hit');
+
     useEffect(() => {
         setInitialLoad(false);
     }, []);
