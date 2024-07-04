@@ -18,6 +18,11 @@ import {
     Outlet, useNavigate, useSearchParams,
 } from 'react-router-dom';
 
+const decodeSelectedObjQ = (params: URLSearchParams) => {
+    const data = params.get(SELECTED_OBJ_Q);
+    return data ? JSON.parse(atob(data)) : null;
+};
+
 export default function NodeShowContent() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,15 +44,17 @@ export default function NodeShowContent() {
         }
 
         if (!originalNode) {
-            const encodedData = searchParams.get(SELECTED_OBJ_Q);
-            const selectedData = encodedData ? JSON.parse(atob(encodedData)) : null;
             let selectNodeFromParams;
 
-            if (selectedData && selectedData.objectType === ObjectType.Node && selectedData.branchId == originalId) {
-                selectNodeFromParams = {
-                    branchId: selectedData.branchId,
-                    id: selectedData.objectId,
-                };
+            if (!isBranch) {
+                const selectedData = decodeSelectedObjQ(searchParams);
+                if (selectedData
+                    && selectedData.objectType === ObjectType.Node && selectedData.branchId == originalId) {
+                    selectNodeFromParams = {
+                        branchId: selectedData.branchId,
+                        id: selectedData.objectId,
+                    };
+                }
             }
 
             dispatch(showNode({
@@ -71,8 +78,7 @@ export default function NodeShowContent() {
 
     useEffect(() => {
         if ((isBranch || isBranchQ) && !branchNode) {
-            const encodedData = searchParams.get(SELECTED_OBJ_Q);
-            const selectedData = encodedData ? JSON.parse(atob(encodedData)) : null;
+            const selectedData = decodeSelectedObjQ(searchParams);
             let selectNodeFromParams;
 
             if (selectedData && selectedData.objectType === ObjectType.Node && selectedData.branchId != originalId) {
