@@ -17,7 +17,13 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 gap: 1,
             }}
         >
-            <LikeButton objectType={LikeType.Node} id={node.id} fontSize={16} likeCount={node.likeCount} />
+            <LikeButton
+                objectType={LikeType.Node}
+                id={node.id}
+                fontSize={16}
+                rootId={node.rootId}
+                likeCount={node.likeCount}
+            />
             <Tooltip title="Contribution Requests">
                 <Box
                     display="flex"

@@ -211,7 +211,9 @@ function NodeToolbar() {
                 id={id}
                 objectType={LikeType.Node}
                 branchId={branchId}
-                likeCount={likeCount} />
+                rootId={rootId}
+                likeCount={likeCount}
+            />
 
             <ConfirmationModal
                 text={deleteText}
