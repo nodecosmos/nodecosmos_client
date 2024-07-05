@@ -2,6 +2,7 @@ import useIoContext from './useIoContext';
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
+import { executeWithConditionalLoader } from '../../../../../utils/loader';
 import { setAlert } from '../../../../app/appSlice';
 import { useSelectObject } from '../../../../app/hooks/useSelectObject';
 import { undoDeleteIo } from '../../../../branch/branches.thunks';
@@ -56,38 +57,7 @@ export default function useIoActions() {
                 selectedInputsArray.push(id);
             }
 
-            let loaderVisible = false;
-            const loaderDelay = 100; // Time to wait before showing loader (in ms)
-            const minimumLoaderTime = 150; // Minimum time to keep loader visible (in ms)
-
-            // Set a timeout to show the loading indicator if the operation takes too long
-            const loaderTimeout = setTimeout(() => {
-                setIoLoading();
-                loaderVisible = true;
-            }, loaderDelay);
-
-            try {
-                await handleInputsChange(selectedInputsArray);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                // Clear the timeout if the operation finishes before the delay
-                clearTimeout(loaderTimeout);
-
-                if (loaderVisible) {
-                    // If the loader is visible, ensure it stays visible for a minimum time
-                    const timeVisible = Date.now() - (loaderDelay + loaderTimeout._idleStart);
-                    if (timeVisible < minimumLoaderTime) {
-                        // If the loader has not been visible for long enough, keep it for a bit longer
-                        setTimeout(() => {
-                            unsetIoLoading();
-                        }, minimumLoaderTime - timeVisible);
-                    } else {
-                        // If it has been visible for the minimum time, hide it immediately
-                        unsetIoLoading();
-                    }
-                }
-            }
+            await executeWithConditionalLoader(handleInputsChange, [selectedInputsArray], setIoLoading, unsetIoLoading);
         } else {
             if (insidePane) {
                 dispatch(setAlert({

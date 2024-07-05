@@ -1,10 +1,13 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
+import { executeWithConditionalLoader } from '../../../utils/loader';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescription } from '../descriptions.thunks';
-import { useEffect, useRef } from 'react';
+import {
+    useCallback, useEffect, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 type FetchedByBranchId = Record<UUID, Set<UUID>>;
@@ -21,34 +24,29 @@ export default function useDescription() {
         unsetLoading,
     } = usePaneContext();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
+    const [fetched, _setFetched, unsetFetched] = useBooleanStateValue();
     const description = useSelector(selectDescription(branchId, objectId));
 
     const fetchedById = useRef<FetchedByBranchId>({});
 
-    useEffect(() => {
+    const fetchDescription = useCallback(async () => {
         if (!description?.html && !loading && !fetched && !fetchedById.current[branchId]?.has(objectId)) {
-            setLoading();
-            dispatch(getDescription({
-                rootId,
-                nodeId: objectNodeId,
-                objectId,
-                objectType,
-                branchId,
-            })).catch((error) => {
-                console.error(error);
-            }).finally(() => {
+            try {
+                const action = getDescription({
+                    rootId,
+                    nodeId: objectNodeId,
+                    objectId,
+                    objectType,
+                    branchId,
+                });
+
+                // @ts-expect-error It complains about the type of the action, but it's correct
+                await executeWithConditionalLoader(dispatch, [action], setLoading, unsetLoading);
+            } finally {
                 fetchedById.current[branchId] ||= new Set();
                 fetchedById.current[branchId].add(objectId);
-                unsetLoading();
-            });
-        }
-
-        return () => {
-            if (!loading && fetched) {
-                unsetFetched();
             }
-        };
+        }
     },
     [
         rootId,
@@ -59,10 +57,19 @@ export default function useDescription() {
         fetched,
         loading,
         setLoading,
-        unsetFetched,
         unsetLoading,
         dispatch,
         description?.html,
-        setFetched,
     ]);
+
+    useEffect(() => {
+        fetchDescription().catch((error) => {
+            console.error(error);
+        });
+        return () => {
+            if (!loading && fetched) {
+                unsetFetched();
+            }
+        };
+    }, [fetchDescription, fetched, loading, unsetFetched]);
 }

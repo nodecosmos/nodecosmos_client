@@ -3,15 +3,15 @@
  * If the action takes longer than `delayToShowLoader` milliseconds, a loading indicator is shown.
  *
  * @param action - The asynchronous function to execute.
- * @param params - Parameters to pass to the action.
+ * @param args - Parameters to pass to the action.
  * @param setLoading - Function to call to show the loading indicator.
  * @param unsetLoading - Function to call to hide the loading indicator.
  * @param delayToShowLoader - Delay in milliseconds before showing the loader.
  * @param minimumLoaderDisplayTime - Minimum time in milliseconds to show the loader.
  */
-async function executeWithConditionalLoader<T, U extends []>(
-    action: (...args: U) => Promise<T>,
-    params: U,
+export async function executeWithConditionalLoader<T, Args extends unknown[]>(
+    action: (...args: Args) => Promise<T>,
+    args: Args,
     setLoading: () => void,
     unsetLoading: () => void,
     delayToShowLoader: number = 100,
@@ -27,7 +27,7 @@ async function executeWithConditionalLoader<T, U extends []>(
     }, delayToShowLoader);
 
     try {
-        result = await action(...params);
+        result = await action(...args);
     } finally {
         // Clear the timeout if the action finishes before the delay
         clearTimeout(loaderTimeout);
