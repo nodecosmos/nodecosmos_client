@@ -28,7 +28,11 @@ export const selectUniqueIoByRootId = (branchId: UUID, rootId: UUID) => createSe
     ),
 );
 
+// TODO: when we change title or description of the ios, we do it by mainId. In case main id io is deleted, we
+//  would need to query first where mainId matches provided ids.
 export const selectIosByIds = (branchId: UUID, ids: Set<UUID>) => createSelector(
     selectInputOutputsByBranch(branchId),
-    (inputOutputsById) => Array.from(ids).map((id) => inputOutputsById && inputOutputsById[id]).filter((io) => !!io),
+    (inputOutputsById) => {
+        return Array.from(ids).map((id) => inputOutputsById && inputOutputsById[id]).filter((io) => !!io);
+    },
 );
