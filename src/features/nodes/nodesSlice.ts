@@ -23,6 +23,7 @@ import showFulfilled, { showNodeRejected } from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
 import { UUID } from '../../types';
+import { getDescription } from '../descriptions/descriptions.thunks';
 import {
     getLikeCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
@@ -195,6 +196,14 @@ const nodesSlice = createSlice({
                 const { user, rootNodes } = action.payload;
 
                 state.byOwnerId[user.id] = rootNodes;
+            })
+            .addCase(getDescription.fulfilled, (state: NodeState, action) => {
+                const { branchId, objectId } = action.meta.arg;
+                const { coverImageUrl } = action.payload;
+
+                if (coverImageUrl && state.byBranchId[branchId] && state.byBranchId[branchId][objectId]) {
+                    state.byBranchId[branchId][objectId].coverImageUrl = coverImageUrl;
+                }
             });
     },
 });

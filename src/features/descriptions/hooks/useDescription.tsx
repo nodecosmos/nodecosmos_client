@@ -1,4 +1,3 @@
-import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
 import { executeWithConditionalLoader } from '../../../utils/loader';
@@ -24,13 +23,12 @@ export default function useDescription() {
         unsetLoading,
     } = usePaneContext();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [fetched, _setFetched, unsetFetched] = useBooleanStateValue();
     const description = useSelector(selectDescription(branchId, objectId));
 
     const fetchedById = useRef<FetchedByBranchId>({});
 
     const fetchDescription = useCallback(async () => {
-        if (!description?.html && !loading && !fetched && !fetchedById.current[branchId]?.has(objectId)) {
+        if (!description?.html && !loading && !fetchedById.current[branchId]?.has(objectId)) {
             try {
                 const action = getDescription({
                     rootId,
@@ -54,7 +52,6 @@ export default function useDescription() {
         objectNodeId,
         objectId,
         objectType,
-        fetched,
         loading,
         setLoading,
         unsetLoading,
@@ -66,10 +63,5 @@ export default function useDescription() {
         fetchDescription().catch((error) => {
             console.error(error);
         });
-        return () => {
-            if (!loading && fetched) {
-                unsetFetched();
-            }
-        };
-    }, [fetchDescription, fetched, loading, unsetFetched]);
+    }, [fetchDescription, loading]);
 }

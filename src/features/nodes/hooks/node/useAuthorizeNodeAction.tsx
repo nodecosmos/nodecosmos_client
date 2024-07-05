@@ -32,14 +32,14 @@ export default function useAuthorizeNodeAction(): () => boolean {
 
         if (!currentUser || !(canEditNode || canEditBranch)) {
             let message = `You do not have permission to edit this 
-                           ${isContributionRequest ? '<b>Contribution Request</b>' : 'Node'}. `;
+                           ${isContributionRequest ? '<b>Contribution Request</b>' : '<b>Node</b>'}. `;
 
             if (!currentUser) {
-                message += 'Please sign in to edit nodes.';
+                message += 'Please sign in to edit nodes or to submit a <b>Contribution Request</b>.';
             }
             else if (isContributionRequest || isBranch) {
                 message += `You can request author to add you as 
-                            <b>contributor</b> or submit your own Contribution Request.`;
+                            <b>editor</b> to node or submit your own Contribution Request.`;
             }
             else {
                 message += 'If you wish to suggest changes, please submit a Contribution Request.';

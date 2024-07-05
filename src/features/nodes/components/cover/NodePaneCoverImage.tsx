@@ -8,9 +8,7 @@ import { updateState } from '../../nodes.actions';
 import { maybeSelectNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Box, Button, CardMedia,
-} from '@mui/material';
+import { Button, CardMedia } from '@mui/material';
 import React, {
     Suspense, useCallback, useMemo,
 } from 'react';
@@ -103,7 +101,7 @@ export default function NodePaneCoverImage() {
 
             {!coverImageUrl && !isTmp && !isBranch && isAuthorized && (
                 <div className="CoverImageButtonContainer">
-                    <Box width={850}>
+                    <div className="w-850">
                         <Button
                             component="label"
                             variant="outlined"
@@ -113,7 +111,7 @@ export default function NodePaneCoverImage() {
                         >
                             Cover Image
                         </Button>
-                    </Box>
+                    </div>
                 </div>
             )}
 

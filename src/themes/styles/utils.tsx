@@ -62,13 +62,18 @@ export default (theme: NodecosmosTheme) => ({
     '&.min-h-210': { minHeight: 210 },
 
     '&.w-100': { width: '100%' },
-    '&.width-fit-content': { width: 'fit-content' },
+    '&.w-850': { width: 850 },
     '&.min-w-50': { minWidth: 50 },
+    '&.width-fit-content': { width: 'fit-content' },
 
+    '&.border-top-1': { borderTop: `1px solid ${theme.palette.borders[1]}` },
+    '&.border-bottom-1': { borderBottom: `1px solid ${theme.palette.borders[1]}` },
     '&.border-radius-1': { borderRadius: 4 },
 
     '&.fs-16': { fontSize: 16 },
     '&.fs-18': { fontSize: 18 },
+    '&.fs-25': { fontSize: 25 },
+    '&.fs-70': { fontSize: 75 },
 
     '&.bold': { fontWeight: 'bold' },
 
