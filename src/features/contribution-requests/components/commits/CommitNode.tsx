@@ -5,7 +5,7 @@ import useNavigateToNode from '../../hooks/useNavigateToNode';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    ButtonBase, Tooltip, useTheme,
+    Button, Tooltip, useTheme,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 
@@ -37,8 +37,9 @@ function CommitNode({ node }: Props) {
 
     return (
         <Tooltip title="Go to Node">
-            <ButtonBase
+            <Button
                 type="button"
+                variant="outlined"
                 className="NodeButton"
                 style={style}
                 onClick={navigateToNode}
@@ -47,7 +48,7 @@ function CommitNode({ node }: Props) {
                 <div className="NodeButtonText">
                     {node.title}
                 </div>
-            </ButtonBase>
+            </Button>
         </Tooltip>
     );
 }

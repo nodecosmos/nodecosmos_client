@@ -3,6 +3,8 @@ import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
     '&.m-0': { margin: 0 },
+    '&.m-1': { margin: 8 },
+
     '&.mt-1': { marginTop: 8 },
     '&.mt-2': { marginTop: 16 },
     '&.mb-1': { marginBottom: 8 },
