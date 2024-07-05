@@ -101,17 +101,15 @@ export default function NodePaneCoverImage() {
 
             {!coverImageUrl && !isTmp && !isBranch && isAuthorized && (
                 <div className="CoverImageButtonContainer">
-                    <div className="w-850">
-                        <Button
-                            component="label"
-                            variant="outlined"
-                            startIcon={<FontAwesomeIcon icon={faCamera} />}
-                            onClick={openModal}
-                            color="buttonContrast"
-                        >
+                    <Button
+                        component="label"
+                        variant="outlined"
+                        startIcon={<FontAwesomeIcon icon={faCamera} />}
+                        onClick={openModal}
+                        color="buttonContrast"
+                    >
                             Cover Image
-                        </Button>
-                    </div>
+                    </Button>
                 </div>
             )}
 

@@ -54,7 +54,7 @@ const usersSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(logIn.fulfilled, (state, action) => {
-                const user = action.payload;
+                const { user } = action.payload;
                 user.lastSyncUpAt = new Date();
 
                 state.isAuthenticated = true;

@@ -18,7 +18,11 @@ export interface LoginForm {
     rToken?: string;
 }
 
-export const logIn = createAsyncThunk<CurrentUser, LoginForm, { rejectValue: NodecosmosError }>(
+export const logIn = createAsyncThunk<
+    { user: CurrentUser, likes: LikePrimaryKey[] },
+    LoginForm,
+    { rejectValue: NodecosmosError }
+>(
     'users/logIn',
     async (loginForm, { rejectWithValue }) => {
         try {

@@ -1,10 +1,21 @@
 import { likeObject, unlikeObject } from './likes.thunks';
-import { LikeState } from './likes.types';
+import { LikePrimaryKey, LikeState } from './likes.types';
 import { UUID } from '../../types';
-import { logOut, syncUpCurrentUser } from '../users/users.thunks';
+import {
+    logIn, logOut, syncUpCurrentUser,
+} from '../users/users.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const CURRENT_USER_LIKES_KEY = 'CU_LIKES';
+
+function setCurrentUserLikes(state: LikeState, userLikes: LikePrimaryKey[]) {
+    userLikes?.forEach((userLike) => {
+        state.currentUserLikes[userLike.branchId] ||= {};
+        state.currentUserLikes[userLike.branchId][userLike.objectId] = true;
+    });
+
+    localStorage.setItem(CURRENT_USER_LIKES_KEY, JSON.stringify(state.currentUserLikes));
+}
 
 function getUserLikesFromLocalStorage(): Record<UUID, Record<UUID, boolean>> {
     const likedObjectIds = localStorage.getItem(CURRENT_USER_LIKES_KEY);
@@ -26,32 +37,30 @@ const likesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(syncUpCurrentUser.fulfilled, (state, action) => {
-            const userLikes = action.payload.likes;
+        builder
+            .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
+                setCurrentUserLikes(state, action.payload.likes);
+            })
+            .addCase(logIn.fulfilled, (state, action) => {
+                setCurrentUserLikes(state, action.payload.likes);
+            })
+            .addCase(likeObject.fulfilled, (state, action) => {
+                const { objectId, branchId } = action.meta.arg;
 
-            userLikes?.forEach((userLike) => {
-                state.currentUserLikes[userLike.branchId] ||= {};
-                state.currentUserLikes[userLike.branchId][userLike.objectId] = true;
+                state.currentUserLikes[branchId] ||= {};
+                state.currentUserLikes[branchId][objectId] = true;
+
+                localStorage.setItem(CURRENT_USER_LIKES_KEY, JSON.stringify(state.currentUserLikes));
+            }).addCase(unlikeObject.fulfilled, (state, action) => {
+                const { objectId, branchId } = action.meta.arg;
+
+                delete state.currentUserLikes[branchId][objectId];
+
+                localStorage.setItem(CURRENT_USER_LIKES_KEY, JSON.stringify(state.currentUserLikes));
+            }).addCase(logOut.fulfilled, (state) => {
+                state.currentUserLikes = {};
+                localStorage.removeItem(CURRENT_USER_LIKES_KEY);
             });
-
-            localStorage.setItem(CURRENT_USER_LIKES_KEY, JSON.stringify(state.currentUserLikes));
-        }).addCase(likeObject.fulfilled, (state, action) => {
-            const { id, branchId } = action.payload;
-
-            state.currentUserLikes[branchId] ||= {};
-            state.currentUserLikes[branchId][id] = true;
-
-            localStorage.setItem(CURRENT_USER_LIKES_KEY, JSON.stringify(state.currentUserLikes));
-        }).addCase(unlikeObject.fulfilled, (state, action) => {
-            const { id, branchId } = action.payload;
-
-            delete state.currentUserLikes[branchId][id];
-
-            localStorage.setItem(CURRENT_USER_LIKES_KEY, JSON.stringify(state.currentUserLikes));
-        }).addCase(logOut.fulfilled, (state) => {
-            state.currentUserLikes = {};
-            localStorage.removeItem(CURRENT_USER_LIKES_KEY);
-        });
     },
 });
 

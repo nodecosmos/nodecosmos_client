@@ -20,7 +20,7 @@ export const getLikeCount = createAsyncThunk<
 );
 
 export const likeObject = createAsyncThunk<
-    likeCountResponse,
+    void,
     Omit<Like, 'createdAt' | 'updatedAt'>
 >(
     'nodes/likeObject',
@@ -32,7 +32,7 @@ export const likeObject = createAsyncThunk<
 );
 
 export const unlikeObject = createAsyncThunk<
-    likeCountResponse,
+    void,
     LikePrimaryKey
 >(
     'nodes/unlikeObject',

@@ -36,6 +36,7 @@ export default function useNodeContext() {
         isEditing,
         isDragOver,
         isCreationInProgress,
+        likeCount,
     } = useSelector(selectNode(branchId, id as UUID));
 
     const {
@@ -74,6 +75,7 @@ export default function useNodeContext() {
             isEditing,
             isDragOver,
             isCreationInProgress,
+            likeCount,
             checked: isChecked(id as UUID),
             nestedLevel,
             x,
@@ -85,6 +87,6 @@ export default function useNodeContext() {
     [
         ancestorIds, branchId, id, isAlreadyMounted, isCreationInProgress, isDragOver, isEditing,
         isExpanded, isRoot, isSelected, isTmp, lastChildId, nestedLevel, parentId, persistedId, rootId, siblingIndex,
-        title, tmpId, treeRootId, x, xEnd, y, yEnd, isChecked,
+        title, tmpId, treeRootId, x, xEnd, y, yEnd, isChecked, likeCount,
     ]);
 }
