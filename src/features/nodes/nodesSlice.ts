@@ -7,8 +7,9 @@ import {
     showNode,
 } from './nodes.thunks';
 import {
-    DragAndDrop, NodeState, TreeDensity,
+    DragAndDrop, NodePrimaryKey, NodeState, TreeDensity,
 } from './nodes.types';
+import { selectNodeFromParams } from './nodes.utils';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
 import { deleteFromState, deleteFulfilled } from './reducers/delete';
@@ -166,6 +167,10 @@ const nodesSlice = createSlice({
             }
 
             localStorage.setItem(RECENT_NODES_LS_KEY, JSON.stringify(state.recentNodes));
+        },
+
+        selectNodeFromParams: (state: NodeState, action: PayloadAction<NodePrimaryKey>) => {
+            selectNodeFromParams(state, action.payload);
         },
     },
     extraReducers(builder) {

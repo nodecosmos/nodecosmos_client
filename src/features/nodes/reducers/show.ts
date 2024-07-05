@@ -1,6 +1,7 @@
 import { UUID } from '../../../types';
 import { showBranchNode, showNode } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
+import { selectNodeFromParams } from '../nodes.utils';
 
 export default function showFulfilled(
     state: NodeState,
@@ -75,34 +76,7 @@ export default function showFulfilled(
 
     // select from params
     if (action.meta.arg.selectNodeFromParams) {
-        const { branchId, id } = action.meta.arg.selectNodeFromParams;
-        const branchNodes = state.byBranchId[branchId];
-
-        if (!branchNodes) return;
-
-        const node = branchNodes[id];
-
-        if (node) {
-            state.expandedNodes.add(id);
-
-            node.ancestorIds.forEach((ancestorId) => {
-                state.expandedNodes.add(ancestorId);
-            });
-
-            if (state.selected) {
-                const { branchId: selectedBranchId, id: selectedId } = state.selected;
-
-                if (branchId !== selectedBranchId || id !== selectedId) {
-                    state.byBranchId[selectedBranchId][selectedId].isSelected = false;
-                }
-            }
-
-            state.byBranchId[branchId][id].isSelected = true;
-            state.selected = {
-                branchId,
-                id,
-            };
-        }
+        selectNodeFromParams(state, action.meta.arg.selectNodeFromParams);
     }
 }
 

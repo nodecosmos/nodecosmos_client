@@ -14,6 +14,7 @@ export const {
     setNodeScrollTo,
     expandNode: expandNodeAction,
     collapseNode: collapseNodeAction,
+    selectNodeFromParams,
     setScale,
     setDensity,
     setShowAncestorChain,

@@ -35,13 +35,12 @@ export default function useDescription() {
                 objectId,
                 objectType,
                 branchId,
-            })).then(() => {
-                unsetLoading();
-            }).catch((error) => {
+            })).catch((error) => {
                 console.error(error);
             }).finally(() => {
                 fetchedById.current[branchId] ||= new Set();
                 fetchedById.current[branchId].add(objectId);
+                unsetLoading();
             });
         }
 

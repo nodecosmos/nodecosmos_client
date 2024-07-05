@@ -13,6 +13,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function WorkflowToolbar() {
+    const { inputsAdditionActive } = useWorkflowContext();
     const { title } = useWorkflowContext();
     const { handleTitleChange } = useWorkflowActions();
     const isPaneOpen = useSelector(selectIsPaneOpen);
@@ -32,7 +33,6 @@ export default function WorkflowToolbar() {
             zIndex={3}
         >
             <Box
-                flex={1}
                 display="flex"
                 alignItems="center"
             >
@@ -49,6 +49,8 @@ export default function WorkflowToolbar() {
 
             <CloseFlowStepInputsButton />
             <DanglingIosButton />
+
+            {!inputsAdditionActive && <div />}
 
             {!isPaneOpen && (<TogglePaneButton />)}
 

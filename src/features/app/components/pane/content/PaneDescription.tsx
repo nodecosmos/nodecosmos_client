@@ -1,3 +1,4 @@
+import Loader from '../../../../../common/components/Loader';
 import { ObjectType } from '../../../../../types';
 import { selectDescription } from '../../../../descriptions/descriptions.selectors';
 import useDescription from '../../../../descriptions/hooks/useDescription';
@@ -12,10 +13,17 @@ export default function PaneDescription() {
         mainObjectId: objectId,
         branchId,
         objectType,
+        loading,
     } = usePaneContext();
     useDescription();
     const description = useSelector(selectDescription(branchId, objectId));
     const innerHTML = useMemo(() => ({ __html: description?.html as TrustedHTML }), [description]);
+
+    if (loading) {
+        return (
+            <Loader />
+        );
+    }
 
     return (
         <Box px={4}>

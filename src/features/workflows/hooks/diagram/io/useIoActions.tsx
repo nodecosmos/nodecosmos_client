@@ -1,4 +1,5 @@
 import useIoContext from './useIoContext';
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
@@ -29,11 +30,11 @@ export default function useIoActions() {
         closeTitleEdit,
     } = useIoContext();
     const { originalId, branchId } = useBranchContext();
-
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleInputsChange = useInputsChange();
     const isChecked = selectedInputs.has(id);
     const selectObject = useSelectObject();
+    const [ioLoading, setIoLoading, unsetIoLoading] = useBooleanStateValue(false);
 
     const handleIoClick = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -55,7 +56,38 @@ export default function useIoActions() {
                 selectedInputsArray.push(id);
             }
 
-            await handleInputsChange(selectedInputsArray);
+            let loaderVisible = false;
+            const loaderDelay = 100; // Time to wait before showing loader (in ms)
+            const minimumLoaderTime = 150; // Minimum time to keep loader visible (in ms)
+
+            // Set a timeout to show the loading indicator if the operation takes too long
+            const loaderTimeout = setTimeout(() => {
+                setIoLoading();
+                loaderVisible = true;
+            }, loaderDelay);
+
+            try {
+                await handleInputsChange(selectedInputsArray);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                // Clear the timeout if the operation finishes before the delay
+                clearTimeout(loaderTimeout);
+
+                if (loaderVisible) {
+                    // If the loader is visible, ensure it stays visible for a minimum time
+                    const timeVisible = Date.now() - (loaderDelay + loaderTimeout._idleStart);
+                    if (timeVisible < minimumLoaderTime) {
+                        // If the loader has not been visible for long enough, keep it for a bit longer
+                        setTimeout(() => {
+                            unsetIoLoading();
+                        }, minimumLoaderTime - timeVisible);
+                    } else {
+                        // If it has been visible for the minimum time, hide it immediately
+                        unsetIoLoading();
+                    }
+                }
+            }
         } else {
             if (insidePane) {
                 dispatch(setAlert({
@@ -92,6 +124,8 @@ export default function useIoActions() {
         setSelectedInputs,
         insidePane,
         selectObject,
+        setIoLoading,
+        unsetIoLoading,
     ]);
 
     const deleteIoCb = useCallback(async () => {
@@ -130,5 +164,6 @@ export default function useIoActions() {
         openTitleEdit,
         closeTitleEdit,
         undoDeleteIo: undoDeleteIoCb,
-    }), [handleIoClick, deleteIoCb, handleTitleChange, openTitleEdit, closeTitleEdit, undoDeleteIoCb]);
+        ioLoading,
+    }), [handleIoClick, deleteIoCb, handleTitleChange, openTitleEdit, closeTitleEdit, undoDeleteIoCb, ioLoading]);
 }
