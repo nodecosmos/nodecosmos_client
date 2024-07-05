@@ -229,7 +229,7 @@ const theme: NodecosmosTheme = {
             },
             edited: {
                 bg: '#484d46',
-                fg: '#ccde5f',
+                fg: '#aac557',
             },
             conflict: {
                 bg: '#934c46',
