@@ -82,8 +82,8 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#2a2d35',
-            2: '#24272e',
+            1: '#1c1c1e',
+            2: '#2b2e36',
             3: '#282c34',
             4: '#464b59',
             5: '#636a80',
@@ -94,9 +94,9 @@ const theme: NodecosmosTheme = {
             2: '#131314',
             3: '#202128',
             4: '#272831',
-            5: '#191b20',
-            6: '#202128',
-            7: '#222430',
+            5: '#1e1f20',
+            6: '#1d1e25',
+            7: '#1e202a',
             8: '#4d4e55',
 
             hover: '#316dca',
@@ -129,17 +129,17 @@ const theme: NodecosmosTheme = {
             yellow: '#ded65f',
             orange: '#edb96d',
             hover: 'rgba(57,71,81,0.53)',
-            active: 'rgba(57,71,81,0.53)',
+            active: 'rgba(57,65,81,0.53)',
             default: '#4e5a62',
             breadcrumbs: '#6a7983',
         },
 
         tree: {
-            default: '#2d3138',
+            default: '#272b31',
             backgrounds: [
                 {
                     fg: '#e7465d',
-                    bg: '#2a111d',
+                    bg: '#1f0d16',
                 },
                 {
                     fg: '#b4a1ff',
@@ -147,19 +147,19 @@ const theme: NodecosmosTheme = {
                 },
                 {
                     fg: '#65a9ff',
-                    bg: '#1a2228',
+                    bg: '#151b1f',
                 },
                 {
                     fg: '#9bdf64',
-                    bg: '#232a23',
+                    bg: '#1a1f1a',
                 },
                 {
                     fg: '#d4df33',
-                    bg: '#292c20',
+                    bg: '#202319',
                 },
                 {
                     fg: '#efbd51',
-                    bg: '#2b281f',
+                    bg: '#25231a',
                 },
             ],
             defaultText: '#ebe7e7',
