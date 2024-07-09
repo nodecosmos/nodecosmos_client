@@ -51,6 +51,7 @@ export default function Header() {
                     height={1}
                     display="flex"
                     alignItems="center"
+                    justifyContent="center"
                     borderRight={hasSidebar ? 1 : 0}
                     borderBottom={hasSidebar ? 0 : 1}
                     borderColor="borders.1"
