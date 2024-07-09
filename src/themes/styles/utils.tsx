@@ -84,7 +84,11 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.background-1': { backgroundColor: theme.palette.background[1] },
     '&.background-2': { backgroundColor: theme.palette.background[2] },
+    '&.background-3': { backgroundColor: theme.palette.background[3] },
+    '&.background-4': { backgroundColor: theme.palette.background[4] },
     '&.background-5': { backgroundColor: theme.palette.background[5] },
+    '&.background-6': { backgroundColor: theme.palette.background[6] },
+    '&.background-7': { backgroundColor: theme.palette.background[7] },
     '&.background-8': { backgroundColor: theme.palette.background[8] },
     '&.background-workflow-default': { backgroundColor: theme.palette.workflow.default },
     '&.background-toolbar-hover': { backgroundColor: theme.palette.toolbar.hover },
