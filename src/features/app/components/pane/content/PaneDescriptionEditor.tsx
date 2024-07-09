@@ -51,7 +51,7 @@ export default function PaneDescriptionEditor() {
         return (
             <Box m={2}>
                 <SimpleAlert
-                    severity="error"
+                    severity="warning"
                     message={message}
                 />
             </Box>
