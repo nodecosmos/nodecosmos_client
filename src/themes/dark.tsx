@@ -91,7 +91,7 @@ const theme: NodecosmosTheme = {
 
         background: {
             1: '#14161a',
-            2: '#16181d',
+            2: '#131314',
             3: '#202128',
             4: '#272831',
             5: '#191b20',
@@ -139,19 +139,19 @@ const theme: NodecosmosTheme = {
             backgrounds: [
                 {
                     fg: '#e7465d',
-                    bg: '#2d121f',
+                    bg: '#2a111d',
                 },
                 {
                     fg: '#b4a1ff',
-                    bg: '#1f2028',
+                    bg: '#1b1c23',
                 },
                 {
                     fg: '#65a9ff',
-                    bg: '#1c222a',
+                    bg: '#1a2228',
                 },
                 {
                     fg: '#9bdf64',
-                    bg: '#262d26',
+                    bg: '#232a23',
                 },
                 {
                     fg: '#d4df33',
@@ -238,7 +238,7 @@ const theme: NodecosmosTheme = {
 
         text: {
             primary: '#ebe7e7',
-            secondary: '#b3b9c7',
+            secondary: '#e3e3e3',
             tertiary: '#747982',
             disabled: '#5c616b',
             contrast: '#fff',
