@@ -2,6 +2,7 @@ import NotificationDrawer from './NotificationDrawer';
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
+import { selectCurrentUser } from '../../users/users.selectors';
 import { selectUnseenNotificationCount } from '../notifications.selectors';
 import { getNotifications } from '../notifications.thunks';
 import { faBell } from '@fortawesome/pro-solid-svg-icons';
@@ -16,8 +17,10 @@ export default function NotificationsButton() {
     const [modalOpen, openModal, closeModal] = useBooleanStateValue(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const interval = useRef<number | undefined>();
+    const currentUser = useSelector(selectCurrentUser);
+
     useEffect(() => {
-        if (!interval.current) {
+        if (!interval.current && currentUser) {
             dispatch(getNotifications());
             interval.current = setInterval(
                 () => dispatch(getNotifications({ new: true })), FETCH_NOTIFICATIONS_INTERVAL,
@@ -25,7 +28,7 @@ export default function NotificationsButton() {
         }
 
         return () => clearInterval(interval.current);
-    }, [dispatch]);
+    }, [dispatch, currentUser]);
 
     return (
         <div>

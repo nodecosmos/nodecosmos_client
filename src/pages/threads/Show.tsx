@@ -98,11 +98,13 @@ export default function Show() {
                             },
                         )
                     }
-                    <CommentEditor
-                        autoFocus={false}
-                        threadPk={threadPk}
-                        info="Add a comment to the main thread"
-                    />
+                    <Box mt={2}>
+                        <CommentEditor
+                            autoFocus={false}
+                            threadPk={threadPk}
+                            info="Add a comment to the main thread"
+                        />
+                    </Box>
                 </Box>
             </Container>
         </Box>

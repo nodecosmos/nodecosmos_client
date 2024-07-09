@@ -49,8 +49,10 @@ export default function App() {
     const currentTheme = useMemo(() => themes[theme], [theme]);
 
     useEffect(() => {
-        dispatch(syncUpCurrentUser());
-    }, [dispatch]);
+        if (isAuthenticated) {
+            dispatch(syncUpCurrentUser());
+        }
+    }, [dispatch, isAuthenticated]);
 
     useEffect(() => {
         return () => {
