@@ -92,7 +92,7 @@ const theme: NodecosmosTheme = {
         background: {
             1: '#111112',
             2: '#131314',
-            3: '#202128',
+            3: '#232526',
             4: '#272831',
             5: '#1e1f20',
             6: '#1d1e25',
@@ -232,8 +232,8 @@ const theme: NodecosmosTheme = {
         },
 
         logo: {
-            blue: '#2adfff',
-            red: '#e91e63',
+            blue: '#2abfff',
+            red: '#e63a69',
         },
 
         text: {
