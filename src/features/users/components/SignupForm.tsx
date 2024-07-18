@@ -85,7 +85,7 @@ export default function SignupForm() {
                                 disabled={submitting}
                                 startIcon={
                                     loading
-                                        ? <CircularProgress size={20} className="toolbar-purple" />
+                                        ? <CircularProgress size={20} sx={{ color: 'primary.main' }} />
                                         : <FontAwesomeIcon size="2xs" icon={faUser} />
                                 }
                             >

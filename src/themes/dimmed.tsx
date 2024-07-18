@@ -176,7 +176,7 @@ const theme: NodecosmosTheme = {
             input: '#cdd4ff',
             background: '#2d3139',
             selectedInputColor: '#8e93b0',
-            defaultInputColor: '#484d55',
+            defaultInputColor: '#505763',
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(255,179,135,0.23)',
             selectedBg: 'rgba(49,52,59,0.18)',
@@ -229,7 +229,7 @@ const theme: NodecosmosTheme = {
             },
             edited: {
                 bg: '#484d46',
-                fg: '#aac557',
+                fg: '#ccde5f',
             },
             conflict: {
                 bg: '#934c46',
@@ -241,7 +241,7 @@ const theme: NodecosmosTheme = {
             primary: '#f5f5f2',
             secondary: '#bcc6d2',
             tertiary: '#838a9a',
-            disabled: '#565968',
+            disabled: '#5c616b',
             contrast: '#fff',
             sectionPrimary: '#acdf83',
             sectionSecondary: '#cdd4eb',

@@ -8,7 +8,6 @@ import {
 } from '../../features/app/constants';
 import NodeCard from '../../features/nodes/components/card/NodeCard';
 import NodeIndexMobileFooter from '../../features/nodes/components/header/NodeIndexMobileFooter';
-import RecentNodes from '../../features/nodes/components/RecentNodes';
 import { setIndexSearchTerm } from '../../features/nodes/nodes.actions';
 import { selectIndexNodesById, selectIndexSearchTerm } from '../../features/nodes/nodes.selectors';
 import { indexNodes, IndexNodesPayload } from '../../features/nodes/nodes.thunks';
@@ -86,9 +85,7 @@ export default function NodeIndex() {
                 display={DISPLAY_MD_SX}
                 borderRight={1}
                 borderColor="borders.1"
-            >
-                <RecentNodes />
-            </Box>
+            />
             <Alert width={MD_WO_SIDEBAR_WIDTH_SX} right={0} />
             <VirtualContainer
                 onMore={hasMore ? indexMoreNodes : undefined}

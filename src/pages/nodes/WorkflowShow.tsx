@@ -76,6 +76,7 @@ export default function WorkflowShow() {
 
     useEffect(() => {
         if (isBranch && rootId) {
+            console.log('showBranchWorkflow');
             //
             dispatch(showWorkflow({
                 rootId,

@@ -8,7 +8,6 @@ export default (theme: NodecosmosTheme) => ({
                 height: 32,
                 textTransform: 'none',
                 borderRadius: 4,
-                whiteSpace: 'nowrap',
                 '&.LogoButton': {
                     padding: '3px 8px',
                     border: '1.5px solid transparent',
@@ -48,13 +47,6 @@ export default (theme: NodecosmosTheme) => ({
     MuiButtonBase: {
         styleOverrides: {
             root: {
-                '&.Mui-disabled': {
-                    color: theme.palette.text.secondary,
-                    WebkitTextFillColor: theme.palette.text.secondary,
-                    span: {
-                        color: theme.palette.text.disabled,
-                    },
-                },
                 '&.SidebarMobileButton': {
                     color: theme.palette.toolbar.default,
                     padding: 0,

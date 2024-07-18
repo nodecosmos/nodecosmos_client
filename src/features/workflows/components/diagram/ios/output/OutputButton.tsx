@@ -12,7 +12,6 @@ import {
     Y_TRANSITION_STYLE,
 } from '../../../../workflows.constants';
 import { Checkbox } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import React, { useMemo } from 'react';
 
 export default function OutputButton() {
@@ -31,7 +30,7 @@ export default function OutputButton() {
         checkboxColor,
     } = useOutputColors();
     const {
-        handleIoClick, handleTitleChange, closeTitleEdit, ioLoading,
+        handleIoClick, handleTitleChange, closeTitleEdit,
     } = useIoActions();
     const preventDefault = usePreventDefault();
     const buttonStyle = useMemo(() => ({
@@ -67,11 +66,6 @@ export default function OutputButton() {
                         }
                         <div className="IoButtonText">
                             {title as string}
-                        </div>
-                        <div className="loader">
-                            {
-                                ioLoading && <CircularProgress size={20} />
-                            }
                         </div>
                     </button>
                 )

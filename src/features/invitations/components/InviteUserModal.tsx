@@ -17,15 +17,16 @@ import { createInvitation } from '../invitations.thunks';
 import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+    Alert as MuiAlert,
     Button,
     DialogActions,
-    DialogContent, Typography,
+    DialogContent,
+    Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
-import React, {
-    useCallback, useMemo, useState,
-} from 'react';
+import DialogTitle from '@mui/material/DialogTitle';
+import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
 
@@ -114,16 +115,6 @@ export default function InviteUserModal({ open, onClose }: Props) {
 
     const [handleSearchCb, searchInProgress] = useDebounce(handleSearch, 500);
 
-    const inputProps = useMemo(() => ({
-        autoComplete: 'off',
-        endAdornment: searchInProgress ? <CircularProgress
-            size={30}
-            sx={{
-                color: 'text.secondary',
-                mr: 2,
-            }} /> : null,
-    }), [searchInProgress]);
-
     const handleClose = useCallback(() => {
         setUsernameFromList(null);
         onClose();
@@ -132,39 +123,53 @@ export default function InviteUserModal({ open, onClose }: Props) {
     return (
         <Dialog
             onClose={handleClose}
+            fullWidth
             maxWidth="md"
             open={open}
             PaperProps={PROPS}>
-            <div className="DialogHeader">
-                <div>
-                    <Typography variant="h6" color="text.primary" align="center" width="auto">
-                        <FontAwesomeIcon icon={faUserPlus} />
-                        Invite User to Node
-                    </Typography>
-                </div>
-                <Typography variant="subtitle1" color="text.secondary" mt={1} align="center" width={1}>
-                    Invite a user to collaborate on this node. If the user is not a member of the
-                    nodecosmos, you can invite them by their email. Once invitation is  accepted,
-                    the user will become editor of this node.
-                </Typography>
-                <CloseModalButton onClose={onClose} />
-            </div>
+            <DialogTitle fontWeight="bold">
+                Invite User to Node
+                <CloseModalButton onClose={handleClose} />
+            </DialogTitle>
             <Form<{ usernameOrEmail: string }>
                 onSubmit={onSubmit}
                 subscription={{ submitting: true }}>
-                {({
-                    handleSubmit,
-                    form,
-                }) => (
+                {({ handleSubmit, form }) => (
                     <form onSubmit={handleSubmit}>
-                        <DialogContent>
+                        <DialogContent sx={{ overflow: 'hidden' }}>
                             <Alert position="relative" mb={2} />
+                            <MuiAlert
+                                severity="info"
+                                variant="outlined"
+                                sx={{
+                                    borderRadius: 1,
+                                    width: 'calc(100% - 1px)',
+                                    border: 0,
+                                    mb: 2,
+                                    backgroundColor: 'background.1',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Typography variant="body2" color="text.info">
+                                    Invite a user to collaborate on this node. If the user is not a member of the
+                                    nodecosmos, you can invite them by their email. Once invitation is  accepted,
+                                    the user will become editor of this node.
+                                </Typography>
+                            </MuiAlert>
                             <Field
                                 fullWidth
                                 name="usernameOrEmail"
                                 label="username || email"
                                 onChange={handleSearchCb}
-                                InputProps={inputProps}
+                                InputProps={{
+                                    autoComplete: 'off',
+                                    endAdornment: searchInProgress ? <CircularProgress
+                                        size={30}
+                                        sx={{
+                                            color: 'text.secondary',
+                                            mr: 2,
+                                        }} /> : null,
+                                }}
                                 required
                             />
 
@@ -176,7 +181,10 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                 setUsernameFromList={setUsernameFromList}
                             />
                         </DialogContent>
-                        <DialogActions>
+                        <DialogActions sx={{
+                            px: 3,
+                            pb: 3,
+                        }}>
                             <Button
                                 type="submit"
                                 disableElevation
@@ -184,9 +192,10 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                 color="warning"
                                 startIcon={
                                     loading
-                                        ? <CircularProgress size={20} className="toolbar-orange" />
+                                        ? <CircularProgress size={20} style={{ color: 'warning.main' }} />
                                         : <FontAwesomeIcon icon={faUserPlus} />
                                 }
+                                sx={{ height: 'auto' }}
                             >
                                 <span className="Text">
                                     Send Invitation

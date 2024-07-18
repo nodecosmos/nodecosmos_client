@@ -9,40 +9,30 @@ import {
 import {
     DragAndDrop, NodePrimaryKey, NodeState, TreeDensity,
 } from './nodes.types';
-import { selectNodeFromParams } from './nodes.utils';
 import indexNodesFulfilled from './reducers';
 import createFulfilled from './reducers/create';
 import { deleteFromState, deleteFulfilled } from './reducers/delete';
 import {
-    getLikeCountFulfilled, getLikeCountRejected, likeObjectFulfilled, unlikeObjectFulfilled,
+    getLikeCountFulfilled, likeObjectFulfilled, unlikeObjectFulfilled,
 } from './reducers/like';
 import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
 import select from './reducers/select';
-import showFulfilled, { showNodeRejected } from './reducers/show';
+import showFulfilled from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
 import { UUID } from '../../types';
-import { getDescription } from '../descriptions/descriptions.thunks';
 import {
     getLikeCount, likeObject, unlikeObject,
 } from '../likes/likes.thunks';
-import { showUserByUsername } from '../users/users.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const TREE_SCALE_LS_KEY = 'TS';
-export const RECENT_NODES_LS_KEY = 'RNI';
-const RECENT_NODES_MAX = 50;
-
 const parseScaleFromLS = () => {
-    const scale = localStorage.getItem(TREE_SCALE_LS_KEY);
+    const scale = localStorage.getItem('treeScale');
 
-    if (scale) {
-        return parseFloat(scale);
-    }
+    if (!scale) return 1;
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    return isMobile ? 0.8 : 1;
+    return parseFloat(scale);
 };
 
 const parseDensityFromLS = () => {
@@ -57,16 +47,6 @@ const parseShowAncestorChainFromLS = () => {
     const showAncestorChain = localStorage.getItem('showAncestorChain');
 
     return showAncestorChain === 'true';
-};
-
-const parseRecentNodesFromLS = () => {
-    const recentNodes = localStorage.getItem(RECENT_NODES_LS_KEY);
-
-    if (recentNodes) {
-        return JSON.parse(recentNodes);
-    }
-
-    return [];
 };
 
 const initialState: NodeState = {
@@ -85,8 +65,6 @@ const initialState: NodeState = {
     showAncestorChain: parseShowAncestorChainFromLS(),
     indexSearchTerm: undefined,
     sidebarOpen: false,
-    byOwnerId: {},
-    recentNodes: parseRecentNodesFromLS(),
 };
 
 const nodesSlice = createSlice({
@@ -127,10 +105,40 @@ const nodesSlice = createSlice({
         collapseNode: (state: NodeState, action: PayloadAction<UUID>) => {
             state.expandedNodes.delete(action.payload);
         },
+        selectNodeFromParams: (state: NodeState, action: PayloadAction<NodePrimaryKey>) => {
+            const { branchId, id } = action.payload;
+            const branchNodes = state.byBranchId[branchId];
+
+            if (!branchNodes) return;
+
+            const node = branchNodes[id];
+
+            if (node) {
+                state.expandedNodes.add(id);
+
+                node.ancestorIds.forEach((ancestorId) => {
+                    state.expandedNodes.add(ancestorId);
+                });
+
+                if (state.selected) {
+                    const { branchId: selectedBranchId, id: selectedId } = state.selected;
+
+                    if (branchId !== selectedBranchId || id !== selectedId) {
+                        state.byBranchId[selectedBranchId][selectedId].isSelected = false;
+                    }
+                }
+
+                state.byBranchId[branchId][id].isSelected = true;
+                state.selected = {
+                    branchId,
+                    id,
+                };
+            }
+        },
         setScale: (state: NodeState, action: PayloadAction<number>) => {
             state.scale = action.payload;
 
-            localStorage.setItem(TREE_SCALE_LS_KEY, action.payload.toString());
+            localStorage.setItem('treeScale', action.payload.toString());
         },
         setDensity: (state: NodeState, action: PayloadAction<TreeDensity>) => {
             state.treeDensity = action.payload;
@@ -145,65 +153,22 @@ const nodesSlice = createSlice({
         setIndexSearchTerm: (state: NodeState, action: PayloadAction<string | undefined>) => {
             state.indexSearchTerm = action.payload;
         },
-        pushRecentNode: (state: NodeState, action: PayloadAction<[UUID, UUID]>) => {
-            const [branchId, id] = action.payload;
-            // insert at the beginning, remove if already exists
-            state.recentNodes = state.recentNodes.filter(
-                (node) => node.id !== id,
-            );
-
-            if (!state.byBranchId[branchId]?.[id]) return;
-
-            const recentNode = {
-                branchId,
-                id,
-                title: state.byBranchId[branchId][id].title,
-                nestedLevel: state.byBranchId[branchId][id].ancestorIds.length,
-            };
-
-            state.recentNodes.unshift(recentNode);
-
-            if (state.recentNodes.length > RECENT_NODES_MAX) {
-                state.recentNodes.shift();
-            }
-
-            localStorage.setItem(RECENT_NODES_LS_KEY, JSON.stringify(state.recentNodes));
-        },
-
-        selectNodeFromParams: (state: NodeState, action: PayloadAction<NodePrimaryKey>) => {
-            selectNodeFromParams(state, action.payload);
-        },
     },
     extraReducers(builder) {
         builder
             .addCase(indexNodes.fulfilled, indexNodesFulfilled)
             .addCase(showNode.fulfilled, showFulfilled)
-            .addCase(showNode.rejected, showNodeRejected)
             .addCase(showBranchNode.fulfilled, showFulfilled)
             .addCase(create.fulfilled, createFulfilled)
             .addCase(deleteNode.fulfilled, deleteFulfilled)
             .addCase(reorder.fulfilled, reorderFulfilled)
             .addCase(getLikeCount.fulfilled, getLikeCountFulfilled)
-            .addCase(getLikeCount.rejected, getLikeCountRejected)
             .addCase(likeObject.fulfilled, likeObjectFulfilled)
             .addCase(unlikeObject.fulfilled, unlikeObjectFulfilled)
             .addCase(deleteEditor.fulfilled, (state: NodeState, action: ReturnType<typeof deleteEditor.fulfilled>) => {
                 const { branchId, id } = action.meta.arg;
                 const node = state.byBranchId[branchId][id];
                 node.editorIds?.delete(action.meta.arg.editorId);
-            })
-            .addCase(showUserByUsername.fulfilled, (state: NodeState, action) => {
-                const { user, rootNodes } = action.payload;
-
-                state.byOwnerId[user.id] = rootNodes;
-            })
-            .addCase(getDescription.fulfilled, (state: NodeState, action) => {
-                const { branchId, objectId } = action.meta.arg;
-                const { coverImageUrl } = action.payload;
-
-                if (coverImageUrl && state.byBranchId[branchId] && state.byBranchId[branchId][objectId]) {
-                    state.byBranchId[branchId][objectId].coverImageUrl = coverImageUrl;
-                }
             });
     },
 });

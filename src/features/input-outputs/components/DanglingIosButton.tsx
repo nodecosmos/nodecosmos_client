@@ -12,16 +12,14 @@ import { useSelector } from 'react-redux';
 
 export default function DanglingIosButton() {
     const { isBranch } = useBranchContext();
-    const {
-        rootId, branchId, inputsAdditionActive, 
-    } = useWorkflowContext();
+    const { rootId, branchId } = useWorkflowContext();
     const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId as UUID));
     const danglingIos = useMemo(() => {
         return allWorkflowIos.filter((io) => !io.initialInput && io.flowStepId === null);
     }, [allWorkflowIos]);
     const [open, openModal, closeModal] = useModalOpen();
 
-    if (isBranch || !danglingIos.length || danglingIos.length === 0 || inputsAdditionActive) {
+    if (isBranch || !danglingIos.length || danglingIos.length === 0) {
         return null;
     }
 

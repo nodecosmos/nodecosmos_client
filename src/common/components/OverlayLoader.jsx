@@ -2,12 +2,6 @@ import Loader from './Loader';
 import { Box } from '@mui/material';
 import React from 'react';
 
-const SX = {
-    backgroundColor: 'background.backdrop',
-    opacity: 1,
-    zIndex: 2,
-};
-
 export default function OverlayLoader() {
     return (
         <Box
@@ -16,7 +10,11 @@ export default function OverlayLoader() {
             left={0}
             width={1}
             height={1}
-            sx={SX}
+            sx={{
+                backgroundColor: 'background.backdrop',
+                opacity: 1,
+                zIndex: 2,
+            }}
         >
             <Loader color="secondary.main" />
         </Box>

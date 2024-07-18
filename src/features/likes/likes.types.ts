@@ -7,7 +7,6 @@ export interface LikePrimaryKey {
 }
 
 export interface Like extends LikePrimaryKey {
-    rootId?: UUID;
     objectType: LikeType;
     createdAt: Date;
     updatedAt: Date;

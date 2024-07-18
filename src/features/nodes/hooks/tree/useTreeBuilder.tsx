@@ -1,7 +1,6 @@
 import {
     LowerSiblingId, NodeSize, SiblingIndex, TreeNode, TreeNodes, UpperSiblingId,
 } from './useTreeContext';
-import { NodecosmosDispatch } from '../../../../store';
 import { UUID } from '../../../../types';
 import { TRANSFORMABLE_ID } from '../../../app/constants';
 import { setNodeScrollTo } from '../../nodes.actions';
@@ -29,6 +28,7 @@ export interface Tree {
     treeNodes: TreeNodes;
     orderedTreeNodeIds: UUID[];
     setTreeNodes: (treeNodes: TreeNodes) => void;
+    buildTree: () => void;
 }
 
 type Props = {
@@ -42,23 +42,19 @@ export default function useTreeBuilder(props: Props): Tree {
     const {
         treeRootId,
         branchId,
+        type,
         size,
     } = props;
     const { ancestorIds } = useSelector(selectNode(branchId, treeRootId));
     const branchChildIds = useSelector(selectBranchChildIds(branchId));
     const scrollToId = useSelector(selectScrollTo);
-    const dispatch: NodecosmosDispatch = useDispatch();
-    const [initialLoad, setInitialLoad] = useState(true);
-    const expandedNodes = useSelector(selectExpandedNodes, () => true);
+    const dispatch = useDispatch();
+    const expandedNodes = useSelector(selectExpandedNodes);
 
     const [treeState, setTreeState] = useState({
         treeNodes: {} as TreeNodes,
         orderedTreeNodeIds: [] as UUID[],
     });
-
-    useEffect(() => {
-        setInitialLoad(false);
-    }, []);
 
     useEffect(() => {
         if (scrollToId) {
@@ -72,7 +68,7 @@ export default function useTreeBuilder(props: Props): Tree {
                 dispatch(setNodeScrollTo(null));
             }
         }
-    }, [dispatch, scrollToId, treeState]);
+    }, [dispatch, scrollToId, treeState.treeNodes]);
 
     const buildTree = useCallback(() => {
         if (!branchChildIds) return;
@@ -101,17 +97,19 @@ export default function useTreeBuilder(props: Props): Tree {
                 ancestorIds,
             } = queue.pop() as QueueItem;
             const isTreeRoot = treeRootId === currentId;
-            const isExpanded = isTreeRoot
+            const isCheckbox = type === TreeType.Checkbox;
+            const isExpanded = isCheckbox
+                || isTreeRoot
                 || (treeNodes[currentId] ? treeNodes[currentId].isExpanded : false)
-                || (initialLoad && expandedNodes.has(currentId));
+                || expandedNodes.has(currentId);
             const childIds = (branchChildIds && branchChildIds[currentId]) || [];
 
             let isParentExpanded = false;
             let isParentMounted = false;
 
             if (!isTreeRoot && parentId) {
-                isParentExpanded = treeNodes[parentId].isExpanded as boolean;
-                isParentMounted = treeNodes[parentId].isMounted as boolean;
+                isParentExpanded = isCheckbox || treeNodes[parentId].isExpanded as boolean;
+                isParentMounted = isCheckbox || treeNodes[parentId].isMounted as boolean;
             }
 
             // populate ancestor's descendantIds
@@ -176,7 +174,7 @@ export default function useTreeBuilder(props: Props): Tree {
         // we use `treeNodes` to build tree, but we don't rebuild it if structure is not changed,
         // so we don't need to observe treeNodes here
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ancestorIds, branchChildIds, treeRootId, size, initialLoad]);
+    }, [ancestorIds, branchChildIds, treeRootId, size]);
 
     const setTreeNodes = useCallback((treeNodes: TreeNodes) => {
         setTreeState((prev) => ({
@@ -185,13 +183,10 @@ export default function useTreeBuilder(props: Props): Tree {
         }));
     }, []);
 
-    useEffect(() => {
-        buildTree();
-    }, [buildTree]);
-
     return useMemo(() => ({
         treeNodes: treeState.treeNodes,
         orderedTreeNodeIds: treeState.orderedTreeNodeIds,
         setTreeNodes,
-    }), [treeState, setTreeNodes]);
+        buildTree,
+    }), [treeState, setTreeNodes, buildTree]);
 }

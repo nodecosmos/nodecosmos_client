@@ -3,7 +3,7 @@ import ToolbarContainer from '../../../common/components/toolbar/ToolbarContaine
 import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../app/constants';
 import {
-    faCodeCommit, faHashtag, faListTree, faComments,
+    faCodeCommit, faDiagramNested, faListTree, faComments,
 } from '@fortawesome/pro-light-svg-icons';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -39,7 +39,7 @@ export default function ContributionRequestsShowToolbar() {
                 />
                 <ToolbarItem
                     title="Tree changes"
-                    icon={faHashtag}
+                    icon={faDiagramNested}
                     color="text.primary"
                     titleAsTooltip={false}
                     to="tree"

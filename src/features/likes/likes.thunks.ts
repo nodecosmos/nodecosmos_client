@@ -6,6 +6,18 @@ import nodecosmos from '../../api/nodecosmos-server';
 import { UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+export const getUserLikes = createAsyncThunk<
+    LikePrimaryKey[],
+    void
+>(
+    'likes/getUserLikes',
+    async () => {
+        const response = await nodecosmos.get('/likes/user_likes');
+
+        return response.data;
+    },
+);
+
 export const getLikeCount = createAsyncThunk<
     likeCountResponse,
     {objectId: UUID, branchId: UUID}
@@ -20,7 +32,7 @@ export const getLikeCount = createAsyncThunk<
 );
 
 export const likeObject = createAsyncThunk<
-    void,
+    likeCountResponse,
     Omit<Like, 'createdAt' | 'updatedAt'>
 >(
     'nodes/likeObject',
@@ -32,7 +44,7 @@ export const likeObject = createAsyncThunk<
 );
 
 export const unlikeObject = createAsyncThunk<
-    void,
+    likeCountResponse,
     LikePrimaryKey
 >(
     'nodes/unlikeObject',

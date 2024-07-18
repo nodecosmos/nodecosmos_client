@@ -57,10 +57,6 @@ export default function VirtualContainer({
         backgroundColor: 'toolbar.default',
     }), [ maxWidth]);
 
-    if (!children.length) {
-        return null;
-    }
-
     return (
         <Box
             ref={listRef}
@@ -75,7 +71,7 @@ export default function VirtualContainer({
                     {child}
                 </Box>
             ))}
-            {(onMore || hasInternalOnMore) && visibleCountChildren && (
+            {(onMore || hasInternalOnMore) && (
                 <Box width={1} my={3} display="flex" alignItems="center" justifyContent="center" position="relative">
                     <Divider sx={dividerSx} />
                     <Box width={maxWidth} textAlign="center">

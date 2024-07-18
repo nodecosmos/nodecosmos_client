@@ -6,8 +6,6 @@ import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError, UUID } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { MAX_NODE_INPUT_SIZE } from '../../nodes/nodes.constants';
-import { REDIRECT_Q } from '../../users/components/LoginForm';
-import { selectCurrentUser } from '../../users/users.selectors';
 import { ContributionRequest, ContributionRequestStatus } from '../contributionRequest.types';
 import { createContributionRequest } from '../contributionRequests.thunks';
 import { faCodeCommit, faCodePullRequest } from '@fortawesome/pro-light-svg-icons';
@@ -20,8 +18,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 /* mui */
 /* nodecosmos */
@@ -46,7 +44,6 @@ function CreateContributionRequestModal(props: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
     const navigate = useNavigate();
-    const currentUser = useSelector(selectCurrentUser);
 
     const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);
@@ -97,71 +94,45 @@ function CreateContributionRequestModal(props: Props) {
                 <Typography variant="subtitle1" color="text.secondary" mt={1} align="center" width={1}>
                     Create contribution request to propose set of changes to the node
                 </Typography>
-                {
-                    !currentUser && (
-                        <div className="center my-2">
-                            <Button
-                                component={RouterLink}
-                                to={`/auth/login?${REDIRECT_Q}=${btoa(window.location.href)}`}
-                                color="primary"
-                            >
-                                Log in
-                            </Button>
-                            <Button
-                                className="ml-1"
-                                component={RouterLink}
-                                to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
-                                variant="outlined"
-                            >
-                                Sign Up
-                            </Button>
-                        </div>
-                    )
-                }
-
                 <CloseModalButton onClose={onClose} />
             </div>
-            {
-                currentUser && (
-                    <DialogContent>
-                        <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
-                            {({ handleSubmit }) => (
-                                <form className="h-100" onSubmit={handleSubmit}>
-                                    <Box display="flex" alignItems="center">
-                                        <Field
-                                            fullWidth
-                                            name="title"
-                                            label="Title"
-                                            InputProps={{ autoComplete: 'off' }}
-                                            maxLength={MAX_NODE_INPUT_SIZE}
-                                            required
-                                        />
-                                    </Box>
+            <DialogContent>
+                <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
+                    {({ handleSubmit }) => (
+                        <form className="h-100" onSubmit={handleSubmit}>
+                            <Box display="flex" alignItems="center">
+                                <Field
+                                    fullWidth
+                                    name="title"
+                                    label="Title"
+                                    InputProps={{ autoComplete: 'off' }}
+                                    maxLength={MAX_NODE_INPUT_SIZE}
+                                    required
+                                />
+                            </Box>
 
-                                    <Button
-                                        className="SubmitButtonBig"
-                                        size="small"
-                                        color="button"
-                                        type="submit"
-                                        disabled={loading}
-                                        variant="contained"
-                                        disableElevation
-                                        startIcon={
-                                            loading
-                                                ? <CircularProgress size={20} />
-                                                : <FontAwesomeIcon icon={faCodeCommit} />
-                                        }
-                                    >
-                                        <Typography variant="subtitle1">
-                                            Create
-                                        </Typography>
-                                    </Button>
-                                </form>
-                            )}
-                        </Form>
-                    </DialogContent>
-                )
-            }
+                            <Button
+                                className="SubmitButtonBig"
+                                size="small"
+                                color="button"
+                                type="submit"
+                                disabled={loading}
+                                variant="contained"
+                                disableElevation
+                                startIcon={
+                                    loading
+                                        ? <CircularProgress size={20} />
+                                        : <FontAwesomeIcon icon={faCodeCommit} />
+                                }
+                            >
+                                <Typography variant="subtitle1">
+                                    Create
+                                </Typography>
+                            </Button>
+                        </form>
+                    )}
+                </Form>
+            </DialogContent>
         </Dialog>
     );
 }

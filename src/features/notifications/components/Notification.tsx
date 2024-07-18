@@ -7,8 +7,10 @@ import { SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
 import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectNotification } from '../notifications.selectors';
 import { NotificationType } from '../notifications.types';
-import { faCalendarUsers, faComments } from '@fortawesome/pro-regular-svg-icons';
-import { faCodePullRequest, faCodeMerge } from '@fortawesome/pro-solid-svg-icons';
+import { faCalendarUsers } from '@fortawesome/pro-light-svg-icons';
+import {
+    faCodePullRequest, faComments, faCodeMerge,
+} from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
@@ -74,7 +76,7 @@ export default function Notification({ id, onClose }: NotificationProps) {
         case NotificationType.MergeContributionRequest:
             return 'merge.main';
         case NotificationType.NewComment:
-            return 'primary.main';
+            return 'toolbar.blue';
         case NotificationType.NewInvitation:
             return 'toolbar.green';
         default:

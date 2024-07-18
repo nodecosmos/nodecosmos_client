@@ -3,12 +3,9 @@ import Loader from '../../../../../common/components/Loader';
 import SimpleAlert from '../../../../../common/components/SimpleAlert';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useDescriptionEdit from '../../../../descriptions/hooks/useDescriptionEdit';
-import { useIsAuthorized } from '../../../../nodes/hooks/node/useAuthorizeNodeAction';
-import { selectCurrentUser } from '../../../../users/users.selectors';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
-import { useSelector } from 'react-redux';
 
 const RemirrorEditor = React.lazy(
     () => import('../../../../../common/components/editor/RemirrorEditor'),
@@ -28,32 +25,11 @@ export default function PaneDescriptionEditor() {
         markdown,
         base64,
     } = useDescriptionEdit();
-    const isAuthorized = useIsAuthorized();
-    const currentUser = useSelector(selectCurrentUser);
 
     if (isMerged) {
         return (
             <Box m={2}>
                 <SimpleAlert severity="warning" message="This node has been merged and cannot be edited." />
-            </Box>
-        );
-    }
-
-    if (!isAuthorized) {
-        let message = 'You do not have permission to edit this node.';
-
-        if (currentUser) {
-            message += ' If you wish to suggest changes, please submit a Contribution Request.';
-        } else {
-            message += ' Please log in to edit this node.';
-        }
-
-        return (
-            <Box m={2}>
-                <SimpleAlert
-                    severity="warning"
-                    message={message}
-                />
             </Box>
         );
     }

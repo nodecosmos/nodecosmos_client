@@ -118,7 +118,7 @@ export default function ReorderIndicator() {
                 markerEnd="url(#head)"
                 className="InputLink"
                 stroke={color}
-                fill="none"
+                fill="transparent"
                 strokeWidth={2}
                 d={pathD}
                 style={PATH_STYLE}
