@@ -20,7 +20,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                     </Box>
                 )}
                 subheader={(
-                    <Box ml={2}>
+                    <Box ml={0.5}>
                         <Box display="flex" alignItems="center">
                             <Link component={RouterLink} to={`/${node.owner.username}`}>
                                 <Typography variant="h6" color="text.primary" fontWeight="bold">
