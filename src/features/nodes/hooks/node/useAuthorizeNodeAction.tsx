@@ -2,7 +2,7 @@ import { setAlert } from '../../../app/appSlice';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { selectCurrentUser } from '../../../users/users.selectors';
 import { selectNode } from '../../nodes.selectors';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useAuthorizeNodeAction(): () => boolean {
@@ -32,14 +32,14 @@ export default function useAuthorizeNodeAction(): () => boolean {
 
         if (!currentUser || !(canEditNode || canEditBranch)) {
             let message = `You do not have permission to edit this 
-                           ${isContributionRequest ? '<b>Contribution Request</b>' : '<b>Node</b>'}. `;
+                           ${isContributionRequest ? '<b>Contribution Request</b>' : 'Node'}. `;
 
             if (!currentUser) {
-                message += 'Please sign in to edit nodes or to submit a <b>Contribution Request</b>.';
+                message += 'Please sign in to edit nodes.';
             }
             else if (isContributionRequest || isBranch) {
                 message += `You can request author to add you as 
-                            <b>editor</b> to node or submit your own Contribution Request.`;
+                            <b>contributor</b> or submit your own Contribution Request.`;
             }
             else {
                 message += 'If you wish to suggest changes, please submit a Contribution Request.';
@@ -59,24 +59,4 @@ export default function useAuthorizeNodeAction(): () => boolean {
         branchEditors, branchOwnerId, currentUser, dispatch, isBranch, isContributionRequest, isMerged,
         node?.editorIds, node?.ownerId,
     ]);
-}
-
-export function useIsAuthorized(): boolean {
-    const {
-        nodeId, branchId, isBranch, ownerId: branchOwnerId, editorIds: branchEditors,
-    } = useBranchContext();
-    const node = useSelector(selectNode(branchId, nodeId));
-    const currentUser = useSelector(selectCurrentUser);
-
-    return useMemo(() => {
-        const canEditNode = !isBranch
-                && currentUser
-                && (node?.ownerId === currentUser.id || node?.editorIds?.has(currentUser.id));
-        const canEditBranch = isBranch
-                && currentUser
-                && (branchOwnerId === currentUser.id || branchEditors?.has(currentUser.id));
-
-        return !(!currentUser || !(canEditNode || canEditBranch));
-    },
-    [branchEditors, branchOwnerId, currentUser, isBranch, node?.editorIds, node?.ownerId]);
 }

@@ -35,7 +35,7 @@ const theme: NodecosmosTheme = {
 
     palette: {
         primary: {
-            main: '#a7ff87',
+            main: '#9edf5c',
             contrastText: 'rgba(0, 0, 0, 0.7)',
         },
 
@@ -82,21 +82,21 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#1c1c1e',
-            2: '#2b2e36',
+            1: '#2a2d35',
+            2: '#24272e',
             3: '#282c34',
             4: '#464b59',
             5: '#636a80',
         },
 
         background: {
-            1: '#111112',
-            2: '#131314',
-            3: '#232526',
+            1: '#14161a',
+            2: '#1c1e22',
+            3: '#202128',
             4: '#272831',
-            5: '#1e1f20',
-            6: '#1d1e25',
-            7: '#1e202a',
+            5: '#191b20',
+            6: '#202128',
+            7: '#222430',
             8: '#4d4e55',
 
             hover: '#316dca',
@@ -129,37 +129,37 @@ const theme: NodecosmosTheme = {
             yellow: '#ded65f',
             orange: '#edb96d',
             hover: 'rgba(57,71,81,0.53)',
-            active: 'rgba(57,65,81,0.53)',
+            active: 'rgba(57,71,81,0.53)',
             default: '#4e5a62',
             breadcrumbs: '#6a7983',
         },
 
         tree: {
-            default: '#272b31',
+            default: '#2d3138',
             backgrounds: [
                 {
-                    fg: '#e15065',
-                    bg: '#1f0d16',
+                    fg: '#e7465d',
+                    bg: '#2d2227',
                 },
                 {
                     fg: '#b4a1ff',
-                    bg: '#1b1c23',
+                    bg: '#262732',
                 },
                 {
                     fg: '#65a9ff',
-                    bg: '#151b1f',
+                    bg: '#222932',
                 },
                 {
-                    fg: '#89bd60',
-                    bg: '#1a1f1a',
+                    fg: '#9bdf64',
+                    bg: '#262d26',
                 },
                 {
-                    fg: '#b5bd36',
-                    bg: '#202319',
+                    fg: '#d4df33',
+                    bg: '#292c20',
                 },
                 {
-                    fg: '#cca859',
-                    bg: '#25231a',
+                    fg: '#efbd51',
+                    bg: '#2b281f',
                 },
             ],
             defaultText: '#ebe7e7',
@@ -183,7 +183,7 @@ const theme: NodecosmosTheme = {
         },
 
         markdownContent: {
-            canvas: '#222633',
+            canvas: '#18202d',
             canvasBorder: '#335faa',
             background: 'transparent',
         },
@@ -232,13 +232,13 @@ const theme: NodecosmosTheme = {
         },
 
         logo: {
-            blue: '#2abfff',
-            red: '#e63a69',
+            blue: '#2adfff',
+            red: '#e91e63',
         },
 
         text: {
             primary: '#ebe7e7',
-            secondary: '#e3e3e3',
+            secondary: '#b3b9c7',
             tertiary: '#747982',
             disabled: '#5c616b',
             contrast: '#fff',

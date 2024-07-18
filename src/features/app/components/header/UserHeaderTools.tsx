@@ -3,6 +3,7 @@ import ToolbarContainer from '../../../../common/components/toolbar/ToolbarConta
 import NotificationsButton from '../../../notifications/components/NotificationsButton';
 import { REDIRECT_Q } from '../../../users/components/LoginForm';
 import { selectIsAuthenticated } from '../../../users/users.selectors';
+import useIsMobile from '../../hooks/useIsMobile';
 import {
     Box,
     Button, Tooltip,
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 export default function UserHeaderTools() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
+    const isMobile = useIsMobile();
 
     if (isAuthenticated) {
         return (
@@ -33,19 +35,20 @@ export default function UserHeaderTools() {
             <Button
                 component={Link}
                 color="primary"
+                sx={{ mr: 1 }}
                 to={`/auth/login?${REDIRECT_Q}=${btoa(window.location.href)}`}
             >
                 Log in
             </Button>
-            <Button
-                className="nowrap ml-1"
-                variant="outlined"
-                component={Link}
-                color="primary"
-                to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
-            >
-                Sign up
-            </Button>
+            {!isMobile && (
+                <Button
+                    component={Link}
+                    color="primary"
+                    to={`/auth/signup?${REDIRECT_Q}=${btoa(window.location.href)}`}
+                >
+                    Sign up
+                </Button>
+            )}
         </Box>
     );
 }

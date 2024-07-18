@@ -3,15 +3,14 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import { NodecosmosDispatch } from '../../../../store';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
-import { selectCurrentUser } from '../../../users/users.selectors';
 import { updateState } from '../../nodes.actions';
 import { maybeSelectNode } from '../../nodes.selectors';
 import { faCamera } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, CardMedia } from '@mui/material';
-import React, {
-    Suspense, useCallback, useMemo,
-} from 'react';
+import {
+    Box, Button, CardMedia,
+} from '@mui/material';
+import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
@@ -19,10 +18,7 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, objectId } = usePaneContext();
-    const {
-        isBranch, branchId, nodeId, 
-    } = useBranchContext();
-    const root = useSelector(maybeSelectNode(branchId, nodeId));
+    const { isBranch, branchId } = useBranchContext();
 
     if (!branchId) {
         throw new Error('`branchId` is required in `metadata`');
@@ -42,14 +38,6 @@ export default function NodePaneCoverImage() {
             }));
         }
     }, [closeModal, branchId, dispatch, objectId]);
-    const currentUser = useSelector(selectCurrentUser);
-
-    const isAuthorized = useMemo(() => {
-        const isOwner = root?.ownerId === currentUser?.id;
-        const isEditor = currentUser && root?.editorIds?.has(currentUser?.id);
-
-        return isOwner || isEditor;
-    }, [currentUser, root]);
 
     if (!node) {
         return null;
@@ -71,11 +59,7 @@ export default function NodePaneCoverImage() {
                             alt="Cover Image Ambient"
                         />
                         <div className="CoverImage" onMouseOver={displayButton} onMouseLeave={hideButton}>
-                            {
-                                !isBranch && isAuthorized && (
-                                    <DeleteCoverImageButton show={buttonDisplayed} />
-                                )
-                            }
+                            <DeleteCoverImageButton show={buttonDisplayed} />
                             <CardMedia
                                 className="CoverImageMedia"
                                 component="img"
@@ -83,7 +67,7 @@ export default function NodePaneCoverImage() {
                                 alt="Cover Image"
                             />
                             {
-                                !isBranch && isAuthorized && (
+                                !isBranch && (
                                     <Button
                                         className="CoverImageUploadButton"
                                         component="label"
@@ -101,17 +85,19 @@ export default function NodePaneCoverImage() {
                 </>
             )}
 
-            {!coverImageUrl && !isTmp && !isBranch && isAuthorized && (
+            {!coverImageUrl && !isTmp && !isBranch && (
                 <div className="CoverImageButtonContainer">
-                    <Button
-                        component="label"
-                        variant="outlined"
-                        startIcon={<FontAwesomeIcon icon={faCamera} />}
-                        onClick={openModal}
-                        color="buttonContrast"
-                    >
+                    <Box width={850}>
+                        <Button
+                            component="label"
+                            variant="outlined"
+                            startIcon={<FontAwesomeIcon icon={faCamera} />}
+                            onClick={openModal}
+                            color="buttonContrast"
+                        >
                             Cover Image
-                    </Button>
+                        </Button>
+                    </Box>
                 </div>
             )}
 

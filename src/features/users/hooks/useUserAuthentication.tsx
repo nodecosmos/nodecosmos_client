@@ -11,21 +11,6 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-async function validateCaptcha(): Promise<string> {
-    return new Promise((res) => {
-        // @ts-expect-error grecaptcha is a global variable
-        grecaptcha.ready(() => {
-            // @ts-expect-error grecaptcha is a global variable
-            grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: 'submit' })
-                .then((token: string) => res(token))
-                .catch((error: Error) => {
-                    console.error('Error executing reCAPTCHA:', error);
-                    throw error;
-                });
-        });
-    });
-}
-
 export default function useUserAuthentication() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,37 +21,10 @@ export default function useUserAuthentication() {
 
     const handleLogin = useCallback(async (formValues: LoginForm) => {
         setLoading();
-
-        let response;
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
-            try {
-                const rToken = await validateCaptcha();
-
-                // Dispatch the login action with the token
-                response = await dispatch(logIn({
-                    ...formValues,
-                    rToken,
-                }));
-            } catch (error) {
-                unsetLoading();
-
-                console.error('Error retrieving reCAPTCHA token:', error);
-                dispatch(setAlert({
-                    isOpen: true,
-                    severity: 'error',
-                    message: 'Something went wrong. Please try again later.',
-                    duration: 5000,
-                }));
-                return;
-            }
-        } else {
-            response = await dispatch(logIn(formValues));
-        }
+        const response = await dispatch(logIn(formValues));
 
         if (response.meta.requestStatus === 'rejected') {
             const error: NodecosmosError = response.payload as NodecosmosError;
-
-            unsetLoading();
 
             if (error.status === 404) {
                 dispatch(setAlert({
@@ -85,7 +43,7 @@ export default function useUserAuthentication() {
             const path = url.pathname + url.search;
             navigate(path);
         } else {
-            navigate('/');
+            navigate('/nodes');
         }
 
         setTimeout(() => dispatch(setAlert({
@@ -104,40 +62,13 @@ export default function useUserAuthentication() {
 
     const handleUserCreation = useCallback(async (formValues: UserCreateForm) => {
         setLoading();
-
-        let response;
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
-            try {
-                const rToken = await validateCaptcha();
-
-                // Dispatch the login action with the token
-                response = await dispatch(create({
-                    token,
-                    rToken,
-                    ...formValues,
-                }));
-            } catch (error) {
-                unsetLoading();
-
-                console.error('Error retrieving reCAPTCHA token:', error);
-                dispatch(setAlert({
-                    isOpen: true,
-                    severity: 'error',
-                    message: 'Something went wrong. Please try again later.',
-                    duration: 5000,
-                }));
-                return;
-            }
-        } else {
-            response = await dispatch(create({
-                token,
-                ...formValues,
-            }));
-        }
+        const response = await dispatch(create({
+            token,
+            ...formValues,
+        }));
 
         if (response.meta.requestStatus === 'rejected') {
             const error: NodecosmosError = response.payload as NodecosmosError;
-            unsetLoading();
 
             return error.message; // maps error object to final-form submitError
         }

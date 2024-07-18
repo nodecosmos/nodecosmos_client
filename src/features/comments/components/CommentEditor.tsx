@@ -56,7 +56,6 @@ export type AddDescriptionCommentProps = CreateCommentProps & {
     withThreadBlock?: boolean;
     autoFocus?: boolean;
     info?: string;
-    url?: string;
 };
 
 const {
@@ -78,7 +77,7 @@ const ENABLED_EXTENSIONS: EnabledExtensions[] = [
 
 export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
-        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info, url,
+        newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>(comment?.content || '');
@@ -122,7 +121,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                         objectId: threadPk.objectId,
                         threadId: threadPk.id,
                         content,
-                        url: url ?? window.location.href,
+                        url: window.location.href,
                     },
                 };
             } else if (newThread) {
@@ -154,7 +153,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                     newThread,
                     comment: {
                         content,
-                        url: url ?? window.location.href,
+                        url: window.location.href,
                     },
                 };
             } else {
@@ -187,7 +186,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
         }
     }, [
         setLoading, comment, content, dispatch, onClose, unsetLoading,
-        threadPk, newThread, handleServerError, clearContent, url,
+        threadPk, newThread, handleServerError, clearContent,
     ]);
 
     const handleCancel = useCallback(() => {
@@ -201,17 +200,11 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     if (!currentUser) {
         return (
             <Box
-                className={`${withThreadBlock ? 'background-1' : 'background-0'}`}
+                sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
                 display="flex"
+                height={30}
                 width={1}
-                gap={1}
-                p={2}
-                border={withThreadBlock ? 1 : 0}
-                borderColor="borders.4"
-                fontWeight={700}
-                color="text.secondary"
-                alignItems="center"
-            >
+                gap={1}>
                 <Button
                     variant="outlined"
                     component={RouterLink}

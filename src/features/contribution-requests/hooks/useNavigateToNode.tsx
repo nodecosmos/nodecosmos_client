@@ -1,6 +1,6 @@
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
-import { useSelectObject } from '../../app/hooks/useSelectObject';
+import useAppContext from '../../app/hooks/useAppContext';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import {
     select, selectNodeFromParams, setNodeScrollTo,
@@ -16,7 +16,7 @@ export default function useNavigateToNode(id: UUID) {
     } = useBranchContext();
     const node = useSelector(selectNode(branchId, id));
     const navigate = useNavigate();
-    const selectObject = useSelectObject();
+    const { selectObject } = useAppContext();
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback(() => {

@@ -70,7 +70,6 @@ const flowStepsSlice = createSlice({
                         const createdNodeInputs = createdDiff[nodeId];
 
                         createdNodeInputs.forEach((inputId: UUID) => {
-                            state.byBranchId[branchId][flowStep.id].inputIdsByNodeId ||= {};
                             state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId] ||= [];
 
                             if (!state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId].includes(inputId)) {
@@ -84,14 +83,13 @@ const flowStepsSlice = createSlice({
                         const currentNodeInputs = state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId];
                         const originalNodeInputs = state.byBranchId[rootId]?.[flowStep.id]?.inputIdsByNodeId?.[nodeId];
 
-                        if (!currentNodeInputs) return;
+                        if (!currentNodeInputs || !originalNodeInputs) return;
 
                         // remove inputs from state that were created in the branch
                         // leave inputs that are present in original node inputs as they will be marked as removed in ui
                         state.byBranchId[branchId][flowStep.id].inputIdsByNodeId[nodeId] = currentNodeInputs.filter(
                             (inputId) => {
-                                return !removedNodeInputs.includes(inputId)
-                                    || (originalNodeInputs && originalNodeInputs.includes(inputId));
+                                return !removedNodeInputs.includes(inputId) || originalNodeInputs.includes(inputId);
                             },
                         );
                     });

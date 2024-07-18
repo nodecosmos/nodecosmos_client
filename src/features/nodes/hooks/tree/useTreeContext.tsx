@@ -15,7 +15,7 @@ import {
 import { selectDensity, selectShowAncestorChain } from '../../nodes.selectors';
 import { TreeDensity, TreeType } from '../../nodes.types';
 import {
-    createContext, useContext, useMemo,
+    createContext, useContext, useEffect, useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -65,6 +65,8 @@ export interface TreeNodes {
     [key: UUID]: TreeNode;
 }
 
+const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
+
 const NODE_SIZE = {
     [TreeDensity.Default]: {
         height: NODE_BUTTON_HEIGHT,
@@ -88,9 +90,7 @@ const NODE_SIZE = {
     },
 };
 
-export const TreeContext = createContext<TreeContextValue>({ } as TreeContextValue);
-
-export function useTreeContextValue(props: TreeProps) {
+export function useTreeContextCreator(props: TreeProps) {
     const {
         rootId,
         branchId,
@@ -105,10 +105,12 @@ export function useTreeContextValue(props: TreeProps) {
         return NODE_SIZE[treeDensity];
     }, [treeDensity]);
 
+    // build tree
     const {
         treeNodes,
         orderedTreeNodeIds,
         setTreeNodes,
+        buildTree,
     } = useTreeBuilder({
         treeRootId: rootId,
         branchId,
@@ -116,22 +118,33 @@ export function useTreeContextValue(props: TreeProps) {
         size,
     });
 
-    return useMemo(() => ({
-        branchId,
-        rootId,
-        type,
-        selectedNodeIds,
-        treeNodes,
-        orderedTreeNodeIds,
-        onChange,
-        setTreeNodes,
-        size,
-        showAncestorChain,
-    }),
-    [
-        orderedTreeNodeIds, rootId, selectedNodeIds, branchId, treeNodes, type,
-        onChange, setTreeNodes, size, showAncestorChain,
-    ]);
+    useEffect(() => {
+        buildTree();
+    }, [buildTree]);
+
+    const ctxValue = useMemo(
+        () => ({
+            branchId,
+            rootId,
+            type,
+            selectedNodeIds,
+            treeNodes,
+            orderedTreeNodeIds,
+            onChange,
+            setTreeNodes,
+            size,
+            showAncestorChain,
+        }),
+        [
+            orderedTreeNodeIds, rootId, selectedNodeIds, branchId, treeNodes, type,
+            onChange, setTreeNodes, size, showAncestorChain,
+        ],
+    );
+
+    return {
+        TreeContext,
+        ctxValue,
+    };
 }
 
 export default function useTreeContext() {

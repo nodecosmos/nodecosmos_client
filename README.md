@@ -16,6 +16,14 @@
        *  **featureSlice.js** - state management for feature
 *  **pages** - Each route has associated page. Nested routes are handled with reactrouter `<Outlet />`
 
+### Material-UI Recommendations:
+
+* Use inline-styles for dynamic styling.
+* Use SX prop for static styles. However, If component has many nested elements, define `sx` 
+with classes in parent container component, and be careful so that styled container is never re-rendered 
+on nested element change. We do this so emotion does not need to recompute styles on every render.
+
+
 ### GIT Workflow Recommendations:
 
 1) Create a new branch for each modification.
@@ -37,7 +45,8 @@
      * **deploy**: changes to the deployment process or configuration
      * **security**: security-related changes or fixes
 3) Once you're ready to merge your changes into the main codebase, create a pull request and have your changes reviewed by other members of your team.
-4) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
-5) Once your pull request has been approved, merge your changes into the main codebase.
-6) Finally, delete your branch to keep your repository clean and organized.
+4) If there are any issues identified during the review process, make changes to your code and commit those changes to your branch.
+5) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
+6) Once your pull request has been approved, merge your changes into the main codebase.
+7) Finally, delete your branch to keep your repository clean and organized.
 

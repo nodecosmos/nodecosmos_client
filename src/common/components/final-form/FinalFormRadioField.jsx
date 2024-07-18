@@ -1,37 +1,27 @@
 import {
-    FormControlLabel, Radio, RadioGroup,
+    FormControlLabel, Radio, RadioGroup, 
 } from '@mui/material';
+import * as PropTypes from 'prop-types';
 import React from 'react';
 import { Field } from 'react-final-form';
 /* mui */
 
-interface Props {
-    name: string;
-    values: string[];
-    labels?: string[];
-    defaultValue?: string;
-    disabled?: boolean[];
-}
-
-const FIELD_SUBSCRIPTION = {
-    touched: true,
-    error: true,
-    value: true,
-    submitError: true,
-    dirtySinceLastSubmit: true,
-};
-
-export default function FinalFormRadioField(props: Props) {
+function FinalFormRadioField(props) {
     const {
-        name, defaultValue = null, values, labels = null, disabled = [],
-
+        name, defaultValue, values, labels, 
     } = props;
 
     return (
         <Field
             name={name}
             type="radio"
-            subscription={FIELD_SUBSCRIPTION}
+            subscription={{
+                touched: true,
+                error: true,
+                value: true,
+                submitError: true,
+                dirtySinceLastSubmit: true,
+            }}
         >
             {({ input }) => (
                 <RadioGroup
@@ -43,7 +33,6 @@ export default function FinalFormRadioField(props: Props) {
                 >
                     {values.map((value, index) => (
                         <FormControlLabel
-                            disabled={disabled[index]}
                             key={value}
                             value={value}
                             control={<Radio color="primary" />}
@@ -55,3 +44,17 @@ export default function FinalFormRadioField(props: Props) {
         </Field>
     );
 }
+
+FinalFormRadioField.defaultProps = {
+    defaultValue: null,
+    labels: null,
+};
+
+FinalFormRadioField.propTypes = {
+    name: PropTypes.string.isRequired,
+    values: PropTypes.array.isRequired,
+    labels: PropTypes.array,
+    defaultValue: PropTypes.string,
+};
+
+export default FinalFormRadioField;

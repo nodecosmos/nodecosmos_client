@@ -30,7 +30,9 @@ export default (theme: NodecosmosTheme) => ({
         },
         '.CardHeader': {
             padding: 24,
+            paddingRight: 0,
             marginRight: 0,
+            '& .MuiCardHeader-avatar': { marginRight: 0 },
             '.Link': { '&:hover h6': { color: theme.palette.text.link } },
             zIndex: 1,
         },
@@ -55,8 +57,8 @@ export default (theme: NodecosmosTheme) => ({
             display: 'flex',
             alignItems: 'center',
             '& .MuiChip-root': {
-                marginLeft: 12,
-                height: 26,
+                marginLeft: 16,
+                height: 24,
                 fontSize: 12,
                 backgroundColor: withOpacity(theme.palette.primary.main, 0.05),
             },

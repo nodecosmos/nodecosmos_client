@@ -2,11 +2,11 @@ import MobileSidebar from './sidebar/MobileSidebar';
 import Sidebar from './sidebar/Sidebar';
 import Loader from '../../../common/components/Loader';
 import { NodecosmosDispatch } from '../../../store';
-import { ObjectType, UUID } from '../../../types';
+import { UUID } from '../../../types';
 import {
     DISPLAY_MD_SX, SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX,
 } from '../../app/constants';
-import { SELECTED_OBJ_Q, useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
+import { useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import useNodeSSE from '../hooks/sse/useNodeSSE';
 import { maybeSelectNode } from '../nodes.selectors';
@@ -15,28 +15,25 @@ import { Box } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Outlet, useNavigate, useSearchParams,
+    Outlet, useNavigate, useParams, useSearchParams,
 } from 'react-router-dom';
-
-const decodeSelectedObjQ = (params: URLSearchParams) => {
-    const data = params.get(SELECTED_OBJ_Q);
-    return data ? JSON.parse(atob(data)) : null;
-};
 
 export default function NodeShowContent() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
+    const { id } = useParams();
     const {
-        originalId, branchId, isBranch, isBranchQ, nodeId: id,
+        originalId, branchId, isBranch,
     } = useBranchContext();
     if (!id) {
         navigate('/404');
     }
     const originalNode = useSelector(maybeSelectNode(originalId, id as UUID));
     const branchNode = useSelector(maybeSelectNode(branchId, id as UUID));
-    const [searchParams] = useSearchParams();
 
     useNodeSSE(originalNode?.rootId);
+
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         if (!id) {
@@ -44,23 +41,9 @@ export default function NodeShowContent() {
         }
 
         if (!originalNode) {
-            let selectNodeFromParams;
-
-            if (!isBranch) {
-                const selectedData = decodeSelectedObjQ(searchParams);
-                if (selectedData
-                    && selectedData.objectType === ObjectType.Node && selectedData.branchId == originalId) {
-                    selectNodeFromParams = {
-                        branchId: selectedData.branchId,
-                        id: selectedData.objectId,
-                    };
-                }
-            }
-
             dispatch(showNode({
                 branchId: originalId,
                 id,
-                selectNodeFromParams,
             })).then((response) => {
                 if (!isBranch) {
                     if (response.meta.requestStatus === 'rejected') {
@@ -72,45 +55,40 @@ export default function NodeShowContent() {
                 }
             });
         }
-        // no need for searchParams as we only select from params on initial render
-        // eslint-disable-next-line
     }, [dispatch, id, isBranch, navigate, originalId, originalNode]);
+
+    const isBranchQ = searchParams.get('isBranchQ');
+    const originalIdQ = searchParams.get('originalIdQ');
 
     useEffect(() => {
         if ((isBranch || isBranchQ) && !branchNode) {
-            const selectedData = decodeSelectedObjQ(searchParams);
-            let selectNodeFromParams;
-
-            if (selectedData && selectedData.objectType === ObjectType.Node && selectedData.branchId != originalId) {
-                selectNodeFromParams = {
-                    branchId: selectedData.branchId,
-                    id: selectedData.objectId,
-                };
-            }
-
             dispatch(showBranchNode({
                 branchId,
                 id: id as UUID,
-                originalId,
-                selectNodeFromParams,
+                originalId: originalIdQ,
             }));
         }
-        // no need for searchParams as we only select from params on initial render
-        // eslint-disable-next-line
-    }, [branchId, branchNode, dispatch, id, isBranch, isBranchQ, originalId]);
+    }, [branchId, branchNode, dispatch, id, isBranch, isBranchQ, originalIdQ]);
 
     const expandedNodesFromParams = useRef<boolean>(false);
     const selectObjectFromParams = useSelectObjectFromParams();
 
-    const loading = (!isBranch && !originalNode) || (isBranch && !branchNode);
-
     useEffect(() => {
         if (expandedNodesFromParams.current) return;
-        if (loading) return;
+        if (!isBranch && !originalNode) return;
+        if (isBranch && !branchNode) return;
 
         selectObjectFromParams();
         expandedNodesFromParams.current = true;
-    }, [loading, selectObjectFromParams]);
+    }, [branchNode, isBranch, originalNode, selectObjectFromParams]);
+
+    if (!isBranch && !originalNode) {
+        return <Loader />;
+    }
+
+    if (isBranch && !branchNode) {
+        return <Loader />;
+    }
 
     return (
         <Box height={1} display="flex">
@@ -125,9 +103,7 @@ export default function NodeShowContent() {
             </Box>
             <MobileSidebar />
             <Box width={MD_WO_SIDEBAR_WIDTH_SX}>
-                {
-                    loading ? <Loader /> : <Outlet />
-                }
+                <Outlet />
             </Box>
         </Box>
     );

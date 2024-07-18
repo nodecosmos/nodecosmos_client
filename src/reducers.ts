@@ -5,6 +5,8 @@ import contributionRequestSlice from './features/contribution-requests/contribut
 import descriptionsSlice from './features/descriptions/descriptionsSlice';
 import flowStepsSlice from './features/flow-steps/flowStepsSlice';
 import flowsSlice from './features/flows/flowsSlice';
+import homeSlice from './features/home/homeSlice';
+import landingPageNodeSlice from './features/home-tree/landingPageNodeSlice';
 import inputOutputsSlice from './features/input-outputs/inputOutputsSlice';
 import invitationsSlice from './features/invitations/invitationsSlice';
 import likesSlice from './features/likes/likesSlice';
@@ -17,6 +19,8 @@ import { combineReducers } from '@reduxjs/toolkit';
 export default combineReducers({
     app: appSlice,
     nodes: nodesSlice,
+    landingPageNodes: landingPageNodeSlice,
+    home: homeSlice,
     likes: likesSlice,
     workflows: workflowsSlice,
     flows: flowsSlice,

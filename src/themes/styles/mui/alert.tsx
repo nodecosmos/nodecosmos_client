@@ -1,5 +1,4 @@
 import { NodecosmosTheme } from '../../themes.types';
-import utils from '../utils';
 
 export default (theme: NodecosmosTheme) => ({
     MuiAlert: {
@@ -9,7 +8,7 @@ export default (theme: NodecosmosTheme) => ({
                 width: '100%',
                 backgroundColor: theme.palette.background[5],
                 alignItems: 'center',
-                ...utils(theme),
+                margin: 8,
 
                 '.MuiAlert-action': {
                     padding: 0,

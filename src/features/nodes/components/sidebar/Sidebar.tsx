@@ -26,32 +26,19 @@ import {
     List, Box, useTheme, Tooltip,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 interface Props {
     handleClose?: () => void;
 }
 
-const POPPER_PROPS = {
-    className: 'TooltipElement',
-    sx: { p: 0 },
-};
-
-const COMPONENTS_PROPS = { tooltip: { sx: { p: 0 } } };
-
 export default function Sidebar({ handleClose }: Props) {
     const {
-        originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId, title, isBranchQ,
+        originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId, title,
     } = useBranchContext();
     const theme: NodecosmosTheme = useTheme();
     const toOrgId = isContributionRequest ? originalId : branchId;
     const toPath = `${toOrgId}/${nodeId}`;
-    const pathParams = isBranchQ ? `?isBranchQ=${isBranchQ}&originalIdQ${originalId}` : '';
-    const sx = useMemo(() => ({
-        px: 1,
-        pt: isBranch && !isContributionRequest ? 0 : 1,
-        mt: '-1px',
-    }), [isBranch, isContributionRequest]);
 
     return (
         <Box
@@ -61,14 +48,21 @@ export default function Sidebar({ handleClose }: Props) {
             flexDirection="column"
             mt={HEADER_HEIGHT}
         >
-            <List sx={sx}>
+            <List sx={{
+                px: 1,
+                pt: isBranch && !isContributionRequest ? 0 : 1,
+                mt: '-1px',
+            }}>
                 {
                     (isBranch && title && !isContributionRequest && branchNodeId) && (
                         <>
                             <Box pb={1} mb={1} mx={-1} borderTop={1} borderBottom={1} borderColor="borders.3">
                                 <Tooltip
-                                    componentsProps={COMPONENTS_PROPS}
-                                    PopperProps={POPPER_PROPS}
+                                    componentsProps={{ tooltip: { sx: { p: 0 } } }}
+                                    PopperProps={{
+                                        className: 'TooltipElement',
+                                        sx: { p: 0 },
+                                    }}
                                     placement="right"
                                     title={<CrTooltip />}>
                                     <Typography
@@ -101,15 +95,15 @@ export default function Sidebar({ handleClose }: Props) {
                 }
                 <SidebarListItem
                     onClick={handleClose}
-                    to={toPath + pathParams}
+                    to={toPath}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHashtagSolid} />)}
                     title="Node"
-                    end
                 />
                 <SidebarListItem
                     onClick={handleClose}
-                    to={`${toPath}/workflow${pathParams}`}
+                    to={`${toPath}/workflow`}
+                    flip
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                     title="Workflow"

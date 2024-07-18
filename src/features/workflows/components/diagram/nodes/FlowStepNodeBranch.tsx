@@ -27,7 +27,8 @@ export default function FlowStepNodeBranch() {
         <g>
             <path
                 strokeWidth={3}
-                d={`M ${x} ${y} L ${xEnd - EDGE_LENGTH} ${y}`}
+                d={`M ${x} ${y}
+                    L ${xEnd - EDGE_LENGTH} ${y}`}
                 stroke={theme.palette.workflow.default}
                 fill="transparent"
                 style={{

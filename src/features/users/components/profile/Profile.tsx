@@ -1,3 +1,4 @@
+import Bio from './Bio';
 import ImageUpload from './ImageUpload';
 import Alert from '../../../../common/components/Alert';
 import NcAvatar from '../../../../common/components/NcAvatar';
@@ -9,16 +10,11 @@ import { selectCurrentUser } from '../../users.selectors';
 import { faMailReply } from '@fortawesome/pro-thin-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, Button, Container, Tab, Tabs, Typography, Link as MuiLink,
+    Box, Button, Container, Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, {
-    useCallback, useEffect, useState,
-} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-    Link, Outlet, useLocation,
-} from 'react-router-dom';
 
 export default function Profile() {
     const user = useProfileUser();
@@ -26,17 +22,6 @@ export default function Profile() {
     const isCurrentUser = currentUser && user && currentUser.id === user.id;
     const [hovered, hover, unhover] = useBooleanStateValue();
     const { loading, handleResendConfirmationEmail } = useProfileConfirmation();
-    const [currentPage, setCurrentPage] = useState(0);
-    const handleTabChange = useCallback((_: React.SyntheticEvent, value: number) => setCurrentPage(value), []);
-    const location = useLocation();
-
-    useEffect(() => {
-        if (location.pathname.includes('nodes')) {
-            setCurrentPage(1);
-        } else {
-            setCurrentPage(0);
-        }
-    }, [location.pathname]);
 
     if (!user) {
         return null;
@@ -129,31 +114,7 @@ export default function Profile() {
 
                 </Box>
             </Box>
-            <Box mt={4}>
-                <Tabs
-                    value={currentPage}
-                    onChange={handleTabChange}
-                    centered
-                >
-                    <Tab
-                        component={Link}
-                        label="Bio"
-                        disableRipple
-                        LinkComponent={MuiLink}
-                        to=""
-                    />
-                    <Tab
-                        component={Link}
-                        label="Root Nodes"
-                        disableRipple
-                        LinkComponent={MuiLink}
-                        to="nodes"
-                    />
-                </Tabs>
-            </Box>
-            <Box textAlign="center" mt={3}>
-                <Outlet />
-            </Box>
+            <Bio />
         </Container>
     );
 }

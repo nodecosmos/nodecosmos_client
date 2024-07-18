@@ -8,7 +8,7 @@ import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { faComment } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function NodeCommentsBadge() {
@@ -17,12 +17,17 @@ export default function NodeCommentsBadge() {
     const threadId = useSelector(selectMainObjectThreadByObjectId(branchId, id));
     const length = useSelector(selectThreadCommentsLength(threadId));
     const { size } = useTreeContext();
+    const style = useMemo(() => ({
+        height: size.height,
+        marginLeft: 8,
+    }), [size.height]);
+
     if (!length) return null;
 
     return (
-        <div className={`ml-1 h-${size.height}`}>
+        <div style={style}>
             <Tooltip title="Comments" placement="top">
-                <div className="CountBadge position-relative">
+                <div className="CountBadge" style={{ position: 'relative' }}>
                     <FontAwesomeIcon icon={faComment} />
                     <span className="Count">{length}</span>
                 </div>
