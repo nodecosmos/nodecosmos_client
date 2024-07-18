@@ -23,6 +23,11 @@ interface UploadImageModalProps {
 }
 const PLUGINS = ['ImageEditor'];
 
+const DIALOG_PAPER_PROPS = {
+    elevation: 8,
+    sx: { borderRadius: 2.5 },
+};
+
 export default function UploadImageModal(props: UploadImageModalProps) {
     const {
         open, onClose, endpointPath, aspectRatio = 850 / 375,
@@ -124,6 +129,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             maxWidth="md"
             open={open}
             onClose={onModalClose}
+            PaperProps={DIALOG_PAPER_PROPS}
         >
             <div className="DialogHeader">
                 <div>

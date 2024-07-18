@@ -62,7 +62,7 @@ export default function Profile() {
                     onMouseOver={hover}
                     onMouseLeave={unhover}
                 >
-                    {hovered && <ImageUpload onModalClose={unhover} />}
+                    <ImageUpload hovered={hovered} onModalClose={unhover} />
                     <NcAvatar
                         size={200}
                         fontSize={69}

@@ -12,9 +12,10 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 
 interface UploadButtonProps {
     onModalClose: () => void;
+    hovered: boolean;
 }
 export default function ImageUpload(props: UploadButtonProps) {
-    const { onModalClose } = props;
+    const { onModalClose, hovered } = props;
     const username = useUsername();
     const user = useSelector(selectUser(username));
     const currentUser = useSelector(selectCurrentUser);
@@ -37,33 +38,38 @@ export default function ImageUpload(props: UploadButtonProps) {
     if (!user || currentUser?.id !== user.id) return null;
 
     return (
-        <Box
-            component="div"
-            position="absolute"
-            width={1}
-            height={1}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            zIndex={1}
-            bgcolor="background.2"
-            sx={{
-                opacity: 0,
-                transition: 'opacity 0.3s',
-                '&:hover': { opacity: 0.8 },
-            }}
-        >
-            <IconButton
-                color="secondary"
-                sx={{
-                    height: 1,
-                    width: 1,
-                    cursor: 'pointer',
-                }}
-                onClick={openModal}>
-                <FontAwesomeIcon size="2xl" icon={faCamera} />
-            </IconButton>
-
+        <>
+            {
+                hovered && (
+                    <Box
+                        component="div"
+                        position="absolute"
+                        width={1}
+                        height={1}
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        zIndex={1}
+                        bgcolor="background.2"
+                        sx={{
+                            opacity: 0,
+                            transition: 'opacity 0.3s',
+                            '&:hover': { opacity: 0.8 },
+                        }}
+                    >
+                        <IconButton
+                            color="secondary"
+                            sx={{
+                                height: 1,
+                                width: 1,
+                                cursor: 'pointer',
+                            }}
+                            onClick={openModal}>
+                            <FontAwesomeIcon size="2xl" icon={faCamera} />
+                        </IconButton>
+                    </Box>
+                )
+            }
             {modalOpen && (
                 <Suspense>
                     <UppyUploadImageModal
@@ -74,6 +80,6 @@ export default function ImageUpload(props: UploadButtonProps) {
                     />
                 </Suspense>
             )}
-        </Box>
+        </>
     );
 }
