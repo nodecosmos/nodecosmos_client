@@ -46,10 +46,10 @@ export default function New() {
         rootId,
         title,
         branchId,
-        objectId: branchId,
+        objectId: nodeId,
         objectType: ThreadObjectType.Thread,
         threadLocation: ThreadLocation.Thread,
-    }), [rootId, title, branchId]);
+    }), [rootId, title, branchId, nodeId]);
 
     return (
         <Box my={4}>

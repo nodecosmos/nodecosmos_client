@@ -46,6 +46,8 @@ export default function Alert(props: AlertProps) {
         right,
     }), [position, mb, right]);
 
+    const alertHTML = useMemo(() => ({ __html: message }), [message]);
+
     if (!isOpen) return null;
 
     return (
@@ -66,7 +68,7 @@ export default function Alert(props: AlertProps) {
                 <Typography
                     variant="body2"
                     color={`text.${severity}`}
-                    dangerouslySetInnerHTML={{ __html: message }}
+                    dangerouslySetInnerHTML={alertHTML}
                 />
             </MuiAlert>
         </Box>

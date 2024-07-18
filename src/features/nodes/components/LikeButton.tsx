@@ -13,7 +13,7 @@ import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox, Typography } from '@mui/material';
 import React, {
-    useCallback, useEffect, useMemo, 
+    useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,13 +21,14 @@ interface LikeButtonProps {
     id: UUID;
     objectType: LikeType;
     branchId?: UUID;
+    rootId?: UUID;
     likeCount?: number | null;
     fontSize?: number;
 }
 
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, objectType, branchId = id, fontSize, likeCount,
+        id, objectType, branchId = id, rootId, fontSize, likeCount,
     } = props;
     const likes = useSelector(selectCurrentUserLikes(branchId));
     const likedByCurrentUser = !!likes[id];
@@ -66,12 +67,13 @@ export default function LikeButton(props: LikeButtonProps) {
                 objectId: id,
                 objectType: LikeType.Node,
                 userId: currentUser.id,
+                rootId,
             }));
         }
 
         requestAnimationFrame(() => setShouldBeat(true));
         setTimeout(() => setShouldBeat(false), 1000);
-    }, [branchId, currentUser, dispatch, id, likedByCurrentUser]);
+    }, [branchId, currentUser, dispatch, id, likedByCurrentUser, rootId]);
 
     const style = useMemo(() => ({ fontSize }), [fontSize]);
     const inputProps = useMemo(() => ({ 'aria-label': 'Like' }), []);

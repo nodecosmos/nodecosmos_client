@@ -29,7 +29,7 @@ export default function ContributionRequestConversation() {
     return (
         <Box height={1} overflow="auto" width={1} my={2} pb={8}>
             <Container className="overflow-hidden position-relative" maxWidth="lg">
-                <Alert position="sticky" />
+                <Alert position="sticky" mb={1} />
                 <Box
                     display="flex"
                     alignItems="center"

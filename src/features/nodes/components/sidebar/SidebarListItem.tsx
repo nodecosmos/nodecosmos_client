@@ -9,7 +9,6 @@ interface SidebarListItemProps {
     icon: React.ReactNode;
     title: string;
     to?: string;
-    flip?: boolean;
     component?: React.ElementType;
     onClick?: () => void;
     children?: React.ReactNode;
@@ -17,13 +16,15 @@ interface SidebarListItemProps {
     end?: boolean;
     selectedIcon?: React.ReactNode;
     color?: string;
+    className?: string;
+    iconClassName?: string;
 }
 
 export default function SidebarListItem(props: SidebarListItemProps) {
     const {
-        to, icon, title, flip, component = NavLink,
-        onClick, children, disabled, end = true, selectedIcon = icon,
-        color,
+        to, icon, title, component = NavLink,
+        onClick, children, disabled, end, selectedIcon = icon,
+        color, className, iconClassName,
     } = props;
     const location = useLocation();
     const selected = to && location.pathname.includes(to);
@@ -31,20 +32,15 @@ export default function SidebarListItem(props: SidebarListItemProps) {
     return (
         <ListItem>
             <ListItemButton
+                className={className}
                 component={component}
                 disabled={disabled}
                 disableRipple
                 onClick={onClick}
-                {...(component === NavLink && {
-                    to,
-                    end,
-                })}
+                to={to}
+                end={end}
             >
-                <ListItemIcon sx={{
-                    transform: flip ? 'scaleX(-1)' : 'none',
-                    color: color ?? 'inherit',
-                }}
-                >
+                <ListItemIcon className={`${iconClassName ?? 'mr-2'}`}>
                     {selected ? selectedIcon : icon}
                 </ListItemIcon>
                 <Box
@@ -52,9 +48,7 @@ export default function SidebarListItem(props: SidebarListItemProps) {
                     justifyContent="space-between"
                     alignItems="center"
                     width={1}>
-                    <Typography
-                        variant="subtitle2"
-                        sx={{ color: color ?? 'inherit' }}>
+                    <Typography variant="subtitle2" color={color ?? 'inherit'}>
                         {title}
                     </Typography>
                     {children}

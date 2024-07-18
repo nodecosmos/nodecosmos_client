@@ -1,6 +1,7 @@
 import { UUID } from '../../../types';
 import { showBranchNode, showNode } from '../nodes.thunks';
 import { NodeState } from '../nodes.types';
+import { selectNodeFromParams } from '../nodes.utils';
 
 export default function showFulfilled(
     state: NodeState,
@@ -72,6 +73,19 @@ export default function showFulfilled(
     state.childIds[branchId] = childIds;
 
     updateAncestors(state, id, branchId);
+
+    // select from params
+    if (action.meta.arg.selectNodeFromParams) {
+        selectNodeFromParams(state, action.meta.arg.selectNodeFromParams);
+    }
+}
+
+export function showNodeRejected(state: NodeState, action: ReturnType<typeof showNode.rejected>) {
+    // remove from recent nodes
+    const index = state.recentNodes.findIndex((node) => node.id === action.meta.arg.id);
+    if (index !== -1) {
+        state.recentNodes.splice(index, 1);
+    }
 }
 
 export function updateAncestors(state: NodeState, rootId: UUID, branchId: UUID) {

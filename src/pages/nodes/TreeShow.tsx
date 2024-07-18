@@ -9,23 +9,19 @@ import Tree from '../../features/nodes/components/tree/Tree';
 import { selectNode } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
 import { NodecosmosTheme } from '../../themes/themes.types';
-import { UUID } from '../../types';
 import { Box, useTheme } from '@mui/material';
 import React, {
     useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 const TREE_WIDTH = 'treeWidth';
 const NODE_PANE_WIDTH = 'nodePaneWidth';
 
 export default function TreeShow() {
-    const { id } = useParams<{id: UUID}>();
-    const { branchId } = useBranchContext();
+    const { branchId, nodeId: id } = useBranchContext();
     const dispatch: NodecosmosDispatch = useDispatch();
     const theme: NodecosmosTheme = useTheme();
-
     const paneARef = React.useRef(null);
     const paneBRef = React.useRef(null);
     const [resizerHovered, hoverResizer, leaveResizer] = useBooleanStateValue();
@@ -79,6 +75,7 @@ export default function TreeShow() {
 
     // this is not root id of the current tree, but root_id of complete project
     const { rootId: nodeRootId } = useSelector(selectNode(branchId, id));
+    const style = useMemo(() => ({ cursor: resizeInProgress ? 'col-resize' : 'inherit' }), [resizeInProgress]);
 
     return (
         <Box
@@ -86,7 +83,7 @@ export default function TreeShow() {
             width={1}
             height={1}
             overflow="hidden"
-            style={{ cursor: resizeInProgress ? 'col-resize' : 'inherit' }}
+            style={style}
         >
             <Box
                 ref={paneARef}

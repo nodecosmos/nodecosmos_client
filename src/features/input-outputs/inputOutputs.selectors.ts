@@ -30,5 +30,7 @@ export const selectUniqueIoByRootId = (branchId: UUID, rootId: UUID) => createSe
 
 export const selectIosByIds = (branchId: UUID, ids: Set<UUID>) => createSelector(
     selectInputOutputsByBranch(branchId),
-    (inputOutputsById) => Array.from(ids).map((id) => inputOutputsById && inputOutputsById[id]).filter((io) => !!io),
+    (inputOutputsById) => {
+        return Array.from(ids).map((id) => inputOutputsById && inputOutputsById[id]).filter((io) => !!io);
+    },
 );

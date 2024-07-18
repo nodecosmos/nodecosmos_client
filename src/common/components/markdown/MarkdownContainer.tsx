@@ -1,6 +1,5 @@
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 import { Box } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function MarkdownContainer({ children }: { children: React.ReactNode }) {
@@ -100,5 +99,3 @@ export default function MarkdownContainer({ children }: { children: React.ReactN
         </Box>
     );
 }
-
-MarkdownContainer.propTypes = { children: PropTypes.node.isRequired };

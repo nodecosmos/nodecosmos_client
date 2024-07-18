@@ -77,7 +77,7 @@ export const updateFlowStepInputs = createAsyncThunk<
             if (branch) {
                 const branchDeletedFlowStepInputsByNode = branch.deletedFlowStepInputsByNode?.[id];
                 Object.keys(newInputsByNodeId).forEach((nodeId: UUID) => {
-                    if (currentInputIdsByNodeId[nodeId]) {
+                    if (currentInputIdsByNodeId?.[nodeId]) {
                         const currentInputIds = currentInputIdsByNodeId[nodeId];
                         const newInputIds = newInputsByNodeId[nodeId];
                         const createdNodeInputs = newInputIds.filter(
@@ -85,8 +85,7 @@ export const updateFlowStepInputs = createAsyncThunk<
                                 || branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
                         );
                         const removedNodeInputs = currentInputIds.filter(
-                            (id: UUID) => !newInputIds.includes(id)
-                                && !branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
+                            (id: UUID) => !newInputIds.includes(id),
                         );
 
                         if (createdNodeInputs.length) {
@@ -101,13 +100,15 @@ export const updateFlowStepInputs = createAsyncThunk<
                     }
                 });
 
-                Object.keys(currentInputIdsByNodeId).forEach((nodeId) => {
-                    if (!newInputsByNodeId[nodeId] && branch) {
-                        removedDiff[nodeId] = currentInputIdsByNodeId[nodeId].filter(
-                            (id: UUID) => !branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
-                        );
-                    }
-                });
+                if (currentInputIdsByNodeId) {
+                    Object.keys(currentInputIdsByNodeId).forEach((nodeId) => {
+                        if (!newInputsByNodeId[nodeId]) {
+                            removedDiff[nodeId] = currentInputIdsByNodeId[nodeId].filter(
+                                (id: UUID) => !branchDeletedFlowStepInputsByNode?.[nodeId]?.has(id),
+                            );
+                        }
+                    });
+                }
             }
 
             return {

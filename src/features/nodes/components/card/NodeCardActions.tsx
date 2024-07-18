@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, CardActions, Tooltip, Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function NodeCardActions({ node }: {node: IndexNode}) {
@@ -18,7 +17,13 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 gap: 1,
             }}
         >
-            <LikeButton objectType={LikeType.Node} id={node.id} fontSize={16} likeCount={node.likeCount} />
+            <LikeButton
+                objectType={LikeType.Node}
+                id={node.id}
+                fontSize={16}
+                rootId={node.rootId}
+                likeCount={node.likeCount}
+            />
             <Tooltip title="Contribution Requests">
                 <Box
                     display="flex"
@@ -64,5 +69,3 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
         </CardActions>
     );
 }
-
-NodeCardActions.propTypes = { node: PropTypes.object.isRequired };

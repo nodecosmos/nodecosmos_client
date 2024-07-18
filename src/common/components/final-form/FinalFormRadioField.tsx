@@ -1,27 +1,37 @@
 import {
-    FormControlLabel, Radio, RadioGroup, 
+    FormControlLabel, Radio, RadioGroup,
 } from '@mui/material';
-import * as PropTypes from 'prop-types';
 import React from 'react';
 import { Field } from 'react-final-form';
 /* mui */
 
-function FinalFormRadioField(props) {
+interface Props {
+    name: string;
+    values: string[];
+    labels?: string[];
+    defaultValue?: string;
+    disabled?: boolean[];
+}
+
+const FIELD_SUBSCRIPTION = {
+    touched: true,
+    error: true,
+    value: true,
+    submitError: true,
+    dirtySinceLastSubmit: true,
+};
+
+export default function FinalFormRadioField(props: Props) {
     const {
-        name, defaultValue, values, labels, 
+        name, defaultValue = null, values, labels = null, disabled = [],
+
     } = props;
 
     return (
         <Field
             name={name}
             type="radio"
-            subscription={{
-                touched: true,
-                error: true,
-                value: true,
-                submitError: true,
-                dirtySinceLastSubmit: true,
-            }}
+            subscription={FIELD_SUBSCRIPTION}
         >
             {({ input }) => (
                 <RadioGroup
@@ -33,6 +43,7 @@ function FinalFormRadioField(props) {
                 >
                     {values.map((value, index) => (
                         <FormControlLabel
+                            disabled={disabled[index]}
                             key={value}
                             value={value}
                             control={<Radio color="primary" />}
@@ -44,17 +55,3 @@ function FinalFormRadioField(props) {
         </Field>
     );
 }
-
-FinalFormRadioField.defaultProps = {
-    defaultValue: null,
-    labels: null,
-};
-
-FinalFormRadioField.propTypes = {
-    name: PropTypes.string.isRequired,
-    values: PropTypes.array.isRequired,
-    labels: PropTypes.array,
-    defaultValue: PropTypes.string,
-};
-
-export default FinalFormRadioField;

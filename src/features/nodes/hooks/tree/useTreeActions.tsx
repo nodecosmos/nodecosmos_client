@@ -3,7 +3,7 @@ import {
 } from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
-import useAppContext from '../../../app/hooks/useAppContext';
+import { useSelectObject } from '../../../app/hooks/useSelectObject';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     collapseNodeAction, expandNodeAction, select,
@@ -20,7 +20,7 @@ export default function useTreeActions(ctx: TreeContextValue) {
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes, size,
     } = ctx;
-    const { selectObject } = useAppContext();
+    const selectObject = useSelectObject();
     const selectNode = useCallback((id: UUID) => {
         dispatch(select({
             branchId,
