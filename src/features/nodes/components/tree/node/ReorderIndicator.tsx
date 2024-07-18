@@ -55,7 +55,7 @@ export default function ReorderIndicator() {
         }
     }
     const { x, y } = useMemo(() => {
-        if (!oldParentId) return {
+        if (!oldParentId || !treeNodes[oldParentId]) return {
             x: 0,
             y: 0,
         };
@@ -83,7 +83,7 @@ export default function ReorderIndicator() {
         return `M ${x} ${y} L ${midX} ${midY} L ${xEnd} ${yEnd}`;
     }, [id, oldParentId, treeNodes, x, y]);
 
-    if (!reorderData) return null;
+    if (!reorderData || !oldParentId || !treeNodes[oldParentId]) return null;
 
     return (
         <g>
