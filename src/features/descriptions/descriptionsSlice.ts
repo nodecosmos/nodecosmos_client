@@ -19,11 +19,25 @@ const descriptionsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getDescription.fulfilled, (state, action) => {
-                const { branchId, objectId } = action.payload;
+                const { branchId, objectId } = action.meta.arg;
+                const { description } = action.payload;
 
                 state.byBranchId[branchId] ||= {};
 
-                state.byBranchId[branchId][objectId] = action.payload;
+                if (description) {
+                    state.byBranchId[branchId][objectId] = description;
+                } else {
+                    state.byBranchId[branchId][objectId] = {
+                        branchId,
+                        objectId,
+                        objectType: action.meta.arg.objectType,
+                        rootId: action.meta.arg.rootId,
+                        nodeId: action.meta.arg.nodeId,
+                        html: '<p></p>',
+                        markdown: '',
+                        base64: null,
+                    };
+                }
             })
             .addCase(getDescriptionBase64.fulfilled, (state, action) => {
                 const { branchId, objectId } = action.payload;

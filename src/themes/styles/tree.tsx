@@ -61,10 +61,7 @@ export default (theme: NodecosmosTheme) => ({
                         fontWeight: 500,
                     },
                 },
-                '.MuiCheckbox-root': {
-                    padding: 0,
-                    svg: { fontSize: '1.4rem' },
-                },
+                '.fa-square, .fa-square-check': { fontSize: 20 },
             },
         },
 
@@ -74,40 +71,4 @@ export default (theme: NodecosmosTheme) => ({
         },
     },
 
-    '.TreeNestedColorHover-0': {
-        '&:hover': {
-            backgroundColor: theme.palette.tree.backgrounds[0].bg,
-            color: theme.palette.tree.backgrounds[0].fg,
-        },
-    },
-    '.TreeNestedColorHover-1': {
-        '&:hover': {
-            backgroundColor: theme.palette.tree.backgrounds[1].bg,
-            color: theme.palette.tree.backgrounds[1].fg,
-        },
-    },
-    '.TreeNestedColorHover-2': {
-        '&:hover': {
-            backgroundColor: theme.palette.tree.backgrounds[2].bg,
-            color: theme.palette.tree.backgrounds[2].fg,
-        },
-    },
-    '.TreeNestedColorHover-3': {
-        '&:hover': {
-            backgroundColor: theme.palette.tree.backgrounds[3].bg,
-            color: theme.palette.tree.backgrounds[3].fg,
-        },
-    },
-    '.TreeNestedColorHover-4': {
-        '&:hover': {
-            backgroundColor: theme.palette.tree.backgrounds[4].bg,
-            color: theme.palette.tree.backgrounds[4].fg,
-        },
-    },
-    '.TreeNestedColorHover-5': {
-        '&:hover': {
-            backgroundColor: theme.palette.tree.backgrounds[5].bg,
-            color: theme.palette.tree.backgrounds[5].fg,
-        },
-    },
 });

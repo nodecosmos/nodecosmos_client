@@ -53,6 +53,6 @@ export default function useNodeDelete() {
                 await dispatch(reloadBranch(branchId));
             }
         }
-        if (treeRootId === id) navigate('/nodes');
+        if (treeRootId === id) navigate('/');
     }, [authorizeNodeAction, isTmp, treeRootId, id, navigate, dispatch, branchId, rootId, isBranch, handleServerError]);
 }

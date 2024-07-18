@@ -1,5 +1,6 @@
 import Header from './header/Header';
 import NotFound from '../../../common/components/404';
+import ContactUs from '../../../pages/ContactUs';
 import ContributionRequestIndex from '../../../pages/contribution-requests/Index';
 import ContributionRequestShow from '../../../pages/contribution-requests/Show';
 import ContributionRequestCommits from '../../../pages/contribution-requests/tabs/ContributionRequestCommits';
@@ -23,20 +24,21 @@ import UserShow from '../../../pages/users/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
 import LoginForm from '../../users/components/LoginForm';
+import Bio from '../../users/components/profile/Bio';
+import RootNodes from '../../users/components/profile/RootNodes';
 import SignupForm from '../../users/components/SignupForm';
 import { selectCurrentUser, selectIsAuthenticated } from '../../users/users.selectors';
 import { syncUpCurrentUser } from '../../users/users.thunks';
 import { selectTheme } from '../app.selectors';
-import { setAlert } from '../appSlice';
 import { HEADER_HEIGHT } from '../constants';
-import { useAppContextCreator } from '../hooks/useAppContext';
+import useConfirmEmailAlert from '../hooks/useConfirmEmailAlert';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Navigate, Route, Routes, useSearchParams,
+    Navigate, Route, Routes,
 } from 'react-router-dom';
 
 export default function App() {
@@ -44,104 +46,90 @@ export default function App() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const currentUser = useSelector(selectCurrentUser);
     const theme = useSelector(selectTheme);
-    const currentTheme = themes[theme];
-    const [searchParams] = useSearchParams();
-    const token = searchParams.get('token');
+    const currentTheme = useMemo(() => themes[theme], [theme]);
 
     useEffect(() => {
-        dispatch(syncUpCurrentUser());
-    }, [dispatch]);
-
-    useEffect(() => {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(registrations => {
-                for (const registration of registrations) {
-                    registration.unregister();
-                }
-            });
+        if (isAuthenticated) {
+            dispatch(syncUpCurrentUser());
         }
+    }, [dispatch, isAuthenticated]);
+
+    useEffect(() => {
+        return () => {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for (const registration of registrations) {
+                        registration.unregister();
+                    }
+                });
+            }
+        };
     }, []);
 
-    useEffect(() => {
-        if (currentUser && !currentUser.isConfirmed && !token) {
-            setTimeout(() => {
-                dispatch(setAlert({
-                    isOpen: true,
-                    severity: 'warning',
-                    message: `Please confirm your email address to access all features.
-                if you didn't receive the email, please check your spam folder or request a new one from profile 
-                options. If you still have issues, please write us at <b>support@nodecosmos.com</b>`,
-                    duration: 100000000,
-                }));
-            }, 10);
-        }
-    }, [currentUser, dispatch, token]);
-
-    const {
-        AppContext,
-        ctxValue,
-    } = useAppContextCreator();
+    useConfirmEmailAlert();
 
     return (
-        <AppContext.Provider value={ctxValue}>
-            <ThemeProvider theme={getTheme(currentTheme)}>
-                <CssBaseline />
-                <div className="background-2 h-100">
-                    <Header />
-                    <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
-                        <Routes>
-                            <Route
-                                path="/auth"
-                                element={isAuthenticated
-                                    ? <Navigate to={`/${currentUser?.username}`} /> : <UserAuthentication />}
-                            >
-                                <Route path="login" element={<LoginForm />} />
-                                <Route path="signup" element={<SignupForm />} />
-                            </Route>
-                            <Route path="404" element={<NotFound />} />
-                            <Route path="reset_password" element={<ResetPassword />} />
-                            <Route path=":username" element={<UserShow />} />
-                            <Route path="/nodes" element={(<NodesIndex />)} />
-                            <Route path="/nodes" element={<NodeShow />}>
-                                <Route path=":originalId/:id" element={<TreeShow />} />
+        <ThemeProvider theme={getTheme(currentTheme)}>
+            <CssBaseline />
+            <div className="background-2 h-100">
+                <Header />
+                <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
+                    <Routes>
+                        <Route
+                            path="/auth"
+                            element={isAuthenticated
+                                ? <Navigate to={`/${currentUser?.username}`} /> : <UserAuthentication />}
+                        >
+                            <Route path="login" element={<LoginForm />} />
+                            <Route path="signup" element={<SignupForm />} />
+                        </Route>
+                        <Route path="404" element={<NotFound />} />
+                        <Route path="reset_password" element={<ResetPassword />} />
+                        <Route path="/:username" element={<UserShow />}>
+                            <Route path="" element={<Bio />} />
+                            <Route path="nodes" element={<RootNodes />} />
+                        </Route>
+                        <Route path="/" element={(<NodesIndex />)} />
+                        <Route path="/nodes" element={<NodeShow />}>
+                            <Route path=":originalId/:id" element={<TreeShow />} />
 
-                                <Route path=":originalId/:id">
-                                    {/*Workflows*/}
-                                    <Route path="workflow" element={<WorkflowShow />} />
+                            <Route path=":originalId/:id">
+                                {/*Workflows*/}
+                                <Route path="workflow" element={<WorkflowShow />} />
 
-                                    {/*Contribution Requests*/}
-                                    <Route path="contribution_requests" element={<ContributionRequestIndex />} />
-                                    <Route path="contribution_requests">
-                                        <Route path=":branchId" element={<ContributionRequestShow />}>
-                                            <Route path="" element={<ContributionRequestConversation />}>
-                                                <Route path="" element={<MainThread />} />
-                                                <Route path="activity" element={<Activity />} />
-                                            </Route>
-                                            <Route path="tree" element={<ContributionRequestTree />} />
-                                            <Route path="workflow" element={<ContributionRequestWorkflow />} />
-                                            <Route path="commits" element={<ContributionRequestCommits />} />
+                                {/*Contribution Requests*/}
+                                <Route path="contribution_requests" element={<ContributionRequestIndex />} />
+                                <Route path="contribution_requests">
+                                    <Route path=":branchId" element={<ContributionRequestShow />}>
+                                        <Route path="" element={<ContributionRequestConversation />}>
+                                            <Route path="" element={<MainThread />} />
+                                            <Route path="activity" element={<Activity />} />
                                         </Route>
+                                        <Route path="tree" element={<ContributionRequestTree />} />
+                                        <Route path="workflow" element={<ContributionRequestWorkflow />} />
+                                        <Route path="commits" element={<ContributionRequestCommits />} />
                                     </Route>
-
-                                    {/*Threads*/}
-                                    <Route path="threads" element={<ThreadsIndex />} />
-                                    <Route path="threads/new" element={<ThreadNew />} />
-                                    <Route path="threads/:threadId" element={<ThreadShow />} />
-
-                                    {/*Tasks*/}
-                                    <Route path="tasks_board" element={<div />} />
-
-                                    {/*Settings*/}
-                                    <Route path="team" element={<TeamShow />} />
                                 </Route>
 
-                            </Route>
-                            <Route path="/invitations" element={<Invite />} />
-                        </Routes>
-                    </Box>
+                                {/*Threads*/}
+                                <Route path="threads" element={<ThreadsIndex />} />
+                                <Route path="threads/new" element={<ThreadNew />} />
+                                <Route path="threads/:threadId" element={<ThreadShow />} />
 
-                </div>
-            </ThemeProvider>
-        </AppContext.Provider>
+                                {/*Tasks*/}
+                                <Route path="tasks_board" element={<div />} />
+
+                                {/*Settings*/}
+                                <Route path="team" element={<TeamShow />} />
+                            </Route>
+
+                        </Route>
+                        <Route path="/invitations" element={<Invite />} />
+                        <Route path="/contact" element={<ContactUs />} />
+                    </Routes>
+                </Box>
+
+            </div>
+        </ThemeProvider>
     );
 }

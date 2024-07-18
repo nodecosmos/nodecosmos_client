@@ -4,6 +4,7 @@ import {
 import { setNodeScrollTo } from '../../features/nodes/nodes.actions';
 import { selectScrollTo } from '../../features/nodes/nodes.selectors';
 import { NodecosmosDispatch } from '../../store';
+import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import usePannable from '../hooks/usePannable';
 import { useTransformableContextCreator } from '../hooks/useTransformableContext';
 import React, {
@@ -12,16 +13,21 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+interface Dimensions {
+    width: string | number;
+    height: string | number;
+}
+
+const TRANSFOMABLE_DIMENTIONS = {
+    width: '100%',
+    height: '100%',
+};
+
 interface TransformableProps {
     children: React.ReactNode;
     scale?: number;
     heightMargin?: number;
 }
-
-const DEFAULT_DIMENSIONS = {
-    width: 0,
-    height: 0,
-};
 
 function Transformable(props: TransformableProps) {
     const {
@@ -30,14 +36,17 @@ function Transformable(props: TransformableProps) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gRef = useRef<SVGSVGElement>(null);
-    const [dimensions, setDimensions] = useState(DEFAULT_DIMENSIONS);
+    const [dimensions, setDimensions] = useState<Dimensions>(TRANSFOMABLE_DIMENTIONS);
     const {
         TransformableContext, ctxValue, setTransformablePositions,
     } = useTransformableContextCreator();
+    const { scrollTop } = useMemo(() => ctxValue ?? {}, [ctxValue]);
     const scrollTo = useSelector(selectScrollTo);
+    const onMouseDown = usePannable(containerRef);
+    const [resizeObserverSet, setResizeObserverSet] = useBooleanStateValue(false);
 
+    // on gRef size change we adjust the svg size
     const resizeTimeout = useRef<number | null>(null);
-
     const handleResize = useCallback(() => {
         if (resizeTimeout.current) {
             clearTimeout(resizeTimeout.current);
@@ -52,54 +61,26 @@ function Transformable(props: TransformableProps) {
             const width = newWidth > TRANSFORMABLE_MIN_WIDTH ? newWidth : TRANSFORMABLE_MIN_WIDTH;
 
             if (height !== dimensions.height || width !== dimensions.width) {
-                requestAnimationFrame(() => setDimensions({
+                setDimensions({
                     height,
                     width,
-                }));
+                });
             }
-        }, 1000);
+        }, 100);
     }, [heightMargin, dimensions.height, dimensions.width]);
 
     useEffect(() => {
+        if (resizeObserverSet) return;
+
         const resizeObserver = new ResizeObserver(handleResize);
-        const gEl = gRef.current;
+        const g = gRef.current;
 
-        if (gEl) {
-            resizeObserver.observe(gEl);
+        if (g) {
+            resizeObserver.observe(g);
         }
 
-        return () => {
-            if (resizeObserver && gEl) {
-                resizeObserver.unobserve(gEl);
-            }
-        };
-    }, [handleResize]);
-
-    //------------------------------------------------------------------------------------------------
-    const onMouseDown = usePannable(containerRef);
-
-    //------------------------------------------------------------------------------------------------
-    const handleScroll = useCallback((() => {
-        requestAnimationFrame(() => {
-            if (!containerRef.current) return;
-
-            setTransformablePositions({
-                clientHeight: containerRef.current.clientHeight,
-                clientWidth: containerRef.current.clientWidth,
-                scrollTop: containerRef.current.scrollTop,
-                scrollLeft: containerRef.current.scrollLeft,
-            });
-        });
-    }), [setTransformablePositions]);
-
-    // used by breadcrumbs
-    useEffect(() => {
-        if (containerRef.current && scrollTo) {
-            containerRef.current.scrollTop = Number(ctxValue?.scrollTop);
-
-            dispatch(setNodeScrollTo(null));
-        }
-    }, [ctxValue?.scrollTop, dispatch, scrollTo]);
+        setResizeObserverSet();
+    }, [handleResize, resizeObserverSet, setResizeObserverSet]);
 
     const winResizeTimeout = useRef<number | null>(null);
 
@@ -133,6 +114,28 @@ function Transformable(props: TransformableProps) {
             window.onresize = null;
         };
     }, [setTransformablePositions]);
+
+    const handleScroll = useCallback((() => {
+        requestAnimationFrame(() => {
+            if (!containerRef.current) return;
+
+            setTransformablePositions({
+                clientHeight: containerRef.current.clientHeight,
+                clientWidth: containerRef.current.clientWidth,
+                scrollTop: containerRef.current.scrollTop,
+                scrollLeft: containerRef.current.scrollLeft,
+            });
+        });
+    }), [setTransformablePositions]);
+
+    // used by breadcrumbs
+    useEffect(() => {
+        if (containerRef.current && scrollTo) {
+            containerRef.current.scrollTop = Number(scrollTop);
+
+            dispatch(setNodeScrollTo(null));
+        }
+    }, [scrollTop, dispatch, scrollTo]);
 
     const containerStyle = useMemo(() => ({ transform: `scale(${scale})` }), [scale]);
 

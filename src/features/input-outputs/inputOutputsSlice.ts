@@ -27,6 +27,12 @@ const inputOutputsSlice = createSlice({
 
                 inputOutputs.forEach((inputOutput: InputOutput) => {
                     state.byBranchId[branchId][inputOutput.id] = inputOutput;
+                    // When we change title or description of the ios, we do it by mainId.
+                    // In case main id io is deleted, we would need to get io for CR commits.
+                    state.byBranchId[branchId][inputOutput.mainId] ||= {
+                        ...inputOutput,
+                        id: inputOutput.mainId,
+                    };
                 });
             }).addCase(createIo.fulfilled, (state, action) => {
                 const inputOutput = action.payload;
@@ -74,6 +80,12 @@ const inputOutputsSlice = createSlice({
 
                 inputOutputs.forEach((inputOutput: InputOutput) => {
                     state.byBranchId[branchId][inputOutput.id] ||= inputOutput;
+                    // When we change title or description of the ios, we do it by mainId.
+                    // In case main id io is deleted, we would need to get io for CR commits.
+                    state.byBranchId[branchId][inputOutput.mainId] ||= {
+                        ...inputOutput,
+                        id: inputOutput.mainId,
+                    };
                 });
             });
     },

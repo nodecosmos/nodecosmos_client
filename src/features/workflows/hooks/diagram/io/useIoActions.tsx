@@ -1,8 +1,10 @@
 import useIoContext from './useIoContext';
+import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType, UUID } from '../../../../../types';
+import { executeWithConditionalLoader } from '../../../../../utils/loader';
 import { setAlert } from '../../../../app/appSlice';
-import useAppContext from '../../../../app/hooks/useAppContext';
+import { useSelectObject } from '../../../../app/hooks/useSelectObject';
 import { undoDeleteIo } from '../../../../branch/branches.thunks';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { deleteIo, updateIoTitle } from '../../../../input-outputs/inputOutputs.thunks';
@@ -29,11 +31,11 @@ export default function useIoActions() {
         closeTitleEdit,
     } = useIoContext();
     const { originalId, branchId } = useBranchContext();
-
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleInputsChange = useInputsChange();
     const isChecked = selectedInputs.has(id);
-    const { selectObject } = useAppContext();
+    const selectObject = useSelectObject();
+    const [ioLoading, setIoLoading, unsetIoLoading] = useBooleanStateValue(false);
 
     const handleIoClick = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -55,7 +57,7 @@ export default function useIoActions() {
                 selectedInputsArray.push(id);
             }
 
-            await handleInputsChange(selectedInputsArray);
+            await executeWithConditionalLoader(handleInputsChange, [selectedInputsArray], setIoLoading, unsetIoLoading);
         } else {
             if (insidePane) {
                 dispatch(setAlert({
@@ -92,6 +94,8 @@ export default function useIoActions() {
         setSelectedInputs,
         insidePane,
         selectObject,
+        setIoLoading,
+        unsetIoLoading,
     ]);
 
     const deleteIoCb = useCallback(async () => {
@@ -130,5 +134,6 @@ export default function useIoActions() {
         openTitleEdit,
         closeTitleEdit,
         undoDeleteIo: undoDeleteIoCb,
-    }), [handleIoClick, deleteIoCb, handleTitleChange, openTitleEdit, closeTitleEdit, undoDeleteIoCb]);
+        ioLoading,
+    }), [handleIoClick, deleteIoCb, handleTitleChange, openTitleEdit, closeTitleEdit, undoDeleteIoCb, ioLoading]);
 }

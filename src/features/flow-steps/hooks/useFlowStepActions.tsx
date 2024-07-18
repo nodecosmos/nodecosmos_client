@@ -5,7 +5,7 @@ import {
     NodecosmosError, ObjectType, Strict,
 } from '../../../types';
 import { setAlert } from '../../app/appSlice';
-import useAppContext from '../../app/hooks/useAppContext';
+import { useSelectObject } from '../../app/hooks/useSelectObject';
 import {
     keepFlowStep, restoreFlowStep, undoDeleteFlowStep,
 } from '../../branch/branches.thunks';
@@ -50,7 +50,7 @@ export default function useFlowStepActions(props?: Props) {
     }, [dispatch, flowStepPrimaryKey, rootId]);
 
     const [createLoading, setCreateIsLoading, setCreateIsNotLoading] = useBooleanStateValue();
-    const { selectObject } = useAppContext();
+    const selectObject = useSelectObject();
 
     const handleFlowStepClick = useCallback((event: React.MouseEvent<SVGGElement | HTMLElement>) => {
         if (inputsAdditionActive) {
@@ -69,8 +69,6 @@ export default function useFlowStepActions(props?: Props) {
 
             // return;
         }
-
-        console.log('event.target', event.target);
 
         if (!props?.unhover) {
             throw new Error('Unhover callback is not provided');

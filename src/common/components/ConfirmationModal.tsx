@@ -65,6 +65,7 @@ export default function ConfirmationModal(props: Props) {
             fullWidth
             maxWidth="md"
             open={open}
+            onClose={onClose}
             PaperProps={PROPS}>
             <DialogTitle fontWeight="bold">
                 Are you sure?

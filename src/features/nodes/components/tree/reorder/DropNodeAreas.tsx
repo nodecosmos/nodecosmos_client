@@ -10,8 +10,6 @@ export default function DropNodeAreas() {
 
     if (!dragAndDrop) return null;
 
-    console.log(dragAndDrop);
-
     return visibleNodes?.map(([id], index) => {
         if (index === 0) return null;
         return (

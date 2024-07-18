@@ -1,10 +1,12 @@
 import ContributionRequestDescription from './ContributionRequestDescription';
 import ContributionRequestMainThreadComments from './ContributionRequestMainThreadComments';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../types';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { selectThread } from '../../comments/comments.selectors';
 import { ThreadObjectType, ThreadLocation } from '../../comments/comments.types';
 import CommentEditor from '../../comments/components/CommentEditor';
+import InsertCommentPlaceholder from '../../comments/components/CommentInsertPlaceholder';
 import { faCodePullRequest, faComments } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -28,6 +30,7 @@ export default function ContributionRequestMainThread() {
     const { originalId: rootId, branchId } = useBranchContext();
     // main Cr Thread has same id as branchId
     const mainThread = useSelector(selectThread(branchId as UUID));
+    const [insertComment, setInsertComment, removeInsertComment] = useBooleanStateValue(false);
     const mainThreadCommentEditor = React.useMemo(() => {
         if (mainThread) {
             return (
@@ -38,6 +41,7 @@ export default function ContributionRequestMainThread() {
                         objectId: branchId,
                         id: branchId,
                     }}
+                    onClose={removeInsertComment}
                     info="Add a comment to the main thread"
                 />
             );
@@ -54,10 +58,11 @@ export default function ContributionRequestMainThread() {
                     objectType: ThreadObjectType.ContributionRequest,
                     threadLocation: ThreadLocation.ContributionRequestMainThread,
                 }}
+                onClose={removeInsertComment}
                 info="Start a conversation about this contribution request"
             />
         );
-    }, [branchId, mainThread, rootId]);
+    }, [branchId, mainThread, removeInsertComment, rootId]);
 
     return (
         <Box
@@ -90,8 +95,15 @@ export default function ContributionRequestMainThread() {
                 <Divider sx={DIVIDER_SX} />
             </Box>
             <ContributionRequestMainThreadComments />
-            <Box mt={2}>
-                {mainThreadCommentEditor}
+            <Box mt={2} borderRadius={1.25} className="overflow-hidden">
+                {
+                    insertComment ? mainThreadCommentEditor
+                        : (
+                            <InsertCommentPlaceholder onClick={setInsertComment} title={null}>
+                                Add a comment
+                            </InsertCommentPlaceholder>
+                        )
+                }
             </Box>
         </Box>
     );

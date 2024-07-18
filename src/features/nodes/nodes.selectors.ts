@@ -18,6 +18,8 @@ export const selectDensity = (state: RootState) => state.nodes.treeDensity;
 export const selectShowAncestorChain = (state: RootState) => state.nodes.showAncestorChain;
 export const selectIndexSearchTerm = (state: RootState) => state.nodes.indexSearchTerm;
 export const selectSidebarOpen = (state: RootState) => state.nodes.sidebarOpen;
+export const selectNodesByOwnerId = (state: RootState) => state.nodes.byOwnerId;
+export const selectRecentNodes = (state: RootState) => state.nodes.recentNodes;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
     selectNodesByBranchId,
@@ -81,4 +83,9 @@ export const selectBranchTitles = (branchId?: UUID) => createSelector(
 export const selectBranchChildIds = (branchId?: UUID) => createSelector(
     selectChildIds,
     (childIds) => branchId && childIds[branchId],
+);
+
+export const selectNodeByOwner = (ownerId: UUID) => createSelector(
+    selectNodesByOwnerId,
+    (nodesByOwnerId) => nodesByOwnerId[ownerId],
 );

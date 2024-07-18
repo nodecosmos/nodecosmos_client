@@ -46,13 +46,17 @@ export const indexNodes = createAsyncThunk<IndexNode[], IndexNodesPayload | null
     },
 );
 
+interface ShowNodePayload extends NodePrimaryKey {
+    selectNodeFromParams?: NodePrimaryKey;
+}
+
 interface ShowNodeResponse {
     node: Node;
     descendants: NodeDescendant[];
 }
 
 // shows original node with original descendants
-export const showNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rejectValue: NodecosmosError }>(
+export const showNode = createAsyncThunk<ShowNodeResponse, ShowNodePayload, { rejectValue: NodecosmosError }>(
     'nodes/showNode',
     async ({ branchId, id }): Promise<{node: Node, descendants: NodeDescendant[]}> => {
         const response = await nodecosmos.get(`/nodes/${branchId}/${id}/original`);
@@ -64,7 +68,7 @@ export const showNode = createAsyncThunk<ShowNodeResponse, NodePrimaryKey, { rej
 // shows branch node + branch descendants + original descendants
 export const showBranchNode = createAsyncThunk<
     ShowNodeResponse,
-    NodePrimaryKey & {originalId?: UUID | null},
+    ShowNodePayload & {originalId?: UUID | null},
     { rejectValue: NodecosmosError }
 >(
     'nodes/showBranchNode',

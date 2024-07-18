@@ -1,7 +1,7 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import usePaneResizable from '../../../common/hooks/usePaneResizable';
 import Pane, { PanePage } from '../../../features/app/components/pane/Pane';
-import { MOBILE_NO_HEIGHT_SX } from '../../../features/app/constants';
+import { MD_FLEX_SX, MOBILE_NO_HEIGHT_SX } from '../../../features/app/constants';
 import useIsMobile from '../../../features/app/hooks/useIsMobile';
 import { selectBranch } from '../../../features/branch/branches.selectors';
 import useBranchContext from '../../../features/branch/hooks/useBranchContext';
@@ -59,6 +59,8 @@ export default function ContributionRequestTree() {
         }
     }, [resizeInProgress, leaveResizer]);
 
+    const style = useMemo(() => ({ cursor: resizeInProgress ? 'col-resize' : 'inherit' }), [resizeInProgress]);
+
     const rootId = branch?.rootId;
 
     if (!rootId) {
@@ -67,14 +69,11 @@ export default function ContributionRequestTree() {
 
     return (
         <Box
-            display={{
-                xs: 'block',
-                md: 'flex',
-            }}
+            display={MD_FLEX_SX}
             width={1}
             height={1}
             overflow="hidden"
-            style={{ cursor: resizeInProgress ? 'col-resize' : 'inherit' }}
+            style={style}
         >
             <Box
                 ref={paneARef}

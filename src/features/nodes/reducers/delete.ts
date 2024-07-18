@@ -1,12 +1,17 @@
 import { UUID } from '../../../types';
 import { deleteNode } from '../nodes.thunks';
 import { NodePrimaryKey, NodeState } from '../nodes.types';
+import { RECENT_NODES_LS_KEY } from '../nodesSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export function deleteFromState(state: NodeState, action: PayloadAction<NodePrimaryKey>) {
     const { branchId, id } = action.payload;
 
     deleteNodeFromState(state, branchId, id);
+
+    state.recentNodes = state.recentNodes.filter((node) => node.id !== id);
+
+    localStorage.setItem(RECENT_NODES_LS_KEY, JSON.stringify(state.recentNodes));
 }
 
 export function deleteFulfilled(state: NodeState, action: ReturnType<typeof deleteNode.fulfilled>) {

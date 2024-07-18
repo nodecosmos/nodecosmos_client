@@ -1,7 +1,8 @@
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import {
-    SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX, MARGIN_X_MD_SX, DISPLAY_MD_SX,
+    SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX, DISPLAY_MD_SX,
 } from '../../features/app/constants';
+import RecentNodes from '../../features/nodes/components/RecentNodes';
 import Profile from '../../features/users/components/profile/Profile';
 import useProfileConfirmation from '../../features/users/hooks/useProfileConfirmation';
 import useUsername from '../../features/users/hooks/useUsername';
@@ -59,10 +60,11 @@ export default function Show() {
                 borderRight={1}
                 height={1}
                 borderColor="borders.1"
-            />
+            >
+                <RecentNodes />
+            </Box>
             <Box
                 className="overflow-auto"
-                mx={MARGIN_X_MD_SX}
                 py={4}
                 width={MD_WO_SIDEBAR_WIDTH_SX}
             >

@@ -33,14 +33,14 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                                 to={`/${node.owner.username}`}
                             >
                                 {node.owner.username && (
-                                    <Typography variant="h6" color="text.tertiary" ml={2}>
+                                    <Typography variant="body1" color="text.tertiary" ml={2}>
                                         @
                                         {node.owner.username}
                                     </Typography>
                                 )}
                             </Link>
                         </Box>
-                        <Typography color="text.tertiary" variant="body2">
+                        <Typography color="text.tertiary" variant="subtitle1">
                             {' '}
                             {toLocalTime(node.createdAt)}
                         </Typography>

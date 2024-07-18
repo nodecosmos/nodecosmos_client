@@ -4,10 +4,12 @@ import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerE
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError, UUID } from '../../../../types';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
+import { selectCurrentUser } from '../../../users/users.selectors';
+import { maybeSelectNode } from '../../nodes.selectors';
 import { deleteEditor } from '../../nodes.thunks';
 import { Button } from '@mui/material';
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface Props {
     id: UUID;
@@ -19,6 +21,11 @@ export default function EditorActions(props: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const [modalOpen, openModal, closeModal] = useBooleanStateValue();
     const handleServerError = useHandleServerErrorAlert();
+    const root = useSelector(maybeSelectNode(branchId, nodeId));
+    const currentUser = useSelector(selectCurrentUser);
+    const isOwner = useMemo(() => {
+        return root?.ownerId === currentUser?.id;
+    }, [currentUser, root]);
 
     const handleEditorDeletion = useCallback(async () => {
         const response = await dispatch(deleteEditor({
@@ -36,6 +43,10 @@ export default function EditorActions(props: Props) {
             return;
         }
     }, [branchId, dispatch, handleServerError, id, nodeId]);
+
+    if (!isOwner) {
+        return null;
+    }
 
     return (
         <div>
