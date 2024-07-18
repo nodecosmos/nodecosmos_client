@@ -18,6 +18,7 @@ import dialog from './styles/mui/dialog';
 import input from './styles/mui/inputs';
 import list from './styles/mui/list';
 import menu from './styles/mui/menu';
+import popper from './styles/mui/popper';
 import tab from './styles/mui/tab';
 import tooltip from './styles/mui/tooltip';
 import typographyStyle from './styles/mui/typographyStyle';
@@ -26,7 +27,6 @@ import scrollbar from './styles/scrollbar';
 import toolbar from './styles/toolbar';
 import transformable from './styles/transformable';
 import tree from './styles/tree';
-import upload from './styles/upload';
 import utils from './styles/utils';
 import { NodecosmosTheme } from './themes.types';
 import { createTheme } from '@mui/material/styles';
@@ -48,7 +48,6 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                 ...tree(theme),
                 ...transformable(),
                 ...utils(theme),
-                ...upload(theme),
                 a: { '&, &.MuiTypography-root': { textDecoration: 'none' } },
                 '.Notification': {
                     borderRadius: 8,
@@ -84,7 +83,6 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     transition: 'height 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
                     backgroundColor: theme.palette.background[1],
                 },
-                '.rc-anchor-normal-footer': { backgroundColor: theme.palette.background[2] },
             },
         },
         ...alert(theme),
@@ -99,6 +97,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         ...input(theme),
         ...list(theme),
         ...menu(theme),
+        ...popper(theme),
         ...tab(),
         ...tooltip(theme),
         ...typographyStyle(theme),

@@ -10,6 +10,7 @@ import useNodeBranchContext from '../../../../hooks/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../../hooks/tree/useTreeContext';
 import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
+import { selectNode } from '../../../../nodes.selectors';
 import { TreeType } from '../../../../nodes.types';
 import LikeButton from '../../../LikeButton';
 import {
@@ -24,6 +25,7 @@ import {
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 function NodeToolbar() {
     const {
@@ -37,11 +39,11 @@ function NodeToolbar() {
         branchId,
         id,
         isCreationInProgress,
-        likeCount,
     } = useNodeContext();
     const {
         addNode, editNode, deleteNode, undoNodeDeletion,
     } = useNodeActions();
+    const { likeCount } = useSelector(selectNode(branchId, id));
     const ctx = useNodeBranchContext();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
     const authorizeNodeAction = useAuthorizeNodeAction();
@@ -130,7 +132,7 @@ function NodeToolbar() {
     }
 
     return (
-        <div className={`NodeToolbar h-${size.height}`}>
+        <div className="NodeToolbar" style={{ height: size.height }}>
             {
                 !isMerged && (
                     <>
@@ -209,9 +211,7 @@ function NodeToolbar() {
                 id={id}
                 objectType={LikeType.Node}
                 branchId={branchId}
-                rootId={rootId}
-                likeCount={likeCount}
-            />
+                likeCount={likeCount} />
 
             <ConfirmationModal
                 text={deleteText}

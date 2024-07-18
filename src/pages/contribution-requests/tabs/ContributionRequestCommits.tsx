@@ -134,12 +134,10 @@ export default function ContributionRequestCommits() {
                 ml: 1,
                 mt: 2,
                 borderRadius: 1,
-                alignItems: 'center',
+                px: 2,
+                py: 2,
             },
-            '.NodeButtonText': {
-                ml: 1,
-                lineHeight: 1,
-            },
+            '.NodeButtonText': { ml: 2 },
             '.MuiChip-root': { ml: 1 },
             '.Date': {
                 ml: 1,

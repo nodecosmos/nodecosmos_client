@@ -4,7 +4,7 @@ import usePreventDefault from '../../../../../common/hooks/usePreventDefault';
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
-import { useSelectObject } from '../../../../app/hooks/useSelectObject';
+import useAppContext from '../../../../app/hooks/useAppContext';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { select } from '../../../../nodes/nodes.actions';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
@@ -40,7 +40,7 @@ export default function FlowStepNodeButton() {
         outlineColor,
         color,
     } = useFlowStepNodeColors();
-    const selectObject = useSelectObject();
+    const { selectObject } = useAppContext();
     const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         deactivateInputsAddition();

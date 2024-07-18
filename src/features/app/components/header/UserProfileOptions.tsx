@@ -6,8 +6,8 @@ import { selectCurrentUser } from '../../../users/users.selectors';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
-    faLightbulbOn, faRightFromBracket, faMessageDots,
-} from '@fortawesome/pro-solid-svg-icons';
+    faHeadSideBrain, faLightbulbOn, faRightFromBracket,
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Slider } from '@mui/material';
 import Menu from '@mui/material/Menu';
@@ -84,14 +84,8 @@ export default function UserProfileOptions() {
             >
                 <SidebarListItem
                     to={`/${currentUser.username}`}
-                    icon={(<NcAvatar
-                        src={currentUser.profileImageUrl}
-                        name={currentUser.username}
-                        onClick={handleClick}
-                        size={30}
-                        fontSize={15}
-                    />)}
-                    onClick={handleClose}
+                    icon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
+                    selectedIcon={(<FontAwesomeIcon icon={faHeadSideBrain} />)}
                     title="Profile"
                 />
                 <SidebarListItem
@@ -108,7 +102,7 @@ export default function UserProfileOptions() {
                     <Box width={150} mr={2} display="flex" alignItems="center">
                         <Slider
                             aria-label="Theme"
-                            value={Number(theme)}
+                            defaultValue={Number(theme)}
                             color="secondary"
                             step={1}
                             min={0}
@@ -120,12 +114,6 @@ export default function UserProfileOptions() {
                         />
                     </Box>
                 </SidebarListItem>
-                <SidebarListItem
-                    onClick={handleClose}
-                    to="/contact"
-                    icon={(<FontAwesomeIcon icon={faMessageDots} />)}
-                    title="Contact Us"
-                />
             </Menu>
         </Box>
     );

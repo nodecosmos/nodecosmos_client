@@ -55,7 +55,7 @@ const SX = {
         cursor: 'pointer',
         overflow: 'hidden',
         // boxShadow: 'buttons.1',
-        '.IoButtonText, .MuiCheckbox-root, .loader': { transform: 'skewX(30deg)' },
+        '.IoButtonText, .MuiCheckbox-root': { transform: 'skewX(30deg)' },
         '.IoButtonText': {
             mx: 1,
             p: 0,
@@ -68,11 +68,6 @@ const SX = {
             textOverflow: 'ellipsis',
             overflow: 'hidden',
             fontWeight: 500,
-        },
-        '.loader': {
-            mt: 0.5,
-            mx: 0.5,
-            svg: { color: 'toolbar.default' },
         },
     },
     '.InputLink': { pointerEvents: 'none' },

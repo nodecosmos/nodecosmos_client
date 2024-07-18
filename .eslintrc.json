@@ -23,15 +23,6 @@
     ],
     "rules": {
         "@typescript-eslint/type-annotation-spacing": "error",
-        "@typescript-eslint/no-unused-vars": [
-            "error",
-            {
-                "args": "all",
-                "argsIgnorePattern": "^_",
-                "varsIgnorePattern": "^_",
-                "caughtErrorsIgnorePattern": "^_"
-            }
-        ],
         "array-callback-return": "error",
         "comma-dangle": ["error", "always-multiline"],
         "comma-spacing": ["error", { "before": false, "after": true }],
@@ -118,4 +109,3 @@
         }
     }
 }
-

@@ -4,7 +4,7 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import { HEADER_HEIGHT } from '../../../app/constants';
 import useIsMobile from '../../../app/hooks/useIsMobile';
 import CreateNodeModal from '../CreateNodeModal';
-import { faCodeCommit } from '@fortawesome/pro-light-svg-icons';
+import { faAdd } from '@fortawesome/pro-regular-svg-icons';
 import { Box } from '@mui/material';
 import React from 'react';
 
@@ -22,7 +22,7 @@ export default function NodeIndexHeader() {
                 variant="outlined"
                 color="primary"
                 title="Add Node"
-                startIcon={faCodeCommit}
+                startIcon={faAdd}
                 onClick={openCreateNodeDialog}
             />
             <NodeIndexSearch />

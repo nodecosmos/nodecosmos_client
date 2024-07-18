@@ -1,5 +1,4 @@
 import { NodecosmosTheme } from '../../themes.types';
-import utils from '../utils';
 
 export default (theme: NodecosmosTheme) => ({
     MuiTypography: {
@@ -23,8 +22,6 @@ export default (theme: NodecosmosTheme) => ({
                         color: theme.palette.diff.added.fg,
                     },
                 },
-
-                ...utils(theme),
             },
         },
     },

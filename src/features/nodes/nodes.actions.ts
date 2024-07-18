@@ -20,5 +20,4 @@ export const {
     setShowAncestorChain,
     setIndexSearchTerm,
     setSidebarOpen,
-    pushRecentNode,
 } = actions;

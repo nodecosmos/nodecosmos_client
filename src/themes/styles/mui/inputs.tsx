@@ -163,14 +163,6 @@ export default (theme: NodecosmosTheme) => ({
         },
     },
 
-    MuiFormControl: {
-        styleOverrides: {
-            root: {
-                overflow: 'hidden',
-            },
-        },
-    },
-
     MuiFormControlLabel: {
         styleOverrides: {
             root: {

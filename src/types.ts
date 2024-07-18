@@ -73,10 +73,6 @@ export interface RootId {
     rootId: UUID;
 }
 
-export interface MaybeRootId {
-    rootId?: UUID;
-}
-
 export interface NodeId {
     nodeId: UUID;
 }

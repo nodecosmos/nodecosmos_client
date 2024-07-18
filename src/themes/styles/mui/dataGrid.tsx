@@ -46,7 +46,7 @@ export default (theme: NodecosmosTheme) => ({
             },
             row: {
                 color: theme.palette.text.secondary,
-                '&:hover': { backgroundColor: theme.palette.background[4] },
+                '&:hover': { backgroundColor: theme.palette.background[5] },
             },
             cell: {
                 display: 'flex',

@@ -1,5 +1,4 @@
 import { NodecosmosTheme } from '../../themes.types';
-import utils from '../utils';
 
 export default (theme: NodecosmosTheme) => ({
     MuiDialog: {
@@ -49,14 +48,6 @@ export default (theme: NodecosmosTheme) => ({
                     height: 50,
                 },
 
-            },
-        },
-    },
-    MuiDialogActions: {
-        styleOverrides: {
-            root: {
-                padding: '16px 24px',
-                ...utils(theme),
             },
         },
     },

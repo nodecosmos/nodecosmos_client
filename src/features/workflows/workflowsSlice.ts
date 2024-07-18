@@ -1,28 +1,16 @@
 import { buildWorkflowDiagram, BuildWorkflowDiagramData } from './diagram/diagram';
 import { showWorkflow, updateWorkflowTitle } from './worfklow.thunks';
 import { WorkflowState } from './workflow.types';
+import { getScale } from './workflow.utils';
 import { UUID } from '../../types';
 import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-const WORKFLOW_SCALE_LS_KEY = 'WFS';
-
-const parseScaleFromLS = () => {
-    const scale = localStorage.getItem(WORKFLOW_SCALE_LS_KEY);
-
-    if (scale) {
-        return parseFloat(scale);
-    }
-
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    return isMobile ? 0.7 : 1;
-};
 
 const initialState: WorkflowState = {
     byBranchId: {},
     // diagram
     workflowDiagramByBranchId: {},
-    workflowScale: parseScaleFromLS(),
+    workflowScale: getScale(),
 };
 
 const workflowsSlice = createSlice({
@@ -30,7 +18,7 @@ const workflowsSlice = createSlice({
     initialState,
     reducers: {
         setWorkflowScale(state, action) {
-            localStorage.setItem(WORKFLOW_SCALE_LS_KEY, action.payload);
+            localStorage.setItem('workflowScale', action.payload);
             state.workflowScale = action.payload;
         },
         rebuildWorkflowDiagram(

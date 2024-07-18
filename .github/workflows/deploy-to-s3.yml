@@ -18,9 +18,9 @@ jobs:
       contents: read
     steps:
       - name: Git clone the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::714215625955:role/github-actions
           role-session-name: s3session

@@ -5,12 +5,7 @@ import { BranchDiffPayload } from '../branch/branches.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
-interface DescriptionResponse {
-    description: Description | null;
-    coverImageUrl: string | null;
-}
-
-export const getDescription = createAsyncThunk<DescriptionResponse, QueryKey, { rejectValue: NodecosmosError }>(
+export const getDescription = createAsyncThunk<Description, QueryKey, { rejectValue: NodecosmosError }>(
     'descriptions/getDescription',
     async ({
         branchId, objectId, nodeId, objectType, rootId,
