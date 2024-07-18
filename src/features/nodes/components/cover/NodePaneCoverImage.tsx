@@ -19,8 +19,10 @@ const UppyUploadImageModal = React.lazy(() => import('../../../../common/compone
 export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, objectId } = usePaneContext();
-    const { isBranch, branchId } = useBranchContext();
-    const root = useSelector(maybeSelectNode(branchId, rootId));
+    const {
+        isBranch, branchId, nodeId, 
+    } = useBranchContext();
+    const root = useSelector(maybeSelectNode(branchId, nodeId));
 
     if (!branchId) {
         throw new Error('`branchId` is required in `metadata`');

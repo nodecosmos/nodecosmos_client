@@ -3,7 +3,7 @@ import ToolbarContainer from '../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../common/components/toolbar/ToolbarItem';
 import { HEADER_HEIGHT } from '../../features/app/constants';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
-import EditorsV2 from '../../features/nodes/components/team/EditorsV2';
+import Editors from '../../features/nodes/components/team/Editors';
 import Invitations from '../../features/nodes/components/team/Invitations';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import UserProfileLink from '../../features/users/components/UserProfileLink';
@@ -82,7 +82,7 @@ export default function TeamShow() {
                     <Invitations />
                 </div>
                 <Box ref={editorsRef}>
-                    <EditorsV2 />
+                    <Editors />
                 </Box>
             </Box>
         </Box>
