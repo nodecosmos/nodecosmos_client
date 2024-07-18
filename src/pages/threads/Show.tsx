@@ -1,6 +1,7 @@
 import Alert from '../../common/components/Alert';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
+import { P_XS_2_MD_4_SX } from '../../features/app/constants';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import { selectThread, selectThreadCommentIds } from '../../features/comments/comments.selectors';
 import { showThread } from '../../features/comments/comments.thunks';
@@ -13,7 +14,7 @@ import { faMessageBot } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -54,6 +55,12 @@ export default function Show() {
         };
     }, [branchId, dispatch, fetched, nodeId, rootId, setFetched, threadId, unsetFetched]);
 
+    const threadPk = useMemo(() => ({
+        branchId,
+        objectId: nodeId,
+        id: threadId,
+    }), [branchId, nodeId, threadId]);
+
     if (fetched && !thread) {
         return <Box m={4}> <Typography variant="h5">Thread not found</Typography> </Box>;
     }
@@ -71,13 +78,13 @@ export default function Show() {
                     <Box component="span" ml={2}>{thread.title}</Box>
                 </Typography>
                 <Box
+                    className="background-5"
                     component="div"
                     border={1}
                     borderColor="borders.3"
                     borderRadius={3}
-                    p={2}
+                    p={P_XS_2_MD_4_SX}
                     boxSizing="border-box"
-                    sx={{ backgroundColor: 'background.5' }}
                 >
                     {
                         mainThreadCommentIds?.map(
@@ -91,15 +98,13 @@ export default function Show() {
                             },
                         )
                     }
-                    <CommentEditor
-                        autoFocus={false}
-                        threadPk={{
-                            branchId,
-                            objectId: nodeId,
-                            id: threadId,
-                        }}
-                        info="Add a comment to the main thread"
-                    />
+                    <Box mt={2}>
+                        <CommentEditor
+                            autoFocus={false}
+                            threadPk={threadPk}
+                            info="Add a comment to the main thread"
+                        />
+                    </Box>
                 </Box>
             </Container>
         </Box>

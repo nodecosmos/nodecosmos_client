@@ -18,7 +18,7 @@ export default function useNodeDefaultColors() {
         const { defaultBorder } = theme.palette.tree;
         const outlinedColored = hasChildren;
 
-        let backgroundColor = isSelected ? withOpacity(nestedTreeColor.fg, 0.8) : theme.palette.tree.default;
+        let backgroundColor = isSelected ? nestedTreeColor.fg : theme.palette.tree.default;
 
         const color = (isSelected && theme.palette.tree.selectedText)
             || (hasChildren && nestedTreeColor.fg) || theme.palette.tree.defaultText;

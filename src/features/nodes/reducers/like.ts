@@ -10,20 +10,36 @@ export function getLikeCountFulfilled(state: NodeState, action: ReturnType<typeo
     const { id, likeCount } = action.payload;
 
     if (branchId) {
-        state.byBranchId[branchId][id].likeCount = likeCount;
+        const node = state.byBranchId[branchId][id];
+
+        if (node) {
+            node.likeCount = likeCount || 0;
+        }
+    }
+}
+
+export function getLikeCountRejected(state: NodeState, action: ReturnType<typeof getLikeCount.rejected>) {
+    const { objectId, branchId } = action.meta.arg;
+
+    if (branchId) {
+        const node = state.byBranchId[branchId][objectId];
+
+        if (node) {
+            node.likeCount ||= 0;
+        }
     }
 }
 
 export function likeObjectFulfilled(state: NodeState, action: ReturnType<typeof likeObject.fulfilled>) {
-    const { id, branchId } = action.payload;
+    const { objectId, branchId } = action.meta.arg;
 
-    handleLike(state, id, branchId, 1);
+    handleLike(state, objectId, branchId, 1);
 }
 
 export function unlikeObjectFulfilled(state: NodeState, action: ReturnType<typeof unlikeObject.fulfilled>) {
-    const { id, branchId } = action.payload;
+    const { objectId, branchId } = action.meta.arg;
 
-    handleLike(state, id, branchId, -1);
+    handleLike(state, objectId, branchId, -1);
 }
 
 function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number) {
@@ -32,9 +48,9 @@ function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: numbe
     }
 
     if (branchId && state.byBranchId[branchId] && state.byBranchId[branchId][id]) {
-        const likeCount = state.byBranchId[branchId][id].likeCount;
+        const likeCount = state.byBranchId[branchId][id].likeCount || 0;
 
-        if (likeCount) {
+        if (state.byBranchId[branchId][id]) {
             state.byBranchId[branchId][id].likeCount = likeCount + increment;
         }
     }

@@ -44,7 +44,7 @@ export function usePaneContextCreator(props: PaneProps) {
         page,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [loading, setLoading, _unsetLoading] = useBooleanStateValue();
+    const [loading, setLoading, _unsetLoading] = useBooleanStateValue(false);
     const selectedObject = useSelector(selectSelectedObject);
     const [searchParams] = useSearchParams();
     const paneQ = searchParams.get(PANE_Q) as PaneContent;

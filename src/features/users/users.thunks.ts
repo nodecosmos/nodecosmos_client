@@ -8,15 +8,21 @@ import {
 } from '../../types';
 import { SYNC_UP_INTERVAL } from '../app/constants';
 import { LikePrimaryKey } from '../likes/likes.types';
+import { NodeByOwner } from '../nodes/nodes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
 export interface LoginForm {
     usernameOrEmail: string;
     password: string;
+    rToken?: string;
 }
 
-export const logIn = createAsyncThunk<CurrentUser, LoginForm, { rejectValue: NodecosmosError }>(
+export const logIn = createAsyncThunk<
+    { user: CurrentUser, likes: LikePrimaryKey[] },
+    LoginForm,
+    { rejectValue: NodecosmosError }
+>(
     'users/logIn',
     async (loginForm, { rejectWithValue }) => {
         try {
@@ -32,7 +38,12 @@ export const logIn = createAsyncThunk<CurrentUser, LoginForm, { rejectValue: Nod
     },
 );
 
-export const showUserByUsername = createAsyncThunk<User, string, { rejectValue: NodecosmosError }>(
+interface UserByUsernameResponse {
+    user: User;
+    rootNodes: NodeByOwner[];
+}
+
+export const showUserByUsername = createAsyncThunk<UserByUsernameResponse, string, { rejectValue: NodecosmosError }>(
     'users/showUserByUsername',
     async (username, { rejectWithValue }) => {
         try {
@@ -225,13 +236,15 @@ export const logOut = createAsyncThunk<void, void, { rejectValue: NodecosmosErro
 
 interface UserCreatePayload extends UserCreateForm {
     token: string | null;
-}
 
+    // reCaptcha token
+    rToken?: string | null;
+}
 export const create = createAsyncThunk<CurrentUser | null, UserCreatePayload, { rejectValue: NodecosmosError }>(
     'users/create',
     async (payload, { rejectWithValue }) => {
         try {
-            const response = await nodecosmos.post(`/users?token=${payload.token}`, payload);
+            const response = await nodecosmos.post(`/users?token=${payload.token}&rToken=${payload.rToken}`, payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

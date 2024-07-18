@@ -65,7 +65,7 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
             <path
                 className="InputLink"
                 stroke={color}
-                fill="transparent"
+                fill="none"
                 strokeWidth={strokeWidth}
                 d={`M ${x - selectedOffset} ${y - selectedOffset}
                     L ${x + X_ORIGIN_OFFSET - selectedOffset} ${y}
