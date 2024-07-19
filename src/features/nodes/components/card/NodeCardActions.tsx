@@ -25,16 +25,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 likeCount={node.likeCount}
             />
             <Tooltip title="Contribution Requests">
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    sx={{
-                        svg: {
-                            fontSize: 16,
-                            color: 'text.tertiary',
-                        },
-                    }}
-                >
+                <div className="text-tertiary fs-16 display-flex align-center">
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
                         <FontAwesomeIcon
                             icon={faCodePullRequest}
@@ -43,19 +34,10 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                     <Typography variant="caption" color="text.tertiary">
                         {abbreviateNumber(node.contributionRequestsCount || 0)}
                     </Typography>
-                </Box>
+                </div>
             </Tooltip>
             <Tooltip title="Threads">
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    sx={{
-                        svg: {
-                            fontSize: 16,
-                            color: 'text.tertiary',
-                        },
-                    }}
-                >
+                <div className="text-tertiary fs-16 display-flex align-center">
                     <Box width={36} height={36} display="flex" alignItems="center" justifyContent="center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
@@ -64,7 +46,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                     <Typography variant="caption" color="text.tertiary">
                         {abbreviateNumber(node.threadsCount || 0)}
                     </Typography>
-                </Box>
+                </div>
             </Tooltip>
         </CardActions>
     );

@@ -72,7 +72,10 @@ export default (theme: NodecosmosTheme) => ({
     '&.border-bottom-1': { borderBottom: `1px solid ${theme.palette.borders[1]}` },
     '&.border-radius-1': { borderRadius: 4 },
 
-    '&.fs-16': { fontSize: 16 },
+    '&.fs-16': {
+        fontSize: 16,
+        svg: { fontSize: 16 },
+    },
     '&.fs-18': { fontSize: 18 },
     '&.fs-25': { fontSize: 25 },
     '&.fs-70': { fontSize: 75 },
@@ -134,6 +137,7 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.display-flex': { display: 'flex' },
     '&.justify-start': { justifyContent: 'start' },
+    '&.align-center': { alignItems: 'center' },
 
     '&.tree-nested-color-hover-0': {
         '&:hover': {
