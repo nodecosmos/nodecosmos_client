@@ -79,7 +79,6 @@ export default function PaneDescriptionEditor() {
                         editorFocusBorderColor="toolbar.default"
                         editorClassName="fs-18"
                         isRealTime
-                        autoFocus={document?.activeElement?.tagName !== 'INPUT'}
                     />
                 </Box>
             </Suspense>

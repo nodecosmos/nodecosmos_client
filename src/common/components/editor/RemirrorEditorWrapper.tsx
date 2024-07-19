@@ -60,7 +60,7 @@ export default function RemirrorEditorWrapper() {
                 <Remirror
                     manager={manager}
                     initialContent={state}
-                    autoFocus={autoFocus}
+                    autoFocus={autoFocus && document?.activeElement?.tagName !== 'INPUT'}
                     onChange={handleChange}
                     editable
                 >
