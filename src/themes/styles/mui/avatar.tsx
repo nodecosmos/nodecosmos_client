@@ -9,6 +9,10 @@ export default (theme: NodecosmosTheme) => ({
                     backgroundColor: theme.palette.background[8],
                     cursor: 'pointer',
 
+                    '&.has-image': {
+                        backgroundColor: 'transparent',
+                    },
+
                     '&.size-25': {
                         width: 25,
                         height: 25,

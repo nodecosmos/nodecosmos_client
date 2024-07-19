@@ -39,7 +39,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
             restrictions: {
                 maxNumberOfFiles: 1,
                 maxFileSize: 5 * 1024 * 1024,
-                allowedFileTypes: ['image/jpeg', 'image/png', 'image/gif'],
+                allowedFileTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
             },
             locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
         }).use(ImageEditor, {

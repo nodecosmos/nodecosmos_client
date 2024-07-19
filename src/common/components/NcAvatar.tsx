@@ -20,7 +20,7 @@ function NcAvatar(props: NcAvatarProps) {
 
     return (
         <Avatar
-            className={`NcAvatar size-${size} fontSize-${fontSize}`}
+            className={`NcAvatar size-${size} fontSize-${fontSize} ${src ? 'has-image' : ''}`}
             src={src ?? undefined}
             onClick={onClick}
         >
