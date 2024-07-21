@@ -13,7 +13,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export default function ThreadHeader() {
     const {
-        author, createdAt, threadLocation, objectId,
+        author, createdAt, threadLocation, objectId, lineContent,
     } = useThreadContext();
     const { branchId } = useBranchContext();
     const node = useSelector(maybeSelectNode(branchId, objectId));
@@ -34,7 +34,7 @@ export default function ThreadHeader() {
         commentAction = <span>commented input/output <em>{nodeTitle}</em></span>;
         break;
     case ThreadLocation.ContributionRequestObjectDescription:
-        commentAction = <span>commented line <em>{nodeTitle}</em></span>;
+        commentAction = <span>commented line <em>{lineContent}</em></span>;
         break;
     default:
         commentAction = 'commented';

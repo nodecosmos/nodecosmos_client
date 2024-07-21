@@ -1,5 +1,5 @@
 import { COMMENT_THREAD_WIDGET_CLASS, CommentThreadWidget } from '../../../../common/lib/codemirror/extensions/widgets';
-import { setThreadWidget } from '../../../../common/lib/codemirror/stateEffects';
+import { removeThreadWidget, setThreadWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { UUID } from '../../../../types';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
@@ -20,16 +20,16 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
     const objectThreadsByLine = useSelector(selectObjectThreadsByLine(branchId, objectId));
     const [portalsById, setDescThreadPortals] = useState<Record<UUID, ReactPortal> | null>();
 
-    // const clearWidgets = useCallback(() => {
-    //     view.dispatch({
-    //         effects: removeThreadWidget.of({
-    //             deco: Decoration.widget({
-    //                 widget: CommentThreadWidget.prototype,
-    //                 block: true,
-    //             }),
-    //         }),
-    //     });
-    // }, [view]);
+    const clearWidgets = useCallback(() => {
+        view.dispatch({
+            effects: removeThreadWidget.of({
+                deco: Decoration.widget({
+                    widget: CommentThreadWidget.prototype,
+                    block: true,
+                }),
+            }),
+        });
+    }, [view]);
 
     /**
      * We use ReactPortal to render the CommentThread component within the CodeMirror editor.
@@ -60,17 +60,17 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                         }
                     });
 
-                    // mutation.removedNodes.forEach((node) => {
-                    //     if (node instanceof HTMLElement && node.classList.contains(COMMENT_THREAD_WIDGET_CLASS)) {
-                    //         const threadId = node.dataset.threadId as UUID;
-                    //
-                    //         setDescThreadPortals((prevPortals) => {
-                    //             const newPortals = { ...prevPortals };
-                    //             delete newPortals[threadId];
-                    //             return newPortals;
-                    //         });
-                    //     }
-                    // });
+                    mutation.removedNodes.forEach((node) => {
+                        if (node instanceof HTMLElement && node.classList.contains(COMMENT_THREAD_WIDGET_CLASS)) {
+                            const threadId = node.dataset.threadId as UUID;
+
+                            setDescThreadPortals((prevPortals) => {
+                                const newPortals = { ...prevPortals };
+                                delete newPortals[threadId];
+                                return newPortals;
+                            });
+                        }
+                    });
                 }
             }
         });
@@ -83,8 +83,10 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
 
         return () => {
             observer.disconnect();
+
+            clearWidgets();
         };
-    }, []);
+    }, [clearWidgets]);
 
     interface LineThread {
         lineNumber: number;

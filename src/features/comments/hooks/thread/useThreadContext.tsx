@@ -1,7 +1,9 @@
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { selectThread, selectThreadCommentIds } from '../../comments.selectors';
 import { CommentThreadProps } from '../../components/CommentThread';
-import { createContext, useContext } from 'react';
+import {
+    createContext, useContext, useMemo, 
+} from 'react';
 import { useSelector } from 'react-redux';
 
 interface ThreadContextValue extends CommentThreadProps {
@@ -37,7 +39,7 @@ export function useThreadContext() {
 
     const commentIds = useSelector(selectThreadCommentIds(id));
 
-    return {
+    return useMemo(() => ({
         objectId,
         id,
         author,
@@ -49,7 +51,7 @@ export function useThreadContext() {
         commentCount: commentIds.length,
         showLine: showLine && !!lineNumber,
         collapsed,
-    };
+    }), [objectId, id, author, lineNumber, lineContent, threadLocation, createdAt, commentIds, showLine, collapsed]);
 }
 
 export function useThreadCommands() {

@@ -7,6 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box } from '@mui/material';
 import React from 'react';
 
+const EXP_SX = {
+    p: 1,
+    svg: {
+        marginRight: 1,
+        color: 'text.tertiary',
+    },
+    button: { color: 'text.tertiary' },
+};
+
 const ExpContainer = ({ children, withBorder }: {children: React.ReactNode, withBorder?: boolean}) => {
     return (
         <Box
@@ -15,14 +24,7 @@ const ExpContainer = ({ children, withBorder }: {children: React.ReactNode, with
             width={1}
             maxWidth={MAX_COMMENT_WIDTH}
             borderColor="borders.4"
-            sx={{
-                p: 1,
-                svg: {
-                    marginRight: 1,
-                    color: 'text.tertiary',
-                },
-                button: { color: 'text.tertiary' },
-            }}>
+            sx={EXP_SX}>
             {children}
         </Box>
     );
