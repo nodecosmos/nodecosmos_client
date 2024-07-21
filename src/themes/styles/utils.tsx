@@ -136,6 +136,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.left': { textAlign: 'left' },
 
     '&.display-flex': { display: 'flex' },
+    '&.display-inline-flex': { display: 'inline-flex' },
     '&.justify-start': { justifyContent: 'start' },
     '&.align-center': { alignItems: 'center' },
 
