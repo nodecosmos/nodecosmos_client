@@ -52,7 +52,7 @@ export default function New() {
     }), [rootId, title, branchId, nodeId]);
 
     return (
-        <Box my={4}>
+        <Box py={4} height={1} className="overflow-auto">
             <Container maxWidth="md">
                 <Alert position="relative" mb={2} maxWidth={780} />
                 <Typography variant="h5" color="text.secondary">
