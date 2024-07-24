@@ -38,7 +38,6 @@ const TOOLBAR_MAP: ToolbarMap = {
     [EnabledExtensions.ListItem]: null,
     [EnabledExtensions.Markdown]: null,
     [EnabledExtensions.Placeholder]: null,
-    [EnabledExtensions.TaskList]: null,
     [EnabledExtensions.TrailingNode]: null,
 };
 
