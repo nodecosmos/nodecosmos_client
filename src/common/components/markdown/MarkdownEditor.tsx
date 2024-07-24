@@ -9,6 +9,7 @@ import {
     commentWidgetsField, commentThreadWidgetField, hoveredLineField, selectedLineField,
 } from '../../lib/codemirror/stateFields';
 import { markdown } from '@codemirror/lang-markdown';
+import { Typography } from '@mui/material';
 import { Extension, useCodeMirror } from '@uiw/react-codemirror';
 import React, {
     useEffect, useMemo, useRef,
@@ -78,6 +79,17 @@ export default function MarkdownEditor({
 
     return (
         <div>
+            <Typography
+                color="text.tertiary"
+                variant="subtitle2"
+                backgroundColor="background.1"
+                p={1}
+                borderBottom={1}
+                borderColor="borders.3"
+            >
+                Currently markdown editor is in read-only mode and it is used to display differences between
+                the original and the new description within the contribution request.
+            </Typography>
             <MarkdownContainer>
                 <div ref={codeMirrorRef} />
             </MarkdownContainer>
