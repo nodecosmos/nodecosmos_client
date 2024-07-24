@@ -80,9 +80,9 @@ export default function MarkdownEditor({
     return (
         <div>
             <Typography
+                className="background-1"
                 color="text.tertiary"
                 variant="subtitle2"
-                backgroundColor="background.1"
                 p={1}
                 borderBottom={1}
                 borderColor="borders.3"
