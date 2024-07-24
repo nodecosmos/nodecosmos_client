@@ -113,7 +113,6 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
 
                 <CloseModalButton onClose={onClose} />
             </div>
-            <Alert position="sticky" mb={1} />
             {
                 currentUser && (
                     <DialogContent>
