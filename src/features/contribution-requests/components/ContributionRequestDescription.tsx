@@ -22,11 +22,11 @@ import { MarkdownExtension } from 'remirror/extensions';
 const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
 
 const {
-    Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link: LinkExt, OrderedList,
+    Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link: LinkExt, OrderedList, Image,
 } = EnabledExtensions;
 
 const EXTENSIONS = [
-    Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, LinkExt, OrderedList,
+    Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, LinkExt, OrderedList, Image,
 ];
 
 export default function ContributionRequestDescription() {

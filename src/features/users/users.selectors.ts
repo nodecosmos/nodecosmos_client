@@ -18,5 +18,5 @@ export const selectUserById = (id: string) => createSelector(
 
 export const selectUsersByIds = (ids: string[]) => createSelector(
     selectUsersById,
-    (users) => ids.map((id) => users[id]),
+    (users) => ids.map((id) => users[id]).filter(Boolean),
 );

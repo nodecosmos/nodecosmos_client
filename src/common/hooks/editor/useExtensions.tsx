@@ -21,7 +21,6 @@ import {
     OrderedListExtension,
     PlaceholderExtension,
     StrikeExtension,
-    TaskListExtension,
     TrailingNodeExtension,
     YjsExtension,
 } from 'remirror/extensions';
@@ -46,7 +45,6 @@ export enum EnabledExtensions {
     OrderedList,
     Placeholder,
     Strike,
-    TaskList,
     TrailingNode,
 }
 
@@ -65,7 +63,6 @@ export type RemirrorExtensions = BlockquoteExtension
     | OrderedListExtension
     | PlaceholderExtension
     | StrikeExtension
-    | TaskListExtension
     | TrailingNodeExtension
     | YjsExtension
 
@@ -92,7 +89,6 @@ const extensionMap: Record<EnabledExtensions, () => RemirrorExtensions> = {
     [EnabledExtensions.CodeBlock]: () => new CodeBlockExtension({}),
     [EnabledExtensions.Image]: () => new ImageExtension({}),
     [EnabledExtensions.HardBreak]: () => new HardBreakExtension(),
-    [EnabledExtensions.TaskList]: () => new TaskListExtension(),
     [EnabledExtensions.File]: () => new LinkExtension({
         defaultTarget: '_blank',
         autoLink: false,

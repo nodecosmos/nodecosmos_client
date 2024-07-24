@@ -3,6 +3,8 @@ import ConfirmationModal, { ConfirmType } from '../../../common/components/Confi
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { selectBranch } from '../../branch/branches.selectors';
+import { selectNode } from '../../nodes/nodes.selectors';
+import { selectCurrentUser } from '../../users/users.selectors';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import useMerge from '../hooks/useMerge';
@@ -17,12 +19,16 @@ export default function ContributionRequestMergeButton() {
     const {
         id: nodeId,
         branchId: id,
+        originalId,
     } = useParams();
 
     const contributionRequest = useSelector(selectContributionRequest(nodeId as UUID, id as UUID));
     const branch = useSelector(selectBranch(id as UUID));
     const merge = useMerge();
     const [modOpen, openMod, closeMod] = useModalOpen();
+    const currentUser = useSelector(selectCurrentUser);
+    const { ownerId, editorIds } = useSelector(selectNode(originalId as UUID, nodeId as UUID));
+    const isAuthorized = currentUser && (currentUser.id === ownerId || editorIds?.has(currentUser.id));
 
     if (contributionRequest?.status == ContributionRequestStatus.Merged) {
         return (
@@ -34,7 +40,7 @@ export default function ContributionRequestMergeButton() {
         );
     }
 
-    if (!contributionRequest) return null;
+    if (!contributionRequest || !isAuthorized) return null;
     let warning;
 
     if (branch?.reorderedNodes?.length) {
