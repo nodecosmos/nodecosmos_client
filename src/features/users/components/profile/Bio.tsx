@@ -15,7 +15,7 @@ import { MarkdownExtension } from 'remirror/extensions';
 const RemirrorEditor = React.lazy(() => import('../../../../common/components/editor/RemirrorEditor'));
 
 const {
-    Bold, Italic, Strike, Markdown, Blockquote, Link, OrderedList,
+    Bold, Italic, Strike, Markdown, Blockquote, Link, BulletList, OrderedList,
 } = EnabledExtensions;
 
 const ENABLED_EXTENSIONS = [
@@ -25,6 +25,7 @@ const ENABLED_EXTENSIONS = [
     Markdown,
     Blockquote,
     Link,
+    BulletList,
     OrderedList,
 ];
 
@@ -102,6 +103,7 @@ export default function Bio() {
                             borderColor="borders.1"
                             borderRadius={2}>
                             <RemirrorEditor
+                                fileObjectId={user.id}
                                 onBlur={closeBioEditor}
                                 markdown={user.bio}
                                 onChange={handleBio}

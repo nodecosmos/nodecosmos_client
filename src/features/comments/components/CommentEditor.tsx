@@ -263,6 +263,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                             info={info}
                             clearState={isUpdate ? undefined : clearState}
                             autoFocus={autoFocus}
+                            fileObjectId={threadPk ? threadPk.objectId : newThread?.objectId}
                         />
                     </Box>
                     <Box

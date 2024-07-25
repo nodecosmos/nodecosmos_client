@@ -1,4 +1,5 @@
-import { selectSelectedNode } from '../../../../features/nodes/nodes.selectors';
+import useBranchContext from '../../../../features/branch/hooks/useBranchContext';
+import { useEditorContext } from '../../../hooks/editor/useEditorContext';
 import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import { faCamera } from '@fortawesome/pro-solid-svg-icons';
@@ -6,16 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import { useCommands } from '@remirror/react';
 import React, { Suspense, useCallback } from 'react';
-import { useSelector } from 'react-redux';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
 
-/// TODO: we need to pass pros from RemirrorEditor
 export default function Image() {
-    const [imageDialogOpen, openImageDialog, closeImageDialog] = useBooleanStateValue();
     const {
-        id, rootId, branchId,
-    } = useSelector(selectSelectedNode);
+        nodeId, branchId, originalId,
+    } = useBranchContext();
+    const { fileObjectId } = useEditorContext();
+    const [imageDialogOpen, openImageDialog, closeImageDialog] = useBooleanStateValue();
     const commands = useCommands<RemirrorExtensions>();
 
     const handleImageDialogClose = useCallback((responseBody?: { url: string }) => {
@@ -37,7 +37,9 @@ export default function Image() {
             {imageDialogOpen && (
                 <Suspense>
                     <UppyUploadImageModal
-                        endpointPath={`attachments/${branchId}/${id}/${rootId}/${id}/upload_image`}
+                        endpointPath={
+                            `attachments/${branchId}/${nodeId}/${originalId}/${fileObjectId}/upload_image`
+                        }
                         open={imageDialogOpen}
                         onClose={handleImageDialogClose}
                     />

@@ -1,4 +1,5 @@
-import { selectSelectedNode } from '../../../../features/nodes/nodes.selectors';
+import useBranchContext from '../../../../features/branch/hooks/useBranchContext';
+import { useEditorContext } from '../../../hooks/editor/useEditorContext';
 import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import UppyUploadFileModal from '../../upload/UploadFileModal';
@@ -7,21 +8,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import { useCommands } from '@remirror/react';
 import React, { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-/// TODO: we need to pass pros from RemirrorEditor
 export default function File() {
     const {
-        id, branchId, rootId, 
-    } = useSelector(selectSelectedNode);
+        nodeId, branchId, originalId,
+    } = useBranchContext();
+    const { fileObjectId } = useEditorContext();
     const commands = useCommands<RemirrorExtensions>();
     const [fileDialogOpen, openFileDialog, closeFileDialog] = useBooleanStateValue();
     const fileUploadParams = useMemo(() => ({
-        nodeId: id,
-        rootId,
+        nodeId,
+        rootId: originalId,
         branchId,
-        objectId: id,
-    }), [branchId, id, rootId]);
+        objectId: fileObjectId,
+    }), [branchId, nodeId, originalId, fileObjectId]);
 
     const handleFileDialogClose = useCallback((attachment?: { url: string; filename: string }) => {
         if (attachment) {

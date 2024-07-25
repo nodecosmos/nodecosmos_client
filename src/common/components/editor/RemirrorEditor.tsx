@@ -17,6 +17,7 @@ export interface RemirrorEditorProps {
     wsAuthNodeBranchId?: UUID;
     wsAuthRootId?: UUID;
     enabledExtensions?: EnabledExtensions[];
+    fileObjectId: UUID;
     p?: number;
     px?: number;
     py?: number;
