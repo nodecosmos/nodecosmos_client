@@ -36,3 +36,6 @@ jobs:
       - name: Sync to S3
         run: |
           aws s3 sync ./build s3://${{ env.BUCKET_NAME }}/
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id E22YK31N73LHIN --paths "/*"
