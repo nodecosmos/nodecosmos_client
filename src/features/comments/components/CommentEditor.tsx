@@ -4,7 +4,7 @@ import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError } from '../../../types';
+import { NodecosmosError, UUID } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { EMPTY_PARAGRAPH } from '../../descriptions/hooks/useDescriptionEdit';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
@@ -234,6 +234,8 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
         );
     }
 
+    const objectId = threadPk ? threadPk.objectId : newThread?.objectId as UUID;
+
     return (
         <Box
             borderRadius={0}
@@ -263,7 +265,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                             info={info}
                             clearState={isUpdate ? undefined : clearState}
                             autoFocus={autoFocus}
-                            fileObjectId={threadPk ? threadPk.objectId : newThread?.objectId}
+                            fileObjectId={objectId}
                         />
                     </Box>
                     <Box

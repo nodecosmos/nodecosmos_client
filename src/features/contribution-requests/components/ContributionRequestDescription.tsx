@@ -141,7 +141,7 @@ export default function ContributionRequestDescription() {
                                     p={1}
                                     editorOutline={1}
                                     editorFocusBorderColor="borders.5"
-                                    fileObjectId={id}
+                                    fileObjectId={id as UUID}
                                 />
                                 <Box
                                     mb={1}
