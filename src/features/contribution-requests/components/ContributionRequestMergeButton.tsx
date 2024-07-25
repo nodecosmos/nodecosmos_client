@@ -3,7 +3,7 @@ import ConfirmationModal, { ConfirmType } from '../../../common/components/Confi
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { selectBranch } from '../../branch/branches.selectors';
-import { maybeSelectNode, selectNode } from '../../nodes/nodes.selectors';
+import { maybeSelectNode } from '../../nodes/nodes.selectors';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequest } from '../contributionRequests.selectors';
