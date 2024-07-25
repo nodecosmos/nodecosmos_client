@@ -3,7 +3,7 @@ import ConfirmationModal, { ConfirmType } from '../../../common/components/Confi
 import useModalOpen from '../../../common/hooks/useModalOpen';
 import { UUID } from '../../../types';
 import { selectBranch } from '../../branch/branches.selectors';
-import { selectNode } from '../../nodes/nodes.selectors';
+import { maybeSelectNode, selectNode } from '../../nodes/nodes.selectors';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { ContributionRequestStatus } from '../contributionRequest.types';
 import { selectContributionRequest } from '../contributionRequests.selectors';
@@ -11,7 +11,7 @@ import useMerge from '../hooks/useMerge';
 import { faCodeMerge } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -27,8 +27,10 @@ export default function ContributionRequestMergeButton() {
     const merge = useMerge();
     const [modOpen, openMod, closeMod] = useModalOpen();
     const currentUser = useSelector(selectCurrentUser);
-    const { ownerId, editorIds } = useSelector(selectNode(originalId as UUID, nodeId as UUID));
-    const isAuthorized = currentUser && (currentUser.id === ownerId || editorIds?.has(currentUser.id));
+    const node = useSelector(maybeSelectNode(originalId as UUID, nodeId as UUID));
+    const isAuthorized = useMemo(() => (
+        currentUser && node && (currentUser.id === node.ownerId || node.editorIds?.has(currentUser.id))
+    ), [currentUser, node]);
 
     if (contributionRequest?.status == ContributionRequestStatus.Merged) {
         return (
