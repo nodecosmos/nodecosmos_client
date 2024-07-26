@@ -17,6 +17,21 @@ if (!container) {
     throw new Error('No container found');
 }
 
+if (import.meta.env.MODE === 'development') {
+    // @ts-expect-error dataLayer is defined in the GTM script
+    window.dataLayer = window.dataLayer || [];
+
+    // eslint-disable-next-line no-inner-declarations
+    function gtag(...args: unknown[]) {
+        // @ts-expect-error dataLayer is defined in the GTM script
+        dataLayer.push(args);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-185GRBPXWK');
+}
+
 const root = createRoot(container);
 
 root.render(
