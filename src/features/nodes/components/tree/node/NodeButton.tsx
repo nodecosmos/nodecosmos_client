@@ -4,6 +4,7 @@ import useStopPropagation from '../../../../../common/hooks/useStopPropagation';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import useNodeDrag from '../../../hooks/node/actions/useNodeDrag';
+import useNodeBranchContext from '../../../hooks/node/useNodeBranchContext';
 import useNodeColors from '../../../hooks/node/useNodeColors';
 import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
@@ -34,8 +35,8 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
         dropCapture,
     ] = useNodeDrag();
     const { originalId } = useBranchContext();
+    const ctx = useNodeBranchContext();
     const originalNode = useSelector(maybeSelectNode(originalId, id));
-    const isTitleEdited = originalNode ? title !== originalNode.title : false;
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
     const { size } = useTreeContext();
@@ -67,6 +68,8 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
 
         return className;
     }, [height, isSelected, outlinedColored, isDragOver]);
+
+    const isTitleEdited = ctx?.isTitleEdited && originalNode && title !== originalNode?.title;
 
     return (
         <button
