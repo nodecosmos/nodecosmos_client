@@ -138,11 +138,11 @@ const theme: NodecosmosTheme = {
             default: '#272b31',
             backgrounds: [
                 {
-                    fg: '#e15065',
+                    fg: '#ff5971',
                     bg: '#1f0d16',
                 },
                 {
-                    fg: '#b4a1ff',
+                    fg: '#9378ff',
                     bg: '#1b1c23',
                 },
                 {
@@ -150,15 +150,15 @@ const theme: NodecosmosTheme = {
                     bg: '#151b1f',
                 },
                 {
-                    fg: '#89bd60',
+                    fg: '#abef76',
                     bg: '#1a1f1a',
                 },
                 {
-                    fg: '#b5bd36',
+                    fg: '#bfc83e',
                     bg: '#202319',
                 },
                 {
-                    fg: '#cca859',
+                    fg: '#f2c769',
                     bg: '#25231a',
                 },
             ],
