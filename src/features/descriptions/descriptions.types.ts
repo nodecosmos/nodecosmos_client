@@ -18,6 +18,7 @@ export interface Description extends PrimaryKey {
     html: string;
     markdown: string;
     base64: string | null;
+    shortDescription: string;
 }
 
 export interface DescriptionState {

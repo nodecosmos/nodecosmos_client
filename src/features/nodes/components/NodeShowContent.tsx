@@ -1,13 +1,16 @@
 import MobileSidebar from './sidebar/MobileSidebar';
 import Sidebar from './sidebar/Sidebar';
 import Loader from '../../../common/components/Loader';
+import useMetaAttributes from '../../../common/hooks/useMetaAttributes';
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
+import { selectSelectedObject } from '../../app/app.selectors';
 import {
     DISPLAY_MD_SX, SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX,
 } from '../../app/constants';
 import { SELECTED_OBJ_Q, useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
+import { selectDescription } from '../../descriptions/descriptions.selectors';
 import useNodeSSE from '../hooks/sse/useNodeSSE';
 import { maybeSelectNode } from '../nodes.selectors';
 import { showBranchNode, showNode } from '../nodes.thunks';
@@ -35,6 +38,21 @@ export default function NodeShowContent() {
     const originalNode = useSelector(maybeSelectNode(originalId, id as UUID));
     const branchNode = useSelector(maybeSelectNode(branchId, id as UUID));
     const [searchParams] = useSearchParams();
+
+    // metaTitle, metaDescription, metaImageURL
+    const selectedObject = useSelector(selectSelectedObject);
+    const objectDesc = useSelector(selectDescription(branchId, selectedObject?.objectId));
+    const selectedNode = useSelector(maybeSelectNode(branchId, selectedObject?.objectId));
+    const currentNodeDesc = useSelector(selectDescription(branchId, id));
+    const metaTitle = selectedObject?.objectTitle || branchNode?.title;
+    const metaDescription = objectDesc?.shortDescription || currentNodeDesc?.shortDescription;
+    const metaImageURL = selectedNode?.coverImageUrl || branchNode?.coverImageUrl;
+
+    useMetaAttributes({
+        title: metaTitle,
+        description: metaDescription,
+        image: metaImageURL,
+    });
 
     useNodeSSE(originalNode?.rootId);
 
