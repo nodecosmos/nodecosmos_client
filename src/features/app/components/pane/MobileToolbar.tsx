@@ -1,6 +1,7 @@
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
+import { selectBranch } from '../../../branch/branches.selectors';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { DRAWER_HEIGHT, HEADER_HEIGHT } from '../../constants';
 import useDrawer from '../../hooks/pane/useDrawer';
@@ -14,16 +15,31 @@ import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 export default function Toolbar() {
     const { isBranch } = useBranchContext();
     const {
-        objectTitle, originalObjectTitle, setContent, content, objectType,
+        objectTitle, originalObjectTitle, setContent, content, objectType, branchId, objectId,
     } = usePaneContext();
-    const isTitleEdited = objectTitle && objectTitle !== originalObjectTitle;
+    const branch = useSelector(selectBranch(branchId));
     const [searchParams, setSearchParams] = useSearchParams();
     const clickableRef = useDrawer();
+    const isTitleEdited = useMemo(() => {
+        if (!branch) {
+            return false;
+        }
+
+        const {
+            editedTitleNodes, editedTitleFlows, editedTitleIos,
+        } = branch;
+
+        return (
+            editedTitleNodes.has(objectId)
+            || editedTitleFlows.has(objectId)
+            || editedTitleIos.has(objectId)) && originalObjectTitle && objectTitle !== originalObjectTitle;
+    }, [branch, objectId, objectTitle, originalObjectTitle]);
 
     const handleTogglePane = useCallback((paneContent: PaneContent | undefined) => {
         if (paneContent !== undefined) {
