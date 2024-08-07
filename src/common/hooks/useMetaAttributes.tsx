@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 interface MetaProps {
     title?: string;
-    description?: string;
+    description?: string | null;
     image?: string | null;
 }
 
