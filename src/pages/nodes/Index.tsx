@@ -1,4 +1,5 @@
 import Alert from '../../common/components/Alert';
+import Loader from '../../common/components/Loader';
 import VirtualContainer from '../../common/components/VirtualContainer';
 import useBooleanStateValue from '../../common/hooks/useBooleanStateValue';
 import { setHeaderContent } from '../../features/app/appSlice';
@@ -29,6 +30,8 @@ export default function NodeIndex() {
     const [pagingState, setPagingState] = React.useState({ page: Math.round(length / CURRENT_PAGE_SIZE) || 1 });
     const [hasMore, setHasMore, unsetHasMore] = useBooleanStateValue(true);
     const indexSearchTerm = useSelector(selectIndexSearchTerm);
+    const [fetched, setFetched, _unsetFetched] = useBooleanStateValue();
+    const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
 
     const indexMoreNodes = useCallback(async () => {
         const query: IndexNodesPayload['query'] = { page: pagingState.page };
@@ -56,16 +59,19 @@ export default function NodeIndex() {
     }, [dispatch, indexSearchTerm, pagingState.page, unsetHasMore]);
 
     useEffect(() => {
-        dispatch(setHeaderContent('NodeIndexHeader'));
-        dispatch(indexNodes({ append: true }));
-        setHasMore();
+        if (!fetched) {
+            setLoading();
+            dispatch(indexNodes({ append: false })).then(() => {
+                setFetched();
+                unsetLoading();
+                setHasMore();
+            });
+        }
 
         return () => {
-            dispatch(setHeaderContent(''));
-            dispatch(setIndexSearchTerm(undefined));
             setHasMore();
         };
-    }, [dispatch, setHasMore]);
+    }, [dispatch, fetched, setFetched, setHasMore, setLoading, unsetLoading]);
 
     useEffect(() => {
         if (Object.keys(nodes).length < CURRENT_PAGE_SIZE) {
@@ -74,6 +80,15 @@ export default function NodeIndex() {
             setHasMore();
         }
     }, [indexSearchTerm, nodes, setHasMore, unsetHasMore]);
+
+    useEffect(() => {
+        dispatch(setHeaderContent('NodeIndexHeader'));
+
+        return () => {
+            dispatch(setHeaderContent(''));
+            dispatch(setIndexSearchTerm(undefined));
+        };
+    }, [dispatch]);
 
     return (
         <Box
@@ -90,17 +105,21 @@ export default function NodeIndex() {
                 <RecentNodes />
             </Box>
             <Alert width={MD_WO_SIDEBAR_WIDTH_SX} right={0} />
-            <VirtualContainer
-                onMore={hasMore ? indexMoreNodes : undefined}
-                width={MD_WO_SIDEBAR_WIDTH_SX}
-                p={1}
-            >
-                {
-                    Object.keys(nodes).map((id) => (
-                        <NodeCard key={id} id={id} />
-                    ))
-                }
-            </VirtualContainer>
+            {loading && !fetched && <Loader />}
+
+            {!loading && fetched && (
+                <VirtualContainer
+                    onMore={hasMore ? indexMoreNodes : undefined}
+                    width={MD_WO_SIDEBAR_WIDTH_SX}
+                    p={1}
+                >
+                    {
+                        Object.keys(nodes).map((id) => (
+                            <NodeCard key={id} id={id} />
+                        ))
+                    }
+                </VirtualContainer>
+            )}
             <NodeIndexMobileFooter />
         </Box>
     );
