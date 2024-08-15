@@ -106,7 +106,8 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 {
                     currentUser && (
                         <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
-                            Create a node to start a new innovation, research, or knowledge sharing project.
+                            Create a node to start a new innovation, research, or knowledge-sharing project,
+                            or to test the platform.
                         </Typography>
                     )
                 }
