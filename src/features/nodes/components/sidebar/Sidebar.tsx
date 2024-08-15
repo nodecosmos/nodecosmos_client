@@ -1,6 +1,5 @@
 import CrTooltip from './CrTooltip';
 import SidebarListItem from './SidebarListItem';
-import { NodecosmosTheme } from '../../../../themes/themes.types';
 import { HEADER_HEIGHT } from '../../../app/constants';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
@@ -8,7 +7,6 @@ import {
     faUsers as faUsersSolid,
     faMessageBot as faMessageBotSolid,
     faTable as faTableSolid,
-    faCircle0,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
     faCodeCommit,
@@ -23,7 +21,7 @@ import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoIcon from '@mui/icons-material/Info';
 import {
-    List, Box, useTheme, Tooltip,
+    List, Box, Tooltip,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React, { useMemo } from 'react';
@@ -43,7 +41,6 @@ export default function Sidebar({ handleClose }: Props) {
     const {
         originalId, branchId, nodeId, isBranch, isContributionRequest, branchNodeId, title, isBranchQ,
     } = useBranchContext();
-    const theme: NodecosmosTheme = useTheme();
     const toOrgId = isContributionRequest ? originalId : branchId;
     const toPath = `${toOrgId}/${nodeId}`;
     const pathParams = isBranchQ ? `?isBranchQ=${isBranchQ}&originalIdQ${originalId}` : '';
@@ -131,12 +128,7 @@ export default function Sidebar({ handleClose }: Props) {
                                 selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
                                 title="Threads"
                                 end={false}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faCircle0}
-                                    color={theme.palette.background.labels.green1}
-                                    size="2xs" />
-                            </SidebarListItem>
+                            />
                             <SidebarListItem
                                 onClick={handleClose}
                                 to={`${toPath}/team`}
