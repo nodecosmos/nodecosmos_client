@@ -84,7 +84,12 @@ export default function Authentication() {
     return (
         <Container maxWidth="sm" sx={SX}>
             <Box width={1}>
-                <Box display="flex" alignItems="center" justifyContent="center">
+                <Box
+                    component={Link}
+                    to="/"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center">
                     <Typography
                         fontSize="50px"
                         fontWeight="bold"
