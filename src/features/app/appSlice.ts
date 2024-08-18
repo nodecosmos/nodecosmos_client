@@ -1,4 +1,4 @@
-import { selectObject } from './app.thunks';
+import { clearSelectedObject, selectObject } from './app.thunks';
 import {
     AppState, Browser, Theme,
 } from './app.types';
@@ -57,18 +57,11 @@ const appSlice = createSlice({
         setIsPaneOpen(state, action) {
             state.isPaneOpen = action.payload;
         },
-        setCurrentNode(state, action) { state.currentNodeId = action.payload; },
         setAlert(state, action) {
             state.alert = {
                 ...state.alert,
                 ...action.payload,
             };
-        },
-        setDescriptionCoordinates(state, action) {
-            state.descriptionCoordinates = action.payload;
-        },
-        clearSelectedObject(state) {
-            state.selectedObject = null;
         },
     },
     extraReducers(builder) {
@@ -77,6 +70,8 @@ const appSlice = createSlice({
         }).addCase(deleteFlow.fulfilled, (state) => {
             state.selectedObject = null;
         }).addCase(deleteIo.fulfilled, (state) => {
+            state.selectedObject = null;
+        }).addCase(clearSelectedObject.fulfilled, (state) => {
             state.selectedObject = null;
         });
     },
@@ -87,11 +82,8 @@ const { actions, reducer } = appSlice;
 export const {
     setTheme,
     setIsPaneOpen,
-    setCurrentNode,
     setHeaderContent,
     setAlert,
-    setDescriptionCoordinates,
-    clearSelectedObject,
 } = actions;
 
 export default reducer;

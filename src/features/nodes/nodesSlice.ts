@@ -23,6 +23,7 @@ import showFulfilled, { showNodeRejected } from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
 import { UUID } from '../../types';
+import { clearSelectedObject } from '../app/app.thunks';
 import { getDescription } from '../descriptions/descriptions.thunks';
 import {
     getLikeCount, likeObject, unlikeObject,
@@ -203,6 +204,17 @@ const nodesSlice = createSlice({
 
                 if (coverImageUrl && state.byBranchId[branchId] && state.byBranchId[branchId][objectId]) {
                     state.byBranchId[branchId][objectId].coverImageUrl = coverImageUrl;
+                }
+            })
+            .addCase(clearSelectedObject.fulfilled, (state: NodeState, action) => {
+                state.selected = null;
+
+                if (action.payload) {
+                    const { branchId, objectId } = action.payload;
+
+                    if (state.byBranchId?.[branchId]?.[objectId]) {
+                        state.byBranchId[branchId][objectId].isSelected = false;
+                    }
                 }
             });
     },

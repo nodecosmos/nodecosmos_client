@@ -2,8 +2,8 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
 import { selectSelectedObject } from '../../app.selectors';
+import { clearSelectedObject } from '../../app.thunks';
 import { SelectedObject } from '../../app.types';
-import { clearSelectedObject } from '../../appSlice';
 import { PanePage, PaneProps } from '../../components/pane/Pane';
 import { DRAWER_HEIGHT } from '../../constants';
 import {

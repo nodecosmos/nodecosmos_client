@@ -67,3 +67,20 @@ export const selectObject = createAsyncThunk<
         }
     },
 );
+
+export const clearSelectedObject = createAsyncThunk<
+    SelectedObject | null,
+    undefined,
+    { state: RootState }
+>(
+    'app/clearSelectedObject',
+    async (_, { getState }) => {
+        try {
+            const state = getState();
+            return state.app.selectedObject;
+        } catch (error) {
+            console.error('Error clearing selected object:', error);
+            throw error;
+        }
+    },
+);
