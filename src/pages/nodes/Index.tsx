@@ -105,7 +105,7 @@ export default function NodeIndex() {
                 <RecentNodes />
             </Box>
             <Alert width={MD_WO_SIDEBAR_WIDTH_SX} right={0} />
-            {loading && !fetched && <Loader />}
+            {loading && !fetched && <Loader width={MD_WO_SIDEBAR_WIDTH_SX} />}
 
             {!loading && fetched && (
                 <VirtualContainer

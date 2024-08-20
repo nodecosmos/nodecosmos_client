@@ -1,12 +1,13 @@
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ResponsiveStyleValue } from '@mui/system/styleFunctionSx';
 import React, { useMemo } from 'react';
 
 interface Props {
     backgroundColor?: string;
     color?: string;
     size?: number;
-    width?: number;
+    width?: string | number | ResponsiveStyleValue<string | number>;
     ml?: number;
     p?: number;
 }
