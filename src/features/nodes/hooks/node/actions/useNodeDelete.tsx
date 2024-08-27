@@ -1,6 +1,7 @@
 import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../../store';
 import { NodecosmosError } from '../../../../../types';
+import { setAlert } from '../../../../app/appSlice';
 import { reloadBranch } from '../../../../branch/branches.thunks';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { deleteFromState } from '../../../nodes.actions';
@@ -51,6 +52,14 @@ export default function useNodeDelete() {
 
             if (isBranch) {
                 await dispatch(reloadBranch(branchId));
+            } else {
+                setTimeout(() => {
+                    dispatch(setAlert({
+                        isOpen: true,
+                        severity: 'success',
+                        message: 'Node deleted successfully!',
+                    }));
+                }, 250);
             }
         }
         if (treeRootId === id) navigate('/');

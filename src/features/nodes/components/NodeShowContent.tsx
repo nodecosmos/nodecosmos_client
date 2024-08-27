@@ -60,8 +60,8 @@ export default function NodeShowContent() {
         if (!id) {
             throw new Error('Node ID is not defined');
         }
-
-        if (!originalNode) {
+  
+        if (!originalNode || !originalNode.ownerId) {
             let selectNodeFromParams;
 
             if (!isBranch) {
