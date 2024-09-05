@@ -82,7 +82,9 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                                 align="center"
                                 fontWeight={400}
                             >
-                                Start a new innovation, research, or knowledge sharing project.
+                                Start your innovation journey today—create a node on Nodecosmos to launch a new project
+                                in innovation, research, or knowledge-sharing, or simply to experience
+                                our platform firsthand.
                             </Typography>
                             <Button
                                 component={RouterLink}
@@ -106,8 +108,9 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 {
                     currentUser && (
                         <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
-                            Create a node to start a new innovation, research, or knowledge-sharing project,
-                            or to test the platform.
+                            Start your innovation journey today—create a node on Nodecosmos to launch a new project
+                            in innovation, research, or knowledge-sharing, or simply to experience
+                            our platform firsthand.
                         </Typography>
                     )
                 }
