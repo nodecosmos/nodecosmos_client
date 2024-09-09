@@ -80,11 +80,9 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                                 color="text.secondary"
                                 my={2}
                                 align="center"
-                                fontWeight={400}
                             >
-                                Start your innovation journey today—create a node on Nodecosmos to launch a new project
-                                in innovation, research, or knowledge-sharing, or simply to experience
-                                our platform firsthand.
+                                Create a node to explore innovation, research, or knowledge management
+                                in a whole new way.
                             </Typography>
                             <Button
                                 component={RouterLink}
@@ -107,10 +105,14 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
 
                 {
                     currentUser && (
-                        <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
-                            Start your innovation journey today—create a node on Nodecosmos to launch a new project
-                            in innovation, research, or knowledge-sharing, or simply to experience
-                            our platform firsthand.
+                        <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            mt={2}
+                            align="center"
+                            width={1}
+                            fontWeight={700}>
+                            Create a node to explore innovation, research, or knowledge management in a whole new way.
                         </Typography>
                     )
                 }

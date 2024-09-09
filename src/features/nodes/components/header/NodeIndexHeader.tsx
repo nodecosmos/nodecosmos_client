@@ -21,7 +21,7 @@ export default function NodeIndexHeader() {
             <DefaultButton
                 variant="outlined"
                 color="primary"
-                title="Add Node"
+                title="Create Node"
                 startIcon={faPlus}
                 onClick={openCreateNodeDialog}
             />
