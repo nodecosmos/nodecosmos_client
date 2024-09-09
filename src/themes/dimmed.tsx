@@ -143,23 +143,23 @@ const theme: NodecosmosTheme = {
                     'bg': '#3c363d',
                 },
                 {
-                    'fg': '#a38dff',
+                    'fg': '#b2b7ff',
                     'bg': '#383b45',
                 },
                 {
-                    'fg': '#3aa3ff',
+                    'fg': '#74bbff',
                     'bg': '#353c49',
                 },
                 {
-                    'fg': '#72eea0',
+                    'fg': '#73e99f',
                     'bg': '#393f41',
                 },
                 {
-                    'fg': '#c6e273',
+                    'fg': '#e3ff95',
                     'bg': '#3e423c',
                 },
                 {
-                    'fg': '#f9bf6c',
+                    'fg': '#fbc67e',
                     'bg': '#41423c',
                 },
             ],
