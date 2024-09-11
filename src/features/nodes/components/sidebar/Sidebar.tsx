@@ -142,7 +142,7 @@ export default function Sidebar({ handleClose }: Props) {
                                 to={`${toPath}/tasks_board`}
                                 icon={(<FontAwesomeIcon icon={faTable} />)}
                                 selectedIcon={(<FontAwesomeIcon icon={faTableSolid} />)}
-                                title="Tasks Board"
+                                title="Tasks (Upcoming)"
                             />
                         </>
                     )
