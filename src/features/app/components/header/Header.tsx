@@ -63,7 +63,11 @@ export default function Header() {
                         className="LogoButton"
                     >
                         <img src="/logo.svg" alt="logo" height={30} width={30} />
-                        <Typography fontWeight="bold" className="min-vis-width-viewport-360">
+                        <Typography
+                            mt="-1px"
+                            variant="body2"
+                            fontWeight="bold"
+                            className="min-vis-width-viewport-360 fs-16">
                             <Box component="span" color="logo.blue">node</Box>
                             <Box component="span" color="logo.red">cosmos</Box>
                         </Typography>
@@ -72,8 +76,8 @@ export default function Header() {
                             fontWeight="bold"
                             variant="subtitle2"
                             color="text.tertiary"
+                            mt="1px"
                             ml={1}
-                            mt={0.25}
                         >
                             beta
                         </Typography>
