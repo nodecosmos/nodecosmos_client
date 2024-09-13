@@ -30,7 +30,7 @@ const DIALOG_PAPER_PROPS = {
 
 export default function UploadImageModal(props: UploadImageModalProps) {
     const {
-        open, onClose, endpointPath, aspectRatio = 850 / 375,
+        open, onClose, endpointPath, aspectRatio,
     } = props;
     const uri = nodecosmos.getUri();
 

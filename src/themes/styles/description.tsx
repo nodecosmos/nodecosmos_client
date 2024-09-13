@@ -55,9 +55,9 @@ export default (theme: NodecosmosTheme) => ({
             marginBottom: 16,
         },
         'img:not(.ProseMirror-separator)': {
-            maxWidth: 850,
-            width: '100%',
+            maxWidth: '100%',
             borderRadius: 6,
         },
+        'p:has(> img)': { textAlign: 'center' },
     },
 });

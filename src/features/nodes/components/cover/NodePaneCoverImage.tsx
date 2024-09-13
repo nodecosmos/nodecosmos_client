@@ -20,7 +20,7 @@ export default function NodePaneCoverImage() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const { rootId, objectId } = usePaneContext();
     const {
-        isBranch, branchId, nodeId, 
+        isBranch, branchId, nodeId,
     } = useBranchContext();
     const root = useSelector(maybeSelectNode(branchId, nodeId));
 
@@ -121,6 +121,7 @@ export default function NodePaneCoverImage() {
                         open={modalOpen}
                         onClose={handleClose}
                         endpointPath={`nodes/${branchId}/${id}/${rootId}/upload_cover_image`}
+                        aspectRatio={850 / 375}
                     />
                 </Suspense>
             )}

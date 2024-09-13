@@ -183,8 +183,8 @@ export default function useExtensions(props: UseExtensionsProps) {
         return undefined;
     }, [baseExtensions, isRealTime, provider]);
 
-    return {
+    return useMemo(() => ({
         extensions: initExtensions,
         doc,
-    };
+    }), [initExtensions, doc]);
 }
