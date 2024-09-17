@@ -10,6 +10,8 @@ export const TRANSFORMABLE_MIN_WIDTH = 800;
 
 export const SYNC_UP_INTERVAL = 1000 * 60 * 10; // 10 minutes
 
+export const NODECOSMOS_NODE_ID = '2f587db1-077b-42ad-8ae4-8cb0e6e63b42';
+
 export const DISPLAY_MD_SX = {
     xs: 'none',
     md: 'block',

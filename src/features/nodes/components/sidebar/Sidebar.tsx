@@ -1,12 +1,13 @@
 import CrTooltip from './CrTooltip';
 import SidebarListItem from './SidebarListItem';
-import { HEADER_HEIGHT } from '../../../app/constants';
+import { HEADER_HEIGHT, NODECOSMOS_NODE_ID } from '../../../app/constants';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import {
     faCodePullRequest as faCodePullRequestSolid,
     faUsers as faUsersSolid,
     faMessageBot as faMessageBotSolid,
     faTable as faTableSolid,
+    faContactBook,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
     faCodeCommit,
@@ -144,6 +145,16 @@ export default function Sidebar({ handleClose }: Props) {
                                 selectedIcon={(<FontAwesomeIcon icon={faTableSolid} />)}
                                 title="Tasks (Upcoming)"
                             />
+                            {
+                                originalId == NODECOSMOS_NODE_ID && (
+                                    <SidebarListItem
+                                        onClick={handleClose}
+                                        to="/contact"
+                                        icon={(<FontAwesomeIcon icon={faContactBook} />)}
+                                        selectedIcon={(<FontAwesomeIcon icon={faContactBook} />)}
+                                        title="Contact Us" />
+                                )
+                            }
                         </>
                     )
                 }
