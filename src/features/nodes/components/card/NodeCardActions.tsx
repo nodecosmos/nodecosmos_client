@@ -21,6 +21,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                 objectType={LikeType.Node}
                 id={node.id}
                 fontSize={16}
+                branchId={node.branchId}
                 rootId={node.rootId}
                 likeCount={node.likeCount}
             />

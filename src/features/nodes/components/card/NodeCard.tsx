@@ -41,7 +41,6 @@ export default function NodeCard({ id }: {id: UUID}) {
                                 </Typography>
 
                             </Link>
-
                             <Chip
                                 variant="outlined"
                                 color="primary"
