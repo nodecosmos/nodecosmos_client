@@ -141,7 +141,7 @@ export default function UploadFileModal(props: UploadFileModalProps) {
                         Upload File
                     </Typography>
                 </div>
-                <CloseModalButton onClose={onClose} />
+                <CloseModalButton onClose={handleClose} />
             </div>
             <DialogContent>
                 <Dashboard
