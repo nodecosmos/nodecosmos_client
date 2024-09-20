@@ -60,6 +60,7 @@ export default function LikeButton(props: LikeButtonProps) {
                 branchId,
                 objectId: id,
                 userId: currentUser.id,
+                rootId,
             }));
         } else {
             dispatch(likeObject({

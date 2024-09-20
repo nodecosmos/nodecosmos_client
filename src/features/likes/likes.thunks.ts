@@ -3,7 +3,7 @@ import {
     likeCountResponse,
 } from './likes.types';
 import nodecosmos from '../../api/nodecosmos-server';
-import { UUID } from '../../types';
+import { MaybeRootId, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getLikeCount = createAsyncThunk<
@@ -33,7 +33,7 @@ export const likeObject = createAsyncThunk<
 
 export const unlikeObject = createAsyncThunk<
     void,
-    LikePrimaryKey
+    LikePrimaryKey & MaybeRootId
 >(
     'nodes/unlikeObject',
     async ({

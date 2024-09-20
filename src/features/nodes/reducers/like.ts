@@ -31,19 +31,23 @@ export function getLikeCountRejected(state: NodeState, action: ReturnType<typeof
 }
 
 export function likeObjectFulfilled(state: NodeState, action: ReturnType<typeof likeObject.fulfilled>) {
-    const { objectId, branchId } = action.meta.arg;
+    const {
+        objectId, branchId, rootId,
+    } = action.meta.arg;
 
-    handleLike(state, objectId, branchId, 1);
+    handleLike(state, objectId, branchId, rootId, 1);
 }
 
 export function unlikeObjectFulfilled(state: NodeState, action: ReturnType<typeof unlikeObject.fulfilled>) {
-    const { objectId, branchId } = action.meta.arg;
+    const {
+        objectId, branchId, rootId,
+    } = action.meta.arg;
 
-    handleLike(state, objectId, branchId, -1);
+    handleLike(state, objectId, branchId, rootId, -1);
 }
 
-function handleLike(state: NodeState, id: UUID, branchId: UUID, increment: number) {
-    if (id === branchId && state.indexNodesById[id]) {
+function handleLike(state: NodeState, id: UUID, branchId: UUID, rootId: UUID | undefined, increment: number) {
+    if (rootId === branchId && state.indexNodesById[id]) {
         state.indexNodesById[id].likeCount += increment;
     }
 
