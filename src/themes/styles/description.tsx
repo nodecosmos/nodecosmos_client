@@ -59,5 +59,6 @@ export default (theme: NodecosmosTheme) => ({
             borderRadius: 6,
         },
         'p:has(> img)': { textAlign: 'center' },
+        li: { marginBlockEnd: 8 },
     },
 });
