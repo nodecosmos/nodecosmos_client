@@ -32,7 +32,7 @@ export default function NodeIndexMobileFooter() {
             <DefaultButton
                 variant="outlined"
                 color="primary"
-                title="Add Node"
+                title="Create"
                 startIcon={faAdd}
                 onClick={openCreateNodeDialog}
             />
