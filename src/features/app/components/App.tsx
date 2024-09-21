@@ -55,6 +55,17 @@ export default function App() {
     }, [dispatch, isAuthenticated]);
 
     useEffect(() => {
+        if (isAuthenticated) {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/workers/sse.js', { type: 'module' })
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            }
+        }
+
         return () => {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistrations().then(registrations => {
@@ -64,7 +75,7 @@ export default function App() {
                 });
             }
         };
-    }, []);
+    }, [isAuthenticated]);
 
     useConfirmEmailAlert();
 

@@ -1,7 +1,7 @@
-import { CHANNEL_NAME, InitActions } from '../../../../../workers/sse';
 import nodecosmos from '../../../../api/nodecosmos-server';
 import { NodecosmosDispatch } from '../../../../store';
 import { ActionTypes, UUID } from '../../../../types';
+import { CHANNEL_NAME, InitActions } from '../../../../workers/types';
 import { SSECreateComment } from '../../../comments/commentsSlice';
 import { selectCurrentUser } from '../../../users/users.selectors';
 import { useEffect } from 'react';
