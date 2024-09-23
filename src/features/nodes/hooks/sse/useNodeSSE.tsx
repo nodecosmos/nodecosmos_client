@@ -1,7 +1,7 @@
+import { CHANNEL_NAME, InitActions } from '../../../../../workers/sse';
 import nodecosmos from '../../../../api/nodecosmos-server';
 import { NodecosmosDispatch } from '../../../../store';
 import { ActionTypes, UUID } from '../../../../types';
-import { CHANNEL_NAME, InitActions } from '../../../../workers/types';
 import { SSECreateComment } from '../../../comments/commentsSlice';
 import { selectCurrentUser } from '../../../users/users.selectors';
 import { useEffect } from 'react';
@@ -37,7 +37,7 @@ export default function useNodeSSE(rootId?: UUID) {
                 registrations.forEach((registration) => {
                     registration.active?.postMessage({
                         action: InitActions.Initialize,
-                        url: `${nodecosmos.defaults.baseURL}/nodes/${rootId}/events/listen`,
+                        url: `${nodecosmos.defaults.baseURL}/no-compress-nodes/${rootId}/events/listen`,
                         userId: currentUser.id,
                     });
                 });

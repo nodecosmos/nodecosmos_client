@@ -57,7 +57,10 @@ export default function App() {
     useEffect(() => {
         if (isAuthenticated) {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/workers/sse.js', { type: 'module' })
+                const scriptUrl = import.meta.env.MODE === 'development' ? '/workers/sse.ts'
+                    : '/serviceWorker.js';
+
+                navigator.serviceWorker.register(new URL(scriptUrl, import.meta.url).href, { type: 'module' })
                     .then(registration => {
                         console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     }, err => {

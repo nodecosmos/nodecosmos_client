@@ -1,7 +1,11 @@
-const sw = self;
+// This is ts version of public/worker/sse.js, but it is not used in the project. It is just for reference.
+const sw = self as unknown as ServiceWorkerGlobalScope;
 
-// Broadcast channel name
-const CHANNEL_NAME = 'sse_channel';
+// // sse-service-worker.js
+import { Comment } from '../src/features/comments/comments.types';
+import { ActionTypes, UUID } from '../src/types';
+
+export const CHANNEL_NAME = 'sse_channel';
 
 sw.addEventListener('install', () => {
     sw.skipWaiting().catch((error) => {
@@ -15,8 +19,13 @@ sw.addEventListener('activate', (event) => {
 
 const channel = new BroadcastChannel(CHANNEL_NAME);
 
-const eventSourceByURL = new Map();
-const activeClientsByURL = new Map();
+interface EventSourceWrapper {
+    eventSource: EventSource;
+    userId: UUID;
+}
+
+const eventSourceByURL = new Map<string, EventSourceWrapper>();
+const activeClientsByURL = new Map<string, number>();
 
 sw.addEventListener('notificationclick', function(event) {
     const { url } = event.notification.data;
@@ -41,7 +50,7 @@ sw.addEventListener('notificationclick', function(event) {
     }
 });
 
-function initializeSSE(url, userId = '') {
+function initializeSSE(url: string, userId: UUID = '') {
     const eventSource = eventSourceByURL.get(url);
 
     if (!eventSource) {
@@ -57,11 +66,11 @@ function initializeSSE(url, userId = '') {
         };
         eventSourceByURL.set(url, wrapper);
 
-        eventSource.addEventListener('CreateComment', (event) => {
-            const data = JSON.parse(event.data);
+        eventSource.addEventListener(ActionTypes.CreateComment, (event) => {
+            const data: Comment = JSON.parse(event.data);
 
             channel.postMessage({
-                action: 'CreateComment',
+                action: ActionTypes.CreateComment,
                 payload: data,
             });
 
@@ -88,7 +97,7 @@ function initializeSSE(url, userId = '') {
         };
 
         channel.onmessage = (event) => {
-            if (event.data.action === 'CloseSSE') {
+            if (event.data.action === ActionTypes.CloseSSE) {
                 const activeClients = (activeClientsByURL.get(url) ?? 1) - 1;
                 activeClientsByURL.set(url, activeClients);
 
@@ -105,11 +114,23 @@ function initializeSSE(url, userId = '') {
     activeClientsByURL.set(url, (activeClientsByURL.get(url) ?? 0) + 1);
 }
 
+interface InitMessage {
+    action: InitActions;
+    url: string;
+    userId: UUID;
+}
+
+export enum InitActions {
+    Initialize = 'INITIALIZE',
+}
+
 // Listening for messages to start SSE
 sw.addEventListener('message', (event) => {
-    const data = event.data;
+    const data: InitMessage = event.data;
 
-    if (data.action === 'INITIALIZE') {
+    switch (data.action) {
+    case InitActions.Initialize:
         initializeSSE(data.url, data.userId);
+        break;
     }
 });
