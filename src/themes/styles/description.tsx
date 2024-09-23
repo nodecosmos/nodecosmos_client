@@ -47,9 +47,11 @@ export default (theme: NodecosmosTheme) => ({
             fontSize: 16,
             fontWeight: 400,
             wordWrap: 'break-word',
-            '&:empty': { height: 32 },
         },
         '&.fs-18': { p: { fontSize: 18 } },
+
+        'h1, h2, h3, h4, h5, h6, p': { '&:empty': { height: 32 } },
+
         h1: {
             borderBottom: `1px solid ${theme.palette.borders[2]}`,
             marginBottom: 16,
