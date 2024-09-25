@@ -167,7 +167,10 @@ export default function useExtensions(props: UseExtensionsProps) {
             if (!provider) return undefined;
 
             const getProvider = () => provider;
-            const yjsExtension = new YjsExtension({ getProvider });
+            const yjsExtension = new YjsExtension({
+                getProvider,
+                disableUndo: true,
+            });
 
             provider.on('status', (event: {status: string}) => {
                 if (event.status === 'connected') {
