@@ -6,24 +6,24 @@ import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 /* nodecosmos */
 
-const CodeMirrorEditor = React.lazy(() => import('../../../../../common/components/markdown/MarkdownEditor'));
+const MarkdownEditor = React.lazy(() => import('../../../../../common/components/markdown/MarkdownEditor'));
 
 export default function PaneMarkdownEditor() {
     const { isBranch } = useBranchContext();
     const { loading } = usePaneContext();
 
     const {
-        diffViewEnabled, originalMarkdown, branchMarkdown,
+        diffViewEnabled, originalMarkdown, branchMarkdown, fetched,
     } = useDescriptionMarkdown();
 
-    if (loading) {
+    if (loading || !fetched) {
         return <Loader />;
     }
 
     return (
         <Suspense fallback={<Loader />}>
             <Box height={1}>
-                <CodeMirrorEditor
+                <MarkdownEditor
                     diffViewEnabled={diffViewEnabled}
                     commentsEnabled={isBranch}
                     originalValue={originalMarkdown || ''}

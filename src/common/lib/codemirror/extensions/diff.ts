@@ -10,7 +10,7 @@ type DiffExtension = ViewPlugin<{
     update(update: ViewUpdate): void
 }>;
 
-export default function diffExtension(originalText: string, newText: string): DiffExtension {
+export default function Extension(originalText: string, newText: string): DiffExtension {
     const dmp = new diff_match_patch();
     const diffs = dmp.diff_main(originalText, newText);
 

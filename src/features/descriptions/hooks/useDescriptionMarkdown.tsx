@@ -30,27 +30,33 @@ export default function useDescriptionMarkdown() {
     const { markdown } = useSelector(selectDescription(branchId, objectId)) || {};
     const originalDescription = useSelector(selectDescription(originalId, objectId));
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
-    let isDescriptionEdited;
-
-    switch (objectType) {
-    case ObjectType.Node:
-        isDescriptionEdited = branch?.editedDescriptionNodes?.has(objectId);
-        break;
-    case ObjectType.Flow:
-        isDescriptionEdited = branch?.editedDescriptionFlows?.has(objectId);
-        break;
-    case ObjectType.Io:
-        isDescriptionEdited = branch?.editedDescriptionIos?.has(objectId);
-        break;
-    case ObjectType.FlowStep:
-        isDescriptionEdited = branch?.editedDescriptionFlowSteps?.has(objectId);
-        break;
-    default:
-        isDescriptionEdited = false;
-    }
 
     const isMerged = branch?.status === BranchStatus.Merged;
-    const mergedDescriptionChange = branch?.descriptionChangeByObject?.[objectId];
+
+    const isDescriptionEdited = useMemo(() => {
+        let isDescriptionEdited;
+
+        switch (objectType) {
+        case ObjectType.Node:
+            isDescriptionEdited = branch?.editedDescriptionNodes?.has(objectId);
+            break;
+        case ObjectType.Flow:
+            isDescriptionEdited = branch?.editedDescriptionFlows?.has(objectId);
+            break;
+        case ObjectType.Io:
+            isDescriptionEdited = branch?.editedDescriptionIos?.has(objectId);
+            break;
+        case ObjectType.FlowStep:
+            isDescriptionEdited = branch?.editedDescriptionFlowSteps?.has(objectId);
+            break;
+        default:
+            isDescriptionEdited = false;
+        }
+
+        return isDescriptionEdited;
+    }, [branch, objectId, objectType]);
+
+    const mergedDescriptionChange = useMemo(() => branch?.descriptionChangeByObject?.[objectId], [branch, objectId]);
 
     const getBranchDescription = useCallback(() => {
         return dispatch(getDescription({
@@ -73,19 +79,16 @@ export default function useDescriptionMarkdown() {
         }));
     }, [dispatch, rootId, objectNodeId, originalId, branchId, objectId, objectType]);
 
-    const { originalMarkdown, branchMarkdown } = useMemo(() => {
+    const [originalMarkdown, branchMarkdown] = useMemo(() => {
         // if the branch is merged and the description has been changed,
         // show the state of the description at the time of the merge
         if (isMerged && mergedDescriptionChange) {
-            return {
-                originalMarkdown: mergedDescriptionChange.old,
-                branchMarkdown: mergedDescriptionChange.new,
-            };
+            return [
+                mergedDescriptionChange.old,
+                mergedDescriptionChange.new,
+            ];
         }
-        return {
-            originalMarkdown: originalDescription?.markdown,
-            branchMarkdown: markdown,
-        };
+        return [originalDescription?.markdown, markdown];
     }, [mergedDescriptionChange, markdown, isMerged, originalDescription?.markdown]);
 
     const loadMarkdown = useCallback(() => {
@@ -124,10 +127,15 @@ export default function useDescriptionMarkdown() {
         };
     }, [fetched, loadMarkdown, loading, setFetched, setLoading, unsetFetched, unsetLoading]);
 
-    return {
+    return useMemo(() => ({
         diffViewEnabled: isBranch && ((!isMerged && isDescriptionEdited) || (isMerged && !!mergedDescriptionChange)),
         loading,
         originalMarkdown,
         branchMarkdown,
-    };
+        fetched,
+    }),
+    [
+        isBranch, isMerged, isDescriptionEdited, mergedDescriptionChange,
+        loading, originalMarkdown, branchMarkdown, fetched,
+    ]);
 }

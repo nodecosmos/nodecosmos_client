@@ -15,7 +15,7 @@ import React, {
     useEffect, useMemo, useRef,
 } from 'react';
 
-interface CodeMirrorEditorProps {
+interface MarkdownEditorProps {
     diffViewEnabled?: boolean;
     commentsEnabled?: boolean;
     originalValue?: string;
@@ -31,7 +31,7 @@ export default function MarkdownEditor({
     value = '',
     onChange,
     editable,
-}: CodeMirrorEditorProps) {
+}: MarkdownEditorProps) {
     const codeMirrorRef = useRef<HTMLDivElement>(null);
     const codeMirrorTheme = useCodeMirrorTheme();
 
