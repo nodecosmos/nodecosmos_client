@@ -10,7 +10,7 @@ import {
     EDGE_LENGTH,
     FONT_SIZE,
     MARGIN_TOP,
-    NODE_BUTTON_HEIGHT, STROKE_WIDTH,
+    NODE_HEIGHT, STROKE_WIDTH,
 } from '../../nodes.constants';
 import { selectDensity, selectShowAncestorChain } from '../../nodes.selectors';
 import { TreeDensity, TreeType } from '../../nodes.types';
@@ -67,7 +67,7 @@ export interface TreeNodes {
 
 const NODE_SIZE = {
     [TreeDensity.Default]: {
-        height: NODE_BUTTON_HEIGHT,
+        height: NODE_HEIGHT,
         marginTop: MARGIN_TOP,
         edgeLength: EDGE_LENGTH,
         fontSize: FONT_SIZE,

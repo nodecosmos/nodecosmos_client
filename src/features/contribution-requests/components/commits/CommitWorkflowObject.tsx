@@ -5,7 +5,7 @@ import { Flow } from '../../../flows/flows.types';
 import { InputOutput } from '../../../input-outputs/inputOutputs.types';
 import { selectNode } from '../../../nodes/nodes.selectors';
 import { AppNode } from '../../../nodes/nodes.types';
-import { NODE_BUTTON_HEIGHT } from '../../../workflows/workflows.constants';
+import { NODE_HEIGHT } from '../../../workflows/workflows.constants';
 import useNavigateToNode from '../../hooks/useNavigateToNode';
 import { faCodeCommit } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -50,7 +50,7 @@ export default function CommitWorkflowObject(props: Props) {
             border: '1px solid',
             borderColor: nestedTreeColor.fg,
             backgroundColor: nestedTreeColor.bg,
-            height: NODE_BUTTON_HEIGHT,
+            height: NODE_HEIGHT,
             color: nestedTreeColor.fg,
         };
     }, [node.ancestorIds?.length, theme.palette.tree]);

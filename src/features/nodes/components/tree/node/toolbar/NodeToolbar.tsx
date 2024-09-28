@@ -9,7 +9,7 @@ import useNodeActions from '../../../../hooks/node/useNodeActions';
 import useNodeBranchContext from '../../../../hooks/node/useNodeBranchContext';
 import useNodeContext from '../../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../../hooks/tree/useTreeContext';
-import { NODE_BUTTON_HEIGHT } from '../../../../nodes.constants';
+import { NODE_HEIGHT } from '../../../../nodes.constants';
 import { TreeType } from '../../../../nodes.types';
 import LikeButton from '../../../LikeButton';
 import {
@@ -102,7 +102,7 @@ function NodeToolbar() {
 
     if (isCreationInProgress) {
         return (
-            <Box className="NodeToolbar" display="flex" alignItems="center" height={NODE_BUTTON_HEIGHT}>
+            <Box className="NodeToolbar" display="flex" alignItems="center" height={NODE_HEIGHT}>
                 <CircularProgress color="secondary" size={20} />
             </Box>
         );

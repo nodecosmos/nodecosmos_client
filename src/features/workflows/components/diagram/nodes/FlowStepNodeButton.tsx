@@ -14,7 +14,7 @@ import {
     BUTTON_APPEAR_STYLE,
     EDGE_LENGTH,
     MARGIN_TOP,
-    NODE_BUTTON_HEIGHT,
+    NODE_HEIGHT,
     SHADOW_OFFSET,
     WORKFLOW_BUTTON_WIDTH,
     WORKFLOW_WIDTH_WITH_TOOLBAR,
@@ -91,7 +91,7 @@ export default function FlowStepNodeButton() {
         border: '1px solid',
         borderColor: outlineColor,
         backgroundColor,
-        height: NODE_BUTTON_HEIGHT,
+        height: NODE_HEIGHT,
         maxWidth: WORKFLOW_BUTTON_WIDTH,
         color,
     }), [backgroundColor, color, outlineColor]);
@@ -103,7 +103,7 @@ export default function FlowStepNodeButton() {
             <FlowStepNodeBranch />
             <foreignObject
                 width={WORKFLOW_WIDTH_WITH_TOOLBAR}
-                height={NODE_BUTTON_HEIGHT + SHADOW_OFFSET}
+                height={NODE_HEIGHT + SHADOW_OFFSET}
                 x={x + EDGE_LENGTH}
                 y={y - MARGIN_TOP}
                 style={Y_TRANSITION_STYLE}

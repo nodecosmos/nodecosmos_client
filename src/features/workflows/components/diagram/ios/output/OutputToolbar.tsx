@@ -10,7 +10,7 @@ import useIoActions from '../../../../hooks/diagram/io/useIoActions';
 import useIoContext from '../../../../hooks/diagram/io/useIoContext';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import {
-    NODE_BUTTON_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
+    NODE_HEIGHT, OUTPUT_BUTTON_SKEWED_WIDTH, OUTPUT_BUTTON_X_MARGIN,
 } from '../../../../workflows.constants';
 import ObjectCommentsBadge from '../../ObjectCommentBadge';
 import { faPenToSquare, faTrash } from '@fortawesome/pro-light-svg-icons';
@@ -43,7 +43,7 @@ export default function OutputToolbar() {
         return (
             <foreignObject
                 width={OUTPUT_BUTTON_SKEWED_WIDTH}
-                height={NODE_BUTTON_HEIGHT}
+                height={NODE_HEIGHT}
                 x={x + OUTPUT_BUTTON_X_MARGIN - 8}
                 y={y - 44.5}
             >
@@ -57,7 +57,7 @@ export default function OutputToolbar() {
     return (
         <foreignObject
             width={OUTPUT_BUTTON_SKEWED_WIDTH}
-            height={NODE_BUTTON_HEIGHT}
+            height={NODE_HEIGHT}
             x={x + OUTPUT_BUTTON_X_MARGIN}
             y={y - 47.5}
         >

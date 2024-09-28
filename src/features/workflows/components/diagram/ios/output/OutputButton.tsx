@@ -6,7 +6,7 @@ import useOutputColors from '../../../../hooks/diagram/useOutputColors';
 import useWorkflowContext from '../../../../hooks/useWorkflowContext';
 import {
     MARGIN_TOP,
-    NODE_BUTTON_HEIGHT,
+    NODE_HEIGHT,
     OUTPUT_BUTTON_SKEWED_WIDTH,
     OUTPUT_BUTTON_X_MARGIN,
     Y_TRANSITION_STYLE,
@@ -44,7 +44,7 @@ export default function OutputButton() {
     return (
         <foreignObject
             width={OUTPUT_BUTTON_SKEWED_WIDTH}
-            height={NODE_BUTTON_HEIGHT + 3}
+            height={NODE_HEIGHT + 3}
             x={x + OUTPUT_BUTTON_X_MARGIN}
             y={y - MARGIN_TOP}
             style={Y_TRANSITION_STYLE}

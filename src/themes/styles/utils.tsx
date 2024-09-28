@@ -1,4 +1,4 @@
-import { COMPACT_NODE_HEIGHT, NODE_BUTTON_HEIGHT } from '../../features/nodes/nodes.constants';
+import { COMPACT_NODE_HEIGHT, NODE_HEIGHT } from '../../features/nodes/nodes.constants';
 import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
@@ -58,7 +58,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.p-1-2': { padding: '8px 16px' },
 
     '&.h-100': { height: '100%' },
-    [`&.h-${NODE_BUTTON_HEIGHT}`]: { height: NODE_BUTTON_HEIGHT },
+    [`&.h-${NODE_HEIGHT}`]: { height: NODE_HEIGHT },
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
     '&.min-h-210': { minHeight: 210 },

@@ -1,6 +1,6 @@
 import { NodecosmosTheme } from '../../../../themes/themes.types';
 import { AppNode } from '../../../nodes/nodes.types';
-import { NODE_BUTTON_HEIGHT } from '../../../workflows/workflows.constants';
+import { NODE_HEIGHT } from '../../../workflows/workflows.constants';
 import useNavigateToNode from '../../hooks/useNavigateToNode';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,7 +26,7 @@ function CommitNode({ node }: Props) {
             border: '1px solid',
             borderColor: nestedTreeColor.fg,
             backgroundColor: nestedTreeColor.bg,
-            height: NODE_BUTTON_HEIGHT,
+            height: NODE_HEIGHT,
             color: nestedTreeColor.fg,
         };
     }, [node.ancestorIds?.length, theme.palette.tree]);

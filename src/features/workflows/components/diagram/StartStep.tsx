@@ -7,7 +7,7 @@ import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import {
     MARGIN_LEFT,
     WORKFLOW_START_MARGIN_TOP,
-    NODE_BUTTON_HEIGHT,
+    NODE_HEIGHT,
     OUTPUT_EDGE_LENGTH,
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_BUTTON_HEIGHT, PATH_STYLE,
@@ -62,7 +62,7 @@ export default function StartStep() {
                         stroke={theme.palette.workflow.default}
                         fill="transparent"
                         strokeWidth={3}
-                        d={`M ${x + MARGIN_LEFT} ${y + NODE_BUTTON_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+                        d={`M ${x + MARGIN_LEFT} ${y + NODE_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
                         style={PATH_STYLE}
                     />
                 )
