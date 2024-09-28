@@ -1,194 +1,173 @@
 /* eslint-disable max-len */
-
 import { NodecosmosTheme } from './themes.types';
 
 const theme: NodecosmosTheme = {
     shadows: {
         0: 'none',
-        1: '0px 1px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 1px 0px rgba(0,0,0,0.12)',
-        2: '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
-        3: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
-        4: '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
-        5: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)',
-        6: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
-        7: '0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)',
-        8: '-5px -5px 5px -3px rgba(0,0,0,0.1), 0px 5px 5px -3px rgba(0,0,0,0.1),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)',
+        1: '0px 2px 1px -1px rgba(5,5,5,0.15),0px 1px 1px 0px rgba(5,5,5,0.10),0px 1px 3px 0px rgba(5,5,5,0.08)',
+        2: '0px 3px 1px -2px rgba(5,5,5,0.15),0px 2px 2px 0px rgba(5,5,5,0.10),0px 1px 5px 0px rgba(5,5,5,0.08)',
+        3: '0px 3px 3px -2px rgba(5,5,5,0.15),0px 3px 4px 0px rgba(5,5,5,0.10),0px 1px 8px 0px rgba(5,5,5,0.08)',
+        4: '0px 2px 4px -1px rgba(5,5,5,0.15),0px 4px 5px 0px rgba(5,5,5,0.10),0px 1px 10px 0px rgba(5,5,5,0.08)',
+        5: '0px 3px 5px -1px rgba(5,5,5,0.15),0px 5px 8px 0px rgba(5,5,5,0.10),0px 1px 14px 0px rgba(5,5,5,0.08)',
+        6: '0px 3px 5px -1px rgba(5,5,5,0.15),0px 6px 10px 0px rgba(5,5,5,0.10),0px 1px 18px 0px rgba(5,5,5,0.08)',
+        7: '0px 4px 5px -2px rgba(5,5,5,0.15),0px 7px 10px 1px rgba(5,5,5,0.10),0px 2px 16px 1px rgba(5,5,5,0.08)',
+        8: '-5px -5px 5px -3px rgba(0,0,0,0.08), 0px 5px 5px -3px rgba(0,0,0,0.08),0px 8px 10px 1px rgba(0,0,0,0.10),0px 3px 14px 2px rgba(0,0,0,0.08)',
 
         left: {
-            1: '-1px 0px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
-            2: '-3px 0px 3px -1px #2e3137,0px 2px 2px 0px #2e3137,0px 1px 5px 0px #2e3137',
+            1: '-1px 0px 1px -1px rgba(5,5,5,0.15),0px 1px 1px 0px rgba(5,5,5,0.10),0px 1px 3px 0px rgba(5,5,5,0.08)',
+            2: '-2px 0px 1px -1px rgba(5,5,5,0.15),0px 2px 2px 0px rgba(5,5,5,0.10),0px 1px 5px 0px rgba(5,5,5,0.08)',
         },
 
         right: {
-            1: '1px 0px 1px -1px rgba(0,0,0,0.2)',
-            2: '2px 0px 1px -1px rgba(0,0,0,0.2)',
+            1: '1px 0px 1px -1px rgba(5,5,5,0.15)',
+            2: '2px 0px 1px -1px rgba(5,5,5,0.15)',
         },
 
-        top: { 1: '0px -3px 3px -2px rgb(0 0 0 / 20%)' },
+        top: { 1: '0px -3px 3px -2px rgb(0 0 0 / 15%)' },
 
-        header: '0px 3px 1px -2px rgb(0 0 0 / 25%), 0px 2px 3px 0px rgb(0 0 0 / 3%), 0px 1px 5px 0px rgb(0 0 0 / 10%)',
+        header: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 8%)',
         buttons: {
-            1: '3px 3px 0px rgb(0 0 0 / 14%)',
-            2: '6px 8px 0px rgb(48 49 58 / 65%)',
-            3: '6px 6px 0px rgb(0 0 0 / 8%)',
+            1: '3px 3px 0px transparent',
+            2: 0,
+            3: 0,
         },
     },
 
     palette: {
         primary: {
-            main: '#a7ff87',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
+            main: '#b2ff99', // sRGB hex color
+            contrastText: 'rgba(0, 0, 0, 0.8)',
         },
-
-        secondary: { main: '#cdd4ff' },
-
+        secondary: { main: '#c0cfff' },
         error: {
-            main: '#fd526f',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
+            main: '#e05480',
+            contrastText: 'rgba(0, 0, 0, 0.8)',
         },
-
         success: {
-            main: '#87e587',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
+            main: '#a3f56d',
+            contrastText: 'rgba(0, 0, 0, 0.8)',
         },
-
         warning: {
-            main: '#ffa726',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
+            main: '#f6b634',
+            contrastText: 'rgba(0, 0, 0, 0.8)',
         },
-
         info: {
-            main: '#5591de',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
+            main: '#56aef9',
+            contrastText: 'rgba(0, 0, 0, 0.8)',
         },
-
         toggle: {
-            main: '#3a3e45',
+            main: '#3a3f46',
             contrastText: '#fff',
         },
-
         button: {
-            main: '#434a55',
-            contrastText: '#a5b4be',
+            main: '#363a45',
+            contrastText: '#d6dfe6',
         },
-
         buttonContrast: {
-            main: '#7f8a92',
-            contrastText: '#3d4652',
+            main: '#b6c5cf',
+            contrastText: '#4e5763',
         },
-
         merge: {
-            main: '#c187ff',
-            contrastText: 'rgba(0, 0, 0, 0.7)',
+            main: '#d298ff',
+            contrastText: 'rgba(0, 0, 0, 0.8)',
         },
-
         borders: {
-            1: '#43464d',
-            2: '#454b53', // 454b53 3c4149
-            3: '#484d55',
-            4: '#595c65',
-            5: '#848ea8',
+            1: '#34363d',
+            2: '#3a3c44',
+            3: '#40424b',
+            4: '#4c4f59',
+            5: '#575a65',
         },
-
         background: {
-            1: '#2b2c31',
-            2: '#373a41',
-            3: '#383c43',
-            4: '#3c4048',
-            5: '#313338',
-            6: '#3c4149',
-            7: '#3f464e',
-            8: '#575d66',
-
-            hover: '#316dca',
-
+            1: '#222223',
+            2: '#2a2c31',
+            3: '#343536',
+            4: '#383941',
+            5: '#2d3035',
+            6: '#303339',
+            7: '#2f313b',
+            8: '#5e5f66',
+            hover: '#417dcb',
             labels: {
-                orange: '#ffb387',
-                red: '#fd526f',
-                green: '#c1e68c',
-                green1: '#69c54e',
-                blue: '#85c7f3',
-                purple: '#c187ff',
+                orange: '#f6b634',
+                red: '#e66380',
+                green: '#aadf65',
+                green1: '#79d55e',
+                blue: '#85c4f1',
+                purple: '#b985f1',
             },
-
             list: {
-                defaultColor: '#898f9c',
-                activeColor: '#d8e0e8',
+                defaultColor: '#888d98',
+                activeColor: '#d3dce8',
             },
-
-            paper: '#34373d',
-            backdrop: 'rgba(0,0,0,0.37)',
+            paper: '#2d3035',
+            backdrop: 'rgba(98, 109, 121, 0.4)',
         },
-
         toolbar: {
-            red: '#fd526f',
-            green: '#c1e68c',
-            blue: '#78b1eb',
-            lightRed: '#ff6881',
-            pink: '#a868aa',
-            purple: '#9b7bf6',
-            yellow: '#f5f58e',
-            orange: '#ffa726',
-            hover: 'rgba(63,78,89,0.53)',
-            active: 'rgba(63,78,89,0.53)',
-            default: '#758593',
-            breadcrumbs: '#758593',
+            red: '#e82c6a',
+            green: '#b4ed7e',
+            blue: '#36ddf0',
+            lightRed: '#f67286',
+            pink: '#a6699f',
+            purple: '#c885ff',
+            yellow: '#eee76f',
+            orange: '#feca7d',
+            hover: 'rgba(67,81,91,0.53)',
+            active: 'rgba(67,75,91,0.53)',
+            default: '#5e6a72',
+            breadcrumbs: '#7a8993',
         },
-
         tree: {
-            default: '#444a54',
+            default: '#383c42',
             backgrounds: [
                 {
-                    'fg': '#ff626f',
-                    'bg': '#3c363d',
+                    fg: '#ff5971',
+                    bg: '#3b2e35',
                 },
                 {
-                    'fg': '#b2b7ff',
-                    'bg': '#383b45',
+                    fg: '#c6b9ff',
+                    bg: '#333444',
                 },
                 {
-                    'fg': '#74bbff',
-                    'bg': '#353c49',
+                    fg: '#80b6ff',
+                    bg: '#2a313d',
                 },
                 {
-                    'fg': '#73e99f',
-                    'bg': '#393f41',
+                    fg: '#abef76',
+                    bg: '#303c3a',
                 },
                 {
-                    'fg': '#c6e273',
-                    'bg': '#3e423c',
+                    fg: '#bfc83e',
+                    bg: '#3e4130',
                 },
                 {
-                    'fg': '#fbc67e',
-                    'bg': '#41423c',
+                    fg: '#f2c769',
+                    bg: '#3f3c39',
                 },
             ],
-            defaultText: '#ffffff',
+            defaultText: '#ebe7e7',
             selectedText: 'rgba(0, 0, 0, 0.9)',
-            hashtag: '#898f9c',
-            defaultBorder: 'transparent',
+            hashtag: '#787d88',
+            defaultBorder: '#3d4145',
             dragInIndicator: '#bf7869',
             checkboxColor: '#63686c',
         },
-
         workflow: {
-            default: '#444a54',
+            default: '#3a3e45',
             input: '#cdd4ff',
-            background: '#2d3139',
-            selectedInputColor: '#8e93b0',
-            defaultInputColor: '#484d55',
+            background: '#373b43',
+            selectedInputColor: '#dce3ff',
+            defaultInputColor: '#606773',
             selectedLoopInputColor: '#ffb387',
-            defaultLoopInputColor: 'rgba(255,179,135,0.23)',
-            selectedBg: 'rgba(49,52,59,0.18)',
-            selectedFsBorder: '#515759',
+            defaultLoopInputColor: 'rgba(255,179,135,0.26)',
+            selectedBg: 'rgba(99,147,182,0.03)',
+            selectedFsBorder: '#61676b',
         },
-
         markdownContent: {
-            canvas: '#373b49',
+            canvas: '#333743',
             canvasBorder: '#335faa',
             background: 'transparent',
         },
-
         markdownEditor: {
             tagName: '#ff387a',
             string: '#d1ff5d',
@@ -212,23 +191,17 @@ const theme: NodecosmosTheme = {
             gutterForeground: '#636b73',
             gutterActiveForeground: '#bec8d8',
         },
-
-        logo: {
-            blue: '#2adfff',
-            red: '#fd526f',
-        },
-
         diff: {
             added: {
-                bg: '#384643',
+                bg: '#394942',
                 fg: '#87e587',
             },
             removed: {
-                bg: '#5c303f',
+                bg: '#492739',
                 fg: '#ff6682',
             },
             edited: {
-                bg: '#484d46',
+                bg: '#3b423b',
                 fg: '#aac557',
             },
             conflict: {
@@ -236,10 +209,13 @@ const theme: NodecosmosTheme = {
                 fg: '#f4af7a',
             },
         },
-
+        logo: {
+            blue: '#3adfff',
+            red: '#fd526f',
+        },
         text: {
             primary: '#f5f5f2',
-            secondary: '#dbdee1',
+            secondary: '#bfc3cb',
             tertiary: '#838a9a',
             disabled: '#565968',
             contrast: '#fff',
