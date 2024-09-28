@@ -18,10 +18,10 @@ export const MIN_NODE_INPUT_SIZE = 3;
 export const MAX_NODE_INPUT_SIZE = 50;
 
 // Compact mode
-export const COMPACT_NODE_HEIGHT = 30;
+export const COMPACT_NODE_HEIGHT = 32;
 export const COMPACT_MARGIN_TOP = COMPACT_NODE_HEIGHT / 2;
 export const COMPACT_EDGE_LENGTH = 22;
-export const COMPACT_FONT_SIZE = 12;
+export const COMPACT_FONT_SIZE = 13;
 export const COMPACT_ANCESTOR_RADIUS = 4;
 export const COMPACT_STROKE_WIDTH = 3;
 export const COMPACT_DROP_INDICATOR_Y_OFFSET = 20;
