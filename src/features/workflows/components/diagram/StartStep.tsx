@@ -5,7 +5,7 @@ import { NodecosmosTheme } from '../../../../themes/themes.types';
 import { Output as OutputType } from '../../diagram/diagram.types';
 import useDiagramContext from '../../hooks/diagram/useDiagramContext';
 import {
-    MARGIN_LEFT,
+    EDGE_MARGIN_LEFT,
     WORKFLOW_START_MARGIN_TOP,
     NODE_HEIGHT,
     OUTPUT_EDGE_LENGTH,
@@ -62,7 +62,7 @@ export default function StartStep() {
                         stroke={theme.palette.workflow.default}
                         fill="transparent"
                         strokeWidth={3}
-                        d={`M ${x + MARGIN_LEFT} ${y + NODE_HEIGHT} L ${x + MARGIN_LEFT} ${yEnd}`}
+                        d={`M ${x + EDGE_MARGIN_LEFT} ${y + NODE_HEIGHT} L ${x + EDGE_MARGIN_LEFT} ${yEnd}`}
                         style={PATH_STYLE}
                     />
                 )

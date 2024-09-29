@@ -36,7 +36,6 @@ function NodeContent() {
     const { height, marginTop } = useTreeContext().size;
     // we don't use this directly in input as input unmounts on blur
     // so command chain is broken
-
     const clickNode = useNodeClick();
     const [saveNode, blurNode] = useNodeSave();
 

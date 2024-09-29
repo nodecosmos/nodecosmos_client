@@ -2,7 +2,7 @@ import { Position } from '../../../types';
 import { FlowStep } from '../../flow-steps/flowSteps.types';
 import {
     EDGE_LENGTH,
-    MARGIN_LEFT,
+    EDGE_MARGIN_LEFT,
     OUTPUT_EDGE_LENGTH,
     WORKFLOW_STEP_WIDTH,
     WORKFLOW_START_MARGIN_TOP,
@@ -105,24 +105,24 @@ export function calculateIoPosition(data: IoPositionData): Position {
     const { ioIndex, nodePosition } = data;
     const { x: nodeX, y: nodeY } = nodePosition;
 
-    const x = nodeX + EDGE_LENGTH + MARGIN_LEFT;
+    const x = nodeX + EDGE_LENGTH + EDGE_MARGIN_LEFT;
     const y = nodeY + (ioIndex + 1) * OUTPUT_EDGE_LENGTH;
 
     return {
         x,
-        xEnd: x + EDGE_LENGTH + MARGIN_LEFT + OUTPUT_BUTTON_SKEWED_WIDTH - 7,
+        xEnd: x + EDGE_LENGTH + EDGE_MARGIN_LEFT + OUTPUT_BUTTON_SKEWED_WIDTH - 7,
         y,
         yEnd: y,
     };
 }
 
 export function calculateInitialIoPosition(ioIndex: number) {
-    const x = OUTPUT_EDGE_LENGTH + MARGIN_LEFT;
+    const x = OUTPUT_EDGE_LENGTH + EDGE_MARGIN_LEFT;
     const y = OUTPUT_EDGE_LENGTH + WORKFLOW_START_MARGIN_TOP + (ioIndex + 1) * OUTPUT_EDGE_LENGTH;
 
     return {
         x,
-        xEnd: x + EDGE_LENGTH + MARGIN_LEFT + OUTPUT_BUTTON_SKEWED_WIDTH - 7,
+        xEnd: x + EDGE_LENGTH + EDGE_MARGIN_LEFT + OUTPUT_BUTTON_SKEWED_WIDTH - 7,
         y,
         yEnd: y,
     };

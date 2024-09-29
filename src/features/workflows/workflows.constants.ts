@@ -1,6 +1,6 @@
 import { INITIAL_ANIMATION_DURATION, TRANSITION_ANIMATION_DURATION } from '../nodes/nodes.constants';
 
-export const MARGIN_LEFT = 22; // move children's edge left from where current node's X edge ends
+export const EDGE_MARGIN_LEFT = 22; // move children's edge left from where current node's X edge ends
 export const NODE_HEIGHT = 34; // height of node button
 export const MARGIN_TOP = NODE_HEIGHT / 2.0 + 0.3; // move children's edge down from current node's button y
 export const EDGE_LENGTH = 35; // length of edge (link)
