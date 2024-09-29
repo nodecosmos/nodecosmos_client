@@ -6,19 +6,14 @@ interface MetaProps {
     image?: string | null;
 }
 
-const META_TITLE = 'Innovation Collaboration Platform';
-const META_DESCRIPTION = `Nodecosmos is designed as a collaborative space for innovation development,
-                          research projects, and knowledge sharing. It is built with the spirit of
-                          open-source at its core as it enables free public collaboration in structured
-                          manner adopted from open-source software development.`;
-const META_IMAGE = 'https://nodecosmos.com/logo.webp';
-
 export default function useMetaAttributes(props: MetaProps) {
     const {
         title, description, image,
     } = props;
 
     useEffect(() => {
+        if (!description) return;
+
         // Define the meta tags you want to update
         const descTagsToUpdate = [
             {
@@ -48,11 +43,13 @@ export default function useMetaAttributes(props: MetaProps) {
                 }
                 document.head.appendChild(element);
             }
-            element.setAttribute('content', description || META_DESCRIPTION);
+            element.setAttribute('content', description);
         });
     }, [description]);
 
     useEffect(() => {
+        if (!title) return;
+
         const titleTagsToUpdate = [
             {
                 name: 'title',
@@ -81,7 +78,7 @@ export default function useMetaAttributes(props: MetaProps) {
                 }
                 document.head.appendChild(element);
             }
-            element.setAttribute('content', title || META_TITLE);
+            element.setAttribute('content', title);
         });
     }, [title]);
 
@@ -141,7 +138,7 @@ export default function useMetaAttributes(props: MetaProps) {
                 }
                 document.head.appendChild(element);
             }
-            element.setAttribute('content', image || META_IMAGE);
+            element.setAttribute('content', image);
         });
     }, [image]);
 }
