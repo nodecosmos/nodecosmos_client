@@ -5,7 +5,7 @@ import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {
     ANIMATION_DELAY,
     INITIAL_ANIMATION_DURATION,
-    MARGIN_LEFT,
+    EDGE_MARGIN_LEFT,
     MARGIN_TOP,
     TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
@@ -38,7 +38,7 @@ function NodeAncestorChain({ y, yEnd }: NodeAncestorChainProps) {
     return circles.map((_, i) => (<circle
         key={i}
         className="NodeAncestorCircle"
-        cx={xEnd + MARGIN_LEFT}
+        cx={xEnd + EDGE_MARGIN_LEFT}
         cy={y + (i + 1) * totalEdgeLength}
         stroke={theme.palette.tree.default}
         strokeWidth={1}
@@ -72,7 +72,7 @@ export default function NestedNodesBranch() {
     const pathD = useMemo(() => {
         if (!lastChildId || !isExpanded || !lastChildY) return null;
 
-        const x = xEnd + MARGIN_LEFT;
+        const x = xEnd + EDGE_MARGIN_LEFT;
         const linkY = y + MARGIN_TOP;
 
         if (!yEnd) return null;

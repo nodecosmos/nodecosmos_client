@@ -6,7 +6,7 @@ import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { setNodeScrollTo } from '../../../nodes.actions';
 import {
     INITIAL_ANIMATION_DURATION,
-    MARGIN_LEFT,
+    EDGE_MARGIN_LEFT,
     TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
@@ -53,7 +53,7 @@ function NodeAncestor({ ancestorId, index }: NodeAncestorProps) {
             onMouseEnter={hover}
             onMouseLeave={leave}
             onClick={handleCentering}
-            cx={node.x + size.edgeLength + MARGIN_LEFT}
+            cx={node.x + size.edgeLength + EDGE_MARGIN_LEFT}
             cy={currentNodeY}
             r={hovered ? size.circleRadius + 1 : (isSelected ? size.circleRadius : size.circleRadius - 1)}
             stroke={isSelected ? nestedTreeColor.fg : theme.palette.tree.default}

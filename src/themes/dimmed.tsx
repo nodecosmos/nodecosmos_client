@@ -27,7 +27,7 @@ const theme: NodecosmosTheme = {
 
         header: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 3px 0px rgb(0 0 0 / 2%), 0px 1px 5px 0px rgb(0 0 0 / 8%)',
         buttons: {
-            1: '3px 3px 0px transparent',
+            1: '3px 3px 0px rgb(0 0 0 / 14%)',
             2: 0,
             3: 0,
         },
@@ -79,9 +79,9 @@ const theme: NodecosmosTheme = {
             5: '#575a65',
         },
         background: {
-            1: '#222223',
+            1: '#26282c',
             2: '#2a2c31',
-            3: '#343536',
+            3: '#36393f',
             4: '#383941',
             5: '#2d3035',
             6: '#303339',
@@ -118,7 +118,7 @@ const theme: NodecosmosTheme = {
             breadcrumbs: '#7a8993',
         },
         tree: {
-            default: '#383c42',
+            default: '#373C44',
             backgrounds: [
                 {
                     fg: '#ff5971',
@@ -148,7 +148,7 @@ const theme: NodecosmosTheme = {
             defaultText: '#ebe7e7',
             selectedText: 'rgba(0, 0, 0, 0.9)',
             hashtag: '#787d88',
-            defaultBorder: '#3d4145',
+            defaultBorder: '#373C44',
             dragInIndicator: '#bf7869',
             checkboxColor: '#63686c',
         },

@@ -4,7 +4,7 @@ import useNodeColors from '../../../hooks/node/useNodeColors';
 import useNodeContext from '../../../hooks/node/useNodeContext';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import {
-    ANIMATION_DELAY, EDGE_LENGTH, INITIAL_ANIMATION_DURATION, MARGIN_LEFT, TRANSITION_ANIMATION_DURATION,
+    ANIMATION_DELAY, EDGE_LENGTH, INITIAL_ANIMATION_DURATION, EDGE_MARGIN_LEFT, TRANSITION_ANIMATION_DURATION,
 } from '../../../nodes.constants';
 import { useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
@@ -55,7 +55,7 @@ export default function NodeBranch() {
     const pathD = useMemo(() => {
         if (!x) { return null; }
 
-        const pathX = showAncestorChain && isSelected ? size.edgeLength * 2 + MARGIN_LEFT : x;
+        const pathX = showAncestorChain && isSelected ? size.edgeLength * 2 + EDGE_MARGIN_LEFT : x;
 
         return `M ${pathX} ${y}
                 C ${pathX} ${y}

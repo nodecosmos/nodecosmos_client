@@ -6,11 +6,11 @@ import {
     ANCESTOR_RADIUS, COMPACT_ANCESTOR_RADIUS, COMPACT_DROP_INDICATOR_Y_OFFSET,
     COMPACT_EDGE_LENGTH, COMPACT_FONT_SIZE,
     COMPACT_MARGIN_TOP,
-    COMPACT_NODE_HEIGHT, COMPACT_STROKE_WIDTH, DROP_INDICATOR_Y_OFFSET,
+    COMPACT_NODE_HEIGHT, COMPACT_NODE_MARGIN_LEFT, COMPACT_STROKE_WIDTH, DROP_INDICATOR_Y_OFFSET,
     EDGE_LENGTH,
     FONT_SIZE,
     MARGIN_TOP,
-    NODE_HEIGHT, STROKE_WIDTH,
+    NODE_HEIGHT, NODE_MARGIN_LEFT, STROKE_WIDTH,
 } from '../../nodes.constants';
 import { selectDensity, selectShowAncestorChain } from '../../nodes.selectors';
 import { TreeDensity, TreeType } from '../../nodes.types';
@@ -28,6 +28,7 @@ export interface NodeSize {
     pathWidth: number;
     circleRadius: number;
     dropIndicatorYOffset: number;
+    nodeMarginLeft: number;
 }
 
 export interface TreeContextValue extends TreeProps {
@@ -75,6 +76,7 @@ const NODE_SIZE = {
         pathWidth: STROKE_WIDTH,
         circleRadius: ANCESTOR_RADIUS,
         dropIndicatorYOffset: DROP_INDICATOR_Y_OFFSET,
+        nodeMarginLeft: NODE_MARGIN_LEFT,
     },
     [TreeDensity.Compact]: {
         height: COMPACT_NODE_HEIGHT,
@@ -85,6 +87,7 @@ const NODE_SIZE = {
         pathWidth: COMPACT_STROKE_WIDTH,
         circleRadius: COMPACT_ANCESTOR_RADIUS,
         dropIndicatorYOffset: COMPACT_DROP_INDICATOR_Y_OFFSET,
+        nodeMarginLeft: COMPACT_NODE_MARGIN_LEFT,
     },
 };
 

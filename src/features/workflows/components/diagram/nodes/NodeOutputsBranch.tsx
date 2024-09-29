@@ -1,7 +1,7 @@
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import {
-    EDGE_LENGTH, MARGIN_LEFT, MARGIN_TOP, PATH_STYLE,
+    EDGE_LENGTH, EDGE_MARGIN_LEFT, MARGIN_TOP, PATH_STYLE,
 } from '../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
@@ -17,7 +17,7 @@ export default function NodeOutputsBranch() {
 
     if (!x || !y || !xEnd || !yEnd) return null;
 
-    const branchX = x + EDGE_LENGTH + MARGIN_LEFT;
+    const branchX = x + EDGE_LENGTH + EDGE_MARGIN_LEFT;
     const branchY = y + MARGIN_TOP;
 
     if (branchY > yEnd) {

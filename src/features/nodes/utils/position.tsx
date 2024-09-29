@@ -2,7 +2,7 @@ import { UUID } from '../../../types';
 import {
     NodeSize, TreeNode, TreeNodes,
 } from '../hooks/tree/useTreeContext';
-import { MARGIN_LEFT, MARGIN_TOP } from '../nodes.constants';
+import { EDGE_MARGIN_LEFT, MARGIN_TOP } from '../nodes.constants';
 
 export function calculatePosition(treeNodes: TreeNodes, node: TreeNode, size: NodeSize) {
     const {
@@ -30,7 +30,7 @@ export function calculatePosition(treeNodes: TreeNodes, node: TreeNode, size: No
     } else {
         const { x: parentX, y: parentY } = treeNodes[parentId as UUID];
 
-        x = parentX + MARGIN_LEFT + edgeLength;
+        x = parentX + EDGE_MARGIN_LEFT + edgeLength;
         y = (upperSiblingYEnd || parentY) + yLength;
     }
 
