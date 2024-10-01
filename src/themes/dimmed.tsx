@@ -133,7 +133,7 @@ const theme: NodecosmosTheme = {
                     bg: '#2a313d',
                 },
                 {
-                    fg: '#abef76',
+                    fg: '#91c468',
                     bg: '#303c3a',
                 },
                 {
@@ -215,7 +215,7 @@ const theme: NodecosmosTheme = {
         },
         text: {
             primary: '#f5f5f2',
-            secondary: '#bfc3cb',
+            secondary: '#d9dce4',
             tertiary: '#838a9a',
             disabled: '#565968',
             contrast: '#fff',
