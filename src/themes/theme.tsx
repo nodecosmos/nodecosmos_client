@@ -75,10 +75,10 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     backgroundColor: theme.palette.toolbar.active,
                 },
                 '.Resizer': {
-                    width: 8,
+                    width: 4,
                     height: '100%',
                     position: 'relative',
-                    marginLeft: -8,
+                    marginLeft: -4,
                     '&:hover': { cursor: 'col-resize' },
                 },
                 '.Pane': {
