@@ -143,7 +143,7 @@ const theme: NodecosmosTheme = {
                 },
                 {
                     fg: '#d8cc6a',
-                    bg: '#3e4130',
+                    bg: '#393935',
                     ol: '#6f6f4f',
                 },
                 {
