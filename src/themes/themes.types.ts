@@ -7,6 +7,7 @@ type Shadow = string | 0;
 interface TreeColor {
     bg: string;
     fg: string;
+    ol: string; // outline
 }
 
 interface Shadows {

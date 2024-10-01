@@ -1,6 +1,5 @@
 import useDiffColors, { DiffState } from '../../../../../common/hooks/useDiffColors';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
-import { withOpacity } from '../../../../../utils/colors';
 import useNodeBranchContext from '../useNodeBranchContext';
 import useNodeContext from '../useNodeContext';
 import { useTheme } from '@mui/material';
@@ -37,7 +36,7 @@ export default function useNodeBranchColors() {
             isReordered,
             isDescriptionEdited,
         } = branchCtx;
-        const backgroundColor = isSelected ? withOpacity(nestedTreeColor, 0.8) : theme.palette.tree.default;
+        const backgroundColor = isSelected ? nestedTreeColor : theme.palette.tree.default;
         const outlineColor = defaultBorder;
         const color = (isSelected && theme.palette.tree.selectedText) || theme.palette.tree.defaultText;
         const parentColor = theme.palette.workflow.defaultInputColor;
