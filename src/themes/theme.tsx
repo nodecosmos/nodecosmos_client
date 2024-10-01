@@ -18,6 +18,7 @@ import dialog from './styles/mui/dialog';
 import input from './styles/mui/inputs';
 import list from './styles/mui/list';
 import menu from './styles/mui/menu';
+import paper from './styles/mui/paper';
 import tab from './styles/mui/tab';
 import tooltip from './styles/mui/tooltip';
 import typographyStyle from './styles/mui/typographyStyle';
@@ -103,6 +104,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         ...input(theme),
         ...list(theme),
         ...menu(theme),
+        ...paper(),
         ...tab(),
         ...tooltip(theme),
         ...typographyStyle(theme),
