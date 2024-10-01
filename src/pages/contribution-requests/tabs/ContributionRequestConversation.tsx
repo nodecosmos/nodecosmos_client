@@ -79,7 +79,7 @@ export default function ContributionRequestConversation() {
                         activeColor="background.7"
                     >
                         <ToolbarItem
-                            color="text.primary"
+                            color="text.secondary"
                             iconColor="background.labels.green"
                             title="Main Thread"
                             icon={faComments}
