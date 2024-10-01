@@ -122,7 +122,7 @@ const theme: NodecosmosTheme = {
             default: '#373C44',
             backgrounds: [
                 {
-                    fg: '#ff5971',
+                    fg: '#ff626f',
                     bg: '#3b2e35',
                     ol: '#633941',
                 },
@@ -205,7 +205,7 @@ const theme: NodecosmosTheme = {
             },
             removed: {
                 bg: '#492739',
-                fg: '#ff6682',
+                fg: '#ff626f',
             },
             edited: {
                 bg: '#3b423b',
@@ -218,7 +218,7 @@ const theme: NodecosmosTheme = {
         },
         logo: {
             blue: '#3adfff',
-            red: '#fd526f',
+            red: '#ff626f',
         },
         text: {
             primary: '#f5f5f2',
