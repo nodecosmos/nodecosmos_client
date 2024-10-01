@@ -73,6 +73,7 @@ interface Text {
 }
 
 interface Palette {
+    mode: 'light' | 'dark';
     primary: PaletteColors;
     secondary: PaletteColors;
     error: PaletteColors;

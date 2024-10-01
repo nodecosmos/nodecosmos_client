@@ -35,6 +35,7 @@ const theme: NodecosmosTheme = {
     },
 
     palette: {
+        mode: 'light',
         primary: {
             main: '#5135c8',
             contrastText: '#fff',

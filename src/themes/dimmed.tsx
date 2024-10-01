@@ -34,6 +34,7 @@ const theme: NodecosmosTheme = {
     },
 
     palette: {
+        mode: 'dark',
         primary: {
             main: '#b2ff99', // sRGB hex color
             contrastText: 'rgba(0, 0, 0, 0.8)',
@@ -141,12 +142,12 @@ const theme: NodecosmosTheme = {
                     ol: '#4d5f4f',
                 },
                 {
-                    fg: '#bfc83e',
+                    fg: '#d8cc6a',
                     bg: '#3e4130',
                     ol: '#6f6f4f',
                 },
                 {
-                    fg: '#f2c769',
+                    fg: '#f2aa69',
                     bg: '#3f3c39',
                     ol: '#6f5f4f',
                 },

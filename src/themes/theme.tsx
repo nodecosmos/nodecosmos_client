@@ -32,6 +32,10 @@ import { NodecosmosTheme } from './themes.types';
 import { createTheme } from '@mui/material/styles';
 
 const getTheme = (theme: NodecosmosTheme) => createTheme({
+    colorSchemes: {
+        light: true,
+        dark: true,
+    },
     typography: typography(theme),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
