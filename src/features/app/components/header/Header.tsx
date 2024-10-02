@@ -1,4 +1,5 @@
 /* mui */
+import ThemeMenu from './ThemeMenu';
 import UserHeaderTools from './UserHeaderTools';
 import ThreadShowHeader from '../../../comments/components/thread/ThreadShowHeader';
 import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
@@ -104,6 +105,7 @@ export default function Header() {
                         </Box>
                     )}
                     {(!headerContent || isMobile) && <div />}
+                    <ThemeMenu />
 
                     <Box
                         height={1}

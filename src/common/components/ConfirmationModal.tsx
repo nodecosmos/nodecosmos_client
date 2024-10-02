@@ -83,7 +83,7 @@ export default function ConfirmationModal(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Box
-                    className="width-fit-content nowrap"
+                    className="w-fit-content nowrap"
                     display={MD_FLEX_SX}
                     width={WIDTH_FIT_CONTENT_MD_SX}
                     justifyContent="end">

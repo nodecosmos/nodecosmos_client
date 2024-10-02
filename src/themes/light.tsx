@@ -128,11 +128,11 @@ const theme: NodecosmosTheme = {
             lightRed: '#ff8686',
             pink: '#bb7eaf',
             purple: '#b775ff',
-            yellow: '#ffd000',
+            yellow: '#ddbe32',
             orange: '#dd9432',
             hover: 'rgba(230,224,232,0.82)',
             active: '#f3eff5',
-            default: '#000000',
+            default: '#686a6b',
             breadcrumbs: '#4a5568',
         },
 
@@ -162,12 +162,12 @@ const theme: NodecosmosTheme = {
                 },
                 {
                     fg: '#c5a41f',
-                    bg: '#fff4eb',
+                    bg: '#fffbec',
                     ol: '#e2d6b4',
                 },
                 {
                     fg: '#f2a469',
-                    bg: '#ffe5df',
+                    bg: '#fff2ef',
                     ol: '#e2b4b4',
                 },
             ],

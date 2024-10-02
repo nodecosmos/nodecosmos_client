@@ -57,16 +57,18 @@ export default (theme: NodecosmosTheme) => ({
     '&.p-2': { padding: 16 },
     '&.p-1-2': { padding: '8px 16px' },
 
+    '&.h-35': { height: 35 },
     '&.h-100': { height: '100%' },
     [`&.h-${NODE_HEIGHT}`]: { height: NODE_HEIGHT },
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
     '&.min-h-210': { minHeight: 210 },
 
+    '&.w-35': { width: 35 },
     '&.w-100': { width: '100%' },
     '&.w-850': { width: 850 },
     '&.min-w-50': { minWidth: 50 },
-    '&.width-fit-content': { width: 'fit-content' },
+    '&.w-fit-content': { width: 'fit-content' },
 
     '&.border-top-1': { borderTop: `1px solid ${theme.palette.borders[1]}` },
     '&.border-bottom-1': { borderBottom: `1px solid ${theme.palette.borders[1]}` },
@@ -135,6 +137,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.center': { textAlign: 'center' },
     '&.left': { textAlign: 'left' },
 
+    '&.display-mobile-none': { '@media (max-width: 768px)': { display: 'none' } },
     '&.display-flex': { display: 'flex' },
     '&.display-inline-flex': { display: 'inline-flex' },
     '&.justify-start': { justifyContent: 'start' },
