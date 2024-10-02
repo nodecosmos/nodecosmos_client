@@ -2,7 +2,7 @@ import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
 import { setIndexSearchTerm } from '../../nodes.actions';
 import { indexNodes } from '../../nodes.thunks';
-import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TextField } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';

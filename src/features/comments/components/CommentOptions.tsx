@@ -2,7 +2,7 @@ import SidebarListItem from '../../nodes/components/sidebar/SidebarListItem';
 import { useCommentCommands } from '../hooks/useCommentContext';
 import {
     faEllipsis, faEdit, faTrash,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';

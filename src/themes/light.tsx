@@ -94,8 +94,8 @@ const theme: NodecosmosTheme = {
         background: {
             1: '#ffffff', // f8f9fa
             2: '#fffffe', // f0f0ef ededed
-            3: '#fafaf9',
-            4: '#f5f5f7',
+            3: '#eef0fa',
+            4: '#e0e5ea',
             5: '#f6f8fc',
             6: '#f7f7fa',
             7: '#eeeef3',

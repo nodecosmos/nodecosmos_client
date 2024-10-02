@@ -7,7 +7,7 @@ import { selectThread } from '../../comments/comments.selectors';
 import { ThreadObjectType, ThreadLocation } from '../../comments/comments.types';
 import CommentEditor from '../../comments/components/CommentEditor';
 import InsertCommentPlaceholder from '../../comments/components/CommentInsertPlaceholder';
-import { faCodePullRequest, faComments } from '@fortawesome/pro-solid-svg-icons';
+import { faCodePullRequest, faComments } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Divider, Typography,

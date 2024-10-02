@@ -7,8 +7,9 @@ import { SELECTED_OBJ_Q } from '../../app/hooks/useSelectObject';
 import { selectNodeFromParams } from '../../nodes/nodes.actions';
 import { selectNotification } from '../notifications.selectors';
 import { NotificationType } from '../notifications.types';
-import { faCalendarUsers, faComments } from '@fortawesome/pro-regular-svg-icons';
-import { faCodePullRequest, faCodeMerge } from '@fortawesome/pro-solid-svg-icons';
+import {
+    faCalendarUsers, faComments, faCodePullRequest, faCodeMerge,
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
