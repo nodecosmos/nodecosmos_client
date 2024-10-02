@@ -85,7 +85,7 @@ const theme: NodecosmosTheme = {
 
         borders: {
             1: '#f0f0f0',
-            2: '#f0f0f0',
+            2: '#cfd7e7',
             3: '#f0f0eb',
             4: '#e6e6cb',
             5: '#e1e1e1',
