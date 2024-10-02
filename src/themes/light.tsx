@@ -96,7 +96,7 @@ const theme: NodecosmosTheme = {
             2: '#fffffe', // f0f0ef ededed
             3: '#fafaf9',
             4: '#f5f5f7',
-            5: '#fffffe',
+            5: '#f6f8fc',
             6: '#f7f7fa',
             7: '#eeeef3',
             8: '#d2d6de',
@@ -117,7 +117,7 @@ const theme: NodecosmosTheme = {
                 activeColor: '#46464c',
             },
 
-            paper: '#fdfdfd',
+            paper: '#f4f7f9',
             backdrop: 'rgba(0,0,0,0.76)',
         },
 
