@@ -7,7 +7,7 @@ import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
     faLightbulbOn, faRightFromBracket, faMessageDots,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Slider } from '@mui/material';
 import Menu from '@mui/material/Menu';
