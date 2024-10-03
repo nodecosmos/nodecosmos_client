@@ -41,6 +41,7 @@ export default function useFlowStepContext() {
     const { branchId } = useWorkflowContext();
     const flowStep = useSelector(selectFlowStep(branchId, id));
     const {
+        rootId,
         nodeId,
         flowId,
         stepIndex,
@@ -55,6 +56,7 @@ export default function useFlowStepContext() {
     const selectedObject = useSelector(selectSelectedObject);
 
     return useMemo(() => ({
+        rootId,
         nodeId,
         flowId,
         stepIndex,
@@ -73,6 +75,7 @@ export default function useFlowStepContext() {
         isSelected: id === selectedObject?.objectId,
         isCreated: !!flowStepPrimaryKey?.id,
     }), [
+        rootId,
         nodeId,
         flowId,
         stepIndex,
