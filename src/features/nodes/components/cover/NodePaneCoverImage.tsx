@@ -64,12 +64,6 @@ export default function NodePaneCoverImage() {
             {coverImageUrl && (
                 <>
                     <div className="Cover">
-                        <CardMedia
-                            className="AmbientImage"
-                            component="img"
-                            image={coverImageUrl}
-                            alt="Cover Image Ambient"
-                        />
                         <div className="CoverImage" onMouseOver={displayButton} onMouseLeave={hideButton}>
                             {
                                 !isBranch && isAuthorized && (
