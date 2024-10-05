@@ -51,6 +51,8 @@ export default function NodePaneCoverImage() {
         return isOwner || isEditor;
     }, [currentUser, root]);
 
+    const coverOpacity = useMemo(() => ({ opacity: buttonDisplayed ? 0.8 : 0 }), [buttonDisplayed]);
+
     if (!node) {
         return null;
     }
@@ -80,13 +82,12 @@ export default function NodePaneCoverImage() {
                                 !isBranch && isAuthorized && (
                                     <Button
                                         className="CoverImageUploadButton"
-                                        component="label"
-                                        variant="contained"
+                                        color="button"
                                         startIcon={<FontAwesomeIcon icon={faCamera} />}
                                         onClick={openModal}
-                                        style={{ opacity: buttonDisplayed ? 0.8 : 0 }}
+                                        style={coverOpacity}
                                     >
-                                        Upload cover image
+                                        Edit Cover Image
                                     </Button>
                                 )
                             }

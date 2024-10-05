@@ -9,7 +9,7 @@ import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface DeleteCoverImageButtonProps {
@@ -48,13 +48,15 @@ export default function DeleteCoverImageButton({ show }: DeleteCoverImageButtonP
         });
     }, [rootId, branchId, dispatch, handleServerError, objectId]);
 
+    const style = useMemo(() => ({ opacity: show ? 0.8 : 0 }), [show]);
+
     return (
         <Tooltip title="Delete Cover Image">
             <IconButton
-                className="DeleteCoverImageButton"
                 color="button"
+                className="DeleteCoverImageButton"
                 onClick={handleDeleteCoverImage}
-                style={{ opacity: show ? 0.8 : 0 }}
+                style={style}
             >
                 <FontAwesomeIcon icon={faClose} />
             </IconButton>
