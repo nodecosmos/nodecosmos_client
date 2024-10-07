@@ -104,6 +104,7 @@ export default function App() {
                             <Route path="nodes" element={<RootNodes />} />
                         </Route>
                         <Route path="/nodes" element={(<NodesIndex />)} />
+                        <Route path="/" element={(<NodesIndex />)} />
                         <Route path="/nodes" element={<NodeShow />}>
                             <Route path=":originalId/:id" element={<TreeShow />} />
 

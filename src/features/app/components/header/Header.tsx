@@ -62,7 +62,7 @@ export default function Header() {
                     <MobileSidebarIcon />
                     <Button
                         component={Link}
-                        to={isIndex ? '/' : '/nodes'}
+                        to={isIndex ? 'https://nodecosmos.com/' : '/nodes'}
                         className="LogoButton"
                     >
                         <img src="/logo.svg" alt="logo" height={30} width={30} />
