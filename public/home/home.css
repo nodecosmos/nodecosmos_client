@@ -87,7 +87,7 @@ p {
 
 section {
     position: relative;
-    max-width: 1500px;
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -203,8 +203,12 @@ section {
     text-align: justify;
 }
 
-#wf, #cross {
+#wf {
     margin-top: -110px;
+}
+
+#cross {
+    margin-top: -60px;
 }
 
 #contact {
