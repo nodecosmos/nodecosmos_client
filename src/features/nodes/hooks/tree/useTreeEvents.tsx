@@ -52,15 +52,6 @@ export default function useTreeEvents() {
                 }
             }
         }
-
-        if (event.key === 'ArrowLeft' && !event.ctrlKey) {
-            event.preventDefault();
-            if (selId) {
-                if (expandedNodes.has(selId)) {
-                    collapseNode(selId);
-                }
-            }
-        }
     }, [selId, orderedTreeNodeIds, selectNode, expandedNodes, expandNode, collapseNode]);
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
