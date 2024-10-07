@@ -13,8 +13,9 @@ body {
 }
 
 header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    width: 100%;
     background-color: transparent;
     backdrop-filter: blur(15px);
     padding: 10px;
