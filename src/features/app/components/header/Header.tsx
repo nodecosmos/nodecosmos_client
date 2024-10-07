@@ -37,6 +37,8 @@ export default function Header() {
 
     if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
+    const isIndex = location.pathname === '/nodes';
+
     return (
         <Box height={HEADER_HEIGHT} width={1} position="relative" zIndex={4}>
             <Box
@@ -60,7 +62,7 @@ export default function Header() {
                     <MobileSidebarIcon />
                     <Button
                         component={Link}
-                        to="/"
+                        to={isIndex ? '/' : '/nodes'}
                         className="LogoButton"
                     >
                         <img src="/logo.svg" alt="logo" height={30} width={30} />
