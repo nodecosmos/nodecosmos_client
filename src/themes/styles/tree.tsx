@@ -27,6 +27,7 @@ export default (theme: NodecosmosTheme) => ({
                 '.NodeButtonText': {
                     cursor: 'pointer',
                     marginLeft: 12,
+                    marginRight: 4,
                     padding: 0,
                     backgroundColor: 'transparent',
                     fontWeight: 500,

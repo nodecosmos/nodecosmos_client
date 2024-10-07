@@ -13,9 +13,8 @@ body {
 }
 
 header {
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
     background-color: transparent;
     backdrop-filter: blur(15px);
     padding: 10px;
@@ -24,7 +23,9 @@ header {
     display: flex;
     justify-content: start;
     align-items: center;
+    transition: background-color 0.15s ease;
 }
+
 header a {
     margin: 0 4px;
     text-decoration: none;
