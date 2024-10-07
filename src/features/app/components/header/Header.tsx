@@ -63,6 +63,7 @@ export default function Header() {
                     <Button
                         component={Link}
                         to={isIndex ? 'https://nodecosmos.com/' : '/nodes'}
+                        relative={isIndex ? 'route' : 'path'}
                         className="LogoButton"
                     >
                         <img src="/logo.svg" alt="logo" height={30} width={30} />
