@@ -25,11 +25,14 @@ const CIRCLE_ANIMATION = {
 
 export default function NodeBranch() {
     const theme: NodecosmosTheme = useTheme();
-    const { size, showAncestorChain } = useTreeContext();
+    const {
+        size, showAncestorChain, showTreeColors, 
+    } = useTreeContext();
     const {
         x, xEnd, y, isSelected, isAlreadyMounted, isCurrentRoot,
     } = useNodeContext();
-    const { parentColor } = useNodeColors();
+    let { parentColor } = useNodeColors();
+    parentColor = showTreeColors ? parentColor : theme.palette.tree.default;
     const animated = !isSafari;
 
     const pathStyle = useMemo(() => {

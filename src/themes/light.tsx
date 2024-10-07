@@ -137,7 +137,7 @@ const theme: NodecosmosTheme = {
         },
 
         tree: {
-            default: '#edf2ee',
+            default: '#f4f4f7',
             defaultBorder: '#e0e0f0',
             backgrounds: [
                 {

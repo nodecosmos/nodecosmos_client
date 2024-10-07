@@ -117,6 +117,7 @@ export interface NodeState {
     scale: number;
     treeDensity: TreeDensity;
     showAncestorChain: boolean;
+    showTreeColors: boolean;
     indexSearchTerm?: string;
     sidebarOpen: boolean;
     byOwnerId: Record<UUID, NodeByOwner[]>;

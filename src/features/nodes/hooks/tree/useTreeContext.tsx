@@ -12,7 +12,9 @@ import {
     MARGIN_TOP,
     NODE_HEIGHT, NODE_MARGIN_LEFT, STROKE_WIDTH,
 } from '../../nodes.constants';
-import { selectDensity, selectShowAncestorChain } from '../../nodes.selectors';
+import {
+    selectDensity, selectShowAncestorChain, selectShowTreeColors,
+} from '../../nodes.selectors';
 import { TreeDensity, TreeType } from '../../nodes.types';
 import {
     createContext, useContext, useMemo,
@@ -38,6 +40,7 @@ export interface TreeContextValue extends TreeProps {
     setTreeNodes: (treeNodes: TreeNodes) => void;
     size: NodeSize;
     showAncestorChain: boolean;
+    showTreeColors: boolean;
 }
 
 export type UpperSiblingId = UUID | null;
@@ -104,6 +107,7 @@ export function useTreeContextValue(props: TreeProps) {
     const selectedNodeIds = useMemo(() => new Set<UUID>(value), [value]);
     const treeDensity = useSelector(selectDensity);
     const showAncestorChain = useSelector(selectShowAncestorChain);
+    const showTreeColors = useSelector(selectShowTreeColors);
     const size = useMemo(() => {
         return NODE_SIZE[treeDensity];
     }, [treeDensity]);
@@ -130,10 +134,11 @@ export function useTreeContextValue(props: TreeProps) {
         setTreeNodes,
         size,
         showAncestorChain,
+        showTreeColors,
     }),
     [
         orderedTreeNodeIds, rootId, selectedNodeIds, branchId, treeNodes, type,
-        onChange, setTreeNodes, size, showAncestorChain,
+        onChange, setTreeNodes, size, showAncestorChain, showTreeColors,
     ]);
 }
 

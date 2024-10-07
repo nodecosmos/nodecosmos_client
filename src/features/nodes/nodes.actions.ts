@@ -18,6 +18,7 @@ export const {
     setScale,
     setDensity,
     setShowAncestorChain,
+    setShowTreeColors,
     setIndexSearchTerm,
     setSidebarOpen,
     pushRecentNode,

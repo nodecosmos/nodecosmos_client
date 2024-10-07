@@ -26,7 +26,7 @@ export default (theme: NodecosmosTheme) => ({
                 '&.selected .fa-hashtag': { color: 'inherit' },
                 '.NodeButtonText': {
                     cursor: 'pointer',
-                    marginLeft: 8,
+                    marginLeft: 12,
                     padding: 0,
                     backgroundColor: 'transparent',
                     fontWeight: 500,
@@ -42,7 +42,6 @@ export default (theme: NodecosmosTheme) => ({
                     },
                     span: {
                         borderRadius: 4,
-                        padding: '4px 8px',
                         display: 'inline-block',
                     },
                     '.diff-removed': {

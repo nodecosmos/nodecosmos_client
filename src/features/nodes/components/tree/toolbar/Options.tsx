@@ -1,5 +1,9 @@
-import { setDensity, setShowAncestorChain } from '../../../nodes.actions';
-import { selectDensity, selectShowAncestorChain } from '../../../nodes.selectors';
+import {
+    setDensity, setShowAncestorChain, setShowTreeColors,
+} from '../../../nodes.actions';
+import {
+    selectDensity, selectShowAncestorChain, selectShowTreeColors, 
+} from '../../../nodes.selectors';
 import { TreeDensity } from '../../../nodes.types';
 import { faEllipsisVertical } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -43,6 +47,7 @@ export default function Options() {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const density = useSelector(selectDensity);
     const showAncestorChain = useSelector(selectShowAncestorChain);
+    const showTreeColors = useSelector(selectShowTreeColors);
     const open = Boolean(anchorEl);
     const handleClick = useCallback((event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -53,6 +58,9 @@ export default function Options() {
     }, [dispatch]);
     const handleShowAncestorChainChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setShowAncestorChain(event.target.checked));
+    }, [dispatch]);
+    const handleShowTreeColorsChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setShowTreeColors(event.target.checked));
     }, [dispatch]);
 
     return (
@@ -91,6 +99,13 @@ export default function Options() {
                             id="ancestor-chain-label"
                             value={showAncestorChain}
                             control={<Switch onChange={handleShowAncestorChainChange} checked={showAncestorChain} />}
+                            label="True" />
+                        <FormLabel className="mt-2">Show Tree Colors</FormLabel>
+                        <FormControlLabel
+                            className="mt-1"
+                            id="tree-colors-label"
+                            value={showAncestorChain}
+                            control={<Switch onChange={handleShowTreeColorsChange} checked={showTreeColors} />}
                             label="True" />
                     </FormControl>
                 </Box>

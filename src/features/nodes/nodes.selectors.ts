@@ -16,6 +16,7 @@ export const selectExpandedNodes = (state: RootState) => state.nodes.expandedNod
 export const selectScale = (state: RootState) => state.nodes.scale;
 export const selectDensity = (state: RootState) => state.nodes.treeDensity;
 export const selectShowAncestorChain = (state: RootState) => state.nodes.showAncestorChain;
+export const selectShowTreeColors = (state: RootState) => state.nodes.showTreeColors;
 export const selectIndexSearchTerm = (state: RootState) => state.nodes.indexSearchTerm;
 export const selectSidebarOpen = (state: RootState) => state.nodes.sidebarOpen;
 export const selectNodesByOwnerId = (state: RootState) => state.nodes.byOwnerId;

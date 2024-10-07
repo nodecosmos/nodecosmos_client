@@ -60,6 +60,12 @@ const parseShowAncestorChainFromLS = () => {
     return showAncestorChain === null || showAncestorChain === 'true';
 };
 
+const parseShowTreeColorsFromLS = () => {
+    const showTreeColors = localStorage.getItem('showTreeColors');
+
+    return showTreeColors === null || showTreeColors === 'true';
+};
+
 const parseRecentNodesFromLS = () => {
     const recentNodes = localStorage.getItem(RECENT_NODES_LS_KEY);
 
@@ -84,6 +90,7 @@ const initialState: NodeState = {
     scale: parseScaleFromLS(),
     treeDensity: parseDensityFromLS(),
     showAncestorChain: parseShowAncestorChainFromLS(),
+    showTreeColors: parseShowTreeColorsFromLS(),
     indexSearchTerm: undefined,
     sidebarOpen: false,
     byOwnerId: {},
@@ -142,6 +149,11 @@ const nodesSlice = createSlice({
             state.showAncestorChain = action.payload;
 
             localStorage.setItem('showAncestorChain', action.payload.toString());
+        },
+        setShowTreeColors: (state: NodeState, action: PayloadAction<boolean>) => {
+            state.showTreeColors = action.payload;
+
+            localStorage.setItem('showTreeColors', action.payload.toString());
         },
         setIndexSearchTerm: (state: NodeState, action: PayloadAction<string | undefined>) => {
             state.indexSearchTerm = action.payload;

@@ -39,7 +39,7 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
     const originalNode = useSelector(maybeSelectNode(originalId, id));
     const preventDefault = usePreventDefault();
     const stopPropagation = useStopPropagation();
-    const { size } = useTreeContext();
+    const { size, showTreeColors } = useTreeContext();
     const { height, fontSize } = size;
     const buttonStyle = useMemo(() => ({
         border: '1px solid',
@@ -62,12 +62,12 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
             className += ' selected';
         }
 
-        if (outlinedColored || isDragOver) {
+        if (showTreeColors && (outlinedColored || isDragOver)) {
             className += ' outlined';
         }
 
         return className;
-    }, [height, isSelected, outlinedColored, isDragOver]);
+    }, [height, isSelected, showTreeColors, outlinedColored, isDragOver]);
 
     const isTitleEdited = ctx?.isTitleEdited && originalNode && title !== originalNode?.title;
 

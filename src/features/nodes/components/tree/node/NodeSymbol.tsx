@@ -10,13 +10,14 @@ import React, { useMemo } from 'react';
 
 export default function NodeSymbol() {
     const { checked } = useNodeContext();
-    const { outlineColor } = useNodeColors();
+    const { outlineColor, outlinedColored } = useNodeColors();
     const { type: treeType } = useTreeContext();
     const style = useMemo(() => ({ color: outlineColor }), [outlineColor]);
+    const hashStyle = useMemo(() => ({ opacity: outlinedColored ? 0.5 : 1 }), [outlinedColored]);
 
     if (treeType !== TreeType.Checkbox) {
         return (
-            <FontAwesomeIcon icon={faHashtag} />
+            <FontAwesomeIcon icon={faHashtag} style={hashStyle} />
         );
     }
 
