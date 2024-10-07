@@ -6,7 +6,7 @@ html {
 body {
     font-family: Archivo, -apple-system, system-ui, sans-serif;
     background: linear-gradient(180deg, #fff3f3, #f3f3ff, #f8fff3, #f7f3f9, #f3f5f9, #fff3f3, transparent);
-    margin: 0 0 3em;
+    padding: 0 0 6em;
     color: #353535;
     scroll-behavior: smooth;
     font-size: 1.5rem;
@@ -17,7 +17,7 @@ header {
     top: 0;
     background-color: transparent;
     backdrop-filter: blur(15px);
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     z-index: 1000;
     display: flex;
@@ -41,7 +41,7 @@ header a:hover {
 }
 
 header.scrolled {
-    background-color: #ffffff80;
+    background-color: rgba(255, 255, 255, 0.38);
 }
 
 
@@ -50,8 +50,8 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 12.5px;
+    margin-right: 12.5px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -87,7 +87,7 @@ p {
 
 section {
     position: relative;
-    max-width: 1600px;
+    max-width: 1500px;
     width: 100%;
 }
 
@@ -103,7 +103,7 @@ section {
 .cta {
     background: #635bff;
     color: white;
-    padding: 1.5rem;
+    padding: 1.5rem 3.5rem;
     text-decoration: none;
     border-radius: 50px;
     display: flex;
@@ -117,18 +117,22 @@ section {
     width: 100%;
 }
 
-.max-width-900 {
-    max-width: 900px;
-}
-
 .max-width-600 {
     max-width: 600px;
 }
 
+.max-width-900 {
+    max-width: 900px;
+}
+
+.max-width-1200 {
+    max-width: 1200px;
+}
+
 /* borders */
 
-.b-radius-12 {
-    border-radius: 12px;
+.b-radius {
+    border-radius: 18px;
 }
 
 /* margins */
@@ -195,11 +199,25 @@ section {
     align-items: end;
 }
 
-#contact {
-    display: none;
+.text-justify {
+    text-align: justify;
 }
 
-@media only screen and (max-width: 768px) {
+#wf, #cross {
+    margin-top: -110px;
+}
+
+#contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 870px) {
+    body {
+        padding: 0 0 3em;
+    }
+
     header {
         display: none;
     }
@@ -221,8 +239,13 @@ section {
         font-size: 1.25rem;
     }
 
-    p, .cta {
+    p {
         font-size: 1.25rem;
+    }
+
+    .cta {
+        font-size: 1rem;
+        padding: 1rem 2rem;
     }
 
     .hero {
@@ -233,7 +256,27 @@ section {
         align-items: start;
     }
 
-    #wf {
+    .b-radius {
+        border-radius: 10px;
+    }
+
+    .mt-xs-1 {
+        margin-top: 1rem;
+    }
+
+    .mt-xs-2 {
+        margin-top: 2rem;
+    }
+
+    .mt-xs-3 {
+        margin-top: 3rem;
+    }
+
+    .text-xs-left {
+        text-align: left;
+    }
+
+    #wf, #cross  {
         margin-top: 3rem;
     }
 
