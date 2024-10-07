@@ -17,7 +17,7 @@ if (!container) {
     throw new Error('No container found');
 }
 
-if (import.meta.env.MODE === 'development') {
+if (import.meta.env.MODE !== 'development') {
     // @ts-expect-error dataLayer is defined in the GTM script
     window.dataLayer = window.dataLayer || [];
 
