@@ -223,6 +223,19 @@ section {
     justify-content: center;
 }
 
+.caption {
+    margin-top: 0;
+    padding: 0 18px;
+    font-size: 18px;
+    text-align: center;
+    color: #9a929b;
+}
+@media only screen and (max-width: 1120px) {
+    #cross  {
+        margin-top: 3rem;
+    }
+}
+
 @media only screen and (max-width: 870px) {
     body {
         padding: 0 0 3em;
@@ -286,7 +299,12 @@ section {
         text-align: left;
     }
 
-    #wf, #cross  {
+    .caption {
+        padding: 0 0;
+        font-size: 12px;
+    }
+
+    #wf {
         margin-top: 3rem;
     }
 
