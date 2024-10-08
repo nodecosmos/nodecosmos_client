@@ -41,6 +41,7 @@ export default function IoList(props: Props) {
                 Existing Inputs
             </Typography>
             <Box
+                mt={2}
                 className="overflow-auto"
                 component="ul"
                 p={1}

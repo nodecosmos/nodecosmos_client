@@ -41,7 +41,7 @@ const theme: NodecosmosTheme = {
             contrastText: '#fff',
         },
 
-        secondary: { main: '#c4c7e1' },
+        secondary: { main: '#6174ff' },
 
         error: {
             main: '#f56565',
@@ -86,7 +86,7 @@ const theme: NodecosmosTheme = {
         borders: {
             1: '#f0f0f0',
             2: '#cfd7e7',
-            3: '#f0f0eb',
+            3: '#e8e8df',
             4: '#e6e6cb',
             5: '#e1e1e1',
         },
@@ -95,13 +95,13 @@ const theme: NodecosmosTheme = {
             1: '#ffffff', // f8f9fa
             2: '#fffffe', // f0f0ef ededed
             3: '#eef0fa',
-            4: '#e0e5ea',
+            4: '#f1f3f6',
             5: '#f6f8fc',
             6: '#f7f7fa',
             7: '#eeeef3',
             8: '#d2d6de',
 
-            hover: '#316dca',
+            hover: '#d9dde3',
 
             labels: {
                 orange: '#f5a623',
@@ -117,7 +117,7 @@ const theme: NodecosmosTheme = {
                 activeColor: '#46464c',
             },
 
-            paper: '#f4f7f9',
+            paper: '#fff',
             backdrop: 'rgba(0,0,0,0.76)',
         },
 

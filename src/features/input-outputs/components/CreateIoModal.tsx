@@ -72,7 +72,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
 
     const { onSubmit, loading } = useIoSubmitHandler(submitProps);
 
-    let description = '';
+    let description;
 
     if (associatedObject === IoObjectType.startStep) {
         description = 'Initial inputs are are the first inputs that are passed into the workflow.';

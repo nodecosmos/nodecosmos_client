@@ -32,17 +32,17 @@ export default function IoListItem({
                 cursor: 'pointer',
                 borderColor: 'transparent',
                 borderRadius: 1,
-                svg: { color: 'text.secondary' },
                 '&:hover': {
                     backgroundColor: noHover ? null : 'background.hover',
                     borderColor: 'borders.4',
-                    svg: { color: 'text.primary' },
+                    color: 'background.hoverColor',
+                    svg: { color: 'background.hoverColor' },
                 },
             }}
         >
             <FontAwesomeIcon size="lg" icon={faCodeCommit} />
             <Box ml={2}>
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="body2" fontWeight="bold">
                     {title}
                 </Typography>
             </Box>

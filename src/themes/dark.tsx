@@ -68,7 +68,7 @@ const theme: NodecosmosTheme = {
         },
 
         button: {
-            main: '#353744',
+            main: '#git stat',
             contrastText: '#c5cdd4',
         },
 
@@ -94,7 +94,7 @@ const theme: NodecosmosTheme = {
             1: '#111112',
             2: '#131314',
             3: '#232526',
-            4: '#272831',
+            4: '#272b31',
             5: '#1e1f20',
             6: '#1d1e25',
             7: '#1e202a',
