@@ -5,7 +5,7 @@ html {
 
 body {
     font-family: Archivo, -apple-system, system-ui, sans-serif;
-    background: linear-gradient(180deg, #fff3f3, #f3f3ff, #f8fff3, #f7f3f9, #f3f5f9, #fff3f3, transparent);
+    background: linear-gradient(180deg, #fff3f3, #f3f3ff, #f8fff3, #fff3f3, #f7fdff, #f7f3f9, #f3f5f9, #fff3f3);
     padding: 0 0 6em;
     color: #353535;
     scroll-behavior: smooth;
@@ -94,7 +94,7 @@ section {
 }
 
 .hero {
-    padding-top: 5rem;
+    padding-top: 10rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,6 +161,10 @@ section {
 
 .mt-6 {
     margin-top: 6rem;
+}
+
+.mt-10 {
+    margin-top: 10rem;
 }
 
 .ml-1 {
