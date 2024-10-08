@@ -253,7 +253,7 @@ li {
 }
 
 @media only screen and (max-width: 1120px) {
-    #cross  {
+    #cross, #wf  {
         margin-top: 3rem;
     }
 }
@@ -324,10 +324,6 @@ li {
     .caption {
         padding: 0 0;
         font-size: 12px;
-    }
-
-    #wf {
-        margin-top: 3rem;
     }
 
     #contact {
