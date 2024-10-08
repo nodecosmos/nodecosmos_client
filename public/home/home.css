@@ -127,6 +127,10 @@ section {
     max-width: 900px;
 }
 
+.max-width-1050 {
+    max-width: 1050px;
+}
+
 .max-width-1200 {
     max-width: 1200px;
 }
@@ -230,6 +234,20 @@ section {
     text-align: center;
     color: #9a929b;
 }
+
+ol, ul {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+li {
+    line-height: 1.5;
+}
+
 @media only screen and (max-width: 1120px) {
     #cross  {
         margin-top: 3rem;
@@ -262,7 +280,7 @@ section {
         font-size: 1.25rem;
     }
 
-    p {
+    p, li {
         font-size: 1.25rem;
     }
 
