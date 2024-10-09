@@ -4,32 +4,32 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://nodecosmos.com/</loc>
-        <lastmod>2024-10-03:15:00+00:00</lastmod>
+        <lastmod>2024-10-09</lastmod>
         <image:image>
             <image:loc>https://nodecosmos.com/logo.png</image:loc>
         </image:image>
     </url>
     <url>
         <loc>https://nodecosmos.com/nodes</loc>
-        <lastmod>2024-10-03:15:00+00:00</lastmod>
+        <lastmod>2024-10-09</lastmod>
     </url>
     <url>
         <loc>https://nodecosmos.com/nodes/2f587db1-077b-42ad-8ae4-8cb0e6e63b42/2f587db1-077b-42ad-8ae4-8cb0e6e63b42?selectedObject=eyJvcmlnaW5hbElkIjoiMmY1ODdkYjEtMDc3Yi00MmFkLThhZTQtOGNiMGU2ZTYzYjQyIiwiYnJhbmNoSWQiOiIyZjU4N2RiMS0wNzdiLTQyYWQtOGFlNC04Y2IwZTZlNjNiNDIiLCJvYmplY3ROb2RlSWQiOiIyZjU4N2RiMS0wNzdiLTQyYWQtOGFlNC04Y2IwZTZlNjNiNDIiLCJvYmplY3RJZCI6IjJmNTg3ZGIxLTA3N2ItNDJhZC04YWU0LThjYjBlNmU2M2I0MiIsIm9iamVjdFR5cGUiOiJOb2RlIiwibWV0YWRhdGEiOnsiaXNUbXAiOmZhbHNlLCJhbmNlc3RvcklkcyI6W119fQ%3D%3D</loc>
-        <lastmod>2024-10-03:15:00+00:00</lastmod>
+        <lastmod>2024-10-09</lastmod>
         <image:image>
             <image:loc>https://nodecosmos.com/logo.png</image:loc>
         </image:image>
     </url>
     <url>
         <loc>https://nodecosmos.com/nodes/2f587db1-077b-42ad-8ae4-8cb0e6e63b42/d3bde74e-64e5-4bf9-8e06-0f56f2b3c106?selectedObject=eyJvcmlnaW5hbElkIjoiMmY1ODdkYjEtMDc3Yi00MmFkLThhZTQtOGNiMGU2ZTYzYjQyIiwiYnJhbmNoSWQiOiIyZjU4N2RiMS0wNzdiLTQyYWQtOGFlNC04Y2IwZTZlNjNiNDIiLCJvYmplY3ROb2RlSWQiOiJkM2JkZTc0ZS02NGU1LTRiZjktOGUwNi0wZjU2ZjJiM2MxMDYiLCJvYmplY3RJZCI6ImQzYmRlNzRlLTY0ZTUtNGJmOS04ZTA2LTBmNTZmMmIzYzEwNiIsIm9iamVjdFR5cGUiOiJOb2RlIiwibWV0YWRhdGEiOnsiaXNUbXAiOmZhbHNlLCJhbmNlc3RvcklkcyI6WyIyZjU4N2RiMS0wNzdiLTQyYWQtOGFlNC04Y2IwZTZlNjNiNDIiLCI2YWJjMGMwOS01MTAxLTQyMTItOWMwMC0zODY1NTM2Nzc0YTciXX19</loc>
-        <lastmod>2024-10-03:15:00+00:00</lastmod>
+        <lastmod>2024-10-09</lastmod>
         <image:image>
             <image:loc>https://nodecosmos-production.s3.amazonaws.com/d3bde74e-64e5-4bf9-8e06-0f56f2b3c106/1728126999-cover.jpg</image:loc>
         </image:image>
     </url>
     <url>
         <loc>https://nodecosmos.com/nodes/2f587db1-077b-42ad-8ae4-8cb0e6e63b42/631a0cb9-1c84-4b1d-8a14-dae5151e22cd?selectedObject=eyJvcmlnaW5hbElkIjoiMmY1ODdkYjEtMDc3Yi00MmFkLThhZTQtOGNiMGU2ZTYzYjQyIiwiYnJhbmNoSWQiOiIyZjU4N2RiMS0wNzdiLTQyYWQtOGFlNC04Y2IwZTZlNjNiNDIiLCJvYmplY3ROb2RlSWQiOiI2MzFhMGNiOS0xYzg0LTRiMWQtOGExNC1kYWU1MTUxZTIyY2QiLCJvYmplY3RJZCI6IjYzMWEwY2I5LTFjODQtNGIxZC04YTE0LWRhZTUxNTFlMjJjZCIsIm9iamVjdFR5cGUiOiJOb2RlIiwibWV0YWRhdGEiOnsiaXNUbXAiOmZhbHNlLCJhbmNlc3RvcklkcyI6WyIyZjU4N2RiMS0wNzdiLTQyYWQtOGFlNC04Y2IwZTZlNjNiNDIiLCI2YWJjMGMwOS01MTAxLTQyMTItOWMwMC0zODY1NTM2Nzc0YTciLCIyZTYwMTkzNC0xMTE0LTQyZTYtOGUzZC01MTFkYjA4NGU2YjYiLCJkM2JkZTc0ZS02NGU1LTRiZjktOGUwNi0wZjU2ZjJiM2MxMDYiXX19</loc>
-        <lastmod>2024-10-03:15:00+00:00</lastmod>
+        <lastmod>2024-10-09</lastmod>
         <image:image>
             <image:loc>https://nodecosmos-production.s3.amazonaws.com/631a0cb9-1c84-4b1d-8a14-dae5151e22cd/1727784221-cover.webp</image:loc>
         </image:image>
