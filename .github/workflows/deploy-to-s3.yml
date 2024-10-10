@@ -4,10 +4,10 @@ on:
     branches:
       - main
 env:
-  VITE_API_BASE_URL: https://api.nodecosmos.com
-  VITE_REACT_APP_URL: https://nodecosmos.com
-  VITE_RECAPTCHA_ENABLED: true
-  VITE_RECAPTCHA_SITE_KEY: 6Ld30jMjAAAAAIsW1c9xvFRaaOXOLjLywqPWDHSA
+  VITE_API_BASE_URL: xxx
+  VITE_REACT_APP_URL: xxx
+  VITE_RECAPTCHA_ENABLED: xxx
+  VITE_RECAPTCHA_SITE_KEY: xxx
   BUCKET_NAME: nodecosmos.com
   AWS_REGION: us-east-1
 jobs:
@@ -38,7 +38,6 @@ jobs:
           # npm cache files are stored in `~/.npm` on Linux/macOS
           path: | 
             ~/.npm
-            node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
               ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -57,4 +56,4 @@ jobs:
           aws s3 sync ./build s3://${{ env.BUCKET_NAME }}/
       - name: Invalidate CloudFront cache
         run: |
-          aws cloudfront create-invalidation --distribution-id E22YK31N73LHIN --paths "/*"
+          aws cloudfront create-invalidation --distribution-id xxx --paths "/*"
