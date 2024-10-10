@@ -58,6 +58,10 @@ export default function useFlowActions() {
     }, [rootId, branchId, dispatch, flowId, nodeId, startIndex, verticalIndex]);
 
     const handleTitleChange = useCallback(async (newTitle: string) => {
+        if (!newTitle) {
+            return;
+        }
+
         await dispatch(updateFlowTitle({
             rootId,
             nodeId,
