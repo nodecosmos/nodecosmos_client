@@ -25,13 +25,20 @@ jobs:
           role-to-assume: arn:aws:iam::714215625955:role/github-actions
           role-session-name: s3session
           aws-region: ${{ env.AWS_REGION }}
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
       - name: Cache node modules
         uses: actions/cache@v3
         env:
             cache-name: cache-node-modules
         with:
           # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
+          path: | 
+            ~/.npm
+            node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
               ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -41,10 +48,6 @@ jobs:
         name: List the state of node modules
         continue-on-error: true
         run: npm list
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
       - run: npm install
       - run: npm run lint
       - run: npm run build
