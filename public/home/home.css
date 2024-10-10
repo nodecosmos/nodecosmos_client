@@ -261,6 +261,20 @@ li {
     line-height: 1.5;
 }
 
+.privacy {
+    width: 100%;
+}
+
+.privacy h1, .privacy h2, .privacy h3, .privacy h4, .privacy h5, .privacy h6 {
+     font-weight: 400;
+     font-family: Archivo Black, -apple-system, system-ui, sans-serif;
+     margin-top: 1em;
+}
+
+.no-bg {
+    background: none;
+}
+
 @media only screen and (max-width: 1120px) {
     #cross, #wf  {
         margin-top: 3rem;
