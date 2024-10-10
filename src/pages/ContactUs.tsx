@@ -131,6 +131,16 @@ export default function ContactUs() {
                                         required
                                         multiline
                                     />
+                                    <Typography
+                                        component="a"
+                                        target="_blank"
+                                        variant="body2"
+                                        color="text.link"
+                                        href="https://nodecosmos.com/privacy.html"
+                                        className="mt-2 display-inline-flex"
+                                    >
+                                        Privacy Policy
+                                    </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Button

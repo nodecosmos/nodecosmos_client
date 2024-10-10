@@ -121,6 +121,8 @@ section {
     justify-content: center;
     align-items: center;
     line-height: 1;
+    width: 372px;
+    max-width: 100%;
 }
 
 /* size */
@@ -261,6 +263,11 @@ li {
     line-height: 1.5;
 }
 
+a {
+    text-decoration: none;
+    display: block;
+}
+
 .privacy {
     width: 100%;
 }
@@ -274,6 +281,11 @@ li {
 .no-bg {
     background: none;
 }
+
+.text-align-center {
+    text-align: center;
+}
+
 
 @media only screen and (max-width: 1120px) {
     #cross, #wf  {
@@ -314,6 +326,7 @@ li {
     .cta {
         font-size: 1rem;
         padding: 1rem 2rem;
+        max-width: 220px;
     }
 
     .hero {
