@@ -7,17 +7,4 @@ window.addEventListener('load', () => {
             header.classList.remove('scrolled');
         }
     });
-
-    // @ts-expect-error dataLayer is defined in the GTM script
-    window.dataLayer = window.dataLayer || [];
-
-    // eslint-disable-next-line no-inner-declarations
-    function gtag(...args) {
-        // @ts-expect-error dataLayer is defined in the GTM script
-        dataLayer.push(args);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-185GRBPXWK');
 });
