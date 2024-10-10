@@ -29,6 +29,10 @@ export default function useWorkflowStepsVirtualizer(): VisibleWorkflowSteps {
     return useMemo(() => {
         if (!diagram) return [];
 
+        if (diagram.workflowSteps.length < 10) {
+            return diagram.workflowSteps;
+        }
+
         return diagram.workflowSteps.filter((step: WorkflowStep, index: number) => {
             const x = step.position.x || 0;
             const isLast = index === diagram.workflowSteps.length - 1;
