@@ -19,7 +19,7 @@ interface InputProps {
 const X_ORIGIN_OFFSET = 40;
 export const X_DEST_OFFSET = 40;
 
-export default function LoopInputLink({ nodeOutputId }: InputProps) {
+export default function StepOverInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const {
         position: destNodePos, isSelected, flowStepId, id: nodeId,
@@ -48,15 +48,19 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
         return null;
     }
 
-    const { position: originOutputPosition, nodePosition: originNodePosition } = outputsById[nodeOutputId];
+    const {
+        position: originOutputPosition, nodePosition: originNodePosition, startPosition,
+    } = outputsById[nodeOutputId];
     // current input starts where origin output ends (xEnd, yEnd)
     const { xEnd: x, yEnd: y } = originOutputPosition || {};
     // current input ends where destination node starts (x, y)
     const { x: xEnd, y: yEnd } = destNodePos;
 
-    if (!originNodePosition) {
+    if (!originNodePosition && !startPosition) {
         return null;
     }
+
+    const isLoop = !!originNodePosition;
 
     const selectedOffset = isSelected ? 1 : 0;
 
@@ -85,15 +89,19 @@ export default function LoopInputLink({ nodeOutputId }: InputProps) {
                 fill={color}
                 style={CIRCLE_STYLE} />
             ;
-            <text
-                className="InputLinkText"
-                x={destNodePos.x - 50}
-                y={flowStepY - 9}
-                fill={color}
-                fontSize="bigger"
-            >
-                loop
-            </text>
+            {
+                isLoop && (
+                    <text
+                        className="InputLinkText"
+                        x={destNodePos.x - 50}
+                        y={flowStepY - 9}
+                        fill={color}
+                        fontSize="bigger"
+                    >
+                        loop
+                    </text>
+                )
+            }
             <circle
                 className="InputLink"
                 cx={x}

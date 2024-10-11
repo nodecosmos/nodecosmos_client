@@ -21,6 +21,7 @@ export interface Output {
     nodeId: UUID | null;
     // used to calculate loop input link
     nodePosition: Position | null;
+    startPosition: Position | null;
     position: Position;
 }
 

@@ -34,6 +34,12 @@ export function buildWorkflowDiagram(data: BuildWorkflowDiagramData): WorkflowDi
 
     initialInputs.forEach((input) => {
         outputsById[input.id] = input;
+        outputsById[input.id].startPosition = {
+            x: 10,
+            y: 10,
+            xEnd: 0,
+            yEnd: 0,
+        };
     });
 
     let height = 0;

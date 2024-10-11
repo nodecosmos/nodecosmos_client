@@ -1,5 +1,5 @@
 import DefaultInputLink from './inputs/DefaultInputLink';
-import LoopInputLink from './inputs/LoopInputLink';
+import StepOverInputLink from './inputs/StepOverInputLink';
 import { UUID } from '../../../../../types';
 import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWorkflowStepContext';
 import React from 'react';
@@ -13,7 +13,7 @@ export default function Input({ nodeOutputId }: InputProps) {
     const isLoop = !prevStepOutputIds.has(nodeOutputId);
 
     if (isLoop) {
-        return <LoopInputLink nodeOutputId={nodeOutputId} />;
+        return <StepOverInputLink nodeOutputId={nodeOutputId} />;
     } else {
         return <DefaultInputLink nodeOutputId={nodeOutputId} />;
     }
