@@ -119,7 +119,7 @@ const theme: NodecosmosTheme = {
             breadcrumbs: '#7a8993',
         },
         tree: {
-            default: '#3f444c',
+            default: '#3e4349',
             backgrounds: [
                 {
                     fg: '#ff6262',
