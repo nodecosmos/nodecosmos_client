@@ -49,14 +49,14 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
     }
 
     const {
-        position: originOutputPosition, nodePosition: originNodePosition, startPosition,
+        position: originOutputPosition, nodePosition: originNodePosition, startButtonPosition,
     } = outputsById[nodeOutputId];
     // current input starts where origin output ends (xEnd, yEnd)
     const { xEnd: x, yEnd: y } = originOutputPosition || {};
     // current input ends where destination node starts (x, y)
     const { x: xEnd, y: yEnd } = destNodePos;
 
-    if (!originNodePosition && !startPosition) {
+    if (!originNodePosition && !startButtonPosition) {
         return null;
     }
 
