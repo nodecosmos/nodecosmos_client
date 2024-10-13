@@ -230,7 +230,7 @@ section {
 
 #wf {
     margin-top: -110px;
-    background: linear-gradient(45deg, transparent 68%, #f6ede0);
+    background: linear-gradient(98deg, transparent 50%, #fff2ef);
     /*linear-gradient(45deg, transparent 68%, #fce9da)*/
     padding: 30px;
 }
@@ -258,7 +258,7 @@ section {
 }
 
 .caption {
-    margin-top: 0;
+    margin-top: 1rem;
     font-size: 18px;
     text-align: center;
     color: #9a929b;
