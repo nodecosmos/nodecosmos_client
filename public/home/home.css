@@ -230,6 +230,9 @@ section {
 
 #wf {
     margin-top: -110px;
+    background: linear-gradient(45deg, transparent 68%, #fce9da);
+    /*linear-gradient(45deg, transparent 68%, #fce9da)*/
+    padding: 30px;
 }
 
 #cross {
@@ -319,6 +322,10 @@ a {
 
     p, li, a {
         font-size: 1.25rem;
+    }
+
+    #wf {
+        padding: 20px;
     }
 
     .cta {
