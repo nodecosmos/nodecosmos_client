@@ -230,10 +230,22 @@ section {
 
 #wf {
     margin-top: -110px;
-    background: linear-gradient(45deg, transparent 68%, #fce9da);
+    background: linear-gradient(45deg, transparent 68%, #f6ede0);
     /*linear-gradient(45deg, transparent 68%, #fce9da)*/
     padding: 30px;
 }
+
+#cr_wf {
+    margin-top: -20px;
+    padding: 180px 20px 100px;
+    background: linear-gradient(180deg, #e8f4eb, transparent);
+}
+
+#cr_wf img {
+    border-radius: 10px;
+    border: 10px solid #e1e1e1;
+}
+
 
 #cross {
     margin-top: -45px;
