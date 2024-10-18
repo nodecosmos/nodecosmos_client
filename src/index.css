@@ -39,37 +39,21 @@ input:focus {
     outline: none;
 }
 
-/* This gives the remote user caret. The colors are automatically overwritten*/
 .ProseMirror-yjs-cursor {
-    position: absolute;
-    word-break: normal;
-    pointer-events: none;
-
+    position: relative;
+    z-index: 1;
 }
-/*.ProseMirror-yjs-cursor:before {*/
-/*    content: '';*/
-/*    position: absolute;*/
-/*    display: block;*/
-/*    width: 8px;*/
-/*    height: 8px;*/
-/*    background: #cdd4ff;*/
-/*    z-index: 1;*/
-/*    left: 0;*/
-/*    top: -8px;*/
-/*    margin-left: -4px;*/
-/*    border-radius: 50%;*/
-/*}*/
 
-/* This renders the username above the caret */
 .ProseMirror-yjs-cursor > div {
     position: absolute;
-    background: #cdd4ff!important;
-    color: #111;
+    background: #b4ed7e !important;
+    color: #101010;
     font-size: 0.85rem;
     padding: 3px 6px;
     border-radius: 4px;
     left: -1em;
     top: -3em;
+    z-index: 1;
 }
 
 .ProseMirror-yjs-cursor > div:after {
@@ -77,13 +61,13 @@ input:focus {
     position: absolute;
     display: block;
     width: 0;
-    z-index: 1;
     border-style: solid;
-    border-color: #cdd4ff transparent;
+    border-color: #b4ed7e transparent;
     border-width: 9px 6px 0;
     bottom: -9px;
     left: 30%;
     margin-left: -6px;
+    z-index: 1;
 }
 
 h1 {

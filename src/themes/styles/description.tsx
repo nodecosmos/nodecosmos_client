@@ -60,7 +60,7 @@ export default (theme: NodecosmosTheme) => ({
             maxWidth: '100%',
             borderRadius: 6,
         },
-        'p:has(> img)': { textAlign: 'center' },
+        'p:has(> img[src])': { textAlign: 'center' },
         li: { marginBlockEnd: 8 },
     },
 });

@@ -56,7 +56,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
             width: 1,
             height: `calc(100% - ${HEADER_HEIGHT})`,
             minHeight: 100,
-            overflow: 'auto',
+            overflow: 'visible',
             p: p ?? 0,
             px: px ?? 0,
             py: py ?? 0,

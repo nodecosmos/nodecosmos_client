@@ -21,7 +21,10 @@ export default function Image() {
     const handleImageDialogClose = useCallback((responseBody?: { url: string }) => {
         closeImageDialog();
         if (responseBody?.url) {
-            commands.insertImage({ src: responseBody.url });
+            commands.insertImage({
+                src: responseBody.url,
+                className: 'ProseMirror-image', 
+            });
             commands.insertParagraph();
             commands.insertParagraph();
         }
