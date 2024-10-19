@@ -142,6 +142,10 @@ section {
     max-width: 750px;
 }
 
+.max-width-780 {
+    max-width: 780px;
+}
+
 .max-width-900 {
     max-width: 900px;
 }
@@ -275,7 +279,7 @@ section {
 }
 
 #wf {
-    margin-top: -110px;
+    margin-top: -220px;
     background: linear-gradient(50deg, transparent 50%, #fdf6f3);
     /*linear-gradient(45deg, transparent 68%, #fce9da)*/
     padding: 30px;
@@ -358,7 +362,7 @@ a {
 
 @media only screen and (max-width: 1120px) {
     #wf  {
-        margin-top: 2rem;
+        margin-top: -2rem;
     }
 }
 
@@ -367,7 +371,7 @@ a {
         margin-top: 10rem;
     }
 
-    .align-start-mobile {
+    #cross .align-start-mobile {
         align-items: start;
     }
 }
@@ -405,6 +409,7 @@ a {
 
     #wf {
         padding: 20px;
+        margin-top: 2rem;
     }
 
     #cross  {
