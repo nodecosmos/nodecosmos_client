@@ -5,15 +5,21 @@ html {
 
 body {
     font-family: Archivo, -apple-system, system-ui, sans-serif;
-    background: linear-gradient(180deg, #fff3f3,
-                                        #f3f3ff,
-                                        #f8fff3,
-                                        #fff3f3,
-                                        #f7fdff,
-    #fcfaff,
-                                        #f7f3f9,
-                                        #f4f3f9,
-                                        #fff3f3);
+    background: linear-gradient(
+            180deg,
+            #fff3f3,
+            #f3f3ff,
+            #f8fff3,
+            #fff3f3,
+            #fcfcf4,
+            #fbf4fc,
+            #f8eded,
+            #fff3f3,
+            #f7f3f9,
+            #f4f3f9,
+            #fff3f3
+    );
+
     padding: 0 0 6em;
     color: #353535;
     scroll-behavior: smooth;
@@ -104,6 +110,10 @@ p {
     margin-block-end: 0;
 }
 
+img {
+    display: block;
+}
+
 section {
     position: relative;
     max-width: 1500px;
@@ -172,7 +182,7 @@ section {
 /* borders */
 
 .b-radius {
-    border-radius: 16px;
+    border-radius: 20px;
 }
 
 /* margins */
@@ -266,7 +276,7 @@ section {
 .pricing-container {
     border-radius: 20px;
     overflow: hidden;
-    background: #fff
+    background: linear-gradient(90deg, #ffffff1a 29%, #ffffff3d 12%, #ffffff), linear-gradient(225deg, transparent 50%, #ffffff);
 }
 
 .pricing-container h3 {
@@ -285,30 +295,30 @@ section {
 .pricing-card {
     width: 33%;
     padding: 50px;
-    border-left: 1px solid #e4e4e4;
     box-shadow: rgba(227, 223, 238, 0.5) 3px 3px 1px -2px, rgba(227, 223, 238, 0.05) 2px 2px 2px 0px, rgba(227, 223, 238, 0.06) 1px 1px 5px 0px;
-}
-
-.pricing-card:first-child {
-    border-left: none;
 }
 
 #wf {
     margin-top: -220px;
-    background: linear-gradient(50deg, transparent 50%, #fdf6f3);
-    /*linear-gradient(45deg, transparent 68%, #fce9da)*/
-    padding: 30px;
+    background: linear-gradient(90deg, #ffffff1a 40%, #ffffff), linear-gradient(225deg, transparent 50%, #ffffff);
+    border-radius: 75px;
 }
 
-.img-container {
-    display: inline-block;
-    border-radius: 12px;
-    box-shadow: 3px 3px 30px #878787;
+#wf-container {
+    margin: 75px;
 }
 
-.img-container img {
-    display: block;
-    border-radius: 12px;
+
+#cr {
+    background: #ffffff85;
+    border-radius: 75px;
+    color: #4d4a57;
+    padding: 75px 30px;
+    margin-top: 20em;
+}
+
+#cr-img {
+   margin-top: -15em;
 }
 
 #cross {
@@ -374,11 +384,6 @@ a {
 }
 
 
-@media only screen and (max-width: 1120px) {
-    #wf  {
-        margin-top: -2rem;
-    }
-}
 
 @media only screen and (max-width: 1250px) {
     #cross  {
@@ -387,6 +392,12 @@ a {
 
     #cross .align-start-mobile {
         align-items: start;
+    }
+}
+
+@media only screen and (max-width: 1120px) {
+    #wf  {
+        margin-top: -2rem;
     }
 }
 
@@ -422,9 +433,26 @@ a {
     }
 
     #wf {
-        padding: 20px;
         margin-top: 2rem;
+        background: transparent;
     }
+
+    #wf-container {
+        margin: 0;
+    }
+
+
+    #cr {
+        margin-top: 2em;
+        border-radius: 0;
+        padding: 75px 30px;
+        background: #ffffff85;
+    }
+
+    #cr-img {
+        margin-top: 0;
+    }
+
 
     #cross  {
         margin-top: 2rem;
@@ -481,12 +509,8 @@ a {
         padding: 25px;
         width: auto;
         border-left: none;
-        border-bottom: 1px solid #e4e4e4;
     }
 
-    .pricing-card:last-child {
-        border-bottom: none;
-    }
 
     #contact {
         display: block;
