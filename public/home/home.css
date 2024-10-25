@@ -383,7 +383,13 @@ a {
     text-align: end;
 }
 
+.display-mobile {
+    display: none;
+}
 
+.hide-mobile {
+    display: block;
+}
 
 @media only screen and (max-width: 1250px) {
     #cross  {
@@ -432,6 +438,14 @@ a {
         font-size: 1.25rem;
     }
 
+    .display-mobile {
+        display: block;
+    }
+
+    .hide-mobile {
+        display: none;
+    }
+
     #wf {
         margin-top: 2rem;
         background: transparent;
@@ -445,8 +459,7 @@ a {
     #cr {
         margin-top: 2em;
         border-radius: 0;
-        padding: 75px 30px;
-        background: #ffffff85;
+        background: transparent;
     }
 
     #cr-img {
@@ -474,6 +487,10 @@ a {
 
     .b-radius {
         border-radius: 10px;
+    }
+
+    .mt-xs-0 {
+        margin-top: 0;
     }
 
     .mt-xs-1 {
