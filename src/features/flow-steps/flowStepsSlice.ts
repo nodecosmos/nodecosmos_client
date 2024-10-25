@@ -36,6 +36,23 @@ const flowStepsSlice = createSlice({
                     flowStep.stepIndex = new Decimal(flowStep.stepIndex);
                     state.byBranchId[branchId][flowStep.id] = flowStep;
                 });
+
+                const { branch } = action.payload;
+
+                if (!branch) return;
+
+                if (Object.keys(branch.deletedFlowStepInputsByNode).length > 0) {
+                    Object.keys(branch.deletedFlowStepInputsByNode).forEach((flowStepId) => {
+                        const inputIdsByNodeIds = branch.deletedFlowStepInputsByNode[flowStepId];
+                        Object.keys(inputIdsByNodeIds).forEach((nodeId) => {
+                            const inputIds = inputIdsByNodeIds[nodeId];
+                            state.byBranchId[branch.id][flowStepId].inputIdsByNodeId ||= {};
+                            state.byBranchId[branch.id][flowStepId].inputIdsByNodeId[nodeId] ||= [];
+                            state.byBranchId[branch.id][flowStepId].inputIdsByNodeId[nodeId]
+                                = [...state.byBranchId[branch.id][flowStepId].inputIdsByNodeId[nodeId], ...inputIds];
+                        });
+                    });
+                }
             })
             .addCase(createFlowStep.fulfilled, (state, action) => {
                 const flowStep = action.payload;

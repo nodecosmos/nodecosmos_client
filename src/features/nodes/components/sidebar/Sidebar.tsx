@@ -110,7 +110,7 @@ export default function Sidebar({ handleClose }: Props) {
                     to={`${toPath}/workflow${pathParams}`}
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
-                    title="Workflow"
+                    title="Workflows"
                 />{
                     (!isBranch || isContributionRequest) && (
                         <>

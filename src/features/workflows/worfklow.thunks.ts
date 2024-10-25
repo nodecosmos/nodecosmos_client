@@ -1,8 +1,10 @@
 import {
-    Workflow, WorkflowData, WorkflowPrimaryKey, WorkflowUpsertPayload,
+    Workflow, WorkflowPrimaryKey, WorkflowUpsertPayload,
 } from './workflow.types';
 import nodecosmos from '../../api/nodecosmos-server';
+import { RootState } from '../../store';
 import { NodecosmosError, RootId } from '../../types';
+import { Branch } from '../branch/branches.types';
 import { FlowStep } from '../flow-steps/flowSteps.types';
 import { Flow } from '../flows/flows.types';
 import { InputOutput } from '../input-outputs/inputOutputs.types';
@@ -13,20 +15,29 @@ interface ShowWorkflowResponse {
     flows: Flow[];
     flowSteps: FlowStep[];
     inputOutputs: InputOutput[];
+    branch?: Branch;
 }
 
 export const showWorkflow = createAsyncThunk<
     ShowWorkflowResponse,
     WorkflowPrimaryKey & RootId,
-    { rejectValue: NodecosmosError }
+    { rejectValue: NodecosmosError, state: RootState }
 >(
     'workflows/showWorkflow',
-    async ({
-        rootId, branchId, nodeId,
-    }): Promise<WorkflowData> => {
+    async (
+        {
+            rootId, branchId, nodeId,
+        },
+        { getState },
+    ) => {
         const response = await nodecosmos.get(`/workflows/${rootId}/${branchId}/${nodeId}`);
+        const state = getState();
+        const branch = state.branches.byId[branchId];
 
-        return response.data;
+        return {
+            branch,
+            ...response.data,
+        };
     },
 );
 
@@ -66,7 +77,7 @@ export const indexWorkflowBranchData = createAsyncThunk<
 >(
     'workflows/indexWorkflowBranchData',
     async ({
-        branchId, nodeId, rootId, 
+        branchId, nodeId, rootId,
     }) => {
         const response = await nodecosmos.get(`/workflows/index/branch_data/${branchId}/${nodeId}/${rootId}`);
 

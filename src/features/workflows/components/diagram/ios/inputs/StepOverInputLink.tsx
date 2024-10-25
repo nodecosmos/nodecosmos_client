@@ -1,6 +1,7 @@
 import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
 import { withOpacity } from '../../../../../../utils/colors';
+import { selectSelectedObject } from '../../../../../app/app.selectors';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
@@ -11,6 +12,7 @@ import {
 } from '../../../../workflows.constants';
 import { useTheme } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface InputProps {
     nodeOutputId: UUID
@@ -22,21 +24,26 @@ export const X_DEST_OFFSET = 40;
 export default function StepOverInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const {
-        position: destNodePos, isSelected, flowStepId, id: nodeId,
+        position: destNodePos, isSelected: isNodeSelected, flowStepId, id: nodeId,
     } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
     const { defaultLoopInputColor } = theme.palette.workflow;
     const { nestedTreeColor } = useFlowStepNodeColors();
-    let color = isSelected ? nestedTreeColor.fg : defaultLoopInputColor;
     const strokeColor = defaultLoopInputColor;
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
+    const isCreated = isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId);
+    const isDeleted = isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId);
+    const selectedObject = useSelector(selectSelectedObject);
+    const isOutputSelected = selectedObject?.objectId === nodeOutputId;
+
+    let color = isNodeSelected || isOutputSelected ? nestedTreeColor.fg : defaultLoopInputColor;
     let strokeWidth = 1.5;
 
-    if (isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId)) {
-        strokeWidth = isSelected ? 2 : 1.5;
+    if (isCreated) {
+        strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.added.fg, 0.6);
-    } else if (isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId)) {
-        strokeWidth = isSelected ? 2 : 1.5;
+    } else if (isDeleted) {
+        strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.removed.fg, 0.6);
     }
 
@@ -60,9 +67,7 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
         return null;
     }
 
-    const isLoop = !!originNodePosition;
-
-    const selectedOffset = isSelected ? 1 : 0;
+    const selectedOffset = isNodeSelected || isOutputSelected ? 1 : 0;
 
     return (
         <g>
@@ -81,8 +86,8 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
             />
             <circle
                 className="InputLink"
-                cx={destNodePos.x - X_DEST_OFFSET}
-                cy={flowStepY}
+                cx={destNodePos.x - X_DEST_OFFSET + selectedOffset}
+                cy={flowStepY + selectedOffset}
                 r={5}
                 strokeWidth={1}
                 stroke={strokeColor}
@@ -90,15 +95,15 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
                 style={CIRCLE_STYLE} />
             ;
             {
-                isLoop && (
+                isDeleted && (
                     <text
                         className="InputLinkText"
-                        x={destNodePos.x - 50}
+                        x={destNodePos.x - 65}
                         y={flowStepY - 9}
                         fill={color}
                         fontSize="bigger"
                     >
-                        loop
+                        removed
                     </text>
                 )
             }

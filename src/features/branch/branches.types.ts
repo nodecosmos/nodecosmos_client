@@ -89,6 +89,7 @@ export interface Branch {
     editedDescriptionFlowSteps: Set<UUID>;
     createdFlowStepNodes: Record<UUID, Set<UUID>>;
     deletedFlowStepNodes: Record<UUID, Set<UUID>>;
+    // stepId -> nodeId -> ioId
     createdFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     deletedFlowStepInputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
     createdFlowStepOutputsByNode: Record<UUID, Record<UUID, Set<UUID>>>;
