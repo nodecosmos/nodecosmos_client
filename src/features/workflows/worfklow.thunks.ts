@@ -4,7 +4,6 @@ import {
 import nodecosmos from '../../api/nodecosmos-server';
 import { RootState } from '../../store';
 import { NodecosmosError, RootId } from '../../types';
-import { Branch } from '../branch/branches.types';
 import { FlowStep } from '../flow-steps/flowSteps.types';
 import { Flow } from '../flows/flows.types';
 import { InputOutput } from '../input-outputs/inputOutputs.types';
@@ -15,7 +14,6 @@ interface ShowWorkflowResponse {
     flows: Flow[];
     flowSteps: FlowStep[];
     inputOutputs: InputOutput[];
-    branch?: Branch;
 }
 
 export const showWorkflow = createAsyncThunk<
@@ -24,31 +22,10 @@ export const showWorkflow = createAsyncThunk<
     { rejectValue: NodecosmosError, state: RootState }
 >(
     'workflows/showWorkflow',
-    async (
-        {
-            rootId, branchId, nodeId,
-        },
-        { getState },
-    ) => {
+    async ({
+        rootId, branchId, nodeId,
+    }) => {
         const response = await nodecosmos.get(`/workflows/${rootId}/${branchId}/${nodeId}`);
-        const state = getState();
-        const branch = state.branches.byId[branchId];
-
-        return {
-            branch,
-            ...response.data,
-        };
-    },
-);
-
-export const updateInitialInputs = createAsyncThunk<
-    Workflow,
-    WorkflowUpsertPayload,
-    { rejectValue: NodecosmosError }
->(
-    'workflows/updateInitialInputs',
-    async (payload) => {
-        const response = await nodecosmos.put('/workflows/initial_input_ids', payload);
 
         return response.data;
     },

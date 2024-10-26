@@ -38,15 +38,71 @@ export const createFlowStep = createAsyncThunk<
 );
 
 export const updateFlowStepNodes = createAsyncThunk<
-    Partial<FlowStep> & FlowStepPrimaryKey,
+    {
+        flowStep: Partial<FlowStep> & FlowStepPrimaryKey,
+        createdDiff: Record<UUID, UUID[]>,
+        removedDiff: Record<UUID, UUID[]>,
+    },
     FlowStepUpdatePayload,
-    { rejectValue: NodecosmosError }
+    { rejectValue: NodecosmosError, state: RootState }
 >(
     'flow_steps/updateFlowStepNodes',
-    async (payload) => {
-        const response = await nodecosmos.put('/flow_steps/nodes', payload);
+    async (payload, { rejectWithValue, getState }) => {
+        try {
+            const response = await nodecosmos.put('/flow_steps/nodes', payload);
+            const state = getState();
+            const {
+                branchId, id, nodeIds: newNodes = [],
+            } = payload;
 
-        return response.data;
+            const flowStep = state.flowSteps.byBranchId[branchId][id];
+            const branch = state.branches.byId[branchId];
+            const { nodeIds: currentNodes } = flowStep;
+
+            const createdDiff: Record<UUID, UUID[]> = {};
+            const removedDiff: Record<UUID, UUID[]> = {};
+
+            // we remove from state if node is created on the branch and then removed
+            if (branch) {
+                const branchDeletedFlowStepNodes = branch.deletedFlowStepNodes?.[id];
+                newNodes.forEach((nodeId: UUID) => {
+                    if (currentNodes && currentNodes.includes(nodeId)) {
+                        const createdNode = !currentNodes.includes(nodeId)
+                            || branchDeletedFlowStepNodes?.has(nodeId);
+
+                        if (createdNode) {
+                            createdDiff[nodeId] = [nodeId];
+                        }
+                    } else {
+                        createdDiff[nodeId] = [nodeId];
+                    }
+                });
+
+                currentNodes?.forEach((nodeId) => {
+                    if (!newNodes.includes(nodeId)) {
+                        removedDiff[nodeId] = [nodeId];
+                    }
+                });
+            }
+
+            return {
+                flowStep: response.data,
+                createdDiff,
+                removedDiff,
+            };
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred while updating the flow step nodes.',
+                viewMessage: true,
+            });
+        }
     },
 );
 
@@ -66,7 +122,7 @@ export const updateFlowStepInputs = createAsyncThunk<
             const state = getState();
             const {
                 branchId, id, inputIdsByNodeId: newInputsByNodeId = {},
-            } = response.data;
+            } = payload;
             const flowStep = state.flowSteps.byBranchId[branchId][id];
             const branch = state.branches.byId[branchId];
             const { inputIdsByNodeId: currentInputIdsByNodeId } = flowStep;

@@ -19,7 +19,7 @@ import {
 } from '../contribution-requests/contributionRequests.thunks';
 import { saveDescription } from '../descriptions/descriptions.thunks';
 import {
-    createFlowStep, deleteFlowStep, updateFlowStepInputs,
+    createFlowStep, deleteFlowStep, updateFlowStepInputs, updateFlowStepNodes,
 } from '../flow-steps/flowSteps.thunks';
 import { createFlow, deleteFlow } from '../flows/flows.thunks';
 import { createIo, deleteIo } from '../input-outputs/inputOutputs.thunks';
@@ -211,6 +211,46 @@ const branchesSlice = createSlice({
                 if (branch) {
                     branch.deletedFlowSteps ||= new Set();
                     branch.deletedFlowSteps.add(flowStepId);
+                }
+            })
+            .addCase(updateFlowStepNodes.fulfilled, (state, action) => {
+                const {
+                    flowStep, createdDiff, removedDiff,
+                } = action.payload;
+                const { id: flowStepId, branchId } = flowStep;
+                const branch = state.byId[branchId];
+
+                if (branch) {
+                    branch.createdFlowStepNodes ||= {};
+                    branch.deletedFlowStepNodes ||= {};
+
+                    Object.keys(createdDiff).forEach((nodeId) => {
+                        branch.createdFlowStepNodes[flowStepId] ||= new Set();
+                        createdDiff[nodeId].forEach((node) => {
+                            branch.createdFlowStepNodes[flowStepId].add(node);
+                        });
+
+                        // remove from deleted nodes
+                        if (branch.deletedFlowStepNodes[flowStepId]) {
+                            createdDiff[nodeId].forEach((node) => {
+                                branch.deletedFlowStepNodes[flowStepId].delete(node);
+                            });
+                        }
+                    });
+
+                    Object.keys(removedDiff).forEach((nodeId) => {
+                        branch.deletedFlowStepNodes[flowStepId] ||= new Set();
+                        removedDiff[nodeId].forEach((node) => {
+                            branch.deletedFlowStepNodes[flowStepId].add(node);
+                        });
+
+                        // remove from created nodes
+                        if (branch.createdFlowStepNodes[flowStepId]) {
+                            removedDiff[nodeId].forEach((node) => {
+                                branch.createdFlowStepNodes[flowStepId].delete(node);
+                            });
+                        }
+                    });
                 }
             })
             .addCase(updateFlowStepInputs.fulfilled, (state, action) => {
