@@ -1,4 +1,5 @@
 import { NodecosmosTheme } from '../../themes.types';
+import utils from '../utils';
 
 export default (theme: NodecosmosTheme) => ({
     MuiOutlinedInput: {
@@ -51,6 +52,7 @@ export default (theme: NodecosmosTheme) => ({
     MuiTextField: {
         styleOverrides: {
             root: {
+                ...utils(theme),
                 '&.SearchInput': {
                     marginLeft: 8,
                     height: 32,

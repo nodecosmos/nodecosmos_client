@@ -7,6 +7,7 @@ import File from './toolbar/File';
 import Heading from './toolbar/Heading';
 import Image from './toolbar/Image';
 import Italic from './toolbar/Italic';
+import Link from './toolbar/Link';
 import OrderedList from './toolbar/OrderedList';
 import Redo from './toolbar/Redo';
 import Strikethrough from './toolbar/Strikethrough';
@@ -31,10 +32,10 @@ const TOOLBAR_MAP: ToolbarMap = {
     [EnabledExtensions.Italic]: <Italic />,
     [EnabledExtensions.OrderedList]: <OrderedList />,
     [EnabledExtensions.Strike]: <Strikethrough />,
+    [EnabledExtensions.Link]: <Link />,
 
     // non toolbar extensions
     [EnabledExtensions.HardBreak]: null,
-    [EnabledExtensions.Link]: null,
     [EnabledExtensions.ListItem]: null,
     [EnabledExtensions.Markdown]: null,
     [EnabledExtensions.Placeholder]: null,
@@ -74,6 +75,9 @@ export default function RemirrorEditorToolbar() {
                 </div>
                 <div>
                     {enabledExtMap?.[EnabledExtensions.Heading]}
+                </div>
+                <div>
+                    {enabledExtMap?.[EnabledExtensions.Link]}
                 </div>
                 <div>
                     {enabledExtMap?.[EnabledExtensions.BulletList]}

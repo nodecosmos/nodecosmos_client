@@ -71,10 +71,11 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
     if (validate) [validate].flat().forEach((validator) => validators.push(validator));
 
     const validateFun = (validators.length && composeValidators(validators)) || undefined;
+    const labelClassName = label ? 'InputFieldWithLabel' : 'InputField';
+    const classN = className ? `${className} ${labelClassName}` : labelClassName;
 
     return (
         <Field
-            className={className}
             name={name}
             validate={validateFun}
             subscription={{
@@ -92,7 +93,7 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
                     //     '.MuiInputAdornment-root': { color: 'text.foreground' },
                     //     ...sx,
                     // }}
-                    className={label ? 'InputFieldWithLabel' : 'InputField'}
+                    className={classN}
                     color="primary"
                     variant="outlined"
                     label={label}
