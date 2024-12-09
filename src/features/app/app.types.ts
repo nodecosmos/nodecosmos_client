@@ -46,6 +46,7 @@ export interface SelectedObject {
         inputIds?: UUID[]; // for selecting inputs on fs node click
         mainObjectId?: UUID;
         ancestorIds?: UUID[];
+        flowStepNodeId?: UUID | null;
     };
 }
 

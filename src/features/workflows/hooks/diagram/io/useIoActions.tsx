@@ -76,7 +76,10 @@ export default function useIoActions() {
                 objectNodeId: nodeId,
                 objectId: id,
                 objectType: ObjectType.Io,
-                metadata: { mainObjectId: mainId },
+                metadata: {
+                    mainObjectId: mainId,
+                    flowStepNodeId,
+                },
             });
         }
     },
@@ -90,6 +93,7 @@ export default function useIoActions() {
         inputsAdditionActive,
         isChecked,
         nodeId,
+        flowStepNodeId,
         selectedInputs,
         setSelectedInputs,
         insidePane,

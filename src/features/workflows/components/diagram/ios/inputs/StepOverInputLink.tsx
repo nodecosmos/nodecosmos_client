@@ -2,6 +2,7 @@ import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
 import { withOpacity } from '../../../../../../utils/colors';
 import { selectSelectedObject } from '../../../../../app/app.selectors';
+import { maybeSelectNode } from '../../../../../nodes/nodes.selectors';
 import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepContext';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
@@ -24,6 +25,7 @@ export const X_DEST_OFFSET = 40;
 export default function StepOverInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const {
+        branchId,
         position: destNodePos, isSelected: isNodeSelected, flowStepId, id: nodeId,
     } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
@@ -35,8 +37,21 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
     const isDeleted = isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId);
     const selectedObject = useSelector(selectSelectedObject);
     const isOutputSelected = selectedObject?.objectId === nodeOutputId;
+    const outputNode = useSelector(maybeSelectNode(branchId, selectedObject?.metadata?.flowStepNodeId || undefined));
 
     let color = isNodeSelected || isOutputSelected ? nestedTreeColor.fg : defaultLoopInputColor;
+
+    let outputNodeColor;
+    if (outputNode) {
+        const { backgrounds } = theme.palette.tree;
+        const backgroundCount = backgrounds.length;
+        outputNodeColor = backgrounds[(outputNode?.ancestorIds?.length || 0) % backgroundCount];
+    }
+
+    if (isOutputSelected && outputNodeColor) {
+        color = outputNodeColor.fg;
+    }
+
     let strokeWidth = 1.5;
 
     if (isCreated) {

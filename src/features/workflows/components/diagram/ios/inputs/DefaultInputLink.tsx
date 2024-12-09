@@ -2,6 +2,7 @@ import { NodecosmosTheme } from '../../../../../../themes/themes.types';
 import { UUID } from '../../../../../../types';
 import { withOpacity } from '../../../../../../utils/colors';
 import { selectSelectedObject } from '../../../../../app/app.selectors';
+import { maybeSelectNode } from '../../../../../nodes/nodes.selectors';
 import useFlowStepNodeContext from '../../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useDiagramContext from '../../../../hooks/diagram/useDiagramContext';
 import useFlowStepNodeColors from '../../../../hooks/diagram/useFlowStepNodeColors';
@@ -18,6 +19,7 @@ interface InputProps {
 export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     const theme: NodecosmosTheme = useTheme();
     const {
+        branchId,
         position: nodePosition, isSelected: isNodeSelected, flowStepId, id: nodeId,
     } = useFlowStepNodeContext();
     const { outputsById } = useDiagramContext();
@@ -25,8 +27,22 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     const { defaultInputColor, default: defaultWfColor } = theme.palette.workflow;
     const selectedObject = useSelector(selectSelectedObject);
     const isOutputSelected = selectedObject?.objectId === nodeOutputId;
+    const outputNode = useSelector(maybeSelectNode(branchId, selectedObject?.metadata?.flowStepNodeId || undefined));
 
     let color = isOutputSelected || isNodeSelected ? nestedTreeColor.fg : defaultInputColor;
+
+    let outputNodeColor;
+
+    if (outputNode) {
+        const { backgrounds } = theme.palette.tree;
+        const backgroundCount = backgrounds.length;
+        outputNodeColor = backgrounds[(outputNode?.ancestorIds?.length || 0) % backgroundCount];
+    }
+
+    if (isOutputSelected && outputNodeColor) {
+        color = outputNodeColor.fg;
+    }
+
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
     let strokeWidth = 1;
 
