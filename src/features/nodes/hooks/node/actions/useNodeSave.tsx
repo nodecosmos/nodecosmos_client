@@ -56,11 +56,13 @@ export default function useNodeSave(): [(event: ChangeEvent<HTMLInputElement>) =
         if (saveNodeTimeout.current) {
             clearTimeout(saveNodeTimeout.current);
         }
+
         saveNodeTimeout.current = setTimeout(async () => {
             if (saveInProgress) {
                 saveQueue.current.push(event);
                 return;
             }
+
             dispatch(setSaveInProgress(true));
 
             let response;
@@ -102,7 +104,7 @@ export default function useNodeSave(): [(event: ChangeEvent<HTMLInputElement>) =
     ]);
 
     const processQueue = useCallback(async () => {
-        if ((saveQueue.current.length > 0)) {
+        if ((saveQueue.current.length > 0) && !saveInProgress) {
             const nextItem = saveQueue.current.shift();
 
             if (nextItem) {
@@ -110,7 +112,7 @@ export default function useNodeSave(): [(event: ChangeEvent<HTMLInputElement>) =
                 await processQueue();
             }
         }
-    }, [saveNode]);
+    }, [saveInProgress, saveNode]);
 
     useEffect(() => {
         processQueue().catch((error) => {
