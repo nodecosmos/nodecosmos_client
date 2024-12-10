@@ -38,7 +38,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         dark: true,
     },
     typography: typography(theme),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+     
     // @ts-ignore
     components: {
         MuiCssBaseline: {

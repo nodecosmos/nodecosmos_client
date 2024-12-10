@@ -69,7 +69,7 @@ function initBranch(state: BranchesState, branch: Branch) {
         deletedFlowStepInputsByNode: deepArrayToSet(branch.deletedFlowStepInputsByNode) || {},
         createdFlowStepOutputsByNode: deepArrayToSet(branch.createdFlowStepOutputsByNode) || {},
         deletedFlowStepOutputsByNode: deepArrayToSet(branch.deletedFlowStepOutputsByNode) || {},
-        editedDescriptionFlowSteps: new Set(branch.editedDescriptionFlowSteps) || {},
+        editedDescriptionFlowSteps: new Set(branch.editedDescriptionFlowSteps),
         createdIos: new Set(branch.createdIos),
         deletedIos: new Set(branch.deletedIos),
         restoredIos: new Set(branch.restoredIos),

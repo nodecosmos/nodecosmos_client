@@ -21,21 +21,13 @@ export default (theme: NodecosmosTheme) => ({
                         borderColor: theme.palette.primary.main,
                         background: 'rgb(73 176 244 / 7%)',
                     },
-                    p: {
-                        marginLeft: 8,
-                    },
+                    p: { marginLeft: 8 },
                 },
 
-                '.Text': {
-                    height: '100%',
-                },
+                '.Text': { height: '100%' },
 
-                '.MuiButton-startIcon>*:nth-of-type(1)': {
-                    fontSize: 16,
-                },
-                '.MuiButton-endIcon>*:nth-of-type(1)': {
-                    fontSize: 16,
-                },
+                '.MuiButton-startIcon>*:nth-of-type(1)': { fontSize: 16 },
+                '.MuiButton-endIcon>*:nth-of-type(1)': { fontSize: 16 },
 
                 '&.SidebarMobileButton': {
                     backgroundColor: theme.palette.background[7],
@@ -51,9 +43,7 @@ export default (theme: NodecosmosTheme) => ({
                 '&.Mui-disabled': {
                     color: theme.palette.text.secondary,
                     WebkitTextFillColor: theme.palette.text.secondary,
-                    span: {
-                        color: theme.palette.text.disabled,
-                    },
+                    span: { color: theme.palette.text.disabled },
                 },
                 '&.SidebarMobileButton': {
                     color: theme.palette.toolbar.default,

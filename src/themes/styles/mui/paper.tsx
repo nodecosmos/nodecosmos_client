@@ -1,10 +1,2 @@
 
-export default () => ({
-    MuiPaper: {
-        styleOverrides: {
-            root: {
-                backgroundImage: 'none',
-            },
-        },
-    },
-});
+export default () => ({ MuiPaper: { styleOverrides: { root: { backgroundImage: 'none' } } } });

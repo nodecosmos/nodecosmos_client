@@ -13,9 +13,7 @@ export default (theme: NodecosmosTheme) => ({
                     backgroundColor: theme.palette.background[1],
                 },
             },
-            tooltipPlacementTop: {
-                marginBottom: '8px!important',
-            },
+            tooltipPlacementTop: { marginBottom: '8px!important' },
         },
     },
 });

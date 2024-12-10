@@ -26,7 +26,7 @@ export default function File() {
     const handleFileDialogClose = useCallback((attachment?: { url: string; filename: string }) => {
         if (attachment) {
             commands.insertMarkdown(
-                // eslint-disable-next-line max-len
+                 
                 `<a href="${attachment.url}">${attachment.filename}</a>`,
             );
         }

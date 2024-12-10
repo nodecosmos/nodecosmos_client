@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-no-bind */
+ 
 import InviteUsersList from './InviteUsersList';
 import Alert from '../../../common/components/Alert';
 import Field from '../../../common/components/final-form/FinalFormInputField';

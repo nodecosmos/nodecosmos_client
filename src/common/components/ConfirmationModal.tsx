@@ -17,7 +17,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback, useMemo } from 'react';
 
 export enum ConfirmType {
-    // noinspection JSUnusedGlobalSymbols
     Creation = 'success',
     Warning = 'warning',
     Deletion = 'error',

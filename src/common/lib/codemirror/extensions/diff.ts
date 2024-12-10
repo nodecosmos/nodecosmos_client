@@ -71,6 +71,5 @@ export default function Extension(originalText: string, newText: string): DiffEx
                 this.decorations = createDiffDecorations(diffs);
             }
         }
-        // eslint-disable-next-line
     }, { decorations: v => v.decorations });
 }

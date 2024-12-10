@@ -42,9 +42,7 @@ export default (theme: NodecosmosTheme) => ({
                     background: 'none',
                     borderColor: theme.palette.borders[5],
                 },
-                '.MuiInputAdornment-root': {
-                    color: theme.palette.text.foreground,
-                },
+                '.MuiInputAdornment-root': { color: theme.palette.text.foreground },
             },
         },
     },
@@ -66,11 +64,7 @@ export default (theme: NodecosmosTheme) => ({
                     '.MuiOutlinedInput-notchedOutline': { '&, &:hover, &:focus': {} },
                 },
 
-                '&.InputFieldWithLabel': {
-                    '.MuiInputBase-input': {
-                        padding: '24px 14px 14px',
-                    },
-                },
+                '&.InputFieldWithLabel': { '.MuiInputBase-input': { padding: '24px 14px 14px' } },
             },
         },
     },
@@ -80,13 +74,9 @@ export default (theme: NodecosmosTheme) => ({
             option: {
                 padding: 16,
 
-                '&:hover': {
-                    backgroundColor: theme.palette.background.hover,
-                },
+                '&:hover': { backgroundColor: theme.palette.background.hover },
             },
-            popupIndicator: {
-                color: theme.palette.text.tertiary,
-            },
+            popupIndicator: { color: theme.palette.text.tertiary },
         },
     },
 
@@ -123,9 +113,7 @@ export default (theme: NodecosmosTheme) => ({
                 marginRight: 8,
                 marginLeft: 0,
             },
-            switchBase: {
-                color: theme.palette.background[8],
-            },
+            switchBase: { color: theme.palette.background[8] },
             track: {
                 borderRadius: 16,
                 backgroundColor: theme.palette.background[1],
@@ -134,23 +122,11 @@ export default (theme: NodecosmosTheme) => ({
         },
     },
 
-    MuiCheckbox: {
-        styleOverrides: {
-            root: {
-                '&:hover': { backgroundColor: theme.palette.background[6] },
-            },
-        },
-    },
+    MuiCheckbox: { styleOverrides: { root: { '&:hover': { backgroundColor: theme.palette.background[6] } } } },
 
     MuiInputAdornment: { styleOverrides: { root: { marginRight: 0 } } },
 
-    MuiFormGroup: {
-        styleOverrides: {
-            root: {
-                marginTop: 8,
-            },
-        },
-    },
+    MuiFormGroup: { styleOverrides: { root: { marginTop: 8 } } },
 
     MuiFormLabel: {
         styleOverrides: {
@@ -158,20 +134,12 @@ export default (theme: NodecosmosTheme) => ({
                 fontSize: '1rem',
                 color: theme.palette.text.secondary,
                 fontWeight: 700,
-                '&.Mui-focused': {
-                    color: theme.palette.text.secondary,
-                },
+                '&.Mui-focused': { color: theme.palette.text.secondary },
             },
         },
     },
 
-    MuiFormControl: {
-        styleOverrides: {
-            root: {
-                overflow: 'hidden',
-            },
-        },
-    },
+    MuiFormControl: { styleOverrides: { root: { overflow: 'hidden' } } },
 
     MuiFormControlLabel: {
         styleOverrides: {

@@ -2,6 +2,7 @@ import { WS_URI } from '../../../api/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/users/users.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
+import { YjsExtension } from '@remirror/extension-yjs';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ExtensionPriority } from 'remirror';
@@ -22,7 +23,6 @@ import {
     PlaceholderExtension,
     StrikeExtension,
     TrailingNodeExtension,
-    YjsExtension,
 } from 'remirror/extensions';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';

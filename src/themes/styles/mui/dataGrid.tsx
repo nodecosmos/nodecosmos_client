@@ -34,7 +34,8 @@ export default (theme: NodecosmosTheme) => ({
             },
             columnHeader: {
                 backgroundColor: theme.palette.background[6],
-                '&:focus': { outline: 'none' } },
+                '&:focus': { outline: 'none' }, 
+            },
             columnHeaderTitle: {
                 WebkitTapHighlightColor: 'transparent',
                 WebkitTouchCallout: 'none',

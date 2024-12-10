@@ -1,5 +1,5 @@
-import SidebarListItem from './sidebar/SidebarListItem';
 import { selectRecentNodes } from '../nodes.selectors';
+import SidebarListItem from './sidebar/SidebarListItem';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, Typography } from '@mui/material';

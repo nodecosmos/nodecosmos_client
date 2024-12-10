@@ -5,6 +5,7 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 backgroundColor: theme.palette.background.backdrop,
+                color: 'inherit',
             },
         },
     },

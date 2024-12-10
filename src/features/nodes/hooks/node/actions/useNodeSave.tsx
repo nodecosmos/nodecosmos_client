@@ -118,6 +118,10 @@ export default function useNodeSave(): [(event: ChangeEvent<HTMLInputElement>) =
         processQueue().catch((error) => {
             console.error(error);
         });
+
+        return () => {
+            console.log('cleanup');
+        };
     }, [processQueue]);
 
     //------------------------------------------------------------------------------------------------------------------

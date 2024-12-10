@@ -15,7 +15,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsx": "react",
+    "types": ["@types/grecaptcha"],
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

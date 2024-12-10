@@ -20,9 +20,7 @@ export default (theme: NodecosmosTheme) => ({
                         color: theme.palette.text.tertiary,
                         marginRight: 12,
                     },
-                    '@media (max-width: 600px)': {
-                        padding: 8,
-                    },
+                    '@media (max-width: 600px)': { padding: 8 },
                 },
                 '.CloseModalButton': {
                     display: 'flex',
@@ -65,9 +63,7 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 padding: '16px 24px',
-                '@media (max-width: 600px)': {
-                    padding: '8px 12px',
-                },
+                '@media (max-width: 600px)': { padding: '8px 12px' },
             },
         },
     },
