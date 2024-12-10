@@ -44,13 +44,11 @@ export default function DefaultInputLink({ nodeOutputId }: InputProps) {
     }
 
     const { isFlowStepInputCreated, isFlowStepInputDeleted } = useWorkflowBranch();
-    let strokeWidth = 1;
+    const strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1;
 
     if (isFlowStepInputCreated(flowStepId, nodeId, nodeOutputId)) {
-        strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1;
         color = withOpacity(theme.palette.diff.added.fg, 0.4);
     } else if (isFlowStepInputDeleted(flowStepId, nodeId, nodeOutputId)) {
-        strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1;
         color = withOpacity(theme.palette.diff.removed.fg, 0.4);
     }
 

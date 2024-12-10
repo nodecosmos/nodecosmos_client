@@ -52,13 +52,11 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
         color = outputNodeColor.fg;
     }
 
-    let strokeWidth = 1.5;
+    const strokeWidth = isNodeSelected || isOutputSelected ? 2.5 : 1;
 
     if (isCreated) {
-        strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.added.fg, 0.6);
     } else if (isDeleted) {
-        strokeWidth = isNodeSelected || isOutputSelected ? 2 : 1.5;
         color = withOpacity(theme.palette.diff.removed.fg, 0.6);
     }
 
@@ -91,7 +89,7 @@ export default function StepOverInputLink({ nodeOutputId }: InputProps) {
                 stroke={color}
                 fill="none"
                 strokeWidth={strokeWidth}
-                d={`M ${x - selectedOffset} ${y - selectedOffset}
+                d={`M ${x + selectedOffset} ${y + selectedOffset}
                     L ${x + X_ORIGIN_OFFSET - selectedOffset} ${y}
                     L ${x + X_ORIGIN_OFFSET - selectedOffset} ${flowStepY + selectedOffset}
                     L ${destNodePos.x - X_DEST_OFFSET + selectedOffset} ${flowStepY + selectedOffset}
