@@ -19,6 +19,7 @@ interface EditorContextProps {
     autoFocus?: boolean;
     info?: string;
     clearState?: boolean;
+    onBlur?: () => void;
 }
 
 const EditorContext = createContext<EditorContextProps>({} as EditorContextProps);

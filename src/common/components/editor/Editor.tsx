@@ -7,7 +7,6 @@ import { EditorExtensions } from './types';
 import { UUID } from '../../../types';
 import { useEditorContextCreator } from '../../hooks/editor/useEditorContext';
 import useYDoc from '../../hooks/editor/useYDoc';
-import useOutsideClick from '../../hooks/useOutsideClick';
 import { baseKeymap } from 'prosemirror-commands';
 import { keymap } from 'prosemirror-keymap';
 import { DOMSerializer } from 'prosemirror-model';
@@ -44,7 +43,7 @@ export interface EditorProps {
 }
 
 export default function Editor(props: EditorProps) {
-    const editorContainerRef = useRef(null);
+    const editorRef = useRef(null);
     const editorViewRef = useRef<EditorView | null>(null); // Ref to store the EditorView
     const [editorView, setEditorView] = React.useState<EditorView | null>(null);
     const {
@@ -89,6 +88,7 @@ export default function Editor(props: EditorProps) {
         info,
         clearState,
         autoFocus,
+        onBlur,
     });
 
     const y = useYDoc({
@@ -115,7 +115,7 @@ export default function Editor(props: EditorProps) {
     }, [clearState]);
 
     useEffect(() => {
-        if (!editorContainerRef.current || editorViewRef.current) return;
+        if (!editorRef.current || editorViewRef.current) return;
         if (!y.docNode && isRealTime) return;
 
         let doc;
@@ -136,7 +136,7 @@ export default function Editor(props: EditorProps) {
         });
 
         // Initialize EditorView
-        const view = new EditorView(editorContainerRef.current, {
+        const view = new EditorView(editorRef.current, {
             state,
             dispatchTransaction(transaction) {
                 if (!editorViewRef.current) return;
@@ -171,14 +171,12 @@ export default function Editor(props: EditorProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isRealTime, y.docNode, y.plugins, y.yDoc]);
 
-    useOutsideClick(editorContainerRef, onBlur);
-
     return (
         <EditorContext.Provider value={ctxValue}>
             <EditorContainer>
                 <EditorToolbar />
                 <div className="TextEditor">
-                    <div ref={editorContainerRef} className={`ContainerRef DescriptionHTML ${editorClassName}`} />
+                    <div ref={editorRef} className={`ContainerRef DescriptionHTML ${editorClassName}`} />
                 </div>
             </EditorContainer>
         </EditorContext.Provider>
