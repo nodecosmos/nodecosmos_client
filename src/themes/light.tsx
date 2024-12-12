@@ -36,47 +36,47 @@ const theme: NodecosmosTheme = {
     },
 
     palette: {
-        mode: 'light',
+        mode: 'dark',
         primary: {
             main: '#5135c8',
             contrastText: '#fff',
-            light: '',
-            dark: '',
+            light: '#5135c8',
+            dark: '#5135c8',
         },
 
         secondary: {
             main: '#6174ff',
             contrastText: '#fff',
-            light: '',
-            dark: '',
+            light: '#6174ff',
+            dark: '#6174ff',
         },
 
         error: {
             main: '#f56565',
             contrastText: 'rgba(0, 0, 0, 0.7)',
-            light: '',
-            dark: '',
+            light: '#f56565',
+            dark: '#f56565',
         },
 
         success: {
             main: '#66aa55',
             contrastText: '#fff',
-            light: '',
-            dark: '',
+            light: '#66aa55',
+            dark: '#66aa55',
         },
 
         warning: {
             main: '#db8e00',
             contrastText: 'rgba(0, 0, 0, 0.7)',
-            light: '',
-            dark: '',
+            light: '#db8e00',
+            dark: '#db8e00',
         },
 
         info: {
             main: '#459ef8',
             contrastText: 'rgba(0, 0, 0, 0.7)',
-            light: '',
-            dark: '',
+            light: '#459ef8',
+            dark: '#459ef8',
         },
 
         toggle: {
@@ -132,8 +132,6 @@ const theme: NodecosmosTheme = {
                 defaultColor: '#5d5d61',
                 activeColor: '#46464c',
             },
-
-            paper: '#fff',
             backdrop: 'rgba(0,0,0,0.76)',
         },
 
@@ -144,6 +142,7 @@ const theme: NodecosmosTheme = {
             lightRed: '#ff8686',
             pink: '#bb7eaf',
             purple: '#b775ff',
+            lightPurple: '#6174ff',
             yellow: '#ddbe32',
             orange: '#dd9432',
             hover: 'rgba(230,224,232,0.82)',
@@ -315,9 +314,9 @@ const theme: NodecosmosTheme = {
             A700: '',
         },
         text: {
-            primary: '',
-            secondary: '',
-            disabled: '',
+            primary: '#5a5a64',
+            secondary: '#47474c',
+            disabled: '#5c616b',
         },
         divider: '',
         action: {
@@ -335,7 +334,7 @@ const theme: NodecosmosTheme = {
         },
         background: {
             default: '',
-            paper: '',
+            paper: '#fff',
         },
         getContrastText (): string {
             throw new Error('Function not implemented.');

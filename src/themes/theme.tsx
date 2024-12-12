@@ -33,6 +33,7 @@ import { NodecosmosTheme } from './themes.types';
 import { createTheme } from '@mui/material/styles';
 
 const getTheme = (theme: NodecosmosTheme) => createTheme({
+    cssVariables: true,
     colorSchemes: {
         light: true,
         dark: true,
@@ -110,7 +111,9 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         ...typographyStyle(theme),
     },
     //-----------------------------------------------------------------------------------------------------------------
-    ...theme,
+    // @ts-ignore
+    shadows: theme.shadows,
+    palette: theme.palette,
 });
 
 export default getTheme;

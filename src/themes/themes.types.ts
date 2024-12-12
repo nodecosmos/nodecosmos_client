@@ -1,5 +1,3 @@
-// noinspection JSUnusedGlobalSymbols
-
 import { Palette, PaletteColor } from '@mui/material';
 
 export const TREE_COLORS_LEN = 6;
@@ -10,35 +8,6 @@ interface TreeColor {
     bg: string;
     fg: string;
     ol: string; // outline
-}
-
-interface Shadows {
-    0: Shadow;
-    1: Shadow;
-    2: Shadow;
-    3: Shadow;
-    4: Shadow;
-    5: Shadow;
-    6: Shadow;
-    7: Shadow;
-    8: Shadow;
-    left: {
-        1: Shadow;
-        2: Shadow;
-    };
-    right: {
-        1: Shadow;
-        2: Shadow;
-    };
-    top: {
-        1: Shadow;
-    };
-    header: Shadow;
-    buttons: {
-        1: Shadow;
-        2: Shadow;
-        3: Shadow;
-    };
 }
 
 interface CustomPaletteColor {
@@ -72,6 +41,35 @@ interface Text {
     collaboratePurple: string;
     mergeGreen: string;
     foreground: string;
+}
+
+interface NcShadows {
+    0: Shadow;
+    1: Shadow;
+    2: Shadow;
+    3: Shadow;
+    4: Shadow;
+    5: Shadow;
+    6: Shadow;
+    7: Shadow;
+    8: Shadow;
+    left: {
+        1: Shadow;
+        2: Shadow;
+    };
+    right: {
+        1: Shadow;
+        2: Shadow;
+    };
+    top: {
+        1: Shadow;
+    };
+    header: Shadow;
+    buttons: {
+        1: Shadow;
+        2: Shadow;
+        3: Shadow;
+    };
 }
 
 declare module '@mui/material/styles' {
@@ -116,7 +114,6 @@ declare module '@mui/material/styles' {
                 defaultColor: string;
                 activeColor: string;
             };
-            paper: string;
             backdrop: string;
         };
         toolbar: {
@@ -126,6 +123,7 @@ declare module '@mui/material/styles' {
             lightRed: string;
             pink: string;
             purple: string;
+            lightPurple: string;
             yellow: string;
             orange: string;
             hover: string;
@@ -211,12 +209,12 @@ declare module '@mui/material/styles' {
 }
 
 export interface NodecosmosTheme {
-    shadows: Shadows;
+    shadows: NcShadows;
     palette: Palette;
 }
 
 export interface NodecosmosThemeOptions {
-    shadows?: Shadows;
+    shadows?: NcShadows;
     palette?: Palette;
 }
 

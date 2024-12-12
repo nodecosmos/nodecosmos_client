@@ -56,20 +56,22 @@ export default function NodeIndexSearch() {
         }
     }, [execSearch]);
 
-    const inputProps = useMemo(() => ({
-        id: 'search',
-        name: 'search',
-        autoComplete: 'search',
-        endAdornment: (
-            inProgress ? <CircularProgress size={20} />
-                : <FontAwesomeIcon icon={faMagnifyingGlass} />
-        ),
+    const slotProps = useMemo(() => ({
+        input: {
+            id: 'search',
+            name: 'search',
+            autoComplete: 'search',
+            endAdornment: (
+                inProgress ? <CircularProgress size={20} />
+                    : <FontAwesomeIcon icon={faMagnifyingGlass} />
+            ),
+        },
     }), [inProgress]);
 
     return (
         <TextField
             sx={SX}
-            InputProps={inputProps}
+            slotProps={slotProps}
             color="primary"
             variant="outlined"
             placeholder="Search"

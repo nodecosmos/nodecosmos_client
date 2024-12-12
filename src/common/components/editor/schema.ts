@@ -148,8 +148,6 @@ const htmlInline = {
         getAttrs: (dom: HTMLElement) => ({ content: dom.innerHTML }),
     }],
     toDOM(node: Node) {
-        debugger;
-
         const span = document.createElement('div');
         span.classList.add('html-inline-content');
         span.innerHTML = node.attrs.content;

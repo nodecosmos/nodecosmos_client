@@ -21,7 +21,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@lezer/highlight": "^1.2.1",
     "@mui/icons-material": "^6.1.10",
-    "@mui/material": "^6.1.10",
+    "@mui/material": "^6.2.0",
     "@mui/x-data-grid": "^7.23.1",
     "@reduxjs/toolkit": "^2.4.0",
     "@testing-library/jest-dom": "^6.6.3",

@@ -131,8 +131,6 @@ const theme: NodecosmosTheme = {
                 defaultColor: '#787d88',
                 activeColor: '#c2cad6',
             },
-
-            paper: '#191b20',
             backdrop: 'rgba(88, 99, 111, 0.4)',
         },
 
@@ -143,6 +141,7 @@ const theme: NodecosmosTheme = {
             lightRed: '#e56175',
             pink: '#96588e',
             purple: '#b775ff',
+            lightPurple: '#afbcef',
             yellow: '#ded65f',
             orange: '#edb96d',
             hover: 'rgba(57,71,81,0.53)',
@@ -334,7 +333,7 @@ const theme: NodecosmosTheme = {
         },
         background: {
             default: '',
-            paper: '',
+            paper: '#191b20',
         },
         getContrastText (): string {
             throw new Error('Function not implemented.');
