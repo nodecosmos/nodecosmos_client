@@ -123,7 +123,6 @@ const hardBreak: NodeSpec = {
 // Example for raw HTML block - adjust parseDOM/toDOM as needed
 const html: NodeSpec = {
     group: 'block',
-    content: 'text*', // or no content if you store raw html as an attribute
     attrs: { content: { default: '' } },
     parseDOM: [
         {
@@ -133,7 +132,6 @@ const html: NodeSpec = {
     ],
     toDOM(node: Node) {
         const dom = document.createElement('div');
-        dom.classList.add('html-content');
         dom.innerHTML = node.attrs.content; // Parse and render the HTML content
         return dom;
     },
@@ -141,18 +139,12 @@ const html: NodeSpec = {
 
 const htmlInline = {
     inline: true,
-    group: 'block',
+    group: 'inline',
     attrs: { content: { default: '' } },
     parseDOM: [{
         tag: 'span.html-inline-content',
         getAttrs: (dom: HTMLElement) => ({ content: dom.innerHTML }),
     }],
-    toDOM(node: Node) {
-        const span = document.createElement('div');
-        span.classList.add('html-inline-content');
-        span.innerHTML = node.attrs.content;
-        return span;
-    },
 };
 
 // Inline marks
