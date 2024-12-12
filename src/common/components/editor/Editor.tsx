@@ -91,7 +91,7 @@ export default function Editor(props: EditorProps) {
         autoFocus,
     });
 
-    const yDoc = useYDoc({
+    const y = useYDoc({
         isRealTime,
         base64,
         wsAuthNodeId,
@@ -103,18 +103,35 @@ export default function Editor(props: EditorProps) {
     const [, resetState] = React.useState<boolean>(false);
 
     useEffect(() => {
-        if (!editorContainerRef.current || editorViewRef.current) return;
-        if (!yDoc && isRealTime) return;
+        if (clearState !== undefined) {
+            if (editorViewRef.current) {
+                editorViewRef.current.state.doc = schema.nodeFromJSON({
+                    type: 'doc',
+                    content: [],
+                });
+                editorViewRef.current.updateState(editorViewRef.current.state);
+            }
+        }
+    }, [clearState]);
 
-        const doc = markdownParser.parse(markdown);
-        const ydocPlugins = yDoc ? yDoc.plugins : [];
+    useEffect(() => {
+        if (!editorContainerRef.current || editorViewRef.current) return;
+        if (!y.docNode && isRealTime) return;
+
+        let doc;
+
+        if (isRealTime) {
+            doc = y.docNode;
+        } else {
+            doc = markdownParser.parse(markdown);
+        }
 
         const state = EditorState.create({
             doc,
             schema,
             plugins: [
                 keymap(baseKeymap),
-                ...ydocPlugins,
+                ...y.plugins,
             ],
         });
 
@@ -133,8 +150,8 @@ export default function Editor(props: EditorProps) {
                 // Extract content for onChange
                 let uint8ArrayState = null;
 
-                if (isRealTime && yDoc) {
-                    uint8ArrayState = Y.encodeStateAsUpdateV2(yDoc.doc);
+                if (isRealTime && y.yDoc) {
+                    uint8ArrayState = Y.encodeStateAsUpdateV2(y.yDoc);
                 }
 
                 resetState((prev) => !prev);
@@ -147,12 +164,12 @@ export default function Editor(props: EditorProps) {
         setEditorView(view);
 
         return () => {
-            console.log('Destroying EditorView');
             view.destroy();
             editorViewRef.current = null;
         };
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isRealTime, yDoc]);
+    }, [isRealTime, y.docNode, y.plugins, y.yDoc]);
 
     useOutsideClick(editorContainerRef, onBlur);
 

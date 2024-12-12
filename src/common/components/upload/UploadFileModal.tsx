@@ -38,6 +38,11 @@ interface S3Response {
 
 const PLUGINS = ['ImageEditor'];
 
+const DIALOG_PAPER_PROPS = {
+    elevation: 8,
+    sx: { borderRadius: 2.5 },
+};
+
 export default function UploadFileModal(props: UploadFileModalProps) {
     const {
         open, onClose, params,
@@ -141,6 +146,7 @@ export default function UploadFileModal(props: UploadFileModalProps) {
             maxWidth="md"
             open={open}
             onClose={handleClose}
+            PaperProps={DIALOG_PAPER_PROPS}
         >
             <div className="DialogHeader">
                 <div>

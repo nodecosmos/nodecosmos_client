@@ -2,13 +2,14 @@ import { WS_URI } from '../../../api/nodecosmos-server';
 import { selectCurrentUser } from '../../../features/users/users.selectors';
 import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
+import schema from '../../components/editor/schema';
 import { dropCursor } from 'prosemirror-dropcursor';
 import { gapCursor } from 'prosemirror-gapcursor';
 import { history } from 'prosemirror-history';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import {
-    ySyncPlugin, yCursorPlugin, yUndoPlugin,
+    ySyncPlugin, yCursorPlugin, initProseMirrorDoc,
 } from 'y-prosemirror';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';
@@ -40,7 +41,7 @@ export default function useYDoc(props: UseYDocProps) {
         throw new Error('User not found');
     }
 
-    const doc = useMemo(() => {
+    const yDoc = useMemo(() => {
         if (!isRealTime) return null;
 
         const ydoc = new Y.Doc();
@@ -58,17 +59,17 @@ export default function useYDoc(props: UseYDocProps) {
 
     const provider = useMemo(
         () => {
-            if (!isRealTime || !wsRoomId || !doc) return null;
+            if (!isRealTime || !wsRoomId || !yDoc) return null;
 
             const wsProvider = new WebsocketProvider(
-                `${WS_URI}/ws/descriptions/${wsAuthNodeBranchId}/${wsAuthNodeId}/${wsAuthRootId}`, wsRoomId, doc,
+                `${WS_URI}/ws/descriptions/${wsAuthNodeBranchId}/${wsAuthNodeId}/${wsAuthRootId}`, wsRoomId, yDoc,
             );
 
             wsProvider.awareness.setLocalStateField('user', { name: currentUser.username });
 
             return wsProvider;
         },
-        [currentUser.username, doc, isRealTime, wsAuthNodeBranchId, wsAuthNodeId, wsAuthRootId, wsRoomId],
+        [currentUser.username, yDoc, isRealTime, wsAuthNodeBranchId, wsAuthNodeId, wsAuthRootId, wsRoomId],
     );
 
     useEffect(() => {
@@ -86,20 +87,23 @@ export default function useYDoc(props: UseYDocProps) {
     }, [isRealTime, provider]);
 
     return useMemo(() => {
-        if (!doc || !provider) {
-            return null;
+        if (!yDoc || !provider) {
+            return { plugins: [] };
         }
 
+        const type = yDoc.get(PROSEMIRROR_Y_DOC, Y.XmlFragment);
+        const { doc: docNode, mapping } = initProseMirrorDoc(type, schema);
+
         return {
-            doc,
+            yDoc,
+            docNode,
             plugins: [
-                ySyncPlugin(doc.getXmlFragment(PROSEMIRROR_Y_DOC)),
+                ySyncPlugin(type, { mapping }),
                 yCursorPlugin(provider.awareness),
-                yUndoPlugin(),
                 history(),
                 dropCursor(),
                 gapCursor(),
             ],
         };
-    }, [doc, provider]);
+    }, [yDoc, provider]);
 }

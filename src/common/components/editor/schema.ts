@@ -7,7 +7,7 @@ const doc = { content: 'block+' };
 const paragraph: NodeSpec = {
     content: 'inline*',
     group: 'block',
-    parseDOM: [{ tag: 'p' }],
+    parseDOM: [{ tag: 'p' }, { tag: 'paragraph' }],
     toDOM() { return ['p', 0]; },
 };
 
@@ -41,6 +41,11 @@ const heading: NodeSpec = {
             tag: 'h6',
             attrs: { level: 6 },
         },
+        {
+            tag: 'heading',
+            getAttrs: (dom) => ({ level: dom.hasAttribute('level') ? +dom.getAttribute('level')! : 1 }),
+        }, // Add support for <heading>
+
     ],
     toDOM(node) {
         return ['h' + node.attrs.level, 0];
@@ -50,7 +55,7 @@ const heading: NodeSpec = {
 const bulletList: NodeSpec = {
     content: 'listItem+',
     group: 'block',
-    parseDOM: [{ tag: 'ul' }],
+    parseDOM: [{ tag: 'ul' }, { tag: 'bulletList' }],
     toDOM() { return ['ul', 0]; },
 };
 
@@ -58,10 +63,16 @@ const orderedList: NodeSpec = {
     attrs: { order: { default: 1 } },
     content: 'listItem+',
     group: 'block',
-    parseDOM: [{
-        tag: 'ol',
-        getAttrs: dom => ({ order: dom.hasAttribute('start') ? +dom.getAttribute('start')! : 1 }),
-    }],
+    parseDOM: [
+        {
+            tag: 'ol',
+            getAttrs: dom => ({ order: dom.hasAttribute('start') ? +dom.getAttribute('start')! : 1 }),
+        },
+        {
+            tag: 'orderedList',
+            getAttrs: (dom) => ({ order: dom.hasAttribute('start') ? +dom.getAttribute('start')! : 1 }),
+        },
+    ],
     toDOM(node) {
         return node.attrs.order === 1 ? ['ol', 0] : ['ol', { start: node.attrs.order }, 0];
     },
@@ -69,7 +80,10 @@ const orderedList: NodeSpec = {
 
 const listItem: NodeSpec = {
     content: 'paragraph block*',
-    parseDOM: [{ tag: 'li' }],
+    parseDOM: [
+        { tag: 'li' },
+        { tag: 'listItem' },
+    ],
     toDOM() { return ['li', 0]; },
 };
 
@@ -86,10 +100,16 @@ const codeBlock: NodeSpec = {
     group: 'block',
     code: true,
     defining: true,
-    parseDOM: [{
-        tag: 'pre',
-        preserveWhitespace: 'full',
-    }],
+    parseDOM: [
+        {
+            tag: 'pre',
+            preserveWhitespace: 'full',
+        },
+        {
+            tag: 'codeBlock',
+            preserveWhitespace: 'full',
+        },
+    ],
     toDOM() { return ['pre', ['code', 0]]; },
 };
 
@@ -102,21 +122,34 @@ const image: NodeSpec = {
     },
     group: 'inline',
     draggable: true,
-    parseDOM: [{
-        tag: 'img',
-        getAttrs: dom => ({
-            src: dom.getAttribute('src'),
-            title: dom.getAttribute('title'),
-            alt: dom.getAttribute('alt'),
-        }),
-    }],
+    parseDOM: [
+        {
+            tag: 'img',
+            getAttrs: dom => ({
+                src: dom.getAttribute('src'),
+                title: dom.getAttribute('title'),
+                alt: dom.getAttribute('alt'),
+            }),
+        },
+        {
+            tag: 'image',
+            getAttrs: dom => ({
+                src: dom.getAttribute('src'),
+                title: dom.getAttribute('title'),
+                alt: dom.getAttribute('alt'),
+            }),
+        },
+    ],
     toDOM(node) { return ['img', node.attrs]; },
 };
 
 const hardBreak: NodeSpec = {
     inline: true,
     selectable: false,
-    parseDOM: [{ tag: 'br' }],
+    parseDOM: [
+        { tag: 'br' },
+        { tag: 'hardBreak' },
+    ],
     toDOM() { return ['br']; },
 };
 
@@ -149,18 +182,20 @@ const htmlInline = {
 
 // Inline marks
 const bold: MarkSpec = {
-    parseDOM: [{ tag: 'strong' }, {
-        tag: 'b',
-        getAttrs: () => null,
-    }],
+    parseDOM: [
+        { tag: 'strong' },
+        { tag: 'b' },
+        { tag: 'bold' },
+    ],
     toDOM() { return ['b', 0]; },
 };
 
 const italic: MarkSpec = {
-    parseDOM: [{ tag: 'em' }, {
-        tag: 'i',
-        getAttrs: () => null,
-    }],
+    parseDOM: [
+        { tag: 'em' },
+        { tag: 'i' },
+        { tag: 'italic' },
+    ],
     toDOM() { return ['i', 0]; },
 };
 
@@ -177,11 +212,19 @@ const code: MarkSpec = {
 const link: MarkSpec = {
     attrs: { href: {} },
     inclusive: false,
-    parseDOM: [{
-        tag: 'a[href]',
-        getAttrs: (dom: Element) => ({ href: dom.getAttribute('href') }),
-    }],
-    toDOM(node) { return ['a', { href: node.attrs.href }, 0]; },
+    parseDOM: [
+        {
+            tag: 'a[href]',
+            getAttrs: (dom: Element) => ({ href: dom.getAttribute('href') }),
+        },
+        {
+            tag: 'link[href]',
+            getAttrs: (dom: Element) => ({ href: dom.getAttribute('href') }),
+        },
+    ],
+    toDOM(node) {
+        return ['a', { href: node.attrs.href }, 0];
+    },
 };
 
 export default new Schema({

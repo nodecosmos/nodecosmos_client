@@ -1,6 +1,4 @@
-import {
-    defaultMarkdownSerializer, MarkdownSerializer, MarkdownSerializerState,
-} from 'prosemirror-markdown';
+import { MarkdownSerializer, MarkdownSerializerState } from 'prosemirror-markdown';
 import { Mark, Node } from 'prosemirror-model';
 
 // Define the custom mark handlers with proper typings
@@ -73,7 +71,58 @@ const customMarkHandlers: {
 // Instantiate the custom MarkdownSerializer with proper typings
 export default new MarkdownSerializer(
     {
-        ...defaultMarkdownSerializer.nodes,
+        blockquote(state, node) {
+            state.wrapBlock('> ', null, node, () => state.renderContent(node));
+        },
+        codeBlock(state, node) {
+            // Make sure the front matter fences are longer than any dash sequence within it
+            const backticks = node.textContent.match(/`{3,}/gm);
+            const fence = backticks ? (backticks.sort().slice(-1)[0] + '`') : '```';
+
+            state.write(fence + (node.attrs.params || '') + '\n');
+            state.text(node.textContent, false);
+            // Add a newline to the current content before adding closing marker
+            state.write('\n');
+            state.write(fence);
+            state.closeBlock(node);
+        },
+        heading(state, node) {
+            state.write(state.repeat('#', node.attrs.level) + ' ');
+            state.renderInline(node, false);
+            state.closeBlock(node);
+        },
+        hardBreak(state, node) {
+            state.write(node.attrs.markup || '---');
+            state.closeBlock(node);
+        },
+        bulletList(state, node) {
+            state.renderList(node, '  ', () => (node.attrs.bullet || '*') + ' ');
+        },
+        orderedList(state, node) {
+            let start = node.attrs.order || 1;
+            let maxW = String(start + node.childCount - 1).length;
+            let space = state.repeat(' ', maxW + 2);
+            state.renderList(node, space, i => {
+                let nStr = String(start + i);
+                return state.repeat(' ', maxW - nStr.length) + nStr + '. ';
+            });
+        },
+        listItem(state, node) {
+            state.renderContent(node);
+        },
+        paragraph(state, node) {
+            state.renderInline(node);
+            state.closeBlock(node);
+        },
+
+        image(state, node) {
+            state.write('![' + state.esc(node.attrs.alt || '') + '](' + node.attrs.src.replace(/[()]/g, '\\$&')
+                + (node.attrs.title ? ' "' + node.attrs.title.replace(/"/g, '\\"') + '"' : '') + ')');
+        },
+        text(state, node) {
+            // @ts-ignore
+            state.text(node.text!, !state.inAutolink);
+        },
         html: (state: MarkdownSerializerState, node: Node) => {
             state.write(node.attrs.content);
         },

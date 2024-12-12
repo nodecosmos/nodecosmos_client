@@ -2,7 +2,7 @@ import { HEADER_HEIGHT } from '../../../features/app/constants';
 import { NodecosmosTheme } from '../../../themes/themes.types';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import { Box, useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 interface Props {
     children: React.ReactNode;
@@ -18,6 +18,7 @@ export default function EditorContainer({ children }: Props) {
         p = 0,
         px = 0,
         py = 0,
+        editorView,
     } = useEditorContext();
 
     const sx = useMemo(() => ({
@@ -105,8 +106,14 @@ export default function EditorContainer({ children }: Props) {
         toolbarHeight,
     ]);
 
+    const handleClick = useCallback((e: React.MouseEvent) => {
+        if (e.target !== e.currentTarget) return;
+        if (!editorView) return;
+        editorView.focus();
+    }, [editorView]);
+
     return (
-        <Box id="editor-container" sx={sx}>
+        <Box id="editor-container" sx={sx} onClick={handleClick}>
             {children}
         </Box>
     );
