@@ -36,14 +36,14 @@ function InvitationItem({ invitation }: { invitation: Invitation }) {
                     <Typography
                         variant="body2"
                         fontWeight="bold"
-                        color="text.link">
+                        color="texts.link">
                         {usernameOrEmail}
                     </Typography>
                 ) : (
                     <Link
                         component={RouterLink}
                         to={`/${usernameOrEmail}`}>
-                        <Typography variant="body2" color="text.link" fontWeight="bold">
+                        <Typography variant="body2" color="texts.link" fontWeight="bold">
                             {usernameOrEmail}
                         </Typography>
                     </Link>

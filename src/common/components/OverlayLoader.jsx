@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 const SX = {
-    backgroundColor: 'background.backdrop',
+    backgroundColor: 'backgrounds.backdrop',
     opacity: 1,
     zIndex: 2,
 };

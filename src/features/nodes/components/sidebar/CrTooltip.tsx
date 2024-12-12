@@ -7,12 +7,12 @@ export default function CrTooltip() {
 
     return (
         <Box sx={{
-            backgroundColor: 'background.1',
+            backgroundColor: 'backgrounds.1',
             p: 1,
             fontSize: 14,
             ml: -0,
             borderRadius: 1,
-            color: 'text.secondary',
+            color: 'texts.secondary',
         }}>
             This node is not part of the main project tree. It belongs to Contribution Request:
             <br />

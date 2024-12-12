@@ -18,11 +18,11 @@ export function useStatus(status: ContributionRequestStatus): Status {
     const theme: NodecosmosTheme = useTheme();
 
     const statusColors = useMemo(() => ({
-        [ContributionRequestStatus.WorkInProgress]: theme.palette.background.labels.orange,
-        [ContributionRequestStatus.Published]: theme.palette.background.labels.green,
-        [ContributionRequestStatus.Merged]: theme.palette.background.labels.purple,
-        [ContributionRequestStatus.Closed]: theme.palette.background.labels.blue,
-    }), [theme.palette.background.labels]);
+        [ContributionRequestStatus.WorkInProgress]: theme.palette.backgrounds.labels.orange,
+        [ContributionRequestStatus.Published]: theme.palette.backgrounds.labels.green,
+        [ContributionRequestStatus.Merged]: theme.palette.backgrounds.labels.purple,
+        [ContributionRequestStatus.Closed]: theme.palette.backgrounds.labels.blue,
+    }), [theme.palette.backgrounds.labels]);
 
     return useMemo(() => ({
         color: statusColors[status],

@@ -1,41 +1,33 @@
-import useExtensions, { RemirrorExtensions } from './useExtensions';
-import { RemirrorEditorProps } from '../../components/editor/RemirrorEditor';
+import { UUID } from '../../../types';
+import { EditorExtensions } from '../../components/editor/types';
+import { EditorView } from 'prosemirror-view';
 import {
-    createContext, useContext, useMemo, 
+    createContext, useContext, useMemo,
 } from 'react';
-import { Doc } from 'yjs';
 
-interface EditorContextValue extends RemirrorEditorProps {
-    extensions: RemirrorExtensions[];
-    doc: Doc | null;
+interface EditorContextProps {
+    extensions?: EditorExtensions[];
+    toolbarHeight?: number;
+    editorBackgroundColor?: string;
+    editorOutline?: number,
+    editorFocusBorderColor?: string,
+    p?: number,
+    px? : number,
+    py? : number,
+    fileObjectId?: UUID;
+    editorView: EditorView | null;
+    autoFocus?: boolean;
+    info?: string;
+    clearState?: boolean;
 }
 
-const EditorContext = createContext<EditorContextValue>({} as EditorContextValue);
+const EditorContext = createContext<EditorContextProps>({} as EditorContextProps);
 
-export function useEditorContextCreator(props: RemirrorEditorProps) {
-    const {
-        wsRoomId, base64, wsAuthNodeId, wsAuthNodeBranchId, wsAuthRootId,
-        isRealTime, enabledExtensions,
-    } = props;
-
-    const { extensions, doc } = useExtensions({
-        isRealTime,
-        base64,
-        wsAuthNodeId,
-        wsAuthNodeBranchId,
-        wsAuthRootId,
-        wsRoomId,
-        enabledExtensions,
-    });
-
+export function useEditorContextCreator(props: EditorContextProps) {
     return useMemo(() => ({
         EditorContext,
-        ctxValue: {
-            ...props,
-            extensions,
-            doc,
-        },
-    }), [props, extensions, doc]);
+        ctxValue: props,
+    }), [props]);
 }
 
 export function useEditorContext() {

@@ -55,7 +55,7 @@ export default function useTreeEvents() {
     }, [selId, orderedTreeNodeIds, selectNode, expandedNodes, expandNode, collapseNode]);
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
-        if (document.getElementById('remirror-editor-container')) {
+        if (document.getElementById('editor-container')) {
             return;
         }
 

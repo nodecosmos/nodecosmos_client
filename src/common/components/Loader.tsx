@@ -14,7 +14,7 @@ interface Props {
 
 function Loader(props: Props) {
     const {
-        backgroundColor, color = 'background.8', size = 100, width = 1, ml = 0, p = 0,
+        backgroundColor, color = 'backgrounds.8', size = 100, width = 1, ml = 0, p = 0,
     } = props;
 
     const sx = useMemo(() => ({

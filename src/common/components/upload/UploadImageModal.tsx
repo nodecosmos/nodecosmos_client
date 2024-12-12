@@ -15,9 +15,17 @@ import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
 
+interface UploadResponse {
+    url: string;
+}
+
+function isUploadResponse(response: any): response is UploadResponse {
+    return response && typeof response.url === 'string';
+}
+
 interface UploadImageModalProps {
     open: boolean;
-    onClose: (responseBody?: { url: string }) => void;
+    onClose: (responseBody?: UploadResponse) => void;
     endpointPath: string; // no leading slash
     aspectRatio?: number;
 }
@@ -41,7 +49,6 @@ export default function UploadImageModal(props: UploadImageModalProps) {
                 maxFileSize: 5 * 1024 * 1024,
                 allowedFileTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
             },
-            locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
         }).use(ImageEditor, {
             id: 'ImageEditor',
             quality: 0.8,
@@ -74,7 +81,12 @@ export default function UploadImageModal(props: UploadImageModalProps) {
     useEffect(() => {
         uppy.on('upload-success', (_, response) => {
             uppy.cancelAll();
-            onClose(response.body);
+
+            if (isUploadResponse(response.body)) {
+                onClose(response.body);
+            } else {
+                throw new Error('Invalid response body');
+            }
         });
 
         uppy.on('file-editor:complete', () => {
@@ -133,7 +145,7 @@ export default function UploadImageModal(props: UploadImageModalProps) {
         >
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h5" align="center" color="text.secondary" width="auto">
+                    <Typography variant="h5" align="center" color="texts.secondary" width="auto">
                         <FontAwesomeIcon icon={faImage} />
                         Upload Image
                     </Typography>

@@ -79,7 +79,7 @@ export default function Header() {
                             className="min-vis-width-viewport-400"
                             fontWeight="bold"
                             variant="subtitle2"
-                            color="text.tertiary"
+                            color="texts.tertiary"
                             mt="1px"
                             ml={1}
                         >

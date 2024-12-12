@@ -9,13 +9,13 @@ export default (theme) => ({
     },
     '::-webkit-scrollbar-thumb': {
         minHeight: 42,
-        backgroundColor: theme.palette.background[6],
+        backgroundColor: theme.palette.backgrounds[6],
     },
-    '::-webkit-scrollbar-track': { backgroundColor: theme.palette.background[5] },
-    '::-webkit-scrollbar-corner': { backgroundColor: theme.palette.background[2] },
+    '::-webkit-scrollbar-track': { backgroundColor: theme.palette.backgrounds[5] },
+    '::-webkit-scrollbar-corner': { backgroundColor: theme.palette.backgrounds[2] },
     //  set firefox scrollbar
     '*': {
         scrollbarWidth: 'auto',
-        scrollbarColor: `${theme.palette.background[8]} ${theme.palette.background[5]}`,
+        scrollbarColor: `${theme.palette.backgrounds[8]} ${theme.palette.backgrounds[5]}`,
     },
 });

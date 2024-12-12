@@ -23,7 +23,7 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                     <Box ml={0}>
                         <Box display="flex" alignItems="center">
                             <Link component={RouterLink} to={`/${node.owner.username}`}>
-                                <Typography variant="h6" color="text.primary" fontWeight="bold" fontSize={18}>
+                                <Typography variant="h6" color="texts.primary" fontWeight="bold" fontSize={18}>
                                     {node.owner.name}
                                 </Typography>
                             </Link>
@@ -33,14 +33,14 @@ export default function NodeCardHeader({ node }: {node: IndexNode}) {
                                 to={`/${node.owner.username}`}
                             >
                                 {node.owner.username && (
-                                    <Typography variant="body1" color="text.tertiary" ml={1}>
+                                    <Typography variant="body1" color="texts.tertiary" ml={1}>
                                         @
                                         {node.owner.username}
                                     </Typography>
                                 )}
                             </Link>
                         </Box>
-                        <Typography color="text.tertiary" variant="subtitle1">
+                        <Typography color="texts.tertiary" variant="subtitle1">
                             {timeSince(node.createdAt)}
                         </Typography>
                     </Box>

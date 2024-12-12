@@ -34,7 +34,7 @@ export default function InviteUserItem({
                 borderColor: 'transparent',
                 borderRadius: 2,
                 '&:hover': {
-                    backgroundColor: noHover ? null : 'background.hover',
+                    backgroundColor: noHover ? null : 'backgrounds.hover',
                     borderColor: 'borders.4',
                 },
             }}
@@ -43,10 +43,10 @@ export default function InviteUserItem({
                 <NcAvatar size={50} name={user.username} src={user.profileImageUrl} />
             </Link>
             <Box>
-                <Typography variant="body2" color="text.primary" ml={1} fontWeight="bold">
+                <Typography variant="body2" color="texts.primary" ml={1} fontWeight="bold">
                     {user.firstName} {user.lastName}
                 </Typography>
-                <Typography variant="body2" color="text.primary" ml={1}>
+                <Typography variant="body2" color="texts.primary" ml={1}>
                     @
                     {user.username}
                 </Typography>

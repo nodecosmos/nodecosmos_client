@@ -81,7 +81,7 @@ export default function OutputButton() {
                     <div className="background-1">
                         <EditTitleField
                             title={title}
-                            color="text.primary"
+                            color="texts.primary"
                             variant="body2"
                             onChange={handleTitleChange}
                             onClose={closeTitleEdit}

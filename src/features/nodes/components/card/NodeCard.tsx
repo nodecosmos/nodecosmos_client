@@ -34,7 +34,7 @@ export default function NodeCard({ id }: {id: UUID}) {
                                 <Typography
                                     variant="h5"
                                     variantMapping={{ h5: 'h2' }}
-                                    color="text.contrast"
+                                    color="texts.contrast"
                                     fontWeight="bold"
                                 >
                                     {node.title}
@@ -50,7 +50,7 @@ export default function NodeCard({ id }: {id: UUID}) {
                         {
                             node.shortDescription
                             && (
-                                <Typography variant="body2" color="text.secondary" mt={2}>
+                                <Typography variant="body2" color="texts.secondary" mt={2}>
                                     {node.shortDescription}
                                 </Typography>
                             )

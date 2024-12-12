@@ -90,7 +90,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
                 width="20"
                 height="5"
                 rx="2"
-                fill={theme.palette.background[8]}
+                fill={theme.palette.backgrounds[8]}
             />
 
             <rect
@@ -99,7 +99,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
                 width="300"
                 height="30"
                 rx="4"
-                fill={theme.palette.background[8]}
+                fill={theme.palette.backgrounds[8]}
                 fillOpacity={hovered ? 0.6 : 0}
             />
         </g>

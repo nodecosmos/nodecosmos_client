@@ -90,7 +90,7 @@ export default function Toolbar() {
                 <Box display="flex" alignItems="center" justifyContent="center">
                     <Typography
                         variant="body2"
-                        color="text.tertiary"
+                        color="texts.tertiary"
                         fontWeight="bold"
                         borderRadius={1}
                     >

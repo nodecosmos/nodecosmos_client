@@ -26,7 +26,7 @@ export default function MobileSidebarIcon() {
 
     return (
         <IconButton size="large" onClick={openSidebar} className="SidebarMobileButton">
-            <MenuIcon fontSize="inherit" sx={{ color: 'background.8' }} />
+            <MenuIcon fontSize="inherit" sx={{ color: 'backgrounds.8' }} />
         </IconButton>
     );
 }

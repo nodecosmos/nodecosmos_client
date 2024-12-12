@@ -16,6 +16,7 @@ async function validateCaptcha(): Promise<string> {
         grecaptcha.ready(() => {
             grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: 'submit' })
                 .then((token: string) => res(token))
+                // @ts-ignore
                 .catch((error: Error) => {
                     console.error('Error executing reCAPTCHA:', error);
                     throw error;

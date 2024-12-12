@@ -1,4 +1,4 @@
- 
+
 import InviteUsersList from './InviteUsersList';
 import Alert from '../../../common/components/Alert';
 import Field from '../../../common/components/final-form/FinalFormInputField';
@@ -119,7 +119,7 @@ export default function InviteUserModal({ open, onClose }: Props) {
         endAdornment: searchInProgress ? <CircularProgress
             size={30}
             sx={{
-                color: 'text.secondary',
+                color: 'texts.secondary',
                 mr: 2,
             }} /> : null,
     }), [searchInProgress]);
@@ -137,12 +137,12 @@ export default function InviteUserModal({ open, onClose }: Props) {
             PaperProps={PROPS}>
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                    <Typography variant="h6" color="texts.primary" align="center" width="auto">
                         <FontAwesomeIcon icon={faUserPlus} />
                         Invite User to Node
                     </Typography>
                 </div>
-                <Typography variant="subtitle1" color="text.secondary" mt={1} align="center" width={1}>
+                <Typography variant="subtitle1" color="texts.secondary" mt={1} align="center" width={1}>
                     Invite a user to collaborate on this node. If the user is not a member of the
                     nodecosmos, you can invite them by their email. Once invitation is  accepted,
                     the user will become editor of this node.

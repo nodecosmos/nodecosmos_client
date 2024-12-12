@@ -63,12 +63,12 @@ export default function FlowModal(props: Props) {
         >
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                    <Typography variant="h6" color="texts.primary" align="center" width="auto">
                         <FontAwesomeIcon icon={faCodeCommit} />
                         New Flow
                     </Typography>
                 </div>
-                <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
+                <Typography variant="subtitle1" color="texts.secondary" mt={2} align="center" width={1}>
                     Create a flow to define a isolated process within your workflow.
                 </Typography>
 
@@ -87,7 +87,7 @@ export default function FlowModal(props: Props) {
                                     endAdornment: loading ? <CircularProgress
                                         size={30}
                                         sx={{
-                                            color: 'text.secondary',
+                                            color: 'texts.secondary',
                                             mr: 2,
                                         }} /> : null,
                                 }}

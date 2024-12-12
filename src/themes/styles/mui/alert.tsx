@@ -7,7 +7,7 @@ export default (theme: NodecosmosTheme) => ({
             root: {
                 padding: '4px 8px',
                 width: '100%',
-                backgroundColor: theme.palette.background[5],
+                backgroundColor: theme.palette.backgrounds[5],
                 alignItems: 'center',
                 ...utils(theme),
 

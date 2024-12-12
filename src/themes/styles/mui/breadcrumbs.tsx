@@ -13,7 +13,7 @@ export default (theme: NodecosmosTheme) => ({
                     marginLeft: 8,
                     fontWeight: 500,
                     fontSize: 14,
-                    color: theme.palette.text.tertiary,
+                    color: theme.palette.texts.tertiary,
                 },
                 '.BreadcrumbItem:first-of-type': { marginLeft: 0 },
                 '.MuiLink-root': { cursor: 'pointer' },
@@ -27,7 +27,7 @@ export default (theme: NodecosmosTheme) => ({
                 '.ScrollButton': {
                     background: 'transparent',
                     svg: { fontSize: '0.6rem' },
-                    color: theme.palette.background[8],
+                    color: theme.palette.backgrounds[8],
                     '&:hover': {
                         background: theme.palette.toolbar.active,
                         color: 'inherit',

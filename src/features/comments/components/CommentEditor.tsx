@@ -1,6 +1,6 @@
 import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import { EditorExtensions } from '../../../common/components/editor/types';
 import Loader from '../../../common/components/Loader';
-import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
@@ -18,15 +18,13 @@ import {
 import { MAX_COMMENT_WIDTH } from '../commentsSlice';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
 import { Box, Button } from '@mui/material';
-import { HelpersFromExtensions } from '@remirror/core';
 import React, {
     Suspense, useCallback, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import { MarkdownExtension } from 'remirror/extensions';
 
-const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
+const Editor = React.lazy(() => import('../../../common/components/editor/Editor'));
 
 // when we create both a new thread and a comment
 interface WithThreadInsertPayload {
@@ -61,9 +59,9 @@ export type AddDescriptionCommentProps = CreateCommentProps & {
 
 const {
     Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link, OrderedList, Image, File,
-} = EnabledExtensions;
+} = EditorExtensions;
 
-const ENABLED_EXTENSIONS: EnabledExtensions[] = [
+const ENABLED_EXTENSIONS: EditorExtensions[] = [
     Bold,
     Italic,
     Strike,
@@ -93,8 +91,8 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
         setClearStateTrigger((prev) => !prev);
     }, []);
 
-    const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
-        setContent(helpers.getHTML());
+    const handleChange = useCallback((html: string) => {
+        setContent(html);
     }, []);
 
     const handleSave = useCallback(() => {
@@ -209,7 +207,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                 border={withThreadBlock ? 1 : 0}
                 borderColor="borders.4"
                 fontWeight={700}
-                color="text.secondary"
+                color="texts.secondary"
                 alignItems="center"
             >
                 <Button
@@ -243,7 +241,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
             borderBottom={withThreadBlock ? 1 : 0}
             borderColor="borders.4"
             p={withThreadBlock ? 2 : 0}
-            sx={{ backgroundColor: withThreadBlock ? 'background.1' : 'transparent' }}
+            sx={{ backgroundColor: withThreadBlock ? 'backgrounds.1' : 'transparent' }}
             boxSizing="border-box">
             <Suspense fallback={<Loader p={4} />}>
                 <Box maxWidth={MAX_COMMENT_WIDTH}>
@@ -255,13 +253,13 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                         borderRadius={1.50}
                         width={1}
                     >
-                        <RemirrorEditor
+                        <Editor
                             markdown={content}
                             onChange={handleChange}
-                            enabledExtensions={ENABLED_EXTENSIONS}
+                            extensions={ENABLED_EXTENSIONS}
                             p={1}
                             toolbarHeight={38}
-                            editorBackgroundColor={withThreadBlock ? 'background.1' : 'transparent'}
+                            editorBackgroundColor={withThreadBlock ? 'backgrounds.1' : 'transparent'}
                             info={info}
                             clearState={isUpdate ? undefined : clearState}
                             autoFocus={autoFocus}

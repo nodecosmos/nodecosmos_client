@@ -47,7 +47,7 @@ function DanglingIoItem(props: Props) {
         >
             <FontAwesomeIcon size="lg" icon={faCodeCommit} />
             <Box ml={2}>
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="body2" color="texts.primary" fontWeight="bold">
                     {io.title}
                 </Typography>
             </Box>

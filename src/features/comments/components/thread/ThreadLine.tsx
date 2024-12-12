@@ -15,7 +15,7 @@ export default function ThreadLine () {
 
     return (
         <Box
-            sx={{ backgroundColor: 'background.5' }}
+            sx={{ backgroundColor: 'backgrounds.5' }}
             borderRadius={1}
             display="flex"
             alignItems="center"

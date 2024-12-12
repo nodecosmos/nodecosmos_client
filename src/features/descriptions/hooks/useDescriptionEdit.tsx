@@ -6,10 +6,10 @@ import { uint8ArrayToBase64 } from '../../../utils/serializer';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescriptionBase64, saveDescription } from '../descriptions.thunks';
-import { HelpersFromExtensions } from '@remirror/core';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+    useCallback, useEffect, useMemo, 
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MarkdownExtension } from 'remirror/extensions';
 
 export const EMPTY_PARAGRAPH = '<p></p>';
 
@@ -73,7 +73,8 @@ export default function useDescriptionEdit() {
     ]);
 
     const handleChange = useCallback((
-        helpers: HelpersFromExtensions<MarkdownExtension>,
+        html: string,
+        markdown: string,
         uint8ArrayState: Uint8Array | null,
     ) => {
         if (uint8ArrayState === null) {
@@ -88,12 +89,9 @@ export default function useDescriptionEdit() {
         handleChangeTimeout.current ||= {};
         handleChangeTimeout.current[objectId] = setTimeout(async () => {
             handleChangeTimeout.current = null;
+            const isEmptySame = !currentHTML && (!html || (html === EMPTY_PARAGRAPH));
 
-            const markdown = helpers.getMarkdown();
-            const descriptionHtml = helpers.getHTML();
-            const isEmptySame = !currentHTML && (!descriptionHtml || (descriptionHtml === EMPTY_PARAGRAPH));
-
-            if (isEmptySame || (descriptionHtml === currentHTML)) {
+            if (isEmptySame || (html === currentHTML)) {
                 return;
             }
 
@@ -103,7 +101,7 @@ export default function useDescriptionEdit() {
                 rootId,
                 nodeId: objectNodeId,
                 objectType,
-                html: descriptionHtml as string,
+                html,
                 markdown,
                 base64: uint8ArrayToBase64(uint8ArrayState),
             }));
@@ -116,12 +114,12 @@ export default function useDescriptionEdit() {
         }, 1000);
     }, [currentHTML, dispatch, branchId, objectId, rootId, objectNodeId, objectType, handleServerError]);
 
-    return {
+    return useMemo(() => ({
         objectId,
         objectNodeId,
         branchId,
         handleChange,
         markdown,
         base64,
-    };
+    }), [objectId, objectNodeId, branchId, handleChange, markdown, base64]);
 }

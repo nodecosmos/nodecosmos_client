@@ -38,7 +38,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
         dark: true,
     },
     typography: typography(theme),
-     
+
     // @ts-ignore
     components: {
         MuiCssBaseline: {
@@ -60,7 +60,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     marginTop: 0,
                     padding: 16,
                     cursor: 'pointer',
-                    '&:hover': { backgroundColor: theme.palette.background[4] },
+                    '&:hover': { backgroundColor: theme.palette.backgrounds[4] },
                 },
                 '.NcLink': {
                     overflow: 'hidden',
@@ -70,7 +70,7 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                         backgroundColor: theme.palette.toolbar.hover,
                         cursor: 'pointer',
                         textDecoration: 'underline',
-                        color: theme.palette.text.link,
+                        color: theme.palette.texts.link,
                     },
                     backgroundColor: theme.palette.toolbar.active,
                 },
@@ -82,14 +82,14 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     '&:hover': { cursor: 'col-resize' },
                 },
                 '.Pane': {
-                    backgroundColor: theme.palette.background[5],
+                    backgroundColor: theme.palette.backgrounds[5],
                     height: '100%',
                 },
                 '.MobilePane': {
                     transition: 'height 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
-                    backgroundColor: theme.palette.background[1],
+                    backgroundColor: theme.palette.backgrounds[1],
                 },
-                '.rc-anchor-normal-footer': { backgroundColor: theme.palette.background[2] },
+                '.rc-anchor-normal-footer': { backgroundColor: theme.palette.backgrounds[2] },
             },
         },
         ...alert(theme),

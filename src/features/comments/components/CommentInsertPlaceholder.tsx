@@ -12,10 +12,10 @@ const SX = {
     height: 40,
     justifyContent: 'start',
     alignItems: 'center',
-    color: 'text.tertiary',
-    backgroundColor: 'background.3',
+    color: 'texts.tertiary',
+    backgroundColor: 'backgrounds.3',
     borderRadius: 0,
-    '&:hover': { backgroundColor: 'background.4' },
+    '&:hover': { backgroundColor: 'backgrounds.4' },
 };
 
 export default function InsertCommentPlaceholder({

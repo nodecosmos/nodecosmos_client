@@ -45,14 +45,14 @@ function NodeButton({ onClick }: {onClick: (event: MouseEvent<HTMLButtonElement>
         border: '1px solid',
         borderColor: outlineColor,
         backgroundColor: isDragOver ? theme.palette.tree.dragInIndicator : backgroundColor,
-        color: isDragOver ? theme.palette.text.primary : color,
+        color: isDragOver ? theme.palette.texts.primary : color,
     }),
     [
         backgroundColor,
         color,
         isDragOver,
         outlineColor,
-        theme.palette.text.primary,
+        theme.palette.texts.primary,
         theme.palette.tree.dragInIndicator,
     ]);
     const divStyle = useMemo(() => ({ fontSize }), [fontSize]);

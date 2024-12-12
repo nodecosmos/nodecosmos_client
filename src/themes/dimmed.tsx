@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { NodecosmosTheme } from './themes.types';
+import { PaletteColor } from '@mui/material';
 
 const theme: NodecosmosTheme = {
     shadows: {
@@ -38,23 +39,38 @@ const theme: NodecosmosTheme = {
         primary: {
             main: '#b2ff99', // sRGB hex color
             contrastText: 'rgba(0, 0, 0, 0.8)',
+            light: '',
+            dark: '',
         },
-        secondary: { main: '#c0cfff' },
+        secondary: {
+            main: '#c0cfff',
+            contrastText: 'rgba(0, 0, 0, 0.8)',
+            light: '',
+            dark: '',
+        },
         error: {
             main: '#e05480',
             contrastText: 'rgba(0, 0, 0, 0.8)',
+            light: '',
+            dark: '',
         },
         success: {
             main: '#a3f56d',
             contrastText: 'rgba(0, 0, 0, 0.8)',
+            light: '',
+            dark: '',
         },
         warning: {
             main: '#f6b634',
             contrastText: 'rgba(0, 0, 0, 0.8)',
+            light: '',
+            dark: '',
         },
         info: {
             main: '#56aef9',
             contrastText: 'rgba(0, 0, 0, 0.8)',
+            light: '',
+            dark: '',
         },
         toggle: {
             main: '#3a3f46',
@@ -79,7 +95,7 @@ const theme: NodecosmosTheme = {
             4: '#4c4f59',
             5: '#575a65',
         },
-        background: {
+        backgrounds: {
             1: '#26282c',
             2: '#2c2e32',
             3: '#36393f',
@@ -220,7 +236,7 @@ const theme: NodecosmosTheme = {
             blue: '#3adfff',
             red: '#ff626f',
         },
-        text: {
+        texts: {
             primary: '#f5f5f2',
             secondary: '#d9dce4',
             tertiary: '#838a9a',
@@ -250,6 +266,58 @@ const theme: NodecosmosTheme = {
             collaboratePurple: '#bb99ff',
             mergeGreen: '#a3ff48',
             foreground: '#838f9e',
+        },
+        // to satisfy the Palette type
+        common: {
+            black: '',
+            white: '',
+        },
+        contrastThreshold: 0,
+        tonalOffset: 0,
+        grey: {
+            50: '',
+            100: '',
+            200: '',
+            300: '',
+            400: '',
+            500: '',
+            600: '',
+            700: '',
+            800: '',
+            900: '',
+            A100: '',
+            A200: '',
+            A400: '',
+            A700: '',
+        },
+        text: {
+            primary: '#f5f5f2',
+            secondary: '#d9dce4',
+            disabled: '#565968',
+        },
+        divider: '',
+        action: {
+            active: '',
+            hover: '',
+            hoverOpacity: 0,
+            selected: '',
+            selectedOpacity: 0,
+            disabled: '',
+            disabledOpacity: 0,
+            disabledBackground: '',
+            focus: '',
+            focusOpacity: 0,
+            activatedOpacity: 0,
+        },
+        background: {
+            default: '',
+            paper: '#2d3035',
+        },
+        getContrastText (): string {
+            throw new Error('Function not implemented.');
+        },
+        augmentColor (): PaletteColor {
+            throw new Error('Function not implemented.');
         },
     },
 };

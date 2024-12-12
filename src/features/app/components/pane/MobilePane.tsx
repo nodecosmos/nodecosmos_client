@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material';
 import React, { useMemo } from 'react';
 
 export const MOBILE_PANE_HEIGHT = `calc(100% - ${HEADER_HEIGHT})`;
-const SX = { backgroundColor: 'background.1' };
+const SX = { backgroundColor: 'backgrounds.1' };
 
 export default function MobilePane({ rootId, page }: PaneProps) {
     const { PaneContext, CtxCreatorValue } = usePaneContextCreator({
@@ -32,7 +32,7 @@ export default function MobilePane({ rootId, page }: PaneProps) {
                 flexDirection="column"
                 sx={SX}
             >
-                <Typography variant="body2" color="text.secondary" textAlign="center" fontWeight="bold">
+                <Typography variant="body2" color="texts.secondary" textAlign="center" fontWeight="bold">
                     Select an object to view its details.
                 </Typography>
             </Box>

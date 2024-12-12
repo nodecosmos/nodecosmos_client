@@ -42,7 +42,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
             return (
                 <Link component={RouterLink} to={`/${params.value}`}>
                     <Box display="flex" alignItems="center">
-                        <Typography variant="body2" color="text.link" px={2} fontWeight="bold">
+                        <Typography variant="body2" color="texts.link" px={2} fontWeight="bold">
                             @{params.value}
                         </Typography>
                     </Box>
@@ -57,7 +57,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         flex: 1,
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
-                <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
+                <Typography variant="body2" color="texts.secondary" px={2} fontWeight="bold">
                     {params.value}
                 </Typography>
             );
@@ -70,7 +70,7 @@ const COLUMNS: GridColDef<ShowUser>[] = [
         flex: 1,
         renderCell: (params: GridRenderCellParams<ShowUser, string>) => {
             return (
-                <Typography variant="body2" color="text.secondary" px={2} fontWeight="bold">
+                <Typography variant="body2" color="texts.secondary" px={2} fontWeight="bold">
                     {params.value}
                 </Typography>
             );
@@ -136,7 +136,7 @@ export default function Editors() {
                 flex={0}
                 top={0}
                 zIndex={1}>
-                <Typography fontWeight="bold" color="text.secondary" px={4}>
+                <Typography fontWeight="bold" color="texts.secondary" px={4}>
                     Editors
                     <Chip
                         component="span"

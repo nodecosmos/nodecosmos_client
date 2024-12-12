@@ -1,0 +1,20 @@
+// sort alphabetically
+export enum EditorExtensions {
+    Blockquote,
+    Bold,
+    BulletList,
+    Code,
+    CodeBlock,
+    File,
+    HardBreak,
+    Heading,
+    Image,
+    Italic,
+    Link,
+    ListItem,
+    Markdown,
+    OrderedList,
+    Placeholder,
+    Strike,
+    TrailingNode,
+}

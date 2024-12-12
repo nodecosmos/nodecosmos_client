@@ -30,7 +30,7 @@ export default (theme: NodecosmosTheme) => ({
                 '.MuiButton-endIcon>*:nth-of-type(1)': { fontSize: 16 },
 
                 '&.SidebarMobileButton': {
-                    backgroundColor: theme.palette.background[7],
+                    backgroundColor: theme.palette.backgrounds[7],
                     color: theme.palette.toolbar.default,
                     padding: 0,
                 },
@@ -41,9 +41,9 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 '&.Mui-disabled': {
-                    color: theme.palette.text.secondary,
-                    WebkitTextFillColor: theme.palette.text.secondary,
-                    span: { color: theme.palette.text.disabled },
+                    color: theme.palette.texts.secondary,
+                    WebkitTextFillColor: theme.palette.texts.secondary,
+                    span: { color: theme.palette.texts.disabled },
                 },
                 '&.SidebarMobileButton': {
                     color: theme.palette.toolbar.default,

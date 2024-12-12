@@ -1,5 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { Palette, PaletteColor } from '@mui/material';
+
 export const TREE_COLORS_LEN = 6;
 
 type Shadow = string | 0;
@@ -39,7 +41,7 @@ interface Shadows {
     };
 }
 
-interface PaletteColors {
+interface CustomPaletteColor {
     main: string;
     contrastText?: string;
 }
@@ -72,138 +74,140 @@ interface Text {
     foreground: string;
 }
 
-interface Palette {
-    mode: 'light' | 'dark';
-    primary: PaletteColors;
-    secondary: PaletteColors;
-    error: PaletteColors;
-    success: PaletteColors;
-    warning: PaletteColors;
-    info: PaletteColors;
-    toggle: PaletteColors;
-    button: PaletteColors;
-    buttonContrast: PaletteColors;
-    merge: PaletteColors;
-    borders: {
-        1: string;
-        2: string;
-        3: string;
-        4: string;
-        5: string;
-    };
-    background: {
-        1: string;
-        2: string;
-        3: string;
-        4: string;
-        5: string;
-        6: string;
-        7: string;
-        8: string;
-        hover: string;
-        labels: {
-            orange: string;
+declare module '@mui/material/styles' {
+    interface Palette {
+        mode: 'light' | 'dark';
+        primary: PaletteColor;
+        secondary: PaletteColor;
+        error: PaletteColor;
+        success: PaletteColor;
+        warning: PaletteColor;
+        info: PaletteColor;
+        toggle: CustomPaletteColor;
+        button: CustomPaletteColor;
+        buttonContrast: CustomPaletteColor;
+        merge: CustomPaletteColor;
+        borders: {
+            1: string;
+            2: string;
+            3: string;
+            4: string;
+            5: string;
+        };
+        backgrounds: {
+            1: string;
+            2: string;
+            3: string;
+            4: string;
+            5: string;
+            6: string;
+            7: string;
+            8: string;
+            hover: string;
+            labels: {
+                orange: string;
+                red: string;
+                green: string;
+                green1: string;
+                blue: string;
+                purple: string;
+            };
+            list: {
+                defaultColor: string;
+                activeColor: string;
+            };
+            paper: string;
+            backdrop: string;
+        };
+        toolbar: {
             red: string;
             green: string;
-            green1: string;
             blue: string;
+            lightRed: string;
+            pink: string;
             purple: string;
+            yellow: string;
+            orange: string;
+            hover: string;
+            active: string;
+            default: string;
+            breadcrumbs: string;
         };
-        list: {
-            defaultColor: string;
-            activeColor: string;
+        tree: {
+            default: string;
+            backgrounds: TreeColor[];
+            defaultText: string;
+            selectedText: string;
+            hashtag: string;
+            defaultBorder: string;
+            dragInIndicator: string;
+            checkboxColor: string;
         };
-        paper: string;
-        backdrop: string;
-    };
-    toolbar: {
-        red: string;
-        green: string;
-        blue: string;
-        lightRed: string;
-        pink: string;
-        purple: string;
-        yellow: string;
-        orange: string;
-        hover: string;
-        active: string;
-        default: string;
-        breadcrumbs: string;
-    };
-    tree: {
-        default: string;
-        backgrounds: TreeColor[];
-        defaultText: string;
-        selectedText: string;
-        hashtag: string;
-        defaultBorder: string;
-        dragInIndicator: string;
-        checkboxColor: string;
-    };
-    workflow: {
-        default: string;
-        input: string;
-        background: string;
-        selectedInputColor: string;
-        defaultInputColor: string;
-        selectedLoopInputColor: string;
-        defaultLoopInputColor: string;
-        selectedBg: string;
-        selectedFsBorder: string;
-    };
-    markdownContent: {
-        canvas: string;
-        canvasBorder: string;
-        background: string;
-    };
-    markdownEditor: {
-        tagName: string;
-        string: string;
-        number: string;
-        attributeName: string;
-        className: string;
-        operator: string;
-        bracket: string;
-        caret: string;
-        heading: string;
-        emphasis: string;
-        quote: string;
-        meta: string;
-        link: string;
-        background: string;
-        foreground: string;
-        selection: string;
-        selectionMatch: string;
-        lineHighlight: string;
-        gutterBackground: string;
-        gutterForeground: string;
-        gutterActiveForeground: string;
-    };
+        workflow: {
+            default: string;
+            input: string;
+            background: string;
+            selectedInputColor: string;
+            defaultInputColor: string;
+            selectedLoopInputColor: string;
+            defaultLoopInputColor: string;
+            selectedBg: string;
+            selectedFsBorder: string;
+        };
+        markdownContent: {
+            canvas: string;
+            canvasBorder: string;
+            background: string;
+        };
+        markdownEditor: {
+            tagName: string;
+            string: string;
+            number: string;
+            attributeName: string;
+            className: string;
+            operator: string;
+            bracket: string;
+            caret: string;
+            heading: string;
+            emphasis: string;
+            quote: string;
+            meta: string;
+            link: string;
+            background: string;
+            foreground: string;
+            selection: string;
+            selectionMatch: string;
+            lineHighlight: string;
+            gutterBackground: string;
+            gutterForeground: string;
+            gutterActiveForeground: string;
+        };
 
-    diff: {
-        added: {
-            bg: string;
-            fg: string;
-        },
-        removed: {
-            bg: string;
-            fg: string;
-        },
-        edited: {
-            bg: string;
-            fg: string;
-        },
-        conflict: {
-            bg: string;
-            fg: string;
-        },
-    };
+        diff: {
+            added: {
+                bg: string;
+                fg: string;
+            },
+            removed: {
+                bg: string;
+                fg: string;
+            },
+            edited: {
+                bg: string;
+                fg: string;
+            },
+            conflict: {
+                bg: string;
+                fg: string;
+            },
+        };
 
-    logo: {
-        blue: string;
-        red: string;
-    };
-    text: Text;
+        logo: {
+            blue: string;
+            red: string;
+        };
+        texts: Text;
+    }
 }
 
 export interface NodecosmosTheme {

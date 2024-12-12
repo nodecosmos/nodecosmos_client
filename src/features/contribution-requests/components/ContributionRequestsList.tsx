@@ -71,7 +71,7 @@ const COLUMNS: GridColDef<ContributionRequest>[] = [
                             fontSize={14}
                             name={value.name}
                             src={value.profileImageUrl} />
-                        <Typography variant="body2" color="text.tertiary" px={2} fontWeight="bold">
+                        <Typography variant="body2" color="texts.tertiary" px={2} fontWeight="bold">
                             @{value.username}
                         </Typography>
                     </Box>

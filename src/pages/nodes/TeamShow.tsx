@@ -49,14 +49,14 @@ export default function TeamShow() {
                     size={32}
                     mr={1}
                     borderRadius={1.25}
-                    hoverColor="background.7"
-                    activeColor="background.7"
+                    hoverColor="backgrounds.7"
+                    activeColor="backgrounds.7"
                 >
                     <ToolbarItem
                         active={value === 0}
                         title="Invitations"
                         icon={faCalendarUsers}
-                        color="text.primary"
+                        color="texts.primary"
                         titleAsTooltip={false}
                         onClick={setInvitations}
                     />
@@ -64,7 +64,7 @@ export default function TeamShow() {
                         active={value === 1}
                         title="Editors"
                         icon={faUserPen}
-                        color="text.primary"
+                        color="texts.primary"
                         titleAsTooltip={false}
                         onClick={setEditors}
                     />
@@ -73,7 +73,7 @@ export default function TeamShow() {
             <Alert position="relative" mb={2} />
             <Box height={`calc(100% - ${HEADER_HEIGHT})`} overflow="auto" position="relative">
                 <Box borderBottom={1} borderColor="borders.3" p={4}>
-                    <Typography fontWeight="bold" color="text.secondary">
+                    <Typography fontWeight="bold" color="texts.secondary">
                         Author
                     </Typography>
                     <UserProfileLink id={node.owner.id} mt={2} />

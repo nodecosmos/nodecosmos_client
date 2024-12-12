@@ -21,7 +21,7 @@ const PANE_SX = {
 };
 
 const CONTAINER_SX = {
-    backgroundColor: 'background.1',
+    backgroundColor: 'backgrounds.1',
     borderColor: 'borders.4',
     borderRadius: 2,
     p: {
@@ -84,7 +84,7 @@ export default function PaneComments() {
     return (
         <Box sx={PANE_SX}>
             <Container>
-                <Typography variant="h5" color="text.secondary" mb={3}>
+                <Typography variant="h5" color="texts.secondary" mb={3}>
                     <Box component="span" color="tree.hashtag"><FontAwesomeIcon icon={faComments} /></Box>
                     <Box component="span" ml={2}>Comments</Box>
                 </Typography>

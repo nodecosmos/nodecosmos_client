@@ -39,17 +39,17 @@ function UserProfileLink({ id, mt = 0 }: UserProfileLinkProps) {
             </Link>
             <Box>
                 <Link component={RouterLink} to={`/${user.username}`}>
-                    <Typography variant="body2" color="text.primary" ml={1} fontWeight="bold">
+                    <Typography variant="body2" color="texts.primary" ml={1} fontWeight="bold">
                         {name}
                     </Typography>
                 </Link>
                 <Link
                     component={RouterLink}
                     to={`/${user.username}`}
-                    sx={{ '&:hover p': { color: 'text.link' } }}
+                    sx={{ '&:hover p': { color: 'texts.link' } }}
                 >
                     {user.username && (
-                        <Typography variant="body2" color="text.tertiary" ml={1}>
+                        <Typography variant="body2" color="texts.tertiary" ml={1}>
                             @
                             {user.username}
                         </Typography>

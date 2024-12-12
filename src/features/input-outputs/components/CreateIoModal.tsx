@@ -107,12 +107,12 @@ export default function CreateIoModal(props: CreateIoModalProps) {
             PaperProps={DIALOG_PAPER_PROPS}>
             <div className="DialogHeader no-io-close">
                 <div>
-                    <Typography variant="h6" color="text.primary" align="center" width="auto">
+                    <Typography variant="h6" color="texts.primary" align="center" width="auto">
                         <FontAwesomeIcon icon={faCodeFork} />
                         {title}
                     </Typography>
                 </div>
-                <Typography variant="subtitle1" color="text.secondary" mt={2} align="center" width={1}>
+                <Typography variant="subtitle1" color="texts.secondary" mt={2} align="center" width={1}>
                     {description}
                 </Typography>
 
@@ -140,7 +140,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
                                     endAdornment: loading ? <CircularProgress
                                         size={30}
                                         sx={{
-                                            color: 'text.secondary',
+                                            color: 'texts.secondary',
                                             mr: 2,
                                         }} /> : null,
                                 }}

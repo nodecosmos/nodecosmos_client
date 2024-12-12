@@ -58,7 +58,7 @@ function WorkflowStep({ index }: { index: number }) {
                     y="0"
                 >
                     <Box display="flex" height={1} alignItems="center" pl={2}>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="texts.secondary">
                             {wfStep.index + 1}
                         </Typography>
                         {hovered && (

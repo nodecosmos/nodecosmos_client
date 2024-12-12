@@ -72,8 +72,8 @@ export default function ContactUs() {
         <Container sx={SX} maxWidth="sm">
             <div>
                 <Alert position="relative" mb={2} />
-                <Typography variant="h2" color="text.secondary">Contact Us</Typography>
-                <Typography variant="body2" my={3} color="text.secondary">
+                <Typography variant="h2" color="texts.secondary">Contact Us</Typography>
+                <Typography variant="body2" my={3} color="texts.secondary">
                     Please fill out the form below and we will get back to you as soon as possible.
                 </Typography>
                 <Form<ContactUsForm>
@@ -135,7 +135,7 @@ export default function ContactUs() {
                                         component="a"
                                         target="_blank"
                                         variant="body2"
-                                        color="text.link"
+                                        color="texts.link"
                                         href="https://nodecosmos.com/privacy.html"
                                         className="mt-2 display-inline-flex"
                                     >

@@ -17,7 +17,7 @@ export default function ThreadShowHeader() {
         <MuiLink
             underline="hover"
             key="1"
-            color="text.tertiary"
+            color="texts.tertiary"
             component={Link}
             relative="route"
             to={`nodes/${thread.branchId}/${thread.objectId}/threads`}
@@ -29,7 +29,7 @@ export default function ThreadShowHeader() {
         ,
         <Typography
             variant="body2"
-            color="text.link"
+            color="texts.link"
             fontWeight="bold"
             p={0.5}
             px={2}
@@ -47,7 +47,7 @@ export default function ThreadShowHeader() {
                 <Breadcrumbs
                     aria-label="breadcrumb"
                     separator={(
-                        <Box color="text.tertiary" fontSize={14}>
+                        <Box color="texts.tertiary" fontSize={14}>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Box>
                     )}

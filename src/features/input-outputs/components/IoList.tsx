@@ -37,7 +37,7 @@ export default function IoList(props: Props) {
 
     return (
         <Box mt={2} maxHeight={MAX_HEIGHT} height={1} className="no-io-close overflow-auto">
-            <Typography variant="body2" fontWeight="bold" color="text.secondary" className="no-io-close overflow-auto">
+            <Typography variant="body2" fontWeight="bold" color="texts.secondary" className="no-io-close overflow-auto">
                 Existing Inputs
             </Typography>
             <Box
@@ -47,8 +47,8 @@ export default function IoList(props: Props) {
                 p={1}
                 borderRadius={2}
                 border={titleFromList ? 2 : 1}
-                borderColor={titleFromList ? 'text.link' : 'borders.3'}
-                sx={{ backgroundColor: 'background.4' }}>
+                borderColor={titleFromList ? 'texts.link' : 'borders.3'}
+                sx={{ backgroundColor: 'backgrounds.4' }}>
                 {
                     titlesToDisplay.map((title, idx) => (
                         <IoListItem

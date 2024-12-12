@@ -72,8 +72,8 @@ export default function ContributionRequestMainThread() {
             borderColor="borders.4"
         >
             <Box display="flex" alignItems="center">
-                <Typography color="text.secondary" variant="body1" fontWeight="bold">
-                    <Box component="span" color="text.tertiary">
+                <Typography color="texts.secondary" variant="body1" fontWeight="bold">
+                    <Box component="span" color="texts.tertiary">
                         <FontAwesomeIcon icon={faCodePullRequest} />
                     </Box>
                     <Box component="span" ml={1}>
@@ -84,8 +84,8 @@ export default function ContributionRequestMainThread() {
             </Box>
             <ContributionRequestDescription />
             <Box display="flex" alignItems="center" mb={4}>
-                <Typography color="text.secondary" variant="body1" fontWeight="bold">
-                    <Box component="span" color="text.tertiary">
+                <Typography color="texts.secondary" variant="body1" fontWeight="bold">
+                    <Box component="span" color="texts.tertiary">
                         <FontAwesomeIcon icon={faComments} />
                     </Box>
                     <Box component="span" ml={1}>

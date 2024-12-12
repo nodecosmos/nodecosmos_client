@@ -10,8 +10,8 @@ import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 
-const RemirrorEditor = React.lazy(
-    () => import('../../../../../common/components/editor/RemirrorEditor'),
+const Editor = React.lazy(
+    () => import('../../../../../common/components/editor/Editor'),
 );
 
 export default function PaneDescriptionEditor() {
@@ -66,7 +66,7 @@ export default function PaneDescriptionEditor() {
         <LazyLoadComponent>
             <Suspense fallback={<Loader />}>
                 <Box height={1}>
-                    <RemirrorEditor
+                    <Editor
                         markdown={markdown || ''}
                         onChange={handleChange}
                         base64={base64}
@@ -75,7 +75,7 @@ export default function PaneDescriptionEditor() {
                         wsAuthNodeBranchId={branchId}
                         wsAuthRootId={rootId}
                         editorOutline={0}
-                        editorBackgroundColor="background.5"
+                        editorBackgroundColor="backgrounds.5"
                         editorFocusBorderColor="toolbar.default"
                         editorClassName="fs-18"
                         fileObjectId={objectId}

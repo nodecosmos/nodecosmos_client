@@ -16,7 +16,7 @@ function NcLink(props: Props) {
             component={to ? Link : 'span'}
             to={to}
             variant="body2"
-            color="text.link"
+            color="texts.link"
             fontWeight="bold"
             p={0.5}
             px={2}

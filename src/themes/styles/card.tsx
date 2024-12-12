@@ -31,7 +31,7 @@ export default (theme: NodecosmosTheme) => ({
         '.CardHeader': {
             padding: 24,
             marginRight: 0,
-            '.Link': { '&:hover h6': { color: theme.palette.text.link } },
+            '.Link': { '&:hover h6': { color: theme.palette.texts.link } },
             zIndex: 1,
         },
         '.CardContent': {
@@ -45,7 +45,7 @@ export default (theme: NodecosmosTheme) => ({
 
         '.Link': {
             '&:hover h2': {
-                color: theme.palette.text.link,
+                color: theme.palette.texts.link,
                 textDecoration: 'underline',
             },
         },

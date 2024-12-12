@@ -8,20 +8,20 @@ export default (theme: NodecosmosTheme) => ({
                 ':-webkit-autofill': {
                     '&, &:hover, &:focus': {
                         borderRadius: 0,
-                        boxShadow: `0 0 0px 1000px ${theme.palette.background[6]} inset`,
-                        WebkitTextFillColor: theme.palette.text.primary,
+                        boxShadow: `0 0 0px 1000px ${theme.palette.backgrounds[6]} inset`,
+                        WebkitTextFillColor: theme.palette.texts.primary,
                     },
                 },
-                caretColor: theme.palette.text.tertiary,
+                caretColor: theme.palette.texts.tertiary,
                 fontSize: '1rem',
             },
             root: {
                 borderRadius: 4,
-                background: theme.palette.background[6],
+                background: theme.palette.backgrounds[6],
                 '.MuiOutlinedInput-input': {
                     '&.Mui-disabled': {
-                        color: theme.palette.text.secondary,
-                        WebkitTextFillColor: theme.palette.text.secondary,
+                        color: theme.palette.texts.secondary,
+                        WebkitTextFillColor: theme.palette.texts.secondary,
                     },
                     '&.MuiInputBase-inputMultiline': {
                         padding: 0,
@@ -42,7 +42,7 @@ export default (theme: NodecosmosTheme) => ({
                     background: 'none',
                     borderColor: theme.palette.borders[5],
                 },
-                '.MuiInputAdornment-root': { color: theme.palette.text.foreground },
+                '.MuiInputAdornment-root': { color: theme.palette.texts.foreground },
             },
         },
     },
@@ -74,9 +74,9 @@ export default (theme: NodecosmosTheme) => ({
             option: {
                 padding: 16,
 
-                '&:hover': { backgroundColor: theme.palette.background.hover },
+                '&:hover': { backgroundColor: theme.palette.backgrounds.hover },
             },
-            popupIndicator: { color: theme.palette.text.tertiary },
+            popupIndicator: { color: theme.palette.texts.tertiary },
         },
     },
 
@@ -91,7 +91,7 @@ export default (theme: NodecosmosTheme) => ({
                 fontWeight: 500,
                 background: 'none',
                 backgroundColor: 'none',
-                color: theme.palette.text.tertiary,
+                color: theme.palette.texts.tertiary,
                 height: '100%',
                 position: 'absolute',
                 transform: 'none',
@@ -100,7 +100,7 @@ export default (theme: NodecosmosTheme) => ({
                 '&.MuiInputLabel-shrink': {
                     marginTop: 6,
                     transform: 'scale(0.8)',
-                    color: theme.palette.text.tertiary,
+                    color: theme.palette.texts.tertiary,
                 },
             },
         },
@@ -113,16 +113,16 @@ export default (theme: NodecosmosTheme) => ({
                 marginRight: 8,
                 marginLeft: 0,
             },
-            switchBase: { color: theme.palette.background[8] },
+            switchBase: { color: theme.palette.backgrounds[8] },
             track: {
                 borderRadius: 16,
-                backgroundColor: theme.palette.background[1],
+                backgroundColor: theme.palette.backgrounds[1],
                 opacity: 1,
             },
         },
     },
 
-    MuiCheckbox: { styleOverrides: { root: { '&:hover': { backgroundColor: theme.palette.background[6] } } } },
+    MuiCheckbox: { styleOverrides: { root: { '&:hover': { backgroundColor: theme.palette.backgrounds[6] } } } },
 
     MuiInputAdornment: { styleOverrides: { root: { marginRight: 0 } } },
 
@@ -132,9 +132,9 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 fontSize: '1rem',
-                color: theme.palette.text.secondary,
+                color: theme.palette.texts.secondary,
                 fontWeight: 700,
-                '&.Mui-focused': { color: theme.palette.text.secondary },
+                '&.Mui-focused': { color: theme.palette.texts.secondary },
             },
         },
     },
@@ -150,7 +150,7 @@ export default (theme: NodecosmosTheme) => ({
             },
             label: {
                 fontSize: '0.875rem',
-                color: theme.palette.text.secondary,
+                color: theme.palette.texts.secondary,
             },
         },
     },

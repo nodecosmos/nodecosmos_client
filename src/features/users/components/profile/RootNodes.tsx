@@ -30,7 +30,7 @@ export default function RootNodes() {
 
     return (
         <div>
-            <Typography variant="h2" color="text.secondary">
+            <Typography variant="h2" color="texts.secondary">
                 Root Nodes
                 <Chip
                     className="ml-1"
@@ -40,7 +40,7 @@ export default function RootNodes() {
                     size="small"
                 />
             </Typography>
-            <Typography variant="body1" color="text.secondary" my={2}>
+            <Typography variant="body1" color="texts.secondary" my={2}>
                 Root nodes are the top-level nodes in the tree.
             </Typography>
             {

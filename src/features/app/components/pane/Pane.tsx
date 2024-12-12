@@ -39,10 +39,10 @@ export default function Pane({ rootId, page }: PaneProps) {
                 flexDirection="column"
                 className="background-5"
             >
-                <Typography variant="h6" color="text.secondary" textAlign="center">
+                <Typography variant="h6" color="texts.secondary" textAlign="center">
                     Select an object to view its details.
                 </Typography>
-                <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
+                <Typography variant="h5" color="texts.secondary" textAlign="center" mt={1}>
                     ¯\_(ツ)_/¯
                 </Typography>
             </Box>

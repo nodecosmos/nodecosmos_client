@@ -16,7 +16,7 @@ export default (theme: NodecosmosTheme) => ({
         padding: '0!important',
     },
     '.uppy-Dashboard-AddFiles': { border: 'none!important' },
-    '.uppy-Dashboard-AddFiles-title': { color: `${theme.palette.text.secondary}!important` },
+    '.uppy-Dashboard-AddFiles-title': { color: `${theme.palette.texts.secondary}!important` },
     '.uppy-Dashboard-poweredBy, .uppy-DashboardContent-title': { display: 'none!important' },
     '.uppy-Dashboard-browse': {
         color: `${theme.palette.button.contrastText}!important`,

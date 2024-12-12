@@ -124,7 +124,7 @@ export default function ContributionRequestWorkflow() {
                     boxShadow="left.2"
                     borderLeft={1}
                     style={resizerStyle}
-                    sx={{ backgroundColor: 'background.5' }}
+                    sx={{ backgroundColor: 'backgrounds.5' }}
                 >
                     <Pane rootId={rootId} page={PanePage.Workflow} />
                 </Box>

@@ -17,6 +17,7 @@ export default [
             globals: {
                 ...globals.browser,
                 ...globals.node,
+                ...globals.serviceworker,
                 grecaptcha: 'readonly',
             },
         },
@@ -150,6 +151,7 @@ export default [
             'react/jsx-no-bind': 'error',
             'react/jsx-no-constructed-context-values': 'error',
             'react-hooks/exhaustive-deps': 'error',
+            'react-hooks/rules-of-hooks': 'error',
             'padded-blocks': ['error', 'never'],
             semi: ['error', 'always'],
             'semi-spacing': ['error', {

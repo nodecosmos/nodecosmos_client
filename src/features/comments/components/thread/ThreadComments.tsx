@@ -11,9 +11,9 @@ const EXP_SX = {
     p: 1,
     svg: {
         marginRight: 1,
-        color: 'text.tertiary',
+        color: 'texts.tertiary',
     },
-    button: { color: 'text.tertiary' },
+    button: { color: 'texts.tertiary' },
 };
 
 const ExpContainer = ({ children, withBorder }: {children: React.ReactNode, withBorder?: boolean}) => {

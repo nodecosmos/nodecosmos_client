@@ -93,7 +93,7 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
             '.MuiInputBase-adornedEnd': { mr: 1 },
         },
         '.MuiInputBase-input': {
-            color: 'text.secondary',
+            color: 'texts.secondary',
             fontWeight: inputFontWeight,
             fontSize: inputFontSize,
             px: 1,

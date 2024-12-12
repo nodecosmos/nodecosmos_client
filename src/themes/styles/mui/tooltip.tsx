@@ -5,12 +5,12 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             tooltip: {
                 fontSize: 14,
-                backgroundColor: theme.palette.background[1],
-                color: theme.palette.text.contrast,
+                backgroundColor: theme.palette.backgrounds[1],
+                color: theme.palette.texts.contrast,
                 '.TooltipTitle': {
                     padding: '8px',
                     margin: '-8px',
-                    backgroundColor: theme.palette.background[1],
+                    backgroundColor: theme.palette.backgrounds[1],
                 },
             },
             tooltipPlacementTop: { marginBottom: '8px!important' },

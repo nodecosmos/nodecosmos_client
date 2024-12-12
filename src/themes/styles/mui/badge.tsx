@@ -5,7 +5,7 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             badge: {
                 backgroundColor: theme.palette.toolbar.lightRed,
-                color: theme.palette.text.primary,
+                color: theme.palette.texts.primary,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',

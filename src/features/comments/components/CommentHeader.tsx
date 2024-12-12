@@ -30,13 +30,13 @@ export default function CommentHeader() {
                                 <Typography
                                     className="overflow-hidden ellipsis"
                                     variant="body1"
-                                    color="text.primary"
+                                    color="texts.primary"
                                     fontWeight="bold">
                                     {author.username}
                                 </Typography>
                             </Link>
                         </Box>
-                        <Typography variant="subtitle1" color="text.tertiary" ml={1}>
+                        <Typography variant="subtitle1" color="texts.tertiary" ml={1}>
                             {timeSince(createdAt)}
                         </Typography>
                         {
@@ -53,7 +53,7 @@ export default function CommentHeader() {
                     <Box display={DISPLAY_XS_SX}>
                         <Link component={RouterLink} to={`/${author.username}`}>
                             {author.username && (
-                                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                                <Typography variant="body2" color="texts.primary" fontWeight="bold">
                                     {author.username}
                                 </Typography>
                             )}

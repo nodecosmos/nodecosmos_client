@@ -1,21 +1,25 @@
+
 import useBranchContext from '../../../../features/branch/hooks/useBranchContext';
 import { useEditorContext } from '../../../hooks/editor/useEditorContext';
-import { RemirrorExtensions } from '../../../hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import UppyUploadFileModal from '../../upload/UploadFileModal';
 import { faFileArrowUp } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
-import { useCommands } from '@remirror/react';
 import React, { useCallback, useMemo } from 'react';
+
+interface Attachment {
+    url: string;
+    filename: string;
+}
 
 export default function File() {
     const {
         nodeId, branchId, originalId,
     } = useBranchContext();
-    const { fileObjectId } = useEditorContext();
-    const commands = useCommands<RemirrorExtensions>();
+    const { fileObjectId, editorView } = useEditorContext();
     const [fileDialogOpen, openFileDialog, closeFileDialog] = useBooleanStateValue();
+
     const fileUploadParams = useMemo(() => ({
         nodeId,
         rootId: originalId,
@@ -23,16 +27,25 @@ export default function File() {
         objectId: fileObjectId,
     }), [branchId, nodeId, originalId, fileObjectId]);
 
-    const handleFileDialogClose = useCallback((attachment?: { url: string; filename: string }) => {
-        if (attachment) {
-            commands.insertMarkdown(
-                 
-                `<a href="${attachment.url}">${attachment.filename}</a>`,
-            );
+    const handleFileDialogClose = useCallback((attachment?: Attachment) => {
+        if (attachment && editorView) {
+            const { state, dispatch } = editorView!;
+            const { schema } = state;
+
+            const { link } = schema.marks;
+            if (!link) return false;
+
+            const linkMark = link.create({ href: attachment.url });
+            const textNode = schema.text(attachment.filename, [linkMark]);
+
+            const tr = state.tr.replaceSelectionWith(textNode, false);
+            dispatch(tr);
+
+            editorView!.focus();
         }
 
         closeFileDialog();
-    }, [closeFileDialog, commands]);
+    }, [closeFileDialog, editorView]);
 
     return (
         <>

@@ -29,7 +29,7 @@ export default (theme: NodecosmosTheme) => ({
             borderBottom: 1,
         },
         '.CoverImageUploadButton': {
-            backgroundColor: theme.palette.background[1],
+            backgroundColor: theme.palette.backgrounds[1],
             color: theme.palette.button.contrastText,
             padding: '8px 16px',
             transition: 'opacity 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
@@ -40,7 +40,7 @@ export default (theme: NodecosmosTheme) => ({
         },
         '.DeleteCoverImageButton': {
             zIndex: 1,
-            backgroundColor: theme.palette.background[1],
+            backgroundColor: theme.palette.backgrounds[1],
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

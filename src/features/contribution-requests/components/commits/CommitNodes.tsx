@@ -33,7 +33,7 @@ export default function CommitNodes(props: Props) {
 
     return (
         <Box p={4} pl={3} borderBottom={1} borderColor="borders.3">
-            <Typography fontWeight="bold" color="text.secondary" ml={1}>
+            <Typography fontWeight="bold" color="texts.secondary" ml={1}>
                 {title}
                 <Chip
                     component="span"

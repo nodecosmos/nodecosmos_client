@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { NodecosmosTheme } from './themes.types';
+import { PaletteColor } from '@mui/material';
 
 const theme: NodecosmosTheme = {
     shadows: {
@@ -38,28 +39,43 @@ const theme: NodecosmosTheme = {
         primary: {
             main: '#a7ff87',
             contrastText: 'rgba(0, 0, 0, 0.7)',
+            light: '',
+            dark: '',
         },
 
-        secondary: { main: '#afbcef' },
+        secondary: {
+            main: '#afbcef',
+            light: '',
+            dark: '',
+            contrastText: '',
+        },
 
         error: {
             main: '#d94376',
             contrastText: 'rgba(0, 0, 0, 0.7)',
+            light: '',
+            dark: '',
         },
 
         success: {
             main: '#9edf5c',
             contrastText: 'rgba(0, 0, 0, 0.7)',
+            light: '',
+            dark: '',
         },
 
         warning: {
             main: '#f5a623',
             contrastText: 'rgba(0, 0, 0, 0.7)',
+            light: '',
+            dark: '',
         },
 
         info: {
             main: '#459ef8',
             contrastText: 'rgba(0, 0, 0, 0.7)',
+            light: '',
+            dark: '',
         },
 
         toggle: {
@@ -90,7 +106,7 @@ const theme: NodecosmosTheme = {
             5: '#636a80',
         },
 
-        background: {
+        backgrounds: {
             1: '#111112',
             2: '#131314',
             3: '#232526',
@@ -243,7 +259,7 @@ const theme: NodecosmosTheme = {
             red: '#e63a69',
         },
 
-        text: {
+        texts: {
             primary: '#ebe7e7',
             secondary: '#e3e3e3',
             tertiary: '#747982',
@@ -273,6 +289,58 @@ const theme: NodecosmosTheme = {
             collaboratePurple: '#a987df',
             mergeGreen: '#91df42',
             foreground: '#747a8e',
+        },
+        // to satisfy the Palette type
+        common: {
+            black: '',
+            white: '',
+        },
+        contrastThreshold: 0,
+        tonalOffset: 0,
+        grey: {
+            50: '',
+            100: '',
+            200: '',
+            300: '',
+            400: '',
+            500: '',
+            600: '',
+            700: '',
+            800: '',
+            900: '',
+            A100: '',
+            A200: '',
+            A400: '',
+            A700: '',
+        },
+        text: {
+            primary: '',
+            secondary: '',
+            disabled: '',
+        },
+        divider: '',
+        action: {
+            active: '',
+            hover: '',
+            hoverOpacity: 0,
+            selected: '',
+            selectedOpacity: 0,
+            disabled: '',
+            disabledOpacity: 0,
+            disabledBackground: '',
+            focus: '',
+            focusOpacity: 0,
+            activatedOpacity: 0,
+        },
+        background: {
+            default: '',
+            paper: '',
+        },
+        getContrastText (): string {
+            throw new Error('Function not implemented.');
+        },
+        augmentColor (): PaletteColor {
+            throw new Error('Function not implemented.');
         },
     },
 };

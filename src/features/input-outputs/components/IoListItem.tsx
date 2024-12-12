@@ -33,10 +33,10 @@ export default function IoListItem({
                 borderColor: 'transparent',
                 borderRadius: 1,
                 '&:hover': {
-                    backgroundColor: noHover ? null : 'background.hover',
+                    backgroundColor: noHover ? null : 'backgrounds.hover',
                     borderColor: 'borders.4',
-                    color: 'background.hoverColor',
-                    svg: { color: 'background.hoverColor' },
+                    color: 'backgrounds.hoverColor',
+                    svg: { color: 'backgrounds.hoverColor' },
                 },
             }}
         >
