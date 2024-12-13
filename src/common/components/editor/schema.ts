@@ -1,5 +1,5 @@
 import {
-    MarkSpec, NodeSpec, Schema, Node,
+    MarkSpec, NodeSpec, Schema,
 } from 'prosemirror-model';
 
 const doc = { content: 'block+' };
@@ -163,10 +163,8 @@ const html: NodeSpec = {
             getAttrs: (dom: HTMLElement) => ({ content: dom.innerHTML }),
         },
     ],
-    toDOM(node: Node) {
-        const dom = document.createElement('div');
-        dom.innerHTML = node.attrs.content; // Parse and render the HTML content
-        return dom;
+    toDOM() {
+        return ['div', { class: 'html-content' }, 0];
     },
 };
 
@@ -174,10 +172,12 @@ const htmlInline = {
     inline: true,
     group: 'inline',
     attrs: { content: { default: '' } },
-    parseDOM: [{
-        tag: 'span.html-inline-content',
-        getAttrs: (dom: HTMLElement) => ({ content: dom.innerHTML }),
-    }],
+    parseDOM: [
+        {
+            tag: 'span.html-inline-content',
+            getAttrs: (dom: HTMLElement) => ({ content: dom.innerHTML }),
+        },
+    ],
 };
 
 // Inline marks

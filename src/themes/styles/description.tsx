@@ -15,7 +15,7 @@ export default (theme: NodecosmosTheme) => ({
             margin: 0,
             backgroundColor: theme.palette.markdownContent.canvas,
             borderLeft: '6px solid',
-            padding: '12px 6px',
+            padding: 12,
             borderColor: theme.palette.markdownContent.canvasBorder,
             marginBlockEnd: '1em',
         },

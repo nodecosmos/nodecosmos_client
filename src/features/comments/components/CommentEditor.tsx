@@ -1,4 +1,5 @@
 import DefaultButton from '../../../common/components/buttons/DefaultButton';
+import { ContentType } from '../../../common/components/editor/Editor';
 import { EditorExtensions } from '../../../common/components/editor/types';
 import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
@@ -254,7 +255,8 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                         width={1}
                     >
                         <Editor
-                            markdown={content}
+                            content={content}
+                            contentType={ContentType.HTML}
                             onChange={handleChange}
                             extensions={ENABLED_EXTENSIONS}
                             p={1}

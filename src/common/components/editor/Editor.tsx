@@ -1,5 +1,7 @@
 import EditorContainer from './EditorContainer';
 import EditorToolbar from './EditorToolbar';
+import { buildInputRules } from './inputRules';
+import { buildKeymap } from './keymap';
 import markdownParser from './markdown/parser';
 import markdownSerializer from './markdown/serializer';
 import schema from './schema';
@@ -9,7 +11,7 @@ import { useEditorContextCreator } from '../../hooks/editor/useEditorContext';
 import useYDoc from '../../hooks/editor/useYDoc';
 import { baseKeymap } from 'prosemirror-commands';
 import { keymap } from 'prosemirror-keymap';
-import { DOMSerializer } from 'prosemirror-model';
+import { DOMSerializer, DOMParser } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, { useEffect, useRef } from 'react';
@@ -17,12 +19,18 @@ import * as Y from 'yjs';
 import 'prosemirror-view/style/prosemirror.css';
 import 'prosemirror-gapcursor/style/gapcursor.css';
 
+export enum ContentType {
+    Markdown,
+    HTML,
+    Base64YDoc,
+}
+
 export interface EditorProps {
-    markdown: string;
+    content: string;
+    contentType: ContentType;
     onChange: (html: string, markdown: string, uint8ArrayState: Uint8Array | null) => void;
     fileObjectId: UUID;
     isRealTime?: boolean;
-    base64?: string | null;
     wsRoomId?: UUID;
     wsAuthNodeId?: UUID;
     wsAuthNodeBranchId?: UUID;
@@ -47,11 +55,11 @@ export default function Editor(props: EditorProps) {
     const editorViewRef = useRef<EditorView | null>(null); // Ref to store the EditorView
     const [editorView, setEditorView] = React.useState<EditorView | null>(null);
     const {
-        markdown,
+        content,
+        contentType,
         onChange,
         fileObjectId,
         isRealTime,
-        base64,
         wsRoomId,
         wsAuthNodeId,
         wsAuthNodeBranchId,
@@ -93,7 +101,7 @@ export default function Editor(props: EditorProps) {
 
     const y = useYDoc({
         isRealTime,
-        base64,
+        base64: content,
         wsAuthNodeId,
         wsAuthNodeBranchId,
         wsAuthRootId,
@@ -119,18 +127,24 @@ export default function Editor(props: EditorProps) {
         if (!y.docNode && isRealTime) return;
 
         let doc;
-
         if (isRealTime) {
             doc = y.docNode;
+        } else if (contentType === ContentType.Markdown) {
+            doc = markdownParser.parse(content);
         } else {
-            doc = markdownParser.parse(markdown);
+            const parser = DOMParser.fromSchema(schema);
+            let div = document.createElement('div');
+            div.innerHTML = content;
+            doc = parser.parse(div);
         }
 
         const state = EditorState.create({
             doc,
             schema,
             plugins: [
+                keymap(buildKeymap(schema)),
                 keymap(baseKeymap),
+                buildInputRules(schema),
                 ...y.plugins,
             ],
         });

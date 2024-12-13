@@ -4,7 +4,7 @@ import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { Box, useTheme } from '@mui/material';
 import React, {
-    useCallback, useMemo, useRef, 
+    useCallback, useMemo, useRef,
 } from 'react';
 
 interface Props {
@@ -114,6 +114,7 @@ export default function EditorContainer({ children }: Props) {
     const handleClick = useCallback((e: React.MouseEvent) => {
         if (e.target !== e.currentTarget) return;
         if (!editorView) return;
+
         editorView.focus();
     }, [editorView]);
 

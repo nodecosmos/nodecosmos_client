@@ -1,3 +1,4 @@
+import { ContentType } from '../../../../common/components/editor/Editor';
 import { EditorExtensions } from '../../../../common/components/editor/types';
 import Loader from '../../../../common/components/Loader';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
@@ -101,9 +102,10 @@ export default function Bio() {
                             borderColor="borders.1"
                             borderRadius={2}>
                             <Editor
+                                content={user.bio}
+                                contentType={ContentType.HTML}
                                 fileObjectId={user.id}
                                 onBlur={closeBioEditor}
-                                markdown={user.bio}
                                 onChange={handleBio}
                                 extensions={ENABLED_EXTENSIONS}
                                 p={1}

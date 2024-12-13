@@ -49,7 +49,6 @@ export default new MarkdownParser(schema, md, {
         }),
     },
     hardbreak: { node: 'hardBreak' },
-
     em: { mark: 'italic' },
     strong: { mark: 'bold' },
     link: {
@@ -72,10 +71,9 @@ export default new MarkdownParser(schema, md, {
         noCloseToken: true,
     },
     html_inline: {
-        block: 'htmlInline',
+        node: 'htmlInline',
         getAttrs: (token) => {
             return { content: token.content };
         },
-        noCloseToken: true,
     },
 });

@@ -1,3 +1,4 @@
+import { ContentType } from '../../../common/components/editor/Editor';
 import { EditorExtensions } from '../../../common/components/editor/types';
 import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
@@ -129,7 +130,8 @@ export default function ContributionRequestDescription() {
                                 overflow="hidden"
                             >
                                 <Editor
-                                    markdown={description ?? ''}
+                                    content={description || ''}
+                                    contentType={ContentType.HTML}
                                     onChange={handleChange}
                                     onBlur={closeEditor}
                                     extensions={EXTENSIONS}
