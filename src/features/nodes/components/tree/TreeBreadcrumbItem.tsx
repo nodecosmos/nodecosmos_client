@@ -32,7 +32,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
         <div className="BreadcrumbItem">
             <Tooltip title="select">
                 <Link
-                    color="text.tertiary"
+                    color="texts.tertiary"
                     className={`tree-nested-color-hover-${index % TREE_COLORS_LEN}`}
                     onClick={onClick}
                     variant="body2">

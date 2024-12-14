@@ -70,15 +70,15 @@ export default function Profile() {
                         name={user.username} />
                 </Box>
                 <Box display="flex" alignItems="center" flexDirection="column" width={1}>
-                    <Typography variant="h4" color="text.primary" fontWeight="bold" mt={1}>
+                    <Typography variant="h4" color="texts.primary" fontWeight="bold" mt={1}>
                         {user.firstName} {user.lastName}
                     </Typography>
                     <Box display="flex" alignItems="center" mt={1}>
-                        <Typography variant="h6" color="text.tertiary">
+                        <Typography variant="h6" color="texts.tertiary">
                             @
                             {user.username}
                         </Typography>
-                        <Typography color="text.tertiary" ml={1}>
+                        <Typography color="texts.tertiary" ml={1}>
                             {toLocalTime(user.createdAt.toString())}
                         </Typography>
                     </Box>
@@ -86,14 +86,14 @@ export default function Profile() {
                     {
                         currentUser && isCurrentUser && (
                             <>
-                                <Typography variant="body2" color="text.link" fontWeight="bold" mt={1}>
+                                <Typography variant="body2" color="texts.link" fontWeight="bold" mt={1}>
                                     {currentUser.email}
                                     <Box
                                         component="span"
-                                        color="text.tertiary"> - visible only to you
+                                        color="texts.tertiary"> - visible only to you
                                     </Box>
                                 </Typography>
-                                <Typography variant="caption" color="text.tertiary">
+                                <Typography variant="caption" color="texts.tertiary">
 
                                 </Typography>
                             </>

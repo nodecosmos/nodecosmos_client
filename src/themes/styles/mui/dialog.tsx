@@ -17,12 +17,10 @@ export default (theme: NodecosmosTheme) => ({
                         marginBottom: 8,
                     },
                     svg: {
-                        color: theme.palette.text.tertiary,
+                        color: theme.palette.texts.tertiary,
                         marginRight: 12,
                     },
-                    '@media (max-width: 600px)': {
-                        padding: 8,
-                    },
+                    '@media (max-width: 600px)': { padding: 8 },
                 },
                 '.CloseModalButton': {
                     display: 'flex',
@@ -33,7 +31,7 @@ export default (theme: NodecosmosTheme) => ({
                     right: 16,
                     padding: 0,
                     svg: {
-                        color: theme.palette.text.tertiary,
+                        color: theme.palette.texts.tertiary,
                         fontSize: 18,
                     },
 
@@ -65,9 +63,7 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 padding: '16px 24px',
-                '@media (max-width: 600px)': {
-                    padding: '8px 12px',
-                },
+                '@media (max-width: 600px)': { padding: '8px 12px' },
             },
         },
     },

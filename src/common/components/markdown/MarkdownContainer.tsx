@@ -61,8 +61,8 @@ export default function MarkdownContainer({ children }: { children: React.ReactN
             },
             '.cm-addCommentButton': {
                 left: 31,
-                color: 'text.primary',
-                backgroundColor: 'text.collaboratePurple',
+                color: 'texts.primary',
+                backgroundColor: 'texts.collaboratePurple',
                 minHeight: 23,
                 borderRadius: 1,
                 boxShadow: 'buttons.1',

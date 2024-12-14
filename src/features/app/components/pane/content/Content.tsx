@@ -40,10 +40,10 @@ export default function Content() {
                 justifyContent="center"
                 flexDirection="column"
             >
-                <Typography variant="h6" color="text.secondary" textAlign="center">
+                <Typography variant="h6" color="texts.secondary" textAlign="center">
                     Temporary object. Add title to initialize it.
                 </Typography>
-                <Typography variant="h5" color="text.secondary" textAlign="center" mt={1}>
+                <Typography variant="h5" color="texts.secondary" textAlign="center" mt={1}>
                     ¯\_(ツ)_/¯
                 </Typography>
             </Box>

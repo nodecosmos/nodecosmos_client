@@ -39,7 +39,7 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
                 width={DRAWER_WIDTH}
                 height={1}
             >
-                <Typography variant="h5" color="text.secondary" mx={4} mb={4}>
+                <Typography variant="h5" color="texts.secondary" mx={4} mb={4}>
                     <FontAwesomeIcon icon={faBell} />
                     <Box component="span" ml={2}>Notifications</Box>
                     <Box component="span" ml={2}>

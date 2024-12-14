@@ -32,7 +32,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                             icon={faCodePullRequest}
                         />
                     </Box>
-                    <Typography variant="caption" color="text.tertiary">
+                    <Typography variant="caption" color="texts.tertiary">
                         {abbreviateNumber(node.contributionRequestsCount || 0)}
                     </Typography>
                 </div>
@@ -44,7 +44,7 @@ export default function NodeCardActions({ node }: {node: IndexNode}) {
                             icon={faUserGroup}
                         />
                     </Box>
-                    <Typography variant="caption" color="text.tertiary">
+                    <Typography variant="caption" color="texts.tertiary">
                         {abbreviateNumber(node.threadsCount || 0)}
                     </Typography>
                 </div>

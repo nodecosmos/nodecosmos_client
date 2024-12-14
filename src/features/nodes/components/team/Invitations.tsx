@@ -50,7 +50,7 @@ export default function Invitations() {
 
     return (
         <Box p={4} borderBottom={1} borderColor="borders.3">
-            <Typography fontWeight="bold" color="text.secondary">
+            <Typography fontWeight="bold" color="texts.secondary">
                 Pending Invitations
                 <Chip
                     component="span"

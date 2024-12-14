@@ -45,7 +45,7 @@ export default function Zoom() {
                     </IconButton>
                 </Tooltip>
                 <Typography
-                    color="text.tertiary"
+                    color="texts.tertiary"
                     textAlign="center"
                     width={24}
                 >

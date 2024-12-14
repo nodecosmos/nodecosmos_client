@@ -5,13 +5,11 @@ export default (theme: NodecosmosTheme) => ({
         styleOverrides: {
             root: {
                 '&.NcAvatar': {
-                    color: theme.palette.text.primary,
-                    backgroundColor: theme.palette.background[8],
+                    color: theme.palette.texts.primary,
+                    backgroundColor: theme.palette.backgrounds[8],
                     cursor: 'pointer',
 
-                    '&.has-image': {
-                        backgroundColor: 'transparent',
-                    },
+                    '&.has-image': { backgroundColor: 'transparent' },
 
                     '&.size-25': {
                         width: 25,

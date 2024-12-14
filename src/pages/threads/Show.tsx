@@ -73,7 +73,7 @@ export default function Show() {
         <Box my={4}>
             <Container>
                 <Alert position="relative" mb={2} />
-                <Typography variant="h5" color="text.secondary" mb={2} mx={2}>
+                <Typography variant="h5" color="texts.secondary" mb={2} mx={2}>
                     <FontAwesomeIcon icon={faMessageBot} />
                     <Box component="span" ml={2}>{thread.title}</Box>
                 </Typography>

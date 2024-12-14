@@ -27,7 +27,7 @@ export default function Activity() {
                         <Box
                             p={1.5}
                             borderRadius={2}
-                            color="text.secondary"
+                            color="texts.secondary"
                             fontWeight={700}>
                             No Activity
                         </Box>

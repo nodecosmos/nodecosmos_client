@@ -18,7 +18,7 @@ export default function ContributionRequestShowHeader() {
         <MuiLink
             underline="hover"
             key="1"
-            color="text.tertiary"
+            color="texts.tertiary"
             component={Link}
             relative="route"
             to={`nodes/${cr.rootId}/${cr.nodeId}/contribution_requests`}
@@ -30,7 +30,7 @@ export default function ContributionRequestShowHeader() {
         ,
         <Typography
             variant="body2"
-            color="text.link"
+            color="texts.link"
             fontWeight="bold"
             p={0.5}
             px={2}
@@ -48,7 +48,7 @@ export default function ContributionRequestShowHeader() {
                 <Breadcrumbs
                     aria-label="breadcrumb"
                     separator={(
-                        <Box color="text.tertiary" fontSize={14}>
+                        <Box color="texts.tertiary" fontSize={14}>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Box>
                     )}
@@ -70,7 +70,7 @@ export default function ContributionRequestShowHeader() {
                         svg: { color: 'diff.added.fg' },
                     }}>
                     <FontAwesomeIcon icon={faCircle} size="2xs" />
-                    <Typography ml={1} variant="caption" color="text.tertiary">Created</Typography>
+                    <Typography ml={1} variant="caption" color="texts.tertiary">Created</Typography>
                 </Box>
                 <Box
                     display="flex"
@@ -78,7 +78,7 @@ export default function ContributionRequestShowHeader() {
                     ml={2}
                     sx={{ svg: { color: 'diff.removed.fg' } }}>
                     <FontAwesomeIcon icon={faCircle} size="2xs" />
-                    <Typography ml={1} variant="caption" color="text.tertiary">Removed</Typography>
+                    <Typography ml={1} variant="caption" color="texts.tertiary">Removed</Typography>
                 </Box>
                 <Box
                     display="flex"
@@ -86,7 +86,7 @@ export default function ContributionRequestShowHeader() {
                     ml={2}
                     sx={{ svg: { color: 'diff.edited.fg' } }}>
                     <FontAwesomeIcon icon={faCircle} size="2xs" />
-                    <Typography ml={1} variant="caption" color="text.tertiary">Edited</Typography>
+                    <Typography ml={1} variant="caption" color="texts.tertiary">Edited</Typography>
                 </Box>
                 <Box
                     display="flex"
@@ -94,7 +94,7 @@ export default function ContributionRequestShowHeader() {
                     ml={2}
                     sx={{ svg: { color: 'diff.conflict.fg' } }}>
                     <FontAwesomeIcon icon={faCircle} size="2xs" />
-                    <Typography ml={1} variant="caption" color="text.tertiary">Conflict</Typography>
+                    <Typography ml={1} variant="caption" color="texts.tertiary">Conflict</Typography>
                 </Box>
             </Box>
         </>

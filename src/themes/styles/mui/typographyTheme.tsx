@@ -29,7 +29,7 @@ export default (theme: NodecosmosTheme) => ({
     body1: {
         fontSize: '1.15rem',
         fontWeight: 300,
-        color: theme.palette.text.contrast,
+        color: theme.palette.texts.contrast,
     },
     body2: { fontSize: '1rem' },
     subtitle1: {

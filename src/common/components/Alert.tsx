@@ -67,7 +67,7 @@ export default function Alert(props: AlertProps) {
             >
                 <Typography
                     variant="body2"
-                    color={`text.${severity}`}
+                    color={`texts.${severity}`}
                     dangerouslySetInnerHTML={alertHTML}
                 />
             </MuiAlert>

@@ -55,7 +55,7 @@ export default function New() {
         <Box py={4} height={1} className="overflow-auto">
             <Container maxWidth="md">
                 <Alert position="relative" mb={2} maxWidth={780} />
-                <Typography variant="h5" color="text.secondary">
+                <Typography variant="h5" color="texts.secondary">
                     <FontAwesomeIcon icon={faComments} />
                     <Box component="span" ml={2}>New Thread</Box>
                 </Typography>

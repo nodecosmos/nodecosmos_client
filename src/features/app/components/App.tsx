@@ -45,8 +45,9 @@ export default function App() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const currentUser = useSelector(selectCurrentUser);
-    const theme = useSelector(selectTheme);
-    const currentTheme = useMemo(() => themes[theme], [theme]);
+    const themeIdx = useSelector(selectTheme);
+    const currentTheme = useMemo(() => themes[themeIdx], [themeIdx]);
+    const theme = useMemo(() => getTheme(currentTheme), [currentTheme]);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -83,7 +84,7 @@ export default function App() {
     useConfirmEmailAlert();
 
     return (
-        <ThemeProvider theme={getTheme(currentTheme)}>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className="background-2 h-100">
                 <Header />

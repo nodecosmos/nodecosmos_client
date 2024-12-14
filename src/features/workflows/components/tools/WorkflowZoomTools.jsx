@@ -42,7 +42,7 @@ export default function WorkflowZoomTools() {
                     </IconButton>
                 </Tooltip>
                 <Typography
-                    color="text.tertiary"
+                    color="texts.tertiary"
                     textAlign="center"
                     width={24}
                 >

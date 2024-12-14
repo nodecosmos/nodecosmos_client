@@ -39,7 +39,7 @@ export default function WorkflowToolbar() {
                 <EditTitleField
                     maxWidth={isMobile ? '150px' : '350px'}
                     title={title}
-                    color="text.secondary"
+                    color="texts.secondary"
                     variant="body2"
                     onChange={handleTitleChange}
                 />

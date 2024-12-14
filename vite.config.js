@@ -25,4 +25,6 @@ export default defineConfig({
             output: { entryFileNames: '[name].js' },
         },
     },
+
+    esbuild: { target: 'ES2020' },
 });

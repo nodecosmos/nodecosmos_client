@@ -7,7 +7,7 @@ import { faAdd } from '@fortawesome/pro-regular-svg-icons';
 import { Box } from '@mui/material';
 import React from 'react';
 
-const SX = { backgroundColor: 'background.1' };
+const SX = { backgroundColor: 'backgrounds.1' };
 
 export default function NodeIndexMobileFooter() {
     const [createNodeDialogOpen, openCreateNodeDialog, closeNodeDialog] = useBooleanStateValue();

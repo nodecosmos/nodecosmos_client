@@ -39,10 +39,10 @@ export default function ContributionRequestConversation() {
                         <NcAvatar size={35} name={owner.name} src={owner.profileImageUrl} />
                     </Link>
                     <Link component={RouterLink} to={`/${owner.username}`} display="flex" alignItems="center">
-                        <Typography variant="body2" color="text.secondary" ml={1} fontWeight="bold">
+                        <Typography variant="body2" color="texts.secondary" ml={1} fontWeight="bold">
                             {owner.name}
                         </Typography>
-                        <Typography variant="body2" color="text.tertiary" ml={1} fontWeight="bold">
+                        <Typography variant="body2" color="texts.tertiary" ml={1} fontWeight="bold">
                                 @{owner.username}
                         </Typography>
                     </Link>
@@ -53,7 +53,7 @@ export default function ContributionRequestConversation() {
                         className="flaot-right"
                         component="span"
                         variant="body2"
-                        color="text.tertiary"
+                        color="texts.tertiary"
                     >
                         {timeSince(createdAt)}
                     </Typography>
@@ -75,19 +75,19 @@ export default function ContributionRequestConversation() {
                         size={32}
                         mr={1}
                         borderRadius={1.25}
-                        hoverColor="background.7"
-                        activeColor="background.7"
+                        hoverColor="backgrounds.7"
+                        activeColor="backgrounds.7"
                     >
                         <ToolbarItem
-                            color="text.secondary"
-                            iconColor="background.labels.green"
+                            color="texts.secondary"
+                            iconColor="backgrounds.labels.green"
                             title="Main Thread"
                             icon={faComments}
                             to="."
                             titleAsTooltip={false}
                         />
                         <ToolbarItem
-                            color="text.primary"
+                            color="texts.primary"
                             iconColor="toolbar.lightRed"
                             title="Object Threads"
                             icon={faTimeline}

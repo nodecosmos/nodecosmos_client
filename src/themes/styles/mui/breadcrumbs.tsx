@@ -13,29 +13,21 @@ export default (theme: NodecosmosTheme) => ({
                     marginLeft: 8,
                     fontWeight: 500,
                     fontSize: 14,
-                    color: theme.palette.text.tertiary,
+                    color: theme.palette.texts.tertiary,
                 },
-                '.BreadcrumbItem:first-of-type': {
-                    marginLeft: 0,
-                },
-                '.MuiLink-root': {
-                    cursor: 'pointer',
-                },
+                '.BreadcrumbItem:first-of-type': { marginLeft: 0 },
+                '.MuiLink-root': { cursor: 'pointer' },
                 '.MuiBreadcrumbs-separator': {
                     color: theme.palette.toolbar.default,
                     fontSize: 10,
                     mx: 0.5,
                 },
-                '.MuiButtonBase-root': {
-                    backgroundColor: 'transparent',
-                },
+                '.MuiButtonBase-root': { backgroundColor: 'transparent' },
                 'button, button:hover': { backgroundColor: theme.palette.toolbar.active },
                 '.ScrollButton': {
                     background: 'transparent',
-                    svg: {
-                        fontSize: '0.6rem',
-                    },
-                    color: theme.palette.background[8],
+                    svg: { fontSize: '0.6rem' },
+                    color: theme.palette.backgrounds[8],
                     '&:hover': {
                         background: theme.palette.toolbar.active,
                         color: 'inherit',

@@ -17,7 +17,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback, useMemo } from 'react';
 
 export enum ConfirmType {
-    // noinspection JSUnusedGlobalSymbols
     Creation = 'success',
     Warning = 'warning',
     Deletion = 'error',
@@ -73,7 +72,7 @@ export default function ConfirmationModal(props: Props) {
             </DialogTitle>
             <DialogContent>
                 <Alert position="relative" mb={2} />
-                <Typography color="text.secondary" fontWeight={700} mb={titleMb}>
+                <Typography color="texts.secondary" fontWeight={700} mb={titleMb}>
                     {text}
                 </Typography>
                 <Box>

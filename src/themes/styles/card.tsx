@@ -1,4 +1,3 @@
-import { withOpacity } from '../../utils/colors';
 import { NodecosmosTheme } from '../themes.types';
 
 export default (theme: NodecosmosTheme) => ({
@@ -7,6 +6,7 @@ export default (theme: NodecosmosTheme) => ({
             borderRadius: 16,
             border: '1px solid',
             borderColor: theme.palette.borders[3],
+            backgroundColor: theme.palette.background.paper,
         },
         '.CoverHeader': {
             position: 'relative',
@@ -31,7 +31,7 @@ export default (theme: NodecosmosTheme) => ({
         '.CardHeader': {
             padding: 24,
             marginRight: 0,
-            '.Link': { '&:hover h6': { color: theme.palette.text.link } },
+            '.Link': { '&:hover h6': { color: theme.palette.texts.link } },
             zIndex: 1,
         },
         '.CardContent': {
@@ -45,7 +45,7 @@ export default (theme: NodecosmosTheme) => ({
 
         '.Link': {
             '&:hover h2': {
-                color: theme.palette.text.link,
+                color: theme.palette.texts.link,
                 textDecoration: 'underline',
             },
         },
@@ -58,9 +58,7 @@ export default (theme: NodecosmosTheme) => ({
                 marginLeft: 12,
                 height: 26,
                 fontSize: 12,
-                backgroundColor: withOpacity(theme.palette.primary.main, 0.05),
             },
         },
-
     },
 });

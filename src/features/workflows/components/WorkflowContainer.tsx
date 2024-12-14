@@ -8,7 +8,7 @@ const SX = {
     height: 1,
     transform: 'translateZ(0)',
     overflow: 'hidden',
-    background: 'background.8',
+    background: 'backgrounds.8',
     '.NodeButtonContainer': {
         display: 'flex',
         '.NodeButton': {
@@ -23,7 +23,7 @@ const SX = {
             maxWidth: WORKFLOW_BUTTON_WIDTH,
             backgroundColor: 'tree.default',
             height: WORKFLOW_BUTTON_HEIGHT,
-            color: 'text.primary',
+            color: 'texts.primary',
             '&.selected .fa-hashtag': { color: 'inherit' },
             '.NodeButtonText': {
                 ml: 1,

@@ -9,7 +9,7 @@ interface DescriptionCommentsProps {
     view: EditorView;
 }
 
-export default function DescriptionComments({ view }: DescriptionCommentsProps) {
+function DescriptionComments({ view }: DescriptionCommentsProps) {
     const insertCommentPortal = useCommentInsertWidget(view);
     const commentThreadsPortal = useCommentThreadsWidget(view);
 
@@ -20,3 +20,5 @@ export default function DescriptionComments({ view }: DescriptionCommentsProps) 
         </div>
     );
 }
+
+export default React.memo(DescriptionComments);

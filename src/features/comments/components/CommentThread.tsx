@@ -34,7 +34,7 @@ export default function CommentThread(props: CommentThreadProps) {
                 borderRadius={2}
                 borderColor="borders.4"
                 p={2}
-                sx={{ backgroundColor: 'background.1' }}
+                sx={{ backgroundColor: 'backgrounds.1' }}
                 boxSizing="border-box"
             >
                 <Box p={2}>

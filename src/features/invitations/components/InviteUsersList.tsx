@@ -41,8 +41,8 @@ export default function InviteUsersList(props: Props) {
             p={1}
             borderRadius={2}
             border={usernameFromList ? 2 : 1}
-            borderColor={usernameFromList ? 'text.link' : 'borders.3'}
-            sx={{ backgroundColor: 'background.4' }}>
+            borderColor={usernameFromList ? 'texts.link' : 'borders.3'}
+            sx={{ backgroundColor: 'backgrounds.4' }}>
             {usersToDisplay.map((user, idx) => {
                 return <InviteUserItem
                     noHover={!!usernameFromList}

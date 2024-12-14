@@ -9,7 +9,7 @@ export default (theme: NodecosmosTheme) => ({
                     overflow: 'hidden',
                     whiteSpace: 'nowrap',
                     textOverflow: 'ellipsis',
-                    color: theme.palette.text.link,
+                    color: theme.palette.texts.link,
                     fontWeight: 'bold',
                     padding: '4px 16px',
                     backgroundColor: theme.palette.toolbar.active,

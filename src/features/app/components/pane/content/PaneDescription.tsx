@@ -36,10 +36,10 @@ export default function PaneDescription() {
                 {
                     !loading && isEmpty && reMounted && (
                         <div className="w-100 size-850 fs-18 text-tertiary center p-1">
-                            <Typography variant="h6" color="text.tertiary" textAlign="center">
+                            <Typography variant="h6" color="texts.tertiary" textAlign="center">
                                 Selected object has no description.
                             </Typography>
-                            <Typography variant="h5" color="text.tertiary" textAlign="center" mt={1}>
+                            <Typography variant="h5" color="texts.tertiary" textAlign="center" mt={1}>
                                 ¯\_(ツ)_/¯
                             </Typography>
                         </div>

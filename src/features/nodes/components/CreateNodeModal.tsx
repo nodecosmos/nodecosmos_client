@@ -67,7 +67,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
         >
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h6" color="text.secondary" align="center" width="auto">
+                    <Typography variant="h6" color="texts.secondary" align="center" width="auto">
                         <FontAwesomeIcon icon={faHashtag} />
                         New Node
                     </Typography>
@@ -77,7 +77,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                         <div className="center my-2">
                             <Typography
                                 variant="body2"
-                                color="text.secondary"
+                                color="texts.secondary"
                                 my={2}
                                 align="center"
                             >
@@ -106,7 +106,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                     currentUser && (
                         <Typography
                             variant="subtitle1"
-                            color="text.secondary"
+                            color="texts.secondary"
                             mt={2}
                             align="center"
                             width={1}

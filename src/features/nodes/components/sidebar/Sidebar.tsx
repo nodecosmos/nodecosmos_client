@@ -78,7 +78,7 @@ export default function Sidebar({ handleClose }: Props) {
                                         align="left"
                                         fontSize={14}
                                         fontWeight={700}
-                                        color="text.tertiary">
+                                        color="texts.tertiary">
                                         <Box component="span" mr={1}>Contribution Request</Box>
                                         <InfoIcon fontSize="small" />
                                     </Typography>

@@ -125,7 +125,7 @@ export default function PaneToolbar() {
             >
                 <Typography
                     variant="body2"
-                    color="text.tertiary"
+                    color="texts.tertiary"
                     fontWeight="bold"
                     borderRadius={1}
                 >

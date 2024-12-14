@@ -16,7 +16,7 @@ export default function WorkflowStepFlow({ workflowStepFlow }: Props) {
     const { branchId } = useWorkflowContext();
     const { FlowContext, flowContextValue } = useFlowContextCreator({ id: workflowStepFlow.id });
     const {
-        x, y, yEnd, 
+        x, y, yEnd,
     } = workflowStepFlow.position;
     const {
         FlowStepContext,

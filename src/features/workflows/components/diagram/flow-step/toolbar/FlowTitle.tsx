@@ -14,7 +14,7 @@ const SX = {
     '&:hover': {
         cursor: 'pointer',
         textDecoration: 'underline',
-        color: 'text.link',
+        color: 'texts.link',
     },
 };
 
@@ -30,7 +30,7 @@ export default function FlowTitle() {
     if (titleEditOpen) {
         return <EditTitleField
             title={title}
-            color="text.primary"
+            color="texts.primary"
             pr={1}
             variant="body2"
             onChange={handleTitleChange}
@@ -45,7 +45,7 @@ export default function FlowTitle() {
             onClick={handleFlowClick}
             variant="body2"
             fontWeight={600}
-            color={isFlowDelConflict ? 'toolbar.lightRed' : 'text.primary'}
+            color={isFlowDelConflict ? 'toolbar.lightRed' : 'texts.primary'}
             sx={SX}
         >
             {title}

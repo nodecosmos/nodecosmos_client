@@ -34,7 +34,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
     const {
         title,
         authorized = true,
-        color = 'text.secondary',
+        color = 'texts.secondary',
         pr = 0,
         variant = 'body2',
         onChange,
@@ -80,7 +80,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
             variant={variant}
             pr={pr}
             maxWidth={maxWidth}
-            color={(title && color) || 'text.tertiary'}
+            color={(title && color) || 'texts.tertiary'}
             sx={SX}
         >
             {title || 'Click to add title'}

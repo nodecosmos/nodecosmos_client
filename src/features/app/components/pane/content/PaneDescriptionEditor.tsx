@@ -1,3 +1,4 @@
+import { ContentType } from '../../../../../common/components/editor/Editor';
 import LazyLoadComponent from '../../../../../common/components/LazyLoadComponent';
 import Loader from '../../../../../common/components/Loader';
 import SimpleAlert from '../../../../../common/components/SimpleAlert';
@@ -10,8 +11,8 @@ import { Box } from '@mui/material';
 import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 
-const RemirrorEditor = React.lazy(
-    () => import('../../../../../common/components/editor/RemirrorEditor'),
+const Editor = React.lazy(
+    () => import('../../../../../common/components/editor/Editor'),
 );
 
 export default function PaneDescriptionEditor() {
@@ -25,7 +26,6 @@ export default function PaneDescriptionEditor() {
         objectNodeId,
         branchId,
         handleChange,
-        markdown,
         base64,
     } = useDescriptionEdit();
     const isAuthorized = useIsAuthorized();
@@ -66,16 +66,16 @@ export default function PaneDescriptionEditor() {
         <LazyLoadComponent>
             <Suspense fallback={<Loader />}>
                 <Box height={1}>
-                    <RemirrorEditor
-                        markdown={markdown || ''}
+                    <Editor
+                        content={base64 || ''}
+                        contentType={ContentType.Base64YDoc}
                         onChange={handleChange}
-                        base64={base64}
                         wsRoomId={objectId}
                         wsAuthNodeId={objectNodeId}
                         wsAuthNodeBranchId={branchId}
                         wsAuthRootId={rootId}
                         editorOutline={0}
-                        editorBackgroundColor="background.5"
+                        editorBackgroundColor="backgrounds.5"
                         editorFocusBorderColor="toolbar.default"
                         editorClassName="fs-18"
                         fileObjectId={objectId}

@@ -50,7 +50,7 @@ export default function ImageUpload(props: UploadButtonProps) {
                         justifyContent="center"
                         alignItems="center"
                         zIndex={1}
-                        bgcolor="background.2"
+                        bgcolor="backgrounds.2"
                         sx={{
                             opacity: 0,
                             transition: 'opacity 0.3s',

@@ -1,5 +1,6 @@
+import { ContentType } from '../../../common/components/editor/Editor';
+import { EditorExtensions } from '../../../common/components/editor/types';
 import Loader from '../../../common/components/Loader';
-import { EnabledExtensions } from '../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useDebounce from '../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../store';
@@ -11,19 +12,17 @@ import {
     Box, Button, Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import { HelpersFromExtensions } from '@remirror/core';
 import React, {
     Suspense, useCallback, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { MarkdownExtension } from 'remirror/extensions';
 
-const RemirrorEditor = React.lazy(() => import('../../../common/components/editor/RemirrorEditor'));
+const Editor = React.lazy(() => import('../../../common/components/editor/Editor'));
 
 const {
     Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link: LinkExt, OrderedList, Image,
-} = EnabledExtensions;
+} = EditorExtensions;
 
 const EXTENSIONS = [
     Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, LinkExt, OrderedList, Image,
@@ -39,9 +38,7 @@ export default function ContributionRequestDescription() {
     // const mainThreadCommentIds = useSelector(selectThreadCommentIds(id as UUID));
     // const commentCount = mainThreadCommentIds?.length;
 
-    const updateDescription = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
-        const description = helpers.getHTML();
-
+    const updateDescription = useCallback((description: string) => {
         dispatch(updateContributionRequestDescription({
             nodeId: nodeId as UUID,
             id: id as UUID,
@@ -53,10 +50,10 @@ export default function ContributionRequestDescription() {
 
     const [handleChangeDebounced] = useDebounce(updateDescription);
 
-    const handleChange = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
+    const handleChange = useCallback((description: string) => {
         setLoading();
 
-        return handleChangeDebounced(helpers);
+        return handleChangeDebounced(description);
     }, [handleChangeDebounced, setLoading]);
     const descriptionEmpty = !description || description === '<p></p>';
     const innerHtml = useMemo(() => ({ __html: description as TrustedHTML }), [description]);
@@ -90,14 +87,14 @@ export default function ContributionRequestDescription() {
                             }
                             {
                                 descriptionEmpty && authorized && (
-                                    <Typography color="text.tertiary" variant="body2" py={2}>
+                                    <Typography color="texts.tertiary" variant="body2" py={2}>
                                         Click here to add the contribution request description
                                     </Typography>
                                 )
                             }
                             {
                                 descriptionEmpty && !authorized && (
-                                    <Typography color="text.tertiary" variant="body2" py={2}>
+                                    <Typography color="texts.tertiary" variant="body2" py={2}>
                                         No description provided
                                     </Typography>
                                 )
@@ -132,12 +129,13 @@ export default function ContributionRequestDescription() {
                                 borderRadius={2}
                                 overflow="hidden"
                             >
-                                <RemirrorEditor
-                                    markdown={description ?? ''}
+                                <Editor
+                                    content={description || ''}
+                                    contentType={ContentType.HTML}
                                     onChange={handleChange}
                                     onBlur={closeEditor}
-                                    enabledExtensions={EXTENSIONS}
-                                    editorBackgroundColor="background.5"
+                                    extensions={EXTENSIONS}
+                                    editorBackgroundColor="backgrounds.5"
                                     p={1}
                                     editorOutline={1}
                                     editorFocusBorderColor="borders.5"

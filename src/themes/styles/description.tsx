@@ -5,7 +5,7 @@ export default (theme: NodecosmosTheme) => ({
         fontFamily: '-apple-system, system-ui, Roboto, sans-serif',
         width: '100%',
         '&.size-850': { maxWidth: 850 },
-        color: theme.palette.text.secondary,
+        color: theme.palette.texts.secondary,
         hr: {
             border: 0,
             borderBottom: 8,
@@ -15,7 +15,7 @@ export default (theme: NodecosmosTheme) => ({
             margin: 0,
             backgroundColor: theme.palette.markdownContent.canvas,
             borderLeft: '6px solid',
-            padding: '12px 6px',
+            padding: 12,
             borderColor: theme.palette.markdownContent.canvasBorder,
             marginBlockEnd: '1em',
         },
@@ -32,7 +32,7 @@ export default (theme: NodecosmosTheme) => ({
                 'td:last-of-type': { borderRight: 0 },
                 'th:last-of-type': { borderRight: 0 },
                 '&:last-of-type td': { borderBottom: 0 },
-                '&:hover': { backgroundColor: theme.palette.background[8] },
+                '&:hover': { backgroundColor: theme.palette.backgrounds[8] },
             },
         },
         pre: {
@@ -42,7 +42,7 @@ export default (theme: NodecosmosTheme) => ({
             backgroundColor: theme.palette.markdownContent.canvas,
             textWrap: 'wrap',
         },
-        a: { color: theme.palette.text.link },
+        a: { color: theme.palette.texts.link },
         p: {
             fontSize: 16,
             fontWeight: 400,

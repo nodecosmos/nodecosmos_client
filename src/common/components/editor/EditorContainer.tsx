@@ -1,14 +1,16 @@
 import { HEADER_HEIGHT } from '../../../features/app/constants';
 import { NodecosmosTheme } from '../../../themes/themes.types';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
+import useOutsideClick from '../../hooks/useOutsideClick';
 import { Box, useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 interface Props {
     children: React.ReactNode;
 }
 
-export default function RemirrorEditorContainer({ children }: Props) {
+export default function EditorContainer({ children }: Props) {
+    const editorContainerRef = useRef(null);
     const theme: NodecosmosTheme = useTheme();
     const {
         toolbarHeight,
@@ -18,15 +20,16 @@ export default function RemirrorEditorContainer({ children }: Props) {
         p = 0,
         px = 0,
         py = 0,
+        onBlur,
     } = useEditorContext();
 
     const sx = useMemo(() => ({
         height: '100%',
         cursor: 'text',
         overflow: 'hidden',
-        backgroundColor: editorBackgroundColor ?? 'background.3',
+        backgroundColor: editorBackgroundColor ?? 'backgrounds.3',
         // toolbar
-        '.RemirrorToolbar': {
+        '.EditorToolbar': {
             pl: 1,
             display: 'flex',
             alignItems: 'center',
@@ -38,9 +41,9 @@ export default function RemirrorEditorContainer({ children }: Props) {
             overflowX: 'auto',
             borderBottom: 1,
             borderColor: 'borders.2',
-            backgroundColor: 'background.5',
+            backgroundColor: 'backgrounds.5',
         },
-        '.RemirrorTextEditor': {
+        '.TextEditor': {
             overflow: 'auto',
             height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
             border: 1,
@@ -52,7 +55,7 @@ export default function RemirrorEditorContainer({ children }: Props) {
                 outlineColor: editorFocusBorderColor,
             },
         },
-        '.remirror-editor-wrapper': {
+        '.ContainerRef': {
             width: 1,
             height: `calc(100% - ${HEADER_HEIGHT})`,
             minHeight: 100,
@@ -60,11 +63,18 @@ export default function RemirrorEditorContainer({ children }: Props) {
             p: p ?? 0,
             px: px ?? 0,
             py: py ?? 0,
-            caretColor: theme.palette.text.primary + '!important',
+            caretColor: theme.palette.texts.primary + '!important',
+            '.ProseMirror': {
+                padding: 2,
+                margin: 0,
+                outline: 'none',
+                '&:focus': { outline: 'none' },
+                height: 1,
+            },
         },
         '.MuiButtonBase-root': {
-            color: 'text.secondary',
-            backgroundColor: 'background.5',
+            color: 'texts.secondary',
+            backgroundColor: 'backgrounds.5',
             border: 0,
             borderColor: 'borders.2',
             // mr: 0.5,
@@ -72,18 +82,18 @@ export default function RemirrorEditorContainer({ children }: Props) {
             height: 28,
 
             '&.Mui-selected': {
-                backgroundColor: 'background.8',
-                color: 'text.secondary',
+                backgroundColor: 'backgrounds.8',
+                color: 'texts.secondary',
                 '&:hover': {
-                    color: 'text.secondary',
-                    backgroundColor: 'background.8',
+                    color: 'texts.secondary',
+                    backgroundColor: 'backgrounds.8',
                 },
             },
 
             '&.Mui-disabled': {
                 border: 0,
-                backgroundColor: 'background.5',
-                color: 'text.disabled',
+                backgroundColor: 'backgrounds.5',
+                color: 'texts.disabled',
             },
         },
     }),
@@ -94,12 +104,14 @@ export default function RemirrorEditorContainer({ children }: Props) {
         p,
         px,
         py,
-        theme.palette.text.primary,
+        theme.palette.texts.primary,
         toolbarHeight,
     ]);
 
+    useOutsideClick(editorContainerRef, onBlur);
+
     return (
-        <Box id="remirror-editor-container" sx={sx}>
+        <Box id="editor-container" sx={sx} ref={editorContainerRef}>
             {children}
         </Box>
     );

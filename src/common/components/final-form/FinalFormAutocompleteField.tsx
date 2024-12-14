@@ -55,7 +55,7 @@ export default function FinalFormAutocompleteField(props: FinalFormAutocompleteF
                 endAdornment: loading ? <CircularProgress
                     size={30}
                     sx={{
-                        color: 'text.secondary',
+                        color: 'texts.secondary',
                         mr: 2,
                     }} /> : null,
             }}

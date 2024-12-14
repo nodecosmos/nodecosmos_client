@@ -7,7 +7,7 @@ export default (theme: NodecosmosTheme) => ({
             root: {
                 padding: '4px 8px',
                 width: '100%',
-                backgroundColor: theme.palette.background[5],
+                backgroundColor: theme.palette.backgrounds[5],
                 alignItems: 'center',
                 ...utils(theme),
 
@@ -16,33 +16,15 @@ export default (theme: NodecosmosTheme) => ({
                     marginRight: 0,
                 },
 
-                '&.success': {
-                    '.MuiAlert-icon, .MuiAlert-action': {
-                        color: theme.palette.success.main,
-                    },
-                },
+                '&.success': { '.MuiAlert-icon, .MuiAlert-action': { color: theme.palette.success.main } },
 
-                '&.warning': {
-                    '.MuiAlert-icon, .MuiAlert-action': {
-                        color: theme.palette.warning.main,
-                    },
-                },
+                '&.warning': { '.MuiAlert-icon, .MuiAlert-action': { color: theme.palette.warning.main } },
 
-                '&.error': {
-                    '.MuiAlert-icon, .MuiAlert-action': {
-                        color: theme.palette.error.main,
-                    },
-                },
+                '&.error': { '.MuiAlert-icon, .MuiAlert-action': { color: theme.palette.error.main } },
 
-                '&.info': {
-                    '.MuiAlert-icon, .MuiAlert-action': {
-                        color: theme.palette.info.main,
-                    },
-                },
+                '&.info': { '.MuiAlert-icon, .MuiAlert-action': { color: theme.palette.info.main } },
             },
-            icon: {
-                alignItems: 'center',
-            },
+            icon: { alignItems: 'center' },
         },
     },
 });

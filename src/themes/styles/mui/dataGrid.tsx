@@ -11,17 +11,17 @@ export default (theme: NodecosmosTheme) => ({
                 borderRadius: 0,
                 '& .MuiSvgIcon-root': {
                     borderRadius: 0,
-                    color: theme.palette.background[8],
+                    color: theme.palette.backgrounds[8],
                 },
 
                 '.MuiDataGrid-filler': {
                     borderRadius: 0,
-                    backgroundColor: theme.palette.background[2],
+                    backgroundColor: theme.palette.backgrounds[2],
                 },
 
                 '& .MuiDataGrid-scrollbarFiller': {
                     borderRadius: 0,
-                    backgroundColor: theme.palette.background[6],
+                    backgroundColor: theme.palette.backgrounds[6],
                 },
             },
             virtualScroller: {
@@ -30,11 +30,12 @@ export default (theme: NodecosmosTheme) => ({
             },
             columnHeaders: {
                 borderRadius: 0,
-                backgroundColor: theme.palette.background[6],
+                backgroundColor: theme.palette.backgrounds[6],
             },
             columnHeader: {
-                backgroundColor: theme.palette.background[6],
-                '&:focus': { outline: 'none' } },
+                backgroundColor: theme.palette.backgrounds[6],
+                '&:focus': { outline: 'none' },
+            },
             columnHeaderTitle: {
                 WebkitTapHighlightColor: 'transparent',
                 WebkitTouchCallout: 'none',
@@ -45,8 +46,8 @@ export default (theme: NodecosmosTheme) => ({
                 userSelect: 'none',
             },
             row: {
-                color: theme.palette.text.secondary,
-                '&:hover': { backgroundColor: theme.palette.background[4] },
+                color: theme.palette.texts.secondary,
+                '&:hover': { backgroundColor: theme.palette.backgrounds[4] },
             },
             cell: {
                 display: 'flex',
@@ -56,8 +57,8 @@ export default (theme: NodecosmosTheme) => ({
             },
             withBorderColor: { borderColor: 'transparent' },
             columnSeparator: { color: theme.palette.borders[2] },
-            footerContainer: { backgroundColor: theme.palette.background[6] },
-            overlay: { backgroundColor: theme.palette.background[2] },
+            footerContainer: { backgroundColor: theme.palette.backgrounds[6] },
+            overlay: { backgroundColor: theme.palette.backgrounds[2] },
             'topContainer::after': { backgroundColor: 'none' },
         },
     },

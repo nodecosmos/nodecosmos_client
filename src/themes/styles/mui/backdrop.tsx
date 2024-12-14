@@ -4,7 +4,8 @@ export default (theme: NodecosmosTheme) => ({
     MuiBackdrop: {
         styleOverrides: {
             root: {
-                backgroundColor: theme.palette.background.backdrop,
+                backgroundColor: theme.palette.backgrounds.backdrop,
+                color: 'inherit',
             },
         },
     },

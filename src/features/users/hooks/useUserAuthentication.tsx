@@ -13,11 +13,10 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 async function validateCaptcha(): Promise<string> {
     return new Promise((res) => {
-        // @ts-expect-error grecaptcha is a global variable
         grecaptcha.ready(() => {
-            // @ts-expect-error grecaptcha is a global variable
             grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: 'submit' })
                 .then((token: string) => res(token))
+                // @ts-ignore
                 .catch((error: Error) => {
                     console.error('Error executing reCAPTCHA:', error);
                     throw error;

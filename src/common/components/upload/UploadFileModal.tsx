@@ -28,11 +28,20 @@ interface ResponseData {
     key: string;
 }
 
+function isUploadResponse(response: any): response is ResponseData {
+    return response && typeof response.url === 'string' && typeof response.key === 'string';
+}
+
 interface S3Response {
     responseURL: string;
 }
 
 const PLUGINS = ['ImageEditor'];
+
+const DIALOG_PAPER_PROPS = {
+    elevation: 8,
+    sx: { borderRadius: 2.5 },
+};
 
 export default function UploadFileModal(props: UploadFileModalProps) {
     const {
@@ -46,11 +55,11 @@ export default function UploadFileModal(props: UploadFileModalProps) {
             maxNumberOfFiles: 1,
             maxFileSize: 25 * 1024 * 1024,
         },
-        locale: { strings: { dropPasteFiles: 'Drop files here, paste or %{browse}' } },
     }).use(XHRUpload, {
         endpoint: '',
-        getResponseData: (_responseText: string, res: unknown): ResponseData => {
-            const response = res as S3Response;
+        // @ts-ignore
+        getResponseData: (xhr: XMLHttpRequest): ResponseData => {
+            const response = xhr as S3Response;
             const url = new URL(response.responseURL);
 
             return {
@@ -67,6 +76,10 @@ export default function UploadFileModal(props: UploadFileModalProps) {
 
     useEffect(() => {
         uppy.on('upload-success', (file, response) => {
+            if (!isUploadResponse(response.body)) {
+                throw new Error('Invalid response from upload');
+            }
+
             const postAttachmentParams = {
                 ...params,
                 url: response.body.url,
@@ -133,10 +146,11 @@ export default function UploadFileModal(props: UploadFileModalProps) {
             maxWidth="md"
             open={open}
             onClose={handleClose}
+            PaperProps={DIALOG_PAPER_PROPS}
         >
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h5" align="center" color="text.secondary" width="auto">
+                    <Typography variant="h5" align="center" color="texts.secondary" width="auto">
                         <FontAwesomeIcon icon={faFileUpload} />
                         Upload File
                     </Typography>

@@ -40,4 +40,3 @@
 4) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
 5) Once your pull request has been approved, merge your changes into the main codebase.
 6) Finally, delete your branch to keep your repository clean and organized.
-

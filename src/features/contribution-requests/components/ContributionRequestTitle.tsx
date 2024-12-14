@@ -96,7 +96,7 @@ export default function ContributionRequestTitle() {
                     inputFontSize="2rem"
                     variant="h5"
                     title={title}
-                    color="text.secondary"
+                    color="texts.secondary"
                     onChange={handleTitleChange}
                     maxWidth="100%"
                     inputHeight={32}

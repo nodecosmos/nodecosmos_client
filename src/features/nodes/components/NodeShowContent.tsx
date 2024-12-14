@@ -60,7 +60,7 @@ export default function NodeShowContent() {
         if (!id) {
             throw new Error('Node ID is not defined');
         }
-  
+
         if (!originalNode || !originalNode.ownerId) {
             let selectNodeFromParams;
 
@@ -142,7 +142,7 @@ export default function NodeShowContent() {
                 <Sidebar />
             </Box>
             <MobileSidebar />
-            <Box width={MD_WO_SIDEBAR_WIDTH_SX}>
+            <Box width={MD_WO_SIDEBAR_WIDTH_SX} className="overflow-auto">
                 {
                     loading ? <Loader /> : <Outlet />
                 }

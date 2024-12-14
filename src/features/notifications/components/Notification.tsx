@@ -79,7 +79,7 @@ export default function Notification({ id, onClose }: NotificationProps) {
         case NotificationType.NewInvitation:
             return 'toolbar.green';
         default:
-            return 'text.primary';
+            return 'texts.primary';
         }
     }, [notification.notificationType]);
 
@@ -111,14 +111,14 @@ export default function Notification({ id, onClose }: NotificationProps) {
                             src={author?.profileImageUrl} />
                     </Box>
                     <Box>
-                        <Typography variant="body1" color="text.secondary" ml={2}>
+                        <Typography variant="body1" color="texts.secondary" ml={2}>
                             <Typography
                                 variant="body1"
                                 component="span"
                                 fontWeight="bold"
                                 mr={1}>{author?.name}
                             </Typography>
-                            <Typography variant="body2" component="span" color="text.secondary">{notification.text}
+                            <Typography variant="body2" component="span" color="texts.secondary">{notification.text}
                             </Typography>
                         </Typography>
                         <Typography variant="subtitle2" color="toolbar.blue" ml={2} mt={1} fontWeight="bold">

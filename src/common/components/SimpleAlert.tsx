@@ -20,7 +20,7 @@ export default function SimpleAlert(props: Props) {
         >
             <Typography
                 variant="body2"
-                color={`text.${severity}`}
+                color={`texts.${severity}`}
                 dangerouslySetInnerHTML={{ __html: message }}
             />
         </MuiAlert>

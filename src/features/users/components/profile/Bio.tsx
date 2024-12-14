@@ -1,5 +1,6 @@
+import { ContentType } from '../../../../common/components/editor/Editor';
+import { EditorExtensions } from '../../../../common/components/editor/types';
 import Loader from '../../../../common/components/Loader';
-import { EnabledExtensions } from '../../../../common/hooks/editor/useExtensions';
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import useDebounce from '../../../../common/hooks/useDebounce';
 import { NodecosmosDispatch } from '../../../../store';
@@ -7,16 +8,14 @@ import useProfileUser from '../../hooks/useProfileUser';
 import { selectCurrentUser } from '../../users.selectors';
 import { updateBio } from '../../users.thunks';
 import { Box, Typography } from '@mui/material';
-import { HelpersFromExtensions } from '@remirror/core';
 import React, { Suspense, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MarkdownExtension } from 'remirror/extensions';
 
-const RemirrorEditor = React.lazy(() => import('../../../../common/components/editor/RemirrorEditor'));
+const Editor = React.lazy(() => import('../../../../common/components/editor/Editor'));
 
 const {
     Bold, Italic, Strike, Markdown, Blockquote, Link, BulletList, OrderedList,
-} = EnabledExtensions;
+} = EditorExtensions;
 
 const ENABLED_EXTENSIONS = [
     Bold,
@@ -43,11 +42,11 @@ export default function Bio() {
     }, [currentUser?.id, openBioEditor, user.id]);
     const [loading, setLoading, unsetLoading] = useBooleanStateValue();
 
-    const handleUpdateBio = useCallback(async (helpers: HelpersFromExtensions<MarkdownExtension>) => {
+    const handleUpdateBio = useCallback(async (bio: string) => {
         await dispatch(updateBio({
             id: user.id,
             username: user.username,
-            bio: helpers.getHTML(),
+            bio,
         }));
 
         unsetLoading();
@@ -55,10 +54,10 @@ export default function Bio() {
 
     const [handleUpdateBioDebounced] = useDebounce(handleUpdateBio);
 
-    const handleBio = useCallback((helpers: HelpersFromExtensions<MarkdownExtension>) => {
+    const handleBio = useCallback((bio: string) => {
         setLoading();
 
-        return handleUpdateBioDebounced(helpers);
+        return handleUpdateBioDebounced(bio);
     }, [handleUpdateBioDebounced, setLoading]);
 
     return (
@@ -79,7 +78,7 @@ export default function Bio() {
                         }}>
                         {loading && <Box height={20} width={20} mb={2}><Loader color="primary.main" size={20} /></Box> }
                         {bioEmpty && (
-                            <Typography color="text.tertiary" variant="body2">
+                            <Typography color="texts.tertiary" variant="body2">
                                 {
                                     user.id === currentUser?.id
                                         ? 'Click to add a bio'
@@ -102,15 +101,16 @@ export default function Bio() {
                             border={1}
                             borderColor="borders.1"
                             borderRadius={2}>
-                            <RemirrorEditor
+                            <Editor
+                                content={user.bio}
+                                contentType={ContentType.HTML}
                                 fileObjectId={user.id}
                                 onBlur={closeBioEditor}
-                                markdown={user.bio}
                                 onChange={handleBio}
-                                enabledExtensions={ENABLED_EXTENSIONS}
+                                extensions={ENABLED_EXTENSIONS}
                                 p={1}
                                 toolbarHeight={38}
-                                editorBackgroundColor="background.2"
+                                editorBackgroundColor="backgrounds.2"
                             />
                         </Box>
                     </Suspense>

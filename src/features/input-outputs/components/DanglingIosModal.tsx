@@ -34,10 +34,10 @@ function DanglingIosModal(props: Props) {
                         width: 'calc(100% - 1px)',
                         border: 0,
                         mb: 2,
-                        backgroundColor: 'background.1',
+                        backgroundColor: 'backgrounds.1',
                     }}
                 >
-                    <Typography variant="body2" color="text.warning">
+                    <Typography variant="body2" color="texts.warning">
                         Dangling Inputs/Outputs are one that are not connected to any step or initial
                         workflow input. They can be safely deleted if their reuse is not planned.
                     </Typography>

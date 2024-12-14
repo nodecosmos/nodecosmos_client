@@ -177,11 +177,11 @@ export default function Invite() {
                         sx={{ borderColor: 'borders.4' }}
                     >
                         <UserProfileLink id={response.inviter.id} />
-                        <Typography mt={1} color="text.secondary" fontWeight="bold">
+                        <Typography mt={1} color="texts.secondary" fontWeight="bold">
                             Invited you to collaborate on
                             <Link
                                 target="_blank"
-                                color="text.link"
+                                color="texts.link"
                                 component={RouterLink}
                                 to={`/nodes/${response.node.branchId}/${response.node.id}`}>
                                 {' '}
@@ -215,7 +215,7 @@ export default function Invite() {
                             variant="outlined"
                             type="button"
                             startIcon={
-                                loading ? <CircularProgress size={20} sx={{ color: 'text.success' }} />
+                                loading ? <CircularProgress size={20} sx={{ color: 'texts.success' }} />
                                     : <FontAwesomeIcon icon={faCheck} size="2xs" />
                             }
                         >

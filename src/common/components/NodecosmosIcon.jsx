@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function NodecosmosIcon(props) {
     return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
+     
         <SvgIcon {...props}>
             <defs
                 id="defs2"

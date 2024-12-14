@@ -25,14 +25,14 @@ export default function ContributionRequestsShowToolbar() {
                 size={32}
                 mr={1}
                 borderRadius={1.25}
-                hoverColor="background.7"
-                activeColor="background.7"
+                hoverColor="backgrounds.7"
+                activeColor="backgrounds.7"
                 overflowX="auto"
             >
                 <ToolbarItem
                     title="Conversation"
                     icon={faComments}
-                    color="text.primary"
+                    color="texts.primary"
                     titleAsTooltip={false}
                     to="."
                     additionalActivePaths={['activity', null, null]}
@@ -40,21 +40,21 @@ export default function ContributionRequestsShowToolbar() {
                 <ToolbarItem
                     title="Tree changes"
                     icon={faHashtag}
-                    color="text.primary"
+                    color="texts.primary"
                     titleAsTooltip={false}
                     to="tree"
                 />
                 <ToolbarItem
                     title="Workflow changes"
                     icon={faCodeCommit}
-                    color="text.primary"
+                    color="texts.primary"
                     titleAsTooltip={false}
                     to="workflow"
                 />
                 <ToolbarItem
                     title="Commits"
                     icon={faListTree}
-                    color="text.primary"
+                    color="texts.primary"
                     titleAsTooltip={false}
                     to="commits"
                 />

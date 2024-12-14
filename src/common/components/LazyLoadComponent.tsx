@@ -34,7 +34,6 @@ export default function LazyLoadComponent({ children }: LazyLoadComponentProps) 
 
         // Cleanup function
         return () => {
-            // eslint-disable-next-line react-hooks/exhaustive-deps
             observer.disconnect();
         };
     }, []);

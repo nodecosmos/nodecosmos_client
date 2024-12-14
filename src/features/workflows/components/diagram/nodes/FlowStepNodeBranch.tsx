@@ -40,7 +40,7 @@ export default function FlowStepNodeBranch() {
                 cx={x}
                 cy={y}
                 r={5}
-                stroke={theme.palette.secondary.main}
+                stroke={theme.palette.toolbar.lightPurple}
                 fill={theme.palette.workflow.default}
                 style={{
                     opacity: 0,
