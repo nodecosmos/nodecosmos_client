@@ -14,7 +14,9 @@ import { keymap } from 'prosemirror-keymap';
 import { DOMSerializer, DOMParser } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import React, { useEffect, useRef } from 'react';
+import React, {
+    useCallback, useEffect, useRef,
+} from 'react';
 import * as Y from 'yjs';
 import 'prosemirror-view/style/prosemirror.css';
 import 'prosemirror-gapcursor/style/gapcursor.css';
@@ -185,11 +187,23 @@ export default function Editor(props: EditorProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isRealTime, y.docNode, y.plugins, y.yDoc]);
 
+    useEffect(() => {
+        if (autoFocus && editorView) {
+            editorView.focus();
+        }
+    }, [autoFocus, editorView]);
+
+    const handleClick = useCallback(() => {
+        if (!editorView) return;
+
+        editorView.focus();
+    }, [editorView]);
+
     return (
         <EditorContext.Provider value={ctxValue}>
             <EditorContainer>
                 <EditorToolbar />
-                <div className="TextEditor">
+                <div className="TextEditor" onClick={handleClick}>
                     <div ref={editorRef} className={`ContainerRef DescriptionHTML ${editorClassName}`} />
                 </div>
             </EditorContainer>

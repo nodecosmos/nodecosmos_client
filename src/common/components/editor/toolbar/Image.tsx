@@ -6,9 +6,7 @@ import { faCamera } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import { Schema } from 'prosemirror-model';
-import {
-    EditorState, Transaction, Selection,
-} from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import React, { Suspense, useCallback } from 'react';
 
 const UppyUploadImageModal = React.lazy(() => import('../../../../common/components/upload/UploadImageModal'));
@@ -17,7 +15,7 @@ interface Attachment {
     url: string;
 }
 
-function insertImageAndParagraphs(
+function insertImage(
     state: EditorState,
     dispatch: (tr: Transaction) => void,
     schema: Schema,
@@ -36,22 +34,24 @@ function insertImageAndParagraphs(
     // Insert the image at the current selection
     tr = tr.replaceSelectionWith(imageNode);
 
-    // After replacing selection with a block node, the selection should move after the inserted node.
-    // Insert two paragraphs after the image node
-    const posAfterImage = tr.selection.from; // After the image insertion, selection should be after the image node
-
-    const paragraphNode = paragraph.create();
-    const paragraphNode2 = paragraph.create();
-
-    // Insert two paragraphs after the image
-    tr = tr.insert(posAfterImage, paragraphNode);
-
-    // After inserting the first paragraph, selection remains the same. We'll set the selection after it:
-    tr = tr.setSelection(Selection.near(tr.doc.resolve(posAfterImage + paragraphNode.nodeSize)));
-    tr = tr.insert(tr.selection.from, paragraphNode2);
-
-    // Finally, move the cursor into the last inserted paragraph:
-    tr = tr.setSelection(Selection.atEnd(paragraphNode2));
+    // // After replacing selection with a block node, the selection should move after the inserted node.
+    // // Insert two paragraphs after the image node
+    // const posAfterImage = tr.selection.from; // After the image insertion, selection should be after the image node
+    //
+    // debugger;
+    //
+    // const paragraphNode = paragraph.create();
+    // const paragraphNode2 = paragraph.create();
+    //
+    // // Insert two paragraphs after the image
+    // tr = tr.insert(posAfterImage, paragraphNode);
+    //
+    // // After inserting the first paragraph, selection remains the same. We'll set the selection after it:
+    // tr = tr.setSelection(Selection.near(tr.doc.resolve(posAfterImage + paragraphNode.nodeSize)));
+    // tr = tr.insert(tr.selection.from, paragraphNode2);
+    //
+    // // Finally, move the cursor into the last inserted paragraph:
+    // tr = tr.setSelection(Selection.atEnd(paragraphNode2));
 
     dispatch(tr);
     return true;
@@ -66,11 +66,12 @@ export default function Image() {
 
     const handleImageDialogClose = useCallback((responseBody?: Attachment) => {
         closeImageDialog();
+
         if (responseBody?.url && editorView) {
             const { state, dispatch } = editorView!;
             const { schema } = state;
             // Insert the image and then two paragraphs
-            insertImageAndParagraphs(state, dispatch, schema, responseBody.url);
+            insertImage(state, dispatch, schema, responseBody.url);
             editorView!.focus();
         }
     }, [closeImageDialog, editorView]);

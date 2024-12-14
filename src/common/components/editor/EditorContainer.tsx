@@ -3,9 +3,7 @@ import { NodecosmosTheme } from '../../../themes/themes.types';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { Box, useTheme } from '@mui/material';
-import React, {
-    useCallback, useMemo, useRef,
-} from 'react';
+import React, { useMemo, useRef } from 'react';
 
 interface Props {
     children: React.ReactNode;
@@ -22,7 +20,6 @@ export default function EditorContainer({ children }: Props) {
         p = 0,
         px = 0,
         py = 0,
-        editorView,
         onBlur,
     } = useEditorContext();
 
@@ -111,17 +108,10 @@ export default function EditorContainer({ children }: Props) {
         toolbarHeight,
     ]);
 
-    const handleClick = useCallback((e: React.MouseEvent) => {
-        if (e.target !== e.currentTarget) return;
-        if (!editorView) return;
-
-        editorView.focus();
-    }, [editorView]);
-
     useOutsideClick(editorContainerRef, onBlur);
 
     return (
-        <Box id="editor-container" sx={sx} onClick={handleClick} ref={editorContainerRef}>
+        <Box id="editor-container" sx={sx} ref={editorContainerRef}>
             {children}
         </Box>
     );

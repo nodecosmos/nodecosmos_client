@@ -20,6 +20,8 @@ export default function File() {
     const { fileObjectId, editorView } = useEditorContext();
     const [fileDialogOpen, openFileDialog, closeFileDialog] = useBooleanStateValue();
 
+    if (!fileObjectId) throw new Error('File object ID is required for file upload');
+
     const fileUploadParams = useMemo(() => ({
         nodeId,
         rootId: originalId,
@@ -41,7 +43,7 @@ export default function File() {
             const tr = state.tr.replaceSelectionWith(textNode, false);
             dispatch(tr);
 
-            editorView!.focus();
+            editorView.focus();
         }
 
         closeFileDialog();

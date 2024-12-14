@@ -121,7 +121,6 @@ const image: NodeSpec = {
         title: { default: null },
     },
     group: 'inline',
-    draggable: true,
     parseDOM: [
         {
             tag: 'img',

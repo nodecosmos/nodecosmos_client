@@ -58,8 +58,8 @@ export default function UploadFileModal(props: UploadFileModalProps) {
     }).use(XHRUpload, {
         endpoint: '',
         // @ts-ignore
-        getResponseData: (_responseText: string, res: unknown): ResponseData => {
-            const response = res as S3Response;
+        getResponseData: (xhr: XMLHttpRequest): ResponseData => {
+            const response = xhr as S3Response;
             const url = new URL(response.responseURL);
 
             return {

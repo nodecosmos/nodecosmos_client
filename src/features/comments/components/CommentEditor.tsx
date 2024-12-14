@@ -5,7 +5,7 @@ import Loader from '../../../common/components/Loader';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError, UUID } from '../../../types';
+import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { EMPTY_PARAGRAPH } from '../../descriptions/hooks/useDescriptionEdit';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
@@ -233,7 +233,15 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
         );
     }
 
-    const objectId = threadPk ? threadPk.objectId : newThread?.objectId as UUID;
+    let objectId;
+
+    if (comment) {
+        objectId = comment.objectId;
+    } else if (threadPk) {
+        objectId = threadPk.objectId;
+    } else {
+        objectId = newThread!.objectId;
+    }
 
     return (
         <Box
