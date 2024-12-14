@@ -44,6 +44,7 @@ export default (theme: NodecosmosTheme) => ({
                 MozUserSelect: 'none',
                 MsUserSelect: 'none',
                 userSelect: 'none',
+                color: theme.palette.texts.primary,
             },
             row: {
                 color: theme.palette.texts.secondary,
