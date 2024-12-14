@@ -9,6 +9,8 @@ import { Breadcrumbs } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+const SLOT_PROPS = { collapsedIcon: { sx: { color: 'texts.tertiary' } } };
+
 export default function TreeBreadcrumbs() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const selectedNode = useSelector(selectSelectedNode);
@@ -53,6 +55,7 @@ export default function TreeBreadcrumbs() {
             itemsBeforeCollapse={2}
             aria-label="breadcrumb"
             separator={<FontAwesomeIcon icon={faChevronRight} />}
+            slotProps={SLOT_PROPS}
         >
             {items.map((item, index) => (
                 <TreeBreadcrumbItem
