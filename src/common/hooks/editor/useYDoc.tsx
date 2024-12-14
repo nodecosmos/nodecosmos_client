@@ -4,7 +4,6 @@ import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
 import schema from '../../components/editor/schema';
 import { dropCursor } from 'prosemirror-dropcursor';
-import { gapCursor } from 'prosemirror-gapcursor';
 import { history } from 'prosemirror-history';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -102,7 +101,6 @@ export default function useYDoc(props: UseYDocProps) {
                 yCursorPlugin(provider.awareness),
                 history(),
                 dropCursor(),
-                gapCursor(),
             ],
         };
     }, [yDoc, provider]);

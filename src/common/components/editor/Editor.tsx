@@ -5,6 +5,7 @@ import { buildKeymap } from './keymap';
 import markdownParser from './markdown/parser';
 import markdownSerializer from './markdown/serializer';
 import schema from './schema';
+import { trailingNode } from './trailingNodePlugin';
 import { EditorExtensions } from './types';
 import { UUID } from '../../../types';
 import { useEditorContextCreator } from '../../hooks/editor/useEditorContext';
@@ -147,6 +148,7 @@ export default function Editor(props: EditorProps) {
                 keymap(buildKeymap(schema)),
                 keymap(baseKeymap),
                 buildInputRules(schema),
+                trailingNode(),
                 ...y.plugins,
             ],
         });
