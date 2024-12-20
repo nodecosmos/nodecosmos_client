@@ -142,7 +142,7 @@ export default function Toolbar() {
                         onClick={handleTogglePane}
                         onClickValue={PaneContent.Description}
                     />
-                    {objectType == ObjectType.Node && (
+                    {objectType === ObjectType.Node && (
                         <ToolbarItem
                             title="Workflow"
                             icon={faCodeCommit}

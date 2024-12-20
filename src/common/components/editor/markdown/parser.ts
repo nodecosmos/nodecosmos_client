@@ -7,7 +7,7 @@ const md = markdownIt({ html: true });
 function listIsTight(tokens: readonly Token[], i: number) {
     let it = i;
     while ((it += 1) < tokens.length)
-        if (tokens[it].type != 'list_item_open') return tokens[it].hidden;
+        if (tokens[it].type !== 'list_item_open') return tokens[it].hidden;
     return false;
 }
 

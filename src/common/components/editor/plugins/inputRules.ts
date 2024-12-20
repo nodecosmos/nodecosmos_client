@@ -14,7 +14,7 @@ function blockQuoteRule(nodeType: NodeType) {
 /// followed by a dot at the start of a textblock into an ordered list.
 function orderedListRule(nodeType: NodeType) {
     return wrappingInputRule(/^(\d+)\.\s$/, nodeType, match => ({ order: +match[1] }),
-        (match, node) => node.childCount + node.attrs.order == +match[1]);
+        (match, node) => node.childCount + node.attrs.order === +match[1]);
 }
 
 /// Given a list node type, returns an input rule that turns a bullet

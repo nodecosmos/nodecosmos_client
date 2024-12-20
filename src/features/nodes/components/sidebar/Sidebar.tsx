@@ -146,7 +146,7 @@ export default function Sidebar({ handleClose }: Props) {
                                 title="Tasks (Upcoming)"
                             />
                             {
-                                originalId == NODECOSMOS_NODE_ID && (
+                                originalId === NODECOSMOS_NODE_ID && (
                                     <SidebarListItem
                                         onClick={handleClose}
                                         to="/contact"

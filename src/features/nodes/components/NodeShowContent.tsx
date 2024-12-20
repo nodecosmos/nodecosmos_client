@@ -67,7 +67,7 @@ export default function NodeShowContent() {
             if (!isBranch) {
                 const selectedData = decodeSelectedObjQ(searchParams);
                 if (selectedData
-                    && selectedData.objectType === ObjectType.Node && selectedData.branchId == originalId) {
+                    && selectedData.objectType === ObjectType.Node && selectedData.branchId === originalId) {
                     selectNodeFromParams = {
                         branchId: selectedData.branchId,
                         id: selectedData.objectId,
@@ -99,7 +99,7 @@ export default function NodeShowContent() {
             const selectedData = decodeSelectedObjQ(searchParams);
             let selectNodeFromParams;
 
-            if (selectedData && selectedData.objectType === ObjectType.Node && selectedData.branchId != originalId) {
+            if (selectedData && selectedData.objectType === ObjectType.Node && selectedData.branchId !== originalId) {
                 selectNodeFromParams = {
                     branchId: selectedData.branchId,
                     id: selectedData.objectId,

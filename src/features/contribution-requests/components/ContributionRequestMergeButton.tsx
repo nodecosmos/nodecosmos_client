@@ -32,7 +32,7 @@ export default function ContributionRequestMergeButton() {
         currentUser && node && (currentUser.id === node.ownerId || node.editorIds?.has(currentUser.id))
     ), [currentUser, node]);
 
-    if (contributionRequest?.status == ContributionRequestStatus.Merged) {
+    if (contributionRequest?.status === ContributionRequestStatus.Merged) {
         return (
             <Button
                 color="secondary"
