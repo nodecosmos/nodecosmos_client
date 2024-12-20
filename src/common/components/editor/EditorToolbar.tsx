@@ -62,6 +62,10 @@ export default function EditorToolbar() {
         <div className="EditorToolbar">
             <Stack direction="row" spacing={1}>
                 <div>
+                    <Undo />
+                    <Redo />
+                </div>
+                <div>
                     {enabledExtMap?.[EditorExtensions.Bold]}
                 </div>
                 <div>
@@ -86,10 +90,6 @@ export default function EditorToolbar() {
                 <div>
                     {enabledExtMap?.[EditorExtensions.Blockquote]}
                     {enabledExtMap?.[EditorExtensions.CodeBlock]}
-                </div>
-                <div>
-                    <Undo />
-                    <Redo />
                 </div>
                 <div>
                     {enabledExtMap?.[EditorExtensions.Image]}

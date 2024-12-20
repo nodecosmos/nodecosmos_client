@@ -21,6 +21,7 @@ export default function EditorContainer({ children }: Props) {
         px = 0,
         py = 0,
         onBlur,
+        showBorder,
     } = useEditorContext();
 
     const sx = useMemo(() => ({
@@ -46,13 +47,19 @@ export default function EditorContainer({ children }: Props) {
         '.TextEditor': {
             overflow: 'auto',
             height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
-            border: 1,
-            borderRadius: 1,
-            borderColor: 'borders.4',
             m: 1,
+            border: showBorder ? 1 : 0,
+            borderColor: 'borders.4',
+            borderRadius: 1,
             '&:focus-within': {
                 outline: editorOutline,
                 outlineColor: editorFocusBorderColor,
+            },
+            '.placeholder': {
+                color: 'texts.tertiary',
+                fontSize: '1.5rem',
+                // prevent the placeholder from being selected
+                pointerEvents: 'none',
             },
         },
         '.ContainerRef': {
@@ -106,6 +113,7 @@ export default function EditorContainer({ children }: Props) {
         py,
         theme.palette.texts.primary,
         toolbarHeight,
+        showBorder,
     ]);
 
     useOutsideClick(editorContainerRef, onBlur);

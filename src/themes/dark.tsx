@@ -332,8 +332,8 @@ const theme: NodecosmosTheme = {
             'activatedOpacity': 0.12,
         },
         background: {
-            default: '#2c2e32',
-            paper: '#2d3035',
+            default: '#191b20',
+            paper: '#191b20',
         },
         getContrastText (): string {
             throw new Error('Function not implemented.');

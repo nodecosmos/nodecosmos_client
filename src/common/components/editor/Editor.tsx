@@ -1,11 +1,12 @@
 import EditorContainer from './EditorContainer';
 import EditorToolbar from './EditorToolbar';
-import { buildInputRules } from './inputRules';
-import { buildKeymap } from './keymap';
 import markdownParser from './markdown/parser';
 import markdownSerializer from './markdown/serializer';
+import { buildInputRules } from './plugins/inputRules';
+import { buildKeymap } from './plugins/keymap';
+import { placeholderPlugin } from './plugins/placeholder';
+import { trailingNode } from './plugins/trailingNodePlugin';
 import schema from './schema';
-import { trailingNode } from './trailingNodePlugin';
 import { EditorExtensions } from './types';
 import { UUID } from '../../../types';
 import { useEditorContextCreator } from '../../hooks/editor/useEditorContext';
@@ -51,6 +52,8 @@ export interface EditorProps {
     autoFocus?: boolean;
     onBlur?: () => void;
     editorClassName?: string;
+    placeholder?: string;
+    showBorder?: boolean;
 }
 
 export default function Editor(props: EditorProps) {
@@ -80,6 +83,8 @@ export default function Editor(props: EditorProps) {
         autoFocus,
         editorClassName,
         onBlur,
+        placeholder,
+        showBorder = true,
     } = props;
 
     const {
@@ -100,6 +105,7 @@ export default function Editor(props: EditorProps) {
         clearState,
         autoFocus,
         onBlur,
+        showBorder,
     });
 
     const y = useYDoc({
@@ -129,9 +135,17 @@ export default function Editor(props: EditorProps) {
         if (!editorRef.current || editorViewRef.current) return;
         if (!y.docNode && isRealTime) return;
 
+        const plugins = [
+            keymap(buildKeymap(schema)),
+            keymap(baseKeymap),
+            buildInputRules(schema),
+            trailingNode(),
+        ];
+
         let doc;
         if (isRealTime) {
             doc = y.docNode;
+            plugins.push(...y.plugins);
         } else if (contentType === ContentType.Markdown) {
             doc = markdownParser.parse(content);
         } else {
@@ -141,16 +155,15 @@ export default function Editor(props: EditorProps) {
             doc = parser.parse(div);
         }
 
+        if (placeholder) {
+            console.log('placeholder', placeholder);
+            plugins.push(placeholderPlugin(placeholder));
+        }
+
         const state = EditorState.create({
             doc,
             schema,
-            plugins: [
-                keymap(buildKeymap(schema)),
-                keymap(baseKeymap),
-                buildInputRules(schema),
-                trailingNode(),
-                ...y.plugins,
-            ],
+            plugins,
         });
 
         // Initialize EditorView
@@ -205,8 +218,12 @@ export default function Editor(props: EditorProps) {
         <EditorContext.Provider value={ctxValue}>
             <EditorContainer>
                 <EditorToolbar />
-                <div className="TextEditor" onClick={handleClick}>
-                    <div ref={editorRef} className={`ContainerRef DescriptionHTML ${editorClassName}`} />
+                <div className="TextEditor display-flex justify-center" onClick={handleClick}>
+                    <div className="max-w-900 w-100">
+                        <div
+                            ref={editorRef}
+                            className={`ContainerRef DescriptionHTML size-850 ${editorClassName}`} />
+                    </div>
                 </div>
             </EditorContainer>
         </EditorContext.Provider>

@@ -67,9 +67,12 @@ export default (theme: NodecosmosTheme) => ({
     '&.w-35': { width: 35 },
     '&.w-100': { width: '100%' },
     '&.w-850': { width: 850 },
+    '&.max-w-850': { maxWidth: 850 },
+    '&.max-w-900': { maxWidth: 900 },
     '&.min-w-50': { minWidth: 50 },
     '&.w-fit-content': { width: 'fit-content' },
 
+    '&.border-1': { border: `1px solid ${theme.palette.borders[1]}` },
     '&.border-top-1': { borderTop: `1px solid ${theme.palette.borders[1]}` },
     '&.border-bottom-1': { borderBottom: `1px solid ${theme.palette.borders[1]}` },
     '&.border-radius-1': { borderRadius: 4 },
@@ -141,6 +144,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.display-flex': { display: 'flex' },
     '&.display-inline-flex': { display: 'inline-flex' },
     '&.justify-start': { justifyContent: 'start' },
+    '&.justify-center': { justifyContent: 'center' },
     '&.align-center': { alignItems: 'center' },
 
     '&.tree-nested-color-hover-0': {

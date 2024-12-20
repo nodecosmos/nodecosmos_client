@@ -36,6 +36,7 @@ export default [
             react: { version: 'detect' },
         },
         rules: {
+            'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
             // Disable base rule
             'no-unused-vars': 'off',
             '@typescript-eslint/no-unused-vars': [

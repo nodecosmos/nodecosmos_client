@@ -79,6 +79,8 @@ export default function PaneDescriptionEditor() {
                         editorFocusBorderColor="toolbar.default"
                         editorClassName="fs-18"
                         fileObjectId={objectId}
+                        placeholder="Enter a description"
+                        showBorder={false}
                         isRealTime
                     />
                 </Box>

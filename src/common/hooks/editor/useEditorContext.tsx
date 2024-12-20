@@ -20,6 +20,7 @@ interface EditorContextProps {
     info?: string;
     clearState?: boolean;
     onBlur?: () => void;
+    showBorder?: boolean;
 }
 
 const EditorContext = createContext<EditorContextProps>({} as EditorContextProps);
