@@ -206,7 +206,7 @@ const theme: NodecosmosTheme = {
         },
 
         markdownContent: {
-            canvas: '#e3e4ee',
+            canvas: '#f0f2f7',
             canvasBorder: '#335faa',
             background: 'transparent',
         },

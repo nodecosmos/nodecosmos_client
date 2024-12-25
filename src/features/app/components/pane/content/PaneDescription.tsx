@@ -4,6 +4,8 @@ import { ObjectType } from '../../../../../types';
 import { selectDescription } from '../../../../descriptions/descriptions.selectors';
 import useDescription from '../../../../descriptions/hooks/useDescription';
 import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
+import { selectTheme } from '../../../app.selectors';
+import { Theme } from '../../../app.types';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
@@ -22,22 +24,27 @@ export default function PaneDescription() {
     const isEmpty = !description?.html || description?.html === '<p></p>';
     const prevObjId = usePrevious(objectId);
     const reMounted = prevObjId === objectId || !!description?.html;
+    const theme = useSelector(selectTheme);
 
     useEffect(() => {
         setTimeout(async () => {
             const codeBlocks = document.getElementsByTagName('pre');
 
             if (codeBlocks.length > 0) {
-                // Lazy load highlight.js only if there are code blocks
                 const hljs = await import('highlight.js');
-                await import('highlight.js/styles/github-dark-dimmed.css'); // Optional: Load a theme
+
+                if (theme === Theme.Light) {
+                    await import('highlight.js/styles/github.css');
+                } else {
+                    await import('highlight.js/styles/github-dark-dimmed.css');
+                }
 
                 Array.from(codeBlocks).forEach((pre) => {
                     hljs.default.highlightElement(pre);
                 });
             }
         }, 10);
-    }, [description]);
+    }, [description, theme]);
 
     return (
         <Box px={4}>

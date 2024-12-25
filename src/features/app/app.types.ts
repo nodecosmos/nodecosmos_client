@@ -7,9 +7,9 @@ export enum HeaderContent {
 }
 
 export enum Theme {
-    Light,
-    Dimmed,
     Dark,
+    Dimmed,
+    Light,
 }
 
 export interface Alert {
