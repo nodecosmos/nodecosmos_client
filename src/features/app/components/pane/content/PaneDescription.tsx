@@ -6,7 +6,7 @@ import useDescription from '../../../../descriptions/hooks/useDescription';
 import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function PaneDescription() {
@@ -22,6 +22,22 @@ export default function PaneDescription() {
     const isEmpty = !description?.html || description?.html === '<p></p>';
     const prevObjId = usePrevious(objectId);
     const reMounted = prevObjId === objectId || !!description?.html;
+
+    useEffect(() => {
+        setTimeout(async () => {
+            const codeBlocks = document.getElementsByTagName('pre');
+
+            if (codeBlocks.length > 0) {
+                // Lazy load highlight.js only if there are code blocks
+                const hljs = await import('highlight.js');
+                await import('highlight.js/styles/github-dark-dimmed.css'); // Optional: Load a theme
+
+                Array.from(codeBlocks).forEach((pre) => {
+                    hljs.default.highlightElement(pre);
+                });
+            }
+        }, 10);
+    }, [description]);
 
     return (
         <Box px={4}>

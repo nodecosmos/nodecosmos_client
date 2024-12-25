@@ -70,10 +70,7 @@ export default new MarkdownParser(schema, md, {
         },
         noCloseToken: true,
     },
-    html_inline: {
-        node: 'htmlInline',
-        getAttrs: (token) => {
-            return { content: token.content };
-        },
-    },
+    bold: { mark: 'bold' },
+    italic: { mark: 'italic' },
+    code: { mark: 'code' },
 });

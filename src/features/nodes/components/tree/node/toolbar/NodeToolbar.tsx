@@ -14,7 +14,7 @@ import { TreeType } from '../../../../nodes.types';
 import LikeButton from '../../../LikeButton';
 import ImportNodesModal from '../ImportNodesModal';
 import {
-    faDiagramSubtask, faArrowUpRightFromSquare, faArrowUpSmallBig,
+    faDiagramSubtask, faArrowUpRightFromSquare, faArrowUpSmallBig, faUpload,
 } from '@fortawesome/pro-light-svg-icons';
 import {
     faPenToSquare, faTrash, faUndo, faPlus,
@@ -158,11 +158,6 @@ function NodeToolbar() {
                                 </Tooltip>
                             )
                         }
-                        <Tooltip title="Import Nodes" placement="top">
-                            <ButtonBase className="Item green" onClick={openImportMod} aria-label="Edit Node">
-                                <FontAwesomeIcon icon={faPenToSquare} />
-                            </ButtonBase>
-                        </Tooltip>
                     </>
                 )
             }
@@ -211,6 +206,12 @@ function NodeToolbar() {
                     </ButtonBase>
                 </Tooltip>
             )}
+
+            <Tooltip title="Import Nodes" placement="top">
+                <ButtonBase className="Item orange" onClick={openImportMod} aria-label="Edit Node">
+                    <FontAwesomeIcon icon={faUpload} />
+                </ButtonBase>
+            </Tooltip>
 
             <LikeButton
                 id={id}

@@ -78,7 +78,7 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     bind('Mod-BracketLeft', lift);
     bind('Escape', selectParentNode);
 
-    bind('Mod-b', toggleMark(schema.marks.strong));
+    bind('Mod-b', wrapIn(schema.nodes.bold));
     bind('Mod-B', toggleMark(schema.marks.strong));
     bind('Mod-i', toggleMark(schema.marks.em));
     bind('Mod-I', toggleMark(schema.marks.em));

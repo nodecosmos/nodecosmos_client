@@ -187,7 +187,7 @@ const theme: NodecosmosTheme = {
             selectedFsBorder: '#61676b',
         },
         markdownContent: {
-            canvas: '#333743',
+            canvas: '#2a2d31',
             canvasBorder: '#335faa',
             background: 'transparent',
         },

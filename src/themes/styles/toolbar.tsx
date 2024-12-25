@@ -72,8 +72,11 @@ export default (theme: NodecosmosTheme) => ({
         '.Item.red': { color: theme.palette.toolbar.red },
         '.Item.green': { color: theme.palette.toolbar.green },
         '.Item.blue': { color: theme.palette.toolbar.blue },
+        '.Item.pink': { color: theme.palette.toolbar.pink },
         '.Item.purple': { color: theme.palette.toolbar.purple },
+        '.Item.lightPurple': { color: theme.palette.toolbar.lightPurple },
         '.Item.yellow': { color: theme.palette.toolbar.yellow },
+        '.Item.orange': { color: theme.palette.toolbar.orange },
     },
 
     '.CountBadge': {

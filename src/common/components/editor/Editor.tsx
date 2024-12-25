@@ -156,7 +156,6 @@ export default function Editor(props: EditorProps) {
         }
 
         if (placeholder) {
-            console.log('placeholder', placeholder);
             plugins.push(placeholderPlugin(placeholder));
         }
 
