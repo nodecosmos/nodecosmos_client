@@ -1,7 +1,13 @@
 import nodecosmos from '../../../../../api/nodecosmos-server';
 import CloseModalButton from '../../../../../common/components/modal/CloseModalButton';
+import { NodecosmosDispatch } from '../../../../../store';
 import { UUID } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
+import useBranchContext from '../../../../branch/hooks/useBranchContext';
+import { clearDescBranchData } from '../../../../descriptions/descriptionsSlice';
+import { clearFlowStepBranchData } from '../../../../flow-steps/flowStepsSlice';
+import { clearWorkflowBranchData } from '../../../../workflows/workflowsSlice';
+import { clearNodeBranchData } from '../../../nodes.actions';
 import { faFileUpload } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,6 +20,7 @@ import React, {
     useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface UploadFileModalProps {
     open: boolean;
@@ -31,26 +38,28 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
     const {
         open, onClose, nodeId, branchId,
     } = props;
-
-    const dispatch = useDispatch();
-
+    const dispatch: NodecosmosDispatch = useDispatch();
+    const { originalId, nodeId: currentNodeId } = useBranchContext();
+    const navigate = useNavigate();
     const uppy = useMemo(() => new Uppy({
         restrictions: {
             maxNumberOfFiles: 1,
             maxFileSize: 25 * 1024 * 1024,
         },
-    }).use(XHRUpload, { endpoint: '' }), []);
+    }).use(XHRUpload, {
+        endpoint: '',
+        getResponseData: () => {
+            return {};
+        },
+    }), []);
 
     const handleClose = useCallback(() => {
         uppy.cancelAll();
+
         onClose();
     }, [onClose, uppy]);
 
     useEffect(() => {
-        uppy.on('upload-success', () => {
-            window.location.reload();
-        });
-
         uppy.on('file-added', async () => {
             const xhrUpload = uppy.getPlugin('XHRUpload');
 
@@ -62,7 +71,18 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
                 endpoint: `${nodecosmos.defaults.baseURL}/nodes/${branchId}/${nodeId}/import_nodes`,
             });
 
-            return uppy.upload().catch((error) => {
+            return uppy.upload().then(() => {
+                dispatch(clearNodeBranchData(originalId));
+                dispatch(clearWorkflowBranchData(originalId));
+                dispatch(clearFlowStepBranchData(originalId));
+                dispatch(clearDescBranchData(originalId));
+                navigate(`/nodes/${originalId}/${currentNodeId}`);
+                setTimeout(() => dispatch(setAlert({
+                    isOpen: true,
+                    severity: 'success',
+                    message: 'Nodes Imported Successfully!',
+                })), 50);
+            }).catch((error) => {
                 console.error(error);
                 dispatch(setAlert({
                     isOpen: true,
@@ -76,7 +96,7 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
         return () => {
             uppy.off('upload-success', () => {});
         };
-    }, [dispatch, onClose, branchId, nodeId, uppy]);
+    }, [dispatch, onClose, branchId, nodeId, uppy, handleClose, originalId, navigate, currentNodeId]);
 
     return (
         <Dialog
@@ -90,7 +110,7 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
                 <div>
                     <Typography variant="h5" align="center" color="texts.secondary" width="auto">
                         <FontAwesomeIcon icon={faFileUpload} />
-                        Import Nodes
+                        Import Nodes From File
                     </Typography>
                 </div>
                 <CloseModalButton onClose={handleClose} />

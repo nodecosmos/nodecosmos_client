@@ -30,6 +30,7 @@ import SignupForm from '../../users/components/SignupForm';
 import { selectCurrentUser, selectIsAuthenticated } from '../../users/users.selectors';
 import { syncUpCurrentUser } from '../../users/users.thunks';
 import { selectTheme } from '../app.selectors';
+import { THEME_STRING } from '../app.types';
 import { HEADER_HEIGHT } from '../constants';
 import useConfirmEmailAlert from '../hooks/useConfirmEmailAlert';
 import { Box } from '@mui/material';
@@ -86,7 +87,7 @@ export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <div className="background-2 h-100">
+            <div className={`background-2 h-100 ${THEME_STRING[themeIdx]}`}>
                 <Header />
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>

@@ -10,6 +10,7 @@ import './themes/fonts/roboto/300.css';
 import './themes/fonts/roboto/400.css';
 import './themes/fonts/roboto/500.css';
 import './themes/fonts/roboto/700.css';
+import './syntax.css';
 
 const container = document.getElementById('root');
 

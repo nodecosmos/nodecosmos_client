@@ -1,14 +1,18 @@
 import {
-    wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
+    wrapIn, setBlockType, chainCommands, exitCode,
     joinUp, joinDown, lift, selectParentNode,
 } from 'prosemirror-commands';
 import { undo, redo } from 'prosemirror-history';
 import { undoInputRule } from 'prosemirror-inputrules';
-import { Schema } from 'prosemirror-model';
+import {
+    Attrs, NodeType, Schema,
+} from 'prosemirror-model';
 import {
     wrapInList, splitListItem, liftListItem, sinkListItem,
 } from 'prosemirror-schema-list';
-import { Command } from 'prosemirror-state';
+import {
+    Command, EditorState, Transaction,
+} from 'prosemirror-state';
 
 let mac: boolean;
 
@@ -26,6 +30,55 @@ if (navigator.userAgentData) {
 } else {
     // Fallback method for browsers that don't support userAgentData
     mac = navigator.userAgent.includes('Macintosh');
+}
+
+function isNodeActive(state: EditorState, nodeType: NodeType): boolean {
+    const { from, to } = state.selection;
+
+    let isActive = false;
+    state.doc.nodesBetween(from, to, (node) => {
+        if (node.type === nodeType) {
+            isActive = true;
+        }
+    });
+
+    return isActive;
+}
+
+function toggleInlineNode(nodeType: NodeType): Command {
+    return (state: EditorState, dispatch?: (tr: Transaction) => void, attrs?: Attrs | null): boolean => {
+        const { from, to } = state.selection;
+        const isActive = isNodeActive(state, nodeType);
+        const tr = state.tr;
+
+        if (isActive) {
+            const { from, to } = state.selection;
+
+            state.doc.nodesBetween(from, to, (node, pos) => {
+                if (node.type === nodeType) {
+                    tr.replaceWith(pos, pos + node.nodeSize, node.content);
+                }
+            });
+
+            if (dispatch) dispatch(tr);
+            return true;
+        }
+
+        if (from === to) {
+            // Use zero-width space to avoid empty text node
+            const placeholderText = state.schema.text('\u200b');
+            const wrappedNode = nodeType.create(attrs, placeholderText);
+            tr.insert(from, wrappedNode);
+        } else {
+            // Wrap existing selection
+            const slice = state.doc.slice(from, to);
+            const wrappedNode = nodeType.create(attrs, slice.content);
+            tr.replaceWith(from, to, wrappedNode);
+        }
+
+        if (dispatch) dispatch(tr);
+        return true;
+    };
 }
 
 /// Inspect the given schema looking for marks and nodes from the
@@ -78,11 +131,11 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     bind('Mod-BracketLeft', lift);
     bind('Escape', selectParentNode);
 
-    bind('Mod-b', wrapIn(schema.nodes.bold));
-    bind('Mod-B', toggleMark(schema.marks.strong));
-    bind('Mod-i', toggleMark(schema.marks.em));
-    bind('Mod-I', toggleMark(schema.marks.em));
-    bind('Mod-`', toggleMark(schema.marks.code));
+    bind('Mod-b', toggleInlineNode(schema.nodes.bold));
+    bind('Mod-B', toggleInlineNode(schema.nodes.bold));
+    bind('Mod-i', toggleInlineNode(schema.nodes.italic));
+    bind('Mod-I', toggleInlineNode(schema.nodes.italic));
+    bind('Mod-`', toggleInlineNode(schema.nodes.code));
     bind('Shift-Ctrl-8', wrapInList(schema.nodes.bulletList));
     bind('Shift-Ctrl-9', wrapInList(schema.nodes.orderedList));
     bind('Ctrl->', wrapIn(schema.nodes.blockquote));

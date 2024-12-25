@@ -12,6 +12,8 @@ export enum Theme {
     Light,
 }
 
+export const THEME_STRING = ['Dark', 'Dimmed', 'Light'];
+
 export interface Alert {
     isOpen: boolean;
     message: string;

@@ -7,7 +7,7 @@ import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectDescription } from '../descriptions.selectors';
 import { getDescriptionBase64, saveDescription } from '../descriptions.thunks';
 import React, {
-    useCallback, useEffect, useMemo, 
+    useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -121,5 +121,6 @@ export default function useDescriptionEdit() {
         handleChange,
         markdown,
         base64,
-    }), [objectId, objectNodeId, branchId, handleChange, markdown, base64]);
+        currentHTML,
+    }), [objectId, objectNodeId, branchId, handleChange, markdown, base64, currentHTML]);
 }

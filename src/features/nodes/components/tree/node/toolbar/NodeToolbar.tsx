@@ -207,7 +207,7 @@ function NodeToolbar() {
                 </Tooltip>
             )}
 
-            <Tooltip title="Import Nodes" placement="top">
+            <Tooltip title="Import From File" placement="top">
                 <ButtonBase className="Item orange" onClick={openImportMod} aria-label="Edit Node">
                     <FontAwesomeIcon icon={faUpload} />
                 </ButtonBase>

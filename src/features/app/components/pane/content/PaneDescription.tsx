@@ -5,11 +5,12 @@ import { selectDescription } from '../../../../descriptions/descriptions.selecto
 import useDescription from '../../../../descriptions/hooks/useDescription';
 import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
 import { selectTheme } from '../../../app.selectors';
-import { Theme } from '../../../app.types';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
+let HLJS: typeof import('highlight.js') | null = null;
 
 export default function PaneDescription() {
     const {
@@ -31,16 +32,10 @@ export default function PaneDescription() {
             const codeBlocks = document.getElementsByTagName('pre');
 
             if (codeBlocks.length > 0) {
-                const hljs = await import('highlight.js');
-
-                if (theme === Theme.Light) {
-                    await import('highlight.js/styles/github.css');
-                } else {
-                    await import('highlight.js/styles/github-dark-dimmed.css');
-                }
+                HLJS ||= await import('highlight.js');
 
                 Array.from(codeBlocks).forEach((pre) => {
-                    hljs.default.highlightElement(pre);
+                    HLJS!.default.highlightElement(pre);
                 });
             }
         }, 10);
