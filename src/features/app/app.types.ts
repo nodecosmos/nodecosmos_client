@@ -18,6 +18,7 @@ export interface Alert {
     isOpen: boolean;
     message: string;
     severity: 'info' | 'warning' | 'error' | 'success';
+    isModal?: boolean;
 }
 
 // TODO: remove this once we get rid of current landing page

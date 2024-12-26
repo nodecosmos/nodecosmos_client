@@ -138,7 +138,6 @@ export default new MarkdownSerializer(
             state.wrapBlock('> ', null, node, () => state.renderContent(node));
         },
         codeBlock,
-        code_block: codeBlock,
         heading(state, node) {
             state.write(state.repeat('#', node.attrs.level) + ' ');
             state.renderInline(node, false);

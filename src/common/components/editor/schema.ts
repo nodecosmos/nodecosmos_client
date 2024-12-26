@@ -234,12 +234,6 @@ export default new Schema({
         bulletList,
         orderedList,
         listItem,
-        list_item: listItem,
-        bullet_list: bulletList,
-        ordered_list: orderedList,
-        code_block: codeBlock,
-        horizontal_rule: hardBreak,
-        hard_break: hardBreak,
         blockquote,
         codeBlock,
         image,
@@ -251,5 +245,13 @@ export default new Schema({
         strike,
         code,
         link,
+
+        // keep snake case for compatibility with the old schema
+        list_item: listItem,
+        bullet_list: bulletList,
+        ordered_list: orderedList,
+        code_block: codeBlock,
+        horizontal_rule: hardBreak,
+        hard_break: hardBreak,
     },
 });

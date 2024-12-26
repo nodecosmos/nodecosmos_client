@@ -30,10 +30,6 @@ export default new MarkdownParser(schema, md, {
         block: 'heading',
         getAttrs: tok => ({ level: +tok.tag.slice(1) }),
     },
-    code_block: {
-        block: 'codeBlock',
-        noCloseToken: true,
-    },
     fence: {
         block: 'codeBlock',
         getAttrs: tok => ({ params: tok.info || '' }),

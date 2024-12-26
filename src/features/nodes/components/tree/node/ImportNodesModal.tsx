@@ -1,7 +1,9 @@
 import nodecosmos from '../../../../../api/nodecosmos-server';
+import Alert from '../../../../../common/components/Alert';
 import CloseModalButton from '../../../../../common/components/modal/CloseModalButton';
+import useHandleServerErrorAlert from '../../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../../store';
-import { UUID } from '../../../../../types';
+import { NodecosmosError, UUID } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
 import { clearDescBranchData } from '../../../../descriptions/descriptionsSlice';
@@ -48,10 +50,12 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
         },
     }).use(XHRUpload, {
         endpoint: '',
+        shouldRetry: () => false,
         getResponseData: () => {
             return {};
         },
     }), []);
+    const handleServerError = useHandleServerErrorAlert({ isModal: true });
 
     const handleClose = useCallback(() => {
         uppy.cancelAll();
@@ -60,6 +64,32 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
     }, [onClose, uppy]);
 
     useEffect(() => {
+        uppy.on('upload-success', async (_file, _response) => {
+            dispatch(clearNodeBranchData(originalId));
+            dispatch(clearWorkflowBranchData(originalId));
+            dispatch(clearFlowStepBranchData(originalId));
+            dispatch(clearDescBranchData(originalId));
+            navigate(`/nodes/${originalId}/${currentNodeId}`);
+            setTimeout(() => dispatch(setAlert({
+                isOpen: true,
+                severity: 'success',
+                message: 'Nodes Imported Successfully!',
+            })), 50);
+        });
+
+        uppy.on('upload-error', (_file, _error, resData) => {
+            if (resData && resData.response) {
+                handleServerError(JSON.parse(resData.response) as unknown as NodecosmosError);
+            } else {
+                dispatch(setAlert({
+                    isOpen: true,
+                    isModal: true,
+                    severity: 'error',
+                    message: 'Error uploading file!',
+                }));
+            }
+        });
+
         uppy.on('file-added', async () => {
             const xhrUpload = uppy.getPlugin('XHRUpload');
 
@@ -72,20 +102,12 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
             });
 
             return uppy.upload().then(() => {
-                dispatch(clearNodeBranchData(originalId));
-                dispatch(clearWorkflowBranchData(originalId));
-                dispatch(clearFlowStepBranchData(originalId));
-                dispatch(clearDescBranchData(originalId));
-                navigate(`/nodes/${originalId}/${currentNodeId}`);
-                setTimeout(() => dispatch(setAlert({
-                    isOpen: true,
-                    severity: 'success',
-                    message: 'Nodes Imported Successfully!',
-                })), 50);
+
             }).catch((error) => {
                 console.error(error);
                 dispatch(setAlert({
                     isOpen: true,
+                    isModal: true,
                     severity: 'error',
                     message: 'Error uploading file!',
                     duration: 5000,
@@ -96,7 +118,10 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
         return () => {
             uppy.off('upload-success', () => {});
         };
-    }, [dispatch, onClose, branchId, nodeId, uppy, handleClose, originalId, navigate, currentNodeId]);
+    },
+    [
+        dispatch, onClose, branchId, nodeId, uppy, handleClose, originalId, navigate, currentNodeId, handleServerError,
+    ]);
 
     return (
         <Dialog
@@ -116,6 +141,7 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
                 <CloseModalButton onClose={handleClose} />
             </div>
             <DialogContent>
+                <Alert position="sticky" mb={1} modal />
                 <Dashboard
                     uppy={uppy}
                     autoOpen="metaEditor"

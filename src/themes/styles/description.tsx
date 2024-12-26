@@ -47,6 +47,7 @@ export default (theme: NodecosmosTheme) => ({
             fontSize: 16,
             fontWeight: 400,
             wordWrap: 'break-word',
+            whiteSpace: 'pre-wrap',
         },
         '&.fs-18': { p: { fontSize: 18 } },
 

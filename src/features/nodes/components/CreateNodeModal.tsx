@@ -28,7 +28,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
-    const handleServerError = useHandleServerErrorAlert();
+    const handleServerError = useHandleServerErrorAlert({ isModal: true });
     const currentUser = useSelector(selectCurrentUser);
     const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);
@@ -121,7 +121,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             {
                 currentUser && (
                     <DialogContent>
-                        <Alert position="sticky" mb={1} />
+                        <Alert position="sticky" mb={1} modal />
                         <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
                             {({ handleSubmit }) => (
                                 <form onSubmit={handleSubmit}>

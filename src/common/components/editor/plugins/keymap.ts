@@ -32,55 +32,6 @@ if (navigator.userAgentData) {
     mac = navigator.userAgent.includes('Macintosh');
 }
 
-function isNodeActive(state: EditorState, nodeType: NodeType): boolean {
-    const { from, to } = state.selection;
-
-    let isActive = false;
-    state.doc.nodesBetween(from, to, (node) => {
-        if (node.type === nodeType) {
-            isActive = true;
-        }
-    });
-
-    return isActive;
-}
-
-function toggleInlineNode(nodeType: NodeType): Command {
-    return (state: EditorState, dispatch?: (tr: Transaction) => void, attrs?: Attrs | null): boolean => {
-        const { from, to } = state.selection;
-        const isActive = isNodeActive(state, nodeType);
-        const tr = state.tr;
-
-        if (isActive) {
-            const { from, to } = state.selection;
-
-            state.doc.nodesBetween(from, to, (node, pos) => {
-                if (node.type === nodeType) {
-                    tr.replaceWith(pos, pos + node.nodeSize, node.content);
-                }
-            });
-
-            if (dispatch) dispatch(tr);
-            return true;
-        }
-
-        if (from === to) {
-            // Use zero-width space to avoid empty text node
-            const placeholderText = state.schema.text('\u200b');
-            const wrappedNode = nodeType.create(attrs, placeholderText);
-            tr.insert(from, wrappedNode);
-        } else {
-            // Wrap existing selection
-            const slice = state.doc.slice(from, to);
-            const wrappedNode = nodeType.create(attrs, slice.content);
-            tr.replaceWith(from, to, wrappedNode);
-        }
-
-        if (dispatch) dispatch(tr);
-        return true;
-    };
-}
-
 /// Inspect the given schema looking for marks and nodes from the
 /// basic schema, and if found, add key bindings related to them.
 /// This will add:
@@ -157,6 +108,109 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
         if (dispatch) dispatch(state.tr.replaceSelectionWith(hr.create()).scrollIntoView());
         return true;
     });
+    bind('Tab', handleTabKey());
+    bind('Shift-Tab', undoTabKey());
 
     return keys;
+}
+
+function isNodeActive(state: EditorState, nodeType: NodeType): boolean {
+    const { from, to } = state.selection;
+
+    let isActive = false;
+    state.doc.nodesBetween(from, to, (node) => {
+        if (node.type === nodeType) {
+            isActive = true;
+        }
+    });
+
+    return isActive;
+}
+
+function toggleInlineNode(nodeType: NodeType): Command {
+    return (state: EditorState, dispatch?: (tr: Transaction) => void, attrs?: Attrs | null): boolean => {
+        const { from, to } = state.selection;
+        const isActive = isNodeActive(state, nodeType);
+        const tr = state.tr;
+
+        if (isActive) {
+            const { from, to } = state.selection;
+
+            state.doc.nodesBetween(from, to, (node, pos) => {
+                if (node.type === nodeType) {
+                    tr.replaceWith(pos, pos + node.nodeSize, node.content);
+                }
+            });
+
+            if (dispatch) dispatch(tr);
+            return true;
+        }
+
+        if (from === to) {
+            // Use zero-width space to avoid empty text node
+            const placeholderText = state.schema.text('\u200b');
+            const wrappedNode = nodeType.create(attrs, placeholderText);
+            tr.insert(from, wrappedNode);
+        } else {
+            // Wrap existing selection
+            const slice = state.doc.slice(from, to);
+            const wrappedNode = nodeType.create(attrs, slice.content);
+            tr.replaceWith(from, to, wrappedNode);
+        }
+
+        if (dispatch) dispatch(tr);
+        return true;
+    };
+}
+
+function handleTabKey(): Command {
+    // handle tab key, if it's code block or paragraph indent it by 2 spaces
+    // if it's list item, create nested list and move list item to nested list
+    return (state: EditorState, dispatch?: (tr: Transaction) => void): boolean => {
+        const { $from } = state.selection;
+        const { parent } = $from;
+
+        if (!parent) {
+            return false;
+        }
+
+        const { type } = parent;
+        const { schema } = state;
+
+        if (type === schema.nodes.codeBlock || type === schema.nodes.paragraph) {
+            const { tr } = state;
+            const { from, to } = state.selection;
+            const text = state.doc.textBetween(from, to, '\n');
+            const newText = text.replace(/^/gm, '\t');
+            tr.replaceWith(from, to, schema.text(newText));
+            if (dispatch) dispatch(tr);
+            return true;
+        }
+
+        return false;
+
+        // TODO: if it's list item, check if upper sibling is present and move the list item to nested list
+        // of the upper sibling.
+        // if (type === schema.nodes.paragraph && ancestorType === schema.nodes.listItem) {
+        //     const { tr } = state;
+        //     const { from, to } = state.selection;
+        //     const listItem = schema.nodes.listItem.createChecked(null, ancestorNode.content);
+        //     const nestedList = schema.nodes.bulletList.createChecked(null, [listItem]);
+        //     tr.delete(from, to);
+        //     tr.replaceWith(from, to, nestedList);
+        //     if (dispatch) dispatch(tr);
+        //     return true;
+        // }
+    };
+}
+
+/**
+ * @todo Implement undoTabKey function
+ */
+function undoTabKey(): Command {
+    // handle shift-tab key, if it's code block or paragraph unindent it by 2 spaces
+    // if it's list item, move the list item to parent list
+    return (_state: EditorState, _dispatch?: (tr: Transaction) => void): boolean => {
+        return true;
+    };
 }
