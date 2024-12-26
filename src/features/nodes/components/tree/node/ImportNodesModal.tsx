@@ -78,7 +78,9 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
         });
 
         uppy.on('upload-error', (_file, _error, resData) => {
+            // @ts-ignore
             if (resData && resData.response) {
+                // @ts-ignore
                 handleServerError(JSON.parse(resData.response) as unknown as NodecosmosError);
             } else {
                 dispatch(setAlert({
