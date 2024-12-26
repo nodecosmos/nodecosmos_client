@@ -34,13 +34,12 @@ export default function File() {
             const { state, dispatch } = editorView!;
             const { schema } = state;
 
-            const { link } = schema.marks;
+            const { link } = schema.nodes;
             if (!link) return false;
 
-            const linkMark = link.create({ href: attachment.url });
-            const textNode = schema.text(attachment.filename, [linkMark]);
+            const linkNode = link.create({ href: attachment.url }, state.schema.text(attachment.filename));
+            const tr = state.tr.replaceSelectionWith(linkNode, false);
 
-            const tr = state.tr.replaceSelectionWith(textNode, false);
             dispatch(tr);
 
             editorView.focus();
