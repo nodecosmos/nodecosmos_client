@@ -52,6 +52,7 @@ export default function Alert(props: AlertProps) {
     if (!isOpen) return null;
 
     if (isModal && !showInModal) return null;
+    if (!isModal && showInModal) return null;
 
     return (
         <Box
