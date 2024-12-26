@@ -40,8 +40,8 @@ export default (theme: NodecosmosTheme) => ({
             padding: 16,
             borderRadius: 4,
             backgroundColor: theme.palette.markdownContent.canvas,
-            textWrap: 'wrap',
             code: { backgroundColor: 'transparent' },
+            overflow: 'auto',
         },
         code: {
             padding: '2px 4px',
