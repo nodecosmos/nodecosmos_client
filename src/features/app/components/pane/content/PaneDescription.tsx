@@ -28,6 +28,9 @@ export default function PaneDescription() {
     const theme = useSelector(selectTheme);
 
     useEffect(() => {
+        if (loading) {
+            return;
+        }
         setTimeout(async () => {
             const codeBlocks = document.getElementsByTagName('pre');
 
@@ -39,7 +42,7 @@ export default function PaneDescription() {
                 });
             }
         }, 10);
-    }, [description, theme]);
+    }, [description, loading, theme]);
 
     return (
         <Box px={4}>
