@@ -204,13 +204,74 @@ function handleTabKey(): Command {
     };
 }
 
-/**
- * @todo Implement undoTabKey function
- */
 function undoTabKey(): Command {
     // handle shift-tab key, if it's code block or paragraph unindent it by 2 spaces
     // if it's list item, move the list item to parent list
-    return (_state: EditorState, _dispatch?: (tr: Transaction) => void): boolean => {
-        return true;
+    return (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+        const { selection, doc } = state;
+        const {
+            from, to, empty,
+        } = selection;
+        const parent = selection.$from.parent;
+        const { schema } = state;
+
+        // Only apply to paragraphs/codeBlocks (customize as needed).
+        if (
+            parent.type !== schema.nodes.paragraph
+            && parent.type !== schema.nodes.codeBlock
+        ) {
+            return true;
+        }
+
+        if (!empty) {
+            //
+            // 1) Multi-line unindent for a non-empty selection
+            //
+            const originalText = doc.textBetween(from, to, '\n');
+
+            // Try removing a leading tab or two spaces from each line.
+            const newText = originalText.replace(/^(\t| {2})/gm, '');
+
+            // If nothing changed, do nothing.
+            if (newText === originalText) {
+                return true;
+            }
+
+            if (dispatch) {
+                const tr = state.tr.replaceWith(from, to, schema.text(newText));
+                dispatch(tr);
+            }
+            return true;
+        } else {
+            //
+            // 2) Single-line unindent for an empty selection
+            //
+            // Check if there's a single tab right before the cursor.
+            if (from > 0) {
+                const singleCharBefore = doc.textBetween(from - 1, from);
+                if (singleCharBefore === '\t') {
+                    if (dispatch) {
+                        const tr = state.tr.delete(from - 1, from);
+                        dispatch(tr);
+                    }
+                    return true;
+                }
+            }
+
+            // Check if there are 2 spaces right before the cursor.
+            if (from > 1) {
+                const twoCharsBefore = doc.textBetween(from - 2, from);
+                if (twoCharsBefore === '  ') {
+                    if (dispatch) {
+                        const tr = state.tr.delete(from - 2, from);
+                        dispatch(tr);
+                    }
+                    return true;
+                }
+            }
+
+            // No indentation to remove
+            return true;
+        }
     };
 }
