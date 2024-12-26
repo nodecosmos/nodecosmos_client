@@ -32,7 +32,7 @@ export default (theme: NodecosmosTheme) => ({
                 'td:last-of-type': { borderRight: 0 },
                 'th:last-of-type': { borderRight: 0 },
                 '&:last-of-type td': { borderBottom: 0 },
-                '&:hover': { backgroundColor: theme.palette.backgrounds[8] },
+                '&:hover': { backgroundColor: theme.palette.backgrounds[7] },
             },
         },
         pre: {
@@ -41,6 +41,12 @@ export default (theme: NodecosmosTheme) => ({
             borderRadius: 4,
             backgroundColor: theme.palette.markdownContent.canvas,
             textWrap: 'wrap',
+            code: { backgroundColor: 'transparent' },
+        },
+        code: {
+            padding: '2px 4px',
+            borderRadius: 4,
+            backgroundColor: theme.palette.backgrounds[8],
         },
         a: { color: theme.palette.texts.link },
         p: {

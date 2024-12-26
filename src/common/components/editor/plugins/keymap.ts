@@ -11,7 +11,7 @@ import {
     wrapInList, splitListItem, liftListItem, sinkListItem,
 } from 'prosemirror-schema-list';
 import {
-    Command, EditorState, Transaction,
+    Command, EditorState, TextSelection, Transaction,
 } from 'prosemirror-state';
 
 let mac: boolean;
@@ -110,6 +110,8 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     });
     bind('Tab', handleTabKey());
     bind('Shift-Tab', undoTabKey());
+    bind('ArrowRight', handleArrowRightKey());
+    // on right arrow key, if cursor is at the end of the code, move cursor outside of code
 
     return keys;
 }
@@ -171,7 +173,7 @@ function handleTabKey(): Command {
         const { parent } = $from;
 
         if (!parent) {
-            return false;
+            return true;
         }
 
         const { type } = parent;
@@ -185,6 +187,10 @@ function handleTabKey(): Command {
             tr.replaceWith(from, to, schema.text(newText));
             if (dispatch) dispatch(tr);
             return true;
+        }
+
+        if (type === schema.nodes.code) {
+            _exitCodeBlock(state, dispatch);
         }
 
         return false;
@@ -274,4 +280,52 @@ function undoTabKey(): Command {
             return true;
         }
     };
+}
+
+function handleArrowRightKey(): Command {
+    return (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+        const { $from } = state.selection;
+        const { parent } = $from;
+
+        if (!parent) {
+            return false;
+        }
+
+        const { type } = parent;
+        const { schema } = state;
+
+        if (type === schema.nodes.code) {
+            _exitCodeBlock(state, dispatch);
+        }
+
+        return false;
+    };
+}
+
+function _exitCodeBlock(state: EditorState, dispatch?: (tr: Transaction) => void): boolean {
+    const { $from } = state.selection;
+    const { parent } = $from;
+
+    if (!parent) {
+        return false;
+    }
+
+    const { type } = parent;
+    const { schema } = state;
+
+    if (type === schema.nodes.code) {
+        const { tr } = state;
+        const { from } = state.selection;
+
+        const text = state.doc.textBetween(from, from + 1, '\n');
+        const newText = text.replace(/^/gm, ' ');
+        tr.replaceWith(from + 1, from + 2, schema.text(newText));
+
+        tr.setSelection(TextSelection.create(state.apply(tr).doc, from + 2));
+
+        if (dispatch) dispatch(tr);
+        return true;
+    }
+
+    return false;
 }
