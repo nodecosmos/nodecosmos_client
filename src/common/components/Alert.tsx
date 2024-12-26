@@ -15,15 +15,16 @@ interface AlertProps {
     right?: number | string;
     width?: number | string | {xs: number | string, md: number | string};
     maxWidth?: number | string;
+    modal?: boolean;
 }
 
 export default function Alert(props: AlertProps) {
     const {
-        position = 'fixed', mb = 0, right = 'auto', width = '100%', maxWidth = '100%',
+        position = 'fixed', mb = 0, right = 'auto', width = '100%', maxWidth = '100%', modal: showInModal = false,
     } = props;
     const dispatch = useDispatch();
     const {
-        isOpen, message, severity,
+        isOpen, message, severity, isModal,
     } = useSelector(selectAlert);
 
     const handleClose = useCallback(() => dispatch(
@@ -49,6 +50,9 @@ export default function Alert(props: AlertProps) {
     const alertHTML = useMemo(() => ({ __html: message }), [message]);
 
     if (!isOpen) return null;
+
+    if (isModal && !showInModal) return null;
+    if (!isModal && showInModal) return null;
 
     return (
         <Box

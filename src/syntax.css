@@ -1,0 +1,313 @@
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/* Theme: GitHub Dark Dimmed */
+.Dark .hljs {
+  color: #adbac7;
+  /*background: #22272e*/
+}
+.Dark .hljs-doctag,
+.Dark .hljs-keyword,
+.Dark .hljs-meta .Dark .hljs-keyword,
+.Dark .hljs-template-tag,
+.Dark .hljs-template-variable,
+.Dark .hljs-type,
+.Dark .hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #f47067
+}
+.Dark .hljs-title,
+.Dark .hljs-title.class_,
+.Dark .hljs-title.class_.inherited__,
+.Dark .hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #dcbdfb
+}
+.Dark .hljs-attr,
+.Dark .hljs-attribute,
+.Dark .hljs-literal,
+.Dark .hljs-meta,
+.Dark .hljs-number,
+.Dark .hljs-operator,
+.Dark .hljs-variable,
+.Dark .hljs-selector-attr,
+.Dark .hljs-selector-class,
+.Dark .hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #6cb6ff
+}
+.Dark .hljs-regexp,
+.Dark .hljs-string,
+.Dark .hljs-meta .Dark .hljs-string {
+  /* prettylights-syntax-string */
+  color: #96d0ff
+}
+.Dark .hljs-built_in,
+.Dark .hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #f69d50
+}
+.Dark .hljs-comment,
+.Dark .hljs-code,
+.Dark .hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #768390
+}
+.Dark .hljs-name,
+.Dark .hljs-quote,
+.Dark .hljs-selector-tag,
+.Dark .hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #8ddb8c
+}
+.Dark .hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #adbac7
+}
+.Dark .hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #316dca;
+  font-weight: bold
+}
+.Dark .hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #eac55f
+}
+.Dark .hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #adbac7;
+  font-style: italic
+}
+.Dark .hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #adbac7;
+  font-weight: bold
+}
+.Dark .hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #b4f1b4;
+  background-color: #1b4721
+}
+.Dark .hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #ffd8d3;
+  background-color: #78191b
+}
+.Dark .hljs-char.escape_,
+.Dark .hljs-link,
+.Dark .hljs-params,
+.Dark .hljs-property,
+.Dark .hljs-punctuation,
+.Dark .hljs-tag {
+  /* purposely ignored */
+
+}
+
+/* Theme: GitHub Dark Dimmed */
+.Dimmed .hljs {
+  color: #adbac7;
+}
+.Dimmed .hljs-doctag,
+.Dimmed .hljs-keyword,
+.Dimmed .hljs-meta .Dimmed .hljs-keyword,
+.Dimmed .hljs-template-tag,
+.Dimmed .hljs-template-variable,
+.Dimmed .hljs-type,
+.Dimmed .hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #f47067
+}
+.Dimmed .hljs-title,
+.Dimmed .hljs-title.class_,
+.Dimmed .hljs-title.class_.inherited__,
+.Dimmed .hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #dcbdfb
+}
+.Dimmed .hljs-attr,
+.Dimmed .hljs-attribute,
+.Dimmed .hljs-literal,
+.Dimmed .hljs-meta,
+.Dimmed .hljs-number,
+.Dimmed .hljs-operator,
+.Dimmed .hljs-variable,
+.Dimmed .hljs-selector-attr,
+.Dimmed .hljs-selector-class,
+.Dimmed .hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #6cb6ff
+}
+.Dimmed .hljs-regexp,
+.Dimmed .hljs-string,
+.Dimmed .hljs-meta .Dimmed .hljs-string {
+  /* prettylights-syntax-string */
+  color: #96d0ff
+}
+.Dimmed .hljs-built_in,
+.Dimmed .hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #f69d50
+}
+.Dimmed .hljs-comment,
+.Dimmed .hljs-code,
+.Dimmed .hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #768390
+}
+.Dimmed .hljs-name,
+.Dimmed .hljs-quote,
+.Dimmed .hljs-selector-tag,
+.Dimmed .hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #8ddb8c
+}
+.Dimmed .hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #adbac7
+}
+.Dimmed .hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #316dca;
+  font-weight: bold
+}
+.Dimmed .hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #eac55f
+}
+.Dimmed .hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #adbac7;
+  font-style: italic
+}
+.Dimmed .hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #adbac7;
+  font-weight: bold
+}
+.Dimmed .hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #b4f1b4;
+  background-color: #1b4721
+}
+.Dimmed .hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #ffd8d3;
+  background-color: #78191b
+}
+.Dimmed .hljs-char.escape_,
+.Dimmed .hljs-link,
+.Dimmed .hljs-params,
+.Dimmed .hljs-property,
+.Dimmed .hljs-punctuation,
+.Dimmed .hljs-tag {
+  /* purposely ignored */
+
+}
+
+
+/*  Theme: GitHub Light */
+.Light .hljs {
+  color: #24292e;
+}
+.Light .hljs-doctag,
+.Light .hljs-keyword,
+.Light .hljs-meta .Light .hljs-keyword,
+.Light .hljs-template-tag,
+.Light .hljs-template-variable,
+.Light .hljs-type,
+.Light .hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #d73a49
+}
+.Light .hljs-title,
+.Light .hljs-title.class_,
+.Light .hljs-title.class_.inherited__,
+.Light .hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #6f42c1
+}
+.Light .hljs-attr,
+.Light .hljs-attribute,
+.Light .hljs-literal,
+.Light .hljs-meta,
+.Light .hljs-number,
+.Light .hljs-operator,
+.Light .hljs-variable,
+.Light .hljs-selector-attr,
+.Light .hljs-selector-class,
+.Light .hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #005cc5
+}
+.Light .hljs-regexp,
+.Light .hljs-string,
+.Light .hljs-meta .Light .hljs-string {
+  /* prettylights-syntax-string */
+  color: #032f62
+}
+.Light .hljs-built_in,
+.Light .hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #e36209
+}
+.Light .hljs-comment,
+.Light .hljs-code,
+.Light .hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #6a737d
+}
+.Light .hljs-name,
+.Light .hljs-quote,
+.Light .hljs-selector-tag,
+.Light .hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #22863a
+}
+.Light .hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #24292e
+}
+.Light .hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #005cc5;
+  font-weight: bold
+}
+.Light .hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #735c0f
+}
+.Light .hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #24292e;
+  font-style: italic
+}
+.Light .hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #24292e;
+  font-weight: bold
+}
+.Light .hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #22863a;
+  background-color: #f0fff4
+}
+.Light .hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #b31d28;
+  background-color: #ffeef0
+}
+.Light .hljs-char.escape_,
+.Light .hljs-link,
+.Light .hljs-params,
+.Light .hljs-property,
+.Light .hljs-punctuation,
+.Light .hljs-tag {
+  /* purposely ignored */
+
+}
+

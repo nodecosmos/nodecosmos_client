@@ -65,51 +65,93 @@ const customMarkHandlers: {
         open: (_state, mark) => `[${mark.attrs.href}](`,
         close: ')',
     },
-    // Add more mark handlers as needed
+};
+
+const codeBlock = (state: MarkdownSerializerState, node: Node) => {
+    // Make sure the front matter fences are longer than any dash sequence within it
+    const backticks = node.textContent.match(/`{3,}/gm);
+    const fence = backticks ? (backticks.sort().slice(-1)[0] + '`') : '```';
+
+    state.write(fence + (node.attrs.params || '') + '\n');
+    state.text(node.textContent, false);
+    // Add a newline to the current content before adding closing marker
+    state.write('\n');
+    state.write(fence);
+    state.closeBlock(node);
+};
+
+const hardBreak = (state: MarkdownSerializerState, node: Node) => {
+    state.write(node.attrs.markup || '---');
+    state.closeBlock(node);
+};
+
+const orderedList = (state: MarkdownSerializerState, node: Node) => {
+    let start = node.attrs.order || 1;
+    let maxW = String(start + node.childCount - 1).length;
+    let space = state.repeat(' ', maxW + 2);
+    state.renderList(node, space, i => {
+        let nStr = String(start + i);
+        return state.repeat(' ', maxW - nStr.length) + nStr + '. ';
+    });
+};
+
+const listItem = (state: MarkdownSerializerState, node: Node) => {
+    state.renderContent(node);
+};
+
+const bold = (state: MarkdownSerializerState, node: Node) => {
+    state.write('**');
+    state.write(node.textContent);
+    state.write('**');
+};
+
+const italic = (state: MarkdownSerializerState, node: Node) => {
+    state.write('*');
+    state.write(node.textContent);
+    state.write('*');
+};
+
+const strike = (state: MarkdownSerializerState, node: Node) => {
+    state.write('~~');
+    state.write(node.textContent);
+    state.write('~~');
+};
+
+const code = (state: MarkdownSerializerState, node: Node) => {
+    state.write('`');
+    state.write(node.textContent);
+    state.write('`');
+};
+
+const link = (state: MarkdownSerializerState, node: Node) => {
+    state.write('[');
+    state.write(node.textContent);
+    state.write('](');
+    state.write(node.attrs.href);
+    state.write(')');
 };
 
 // Instantiate the custom MarkdownSerializer with proper typings
 export default new MarkdownSerializer(
     {
-        blockquote(state, node) {
+        blockquote(state: MarkdownSerializerState, node: Node) {
             state.wrapBlock('> ', null, node, () => state.renderContent(node));
         },
-        codeBlock(state, node) {
-            // Make sure the front matter fences are longer than any dash sequence within it
-            const backticks = node.textContent.match(/`{3,}/gm);
-            const fence = backticks ? (backticks.sort().slice(-1)[0] + '`') : '```';
-
-            state.write(fence + (node.attrs.params || '') + '\n');
-            state.text(node.textContent, false);
-            // Add a newline to the current content before adding closing marker
-            state.write('\n');
-            state.write(fence);
-            state.closeBlock(node);
-        },
+        codeBlock,
         heading(state, node) {
             state.write(state.repeat('#', node.attrs.level) + ' ');
             state.renderInline(node, false);
             state.closeBlock(node);
         },
-        hardBreak(state, node) {
-            state.write(node.attrs.markup || '---');
-            state.closeBlock(node);
-        },
+        hardBreak,
+        hard_break: hardBreak,
         bulletList(state, node) {
             state.renderList(node, '  ', () => (node.attrs.bullet || '*') + ' ');
         },
-        orderedList(state, node) {
-            let start = node.attrs.order || 1;
-            let maxW = String(start + node.childCount - 1).length;
-            let space = state.repeat(' ', maxW + 2);
-            state.renderList(node, space, i => {
-                let nStr = String(start + i);
-                return state.repeat(' ', maxW - nStr.length) + nStr + '. ';
-            });
-        },
-        listItem(state, node) {
-            state.renderContent(node);
-        },
+        orderedList,
+        ordered_list: orderedList,
+        listItem,
+        list_item: listItem,
         paragraph(state, node) {
             state.renderInline(node);
             state.closeBlock(node);
@@ -126,7 +168,11 @@ export default new MarkdownSerializer(
         html: (state: MarkdownSerializerState, node: Node) => {
             state.write(node.attrs.content);
         },
-        htmlInline: () => {},
+        bold,
+        italic,
+        strike,
+        code,
+        link,
     },
     customMarkHandlers,
 );

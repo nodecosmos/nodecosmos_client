@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import { setBlockType } from 'prosemirror-commands';
 import { EditorView } from 'prosemirror-view';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 function isCodeBlockActive(editorView: EditorView | null): boolean {
     if (!editorView) return false;
@@ -37,7 +37,7 @@ function toggleCodeBlock(editorView: EditorView | null) {
 export function CodeBlock() {
     const { editorView } = useEditorContext();
 
-    const isActive = isCodeBlockActive(editorView);
+    const isActive = useMemo(() => isCodeBlockActive(editorView), [editorView]);
 
     const onToggleCodeBlock = useCallback(() => {
         toggleCodeBlock(editorView);

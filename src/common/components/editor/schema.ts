@@ -1,6 +1,4 @@
-import {
-    MarkSpec, NodeSpec, Schema,
-} from 'prosemirror-model';
+import { NodeSpec, Schema } from 'prosemirror-model';
 
 const doc = { content: 'block+' };
 
@@ -44,7 +42,7 @@ const heading: NodeSpec = {
         {
             tag: 'heading',
             getAttrs: (dom) => ({ level: dom.hasAttribute('level') ? +dom.getAttribute('level')! : 1 }),
-        }, // Add support for <heading>
+        },
 
     ],
     toDOM(node) {
@@ -115,12 +113,12 @@ const codeBlock: NodeSpec = {
 
 const image: NodeSpec = {
     inline: true,
+    group: 'inline',
     attrs: {
         src: {},
         alt: { default: null },
         title: { default: null },
     },
-    group: 'inline',
     parseDOM: [
         {
             tag: 'img',
@@ -167,20 +165,11 @@ const html: NodeSpec = {
     },
 };
 
-const htmlInline = {
+// don't use marks as they are considered as inline text by the yrs on the server
+const bold: NodeSpec = {
     inline: true,
     group: 'inline',
-    attrs: { content: { default: '' } },
-    parseDOM: [
-        {
-            tag: 'span.html-inline-content',
-            getAttrs: (dom: HTMLElement) => ({ content: dom.innerHTML }),
-        },
-    ],
-};
-
-// Inline marks
-const bold: MarkSpec = {
+    content: 'inline*',
     parseDOM: [
         { tag: 'strong' },
         { tag: 'b' },
@@ -189,7 +178,10 @@ const bold: MarkSpec = {
     toDOM() { return ['b', 0]; },
 };
 
-const italic: MarkSpec = {
+const italic: NodeSpec = {
+    inline: true,
+    group: 'inline',
+    content: 'inline*',
     parseDOM: [
         { tag: 'em' },
         { tag: 'i' },
@@ -198,31 +190,39 @@ const italic: MarkSpec = {
     toDOM() { return ['i', 0]; },
 };
 
-const strike: MarkSpec = {
+const strike: NodeSpec = {
+    inline: true,
+    group: 'inline',
+    content: 'inline*',
     parseDOM: [{ tag: 'strike' }],
     toDOM() { return ['strike', 0]; },
 };
 
-const code: MarkSpec = {
+const code: NodeSpec = {
+    inline: true,
+    group: 'inline',
+    content: 'inline*',
     parseDOM: [{ tag: 'code' }],
     toDOM() { return ['code', 0]; },
 };
 
-const link: MarkSpec = {
+const link: NodeSpec = {
+    inline: true,
+    group: 'inline',
+    content: 'inline*',
     attrs: { href: {} },
-    inclusive: false,
     parseDOM: [
         {
-            tag: 'a[href]',
-            getAttrs: (dom: Element) => ({ href: dom.getAttribute('href') }),
+            tag: 'a',
+            getAttrs: dom => ({ href: dom.getAttribute('href') }),
         },
         {
-            tag: 'link[href]',
-            getAttrs: (dom: Element) => ({ href: dom.getAttribute('href') }),
+            tag: 'link',
+            getAttrs: dom => ({ href: dom.getAttribute('href') }),
         },
     ],
     toDOM(node) {
-        return ['a', { href: node.attrs.href }, 0];
+        return ['a', node.attrs, 0];
     },
 };
 
@@ -234,25 +234,24 @@ export default new Schema({
         bulletList,
         orderedList,
         listItem,
+        blockquote,
+        codeBlock,
+        image,
+        html,
+        hardBreak,
+        text: { group: 'inline' },
+        bold,
+        italic,
+        strike,
+        code,
+        link,
+
+        // keep snake case for compatibility with the old schema
         list_item: listItem,
         bullet_list: bulletList,
         ordered_list: orderedList,
         code_block: codeBlock,
         horizontal_rule: hardBreak,
         hard_break: hardBreak,
-        blockquote,
-        codeBlock,
-        image,
-        html,
-        htmlInline,
-        hardBreak,
-        text: { group: 'inline' },
-    },
-    marks: {
-        bold,
-        italic,
-        strike,
-        code,
-        link,
     },
 });

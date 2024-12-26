@@ -1,5 +1,6 @@
 import { validateURL } from '../../../../utils/validation';
 import { useEditorContext } from '../../../hooks/editor/useEditorContext';
+import useToolbarItem from '../../../hooks/editor/useToolbarItem';
 import FinalFormInputField from '../../final-form/FinalFormInputField';
 import { faLink } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,42 +21,25 @@ const PROPS = {
     sx: { borderRadius: 2.5 },
 };
 
-function isLinkActive(editorView: EditorView | null): boolean {
-    if (!editorView) return false;
-
-    const {
-        from, $from, to, empty,
-    } = editorView.state.selection;
-    const { link } = editorView.state.schema.marks;
-    if (!link) return false;
-
-    if (empty) {
-        return !!link.isInSet(editorView.state.storedMarks || $from.marks());
-    } else {
-        return editorView.state.doc.rangeHasMark(from, to, link);
-    }
-}
-
 function toggleLink(editorView: EditorView | null, url: string, displayText: string) {
     if (!editorView) return;
 
     const { state, dispatch } = editorView;
-    const { link } = state.schema.marks;
+    const { link } = state.schema.nodes;
     if (!link) return;
 
-    const markAttrs = { href: url };
+    const attrs = { href: url };
     const {
         from, to, empty,
     } = state.selection;
 
-    if (!empty) {
-        let tr = state.tr;
-        tr.addMark(from, to, link.create(markAttrs));
+    if (empty) {
+        const linkNode = link.create(attrs, state.schema.text(displayText || url));
+        const tr = state.tr.replaceSelectionWith(linkNode, false);
         dispatch(tr);
     } else {
-        const textToInsert = displayText || url;
-        const linkTextNode = state.schema.text(textToInsert, [link.create(markAttrs)]);
-        const tr = state.tr.replaceSelectionWith(linkTextNode, false);
+        const linkNode = link.create(attrs, state.doc.slice(from, to).content);
+        const tr = state.tr.replaceWith(from, to, linkNode);
         dispatch(tr);
     }
 }
@@ -63,9 +47,7 @@ function toggleLink(editorView: EditorView | null, url: string, displayText: str
 export default function LinkInsert() {
     const { editorView } = useEditorContext();
     const [open, setOpen] = useState(false);
-
-    const isActive = isLinkActive(editorView);
-
+    const [isActive] = useToolbarItem('link');
     const toggleModal = useCallback(() => {
         setOpen(!open);
     }, [open]);
@@ -88,10 +70,7 @@ export default function LinkInsert() {
         const node = doc.nodeAt(from);
 
         if (node) {
-            const linkMark = node.marks.find((mark) => mark.type.name === 'link');
-            if (linkMark) {
-                return linkMark.attrs.href;
-            }
+            return node.attrs.href;
         }
         return '';
     }, [editorView]);

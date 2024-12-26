@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- Root Element -->
+    <xs:element name="description">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="heading"/>
+                    <xs:element ref="paragraph"/>
+                    <xs:element ref="bold"/>
+                    <xs:element ref="italic"/>
+                    <xs:element ref="strike"/>
+                    <xs:element ref="code"/>
+                    <xs:element ref="bulletList"/>
+                    <xs:element ref="orderedList"/>
+                    <xs:element ref="listItem"/>
+                    <xs:element ref="blockquote"/>
+                    <xs:element ref="codeBlock"/>
+                    <xs:element ref="image"/>
+                    <xs:element ref="link"/>
+                    <xs:element ref="hardBreak"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Heading Element -->
+    <xs:element name="heading">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="level" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:minInclusive value="1"/>
+                                <xs:maxInclusive value="5"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Paragraph Element -->
+    <xs:element name="paragraph" type="xs:string"/>
+
+    <!-- Formatting Elements -->
+    <xs:element name="bold" type="xs:string"/>
+    <xs:element name="italic" type="xs:string"/>
+    <xs:element name="strike" type="xs:string"/>
+    <xs:element name="code" type="xs:string"/>
+
+    <!-- List Elements -->
+    <xs:element name="bulletList">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="listItem" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="orderedList">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="listItem" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="listItem" type="xs:string"/>
+
+    <!-- Blockquote Element -->
+    <xs:element name="blockquote" type="xs:string"/>
+
+    <!-- Code Block Element -->
+    <xs:element name="codeBlock" type="xs:string"/>
+
+    <!-- Image Element -->
+    <xs:element name="image">
+        <xs:complexType>
+            <xs:attribute name="src" type="xs:string" use="required"/>
+            <xs:attribute name="alt" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Link Element -->
+    <xs:element name="link">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="href" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Hard Break Element -->
+    <xs:element name="hardBreak" type="xs:string"/>
+</xs:schema>

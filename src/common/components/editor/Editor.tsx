@@ -32,6 +32,7 @@ export enum ContentType {
 export interface EditorProps {
     content: string;
     contentType: ContentType;
+    currentHTML?: string;
     onChange: (html: string, markdown: string, uint8ArrayState: Uint8Array | null) => void;
     fileObjectId: UUID;
     isRealTime?: boolean;
@@ -63,6 +64,7 @@ export default function Editor(props: EditorProps) {
     const {
         content,
         contentType,
+        currentHTML,
         onChange,
         fileObjectId,
         isRealTime,
@@ -148,15 +150,16 @@ export default function Editor(props: EditorProps) {
             plugins.push(...y.plugins);
         } else if (contentType === ContentType.Markdown) {
             doc = markdownParser.parse(content);
-        } else {
+        }
+
+        if (contentType === ContentType.HTML || (isRealTime && !content && currentHTML)) {
             const parser = DOMParser.fromSchema(schema);
             let div = document.createElement('div');
-            div.innerHTML = content;
+            div.innerHTML = content || (currentHTML ?? '');
             doc = parser.parse(div);
         }
 
         if (placeholder) {
-            console.log('placeholder', placeholder);
             plugins.push(placeholderPlugin(placeholder));
         }
 

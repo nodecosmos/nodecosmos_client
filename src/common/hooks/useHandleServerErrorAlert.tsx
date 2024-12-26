@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 // we need to update thunk to return error object from server
-export default function useHandleServerErrorAlert() {
+export default function useHandleServerErrorAlert({ isModal } = { isModal: false }) {
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback((error: NodecosmosError) => {
@@ -14,6 +14,9 @@ export default function useHandleServerErrorAlert() {
         switch (error.status) {
         case HttpErrorCodes.BadRequest:
             message = 'Bad request!';
+            if (error.message) {
+                message += ` ${error.message}`;
+            }
             break;
         case HttpErrorCodes.Unauthorized:
             message = 'Unauthorized!';
@@ -45,6 +48,7 @@ export default function useHandleServerErrorAlert() {
             isOpen: true,
             severity: 'error',
             message,
+            isModal,
         }));
-    }, [dispatch]);
+    }, [dispatch, isModal]);
 }

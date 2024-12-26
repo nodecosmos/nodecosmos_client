@@ -4,10 +4,13 @@ import { ObjectType } from '../../../../../types';
 import { selectDescription } from '../../../../descriptions/descriptions.selectors';
 import useDescription from '../../../../descriptions/hooks/useDescription';
 import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
+import { selectTheme } from '../../../app.selectors';
 import { usePaneContext } from '../../../hooks/pane/usePaneContext';
 import { Box, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
+let HLJS: typeof import('highlight.js') | null = null;
 
 export default function PaneDescription() {
     const {
@@ -22,6 +25,21 @@ export default function PaneDescription() {
     const isEmpty = !description?.html || description?.html === '<p></p>';
     const prevObjId = usePrevious(objectId);
     const reMounted = prevObjId === objectId || !!description?.html;
+    const theme = useSelector(selectTheme);
+
+    useEffect(() => {
+        setTimeout(async () => {
+            const codeBlocks = document.getElementsByTagName('pre');
+
+            if (codeBlocks.length > 0) {
+                HLJS ||= await import('highlight.js');
+
+                Array.from(codeBlocks).forEach((pre) => {
+                    HLJS!.default.highlightElement(pre);
+                });
+            }
+        }, 10);
+    }, [description, theme]);
 
     return (
         <Box px={4}>

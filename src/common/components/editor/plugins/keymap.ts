@@ -1,14 +1,18 @@
 import {
-    wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
+    wrapIn, setBlockType, chainCommands, exitCode,
     joinUp, joinDown, lift, selectParentNode,
 } from 'prosemirror-commands';
 import { undo, redo } from 'prosemirror-history';
 import { undoInputRule } from 'prosemirror-inputrules';
-import { Schema } from 'prosemirror-model';
+import {
+    Attrs, NodeType, Schema,
+} from 'prosemirror-model';
 import {
     wrapInList, splitListItem, liftListItem, sinkListItem,
 } from 'prosemirror-schema-list';
-import { Command } from 'prosemirror-state';
+import {
+    Command, EditorState, TextSelection, Transaction,
+} from 'prosemirror-state';
 
 let mac: boolean;
 
@@ -78,11 +82,11 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     bind('Mod-BracketLeft', lift);
     bind('Escape', selectParentNode);
 
-    bind('Mod-b', toggleMark(schema.marks.strong));
-    bind('Mod-B', toggleMark(schema.marks.strong));
-    bind('Mod-i', toggleMark(schema.marks.em));
-    bind('Mod-I', toggleMark(schema.marks.em));
-    bind('Mod-`', toggleMark(schema.marks.code));
+    bind('Mod-b', toggleInlineNode(schema.nodes.bold));
+    bind('Mod-B', toggleInlineNode(schema.nodes.bold));
+    bind('Mod-i', toggleInlineNode(schema.nodes.italic));
+    bind('Mod-I', toggleInlineNode(schema.nodes.italic));
+    bind('Mod-`', toggleInlineNode(schema.nodes.code));
     bind('Shift-Ctrl-8', wrapInList(schema.nodes.bulletList));
     bind('Shift-Ctrl-9', wrapInList(schema.nodes.orderedList));
     bind('Ctrl->', wrapIn(schema.nodes.blockquote));
@@ -104,6 +108,224 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
         if (dispatch) dispatch(state.tr.replaceSelectionWith(hr.create()).scrollIntoView());
         return true;
     });
+    bind('Tab', handleTabKey());
+    bind('Shift-Tab', undoTabKey());
+    bind('ArrowRight', handleArrowRightKey());
+    // on right arrow key, if cursor is at the end of the code, move cursor outside of code
 
     return keys;
+}
+
+function isNodeActive(state: EditorState, nodeType: NodeType): boolean {
+    const { from, to } = state.selection;
+
+    let isActive = false;
+    state.doc.nodesBetween(from, to, (node) => {
+        if (node.type === nodeType) {
+            isActive = true;
+        }
+    });
+
+    return isActive;
+}
+
+function toggleInlineNode(nodeType: NodeType): Command {
+    return (state: EditorState, dispatch?: (tr: Transaction) => void, attrs?: Attrs | null): boolean => {
+        const { from, to } = state.selection;
+        const isActive = isNodeActive(state, nodeType);
+        const tr = state.tr;
+
+        if (isActive) {
+            const { from, to } = state.selection;
+
+            state.doc.nodesBetween(from, to, (node, pos) => {
+                if (node.type === nodeType) {
+                    tr.replaceWith(pos, pos + node.nodeSize, node.content);
+                }
+            });
+
+            if (dispatch) dispatch(tr);
+            return true;
+        }
+
+        if (from === to) {
+            // Use zero-width space to avoid empty text node
+            const placeholderText = state.schema.text('\u200b');
+            const wrappedNode = nodeType.create(attrs, placeholderText);
+            tr.insert(from, wrappedNode);
+        } else {
+            // Wrap existing selection
+            const slice = state.doc.slice(from, to);
+            const wrappedNode = nodeType.create(attrs, slice.content);
+            tr.replaceWith(from, to, wrappedNode);
+        }
+
+        if (dispatch) dispatch(tr);
+        return true;
+    };
+}
+
+function handleTabKey(): Command {
+    // handle tab key, if it's code block or paragraph indent it by 2 spaces
+    // if it's list item, create nested list and move list item to nested list
+    return (state: EditorState, dispatch?: (tr: Transaction) => void): boolean => {
+        const { $from } = state.selection;
+        const { parent } = $from;
+
+        if (!parent) {
+            return true;
+        }
+
+        const { type } = parent;
+        const { schema } = state;
+
+        if (type === schema.nodes.codeBlock || type === schema.nodes.paragraph) {
+            const { tr } = state;
+            const { from, to } = state.selection;
+            const text = state.doc.textBetween(from, to, '\n');
+            const newText = text.replace(/^/gm, '\t');
+            tr.replaceWith(from, to, schema.text(newText));
+            if (dispatch) dispatch(tr);
+            return true;
+        }
+
+        if (type === schema.nodes.code) {
+            _exitCodeBlock(state, dispatch);
+        }
+
+        return false;
+
+        // TODO: if it's list item, check if upper sibling is present and move the list item to nested list
+        // of the upper sibling.
+        // if (type === schema.nodes.paragraph && ancestorType === schema.nodes.listItem) {
+        //     const { tr } = state;
+        //     const { from, to } = state.selection;
+        //     const listItem = schema.nodes.listItem.createChecked(null, ancestorNode.content);
+        //     const nestedList = schema.nodes.bulletList.createChecked(null, [listItem]);
+        //     tr.delete(from, to);
+        //     tr.replaceWith(from, to, nestedList);
+        //     if (dispatch) dispatch(tr);
+        //     return true;
+        // }
+    };
+}
+
+function undoTabKey(): Command {
+    // handle shift-tab key, if it's code block or paragraph unindent it by 2 spaces
+    // if it's list item, move the list item to parent list
+    return (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+        const { selection, doc } = state;
+        const {
+            from, to, empty,
+        } = selection;
+        const parent = selection.$from.parent;
+        const { schema } = state;
+
+        // Only apply to paragraphs/codeBlocks (customize as needed).
+        if (
+            parent.type !== schema.nodes.paragraph
+            && parent.type !== schema.nodes.codeBlock
+        ) {
+            return true;
+        }
+
+        if (!empty) {
+            //
+            // 1) Multi-line unindent for a non-empty selection
+            //
+            const originalText = doc.textBetween(from, to, '\n');
+
+            // Try removing a leading tab or two spaces from each line.
+            const newText = originalText.replace(/^(\t| {2})/gm, '');
+
+            // If nothing changed, do nothing.
+            if (newText === originalText) {
+                return true;
+            }
+
+            if (dispatch) {
+                const tr = state.tr.replaceWith(from, to, schema.text(newText));
+                dispatch(tr);
+            }
+            return true;
+        } else {
+            //
+            // 2) Single-line unindent for an empty selection
+            //
+            // Check if there's a single tab right before the cursor.
+            if (from > 0) {
+                const singleCharBefore = doc.textBetween(from - 1, from);
+                if (singleCharBefore === '\t') {
+                    if (dispatch) {
+                        const tr = state.tr.delete(from - 1, from);
+                        dispatch(tr);
+                    }
+                    return true;
+                }
+            }
+
+            // Check if there are 2 spaces right before the cursor.
+            if (from > 1) {
+                const twoCharsBefore = doc.textBetween(from - 2, from);
+                if (twoCharsBefore === '  ') {
+                    if (dispatch) {
+                        const tr = state.tr.delete(from - 2, from);
+                        dispatch(tr);
+                    }
+                    return true;
+                }
+            }
+
+            // No indentation to remove
+            return true;
+        }
+    };
+}
+
+function handleArrowRightKey(): Command {
+    return (state: EditorState, dispatch?: (tr: Transaction) => void) => {
+        const { $from } = state.selection;
+        const { parent } = $from;
+
+        if (!parent) {
+            return false;
+        }
+
+        const { type } = parent;
+        const { schema } = state;
+
+        if (type === schema.nodes.code) {
+            _exitCodeBlock(state, dispatch);
+        }
+
+        return false;
+    };
+}
+
+function _exitCodeBlock(state: EditorState, dispatch?: (tr: Transaction) => void): boolean {
+    const { $from } = state.selection;
+    const { parent } = $from;
+
+    if (!parent) {
+        return false;
+    }
+
+    const { type } = parent;
+    const { schema } = state;
+
+    if (type === schema.nodes.code) {
+        const { tr } = state;
+        const { from } = state.selection;
+
+        const text = state.doc.textBetween(from, from + 1, '\n');
+        const newText = text.replace(/^/gm, ' ');
+        tr.replaceWith(from + 1, from + 2, schema.text(newText));
+
+        tr.setSelection(TextSelection.create(state.apply(tr).doc, from + 2));
+
+        if (dispatch) dispatch(tr);
+        return true;
+    }
+
+    return false;
 }

@@ -22,6 +22,7 @@ export default function PaneDescriptionEditor() {
         loading,
     } = usePaneContext();
     const {
+        currentHTML,
         objectId,
         objectNodeId,
         branchId,
@@ -68,6 +69,7 @@ export default function PaneDescriptionEditor() {
                 <Box height={1}>
                     <Editor
                         content={base64 || ''}
+                        currentHTML={currentHTML}
                         contentType={ContentType.Base64YDoc}
                         onChange={handleChange}
                         wsRoomId={objectId}

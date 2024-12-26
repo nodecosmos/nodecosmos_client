@@ -12,8 +12,9 @@ import useTreeContext from '../../../../hooks/tree/useTreeContext';
 import { NODE_HEIGHT } from '../../../../nodes.constants';
 import { TreeType } from '../../../../nodes.types';
 import LikeButton from '../../../LikeButton';
+import ImportNodesModal from '../ImportNodesModal';
 import {
-    faDiagramSubtask, faArrowUpRightFromSquare, faArrowUpSmallBig,
+    faDiagramSubtask, faArrowUpRightFromSquare, faArrowUpSmallBig, faUpload,
 } from '@fortawesome/pro-light-svg-icons';
 import {
     faPenToSquare, faTrash, faUndo, faPlus,
@@ -44,6 +45,7 @@ function NodeToolbar() {
     } = useNodeActions();
     const ctx = useNodeBranchContext();
     const [delModOpen, openDelMod, closeDelMod] = useModalOpen();
+    const [importModOpen, openImportMod, closeImportMod] = useModalOpen();
     const authorizeNodeAction = useAuthorizeNodeAction();
     const { isBranch, isMerged } = useBranchContext();
     const handleDelete = useCallback(() => {
@@ -205,6 +207,12 @@ function NodeToolbar() {
                 </Tooltip>
             )}
 
+            <Tooltip title="Import From File" placement="top">
+                <ButtonBase className="Item orange" onClick={openImportMod} aria-label="Edit Node">
+                    <FontAwesomeIcon icon={faUpload} />
+                </ButtonBase>
+            </Tooltip>
+
             <LikeButton
                 id={id}
                 objectType={LikeType.Node}
@@ -221,6 +229,7 @@ function NodeToolbar() {
                 onClose={closeDelMod}
                 onConfirm={deleteNode}
             />
+            <ImportNodesModal open={importModOpen} onClose={closeImportMod} nodeId={id} branchId={branchId} />
         </div>
     );
 }

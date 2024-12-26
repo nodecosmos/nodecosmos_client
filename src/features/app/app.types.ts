@@ -7,15 +7,18 @@ export enum HeaderContent {
 }
 
 export enum Theme {
-    Light,
-    Dimmed,
     Dark,
+    Dimmed,
+    Light,
 }
+
+export const THEME_STRING = ['Dark', 'Dimmed', 'Light'];
 
 export interface Alert {
     isOpen: boolean;
     message: string;
     severity: 'info' | 'warning' | 'error' | 'success';
+    isModal?: boolean;
 }
 
 // TODO: remove this once we get rid of current landing page

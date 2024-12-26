@@ -71,7 +71,7 @@ export default function ConfirmationModal(props: Props) {
                 <CloseModalButton onClose={onClose} />
             </DialogTitle>
             <DialogContent>
-                <Alert position="relative" mb={2} />
+                <Alert position="relative" mb={2} modal />
                 <Typography color="texts.secondary" fontWeight={700} mb={titleMb}>
                     {text}
                 </Typography>

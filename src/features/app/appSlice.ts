@@ -36,6 +36,7 @@ const initialState: AppState = {
         isOpen: false,
         message: '',
         severity: 'info',
+        isModal: false,
     },
     descriptionCoordinates: {
         x: 0,
