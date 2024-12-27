@@ -1,4 +1,5 @@
 import { useEditorContext } from '../../../hooks/editor/useEditorContext';
+import useEditorState from '../../../hooks/editor/useEditorState';
 import { faUndo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
@@ -7,18 +8,21 @@ import React, { useCallback, useMemo } from 'react';
 
 export default function Undo() {
     const { editorView } = useEditorContext();
+    const state = useEditorState();
 
     const disabled = useMemo(() => {
-        if (!editorView?.state) return true;
+        if (!state) return true;
 
-        return undoDepth(editorView.state) <= 0;
-    }, [editorView?.state]);
+        return undoDepth(state) <= 0;
+    }, [state]);
 
     const onUndo = useCallback(() => {
-        if (!editorView?.state) return;
+        if (!state || !editorView) return;
 
-        undo(editorView.state, editorView.dispatch);
-    }, [editorView?.state, editorView?.dispatch]);
+        undo(state, editorView.dispatch);
+
+        editorView.focus();
+    }, [state, editorView]);
 
     return (
         <Tooltip title="Undo">

@@ -1,11 +1,10 @@
 import { useEditorContext } from './useEditorContext';
+import useEditorState from './useEditorState';
 import schema from '../../components/editor/schema';
 import { setBlockType } from 'prosemirror-commands';
 import { Attrs } from 'prosemirror-model';
 import { liftListItem, wrapInList } from 'prosemirror-schema-list';
-import {
-    useCallback, useEffect, useMemo, useState,
-} from 'react';
+import { useCallback, useMemo } from 'react';
 
 type NodeName = keyof typeof schema.nodes;
 
@@ -13,18 +12,7 @@ type NodeName = keyof typeof schema.nodes;
 //  block nodes (wrapIn and lift), list nodes (wrapInList), and inline nodes (custom logic).
 export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null): [boolean, () => void] {
     const { editorView } = useEditorContext();
-    const [state, setState] = useState(editorView?.state);
-
-    useEffect(() => {
-        if (!editorView) return;
-
-        const reset = () => setState(editorView.state);
-        editorView.dom.addEventListener('pm-state-change', reset);
-
-        return () => {
-            editorView?.dom?.removeEventListener('pm-state-change', reset);
-        };
-    }, [editorView]);
+    const state = useEditorState();
 
     const isNodeActive = useMemo((): boolean => {
         const { from, to } = state?.selection || {

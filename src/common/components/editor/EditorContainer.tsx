@@ -31,7 +31,7 @@ export default function EditorContainer({ children }: Props) {
         cursor: 'text',
         overflow: 'hidden',
         backgroundColor: editorBackgroundColor ?? 'backgrounds.3',
-        '&:focus-within': {
+        '&:focus, &:focus-within, &:active, &:target, &:focus-visible': {
             '.TextEditor': {
                 outline: editorOutline,
                 outlineColor: editorFocusBorderColor,

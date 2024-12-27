@@ -1,4 +1,5 @@
 import { useEditorContext } from '../../../hooks/editor/useEditorContext';
+import useEditorState from '../../../hooks/editor/useEditorState';
 import { faRedo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
@@ -7,18 +8,21 @@ import React, { useCallback, useMemo } from 'react';
 
 export default function Redo() {
     const { editorView } = useEditorContext();
+    const state = useEditorState();
 
     const disabled = useMemo(() => {
-        if (!editorView?.state) return true;
+        if (!state) return true;
 
-        return redoDepth(editorView.state) <= 0;
-    }, [editorView?.state]);
+        return redoDepth(state) <= 0;
+    }, [state]);
 
     const onRedo = useCallback(() => {
-        if (!editorView?.state) return;
+        if (!state || !editorView?.dispatch) return;
 
-        redo(editorView.state, editorView.dispatch);
-    }, [editorView?.state, editorView?.dispatch]);
+        redo(state, editorView.dispatch);
+
+        editorView.focus();
+    }, [state, editorView]);
 
     return (
         <Tooltip title="Redo">

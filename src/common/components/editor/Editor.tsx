@@ -119,8 +119,6 @@ function Editor(props: EditorProps) {
         wsRoomId,
     });
 
-    console.log('hitEditor');
-
     useEffect(() => {
         if (clearState !== undefined) {
             if (editorViewRef.current) {
@@ -142,7 +140,7 @@ function Editor(props: EditorProps) {
             keymap(baseKeymap),
             buildInputRules(schema),
             trailingNode(),
-            history(),
+            history({ newGroupDelay: 100 }),
         ];
 
         let doc;
