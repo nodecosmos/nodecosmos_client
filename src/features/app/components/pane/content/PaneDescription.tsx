@@ -36,9 +36,48 @@ export default function PaneDescription() {
 
             if (codeBlocks.length > 0) {
                 HLJS ||= await import('highlight.js');
+                HLJS.default.configure({
+                    languages: [
+                        'javascript',
+                        'typescript',
+                        'json',
+                        'bash',
+                        'shell',
+                        'html',
+                        'xml',
+                        'css',
+                        'scss',
+                        'less',
+                        'yaml',
+                        'markdown',
+                        'sql',
+                        'cql',
+                        'graphql',
+                        'python',
+                        'java',
+                        'c',
+                        'cpp',
+                        'csharp',
+                        'php',
+                        'ruby',
+                        'perl',
+                        'go',
+                        'rust',
+                        'swift',
+                        'kotlin',
+                        'groovy',
+                        'scala',
+                        'r',
+                        'dart',
+                        'haskell',
+                        'lua',
+                        'powershell',
+                        'plaintext',
+                    ],
+                });
 
                 Array.from(codeBlocks).forEach((pre) => {
-                    HLJS!.default.highlightElement(pre);
+                    HLJS!.default.highlightBlock(pre);
                 });
             }
         }, 10);
