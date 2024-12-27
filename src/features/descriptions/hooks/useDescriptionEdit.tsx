@@ -15,7 +15,7 @@ export const EMPTY_PARAGRAPH = '<p></p>';
 
 type HandleChangeById = Record<UUID, number>;
 
-export default function useDe1scriptionEdit() {
+export default function useDescriptionEdit() {
     const {
         rootId,
         branchId,
@@ -33,16 +33,6 @@ export default function useDe1scriptionEdit() {
     const {
         html: currentHTML, markdown, base64,
     } = useSelector(selectDescription(branchId, objectId)) || {};
-    // using initial values so we send the base64 only on initial editor load
-    const [initialBase64, setInitialBase64] = React.useState(base64 ?? '');
-    const [initialHTML, setInitialHTML] = React.useState(currentHTML ?? '');
-
-    useEffect(() => {
-        if (fetched && !base64 && !currentHTML) {
-            setInitialBase64(base64 ?? '');
-            setInitialHTML(currentHTML ?? '');
-        }
-    }, [base64, currentHTML, fetched, initialBase64]);
 
     useEffect(() => {
         if (!fetched && !loading) {
@@ -125,7 +115,7 @@ export default function useDe1scriptionEdit() {
         branchId,
         handleChange,
         markdown,
-        base64: initialBase64,
-        currentHTML: initialHTML,
-    }), [objectId, objectNodeId, branchId, handleChange, markdown, initialBase64, initialHTML]);
+        base64,
+        currentHTML,
+    }), [objectId, objectNodeId, branchId, handleChange, markdown, base64, currentHTML]);
 }
