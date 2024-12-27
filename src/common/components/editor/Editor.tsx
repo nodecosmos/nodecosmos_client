@@ -192,6 +192,8 @@ function Editor(props: EditorProps) {
                 }
 
                 if (transaction.docChanged || transaction.selectionSet) {
+                    editorViewRef.current.focus();
+
                     editorViewRef.current.dom.dispatchEvent(
                         new CustomEvent('pm-state-change', { detail: { state: newState } }),
                     );
