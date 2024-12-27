@@ -4,7 +4,6 @@ import { UUID } from '../../../types';
 import { base64ToUint8Array } from '../../../utils/serializer';
 import schema from '../../components/editor/schema';
 import { dropCursor } from 'prosemirror-dropcursor';
-import { history } from 'prosemirror-history';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -99,7 +98,6 @@ export default function useYDoc(props: UseYDocProps) {
             plugins: [
                 ySyncPlugin(type, { mapping }),
                 yCursorPlugin(provider.awareness),
-                history(),
                 dropCursor(),
             ],
         };

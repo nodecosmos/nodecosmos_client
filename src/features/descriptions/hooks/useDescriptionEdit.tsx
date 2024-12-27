@@ -38,11 +38,11 @@ export default function useDe1scriptionEdit() {
     const [initialHTML, setInitialHTML] = React.useState(currentHTML ?? '');
 
     useEffect(() => {
-        if (fetched && !loading) {
+        if (fetched && !base64 && !currentHTML) {
             setInitialBase64(base64 ?? '');
             setInitialHTML(currentHTML ?? '');
         }
-    }, [base64, currentHTML, fetched, initialBase64, loading]);
+    }, [base64, currentHTML, fetched, initialBase64]);
 
     useEffect(() => {
         if (!fetched && !loading) {
@@ -99,11 +99,6 @@ export default function useDe1scriptionEdit() {
         handleChangeTimeout.current ||= {};
         handleChangeTimeout.current[objectId] = setTimeout(async () => {
             handleChangeTimeout.current = null;
-            const isEmptySame = !currentHTML && (!html || (html === EMPTY_PARAGRAPH));
-
-            if (isEmptySame || (html === currentHTML)) {
-                return;
-            }
 
             const response = await dispatch(saveDescription({
                 branchId,
@@ -122,7 +117,7 @@ export default function useDe1scriptionEdit() {
                 console.error(error);
             }
         }, 500);
-    }, [currentHTML, dispatch, branchId, objectId, rootId, objectNodeId, objectType, handleServerError]);
+    }, [objectId, dispatch, branchId, rootId, objectNodeId, objectType, handleServerError]);
 
     return useMemo(() => ({
         objectId,

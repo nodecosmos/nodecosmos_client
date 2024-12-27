@@ -43,7 +43,7 @@ export default function InviteUserModal({ open, onClose }: Props) {
     const { branchId, nodeId } = useBranchContext();
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
     const dispatch: NodecosmosDispatch = useDispatch();
-    const handleServerError = useHandleServerErrorAlert();
+    const handleServerError = useHandleServerErrorAlert(true);
     const onSubmit = useCallback(async ({ usernameOrEmail }: { usernameOrEmail: string }) => {
         setLoading();
 

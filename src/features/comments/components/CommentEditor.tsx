@@ -263,7 +263,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                         width={1}
                     >
                         <Editor
-                            content={content}
+                            content={comment?.content || ''}
                             contentType={ContentType.HTML}
                             onChange={handleChange}
                             extensions={ENABLED_EXTENSIONS}

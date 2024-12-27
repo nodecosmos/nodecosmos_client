@@ -28,7 +28,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
-    const handleServerError = useHandleServerErrorAlert({ isModal: true });
+    const handleServerError = useHandleServerErrorAlert(true);
     const currentUser = useSelector(selectCurrentUser);
     const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);

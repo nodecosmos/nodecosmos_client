@@ -3,7 +3,6 @@ import EditorText from './EditorText';
 import EditorToolbar from './EditorToolbar';
 import markdownParser from './markdown/parser';
 import markdownSerializer from './markdown/serializer';
-import { stateChangePlugin } from './plugins/event';
 import { buildInputRules } from './plugins/inputRules';
 import { buildKeymap } from './plugins/keymap';
 import { placeholderPlugin } from './plugins/placeholder';
@@ -14,6 +13,7 @@ import { UUID } from '../../../types';
 import { useEditorContextCreator } from '../../hooks/editor/useEditorContext';
 import useYDoc from '../../hooks/editor/useYDoc';
 import { baseKeymap } from 'prosemirror-commands';
+import { history } from 'prosemirror-history';
 import { keymap } from 'prosemirror-keymap';
 import { DOMSerializer, DOMParser } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
@@ -22,8 +22,6 @@ import React, {
     useCallback, useEffect, useRef,
 } from 'react';
 import * as Y from 'yjs';
-import 'prosemirror-view/style/prosemirror.css';
-import 'prosemirror-gapcursor/style/gapcursor.css';
 
 export enum ContentType {
     Markdown,
@@ -59,9 +57,9 @@ export interface EditorProps {
     showBorder?: boolean;
 }
 
-export default function Editor(props: EditorProps) {
+function Editor(props: EditorProps) {
     const editorRef = useRef(null);
-    const editorViewRef = useRef<EditorView | null>(null); // Ref to store the EditorView
+    const editorViewRef = useRef<EditorView | null>(null); // Ref to store the EditorView instance
     const [editorView, setEditorView] = React.useState<EditorView | null>(null);
     const {
         content,
@@ -91,10 +89,10 @@ export default function Editor(props: EditorProps) {
         showBorder = true,
     } = props;
 
-    const {
+    const [
         EditorContext,
         ctxValue,
-    } = useEditorContextCreator({
+    ] = useEditorContextCreator({
         fileObjectId,
         editorView,
         extensions,
@@ -121,6 +119,8 @@ export default function Editor(props: EditorProps) {
         wsRoomId,
     });
 
+    console.log('hitEditor');
+
     useEffect(() => {
         if (clearState !== undefined) {
             if (editorViewRef.current) {
@@ -142,7 +142,7 @@ export default function Editor(props: EditorProps) {
             keymap(baseKeymap),
             buildInputRules(schema),
             trailingNode(),
-            stateChangePlugin,
+            history(),
         ];
 
         let doc;
@@ -171,7 +171,7 @@ export default function Editor(props: EditorProps) {
         });
 
         // Initialize EditorView
-        const view = new EditorView(editorRef.current, {
+        editorViewRef.current = new EditorView(editorRef.current, {
             state,
             dispatchTransaction(transaction) {
                 if (!editorViewRef.current) return;
@@ -194,36 +194,33 @@ export default function Editor(props: EditorProps) {
                 }
 
                 if (transaction.docChanged || transaction.selectionSet) {
-                    view.dom.dispatchEvent(
+                    editorViewRef.current.dom.dispatchEvent(
                         new CustomEvent('pm-state-change', { detail: { state: newState } }),
                     );
                 }
             },
         });
 
-        editorViewRef.current = view;
-
-        setEditorView(view);
+        setEditorView(editorViewRef.current);
 
         return () => {
-            view.destroy();
+            editorViewRef?.current?.destroy();
             editorViewRef.current = null;
         };
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isRealTime, y.docNode, y.plugins, y.yDoc]);
 
     useEffect(() => {
-        if (autoFocus && editorView) {
-            editorView.focus();
+        if (autoFocus && editorViewRef.current) {
+            editorViewRef.current.focus();
         }
-    }, [autoFocus, editorView]);
+    }, [autoFocus]);
 
     const handleClick = useCallback(() => {
-        if (!editorView) return;
+        if (!editorViewRef.current) return;
 
-        editorView.focus();
-    }, [editorView]);
+        editorViewRef.current.focus();
+    }, []);
 
     return (
         <EditorContext.Provider value={ctxValue}>
@@ -235,7 +232,6 @@ export default function Editor(props: EditorProps) {
     );
 }
 
-// @ts-ignore
 function getHtml(newState: EditorState): string {
     const fragment = DOMSerializer
         .fromSchema(newState.schema)
@@ -247,7 +243,8 @@ function getHtml(newState: EditorState): string {
     return div.innerHTML;
 }
 
-// @ts-ignore
 function getMarkdown(newState: EditorState): string {
     return markdownSerializer.serialize(newState.doc);
 }
+
+export default React.memo(Editor);

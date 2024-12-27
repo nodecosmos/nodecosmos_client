@@ -10,6 +10,7 @@ function EditorText(props: EditorTextProps) {
     const {
         editorRef, handleClick, editorClassName,
     } = props;
+
     return (
         <div className="TextEditor display-flex justify-center" onClick={handleClick}>
             <div className="max-w-900 w-100">

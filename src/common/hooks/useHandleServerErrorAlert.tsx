@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 // we need to update thunk to return error object from server
-export default function useHandleServerErrorAlert({ isModal } = { isModal: false }) {
+export default function useHandleServerErrorAlert(isModal = false) {
     const dispatch: NodecosmosDispatch = useDispatch();
 
     return useCallback((error: NodecosmosError) => {

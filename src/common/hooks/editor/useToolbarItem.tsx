@@ -74,17 +74,11 @@ export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null)
         case schema.nodes.bulletList:
         case schema.nodes.orderedList:
             if (isActive) {
-                liftListItem(state.schema.nodes.listItem)(state, dispatch);
+                return liftListItem(state.schema.nodes.listItem)(state, dispatch);
             } else {
-                wrapInList(nodeType)(state, dispatch);
+                return wrapInList(nodeType)(state, dispatch);
             }
-            break;
         case schema.nodes.codeBlock:
-            if (isActive) {
-                return setBlockType(state.schema.nodes.paragraph)(state, dispatch);
-            } else {
-                return setBlockType(nodeType)(state, dispatch);
-            }
         case schema.nodes.heading:
             if (isActive) {
                 return setBlockType(state.schema.nodes.paragraph)(state, dispatch);
@@ -117,7 +111,9 @@ export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null)
         }
 
         if (dispatch) dispatch(tr);
-    }, [attrs, editorView?.dispatch, isNodeActive, nodeName, state]);
+
+        editorView?.focus();
+    }, [attrs, editorView, isNodeActive, nodeName, state]);
 
     return [isNodeActive, toggleNode];
 }

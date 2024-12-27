@@ -55,7 +55,7 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
             return {};
         },
     }), []);
-    const handleServerError = useHandleServerErrorAlert({ isModal: true });
+    const handleServerError = useHandleServerErrorAlert(true);
 
     const handleClose = useCallback(() => {
         uppy.cancelAll();

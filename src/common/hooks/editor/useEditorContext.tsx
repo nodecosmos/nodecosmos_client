@@ -2,7 +2,8 @@ import { UUID } from '../../../types';
 import { EditorExtensions } from '../../components/editor/types';
 import { EditorView } from 'prosemirror-view';
 import {
-    createContext, useContext, useMemo, useState,
+    Context,
+    createContext, useContext, useMemo,
 } from 'react';
 
 interface EditorContextProps {
@@ -25,17 +26,11 @@ interface EditorContextProps {
 
 const EditorContext = createContext<EditorContextProps>({} as EditorContextProps);
 
-export function useEditorContextCreator(props: EditorContextProps) {
-    const [isBoldActive, setBoldActive] = useState(false);
-
-    return useMemo(() => ({
+export function useEditorContextCreator(props: EditorContextProps): [Context<EditorContextProps>, EditorContextProps] {
+    return useMemo(() => [
         EditorContext,
-        ctxValue: {
-            setIsBoldActive: (val: boolean) => setBoldActive(val),
-            isBoldActive,
-            ...props,
-        },
-    }), [props, isBoldActive]);
+        props,
+    ], [props]);
 }
 
 export function useEditorContext() {

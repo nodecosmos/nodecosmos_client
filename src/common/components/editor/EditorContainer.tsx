@@ -4,6 +4,8 @@ import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { Box, useTheme } from '@mui/material';
 import React, { useMemo, useRef } from 'react';
+import 'prosemirror-view/style/prosemirror.css';
+import 'prosemirror-gapcursor/style/gapcursor.css';
 
 interface Props {
     children: React.ReactNode;
@@ -29,6 +31,12 @@ export default function EditorContainer({ children }: Props) {
         cursor: 'text',
         overflow: 'hidden',
         backgroundColor: editorBackgroundColor ?? 'backgrounds.3',
+        '&:focus-within': {
+            '.TextEditor': {
+                outline: editorOutline,
+                outlineColor: editorFocusBorderColor,
+            },
+        },
         // toolbar
         '.EditorToolbar': {
             pl: 1,
@@ -51,10 +59,6 @@ export default function EditorContainer({ children }: Props) {
             border: showBorder ? 1 : 0,
             borderColor: 'borders.4',
             borderRadius: 1,
-            '&:focus-within': {
-                outline: editorOutline,
-                outlineColor: editorFocusBorderColor,
-            },
             '.placeholder': {
                 color: 'texts.tertiary',
                 fontSize: '1.5rem',
