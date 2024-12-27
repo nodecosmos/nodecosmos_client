@@ -1,15 +1,13 @@
-import { useEditorContext } from '../../../hooks/editor/useEditorContext';
+import useToolbarItem from '../../../hooks/editor/useToolbarItem';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import {
-    faChevronDown, faH1, faH2, faH3, faH4, faH5,
+    faChevronDown, faH1, faH2, faH3, faH4, faH5, 
 } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    ToggleButton, Tooltip, MenuItem, Box, Menu,
+    Box, Menu, MenuItem, ToggleButton, Tooltip, 
 } from '@mui/material';
-import { setBlockType } from 'prosemirror-commands';
-import { EditorView } from 'prosemirror-view';
-import React, { useCallback } from 'react';
+import React from 'react';
 
 type Level = 1 | 2 | 3 | 4 | 5;
 
@@ -21,52 +19,19 @@ const ICON_MAP: Record<Level, any> = {
     5: faH5,
 };
 
-function isHeadingActive(editorView: EditorView | null, level: Level): boolean {
-    if (!editorView) return false;
-
-    const { state } = editorView;
-    const { $from } = state.selection;
-    const { heading } = state.schema.nodes;
-    if (!heading) return false;
-    return $from.parent.type === heading && $from.parent.attrs.level === level;
-}
-
-function toggleHeading(editorView: EditorView | null, level: Level) {
-    if (!editorView) return;
-
-    const { state, dispatch } = editorView;
-    const { heading, paragraph } = state.schema.nodes;
-    if (!heading || !paragraph) return false;
-
-    if (isHeadingActive(editorView, level)) {
-        // Already a heading at this level, switch back to paragraph
-        setBlockType(paragraph)(state, dispatch);
-    } else {
-        // Not a heading at this level, set it to this heading level
-        setBlockType(heading, { level })(state, dispatch);
-    }
-}
-
 interface HeadingLevelProps {
     level: Level;
     isMenu?: boolean;
 }
 
 function HeadingLevel({ level, isMenu }: HeadingLevelProps) {
-    const { editorView } = useEditorContext();
-
-    const isActive = isHeadingActive(editorView, level);
-
-    const onToggleHeading = useCallback(() => {
-        toggleHeading(editorView, level);
-        editorView?.focus();
-    }, [editorView, level]);
+    const [isActive, toggleNode] = useToolbarItem('heading', { level });
 
     return (
         <Tooltip title={`Heading ${level}`}>
             <Box
                 component={isMenu ? MenuItem : ToggleButton}
-                onClick={onToggleHeading}
+                onClick={toggleNode}
                 selected={isActive}
                 value={`h${level}`}
             >

@@ -15,7 +15,7 @@ export const EMPTY_PARAGRAPH = '<p></p>';
 
 type HandleChangeById = Record<UUID, number>;
 
-export default function useDescriptionEdit() {
+export default function useDe1scriptionEdit() {
     const {
         rootId,
         branchId,
@@ -33,6 +33,16 @@ export default function useDescriptionEdit() {
     const {
         html: currentHTML, markdown, base64,
     } = useSelector(selectDescription(branchId, objectId)) || {};
+    // using initial values so we send the base64 only on initial editor load
+    const [initialBase64, setInitialBase64] = React.useState(base64 ?? '');
+    const [initialHTML, setInitialHTML] = React.useState(currentHTML ?? '');
+
+    useEffect(() => {
+        if (fetched && !loading) {
+            setInitialBase64(base64 ?? '');
+            setInitialHTML(currentHTML ?? '');
+        }
+    }, [base64, currentHTML, fetched, initialBase64, loading]);
 
     useEffect(() => {
         if (!fetched && !loading) {
@@ -111,7 +121,7 @@ export default function useDescriptionEdit() {
                 handleServerError(error);
                 console.error(error);
             }
-        }, 1000);
+        }, 500);
     }, [currentHTML, dispatch, branchId, objectId, rootId, objectNodeId, objectType, handleServerError]);
 
     return useMemo(() => ({
@@ -120,7 +130,7 @@ export default function useDescriptionEdit() {
         branchId,
         handleChange,
         markdown,
-        base64,
-        currentHTML,
-    }), [objectId, objectNodeId, branchId, handleChange, markdown, base64, currentHTML]);
+        base64: initialBase64,
+        currentHTML: initialHTML,
+    }), [objectId, objectNodeId, branchId, handleChange, markdown, initialBase64, initialHTML]);
 }

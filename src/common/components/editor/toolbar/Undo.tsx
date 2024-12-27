@@ -3,27 +3,22 @@ import { faUndo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import { undo, undoDepth } from 'prosemirror-history';
-import { EditorView } from 'prosemirror-view';
-import React, { useCallback } from 'react';
-
-function canUndo(editorView: EditorView | null): boolean {
-    if (!editorView) return false;
-
-    return undoDepth(editorView.state) > 0;
-}
+import React, { useCallback, useMemo } from 'react';
 
 export default function Undo() {
     const { editorView } = useEditorContext();
 
-    const disabled = !canUndo(editorView);
+    const disabled = useMemo(() => {
+        if (!editorView?.state) return true;
+
+        return undoDepth(editorView.state) <= 0;
+    }, [editorView?.state]);
 
     const onUndo = useCallback(() => {
-        if (!editorView) return;
+        if (!editorView?.state) return;
 
-        if (undo(editorView.state, editorView.dispatch)) {
-            editorView.focus();
-        }
-    }, [editorView]);
+        undo(editorView.state, editorView.dispatch);
+    }, [editorView?.state, editorView?.dispatch]);
 
     return (
         <Tooltip title="Undo">

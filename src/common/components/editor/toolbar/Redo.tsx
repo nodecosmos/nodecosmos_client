@@ -3,27 +3,22 @@ import { faRedo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import { redo, redoDepth } from 'prosemirror-history';
-import { EditorView } from 'prosemirror-view';
-import React, { useCallback } from 'react';
-
-function canRedo(editorView: EditorView | null): boolean {
-    if (!editorView) return false;
-
-    return redoDepth(editorView.state) > 0;
-}
+import React, { useCallback, useMemo } from 'react';
 
 export default function Redo() {
     const { editorView } = useEditorContext();
 
-    const disabled = !canRedo(editorView);
+    const disabled = useMemo(() => {
+        if (!editorView?.state) return true;
+
+        return redoDepth(editorView.state) <= 0;
+    }, [editorView?.state]);
 
     const onRedo = useCallback(() => {
-        if (!editorView) return;
+        if (!editorView?.state) return;
 
-        if (redo(editorView.state, editorView.dispatch)) {
-            editorView.focus();
-        }
-    }, [editorView]);
+        redo(editorView.state, editorView.dispatch);
+    }, [editorView?.state, editorView?.dispatch]);
 
     return (
         <Tooltip title="Redo">

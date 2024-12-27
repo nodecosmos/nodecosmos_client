@@ -1,7 +1,9 @@
 import EditorContainer from './EditorContainer';
+import EditorText from './EditorText';
 import EditorToolbar from './EditorToolbar';
 import markdownParser from './markdown/parser';
 import markdownSerializer from './markdown/serializer';
+import { stateChangePlugin } from './plugins/event';
 import { buildInputRules } from './plugins/inputRules';
 import { buildKeymap } from './plugins/keymap';
 import { placeholderPlugin } from './plugins/placeholder';
@@ -119,8 +121,6 @@ export default function Editor(props: EditorProps) {
         wsRoomId,
     });
 
-    const [, resetState] = React.useState<boolean>(false);
-
     useEffect(() => {
         if (clearState !== undefined) {
             if (editorViewRef.current) {
@@ -142,6 +142,7 @@ export default function Editor(props: EditorProps) {
             keymap(baseKeymap),
             buildInputRules(schema),
             trailingNode(),
+            stateChangePlugin,
         ];
 
         let doc;
@@ -178,18 +179,25 @@ export default function Editor(props: EditorProps) {
                 const newState = editorViewRef.current.state.apply(transaction);
                 editorViewRef.current.updateState(newState);
 
-                const html = getHtml(newState);
-                const markdown = getMarkdown(newState);
+                if (transaction.docChanged) {
+                    const html = getHtml(newState);
+                    const markdown = getMarkdown(newState);
 
-                // Extract content for onChange
-                let uint8ArrayState = null;
+                    // Extract content for onChange
+                    let uint8ArrayState = null;
 
-                if (isRealTime && y.yDoc) {
-                    uint8ArrayState = Y.encodeStateAsUpdateV2(y.yDoc);
+                    if (isRealTime && y.yDoc) {
+                        uint8ArrayState = Y.encodeStateAsUpdateV2(y.yDoc);
+                    }
+
+                    onChange(html, markdown, uint8ArrayState);
                 }
 
-                resetState((prev) => !prev);
-                onChange(html, markdown, uint8ArrayState);
+                if (transaction.docChanged || transaction.selectionSet) {
+                    view.dom.dispatchEvent(
+                        new CustomEvent('pm-state-change', { detail: { state: newState } }),
+                    );
+                }
             },
         });
 
@@ -221,13 +229,7 @@ export default function Editor(props: EditorProps) {
         <EditorContext.Provider value={ctxValue}>
             <EditorContainer>
                 <EditorToolbar />
-                <div className="TextEditor display-flex justify-center" onClick={handleClick}>
-                    <div className="max-w-900 w-100">
-                        <div
-                            ref={editorRef}
-                            className={`ContainerRef DescriptionHTML size-850 ${editorClassName}`} />
-                    </div>
-                </div>
+                <EditorText editorRef={editorRef} editorClassName={editorClassName} handleClick={handleClick} />
             </EditorContainer>
         </EditorContext.Provider>
     );
