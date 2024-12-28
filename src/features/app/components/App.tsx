@@ -91,6 +91,8 @@ export default function App() {
                 <Header />
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>
+                        {/* eslint-disable-next-line max-len */}
+                        <Route path="/nodes/charybdis" element={<Navigate relative="route" to="/nodes/d916b9f2-b54d-4f90-944d-93f8ab908c2a/d916b9f2-b54d-4f90-944d-93f8ab908c2a?selectedObject=eyJvcmlnaW5hbElkIjoiZDkxNmI5ZjItYjU0ZC00ZjkwLTk0NGQtOTNmOGFiOTA4YzJhIiwiYnJhbmNoSWQiOiJkOTE2YjlmMi1iNTRkLTRmOTAtOTQ0ZC05M2Y4YWI5MDhjMmEiLCJvYmplY3ROb2RlSWQiOiJjZTk4NGZhOC1jZDMwLTQwNzQtOTdiMy0yYTcwMmI0N2IwMjMiLCJvYmplY3RJZCI6ImNlOTg0ZmE4LWNkMzAtNDA3NC05N2IzLTJhNzAyYjQ3YjAyMyIsIm9iamVjdFR5cGUiOiJOb2RlIiwibWV0YWRhdGEiOnsiaXNUbXAiOmZhbHNlLCJhbmNlc3RvcklkcyI6WyJkOTE2YjlmMi1iNTRkLTRmOTAtOTQ0ZC05M2Y4YWI5MDhjMmEiXX19" />} />
                         <Route
                             path="/auth"
                             element={isAuthenticated

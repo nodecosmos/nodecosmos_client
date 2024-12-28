@@ -2,47 +2,56 @@ import { useEditorContext } from './useEditorContext';
 import useEditorState from './useEditorState';
 import schema from '../../components/editor/schema';
 import { setBlockType } from 'prosemirror-commands';
-import { Attrs } from 'prosemirror-model';
+import { Attrs, NodeType } from 'prosemirror-model';
 import { liftListItem, wrapInList } from 'prosemirror-schema-list';
+import { EditorState } from 'prosemirror-state';
 import { useCallback, useMemo } from 'react';
+
+const isActive = (
+    state: EditorState,
+    nodeType: NodeType,
+    attrs?: Record<string, any> | null,
+): boolean => {
+    const { selection } = state;
+    const { $from, $to } = selection;
+
+    // If the selection spans multiple nodes, it's not entirely within a single nodeType
+    if (!$from.sameParent($to)) return false;
+
+    // Traverse up the node hierarchy from the selection start position
+    for (let depth = $from.depth; depth > 0; depth -= 1) {
+        const node = $from.node(depth);
+
+        if (node.type === nodeType) {
+            if (attrs) {
+                // Check if all provided attributes match
+                const hasAllAttrs = Object.entries(attrs).every(
+                    ([key, value]) => node.attrs[key] === value,
+                );
+                if (hasAllAttrs) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+    }
+
+    return false;
+};
 
 type NodeName = keyof typeof schema.nodes;
 
-// TODO: update all toolbar items to use this or similar hook. Note the differences when we have
-//  block nodes (wrapIn and lift), list nodes (wrapInList), and inline nodes (custom logic).
 export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null): [boolean, () => void] {
     const { editorView } = useEditorContext();
     const state = useEditorState();
 
     const isNodeActive = useMemo((): boolean => {
-        const { from, to } = state?.selection || {
-            from: 0,
-            to: 0,
-        };
+        if (!editorView || !state) return false;
+        const { [nodeName]: nodeType } = editorView.state.schema.nodes;
 
-        if (!state) return false;
-
-        const { [nodeName]: nodeType } = state.schema.nodes;
-        const { $from } = state.selection;
-
-        let isActive = false;
-
-        switch (nodeType) {
-        case schema.nodes.heading:
-            isActive = $from.parent.type === nodeType && $from.parent.attrs.level === attrs?.level;
-            break;
-        default:
-            state.doc.nodesBetween(from, to, (node) => {
-                if (node.type === nodeType) {
-                    isActive = true;
-                    return false; // stop iteration once found
-                }
-            });
-            break;
-        }
-
-        return isActive;
-    }, [attrs?.level, nodeName, state]);
+        return isActive(state, nodeType, attrs);
+    }, [attrs, editorView, nodeName, state]);
 
     const toggleNode = useCallback(() => {
         const dispatch = editorView?.dispatch;
