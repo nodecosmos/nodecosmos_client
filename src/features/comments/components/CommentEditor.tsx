@@ -20,7 +20,7 @@ import { MAX_COMMENT_WIDTH } from '../commentsSlice';
 import { faSave } from '@fortawesome/pro-thin-svg-icons';
 import { Box, Button } from '@mui/material';
 import React, {
-    Suspense, useCallback, useState,
+    Suspense, useCallback, useEffect, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
@@ -196,6 +196,12 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
             clearContent();
         }
     }, [onClose, clearContent]);
+
+    useEffect(() => {
+        return () => {
+            clearContent();
+        };
+    }, [clearContent]);
 
     if (!currentUser) {
         return (

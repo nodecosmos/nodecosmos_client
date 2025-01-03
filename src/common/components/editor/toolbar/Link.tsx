@@ -8,7 +8,9 @@ import {
     ToggleButton, Tooltip, Dialog, DialogActions, DialogContent, DialogTitle, Button,
 } from '@mui/material';
 import { EditorView } from 'prosemirror-view';
-import React, { useCallback, useState } from 'react';
+import React, {
+    useCallback, useMemo, useState,
+} from 'react';
 import { Form } from 'react-final-form';
 
 interface LinkInsertProps {
@@ -20,6 +22,8 @@ const PROPS = {
     elevation: 5,
     sx: { borderRadius: 2.5 },
 };
+
+const SUBSCRIPTION = { submitting: true };
 
 function toggleLink(editorView: EditorView | null, url: string, displayText: string) {
     if (!editorView) return;
@@ -82,6 +86,11 @@ export default function LinkInsert() {
         setOpen(false);
     }, [editorView]);
 
+    const initialValues = useMemo(() => ({
+        url: getSelectedUrl(),
+        displayText: getSelectedText(),
+    }), [getSelectedText, getSelectedUrl]);
+
     return (
         <>
             <Tooltip title="Insert Link">
@@ -97,11 +106,8 @@ export default function LinkInsert() {
                 <DialogTitle>Insert Link</DialogTitle>
                 <Form
                     onSubmit={handleInsert}
-                    subscription={{ submitting: true }}
-                    initialValues={{
-                        url: getSelectedUrl(),
-                        displayText: getSelectedText(),
-                    }}
+                    subscription={SUBSCRIPTION}
+                    initialValues={initialValues}
                 >
                     {({ handleSubmit }) => (
                         <form onSubmit={handleSubmit}>
