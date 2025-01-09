@@ -6,6 +6,7 @@ import markdownSerializer from './markdown/serializer';
 import { buildInputRules } from './plugins/inputRules';
 import { buildKeymap } from './plugins/keymap';
 import { placeholderPlugin } from './plugins/placeholder';
+import { trailingNode } from './plugins/trailingNodePlugin';
 import schema from './schema';
 import { EditorExtensions } from './types';
 import { UUID } from '../../../types';
@@ -138,6 +139,7 @@ function Editor(props: EditorProps) {
             keymap(buildKeymap(schema)),
             keymap(baseKeymap),
             buildInputRules(schema),
+            trailingNode(),
             history({ newGroupDelay: 100 }),
         ];
 

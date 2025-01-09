@@ -7,7 +7,7 @@ import { liftListItem, wrapInList } from 'prosemirror-schema-list';
 import { EditorState } from 'prosemirror-state';
 import { useCallback, useMemo } from 'react';
 
-const isActive = (
+export const isActive = (
     state: EditorState,
     nodeType: NodeType,
     attrs?: Record<string, any> | null,

@@ -1,3 +1,4 @@
+import { isActive } from '../../../hooks/editor/useToolbarItem';
 import {
     wrapIn, setBlockType, chainCommands, exitCode,
     joinUp, joinDown, lift, selectParentNode,
@@ -116,26 +117,13 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     return keys;
 }
 
-function isNodeActive(state: EditorState, nodeType: NodeType): boolean {
-    const { from, to } = state.selection;
-
-    let isActive = false;
-    state.doc.nodesBetween(from, to, (node) => {
-        if (node.type === nodeType) {
-            isActive = true;
-        }
-    });
-
-    return isActive;
-}
-
 function toggleInlineNode(nodeType: NodeType): Command {
     return (state: EditorState, dispatch?: (tr: Transaction) => void, attrs?: Attrs | null): boolean => {
         const { from, to } = state.selection;
-        const isActive = isNodeActive(state, nodeType);
+        const isNodeActive = isActive(state, nodeType);
         const tr = state.tr;
 
-        if (isActive) {
+        if (isNodeActive) {
             // **Unwrap Formatting Nodes**
             state.doc.nodesBetween(from, to, (node, pos) => {
                 if (node.type === nodeType) {
