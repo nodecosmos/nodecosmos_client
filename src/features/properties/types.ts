@@ -1,4 +1,4 @@
- 
+
 enum PropDataTypes {
     Node,
     Text,

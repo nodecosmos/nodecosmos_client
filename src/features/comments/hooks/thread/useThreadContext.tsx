@@ -2,7 +2,7 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import { selectThread, selectThreadCommentIds } from '../../comments.selectors';
 import { CommentThreadProps } from '../../components/CommentThread';
 import {
-    createContext, useContext, useMemo, 
+    createContext, useContext, useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
 

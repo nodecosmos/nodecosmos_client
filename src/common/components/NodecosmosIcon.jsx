@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function NodecosmosIcon(props) {
     return (
-     
+
         <SvgIcon {...props}>
             <defs
                 id="defs2"

@@ -4,7 +4,7 @@ import { selectIsAuthenticated } from '../../../users/users.selectors';
 import { selectTheme } from '../../app.selectors';
 import { setTheme } from '../../appSlice';
 import {
-    faGear, faMessageDots, faLightbulbOn, 
+    faGear, faMessageDots, faLightbulbOn,
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

@@ -1,6 +1,6 @@
 import { WorkflowDiagram } from './diagram/diagram.types';
 import {
-    RootId, UUID, WithOptionalId, 
+    RootId, UUID, WithOptionalId,
 } from '../../types';
 import { FlowStep } from '../flow-steps/flowSteps.types';
 import { Flow } from '../flows/flows.types';

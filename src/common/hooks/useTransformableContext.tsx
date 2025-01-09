@@ -1,5 +1,5 @@
 import React, {
-    useCallback, useContext, useMemo, 
+    useCallback, useContext, useMemo,
 } from 'react';
 
 export interface TransformableContextVal {

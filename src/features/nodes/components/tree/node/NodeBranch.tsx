@@ -26,7 +26,7 @@ const CIRCLE_ANIMATION = {
 export default function NodeBranch() {
     const theme: NodecosmosTheme = useTheme();
     const {
-        size, showAncestorChain, showTreeColors, 
+        size, showAncestorChain, showTreeColors,
     } = useTreeContext();
     const {
         x, xEnd, y, isSelected, isAlreadyMounted, isCurrentRoot,

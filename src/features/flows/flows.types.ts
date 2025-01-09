@@ -1,5 +1,5 @@
 import {
-    WithOptionalId, UUID, RootId, 
+    WithOptionalId, UUID, RootId,
 } from '../../types';
 
 export interface FlowPrimaryKey {

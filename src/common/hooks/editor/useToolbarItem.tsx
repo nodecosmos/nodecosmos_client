@@ -82,7 +82,42 @@ export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null)
             } else {
                 return setBlockType(nodeType, attrs)(state, dispatch);
             }
+        case schema.nodes.bold:
+        case schema.nodes.italic:
+        case schema.nodes.strike:
+        case schema.nodes.code:
+            if (isActive) {
+                // **Unwrap Formatting Nodes**
+                state.doc.nodesBetween(from, to, (node, pos) => {
+                    if (node.type === nodeType) {
+                        tr.replaceWith(pos, pos + node.nodeSize, node.content);
+                    }
+                });
+            } else {
+                if (from === to) {
+                    // **Insert Formatting Node with Placeholder**
+                    const placeholderText = state.schema.text('\u200b'); // Zero-width space
+                    tr.insert(from, nodeType.create(attrs, placeholderText));
+                } else {
+                    const positionsToWrap: { from: number; to: number }[] = [];
+                    state.doc.nodesBetween(from, to, (node, pos) => {
+                        if (node.isText) {
+                            positionsToWrap.push({
+                                from: pos,
+                                to: pos + node.nodeSize,
+                            });
+                        }
+                    });
 
+                    // Wrap from the end to prevent shifting positions
+                    positionsToWrap.sort((a, b) => b.from - a.from).forEach(({ from: wrapFrom, to: wrapTo }) => {
+                        tr.replaceWith(wrapFrom, wrapTo,
+                            nodeType.create(attrs, nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, ''))),
+                        );
+                    });
+                }
+            }
+            break;
         default:
             // Unwrap the node by replacing it with its content
             if (isActive) {

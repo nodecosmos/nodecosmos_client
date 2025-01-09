@@ -51,7 +51,6 @@ export default (theme: NodecosmosTheme) => ({
         a: { color: theme.palette.texts.link },
         p: {
             fontSize: 16,
-            fontWeight: 400,
             wordWrap: 'break-word',
             whiteSpace: 'pre-wrap',
         },

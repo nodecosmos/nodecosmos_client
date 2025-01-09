@@ -36,6 +36,7 @@ export default [
             react: { version: 'detect' },
         },
         rules: {
+            'no-trailing-spaces': 'error',
             'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
             // Disable base rule
             'no-unused-vars': 'off',

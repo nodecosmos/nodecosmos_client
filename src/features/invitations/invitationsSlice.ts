@@ -33,7 +33,7 @@ const invitationsSlice = createSlice({
             })
             .addCase(deleteInvitation.fulfilled, (state, action) => {
                 const {
-                    branchId, nodeId, usernameOrEmail, 
+                    branchId, nodeId, usernameOrEmail,
                 } = action.meta.arg;
                 const invitations = state.byBranchAndNodeId[branchId][nodeId];
                 const index = invitations.findIndex((i) => i.usernameOrEmail === usernameOrEmail);

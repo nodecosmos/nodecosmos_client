@@ -136,28 +136,35 @@ function toggleInlineNode(nodeType: NodeType): Command {
         const tr = state.tr;
 
         if (isActive) {
-            const { from, to } = state.selection;
-
+            // **Unwrap Formatting Nodes**
             state.doc.nodesBetween(from, to, (node, pos) => {
                 if (node.type === nodeType) {
                     tr.replaceWith(pos, pos + node.nodeSize, node.content);
                 }
             });
-
-            if (dispatch) dispatch(tr);
-            return true;
-        }
-
-        if (from === to) {
-            // Use zero-width space to avoid empty text node
-            const placeholderText = state.schema.text('\u200b');
-            const wrappedNode = nodeType.create(attrs, placeholderText);
-            tr.insert(from, wrappedNode);
         } else {
-            // Wrap existing selection
-            const slice = state.doc.slice(from, to);
-            const wrappedNode = nodeType.create(attrs, slice.content);
-            tr.replaceWith(from, to, wrappedNode);
+            if (from === to) {
+                // **Insert Formatting Node with Placeholder**
+                const placeholderText = state.schema.text('\u200b'); // Zero-width space
+                tr.insert(from, nodeType.create(attrs, placeholderText));
+            } else {
+                const positionsToWrap: { from: number; to: number }[] = [];
+                state.doc.nodesBetween(from, to, (node, pos) => {
+                    if (node.isText) {
+                        positionsToWrap.push({
+                            from: pos,
+                            to: pos + node.nodeSize,
+                        });
+                    }
+                });
+
+                // Wrap from the end to prevent shifting positions
+                positionsToWrap.sort((a, b) => b.from - a.from).forEach(({ from: wrapFrom, to: wrapTo }) => {
+                    tr.replaceWith(wrapFrom, wrapTo,
+                        nodeType.create(attrs, nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, ''))),
+                    );
+                });
+            }
         }
 
         if (dispatch) dispatch(tr);

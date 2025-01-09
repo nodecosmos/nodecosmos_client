@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 export default function DanglingIosButton() {
     const { isBranch } = useBranchContext();
     const {
-        rootId, branchId, inputsAdditionActive, 
+        rootId, branchId, inputsAdditionActive,
     } = useWorkflowContext();
     const allWorkflowIos = useSelector(selectUniqueIoByRootId(branchId, rootId as UUID));
     const danglingIos = useMemo(() => {

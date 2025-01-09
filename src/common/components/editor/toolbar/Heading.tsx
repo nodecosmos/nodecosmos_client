@@ -1,11 +1,11 @@
 import useToolbarItem from '../../../hooks/editor/useToolbarItem';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import {
-    faChevronDown, faH1, faH2, faH3, faH4, faH5, 
+    faChevronDown, faH1, faH2, faH3, faH4, faH5,
 } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, Menu, MenuItem, ToggleButton, Tooltip, 
+    Box, Menu, MenuItem, ToggleButton, Tooltip,
 } from '@mui/material';
 import React from 'react';
 

@@ -2,7 +2,7 @@ import {
     setDensity, setShowAncestorChain, setShowTreeColors,
 } from '../../../nodes.actions';
 import {
-    selectDensity, selectShowAncestorChain, selectShowTreeColors, 
+    selectDensity, selectShowAncestorChain, selectShowTreeColors,
 } from '../../../nodes.selectors';
 import { TreeDensity } from '../../../nodes.types';
 import { faEllipsisVertical } from '@fortawesome/pro-solid-svg-icons';
