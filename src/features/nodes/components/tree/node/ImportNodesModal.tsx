@@ -135,7 +135,7 @@ export default function ImportNodesModal(props: UploadFileModalProps) {
         >
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h5" align="center" color="texts.secondary" width="auto">
+                    <Typography variant="h6" align="center" color="texts.secondary" width="auto">
                         <FontAwesomeIcon icon={faFileUpload} />
                         Import Nodes From File
                     </Typography>

@@ -46,7 +46,7 @@ function populateComment(state: RootState['comments'], comment: Comment) {
     }
 
     state.idsByThreadId[comment.threadId].push(comment.id);
-
+    
     state.byId[comment.id] = comment;
 }
 

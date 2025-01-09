@@ -40,3 +40,11 @@
 4) Make sure to pull changes from the main branch regularly to stay up to date with the latest changes.
 5) Once your pull request has been approved, merge your changes into the main codebase.
 6) Finally, delete your branch to keep your repository clean and organized.
+
+### Run From Docker
+```shell
+  docker build --target dev -t nodecosmos_client . 
+```
+```shell
+docker run --rm -it -p 3001:3001 -v "$(pwd)":/app nodecosmos_client
+```

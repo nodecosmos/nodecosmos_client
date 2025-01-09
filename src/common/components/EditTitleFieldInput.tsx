@@ -58,25 +58,35 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
         }
     }, [setShouldClose]);
 
-    const SaveIcon = () => {
-        if (debounceInProgress && shouldClose) {
-            return (
-                <CircularProgress size={20} />
-            );
-        } else {
-            return (
-                <Tooltip title="Save title" placement="top">
-                    <IconButton
-                        className="Item toolbar-green fs-18"
-                        onClick={setShouldClose}
-                        aria-label="Save title"
-                    >
-                        <FontAwesomeIcon icon={faCheck} />
-                    </IconButton>
-                </Tooltip>
-            );
-        }
-    };
+    const slotProps = useMemo(() => {
+        const SaveIcon = () => {
+            if (debounceInProgress && shouldClose) {
+                return (
+                    <CircularProgress size={20} />
+                );
+            } else {
+                return (
+                    <Tooltip title="Save title" placement="top">
+                        <IconButton
+                            className="Item toolbar-green fs-18"
+                            onClick={setShouldClose}
+                            aria-label="Save title"
+                        >
+                            <FontAwesomeIcon icon={faCheck} />
+                        </IconButton>
+                    </Tooltip>
+                );
+            }
+        };
+
+        return {
+            input: {
+                endAdornment: (
+                    <Box display="flex" alignItems="center" justifyContent="center" pr={1}><SaveIcon /></Box>
+                ),
+            },
+        };
+    }, [debounceInProgress, setShouldClose, shouldClose]);
 
     const sx = useMemo(() => ({
         width: maxWidth,
@@ -114,14 +124,10 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
                 variant="outlined"
                 focused
                 value={value}
-                onChange={handleChange}
+                onInput={handleChange}
                 onBlur={setShouldClose}
                 onKeyDown={onEnterDown}
-                InputProps={{
-                    endAdornment: (
-                        <Box display="flex" alignItems="center" justifyContent="center" pr={1}><SaveIcon /></Box>
-                    ),
-                }}
+                slotProps={slotProps}
             />
         </Box>
     );
