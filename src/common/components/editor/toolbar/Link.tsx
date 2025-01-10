@@ -1,5 +1,6 @@
 import { validateURL } from '../../../../utils/validation';
 import { useEditorContext } from '../../../hooks/editor/useEditorContext';
+import useEditorState from '../../../hooks/editor/useEditorState';
 import useToolbarItem from '../../../hooks/editor/useToolbarItem';
 import FinalFormInputField from '../../final-form/FinalFormInputField';
 import { faLink } from '@fortawesome/pro-solid-svg-icons';
@@ -7,7 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     ToggleButton, Tooltip, Dialog, DialogActions, DialogContent, DialogTitle, Button,
 } from '@mui/material';
-import { EditorView } from 'prosemirror-view';
+import { Node } from 'prosemirror-model';
+import { EditorState, Transaction } from 'prosemirror-state';
 import React, {
     useCallback, useMemo, useState,
 } from 'react';
@@ -25,46 +27,68 @@ const PROPS = {
 
 const SUBSCRIPTION = { submitting: true };
 
-function toggleLink(editorView: EditorView | null, url: string, displayText: string) {
-    if (!editorView) return;
+function toggleLink(
+    state: EditorState | null,
+    url: string,
+    displayText: string,
+    dispatch?: (tr: Transaction) => void,
+) {
+    if (!state) return;
 
-    const { state, dispatch } = editorView;
     const { link } = state.schema.nodes;
-    if (!link) return;
-
     const attrs = { href: url };
     const {
         from, to, empty,
     } = state.selection;
 
+    let tr = state.tr;
+
     if (empty) {
         const linkNode = link.create(attrs, state.schema.text(displayText || url));
-        const tr = state.tr.replaceSelectionWith(linkNode, false);
-        dispatch(tr);
+        tr.replaceSelectionWith(linkNode, false);
     } else {
-        const linkNode = link.create(attrs, state.doc.slice(from, to).content);
-        const tr = state.tr.replaceWith(from, to, linkNode);
-        dispatch(tr);
+        const collectedNodes: { node: Node; pos: number }[] = [];
+        state.doc.nodesBetween(from, to, (node, pos) => {
+            if (node.isText) {
+                // Create a link node wrapping the text
+                collectedNodes.push({
+                    node,
+                    pos,
+                });
+            }
+        });
+
+        for (let i = collectedNodes.length - 1; i >= 0; i -= 1) {
+            const { node, pos } = collectedNodes[i];
+            const linkNode = link.create(attrs, node);
+            tr = tr.replaceWith(pos, pos + node.nodeSize, linkNode);
+        }
     }
+
+    if (dispatch) dispatch(tr);
 }
+
+const getSelectedText = (state: EditorState | null) => {
+    if (!state) return '';
+
+    const { selection } = state;
+    const { from, to } = selection;
+
+    if (from !== to) {
+        return state.doc.textBetween(from, to);
+    }
+
+    return '';
+};
 
 export default function LinkInsert() {
     const { editorView } = useEditorContext();
+    const state = useEditorState();
     const [open, setOpen] = useState(false);
     const [isActive] = useToolbarItem('link');
     const toggleModal = useCallback(() => {
         setOpen(!open);
     }, [open]);
-
-    const getSelectedText = useCallback(() => {
-        if (!editorView) return '';
-
-        const { selection, doc } = editorView.state;
-        if (selection.from !== selection.to) {
-            return doc.textBetween(selection.from, selection.to);
-        }
-        return '';
-    }, [editorView]);
 
     const getSelectedUrl = useCallback(() => {
         if (!editorView) return '';
@@ -81,15 +105,15 @@ export default function LinkInsert() {
 
     const handleInsert = useCallback((form: LinkInsertProps) => {
         if (!editorView) return;
-        toggleLink(editorView, form.url, form.displayText);
+        toggleLink(state, form.url, form.displayText, editorView.dispatch);
         editorView.focus();
         setOpen(false);
-    }, [editorView]);
+    }, [editorView, state]);
 
     const initialValues = useMemo(() => ({
         url: getSelectedUrl(),
-        displayText: getSelectedText(),
-    }), [getSelectedText, getSelectedUrl]);
+        displayText: getSelectedText(state),
+    }), [getSelectedUrl, state]);
 
     return (
         <>

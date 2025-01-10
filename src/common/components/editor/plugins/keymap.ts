@@ -1,4 +1,4 @@
-import { isActive } from '../../../hooks/editor/useToolbarItem';
+import { toggleInlineNode } from '../utils';
 import {
     wrapIn, setBlockType, chainCommands, exitCode,
     joinUp, joinDown, lift, selectParentNode,
@@ -83,11 +83,11 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     bind('Mod-BracketLeft', lift);
     bind('Escape', selectParentNode);
 
-    bind('Mod-b', toggleInlineNode(schema.nodes.bold));
-    bind('Mod-B', toggleInlineNode(schema.nodes.bold));
-    bind('Mod-i', toggleInlineNode(schema.nodes.italic));
-    bind('Mod-I', toggleInlineNode(schema.nodes.italic));
-    bind('Mod-`', toggleInlineNode(schema.nodes.code));
+    bind('Mod-b', toggleInlineNodeCommand(schema.nodes.bold));
+    bind('Mod-B', toggleInlineNodeCommand(schema.nodes.bold));
+    bind('Mod-i', toggleInlineNodeCommand(schema.nodes.italic));
+    bind('Mod-I', toggleInlineNodeCommand(schema.nodes.italic));
+    bind('Mod-`', toggleInlineNodeCommand(schema.nodes.code));
     bind('Shift-Ctrl-8', wrapInList(schema.nodes.bulletList));
     bind('Shift-Ctrl-9', wrapInList(schema.nodes.orderedList));
     bind('Ctrl->', wrapIn(schema.nodes.blockquote));
@@ -117,46 +117,9 @@ export function buildKeymap(schema: Schema, mapKeys?: {[key: string]: false | st
     return keys;
 }
 
-function toggleInlineNode(nodeType: NodeType): Command {
+function toggleInlineNodeCommand(nodeType: NodeType): Command {
     return (state: EditorState, dispatch?: (tr: Transaction) => void, attrs?: Attrs | null): boolean => {
-        const { from, to } = state.selection;
-        const isNodeActive = isActive(state, nodeType);
-        const tr = state.tr;
-
-        if (isNodeActive) {
-            // **Unwrap Formatting Nodes**
-            state.doc.nodesBetween(from, to, (node, pos) => {
-                if (node.type === nodeType) {
-                    tr.replaceWith(pos, pos + node.nodeSize, node.content);
-                }
-            });
-        } else {
-            if (from === to) {
-                // **Insert Formatting Node with Placeholder**
-                const placeholderText = state.schema.text('\u200b'); // Zero-width space
-                tr.insert(from, nodeType.create(attrs, placeholderText));
-            } else {
-                const positionsToWrap: { from: number; to: number }[] = [];
-                state.doc.nodesBetween(from, to, (node, pos) => {
-                    if (node.isText) {
-                        positionsToWrap.push({
-                            from: pos,
-                            to: pos + node.nodeSize,
-                        });
-                    }
-                });
-
-                // Wrap from the end to prevent shifting positions
-                positionsToWrap.sort((a, b) => b.from - a.from).forEach(({ from: wrapFrom, to: wrapTo }) => {
-                    tr.replaceWith(wrapFrom, wrapTo,
-                        nodeType.create(attrs, nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, ''))),
-                    );
-                });
-            }
-        }
-
-        if (dispatch) dispatch(tr);
-        return true;
+        return toggleInlineNode(state, nodeType, dispatch, attrs);
     };
 }
 

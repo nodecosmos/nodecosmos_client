@@ -1,44 +1,11 @@
 import { useEditorContext } from './useEditorContext';
 import useEditorState from './useEditorState';
 import schema from '../../components/editor/schema';
+import { isActive, toggleInlineNode } from '../../components/editor/utils';
 import { setBlockType } from 'prosemirror-commands';
-import { Attrs, NodeType } from 'prosemirror-model';
+import { Attrs } from 'prosemirror-model';
 import { liftListItem, wrapInList } from 'prosemirror-schema-list';
-import { EditorState } from 'prosemirror-state';
 import { useCallback, useMemo } from 'react';
-
-export const isActive = (
-    state: EditorState,
-    nodeType: NodeType,
-    attrs?: Record<string, any> | null,
-): boolean => {
-    const { selection } = state;
-    const { $from, $to } = selection;
-
-    // If the selection spans multiple nodes, it's not entirely within a single nodeType
-    if (!$from.sameParent($to)) return false;
-
-    // Traverse up the node hierarchy from the selection start position
-    for (let depth = $from.depth; depth > 0; depth -= 1) {
-        const node = $from.node(depth);
-
-        if (node.type === nodeType) {
-            if (attrs) {
-                // Check if all provided attributes match
-                const hasAllAttrs = Object.entries(attrs).every(
-                    ([key, value]) => node.attrs[key] === value,
-                );
-                if (hasAllAttrs) {
-                    return true;
-                }
-            } else {
-                return true;
-            }
-        }
-    }
-
-    return false;
-};
 
 type NodeName = keyof typeof schema.nodes;
 
@@ -65,8 +32,6 @@ export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null)
         const { [nodeName]: nodeType } = state.schema.nodes;
         const isActive = isNodeActive;
 
-        const tr = state.tr;
-
         switch (nodeType) {
         case schema.nodes.bulletList:
         case schema.nodes.orderedList:
@@ -86,48 +51,22 @@ export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null)
         case schema.nodes.italic:
         case schema.nodes.strike:
         case schema.nodes.code:
-            if (isActive) {
-                // **Unwrap Formatting Nodes**
-                state.doc.nodesBetween(from, to, (node, pos) => {
-                    if (node.type === nodeType) {
-                        tr.replaceWith(pos, pos + node.nodeSize, node.content);
-                    }
-                });
-            } else {
-                if (from === to) {
-                    // **Insert Formatting Node with Placeholder**
-                    const placeholderText = state.schema.text('\u200b'); // Zero-width space
-                    tr.insert(from, nodeType.create(attrs, placeholderText));
-                } else {
-                    const positionsToWrap: { from: number; to: number }[] = [];
-                    state.doc.nodesBetween(from, to, (node, pos) => {
-                        if (node.isText) {
-                            positionsToWrap.push({
-                                from: pos,
-                                to: pos + node.nodeSize,
-                            });
-                        }
-                    });
-
-                    // Wrap from the end to prevent shifting positions
-                    positionsToWrap.sort((a, b) => b.from - a.from).forEach(({ from: wrapFrom, to: wrapTo }) => {
-                        tr.replaceWith(wrapFrom, wrapTo,
-                            nodeType.create(attrs, nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, ''))),
-                        );
-                    });
-                }
-            }
-            break;
+            return toggleInlineNode(state, nodeType, dispatch, attrs);
         default:
+        {
+            const tr = state.tr;
+            const isEmpty = from === to;
+
+            const unwrap = () => state.doc.nodesBetween(from, to, (node, pos) => {
+                if (node.type === nodeType) {
+                    tr.replaceWith(pos, pos + node.nodeSize, node.content);
+                }
+            });
             // Unwrap the node by replacing it with its content
             if (isActive) {
-                state.doc.nodesBetween(from, to, (node, pos) => {
-                    if (node.type === nodeType) {
-                        tr.replaceWith(pos, pos + node.nodeSize, node.content);
-                    }
-                });
+                unwrap();
             } else {
-                if (from === to) {
+                if (isEmpty) {
                     // Use zero-width space to avoid empty text node
                     const placeholderText = state.schema.text('\u200b');
                     const wrappedNode = nodeType.create(attrs, placeholderText);
@@ -139,10 +78,10 @@ export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null)
                     tr.replaceWith(from, to, wrappedNode);
                 }
             }
-            break;
-        }
 
-        if (dispatch) dispatch(tr);
+            if (dispatch) dispatch(tr);
+        }
+        }
 
         editorView?.focus();
     }, [attrs, editorView, isNodeActive, nodeName, state]);

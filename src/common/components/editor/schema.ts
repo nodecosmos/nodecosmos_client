@@ -209,7 +209,7 @@ const code: NodeSpec = {
 const link: NodeSpec = {
     inline: true,
     group: 'inline',
-    content: 'inline*',
+    content: 'inline+',
     attrs: { href: {} },
     parseDOM: [
         {
