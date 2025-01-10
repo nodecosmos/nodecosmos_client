@@ -100,7 +100,7 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#f0f0f0',
+            1: '#dcdcdc',
             2: '#cfd7e7',
             3: '#e8e8df',
             4: '#e6e6cb',
@@ -109,10 +109,10 @@ const theme: NodecosmosTheme = {
 
         backgrounds: {
             1: '#ffffff', // f8f9fa
-            2: '#fffffe', // f0f0ef ededed
+            2: '#ffffff', // f0f0ef ededed
             3: '#eef0fa',
             4: '#f1f3f6',
-            5: '#f6f8fc',
+            5: '#ffffff',
             6: '#f7f7fa',
             7: '#eeeef3',
             8: '#d2d6de',
@@ -129,7 +129,7 @@ const theme: NodecosmosTheme = {
             },
 
             list: {
-                defaultColor: '#5d5d61',
+                defaultColor: '#0d0d0d',
                 activeColor: '#46464c',
             },
             backdrop: 'rgba(0,0,0,0.76)',
@@ -187,7 +187,7 @@ const theme: NodecosmosTheme = {
                 },
             ],
             hashtag: '#aaaac4',
-            defaultText: '#64647c',
+            defaultText: '#000000',
             selectedText: '#fefeff',
             checkboxColor: '#bbbbc7',
             dragInIndicator: '#ff5866',
@@ -260,11 +260,11 @@ const theme: NodecosmosTheme = {
         },
 
         texts: {
-            primary: '#5a5a64',
-            secondary: '#47474c',
-            tertiary: '#8d8d8a',
+            primary: '#000000',
+            secondary: '#000000',
+            tertiary: '#282828',
             disabled: '#5c616b',
-            contrast: '#5c616b',
+            contrast: '#585858',
             sectionPrimary: '#acdf83',
             sectionSecondary: '#cdd4eb',
             link: '#3ba0ff',
@@ -314,7 +314,7 @@ const theme: NodecosmosTheme = {
             'A700': '#616161',
         },
         text: {
-            primary: '#5a5a64',
+            primary: '#000000',
             secondary: '#47474c',
             disabled: '#5c616b',
         },
