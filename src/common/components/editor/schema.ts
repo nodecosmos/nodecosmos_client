@@ -169,7 +169,7 @@ const html: NodeSpec = {
 const bold: NodeSpec = {
     inline: true,
     group: 'inline',
-    content: 'text*',
+    content: 'inline*',
     parseDOM: [
         { tag: 'strong' },
         { tag: 'b' },
@@ -181,7 +181,7 @@ const bold: NodeSpec = {
 const italic: NodeSpec = {
     inline: true,
     group: 'inline',
-    content: 'text*',
+    content: 'inline*',
     parseDOM: [
         { tag: 'em' },
         { tag: 'i' },
@@ -193,7 +193,7 @@ const italic: NodeSpec = {
 const strike: NodeSpec = {
     inline: true,
     group: 'inline',
-    content: 'text*',
+    content: 'inline*',
     parseDOM: [{ tag: 'strike' }],
     toDOM() { return ['strike', 0]; },
 };
@@ -201,7 +201,7 @@ const strike: NodeSpec = {
 const code: NodeSpec = {
     inline: true,
     group: 'inline',
-    content: 'text*',
+    content: 'inline*',
     parseDOM: [{ tag: 'code' }],
     toDOM() { return ['code', 0]; },
 };
