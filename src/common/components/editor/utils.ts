@@ -100,7 +100,7 @@ export const toggleInlineNode = (
             // Wrap from the end to prevent shifting positions
             positionsToUnwrap.sort((a, b) => b.from - a.from).forEach(({ from: wrapFrom, to: wrapTo }) => {
                 tr.replaceWith(wrapFrom, wrapTo,
-                    nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, '')),
+                    nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, '\u200b')),
                 );
             });
         } }
