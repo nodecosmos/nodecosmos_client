@@ -73,10 +73,11 @@ export const toggleInlineNode = (
     attrs?: Attrs | null,
 ) => {
     const { from, to } = state.selection;
+    const { tr } = state;
     const isNodeActive = isActive(state, nodeType);
-    const tr = state.tr;
     const isEmpty = from === to;
 
+    // 1. If the node is currently active, we UNWRAP
     if (isNodeActive) {
         if (isEmpty) {
             state.doc.nodesBetween(from, to, (node, pos) => {
@@ -102,32 +103,51 @@ export const toggleInlineNode = (
                     nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, '')),
                 );
             });
-        }
-    } else {
+        } }
+    else {
         if (isEmpty) {
-            // **Insert Formatting Node with Placeholder**
-            const placeholderText = state.schema.text('\u200b'); // Zero-width space
+            // =============== INSERT INLINE NODE WITH PLACEHOLDER ===============
+            const placeholderText = nodeType.schema.text('\u200b'); // Zero-width space
             tr.insert(from, nodeType.create(attrs, placeholderText));
         } else {
+            // =============== WRAP PARTIALLY SELECTED RANGES ===============
             const positionsToWrap: { from: number; to: number }[] = [];
+
             state.doc.nodesBetween(from, to, (node, pos) => {
+                // We only want to wrap text (or inline) nodes
                 if (node.isText) {
-                    positionsToWrap.push({
-                        from: pos,
-                        to: pos + node.nodeSize,
-                    });
+                    const nodeStart = pos;
+                    const nodeEnd = pos + node.nodeSize;
+
+                    // Intersect with selection
+                    const wrapFrom = Math.max(nodeStart, from);
+                    const wrapTo = Math.min(nodeEnd, to);
+
+                    if (wrapTo > wrapFrom) {
+                        positionsToWrap.push({
+                            from: wrapFrom,
+                            to: wrapTo,
+                        });
+                    }
                 }
             });
 
-            // Wrap from the end to prevent shifting positions
-            positionsToWrap.sort((a, b) => b.from - a.from).forEach(({ from: wrapFrom, to: wrapTo }) => {
-                tr.replaceWith(wrapFrom, wrapTo,
-                    nodeType.create(attrs, nodeType.schema.text(state.doc.textBetween(wrapFrom, wrapTo, ''))),
-                );
-            });
+            // Process in reverse order
+            positionsToWrap
+                .sort((a, b) => b.from - a.from)
+                .forEach(({ from: wrapFrom, to: wrapTo }) => {
+                    // Get the slice of content
+                    const slice = tr.doc.slice(wrapFrom, wrapTo);
+                    // Create the inline node with that slice as child
+                    const newInlineNode = nodeType.create(attrs, slice.content);
+                    // Replace text with new inline node
+                    tr.replaceRangeWith(wrapFrom, wrapTo, newInlineNode);
+                });
         }
     }
 
-    if (dispatch) dispatch(tr);
+    if (dispatch) {
+        dispatch(tr);
+    }
     return true;
 };

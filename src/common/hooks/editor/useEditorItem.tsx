@@ -9,7 +9,7 @@ import { useCallback, useMemo } from 'react';
 
 type NodeName = keyof typeof schema.nodes;
 
-export default function useToolbarItem(nodeName: NodeName, attrs?: Attrs | null): [boolean, () => void] {
+export default function useEditorItem(nodeName: NodeName, attrs?: Attrs | null): [boolean, () => void] {
     const { editorView } = useEditorContext();
     const state = useEditorState();
 

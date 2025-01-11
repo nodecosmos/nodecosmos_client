@@ -1,7 +1,7 @@
 import { validateURL } from '../../../../utils/validation';
 import { useEditorContext } from '../../../hooks/editor/useEditorContext';
+import useEditorItem from '../../../hooks/editor/useEditorItem';
 import useEditorState from '../../../hooks/editor/useEditorState';
-import useToolbarItem from '../../../hooks/editor/useToolbarItem';
 import FinalFormInputField from '../../final-form/FinalFormInputField';
 import { faLink } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -85,7 +85,7 @@ export default function LinkInsert() {
     const { editorView } = useEditorContext();
     const state = useEditorState();
     const [open, setOpen] = useState(false);
-    const [isActive] = useToolbarItem('link');
+    const [isActive] = useEditorItem('link');
     const toggleModal = useCallback(() => {
         setOpen(!open);
     }, [open]);

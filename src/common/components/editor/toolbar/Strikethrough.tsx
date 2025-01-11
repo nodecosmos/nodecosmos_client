@@ -1,11 +1,11 @@
-import useToolbarItem from '../../../hooks/editor/useToolbarItem';
+import useEditorItem from '../../../hooks/editor/useEditorItem';
 import { faStrikethrough } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToggleButton, Tooltip } from '@mui/material';
 import React from 'react';
 
 export default function Strikethrough() {
-    const [isActive, toggleNode] = useToolbarItem('strike');
+    const [isActive, toggleNode] = useEditorItem('strike');
 
     return (
         <Tooltip title="Strikethrough">

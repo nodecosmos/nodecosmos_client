@@ -1,4 +1,4 @@
-import useToolbarItem from '../../../hooks/editor/useToolbarItem';
+import useEditorItem from '../../../hooks/editor/useEditorItem';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import {
     faChevronDown, faH1, faH2, faH3, faH4, faH5,
@@ -25,7 +25,7 @@ interface HeadingLevelProps {
 }
 
 function HeadingLevel({ level, isMenu }: HeadingLevelProps) {
-    const [isActive, toggleNode] = useToolbarItem('heading', { level });
+    const [isActive, toggleNode] = useEditorItem('heading', { level });
 
     return (
         <Tooltip title={`Heading ${level}`}>

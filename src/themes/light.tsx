@@ -103,19 +103,19 @@ const theme: NodecosmosTheme = {
             1: '#dcdcdc',
             2: '#cfd7e7',
             3: '#e8e8df',
-            4: '#e6e6cb',
+            4: '#dedede',
             5: '#e1e1e1',
         },
 
         backgrounds: {
             1: '#ffffff', // f8f9fa
-            2: '#ffffff', // f0f0ef ededed
-            3: '#eef0fa',
-            4: '#f1f3f6',
+            2: '#ffffff', // f0f0ef
+            3: '#eaeaf1',
+            4: '#f3f3f6',
             5: '#ffffff',
             6: '#f7f7fa',
             7: '#eeeef3',
-            8: '#d2d6de',
+            8: '#edeeee',
 
             hover: '#d9dde3',
 
@@ -145,9 +145,9 @@ const theme: NodecosmosTheme = {
             lightPurple: '#6174ff',
             yellow: '#ddbe32',
             orange: '#dd9432',
-            hover: 'rgba(230,224,232,0.82)',
-            active: '#f3eff5',
-            default: '#686a6b',
+            hover: 'rgba(241,243,243,0.82)',
+            active: '#f3f5f5',
+            default: '#2a2a2a',
             breadcrumbs: '#4a5568',
         },
 
@@ -261,7 +261,7 @@ const theme: NodecosmosTheme = {
 
         texts: {
             primary: '#000000',
-            secondary: '#000000',
+            secondary: '#2b2b2b',
             tertiary: '#282828',
             disabled: '#5c616b',
             contrast: '#585858',
