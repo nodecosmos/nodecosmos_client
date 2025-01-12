@@ -9,7 +9,6 @@ import {
     ToggleButton, Tooltip, Dialog, DialogActions, DialogContent, DialogTitle, Button,
 } from '@mui/material';
 import { Node } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
 import React, {
     useCallback, useMemo, useState,
 } from 'react';
@@ -27,93 +26,81 @@ const PROPS = {
 
 const SUBSCRIPTION = { submitting: true };
 
-function toggleLink(
-    state: EditorState | null,
-    url: string,
-    displayText: string,
-    dispatch?: (tr: Transaction) => void,
-) {
-    if (!state) return;
-
-    const { link } = state.schema.nodes;
-    const attrs = { href: url };
-    const {
-        from, to, empty,
-    } = state.selection;
-
-    let tr = state.tr;
-
-    if (empty) {
-        const linkNode = link.create(attrs, state.schema.text(displayText || url));
-        tr.replaceSelectionWith(linkNode, false);
-    } else {
-        const collectedNodes: { node: Node; pos: number }[] = [];
-        state.doc.nodesBetween(from, to, (node, pos) => {
-            if (node.isText) {
-                // Create a link node wrapping the text
-                collectedNodes.push({
-                    node,
-                    pos,
-                });
-            }
-        });
-
-        for (let i = collectedNodes.length - 1; i >= 0; i -= 1) {
-            const { node, pos } = collectedNodes[i];
-            const linkNode = link.create(attrs, node);
-            tr = tr.replaceWith(pos, pos + node.nodeSize, linkNode);
-        }
-    }
-
-    if (dispatch) dispatch(tr);
-}
-
-const getSelectedText = (state: EditorState | null) => {
-    if (!state) return '';
-
-    const { selection } = state;
-    const { from, to } = selection;
-
-    if (from !== to) {
-        return state.doc.textBetween(from, to);
-    }
-
-    return '';
-};
-
-export default function LinkInsert() {
+export default function Link() {
     const { editorView } = useEditorContext();
     const state = useEditorState();
     const [open, setOpen] = useState(false);
     const [isActive] = useEditorItem('link');
+
     const toggleModal = useCallback(() => {
         setOpen(!open);
     }, [open]);
 
-    const getSelectedUrl = useCallback(() => {
-        if (!editorView) return '';
+    const selectedLink = useMemo<[Node, number] | null>(() => {
+        if (!state) return null;
 
-        const { selection, doc } = editorView.state;
-        const { from } = selection;
-        const node = doc.nodeAt(from);
+        const { selection } = state;
+        const { from, to } = selection;
 
-        if (node) {
-            return node.attrs.href;
+        let link = null;
+
+        state.doc.nodesBetween(from, to, (node, position) => {
+            if (node.type === state.schema.nodes.link) {
+                link = [node, position];
+                return false;
+            }
+        });
+
+        return link;
+    }, [state]);
+
+    const toggleLink = useCallback((form: LinkInsertProps) => {
+        if (!state || !editorView) return;
+
+        const { link } = state.schema.nodes;
+        const attrs = { href: form.url };
+        const {
+            from, to, empty,
+        } = state.selection;
+
+        let tr = state.tr;
+
+        if (selectedLink) {
+            let [node, pos] = selectedLink;
+            tr = tr.replaceWith(
+                pos, pos + node.nodeSize, link.create(attrs, state.schema.text(form.displayText || form.url)),
+            );
+        } else if (empty) {
+            const linkNode = link.create(attrs, state.schema.text(form.displayText || form.url));
+            tr = tr.replaceSelectionWith(linkNode, false);
+        } else {
+            const collectedNodes: { node: Node; pos: number }[] = [];
+            state.doc.nodesBetween(from, to, (node, pos) => {
+                if (node.isText) {
+                    // Create a link node wrapping the text
+                    collectedNodes.push({
+                        node,
+                        pos,
+                    });
+                }
+            });
+
+            for (let i = collectedNodes.length - 1; i >= 0; i -= 1) {
+                const { node, pos } = collectedNodes[i];
+                const linkNode = link.create(attrs, node);
+                tr = tr.replaceWith(pos, pos + node.nodeSize, linkNode);
+            }
         }
-        return '';
-    }, [editorView]);
 
-    const handleInsert = useCallback((form: LinkInsertProps) => {
-        if (!editorView) return;
-        toggleLink(state, form.url, form.displayText, editorView.dispatch);
+        editorView.dispatch(tr);
         editorView.focus();
         setOpen(false);
-    }, [editorView, state]);
+    }, [editorView, selectedLink, state]);
 
     const initialValues = useMemo(() => ({
-        url: getSelectedUrl(),
-        displayText: getSelectedText(state),
-    }), [getSelectedUrl, state]);
+        url: selectedLink ? selectedLink[0].attrs.href : '',
+        displayText: selectedLink ? selectedLink[0].textContent : '',
+    }), [selectedLink]);
 
     return (
         <>
@@ -129,7 +116,7 @@ export default function LinkInsert() {
             <Dialog open={open} onClose={toggleModal} PaperProps={PROPS}>
                 <DialogTitle>Insert Link</DialogTitle>
                 <Form
-                    onSubmit={handleInsert}
+                    onSubmit={toggleLink}
                     subscription={SUBSCRIPTION}
                     initialValues={initialValues}
                 >
