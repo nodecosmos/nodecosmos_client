@@ -57,7 +57,6 @@ export default function PaneDescription() {
                         'c',
                         'cpp',
                         'csharp',
-                        'php',
                         'ruby',
                         'perl',
                         'go',
