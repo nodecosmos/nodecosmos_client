@@ -77,9 +77,14 @@ export default function EditorToolbar() {
                 <div>
                     {enabledExtMap?.[EditorExtensions.Code]}
                 </div>
-                <div>
-                    {enabledExtMap?.[EditorExtensions.Heading]}
-                </div>
+                {
+                    enabledExtMap?.[EditorExtensions.Heading]
+                    && (
+                        <div>
+                            {enabledExtMap[EditorExtensions.Heading]}
+                        </div>
+                    )
+                }
                 <div>
                     {enabledExtMap?.[EditorExtensions.Link]}
                 </div>

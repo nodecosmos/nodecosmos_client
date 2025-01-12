@@ -8,6 +8,7 @@ export default (theme: NodecosmosTheme) => ({
                     color: theme.palette.texts.primary,
                     backgroundColor: theme.palette.backgrounds[8],
                     cursor: 'pointer',
+                    fontWeight: 700,
 
                     '&.has-image': { backgroundColor: 'transparent' },
 

@@ -54,6 +54,17 @@ export default function Link() {
         return link;
     }, [state]);
 
+    const getSelectedText = useCallback(() => {
+        if (!state) return '';
+
+        if (selectedLink) {
+            return selectedLink[0].textContent;
+        }
+
+        const { from, to } = state.selection;
+        return state.doc.textBetween(from, to, ' ');
+    }, [selectedLink, state]);
+
     const toggleLink = useCallback((form: LinkInsertProps) => {
         if (!state || !editorView) return;
 
@@ -99,8 +110,8 @@ export default function Link() {
 
     const initialValues = useMemo(() => ({
         url: selectedLink ? selectedLink[0].attrs.href : '',
-        displayText: selectedLink ? selectedLink[0].textContent : '',
-    }), [selectedLink]);
+        displayText: getSelectedText(),
+    }), [getSelectedText, selectedLink]);
 
     return (
         <>

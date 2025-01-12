@@ -36,6 +36,7 @@ export function isActive (
         $from,
         from,
         to,
+        empty,
     } = selection;
 
     let allWrapped = false;
@@ -45,7 +46,7 @@ export function isActive (
     case schema.nodes.italic:
     case schema.nodes.strike:
     case schema.nodes.code:
-        if (from === to) {
+        if (empty) {
             return defaultIsActive($from, nodeType, attrs);
         }
 
@@ -169,21 +170,19 @@ export function toggleInlineNode(
     const {
         from,
         to,
+        empty,
     } = state.selection;
     let { tr } = state;
     const isNodeActive = isActive(state, nodeType);
-    const isEmpty = from === to;
 
     // 1. If the node is currently active, we UNWRAP
     if (isNodeActive) {
         tr = unwrapSelectedTextFromInlineNode(state, nodeType, from, to);
     } else {
-        if (isEmpty) {
-            // =============== INSERT INLINE NODE WITH PLACEHOLDER ===============
+        if (empty || from === to) {
             const placeholderText = nodeType.schema.text('\u200b'); // Zero-width space
-            tr.insert(from, nodeType.create(attrs, placeholderText));
+            tr = tr.insert(from, nodeType.create(attrs, placeholderText));
         } else {
-            // =============== WRAP PARTIALLY SELECTED RANGES ===============
             const positionsToWrap: { from: number; to: number }[] = [];
 
             state.doc.nodesBetween(from, to, (node, pos) => {
@@ -217,13 +216,13 @@ export function toggleInlineNode(
                     // Create the inline node with that slice as child
                     const newInlineNode = nodeType.create(attrs, slice.content);
                     // Replace text with new inline node
-                    tr.replaceRangeWith(wrapFrom, wrapTo, newInlineNode);
+                    tr = tr.replaceRangeWith(wrapFrom, wrapTo, newInlineNode);
                 });
         }
     }
 
     if (dispatch) {
-        dispatch(tr);
+        dispatch(tr.scrollIntoView());
     }
     return true;
 }

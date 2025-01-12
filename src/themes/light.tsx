@@ -129,7 +129,7 @@ const theme: NodecosmosTheme = {
             },
 
             list: {
-                defaultColor: '#0d0d0d',
+                defaultColor: '#000000',
                 activeColor: '#46464c',
             },
             backdrop: 'rgba(0,0,0,0.76)',
@@ -137,7 +137,7 @@ const theme: NodecosmosTheme = {
 
         toolbar: {
             red: '#ff7878',
-            green: '#a0d418',
+            green: '#3bbe04',
             blue: '#0095ff',
             lightRed: '#ff8686',
             pink: '#bb7eaf',

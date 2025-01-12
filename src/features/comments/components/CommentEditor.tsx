@@ -59,7 +59,7 @@ export type AddDescriptionCommentProps = CreateCommentProps & {
 };
 
 const {
-    Bold, Italic, Strike, Markdown, Blockquote, CodeBlock, Link, OrderedList, Image, File,
+    Bold, Italic, Strike, Markdown, Blockquote, Code, CodeBlock, Link, OrderedList, Image, File,
 } = EditorExtensions;
 
 const ENABLED_EXTENSIONS: EditorExtensions[] = [
@@ -68,6 +68,7 @@ const ENABLED_EXTENSIONS: EditorExtensions[] = [
     Strike,
     Markdown,
     Blockquote,
+    Code,
     CodeBlock,
     Link,
     OrderedList,

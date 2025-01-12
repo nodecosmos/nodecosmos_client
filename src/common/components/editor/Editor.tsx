@@ -169,13 +169,13 @@ function Editor(props: EditorProps) {
         });
 
         // Initialize EditorView
-        editorViewRef.current = new EditorView(editorRef.current, {
+        let editorView = new EditorView(editorRef.current, {
             state,
             dispatchTransaction(transaction) {
-                if (!editorViewRef.current) return;
+                if (!editorView) return;
 
-                const newState = editorViewRef.current.state.apply(transaction);
-                editorViewRef.current.updateState(newState);
+                const newState = editorView.state.apply(transaction);
+                editorView.updateState(newState);
 
                 if (transaction.docChanged) {
                     const html = getHtml(newState);
@@ -192,16 +192,18 @@ function Editor(props: EditorProps) {
                 }
 
                 if (transaction.docChanged || transaction.selectionSet) {
-                    editorViewRef.current.focus();
-
-                    editorViewRef.current.dom.dispatchEvent(
+                    editorView.dom.dispatchEvent(
                         new CustomEvent('pm-state-change', { detail: { state: newState } }),
                     );
                 }
+
+                editorView.focus();
             },
         });
 
-        setEditorView(editorViewRef.current);
+        setEditorView(editorView);
+
+        editorViewRef.current = editorView;
 
         return () => {
             editorViewRef?.current?.destroy();

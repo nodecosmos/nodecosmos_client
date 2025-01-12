@@ -39,7 +39,7 @@ export default function EditorContainer({ children }: Props) {
         },
         // toolbar
         '.EditorToolbar': {
-            pl: 1,
+            p: 1,
             display: 'flex',
             alignItems: 'center',
             height: toolbarHeight ?? HEADER_HEIGHT,
@@ -48,14 +48,15 @@ export default function EditorContainer({ children }: Props) {
             width: 1,
             whiteSpace: 'nowrap',
             overflowX: 'auto',
-            borderBottom: 1,
+            overflowY: 'hidden',
+            borderBottom: editorOutline ? 0 : 1,
             borderColor: 'borders.2',
-            backgroundColor: 'backgrounds.5',
         },
         '.TextEditor': {
             overflow: 'auto',
-            height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
+            height: 1,
             m: 1,
+            mt: 0.5,
             border: showBorder ? 1 : 0,
             borderColor: 'borders.4',
             borderRadius: 1,
@@ -85,7 +86,6 @@ export default function EditorContainer({ children }: Props) {
         },
         '.MuiButtonBase-root': {
             color: 'texts.secondary',
-            backgroundColor: 'backgrounds.5',
             border: 0,
             borderColor: 'borders.2',
             // mr: 0.5,
@@ -103,8 +103,11 @@ export default function EditorContainer({ children }: Props) {
 
             '&.Mui-disabled': {
                 border: 0,
-                backgroundColor: 'backgrounds.5',
                 color: 'texts.disabled',
+            },
+            '&:hover': {
+                border: 0,
+                backgroundColor: 'backgrounds.8',
             },
         },
     }),

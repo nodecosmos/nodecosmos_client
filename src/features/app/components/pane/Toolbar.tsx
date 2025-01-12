@@ -9,9 +9,10 @@ import {
     PANE_Q, PaneContent, usePaneContext,
 } from '../../hooks/pane/usePaneContext';
 import TogglePaneButton from '../TogglePaneButton';
+import { faRectangleCode, faComments } from '@fortawesome/pro-regular-svg-icons';
 import {
-    faCodeCommit, faDisplay, faPenToSquare, faRectangleCode, faComments,
-} from '@fortawesome/pro-regular-svg-icons';
+    faCodeCommit, faDisplay, faPenToSquare,
+} from '@fortawesome/pro-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';

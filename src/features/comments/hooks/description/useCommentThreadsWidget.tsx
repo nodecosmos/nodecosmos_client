@@ -64,7 +64,6 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                     mutation.removedNodes.forEach((node) => {
                         if (node instanceof HTMLElement && node.classList.contains(COMMENT_THREAD_WIDGET_CLASS)) {
                             const threadId = node.dataset.threadId as UUID;
-
                             setPortalsById((prevPortals) => {
                                 const newPortals = { ...prevPortals };
                                 delete newPortals[threadId];
