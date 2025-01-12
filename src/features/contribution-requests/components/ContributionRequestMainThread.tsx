@@ -66,7 +66,7 @@ export default function ContributionRequestMainThread() {
 
     return (
         <Box
-            className="background-5"
+            className="background-6"
             p={PADDING}
             borderRadius={2}
             borderColor="borders.4"
