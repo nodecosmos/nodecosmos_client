@@ -1,6 +1,6 @@
 import { CommentGutterMarker } from '../../../../common/lib/codemirror/extensions/gutter';
 import { CommentWidget } from '../../../../common/lib/codemirror/extensions/widgets';
-import { removeInsertCommentWidget, setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
+import { setInsertCommentWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { hoveredLineField, selectedLineField } from '../../../../common/lib/codemirror/stateFields';
 import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
@@ -24,17 +24,21 @@ export default function useCommentInsertWidget(view: EditorView) {
     const [createDescriptionPortals, setCreateDescriptionPortals] = useState<ReactPortal[] | null>();
 
     const closeInsertComment = useCallback(() => {
-        setCreateDescriptionPortals(null);
-
-        view.dispatch({
-            effects: removeInsertCommentWidget.of({
-                deco: Decoration.widget({
-                    widget: CommentWidget.prototype,
-                    block: true,
-                }),
-            }),
+        requestAnimationFrame(() => {
+            // view.dispatch({
+            //     effects: removeInsertCommentWidget.of({
+            //         deco: Decoration.widget({
+            //             widget: CommentWidget.prototype,
+            //             block: true,
+            //         }),
+            //     }),
+            // });
         });
-    }, [view]);
+
+        requestAnimationFrame(() => {
+            setCreateDescriptionPortals(null);
+        });
+    }, []);
 
     const insertCreateCommentWidget = useCallback((lineNumber: number | null) => {
         if (view && lineNumber !== null) {

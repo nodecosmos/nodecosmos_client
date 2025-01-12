@@ -1,4 +1,3 @@
-import usePrevious from '../../../../common/hooks/usePrevious';
 import { COMMENT_THREAD_WIDGET_CLASS, CommentThreadWidget } from '../../../../common/lib/codemirror/extensions/widgets';
 import { removeThreadWidget, setThreadWidget } from '../../../../common/lib/codemirror/stateEffects';
 import { UUID } from '../../../../types';
@@ -6,7 +5,6 @@ import { usePaneContext } from '../../../app/hooks/pane/usePaneContext';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { selectObjectThreadsByLine } from '../../comments.selectors';
 import CommentThread from '../../components/CommentThread';
-import { EMPTY_LINE_PLACEHOLDER } from '../../components/DescriptionComments';
 import { Decoration } from '@codemirror/view';
 import { EditorView } from '@uiw/react-codemirror';
 import React, {
@@ -20,17 +18,17 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
     const { branchId } = useBranchContext();
     const objectThreadsByLine = useSelector(selectObjectThreadsByLine(branchId, objectId));
     const [portalsById, setPortalsById] = useState<Record<UUID, ReactPortal> | null>();
-    const previous = usePrevious(portalsById);
-    console.log(previous === portalsById);
 
     const clearWidgets = useCallback(() => {
-        view.dispatch({
-            effects: removeThreadWidget.of({
-                deco: Decoration.widget({
-                    widget: CommentThreadWidget.prototype,
-                    block: true,
+        requestAnimationFrame(() => {
+            view.dispatch({
+                effects: removeThreadWidget.of({
+                    deco: Decoration.widget({
+                        widget: CommentThreadWidget.prototype,
+                        block: true,
+                    }),
                 }),
-            }),
+            });
         });
     }, [view]);
 
@@ -56,7 +54,6 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                                 threadId,
                             );
 
-                            console.log('new portal', threadId);
                             setPortalsById((prevPortals) => ({
                                 ...prevPortals,
                                 [threadId]: portal,
@@ -67,8 +64,6 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
                     mutation.removedNodes.forEach((node) => {
                         if (node instanceof HTMLElement && node.classList.contains(COMMENT_THREAD_WIDGET_CLASS)) {
                             const threadId = node.dataset.threadId as UUID;
-
-                            console.log('removed portal', threadId);
 
                             setPortalsById((prevPortals) => {
                                 const newPortals = { ...prevPortals };
@@ -104,7 +99,7 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
             const linesThreads: LineThread[] = [];
 
             // iterate lines of text in view
-            for (let pos = 0; pos <= view.state.doc.length;) {
+            for (let pos = 0, lineNum = 1; pos <= view.state.doc.length; lineNum += 1) {
                 // cleanup existing widgets
                 view.dispatch({
                     effects: removeThreadWidget.of({
@@ -117,26 +112,18 @@ export default function useCommentThreadsWidget(view: EditorView): ReactPortal[]
 
                 const line = view.state.doc.lineAt(pos);
                 pos = line.to + 1; // Move to the start of the next line
-                const lineContent = line.text || EMPTY_LINE_PLACEHOLDER;
-                const threadByLine = objectThreadsByLine.get(lineContent);
+                const threadByLine = objectThreadsByLine.get(lineNum);
 
                 if (!threadByLine) {
                     continue;
                 }
 
-                const [threadId, lineNumber] = threadByLine;
-                const emptyOnSameLine = lineContent === EMPTY_LINE_PLACEHOLDER && lineNumber === line.number;
+                const [threadId] = threadByLine;
 
-                // check if line is in radius of 2 lines
-                const withContentInRadius = lineContent !== EMPTY_LINE_PLACEHOLDER
-                    && (lineNumber - line.number <= 1) && (lineNumber - line.number >= -1);
-
-                if (emptyOnSameLine || withContentInRadius) {
-                    linesThreads.push({
-                        lineNumber: line.number,
-                        threadId,
-                    });
-                }
+                linesThreads.push({
+                    lineNumber: line.number,
+                    threadId,
+                });
             }
 
             return linesThreads;
