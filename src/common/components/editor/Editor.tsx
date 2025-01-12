@@ -172,6 +172,7 @@ function Editor(props: EditorProps) {
         let editorView = new EditorView(editorRef.current, {
             state,
             dispatchTransaction(transaction) {
+                console.log('dispatchTransaction');
                 if (!editorView) return;
 
                 const newState = editorView.state.apply(transaction);
@@ -195,9 +196,9 @@ function Editor(props: EditorProps) {
                     editorView.dom.dispatchEvent(
                         new CustomEvent('pm-state-change', { detail: { state: newState } }),
                     );
-                }
 
-                editorView.focus();
+                    editorView.focus();
+                }
             },
         });
 
