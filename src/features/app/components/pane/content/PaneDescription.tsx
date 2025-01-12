@@ -41,7 +41,6 @@ export default function PaneDescription() {
                         'javascript',
                         'typescript',
                         'json',
-                        'bash',
                         'shell',
                         'html',
                         'xml',
