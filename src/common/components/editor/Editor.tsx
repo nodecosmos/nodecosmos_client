@@ -202,8 +202,15 @@ function Editor(props: EditorProps) {
         });
 
         setEditorView(editorView);
-
         editorViewRef.current = editorView;
+
+        setTimeout(() => {
+            editorView.dom.dispatchEvent(
+                new CustomEvent('pm-state-change', { detail: { state } }),
+            );
+
+            editorView.focus();
+        }, 100);
 
         return () => {
             editorViewRef?.current?.destroy();

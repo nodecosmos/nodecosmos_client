@@ -26,6 +26,18 @@ function defaultIsActive($from: ResolvedPos, nodeType: NodeType, attrs?: Record<
     return false;
 }
 
+function isCursorNearInlineNode(
+    state: EditorState,
+    nodeType: NodeType,
+): boolean {
+    const { $from } = state.selection;
+    const { nodeBefore, nodeAfter } = $from;
+    return (
+        (!!nodeBefore && nodeBefore.type === nodeType)
+        || (!!nodeAfter && nodeAfter.type === nodeType)
+    );
+}
+
 export function isActive (
     state: EditorState,
     nodeType: NodeType,
@@ -47,7 +59,8 @@ export function isActive (
     case schema.nodes.strike:
     case schema.nodes.code:
         if (empty) {
-            return defaultIsActive($from, nodeType, attrs);
+            if (defaultIsActive($from, nodeType, attrs)) return true;
+            return isCursorNearInlineNode(state, nodeType);
         }
 
         // Check if all text nodes are wrapped
@@ -177,7 +190,11 @@ export function toggleInlineNode(
 
     // 1. If the node is currently active, we UNWRAP
     if (isNodeActive) {
-        tr = unwrapSelectedTextFromInlineNode(state, nodeType, from, to);
+        if (empty || from === to) {
+            tr = tr.replaceWith(from, to, nodeType.schema.text('\u200b'));
+        } else {
+            tr = unwrapSelectedTextFromInlineNode(state, nodeType, from, to);
+        }
     } else {
         if (empty || from === to) {
             const placeholderText = nodeType.schema.text('\u200b'); // Zero-width space
