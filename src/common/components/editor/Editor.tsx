@@ -172,7 +172,6 @@ function Editor(props: EditorProps) {
         let editorView = new EditorView(editorRef.current, {
             state,
             dispatchTransaction(transaction) {
-                console.log('dispatchTransaction');
                 if (!editorView) return;
 
                 const newState = editorView.state.apply(transaction);

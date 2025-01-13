@@ -95,10 +95,9 @@ export function isActive (
 function unwrapSelectedTextFromInlineNode(
     state: EditorState,
     nodeType: NodeType,
-    from: number,
-    to: number,
 ): Transaction {
-    const { tr } = state;
+    let { tr } = state;
+    const { from, to } = state.selection;
     const changes: {
         pos: number;
         node: Node;
@@ -139,8 +138,13 @@ function unwrapSelectedTextFromInlineNode(
     }) => {
         // The content inside the inline node is offset by +1 from the node’s start
         // because nodeStart points to the inline node itself (including open/close).
-        const offsetFrom = unwrapFrom - (nodeStart + 1);
-        const offsetTo = unwrapTo - (nodeStart + 1);
+        let offsetFrom = unwrapFrom - (nodeStart + 1);
+        let offsetTo = unwrapTo - (nodeStart + 1);
+
+        if (offsetFrom === -1) {
+            offsetFrom = 0;
+            offsetTo = offsetTo - 1;
+        }
 
         // 3. Split node’s content into [left, middle, right]
         const left = node.content.cut(0, offsetFrom);
@@ -164,7 +168,7 @@ function unwrapSelectedTextFromInlineNode(
         }
 
         // 5. Replace the old inline node with our newly formed nodes
-        tr.replaceRange(
+        tr = tr.replaceRange(
             pos, // start
             pos + node.nodeSize, // end
             new Slice(Fragment.fromArray(newNodes), 0, 0),
@@ -193,7 +197,7 @@ export function toggleInlineNode(
         if (empty || from === to) {
             tr = tr.replaceWith(from, to, nodeType.schema.text('\u200b'));
         } else {
-            tr = unwrapSelectedTextFromInlineNode(state, nodeType, from, to);
+            tr = unwrapSelectedTextFromInlineNode(state, nodeType);
         }
     } else {
         if (empty || from === to) {
