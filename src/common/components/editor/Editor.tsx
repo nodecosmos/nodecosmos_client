@@ -208,8 +208,6 @@ function Editor(props: EditorProps) {
             editorView.dom.dispatchEvent(
                 new CustomEvent('pm-state-change', { detail: { state } }),
             );
-
-            editorView.focus();
         }, 100);
 
         return () => {

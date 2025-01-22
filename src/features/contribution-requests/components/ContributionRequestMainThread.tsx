@@ -35,7 +35,7 @@ export default function ContributionRequestMainThread() {
         if (mainThread) {
             return (
                 <CommentEditor
-                    autoFocus={false}
+                    autoFocus
                     threadPk={{
                         branchId,
                         objectId: branchId,
@@ -49,7 +49,7 @@ export default function ContributionRequestMainThread() {
 
         return (
             <CommentEditor
-                autoFocus={false}
+                autoFocus
                 newThread={{
                     rootId,
                     title: 'Contribution Request Thread',
