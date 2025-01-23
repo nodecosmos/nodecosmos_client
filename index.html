@@ -91,5 +91,35 @@
 
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
+<!-- Cookie Consent Banner -->
+<div id="cookie-consent-banner" class="cookie-consent-banner" aria-labelledby="cookie-banner-title" role="dialog" aria-modal="true" style="display: none;">
+    <div class="cookie-consent-content">
+        <h2 id="cookie-banner-title">We Value Your Privacy</h2>
+        <p>
+            We use cookies to enhance your experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies. You can also manage your preferences or learn more in our <a href="https://nodecosmos.com/privacy.html" target="_blank">Privacy Policy</a>.
+        </p>
+        <div class="cookie-consent-buttons">
+            <button id="accept-all" class="btn accept">Accept</button>
+            <button id="manage-preferences" class="btn manage">Manage Preferences</button>
+        </div>
+    </div>
+</div>
+
+<!-- Preferences Modal (Optional) -->
+<div id="cookie-preferences-modal" class="cookie-preferences-modal" aria-labelledby="preferences-title" role="dialog" aria-modal="true" hidden>
+    <div class="cookie-preferences-content">
+        <h3 id="preferences-title">Manage Cookie Preferences</h3>
+        <form id="preferences-form">
+            <div class="preference">
+                <input type="checkbox" id="analytics_storage" name="analytics_storage" checked>
+                <label for="analytics_storage">Allow Analytics Cookies</label>
+            </div>
+            <div class="preferences-buttons">
+                <button type="submit" class="btn save">Save Preferences</button>
+                <button type="button" id="close-preferences" class="btn close">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

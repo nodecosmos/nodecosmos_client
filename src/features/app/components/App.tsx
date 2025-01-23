@@ -147,7 +147,6 @@ export default function App() {
                         <Route path="/contact" element={<ContactUs />} />
                     </Routes>
                 </Box>
-
             </div>
         </ThemeProvider>
     );

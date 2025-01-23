@@ -7,9 +7,9 @@ import { Field } from 'react-final-form';
 
 interface Props {
     name: string;
-    values: string[];
+    values: string[] | boolean[] | number[];
     labels?: string[];
-    defaultValue?: string;
+    defaultValue?: string | boolean | number;
     disabled?: boolean[];
 }
 
@@ -44,7 +44,7 @@ export default function FinalFormRadioField(props: Props) {
                     {values.map((value, index) => (
                         <FormControlLabel
                             disabled={disabled[index]}
-                            key={value}
+                            key={value.toString()}
                             value={value}
                             control={<Radio color="primary" />}
                             label={(labels && labels[index]) || value}
