@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         applyConsent(consent);
     }
 
-    // Event Listener for "Accept All" Button
+    // Event Listener for "Accept" Button
     acceptAllBtn.addEventListener('click', function() {
         const consentState = {
             'ad_storage': 'denied',
