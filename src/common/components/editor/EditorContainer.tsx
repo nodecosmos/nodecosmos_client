@@ -54,7 +54,7 @@ export default function EditorContainer({ children }: Props) {
         },
         '.TextEditor': {
             overflow: 'auto',
-            height: 1,
+            height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
             m: 1,
             mt: 0.5,
             border: showBorder ? 1 : 0,
