@@ -69,7 +69,7 @@ export default function EditorContainer({ children }: Props) {
         },
         '.ContainerRef': {
             width: 1,
-            height: `calc(100% - ${HEADER_HEIGHT})`,
+            height: `calc(100% - ${HEADER_HEIGHT} - 16px)`,
             minHeight: 100,
             overflow: 'visible',
             p: p ?? 0,
