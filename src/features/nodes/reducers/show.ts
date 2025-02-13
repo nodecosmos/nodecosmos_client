@@ -67,6 +67,10 @@ export default function showFulfilled(
     });
 
     for (const parentId in childIds) {
+        // TODO: parent should be initialized, but for some records we might have inconsistencies.
+        //   will remove this line after we fix all the records.
+        // @ts-ignore
+        state.byBranchId[branchId][parentId] ||= {};
         state.byBranchId[branchId][parentId].childIds = childIds[parentId];
     }
 
