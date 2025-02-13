@@ -67,7 +67,7 @@ export default function useUserAuthentication() {
 
             unsetLoading();
 
-            if (error.status === 404) {
+            if (error.status === 404 || error.status === 403) {
                 dispatch(setAlert({
                     isOpen: true,
                     severity: 'error',
