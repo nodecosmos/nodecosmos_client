@@ -51,9 +51,6 @@ export default function ResetPassword() {
             unsetLoading();
             return;
         } else if (response.meta.requestStatus === 'fulfilled') {
-            const data = response.payload as { email: string };
-            navigate(`/auth/login?email=${data.email}`);
-            unsetLoading();
             setTimeout(() => {
                 dispatch(setAlert({
                     isOpen: true,
@@ -61,6 +58,9 @@ export default function ResetPassword() {
                     severity: 'success',
                 }));
             }, 250);
+            const data = response.payload as { email: string };
+            navigate(`/auth/login?email=${data.email}`);
+            unsetLoading();
         }
 
         unsetLoading();

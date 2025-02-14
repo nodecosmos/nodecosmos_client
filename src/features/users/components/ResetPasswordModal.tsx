@@ -41,9 +41,6 @@ export default function ResetPasswordModal(props: Props) {
             unsetLoading();
             return;
         } else if (response.meta.requestStatus === 'fulfilled') {
-            unsetLoading();
-            onClose();
-
             setTimeout(() => dispatch(setAlert({
                 isOpen: true,
                 message: `<b>Password Reset Requested</b>
@@ -52,10 +49,14 @@ export default function ResetPasswordModal(props: Props) {
                 <p>
                 If an account with that email address exists, we have sent a password reset link to it. 
                 Please check your inbox and spam folder. The link is valid for 24 hours. 
-                If you have not received the email within a few minutes, please contact our support team.
+                If you have not received the email within a few minutes, please contact our support team at
+                <a href="mailto:support@nodecosmos.com"> support@nodecosmos.com</a>.
                 </p>`,
                 severity: 'success',
             })), 250);
+
+            unsetLoading();
+            onClose();
         }
     }, [dispatch, handleServerError, onClose, setLoading, unsetLoading]);
 
