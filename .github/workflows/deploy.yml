@@ -27,7 +27,7 @@ jobs:
           cache: 'npm'
 
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
             cache-name: cache-node-modules
         with:
@@ -62,7 +62,7 @@ jobs:
       # Upload files to Google Cloud Storage
       - name: Upload to GCS
         run: |
-          gsutil rsync -m ./build gs://${{ env.BUCKET_NAME }}/
+          gsutil -m rsync -r ./build gs://${{ env.BUCKET_NAME }}/
 
       # Invalidate Cloud CDN cache
       - name: Invalidate Cloud CDN Cache
