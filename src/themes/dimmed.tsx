@@ -217,7 +217,7 @@ const theme: NodecosmosTheme = {
         diff: {
             added: {
                 bg: '#394942',
-                fg: '#87e587',
+                fg: '#86ff82',
             },
             removed: {
                 bg: '#492739',
