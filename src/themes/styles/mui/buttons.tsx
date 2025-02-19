@@ -2,6 +2,15 @@ import { NodecosmosTheme } from '../../themes.types';
 import utils from '../utils';
 
 export default (theme: NodecosmosTheme) => ({
+    MuiIconButton: {
+        styleOverrides: {
+            root: {
+                padding: 8,
+                borderRadius: 8,
+                '&:hover': { backgroundColor: theme.palette.backgrounds[6] },
+            },
+        },
+    },
     MuiButton: {
         styleOverrides: {
             root: {

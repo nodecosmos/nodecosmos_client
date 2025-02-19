@@ -11,8 +11,10 @@ import {
     HEADER_HEIGHT, MD_WO_SIDEBAR_WIDTH_SX, SIDEBAR_MD_SX,
 } from '../../constants';
 import useIsMobile from '../../hooks/useIsMobile';
+import { faHome } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, Button, Typography,
+    Box, Button, IconButton, Typography,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -97,6 +99,21 @@ export default function Header() {
                     height={1}
                     width={MD_WO_SIDEBAR_WIDTH_SX}
                 >
+                    {/*add home button*/}
+                    {
+                        !isIndex && (
+                            <>
+                                <IconButton
+                                    component={Link}
+                                    to="/nodes"
+                                    className="fs-18 toolbar-default min-vis-width-viewport-400"
+                                >
+                                    <FontAwesomeIcon icon={faHome} />
+                                </IconButton>
+                            </>
+                        )
+                    }
+
                     {headerContent && !isMobile && (
                         <Box
                             height={1}

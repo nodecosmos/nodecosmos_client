@@ -2,14 +2,14 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - aws-s3
+      - main
 env:
+  GCP_PROJECT: nodecosmos-cloud
   VITE_API_BASE_URL: https://api.nodecosmos.com
   VITE_REACT_APP_URL: https://nodecosmos.com
   VITE_RECAPTCHA_ENABLED: true
   VITE_RECAPTCHA_SITE_KEY: 6Ld30jMjAAAAAIsW1c9xvFRaaOXOLjLywqPWDHSA
   BUCKET_NAME: nodecosmos.com
-  AWS_REGION: us-east-1
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,17 +19,19 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v4
-      - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          role-to-assume: arn:aws:iam::714215625955:role/github-actions
-          role-session-name: s3session
-          aws-region: ${{ env.AWS_REGION }}
+          project_id: ${{ env.GCP_PROJECT }}
+          workload_identity_provider: 'projects/534114130521/locations/global/workloadIdentityPools/github-oidc-provider/providers/github-issuer-provider'
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
+
       - name: Cache node modules
         uses: actions/cache@v3
         env:
@@ -43,6 +45,7 @@ jobs:
               ${{ runner.os }}-build-${{ env.cache-name }}-
               ${{ runner.os }}-build-
               ${{ runner.os }}-
+
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: List the state of node modules
         continue-on-error: true
@@ -50,10 +53,13 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run build
-      # Upload a file to AWS s3
-      - name: Sync to S3
+
+      # Upload files to Google Cloud Storage
+      - name: Upload to GCS
         run: |
-          aws s3 sync ./build s3://${{ env.BUCKET_NAME }}/
-      - name: Invalidate CloudFront cache
+          gsutil rsync -r ./build gs://${{ env.BUCKET_NAME }}/
+
+      # Invalidate Cloud CDN cache
+      - name: Invalidate Cloud CDN Cache
         run: |
-          aws cloudfront create-invalidation --distribution-id E22YK31N73LHIN --paths "/*"
+          gcloud compute url-maps invalidate-cdn-cache nodecosmos-com --path="/*"

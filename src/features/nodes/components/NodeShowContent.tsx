@@ -5,6 +5,7 @@ import useMetaAttributes from '../../../common/hooks/useMetaAttributes';
 import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
 import { selectSelectedObject } from '../../app/app.selectors';
+import { selectObject } from '../../app/app.thunks';
 import {
     DISPLAY_MD_SX, SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX,
 } from '../../app/constants';
@@ -12,6 +13,7 @@ import { SELECTED_OBJ_Q, useSelectObjectFromParams } from '../../app/hooks/useSe
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { selectDescription } from '../../descriptions/descriptions.selectors';
 import useNodeSSE from '../hooks/sse/useNodeSSE';
+import { selectNodeFromParams } from '../nodes.actions';
 import { maybeSelectNode } from '../nodes.selectors';
 import { showBranchNode, showNode } from '../nodes.thunks';
 import { Box } from '@mui/material';
@@ -60,17 +62,24 @@ export default function NodeShowContent() {
         if (!id) {
             throw new Error('Node ID is not defined');
         }
+        const selectedData = decodeSelectedObjQ(searchParams);
 
         if (!originalNode || !originalNode.ownerId) {
             let selectNodeFromParams;
 
             if (!isBranch) {
-                const selectedData = decodeSelectedObjQ(searchParams);
                 if (selectedData
-                    && selectedData.objectType === ObjectType.Node && selectedData.branchId === originalId) {
+                    && !selectedObject
+                    && selectedData.objectType === ObjectType.Node
+                    && selectedData.branchId === originalId) {
                     selectNodeFromParams = {
                         branchId: selectedData.branchId,
                         id: selectedData.objectId,
+                    };
+                } else if (!selectedObject) {
+                    selectNodeFromParams = {
+                        branchId,
+                        id,
                     };
                 }
             }
@@ -87,12 +96,37 @@ export default function NodeShowContent() {
 
                         return;
                     }
+
+                    if (!selectedData && !selectedObject) {
+                        dispatch(selectObject({
+                            originalId,
+                            objectId: id,
+                            branchId: originalId,
+                            objectNodeId: id,
+                            objectType: ObjectType.Node,
+                        }));
+                    }
                 }
             });
+        } else {
+            if (!selectedData && !selectedObject) {
+                dispatch(selectObject({
+                    originalId,
+                    objectId: id,
+                    branchId: originalId,
+                    objectNodeId: id,
+                    objectType: ObjectType.Node,
+                }));
+
+                dispatch(selectNodeFromParams({
+                    branchId,
+                    id,
+                }));
+            }
         }
         // no need for searchParams as we only select from params on initial render
         // eslint-disable-next-line
-    }, [dispatch, id, isBranch, navigate, originalId, originalNode]);
+    }, [dispatch, id, isBranch, navigate, originalId, originalNode, selectedObject]);
 
     useEffect(() => {
         if ((isBranch || isBranchQ) && !branchNode) {

@@ -5,7 +5,7 @@ import {
     selectDensity, selectShowAncestorChain, selectShowTreeColors,
 } from '../../../nodes.selectors';
 import { TreeDensity } from '../../../nodes.types';
-import { faEllipsisVertical } from '@fortawesome/pro-solid-svg-icons';
+import { faGear } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box,
@@ -72,7 +72,7 @@ export default function Options() {
                     sx={SX_COLOR}
                     onClick={handleClick}
                 >
-                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                    <FontAwesomeIcon icon={faGear} />
                 </IconButton>
             </Tooltip>
             <Menu
