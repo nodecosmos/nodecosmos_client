@@ -20,12 +20,6 @@ jobs:
       - name: Git clone the repository
         uses: actions/checkout@v4
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          project_id: ${{ env.GCP_PROJECT }}
-          workload_identity_provider: 'projects/534114130521/locations/global/workloadIdentityPools/github-oidc-provider/providers/github-issuer-provider'
-
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -53,6 +47,17 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run build
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ env.GCP_PROJECT }}
+          workload_identity_provider: 'projects/534114130521/locations/global/workloadIdentityPools/github-oidc-provider/providers/github-issuer-provider'
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2'
+        with:
+          version: '>= 363.0.0'
 
       # Upload files to Google Cloud Storage
       - name: Upload to GCS
