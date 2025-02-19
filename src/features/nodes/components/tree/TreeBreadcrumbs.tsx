@@ -1,6 +1,7 @@
 import TreeBreadcrumbItem from './TreeBreadcrumbItem';
 import { NodecosmosDispatch } from '../../../../store';
-import { UUID } from '../../../../types';
+import { ObjectType, UUID } from '../../../../types';
+import { useSelectObject } from '../../../app/hooks/useSelectObject';
 import { select } from '../../nodes.actions';
 import { selectBranchTitles, selectSelectedNode } from '../../nodes.selectors';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
@@ -17,6 +18,7 @@ export default function TreeBreadcrumbs() {
     const branchId = selectedNode?.branchId;
     const nodeTitlesById = useSelector(selectBranchTitles(branchId));
     const items: { id: UUID; title?: string; }[] = [];
+    const selectObject = useSelectObject();
 
     if (selectedNode && selectedNode.ancestorIds) {
         const ancestorIds = [...selectedNode.ancestorIds];
@@ -46,7 +48,15 @@ export default function TreeBreadcrumbs() {
             branchId,
             id,
         }));
-    }, [dispatch, branchId]);
+
+        selectObject({
+            originalId: selectedNode?.rootId,
+            objectId: id,
+            branchId,
+            objectNodeId: id,
+            objectType: ObjectType.Node,
+        });
+    }, [dispatch, branchId, selectObject, selectedNode]);
 
     return (
         <Breadcrumbs

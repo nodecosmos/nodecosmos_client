@@ -1,7 +1,7 @@
 import { TREE_COLORS_LEN } from '../../../../themes/themes.types';
 import { UUID } from '../../../../types';
 import { setNodeScrollTo } from '../../nodes.actions';
-import { faCircle } from '@fortawesome/pro-solid-svg-icons';
+import { faCircle } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, Tooltip } from '@mui/material';
 import React, { useCallback } from 'react';
@@ -42,7 +42,7 @@ export default function TreeBreadcrumbItem(props: TreeBreadcrumbItemProps) {
             <Tooltip title="scroll" placement="top">
                 <button
                     onClick={handleCentering}
-                    className={`ScrollButton ml-1 tools tree-nested-color-hover-${index % TREE_COLORS_LEN}`}
+                    className={`ScrollButton ml-1 tree-nested-color-${index % TREE_COLORS_LEN}`}
                 >
                     <FontAwesomeIcon icon={faCircle} />
                 </button>

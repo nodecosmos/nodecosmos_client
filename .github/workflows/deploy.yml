@@ -62,9 +62,9 @@ jobs:
       # Upload files to Google Cloud Storage
       - name: Upload to GCS
         run: |
-          gsutil rsync -r ./build gs://${{ env.BUCKET_NAME }}/
+          gsutil rsync -m ./build gs://${{ env.BUCKET_NAME }}/
 
       # Invalidate Cloud CDN cache
       - name: Invalidate Cloud CDN Cache
         run: |
-          gcloud compute url-maps invalidate-cdn-cache nodecosmos-com --path="/*"
+          gcloud compute url-maps invalidate-cdn-cache nodecosmos-com --path="/*" --async

@@ -147,6 +147,36 @@ export default (theme: NodecosmosTheme) => ({
     '&.justify-center': { justifyContent: 'center' },
     '&.align-center': { alignItems: 'center' },
 
+    '&.tree-nested-color-0': {
+        backgroundColor: theme.palette.tree.backgrounds[0].bg,
+        color: theme.palette.tree.backgrounds[0].fg,
+    },
+
+    '&.tree-nested-color-1': {
+        backgroundColor: theme.palette.tree.backgrounds[1].bg,
+        color: theme.palette.tree.backgrounds[1].fg,
+    },
+
+    '&.tree-nested-color-2': {
+        backgroundColor: theme.palette.tree.backgrounds[2].bg,
+        color: theme.palette.tree.backgrounds[2].fg,
+    },
+
+    '&.tree-nested-color-3': {
+        backgroundColor: theme.palette.tree.backgrounds[3].bg,
+        color: theme.palette.tree.backgrounds[3].fg,
+    },
+
+    '&.tree-nested-color-4': {
+        backgroundColor: theme.palette.tree.backgrounds[4].bg,
+        color: theme.palette.tree.backgrounds[4].fg,
+    },
+
+    '&.tree-nested-color-5': {
+        backgroundColor: theme.palette.tree.backgrounds[5].bg,
+        color: theme.palette.tree.backgrounds[5].fg,
+    },
+
     '&.tree-nested-color-hover-0': {
         '&:hover': {
             backgroundColor: theme.palette.tree.backgrounds[0].bg,
