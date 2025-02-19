@@ -68,24 +68,13 @@ export default function Header() {
                         relative={isIndex ? 'route' : 'path'}
                         className="LogoButton"
                     >
-                        <img src="/logo.svg" alt="logo" height={30} width={30} />
+                        <img src="/logo-1.svg" alt="logo" height={30} width={30} />
                         <Typography
-                            mt="-1px"
+                            color="logo.default"
                             variant="body2"
                             fontWeight="bold"
                             className="min-vis-width-viewport-360 fs-16">
-                            <Box component="span" color="logo.blue">node</Box>
-                            <Box component="span" color="logo.red">cosmos</Box>
-                        </Typography>
-                        <Typography
-                            className="min-vis-width-viewport-400"
-                            fontWeight="bold"
-                            variant="subtitle2"
-                            color="texts.tertiary"
-                            mt="1px"
-                            ml={1}
-                        >
-                            beta
+                            nodecosmos
                         </Typography>
                     </Button>
                 </Box>

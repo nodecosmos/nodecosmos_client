@@ -147,7 +147,7 @@ const theme: NodecosmosTheme = {
             orange: '#dd9432',
             hover: 'rgba(241,243,243,0.82)',
             active: '#f3f5f5',
-            default: '#2a2a2a',
+            default: '#81878e',
             breadcrumbs: '#4a5568',
         },
 
@@ -187,7 +187,7 @@ const theme: NodecosmosTheme = {
                 },
             ],
             hashtag: '#aaaac4',
-            defaultText: '#000000',
+            defaultText: '#626370',
             selectedText: '#fefeff',
             checkboxColor: '#bbbbc7',
             dragInIndicator: '#ff5866',
@@ -255,14 +255,15 @@ const theme: NodecosmosTheme = {
         },
 
         logo: {
-            blue: '#23b9ff',
-            red: '#fd526f',
+            blue: '#3adfff',
+            red: '#ff626f',
+            default: '#81878e',
         },
 
         texts: {
-            primary: '#000000',
-            secondary: '#2b2b2b',
-            tertiary: '#282828',
+            primary: '#30313d',
+            secondary: '#30313d',
+            tertiary: '#30313d',
             disabled: '#5c616b',
             contrast: '#585858',
             sectionPrimary: '#acdf83',
@@ -314,7 +315,7 @@ const theme: NodecosmosTheme = {
             'A700': '#616161',
         },
         text: {
-            primary: '#000000',
+            primary: '#30313d',
             secondary: '#47474c',
             disabled: '#5c616b',
         },

@@ -24,13 +24,9 @@ export default (theme: NodecosmosTheme) => ({
                     borderRadius: 6,
                     '&:hover, &.hovered': {
                         background: 'rgb(73 176 244 / 7%)',
-                        borderColor: theme.palette.logo.blue,
+                        borderColor: theme.palette.toolbar.default,
                     },
-                    '&:focus, &.focused': {
-                        borderColor: theme.palette.primary.main,
-                        background: 'rgb(73 176 244 / 7%)',
-                    },
-                    p: { marginLeft: 8 },
+                    p: { marginLeft: 4 },
                 },
 
                 '.Text': { height: '100%' },

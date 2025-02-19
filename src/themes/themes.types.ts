@@ -203,6 +203,7 @@ declare module '@mui/material/styles' {
         logo: {
             blue: string;
             red: string;
+            default: string;
         };
         texts: Text;
     }
