@@ -1,15 +1,15 @@
 import Notification from './Notification';
-import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { DRAWER_WIDTH } from '../../app/constants';
 import { selectNotifications, selectUnseenNotificationCount } from '../notifications.selectors';
 import { markAllAsRead } from '../notifications.thunks';
-import { faBell } from '@fortawesome/pro-duotone-svg-icons';
+import { faBell, faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Drawer, Typography,
 } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -39,13 +39,24 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
                 width={DRAWER_WIDTH}
                 height={1}
             >
-                <Typography variant="h5" color="texts.secondary" mx={4} mb={4}>
-                    <FontAwesomeIcon icon={faBell} />
-                    <Box component="span" ml={2}>Notifications</Box>
-                    <Box component="span" ml={2}>
-                        <CloseModalButton onClose={onClose} />
-                    </Box>
-                </Typography>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    mx={4}
+                    mb={4}>
+                    <Typography variant="h5" color="texts.tertiary">
+                        <FontAwesomeIcon icon={faBell} />
+                        <Box component="span" ml={2}>Notifications</Box>
+                    </Typography>
+                    <IconButton
+                        className="toolbar-default"
+                        disableRipple
+                        onClick={onClose}
+                    >
+                        <FontAwesomeIcon icon={faClose} />
+                    </IconButton>
+                </Box>
                 <Box m={2} mb={4}>
                     {notifications.map((notification) => (
                         <Notification key={notification.id} id={notification.id} onClose={onClose} />

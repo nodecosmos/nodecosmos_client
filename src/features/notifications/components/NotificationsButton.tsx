@@ -1,12 +1,12 @@
 import NotificationDrawer from './NotificationDrawer';
-import ToolbarItem from '../../../common/components/toolbar/ToolbarItem';
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../store';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { selectUnseenNotificationCount } from '../notifications.selectors';
 import { getNotifications } from '../notifications.thunks';
-import { faBell } from '@fortawesome/pro-solid-svg-icons';
-import { Badge } from '@mui/material';
+import { faBell } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Badge, IconButton } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,8 +33,14 @@ export default function NotificationsButton() {
     return (
         <div>
             <Badge badgeContent={unseenNotificationCount} color="primary">
-                <ToolbarItem title="notifications" icon={faBell} color="toolbar.yellow" onClick={openModal} />
+                <IconButton
+                    onClick={openModal}
+                    className="fs-18 toolbar-default min-vis-width-viewport-400"
+                >
+                    <FontAwesomeIcon icon={faBell} />
+                </IconButton>
             </Badge>
+
             <NotificationDrawer open={modalOpen} onClose={closeModal} />
         </div>
     );
