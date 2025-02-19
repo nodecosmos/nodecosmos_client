@@ -41,7 +41,7 @@ export default function ResetPasswordModal(props: Props) {
             unsetLoading();
             return;
         } else if (response.meta.requestStatus === 'fulfilled') {
-            setTimeout(() => dispatch(setAlert({
+            dispatch(setAlert({
                 isOpen: true,
                 message: `<b>Password Reset Requested</b>
                 <br />
@@ -53,7 +53,7 @@ export default function ResetPasswordModal(props: Props) {
                 <a href="mailto:support@nodecosmos.com"> support@nodecosmos.com</a>.
                 </p>`,
                 severity: 'success',
-            })), 250);
+            }));
 
             unsetLoading();
             onClose();

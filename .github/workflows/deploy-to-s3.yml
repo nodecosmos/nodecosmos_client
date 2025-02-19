@@ -2,7 +2,7 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - main
+      - aws-s3
 env:
   VITE_API_BASE_URL: https://api.nodecosmos.com
   VITE_REACT_APP_URL: https://nodecosmos.com

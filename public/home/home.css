@@ -469,11 +469,20 @@ header a:hover {
 
 @media only screen and (max-width: 870px) {
     body {
-        padding: 0 0.5em 3em;
+        padding: 0 0 1.5em;
     }
 
     header {
-        display: none;
+        margin: -20px;
+        position: sticky;
+        overflow: auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header a {
+        white-space: nowrap;
+        padding: 8px 16px;
+        margin: 0 12px;
     }
 
     h1 {
@@ -542,7 +551,7 @@ header a:hover {
     }
 
     .hero {
-        padding-top: 2em;
+        padding-top: 3.25em;
     }
 
     .align-start-mobile {
