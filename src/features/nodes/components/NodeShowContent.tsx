@@ -45,9 +45,8 @@ export default function NodeShowContent() {
     const selectedObject = useSelector(selectSelectedObject);
     const objectDesc = useSelector(selectDescription(branchId, selectedObject?.objectId));
     const selectedNode = useSelector(maybeSelectNode(branchId, selectedObject?.objectId));
-    const currentNodeDesc = useSelector(selectDescription(branchId, id));
-    const metaTitle = selectedObject?.objectTitle || branchNode?.title;
-    const metaDescription = objectDesc?.shortDescription || currentNodeDesc?.shortDescription;
+    const metaTitle = selectedObject?.objectTitle;
+    const metaDescription = objectDesc?.shortDescription;
     const metaImageURL = selectedNode?.coverImageUrl || branchNode?.coverImageUrl;
 
     useMetaAttributes({

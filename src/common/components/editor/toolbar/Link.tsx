@@ -85,22 +85,11 @@ export default function Link() {
             const linkNode = link.create(attrs, state.schema.text(form.displayText || form.url));
             tr = tr.replaceSelectionWith(linkNode, false);
         } else {
-            const collectedNodes: { node: Node; pos: number }[] = [];
-            state.doc.nodesBetween(from, to, (node, pos) => {
-                if (node.isText) {
-                    // Create a link node wrapping the text
-                    collectedNodes.push({
-                        node,
-                        pos,
-                    });
-                }
-            });
+            let text = state.doc.textBetween(from, to);
 
-            for (let i = collectedNodes.length - 1; i >= 0; i -= 1) {
-                const { node, pos } = collectedNodes[i];
-                const linkNode = link.create(attrs, node);
-                tr = tr.replaceWith(pos, pos + node.nodeSize, linkNode);
-            }
+            const linkNode = link.create(attrs, state.schema.text(text || form.url));
+
+            tr = tr.replaceSelectionWith(linkNode, false);
         }
 
         editorView.dispatch(tr);
