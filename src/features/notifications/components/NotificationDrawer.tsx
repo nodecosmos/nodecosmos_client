@@ -4,7 +4,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { DRAWER_WIDTH } from '../../app/constants';
 import { selectNotifications, selectUnseenNotificationCount } from '../notifications.selectors';
 import { markAllAsRead } from '../notifications.thunks';
-import { faBell, faClose } from '@fortawesome/pro-regular-svg-icons';
+import { faClose } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Drawer, Typography,
@@ -35,7 +35,7 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
         <Drawer open={open} onClose={onClose} anchor="right" elevation={8}>
             <Box
                 boxSizing="border-box"
-                mt={2}
+                mt={1}
                 width={DRAWER_WIDTH}
                 height={1}
             >
@@ -43,14 +43,13 @@ export default function NotificationDrawer({ open, onClose }: NotificationDrawer
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"
-                    mx={4}
+                    mx={2}
                     mb={4}>
-                    <Typography variant="h5" color="texts.tertiary">
-                        <FontAwesomeIcon icon={faBell} />
-                        <Box component="span" ml={2}>Notifications</Box>
+                    <Typography variant="body1" color="texts.tertiary" fontWeight="bold">
+                        Notifications
                     </Typography>
                     <IconButton
-                        className="toolbar-default"
+                        className="toolbar-default fs-18"
                         disableRipple
                         onClick={onClose}
                     >
