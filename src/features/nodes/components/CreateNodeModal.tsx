@@ -81,7 +81,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                                 my={2}
                                 align="center"
                             >
-                                Create a node to explore innovation development in a whole new way.
+                                Create a new root node
                             </Typography>
                             <Button
                                 component={RouterLink}
@@ -111,7 +111,7 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                             align="center"
                             width={1}
                             fontWeight={700}>
-                            Create a node to explore innovation development in a whole new way.
+                            Create a new root node
                         </Typography>
                     )
                 }
