@@ -44,7 +44,7 @@ export default function NodeCard({ id }: {id: UUID}) {
                             <Chip
                                 variant="outlined"
                                 color="primary"
-                                label={node.isRoot ? 'Root' : 'Constituent'}
+                                label={node.isRoot ? 'Root' : 'Descendant'}
                             />
                         </div>
                         {

@@ -62,6 +62,7 @@ export default function useEditorItem(nodeName: NodeName, attrs?: Attrs | null):
                     tr.replaceWith(pos, pos + node.nodeSize, node.content);
                 }
             });
+
             // Unwrap the node by replacing it with its content
             if (isActive) {
                 unwrap();

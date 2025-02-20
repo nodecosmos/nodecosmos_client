@@ -2,7 +2,9 @@ import schema from './schema';
 import {
     Attrs, Fragment, Node, NodeType, ResolvedPos, Slice,
 } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import {
+    EditorState, Transaction, Selection,
+} from 'prosemirror-state';
 
 function defaultIsActive($from: ResolvedPos, nodeType: NodeType, attrs?: Record<string, any> | null): boolean {
     for (let depth = $from.depth; depth > 0; depth -= 1) {
@@ -187,34 +189,49 @@ export function toggleInlineNode(
     const {
         from,
         to,
-        empty,
     } = state.selection;
     let { tr } = state;
     const isNodeActive = isActive(state, nodeType);
 
     // 1. If the node is currently active, we UNWRAP
     if (isNodeActive) {
-        if (empty || from === to) {
-            tr = tr.replaceWith(from, to, nodeType.schema.text('\u200b'));
+        if (from === to) {
+            const placeholderText = nodeType.schema.text('\u200b');
+
+            tr = tr.replaceRange(
+                from + 1, // start
+                from + 2, // end
+                new Slice(Fragment.from(placeholderText), 0, 0),
+            );
+
+            tr = tr.setSelection(Selection.near(tr.doc.resolve(from + 2)));
         } else {
             tr = unwrapSelectedTextFromInlineNode(state, nodeType);
         }
     } else {
-        if (empty || from === to) {
-            const placeholderText = nodeType.schema.text('\u200b'); // Zero-width space
+        if (from === to) {
+            const placeholderText = nodeType.schema.text('\u200b');
             tr = tr.insert(from, nodeType.create(attrs, placeholderText));
         } else {
             const positionsToWrap: { from: number; to: number }[] = [];
+            let currentCoveredEnd = -1;
 
             state.doc.nodesBetween(from, to, (node, pos) => {
-                // We only want to wrap text (or inline) nodes
-                if (node.isText) {
+                // We only want to wrap text
+                if (node.isInline) {
                     const nodeStart = pos;
                     const nodeEnd = pos + node.nodeSize;
 
                     // Intersect with selection
                     const wrapFrom = Math.max(nodeStart, from);
                     const wrapTo = Math.min(nodeEnd, to);
+                    const slice = tr.doc.slice(wrapFrom, wrapTo);
+
+                    if (currentCoveredEnd > wrapFrom) return;
+
+                    currentCoveredEnd = wrapTo;
+
+                    if (slice.content.childCount === 1 && slice.content.firstChild?.type === nodeType) return;
 
                     if (wrapTo > wrapFrom) {
                         positionsToWrap.push({
@@ -234,6 +251,7 @@ export function toggleInlineNode(
                 }) => {
                     // Get the slice of content
                     const slice = tr.doc.slice(wrapFrom, wrapTo);
+
                     // Create the inline node with that slice as child
                     const newInlineNode = nodeType.create(attrs, slice.content);
                     // Replace text with new inline node
