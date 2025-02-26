@@ -82,47 +82,54 @@ export default function Authentication() {
     }, []);
 
     return (
-        <Container maxWidth="sm" sx={SX}>
-            <Box width={1}>
+        <div className="overflow-auto h-100">
+            <Container maxWidth="sm" sx={SX}>
                 <Box
-                    component={Link}
-                    to="/"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center">
-                    <Typography
-                        fontSize="50px"
-                        fontWeight="bold"
-                    >
-                        <Box component="span" color="logo.blue">node</Box>
-                        <Box component="span" color="logo.red">cosmos</Box>
-                    </Typography>
+                    width={1}
+                    height={{
+                        xs: 1,
+                        lg: 'auto',
+                    }}>
+                    <Box
+                        component={Link}
+                        to="/"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center">
+                        <Typography
+                            fontSize="50px"
+                            fontWeight="bold"
+                        >
+                            <Box component="span" color="logo.blue">node</Box>
+                            <Box component="span" color="logo.red">cosmos</Box>
+                        </Typography>
+                    </Box>
+                    <Box mt={0} mb={-4}>
+                        <Alert position="static" />
+                    </Box>
+                    <Box mt={4}>
+                        <Tabs
+                            value={currentPage}
+                            onChange={handleTabChange}
+                            centered
+                        >
+                            <Tab
+                                label="Log in"
+                                disableRipple
+                                LinkComponent={Link}
+                                to={`/auth/login?redirect=${redirect}`} />
+                            <Tab
+                                label="Sign up"
+                                disableRipple
+                                LinkComponent={Link}
+                                to={`/auth/signup?redirect=${redirect}`} />
+                        </Tabs>
+                    </Box>
+                    <Box textAlign="center" mt={3}>
+                        <Outlet />
+                    </Box>
                 </Box>
-                <Box mt={0} mb={-4}>
-                    <Alert position="static" />
-                </Box>
-                <Box mt={4}>
-                    <Tabs
-                        value={currentPage}
-                        onChange={handleTabChange}
-                        centered
-                    >
-                        <Tab
-                            label="Log in"
-                            disableRipple
-                            LinkComponent={Link}
-                            to={`/auth/login?redirect=${redirect}`} />
-                        <Tab
-                            label="Sign up"
-                            disableRipple
-                            LinkComponent={Link}
-                            to={`/auth/signup?redirect=${redirect}`} />
-                    </Tabs>
-                </Box>
-                <Box textAlign="center" mt={3}>
-                    <Outlet />
-                </Box>
-            </Box>
-        </Container>
+            </Container>
+        </div>
     );
 }

@@ -3,6 +3,8 @@ import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue'
 import useHandleServerErrorAlert from '../../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../../store';
 import { NodecosmosError, UUID } from '../../../../types';
+import { setAlert } from '../../../app/appSlice';
+import { STRIPE_ENABLED } from '../../../app/constants';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { selectCurrentUser } from '../../../users/users.selectors';
 import { maybeSelectNode } from '../../nodes.selectors';
@@ -42,10 +44,23 @@ export default function EditorActions(props: Props) {
 
             return;
         }
+
+        setTimeout(() => dispatch(setAlert({
+            isOpen: true,
+            severity: 'success',
+            message: 'Editor deleted successfully.',
+        })), 50);
     }, [branchId, dispatch, handleServerError, id, nodeId]);
 
     if (!isOwner) {
         return null;
+    }
+
+    let warning;
+    if (!root?.isPublic && STRIPE_ENABLED) {
+        warning = 'This action will <b>not</b> remove member from your subscription. '
+            + 'If you want to remove member from your organization subscription, please do so on the subscription'
+            + ' page on the root/organization node.';
     }
 
     return (
@@ -55,6 +70,7 @@ export default function EditorActions(props: Props) {
             </Button>
             <ConfirmationModal
                 text="This action will delete editor from current node and its descendants."
+                warning={warning}
                 confirmText="I understand, delete this Editor"
                 confirmType={ConfirmType.Deletion}
                 open={modalOpen}

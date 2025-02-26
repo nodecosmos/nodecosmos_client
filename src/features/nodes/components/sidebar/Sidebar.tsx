@@ -1,7 +1,11 @@
 import CrTooltip from './CrTooltip';
 import SidebarListItem from './SidebarListItem';
-import { HEADER_HEIGHT, NODECOSMOS_NODE_ID } from '../../../app/constants';
+import {
+    HEADER_HEIGHT, NODECOSMOS_NODE_ID, STRIPE_ENABLED,
+} from '../../../app/constants';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
+import { selectCurrentUser } from '../../../users/users.selectors';
+import { maybeSelectNode } from '../../nodes.selectors';
 import {
     faCodePullRequest as faCodePullRequestSolid,
     faUsers as faUsersSolid,
@@ -10,6 +14,7 @@ import {
     faContactBook,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
+    faMoneyCheckDollar,
     faCodeCommit,
     faCodePullRequest,
     faUsers,
@@ -17,7 +22,9 @@ import {
     faHashtag,
     faTable,
 } from '@fortawesome/pro-light-svg-icons';
-import { faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid } from '@fortawesome/pro-regular-svg-icons';
+import {
+    faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid, faMoneyCheckDollar as faMoneyCheckDollarSolid,
+} from '@fortawesome/pro-regular-svg-icons';
 import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoIcon from '@mui/icons-material/Info';
@@ -26,6 +33,7 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props {
     handleClose?: () => void;
@@ -50,6 +58,8 @@ export default function Sidebar({ handleClose }: Props) {
         pt: isBranch && !isContributionRequest ? 0 : 1,
         mt: '-1px',
     }), [isBranch, isContributionRequest]);
+    const currentUser = useSelector(selectCurrentUser);
+    const maybeRoot = useSelector(maybeSelectNode(originalId, originalId));
 
     return (
         <Box
@@ -111,7 +121,8 @@ export default function Sidebar({ handleClose }: Props) {
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
                     title="Workflows"
-                />{
+                />
+                {
                     (!isBranch || isContributionRequest) && (
                         <>
                             <SidebarListItem
@@ -130,6 +141,21 @@ export default function Sidebar({ handleClose }: Props) {
                                 title="Threads"
                                 end={false}
                             />
+                            {
+                                currentUser
+                                && maybeRoot
+                                && !maybeRoot.isPublic
+                                && currentUser.id === maybeRoot.ownerId
+                                && STRIPE_ENABLED && (
+                                    <SidebarListItem
+                                        onClick={handleClose}
+                                        to={`${toPath}/subscriptions${pathParams}`}
+                                        icon={(<FontAwesomeIcon icon={faMoneyCheckDollar} />)}
+                                        selectedIcon={(<FontAwesomeIcon icon={faMoneyCheckDollarSolid} />)}
+                                        title="Subscription"
+                                    />
+                                )
+                            }
                             <SidebarListItem
                                 onClick={handleClose}
                                 to={`${toPath}/team`}

@@ -9,6 +9,7 @@ import { HttpErrorCodes, ProfileType } from '../../types';
 import { updatePropertiesOf } from '../../utils/object';
 import { findByToken } from '../invitations/invitations.thunks';
 import { getEditors, showNode } from '../nodes/nodes.thunks';
+import { showSubscription } from '../subscriptions/subscriptions.thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const CURRENT_USER_KEY = 'CU';
@@ -140,6 +141,11 @@ const usersSlice = createSlice({
             })
             .addCase(getEditors.fulfilled, (state, action) => {
                 action.payload.forEach((editor) => {
+                    state.byId[editor.id] = editor;
+                });
+            })
+            .addCase(showSubscription.fulfilled, (state, action) => {
+                action.payload.users.forEach((editor) => {
                     state.byId[editor.id] = editor;
                 });
             })

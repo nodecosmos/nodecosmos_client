@@ -10,6 +10,7 @@ import invitationsSlice from './features/invitations/invitationsSlice';
 import likesSlice from './features/likes/likesSlice';
 import nodesSlice from './features/nodes/nodesSlice';
 import notificationsSlice from './features/notifications/notificationsSlice';
+import subscriptionsSlice from './features/subscriptions/subscriptionsSlice';
 import usersSlice from './features/users/usersSlice';
 import workflowsSlice from './features/workflows/workflowsSlice';
 import { combineReducers } from '@reduxjs/toolkit';
@@ -29,4 +30,5 @@ export default combineReducers({
     descriptions: descriptionsSlice,
     invitations: invitationsSlice,
     notifications: notificationsSlice,
+    subscriptions: subscriptionsSlice,
 });

@@ -6,6 +6,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
 import { selectSelectedObject } from '../../app/app.selectors';
 import { selectObject } from '../../app/app.thunks';
+import { setAlert } from '../../app/appSlice';
 import {
     DISPLAY_MD_SX, SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX,
 } from '../../app/constants';
@@ -39,7 +40,7 @@ export default function NodeShowContent() {
     }
     const originalNode = useSelector(maybeSelectNode(originalId, id as UUID));
     const branchNode = useSelector(maybeSelectNode(branchId, id as UUID));
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     // metaTitle, metaDescription, metaImageURL
     const selectedObject = useSelector(selectSelectedObject);
@@ -60,6 +61,18 @@ export default function NodeShowContent() {
     useEffect(() => {
         if (!id) {
             throw new Error('Node ID is not defined');
+        }
+
+        if (searchParams.get('subscribed')) {
+            dispatch(setAlert({
+                isOpen: true,
+                message: 'You have successfully subscribed to this node',
+                severity: 'success',
+            }));
+
+            searchParams.delete('subscribed');
+
+            setSearchParams(searchParams);
         }
         const selectedData = decodeSelectedObjQ(searchParams);
 

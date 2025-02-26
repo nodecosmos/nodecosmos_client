@@ -6,11 +6,19 @@ import useIsMobile from '../../../app/hooks/useIsMobile';
 import CreateNodeModal from '../CreateNodeModal';
 import { faPlus } from '@fortawesome/pro-light-svg-icons';
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export default function NodeIndexHeader() {
     const [createNodeDialogOpen, openCreateNodeDialog, closeNodeDialog] = useBooleanStateValue();
     const isMobile = useIsMobile();
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+        if (searchParams.get('create')) {
+            openCreateNodeDialog();
+        }
+    }, [openCreateNodeDialog, searchParams]);
 
     if (isMobile) {
         return null;
