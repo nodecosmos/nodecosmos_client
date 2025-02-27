@@ -9,7 +9,6 @@ interface Props {
     name: string;
     values: string[] | boolean[] | number[];
     labels?: string[];
-    defaultValue?: string | boolean | number;
     disabled?: boolean[];
 }
 
@@ -18,12 +17,13 @@ const FIELD_SUBSCRIPTION = {
     error: true,
     value: true,
     submitError: true,
+    initial: true,
     dirtySinceLastSubmit: true,
 };
 
 export default function FinalFormRadioField(props: Props) {
     const {
-        name, defaultValue = null, values, labels = null, disabled = [],
+        name, values, labels = null, disabled = [],
 
     } = props;
 
@@ -33,9 +33,9 @@ export default function FinalFormRadioField(props: Props) {
             type="radio"
             subscription={FIELD_SUBSCRIPTION}
         >
-            {({ input }) => (
+            {({ input, meta }) => (
                 <RadioGroup
-                    defaultValue={defaultValue}
+                    defaultValue={meta.initial}
                     aria-label={name}
                     name={input.name}
                     value={input.value}

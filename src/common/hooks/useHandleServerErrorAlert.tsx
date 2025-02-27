@@ -25,7 +25,14 @@ export default function useHandleServerErrorAlert(isModal = false) {
             }
             break;
         case HttpErrorCodes.Forbidden:
-            message = 'Forbidden!';
+            message = 'Forbidden';
+
+            if (typeof error.message === 'string') {
+                message += `: ${error.message}`;
+            } else {
+                message += '!';
+            }
+
             break;
         case HttpErrorCodes.NotFound:
             message = 'Resource not found!';

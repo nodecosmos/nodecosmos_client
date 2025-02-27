@@ -12,6 +12,7 @@ import MainThread from '../../../pages/contribution-requests/tabs/conversation-t
 import Invite from '../../../pages/invitations/Invite';
 import NodesIndex from '../../../pages/nodes/Index';
 import NodeShow from '../../../pages/nodes/Show';
+import SubscriptionShow from '../../../pages/nodes/Subscription';
 import TeamShow from '../../../pages/nodes/TeamShow';
 import TreeShow from '../../../pages/nodes/TreeShow';
 import WorkflowShow from '../../../pages/nodes/WorkflowShow';
@@ -23,11 +24,11 @@ import ResetPassword from '../../../pages/users/ResetPassword';
 import UserShow from '../../../pages/users/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
-import LoginForm from '../../users/components/LoginForm';
+import LoginForm, { REDIRECT_Q } from '../../users/components/LoginForm';
 import Bio from '../../users/components/profile/Bio';
 import RootNodes from '../../users/components/profile/RootNodes';
 import SignupForm from '../../users/components/SignupForm';
-import { selectCurrentUser, selectIsAuthenticated } from '../../users/users.selectors';
+import { selectIsAuthenticated } from '../../users/users.selectors';
 import { syncUpCurrentUser } from '../../users/users.thunks';
 import { selectTheme } from '../app.selectors';
 import { THEME_STRING } from '../app.types';
@@ -39,13 +40,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Navigate, Route, Routes,
+    Navigate, Route, Routes, useSearchParams,
 } from 'react-router-dom';
 
 export default function App() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
-    const currentUser = useSelector(selectCurrentUser);
     const themeIdx = useSelector(selectTheme);
     const currentTheme = useMemo(() => themes[themeIdx], [themeIdx]);
     const theme = useMemo(() => getTheme(currentTheme), [currentTheme]);
@@ -84,25 +84,39 @@ export default function App() {
 
     useConfirmEmailAlert();
 
+    const [searchParams] = useSearchParams();
+    const [navigateTo, setNavigateTo] = React.useState<string>('/');
+    const redirect = searchParams.get(REDIRECT_Q);
+
+    useEffect(() => {
+        if (redirect) {
+            const url = new URL(atob(redirect));
+            setNavigateTo(url.pathname + url.search);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className={`background-2 h-100 ${THEME_STRING[themeIdx]}`}>
                 <Header />
+                <Routes>
+                    <Route
+                        path="/auth"
+                        element={isAuthenticated
+                            ? <Navigate to={navigateTo} /> : <UserAuthentication />}
+                    >
+                        <Route path="login" element={<LoginForm />} />
+                        <Route path="signup" element={<SignupForm />} />
+                    </Route>
+                </Routes>
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>
                         {/* eslint-disable-next-line max-len */}
                         <Route path="/nodes/charybdis" element={<Navigate relative="route" to="/nodes/1b73a5fa-3662-4bc5-bb1e-42c710fd9bd4/1b73a5fa-3662-4bc5-bb1e-42c710fd9bd4" />} />
                         {/* eslint-disable-next-line max-len */}
                         <Route path="/nodes/workflow-sample" element={<Navigate relative="route" to="/f70f9de4-b938-4abc-9695-3b1cb7769f38/006546a7-9824-4727-ba8f-7a8c27b9cb2f/workflow?selectedObject=eyJvcmlnaW5hbElkIjoiZjcwZjlkZTQtYjkzOC00YWJjLTk2OTUtM2IxY2I3NzY5ZjM4IiwiYnJhbmNoSWQiOiJmNzBmOWRlNC1iOTM4LTRhYmMtOTY5NS0zYjFjYjc3NjlmMzgiLCJvYmplY3ROb2RlSWQiOiIwMDY1NDZhNy05ODI0LTQ3MjctYmE4Zi03YThjMjdiOWNiMmYiLCJvYmplY3RJZCI6IjJiZTVjZmFlLTg1MDMtNGQ0Mi1iNzQxLWU4NjI2Nzg3MzY3NiIsIm9iamVjdFR5cGUiOiJJbyIsIm1ldGFkYXRhIjp7Im1haW5PYmplY3RJZCI6IjJiZTVjZmFlLTg1MDMtNGQ0Mi1iNzQxLWU4NjI2Nzg3MzY3NiIsImZsb3dTdGVwTm9kZUlkIjpudWxsfX0%3D" />} />
-                        <Route
-                            path="/auth"
-                            element={isAuthenticated
-                                ? <Navigate to={`/${currentUser?.username}`} /> : <UserAuthentication />}
-                        >
-                            <Route path="login" element={<LoginForm />} />
-                            <Route path="signup" element={<SignupForm />} />
-                        </Route>
                         <Route path="404" element={<NotFound />} />
                         <Route path="reset_password" element={<ResetPassword />} />
                         <Route path="/:username" element={<UserShow />}>
@@ -142,6 +156,9 @@ export default function App() {
 
                                 {/*Settings*/}
                                 <Route path="team" element={<TeamShow />} />
+
+                                <Route path="subscriptions" element={<SubscriptionShow />} />
+
                             </Route>
 
                         </Route>

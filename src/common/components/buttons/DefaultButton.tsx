@@ -18,6 +18,7 @@ interface DefaultButtonProps {
     color?: 'info' | 'warning' | 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'button' | 'toggle';
     width?: string | number;
     height?: string | number;
+    size?: 'small' | 'medium' | 'large';
 }
 function DefaultButton(props: DefaultButtonProps) {
     const {
@@ -34,6 +35,7 @@ function DefaultButton(props: DefaultButtonProps) {
         color = 'button',
         width = 'auto',
         height = '32px',
+        size = 'small',
     } = props;
 
     const buttonSx = useMemo(() => ({
@@ -50,7 +52,7 @@ function DefaultButton(props: DefaultButtonProps) {
 
     return (
         <Button
-            size="small"
+            size={size}
             color={color}
             type={type}
             disabled={disabled || loading}

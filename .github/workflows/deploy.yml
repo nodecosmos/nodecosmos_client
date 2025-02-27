@@ -9,6 +9,7 @@ env:
   VITE_REACT_APP_URL: https://nodecosmos.com
   VITE_RECAPTCHA_ENABLED: true
   VITE_RECAPTCHA_SITE_KEY: 6Ld30jMjAAAAAIsW1c9xvFRaaOXOLjLywqPWDHSA
+  VITE_STRIPE_ENABLED: true
   BUCKET_NAME: nodecosmos.com
 jobs:
   deploy:

@@ -10,7 +10,9 @@ import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { isEmail } from '../../../utils/validation';
 import { setAlert } from '../../app/appSlice';
+import { STRIPE_ENABLED } from '../../app/constants';
 import useBranchContext from '../../branch/hooks/useBranchContext';
+import { selectNode } from '../../nodes/nodes.selectors';
 import { searchUsers } from '../../users/users.thunks';
 import { ShowUser } from '../../users/users.types';
 import { createInvitation } from '../invitations.thunks';
@@ -27,7 +29,7 @@ import React, {
     useCallback, useMemo, useState,
 } from 'react';
 import { Form } from 'react-final-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface Props {
     open: boolean;
@@ -36,12 +38,16 @@ interface Props {
 
 const PROPS = {
     elevation: 5,
-    sx: { borderRadius: 2.5 },
+    sx: {
+        borderRadius: 2.5,
+        p: 1,
+    },
 };
 
 export default function InviteUserModal({ open, onClose }: Props) {
     const { branchId, nodeId } = useBranchContext();
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
+    const node = useSelector(selectNode(branchId, nodeId));
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert(true);
     const onSubmit = useCallback(async ({ usernameOrEmail }: { usernameOrEmail: string }) => {
@@ -58,6 +64,7 @@ export default function InviteUserModal({ open, onClose }: Props) {
 
             if (error.status === 403) {
                 unsetLoading();
+                handleServerError(error);
                 return error.message; // maps error object to final-form submitError
             }
 
@@ -86,7 +93,6 @@ export default function InviteUserModal({ open, onClose }: Props) {
     const [users, setUsers] = useState<ShowUser[]>([]);
     const [usernameFromList, setUsernameFromList] = React.useState<null | string>(null);
     const [to, setTo] = useState<string | null>(null);
-
     const handleSearch = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsernameFromList(null);
         setUsers([]);
@@ -137,16 +143,11 @@ export default function InviteUserModal({ open, onClose }: Props) {
             PaperProps={PROPS}>
             <div className="DialogHeader">
                 <div>
-                    <Typography variant="h6" color="texts.primary" align="center" width="auto">
-                        <FontAwesomeIcon icon={faUserPlus} />
-                        Invite User to Node
+                    <Typography variant="h6" color="texts.secondary" align="center" width="auto" fontWeight="bold">
+                        <FontAwesomeIcon icon={faUserPlus} size="lg" />
+                        Invite a user to collaborate on this node
                     </Typography>
                 </div>
-                <Typography variant="subtitle1" color="texts.secondary" mt={1} align="center" width={1}>
-                    Invite a user to collaborate on this node. If the user is not a member of the
-                    nodecosmos, you can invite them by their email. Once invitation is  accepted,
-                    the user will become editor of this node.
-                </Typography>
                 <CloseModalButton onClose={onClose} />
             </div>
             <Form<{ usernameOrEmail: string }>
@@ -158,7 +159,7 @@ export default function InviteUserModal({ open, onClose }: Props) {
                 }) => (
                     <form onSubmit={handleSubmit}>
                         <DialogContent>
-                            <Alert position="relative" mb={2} />
+                            <Alert position="relative" mb={2} modal />
                             <Field
                                 fullWidth
                                 name="usernameOrEmail"
@@ -175,6 +176,18 @@ export default function InviteUserModal({ open, onClose }: Props) {
                                 form={form}
                                 setUsernameFromList={setUsernameFromList}
                             />
+                            {
+                                node && !node.isPublic && STRIPE_ENABLED && (
+                                    <Typography
+                                        variant="subtitle1"
+                                        color="texts.tertiary"
+                                        mt={1}
+                                        width={1}>
+                                        If user is not a member of your organization, they will be automatically
+                                        added to your organization and billed accordingly.
+                                    </Typography>
+                                )
+                            }
                         </DialogContent>
                         <DialogActions>
                             <Button

@@ -121,6 +121,7 @@ export interface NodeState {
     indexSearchTerm?: string;
     sidebarOpen: boolean;
     byOwnerId: Record<UUID, NodeByOwner[]>;
+    byEditorId: Record<UUID, Node[]>;
     recentNodes: RecentNode[];
 }
 

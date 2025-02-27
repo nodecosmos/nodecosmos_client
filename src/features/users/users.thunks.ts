@@ -8,7 +8,7 @@ import {
 } from '../../types';
 import { SYNC_UP_INTERVAL } from '../app/constants';
 import { LikePrimaryKey } from '../likes/likes.types';
-import { NodeByOwner } from '../nodes/nodes.types';
+import { Node, NodeByOwner } from '../nodes/nodes.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -41,6 +41,7 @@ export const logIn = createAsyncThunk<
 interface UserByUsernameResponse {
     user: User;
     rootNodes: NodeByOwner[];
+    editorAtNodes: Node[];
 }
 
 export const showUserByUsername = createAsyncThunk<UserByUsernameResponse, string, { rejectValue: NodecosmosError }>(

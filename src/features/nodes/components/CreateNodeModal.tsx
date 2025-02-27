@@ -1,3 +1,4 @@
+import nodecosmos from '../../../api/nodecosmos-server';
 import Alert from '../../../common/components/Alert';
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import FinalFormRadioField from '../../../common/components/final-form/FinalFormRadioField';
@@ -5,6 +6,7 @@ import CloseModalButton from '../../../common/components/modal/CloseModalButton'
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
+import { STRIPE_ENABLED } from '../../app/constants';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { MAX_NODE_INPUT_SIZE } from '../nodes.constants';
@@ -21,22 +23,72 @@ import Dialog from '@mui/material/Dialog';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import {
+    Link as RouterLink, useNavigate, useSearchParams,
+} from 'react-router-dom';
+
+const DIALOG_PAPER_PROPS = {
+    elevation: 8,
+    sx: { borderRadius: 2.5 },
+};
+
+interface FormValues {
+    title: string;
+    isPublic: 'true' | 'false';
+}
+
+const CREATE_NODE_PARAM = 'create';
+const IS_TRIAL_PARAM = 'trial';
 
 export default function CreateNodeModal(props: { open: boolean, onClose: () => void }) {
-    const { open, onClose } = props;
+    const { open, onClose: handlePropsClose } = props;
     const [loading, setLoading] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
     const handleServerError = useHandleServerErrorAlert(true);
     const currentUser = useSelector(selectCurrentUser);
-    const onSubmit = useCallback(async (formValues: {title: string}) => {
+    const [searchParams] = useSearchParams();
+    const createParam = searchParams.get(CREATE_NODE_PARAM);
+    const [isModalOpen, setIsModalOpen] = React.useState(open || !!createParam);
+    const isTrialParam = searchParams.get(IS_TRIAL_PARAM);
+
+    const onClose = useCallback(() => {
+        setIsModalOpen(false);
+        handlePropsClose();
+    }, [handlePropsClose]);
+
+    const onSubmit = useCallback(async (formValues: FormValues) => {
         setLoading(true);
+        const isPublic = formValues.isPublic === 'true';
+
+        if (!isPublic && STRIPE_ENABLED) {
+            try {
+                const response = await nodecosmos.post('/subscriptions/build_url', {
+                    isRoot: true,
+                    isPublic: false,
+                    title: formValues.title,
+                    orderIndex: 0,
+                });
+
+                window.location.href = response.data.url;
+
+                setLoading(false);
+                return;
+            } catch (error: NodecosmosError | any) {
+                handleServerError({
+                    status: error?.response?.status,
+                    message: error?.response?.data?.message || 'Something went wrong. Please try again later.',
+                    viewMessage: true,
+                });
+                setLoading(false);
+                return;
+            }
+        }
 
         const payload: NodeCreationPayload = {
-            isPublic: true,
             isRoot: true,
             ...formValues,
+            isPublic: formValues.isPublic === 'true',
             orderIndex: 0,
         };
 
@@ -63,7 +115,8 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             fullWidth
             maxWidth="sm"
             onClose={onClose}
-            open={open}
+            open={open || isModalOpen}
+            PaperProps={DIALOG_PAPER_PROPS}
         >
             <div className="DialogHeader">
                 <div>
@@ -121,9 +174,16 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
             {
                 currentUser && (
                     <DialogContent>
-                        <Alert position="sticky" mb={1} modal />
-                        <Form onSubmit={onSubmit} subscription={{ submitting: true }}>
-                            {({ handleSubmit }) => (
+                        <Alert position="sticky" mb={2} modal />
+                        <Form<FormValues>
+                            onSubmit={onSubmit}
+                            subscription={{
+                                submitting: true,
+                                values: true,
+                            }}
+                            initialValues={{ isPublic: isTrialParam ? 'false' : 'true' }}
+                        >
+                            {({ handleSubmit, values }) => (
                                 <form onSubmit={handleSubmit}>
                                     <Field
                                         fullWidth
@@ -134,11 +194,12 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                                         required
                                     />
                                     <FinalFormRadioField
-                                        disabled={[false, true]}
                                         name="isPublic"
-                                        values={['public', 'private']}
-                                        labels={['Public (Free)', 'Private (Coming Soon)']}
-                                        defaultValue="public"
+                                        values={['true', 'false']}
+                                        labels={[
+                                            'Public / Open Source Root (Free)',
+                                            'Private / Organization Root',
+                                        ]}
                                     />
                                     <Button
                                         className="SubmitButtonBig"
@@ -155,10 +216,29 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                                         }
                                     >
                                         <Typography variant="subtitle1">
-                                            Create
+                                            {
+                                                values.isPublic === 'true'
+                                                    ? 'Create Public Node' : (
+                                                        STRIPE_ENABLED
+                                                            ? 'Start 7-Day Free Trial'
+                                                            : 'Create Private Node'
+                                                    )
+                                            }
                                         </Typography>
                                     </Button>
-
+                                    {
+                                        values.isPublic === 'false' && STRIPE_ENABLED && (
+                                            <Typography
+                                                variant="subtitle1"
+                                                fontWeight="bold"
+                                                color="texts.tertiary"
+                                                mt={1}
+                                                align="center"
+                                            >
+                                                Credit card required—no charge if you cancel during your trial.
+                                            </Typography>
+                                        )
+                                    }
                                 </form>
                             )}
                         </Form>

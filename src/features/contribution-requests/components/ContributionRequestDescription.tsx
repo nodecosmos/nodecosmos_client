@@ -135,7 +135,6 @@ export default function ContributionRequestDescription() {
                                     onChange={handleChange}
                                     onBlur={closeEditor}
                                     extensions={EXTENSIONS}
-                                    editorBackgroundColor="backgrounds.5"
                                     p={1}
                                     editorOutline={1}
                                     editorFocusBorderColor="borders.5"

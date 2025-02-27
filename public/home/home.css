@@ -8,6 +8,7 @@
     --color-link: #353535;
     --color-link-hover-bg: rgba(53, 53, 53, 0.07);
     --color-cta-bg: #635bff;
+    --color-cta-mini-bg: #635bff;
     --color-cta-text: #ffffff;
     --color-info-text: #9a929b;
     --background-gradient: linear-gradient(
@@ -16,9 +17,9 @@
             #f3f3ff,
             #f8fff3,
             #fff3f3,
-            #fcfcf4,
+            #f7f3f9,
             #fbf4fc,
-            #f8eded,
+            #fcfcf4,
             #fff3f3,
             #f7f3f9,
             #f4f3f9,
@@ -38,7 +39,7 @@ body {
     margin: 0;
     padding: 0 0 6em;
     font-family: var(--font-family-base);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--color-text);
     background: var(--background-gradient);
     scroll-behavior: smooth;
@@ -78,24 +79,24 @@ h6 {
 }
 
 h1 {
-    font-size: 3.14rem;
+    font-size: 2.7rem;
     text-align: center;
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 h4 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
 }
 
 p {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 1.5;
     margin: 0;
 }
@@ -118,7 +119,7 @@ header.scrolled {
 }
 
 header nav {
-    max-width: 1500px;
+    max-width: 1300px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -134,7 +135,7 @@ main {
 
 section {
     position: relative;
-    max-width: 1500px;
+    max-width: 1300px;
     width: 100%;
 }
 
@@ -180,6 +181,21 @@ header a:hover {
     max-width: 100%;
 }
 
+.cta-mini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border: 2px solid var(--color-cta-mini-bg);
+    border-color: var(--color-cta-mini-bg);
+    color: var(--color-cta-mini-bg);
+    border-radius: 10px;
+    text-decoration: none;
+    line-height: 1;
+    width: 200px;
+    max-width: 100%;
+}
+
 .pricing-container {
     display: flex;
     justify-content: space-between;
@@ -200,10 +216,6 @@ header a:hover {
     box-shadow: rgba(227, 223, 238, 0.5) 3px 3px 1px -2px,
     rgba(227, 223, 238, 0.05) 2px 2px 2px 0px,
     rgba(227, 223, 238, 0.06) 1px 1px 5px 0px;
-}
-
-.pricing-card h3 {
-    color: var(--color-cta-bg);
 }
 
 .list-circle {
@@ -275,6 +287,10 @@ header a:hover {
     flex-direction: column;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
 .display-mobile {
     display: none;
 }
@@ -331,38 +347,42 @@ header a:hover {
 }
 
 .mt-1 {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
 }
 
 .mt-2 {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .mt-3 {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
 }
 
 .mt-4 {
-    margin-top: 4rem;
+    margin-top: 3rem;
 }
 
 .mt-5 {
-    margin-top: 5rem;
+    margin-top: 3.75rem;
 }
 
 .mt-6 {
-    margin-top: 6rem;
+    margin-top: 4.5rem;
 }
 
 .mt-10 {
-    margin-top: 10rem;
+    margin-top: 8.25rem;
 }
 
 .mt-15 {
-    margin-top: 15rem;
+    margin-top: 7.5rem;
 }
 
 /* Margin Left */
+.ml-05 {
+    margin-left: 0.5rem;
+}
+
 .ml-1 {
     margin-left: 1rem;
 }
@@ -376,12 +396,25 @@ header a:hover {
     max-width: 600px;
 }
 
+.max-width-650 {
+    max-width: 650px;
+}
+
+.max-width-700 {
+    max-width: 700px;
+}
+
 .max-width-750 {
     max-width: 750px;
 }
 
-.max-width-780 {
-    max-width: 780px;
+/* adjusted for text* & justify */
+.max-width-753 {
+    max-width: 753px;
+}
+
+.max-width-800 {
+    max-width: 800px;
 }
 
 .max-width-900 {
@@ -410,9 +443,20 @@ header a:hover {
     font-weight: 400;
 }
 
-/* Colors */
-.color-purple {
-    color: #917cf8;
+.color-cta-bg {
+    color: var(--color-cta-bg);
+}
+
+.color-heading {
+    color: var(--color-heading);
+}
+
+.color-info {
+    color: var(--color-info-text);
+}
+
+.color-text {
+    color: var(--color-text);
 }
 
 /* Additional Classes */
@@ -421,6 +465,7 @@ header a:hover {
     margin-top: 1rem;
     font-size: 20px;
     color: var(--color-info-text);
+    font-weight: bold;
 }
 
 .info {
@@ -432,6 +477,14 @@ header a:hover {
 
 .no-bg {
     background: none;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.fs-15 {
+    font-size: 15px;
 }
 
 .privacy h1,
@@ -550,6 +603,7 @@ header a:hover {
         max-width: 220px;
     }
 
+
     .hero {
         padding-top: 3.25em;
     }
@@ -607,41 +661,49 @@ header a:hover {
     }
 }
 
-
 /* Cookie Consent Banner Styles */
 .cookie-consent-banner {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #ffffff;
+    color: #333333;
     padding: 20px;
-    box-shadow:0 -4px 10px rgb(218 218 218 / 30%);
-    display: none; /* Initially hidden, shown via JavaScript */
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     z-index: 1000;
     animation: slideUp 0.5s ease-out;
+    font-family: -apple-system,system-ui,Roboto,sans-serif;
+    display: none; /* Initially hidden, shown via JavaScript */
 }
 
 .cookie-consent-content {
-    max-width: 960px;
+    background: #ffffff;
+    max-width: 912px;
     text-align: center;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: -apple-system,system-ui,Roboto,sans-serif;
 }
 
 .cookie-consent-content h2 {
     margin-bottom: 10px;
-    font-size: 1.5em;
+    font-size: 1.25em;
+    font-family: -apple-system,system-ui,Roboto,sans-serif;
+    font-weight: bold;
 }
 
 .cookie-consent-content p {
     margin-bottom: 15px;
-    font-size: 1em;
+    font-size: 19px;
+    font-weight: 300;
+    font-family: -apple-system,system-ui,Roboto,sans-serif;
 }
 
 .cookie-consent-content a {
-    color: #4caf50;
-    text-decoration: underline;
+    color: #635bff;
+    font-weight: bold;
 }
 
 .cookie-consent-buttons {
@@ -651,30 +713,27 @@ header a:hover {
 }
 
 .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border: 2px solid #635bff;
+    color: #635bff;
+    border-radius: 10px;
+    text-decoration: none;
+    line-height: 1;
+    max-width: 100%;
+    font-size: 1.25rem;
+    background: transparent;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
 }
 
-.btn.accept {
-    background-color: #4caf50;
-    color: #ffffff;
+.btn {
+    color: #635bff;
 }
 
-.btn.accept:hover {
-    background-color: #79d55e;
-}
-
-.btn.manage {
-    background-color: #f1f1f1;
-    color: #333333;
-}
-
-.btn.manage:hover {
-    background-color: #e2e2e2;
+.btn:hover {
+    background-color: #cfcdfd;
 }
 
 /* Preferences Modal Styles */
@@ -728,24 +787,6 @@ header a:hover {
     justify-content: space-between;
     gap: 10px;
     margin-top: 40px;
-}
-
-.btn.save {
-    background-color: #4caf50;
-    color: #ffffff;
-}
-
-.btn.save:hover {
-    background-color: #79d55e;
-}
-
-.btn.close {
-    background-color: #f44336;
-    color: #ffffff;
-}
-
-.btn.close:hover {
-    background-color: #e53935;
 }
 
 /* Slide-up animation */

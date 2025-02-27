@@ -94,6 +94,7 @@ const initialState: NodeState = {
     indexSearchTerm: undefined,
     sidebarOpen: false,
     byOwnerId: {},
+    byEditorId: {},
     recentNodes: parseRecentNodesFromLS(),
 };
 
@@ -206,9 +207,12 @@ const nodesSlice = createSlice({
                 node.editorIds?.delete(action.meta.arg.editorId);
             })
             .addCase(showUserByUsername.fulfilled, (state: NodeState, action) => {
-                const { user, rootNodes } = action.payload;
+                const {
+                    user, rootNodes, editorAtNodes,
+                } = action.payload;
 
                 state.byOwnerId[user.id] = rootNodes;
+                state.byEditorId[user.id] = editorAtNodes;
             })
             .addCase(getDescription.fulfilled, (state: NodeState, action) => {
                 const { branchId, objectId } = action.meta.arg;

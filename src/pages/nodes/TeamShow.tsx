@@ -82,6 +82,16 @@ export default function TeamShow() {
                     <Invitations />
                 </div>
                 <Box ref={editorsRef}>
+                    <Typography
+                        color="texts.tertiary"
+                        variant="subtitle2"
+                        p={1}
+                        borderBottom={1}
+                        borderColor="borders.3"
+                    >
+                        The Team section only displays editors for the current node. For a complete list of members
+                        (including those from nested nodes), please visit the subscription page.
+                    </Typography>
                     <Editors />
                 </Box>
             </Box>
