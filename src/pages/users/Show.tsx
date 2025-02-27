@@ -36,7 +36,7 @@ export default function Show() {
     }, [dispatch, navigate, username]);
 
     useEffect(() => {
-        if (!fetch && !user) {
+        if (!fetch || !user) {
             showUser()
                 .then(setFetched);
         }

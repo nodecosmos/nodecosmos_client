@@ -144,7 +144,7 @@ export default function Profile() {
                     />
                     <Tab
                         component={Link}
-                        label="Root Nodes"
+                        label="My Nodes"
                         disableRipple
                         LinkComponent={MuiLink}
                         to="nodes"

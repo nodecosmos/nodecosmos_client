@@ -120,20 +120,21 @@ button {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #ffffff;
     color: #333333;
     padding: 20px;
-    box-shadow:0 -4px 10px rgb(218 218 218 / 30%);
     display: none; /* Initially hidden, shown via JavaScript */
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     z-index: 1000;
     animation: slideUp 0.5s ease-out;
 }
 
 .cookie-consent-content {
+    background: #ffffff;
     max-width: 960px;
     text-align: center;
+    padding: 24px;
+    border-radius: 8px;
 }
 
 .cookie-consent-content h2 {
@@ -147,8 +148,8 @@ button {
 }
 
 .cookie-consent-content a {
-    color: #4caf50;
-    text-decoration: underline;
+    color: #635bff;
+    font-weight: bold;
 }
 
 .cookie-consent-buttons {
@@ -158,30 +159,26 @@ button {
 }
 
 .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border: 2px solid #635bff;
+    color: #635bff;
+    border-radius: 10px;
+    text-decoration: none;
+    line-height: 1;
+    max-width: 100%;
+    font-size: 1.25rem;
+    background: transparent;
 }
 
-.btn.accept {
-    background-color: #4caf50;
-    color: #ffffff;
+.btn {
+    color: #635bff;
 }
 
-.btn.accept:hover {
-    background-color: #79d55e;
-}
-
-.btn.manage {
-    background-color: #f1f1f1;
-    color: #333333;
-}
-
-.btn.manage:hover {
-    background-color: #e2e2e2;
+.btn:hover {
+    background-color: #cfcdfd;
 }
 
 /* Preferences Modal Styles */
@@ -235,24 +232,6 @@ button {
     justify-content: space-between;
     gap: 10px;
     margin-top: 40px;
-}
-
-.btn.save {
-    background-color: #4caf50;
-    color: #ffffff;
-}
-
-.btn.save:hover {
-    background-color: #79d55e;
-}
-
-.btn.close {
-    background-color: #f44336;
-    color: #ffffff;
-}
-
-.btn.close:hover {
-    background-color: #e53935;
 }
 
 /* Slide-up animation */

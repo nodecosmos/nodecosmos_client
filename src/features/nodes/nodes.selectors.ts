@@ -20,6 +20,7 @@ export const selectShowTreeColors = (state: RootState) => state.nodes.showTreeCo
 export const selectIndexSearchTerm = (state: RootState) => state.nodes.indexSearchTerm;
 export const selectSidebarOpen = (state: RootState) => state.nodes.sidebarOpen;
 export const selectNodesByOwnerId = (state: RootState) => state.nodes.byOwnerId;
+export const selectNodesByEditorId = (state: RootState) => state.nodes.byEditorId;
 export const selectRecentNodes = (state: RootState) => state.nodes.recentNodes;
 
 export const selectBranchNodes = (branchId: UUID) => createSelector(
@@ -86,7 +87,12 @@ export const selectBranchChildIds = (branchId?: UUID) => createSelector(
     (childIds) => branchId && childIds[branchId],
 );
 
-export const selectNodeByOwner = (ownerId: UUID) => createSelector(
+export const selectNodesByOwner = (ownerId: UUID) => createSelector(
     selectNodesByOwnerId,
     (nodesByOwnerId) => nodesByOwnerId[ownerId],
+);
+
+export const selectNodesByEditor = (editorId: UUID) => createSelector(
+    selectNodesByEditorId,
+    (nodesByEditorId) => nodesByEditorId[editorId],
 );
