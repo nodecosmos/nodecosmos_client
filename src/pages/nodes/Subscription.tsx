@@ -163,22 +163,24 @@ export default function SubscriptionShow() {
                     </Typography>
                     {
                         isDeleted && (
-                            <Button
-                                className="mt-2"
-                                variant="contained"
-                                disableElevation
-                                color="button"
-                                endIcon={newLoading
-                                    ? <CircularProgress color="inherit" size={16} />
-                                    : <FontAwesomeIcon icon={faAdd} />
-                                }
-                                onClick={onNewSubClick}
-                            >
-                                New Subscription
-                            </Button>
+                            <>
+                                <Button
+                                    className="mt-2"
+                                    variant="contained"
+                                    disableElevation
+                                    color="button"
+                                    endIcon={newLoading
+                                        ? <CircularProgress color="inherit" size={16} />
+                                        : <FontAwesomeIcon icon={faAdd} />
+                                    }
+                                    onClick={onNewSubClick}
+                                >
+                                    New Subscription
+                                </Button>
+                                <br />
+                            </>
                         )
                     }
-                    <br />
                     <Button
                         className="mt-2"
                         variant="contained"

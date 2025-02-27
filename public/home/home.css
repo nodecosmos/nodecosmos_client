@@ -408,6 +408,11 @@ header a:hover {
     max-width: 750px;
 }
 
+/* adjusted for text* & justify */
+.max-width-753 {
+    max-width: 753px;
+}
+
 .max-width-800 {
     max-width: 800px;
 }
