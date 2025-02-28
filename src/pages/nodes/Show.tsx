@@ -1,5 +1,6 @@
 import { BranchContext, useBranchContextValue } from '../../features/branch/hooks/useBranchContext';
 import NodeShowContent from '../../features/nodes/components/NodeShowContent';
+import useNodeSSE from '../../features/nodes/hooks/sse/useNodeSSE';
 import { pushRecentNode } from '../../features/nodes/nodes.actions';
 import { NodecosmosDispatch } from '../../store';
 import React, { useEffect, useRef } from 'react';
@@ -12,6 +13,8 @@ export default function NodeShow() {
     } = ctxValue;
     const dispatch: NodecosmosDispatch = useDispatch();
     const timeout = useRef<number | null>(null);
+
+    useNodeSSE(ctxValue?.originalId);
 
     useEffect(() => {
         if (!isBranch) {

@@ -13,7 +13,6 @@ import {
 import { SELECTED_OBJ_Q, useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { selectDescription } from '../../descriptions/descriptions.selectors';
-import useNodeSSE from '../hooks/sse/useNodeSSE';
 import { selectNodeFromParams } from '../nodes.actions';
 import { maybeSelectNode } from '../nodes.selectors';
 import { showBranchNode, showNode } from '../nodes.thunks';
@@ -55,8 +54,6 @@ export default function NodeShowContent() {
         description: metaDescription,
         image: metaImageURL,
     });
-
-    useNodeSSE(originalNode?.rootId);
 
     useEffect(() => {
         if (!id) {

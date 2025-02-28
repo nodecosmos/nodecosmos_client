@@ -24,7 +24,7 @@ import ResetPassword from '../../../pages/users/ResetPassword';
 import UserShow from '../../../pages/users/Show';
 import { NodecosmosDispatch } from '../../../store';
 import getTheme, { themes } from '../../../themes/theme';
-import LoginForm, { REDIRECT_Q } from '../../users/components/LoginForm';
+import LoginForm from '../../users/components/LoginForm';
 import Bio from '../../users/components/profile/Bio';
 import RootNodes from '../../users/components/profile/RootNodes';
 import SignupForm from '../../users/components/SignupForm';
@@ -40,7 +40,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Navigate, Route, Routes, useSearchParams,
+    Navigate, Route, Routes,
 } from 'react-router-dom';
 
 export default function App() {
@@ -66,7 +66,7 @@ export default function App() {
                     .then(registration => {
                         console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     }, err => {
-                        console.log('ServiceWorker registration failed: ', err);
+                        console.error('ServiceWorker registration failed: ', err);
                     });
             }
         }
@@ -84,18 +84,6 @@ export default function App() {
 
     useConfirmEmailAlert();
 
-    const [searchParams] = useSearchParams();
-    const [navigateTo, setNavigateTo] = React.useState<string>('/');
-    const redirect = searchParams.get(REDIRECT_Q);
-
-    useEffect(() => {
-        if (redirect) {
-            const url = new URL(atob(redirect));
-            setNavigateTo(url.pathname + url.search);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -105,7 +93,7 @@ export default function App() {
                     <Route
                         path="/auth"
                         element={isAuthenticated
-                            ? <Navigate to={navigateTo} /> : <UserAuthentication />}
+                            ? <Navigate to="/" /> : <UserAuthentication />}
                     >
                         <Route path="login" element={<LoginForm />} />
                         <Route path="signup" element={<SignupForm />} />
