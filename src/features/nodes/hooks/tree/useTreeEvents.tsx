@@ -1,7 +1,8 @@
 import useTreeContext from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
-import { SELECTED_OBJ_Q } from '../../../app/hooks/useSelectObject';
+import { SELECTED_OBJ_Q, useSelectObject } from '../../../app/hooks/useSelectObject';
+import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { setNodeScrollTo } from '../../nodes.actions';
 import { selectExpandedNodes, selectSelected } from '../../nodes.selectors';
 import {
@@ -12,11 +13,13 @@ import { useSearchParams } from 'react-router-dom';
 
 export default function useTreeEvents() {
     const {
-        selectNode, expandNode, expandNodes, collapseNode, orderedTreeNodeIds,
+        expandNode, expandNodes, collapseNode, orderedTreeNodeIds,
     } = useTreeContext();
     const selected = useSelector(selectSelected);
     const selId = selected?.id;
     const expandedNodes = useSelector(selectExpandedNodes);
+    const selectObject = useSelectObject();
+    const { branchId, originalId } = useBranchContext();
 
     const handleArrowKey = useCallback((event: KeyboardEvent) => {
         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
@@ -32,7 +35,13 @@ export default function useTreeEvents() {
                 }
 
                 if (moveToId) {
-                    selectNode(moveToId);
+                    selectObject({
+                        originalId,
+                        branchId,
+                        objectNodeId: moveToId,
+                        objectId: moveToId,
+                        objectType: ObjectType.Node,
+                    });
                 }
             }
         }
@@ -45,14 +54,20 @@ export default function useTreeEvents() {
 
             if (selId) {
                 if (!expandedNodes.has(selId)) {
-                    selectNode(selId);
+                    selectObject({
+                        originalId,
+                        branchId,
+                        objectNodeId: selId,
+                        objectId: selId,
+                        objectType: ObjectType.Node,
+                    });
                     expandNode(selId);
                 } else {
                     collapseNode(selId);
                 }
             }
         }
-    }, [selId, orderedTreeNodeIds, selectNode, expandedNodes, expandNode, collapseNode]);
+    }, [selId, orderedTreeNodeIds, selectObject, originalId, branchId, expandedNodes, expandNode, collapseNode]);
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
         if (document.getElementById('editor-container')) {
