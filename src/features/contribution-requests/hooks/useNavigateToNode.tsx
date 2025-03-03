@@ -2,9 +2,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
 import { useSelectObject } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
-import {
-    select, selectNodeFromParams, setNodeScrollTo,
-} from '../../nodes/nodes.actions';
+import { selectNodeFromParams, setNodeScrollTo } from '../../nodes/nodes.actions';
 import { selectNode } from '../../nodes/nodes.selectors';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,11 +30,6 @@ export default function useNavigateToNode(id: UUID) {
             objectType: ObjectType.Node,
             metadata: { ancestorIds: node?.ancestorIds || [] },
         });
-
-        dispatch(select({
-            branchId,
-            id,
-        }));
 
         navigate(
             `/nodes/${originalId}/${nodeId}/contribution_requests/${branchId}/tree`,

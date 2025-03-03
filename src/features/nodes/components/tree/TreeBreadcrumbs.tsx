@@ -1,19 +1,16 @@
 import TreeBreadcrumbItem from './TreeBreadcrumbItem';
-import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
 import { useSelectObject } from '../../../app/hooks/useSelectObject';
-import { select } from '../../nodes.actions';
 import { selectBranchTitles, selectSelectedNode } from '../../nodes.selectors';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Breadcrumbs } from '@mui/material';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const SLOT_PROPS = { collapsedIcon: { sx: { color: 'texts.tertiary' } } };
 
 export default function TreeBreadcrumbs() {
-    const dispatch: NodecosmosDispatch = useDispatch();
     const selectedNode = useSelector(selectSelectedNode);
     const branchId = selectedNode?.branchId;
     const nodeTitlesById = useSelector(selectBranchTitles(branchId));
@@ -44,11 +41,6 @@ export default function TreeBreadcrumbs() {
     }
 
     const handleClick = useCallback((id: UUID) => {
-        dispatch(select({
-            branchId,
-            id,
-        }));
-
         selectObject({
             originalId: selectedNode?.rootId,
             objectId: id,
@@ -56,7 +48,7 @@ export default function TreeBreadcrumbs() {
             objectNodeId: id,
             objectType: ObjectType.Node,
         });
-    }, [dispatch, branchId, selectObject, selectedNode]);
+    }, [branchId, selectObject, selectedNode]);
 
     return (
         <Breadcrumbs

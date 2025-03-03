@@ -110,7 +110,7 @@ export default function NodeShowContent() {
                         dispatch(selectObject({
                             originalId,
                             objectId: id,
-                            branchId: originalId,
+                            branchId,
                             objectNodeId: id,
                             objectType: ObjectType.Node,
                         }));
@@ -122,7 +122,7 @@ export default function NodeShowContent() {
                 dispatch(selectObject({
                     originalId,
                     objectId: id,
-                    branchId: originalId,
+                    branchId,
                     objectNodeId: id,
                     objectType: ObjectType.Node,
                 }));

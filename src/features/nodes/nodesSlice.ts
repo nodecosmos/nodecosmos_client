@@ -18,12 +18,11 @@ import {
 } from './reducers/like';
 import reorderFulfilled from './reducers/reorder';
 import search from './reducers/search';
-import select from './reducers/select';
 import showFulfilled, { showNodeRejected } from './reducers/show';
 import { buildTmpNode, replaceTmpNodeWithPersisted } from './reducers/tmp';
 import updateState from './reducers/update';
-import { UUID } from '../../types';
-import { clearSelectedObject } from '../app/app.thunks';
+import { ObjectType, UUID } from '../../types';
+import { clearSelectedObject, selectObject } from '../app/app.thunks';
 import { getDescription } from '../descriptions/descriptions.thunks';
 import {
     getLikeCount, likeObject, unlikeObject,
@@ -106,7 +105,6 @@ const nodesSlice = createSlice({
         replaceTmpNodeWithPersisted,
         updateState,
         deleteFromState,
-        select,
         search,
         setSidebarOpen: (state: NodeState, action: PayloadAction<boolean>) => {
             state.sidebarOpen = action.payload;
@@ -220,6 +218,30 @@ const nodesSlice = createSlice({
 
                 if (coverImageUrl && state.byBranchId[branchId] && state.byBranchId[branchId][objectId]) {
                     state.byBranchId[branchId][objectId].coverImageUrl = coverImageUrl;
+                }
+            })
+            .addCase(selectObject.fulfilled, (state: NodeState, action) => {
+                if (action.payload.objectType === ObjectType.Node) {
+                    const current = state.selected;
+
+                    if (current) {
+                        state.byBranchId[current.branchId][current.id].isSelected = false;
+                    }
+                    const { branchId, objectId: id } = action.payload;
+                    state.byBranchId[branchId][id].isSelected = true;
+
+                    state.selected = {
+                        branchId,
+                        id,
+                    };
+                } else {
+                    const current = state.selected;
+
+                    if (current) {
+                        state.byBranchId[current.branchId][current.id].isSelected = false;
+                    }
+
+                    state.selected = null;
                 }
             })
             .addCase(clearSelectedObject.fulfilled, (state: NodeState, action) => {

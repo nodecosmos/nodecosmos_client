@@ -2,12 +2,8 @@ import {
     TreeContextValue, TreeNode, TreeNodes,
 } from './useTreeContext';
 import { NodecosmosDispatch } from '../../../../store';
-import { ObjectType, UUID } from '../../../../types';
-import { useSelectObject } from '../../../app/hooks/useSelectObject';
-import useBranchContext from '../../../branch/hooks/useBranchContext';
-import {
-    collapseNodeAction, expandNodeAction, select,
-} from '../../nodes.actions';
+import { UUID } from '../../../../types';
+import { collapseNodeAction, expandNodeAction } from '../../nodes.actions';
 import { calculatePositions } from '../../utils/position';
 import {
     ChangeEvent, useCallback, useMemo,
@@ -16,24 +12,9 @@ import { useDispatch } from 'react-redux';
 
 export default function useTreeActions(ctx: TreeContextValue) {
     const dispatch: NodecosmosDispatch = useDispatch();
-    const { branchId, originalId } = useBranchContext();
     const {
         orderedTreeNodeIds, selectedNodeIds, treeNodes, onChange, setTreeNodes, size,
     } = ctx;
-    const selectObject = useSelectObject();
-    const selectNode = useCallback((id: UUID) => {
-        dispatch(select({
-            branchId,
-            id,
-        }));
-        selectObject({
-            originalId,
-            branchId,
-            objectNodeId: id,
-            objectId: id,
-            objectType: ObjectType.Node,
-        });
-    }, [branchId, dispatch, originalId, selectObject]);
 
     const expandNode = useCallback((nodeId: UUID) => {
         const node = treeNodes[nodeId];
@@ -125,7 +106,6 @@ export default function useTreeActions(ctx: TreeContextValue) {
     }, [isChecked, addId, deleteId]);
 
     return useMemo(() => ({
-        selectNode,
         expandNode,
         expandNodes,
         collapseNode,
@@ -133,7 +113,7 @@ export default function useTreeActions(ctx: TreeContextValue) {
         deleteId,
         isChecked,
         handleCheckboxChange,
-    }), [addId, collapseNode, deleteId, expandNode, expandNodes, handleCheckboxChange, isChecked, selectNode]);
+    }), [addId, collapseNode, deleteId, expandNode, expandNodes, handleCheckboxChange, isChecked]);
 }
 
 function mountDescendants(treeNodes: TreeNodes, node: TreeNode) {

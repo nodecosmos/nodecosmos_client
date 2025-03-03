@@ -6,7 +6,6 @@ import { ObjectType } from '../../../../../types';
 import { setAlert } from '../../../../app/appSlice';
 import { useSelectObject } from '../../../../app/hooks/useSelectObject';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
-import { select } from '../../../../nodes/nodes.actions';
 import useFlowStepNodeContext from '../../../hooks/diagram/flow-step-node/useFlowStepNodeContext';
 import useFlowStepNodeColors from '../../../hooks/diagram/useFlowStepNodeColors';
 import useWorkflowContext from '../../../hooks/useWorkflowContext';
@@ -67,13 +66,6 @@ export default function FlowStepNodeButton() {
                 inputIds,
             },
         });
-
-        if (id && !insidePane) {
-            dispatch(select({
-                branchId,
-                id,
-            }));
-        }
     },
     [
         branchId,

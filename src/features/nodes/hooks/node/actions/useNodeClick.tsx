@@ -1,8 +1,8 @@
 import { NodecosmosDispatch } from '../../../../../store';
 import { ObjectType } from '../../../../../types';
+import { clearSelectedObject } from '../../../../app/app.thunks';
 import { useSelectObject } from '../../../../app/hooks/useSelectObject';
 import useBranchContext from '../../../../branch/hooks/useBranchContext';
-import { select } from '../../../nodes.actions';
 import { TreeType } from '../../../nodes.types';
 import useTreeContext from '../../tree/useTreeContext';
 import useNodeContext from '../useNodeContext';
@@ -52,13 +52,9 @@ export default function useNodeClick() {
 
         if (isExpanded && isSelected) {
             collapseNode(id);
-            dispatch(select(null));
+            dispatch(clearSelectedObject());
         } else {
             expandNode(id);
-            dispatch(select({
-                branchId,
-                id,
-            }));
 
             selectObject({
                 originalId,

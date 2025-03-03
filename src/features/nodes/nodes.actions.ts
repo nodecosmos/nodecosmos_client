@@ -6,7 +6,6 @@ export const {
     replaceTmpNodeWithPersisted,
     updateState,
     deleteFromState,
-    select,
     search,
     setDragAndDrop,
     setSaveInProgress,
