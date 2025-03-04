@@ -268,3 +268,19 @@ button {
     }
 }
 
+
+.gradient-text-node {
+    background: linear-gradient(90deg,  #3498db, #00cdff 75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.gradient-text-cosmos {
+    background: linear-gradient(90deg, #ff3f79, #ff5050);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}

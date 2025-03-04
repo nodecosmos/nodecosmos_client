@@ -97,11 +97,12 @@ export default function Authentication() {
                         alignItems="center"
                         justifyContent="center">
                         <Typography
+                            lineHeight={1}
                             fontSize="50px"
                             fontWeight="bold"
                         >
-                            <Box component="span" color="logo.blue">node</Box>
-                            <Box component="span" color="logo.red">cosmos</Box>
+                            <Box component="span" className="gradient-text-node">node</Box>
+                            <Box component="span" className="gradient-text-cosmos">cosmos</Box>
                         </Typography>
                     </Box>
                     <Box mt={0}>

@@ -234,7 +234,7 @@ const theme: NodecosmosTheme = {
         },
         logo: {
             blue: '#3adfff',
-            red: '#ff626f',
+            red: '#ff5463',
             default: '#b3b8bb',
         },
         texts: {
