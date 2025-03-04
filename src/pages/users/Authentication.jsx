@@ -137,8 +137,8 @@ export default function Authentication() {
                                 <Typography
                                     color="texts.primary"
                                     variant="body2"
-                                    className="min-vis-width-viewport-360 fs-16 ml-1">
-                                    Continue with Google
+                                    className="fs-16 ml-1">
+                                    Sign in with Google
                                 </Typography>
                             </Button>
                         </div>
