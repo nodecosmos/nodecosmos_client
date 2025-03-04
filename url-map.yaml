@@ -1,28 +1,69 @@
+name: nodecosmos-com
+
+# Top-level fallback: required even if your routeRules handle all paths/hosts
 defaultService: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
+
 hostRules:
   - hosts:
       - nodecosmos.com
     pathMatcher: web-routes
+
 pathMatchers:
   - name: web-routes
-    defaultRouteAction:
-      urlRewrite:
-        pathPrefixRewrite: /index.html
+
+    # Must provide a defaultService for each pathMatcher
     defaultService: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
-    pathRules:
-      - paths:
-          - /
+
+    #
+    # routeRules uses advanced matching + rewriting
+    #
+    routeRules:
+      #
+      # (1) EXACT ROOT --> /home.html
+      #
+      - priority: 10
+        matchRules:
+          # Use pathTemplateMatch for rewriting.
+          # A literal "/" can serve as the match for root.
+          - pathTemplateMatch: "/"
         routeAction:
           urlRewrite:
-            pathPrefixRewrite: /home.html
+            pathTemplateRewrite: "/home.html"
         service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
-      - paths:
-          - /robots.txt
-          - /privacy.html
-          - /manifest.json
-          - /favicon.ico
-          - /sitemap.xml
+
+      #
+      # (2) Specific top-level files --> served as-is (NO rewrite)
+      #
+      - priority: 20
+        # Since we're NOT rewriting here, we can still use regular fullPathMatch:
+        matchRules:
+          - fullPathMatch: "/robots.txt"
+          - fullPathMatch: "/privacy.html"
+          - fullPathMatch: "/manifest.json"
+          - fullPathMatch: "/favicon.ico"
+          - fullPathMatch: "/sitemap.xml"
+          - fullPathMatch: "/serviceWorker.js"
+          - fullPathMatch: "/main.js"
         service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
-      - paths:
-          - /static/*
+
+      #
+      # (3) Folders /assets/*, /static/* --> served as-is (NO rewrite)
+      #
+      - priority: 30
+        # Also not rewriting, so normal prefixMatch is fine:
+        matchRules:
+          - prefixMatch: "/assets/"
+          - prefixMatch: "/static/"
+        service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
+
+      #
+      # (4) CATCH-ALL for everything else --> rewrite to /index.html
+      #
+      - priority: 40
+        matchRules:
+          # Using pathTemplateMatch with a wildcard to capture any route
+          - pathTemplateMatch: "/**"
+        routeAction:
+          urlRewrite:
+            pathTemplateRewrite: "/index.html"
         service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com

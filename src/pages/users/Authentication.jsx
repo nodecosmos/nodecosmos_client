@@ -85,12 +85,7 @@ export default function Authentication() {
     return (
         <div className="overflow-auto h-100">
             <Container maxWidth="xs" sx={SX}>
-                <Box
-                    width={1}
-                    height={{
-                        xs: 1,
-                        lg: 'auto',
-                    }}>
+                <Box width={1}>
                     <Box
                         component={Link}
                         to="/"
