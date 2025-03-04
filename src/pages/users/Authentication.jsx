@@ -5,7 +5,7 @@ import {
     Tabs,
     Box,
     Container,
-    Typography,
+    Typography, Button,
 } from '@mui/material';
 import React, {
     useEffect,
@@ -59,7 +59,7 @@ const SX = {
 export default function Authentication() {
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(0);
-    const { redirect } = useUserAuthentication();
+    const { redirect, continueWithGoogle } = useUserAuthentication();
 
     useEffect(() => {
         if (location.pathname === '/auth/login') {
@@ -104,10 +104,10 @@ export default function Authentication() {
                             <Box component="span" color="logo.red">cosmos</Box>
                         </Typography>
                     </Box>
-                    <Box mt={0} mb={-4}>
+                    <Box mt={0}>
                         <Alert position="static" />
                     </Box>
-                    <Box mt={4}>
+                    <Box>
                         <Tabs
                             value={currentPage}
                             onChange={handleTabChange}
@@ -124,6 +124,24 @@ export default function Authentication() {
                                 LinkComponent={Link}
                                 to={`/auth/signup?redirect=${redirect}`} />
                         </Tabs>
+                    </Box>
+                    <Box className="mt-3 display-flex justify-center">
+                        <div>
+                            <Button
+                                color=""
+                                className="p-3 border-radius-2 display-flex justify-center align-center toolbar-default"
+                                variant="outlined"
+                                onClick={continueWithGoogle}
+                            >
+                                <img src="/google-icon.svg" alt="logo" height={20} width={20} />
+                                <Typography
+                                    color="texts.primary"
+                                    variant="body2"
+                                    className="min-vis-width-viewport-360 fs-16 ml-1">
+                                    Continue with Google
+                                </Typography>
+                            </Button>
+                        </div>
                     </Box>
                     <Box textAlign="center" mt={3}>
                         <Outlet />

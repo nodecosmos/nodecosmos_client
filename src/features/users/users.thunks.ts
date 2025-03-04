@@ -9,6 +9,7 @@ import {
 import { SYNC_UP_INTERVAL } from '../app/constants';
 import { LikePrimaryKey } from '../likes/likes.types';
 import { Node, NodeByOwner } from '../nodes/nodes.types';
+import { CodeResponse } from '@react-oauth/google';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
 
@@ -18,8 +19,13 @@ export interface LoginForm {
     rToken?: string;
 }
 
+interface UserLoginResponse {
+    user: CurrentUser;
+    likes: LikePrimaryKey[];
+}
+
 export const logIn = createAsyncThunk<
-    { user: CurrentUser, likes: LikePrimaryKey[] },
+    UserLoginResponse,
     LoginForm,
     { rejectValue: NodecosmosError }
 >(
@@ -27,6 +33,50 @@ export const logIn = createAsyncThunk<
     async (loginForm, { rejectWithValue }) => {
         try {
             const response = await nodecosmos.post('/users/session/login', loginForm);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+        }
+    },
+);
+
+export type GoogleLoginResponse = UserLoginResponse & { isExistingUser: boolean };
+
+export const googleLogin = createAsyncThunk<
+    GoogleLoginResponse,
+    Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>,
+    { rejectValue: NodecosmosError }
+>(
+    'users/googleLogin',
+    async (credentialResponse, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.post('/users/google_auth', credentialResponse);
+            return response.data;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data);
+            }
+
+            console.error(error);
+
+            return rejectWithValue({
+                status: 500,
+                message: 'An error occurred during google login.',
+                viewMessage: true,
+            });
+        }
+    },
+);
+
+export const updateUsername = createAsyncThunk<UpdateUserBase, UpdateUserBase, { rejectValue: NodecosmosError }>(
+    'users/updateUsername',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const response = await nodecosmos.put('/users/update_username', payload);
             return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

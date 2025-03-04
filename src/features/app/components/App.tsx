@@ -28,6 +28,7 @@ import LoginForm from '../../users/components/LoginForm';
 import Bio from '../../users/components/profile/Bio';
 import RootNodes from '../../users/components/profile/RootNodes';
 import SignupForm from '../../users/components/SignupForm';
+import UpdateUsername from '../../users/components/UpdateUsername';
 import { selectIsAuthenticated } from '../../users/users.selectors';
 import { syncUpCurrentUser } from '../../users/users.thunks';
 import { selectTheme } from '../app.selectors';
@@ -98,6 +99,7 @@ export default function App() {
                         <Route path="login" element={<LoginForm />} />
                         <Route path="signup" element={<SignupForm />} />
                     </Route>
+                    <Route path="/auth/update_username" element={<UpdateUsername />} />
                 </Routes>
                 <Box height={`calc(100% - ${HEADER_HEIGHT})`}>
                     <Routes>

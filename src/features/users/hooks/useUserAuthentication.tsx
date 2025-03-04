@@ -1,14 +1,17 @@
 import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
+import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
 import { REDIRECT_Q } from '../components/LoginForm';
+import { selectCurrentUser } from '../users.selectors';
 import {
-    create, logIn, LoginForm, logOut,
+    create, googleLogin, GoogleLoginResponse, logIn, LoginForm, logOut, updateUsername,
 } from '../users.thunks';
 import { UserCreateForm } from '../users.types';
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
+import { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 async function validateCaptcha(): Promise<string> {
@@ -32,6 +35,7 @@ export default function useUserAuthentication() {
     const redirect = searchParams.get(REDIRECT_Q);
     const token = searchParams.get('token');
     const [loading, setLoading, unsetLoading] = useBooleanStateValue(false);
+    const currentUser = useSelector(selectCurrentUser);
 
     const handleLogin = useCallback(async (formValues: LoginForm) => {
         setLoading();
@@ -167,11 +171,149 @@ export default function useUserAuthentication() {
         }
     }, [dispatch, navigate, redirect, setLoading, token, unsetLoading]);
 
-    return {
+    const handleServerError = useHandleServerErrorAlert();
+
+    const handleGoogleLogin = useCallback(async (
+        tokenResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>,
+    ) => {
+        try {
+            setLoading();
+
+            const response = await dispatch(googleLogin(tokenResponse));
+
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+
+                unsetLoading();
+
+                handleServerError(error);
+
+                return;
+            } else if (response.meta.requestStatus === 'fulfilled') {
+                const payload = response.payload as GoogleLoginResponse;
+
+                if (payload.isExistingUser) {
+                    if (redirect) {
+                        const url = new URL(atob(redirect));
+                        const path = url.pathname + url.search;
+                        navigate(path);
+                    } else {
+                        navigate('/');
+                    }
+
+                    setTimeout(() => dispatch(setAlert({
+                        isOpen: true,
+                        severity: 'success',
+                        message: 'Logged in successfully',
+                        duration: 5000,
+                    })), 250);
+                } else {
+                    // new user
+                    let redirectPath = '/auth/update_username';
+
+                    if (redirect) {
+                        redirectPath = `/auth/update_username?${REDIRECT_Q}=${redirect}`;
+                    }
+
+                    navigate(redirectPath);
+                }
+            }
+        } catch (error) {
+            console.error('Failed to get user info', error);
+
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'error',
+                message: 'Failed to login with Google. Please try again later.',
+                duration: 5000,
+            }));
+        }
+    }, [dispatch, handleServerError, navigate, redirect, setLoading, unsetLoading]);
+
+    const handleUpdateUsername = useCallback(async (formValues: { username: string }) => {
+        try {
+            setLoading();
+
+            if (!currentUser) {
+                dispatch(setAlert({
+                    isOpen: true,
+                    severity: 'error',
+                    message: 'Current user not set!',
+                    duration: 5000,
+                }));
+
+                console.error('Current user not set!');
+
+                return;
+            }
+
+            const payload = {
+                id: currentUser.id,
+                username: formValues.username,
+            };
+
+            const response = await dispatch(updateUsername(payload));
+
+            if (response.meta.requestStatus === 'rejected') {
+                const error: NodecosmosError = response.payload as NodecosmosError;
+
+                unsetLoading();
+
+                handleServerError(error);
+
+                return error.message; // maps error object to final-form submitError
+            } else if (response.meta.requestStatus === 'fulfilled') {
+                if (redirect) {
+                    const url = new URL(atob(redirect));
+                    const path = url.pathname + url.search;
+                    navigate(path);
+                } else {
+                    navigate('/');
+                }
+
+                setTimeout(() => dispatch(setAlert({
+                    isOpen: true,
+                    severity: 'success',
+                    message: 'Account created successfully',
+                })), 250);
+            }
+        } catch (error) {
+            console.error('Failed to get user info', error);
+
+            dispatch(setAlert({
+                isOpen: true,
+                severity: 'error',
+                message: 'Failed to login with Google. Please try again later.',
+                duration: 5000,
+            }));
+        }
+    }, [currentUser, dispatch, handleServerError, navigate, redirect, setLoading, unsetLoading]);
+
+    const handleGoogleLoginError = useCallback((
+        errorResponse: Pick<CodeResponse, 'error' | 'error_description' | 'error_uri'>,
+    ) => {
+        dispatch(setAlert({
+            isOpen: true,
+            severity: 'error',
+            message: errorResponse.error,
+            duration: 5000,
+        }));
+    }, [dispatch]);
+
+    const continueWithGoogle = useGoogleLogin({
+        flow: 'auth-code',
+        onSuccess: handleGoogleLogin,
+        onError: handleGoogleLoginError,
+    });
+
+    return useMemo(() => ({
         loading,
         redirect,
         handleLogin,
         handleLogout,
         handleUserCreation,
-    };
+        handleUpdateUsername,
+        continueWithGoogle,
+    }),
+    [handleLogin, continueWithGoogle, handleLogout, handleUpdateUsername, handleUserCreation, loading, redirect]);
 }

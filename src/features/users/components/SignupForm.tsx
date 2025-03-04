@@ -42,7 +42,7 @@ export default function SignupForm() {
                                 validate={[validateNotEmailFormat, validateURLSafe]}
                                 label="Username"
                                 required
-                                maxLength={20}
+                                maxLength={36}
                                 minLength={3} />
                         </Grid>
                         <Grid item xs={12}>

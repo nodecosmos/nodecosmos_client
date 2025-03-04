@@ -4,9 +4,13 @@ import { NodecosmosTheme } from '../themes.types';
 export default (theme: NodecosmosTheme) => ({
     '&.m-0': { margin: 0 },
     '&.m-1': { margin: 8 },
+    '&.m-2': { margin: 16 },
 
     '&.mt-1': { marginTop: 8 },
     '&.mt-2': { marginTop: 16 },
+    '&.mt-3': { marginTop: 24 },
+    '&.mt-4': { marginTop: 32 },
+
     '&.mb-1': { marginBottom: 8 },
     '&.mb-2': { marginBottom: 16 },
 
@@ -55,6 +59,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.p-0': { padding: 0 },
     '&.p-1': { padding: 8 },
     '&.p-2': { padding: 16 },
+    '&.p-3': { padding: 24 },
     '&.p-1-2': { padding: '8px 16px' },
 
     '&.h-35': { height: 35 },
@@ -66,6 +71,7 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.w-35': { width: 35 },
     '&.w-100': { width: '100%' },
+    '&.w-600': { width: 600 },
     '&.w-850': { width: 850 },
     '&.max-w-850': { maxWidth: 850 },
     '&.max-w-900': { maxWidth: 900 },
@@ -76,6 +82,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.border-top-1': { borderTop: `1px solid ${theme.palette.borders[1]}` },
     '&.border-bottom-1': { borderBottom: `1px solid ${theme.palette.borders[1]}` },
     '&.border-radius-1': { borderRadius: 4 },
+    '&.border-radius-2': { borderRadius: 8 },
 
     '&.fs-16': {
         fontSize: 16,

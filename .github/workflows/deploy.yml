@@ -4,12 +4,13 @@ on:
     branches:
       - main
 env:
-  GCP_PROJECT: nodecosmos-cloud
   VITE_API_BASE_URL: https://api.nodecosmos.com
   VITE_REACT_APP_URL: https://nodecosmos.com
   VITE_RECAPTCHA_ENABLED: true
   VITE_RECAPTCHA_SITE_KEY: 6Ld30jMjAAAAAIsW1c9xvFRaaOXOLjLywqPWDHSA
   VITE_STRIPE_ENABLED: true
+  VITE_GOOGLE_CLIENT_ID: 534114130521-uc54drf8v4vh5lln8421rjna1ojee4kc.apps.googleusercontent.com
+  GCP_PROJECT: nodecosmos-cloud
   BUCKET_NAME: nodecosmos.com
 jobs:
   deploy:

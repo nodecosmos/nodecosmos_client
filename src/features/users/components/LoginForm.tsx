@@ -65,7 +65,6 @@ export default function Login() {
                             <Grid item xs={12}>
                                 <Button
                                     color="warning"
-                                    sx={{ mt: 1 }}
                                     variant="outlined"
                                     onClick={openResetPassMod}
                                     type="button">

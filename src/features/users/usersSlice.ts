@@ -1,6 +1,6 @@
 import {
     showUserByUsername,
-    logIn, logOut, syncUpCurrentUser, updateBio, confirmEmail, create,
+    logIn, logOut, syncUpCurrentUser, updateBio, confirmEmail, create, googleLogin, updateUsername,
 } from './users.thunks';
 import {
     CurrentUser, UpdateUserStatePayload, UserState,
@@ -74,6 +74,29 @@ const usersSlice = createSlice({
 
                     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
                 }
+            })
+            .addCase(updateUsername.fulfilled, (state, action) => {
+                const { username } = action.payload;
+                const user = state.currentUser;
+
+                if (user) {
+                    user.username = username;
+                    state.currentUser = user;
+
+                    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
+                } else {
+                    throw new Error('User not found');
+                }
+            })
+            .addCase(googleLogin.fulfilled, (state, action) => {
+                const user = action.payload.user;
+
+                user.lastSyncUpAt = new Date();
+
+                state.isAuthenticated = true;
+                state.currentUser = user;
+
+                localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(state.currentUser));
             })
             .addCase(syncUpCurrentUser.fulfilled, (state, action) => {
                 const user = action.payload.user;

@@ -40,6 +40,11 @@ export default function Header() {
     if (NON_HEADER_PATHS.includes(location.pathname)) return null;
 
     const isIndex = location.pathname === '/nodes';
+    const isUsernameUpdate = location.pathname === '/auth/update_username';
+
+    if (isUsernameUpdate) {
+        return null;
+    }
 
     return (
         <Box height={HEADER_HEIGHT} width={1} position="relative" zIndex={4}>
