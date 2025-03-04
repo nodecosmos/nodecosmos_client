@@ -54,6 +54,7 @@ const SX = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: { xs: 520 },
 };
 
 export default function Authentication() {
@@ -83,7 +84,7 @@ export default function Authentication() {
 
     return (
         <div className="overflow-auto h-100">
-            <Container maxWidth="sm" sx={SX}>
+            <Container maxWidth="xs" sx={SX}>
                 <Box
                     width={1}
                     height={{
@@ -98,7 +99,7 @@ export default function Authentication() {
                         justifyContent="center">
                         <Typography
                             lineHeight={1}
-                            fontSize="50px"
+                            fontSize="42px"
                             fontWeight="bold"
                         >
                             <Box component="span" className="gradient-text-node">node</Box>
