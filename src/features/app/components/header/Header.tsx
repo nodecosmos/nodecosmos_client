@@ -73,7 +73,7 @@ export default function Header() {
                         relative={isIndex ? 'route' : 'path'}
                         className="LogoButton"
                     >
-                        <img src="/logo-1.svg" alt="logo" height={30} width={30} />
+                        <img src="/static/logo-1.svg" alt="logo" height={30} width={30} />
                         <Typography
                             color="logo.default"
                             variant="body2"

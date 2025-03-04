@@ -1,0 +1,28 @@
+defaultService: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
+hostRules:
+  - hosts:
+      - nodecosmos.com
+    pathMatcher: web-routes
+pathMatchers:
+  - name: web-routes
+    defaultRouteAction:
+      urlRewrite:
+        pathPrefixRewrite: /index.html
+    defaultService: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
+    pathRules:
+      - paths:
+          - /
+        routeAction:
+          urlRewrite:
+            pathPrefixRewrite: /home.html
+        service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
+      - paths:
+          - /robots.txt
+          - /privacy.html
+          - /manifest.json
+          - /favicon.ico
+          - /sitemap.xml
+        service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com
+      - paths:
+          - /static/*
+        service: https://www.googleapis.com/compute/v1/projects/nodecosmos-cloud/global/backendBuckets/nodecosmos-com

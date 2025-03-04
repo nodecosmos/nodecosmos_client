@@ -39,7 +39,7 @@ export default function useNodeDrag() {
         event.stopPropagation();
 
         const img = document.createElement('img');
-        img.src = '/drag-image.svg';
+        img.src = '/static/drag-image.svg';
         event.dataTransfer?.setDragImage(img, 5, -10);
 
         setTimeout(() => {

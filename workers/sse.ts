@@ -78,7 +78,7 @@ function initializeSSE(url: string, userId: UUID = '') {
             if (Notification.permission === 'granted' && data.author.id !== userId) {
                 sw.registration.showNotification(
                     `${data.author.name} added a comment`, {
-                        icon: 'https://nodecosmos.com/logo-square.png',
+                        icon: 'https://nodecosmos.com/static/logo-square.png',
                         data: { url: data.url },
                     },
                 ).catch((error) => {

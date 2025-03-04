@@ -135,7 +135,7 @@ export default function Authentication() {
                                 variant="outlined"
                                 onClick={continueWithGoogle}
                             >
-                                <img src="/google-icon.svg" alt="logo" height={20} width={20} />
+                                <img src="/static/google-icon.svg" alt="logo" height={20} width={20} />
                                 <Typography
                                     color="texts.primary"
                                     variant="body2"
