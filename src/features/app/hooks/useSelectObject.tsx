@@ -24,7 +24,11 @@ export function useSelectObject() {
             setSearchParams(newParams);
         }
 
-        // use requestAnimationFrame to prevent react from batching the state updates
+        // Use requestAnimationFrame to prevent react from batching the state updates for edge case described bellow.
+        // When we switch between nodes while editor pane is open, there is a glitch in case description of
+        // newly selected node is present in the state. This new description is shown for a moment before
+        // the new request for latest state is made. This causes issues if multiple tabs with different nodes are open
+        // as yDoc will sync the state with the selected node in the other tabs.
         requestAnimationFrame(() =>{
             dispatch(setIsPaneLoading(true));
         });
