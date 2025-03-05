@@ -19,7 +19,7 @@ export default function PaneDescription() {
         isPaneLoading,
         loading,
     } = usePaneContext();
-    useDescription();
+    const [fetched] = useDescription();
     const description = useSelector(maybeSelectDescription(branchId, objectId));
     const innerHTML = useMemo(() => (
         { __html: ((description && description.html) || null) as TrustedHTML }
@@ -81,7 +81,7 @@ export default function PaneDescription() {
         }, 10);
     }, [description, loading, theme]);
 
-    if (loading || isPaneLoading) {
+    if (loading || isPaneLoading || !fetched) {
         return <Loader />;
     }
 

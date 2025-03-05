@@ -4,7 +4,7 @@ import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { maybeSelectDescription } from '../descriptions.selectors';
 import { getDescription } from '../descriptions.thunks';
 import {
-    useCallback, useEffect, useRef,
+    useCallback, useEffect, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,17 +23,14 @@ export default function useDescription() {
     } = usePaneContext();
     const dispatch: NodecosmosDispatch = useDispatch();
     const description = useSelector(maybeSelectDescription(branchId, objectId));
-
-    const fetchedById = useRef<FetchedByBranchId>({});
-
-    if (fetchedById.current[branchId] && !fetchedById.current[branchId].has(objectId)) {
-        setLoading();
-    }
-
+    const [fetchedById, setFetchedById] = useState<FetchedByBranchId>({});
+    const fetched = fetchedById[branchId] && fetchedById[branchId].has(objectId);
     const fetchDescription = useCallback(async () => {
-        if (!description && !loading && !fetchedById.current[branchId]?.has(objectId)) {
+        if (!description && !loading && !fetched) {
             try {
-                dispatch(getDescription({
+                setLoading();
+
+                await dispatch(getDescription({
                     rootId,
                     nodeId: objectNodeId,
                     objectId,
@@ -43,18 +40,24 @@ export default function useDescription() {
 
                 unsetLoading();
             } finally {
-                fetchedById.current[branchId] ||= new Set();
-                fetchedById.current[branchId].add(objectId);
+                setFetchedById(
+                    (prev) => ({
+                        ...prev,
+                        [branchId]: new Set([...(prev[branchId] || []), objectId]),
+                    }),
+                );
             }
         }
     },
     [
+        fetched,
         rootId,
         branchId,
         objectNodeId,
         objectId,
         objectType,
         loading,
+        setLoading,
         unsetLoading,
         dispatch,
         description,
@@ -65,4 +68,6 @@ export default function useDescription() {
             console.error(error);
         });
     }, [fetchDescription, loading]);
+
+    return [fetched];
 }
