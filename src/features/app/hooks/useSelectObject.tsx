@@ -24,7 +24,10 @@ export function useSelectObject() {
             setSearchParams(newParams);
         }
 
-        dispatch(setIsPaneLoading(true));
+        // use requestAnimationFrame to prevent react from batching the state updates
+        requestAnimationFrame(() =>{
+            dispatch(setIsPaneLoading(true));
+        });
 
         requestAnimationFrame(() => {
             dispatch(selectObject(obj));
