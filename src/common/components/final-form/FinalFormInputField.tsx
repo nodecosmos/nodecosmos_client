@@ -5,24 +5,34 @@ import React from 'react';
 import { Field } from 'react-final-form';
 /* mui */
 
-function composeValidators<Val> (validators: FieldValidator<Val>[]): FieldValidator<Val> {
+function composeValidators<Val>(validators: FieldValidator<Val>[]): FieldValidator<Val> {
     return (value: Val, allValues: object) => validators.reduce(
         (error, validator) => error || validator(value, allValues), undefined,
     );
 }
 
-function requiredValidator<Val> (value: Val) {
+function requiredValidator<Val>(value: Val) {
     return value ? undefined : 'is required';
 }
 
-function maxLengthValidator (maxLength: number) {
+function maxLengthValidator(maxLength: number) {
     return (value: string) => (value && (value.length > maxLength))
         ? `${value.length}/${maxLength} length limit` : undefined;
 }
 
-function minLengthValidator (minLength: number) {
+function minLengthValidator(minLength: number) {
     return (value: string) => (value && (value.length < minLength))
         ? `${value.length}/${minLength} minimum length` : undefined;
+}
+
+function noUpperCaseValidator() {
+    return (value: string) => (value && (value !== value.toLowerCase()))
+        ? 'Capital letters are not allowed' : undefined;
+}
+
+function noSpacesValidator() {
+    return (value: string) => (value && value.indexOf(' ') !== -1)
+        ? 'Spaces are not allowed' : undefined;
 }
 
 interface FinalFormInputFieldProps<Val> {
@@ -38,6 +48,8 @@ interface FinalFormInputFieldProps<Val> {
     required?: boolean;
     maxLength?: number;
     minLength?: number;
+    noSpaces?: boolean;
+    noUpperCase?: boolean;
     InputProps?: object;
     placeholder?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -59,6 +71,8 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
         required = false,
         maxLength = null,
         minLength = null,
+        noSpaces = false,
+        noUpperCase = false,
         placeholder,
         onChange,
     } = props;
@@ -68,6 +82,8 @@ export default function FinalFormInputField<Val>(props: FinalFormInputFieldProps
     if (required) validators.push(requiredValidator);
     if (maxLength) validators.push(maxLengthValidator(maxLength));
     if (minLength) validators.push(minLengthValidator(minLength));
+    if (noSpaces) validators.push(noSpacesValidator());
+    if (noUpperCase) validators.push(noUpperCaseValidator());
     if (validate) [validate].flat().forEach((validator) => validators.push(validator));
 
     const validateFun = (validators.length && composeValidators(validators)) || undefined;

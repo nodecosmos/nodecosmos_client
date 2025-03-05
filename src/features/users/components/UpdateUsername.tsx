@@ -52,7 +52,10 @@ export default function UpdateUsername() {
                                 label="Username"
                                 required
                                 maxLength={20}
-                                minLength={3} />
+                                minLength={3}
+                                noSpaces
+                                noUpperCase
+                            />
                             <div className="display-flex justify-center">
                                 <Button
                                     className="mt-2"

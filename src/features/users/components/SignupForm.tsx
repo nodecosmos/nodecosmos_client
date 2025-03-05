@@ -43,7 +43,10 @@ export default function SignupForm() {
                                 label="Username"
                                 required
                                 maxLength={36}
-                                minLength={3} />
+                                minLength={3}
+                                noSpaces
+                                noUpperCase
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <Field
