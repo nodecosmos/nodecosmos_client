@@ -5,7 +5,7 @@ import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
 import { selectBranch } from '../../branch/branches.selectors';
 import { BranchStatus } from '../../branch/branches.types';
 import useBranchContext from '../../branch/hooks/useBranchContext';
-import { selectDescription } from '../descriptions.selectors';
+import { maybeSelectDescription } from '../descriptions.selectors';
 import { getDescription, getOriginalDescription } from '../descriptions.thunks';
 import {
     useCallback, useEffect, useMemo,
@@ -27,8 +27,8 @@ export default function useDescriptionMarkdown() {
         unsetLoading,
     } = usePaneContext();
     const branch = useSelector(selectBranch(branchId));
-    const { markdown } = useSelector(selectDescription(branchId, objectId)) || {};
-    const originalDescription = useSelector(selectDescription(originalId, objectId));
+    const { markdown } = useSelector(maybeSelectDescription(branchId, objectId)) || {};
+    const originalDescription = useSelector(maybeSelectDescription(originalId, objectId));
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
 
     const isMerged = branch?.status === BranchStatus.Merged;
@@ -88,8 +88,8 @@ export default function useDescriptionMarkdown() {
                 mergedDescriptionChange.new,
             ];
         }
-        return [originalDescription?.markdown, markdown];
-    }, [mergedDescriptionChange, markdown, isMerged, originalDescription?.markdown]);
+        return [originalDescription, markdown];
+    }, [mergedDescriptionChange, markdown, isMerged, originalDescription]);
 
     const loadMarkdown = useCallback(() => {
         if (isBranch && !isMerged && isDescriptionEdited) {

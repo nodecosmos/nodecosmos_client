@@ -61,5 +61,6 @@ export interface AppState {
     alert: Alert;
     descriptionCoordinates: DescriptionCoordinates;
     isPaneOpen: boolean;
+    isPaneLoading: boolean;
     selectedObject: SelectedObject | null;
 }

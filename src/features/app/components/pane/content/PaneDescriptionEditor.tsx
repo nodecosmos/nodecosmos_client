@@ -20,6 +20,7 @@ export default function PaneDescriptionEditor() {
     const {
         rootId,
         loading,
+        isPaneLoading,
     } = usePaneContext();
     const {
         currentHTML,
@@ -59,7 +60,7 @@ export default function PaneDescriptionEditor() {
         );
     }
 
-    if (loading) {
+    if (loading || isPaneLoading) {
         return <Loader />;
     }
 

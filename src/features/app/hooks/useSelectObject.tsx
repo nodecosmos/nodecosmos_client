@@ -2,6 +2,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { BranchDiffPayload } from '../../branch/branches.types';
 import { selectObject } from '../app.thunks';
 import { SelectedObject } from '../app.types';
+import { setIsPaneLoading } from '../appSlice';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -23,7 +24,15 @@ export function useSelectObject() {
             setSearchParams(newParams);
         }
 
-        dispatch(selectObject(obj));
+        dispatch(setIsPaneLoading(true));
+
+        requestAnimationFrame(() => {
+            dispatch(selectObject(obj));
+        });
+
+        requestAnimationFrame(() => {
+            dispatch(setIsPaneLoading(false));
+        });
     }, [dispatch, searchParams, setSearchParams]);
 }
 

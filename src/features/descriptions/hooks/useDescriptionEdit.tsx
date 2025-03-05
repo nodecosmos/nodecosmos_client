@@ -4,7 +4,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError, UUID } from '../../../types';
 import { uint8ArrayToBase64 } from '../../../utils/serializer';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
-import { selectDescription } from '../descriptions.selectors';
+import { maybeSelectDescription } from '../descriptions.selectors';
 import { getDescriptionBase64, saveDescription } from '../descriptions.thunks';
 import React, {
     useCallback, useEffect, useMemo,
@@ -30,9 +30,16 @@ export default function useDescriptionEdit() {
     const handleChangeTimeout = React.useRef<HandleChangeById| null>(null);
     const [fetched, setFetched, unsetFetched] = useBooleanStateValue();
     const handleServerError = useHandleServerErrorAlert();
-    const {
-        html: currentHTML, markdown, base64,
-    } = useSelector(selectDescription(branchId, objectId)) || {};
+    const description = useSelector(maybeSelectDescription(branchId, objectId));
+    const currentHTML = useMemo(() => (
+        (description && description.html) || null
+    ), [description]);
+    const markdown = useMemo(() => (
+        (description && description.markdown) || null
+    ), [description]);
+    const base64 = useMemo(() => (
+        (description && description.base64) || null
+    ), [description]);
 
     useEffect(() => {
         if (!fetched && !loading) {

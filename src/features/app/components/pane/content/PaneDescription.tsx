@@ -1,7 +1,6 @@
 import Loader from '../../../../../common/components/Loader';
-import usePrevious from '../../../../../common/hooks/usePrevious';
 import { ObjectType } from '../../../../../types';
-import { selectDescription } from '../../../../descriptions/descriptions.selectors';
+import { maybeSelectDescription } from '../../../../descriptions/descriptions.selectors';
 import useDescription from '../../../../descriptions/hooks/useDescription';
 import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
 import { selectTheme } from '../../../app.selectors';
@@ -17,14 +16,15 @@ export default function PaneDescription() {
         mainObjectId: objectId,
         branchId,
         objectType,
+        isPaneLoading,
         loading,
     } = usePaneContext();
     useDescription();
-    const description = useSelector(selectDescription(branchId, objectId));
-    const innerHTML = useMemo(() => ({ __html: description?.html as TrustedHTML }), [description]);
-    const isEmpty = !description?.html || description?.html === '<p></p>';
-    const prevObjId = usePrevious(objectId);
-    const reMounted = prevObjId === objectId || !!description?.html;
+    const description = useSelector(maybeSelectDescription(branchId, objectId));
+    const innerHTML = useMemo(() => (
+        { __html: ((description && description.html) || null) as TrustedHTML }
+    ), [description]);
+    const isEmpty = !description || description?.html === '<p></p>';
     const theme = useSelector(selectTheme);
 
     useEffect(() => {
@@ -81,18 +81,22 @@ export default function PaneDescription() {
         }, 10);
     }, [description, loading, theme]);
 
+    if (loading || isPaneLoading) {
+        return <Loader />;
+    }
+
     return (
         <Box px={4}>
             {objectType === ObjectType.Node && <NodePaneCoverImage />}
 
             <Box display="flex" justifyContent="center" mt={3}>
                 {
-                    !loading && !isEmpty && reMounted && (
+                    !isEmpty && (
                         <div className="DescriptionHTML size-850 fs-18" dangerouslySetInnerHTML={innerHTML} />
                     )
                 }
                 {
-                    !loading && isEmpty && reMounted && (
+                    isEmpty && (
                         <div className="w-100 size-850 fs-18 text-tertiary center p-1">
                             <Typography variant="h6" color="texts.tertiary" textAlign="center">
                                 Selected object has no description.
@@ -101,11 +105,6 @@ export default function PaneDescription() {
                                 ¯\_(ツ)_/¯
                             </Typography>
                         </div>
-                    )
-                }
-                {
-                    loading && (
-                        <Loader />
                     )
                 }
             </Box>

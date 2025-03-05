@@ -43,6 +43,7 @@ const initialState: AppState = {
         y: 0,
     },
     isPaneOpen: true,
+    isPaneLoading: false,
     selectedObject: null,
 };
 
@@ -57,6 +58,9 @@ const appSlice = createSlice({
         },
         setIsPaneOpen(state, action) {
             state.isPaneOpen = action.payload;
+        },
+        setIsPaneLoading(state, action) {
+            state.isPaneLoading = action.payload;
         },
         setAlert(state, action) {
             state.alert = {
@@ -83,6 +87,7 @@ const { actions, reducer } = appSlice;
 export const {
     setTheme,
     setIsPaneOpen,
+    setIsPaneLoading,
     setHeaderContent,
     setAlert,
 } = actions;

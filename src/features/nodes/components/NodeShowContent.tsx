@@ -12,7 +12,7 @@ import {
 } from '../../app/constants';
 import { SELECTED_OBJ_Q, useSelectObjectFromParams } from '../../app/hooks/useSelectObject';
 import useBranchContext from '../../branch/hooks/useBranchContext';
-import { selectDescription } from '../../descriptions/descriptions.selectors';
+import { maybeSelectDescription } from '../../descriptions/descriptions.selectors';
 import { selectNodeFromParams } from '../nodes.actions';
 import { maybeSelectNode } from '../nodes.selectors';
 import { showBranchNode, showNode } from '../nodes.thunks';
@@ -43,10 +43,10 @@ export default function NodeShowContent() {
 
     // metaTitle, metaDescription, metaImageURL
     const selectedObject = useSelector(selectSelectedObject);
-    const objectDesc = useSelector(selectDescription(branchId, selectedObject?.objectId));
+    const objectDesc = useSelector(maybeSelectDescription(branchId, selectedObject?.objectId));
     const selectedNode = useSelector(maybeSelectNode(branchId, selectedObject?.objectId));
     const metaTitle = selectedObject?.objectTitle;
-    const metaDescription = objectDesc?.shortDescription;
+    const metaDescription = objectDesc && objectDesc?.shortDescription;
     const metaImageURL = selectedNode?.coverImageUrl || branchNode?.coverImageUrl;
 
     useMetaAttributes({

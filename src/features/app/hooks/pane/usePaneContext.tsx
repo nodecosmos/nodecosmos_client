@@ -1,7 +1,7 @@
 import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosDispatch } from '../../../../store';
 import { ObjectType, UUID } from '../../../../types';
-import { selectSelectedObject } from '../../app.selectors';
+import { selectIsPaneLoading, selectSelectedObject } from '../../app.selectors';
 import { clearSelectedObject } from '../../app.thunks';
 import { SelectedObject } from '../../app.types';
 import { PanePage, PaneProps } from '../../components/pane/Pane';
@@ -25,6 +25,7 @@ export enum PaneContent {
 interface CtxCreatorValue {
     page: PanePage;
     rootId: UUID;
+    isPaneLoading: boolean;
     loading: boolean;
     setLoading: () => void;
     unsetLoading: () => void;
@@ -44,7 +45,8 @@ export function usePaneContextCreator(props: PaneProps) {
         page,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
-    const [loading, setLoading, _unsetLoading] = useBooleanStateValue(false);
+    const isPaneLoading = useSelector(selectIsPaneLoading);
+    const [loading, setLoading, _unsetLoading] = useBooleanStateValue(isPaneLoading);
     const selectedObject = useSelector(selectSelectedObject);
     const [searchParams] = useSearchParams();
     const paneQ = searchParams.get(PANE_Q) as PaneContent;
@@ -72,6 +74,7 @@ export function usePaneContextCreator(props: PaneProps) {
         CtxCreatorValue: {
             page,
             rootId,
+            isPaneLoading,
             loading,
             setLoading,
             unsetLoading,
@@ -81,7 +84,7 @@ export function usePaneContextCreator(props: PaneProps) {
             mobilePaneHeight,
             setMobilePaneHeight,
         },
-    }), [page, rootId, loading, setLoading, unsetLoading, content, selectedObject, mobilePaneHeight]);
+    }), [page, rootId, loading, isPaneLoading, setLoading, unsetLoading, content, selectedObject, mobilePaneHeight]);
 }
 
 type CtxValue = Omit<CtxCreatorValue, 'objectId' | 'branchId' | 'objectNodeId' | 'objectType'> & SelectedObject;
@@ -94,6 +97,7 @@ export function usePaneContext(): PaneCtxValue {
         page,
         rootId,
         loading,
+        isPaneLoading,
         setLoading,
         unsetLoading,
         content,
@@ -132,6 +136,7 @@ export function usePaneContext(): PaneCtxValue {
         page,
         rootId,
         loading,
+        isPaneLoading,
         setLoading,
         unsetLoading,
         content,
@@ -151,6 +156,7 @@ export function usePaneContext(): PaneCtxValue {
         page,
         rootId,
         loading,
+        isPaneLoading,
         setLoading,
         unsetLoading,
         content,

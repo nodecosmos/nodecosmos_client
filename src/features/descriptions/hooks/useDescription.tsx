@@ -1,8 +1,7 @@
 import { NodecosmosDispatch } from '../../../store';
 import { UUID } from '../../../types';
-import { executeWithConditionalLoader } from '../../../utils/loader';
 import { usePaneContext } from '../../app/hooks/pane/usePaneContext';
-import { selectDescription } from '../descriptions.selectors';
+import { maybeSelectDescription } from '../descriptions.selectors';
 import { getDescription } from '../descriptions.thunks';
 import {
     useCallback, useEffect, useRef,
@@ -23,23 +22,26 @@ export default function useDescription() {
         unsetLoading,
     } = usePaneContext();
     const dispatch: NodecosmosDispatch = useDispatch();
-    const description = useSelector(selectDescription(branchId, objectId));
+    const description = useSelector(maybeSelectDescription(branchId, objectId));
 
     const fetchedById = useRef<FetchedByBranchId>({});
 
+    if (fetchedById.current[branchId] && !fetchedById.current[branchId].has(objectId)) {
+        setLoading();
+    }
+
     const fetchDescription = useCallback(async () => {
-        if (!description?.html && !loading && !fetchedById.current[branchId]?.has(objectId)) {
+        if (!description && !loading && !fetchedById.current[branchId]?.has(objectId)) {
             try {
-                const action = getDescription({
+                dispatch(getDescription({
                     rootId,
                     nodeId: objectNodeId,
                     objectId,
                     objectType,
                     branchId,
-                });
+                }));
 
-                // @ts-expect-error It complains about the type of the action, but it's correct
-                await executeWithConditionalLoader(dispatch, [action], setLoading, unsetLoading);
+                unsetLoading();
             } finally {
                 fetchedById.current[branchId] ||= new Set();
                 fetchedById.current[branchId].add(objectId);
@@ -53,10 +55,9 @@ export default function useDescription() {
         objectId,
         objectType,
         loading,
-        setLoading,
         unsetLoading,
         dispatch,
-        description?.html,
+        description,
     ]);
 
     useEffect(() => {
