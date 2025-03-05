@@ -24,7 +24,7 @@ export default function useDescription() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const description = useSelector(maybeSelectDescription(branchId, objectId));
     const [fetchedById, setFetchedById] = useState<FetchedByBranchId>({});
-    const fetched = fetchedById[branchId] && fetchedById[branchId].has(objectId);
+    const fetched = description || (fetchedById[branchId] && fetchedById[branchId].has(objectId));
     const fetchDescription = useCallback(async () => {
         if (!description && !loading && !fetched) {
             try {
