@@ -86,7 +86,7 @@ export default function PaneDescription() {
     }
 
     return (
-        <Box px={4}>
+        <Box px={4} pb={4}>
             {objectType === ObjectType.Node && <NodePaneCoverImage />}
 
             <Box display="flex" justifyContent="center" mt={3}>
