@@ -8,6 +8,7 @@ import { isAxiosError } from 'axios';
 interface DescriptionResponse {
     description: Description | null;
     coverImageUrl: string | null;
+    likeCount: number;
 }
 
 export const getDescription = createAsyncThunk<DescriptionResponse, QueryKey, { rejectValue: NodecosmosError }>(

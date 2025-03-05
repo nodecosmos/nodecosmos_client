@@ -3,47 +3,35 @@ import { UUID } from '../../../types';
 import abbreviateNumber from '../../../utils/abbreviateNumber';
 import { setAlert } from '../../app/appSlice';
 import { selectCurrentUserLikes } from '../../likes/likes.selectors';
-import {
-    getLikeCount, likeObject, unlikeObject,
-} from '../../likes/likes.thunks';
+import { likeObject, unlikeObject } from '../../likes/likes.thunks';
 import { LikeType } from '../../likes/likes.types';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { faHeart as faHeartOutline } from '@fortawesome/pro-regular-svg-icons';
 import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox, Typography } from '@mui/material';
-import React, {
-    useCallback, useEffect, useMemo,
-} from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface LikeButtonProps {
     id: UUID;
-    objectType: LikeType;
     branchId: UUID;
     rootId?: UUID;
     likeCount?: number | null;
     fontSize?: number;
 }
 
+// ATM on node click we get likes count from getDescription thunk, while node index includes likes count.
+// TODO: we should have actions that combines description, likes, and node info (e.g. cover image)
 export default function LikeButton(props: LikeButtonProps) {
     const {
-        id, objectType, branchId, rootId, fontSize, likeCount,
+        id, branchId, rootId, fontSize, likeCount,
     } = props;
     const likes = useSelector(selectCurrentUserLikes(branchId));
     const likedByCurrentUser = !!likes[id];
     const [shouldBeat, setShouldBeat] = React.useState(false);
     const dispatch: NodecosmosDispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-
-    useEffect(() => {
-        if (id && likeCount === undefined) {
-            dispatch(getLikeCount({
-                objectId: id,
-                branchId,
-            }));
-        }
-    }, [branchId, dispatch, id, likeCount, objectType]);
 
     const handleLike = useCallback(() => {
         if (!currentUser) {

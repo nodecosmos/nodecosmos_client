@@ -214,10 +214,14 @@ const nodesSlice = createSlice({
             })
             .addCase(getDescription.fulfilled, (state: NodeState, action) => {
                 const { branchId, objectId } = action.meta.arg;
-                const { coverImageUrl } = action.payload;
+                const { coverImageUrl, likeCount } = action.payload;
 
                 if (coverImageUrl && state.byBranchId[branchId] && state.byBranchId[branchId][objectId]) {
                     state.byBranchId[branchId][objectId].coverImageUrl = coverImageUrl;
+                }
+
+                if (likeCount && state.byBranchId[branchId] && state.byBranchId[branchId][objectId]) {
+                    state.byBranchId[branchId][objectId].likeCount = likeCount;
                 }
             })
             .addCase(selectObject.fulfilled, (state: NodeState, action) => {
