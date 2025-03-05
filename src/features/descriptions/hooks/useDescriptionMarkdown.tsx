@@ -88,7 +88,7 @@ export default function useDescriptionMarkdown() {
                 mergedDescriptionChange.new,
             ];
         }
-        return [originalDescription, markdown];
+        return [originalDescription && originalDescription?.markdown, markdown];
     }, [mergedDescriptionChange, markdown, isMerged, originalDescription]);
 
     const loadMarkdown = useCallback(() => {

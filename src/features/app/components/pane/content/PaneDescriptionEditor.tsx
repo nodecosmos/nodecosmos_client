@@ -70,7 +70,7 @@ export default function PaneDescriptionEditor() {
                 <Box height={1}>
                     <Editor
                         content={base64 || ''}
-                        currentHTML={currentHTML}
+                        currentHTML={currentHTML || undefined}
                         contentType={ContentType.Base64YDoc}
                         onChange={handleChange}
                         wsRoomId={objectId}
