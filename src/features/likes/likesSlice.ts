@@ -2,6 +2,7 @@ import { likeObject, unlikeObject } from './likes.thunks';
 import { LikePrimaryKey, LikeState } from './likes.types';
 import { UUID } from '../../types';
 import {
+    googleLogin,
     logIn, logOut, syncUpCurrentUser,
 } from '../users/users.thunks';
 import { createSlice } from '@reduxjs/toolkit';
@@ -42,6 +43,9 @@ const likesSlice = createSlice({
                 setCurrentUserLikes(state, action.payload.likes);
             })
             .addCase(logIn.fulfilled, (state, action) => {
+                setCurrentUserLikes(state, action.payload.likes);
+            })
+            .addCase(googleLogin.fulfilled, (state, action) => {
                 setCurrentUserLikes(state, action.payload.likes);
             })
             .addCase(likeObject.fulfilled, (state, action) => {
