@@ -10,10 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Button } from '@mui/material';
 import React, { useMemo } from 'react';
 
-const BUTTON_SX = {
-    mr: 1,
-    width: 'fit-content',
-};
+const BUTTON_SX = { width: 'fit-content' };
 
 interface Props {
     nodeId: UUID;

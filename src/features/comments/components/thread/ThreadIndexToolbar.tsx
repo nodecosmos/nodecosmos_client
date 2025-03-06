@@ -8,8 +8,6 @@ import { Box, Button } from '@mui/material';
 import React, { useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-const BUTTON_SX = { mr: 1 };
-
 export default function ThreadsIndexToolbar() {
     const { branchId, nodeId } = useBranchContext();
     const to = useMemo(() => `/nodes/${branchId}/${nodeId}/threads/new`, [branchId, nodeId]);
@@ -38,7 +36,6 @@ export default function ThreadsIndexToolbar() {
                 to={to}
                 color="button"
                 startIcon={<FontAwesomeIcon icon={faAdd} />}
-                sx={BUTTON_SX}
             >
                 {title}
             </Button>

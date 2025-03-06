@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 const SX = {
-    mx: 2,
+    mx: 1.25,
     height: 32,
     width: '350px',
     svg: { color: 'toolbar.default' },

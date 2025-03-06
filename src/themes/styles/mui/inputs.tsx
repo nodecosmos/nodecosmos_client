@@ -52,7 +52,7 @@ export default (theme: NodecosmosTheme) => ({
             root: {
                 ...utils(theme),
                 '&.SearchInput': {
-                    marginLeft: 8,
+                    marginLeft: 12,
                     height: 32,
                     svg: { color: theme.palette.toolbar.default },
                     '.MuiInputBase-root': {
