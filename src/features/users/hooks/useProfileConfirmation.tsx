@@ -2,6 +2,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import { REDIRECT_Q } from '../components/LoginForm';
 import { selectCurrentUser } from '../users.selectors';
 import { confirmEmail, resendConfirmationEmail } from '../users.thunks';
 import React, { useCallback, useMemo } from 'react';
@@ -36,6 +37,7 @@ export default function useProfileConfirmation() {
 
     const handleConfirmEmail = useCallback(async () => {
         const token = searchParams.get('token');
+        const redirect = searchParams.get(REDIRECT_Q);
 
         if (!token) return;
         setLoading(true);
@@ -58,7 +60,7 @@ export default function useProfileConfirmation() {
                 }));
                 setLoading(false);
             } else {
-                navigate(`/auth/login?email=${data.email}`);
+                navigate(`/auth/login?email=${data.email}&redirect=${redirect}`);
                 setLoading(false);
                 setTimeout(() => {
                     dispatch(setAlert({

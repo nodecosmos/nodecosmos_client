@@ -290,6 +290,8 @@ interface UserCreatePayload extends UserCreateForm {
 
     // reCaptcha token
     rToken?: string | null;
+
+    redirect?: string | null;
 }
 export const create = createAsyncThunk<CurrentUser | null, UserCreatePayload, { rejectValue: NodecosmosError }>(
     'users/create',

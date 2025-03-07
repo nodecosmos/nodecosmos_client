@@ -117,6 +117,7 @@ export default function useUserAuthentication() {
                 response = await dispatch(create({
                     token,
                     rToken,
+                    redirect,
                     ...formValues,
                 }));
             } catch (error) {
@@ -134,6 +135,7 @@ export default function useUserAuthentication() {
         } else {
             response = await dispatch(create({
                 token,
+                redirect,
                 ...formValues,
             }));
         }
