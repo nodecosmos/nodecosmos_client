@@ -1,14 +1,16 @@
 import Field from '../../../common/components/final-form/FinalFormInputField';
 import CloseModalButton from '../../../common/components/modal/CloseModalButton';
 import { NodecosmosDispatch } from '../../../store';
+import { ObjectType } from '../../../types';
+import { useSelectObject } from '../../app/hooks/useSelectObject';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { maybeSelectFlow } from '../flows.selectors';
 import { createFlow } from '../flows.thunks';
-import { FlowUpsertPayload } from '../flows.types';
+import { Flow, FlowUpsertPayload } from '../flows.types';
 import { faCodeCommit, faSave } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    DialogContent, Typography, Button,
+    Button, DialogContent, Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
@@ -35,6 +37,7 @@ export default function FlowModal(props: Props) {
     const currentFlow = useSelector(maybeSelectFlow(branchId, id));
     const title = currentFlow ? currentFlow.title : '';
     const dispatch: NodecosmosDispatch = useDispatch();
+    const selectObject = useSelectObject();
     const onSubmit = useCallback(async (formValues: {title: string}) => {
         setLoading(true);
 
@@ -47,11 +50,24 @@ export default function FlowModal(props: Props) {
             ...formValues,
         };
 
-        await dispatch(createFlow(payload));
+        try {
+            const response = await dispatch(createFlow(payload));
 
-        setTimeout(() => setLoading(false), 500);
-        onClose();
-    }, [branchId, dispatch, nodeId, onClose, rootId, startIndex, verticalIndex]);
+            const responseData = response.payload as Flow;
+
+            selectObject({
+                objectType: ObjectType.Flow,
+                objectId: responseData.id,
+                branchId: responseData.branchId,
+                objectNodeId: responseData.nodeId,
+                originalId: rootId,
+            });
+            setTimeout(() => setLoading(false), 500);
+            onClose();
+        } catch (error) {
+            console.error(error);
+        }
+    }, [branchId, dispatch, nodeId, onClose, rootId, selectObject, startIndex, verticalIndex]);
 
     return (
         <Dialog
