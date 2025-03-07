@@ -10,8 +10,8 @@
 /* Variables */
 /* ========= */
 :root {
-    --font-family-base: 'Libre Franklin', -apple-system, system-ui, sans-serif;
-    --font-family-heading: 'Libre Franklin', -apple-system, system-ui, sans-serif;
+    --font-family-base: -apple-system, system-ui, sans-serif;
+    --font-family-heading: -apple-system, system-ui, sans-serif;
     --color-text: #353535;
     --color-heading: #3d3a3c;
     --color-link: #353535;
