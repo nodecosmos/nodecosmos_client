@@ -7,7 +7,7 @@ import useFlowStepContext from '../../../../hooks/diagram/flow-step/useFlowStepC
 import useFlowContext from '../../../../hooks/diagram/flows/useFlowContext';
 import useWorkflowBranch from '../../../../hooks/useWorkflowBranch';
 import { faPenToSquare, faTrash } from '@fortawesome/pro-light-svg-icons';
-import { faRotateLeft, faListTree } from '@fortawesome/pro-regular-svg-icons';
+import { faRotateLeft, faCodePullRequestDraft } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Chip, IconButton, Tooltip,
@@ -113,7 +113,7 @@ export default function FlowInnerToolbar() {
                                                 aria-label="Flow Step Nodes"
                                                 onClick={openModal}
                                             >
-                                                <FontAwesomeIcon icon={faListTree} />
+                                                <FontAwesomeIcon icon={faCodePullRequestDraft} />
                                             </IconButton>
                                         </Tooltip>
                                     </div>
