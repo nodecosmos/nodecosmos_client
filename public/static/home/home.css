@@ -177,7 +177,7 @@ header a:hover {
 
 /* Hero Section */
 .hero {
-    padding-top: 10rem;
+    padding-top: 7rem;
     display: flex;
     flex-direction: column;
     align-items: center;
