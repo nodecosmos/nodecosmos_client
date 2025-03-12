@@ -144,7 +144,7 @@ header nav {
 }
 
 main {
-    padding: 0 0 6em;
+    padding: 6em 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -177,7 +177,6 @@ header a:hover {
 
 /* Hero Section */
 .hero {
-    padding-top: 7rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -549,6 +548,10 @@ header a:hover {
 }
 
 @media only screen and (max-width: 870px) {
+    main {
+        padding: 4em 1em;
+    }
+
     body {
         padding: 0 0 1.5em;
     }
@@ -631,17 +634,12 @@ header a:hover {
         max-width: 220px;
     }
 
-
-    .hero {
-        padding-top: 3.25em;
-    }
-
     .align-start-mobile {
         align-items: flex-start;
     }
 
     .b-radius {
-        border-radius: 16px;
+        border-radius: 6px;
     }
 
     /* Mobile-Specific Margins */
