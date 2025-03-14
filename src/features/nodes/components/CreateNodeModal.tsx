@@ -6,6 +6,7 @@ import CloseModalButton from '../../../common/components/modal/CloseModalButton'
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
+import { setAlert } from '../../app/appSlice';
 import { STRIPE_ENABLED } from '../../app/constants';
 import { REDIRECT_Q } from '../../users/components/LoginForm';
 import { selectCurrentUser } from '../../users/users.selectors';
@@ -100,6 +101,13 @@ export default function CreateNodeModal(props: { open: boolean, onClose: () => v
                 setLoading(false);
                 return;
             }
+
+            setTimeout(() => dispatch(setAlert({
+                isOpen: true,
+                severity: 'success',
+                message: 'Node created successfully!',
+            })), 10);
+
             const node = response.payload as Node;
 
             navigate(`/nodes/${node.rootId}/${node.id}`);

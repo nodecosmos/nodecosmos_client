@@ -76,7 +76,7 @@ function CreateContributionRequestModal(props: Props) {
         setTimeout(() => dispatch(setAlert({
             isOpen: true,
             severity: 'success',
-            message: 'Contribution Request successfully created!',
+            message: 'Contribution Request created successfully!',
         })), 10);
     }, [dispatch, handleServerError, navigate, nodeId, rootId]);
 
