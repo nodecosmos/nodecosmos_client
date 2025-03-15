@@ -15,6 +15,8 @@ export default defineConfig({
     ],
     server: { port: 3001 },
 
+    targets: ['defaults', 'not IE 11'],
+
     build: {
         outDir: 'build',
         rollupOptions: {
