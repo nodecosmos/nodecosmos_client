@@ -34,10 +34,6 @@ import { createTheme } from '@mui/material/styles';
 
 const getTheme = (theme: NodecosmosTheme) => createTheme({
     cssVariables: true,
-    colorSchemes: {
-        light: true,
-        dark: true,
-    },
     typography: typography(theme),
 
     // @ts-ignore
