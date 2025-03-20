@@ -20,20 +20,7 @@
     --color-cta-mini-bg: #635bff;
     --color-cta-text: #ffffff;
     --color-info-text: #9a929b;
-    --background-gradient: linear-gradient(
-            180deg,
-            #fff7f7,
-            #f8f8ff,
-            #f7fffb,
-            #faf5f5,
-            #fbfbff,
-            #fffaff,
-            #fffffb,
-            #fffbfb,
-            #f7f3f9,
-            #f4f3f9,
-            #fff9f9
-    );
+    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #f7fffb, #faf5f5, #f8f5ff, #fbefff, #fff0f0, #fff7f2, #fffbfb, #fdf9ff, #f7f4ff, #fff9f9);
 }
 
 /* Base Styles */
@@ -152,8 +139,13 @@ main {
 
 section {
     position: relative;
-    max-width: 1300px;
     width: 100%;
+}
+
+section .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 1em;
 }
 
 /* Components */
@@ -216,12 +208,7 @@ header a:hover {
     justify-content: space-between;
     border-radius: var(--border-radius-default);
     overflow: hidden;
-    background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.1) 29%,
-            rgba(255, 255, 255, 0.24) 12%,
-            #ffffff
-    ),
+    background: #ffffff;
     linear-gradient(225deg, transparent 50%, #ffffff);
 }
 
@@ -242,28 +229,25 @@ header a:hover {
     padding-left: 0.5rem;
 }
 
+#nodes-wf {
+    background: #f7f7f7;
+    border-radius: 45px;
+    color: #4d4a57;
+}
+
 /* Sections with IDs */
 /* ================= */
 #wf {
-    margin-top: -220px;
-    background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.1) 40%,
-            #ffffff
-    ),
-    linear-gradient(225deg, transparent 50%, #ffffff);
-    border-radius: 45px;
-}
-
-#wf-container {
-    margin: 75px;
+    margin-top: -200px;
 }
 
 #cr {
     margin-top: 20em;
-    background: #ffffffde;
+    background: #ffffff;
     border-radius: 45px;
     color: #4d4a57;
+    max-width: 1300px;
+    box-shadow: 0px 0px 25px #f7fcff;
 }
 
 #cr-container {
@@ -458,7 +442,7 @@ header a:hover {
 }
 
 .img-border-red {
-    border: 3px solid #ff6a68;
+    border: 3px solid #c4a8ff;
 }
 
 .img-border-green {
@@ -549,7 +533,7 @@ header a:hover {
 
 @media only screen and (max-width: 870px) {
     main {
-        padding: 4em 1em;
+        padding: 4em 0;
     }
 
     body {
@@ -605,10 +589,6 @@ header a:hover {
         background: transparent;
     }
 
-    #wf-container {
-        margin: 0;
-    }
-
     #cr {
         margin-top: 2em;
         border-radius: 0;
@@ -618,6 +598,7 @@ header a:hover {
     #cr-container {
         display: block;
         margin: 0;
+        padding: 0 1em;
     }
 
     #cr-img {
