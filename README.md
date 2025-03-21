@@ -1,4 +1,4 @@
-# Nodecosmos
+# NodeCosmos
 
 ### Directory & File structure: 
 *  **common** - everything that does not relate to redux state
