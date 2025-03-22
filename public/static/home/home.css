@@ -441,7 +441,7 @@ header a:hover {
     border-radius: var(--border-radius-default);
 }
 
-.img-border-red {
+.img-border-1 {
     border: 3px solid #c4a8ff;
 }
 
