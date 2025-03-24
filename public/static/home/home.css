@@ -238,11 +238,17 @@ header a:hover {
 /* Sections with IDs */
 /* ================= */
 #wf {
-    margin-top: -200px;
+    margin-top: 8rem;
+}
+
+.wf-img {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #ddd;
 }
 
 #cr {
-    margin-top: 20em;
+    margin-top: 28em;
     background: #ffffff;
     border-radius: 45px;
     color: #4d4a57;
@@ -261,8 +267,16 @@ header a:hover {
     margin-top: -15em;
 }
 
+#modular {
+    margin-top: 8rem;
+}
+
 #cross {
-    margin-top: -120px;
+    margin-top: 8rem;
+}
+
+#pricing {
+    margin-top: 8rem;
 }
 
 #contact {
@@ -512,18 +526,8 @@ header a:hover {
 /* Media Queries */
 /* ============= */
 @media only screen and (max-width: 1250px) {
-    #cross {
-        margin-top: 10rem;
-    }
-
     #cross .align-start-mobile {
         align-items: flex-start;
-    }
-}
-
-@media only screen and (max-width: 1120px) {
-    #wf {
-        margin-top: -2rem;
     }
 }
 
@@ -580,13 +584,8 @@ header a:hover {
         display: none;
     }
 
-    #wf {
-        margin-top: 2rem;
-        background: transparent;
-    }
-
     #cr {
-        margin-top: 2em;
+        margin-top: 8em;
         border-radius: 0;
         background: transparent;
     }
@@ -602,7 +601,7 @@ header a:hover {
     }
 
     #cross {
-        margin-top: 2rem;
+        margin-top: 8rem;
     }
 
     .cta {
