@@ -182,7 +182,7 @@ header a:hover {
     padding: 1.5rem 3.5rem;
     background: var(--color-cta-bg);
     color: var(--color-cta-text);
-    border-radius: 50px;
+    border-radius: 14px;
     text-decoration: none;
     line-height: 1;
     width: 263px;
@@ -584,7 +584,7 @@ header a:hover {
     }
 
     main {
-        padding: 4em 0;
+        padding: 4em 0 0;
     }
 
     body {
