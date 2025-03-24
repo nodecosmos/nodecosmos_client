@@ -131,7 +131,7 @@ header nav {
 }
 
 main {
-    padding: 6em 1em;
+    padding: 6em 0em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -242,18 +242,24 @@ header a:hover {
 }
 
 .wf-img {
-    border-radius: 12px;
+    padding: 8px;
+    background: rgba(187, 186, 209, 0.24);
+    border: 1px solid #fffcf8;
+    box-shadow: 0 0 20px rgba(216, 194, 246, 0.44);
     overflow: hidden;
-    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.wf-img img {
+    background: linear-gradient(142deg, #fcf9ff, #fffdfd);
 }
 
 #cr {
-    margin-top: 28em;
+    margin-top: 20em;
     background: #ffffff;
     border-radius: 45px;
     color: #4d4a57;
     max-width: 1300px;
-    box-shadow: 0px 0px 25px #f7fcff;
 }
 
 #cr-container {
@@ -268,11 +274,52 @@ header a:hover {
 }
 
 #modular {
+    position: relative;
     margin-top: 8rem;
+    background: rgb(206 214 223 / 24%);
+    color: #454141;
+    padding-top: 6em;
+    padding-bottom: 6em;
+}
+
+
+.wave-divider {
+    position: absolute;
+    width: 100%;
+    overflow: hidden; /* hide any stray edges */
+    line-height: 0;   /* remove extra spacing around the SVG */
+    fill: #ffffff;    /* wave color, or use “currentColor” */
+}
+
+/* Wave at the top */
+.wave-top {
+    top: 0;
+    left: 0;
+    transform: rotate(180deg);
+}
+
+/* Wave at the bottom */
+.wave-bottom {
+    bottom: -1px;
+    left: 0;
+    /* no rotation needed for bottom wave */
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 75px; /* adjust as you like */
+}
+
+/* Ensures text sits above the wave if they overlap */
+.wave-content {
+    position: relative;
+    z-index: 1;
 }
 
 #cross {
     margin-top: 8rem;
+    background: linear-gradient(179deg, #fefafd, #f3eef0);
 }
 
 #pricing {
@@ -532,6 +579,10 @@ header a:hover {
 }
 
 @media only screen and (max-width: 870px) {
+    .wave-divider svg {
+        height: 35px; /* reduce the wave height on smaller screens */
+    }
+
     main {
         padding: 4em 0;
     }
@@ -602,6 +653,7 @@ header a:hover {
 
     #cross {
         margin-top: 8rem;
+        background: transparent;
     }
 
     .cta {
