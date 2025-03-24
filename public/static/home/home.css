@@ -298,6 +298,18 @@ header a:hover {
     transform: rotate(180deg);
 }
 
+.wave-top-modular svg {
+    fill: #fff4f1;
+}
+
+.wave-bottom-modular svg {
+    fill: #fefafc;
+}
+
+.wave-bottom-cross svg {
+    fill: #faf7ff;
+}
+
 /* Wave at the bottom */
 .wave-bottom {
     bottom: -1px;
@@ -581,6 +593,18 @@ header a:hover {
 @media only screen and (max-width: 870px) {
     .wave-divider svg {
         height: 35px; /* reduce the wave height on smaller screens */
+    }
+
+    .wave-top-modular svg {
+        fill: #fef0f3;
+    }
+
+    .wave-bottom-modular svg {
+        fill: #fff9f7;
+    }
+
+    .wave-bottom-cross svg {
+        fill: #fefafd;
     }
 
     main {
