@@ -11,7 +11,6 @@ import {
     faUsers as faUsersSolid,
     faMessageBot as faMessageBotSolid,
     faTable as faTableSolid,
-    faContactBook,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
     faMoneyCheckDollar,
@@ -21,6 +20,7 @@ import {
     faMessageBot,
     faHashtag,
     faTable,
+    faContactBook,
 } from '@fortawesome/pro-light-svg-icons';
 import {
     faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid, faMoneyCheckDollar as faMoneyCheckDollarSolid,
