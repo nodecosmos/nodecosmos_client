@@ -20,7 +20,7 @@
     --color-cta-mini-bg: #635bff;
     --color-cta-text: #ffffff;
     --color-info-text: #9a929b;
-    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #f7fffb, #faf5f5, #f8f5ff, #fbefff, #fff0f0, #fff7f2, #fffbfb, #fdf9ff, #f7f4ff, #fff9f9);
+    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #f7feff, #faf5f5, #f8f5ff, #fdf7ff, #fff9f9, #fff7f2, #fffbfb, #fdf9ff, #f7f4ff, #fff9f9);
 }
 
 /* Base Styles */
