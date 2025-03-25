@@ -16,11 +16,11 @@
     --color-heading: #3d3a3c;
     --color-link: #353535;
     --color-link-hover-bg: rgba(53, 53, 53, 0.07);
-    --color-cta-bg: #635bff;
+    --color-cta-bg: linear-gradient(110deg, #635bff, #574fff, #635bff);
     --color-cta-mini-bg: #635bff;
     --color-cta-text: #ffffff;
     --color-info-text: #9a929b;
-    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #fff7f7, #f6f5fa, #f8f5ff, #f9f5fa, #fdf9f9, #fffcfa, #fffbfb, #fdf9ff, #f7f4ff, #fff9f9);
+    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #fff7f7, #f6f5fa, #f8f5ff, #f9f5fa, #fdf9f9, #fffcfa, #fffbfb, #fdf9ff, #fdfbff, #fff9f9);
 }
 
 /* Base Styles */
@@ -231,15 +231,17 @@ header a:hover {
 
 #nodes {
     position: relative;
-    color: #666367;
+    color: #575456;
+    padding-top: 4em;
+    background: linear-gradient(180deg, #f7f1f3, #f7f5fb);
 }
 
 /* Sections with IDs */
 /* ================= */
 #wf {
     padding-top: 4em;
-    background: #ebe7f6;
-    color: #565358;
+    background: linear-gradient(180deg, #f0f1f9 50%, #f9f1f7);
+    color: #48494d;
 }
 
 .wf-img {
@@ -278,7 +280,7 @@ header a:hover {
 #modular {
     position: relative;
     margin-top: 8rem;
-    background: rgb(206 214 223 / 24%);
+    background: #f7f2f7;
     color: #454141;
     padding-top: 6em;
     padding-bottom: 6em;
@@ -299,6 +301,11 @@ header a:hover {
     left: 0;
     transform: rotate(180deg);
 }
+
+.wave-top-nodes {
+    fill: #fef7f8;
+}
+
 .wave-top-wf {
     fill: #f7f5fb;
 }
@@ -316,7 +323,7 @@ header a:hover {
 }
 
 .wave-bottom-cross svg {
-    fill: #faf7ff;
+    fill: #f9f6fe;
 }
 
 /* Wave at the bottom */
@@ -340,7 +347,11 @@ header a:hover {
 
 #cross {
     margin-top: 8rem;
-    background: linear-gradient(179deg, #fefafd, #f3eef0);
+    background: linear-gradient(179deg, #fefafc 50%, #f5f1fc);
+}
+
+#cross .wf-img {
+    box-shadow: none;
 }
 
 #pricing {
@@ -609,11 +620,11 @@ header a:hover {
     }
 
     .wave-bottom-modular svg {
-        fill: #fff9f7;
+        fill: #fffbfb;
     }
 
     .wave-bottom-cross svg {
-        fill: #fefafd;
+        fill: #fffcfc;
     }
 
     main {
@@ -684,8 +695,13 @@ header a:hover {
         margin-top: 0;
     }
 
+    #modular {
+        margin-top: 4rem;
+        padding-top: 4em;
+    }
+
     #cross {
-        margin-top: 8rem;
+        margin-top: 4rem;
         background: transparent;
     }
 
