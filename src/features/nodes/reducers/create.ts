@@ -17,6 +17,7 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
             isCreationInProgress: false,
             isTmp: false,
             isEditing: false,
+            editorIds: new Set(action.payload.editorIds),
         };
         // update node state
         state.titles[branchId][id] = tmpNode.title;
@@ -41,6 +42,7 @@ export default function createFulfilled(state: NodeState, action: ReturnType<typ
                         isCreationInProgress: false,
                         isTmp: false,
                         isEditing: false,
+                        editorIds: new Set(action.payload.editorIds),
                     };
 
                     state.titles[otherBranchId][id] = action.payload.title;
