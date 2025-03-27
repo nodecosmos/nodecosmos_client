@@ -210,7 +210,7 @@ header a:hover {
     overflow: hidden;
     background: #ffffff;
     linear-gradient(225deg, transparent 50%, #ffffff);
-    box-shadow: 1px 1px 3px #979797;
+    box-shadow: 2px 2px 8px #e3dcea, -2px -2px 8px #cac4ea38;
 }
 
 .pricing-card {
@@ -682,16 +682,21 @@ header a:hover {
     }
 
     .wave-top-modular svg {
-        fill: #fcf8f9;
+        fill: #f9f5f9;
     }
 
     .wave-bottom-modular svg {
-        fill: #fffbfb;
+        fill: #fefafa;
     }
 
     .wave-bottom-cross svg {
-        fill: #fffcfc;
+        fill: #171726;
     }
+
+    .wave-top-nodes svg {
+        fill: #faf8fd;
+    }
+
 
     main {
         padding: 4em 0 0;
