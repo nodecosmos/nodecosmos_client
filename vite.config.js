@@ -23,6 +23,7 @@ export default defineConfig({
             input: {
                 main: path.resolve(__dirname, 'index.html'),
                 serviceWorker: path.resolve(__dirname, 'workers/sse.ts'),
+                home: path.resolve(__dirname, 'home.html'),
             },
             output: { entryFileNames: '[name].js' },
         },
