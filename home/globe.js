@@ -43,8 +43,8 @@ const globe = new ThreeGlobe({
             .arcAltitudeAutoScale(true)
             .arcAltitude((e) => e.arcAlt)
             .arcStroke(0.5)
-            .arcDashLength(1)
-            .arcDashGap(1.5)
+            .arcDashLength(6)
+            .arcDashGap(3)
             .arcDashAnimateTime(2000)
             .arcsTransitionDuration(500)
             .arcDashInitialGap((e) => e.order * 1);

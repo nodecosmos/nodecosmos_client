@@ -15,7 +15,7 @@
     },
     {
       "type": "pull",
-      "order": 1,
+      "order": 2,
       "from": "Barcelona",
       "to": "New York",
       "startLat": "41.40370438214791",
@@ -26,7 +26,7 @@
     },
     {
       "type": "pull",
-      "order": 2,
+      "order": 3,
       "from": "Harare",
       "to": "Buenos Aires",
       "startLat": "-17.825165",
@@ -38,7 +38,7 @@
     },
     {
       "type": "pull",
-      "order": 2,
+      "order": 4,
       "from": "New York",
       "to": "Brasilia",
       "startLat": "40.713318",
