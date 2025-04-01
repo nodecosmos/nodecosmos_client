@@ -41,11 +41,11 @@ const globe = new ThreeGlobe({
                 return colors[e.color] || colors.pink;
             })
             .arcAltitudeAutoScale(true)
-            .arcAltitude(0.2)
-            .arcStroke(0.3)
-            .arcDashLength(2)
-            .arcDashGap(0)
-            .arcDashAnimateTime(5000)
+            .arcAltitude((e) => e.arcAlt)
+            .arcStroke(0.5)
+            .arcDashLength(1)
+            .arcDashGap(1.5)
+            .arcDashAnimateTime(2000)
             .arcsTransitionDuration(500)
             .arcDashInitialGap((e) => e.order * 1);
     });
