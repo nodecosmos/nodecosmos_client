@@ -106,7 +106,9 @@ export default function App() {
                         {/* eslint-disable-next-line max-len */}
                         <Route path="/nodes/charybdis" element={<Navigate relative="route" to="/nodes/1b73a5fa-3662-4bc5-bb1e-42c710fd9bd4/1b73a5fa-3662-4bc5-bb1e-42c710fd9bd4" />} />
                         {/* eslint-disable-next-line max-len */}
-                        <Route path="/nodes/workflow-sample" element={<Navigate relative="route" to="/f70f9de4-b938-4abc-9695-3b1cb7769f38/006546a7-9824-4727-ba8f-7a8c27b9cb2f/workflow?selectedObject=eyJvcmlnaW5hbElkIjoiZjcwZjlkZTQtYjkzOC00YWJjLTk2OTUtM2IxY2I3NzY5ZjM4IiwiYnJhbmNoSWQiOiJmNzBmOWRlNC1iOTM4LTRhYmMtOTY5NS0zYjFjYjc3NjlmMzgiLCJvYmplY3ROb2RlSWQiOiIwMDY1NDZhNy05ODI0LTQ3MjctYmE4Zi03YThjMjdiOWNiMmYiLCJvYmplY3RJZCI6IjJiZTVjZmFlLTg1MDMtNGQ0Mi1iNzQxLWU4NjI2Nzg3MzY3NiIsIm9iamVjdFR5cGUiOiJJbyIsIm1ldGFkYXRhIjp7Im1haW5PYmplY3RJZCI6IjJiZTVjZmFlLTg1MDMtNGQ0Mi1iNzQxLWU4NjI2Nzg3MzY3NiIsImZsb3dTdGVwTm9kZUlkIjpudWxsfX0%3D" />} />
+                        <Route path="/nodes/workflow-sample" element={<Navigate relative="route" to="/nodes/f70f9de4-b938-4abc-9695-3b1cb7769f38/006546a7-9824-4727-ba8f-7a8c27b9cb2f/workflow?selectedObject=eyJvcmlnaW5hbElkIjoiZjcwZjlkZTQtYjkzOC00YWJjLTk2OTUtM2IxY2I3NzY5ZjM4IiwiYnJhbmNoSWQiOiJmNzBmOWRlNC1iOTM4LTRhYmMtOTY5NS0zYjFjYjc3NjlmMzgiLCJvYmplY3ROb2RlSWQiOiIwMDY1NDZhNy05ODI0LTQ3MjctYmE4Zi03YThjMjdiOWNiMmYiLCJvYmplY3RJZCI6IjJiZTVjZmFlLTg1MDMtNGQ0Mi1iNzQxLWU4NjI2Nzg3MzY3NiIsIm9iamVjdFR5cGUiOiJJbyIsIm1ldGFkYXRhIjp7Im1haW5PYmplY3RJZCI6IjJiZTVjZmFlLTg1MDMtNGQ0Mi1iNzQxLWU4NjI2Nzg3MzY3NiIsImZsb3dTdGVwTm9kZUlkIjpudWxsfX0%3D" />} />
+                        {/* eslint-disable-next-line max-len */}
+                        <Route path="/nodes/documentation" element={<Navigate relative="route" to="/nodes/f70f9de4-b938-4abc-9695-3b1cb7769f38/5923e70e-d2d0-439c-9f67-a138171a0a21" />} />
                         <Route path="404" element={<NotFound />} />
                         <Route path="reset_password" element={<ResetPassword />} />
                         <Route path="/:username" element={<UserShow />}>
