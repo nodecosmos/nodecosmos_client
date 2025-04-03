@@ -3,7 +3,7 @@ import NcAvatar from '../../../common/components/NcAvatar';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { selectUsersByIds } from '../../users/users.selectors';
 import { ShowUser } from '../../users/users.types';
-import { selectSubscription } from '../subscription.selectors';
+import { selectSubscription } from '../subscriptions.selectors';
 import { faMagnifyingGlass } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

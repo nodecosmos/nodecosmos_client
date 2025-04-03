@@ -75,7 +75,7 @@ export default function CreateIoModal(props: CreateIoModalProps) {
     let description;
 
     if (associatedObject === IoObjectType.startStep) {
-        description = 'Initial inputs are are the first inputs that are passed into the workflow.';
+        description = 'Initial inputs are are the first inputs that are passed into the flows.';
     } else {
         description = `Each node can have multiple outputs. These outputs can be used as inputs for nodes in either
                       the next step or in previous steps as a feedback loop.`;

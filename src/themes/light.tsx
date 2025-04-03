@@ -100,7 +100,7 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#dcdcdc',
+            1: '#eef3f3',
             2: '#cfd7e7',
             3: '#e8e8df',
             4: '#dedede',
@@ -129,7 +129,7 @@ const theme: NodecosmosTheme = {
             },
 
             list: {
-                defaultColor: '#000000',
+                defaultColor: '#5e6778',
                 activeColor: '#46464c',
             },
             backdrop: 'rgba(0,0,0,0.76)',
@@ -202,7 +202,7 @@ const theme: NodecosmosTheme = {
             selectedLoopInputColor: '#ffb387',
             defaultLoopInputColor: 'rgba(235,159,119,0.33)',
             selectedBg: 'rgba(154,189,212,0.03)',
-            selectedFsBorder: '#c9cfe7',
+            selectedFsBorder: '#e3e6f1',
         },
 
         markdownContent: {
@@ -261,9 +261,9 @@ const theme: NodecosmosTheme = {
         },
 
         texts: {
-            primary: '#30313d',
-            secondary: '#30313d',
-            tertiary: '#30313d',
+            primary: '#626973',
+            secondary: '#353a44',
+            tertiary: '#4a515e',
             disabled: '#5c616b',
             contrast: '#585858',
             sectionPrimary: '#acdf83',
@@ -315,8 +315,8 @@ const theme: NodecosmosTheme = {
             'A700': '#616161',
         },
         text: {
-            primary: '#30313d',
-            secondary: '#47474c',
+            primary: '#353a44',
+            secondary: '#353a44',
             disabled: '#5c616b',
         },
         divider: '#3a3f46',

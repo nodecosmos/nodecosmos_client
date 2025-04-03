@@ -10,7 +10,6 @@ import {
     faCodePullRequest as faCodePullRequestSolid,
     faUsers as faUsersSolid,
     faMessageBot as faMessageBotSolid,
-    faTable as faTableSolid,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
     faMoneyCheckDollar,
@@ -19,7 +18,7 @@ import {
     faUsers,
     faMessageBot,
     faHashtag,
-    faTable,
+    faTableColumns,
     faContactBook,
 } from '@fortawesome/pro-light-svg-icons';
 import {
@@ -120,7 +119,7 @@ export default function Sidebar({ handleClose }: Props) {
                     to={`${toPath}/workflow${pathParams}`}
                     icon={(<FontAwesomeIcon icon={faCodeCommit} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faCodeCommitSolid} />)}
-                    title="Workflows"
+                    title="Flows"
                 />
                 {
                     (!isBranch || isContributionRequest) && (
@@ -166,10 +165,10 @@ export default function Sidebar({ handleClose }: Props) {
                             <SidebarListItem
                                 onClick={handleClose}
                                 disabled
-                                to={`${toPath}/tasks_board`}
-                                icon={(<FontAwesomeIcon icon={faTable} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faTableSolid} />)}
-                                title="Tasks (Upcoming)"
+                                to={`${toPath}/tasks`}
+                                icon={(<FontAwesomeIcon icon={faTableColumns} />)}
+                                selectedIcon={(<FontAwesomeIcon icon={faTableColumns} />)}
+                                title="Tasks"
                             />
                             {
                                 originalId === NODECOSMOS_NODE_ID && (

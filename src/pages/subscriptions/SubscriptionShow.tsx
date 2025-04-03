@@ -7,7 +7,7 @@ import { HEADER_HEIGHT, STRIPE_ENABLED } from '../../features/app/constants';
 import useBranchContext from '../../features/branch/hooks/useBranchContext';
 import { maybeSelectNode } from '../../features/nodes/nodes.selectors';
 import Members from '../../features/subscriptions/components/Members';
-import { selectSubscription } from '../../features/subscriptions/subscription.selectors';
+import { selectSubscription } from '../../features/subscriptions/subscriptions.selectors';
 import { showSubscription } from '../../features/subscriptions/subscriptions.thunks';
 import { SubscriptionStatus } from '../../features/subscriptions/subscriptions.types';
 import UserProfileLink from '../../features/users/components/UserProfileLink';
