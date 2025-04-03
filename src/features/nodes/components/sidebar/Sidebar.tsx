@@ -7,11 +7,6 @@ import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { selectCurrentUser } from '../../../users/users.selectors';
 import { maybeSelectNode } from '../../nodes.selectors';
 import {
-    faCodePullRequest as faCodePullRequestSolid,
-    faUsers as faUsersSolid,
-    faMessageBot as faMessageBotSolid,
-} from '@fortawesome/pro-duotone-svg-icons';
-import {
     faMoneyCheckDollar,
     faCodeCommit,
     faCodePullRequest,
@@ -21,9 +16,7 @@ import {
     faTableColumns,
     faContactBook,
 } from '@fortawesome/pro-light-svg-icons';
-import {
-    faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid, faMoneyCheckDollar as faMoneyCheckDollarSolid,
-} from '@fortawesome/pro-regular-svg-icons';
+import { faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid } from '@fortawesome/pro-regular-svg-icons';
 import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoIcon from '@mui/icons-material/Info';
@@ -128,7 +121,6 @@ export default function Sidebar({ handleClose }: Props) {
                                 onClick={handleClose}
                                 to={`${toPath}/contribution_requests`}
                                 icon={(<FontAwesomeIcon icon={faCodePullRequest} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faCodePullRequestSolid} />)}
                                 title="Contribution Requests"
                                 end={false}
                             />
@@ -136,7 +128,6 @@ export default function Sidebar({ handleClose }: Props) {
                                 onClick={handleClose}
                                 to={`${toPath}/threads`}
                                 icon={(<FontAwesomeIcon icon={faMessageBot} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faMessageBotSolid} />)}
                                 title="Threads"
                                 end={false}
                             />
@@ -150,7 +141,6 @@ export default function Sidebar({ handleClose }: Props) {
                                         onClick={handleClose}
                                         to={`${toPath}/subscriptions${pathParams}`}
                                         icon={(<FontAwesomeIcon icon={faMoneyCheckDollar} />)}
-                                        selectedIcon={(<FontAwesomeIcon icon={faMoneyCheckDollarSolid} />)}
                                         title="Subscription"
                                     />
                                 )
@@ -159,7 +149,6 @@ export default function Sidebar({ handleClose }: Props) {
                                 onClick={handleClose}
                                 to={`${toPath}/team`}
                                 icon={(<FontAwesomeIcon icon={faUsers} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faUsersSolid} />)}
                                 title="Team"
                             />
                             <SidebarListItem
@@ -167,7 +156,6 @@ export default function Sidebar({ handleClose }: Props) {
                                 disabled
                                 to={`${toPath}/tasks`}
                                 icon={(<FontAwesomeIcon icon={faTableColumns} />)}
-                                selectedIcon={(<FontAwesomeIcon icon={faTableColumns} />)}
                                 title="Tasks"
                             />
                             {
