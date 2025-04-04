@@ -7,14 +7,14 @@ import { NodecosmosError } from '../../../types';
 import { validateEmailFormat } from '../../../utils/validation';
 import { setAlert } from '../../app/appSlice';
 import { resetPasswordRequest } from '../users.thunks';
+import { faLock } from '@fortawesome/pro-regular-svg-icons';
 import { faEnvelope } from '@fortawesome/pro-thin-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Button, DialogActions, DialogContent, Grid,
+    Button, DialogActions, DialogContent, Typography,
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import React, { useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
@@ -23,6 +23,14 @@ interface Props {
     open: boolean;
     onClose: () => void;
 }
+
+const MODAL_PROPS = {
+    elevation: 5,
+    sx: {
+        borderRadius: 2.5,
+        p: 1,
+    },
+};
 
 export default function ResetPasswordModal(props: Props) {
     const dispatch: NodecosmosDispatch = useDispatch();
@@ -63,62 +71,53 @@ export default function ResetPasswordModal(props: Props) {
     return (
         <Dialog
             fullWidth
-            maxWidth="md"
+            maxWidth="sm"
             open={open}
-            PaperProps={{
-                elevation: 5,
-                sx: { borderRadius: 2.5 },
-            }}
-            sx={{
-                '& .MuiDialog-paper': {
-                    border: 1,
-                    borderColor: 'borders.4',
-                },
-            }}>
-            <DialogTitle fontWeight="bold">
-                Reset Password
+            onClose={onClose}
+            PaperProps={MODAL_PROPS}>
+            <div className="DialogHeader">
+                <Typography variant="body1" color="texts.secondary" align="center" width="auto" fontWeight="bold">
+                    <FontAwesomeIcon icon={faLock} size="sm" />
+                    Reset Password
+                </Typography>
                 <CloseModalButton onClose={onClose} />
-            </DialogTitle>
-            <DialogContent>
-                <Form
-                    onSubmit={handleResetPassword}
-                    subscription={{ submitting: true }}>
-                    {({ handleSubmit }) => (
-                        <form onSubmit={handleSubmit}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Field
-                                        fullWidth
-                                        validate={validateEmailFormat}
-                                        name="email"
-                                        label="email"
-                                        InputProps={{ autoComplete: 'on' }}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Button
-                                        type="submit"
-                                        disableElevation
-                                        variant="outlined"
-                                        color="primary"
-                                        startIcon={
-                                            loading
-                                                ? <CircularProgress size={20} sx={{ color: 'success.contrastText' }} />
-                                                : <FontAwesomeIcon icon={faEnvelope} />
-                                        }
-                                    >
-                                        Send Reset Email
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </form>
-                    )}
-                </Form>
-            </DialogContent>
-            <DialogActions>
-                <Button disableElevation variant="contained" onClick={onClose} color="button">Cancel</Button>
-            </DialogActions>
+            </div>
+            <Form
+                onSubmit={handleResetPassword}
+                subscription={{ submitting: true }}>
+                {({ handleSubmit }) => (
+                    <form onSubmit={handleSubmit}>
+                        <DialogContent>
+                            <Field
+                                fullWidth
+                                validate={validateEmailFormat}
+                                name="email"
+                                label="email"
+                                InputProps={{ autoComplete: 'on' }}
+                                required
+                            />
+                        </DialogContent>
+                        <DialogActions sx={{ justifyContent: 'space-between' }}>
+                            <Button
+                                type="submit"
+                                disableElevation
+                                variant="outlined"
+                                color="primary"
+                                startIcon={
+                                    loading
+                                        ? <CircularProgress size={20} sx={{ color: 'success.contrastText' }} />
+                                        : <FontAwesomeIcon icon={faEnvelope} />
+                                }
+                            >
+                                Send Reset Email
+                            </Button>
+                            <Button disableElevation variant="contained" onClick={onClose} color="button">
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </form>
+                )}
+            </Form>
         </Dialog>
     );
 }

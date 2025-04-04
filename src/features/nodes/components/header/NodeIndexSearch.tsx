@@ -12,7 +12,7 @@ import React, {
 import { useDispatch } from 'react-redux';
 
 const SX = {
-    ml: 1.25,
+    ml: 1,
     height: 1,
     py: 0.75,
     maxWidth: '100%',

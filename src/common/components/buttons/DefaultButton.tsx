@@ -19,14 +19,16 @@ interface DefaultButtonProps {
     width?: string | number;
     height?: string | number;
     size?: 'small' | 'medium' | 'large';
+    className?: string;
 }
 function DefaultButton(props: DefaultButtonProps) {
     const {
         startIcon,
         endIcon,
         onClick,
-        type = 'button',
         title,
+        className,
+        type = 'button',
         disabled = false,
         sx = {},
         fontSize = '0.75rem',
@@ -52,6 +54,7 @@ function DefaultButton(props: DefaultButtonProps) {
 
     return (
         <Button
+            className={className}
             size={size}
             color={color}
             type={type}

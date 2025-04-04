@@ -27,6 +27,7 @@ export default function NodeIndexHeader() {
     return (
         <Box display="flex" alignItems="center" height={HEADER_HEIGHT}>
             <DefaultButton
+                className="ml-1"
                 variant="outlined"
                 color="primary"
                 title="Create"

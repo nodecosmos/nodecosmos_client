@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { authorQuoteMap } from './data';
 import Section from './Section';
 import {

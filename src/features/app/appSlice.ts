@@ -29,6 +29,7 @@ function getTheme() {
 }
 
 const initialState: AppState = {
+    headerContent: null,
     theme: getTheme() || Theme.Dimmed,
     browser: fnBrowserDetect(),
     alert: {
