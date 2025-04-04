@@ -26,7 +26,6 @@ export default (theme: NodecosmosTheme) => ({
                         background: 'rgb(73 176 244 / 7%)',
                         borderColor: theme.palette.toolbar.default,
                     },
-                    p: { marginLeft: 4 },
                 },
 
                 '.Text': { height: '100%' },

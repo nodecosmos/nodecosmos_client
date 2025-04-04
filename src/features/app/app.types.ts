@@ -56,7 +56,6 @@ export interface SelectedObject {
 export interface AppState {
     headerContent?: HeaderContent;
     theme: Theme;
-    currentNodeId: string | null;
     browser: Browser;
     alert: Alert;
     descriptionCoordinates: DescriptionCoordinates;

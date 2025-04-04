@@ -2,6 +2,7 @@ import {
     getDescription, getDescriptionBase64, getOriginalDescription, saveDescription,
 } from './descriptions.thunks';
 import { DescriptionState } from './descriptions.types';
+import { getTask } from '../tasks/tasks.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: DescriptionState = { byBranchId: {} };
@@ -38,6 +39,22 @@ const descriptionsSlice = createSlice({
                         base64: null,
                     };
                 }
+            })
+            .addCase(getTask.fulfilled, (state, action) => {
+                const { description } = action.payload;
+                const { branchId, objectId } = description;
+
+                state.byBranchId[branchId] ||= {};
+                state.byBranchId[branchId][objectId] ||= {
+                    branchId,
+                    objectId,
+                    objectType: description.objectType,
+                    rootId: description.rootId,
+                    nodeId: description.nodeId,
+                    html: '<p></p>',
+                    markdown: '',
+                    base64: null,
+                };
             })
             .addCase(getDescriptionBase64.fulfilled, (state, action) => {
                 const { branchId, objectId } = action.payload;

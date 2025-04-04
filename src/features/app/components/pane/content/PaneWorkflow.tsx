@@ -69,7 +69,7 @@ export default function PaneWorkflow() {
     }
 
     return workflow && (
-        <div className="background-1 h-100">
+        <div className="h-100">
             <Workflow nodeId={objectId} branchId={branchId} insidePane />
         </div>
     );

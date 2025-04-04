@@ -14,7 +14,7 @@ import useIsMobile from '../../hooks/useIsMobile';
 import { faHome } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, Button, IconButton, Typography,
+    Box, Button, IconButton,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -73,14 +73,7 @@ export default function Header() {
                         relative={isIndex ? 'route' : 'path'}
                         className="LogoButton"
                     >
-                        <img src="/static/logo-1.svg" alt="logo" height={30} width={30} />
-                        <Typography
-                            color="logo.default"
-                            variant="body2"
-                            fontWeight="bold"
-                            className="min-vis-width-viewport-360 fs-16">
-                            nodecosmos
-                        </Typography>
+                        <img src="/static/logo-4.svg" alt="logo" height={15} width="auto" />
                     </Button>
                 </Box>
                 <Box

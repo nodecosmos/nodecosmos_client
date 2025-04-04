@@ -16,7 +16,10 @@ import {
     faTableColumns,
     faContactBook,
 } from '@fortawesome/pro-light-svg-icons';
-import { faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid } from '@fortawesome/pro-regular-svg-icons';
+import {
+    faHashtag as faHashtagSolid,
+    faCodeCommit as faCodeCommitSolid,
+} from '@fortawesome/pro-regular-svg-icons';
 import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoIcon from '@mui/icons-material/Info';
@@ -52,7 +55,16 @@ export default function Sidebar({ handleClose }: Props) {
     }), [isBranch, isContributionRequest]);
     const currentUser = useSelector(selectCurrentUser);
     const maybeRoot = useSelector(maybeSelectNode(originalId, originalId));
+    const maybeNode = useSelector(maybeSelectNode(originalId, nodeId));
 
+    //    overflow: hidden;
+    //     white-space: nowrap;
+    //     text-overflow: ellipsis;
+    //     color: #539bf5;
+    //     font-weight: bold;
+    //     padding: 4px 16px;
+    //     background-color: rgba(67, 75, 91, 0.53);
+    //     border-radius: 4px;
     return (
         <Box
             component="nav"
@@ -60,6 +72,7 @@ export default function Sidebar({ handleClose }: Props) {
             justifyContent="space-between"
             flexDirection="column"
             mt={HEADER_HEIGHT}
+            height={`calc(100% - ${HEADER_HEIGHT})`}
         >
             <List sx={sx}>
                 {
@@ -153,7 +166,6 @@ export default function Sidebar({ handleClose }: Props) {
                             />
                             <SidebarListItem
                                 onClick={handleClose}
-                                disabled
                                 to={`${toPath}/tasks`}
                                 icon={(<FontAwesomeIcon icon={faTableColumns} />)}
                                 title="Tasks"
@@ -172,6 +184,23 @@ export default function Sidebar({ handleClose }: Props) {
                     )
                 }
             </List>
+
+            {
+                maybeNode && (
+                    <div className="h-header display-flex align-center m-1">
+                        <Typography
+                            className="ObjectTitle text-tertiary"
+                            variant="subtitle1"
+                            color="texts.tertiary"
+                            borderRadius={1}
+                        >
+                            <FontAwesomeIcon fontSize="12px" icon={faHashtagSolid} />
+                            <span className="ml-1">{maybeNode.title}</span>
+                        </Typography>
+                    </div>
+                )
+            }
+
         </Box>
     );
 }

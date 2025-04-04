@@ -95,6 +95,12 @@ export enum TreeDensity {
     Compact = 'compact',
 }
 
+export enum TreeType {
+    Default = 'default',
+    Checkbox = 'checkbox',
+    ContributionRequest = 'contributionRequest',
+}
+
 export interface RecentNode {
     branchId: UUID;
     id: UUID;
@@ -123,10 +129,4 @@ export interface NodeState {
     byOwnerId: Record<UUID, NodeByOwner[]>;
     byEditorId: Record<UUID, Node[]>;
     recentNodes: RecentNode[];
-}
-
-export enum TreeType {
-    Default = 'default',
-    Checkbox = 'checkbox',
-    ContributionRequest = 'contributionRequest',
 }

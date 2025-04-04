@@ -1,3 +1,4 @@
+import { HEADER_HEIGHT } from '../../features/app/constants';
 import { COMPACT_NODE_HEIGHT, NODE_HEIGHT } from '../../features/nodes/nodes.constants';
 import { NodecosmosTheme } from '../themes.types';
 
@@ -64,6 +65,7 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.h-35': { height: 35 },
     '&.h-100': { height: '100%' },
+    '&.h-header': { height: HEADER_HEIGHT },
     [`&.h-${NODE_HEIGHT}`]: { height: NODE_HEIGHT },
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
@@ -71,8 +73,11 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.w-35': { width: 35 },
     '&.w-100': { width: '100%' },
+    '&.w-320': { width: 320 },
     '&.w-600': { width: 600 },
     '&.w-850': { width: 850 },
+    '&.max-w-85': { maxWidth: 100 },
+    '&.max-w-200': { maxWidth: 200 },
     '&.max-w-850': { maxWidth: 850 },
     '&.max-w-900': { maxWidth: 900 },
     '&.min-w-50': { minWidth: 50 },
@@ -81,6 +86,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.border-1': { border: `1px solid ${theme.palette.borders[1]}` },
     '&.border-top-1': { borderTop: `1px solid ${theme.palette.borders[1]}` },
     '&.border-bottom-1': { borderBottom: `1px solid ${theme.palette.borders[1]}` },
+    '&.border-right-1': { borderRight: `1px solid ${theme.palette.borders[1]}` },
     '&.border-radius-1': { borderRadius: 4 },
     '&.border-radius-2': { borderRadius: 8 },
 
@@ -97,6 +103,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.min-vis-width-viewport-360': { '@media (max-width: 360px)': { display: 'none' } },
     '&.min-vis-width-viewport-400': { '@media (max-width: 400px)': { display: 'none' } },
 
+    '&.background-0': { backgroundColor: 'transparent' },
     '&.background-1': { backgroundColor: theme.palette.backgrounds[1] },
     '&.background-2': { backgroundColor: theme.palette.backgrounds[2] },
     '&.background-3': { backgroundColor: theme.palette.backgrounds[3] },
@@ -152,7 +159,21 @@ export default (theme: NodecosmosTheme) => ({
     '&.display-inline-flex': { display: 'inline-flex' },
     '&.justify-start': { justifyContent: 'start' },
     '&.justify-center': { justifyContent: 'center' },
+    '&.justify-end': { justifyContent: 'end' },
     '&.align-center': { alignItems: 'center' },
+    '&.flex-column': { flexDirection: 'column' },
+    '&.flex-row': { flexDirection: 'row' },
+    '&.flex-1': { flex: 1 },
+
+    '&.text-center': { textAlign: 'center' },
+    '&.text-ellipsis': {
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+    },
+    '&.user-select-none': { userSelect: 'none' },
+
+    '&.bg-transition-1': { transition: 'background-color 0.2s ease, opacity 0.1s ease' },
 
     '&.tree-nested-color-0': {
         backgroundColor: theme.palette.tree.backgrounds[0].bg,

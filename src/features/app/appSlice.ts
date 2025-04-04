@@ -30,7 +30,6 @@ function getTheme() {
 
 const initialState: AppState = {
     theme: getTheme() || Theme.Dimmed,
-    currentNodeId: null, // used for landing page
     browser: fnBrowserDetect(),
     alert: {
         isOpen: false,
