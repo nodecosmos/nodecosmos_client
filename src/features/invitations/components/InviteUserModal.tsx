@@ -16,7 +16,7 @@ import { selectNode } from '../../nodes/nodes.selectors';
 import { searchUsers } from '../../users/users.thunks';
 import { ShowUser } from '../../users/users.types';
 import { createInvitation } from '../invitations.thunks';
-import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
+import { faUserPlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Button,
@@ -137,15 +137,23 @@ export default function InviteUserModal({ open, onClose }: Props) {
 
     return (
         <Dialog
+            fullWidth
+            maxWidth="sm"
             onClose={handleClose}
-            maxWidth="md"
             open={open}
             PaperProps={PROPS}>
             <div className="DialogHeader">
                 <div>
                     <Typography variant="h6" color="texts.secondary" align="center" width="auto" fontWeight="bold">
-                        <FontAwesomeIcon icon={faUserPlus} size="lg" />
-                        Invite a user to collaborate on this node
+                        <FontAwesomeIcon icon={faUserPlus} size="sm" />
+                        Invitation
+                    </Typography>
+                    <Typography variant="body1" color="texts.secondary" mt={2} align="center" width={1}>
+                        Invite User to Collaborate on
+                        {' '}
+                        <span className={`bold tree-nested-color-${node.ancestorIds.length % 6}`}>
+                            {node?.title}
+                        </span>
                     </Typography>
                 </div>
                 <CloseModalButton onClose={onClose} />

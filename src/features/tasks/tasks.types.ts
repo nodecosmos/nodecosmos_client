@@ -47,11 +47,12 @@ export interface TaskPrimaryKey {
 }
 
 export interface Task extends TaskPrimaryKey {
+    title: string;
     sectionId: UUID;
     orderIndex: number;
     authorId: UUID;
     author: Profile;
-    assigneeIds: [UUID];
+    assigneeIds: UUID[];
     assignees: Profile[];
     createdAt: Date;
     updatedAt: Date;

@@ -108,11 +108,11 @@ const theme: NodecosmosTheme = {
         },
 
         backgrounds: {
-            1: '#fafafd', // f8f9fa
+            1: '#f7f7fa', // f8f9fa
             2: '#ffffff', // f0f0ef
             3: '#eaeaf1',
             4: '#eeeef3',
-            5: '#ffffff',
+            5: '#f7f7fa',
             6: '#f7f7fa',
             7: '#eeeef3',
             8: '#edeeee',
@@ -262,8 +262,8 @@ const theme: NodecosmosTheme = {
 
         texts: {
             primary: '#626973',
-            secondary: '#353a44',
-            tertiary: '#4a515e',
+            secondary: '#5c636f',
+            tertiary: '#667083',
             disabled: '#5c616b',
             contrast: '#585858',
             sectionPrimary: '#acdf83',

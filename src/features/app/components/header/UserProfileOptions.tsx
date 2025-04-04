@@ -68,7 +68,7 @@ export default function UserProfileOptions() {
     }
 
     return (
-        <Box ml={2}>
+        <Box ml={1}>
             <NcAvatar
                 src={currentUser.profileImageUrl}
                 name={currentUser.username}

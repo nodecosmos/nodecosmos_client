@@ -16,7 +16,10 @@ import {
     faTableColumns,
     faContactBook,
 } from '@fortawesome/pro-light-svg-icons';
-import { faHashtag as faHashtagSolid, faCodeCommit as faCodeCommitSolid } from '@fortawesome/pro-regular-svg-icons';
+import {
+    faHashtag as faHashtagSolid,
+    faCodeCommit as faCodeCommitSolid,
+} from '@fortawesome/pro-regular-svg-icons';
 import { faSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoIcon from '@mui/icons-material/Info';
@@ -53,6 +56,14 @@ export default function Sidebar({ handleClose }: Props) {
     const currentUser = useSelector(selectCurrentUser);
     const maybeRoot = useSelector(maybeSelectNode(originalId, originalId));
 
+    //    overflow: hidden;
+    //     white-space: nowrap;
+    //     text-overflow: ellipsis;
+    //     color: #539bf5;
+    //     font-weight: bold;
+    //     padding: 4px 16px;
+    //     background-color: rgba(67, 75, 91, 0.53);
+    //     border-radius: 4px;
     return (
         <Box
             component="nav"
@@ -60,6 +71,7 @@ export default function Sidebar({ handleClose }: Props) {
             justifyContent="space-between"
             flexDirection="column"
             mt={HEADER_HEIGHT}
+            height={`calc(100% - ${HEADER_HEIGHT})`}
         >
             <List sx={sx}>
                 {
@@ -104,7 +116,7 @@ export default function Sidebar({ handleClose }: Props) {
                     to={toPath + pathParams}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHashtagSolid} />)}
-                    title="Node"
+                    title="Node Tree"
                     end
                 />
                 <SidebarListItem
@@ -152,8 +164,8 @@ export default function Sidebar({ handleClose }: Props) {
                                 title="Team"
                             />
                             <SidebarListItem
-                                onClick={handleClose}
                                 disabled
+                                onClick={handleClose}
                                 to={`${toPath}/tasks`}
                                 icon={(<FontAwesomeIcon icon={faTableColumns} />)}
                                 title="Tasks"

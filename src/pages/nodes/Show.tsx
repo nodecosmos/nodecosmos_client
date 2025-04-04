@@ -1,3 +1,4 @@
+import { setCurrentNode } from '../../features/app/appSlice';
 import { BranchContext, useBranchContextValue } from '../../features/branch/hooks/useBranchContext';
 import NodeShowContent from '../../features/nodes/components/NodeShowContent';
 import useNodeSSE from '../../features/nodes/hooks/sse/useNodeSSE';
@@ -27,6 +28,8 @@ export default function NodeShow() {
             if (timeout.current) {
                 clearTimeout(timeout.current);
             }
+
+            dispatch(setCurrentNode(null));
         };
     }, [branchId, dispatch, isBranch, nodeId]);
 

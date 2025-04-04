@@ -16,13 +16,13 @@ export default function ContributionRequestShowHeader() {
 
     const breadcrumbs = [
         <MuiLink
+            className="display-flex align-center text-tertiary max-w-200 mx-1"
             underline="hover"
             key="1"
-            color="texts.tertiary"
+            color="texts.link"
             component={Link}
             relative="route"
             to={`nodes/${cr.rootId}/${cr.nodeId}/contribution_requests`}
-            variant="body2"
             fontWeight="bold"
         >
             Contribution Requests
@@ -48,7 +48,7 @@ export default function ContributionRequestShowHeader() {
                 <Breadcrumbs
                     aria-label="breadcrumb"
                     separator={(
-                        <Box color="texts.tertiary" fontSize={14}>
+                        <Box color="texts.tertiary" fontSize={12}>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Box>
                     )}

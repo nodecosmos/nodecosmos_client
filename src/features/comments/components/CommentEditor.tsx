@@ -276,7 +276,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                             extensions={ENABLED_EXTENSIONS}
                             p={1}
                             toolbarHeight={38}
-                            editorBackgroundColor={withThreadBlock ? 'backgrounds.1' : 'transparent'}
+                            editorBackgroundColor={withThreadBlock ? 'backgrounds.5' : 'transparent'}
                             info={info}
                             clearState={isUpdate ? undefined : clearState}
                             autoFocus={autoFocus}

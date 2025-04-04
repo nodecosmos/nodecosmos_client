@@ -36,6 +36,7 @@ export default (theme: NodecosmosTheme) => ({
                 minWidth: 0,
                 color: theme.palette.backgrounds.list.defaultColor,
                 '.active &': { color: theme.palette.backgrounds.list.activeColor },
+                ...utils(theme),
             },
         },
     },

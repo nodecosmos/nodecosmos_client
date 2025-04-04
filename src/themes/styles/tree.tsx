@@ -30,7 +30,7 @@ export default (theme: NodecosmosTheme) => ({
                     marginRight: 4,
                     padding: 0,
                     backgroundColor: 'transparent',
-                    fontWeight: 400,
+                    fontWeight: 700,
                     letterSpacing: '0.02857em',
                     minWidth: 40,
                     outline: 'none!important',
