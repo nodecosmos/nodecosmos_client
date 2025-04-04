@@ -15,7 +15,7 @@ export default function ThreadShowHeader() {
 
     const breadcrumbs = [
         <MuiLink
-            className="display-flex align-center text-tertiary max-w-200 mx-1"
+            className="display-flex align-center text-tertiary max-w-200 ml-1"
             underline="hover"
             key="1"
             color="texts.tertiary"
