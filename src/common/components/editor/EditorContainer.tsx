@@ -17,13 +17,12 @@ export default function EditorContainer({ children }: Props) {
     const {
         toolbarHeight,
         editorBackgroundColor,
-        editorOutline = 2,
-        editorFocusBorderColor = 'toolbar.purple',
+        editorOutline = 1.5,
+        editorFocusBorderColor = 'borders.5',
         p = 0,
         px = 0,
         py = 0,
         onBlur,
-        showBorder,
     } = useEditorContext();
 
     const sx = useMemo(() => ({
@@ -31,11 +30,12 @@ export default function EditorContainer({ children }: Props) {
         cursor: 'text',
         overflow: 'hidden',
         backgroundColor: editorBackgroundColor ?? 'backgrounds.3',
+        border: editorOutline,
+        borderColor: 'transparent',
+        borderRadius: 1.5,
         '&:focus, &:focus-within, &:active, &:target, &:focus-visible': {
-            '.TextEditor': {
-                outline: editorOutline,
-                outlineColor: editorFocusBorderColor,
-            },
+            border: editorOutline,
+            borderColor: editorFocusBorderColor,
         },
         // toolbar
         '.EditorToolbar': {
@@ -49,20 +49,20 @@ export default function EditorContainer({ children }: Props) {
             whiteSpace: 'nowrap',
             overflowX: 'auto',
             overflowY: 'hidden',
-            borderBottom: editorOutline ? 0 : 1,
+            // borderBottom: editorOutline ? 0 : 1,
             borderColor: 'borders.2',
+            backgroundColor: 'backgrounds.5',
+            borderBottom: `1px solid ${theme.palette.borders[2]}`,
         },
         '.TextEditor': {
             overflow: 'auto',
             height: `calc(100% - ${HEADER_HEIGHT} - 16px)`, // 16px is the padding of the editor
             m: 1,
             mt: 0.5,
-            border: showBorder ? 1 : 0,
-            borderColor: 'borders.4',
             borderRadius: 1,
             '.placeholder': {
                 color: 'texts.tertiary',
-                fontSize: '1.5rem',
+                fontSize: '1rem',
                 // prevent the placeholder from being selected
                 pointerEvents: 'none',
             },
@@ -118,9 +118,8 @@ export default function EditorContainer({ children }: Props) {
         p,
         px,
         py,
-        theme.palette.texts.primary,
+        theme.palette,
         toolbarHeight,
-        showBorder,
     ]);
 
     useOutsideClick(editorContainerRef, onBlur);

@@ -8,10 +8,7 @@ import { UUID } from '../../../types';
 import useAuthorizeBranch from '../../branch/hooks/useAuthorizeBranch';
 import { selectContributionRequest } from '../contributionRequests.selectors';
 import { updateContributionRequestDescription } from '../contributionRequests.thunks';
-import {
-    Box, Button, Typography,
-} from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, Typography } from '@mui/material';
 import React, {
     Suspense, useCallback, useMemo,
 } from 'react';
@@ -125,34 +122,25 @@ export default function ContributionRequestDescription() {
                             <Box
                                 width={1}
                                 border={1}
-                                borderColor="borders.1"
+                                borderColor="borders.3"
                                 borderRadius={2}
                                 overflow="hidden"
                             >
                                 <Editor
+                                    editorBackgroundColor="backgrounds.5"
+                                    editorOutline={0}
                                     autoFocus
+                                    placeholder="Use Markdown to format your comment"
+                                    showBorder={false}
                                     content={description || ''}
                                     contentType={ContentType.HTML}
                                     onChange={handleChange}
-                                    onBlur={closeEditor}
                                     extensions={EXTENSIONS}
                                     p={1}
-                                    editorOutline={0}
-                                    editorBackgroundColor={'transparent'}
+                                    toolbarHeight={38}
                                     fileObjectId={id as UUID}
+                                    onBlur={closeEditor}
                                 />
-                                <Box
-                                    mb={1}
-                                    mr={1}
-                                    display="flex"
-                                    justifyContent="flex-end"
-                                    alignItems="center"
-                                >
-                                    {loading && <CircularProgress className="mr-1" size={20} />}
-                                    <Button variant="outlined" color="primary" onClick={closeEditor}>
-                                        Close
-                                    </Button>
-                                </Box>
                             </Box>
                         </Box>
                     </Suspense>

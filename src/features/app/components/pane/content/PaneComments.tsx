@@ -54,6 +54,7 @@ export default function PaneComments() {
         if (threadId) {
             return (
                 <CommentEditor
+                    editorBackgroundColor="backgrounds.5"
                     autoFocus={false}
                     threadPk={{
                         branchId,
@@ -67,6 +68,7 @@ export default function PaneComments() {
 
         return (
             <CommentEditor
+                editorBackgroundColor="backgrounds.5"
                 autoFocus={false}
                 newThread={{
                     rootId,

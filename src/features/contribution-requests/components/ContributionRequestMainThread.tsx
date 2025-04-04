@@ -35,6 +35,7 @@ export default function ContributionRequestMainThread() {
         if (mainThread) {
             return (
                 <CommentEditor
+                    editorBackgroundColor="backgrounds.5"
                     autoFocus
                     threadPk={{
                         branchId,

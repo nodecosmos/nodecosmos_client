@@ -51,6 +51,7 @@ interface UpdatePayload {
 export type CreateCommentProps = WithThreadInsertPayload | WithoutThreadInsertPayload | UpdatePayload;
 
 export type AddDescriptionCommentProps = CreateCommentProps & {
+    editorBackgroundColor?: string;
     onClose?: (response?: CreateCommentResponse) => void;
     withThreadBlock?: boolean;
     autoFocus?: boolean;
@@ -79,6 +80,7 @@ const ENABLED_EXTENSIONS: EditorExtensions[] = [
 export default function CommentEditor(props: AddDescriptionCommentProps) {
     const {
         newThread, threadPk = null, onClose, comment, withThreadBlock = false, autoFocus = true, info, url,
+        editorBackgroundColor,
     } = props;
     const dispatch: NodecosmosDispatch = useDispatch();
     const [content, setContent] = React.useState<string>(comment?.content || '');
@@ -87,6 +89,7 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     const [clearState, setClearStateTrigger] = useState(false);
     const currentUser = useSelector(selectCurrentUser);
     const handleServerError = useHandleServerErrorAlert();
+    const editorBg = editorBackgroundColor || (withThreadBlock ? 'backgrounds.1' : 'transparent');
 
     const clearContent = useCallback(() => {
         setContent('');
@@ -253,7 +256,6 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
     return (
         <Box
             borderRadius={0}
-            borderTop={!isUpdate && withThreadBlock ? 1 : 0}
             borderBottom={withThreadBlock ? 1 : 0}
             borderColor="borders.4"
             p={withThreadBlock ? 2 : 0}
@@ -270,13 +272,15 @@ export default function CommentEditor(props: AddDescriptionCommentProps) {
                         width={1}
                     >
                         <Editor
+                            placeholder="Use Markdown to format your comment"
+                            showBorder={false}
                             content={comment?.content || ''}
                             contentType={ContentType.HTML}
                             onChange={handleChange}
                             extensions={ENABLED_EXTENSIONS}
                             p={1}
                             toolbarHeight={38}
-                            editorBackgroundColor={withThreadBlock ? 'backgrounds.5' : 'transparent'}
+                            editorBackgroundColor={editorBg}
                             info={info}
                             clearState={isUpdate ? undefined : clearState}
                             autoFocus={autoFocus}

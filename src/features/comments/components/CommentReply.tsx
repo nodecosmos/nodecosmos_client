@@ -16,6 +16,7 @@ export default function CommentReply({ threadId }: { threadId: UUID }) {
     }), [threadId, thread.branchId, thread.objectId]);
 
     return insertComment ? <CommentEditor
+        editorBackgroundColor="backgrounds.5"
         withThreadBlock
         threadPk={threadPk}
         onClose={removeInsertComment} /> : <InsertCommentPlaceholder onClick={setInsertComment} />;

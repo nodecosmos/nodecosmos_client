@@ -78,7 +78,7 @@ export default function Show() {
                     <Box component="span" ml={2}>{thread.title}</Box>
                 </Typography>
                 <Box
-                    className="background-5"
+                    className="background-6"
                     component="div"
                     border={1}
                     borderColor="borders.3"
@@ -100,6 +100,7 @@ export default function Show() {
                     }
                     <Box mt={2}>
                         <CommentEditor
+                            editorBackgroundColor="backgrounds.5"
                             autoFocus={false}
                             threadPk={threadPk}
                             info="Add a comment to the main thread"

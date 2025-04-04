@@ -112,7 +112,7 @@ const theme: NodecosmosTheme = {
             3: '#232526',
             4: '#272b31',
             5: '#1e1f20',
-            6: '#1d1e25',
+            6: '#1b1c1d',
             7: '#1e202a',
             8: '#4d4e55',
 
@@ -140,7 +140,7 @@ const theme: NodecosmosTheme = {
             blue: '#26ccdf',
             lightRed: '#e56175',
             pink: '#96588e',
-            purple: '#b775ff',
+            purple: '#804cba',
             lightPurple: '#afbcef',
             yellow: '#ded65f',
             orange: '#edb96d',
