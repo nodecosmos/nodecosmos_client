@@ -6,7 +6,7 @@ import { NodecosmosDispatch } from '../../../store';
 import { ObjectType, UUID } from '../../../types';
 import { selectSelectedObject } from '../../app/app.selectors';
 import { selectObject } from '../../app/app.thunks';
-import { setAlert } from '../../app/appSlice';
+import { setAlert, setCurrentNode } from '../../app/appSlice';
 import {
     DISPLAY_MD_SX, SIDEBAR_WIDTH, MD_WO_SIDEBAR_WIDTH_SX,
 } from '../../app/constants';
@@ -131,6 +131,8 @@ export default function NodeShowContent() {
                     branchId,
                     id,
                 }));
+
+                dispatch(setCurrentNode(originalNode));
             }
         }
         // no need for searchParams as we only select from params on initial render

@@ -130,14 +130,15 @@ export default function ContributionRequestDescription() {
                                 overflow="hidden"
                             >
                                 <Editor
+                                    autoFocus
                                     content={description || ''}
                                     contentType={ContentType.HTML}
                                     onChange={handleChange}
                                     onBlur={closeEditor}
                                     extensions={EXTENSIONS}
                                     p={1}
-                                    editorOutline={1}
-                                    editorFocusBorderColor="borders.5"
+                                    editorOutline={0}
+                                    editorBackgroundColor={'transparent'}
                                     fileObjectId={id as UUID}
                                 />
                                 <Box

@@ -15,6 +15,7 @@ export default function ThreadShowHeader() {
 
     const breadcrumbs = [
         <MuiLink
+            className="display-flex align-center text-tertiary max-w-200 mx-1"
             underline="hover"
             key="1"
             color="texts.tertiary"
@@ -47,7 +48,7 @@ export default function ThreadShowHeader() {
                 <Breadcrumbs
                     aria-label="breadcrumb"
                     separator={(
-                        <Box color="texts.tertiary" fontSize={14}>
+                        <Box color="texts.tertiary" fontSize={12}>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Box>
                     )}

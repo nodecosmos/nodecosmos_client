@@ -1,4 +1,5 @@
 import { ObjectType, UUID } from '../../types';
+import { Node } from '../nodes/nodes.types';
 
 export enum HeaderContent {
     NodeIndexHeader = 'NodeIndexHeader',
@@ -54,12 +55,13 @@ export interface SelectedObject {
 }
 
 export interface AppState {
-    headerContent?: HeaderContent;
+    headerContent: HeaderContent | null;
     theme: Theme;
     browser: Browser;
     alert: Alert;
     descriptionCoordinates: DescriptionCoordinates;
     isPaneOpen: boolean;
     isPaneLoading: boolean;
+    currentNode: Node | null;
     selectedObject: SelectedObject | null;
 }

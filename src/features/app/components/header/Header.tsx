@@ -6,15 +6,16 @@ import ContributionRequestShowHeader from '../../../contribution-requests/compon
 import NodeIndexHeader from '../../../nodes/components/header/NodeIndexHeader';
 import MobileSidebarIcon from '../../../nodes/components/sidebar/MobileSidebarIcon';
 import TreeShowHeader from '../../../nodes/components/tree/TreeShowHeader';
-import { selectHeaderContent } from '../../app.selectors';
+import { selectCurrentNode, selectHeaderContent } from '../../app.selectors';
+import { HeaderContent } from '../../app.types';
 import {
     HEADER_HEIGHT, MD_WO_SIDEBAR_WIDTH_SX, SIDEBAR_MD_SX,
 } from '../../constants';
 import useIsMobile from '../../hooks/useIsMobile';
-import { faHome } from '@fortawesome/pro-regular-svg-icons';
+import { faHashtag as faHashtagSolid, faHome } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    Box, Button, IconButton,
+    Box, Button, IconButton, Typography,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -29,9 +30,11 @@ const HEADER_CONTENT = {
     ContributionRequestShowHeader: <ContributionRequestShowHeader />,
     ThreadShowHeader: <ThreadShowHeader />,
 };
+
 export default function Header() {
     const location = useLocation();
     const headerContent = useSelector(selectHeaderContent);
+    const currentNode = useSelector(selectCurrentNode);
     const isMobile = useIsMobile();
     const hasSidebar = useMemo(() => (
         !isMobile && !NON_SIDEBAR_PATHS.some((path) => location.pathname.startsWith(path))
@@ -71,13 +74,12 @@ export default function Header() {
                         component={Link}
                         to={isIndex ? 'https://nodecosmos.com/' : '/nodes'}
                         relative={isIndex ? 'route' : 'path'}
-                        className="LogoButton"
+                        className="LogoButton min-vis-width-viewport-600"
                     >
                         <img src="/static/logo-4.svg" alt="logo" height={15} width="auto" />
                     </Button>
                 </Box>
                 <Box
-                    px={1.25}
                     display="flex"
                     borderBottom={1}
                     borderColor="borders.1"
@@ -93,14 +95,30 @@ export default function Header() {
                                 <IconButton
                                     component={Link}
                                     to="/nodes"
-                                    className="fs-18 toolbar-default min-vis-width-viewport-400"
+                                    className="ml-1 fs-18 toolbar-default"
                                 >
                                     <FontAwesomeIcon icon={faHome} />
                                 </IconButton>
                             </>
                         )
                     }
-
+                    { headerContent !== HeaderContent.TreeShowHeader && currentNode
+                        && (
+                            <div className="flex-1">
+                                <Typography
+                                    className={'display-flex align-center flex-1'
+                                            + 'text-tertiary ml-1 background-3 p-05 px-1 w-fit-content'}
+                                    variant="subtitle1"
+                                    fontWeight="bold"
+                                    color="texts.tertiary"
+                                    borderRadius={1}
+                                >
+                                    <FontAwesomeIcon fontSize="14px" icon={faHashtagSolid} />
+                                    <span className="ml-1">{currentNode.title}</span>
+                                </Typography>
+                            </div>
+                        )
+                    }
                     {headerContent && !isMobile && (
                         <Box
                             height={1}
@@ -115,6 +133,7 @@ export default function Header() {
                     <ThemeMenu />
 
                     <Box
+                        mr={1}
                         height={1}
                         display="flex"
                         alignItems="center"

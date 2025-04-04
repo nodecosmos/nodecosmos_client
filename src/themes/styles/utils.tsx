@@ -58,10 +58,15 @@ export default (theme: NodecosmosTheme) => ({
     },
 
     '&.p-0': { padding: 0 },
+    '&.p-05': { padding: 4 },
     '&.p-1': { padding: 8 },
     '&.p-2': { padding: 16 },
     '&.p-3': { padding: 24 },
     '&.p-1-2': { padding: '8px 16px' },
+    '&.px-1': {
+        paddingLeft: 8,
+        paddingRight: 8,
+    },
 
     '&.h-35': { height: 35 },
     '&.h-100': { height: '100%' },
@@ -102,6 +107,7 @@ export default (theme: NodecosmosTheme) => ({
 
     '&.min-vis-width-viewport-360': { '@media (max-width: 360px)': { display: 'none' } },
     '&.min-vis-width-viewport-400': { '@media (max-width: 400px)': { display: 'none' } },
+    '&.min-vis-width-viewport-600': { '@media (max-width: 600px)': { display: 'none' } },
 
     '&.background-0': { backgroundColor: 'transparent' },
     '&.background-1': { backgroundColor: theme.palette.backgrounds[1] },

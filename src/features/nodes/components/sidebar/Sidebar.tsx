@@ -55,7 +55,6 @@ export default function Sidebar({ handleClose }: Props) {
     }), [isBranch, isContributionRequest]);
     const currentUser = useSelector(selectCurrentUser);
     const maybeRoot = useSelector(maybeSelectNode(originalId, originalId));
-    const maybeNode = useSelector(maybeSelectNode(originalId, nodeId));
 
     //    overflow: hidden;
     //     white-space: nowrap;
@@ -117,7 +116,7 @@ export default function Sidebar({ handleClose }: Props) {
                     to={toPath + pathParams}
                     icon={(<FontAwesomeIcon icon={faHashtag} />)}
                     selectedIcon={(<FontAwesomeIcon icon={faHashtagSolid} />)}
-                    title="Node"
+                    title="Node Tree"
                     end
                 />
                 <SidebarListItem
@@ -165,6 +164,7 @@ export default function Sidebar({ handleClose }: Props) {
                                 title="Team"
                             />
                             <SidebarListItem
+                                disabled
                                 onClick={handleClose}
                                 to={`${toPath}/tasks`}
                                 icon={(<FontAwesomeIcon icon={faTableColumns} />)}
@@ -184,23 +184,6 @@ export default function Sidebar({ handleClose }: Props) {
                     )
                 }
             </List>
-
-            {
-                maybeNode && (
-                    <div className="h-header display-flex align-center m-1">
-                        <Typography
-                            className="ObjectTitle text-tertiary"
-                            variant="subtitle1"
-                            color="texts.tertiary"
-                            borderRadius={1}
-                        >
-                            <FontAwesomeIcon fontSize="12px" icon={faHashtagSolid} />
-                            <span className="ml-1">{maybeNode.title}</span>
-                        </Typography>
-                    </div>
-                )
-            }
-
         </Box>
     );
 }

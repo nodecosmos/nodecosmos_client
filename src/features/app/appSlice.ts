@@ -44,6 +44,7 @@ const initialState: AppState = {
     isPaneOpen: true,
     isPaneLoading: false,
     selectedObject: null,
+    currentNode: null,
 };
 
 const appSlice = createSlice({
@@ -67,6 +68,9 @@ const appSlice = createSlice({
                 ...action.payload,
             };
         },
+        setCurrentNode(state, action) {
+            state.currentNode = action.payload;
+        },
     },
     extraReducers(builder) {
         builder.addCase(selectObject.fulfilled, (state, action) => {
@@ -89,6 +93,7 @@ export const {
     setIsPaneLoading,
     setHeaderContent,
     setAlert,
+    setCurrentNode,
 } = actions;
 
 export default reducer;

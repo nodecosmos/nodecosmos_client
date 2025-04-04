@@ -49,7 +49,7 @@ export default function TreeShow() {
         dispatch(setHeaderContent('TreeShowHeader'));
 
         return () => {
-            dispatch(setHeaderContent(''));
+            dispatch(setHeaderContent(null));
         };
     }, [dispatch]);
 
