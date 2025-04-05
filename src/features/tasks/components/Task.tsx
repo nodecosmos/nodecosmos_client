@@ -1,19 +1,21 @@
+import { UUID } from '../../../types';
+import { selectTaskById } from '../tasks.selectors';
 import { Draggable, DraggableProvided } from '@hello-pangea/dnd';
 import { Box } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props {
-    content: string;
-    id: string;
+    id: UUID
     index: number;
 }
 
-export default function Task(props: Props) {
-    const {
-        id, index, content,
-    } = props;
+function TaskCard(props: Props) {
+    const { index, id } = props;
+    const task = useSelector(selectTaskById(id));
+
     return (
-        <Draggable draggableId={id} index={index}>
+        <Draggable draggableId={task.id} index={index}>
             {(
                 provided: DraggableProvided,
             ) => (
@@ -24,10 +26,12 @@ export default function Task(props: Props) {
                     {...provided.dragHandleProps}
                 >
                     <Box>
-                        Task {content}
+                        {task.title}
                     </Box>
                 </div>
             )}
         </Draggable>
     );
 }
+
+export default React.memo(TaskCard);

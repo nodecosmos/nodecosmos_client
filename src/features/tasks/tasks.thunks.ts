@@ -6,12 +6,25 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createTaskSection = createAsyncThunk<
     TaskSection,
-    Pick<TaskSection, 'branchId' | 'nodeId' | 'orderIndex' | 'name'>,
+    Pick<TaskSection, 'branchId' | 'nodeId' | 'orderIndex' | 'title'>,
     { rejectValue: NodecosmosError }
 >(
     'tasks/createTaskSection',
     async (payload) => {
         const response = await nodecosmos.post('/tasks/sections', payload);
+
+        return response.data;
+    },
+);
+
+export const updateTaskSectionTitle = createAsyncThunk<
+    Pick<TaskSection, 'branchId' | 'nodeId' | 'id' | 'title'>,
+    Pick<TaskSection, 'branchId' | 'nodeId' | 'id' | 'title'>,
+    { rejectValue: NodecosmosError }
+>(
+    'tasks/updateTaskSectionTitle',
+    async (payload) => {
+        const response = await nodecosmos.put('/tasks/section_title', payload);
 
         return response.data;
     },
@@ -24,7 +37,7 @@ export const updateTaskSectionOrderIndex = createAsyncThunk<
 >(
     'tasks/updateTaskSectionOrderIndex',
     async (payload) => {
-        const response = await nodecosmos.put('/tasks/sections_order_index', payload);
+        const response = await nodecosmos.put('/tasks/section_order_index', payload);
 
         return response.data;
     },
@@ -75,6 +88,19 @@ export const getTask = createAsyncThunk<
     },
 );
 
+export const updateTaskTitle = createAsyncThunk<
+    Pick<Task, 'branchId' | 'nodeId' | 'id' | 'title'>,
+    Pick<Task, 'branchId' | 'nodeId' | 'id' | 'title'>,
+    { rejectValue: NodecosmosError }
+>(
+    'tasks/updateTaskTitle',
+    async (payload) => {
+        const response = await nodecosmos.put('/tasks/task_title', payload);
+
+        return response.data;
+    },
+);
+
 export const updateAssignees = createAsyncThunk<
     Pick<Task, 'branchId' | 'nodeId' | 'id' | 'sectionId' | 'assignees' | 'assigneeIds'>,
     Pick<Task, 'branchId' | 'nodeId' | 'id' | 'assigneeIds'>,
@@ -83,7 +109,7 @@ export const updateAssignees = createAsyncThunk<
     'tasks/updateAssignees',
 
     async (payload) => {
-        const response = await nodecosmos.put('/tasks/update_assignees', payload);
+        const response = await nodecosmos.put('/tasks/assignees', payload);
 
         return response.data;
     },
@@ -99,7 +125,7 @@ export const updateTaskPosition = createAsyncThunk<
 >(
     'tasks/updateTaskSectionId',
     async (payload) => {
-        const response = await nodecosmos.put('/tasks/update_task_position', payload.task);
+        const response = await nodecosmos.put('/tasks/task_position', payload.task);
 
         return response.data;
     },

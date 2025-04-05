@@ -1,4 +1,5 @@
 import Task from './Task';
+import { selectSectionTasks } from '../tasks.selectors';
 import { faPlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,24 +7,19 @@ import {
 } from '@hello-pangea/dnd';
 import { Button } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props {
-    listId?: string;
-    title?: string;
-    // may not be provided - and might be null
-    tasks: any[];
+    sectionId: string;
 }
 
 export default function TaskList(props: Props) {
-    const {
-        listId = 'LIST',
-        title: _,
-        tasks,
-    } = props;
+    const { sectionId } = props;
+    const tasks = useSelector(selectSectionTasks(sectionId));
 
     return (
         <Droppable
-            droppableId={listId}
+            droppableId={sectionId}
             type="TASK"
             direction="vertical"
         >
@@ -33,12 +29,12 @@ export default function TaskList(props: Props) {
             ) => (
                 <div
                     ref={provided.innerRef}
-                    className={`p-2 display-flex flex-column user-select-none h-100
+                    className={`display-flex flex-column user-select-none h-100
                                 bg-transition-1 background-${dropSnapshot.isDraggingOver ? '6' : '0'}`}>
                     <div>
                         {
                             tasks.map((task, index) => (
-                                <Task content={task.content} key={task.id} index={index} id={task.id} />
+                                <Task key={task.id} index={index} id={task.id} />
                             ))
                         }
                     </div>

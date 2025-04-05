@@ -16,6 +16,8 @@ const SX = {
 
 interface EditTitleFieldProps {
     title: string;
+    className?: string;
+    placeholder?: string;
     authorized?: boolean;
     color?: string;
     pr?: number;
@@ -33,6 +35,8 @@ interface EditTitleFieldProps {
 export default function EditTitleField(props: EditTitleFieldProps) {
     const {
         title,
+        className,
+        placeholder = 'Add title',
         authorized = true,
         color = 'texts.secondary',
         pr = 0,
@@ -62,6 +66,8 @@ export default function EditTitleField(props: EditTitleFieldProps) {
     if (editing) {
         return (
             <EditTitleFieldInput
+                className={className}
+                placeholder={placeholder}
                 title={title}
                 onChange={onChange}
                 onClose={handleEditClose}
@@ -76,6 +82,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
 
     return (
         <Typography
+            className={className}
             onClick={edit}
             variant={variant}
             pr={pr}
@@ -83,7 +90,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
             color={(title && color) || 'texts.tertiary'}
             sx={SX}
         >
-            {title || 'Click to add title'}
+            {title || placeholder}
         </Typography>
     );
 }

@@ -1,6 +1,12 @@
 import {
     createTask,
-    createTaskSection, getTask, indexNodeTasks, updateAssignees, updateTaskPosition, updateTaskSectionOrderIndex,
+    createTaskSection,
+    getTask,
+    indexNodeTasks,
+    updateAssignees,
+    updateTaskPosition,
+    updateTaskSectionOrderIndex,
+    updateTaskSectionTitle, updateTaskTitle,
 } from './tasks.thunks';
 import { TaskState } from './tasks.types';
 import { createSlice } from '@reduxjs/toolkit';
@@ -25,6 +31,19 @@ const tasksSlice = createSlice({
                 }
 
                 state.sectionsByNode[taskSection.nodeId].push(taskSection);
+            })
+            .addCase(updateTaskSectionTitle.fulfilled, (state, action) => {
+                const { id, title } = action.payload;
+
+                if (!state.sectionsByNode[action.payload.nodeId]) {
+                    return;
+                }
+
+                const taskSection = state.sectionsByNode[action.payload.nodeId].find((section) => section.id === id);
+
+                if (taskSection) {
+                    taskSection.title = title;
+                }
             })
             .addCase(updateTaskSectionOrderIndex.fulfilled, (state, action) => {
                 const { id, orderIndex } = action.payload;
@@ -66,6 +85,26 @@ const tasksSlice = createSlice({
                 const { task } = action.payload;
 
                 state.taskById[task.id] = task;
+            })
+            .addCase(updateTaskTitle.fulfilled, (state, action) => {
+                const { id, title } = action.payload;
+
+                if (!state.taskById[id]) {
+                    return;
+                }
+
+                state.taskById[id].title = title;
+
+                state.tasksBySection[state.taskById[id].sectionId] = state.tasksBySection[state.taskById[id].sectionId]
+                    .map((task) => {
+                        if (task.id === id) {
+                            return {
+                                ...task,
+                                title,
+                            };
+                        }
+                        return task;
+                    });
             })
             .addCase(updateAssignees.fulfilled, (state, action) => {
                 // update assignees on both task by id and section

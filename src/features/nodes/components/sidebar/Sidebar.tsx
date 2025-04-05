@@ -164,7 +164,6 @@ export default function Sidebar({ handleClose }: Props) {
                                 title="Team"
                             />
                             <SidebarListItem
-                                disabled
                                 onClick={handleClose}
                                 to={`${toPath}/tasks`}
                                 icon={(<FontAwesomeIcon icon={faTableColumns} />)}

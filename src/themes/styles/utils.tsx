@@ -90,9 +90,11 @@ export default (theme: NodecosmosTheme) => ({
         paddingRight: 32,
     },
 
+    '&.h-32': { height: 32 },
     '&.h-35': { height: 35 },
     '&.h-100': { height: '100%' },
     '&.h-header': { height: HEADER_HEIGHT },
+    '&.h-without-header': { height: `calc(100% - ${HEADER_HEIGHT})` },
     [`&.h-${NODE_HEIGHT}`]: { height: NODE_HEIGHT },
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
@@ -189,6 +191,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.justify-start': { justifyContent: 'start' },
     '&.justify-center': { justifyContent: 'center' },
     '&.justify-end': { justifyContent: 'end' },
+    '&.justify-space-between': { justifyContent: 'space-between' },
     '&.align-center': { alignItems: 'center' },
     '&.flex-column': { flexDirection: 'column' },
     '&.flex-row': { flexDirection: 'row' },

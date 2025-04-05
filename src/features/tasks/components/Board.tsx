@@ -1,32 +1,17 @@
-// @ts-nocheck
-import { authorQuoteMap } from './data';
-import Section from './Section';
+import TaskSection from './TaskSection';
+import useBranchContext from '../../branch/hooks/useBranchContext';
+import { selectNodeTaskSections } from '../tasks.selectors';
+import { TaskSection as TaskSectionType } from '../tasks.types';
 import {
     DragDropContext,
     Droppable, DroppableProvided, DropResult,
 } from '@hello-pangea/dnd';
-import React, { useCallback, useState } from 'react';
-
-const qmap = authorQuoteMap;
-
-function reorder<TItem>(
-    list: TItem[],
-    startIndex: number,
-    endIndex: number,
-): TItem[] {
-    const result = [...list];
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-}
-
-const columns = qmap;
-const ordered = Object.keys(qmap);
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Board() {
-    const [quotesOrd, setQuotes] = useState(ordered);
-    const [sections, setSections] = useState(columns);
+    const { nodeId } = useBranchContext();
+    const sections = useSelector(selectNodeTaskSections(nodeId));
 
     const onDragStart = useCallback(() => {
         if (window.navigator.vibrate) {
@@ -34,47 +19,9 @@ export default function Board() {
         }
     }, []);
 
-    const onDragEnd = useCallback((result: DropResult) => {
-        // dropped outside the list
-        if (!result.destination) {
-            return;
-        }
-
-        if (result.destination.index === result.source.index) {
-            return;
-        }
-
-        if (result.type === 'SECTION') {
-            const newQuotes = reorder(
-                quotesOrd,
-                result.source.index,
-                result.destination.index,
-            );
-            setQuotes(newQuotes);
-            return;
-        } else {
-            // change sections by title as key
-            const sourceKey = result.source.droppableId;
-            const destKey = result.destination.droppableId;
-            const sourceIndex = result.source.index;
-            const destIndex = result.destination.index;
-            const sourceList = sections[sourceKey];
-            const destList = sections[destKey];
-            const sourceItem = sourceList[sourceIndex];
-            const newSourceList = [...sourceList];
-            const newDestList = [...destList];
-            newSourceList.splice(sourceIndex, 1);
-            newDestList.splice(destIndex, 0, sourceItem);
-
-            const newSections = {
-                ...sections,
-                [sourceKey]: newSourceList,
-                [destKey]: newDestList,
-            };
-
-            setSections(newSections);
-        }
-    }, [quotesOrd, sections]);
+    const onDragEnd = useCallback((_result: DropResult) => {
+        console.log(sections);
+    }, [sections]);
 
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
@@ -85,15 +32,15 @@ export default function Board() {
             >
                 {(provided: DroppableProvided) => (
                     <div
-                        className="display-flex h-100 overflow-hidden p-1"
+                        className="display-flex h-without-header overflow-hidden p-1"
                         ref={provided.innerRef}
                         {...provided.droppableProps}>
-                        {quotesOrd.map((key: string, index: number) => (
-                            <Section
-                                key={key}
+                        {sections && sections.map((section: TaskSectionType, index: number) => (
+                            <TaskSection
+                                key={section.id}
+                                id={section.id}
+                                title={section.title}
                                 index={index}
-                                title={key}
-                                tasks={sections[key]}
                             />
                         ))}
                         {provided.placeholder}
