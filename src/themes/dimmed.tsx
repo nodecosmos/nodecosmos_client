@@ -121,8 +121,8 @@ const theme: NodecosmosTheme = {
         },
         toolbar: {
             red: '#e82c6a',
-            green: '#b4ed7e',
-            blue: '#316dca',
+            green: '#98ed7e',
+            blue: '#3898f8',
             lightRed: '#f67286',
             pink: '#a6699f',
             purple: '#c885ff',

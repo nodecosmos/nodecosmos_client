@@ -15,7 +15,7 @@ export default function ContributionRequestsShowToolbar() {
             alignItems="center"
             height={HEADER_HEIGHT}
             borderBottom={1}
-            borderColor="borders.2"
+            borderColor="borders.1"
             pl={1}
         >
             <ToolbarContainer

@@ -108,14 +108,14 @@ const theme: NodecosmosTheme = {
         },
 
         backgrounds: {
-            1: '#f7f7fa', // f8f9fa
-            2: '#ffffff', // f0f0ef
-            3: '#eaeaf1',
+            1: '#f7f7fa',
+            2: '#ffffff',
+            3: '#f2f2f5',
             4: '#eeeef3',
-            5: '#f7f7fa',
+            5: '#ffffff',
             6: '#f7f7fa',
             7: '#eeeef3',
-            8: '#edeeee',
+            8: '#edeef1',
 
             hover: '#d9dde3',
 
@@ -319,7 +319,7 @@ const theme: NodecosmosTheme = {
             secondary: '#353a44',
             disabled: '#5c616b',
         },
-        divider: '#3a3f46',
+        divider: '#afafbd',
         action: {
             'active': 'rgba(0, 0, 0, 0.54)',
             'hover': 'rgba(0, 0, 0, 0.04)',
