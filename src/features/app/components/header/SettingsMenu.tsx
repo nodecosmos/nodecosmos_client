@@ -50,7 +50,7 @@ const SLIDER_MARKS = [
     },
 ];
 
-export default function ThemeMenu() {
+export default function SettingsMenu() {
     const dispatch: NodecosmosDispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const [themeAnchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -69,7 +69,7 @@ export default function ThemeMenu() {
 
     // if it's not authenticated, show the login and signup buttons
     return (
-        <Box width={1} height={1} position="relative" className="display-flex align-center">
+        <div className="position-relative flex-1 display-flex align-center">
             <IconButton
                 sx={{
                     position: 'absolute',
@@ -115,6 +115,6 @@ export default function ThemeMenu() {
                     </Box>
                 </SidebarListItem>
             </Menu>
-        </Box>
+        </div>
     );
 }

@@ -1,5 +1,5 @@
 /* mui */
-import ThemeMenu from './ThemeMenu';
+import SettingsMenu from './SettingsMenu';
 import UserHeaderTools from './UserHeaderTools';
 import ThreadShowHeader from '../../../comments/components/thread/ThreadShowHeader';
 import ContributionRequestShowHeader from '../../../contribution-requests/components/ContributionRequestShowHeader';
@@ -103,12 +103,11 @@ export default function Header() {
                             </>
                         )
                     }
-                    { headerContent !== HeaderContent.TreeShowHeader && currentNode
+                    { !isMobile && headerContent !== HeaderContent.TreeShowHeader && currentNode
                         && (
                             <div className="flex-1">
                                 <Typography
-                                    className={'display-flex align-center flex-1'
-                                            + 'text-tertiary ml-1 background-3 p-05 px-1 w-fit-content'}
+                                    className={'text-tertiary ml-1 background-3 p-05 px-1 text-ellipsis w-fit-content'}
                                     variant="subtitle1"
                                     fontWeight="bold"
                                     color="texts.tertiary"
@@ -131,7 +130,7 @@ export default function Header() {
                         </Box>
                     )}
                     {(!headerContent || isMobile) && <div />}
-                    <ThemeMenu />
+                    <SettingsMenu />
 
                     <Box
                         mr={1}
