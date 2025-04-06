@@ -18,9 +18,7 @@ import { keymap } from 'prosemirror-keymap';
 import { DOMSerializer, DOMParser } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import React, {
-    useCallback, useEffect, useRef,
-} from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as Y from 'yjs';
 
 export enum ContentType {
@@ -223,17 +221,11 @@ function Editor(props: EditorProps) {
         }
     }, [autoFocus]);
 
-    const handleClick = useCallback(() => {
-        if (!editorViewRef.current) return;
-
-        editorViewRef.current.focus();
-    }, []);
-
     return (
         <EditorContext.Provider value={ctxValue}>
             <EditorContainer>
                 <EditorToolbar />
-                <EditorText editorRef={editorRef} editorClassName={editorClassName} handleClick={handleClick} />
+                <EditorText editorRef={editorRef} editorClassName={editorClassName} />
             </EditorContainer>
         </EditorContext.Provider>
     );

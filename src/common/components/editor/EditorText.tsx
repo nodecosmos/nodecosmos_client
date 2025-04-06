@@ -2,17 +2,14 @@ import React from 'react';
 
 interface EditorTextProps {
     editorRef: React.RefObject<HTMLDivElement>;
-    handleClick: () => void;
     editorClassName?: string;
 }
 
 function EditorText(props: EditorTextProps) {
-    const {
-        editorRef, handleClick, editorClassName,
-    } = props;
+    const { editorRef, editorClassName } = props;
 
     return (
-        <div className="TextEditor display-flex justify-center" onClick={handleClick}>
+        <div className="TextEditor display-flex justify-center">
             <div className="max-w-900 w-100">
                 <div
                     ref={editorRef}

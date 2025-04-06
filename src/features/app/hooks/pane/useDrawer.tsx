@@ -66,7 +66,6 @@ export default function useDrawer(): MutableRefObject<null | HTMLDivElement> {
     }, [setMobilePaneHeight]);
 
     const handleDragStart = useCallback((event: DragEvent) => {
-        console.log('dragstart');
         event.preventDefault();
         const yStart = event.clientY;
         const currentHeight = document.getElementById('MobilePane')?.clientHeight || 64;
