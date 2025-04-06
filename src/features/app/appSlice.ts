@@ -4,6 +4,7 @@ import {
 } from './app.types';
 import { deleteFlow } from '../flows/flows.thunks';
 import { deleteIo } from '../input-outputs/inputOutputs.thunks';
+import { updateTitle } from '../nodes/nodes.thunks';
 import { createSlice } from '@reduxjs/toolkit';
 
 function fnBrowserDetect() {
@@ -74,15 +75,27 @@ const appSlice = createSlice({
         },
     },
     extraReducers(builder) {
-        builder.addCase(selectObject.fulfilled, (state, action) => {
-            state.selectedObject = action.payload;
-        }).addCase(deleteFlow.fulfilled, (state) => {
-            state.selectedObject = null;
-        }).addCase(deleteIo.fulfilled, (state) => {
-            state.selectedObject = null;
-        }).addCase(clearSelectedObject.fulfilled, (state) => {
-            state.selectedObject = null;
-        });
+        builder
+            .addCase(selectObject.fulfilled, (state, action) => {
+                state.selectedObject = action.payload;
+            })
+            .addCase(deleteFlow.fulfilled, (state) => {
+                state.selectedObject = null;
+            })
+            .addCase(deleteIo.fulfilled, (state) => {
+                state.selectedObject = null;
+            })
+            .addCase(clearSelectedObject.fulfilled, (state) => {
+                state.selectedObject = null;
+            })
+            .addCase(updateTitle.fulfilled, (state, action) => {
+                const { branchId, id } = action.payload;
+                // if selectedObject title is updated, update the selectedObject title
+                if (state.selectedObject?.objectId === id && state.selectedObject?.branchId === branchId) {
+                    state.selectedObject.objectTitle = action.payload.title;
+                }
+            })
+        ;
     },
 });
 

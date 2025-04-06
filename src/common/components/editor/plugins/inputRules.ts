@@ -36,7 +36,7 @@ function codeBlockRule(nodeType: NodeType) {
 /// the number of `#` signs.
 function headingRule(nodeType: NodeType, maxLevel: number) {
     return textblockTypeInputRule(new RegExp('^(#{1,' + maxLevel + '})\\s$'),
-        nodeType, match => ({ level: match[1].length }));
+        nodeType, match => ({ level: match[1].length + 1 }));
 }
 
 /// A set of input rules for creating the basic block quotes, lists,

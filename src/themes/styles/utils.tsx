@@ -62,10 +62,23 @@ export default (theme: NodecosmosTheme) => ({
     '&.p-1': { padding: 8 },
     '&.p-2': { padding: 16 },
     '&.p-3': { padding: 24 },
+    '&.p-4': { padding: 32 },
     '&.p-1-2': { padding: '8px 16px' },
     '&.px-1': {
         paddingLeft: 8,
         paddingRight: 8,
+    },
+    '&.px-2': {
+        paddingLeft: 16,
+        paddingRight: 16,
+    },
+    '&.px-3': {
+        paddingLeft: 24,
+        paddingRight: 24,
+    },
+    '&.px-4': {
+        paddingLeft: 32,
+        paddingRight: 32,
     },
 
     '&.h-35': { height: 35 },

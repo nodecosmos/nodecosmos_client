@@ -2,57 +2,33 @@ import { PanePage } from './Pane';
 import ToolbarContainer from '../../../../common/components/toolbar/ToolbarContainer';
 import ToolbarItem from '../../../../common/components/toolbar/ToolbarItem';
 import { OBJECT_TYPE_NAMES, ObjectType } from '../../../../types';
-import { selectBranch } from '../../../branch/branches.selectors';
 import useBranchContext from '../../../branch/hooks/useBranchContext';
 import { HEADER_HEIGHT } from '../../constants';
-import {
-    PANE_Q, PaneContent, usePaneContext,
-} from '../../hooks/pane/usePaneContext';
+import { PaneContent, usePaneContext } from '../../hooks/pane/usePaneContext';
+import useTogglePane from '../../hooks/pane/useTogglePane';
 import TogglePaneButton from '../TogglePaneButton';
 import { faRectangleCode, faComments } from '@fortawesome/pro-regular-svg-icons';
 import {
-    faCodeCommit, faDisplay, faPenToSquare,
+    faHashtag, faCodeCommit, faCodePullRequest, faDisplay, faPenToSquare,
 } from '@fortawesome/pro-solid-svg-icons';
-import { faAngleRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import React, { useMemo } from 'react';
+
+const OBJECT_SYMBOL_ICONS = {
+    [ObjectType.Node]: faHashtag,
+    [ObjectType.Workflow]: faCodeCommit,
+    [ObjectType.Flow]: faCodePullRequest,
+    [ObjectType.FlowStep]: faCodePullRequest,
+    [ObjectType.Io]: faCodePullRequest,
+};
 
 export default function PaneToolbar() {
     const { isBranch } = useBranchContext();
     const {
-        objectTitle, originalObjectTitle, setContent, content, objectId, objectType, page, branchId,
+        content, objectType, page,
     } = usePaneContext();
-    const branch = useSelector(selectBranch(branchId));
-    const isTitleEdited = useMemo(() => {
-        if (!branch) {
-            return false;
-        }
-
-        const {
-            editedTitleNodes, editedTitleFlows, editedTitleIos,
-        } = branch;
-
-        return (
-            editedTitleNodes.has(objectId)
-            || editedTitleFlows.has(objectId)
-            || editedTitleIos.has(objectId)) && originalObjectTitle && objectTitle !== originalObjectTitle;
-    }, [branch, objectId, objectTitle, originalObjectTitle]);
-
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const handleTogglePane = useCallback((paneContent: PaneContent | undefined) => {
-        if (paneContent !== undefined) {
-            setContent(paneContent);
-
-            const newParams = new URLSearchParams(searchParams);
-            newParams.set(PANE_Q, paneContent);
-            setSearchParams(newParams);
-        }
-    }, [searchParams, setContent, setSearchParams]);
-
+    const handleTogglePane = useTogglePane();
     const markdownTitle = useMemo(() => {
         if (isBranch) {
             return 'Markdown (Read Only) You can use this page to add text comments to the branch.';
@@ -130,20 +106,10 @@ export default function PaneToolbar() {
                     fontWeight="bold"
                     borderRadius={1}
                 >
+                    <FontAwesomeIcon
+                        icon={OBJECT_SYMBOL_ICONS[objectType]}
+                        className="default-list-color mr-1" />
                     {OBJECT_TYPE_NAMES[objectType]}
-                </Typography>
-                <Box
-                    mx={1}
-                    fontSize={14}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center">
-                    <FontAwesomeIcon icon={faAngleRight} className="default-list-color" />
-                </Box>
-                <Typography className="ObjectTitle" variant="body2">
-                    {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}
-
-                    <span className={isTitleEdited ? 'diff-added' : undefined}>{objectTitle}</span>
                 </Typography>
             </Box>
             {

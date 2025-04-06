@@ -4,7 +4,7 @@ export default (theme: NodecosmosTheme) => ({
     '.DescriptionHTML': {
         fontFamily: '-apple-system, system-ui, Roboto, sans-serif',
         width: '100%',
-        '&.size-850': { maxWidth: 850 },
+        '.size-850': { maxWidth: 850 },
         color: theme.palette.texts.secondary,
         hr: {
             border: 0,

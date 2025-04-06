@@ -87,6 +87,17 @@ const getTheme = (theme: NodecosmosTheme) => createTheme({
                     backgroundColor: theme.palette.backgrounds[1],
                 },
                 '.rc-anchor-normal-footer': { backgroundColor: theme.palette.backgrounds[2] },
+                '&.ObjectTitle': {
+                    '.diff-removed': {
+                        backgroundColor: theme.palette.diff.removed.bg,
+                        color: theme.palette.diff.removed.fg,
+                    },
+                    '.diff-added': {
+                        ml: 2,
+                        backgroundColor: theme.palette.diff.added.bg,
+                        color: theme.palette.diff.added.fg,
+                    },
+                },
             },
         },
         ...alert(theme),

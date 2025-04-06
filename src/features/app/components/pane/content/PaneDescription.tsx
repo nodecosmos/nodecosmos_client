@@ -1,12 +1,19 @@
 import Loader from '../../../../../common/components/Loader';
 import { ObjectType } from '../../../../../types';
+import { selectBranch } from '../../../../branch/branches.selectors';
 import { maybeSelectDescription } from '../../../../descriptions/descriptions.selectors';
 import useDescription from '../../../../descriptions/hooks/useDescription';
 import NodePaneCoverImage from '../../../../nodes/components/cover/NodePaneCoverImage';
+import { useIsAuthorized } from '../../../../nodes/hooks/node/useAuthorizeNodeAction';
 import { selectTheme } from '../../../app.selectors';
-import { usePaneContext } from '../../../hooks/pane/usePaneContext';
-import { Box, Typography } from '@mui/material';
-import React, { useEffect, useMemo } from 'react';
+import { PaneContent, usePaneContext } from '../../../hooks/pane/usePaneContext';
+import useTogglePane from '../../../hooks/pane/useTogglePane';
+import { faEdit } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@mui/material';
+import React, {
+    useCallback, useEffect, useMemo,
+} from 'react';
 import { useSelector } from 'react-redux';
 
 let HLJS: typeof import('highlight.js') | null = null;
@@ -18,6 +25,8 @@ export default function PaneDescription() {
         objectType,
         isPaneLoading,
         loading,
+        originalObjectTitle,
+        objectTitle,
     } = usePaneContext();
     const [fetched] = useDescription();
     const description = useSelector(maybeSelectDescription(branchId, objectId));
@@ -80,34 +89,73 @@ export default function PaneDescription() {
             }
         }, 10);
     }, [description, loading, theme]);
+    const branch = useSelector(selectBranch(branchId));
+    const isTitleEdited = useMemo(() => {
+        if (!branch) {
+            return false;
+        }
+
+        const {
+            editedTitleNodes, editedTitleFlows, editedTitleIos,
+        } = branch;
+
+        return (
+            editedTitleNodes.has(objectId)
+            || editedTitleFlows.has(objectId)
+            || editedTitleIos.has(objectId)) && originalObjectTitle && objectTitle !== originalObjectTitle;
+    }, [branch, objectId, objectTitle, originalObjectTitle]);
+    const isAuthorized = useIsAuthorized();
+    const handleTogglePane = useTogglePane();
+    const toggleEditDescription = useCallback(() => {
+        handleTogglePane(PaneContent.Editor);
+    }, [handleTogglePane]);
 
     if (loading || isPaneLoading || !fetched) {
         return <Loader />;
     }
 
     return (
-        <Box px={4} pb={4}>
+        <div className="DescriptionHTML px-4 pb-4 display-flex justify-center flex-column">
             {objectType === ObjectType.Node && <NodePaneCoverImage />}
+            <div className="display-flex justify-center">
+                <h1 className="size-850 mt-2 w-100 ObjectTitle">
+                    {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}
 
-            <Box display="flex" justifyContent="center" mt={3}>
-                {
-                    !isEmpty && (
-                        <div className="DescriptionHTML size-850 fs-18" dangerouslySetInnerHTML={innerHTML} />
-                    )
-                }
-                {
-                    isEmpty && (
-                        <div className="w-100 size-850 fs-18 text-tertiary center p-1">
-                            <Typography variant="h6" color="texts.tertiary" textAlign="center">
-                                Selected object has no description.
-                            </Typography>
-                            <Typography variant="h5" color="texts.tertiary" textAlign="center" mt={1}>
-                                ¯\_(ツ)_/¯
-                            </Typography>
+                    <span className={isTitleEdited ? 'diff-added' : undefined}>{objectTitle}</span>
+                </h1>
+            </div>
+
+            {
+                !isEmpty && (
+                    <div className="display-flex justify-center">
+                        <div className="size-850 fs-18 w-100" dangerouslySetInnerHTML={innerHTML} />
+                    </div>
+                )
+            }
+            {
+                isEmpty && (
+                    <div className="display-flex justify-center">
+                        <div className="size-850 w-100">
+                            {isAuthorized ? (
+                                <Button
+                                    onClick={toggleEditDescription}
+                                    startIcon={<FontAwesomeIcon icon={faEdit} />}
+                                    className="text-center mt-1 text-tertiary bold"
+                                    color="buttonContrast"
+                                    size="large">
+                                    Add Description
+                                </Button>
+                            ) : (
+                                <>
+                                    <span className="bold text-tertiary fs-16">
+                                        Selected object has no description.
+                                    </span>
+                                </>
+                            ) }
                         </div>
-                    )
-                }
-            </Box>
-        </Box>
+                    </div>
+                )
+            }
+        </div>
     );
 }

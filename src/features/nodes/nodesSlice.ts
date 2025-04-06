@@ -258,7 +258,8 @@ const nodesSlice = createSlice({
                         state.byBranchId[branchId][objectId].isSelected = false;
                     }
                 }
-            });
+            })
+        ;
     },
 });
 

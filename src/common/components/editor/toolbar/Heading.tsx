@@ -1,7 +1,7 @@
 import useEditorItem from '../../../hooks/editor/useEditorItem';
 import useBooleanStateValue from '../../../hooks/useBooleanStateValue';
 import {
-    faChevronDown, faH1, faH2, faH3, faH4, faH5,
+    faChevronDown, faH2, faH3, faH4, faH5,
 } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,10 +9,9 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-type Level = 1 | 2 | 3 | 4 | 5;
+type Level = 2 | 3 | 4 | 5;
 
 const ICON_MAP: Record<Level, any> = {
-    1: faH1,
     2: faH2,
     3: faH3,
     4: faH4,
@@ -30,6 +29,7 @@ function HeadingLevel({ level, isMenu }: HeadingLevelProps) {
     return (
         <Tooltip title={`Heading ${level}`}>
             <Box
+                className={isMenu ? undefined : 'ml-1'}
                 component={isMenu ? MenuItem : ToggleButton}
                 onClick={toggleNode}
                 selected={isActive}
@@ -49,9 +49,10 @@ export default function Heading() {
 
     return (
         <>
-            <HeadingLevel level={1} />
             <HeadingLevel level={2} />
+            <HeadingLevel level={3} />
             <ToggleButton
+                className="ml-1"
                 ref={anchorRef}
                 value="check"
                 onClick={openToolbar}
@@ -64,7 +65,6 @@ export default function Heading() {
                 anchorEl={anchorRef.current}
                 sx={MENU_SX}
             >
-                <HeadingLevel isMenu level={3} />
                 <HeadingLevel isMenu level={4} />
                 <HeadingLevel isMenu level={5} />
             </Menu>
