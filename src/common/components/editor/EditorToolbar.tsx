@@ -14,7 +14,7 @@ import Strikethrough from './toolbar/Strikethrough';
 import Undo from './toolbar/Undo';
 import { EditorExtensions } from './types';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import React, { useMemo, ReactNode } from 'react';
 
 type ToolbarComponent = ReactNode;
@@ -60,32 +60,25 @@ export default function EditorToolbar() {
 
     return (
         <div className="EditorToolbar">
-            <Stack direction="row" spacing={1}>
-                <div>
+            <Stack
+                height={22}
+                alignItems="center"
+                direction="row"
+                spacing={1}
+                divider={<Divider orientation="vertical" flexItem variant="middle" />}>
+                <div className="nowrap">
                     <Undo />
                     <Redo />
                 </div>
-                <div>
-                    {enabledExtMap?.[EditorExtensions.Bold]}
-                </div>
-                <div>
-                    {enabledExtMap?.[EditorExtensions.Italic]}
-                </div>
-                <div>
-                    {enabledExtMap?.[EditorExtensions.Strike]}
-                </div>
-                <div>
-                    {enabledExtMap?.[EditorExtensions.Code]}
-                </div>
                 {
                     enabledExtMap?.[EditorExtensions.Heading]
-                    && (
-                        <div>
-                            {enabledExtMap[EditorExtensions.Heading]}
-                        </div>
-                    )
+                    && enabledExtMap[EditorExtensions.Heading]
                 }
                 <div>
+                    {enabledExtMap?.[EditorExtensions.Bold]}
+                    {enabledExtMap?.[EditorExtensions.Italic]}
+                    {enabledExtMap?.[EditorExtensions.Strike]}
+                    {enabledExtMap?.[EditorExtensions.Code]}
                     {enabledExtMap?.[EditorExtensions.Link]}
                 </div>
                 <div>
@@ -97,8 +90,8 @@ export default function EditorToolbar() {
                     {enabledExtMap?.[EditorExtensions.CodeBlock]}
                 </div>
                 <div>
-                    {enabledExtMap?.[EditorExtensions.Image]}
                     {enabledExtMap?.[EditorExtensions.File]}
+                    {enabledExtMap?.[EditorExtensions.Image]}
                 </div>
             </Stack>
         </div>

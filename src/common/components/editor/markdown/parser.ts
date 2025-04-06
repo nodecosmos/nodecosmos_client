@@ -12,7 +12,6 @@ function listIsTight(tokens: readonly Token[], i: number) {
 }
 
 export default new MarkdownParser(schema, md, {
-    blockquote: { block: 'blockquote' },
     paragraph: { block: 'paragraph' },
     list_item: { block: 'listItem' },
     bullet_list: {
@@ -32,6 +31,11 @@ export default new MarkdownParser(schema, md, {
     },
     fence: {
         block: 'codeBlock',
+        getAttrs: tok => ({ params: tok.info || '' }),
+        noCloseToken: true,
+    },
+    blockquote: {
+        block: 'blockquote',
         getAttrs: tok => ({ params: tok.info || '' }),
         noCloseToken: true,
     },

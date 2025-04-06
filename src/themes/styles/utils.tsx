@@ -63,6 +63,15 @@ export default (theme: NodecosmosTheme) => ({
     '&.p-2': { padding: 16 },
     '&.p-3': { padding: 24 },
     '&.p-4': { padding: 32 },
+    '&.pl-1': { paddingLeft: 8 },
+    '&.pl-2': { paddingLeft: 16 },
+    '&.pl-3': { paddingLeft: 24 },
+    '&.pl-4': { paddingLeft: 32 },
+    '&.pr-0': { paddingRight: 0 },
+    '&.pr-1': { paddingRight: 8 },
+    '&.pr-2': { paddingRight: 16 },
+    '&.pr-3': { paddingRight: 24 },
+    '&.pr-4': { paddingRight: 32 },
     '&.p-1-2': { padding: '8px 16px' },
     '&.px-1': {
         paddingLeft: 8,
@@ -87,6 +96,7 @@ export default (theme: NodecosmosTheme) => ({
     [`&.h-${NODE_HEIGHT}`]: { height: NODE_HEIGHT },
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
+    '&.max-h-20': { maxHeight: 20 },
     '&.min-h-210': { minHeight: 210 },
 
     '&.w-35': { width: 35 },

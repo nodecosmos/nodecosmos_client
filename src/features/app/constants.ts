@@ -1,4 +1,5 @@
 export const HEADER_HEIGHT = '3rem';
+export const EDITOR_TOOLBAR_HEIGHT = '3.25rem';
 export const SIDEBAR_WIDTH = '230px';
 export const DRAWER_HEIGHT = '4rem';
 export const MOBILE_TOOLBAR_HEIGHT = '7rem'; // Header + Drawer

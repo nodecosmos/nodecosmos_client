@@ -29,7 +29,6 @@ function HeadingLevel({ level, isMenu }: HeadingLevelProps) {
     return (
         <Tooltip title={`Heading ${level}`}>
             <Box
-                className={isMenu ? undefined : 'ml-1'}
                 component={isMenu ? MenuItem : ToggleButton}
                 onClick={toggleNode}
                 selected={isActive}
@@ -50,9 +49,7 @@ export default function Heading() {
     return (
         <>
             <HeadingLevel level={2} />
-            <HeadingLevel level={3} />
             <ToggleButton
-                className="ml-1"
                 ref={anchorRef}
                 value="check"
                 onClick={openToolbar}
@@ -60,11 +57,13 @@ export default function Heading() {
                 <FontAwesomeIcon icon={faChevronDown} />
             </ToggleButton>
             <Menu
+                variant="menu"
                 open={toolbarOpen}
                 onClose={closeToolbar}
                 anchorEl={anchorRef.current}
                 sx={MENU_SX}
             >
+                <HeadingLevel isMenu level={3} />
                 <HeadingLevel isMenu level={4} />
                 <HeadingLevel isMenu level={5} />
             </Menu>

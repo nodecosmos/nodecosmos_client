@@ -86,9 +86,15 @@ const listItem: NodeSpec = {
 };
 
 const blockquote: NodeSpec = {
-    content: 'block+',
+    content: 'text*',
+    marks: '',
     group: 'block',
-    parseDOM: [{ tag: 'blockquote' }],
+    code: true,
+    defining: true,
+    parseDOM: [{
+        tag: 'blockquote',
+        preserveWhitespace: 'full',
+    }],
     toDOM() { return ['blockquote', 0]; },
 };
 
@@ -251,6 +257,7 @@ export default new Schema({
         bullet_list: bulletList,
         ordered_list: orderedList,
         code_block: codeBlock,
+        block_quote: blockquote,
         horizontal_rule: hardBreak,
         hard_break: hardBreak,
     },

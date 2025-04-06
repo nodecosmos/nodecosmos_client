@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT } from '../../../features/app/constants';
+import { EDITOR_TOOLBAR_HEIGHT, HEADER_HEIGHT } from '../../../features/app/constants';
 import { NodecosmosTheme } from '../../../themes/themes.types';
 import { useEditorContext } from '../../hooks/editor/useEditorContext';
 import useOutsideClick from '../../hooks/useOutsideClick';
@@ -42,7 +42,7 @@ export default function EditorContainer({ children }: Props) {
             p: 1,
             display: 'flex',
             alignItems: 'center',
-            height: toolbarHeight ?? HEADER_HEIGHT,
+            height: toolbarHeight ?? EDITOR_TOOLBAR_HEIGHT,
             position: 'relative',
             zIndex: 1,
             width: 1,

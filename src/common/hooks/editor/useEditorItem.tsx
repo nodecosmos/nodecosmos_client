@@ -41,6 +41,7 @@ export default function useEditorItem(nodeName: NodeName, attrs?: Attrs | null):
                 return wrapInList(nodeType)(state, dispatch);
             }
         case schema.nodes.codeBlock:
+        case schema.nodes.blockquote:
         case schema.nodes.heading:
             if (isActive) {
                 return setBlockType(state.schema.nodes.paragraph)(state, dispatch);
