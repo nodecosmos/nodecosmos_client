@@ -179,13 +179,24 @@ header a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem 3.5rem;
+    font-weight: bold;
     background: var(--color-cta-bg);
     color: var(--color-cta-text);
+    border: 2px solid #635bff;
     border-radius: 14px;
     text-decoration: none;
-    line-height: 1;
-    width: 263px;
+    padding: 10px 20px;
+}
+
+.cta-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #635bff;
+    border: 2px solid #635bff;
+    border-radius: 14px;
+    padding: 10px 20px;
 }
 
 .cta-mini {
@@ -746,6 +757,10 @@ header a:hover {
         display: block;
     }
 
+    .d-block-mobile {
+        display: block;
+    }
+
     .hide-mobile {
         display: none;
     }
@@ -776,10 +791,9 @@ header a:hover {
         background: transparent;
     }
 
-    .cta {
+    .cta, .cta-link {
         font-size: 1rem;
-        padding: 1rem 2rem;
-        max-width: 220px;
+        width: 220px;
     }
 
     .align-start-mobile {
@@ -793,6 +807,10 @@ header a:hover {
     /* Mobile-Specific Margins */
     .mt-xs-0 {
         margin-top: 0;
+    }
+
+    .mt-xs-05 {
+        margin-top: 0.5rem;
     }
 
     .mt-xs-1 {
@@ -809,6 +827,10 @@ header a:hover {
 
     .mt-xs-4 {
         margin-top: 3rem;
+    }
+
+    .ml-xs-0 {
+        margin-left: 0;
     }
 
     .text-xs-left {

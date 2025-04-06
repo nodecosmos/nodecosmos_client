@@ -75,7 +75,7 @@ export default function Header() {
                         component={Link}
                         to={isIndex ? 'https://nodecosmos.com/' : '/nodes'}
                         relative={isIndex ? 'route' : 'path'}
-                        className={isIndex ? null : 'min-vis-width-viewport-600'}
+                        className={isIndex ? 'ml-1' : 'min-vis-width-viewport-600'}
                     >
                         <img src="/static/logo-4.svg" alt="logo" height={12} width="auto" />
                     </Button>
