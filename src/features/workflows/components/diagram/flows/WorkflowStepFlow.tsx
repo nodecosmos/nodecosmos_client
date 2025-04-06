@@ -10,9 +10,10 @@ import { useSelector } from 'react-redux';
 
 interface Props {
     workflowStepFlow: WorkflowStepFlowType;
+    flowStepIndex: number;
 }
 
-export default function WorkflowStepFlow({ workflowStepFlow }: Props) {
+export default function WorkflowStepFlow({ workflowStepFlow, flowStepIndex }: Props) {
     const { branchId } = useWorkflowContext();
     const { FlowContext, flowContextValue } = useFlowContextCreator({ id: workflowStepFlow.id });
     const {
@@ -27,6 +28,7 @@ export default function WorkflowStepFlow({ workflowStepFlow }: Props) {
         yEnd,
         id: workflowStepFlow.stepId as UUID,
         workflowStepFlow,
+        flowStepIndex,
     });
 
     const flow = useSelector(maybeSelectFlow(branchId, workflowStepFlow.id));

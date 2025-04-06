@@ -13,6 +13,8 @@ import useBranchContext from '../../branch/hooks/useBranchContext';
 import useFlowActions from '../../flows/hooks/useFlowActions';
 import useAuthorizeNodeAction from '../../nodes/hooks/node/useAuthorizeNodeAction';
 import useFlowStepContext from '../../workflows/hooks/diagram/flow-step/useFlowStepContext';
+import useFlowContext from '../../workflows/hooks/diagram/flows/useFlowContext';
+import useWorkflowStepContext from '../../workflows/hooks/diagram/workflow-steps/useWorkflowStepContext';
 import useWorkflowBranch from '../../workflows/hooks/useWorkflowBranch';
 import useWorkflowContext from '../../workflows/hooks/useWorkflowContext';
 import { createFlowStep, deleteFlowStep } from '../flowSteps.thunks';
@@ -31,9 +33,11 @@ export default function useFlowStepActions(props?: Props) {
     const {
         rootId, inputsAdditionActive, insidePane, deactivateInputsAddition,
     } = useWorkflowContext();
+    const { startIndex: flowStartIndex } = useFlowContext();
+    const { wfStepIndex } = useWorkflowStepContext();
     const { originalId, branchId } = useBranchContext();
     const {
-        flowStepPrimaryKey, stepIndex, nextStepIndex,
+        flowStepPrimaryKey, stepIndex, nextStepIndex, flowId,
     } = useFlowStepContext();
     const { handleFlowClick } = useFlowActions();
     const handleServerError = useHandleServerErrorAlert();
@@ -135,11 +139,15 @@ export default function useFlowStepActions(props?: Props) {
             objectNodeId: flowStepPrimaryKey.nodeId,
             objectId: flowStepPrimaryKey.id,
             objectType: ObjectType.FlowStep,
+            metadata: {
+                flowId,
+                flowStepIndex: wfStepIndex - flowStartIndex + 1,
+            },
         });
     },
     [
         inputsAdditionActive, deactivateInputsAddition, props, flowStepPrimaryKey, isFlowDeleted, insidePane,
-        dispatch, originalId, branchId, handleFlowClick, selectObject,
+        dispatch, originalId, branchId, handleFlowClick, selectObject, flowId, flowStartIndex, wfStepIndex,
     ]);
 
     const createNextFlowStep = useCallback(async () => {

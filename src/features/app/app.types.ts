@@ -46,11 +46,13 @@ export interface SelectedObject {
     originalObjectTitle: string;
     metadata?: {
         isTmp?: boolean;
-        flowStepId?: UUID;
         inputIds?: UUID[]; // for selecting inputs on fs node click
         mainObjectId?: UUID;
         ancestorIds?: UUID[];
+        flowStepId?: UUID;
         flowStepNodeId?: UUID | null;
+        flowStepIndex?: number | null;
+        flowId?: UUID | null;
     };
 }
 

@@ -12,13 +12,14 @@ interface FlowStepContextValue {
     x: number,
     y: number,
     yEnd: number,
+    flowStepIndex: number,
 }
 
 const FlowStepContext = React.createContext({} as FlowStepContextValue);
 
 export function useFlowStepContextCreator(val: FlowStepContextValue) {
     const {
-        id, workflowStepFlow, x, y, yEnd,
+        id, workflowStepFlow, x, y, yEnd, flowStepIndex,
     } = val;
     const flowStepContextValue = useMemo(() => ({
         id,
@@ -26,7 +27,8 @@ export function useFlowStepContextCreator(val: FlowStepContextValue) {
         x,
         y,
         yEnd,
-    }), [id, workflowStepFlow, x, y, yEnd]);
+        flowStepIndex,
+    }), [flowStepIndex, id, workflowStepFlow, x, y, yEnd]);
 
     return useMemo(() => ({
         FlowStepContext,

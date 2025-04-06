@@ -39,12 +39,18 @@ export const selectObject = createAsyncThunk<
                         = state.flows.byBranchId[payload.originalId]?.[payload.objectId]?.title;
                     break;
 
-                case ObjectType.FlowStep:
-                    originalObjectTitle = state.flowSteps.byBranchId[payload.branchId]?.[payload.objectId]?.stepIndex
-                        .toString();
+                case ObjectType.FlowStep: {
+                    const { flowStepIndex, flowId } = payload.metadata || {};
+
+                    if (!flowStepIndex || !flowId) {
+                        throw new Error('Flow Step Index or Flow ID is missing in metadata');
+                    }
+
+                    const flowTitle = state.flows.byBranchId[payload.branchId]?.[flowId]?.title;
+                    originalObjectTitle = `${flowTitle} (${flowStepIndex})`;
                     objectTitle = originalObjectTitle; // flow steps don't have titles
                     break;
-
+                }
                 case ObjectType.Io:
                     objectTitle = state.inputOutputs.byBranchId[payload.branchId]?.[payload.objectId]?.title;
                     originalObjectTitle

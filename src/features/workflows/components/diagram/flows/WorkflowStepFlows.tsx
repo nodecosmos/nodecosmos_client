@@ -3,9 +3,14 @@ import useWorkflowStepContext from '../../../hooks/diagram/workflow-steps/useWor
 import React from 'react';
 
 export default function WorkflowStepFlows() {
-    const { wfStep } = useWorkflowStepContext();
+    const { wfStep, wfStepIndex } = useWorkflowStepContext();
 
-    return wfStep.flows.map((workflowStepFlow) => (
-        <WorkflowStepFlow key={workflowStepFlow.id} workflowStepFlow={workflowStepFlow} />
-    ));
+    return wfStep.flows.map((workflowStepFlow) => {
+        return (
+            <WorkflowStepFlow
+                key={workflowStepFlow.id}
+                workflowStepFlow={workflowStepFlow}
+                flowStepIndex={wfStepIndex + 1} />
+        );
+    });
 }
