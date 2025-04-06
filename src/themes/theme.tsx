@@ -34,6 +34,16 @@ import { createTheme } from '@mui/material/styles';
 
 const getTheme = (theme: NodecosmosTheme) => createTheme({
     cssVariables: true,
+    breakpoints: {
+        keys: ['xs', 'sm', 'md', 'lg', 'xl'],
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 1080,
+            lg: 1200,
+            xl: 1536,
+        },
+    },
     typography: typography(theme),
 
     // @ts-ignore

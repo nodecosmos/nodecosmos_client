@@ -61,6 +61,7 @@ export default function Toolbar() {
 
     return (
         <Box
+            draggable
             className="cursor-grab"
             ref={clickableRef}
             height="7rem"
@@ -104,7 +105,7 @@ export default function Toolbar() {
                         justifyContent="center">
                         <FontAwesomeIcon icon={faAngleRight} className="default-list-color" />
                     </Box>
-                    <Typography className="ObjectTitle" variant="body2">
+                    <Typography className="ObjectTitle text-tertiary bold" variant="body2">
                         {isTitleEdited && <span className="diff-removed">{originalObjectTitle}</span>}
 
                         <span className={isTitleEdited ? 'diff-added' : undefined}>{objectTitle}</span>
