@@ -185,7 +185,7 @@ header a:hover {
     border: 2px solid #635bff;
     border-radius: 14px;
     text-decoration: none;
-    padding: 15px 25px;
+    padding: 1rem 2rem;
 }
 
 .cta-link {
@@ -196,7 +196,7 @@ header a:hover {
     color: #635bff;
     border: 2px solid #635bff;
     border-radius: 14px;
-    padding: 15px 25px;
+    padding: 1rem 2rem;
 }
 
 .cta-mini {
@@ -794,6 +794,7 @@ header a:hover {
     .cta, .cta-link {
         font-size: 1rem;
         width: 220px;
+        padding: 1rem 2rem;
     }
 
     .align-start-mobile {
