@@ -32,7 +32,7 @@ export default function Board() {
             >
                 {(provided: DroppableProvided) => (
                     <div
-                        className="display-flex h-without-header overflow-hidden p-1"
+                        className="display-flex h-without-header overflow-auto p-1"
                         ref={provided.innerRef}
                         {...provided.droppableProps}>
                         {sections && sections.map((section: TaskSectionType, index: number) => (

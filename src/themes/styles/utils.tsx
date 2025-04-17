@@ -111,6 +111,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.max-w-850': { maxWidth: 850 },
     '&.max-w-900': { maxWidth: 900 },
     '&.min-w-50': { minWidth: 50 },
+    '&.min-w-300': { minWidth: 300 },
     '&.w-fit-content': { width: 'fit-content' },
 
     '&.border-1': { border: `1px solid ${theme.palette.borders[1]}` },

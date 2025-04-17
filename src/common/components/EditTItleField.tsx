@@ -17,7 +17,8 @@ const SX = {
 interface EditTitleFieldProps {
     title: string;
     className?: string;
-    placeholder?: string;
+    placeholder?: string; // used for text element when editing or not editing if placeholderComp is not set
+    placeholderComp?: string | React.ReactNode; // used for text element when not editing
     authorized?: boolean;
     color?: string;
     pr?: number;
@@ -37,6 +38,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         title,
         className,
         placeholder = 'Add title',
+        placeholderComp = '',
         authorized = true,
         color = 'texts.secondary',
         pr = 0,
@@ -90,7 +92,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
             color={(title && color) || 'texts.tertiary'}
             sx={SX}
         >
-            {title || placeholder}
+            {title || placeholderComp || placeholder}
         </Typography>
     );
 }

@@ -6,6 +6,7 @@ import { NodecosmosError, UUID } from '../../../types';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { selectSectionTasks } from '../tasks.selectors';
 import { updateTaskSectionTitle } from '../tasks.thunks';
+import { faPen } from '@fortawesome/pro-solid-svg-icons';
 import { faEllipsis, faAdd } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -55,17 +56,27 @@ export default function TaskSection(props: Props) {
             {(provided: DraggableProvided, _snapshot: DraggableStateSnapshot) => (
                 <div
                     ref={provided.innerRef}
-                    className="w-320 p-1 h-100 display-flex flex-column"
+                    className="w-320 min-w-300 p-1 h-100 display-flex flex-column"
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
                     <div className="px-1 h-32 display-flex align-center justify-space-between">
                         <div className="display-flex align-center justify-space-between">
                             <EditTitleField
-                                className="max-w-200 text-ellipsis overflow-hidden"
+                                className="max-w-200 text-ellipsis overflow-hidden bold"
                                 title={title}
                                 color="texts.secondary"
                                 variant="body2"
                                 onChange={handleTitleChange}
+                                placeholderComp={(
+                                    <Typography
+                                        component="div"
+                                        variant="subtitle1"
+                                        className="text-tertiary bold"
+                                    >
+                                        <FontAwesomeIcon icon={faPen} size="xs" />
+                                        <span className="ml-1">Edit Title</span>
+                                    </Typography>
+                                )}
                             />
                             <div className="mx-1">
                                 <Typography
