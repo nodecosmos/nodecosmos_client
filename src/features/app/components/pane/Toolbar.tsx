@@ -31,7 +31,7 @@ export default function PaneToolbar() {
     const handleTogglePane = useTogglePane();
     const markdownTitle = useMemo(() => {
         if (isBranch) {
-            return 'Markdown (Read Only) You can use this page to add text comments to the branch.';
+            return 'Markdown (Read Only) You can use this page to add text comments to the description changes.';
         }
 
         return 'Markdown (Read Only)';
@@ -47,14 +47,18 @@ export default function PaneToolbar() {
             borderColor="borders.2"
         >
             <ToolbarContainer>
-                <ToolbarItem
-                    title={markdownTitle}
-                    icon={faRectangleCode}
-                    color="toolbar.lightRed"
-                    active={content === PaneContent.Markdown}
-                    onClick={handleTogglePane}
-                    onClickValue={PaneContent.Markdown}
-                />
+                {
+                    isBranch && (
+                        <ToolbarItem
+                            title={markdownTitle}
+                            icon={faRectangleCode}
+                            color="toolbar.lightRed"
+                            active={content === PaneContent.Markdown}
+                            onClick={handleTogglePane}
+                            onClickValue={PaneContent.Markdown}
+                        />
+                    )
+                }
                 <ToolbarItem
                     title="Edit Description"
                     icon={faPenToSquare}
