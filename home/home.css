@@ -225,6 +225,7 @@ header a:hover {
 }
 
 .pricing-card {
+    position: relative;
     width: 33%;
     padding: 50px;
     border-left: 1px solid #e0e0e0;
@@ -241,6 +242,20 @@ header a:hover {
 
 .list-circle li {
     padding-left: 0.5rem;
+}
+
+.ecp {
+    background: linear-gradient(90deg, #d849ff, #4646ff);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 10px;
+    color: white;
+    width: fit-content;
+    border-radius: 196px;
+    transform: rotate(15deg);
+    position: absolute;
+    right: 8px;
+    top: 18px;
 }
 
 #nodes {
