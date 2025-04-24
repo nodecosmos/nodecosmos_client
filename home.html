@@ -102,7 +102,7 @@
                     </a>
                 </div>
             </div>
-            <svg class="mt-3" width="100%" viewBox="0 0 950 567" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <svg class="mt-3 hide-mobile" width="100%" viewBox="0 0 950 567" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect x="47" width="855" height="405" rx="10" fill="black"/>
                 <path d="M0 406C0 404.895 0.89543 404 2 404H948C949.105 404 950 404.895 950 406V415C950 420.523 945.523 425 940 425H9.99998C4.47714 425 0 420.523 0 415V406Z" fill="url(#paint0_linear_55_4)"/>
                 <path d="M412.3 404H537.268V404C537.268 407.314 534.582 410 531.268 410H418.3C414.986 410 412.3 407.314 412.3 404V404Z" fill="#D9D9D9"/>
@@ -127,6 +127,7 @@
                     <image id="image2_7_142" width="1080" height="2400" xlink:href="/static/home/mobile.jpg"/>
                 </defs>
             </svg>
+            <img class="mt-3 display-mobile w-auto b-radius max-height-700" src="/static/home/mobile.jpg" alt="Car" />
 
         </div>
     </section>
@@ -343,10 +344,15 @@
         </div>
     </section>
     <section id="contact" class="mt-10 mt-xs-3">
-        <div class="d-flex align-center justify-center flex-column">
-            <a target="_blank" href="https://nodecosmos.com/nodes?create=true" class="cta max-width-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.45rem" height="1.45rem" viewBox="0 0 512 512"><path fill="#ffffff" d="M313 41L265 89c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L279 7c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM170.4 157.4c8.8-17.9 34.3-17.9 43.1 0l46.3 94 103.5 15.1c19.7 2.9 27.5 27 13.3 40.9l-74.9 73.2 17.7 103.3c3.4 19.6-17.2 34.6-34.8 25.3l-92.6-48.8L99.3 509.2c-17.6 9.3-38.2-5.7-34.8-25.3L82.2 380.6 7.2 307.4C-7 293.5 .9 269.3 20.5 266.5l103.5-15.1 46.3-94zM505 199c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0zM505 41L361 185c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L471 7c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+        <div class="max-width-400 mt-3 mt-xs-2 d-flex align-center justify-center">
+            <a target="_blank" href="https://nodecosmos.com/nodes?create=true&trial=true" class="cta-link">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="1.45rem" height="1.45rem" viewBox="0 0 512 512"><path fill="#635bff" d="M313 41L265 89c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L279 7c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM170.4 157.4c8.8-17.9 34.3-17.9 43.1 0l46.3 94 103.5 15.1c19.7 2.9 27.5 27 13.3 40.9l-74.9 73.2 17.7 103.3c3.4 19.6-17.2 34.6-34.8 25.3l-92.6-48.8L99.3 509.2c-17.6 9.3-38.2-5.7-34.8-25.3L82.2 380.6 7.2 307.4C-7 293.5 .9 269.3 20.5 266.5l103.5-15.1 46.3-94zM505 199c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0zM505 41L361 185c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L471 7c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
                 <span class="ml-1">Get Started</span>
+            </a>
+        </div>
+        <div class="max-width-400 mt-3 mt-xs-2 d-flex align-center justify-center ml-1 mt-xs-05 ml-xs-0">
+            <a target="_blank" href="https://nodecosmos.com/contact" class="cta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" viewBox="0 0 512 512"><path fill="#ffffff" d="M343.5 416L448 416c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l104.5 0 75.2 90.2c3 3.6 7.5 5.8 12.3 5.8s9.3-2.1 12.3-5.8L343.5 416z"/></svg>                <span class="ml-1">Contact Us</span>
             </a>
         </div>
     </section>

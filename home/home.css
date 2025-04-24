@@ -546,6 +546,10 @@ header a:hover {
     width: 100%;
 }
 
+.w-auto {
+    width: auto;
+}
+
 .max-width-400 {
     max-width: 400px;
 }
@@ -589,6 +593,10 @@ header a:hover {
 
 .max-width-1350 {
     max-width: 1350px;
+}
+
+.max-height-700 {
+    max-height: 700px;
 }
 
 /* Borders */
