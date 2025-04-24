@@ -281,6 +281,7 @@ header a:hover {
     box-shadow: 0 0 20px rgba(216, 194, 246, 0.44);
     overflow: hidden;
     border-radius: 12px 12px 0 0;
+    width: fit-content;
 }
 
 .wf-img img {
@@ -288,8 +289,13 @@ header a:hover {
     border-radius: 12px 12px 0 0;
 }
 
+#documentation {
+    margin-top: 4em;
+    background: linear-gradient(180deg, #f7f5fd, #fdf7f7);
+}
+
 #cr {
-    margin-top: 18em;
+    margin-top: 24em;
     background: #ffffff;
     border-radius: 45px;
     color: #4d4a57;
@@ -333,7 +339,7 @@ header a:hover {
 }
 
 .wave-top-nodes {
-    fill: #fef7f8;
+    fill: #fbf7fb;
 }
 
 .wave-top-wf {
@@ -345,7 +351,7 @@ header a:hover {
 }
 
 .wave-top-modular svg {
-    fill: #fdf9f9;
+    fill: #fffcfa;
 }
 
 .wave-bottom-modular svg {
@@ -550,6 +556,10 @@ header a:hover {
     width: auto;
 }
 
+.max-width-100 {
+    max-width: 100%;
+}
+
 .max-width-400 {
     max-width: 400px;
 }
@@ -716,7 +726,7 @@ header a:hover {
     }
 
     .wave-top-modular svg {
-        fill: #f9f5f9;
+        fill: #fdf9f9;
     }
 
     .wave-bottom-modular svg {
@@ -728,7 +738,7 @@ header a:hover {
     }
 
     .wave-top-nodes svg {
-        fill: #faf8fd;
+        fill: #fdf8fb;
     }
 
 
