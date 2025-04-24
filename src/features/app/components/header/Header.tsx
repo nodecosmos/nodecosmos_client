@@ -12,7 +12,8 @@ import {
     HEADER_HEIGHT, MD_WO_SIDEBAR_WIDTH_SX, SIDEBAR_MD_SX,
 } from '../../constants';
 import useIsMobile from '../../hooks/useIsMobile';
-import { faHashtag as faHashtagSolid, faHome } from '@fortawesome/pro-regular-svg-icons';
+import { faHome } from '@fortawesome/pro-light-svg-icons';
+import { faHashtag as faHashtagSolid } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Box, Button, IconButton, Typography,
