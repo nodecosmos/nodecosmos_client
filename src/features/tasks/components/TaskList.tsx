@@ -41,7 +41,7 @@ export default function TaskList(props: Props) {
                     {provided.placeholder}
                     <Button
                         startIcon={<FontAwesomeIcon icon={faPlus} />}
-                        className="text-center mt-1"
+                        className="text-center m-1"
                         color="buttonContrast"
                         size="small">
                         Add Task

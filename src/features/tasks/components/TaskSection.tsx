@@ -1,21 +1,24 @@
 import TaskList from './TaskList';
 import EditTitleField from '../../../common/components/EditTItleField';
-import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
-import { NodecosmosDispatch } from '../../../store';
-import { NodecosmosError, UUID } from '../../../types';
-import useBranchContext from '../../branch/hooks/useBranchContext';
+import { UUID } from '../../../types';
+import SidebarListItem from '../../nodes/components/sidebar/SidebarListItem';
+import useTaskSectionActions from '../hooks/useTaskSectionActions';
 import { selectSectionTasks } from '../tasks.selectors';
-import { updateTaskSectionTitle } from '../tasks.thunks';
+import {
+    faEdit,
+    faTrash,
+} from '@fortawesome/pro-light-svg-icons';
 import { faPen } from '@fortawesome/pro-solid-svg-icons';
 import { faEllipsis, faAdd } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Draggable, DraggableProvided, DraggableStateSnapshot,
 } from '@hello-pangea/dnd';
-import { Typography } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import Menu from '@mui/material/Menu';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props {
     id: UUID;
@@ -23,32 +26,37 @@ interface Props {
     index: number;
 }
 
+const MENU_SLOT_PROPS = {
+    paper: {
+        elevation: 4,
+        sx: {
+            p: 0,
+            m: 0.25,
+            width: 350,
+            '.MuiList-root': { p: 0 },
+            '.MuiListItemButton-root': { minHeight: 62 },
+            '.MuiSlider-markLabel': {
+                fontSize: 12,
+                textTransform: 'capitalize',
+            },
+        },
+    },
+};
+
 function TaskSection(props: Props) {
     const {
         index, id, title,
     } = props;
-    const dispatch: NodecosmosDispatch = useDispatch();
-    const { branchId, nodeId } = useBranchContext();
-    const handleServerError = useHandleServerErrorAlert();
-    const handleTitleChange = useCallback(async (newTitle: string) => {
-        const response = await dispatch(updateTaskSectionTitle({
-            branchId,
-            nodeId,
-            id,
-            title: newTitle,
-        }));
-
-        if (response.meta.requestStatus === 'rejected') {
-            if (response.payload === undefined) {
-                console.error('Error updating task section title: no payload');
-            }
-
-            const error: NodecosmosError = response.payload as NodecosmosError;
-
-            setTimeout(() => handleServerError(error), 250);
-            console.error(error);
-        }
-    }, [branchId, dispatch, handleServerError, id, nodeId]);
+    const {
+        handleTitleChange,
+        handleDelete,
+        handleEditTitleClose,
+        actionsAnchorEl,
+        titleEditing,
+        handleActionsClose,
+        handleActionsClick,
+        handleEditTitleClick,
+    } = useTaskSectionActions(id);
     const tasks = useSelector(selectSectionTasks(id));
 
     return (
@@ -67,6 +75,7 @@ function TaskSection(props: Props) {
                                 color="texts.secondary"
                                 variant="body2"
                                 onChange={handleTitleChange}
+                                onClose={handleEditTitleClose}
                                 placeholderComp={(
                                     <Typography
                                         component="div"
@@ -77,6 +86,7 @@ function TaskSection(props: Props) {
                                         <span className="ml-1">Edit Title</span>
                                     </Typography>
                                 )}
+                                editing={titleEditing}
                             />
                             <div className="mx-1">
                                 <Typography
@@ -89,20 +99,44 @@ function TaskSection(props: Props) {
                             </div>
                         </div>
                         <div className="display-flex align-center justify-space-between">
-                            <IconButton
-                                size="small"
-                                className="default-list-color h-32"
-                                disableRipple
+                            <Tooltip title="Add Task" placement="top">
+                                <IconButton
+                                    size="small"
+                                    className="default-list-color h-32"
+                                    disableRipple
+                                >
+                                    <FontAwesomeIcon icon={faAdd} />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="More Actions" placement="top">
+                                <IconButton
+                                    size="small"
+                                    className="default-list-color h-32"
+                                    disableRipple
+                                    onClick={handleActionsClick}
+                                >
+                                    <FontAwesomeIcon icon={faEllipsis} />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                anchorEl={actionsAnchorEl}
+                                open={Boolean(actionsAnchorEl)}
+                                onClose={handleActionsClose}
+                                slotProps={MENU_SLOT_PROPS}
                             >
-                                <FontAwesomeIcon icon={faAdd} />
-                            </IconButton>
-                            <IconButton
-                                size="small"
-                                className="default-list-color h-32"
-                                disableRipple
-                            >
-                                <FontAwesomeIcon icon={faEllipsis} />
-                            </IconButton>
+                                <SidebarListItem
+                                    component="button"
+                                    icon={<FontAwesomeIcon icon={faEdit} />}
+                                    onClick={handleEditTitleClick}
+                                    title="Rename Section"
+                                />
+                                <SidebarListItem
+                                    component="button"
+                                    icon={<FontAwesomeIcon icon={faTrash} />}
+                                    onClick={handleDelete}
+                                    title="Delete Section"
+                                />
+                            </Menu>
                         </div>
                     </div>
 

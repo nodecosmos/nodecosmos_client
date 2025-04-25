@@ -43,6 +43,19 @@ export const updateTaskSectionOrderIndex = createAsyncThunk<
     },
 );
 
+export const deleteTaskSection = createAsyncThunk<
+    Pick<TaskSection, 'branchId' | 'nodeId' | 'id'>,
+    Pick<TaskSection, 'branchId' | 'nodeId' | 'id'>,
+    { rejectValue: NodecosmosError }
+>(
+    'tasks/deleteTaskSection',
+    async (payload) => {
+        const response = await nodecosmos.delete(`/tasks/section/${payload.branchId}/${payload.nodeId}/${payload.id}`);
+
+        return response.data;
+    },
+);
+
 export const indexNodeTasks = createAsyncThunk <
     {
         sections: TaskSection[];
@@ -126,6 +139,32 @@ export const updateTaskPosition = createAsyncThunk<
     'tasks/updateTaskSectionId',
     async (payload) => {
         const response = await nodecosmos.put('/tasks/task_position', payload.task);
+
+        return response.data;
+    },
+);
+
+export const updateTaskDueAt = createAsyncThunk<
+    Pick<Task, 'branchId' | 'nodeId' | 'id' | 'sectionId' | 'dueAt'>,
+    Pick<Task, 'branchId' | 'nodeId' | 'id' | 'sectionId' | 'dueAt'>,
+    { rejectValue: NodecosmosError }
+>(
+    'tasks/updateTaskDueAt',
+    async (payload) => {
+        const response = await nodecosmos.put('/tasks/task_due_at', payload);
+
+        return response.data;
+    },
+);
+
+export const deleteTask = createAsyncThunk<
+    Pick<Task, 'branchId' | 'sectionId' | 'nodeId' | 'id'>,
+    Pick<Task, 'branchId' | 'sectionId' | 'nodeId' | 'id'>,
+    { rejectValue: NodecosmosError }
+>(
+    'tasks/deleteTask',
+    async (payload) => {
+        const response = await nodecosmos.delete(`/task/${payload.branchId}/${payload.nodeId}/${payload.id}`);
 
         return response.data;
     },

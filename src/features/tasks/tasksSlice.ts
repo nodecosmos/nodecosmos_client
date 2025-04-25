@@ -1,9 +1,9 @@
 import {
     createTask,
-    createTaskSection,
+    createTaskSection, deleteTask, deleteTaskSection,
     getTask,
     indexNodeTasks,
-    updateAssignees,
+    updateAssignees, updateTaskDueAt,
     updateTaskPosition,
     updateTaskSectionOrderIndex,
     updateTaskSectionTitle, updateTaskTitle,
@@ -60,6 +60,13 @@ const tasksSlice = createSlice({
 
                 state.sectionsByNode[action.payload.nodeId] = state.sectionsByNode[action.payload.nodeId].sort(
                     (a, b) => a.orderIndex - b.orderIndex,
+                );
+            })
+            .addCase(deleteTaskSection.fulfilled, (state, action) => {
+                const { id, nodeId } = action.meta.arg;
+
+                state.sectionsByNode[nodeId] = state.sectionsByNode[nodeId].filter(
+                    (section) => section.id !== id,
                 );
             })
             .addCase(indexNodeTasks.fulfilled, (state, action) => {
@@ -143,7 +150,38 @@ const tasksSlice = createSlice({
 
                 state.tasksBySection[task.sectionId] = newSectionTasks.sort((a, b) => a.orderIndex - b.orderIndex);
             })
-        ;
+            .addCase(updateTaskDueAt.fulfilled, (state, action) => {
+                const {
+                    id, sectionId, dueAt,
+                } = action.payload;
+
+                if (!state.taskById[id]) {
+                    return;
+                }
+
+                state.taskById[id].dueAt = dueAt;
+
+                state.tasksBySection[sectionId] = state.tasksBySection[sectionId].map((task) => {
+                    if (task.id === id) {
+                        return {
+                            ...task,
+                            dueAt,
+                        };
+                    }
+                    return task;
+                });
+            })
+            .addCase(deleteTask.fulfilled, (state, action) => {
+                const { id, sectionId } = action.meta.arg;
+
+                if (!state.taskById[id]) {
+                    return;
+                }
+
+                delete state.taskById[id];
+
+                state.tasksBySection[sectionId] = state.tasksBySection[sectionId].filter((task) => task.id !== id);
+            });
     },
 });
 

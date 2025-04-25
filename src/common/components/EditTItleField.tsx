@@ -2,7 +2,7 @@ import EditTitleFieldInput from './EditTitleFieldInput';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { Typography } from '@mui/material';
 import { Variant } from '@mui/material/styles/createTypography';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 const SX = {
     height: 1,
@@ -31,6 +31,7 @@ interface EditTitleFieldProps {
     inputFontWeight?: number | string;
     inputBorder?: string;
     defaultEditing?: boolean;
+    editing?: boolean;
 }
 
 export default function EditTitleField(props: EditTitleFieldProps) {
@@ -51,8 +52,15 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         inputFontWeight = 'inherit',
         inputBorder = 'borders.4',
         defaultEditing = false,
+        editing: propsEditing = false,
     } = props;
     const [editing, setEditing, unsetEditing] = useBooleanStateValue(defaultEditing);
+
+    useEffect(() => {
+        if (propsEditing) {
+            setEditing();
+        }
+    }, [propsEditing, setEditing]);
 
     const edit = useCallback(() => {
         if (authorized) setEditing();
