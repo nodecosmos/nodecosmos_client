@@ -294,7 +294,7 @@ header a:hover {
 
 #documentation {
     padding-top: 2em;
-    background: linear-gradient(#fef2f2, #fdedff);
+    background: linear-gradient(#fef2f2 60%, #fff1f7);
     color: #54585f;
 }
 
@@ -330,7 +330,7 @@ header a:hover {
 #modular {
     position: relative;
     margin-top: 8rem;
-    background: #f7f2f7;
+    background: #fff7f7;
     color: #454141;
     padding-top: 6em;
     padding-bottom: 6em;
