@@ -20,7 +20,7 @@
     --color-cta-mini-bg: #635bff;
     --color-cta-text: #ffffff;
     --color-info-text: #9a929b;
-    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #fff7f7, #f6f5fa, #f8f5ff, #f9f5fa, #fdf9f9, #fffcfa, #fffbfb, #f1ecff, #fdfbff, #fff9f9);
+    --background-gradient: linear-gradient(180deg, #fff7f7, #f8f8ff, #fff7f7, #f6f5fa, #f8f5ff, #f9f5fa, #fdf9f9, #fffcfa, #fffbfb, #fdf9ff, #fdfbff, #fff9f9);
 }
 
 /* Base Styles */
@@ -262,14 +262,13 @@ header a:hover {
     position: relative;
     color: #575456;
     padding-top: 4em;
-    background: linear-gradient(180deg, #f7f1f3, #f7f5fb);
 }
 
 /* Sections with IDs */
 /* ================= */
 #wf {
     padding-top: 4em;
-    background: linear-gradient(180deg, #f0f1f9 50%, #f9f1f7);
+    background: linear-gradient(180deg, #f3f3f8 20%, #fff0e9);
     color: #48494d;
 }
 
@@ -289,17 +288,32 @@ header a:hover {
     border-radius: 12px 12px 0 0;
 }
 
+.wave-bottom-wf {
+    fill: #fff0e9; /* 6188ff */
+}
+
 #documentation {
-    margin-top: 4em;
-    background: linear-gradient(180deg, #f7f5fd, #fdf7f7);
+    padding-top: 2em;
+    background: linear-gradient(#fff0e9 50%, #f9ffe9);
+    color: #54585f;
+}
+
+
+#documentation .wf-img {
+    box-shadow: none;
+}
+
+.wave-bottom-documentation {
+    fill: #f9f5fb; /* 6188ff */
 }
 
 #cr {
-    margin-top: 24em;
+    margin-top: 18em;
     background: #ffffff;
     border-radius: 45px;
     color: #4d4a57;
     max-width: 1300px;
+    box-shadow: 1px 1px 29px #f6efff;
 }
 
 #cr-container {
@@ -328,7 +342,6 @@ header a:hover {
     width: 100%;
     overflow: hidden; /* hide any stray edges */
     line-height: 0;   /* remove extra spacing around the SVG */
-    fill: #ffffff;    /* wave color, or use “currentColor” */
 }
 
 /* Wave at the top */
@@ -343,11 +356,15 @@ header a:hover {
 }
 
 .wave-top-wf {
-    fill: #f7f5fb;
+    fill: #f9f5f9;
 }
 
-.wave-inverse {
+.wave-inverse-y {
     transform: scaleY(-1);
+}
+
+.wave-inverse-x {
+    transform: scaleX(-1);
 }
 
 .wave-top-modular svg {
@@ -355,7 +372,7 @@ header a:hover {
 }
 
 .wave-bottom-modular svg {
-    fill: #f0f1f9;
+    fill: #fffbfb;
 }
 
 .wave-bottom-cross svg {
@@ -383,7 +400,7 @@ header a:hover {
 
 #cross {
     padding-top: 4em;
-    background: linear-gradient(180deg, #f0f1f9 50%, #f9f1f7);
+    background: linear-gradient(180deg, transparent 50%, #f9f1f7);
 }
 
 #cross .wf-img {
@@ -682,6 +699,11 @@ header a:hover {
     width: 100%;
 }
 
+.h-120 {
+    height: 120px!important;
+}
+
+
 /* Media Queries */
 /* ============= */
 
@@ -723,6 +745,10 @@ header a:hover {
 @media only screen and (max-width: 870px) {
     .wave-divider svg {
         height: 35px; /* reduce the wave height on smaller screens */
+    }
+
+    .wave-top-wf svg {
+        fill: #faf6f8;
     }
 
     .wave-top-modular svg {
