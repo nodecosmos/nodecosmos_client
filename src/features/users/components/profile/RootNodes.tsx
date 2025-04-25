@@ -1,6 +1,10 @@
+import DefaultButton from '../../../../common/components/buttons/DefaultButton';
+import useBooleanStateValue from '../../../../common/hooks/useBooleanStateValue';
+import CreateNodeModal from '../../../nodes/components/CreateNodeModal';
 import { selectNodesByEditor, selectNodesByOwner } from '../../../nodes/nodes.selectors';
 import { NodeByOwner } from '../../../nodes/nodes.types';
 import useProfileUser from '../../hooks/useProfileUser';
+import { faPlus } from '@fortawesome/pro-light-svg-icons';
 import { faHashtag } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -29,9 +33,24 @@ export default function RootNodes() {
 
         return [originalNodes, branchNodes];
     }, [nodes]);
+    const [createNodeDialogOpen, openCreateNodeDialog, closeNodeDialog] = useBooleanStateValue();
 
     return (
         <div>
+            <Box my={2}>
+                <DefaultButton
+                    className="ml-1"
+                    variant="outlined"
+                    color="buttonContrast"
+                    title="Add Root Node"
+                    startIcon={faPlus}
+                    onClick={openCreateNodeDialog}
+                />
+                <CreateNodeModal
+                    open={createNodeDialogOpen}
+                    onClose={closeNodeDialog}
+                />
+            </Box>
             {
                 (nodes.length > 0) && (
                     <Box borderBottom={1} borderColor="divider" pb={2}>

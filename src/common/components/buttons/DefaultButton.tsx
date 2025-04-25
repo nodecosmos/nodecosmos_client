@@ -73,7 +73,7 @@ function DefaultButton(props: DefaultButtonProps) {
             endIcon={endIcon && <FontAwesomeIcon icon={endIcon} />}
             onClick={onClick}
         >
-            <Typography variant="subtitle1">
+            <Typography variant="subtitle1" fontWeight="bold">
                 {title}
             </Typography>
         </Button>
