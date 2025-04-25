@@ -23,7 +23,7 @@ interface Props {
     index: number;
 }
 
-export default function TaskSection(props: Props) {
+function TaskSection(props: Props) {
     const {
         index, id, title,
     } = props;
@@ -114,3 +114,5 @@ export default function TaskSection(props: Props) {
         </Draggable>
     );
 }
+
+export default React.memo(TaskSection);

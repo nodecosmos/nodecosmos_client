@@ -30,7 +30,7 @@ export default function TaskList(props: Props) {
                 <div
                     ref={provided.innerRef}
                     className={`display-flex flex-column user-select-none h-100
-                                bg-transition-1 background-${dropSnapshot.isDraggingOver ? '6' : '0'}`}>
+                                bg-transition-1 background-${dropSnapshot.isDraggingOver ? '6' : 'none'}`}>
                     <div>
                         {
                             tasks.map((task, index) => (

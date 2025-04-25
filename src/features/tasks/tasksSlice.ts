@@ -57,12 +57,16 @@ const tasksSlice = createSlice({
                 if (taskSection) {
                     taskSection.orderIndex = orderIndex;
                 }
+
+                state.sectionsByNode[action.payload.nodeId] = state.sectionsByNode[action.payload.nodeId].sort(
+                    (a, b) => a.orderIndex - b.orderIndex,
+                );
             })
             .addCase(indexNodeTasks.fulfilled, (state, action) => {
                 const { sections, tasks } = action.payload;
                 const nodeId = action.meta.arg.nodeId;
 
-                state.sectionsByNode[nodeId] = sections;
+                state.sectionsByNode[nodeId] = sections.sort((a, b) => a.orderIndex - b.orderIndex);
 
                 tasks.sort((a, b) => a.orderIndex - b.orderIndex).forEach((task) => {
                     state.tasksBySection[task.sectionId] ||= [];
