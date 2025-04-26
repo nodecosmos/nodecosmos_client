@@ -15,7 +15,8 @@ interface DefaultButtonProps {
     fontSize?: string;
     variant?: 'contained' | 'outlined' | 'text';
     loading?: boolean;
-    color?: 'info' | 'warning' | 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'button' | 'toggle';
+    color?: 'info' | 'warning' | 'inherit' | 'primary' | 'secondary' | 'success'
+        | 'error' | 'button' | 'toggle' | 'buttonContrast';
     width?: string | number;
     height?: string | number;
     size?: 'small' | 'medium' | 'large';
