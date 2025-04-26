@@ -268,7 +268,7 @@ header a:hover {
 /* ================= */
 #wf {
     padding-top: 4em;
-    background: linear-gradient(180deg, #f3f3f8 20%, #fff7f4);
+    background: linear-gradient(180deg, #f3f3f8 75%, #ffeef7);
     color: #48494d;
 }
 
@@ -289,12 +289,12 @@ header a:hover {
 }
 
 .wave-bottom-wf {
-    fill: #fef2f2; /* 6188ff */
+    fill: #f8f3ff; /* 6188ff */
 }
 
 #documentation {
     padding-top: 2em;
-    background: linear-gradient(#fef2f2 60%, #fff1f7);
+    background: linear-gradient(#f8f3ff 60%, #fff1f7);
     color: #54585f;
 }
 
@@ -330,7 +330,7 @@ header a:hover {
 #modular {
     position: relative;
     margin-top: 8rem;
-    background: #fffcf3;
+    background: #f8f3ff;
     color: #454141;
     padding-top: 6em;
     padding-bottom: 6em;
