@@ -30,9 +30,9 @@ export default function NodeIndexHeader() {
     return (
         <Box display="flex" alignItems="center" height={HEADER_HEIGHT}>
             <DefaultButton
-                className="bold"
+                className="bold ml-1"
                 variant="outlined"
-                color="primary"
+                color="buttonContrast"
                 title="Add Node"
                 startIcon={faPlus}
                 onClick={openCreateNodeDialog}
