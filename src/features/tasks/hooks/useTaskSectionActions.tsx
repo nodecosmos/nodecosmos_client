@@ -1,6 +1,7 @@
 import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErrorAlert';
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError, UUID } from '../../../types';
+import { setAlert } from '../../app/appSlice';
 import useBranchContext from '../../branch/hooks/useBranchContext';
 import { deleteTaskSection, updateTaskSectionTitle } from '../tasks.thunks';
 import {
@@ -64,6 +65,11 @@ export default function useTaskSectionActions(id: UUID) {
             console.error(error);
         }
 
+        setTimeout(() => dispatch(setAlert({
+            isOpen: true,
+            message: 'Task section deleted',
+            severity: 'warning',
+        })), 250);
         handleActionsClose();
     }, [branchId, dispatch, handleActionsClose, handleServerError, id, nodeId]);
 

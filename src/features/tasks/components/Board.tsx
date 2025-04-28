@@ -10,7 +10,7 @@ import {
     DragDropContext,
     Droppable, DroppableProvided, DropResult,
 } from '@hello-pangea/dnd';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Board() {
@@ -18,12 +18,17 @@ export default function Board() {
     const sections = useSelector(selectNodeTaskSections(nodeId));
     const dispatch: NodecosmosDispatch = useDispatch();
     const handleServerError = useHandleServerErrorAlert();
+    const [localSections, setLocalSections] = React.useState(sections);
 
     const onDragStart = useCallback(() => {
         if (window.navigator.vibrate) {
             window.navigator.vibrate(100);
         }
     }, []);
+
+    useEffect(() => {
+        setLocalSections(sections);
+    }, [sections]);
 
     const onDragEnd = useCallback(async (res: DropResult) => {
         const sourceIdx = res.source.index;
@@ -54,6 +59,20 @@ export default function Board() {
             orderIndex = (currentIdx + sumWith) / 2.0;
         }
 
+        const currentSections = [...sections];
+
+        setLocalSections((sections) => {
+            const newSections = [...sections];
+            const [removed] = newSections.splice(sourceIdx, 1);
+            newSections.splice(destinationIdx, 0, removed);
+
+            return newSections;
+        });
+
+        const undoSections = () => {
+            setLocalSections(currentSections);
+        };
+
         try {
             const response = await dispatch((updateTaskSectionOrderIndex({
                 branchId,
@@ -67,9 +86,12 @@ export default function Board() {
                 handleServerError(error);
                 console.error(error);
 
+                undoSections();
+
                 return;
             }
         } catch (error) {
+            undoSections();
             const nodecosmosError = error as NodecosmosError;
             handleServerError(nodecosmosError);
             console.error(nodecosmosError);
@@ -90,7 +112,7 @@ export default function Board() {
                         className="display-flex h-without-header overflow-auto p-1"
                         ref={provided.innerRef}
                         {...provided.droppableProps}>
-                        {sections && sections.map((section: TaskSectionType, index: number) => (
+                        {localSections && localSections.map((section: TaskSectionType, index: number) => (
                             <TaskSection
                                 key={section.id}
                                 id={section.id}

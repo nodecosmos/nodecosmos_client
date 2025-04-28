@@ -1,5 +1,7 @@
 import TaskList from './TaskList';
+import ConfirmationModal, { ConfirmType } from '../../../common/components/ConfirmationModal';
 import EditTitleField from '../../../common/components/EditTItleField';
+import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../types';
 import SidebarListItem from '../../nodes/components/sidebar/SidebarListItem';
 import useTaskSectionActions from '../hooks/useTaskSectionActions';
@@ -58,6 +60,7 @@ function TaskSection(props: Props) {
         handleEditTitleClick,
     } = useTaskSectionActions(id);
     const tasks = useSelector(selectSectionTasks(id));
+    const [delModOpen, openDelMod, closeDelMod] = useBooleanStateValue();
 
     return (
         <Draggable draggableId={id} index={index}>
@@ -133,7 +136,7 @@ function TaskSection(props: Props) {
                                 <SidebarListItem
                                     component="button"
                                     icon={<FontAwesomeIcon icon={faTrash} />}
-                                    onClick={handleDelete}
+                                    onClick={openDelMod}
                                     title="Delete Section"
                                 />
                             </Menu>
@@ -143,6 +146,15 @@ function TaskSection(props: Props) {
                     <div className="background-5 flex-1 overflow-auto mt-1">
                         <TaskList sectionId={title} />
                     </div>
+
+                    <ConfirmationModal
+                        text={`Are you sure you want to delete the section "${title}"?`}
+                        confirmText="Delete"
+                        confirmType={ConfirmType.Deletion}
+                        open={delModOpen}
+                        onClose={closeDelMod}
+                        onConfirm={handleDelete}
+                    />
                 </div>
             )}
         </Draggable>

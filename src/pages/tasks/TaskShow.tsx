@@ -21,8 +21,8 @@ export default function TaskShow() {
 
     return (
         <Box width={1} height={1}>
-            <Alert position="relative" mb={2} />
             <TaskToolbar />
+            <Alert position="relative" />
             <Board />
         </Box>
     );
