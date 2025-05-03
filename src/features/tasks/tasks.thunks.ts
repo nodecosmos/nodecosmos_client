@@ -74,7 +74,7 @@ export const indexNodeTasks = createAsyncThunk <
 
 export const createTask = createAsyncThunk<
     Task,
-    Pick<Task, 'branchId' | 'nodeId' | 'sectionId' | 'orderIndex' | 'assigneeIds'>,
+    Pick<Task, 'branchId' | 'nodeId' | 'sectionId' | 'orderIndex' | 'title'>,
     { rejectValue: NodecosmosError }
 >(
     'tasks/createTask',

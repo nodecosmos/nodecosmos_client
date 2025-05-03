@@ -74,10 +74,13 @@ const tasksSlice = createSlice({
                 const nodeId = action.meta.arg.nodeId;
 
                 state.sectionsByNode[nodeId] = sections.sort((a, b) => a.orderIndex - b.orderIndex);
+                state.tasksBySection = {};
 
                 tasks.sort((a, b) => a.orderIndex - b.orderIndex).forEach((task) => {
                     state.tasksBySection[task.sectionId] ||= [];
                     state.tasksBySection[task.sectionId].push(task);
+
+                    state.taskById[task.id] = task;
                 });
             })
             .addCase(createTask.fulfilled, (state, action) => {
@@ -91,6 +94,7 @@ const tasksSlice = createSlice({
                 state.tasksBySection[task.sectionId] = state.tasksBySection[task.sectionId]
                     .concat(task)
                     .sort((a, b) => a.orderIndex - b.orderIndex);
+                state.taskById[task.id] = task;
             })
             .addCase(getTask.fulfilled, (state, action) => {
                 const { task } = action.payload;

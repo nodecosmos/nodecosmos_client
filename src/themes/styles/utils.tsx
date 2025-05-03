@@ -99,6 +99,7 @@ export default (theme: NodecosmosTheme) => ({
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
     '&.max-h-20': { maxHeight: 20 },
+    '&.min-h-100': { minHeight: 100 },
     '&.min-h-210': { minHeight: 210 },
 
     '&.w-35': { width: 35 },

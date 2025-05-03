@@ -92,6 +92,7 @@ export default function EditTitleField(props: EditTitleFieldProps) {
 
     return (
         <Typography
+            component="div"
             className={className}
             onClick={edit}
             variant={variant}

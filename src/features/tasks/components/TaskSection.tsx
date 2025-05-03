@@ -5,7 +5,7 @@ import useBooleanStateValue from '../../../common/hooks/useBooleanStateValue';
 import { UUID } from '../../../types';
 import SidebarListItem from '../../nodes/components/sidebar/SidebarListItem';
 import useTaskSectionActions from '../hooks/useTaskSectionActions';
-import { selectSectionTasks } from '../tasks.selectors';
+import useTaskSectionContext from '../hooks/useTaskSectionContext';
 import {
     faEdit,
     faTrash,
@@ -19,8 +19,7 @@ import {
 import { Tooltip, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useMemo } from 'react';
 
 interface Props {
     id: UUID;
@@ -59,7 +58,8 @@ function TaskSection(props: Props) {
         handleActionsClick,
         handleEditTitleClick,
     } = useTaskSectionActions(id);
-    const tasks = useSelector(selectSectionTasks(id));
+    const { tasksBySection } = useTaskSectionContext();
+    const tasks = useMemo(() => tasksBySection[id] || [], [tasksBySection, id]);
     const [delModOpen, openDelMod, closeDelMod] = useBooleanStateValue();
 
     return (
@@ -144,7 +144,7 @@ function TaskSection(props: Props) {
                     </div>
 
                     <div className="background-5 flex-1 overflow-auto mt-1">
-                        <TaskList sectionId={title} />
+                        <TaskList sectionId={id} />
                     </div>
 
                     <ConfirmationModal
