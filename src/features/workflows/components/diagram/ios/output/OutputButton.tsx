@@ -80,6 +80,7 @@ export default function OutputButton() {
                 titleEditOpen && (
                     <div className="background-1">
                         <EditTitleField
+                            className="text-ellipsis overflow-hidden bold"
                             title={title}
                             color="texts.primary"
                             variant="body2"

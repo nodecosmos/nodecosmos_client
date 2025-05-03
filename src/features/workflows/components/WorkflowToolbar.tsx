@@ -37,6 +37,7 @@ export default function WorkflowToolbar() {
                 alignItems="center"
             >
                 <EditTitleField
+                    className="text-ellipsis overflow-hidden bold"
                     maxWidth={isMobile ? '150px' : '350px'}
                     title={title}
                     color="texts.secondary"

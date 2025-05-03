@@ -20,7 +20,31 @@ const initialState: TaskState = {
 const tasksSlice = createSlice({
     name: 'tasks',
     initialState,
-    reducers: {},
+    reducers: {
+        updateTaskState: (state, action) => {
+            const task = action.payload;
+
+            if (!state.taskById[task.id]) {
+                return;
+            }
+
+            const newTask = {
+                ...state.taskById[task.id],
+                ...task,
+            };
+
+            state.taskById[task.id] = newTask;
+
+            if (task.sectionId) {
+                state.tasksBySection[task.sectionId] = state.tasksBySection[task.sectionId].map((t) => {
+                    if (t.id === task.id) {
+                        return newTask;
+                    }
+                    return t;
+                });
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(createTaskSection.fulfilled, (state, action) => {
@@ -94,6 +118,7 @@ const tasksSlice = createSlice({
                 state.tasksBySection[task.sectionId] = state.tasksBySection[task.sectionId]
                     .concat(task)
                     .sort((a, b) => a.orderIndex - b.orderIndex);
+                task.isNew = true;
                 state.taskById[task.id] = task;
             })
             .addCase(getTask.fulfilled, (state, action) => {
@@ -188,5 +213,7 @@ const tasksSlice = createSlice({
             });
     },
 });
+
+export const { updateTaskState } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

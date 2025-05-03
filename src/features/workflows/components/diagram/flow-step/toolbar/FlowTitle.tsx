@@ -29,6 +29,7 @@ export default function FlowTitle() {
 
     if (titleEditOpen) {
         return <EditTitleField
+            className="text-ellipsis overflow-hidden bold"
             title={title}
             color="texts.primary"
             pr={1}

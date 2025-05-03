@@ -58,6 +58,7 @@ export interface Task extends TaskPrimaryKey {
     updatedAt: Date;
     dueAt?: Date | null;
     completedAt?: Date | null;
+    isNew?: boolean;
 }
 
 export interface TaskSectionPrimaryKey {

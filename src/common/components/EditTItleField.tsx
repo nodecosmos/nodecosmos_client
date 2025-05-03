@@ -4,16 +4,6 @@ import { Typography } from '@mui/material';
 import { Variant } from '@mui/material/styles/createTypography';
 import React, { useCallback, useEffect } from 'react';
 
-const SX = {
-    height: 1,
-    display: 'table-cell',
-    verticalAlign: 'middle',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-};
-
 interface EditTitleFieldProps {
     title: string;
     className?: string;
@@ -99,7 +89,6 @@ export default function EditTitleField(props: EditTitleFieldProps) {
             pr={pr}
             maxWidth={maxWidth}
             color={(title && color) || 'texts.tertiary'}
-            sx={SX}
         >
             {title || placeholderComp || placeholder}
         </Typography>
