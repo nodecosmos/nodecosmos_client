@@ -73,7 +73,7 @@ export function useBranchContextValue() {
         isBranchQ,
         isContributionRequest,
         originalIdQ,
-        originalId: (isBranch && node) ? node.rootId : originalId as UUID,
+        originalId: (isBranch && node?.rootId) ? node?.rootId : originalId as UUID,
         branchId,
         nodeId: nodeId as UUID,
         branchNodeId,
@@ -84,7 +84,7 @@ export function useBranchContextValue() {
     }),
     [
         branchId, branchNodeId, branchStatus, editorIds, isBranch, isBranchQ,
-        isContributionRequest, node, nodeId, originalId, ownerId, title, originalIdQ,
+        isContributionRequest, node?.rootId, nodeId, originalId, ownerId, title, originalIdQ,
     ]);
 }
 

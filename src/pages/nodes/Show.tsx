@@ -10,12 +10,12 @@ import { useDispatch } from 'react-redux';
 export default function NodeShow() {
     const ctxValue = useBranchContextValue();
     const {
-        isBranch, branchId, nodeId,
+        isBranch, originalId, branchId, nodeId,
     } = ctxValue;
     const dispatch: NodecosmosDispatch = useDispatch();
     const timeout = useRef<number | null>(null);
 
-    useNodeSSE(ctxValue?.originalId);
+    useNodeSSE(originalId);
 
     useEffect(() => {
         if (!isBranch) {

@@ -86,7 +86,9 @@ const commentsSlice = createSlice({
                     ...comment,
                 };
             } else {
-                populateComment(state, comment);
+                if (state.idsByThreadId[comment.threadId]) {
+                    populateComment(state, comment);
+                }
             }
         },
     },
@@ -111,7 +113,11 @@ const commentsSlice = createSlice({
                     .forEach((comment) => {
                         populateComment(state, comment);
                     });
-                state.threadsById[thread.id] = thread;
+
+                if (!state.idsByThreadId[thread.id]) {
+                    populateThread(state, thread);
+                }
+
                 state.currentThread = thread;
             })
             .addCase(showContributionRequest.fulfilled, (state, action) => {

@@ -2,26 +2,40 @@ import { CHANNEL_NAME, InitActions } from '../../../../../workers/sse';
 import nodecosmos from '../../../../api/nodecosmos-server';
 import { NodecosmosDispatch } from '../../../../store';
 import { ActionTypes, UUID } from '../../../../types';
+import { showThreadIfNotExists } from '../../../comments/comments.thunks';
 import { SSECreateComment } from '../../../comments/commentsSlice';
 import { selectCurrentUser } from '../../../users/users.selectors';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeSSE(rootId?: UUID) {
     const dispatch: NodecosmosDispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
+    const initializedByRootId = useRef<Set<UUID>>(new Set<UUID>());
 
     useEffect(() => {
-        if (!currentUser || !rootId) {
+        if (!currentUser || !rootId || initializedByRootId.current.has(rootId)) {
             return;
         }
+
+        initializedByRootId.current.add(rootId);
 
         const channel = new BroadcastChannel(CHANNEL_NAME);
 
         channel.onmessage = (event) => {
             switch (event.data.action) {
-            case ActionTypes.CreateComment:
+            case ActionTypes.CreateComment: {
+                const {
+                    threadId, branchId, objectId,
+                } = event.data.payload;
                 dispatch(SSECreateComment(event.data.payload));
+                dispatch(showThreadIfNotExists({
+                    rootId,
+                    threadId,
+                    branchId,
+                    objectId,
+                }));
+            }
                 break;
             }
         };
@@ -49,9 +63,11 @@ export default function useNodeSSE(rootId?: UUID) {
         };
 
         return () => {
-            channel.postMessage({ action: ActionTypes.CloseSSE });
-
-            channel.close();
+            if (initializedByRootId.current.has(rootId)) {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                initializedByRootId.current.delete(rootId);
+                channel.postMessage({ action: ActionTypes.CloseSSE });
+            }
         };
     }, [currentUser, dispatch, rootId]);
 }
