@@ -7,9 +7,9 @@ env:
   VITE_API_BASE_URL: https://api.nodecosmos.com
   VITE_REACT_APP_URL: https://nodecosmos.com
   VITE_RECAPTCHA_ENABLED: true
-  VITE_RECAPTCHA_SITE_KEY: {{ secrets.VITE_RECAPTCHA_SITE_KEY }}
+  VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
   VITE_STRIPE_ENABLED: true
-  VITE_GOOGLE_CLIENT_ID: {{ secrets.VITE_GOOGLE_CLIENT_ID }}
+  VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
   GCP_PROJECT: nodecosmos-cloud
   BUCKET_NAME: nodecosmos.com
 jobs:
@@ -54,7 +54,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           project_id: ${{ env.GCP_PROJECT }}
-          workload_identity_provider: {{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
 
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v2'

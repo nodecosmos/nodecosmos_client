@@ -28,7 +28,16 @@ async function validateCaptcha(): Promise<string> {
     });
 }
 
-export default function useUserAuthentication() {
+export default function useUserAuthentication(): {
+    loading: boolean;
+    redirect: string | null;
+    handleLogin: (formValues: LoginForm) => Promise<void | null>;
+    handleLogout: () => void;
+    handleUserCreation: (formValues: UserCreateForm) => Promise<string | undefined>;
+    handleUpdateUsername: (formValues: { username: string }) => Promise<string | undefined>;
+    continueWithGoogle: () => void;
+    }
+{
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
