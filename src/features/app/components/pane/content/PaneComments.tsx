@@ -21,7 +21,6 @@ const PANE_SX = {
 };
 
 const CONTAINER_SX = {
-    backgroundColor: 'backgrounds.1',
     borderColor: 'borders.4',
     borderRadius: 2,
     p: {
