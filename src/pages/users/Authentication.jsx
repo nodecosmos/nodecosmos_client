@@ -122,24 +122,29 @@ export default function Authentication() {
                                 to={`/auth/signup?redirect=${redirect}`} />
                         </Tabs>
                     </Box>
-                    <Box className="mt-3 display-flex justify-center">
-                        <div>
-                            <Button
-                                color=""
-                                className="p-3 border-radius-2 display-flex justify-center align-center toolbar-default"
-                                variant="outlined"
-                                onClick={continueWithGoogle}
-                            >
-                                <img src="/static/google-icon.svg" alt="logo" height={20} width={20} />
-                                <Typography
-                                    color="texts.primary"
-                                    variant="body2"
-                                    className="fs-16 ml-1">
-                                    Sign in with Google
-                                </Typography>
-                            </Button>
-                        </div>
-                    </Box>
+                    {
+                        import.meta.env.VITE_GOOGLE_CLIENT_ID && (
+                            <div className="mt-3 display-flex justify-center">
+                                <div>
+                                    <Button
+                                        color=""
+                                        className="p-3 border-radius-2 display-flex justify-center
+                                                   align-center toolbar-default"
+                                        variant="outlined"
+                                        onClick={continueWithGoogle}
+                                    >
+                                        <img src="/static/google-icon.svg" alt="logo" height={20} width={20} />
+                                        <Typography
+                                            color="texts.primary"
+                                            variant="body2"
+                                            className="fs-16 ml-1">
+                                        Sign in with Google
+                                        </Typography>
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+
                     <Box textAlign="center" mt={3}>
                         <Outlet />
                     </Box>
