@@ -55,8 +55,9 @@ function initializeSSE(url: string, userId: UUID = '') {
 
     if (!eventSource) {
         if (eventSourceByURL.size >= 4) {
-            console.error('Too many EventSources open');
-            return;
+            // close the oldest EventSource
+            const oldestEventSource = Array.from(eventSourceByURL.values())[0];
+            oldestEventSource.eventSource.close();
         }
 
         const eventSource = new EventSource(url, { withCredentials: true });

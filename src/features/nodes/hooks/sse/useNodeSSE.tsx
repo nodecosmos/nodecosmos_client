@@ -22,19 +22,20 @@ export default function useNodeSSE(rootId?: UUID) {
 
         const channel = new BroadcastChannel(CHANNEL_NAME);
 
-        channel.onmessage = (event) => {
+        channel.onmessage = async (event) => {
             switch (event.data.action) {
             case ActionTypes.CreateComment: {
+                const thread = event.data.payload;
                 const {
                     threadId, branchId, objectId,
-                } = event.data.payload;
-                dispatch(SSECreateComment(event.data.payload));
-                dispatch(showThreadIfNotExists({
+                } = thread;
+                await dispatch(showThreadIfNotExists({
                     rootId,
                     threadId,
                     branchId,
                     objectId,
                 }));
+                dispatch(SSECreateComment(thread));
             }
                 break;
             }
