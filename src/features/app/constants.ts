@@ -84,4 +84,5 @@ export const P_XS_2_MD_4_SX = {
 };
 
 export const AUTOCOMPLETE_OFF = { autoComplete: 'off' };
-export const STRIPE_ENABLED = import.meta.env.VITE_STRIPE_ENABLED;
+export const RECAPTCHA_ENABLED = import.meta.env.VITE_RECAPTCHA_ENABLED === 'true';
+export const STRIPE_ENABLED = import.meta.env.VITE_STRIPE_ENABLED === 'true';

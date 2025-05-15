@@ -1,4 +1,5 @@
 import Alert from '../../common/components/Alert';
+import { RECAPTCHA_ENABLED } from '../../features/app/constants.js';
 import useUserAuthentication from '../../features/users/hooks/useUserAuthentication';
 import {
     Tab,
@@ -73,7 +74,7 @@ export default function Authentication() {
     const handleTabChange = useCallback((_event, value) => setCurrentPage(value), []);
 
     useEffect(() => {
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
+        if (RECAPTCHA_ENABLED) {
             loadRecaptcha();
         }
 
@@ -101,9 +102,6 @@ export default function Authentication() {
                             <Box component="span" className="gradient-text-cosmos">cosmos</Box>
                         </Typography>
                     </Box>
-                    <Box mt={0}>
-                        <Alert position="static" />
-                    </Box>
                     <Box>
                         <Tabs
                             value={currentPage}
@@ -121,6 +119,9 @@ export default function Authentication() {
                                 LinkComponent={Link}
                                 to={`/auth/signup?redirect=${redirect}`} />
                         </Tabs>
+                    </Box>
+                    <Box mt={2}>
+                        <Alert position="static" />
                     </Box>
                     {
                         import.meta.env.VITE_GOOGLE_CLIENT_ID && (

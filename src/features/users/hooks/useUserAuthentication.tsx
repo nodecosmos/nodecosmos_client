@@ -3,6 +3,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import { RECAPTCHA_ENABLED } from '../../app/constants';
 import { REDIRECT_Q } from '../components/LoginForm';
 import { selectCurrentUser } from '../users.selectors';
 import {
@@ -50,7 +51,8 @@ export default function useUserAuthentication(): {
         setLoading();
 
         let response;
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
+        if (RECAPTCHA_ENABLED) {
+            console.log(formValues);
             try {
                 const rToken = await validateCaptcha();
 
@@ -118,7 +120,7 @@ export default function useUserAuthentication(): {
         setLoading();
 
         let response;
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
+        if (RECAPTCHA_ENABLED) {
             try {
                 const rToken = await validateCaptcha();
 
