@@ -7,10 +7,10 @@ export function isYInViewport(y: number, transformablePosition: TransformableCon
         clientHeight,
     } = transformablePosition;
 
-    const treeScaleFactor = 1 / treeScale;
+    const fixedY = y * treeScale;
 
-    const belowTop = y > (scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR * treeScaleFactor);
-    const aboveBottom = y < (scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR * treeScaleFactor);
+    const belowTop = fixedY > (scrollTop - clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR);
+    const aboveBottom = fixedY < (scrollTop + clientHeight * CLIENT_VIEWPORT_BUFFER_FACTOR);
 
     return belowTop && aboveBottom;
 }
