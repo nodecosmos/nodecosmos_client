@@ -28,6 +28,7 @@ export default function useTreeVirtualizer(): VirtualizedNode[] {
             if (!node) continue;
 
             const {
+                isTreeRoot,
                 isMounted,
                 parentId,
                 y,
@@ -36,7 +37,7 @@ export default function useTreeVirtualizer(): VirtualizedNode[] {
             const isInViewport = isYInViewport(y, transformablePosition, treeScale);
             const isLastChild = parent?.lastChildId === id;
 
-            if (isMounted && (isInViewport || isLastChild)) {
+            if (isMounted && (isInViewport || isLastChild || isTreeRoot)) {
                 alreadyRendered.add(id);
 
                 if (isInViewport && parentId && !alreadyRendered.has(parentId)) {
