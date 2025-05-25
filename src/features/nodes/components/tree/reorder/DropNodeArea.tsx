@@ -1,6 +1,7 @@
 import useBooleanStateValue from '../../../../../common/hooks/useBooleanStateValue';
 import { NodecosmosTheme } from '../../../../../themes/themes.types';
 import { UUID } from '../../../../../types';
+import useAuthorizeNodeAction from '../../../hooks/node/useAuthorizeNodeAction';
 import useReorder from '../../../hooks/tree/useReorder';
 import useTreeContext from '../../../hooks/tree/useTreeContext';
 import { selectNode } from '../../../nodes.selectors';
@@ -40,6 +41,7 @@ function DropNodeArea(props: DropNodeAreaProps) {
     const [hovered, hover, leave] = useBooleanStateValue();
     const isSameParent = dragAndDropParentId === parentId;
     const { dropIndicatorYOffset } = size;
+    const authorizeNodeAction = useAuthorizeNodeAction();
 
     // handle new sibling index when a node is moved down on the same level
     const newSiblingIndex = siblingIndex as number;
@@ -55,12 +57,16 @@ function DropNodeArea(props: DropNodeAreaProps) {
     }, [hover]);
 
     const onDrop = useCallback(async () => {
+        if (!authorizeNodeAction()) {
+            return;
+        }
+
         await onDropCapture({
             newParentId: parentId,
             newSiblingIndex,
             newSiblingIndexAfterMove,
         });
-    }, [newSiblingIndex, newSiblingIndexAfterMove, onDropCapture, parentId]);
+    }, [authorizeNodeAction, newSiblingIndex, newSiblingIndexAfterMove, onDropCapture, parentId]);
 
     if (
         siblingIndex === undefined
