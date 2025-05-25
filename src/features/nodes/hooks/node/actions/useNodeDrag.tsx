@@ -31,7 +31,7 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const startDrag = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
-        if (!authorizeNodeAction() || isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
+        if (isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
             event.preventDefault();
             return;
         }
@@ -53,7 +53,7 @@ export default function useNodeDrag() {
         }, 10);
     },
     [
-        authorizeNodeAction, isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId,
+        isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId,
         siblingIndex,
     ]);
 
@@ -75,10 +75,6 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
-        if (!authorizeNodeAction()) {
-            return;
-        }
-
         if (!isDragOver) return;
 
         dispatch(updateState({
@@ -86,7 +82,7 @@ export default function useNodeDrag() {
             id,
             isDragOver: false,
         }));
-    }, [authorizeNodeAction, isDragOver, dispatch, branchId, id]);
+    }, [isDragOver, dispatch, branchId, id]);
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
@@ -98,6 +94,10 @@ export default function useNodeDrag() {
         async () => {
             if (id === dragAndDropNodeId || ancestorIds?.includes(id)) return;
 
+            if (!authorizeNodeAction()) {
+                return;
+            }
+
             await onNodeDropCapture({
                 newParentId: id,
                 newSiblingIndex: 0,
@@ -105,7 +105,7 @@ export default function useNodeDrag() {
             });
         },
 
-        [ancestorIds, dragAndDropNodeId, id, onNodeDropCapture],
+        [ancestorIds, authorizeNodeAction, dragAndDropNodeId, id, onNodeDropCapture],
     );
 
     //------------------------------------------------------------------------------------------------------------------
