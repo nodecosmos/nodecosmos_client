@@ -55,3 +55,13 @@ VITE_RECAPTCHA_SITE_KEY: # optional
 VITE_STRIPE_ENABLED: false
 VITE_GOOGLE_CLIENT_ID: # optional: used for google login
 ```
+
+Nodecosmos uses [Font Awesome](https://fontawesome.com/) for icons.
+To use the Pro icons, you need to set up an authentication token in your `.npmrc` file.
+
+.npmrc
+```shell
+@fortawesome:registry=https://npm.fontawesome.com/
+//npm.fontawesome.com/:_authToken=${FONT_AWESOME_NPM_TOKEN}
+```
+
