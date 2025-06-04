@@ -23,7 +23,7 @@ Think GitHub for systems and innovation.
   Propose changes to any part of the system with a visual diff and threaded feedback—just like GitHub Pull Requests, but
   for structured systems and processes.
 
-### Directory & File structure: 
+## Directory & File structure: 
 *  **pages** - Each route has associated page. Nested routes are handled with react router's `<Outlet />`
 *  **common** - everything that does not relate to redux state
    * **components** - common view components
@@ -40,7 +40,7 @@ Think GitHub for systems and innovation.
 
 ### Run From Docker
 ```shell
-  docker build --target dev -t nodecosmos_client . 
+docker build --target dev -t nodecosmos_client . 
 ```
 ```shell
 docker run --rm -it -p 3001:3001 -v "$(pwd)":/app nodecosmos_client
