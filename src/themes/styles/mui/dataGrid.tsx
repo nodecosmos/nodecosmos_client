@@ -46,10 +46,7 @@ export default (theme: NodecosmosTheme) => ({
                 userSelect: 'none',
                 color: theme.palette.texts.primary,
             },
-            row: {
-                color: theme.palette.texts.secondary,
-                '&:hover': { backgroundColor: theme.palette.backgrounds[4] },
-            },
+            row: { color: theme.palette.texts.secondary },
             cell: {
                 display: 'flex',
                 alignItems: 'center',

@@ -100,23 +100,23 @@ const theme: NodecosmosTheme = {
         },
 
         borders: {
-            1: '#eef3f3',
+            1: '#dbe4e4',
             2: '#cfd7e7',
-            3: '#e8e8df',
+            3: '#eceeee',
             4: '#dedede',
-            5: '#e1e1e1',
+            5: '#5849ff',
         },
 
         backgrounds: {
-            1: '#f7f7fa',
+            1: '#f8f8f8',
             2: '#ffffff',
-            3: '#f2f2f5',
-            4: '#eeeef3',
-            5: '#fcfbf8',
-            6: '#faf9f7',
-            7: '#eeeef3',
-            8: '#edeef1',
-
+            3: '#f0f0f3',
+            4: '#f2f3f3',
+            5: '#ffffff',
+            6: '#f8f8f8',
+            7: '#f5f6f8',
+            8: '#eceeee',
+          
             hover: '#d9dde3',
 
             labels: {

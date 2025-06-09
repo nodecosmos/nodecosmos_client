@@ -10,7 +10,7 @@ import { Badge, IconButton } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const FETCH_NOTIFICATIONS_INTERVAL = 60_000; // 1 min
+const FETCH_NOTIFICATIONS_INTERVAL = 30_000; // 30 seconds
 
 export default function NotificationsButton() {
     const unseenNotificationCount = useSelector(selectUnseenNotificationCount);

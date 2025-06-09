@@ -7,7 +7,9 @@ import useReorder from '../../tree/useReorder';
 import useTreeContext from '../../tree/useTreeContext';
 import useAuthorizeNodeAction from '../useAuthorizeNodeAction';
 import useNodeContext from '../useNodeContext';
-import React, { useCallback, useMemo } from 'react';
+import React, {
+    useCallback, useMemo, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function useNodeDrag() {
@@ -28,10 +30,11 @@ export default function useNodeDrag() {
     const dragAndDropNodeId = dragAndDrop?.id;
     const authorizeNodeAction = useAuthorizeNodeAction();
     const { type } = useTreeContext();
+    const currentDragOverId = useRef<UUID | null>(null);
 
     //------------------------------------------------------------------------------------------------------------------
     const startDrag = useCallback((event: React.DragEvent<HTMLButtonElement>) => {
-        if (!authorizeNodeAction() || isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
+        if (isRoot || isNodeActionInProgress || type === TreeType.Checkbox) {
             event.preventDefault();
             return;
         }
@@ -53,7 +56,7 @@ export default function useNodeDrag() {
         }, 10);
     },
     [
-        authorizeNodeAction, isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId,
+        isRoot, isNodeActionInProgress, type, dispatch, rootId, branchId, id, parentId,
         siblingIndex,
     ]);
 
@@ -66,6 +69,7 @@ export default function useNodeDrag() {
             || id === dragAndDropNodeId
             || ancestorIds?.includes(dragAndDropNodeId as UUID)) return;
 
+        currentDragOverId.current = id;
         dispatch(updateState({
             branchId,
             id,
@@ -75,18 +79,15 @@ export default function useNodeDrag() {
 
     //------------------------------------------------------------------------------------------------------------------
     const dragLeave = useCallback(() => {
-        if (!authorizeNodeAction()) {
-            return;
-        }
-
         if (!isDragOver) return;
 
+        currentDragOverId.current = null;
         dispatch(updateState({
             branchId,
             id,
             isDragOver: false,
         }));
-    }, [authorizeNodeAction, isDragOver, dispatch, branchId, id]);
+    }, [isDragOver, dispatch, branchId, id]);
 
     //------------------------------------------------------------------------------------------------------------------
     const stopDrag = useCallback(() => {
@@ -96,7 +97,19 @@ export default function useNodeDrag() {
     //------------------------------------------------------------------------------------------------------------------
     const dropCapture = useCallback(
         async () => {
+            if (currentDragOverId.current) {
+                dispatch(updateState({
+                    branchId,
+                    id: currentDragOverId.current,
+                    isDragOver: false,
+                }));
+            }
+
             if (id === dragAndDropNodeId || ancestorIds?.includes(id)) return;
+
+            if (!authorizeNodeAction()) {
+                return;
+            }
 
             await onNodeDropCapture({
                 newParentId: id,
@@ -105,7 +118,7 @@ export default function useNodeDrag() {
             });
         },
 
-        [ancestorIds, dragAndDropNodeId, id, onNodeDropCapture],
+        [ancestorIds, authorizeNodeAction, branchId, dispatch, dragAndDropNodeId, id, onNodeDropCapture],
     );
 
     //------------------------------------------------------------------------------------------------------------------

@@ -3,6 +3,7 @@ import useHandleServerErrorAlert from '../../../common/hooks/useHandleServerErro
 import { NodecosmosDispatch } from '../../../store';
 import { NodecosmosError } from '../../../types';
 import { setAlert } from '../../app/appSlice';
+import { RECAPTCHA_ENABLED } from '../../app/constants';
 import { REDIRECT_Q } from '../components/LoginForm';
 import { selectCurrentUser } from '../users.selectors';
 import {
@@ -28,7 +29,16 @@ async function validateCaptcha(): Promise<string> {
     });
 }
 
-export default function useUserAuthentication() {
+export default function useUserAuthentication(): {
+    loading: boolean;
+    redirect: string | null;
+    handleLogin: (formValues: LoginForm) => Promise<void | null>;
+    handleLogout: () => void;
+    handleUserCreation: (formValues: UserCreateForm) => Promise<string | undefined>;
+    handleUpdateUsername: (formValues: { username: string }) => Promise<string | undefined>;
+    continueWithGoogle: () => void;
+    }
+{
     const dispatch: NodecosmosDispatch = useDispatch();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -41,7 +51,8 @@ export default function useUserAuthentication() {
         setLoading();
 
         let response;
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
+        if (RECAPTCHA_ENABLED) {
+            console.log(formValues);
             try {
                 const rToken = await validateCaptcha();
 
@@ -109,7 +120,7 @@ export default function useUserAuthentication() {
         setLoading();
 
         let response;
-        if (import.meta.env.VITE_RECAPTCHA_ENABLED) {
+        if (RECAPTCHA_ENABLED) {
             try {
                 const rToken = await validateCaptcha();
 

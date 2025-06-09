@@ -8,6 +8,7 @@ import {
     CommentThreadPrimaryKey,
 } from './comments.types';
 import nodecosmos from '../../api/nodecosmos-server';
+import { NodecosmosDispatch, RootState } from '../../store';
 import { NodecosmosError, UUID } from '../../types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isAxiosError } from 'axios';
@@ -55,6 +56,33 @@ export const showThread = createAsyncThunk<
     }) => {
         const response = await nodecosmos.get(`/comments/${rootId}/${branchId}/${objectId}/${threadId}`);
         return response.data;
+    },
+);
+
+export const showThreadIfNotExists = createAsyncThunk<
+    undefined,
+    IndexCommentsPayload,
+    { state: RootState, dispatch: NodecosmosDispatch }
+>(
+    'comments/showThreadIfNotExists',
+    async ({
+        rootId, branchId, objectId, threadId,
+    }, { dispatch, getState }) => {
+        const state = getState();
+        const thread = state.comments.threadsById[threadId];
+
+        if (thread) {
+            return undefined;
+        }
+
+        dispatch(showThread({
+            rootId,
+            branchId,
+            objectId,
+            threadId,
+        }));
+
+        return undefined;
     },
 );
 

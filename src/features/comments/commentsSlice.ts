@@ -80,12 +80,7 @@ const commentsSlice = createSlice({
         SSECreateComment: (state, action) => {
             const comment = action.payload;
 
-            if (state.byId[comment.id]) {
-                state.byId[comment.id] = {
-                    ...state.byId[comment.id],
-                    ...comment,
-                };
-            } else {
+            if (!state.byId[comment.id]) {
                 populateComment(state, comment);
             }
         },
@@ -107,12 +102,11 @@ const commentsSlice = createSlice({
                 const { comments, thread } = action.payload;
 
                 resetThreadCommentsState(state, thread.id);
+                populateThread(state, thread);
                 comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
                     .forEach((comment) => {
                         populateComment(state, comment);
                     });
-                state.threadsById[thread.id] = thread;
-                state.currentThread = thread;
             })
             .addCase(showContributionRequest.fulfilled, (state, action) => {
                 const { comments, threads } = action.payload;
