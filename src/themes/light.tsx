@@ -116,7 +116,7 @@ const theme: NodecosmosTheme = {
             6: '#f8f8f8',
             7: '#f5f6f8',
             8: '#eceeee',
-          
+
             hover: '#d9dde3',
 
             labels: {
