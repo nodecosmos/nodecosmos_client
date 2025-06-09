@@ -90,13 +90,16 @@ export default (theme: NodecosmosTheme) => ({
         paddingRight: 32,
     },
 
+    '&.h-32': { height: 32 },
     '&.h-35': { height: 35 },
     '&.h-100': { height: '100%' },
     '&.h-header': { height: HEADER_HEIGHT },
+    '&.h-without-header': { height: `calc(100% - ${HEADER_HEIGHT})` },
     [`&.h-${NODE_HEIGHT}`]: { height: NODE_HEIGHT },
     [`&.h-${COMPACT_NODE_HEIGHT}`]: { height: COMPACT_NODE_HEIGHT },
 
     '&.max-h-20': { maxHeight: 20 },
+    '&.min-h-100': { minHeight: 100 },
     '&.min-h-210': { minHeight: 210 },
 
     '&.w-35': { width: 35 },
@@ -109,6 +112,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.max-w-850': { maxWidth: 850 },
     '&.max-w-900': { maxWidth: 900 },
     '&.min-w-50': { minWidth: 50 },
+    '&.min-w-300': { minWidth: 300 },
     '&.w-fit-content': { width: 'fit-content' },
 
     '&.border-1': { border: `1px solid ${theme.palette.borders[1]}` },
@@ -189,6 +193,7 @@ export default (theme: NodecosmosTheme) => ({
     '&.justify-start': { justifyContent: 'start' },
     '&.justify-center': { justifyContent: 'center' },
     '&.justify-end': { justifyContent: 'end' },
+    '&.justify-space-between': { justifyContent: 'space-between' },
     '&.align-center': { alignItems: 'center' },
     '&.flex-column': { flexDirection: 'column' },
     '&.flex-row': { flexDirection: 'row' },

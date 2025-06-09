@@ -92,6 +92,7 @@ export default function ContributionRequestTitle() {
                 }}
                 width={1}>
                 <EditTitleField
+                    className="text-ellipsis overflow-hidden bold"
                     authorized={authorized}
                     inputFontSize="2rem"
                     variant="h5"

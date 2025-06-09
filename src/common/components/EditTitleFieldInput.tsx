@@ -14,6 +14,8 @@ interface EditTitleFieldInputProps {
     title: string;
     onChange: (value: string) => void;
     onClose: () => void;
+    className?: string;
+    placeholder?: string;
     maxWidth?: number | string;
     inputHeight?: number | string;
     inputFontSize?: number | string;
@@ -26,6 +28,8 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
         title,
         onChange,
         onClose,
+        className,
+        placeholder,
         inputHeight = 32,
         inputFontSize = 'inherit',
         maxWidth = '350px',
@@ -112,13 +116,14 @@ export default function EditTitleFieldInput(props: EditTitleFieldInputProps) {
 
     return (
         <Box
-            className="background-2"
+            className={`background-2 ${className}`}
             width={1}
             display="flex"
             alignItems="center"
             justifyContent="start"
         >
             <TextField
+                placeholder={placeholder}
                 inputRef={inputRef}
                 sx={sx}
                 variant="outlined"

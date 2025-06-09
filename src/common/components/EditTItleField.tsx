@@ -2,20 +2,13 @@ import EditTitleFieldInput from './EditTitleFieldInput';
 import useBooleanStateValue from '../hooks/useBooleanStateValue';
 import { Typography } from '@mui/material';
 import { Variant } from '@mui/material/styles/createTypography';
-import React, { useCallback } from 'react';
-
-const SX = {
-    height: 1,
-    display: 'table-cell',
-    verticalAlign: 'middle',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-};
+import React, { useCallback, useEffect } from 'react';
 
 interface EditTitleFieldProps {
     title: string;
+    className?: string;
+    placeholder?: string; // used for text element when editing or not editing if placeholderComp is not set
+    placeholderComp?: string | React.ReactNode; // used for text element when not editing
     authorized?: boolean;
     color?: string;
     pr?: number;
@@ -28,11 +21,15 @@ interface EditTitleFieldProps {
     inputFontWeight?: number | string;
     inputBorder?: string;
     defaultEditing?: boolean;
+    editing?: boolean;
 }
 
 export default function EditTitleField(props: EditTitleFieldProps) {
     const {
         title,
+        className,
+        placeholder = 'Add title',
+        placeholderComp = '',
         authorized = true,
         color = 'texts.secondary',
         pr = 0,
@@ -45,8 +42,15 @@ export default function EditTitleField(props: EditTitleFieldProps) {
         inputFontWeight = 'inherit',
         inputBorder = 'borders.4',
         defaultEditing = false,
+        editing: propsEditing = false,
     } = props;
     const [editing, setEditing, unsetEditing] = useBooleanStateValue(defaultEditing);
+
+    useEffect(() => {
+        if (propsEditing) {
+            setEditing();
+        }
+    }, [propsEditing, setEditing]);
 
     const edit = useCallback(() => {
         if (authorized) setEditing();
@@ -62,6 +66,8 @@ export default function EditTitleField(props: EditTitleFieldProps) {
     if (editing) {
         return (
             <EditTitleFieldInput
+                className={className}
+                placeholder={placeholder}
                 title={title}
                 onChange={onChange}
                 onClose={handleEditClose}
@@ -76,14 +82,15 @@ export default function EditTitleField(props: EditTitleFieldProps) {
 
     return (
         <Typography
+            component="div"
+            className={className}
             onClick={edit}
             variant={variant}
             pr={pr}
             maxWidth={maxWidth}
             color={(title && color) || 'texts.tertiary'}
-            sx={SX}
         >
-            {title || 'Click to add title'}
+            {title || placeholderComp || placeholder}
         </Typography>
     );
 }

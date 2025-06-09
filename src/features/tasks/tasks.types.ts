@@ -56,7 +56,9 @@ export interface Task extends TaskPrimaryKey {
     assignees: Profile[];
     createdAt: Date;
     updatedAt: Date;
+    dueAt?: Date | null;
     completedAt?: Date | null;
+    isNew?: boolean;
 }
 
 export interface TaskSectionPrimaryKey {
@@ -66,7 +68,7 @@ export interface TaskSectionPrimaryKey {
 }
 
 export interface TaskSection extends TaskSectionPrimaryKey {
-    name: string;
+    title: string;
     orderIndex: number;
     createdAt: Date;
     updatedAt: Date;
@@ -74,6 +76,7 @@ export interface TaskSection extends TaskSectionPrimaryKey {
 
 export interface TaskState {
     sectionsByNode: Record<UUID, TaskSection[]>;
+    // TODO: no need to store tasks, just their ids
     tasksBySection: Record<UUID, Task[]>;
     taskById: Record<UUID, Task>;
 }

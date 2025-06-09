@@ -1,105 +1,50 @@
-// @ts-nocheck
-import { authorQuoteMap } from './data';
-import Section from './Section';
+import TaskSection from './TaskSection';
+import { useTaskSectionContextCreator } from '../hooks/useTaskSectionContext';
+import { TaskSection as TaskSectionType } from '../tasks.types';
 import {
     DragDropContext,
-    Droppable, DroppableProvided, DropResult,
+    Droppable, DroppableProvided,
 } from '@hello-pangea/dnd';
-import React, { useCallback, useState } from 'react';
-
-const qmap = authorQuoteMap;
-
-function reorder<TItem>(
-    list: TItem[],
-    startIndex: number,
-    endIndex: number,
-): TItem[] {
-    const result = [...list];
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-}
-
-const columns = qmap;
-const ordered = Object.keys(qmap);
+import React, { useCallback } from 'react';
 
 export default function Board() {
-    const [quotesOrd, setQuotes] = useState(ordered);
-    const [sections, setSections] = useState(columns);
-
     const onDragStart = useCallback(() => {
         if (window.navigator.vibrate) {
             window.navigator.vibrate(100);
         }
     }, []);
 
-    const onDragEnd = useCallback((result: DropResult) => {
-        // dropped outside the list
-        if (!result.destination) {
-            return;
-        }
-
-        if (result.destination.index === result.source.index) {
-            return;
-        }
-
-        if (result.type === 'SECTION') {
-            const newQuotes = reorder(
-                quotesOrd,
-                result.source.index,
-                result.destination.index,
-            );
-            setQuotes(newQuotes);
-            return;
-        } else {
-            // change sections by title as key
-            const sourceKey = result.source.droppableId;
-            const destKey = result.destination.droppableId;
-            const sourceIndex = result.source.index;
-            const destIndex = result.destination.index;
-            const sourceList = sections[sourceKey];
-            const destList = sections[destKey];
-            const sourceItem = sourceList[sourceIndex];
-            const newSourceList = [...sourceList];
-            const newDestList = [...destList];
-            newSourceList.splice(sourceIndex, 1);
-            newDestList.splice(destIndex, 0, sourceItem);
-
-            const newSections = {
-                ...sections,
-                [sourceKey]: newSourceList,
-                [destKey]: newDestList,
-            };
-
-            setSections(newSections);
-        }
-    }, [quotesOrd, sections]);
+    const { TaskSectionContext, ctxValue } = useTaskSectionContextCreator();
+    const { handleReorder, taskSections } = ctxValue;
 
     return (
-        <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
-            <Droppable
-                droppableId="board"
-                type="SECTION"
-                direction="horizontal"
-            >
-                {(provided: DroppableProvided) => (
-                    <div
-                        className="display-flex h-100 overflow-hidden p-1"
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}>
-                        {quotesOrd.map((key: string, index: number) => (
-                            <Section
-                                key={key}
-                                index={index}
-                                title={key}
-                                tasks={sections[key]}
-                            />
-                        ))}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+        <TaskSectionContext.Provider value={ctxValue}>
+            <DragDropContext onDragStart={onDragStart} onDragEnd={handleReorder}>
+                <Droppable
+                    droppableId="board"
+                    type="SECTION"
+                    direction="horizontal"
+                >
+                    {(provided: DroppableProvided) => (
+                        <div
+                            className="display-flex h-without-header overflow-auto p-1"
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}>
+                            {taskSections && taskSections.map(
+                                (section: TaskSectionType, index: number) => (
+                                    <TaskSection
+                                        key={section.id}
+                                        id={section.id}
+                                        title={section.title}
+                                        index={index}
+                                    />
+                                ),
+                            )}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </TaskSectionContext.Provider>
     );
 }

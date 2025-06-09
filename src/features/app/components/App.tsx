@@ -16,7 +16,6 @@ import TeamShow from '../../../pages/nodes/TeamShow';
 import TreeShow from '../../../pages/nodes/TreeShow';
 import WorkflowShow from '../../../pages/nodes/WorkflowShow';
 import SubscriptionShow from '../../../pages/subscriptions/SubscriptionShow';
-import TaskShow from '../../../pages/tasks/TaskShow';
 import ThreadsIndex from '../../../pages/threads/Index';
 import ThreadNew from '../../../pages/threads/New';
 import ThreadShow from '../../../pages/threads/Show';
@@ -145,7 +144,7 @@ export default function App() {
                                 <Route path="threads/:threadId" element={<ThreadShow />} />
 
                                 {/*Tasks*/}
-                                <Route path="tasks" element={<TaskShow />} />
+                                {/*<Route path="tasks" element={<TaskShow />} />*/}
 
                                 {/*Settings*/}
                                 <Route path="team" element={<TeamShow />} />
