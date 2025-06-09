@@ -34,9 +34,9 @@ Think GitHub for systems and innovation.
        *  **hooks** - domain specific logic
        *  **reducers** - (optional) state management for feature, usually used for large slices
           * **extra** - handle async actions usually defined within feature.thunks.js (createNode, updateNode, deleteNode...)
-       *  **feature.thunks.js** - usually used for api calls but it can be used for async actions that require state changes from multiple reducers
-       *  **feature.selectors.js** - used to select data from feature state
-       *  **featureSlice.js** - state management for feature
+       *  **<feature>.thunks.ts** - usually used for api calls but it can be used for async actions that require state changes from multiple reducers
+       *  **<feature>.selectors.ts** - used to select data from feature state
+       *  **<feature>Slice.ts** - state management for feature
 
 ### Run From Docker
 ```shell
