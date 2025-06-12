@@ -75,14 +75,14 @@ h6 {
 }
 
 h1 {
-    font-size: 3.05rem;
+    font-size: 2.619rem;
     text-align: center;
     font-weight: 900;
 }
 
 .header-gradient {
     /* vivid blue → electric purple → punchy yellow */
-    background: linear-gradient(100deg, #00AEEF 0%, #b658ff 50%, #FFA500 80%, #cfbf5c 100%);
+    background: linear-gradient(100deg, #00AEEF 0%, #b658ff 75%, #ffc400 100%);
     -webkit-background-clip: text;  /* Safari / Chrome */
     -webkit-text-fill-color: transparent;
     background-clip: text;  /* Firefox */
