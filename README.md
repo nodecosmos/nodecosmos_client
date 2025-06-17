@@ -1,8 +1,14 @@
+<p align="center">
+  <img src="https://nodecosmos.com/static/logo.svg" />
+</p>
+
 # NodeCosmos Client
 
 NodeCosmos is a collaborative platform for product development and system design. It enables teams to structure
 projects, model how things work step by step, and drive evolution through peer-reviewed proposals—all in one place.
 Think GitHub for systems and innovation.
+
+For server-side code, see [NodeCosmos Server](https://github.com/nodecosmos/nodecosmos_client)
 
 ## 🔧 Key Features
 
