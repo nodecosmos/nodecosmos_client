@@ -44,11 +44,9 @@ For server-side code, see [NodeCosmos Server](https://github.com/nodecosmos/node
        *  **<feature>.selectors.ts** - used to select data from feature state
        *  **<feature>Slice.ts** - state management for feature
 
-### Run From Docker
+## Run From Docker
 ```shell
-docker build --target dev -t nodecosmos_client . 
-```
-```shell
+docker build --target dev -t nodecosmos_client --load .
 docker run --rm -it -p 3001:3001 -v "$(pwd)":/app nodecosmos_client
 ```
 
@@ -62,7 +60,8 @@ VITE_STRIPE_ENABLED: false
 VITE_GOOGLE_CLIENT_ID: # optional: used for google login
 ```
 
-Nodecosmos uses [Font Awesome](https://fontawesome.com/) for icons.
+## Icons
+⚠️  Nodecosmos uses [Font Awesome](https://fontawesome.com/) for icons.
 To use the Pro icons, you need to set up an authentication token in your `.npmrc` file.
 
 .npmrc
